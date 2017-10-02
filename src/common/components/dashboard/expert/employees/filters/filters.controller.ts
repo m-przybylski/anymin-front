@@ -1,4 +1,5 @@
 import {IExpertEmployeesFiltersComponentBindings} from './filters'
+import {ModalsService} from '../../../../../services/modals/modals.service'
 
 export class ExpertEmployeesFiltersComponentController implements IExpertEmployeesFiltersComponentBindings {
 
@@ -8,7 +9,7 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
   public showFilters: () => void
 
   /* @ngInject */
-  constructor() {
+  constructor(private modalsService: ModalsService) {
 
     this.checkAllEmployees = false
     this.areEmployees = true
@@ -19,6 +20,10 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
       this.showMobileFilters = !this.showMobileFilters
     }
 
-    }
+  }
+
+  public openInviteEmployeesModal = (): void => {
+    this.modalsService.createExpertInviteEmployeesModal()
+  }
 
 }

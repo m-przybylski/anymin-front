@@ -1,0 +1,19 @@
+.invite-employees
+  top-modal-navbar(data-on-close="vm.onModalClose")
+  .modal-primary.container-big
+    preloader(data-is-loading="vm.isLoading")
+      .modal-section
+        header.entry-title
+          span(data-translate="DASHBOARD.EXPERT.EMPLOYEES.MODALS.INVITE_EMPLOYEES.ADD_EMAILS_OR_PHONES")
+
+        h3.add-employee-label(data-translate="DASHBOARD.EXPERT.EMPLOYEES.MODALS.INVITE_EMPLOYEES.ADD_EXPERT_LABEL")
+        consultation-employee-input()
+
+      .modal-section
+        header.entry-title
+          span(data-translate="DASHBOARD.EXPERT.EMPLOYEES.MODALS.INVITE_EMPLOYEES.SELECT_CONSULTATIONS")
+
+        consultation-list-item()
+
+        .invite-employees-action
+          a.btn.btn-default(data-translate="DASHBOARD.EXPERT.EMPLOYEES.MODALS.INVITE_EMPLOYEES.SEND_BUTTON")
