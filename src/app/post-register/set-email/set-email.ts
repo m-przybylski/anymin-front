@@ -65,9 +65,9 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           timeout: 3
         })
         // TODO update session service User.setData({unverifiedEmail: this.email})
-        const invitationCompanyId = LocalStorageWrapper.getItem('invitation')
-        if (invitationCompanyId) {
-          $state.go('app.invitations', {companyId: invitationCompanyId})
+        const invitationObject = LocalStorageWrapper.getItem('invitation')
+        if (invitationObject) {
+          $state.go('app.invitations', {token: JSON.parse(invitationObject).token})
           LocalStorageWrapper.removeItem('invitation')
         } else {
           $state.go('app.dashboard.client.favourites')

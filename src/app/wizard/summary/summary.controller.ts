@@ -2,12 +2,14 @@ import {
   GetWizardProfile,
   PartialExpertDetails,
   WizardService,
+  GetServiceWithInvitations,
   PartialOrganizationDetails
 } from 'profitelo-api-ng/model/models'
-import {WizardApi} from 'profitelo-api-ng/api/api'
+import {WizardApi, InvitationApi} from 'profitelo-api-ng/api/api'
 import * as _ from 'lodash'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
 
 export class SummaryController implements ng.IController {
 
@@ -19,12 +21,18 @@ export class SummaryController implements ng.IController {
   public isCompanyWithExpert: boolean = false
   public wizardExpertProfileData?: PartialExpertDetails
   public isWizardInvalid: boolean = false
+  public isAcceptedConsultation: boolean = false
+  public acceptedServices: GetServiceWithInvitations[]
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private errorHandler: ErrorHandlerService,
-              private WizardApi: WizardApi, private wizardProfile: GetWizardProfile,
-              private userService: UserService) {
+  constructor(private $state: ng.ui.IStateService,
+              private errorHandler: ErrorHandlerService,
+              private WizardApi: WizardApi,
+              private wizardProfile: GetWizardProfile,
+              private userService: UserService,
+              private InvitationApi: InvitationApi) {
 
+    this.setInvitationsServices()
     if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
       this.isExpertWizardPath = wizardProfile.isExpert
       this.wizardProfileData = wizardProfile.expertDetailsOption
@@ -41,9 +49,9 @@ export class SummaryController implements ng.IController {
   }
 
   $onInit(): void {
-      this.isConsultation = !!(this.wizardProfile.services
-      && this.wizardProfile.services.length > 0)
-      this.services = this.wizardProfile.services
+    this.isConsultation = !!(this.wizardProfile.services
+    && this.wizardProfile.services.length > 0 || this.isAcceptedConsultation)
+    this.services = this.wizardProfile.services
   }
 
   public onMainProfileDelete = (): void => {
@@ -105,7 +113,14 @@ export class SummaryController implements ng.IController {
     if (this.checkIsWizardValid()) {
       this.WizardApi.postWizardCompleteRoute().then((_response) => {
         this.userService.getUser(true).then(() => {
-          this.$state.go('app.dashboard.expert.activities')
+          if (this.checkIsWizardHasInvitationServices()) {
+            this.acceptInvitations(() => {
+              LocalStorageWrapper.removeItem('accepted-consultations')
+              this.$state.go('app.dashboard.expert.activities')
+            })
+          } else {
+            this.$state.go('app.dashboard.expert.activities')
+          }
         })
       }, (error) => {
         this.errorHandler.handleServerError(error)
@@ -115,8 +130,16 @@ export class SummaryController implements ng.IController {
     }
   }
 
+  private setInvitationsServices = (): void => {
+    const acceptedConsultationsObject = LocalStorageWrapper.getItem('accepted-consultations')
+    if (acceptedConsultationsObject) {
+      this.isAcceptedConsultation = true
+      this.acceptedServices = JSON.parse(acceptedConsultationsObject)
+    }
+  }
+
   private checkIsWizardValid = (): boolean => {
-    if (this.wizardProfile.isSummary && this.checkIsWizardHasService()) {
+    if (this.wizardProfile.isSummary && (this.checkIsWizardHasService() || this.checkIsWizardHasInvitationServices())) {
       if (!this.wizardProfile.isCompany && this.checkIsExpertProfileValid()) {
         return true
       } else if (!this.wizardProfile.isExpert && this.checkIsCompanyProfileValid()) {
@@ -127,29 +150,46 @@ export class SummaryController implements ng.IController {
       }
       return false
     }
-
     return false
   }
 
   private checkIsExpertProfileValid = (): string | boolean | undefined =>
-    this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
-      && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
-      && this.wizardProfile.expertDetailsOption.name
+  this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
+  && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
+  && this.wizardProfile.expertDetailsOption.name
 
   private checkIsWizardHasService = (): boolean | undefined =>
-    this.wizardProfile.services && this.wizardProfile.services.length > 0
+  this.wizardProfile.services && this.wizardProfile.services.length > 0
+
+  private checkIsWizardHasInvitationServices = (): boolean =>
+  this.isAcceptedConsultation && typeof this.acceptedServices !== undefined && this.acceptedServices.length > 0
 
   private checkIsCompanyProfileValid = (): string | boolean | undefined =>
-    this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
-      && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
-      && this.wizardProfile.organizationDetailsOption.description
+  this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
+  && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
+  && this.wizardProfile.organizationDetailsOption.description
 
   private checkIfUserCanCreateExpertProfile = (): boolean => {
-    if (this.wizardProfile && this.wizardProfile.services) {
+    if (this.wizardProfile && this.wizardProfile.services && !this.acceptedServices) {
       return !!(_.find(this.wizardProfile.services, (service) =>
         service.isOwnerEmployee) && !this.wizardProfile.isExpert)
+    } else if (this.acceptedServices && this.acceptedServices.length > 0 && !this.wizardProfile.isExpert) {
+      return true
     }
     return false
+  }
+
+  private acceptInvitations = (callback: () => void): void => {
+    this.acceptedServices.forEach((service) => {
+      this.InvitationApi.postInvitationAcceptRoute(service.invitations[0].id)
+      .then((_response) => {
+        if (_.last(this.acceptedServices) === service) {
+          callback()
+        }
+      }, (error) => {
+        this.errorHandler.handleServerError(error)
+      })
+    })
   }
 
 }

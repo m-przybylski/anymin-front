@@ -1,7 +1,8 @@
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
-import {GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
+import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
+import * as _ from 'lodash'
 import * as angular from 'angular'
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
@@ -16,7 +17,8 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   invitations: GetProfileWithServicesInvitations[] = []
   /* @ngInject */
 
-  constructor(private modalsService: ModalsService, private ProfileApi: ProfileApi, private $state: ng.ui.IStateService,
+  constructor(private modalsService: ModalsService,
+              private ProfileApi: ProfileApi,
               private $element: ng.IRootElementService) {
 
     this.buttonCallback = (): void => {
@@ -29,7 +31,11 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
 
   $onInit(): void {
     this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
-      this.invitations = response
+       response.forEach((invitation) => {
+        if (_.find(invitation.services, (service) => service.invitations[0].status === GetInvitation.StatusEnum.NEW))
+            this.invitations = response
+      })
+
       this.areInvitations = this.invitations.length > 0
       this.isLoading = false
     }, (_error) => {
@@ -62,7 +68,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   }
 
   public onInvitationClick = (invitation: GetProfileWithServicesInvitations, event: Event): void => {
-    this.$state.go('app.invitations', {companyId: invitation.id})
+    this.modalsService.createInvitationsModal(invitation)
     this.markAsRead(event)
   }
 

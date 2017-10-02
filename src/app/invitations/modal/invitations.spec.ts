@@ -2,6 +2,9 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IInvitationsModalScope, InvitationsModalController} from './invitations.controller'
 import invitationsModalModule from './invitations'
+import {
+  GetInvitation, GetProfileWithServicesInvitations
+} from 'profitelo-api-ng/model/models'
 import {InvitationApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import IQService = angular.IQService
 
@@ -34,6 +37,9 @@ describe('Testing Controller: InvitationsModal', () => {
             InvitationApi: InvitationApi, _$q_: IQService, ProfileApi: ProfileApi) => {
 
       scope = <IInvitationsModalScope>$rootScope.$new()
+      scope.profileWithServicesInvitations = <GetProfileWithServicesInvitations>{
+        id: '12121212'
+      }
       $q = _$q_
       controller = $controller<InvitationsModalController>('invitationsModal', {
         '$scope': scope,
@@ -50,7 +56,8 @@ describe('Testing Controller: InvitationsModal', () => {
     return expect(!!controller).toBe(true)
   })
 
-  it('should uibModalInstance', () => {
+  it('should close modal', () => {
+    scope.invitation = <GetInvitation>{}
     spyOn(state, 'go')
     spyOn(uibModalInstance, 'dismiss')
     controller.onModalClose()

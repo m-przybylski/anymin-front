@@ -48,6 +48,14 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     return false
   }
 
+  const setPhoneNumberFromLocalStorage = (invitationObject: string | null): void => {
+    if (invitationObject && JSON.parse(invitationObject).msisdn) {
+      this.account.phoneNumber.number = phonenumbers.parse(JSON.parse(invitationObject).msisdn).phone
+    }
+  }
+
+  const invitationObject = LocalStorageWrapper.getItem('invitation')
+  setPhoneNumberFromLocalStorage(invitationObject)
   this.account.phoneNumber.prefix = this.prefixes[0].value
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
   this.backToPhoneNumber = (): void => {
@@ -109,9 +117,8 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
       }).then(() => {
         this.isPending = false
         topWaitingLoaderService.stopLoader()
-        const invitationCompanyId = LocalStorageWrapper.getItem('invitation')
-        if (invitationCompanyId) {
-          $state.go('app.invitations', {companyId: invitationCompanyId})
+        if (invitationObject) {
+          $state.go('app.invitations', {token: JSON.parse(invitationObject).token})
           LocalStorageWrapper.removeItem('invitation')
         } else {
           $state.go('app.dashboard.client.favourites')
