@@ -11,6 +11,7 @@ import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
+import {CallState} from '../models/current-call'
 
 export class ClientCallService {
 
@@ -135,13 +136,21 @@ export class ClientCallService {
   }
 
   private onCallEnd = (serviceId: string): void => {
-    this.call = undefined;
-    this.modalsService.createClientConsultationSummaryModal(serviceId)
-    this.soundsService.callConnectingSound().stop()
-    this.soundsService.playCallEnded()
+    if (this.call)
+      this.call
+      .then((call) => {
+        if (call.getState() !== CallState.CANCELLED)
+          this.modalsService.createClientConsultationSummaryModal(serviceId)})
+        .finally(() => {
+          this.call = undefined
+          this.soundsService.callConnectingSound().stop()
+          this.soundsService.playCallEnded()
+        })
+    else
+      this.$log.error('Call does not exist')
   }
 
   private onCallAnswered = (): void => {
-    this.soundsService.callConnectingSound().stop();
+    this.soundsService.callConnectingSound().stop()
   }
 }

@@ -15,6 +15,7 @@ export enum CallState {
   INCOMING,
   REJECTED,
   PENDING,
+  CANCELLED,
   ENDED
 }
 
@@ -148,6 +149,8 @@ export class CurrentCall {
   public onRemoteStream = (cb: (stream: MediaStream) => void): void =>
     this.callbacks.methods.onRemoteStream(cb)
 
+  public getState = (): CallState => this.state
+
   protected setState = (state: CallState): void => {
     this.state = state;
   }
@@ -200,7 +203,8 @@ export class CurrentCall {
     this.ratelCall.onEnd(() => {
       this.stopLocalStream()
       this.stopTimer()
-      this.setState(CallState.ENDED)
+
+      this.setState(this.ratelCall.users.length > 1 ? CallState.ENDED : CallState.CANCELLED)
       this.callbacks.notify(CurrentCall.events.onEnd, null)
     })
     this.ratelCall.onActiveDevice(() => this.callbacks.notify(CurrentCall.events.onActiveDevice, null))
