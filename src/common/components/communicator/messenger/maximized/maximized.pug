@@ -18,9 +18,9 @@
       .file-upload-error(data-ng-show="!!$ctrl.isFileUploadError")
         a(data-ng-click="$ctrl.uploadAgain()") {{ 'COMMUNICATOR.TEXT_CHAT.UPLOAD_ERROR' | translate }}
 
-      .messenger-message-incoming(data-ng-class="{'is-active': $ctrl.isTyping}" data-ng-show="$ctrl.isTyping")
-        .thumb.x48
-          img.user-avatar(src data-ng-src="{{ $ctrl.participantAvatar }}")
+      .messenger-message-incoming(data-ng-class="{'is-active': !$ctrl.isTyping}" data-ng-show="!$ctrl.isTyping")
+        user-avatar.thumb.x48(data-image-token="$ctrl.participantAvatar")
+
         .connection-dots
           span
           span
