@@ -3,7 +3,6 @@ import * as _ from 'lodash'
 import {IMessengerMaximizedComponentBindings} from './maximized'
 import {PostProcessOption, MoneyDto} from 'profitelo-api-ng/model/models'
 import {UploaderService} from '../../../../services/uploader/uploader.service'
-import {UrlService} from '../../../../services/url/url.service'
 import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
 import {MessageRoom} from '../../models/message-room';
 import {ClientCallService} from '../../call-services/client-call.service';
@@ -44,7 +43,6 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
               private $element: ng.IRootElementService,
-              private urlService: UrlService,
               private clientCallService: ClientCallService,
               private expertCallService: ExpertCallService,
               uploaderFactory: UploaderFactory) {
@@ -97,7 +95,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     const expert = currentClientCall.getExpert()
 
     if (expert.expertDetails && expert.expertDetails.avatar) {
-      this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar)
+      this.participantAvatar = expert.expertDetails.avatar
     }
 
     if (expert.expertDetails && expert.expertDetails.name) {

@@ -6,6 +6,7 @@ import filtersModule from '../../../../filters/filters'
 import './grouped-messages/grouped-messages'
 import './maximized.sass'
 import messengerInputModule from './messenger-input/messenger-input'
+import userAvatarModule from '../../../interface/user-avatar/user-avatar'
 
 export interface IMessengerMaximizedComponentBindings {
   isMessenger: boolean
@@ -17,7 +18,8 @@ const messengerMaximizedModule = angular.module('profitelo.components.communicat
   uploaderModule,
   filtersModule,
   'profitelo.components.communicator.messenger.maximized.grouped-messages',
-  messengerInputModule
+  messengerInputModule,
+  userAvatarModule
 ])
   .component('messengerMaximized', new MessengerMaximizedComponent)
   .name
