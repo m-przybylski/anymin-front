@@ -29,6 +29,7 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
           currency: 'PLN'
         },
         isSuspended: false,
+        language: 'pl',
         createdAt: new Date()
       }
       const elem = angular.element(html)

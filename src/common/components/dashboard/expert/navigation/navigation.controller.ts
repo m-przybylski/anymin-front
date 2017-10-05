@@ -8,7 +8,7 @@ import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocke
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
   private static readonly loaderDelay: number = 500
-  public clientBalance: MoneyDto
+  public expertBalance: MoneyDto
   public isLoading: boolean = true
 
   /* @ngInject */
@@ -18,16 +18,16 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
               profiteloWebsocket: ProfiteloWebsocketService) {
 
     profiteloWebsocket.onNewFinancialOperation((data) => {
-      this.clientBalance = data.balanceAfter
+      this.expertBalance = data.balanceAfter
     })
 
     profiteloWebsocket.onProfileCallProfit((data) => {
-      this.clientBalance = data.balanceAfter
+      this.expertBalance = data.balanceAfter
     })
 
     promiseService.setMinimalDelay(FinancesApi.getProfileBalanceRoute(),
       ExpertNavigationComponentController.loaderDelay).then((value) => {
-      this.clientBalance = value
+      this.expertBalance = value
       this.isLoading = false
     }).catch((error) => {
       errorHandler.handleServerError(error)
