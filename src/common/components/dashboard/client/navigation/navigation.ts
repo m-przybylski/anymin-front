@@ -27,6 +27,10 @@ import profiteloWebsocketModule from '../../../../services/profitelo-websocket/p
       this.clientBalance = data.balanceAfter
     })
 
+    profiteloWebsocket.onClientCallCost((data) => {
+      this.clientBalance = data.balanceAfter
+    })
+
     PaymentsApi.getCreditCardsRoute().then((response) => {
       if (response && response.length > 0) {
         this.isCard = true

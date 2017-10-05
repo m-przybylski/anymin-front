@@ -21,7 +21,11 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
       this.clientBalance = data.balanceAfter
     })
 
-    promiseService.setMinimalDelay(FinancesApi.getClientBalanceRoute(),
+    profiteloWebsocket.onProfileCallProfit((data) => {
+      this.clientBalance = data.balanceAfter
+    })
+
+    promiseService.setMinimalDelay(FinancesApi.getProfileBalanceRoute(),
       ExpertNavigationComponentController.loaderDelay).then((value) => {
       this.clientBalance = value
       this.isLoading = false
