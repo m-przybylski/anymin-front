@@ -2,7 +2,7 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
-import {RoomArchivable} from 'ratel-sdk-js'
+import {Message} from 'ratel-sdk-js'
 import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 
 export class MessageRoom {
@@ -23,7 +23,7 @@ export class MessageRoom {
     this.callbacks = callbacksFactory.getInstance(Object.keys(MessageRoom.events))
   }
 
-  public getHistory = (): Promise<Paginated<RoomArchivable>> => {
+  public getHistory = (): Promise<Paginated<Message>> => {
     if (this.room) {
       return this.room.getMessages(0, MessageRoom.chatHistoryLimit)
     } else {
@@ -55,9 +55,10 @@ export class MessageRoom {
     }
   }
 
-  public sendMessage = (msg: string, context?: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
+  public sendMessage =
+    (msg: string, tag = 'message', context?: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
     if (this.room) {
-      return this.room.send(msg, undefined, context)
+      return this.room.sendCustom(msg, tag, context)
     } else {
       return Promise.reject('No room')
     }
@@ -94,7 +95,7 @@ export class MessageRoom {
   private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
     room.onTyping(() => this.callbacks.notify(MessageRoom.events.onTyping, null))
     room.onMark((roomMark) => this.callbacks.notify(MessageRoom.events.onMark, roomMark))
-    room.onMessage((roomMessage) => {
+    room.onCustom('message', (roomMessage) => {
       this.callbacks.notify(MessageRoom.events.onMessage, roomMessage);
       this.soundsService.playMessageNew()
     })

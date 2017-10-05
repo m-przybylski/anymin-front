@@ -151,8 +151,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private onMessageSendError = (err: any): void =>
     this.$log.error('msg send err:', err)
 
-  private sendMessage = (messageObject: string, context?: RatelSdk.protocol.Context): Promise<void> =>
-    this.messageRoom.sendMessage(messageObject, context)
+  private sendMessage = (messageObject: string, tag?: string, context?: RatelSdk.protocol.Context): Promise<void> =>
+    this.messageRoom.sendMessage(messageObject, tag, context)
       .catch(this.onMessageSendError)
 
   private onUploadProgess = (res: any): void =>
@@ -164,7 +164,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private onFileUpload = (res: any): void => {
     this.uploadedFile.progress = false
-    this.sendMessage(res.name, {
+    this.sendMessage(res.name, 'message', {
       type: 'file',
       payload: res.token
     })
