@@ -16,7 +16,9 @@ export class ProfiteloWebsocketService {
     onCallSummary: 'onCallSummary',
     onInit: 'onInit',
     onOneMinuteLeftWarning: 'onOneMinuteLeftWarning',
-    onNewFinancialOperation: 'onNewFinancialOperation'
+    onNewFinancialOperation: 'onNewFinancialOperation',
+    onClientCallCost: 'onClientCallCost',
+    onProfileCallProfit: 'onProfileCallProfit'
   }
 
   /* @ngInject */
@@ -66,6 +68,14 @@ export class ProfiteloWebsocketService {
     this.callbacks.methods.onNewFinancialOperation(callback)
   }
 
+  public onClientCallCost = (callback: (data: any) => void): void => {
+    this.callbacks.methods.onClientCallCost(callback)
+  }
+
+  public onProfileCallProfit = (callback: (data: any) => void): void => {
+    this.callbacks.methods.onProfileCallProfit(callback)
+  }
+
   private onSocketOpen = (): void => {
     this.callbacks.notify(ProfiteloWebsocketService.events.onInit, null)
   }
@@ -84,7 +94,12 @@ export class ProfiteloWebsocketService {
       case 'NEW_FINANCIAL_OPERATION':
         this.callbacks.notify(ProfiteloWebsocketService.events.onNewFinancialOperation, value)
         break
-
+      case 'CLIENT_CALL_COST':
+        this.callbacks.notify(ProfiteloWebsocketService.events.onClientCallCost, value)
+        break
+      case 'PROFILE_CALL_PROFIT':
+        this.callbacks.notify(ProfiteloWebsocketService.events.onProfileCallProfit, value)
+        break
       default:
         this.$log.info('Unknown messageType ' + type)
         break
