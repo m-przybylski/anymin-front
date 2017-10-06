@@ -33,6 +33,24 @@ input
 				-webkit-appearance: none
 				margin: 0
 
+	&::placeholder
+		font-size: $f-header
+
+	&::-webkit-input-placeholder
+		font-size: $f-header
+		line-height: $f-input-height
+
+	&::-moz-placeholder
+		font-size: $f-header
+		line-height: $f-input-height
+
+	&:-ms-input-placeholder
+		font-size: $f-header
+		line-height: $f-input-height
+
+	&:-moz-placeholder
+		font-size: $f-header
+		line-height: $f-input-height
 textarea
 	color: $c-primary-txt
 

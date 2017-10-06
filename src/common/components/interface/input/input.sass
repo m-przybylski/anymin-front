@@ -20,6 +20,8 @@ input-primary
     width: 100%
     height: $s-input-height
     align-self: flex-end
+    background: none
+    position: relative
 
     &::placeholder
       +inputTextPlaceholder
@@ -39,6 +41,8 @@ input-primary
       +inputTextPlaceholder
       line-height: $f-input-line-height
 
+  label
+    +inputLabel
 
   &::before
     content: ''
@@ -50,6 +54,7 @@ input-primary
     height: 1px
     width: 100%
     background: $c-lines
+    z-index: 0
 
   &::after
     transition: width 0.3s ease-out
