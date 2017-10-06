@@ -33,6 +33,7 @@ export class CurrentClientCall extends CurrentCall {
       this.callbacks.notify(CurrentCall.events.onAnswered)
       this.setState(CallState.PENDING)
     });
+
   }
 
   public getExpert = (): GetProfile => this.expert
