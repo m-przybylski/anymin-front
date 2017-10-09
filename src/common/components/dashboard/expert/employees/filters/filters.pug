@@ -20,7 +20,7 @@
     .employees-icons-container
       a.btn.btn-circle
         span.icon.icon-trash-24
-      a.btn.btn-circle
+      a.btn.btn-circle(data-ng-click="$ctrl.openInviteEmployeesModal()")
         span.icon.icon-add-expert-24
 
   .collapse-btn-filter(data-ng-click="$ctrl.showFilters()")

@@ -70,7 +70,7 @@ import {
 
 import {
   IExpertInviteEmployeesControllerScope
-} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
+} from '../../components/dashboard/expert/employees/modals/invite-employees/invite-employees.controller'
 import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
 import {
   IPrecallModalControllerScope,
@@ -454,8 +454,9 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: 'expertInviteEmployees',
-      template: require('common/components/dashboard/expert/activities/modals/invite-employees/invite-employees.pug')(),
+      template: require('common/components/dashboard/expert/employees/modals/invite-employees/invite-employees.pug')(),
       scope: dialogScope
     })
   }

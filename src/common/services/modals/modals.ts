@@ -25,7 +25,7 @@ import '../../components/dashboard/expert/activities/modals/consultation-details
 import expertEmployeeDetailsModalModule
   from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
 import expertInviteEmployeesModule
-  from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
+  from '../../components/dashboard/expert/employees/modals/invite-employees/invite-employees'
 import manageProfileEditProfileModule
   from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
 
