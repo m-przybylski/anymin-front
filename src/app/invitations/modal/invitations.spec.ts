@@ -3,7 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IInvitationsModalScope, InvitationsModalController} from './invitations.controller'
 import invitationsModalModule from './invitations'
 import {
-  GetInvitation, GetProfileWithServicesInvitations
+  GetProfileWithServicesInvitations
 } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import IQService = angular.IQService
@@ -14,7 +14,10 @@ describe('Testing Controller: InvitationsModal', () => {
   let scope: IInvitationsModalScope
   let $q: ng.IQService
   const state = <ng.ui.IStateService>{
-    go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+    go: (_to: string): ng.IPromise<{}> => $q.resolve({}),
+    current: {
+      name: 'app.invitations'
+    }
   }
   const uibModalInstance = {
     dismiss: (): void => {
@@ -57,7 +60,6 @@ describe('Testing Controller: InvitationsModal', () => {
   })
 
   it('should close modal', () => {
-    scope.invitation = <GetInvitation>{}
     spyOn(state, 'go')
     spyOn(uibModalInstance, 'dismiss')
     controller.onModalClose()

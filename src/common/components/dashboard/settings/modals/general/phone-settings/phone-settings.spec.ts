@@ -82,4 +82,9 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
 
+  it('should uibModalInstance', () => {
+    controller.numberModel = '121'
+    expect(controller.checkIfNewEnteredNumberExists())
+  })
+
 })

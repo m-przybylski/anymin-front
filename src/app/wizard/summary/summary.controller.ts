@@ -30,7 +30,8 @@ export class SummaryController implements ng.IController {
               private WizardApi: WizardApi,
               private wizardProfile: GetWizardProfile,
               private userService: UserService,
-              private InvitationApi: InvitationApi) {
+              private InvitationApi: InvitationApi,
+              private $q: ng.IQService) {
 
     this.setInvitationsServices()
     if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
@@ -49,8 +50,8 @@ export class SummaryController implements ng.IController {
   }
 
   $onInit(): void {
-    this.isConsultation = !!(this.wizardProfile.services
-    && this.wizardProfile.services.length > 0 || this.isAcceptedConsultation)
+    this.isConsultation = this.wizardProfile.services
+      && this.wizardProfile.services.length > 0 || this.isAcceptedConsultation
     this.services = this.wizardProfile.services
   }
 
@@ -114,12 +115,11 @@ export class SummaryController implements ng.IController {
       this.WizardApi.postWizardCompleteRoute().then((_response) => {
         this.userService.getUser(true).then(() => {
           if (this.checkIsWizardHasInvitationServices()) {
-            this.acceptInvitations(() => {
-              LocalStorageWrapper.removeItem('accepted-consultations')
-              this.$state.go('app.dashboard.expert.activities')
-            })
+            this.acceptInvitations()
+            .then(this.clearInvitationFromLocalStorage)
+            .finally(this.redirectToDashboardActivities)
           } else {
-            this.$state.go('app.dashboard.expert.activities')
+            this.redirectToDashboardActivities()
           }
         })
       }, (error) => {
@@ -128,6 +128,14 @@ export class SummaryController implements ng.IController {
     } else {
       this.isWizardInvalid = true
     }
+  }
+
+  private redirectToDashboardActivities = (): void => {
+    this.$state.go('app.dashboard.expert.activities')
+  }
+
+  private clearInvitationFromLocalStorage = (): void => {
+    LocalStorageWrapper.removeItem('accepted-consultations')
   }
 
   private setInvitationsServices = (): void => {
@@ -179,17 +187,9 @@ export class SummaryController implements ng.IController {
     return false
   }
 
-  private acceptInvitations = (callback: () => void): void => {
-    this.acceptedServices.forEach((service) => {
-      this.InvitationApi.postInvitationAcceptRoute(service.invitations[0].id)
-      .then((_response) => {
-        if (_.last(this.acceptedServices) === service) {
-          callback()
-        }
-      }, (error) => {
-        this.errorHandler.handleServerError(error)
-      })
-    })
-  }
+  private acceptInvitations = (): ng.IPromise<void> =>
+    this.$q.all(this.acceptedServices.map(
+      (acceptedService) => this.InvitationApi.postInvitationAcceptRoute(acceptedService.invitation.id)))
+    .catch((error) => this.errorHandler.handleServerError(error))
 
 }

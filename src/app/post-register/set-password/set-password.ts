@@ -75,10 +75,11 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
   const verifyEmailByToken = (token: string): ng.IPromise<Account> =>
     AccountApi.postConfirmEmailViaInvitationRoute(token)
 
-  const onVerifyEmail = (_account: Account, token: string): void => {
+  const redirectToInvitation = (token: string): void => {
     $state.go('app.invitations', {token})
-    LocalStorageWrapper.removeItem('invitation')
   }
+
+  const clearInvitationFromLocalStorage = (): void => LocalStorageWrapper.removeItem('invitation')
 
   const onVerifyEmailError = (error: any): void => {
     $log.error(error)
@@ -94,9 +95,10 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
         unverifiedEmail: JSON.parse(invitationObject).email
       }, () => {
         verifyEmailByToken(JSON.parse(invitationObject).token)
-        .then((response) => {onVerifyEmail(response, JSON.parse(invitationObject).token)})
-        .catch(onVerifyEmailError)
-
+        .then(() => {
+          clearInvitationFromLocalStorage()
+          redirectToInvitation(JSON.parse(invitationObject).token)
+        }, onVerifyEmailError)
         this.isPending = false
         topWaitingLoaderService.stopLoader()
       })
@@ -112,7 +114,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
   }
 
   this.checkIsPasswordCorrect = (): boolean =>
-    this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
+  this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
 
   return this
 }
@@ -146,5 +148,5 @@ angular.module('profitelo.controller.post-register.set-password', [
   inputPasswordModule,
   autoFocus
 ])
-  .config(config)
-  .controller('SetPasswordController', _controller)
+.config(config)
+.controller('SetPasswordController', _controller)

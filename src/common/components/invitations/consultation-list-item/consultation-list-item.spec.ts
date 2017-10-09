@@ -1,11 +1,11 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import consultationListItemModule from './consultation-list-item'
+import {GetInvitation} from 'profitelo-api-ng/model/models'
 import {
   ConsultationListItemComponentController,
   IConsultationListItemComponentScope
 } from './consultation-list-item.controller'
-import {GetInvitation} from 'profitelo-api-ng/model/models';
 
 describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-item', () => {
   return describe('for consultationListItem', () => {
@@ -24,15 +24,7 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
         ownerId: 'ownerId',
         name: 'name',
         description: 'asd',
-        invitation: {
-          id: 'id',
-          serviceId: 'serviceId',
-          serviceName: 'name',
-          serviceOwnerId: 'ownerId',
-          status: GetInvitation.StatusEnum.NEW,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
+        invitation: <GetInvitation>{},
         price: {
           amount: 123,
           currency: 'PLN'

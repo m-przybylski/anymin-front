@@ -2,7 +2,6 @@ import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
-import * as _ from 'lodash'
 import * as angular from 'angular'
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
@@ -22,19 +21,17 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
               private $element: ng.IRootElementService) {
 
     this.buttonCallback = (): void => {
-     if (this.onClick && !angular.isFunction(this.onClick)) {
-       throw new Error('onClick is not a function')
-     }
+      if (this.onClick && !angular.isFunction(this.onClick)) {
+        throw new Error('onClick is not a function')
+      }
       this.onClick()
     }
   }
 
   $onInit(): void {
     this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
-       response.forEach((invitation) => {
-        if (_.find(invitation.services, (service) => service.invitations[0].status === GetInvitation.StatusEnum.NEW))
-            this.invitations = response
-      })
+      this.invitations = response.filter((profileInvitations) =>
+        profileInvitations.services.forEach((service) => service.invitation.status === GetInvitation.StatusEnum.NEW))
 
       this.areInvitations = this.invitations.length > 0
       this.isLoading = false

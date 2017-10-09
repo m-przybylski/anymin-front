@@ -3,7 +3,6 @@ import {
 } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ServiceApi} from 'profitelo-api-ng/api/api'
 export interface IInvitationsModalScope extends ng.IScope {
-  invitation?: GetInvitation,
   profileWithServicesInvitations?: GetProfileWithServicesInvitations
 }
 import * as _ from 'lodash'
@@ -22,14 +21,13 @@ export class InvitationsModalController implements ng.IController {
   public companyName?: string
   public logo?: string
   public description?: string
-  public services: IGetServiceWithInvitationsAndTags[] = []
   public isLoading: boolean = true
-  public isDisabled: boolean = false
-  private servicesTags: GetServiceTags[] = []
+  public isSubmitButtonDisabled: boolean = false
+  private services: IGetServiceWithInvitationsAndTags[] = []
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
-    if (this.$scope.invitation) this.$state.go('app.home')
+    if (this.$state.current.name === 'app.invitations') this.$state.go('app.home')
   }
   private acceptedServices: GetServiceWithInvitations[] = []
 
@@ -39,13 +37,12 @@ export class InvitationsModalController implements ng.IController {
               private InvitationApi: InvitationApi,
               private userService: UserService,
               private ServiceApi: ServiceApi,
-              private $scope: IInvitationsModalScope,
               private $q: ng.IQService,
-              private $log: ng.ILogService) {
+              private $log: ng.ILogService,
+              $scope: IInvitationsModalScope) {
     if ($scope.profileWithServicesInvitations) {
       this.setInvitationData($scope.profileWithServicesInvitations)
     }
-
     if (this.services && this.services.length > 0) this.areInvitations = true
   }
 
@@ -56,16 +53,17 @@ export class InvitationsModalController implements ng.IController {
       this.description = profileWithServicesInvitations.organizationDetails.description
 
       this.services = profileWithServicesInvitations.services.filter((service) =>
-      service.invitations[0].status === GetInvitation.StatusEnum.NEW)
+        service.invitation.status === GetInvitation.StatusEnum.NEW)
 
       this.ServiceApi.postServicesTagsRoute({
         serviceIds: this.services.map((service) => service.id)
       }).then((serviceTags) => {
-        this.servicesTags = serviceTags
+        this.services = this.getServicesTags(this.services, serviceTags)
+      }).catch((error) => {
+        this.$log.error(error)
+      }).finally(() => {
+        this.isLoading = false
       })
-
-      this.getServicesTags(this.services)
-      this.isLoading = false
     }
   }
 
@@ -82,49 +80,49 @@ export class InvitationsModalController implements ng.IController {
       if (user.isExpert) {
         this.postInvitationsState(this.services)
       } else if (this.acceptedServices && this.acceptedServices.length > 0) {
-        this.rejectInvitations(this.services, this.redirectToWizards)
+        this.rejectInvitations(this.services).then(this.redirectToWizards)
       } else {
-        this.rejectInvitations(this.services, this.onModalClose)
+        this.rejectInvitations(this.services).then(this.onModalClose)
       }
     })
   }
 
-  public getServicesTags = (services: IGetServiceWithInvitationsAndTags[]): void => {
-    services.forEach((service) => {
-      const serviceTags = _.find(this.servicesTags, (serviceTags) => service.id === serviceTags.serviceId)
+  public getServicesTags = (services: IGetServiceWithInvitationsAndTags[],
+                            servicesTags: GetServiceTags[]): IGetServiceWithInvitationsAndTags[] =>
+    services.map((service) => {
+      const serviceTags = _.find(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)
       if (serviceTags) {
         service.tags = serviceTags.tags
       }
+      return service
     })
-  }
 
   private postInvitationsState = (services: GetServiceWithInvitations[]): void => {
     services.forEach((service) => {
       if (_.some(this.acceptedServices, service)) {
-        this.InvitationApi.postInvitationAcceptRoute(service.invitations[0].id)
+        this.InvitationApi.postInvitationAcceptRoute(service.invitation.id)
         .then((_response) => (this.onEmploymentUpdateDone(service)))
       } else {
-        this.InvitationApi.postInvitationRejectRoute(service.invitations[0].id)
+        this.InvitationApi.postInvitationRejectRoute(service.invitation.id)
         .then((_response) => (this.onEmploymentUpdateDone(service)))
       }
     })
   }
 
-  private rejectInvitations = (services: GetServiceWithInvitations[], callback: () => void): void => {
-    this.isDisabled = true
+  private rejectInvitations = (services: GetServiceWithInvitations[]): ng.IPromise<void> => {
+    this.isSubmitButtonDisabled = true
     const rejectedServices = services.filter((service) => !_.some(this.acceptedServices, service))
     if (rejectedServices && rejectedServices.length > 0)
-      this.$q.all(rejectedServices.map((service) =>
-        this.InvitationApi.postInvitationRejectRoute(service.invitations[0].id)))
-      .then(callback)
+      return this.$q.all(rejectedServices.map((service) =>
+        this.InvitationApi.postInvitationRejectRoute(service.invitation.id)))
       .catch((error) => {
         this.$log.error(error)
       })
       .finally(() => {
-        this.isDisabled = false
+        this.isSubmitButtonDisabled = false
       })
     else
-      callback()
+      return this.$q.resolve().finally(() => this.isSubmitButtonDisabled = false)
   }
 
   private redirectToWizards = (): void => {
