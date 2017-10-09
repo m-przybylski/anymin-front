@@ -11,7 +11,7 @@ import {CurrentCall} from '../../models/current-call';
 import {CurrentClientCall} from '../../models/current-client-call';
 import {CurrentExpertCall} from '../../models/current-expert-call';
 import {Message} from 'ratel-sdk-js'
-import * as RatelSdk from 'ratel-sdk-js'
+import {IMessageContext} from '../message-context'
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
@@ -92,7 +92,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   public onSendMessage = (messageBody: string): Promise<void> =>
-    this.sendMessage(messageBody)
+    this.sendMessage(messageBody, {
+      mimeType: 'text/plain',
+      content: messageBody,
+    })
 
   private clientInit = (currentClientCall: CurrentClientCall): void => {
     this.destroy()
@@ -155,9 +158,9 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private onMessageSendError = (err: any): void =>
     this.$log.error('msg send err:', err)
 
-  private sendMessage = (messageObject: string, tag?: string, context?: RatelSdk.protocol.Context): Promise<void> =>
-    this.messageRoom.sendMessage(messageObject, tag, context)
-    .catch(this.onMessageSendError)
+  private sendMessage = (messageObject: string, context: IMessageContext): Promise<void> =>
+    this.messageRoom.sendMessage(messageObject, context)
+      .catch(this.onMessageSendError)
 
   private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
@@ -168,9 +171,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private onFileUpload = (res: any): void => {
     this.uploadedFile.progress = false
-    this.sendMessage(res.name, 'message', {
-      type: 'file',
-      payload: res.token
+    this.sendMessage(res.name, {
+      mimeType: res.contentType,
+      content: res.token,
+      description: res.name
     })
   }
 

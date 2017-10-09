@@ -56,13 +56,13 @@ export class MessageRoom {
   }
 
   public sendMessage =
-    (msg: string, tag = 'message', context?: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
-      if (this.room) {
-        return this.room.sendCustom(msg, tag, context)
-      } else {
-        return Promise.reject('No room')
-      }
+    (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
+    if (this.room) {
+      return this.room.sendCustom(msg, 'MESSAGE', context)
+    } else {
+      return Promise.reject('No room')
     }
+  }
 
   public mark = (timestamp: RatelSdk.protocol.Timestamp): Promise<void> => {
     if (this.room) {
@@ -99,7 +99,7 @@ export class MessageRoom {
   private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
     room.onTyping(() => this.callbacks.notify(MessageRoom.events.onTyping, null))
     room.onMark((roomMark) => this.callbacks.notify(MessageRoom.events.onMark, roomMark))
-    room.onCustom('message', (roomMessage) => {
+    room.onCustom('MESSAGE', (roomMessage) => {
       this.callbacks.notify(MessageRoom.events.onMessage, roomMessage);
       this.soundsService.playMessageNew()
     })
