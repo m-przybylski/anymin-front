@@ -64,6 +64,13 @@ export class ClientCallService {
   public onNewFinancialOperation = (callback: (data: any) => void): void =>
     this.profiteloWebsocket.onNewFinancialOperation(callback)
 
+  private onSuspendedCallEnd = (serviceId: string): void => {
+    this.modalsService.createClientConsultationSummaryModal(serviceId)
+    this.call = undefined
+    this.soundsService.callConnectingSound().stop()
+    this.soundsService.playCallEnded()
+  }
+
   private onStartCallError = (err: any): void => {
     this.call = undefined;
     this.onConsultationUnavailable()
@@ -83,6 +90,9 @@ export class ClientCallService {
     call.onRejected(this.onConsultationUnavailable);
     call.onEnd(() => this.onCallEnd(call.getService().id));
     call.onAnswered(this.onCallAnswered);
+    call.onSuspendedCallEnd(() => {
+      this.onSuspendedCallEnd(call.getService().id)
+    })
     this.communicatorService.onRoomInvitation((roomInvitation) => {
       if (roomInvitation.room.name === call.getRatelCallId() && !call.getMessageRoom().room) {
         call.setBusinessRoom(roomInvitation.room as RatelSdk.BusinessRoom).catch(this.$log.error)
@@ -95,15 +105,16 @@ export class ClientCallService {
 
   private createCall = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
     this.ServiceApi.postServiceUsageRequestRoute(serviceId, {expertId})
-      .then((sur) =>
-        this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
-        .then((stream) =>
-          this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
-            this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
-              new CurrentClientCall(this.timerFactory, this.callbacksFactory, ratelCall, stream,
-                sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi, sur.expert)))
-        )
+    .then((sur) =>
+      this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
+      .then((stream) =>
+        this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
+          this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
+            new CurrentClientCall(this.timerFactory, this.callbacksFactory, ratelCall, stream,
+              sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi,
+              this.communicatorService, sur.expert)))
       )
+    )
 
   private createRatelCall = (expertId: string,
                              serviceId: string): ng.IPromise<GetSUERatelCall> => {
@@ -140,12 +151,13 @@ export class ClientCallService {
       this.call
       .then((call) => {
         if (call.getState() !== CallState.CANCELLED)
-          this.modalsService.createClientConsultationSummaryModal(serviceId)})
-        .finally(() => {
-          this.call = undefined
-          this.soundsService.callConnectingSound().stop()
-          this.soundsService.playCallEnded()
-        })
+          this.modalsService.createClientConsultationSummaryModal(serviceId)
+      })
+      .finally(() => {
+        this.call = undefined
+        this.soundsService.callConnectingSound().stop()
+        this.soundsService.playCallEnded()
+      })
     else
       this.$log.error('Call does not exist')
   }

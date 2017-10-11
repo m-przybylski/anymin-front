@@ -8,10 +8,13 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory'
 import callbacksModule from '../../../services/callbacks/callbacks'
 import {roomType} from 'ratel-sdk-js'
+import {CommunicatorService} from '../communicator.service'
 
 describe('Unit tests: CurrentCall', () => {
 
   let currentCall: CurrentCall
+  let RatelApi: RatelApi
+  let q: ng.IQService
   const callbacksFactory: CallbacksFactory = <CallbacksFactory>{
     getInstance:(_keys: string[]) => {
       return  <any>{
@@ -23,7 +26,9 @@ describe('Unit tests: CurrentCall', () => {
           onParticipantOffline: (cb: () => void) => {cb()},
           onVideoStart: (cb: () => void) => {cb()},
           onVideoStop: (cb: () => void) => {cb()},
-          onCallTaken: (cb: () => void) => {cb()}
+          onCallTaken: (cb: () => void) => {cb()},
+          onSuspendedCallEnd: (cb: () => void) => {cb()},
+          onTimeCostChange: (cb: () => void) => {cb()}
         }
       }
     }
@@ -41,9 +46,13 @@ describe('Unit tests: CurrentCall', () => {
     onOnline: () => {}
   }
   const service = <any>{
-    price: 23,
-
+    price: 23
   }
+
+  const communicatorService: CommunicatorService = <any>{
+    onReconnectActiveCalls: () => {}
+  }
+
   const businessRoom: RatelSdk.BusinessRoom = <any>{
     roomType: roomType.RoomType.BUSINESS,
     onTyping: () => {},
@@ -70,8 +79,12 @@ describe('Unit tests: CurrentCall', () => {
   }))
 
   beforeEach((inject((soundsService: SoundsService,
-                      RatelApi: RatelApi) => {
-    currentCall = new CurrentCall(callbacksFactory, soundsService, ratelCall, timerFactory, service, sue, RatelApi)
+                      _RatelApi_: RatelApi,
+                      $q: ng.IQService) => {
+    RatelApi = _RatelApi_
+    q = $q
+    currentCall = new CurrentCall(callbacksFactory,
+      soundsService, ratelCall, timerFactory, service, sue, communicatorService, RatelApi)
   })))
 
   it('should currentCall exist', () => {
@@ -141,6 +154,12 @@ describe('Unit tests: CurrentCall', () => {
   it('should call callback onVideoStart function called', () => {
     const callBack = jasmine.createSpy('callBack', () => {})
     currentCall.onCallTaken(callBack)
+    expect(callBack).toHaveBeenCalled()
+  })
+
+  it('should call callback onSuspendedCallEnd function called', () => {
+    const callBack = jasmine.createSpy('callBack', () => {})
+    currentCall.onSuspendedCallEnd(callBack)
     expect(callBack).toHaveBeenCalled()
   })
 })

@@ -5,6 +5,7 @@ import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
+import {CommunicatorService} from '../communicator.service'
 
 export class CurrentExpertCall extends CurrentCall {
 
@@ -13,10 +14,11 @@ export class CurrentExpertCall extends CurrentCall {
               callInvitation: RatelSdk.events.CallInvitation,
               incomingCallDetails: GetIncomingCallDetails,
               soundsService: SoundsService,
+              communicatorService: CommunicatorService,
               RatelApi: RatelApi) {
 
     super(callbacksFactory, soundsService, callInvitation.call as RatelSdk.BusinessCall, timerFactory,
-      incomingCallDetails.service, incomingCallDetails.sue, RatelApi);
+      incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi);
     this.setState(CallState.INCOMING)
   }
 

@@ -61,7 +61,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     } else {
       const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
       const firstElementOfLastMessageGroup = _.head(lastMessageGroup)
-      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.user === message.user) {
+      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.userId === message.userId) {
         lastMessageGroup.push(message)
       } else {
         this.groupedMessages.push([message])
