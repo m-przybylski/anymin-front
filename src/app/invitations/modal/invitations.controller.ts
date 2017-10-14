@@ -1,6 +1,6 @@
 import {
-  GetInvitation, GetServiceWithInvitations, GetServiceTags, Tag, GetProfileWithServicesInvitations
-} from 'profitelo-api-ng/model/models'
+  GetInvitation, GetServiceWithInvitations, GetServiceTags, Tag, GetProfileWithServicesInvitations,
+  GetServiceWithInvitation } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ServiceApi} from 'profitelo-api-ng/api/api'
 export interface IInvitationsModalScope extends ng.IScope {
   profileWithServicesInvitations?: GetProfileWithServicesInvitations
@@ -9,7 +9,7 @@ import * as _ from 'lodash'
 import {UserService} from '../../../common/services/user/user.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
 
-export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitations {
+export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitation {
   tags?: Tag[]
 }
 
@@ -97,7 +97,7 @@ export class InvitationsModalController implements ng.IController {
       return service
     })
 
-  private postInvitationsState = (services: GetServiceWithInvitations[]): void => {
+  private postInvitationsState = (services: GetServiceWithInvitation[]): void => {
     services.forEach((service) => {
       if (_.some(this.acceptedServices, service)) {
         this.InvitationApi.postInvitationAcceptRoute(service.invitation.id)
@@ -109,7 +109,7 @@ export class InvitationsModalController implements ng.IController {
     })
   }
 
-  private rejectInvitations = (services: GetServiceWithInvitations[]): ng.IPromise<void> => {
+  private rejectInvitations = (services: GetServiceWithInvitation[]): ng.IPromise<void> => {
     this.isSubmitButtonDisabled = true
     const rejectedServices = services.filter((service) => !_.some(this.acceptedServices, service))
     if (rejectedServices && rejectedServices.length > 0)
@@ -131,7 +131,7 @@ export class InvitationsModalController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  private onEmploymentUpdateDone = (service: GetServiceWithInvitations): void => {
+  private onEmploymentUpdateDone = (service: GetServiceWithInvitation): void => {
     if (_.last(this.services) === service) {
       this.onModalClose()
     }

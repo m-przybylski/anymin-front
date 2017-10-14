@@ -19,7 +19,8 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
             p {{ vm.description }}
 
         .modal-section
-          consultation-list-item(data-ng-repeat="service in vm.services" data-service="service"
+          consultation-list-item(data-ng-repeat="service in vm.services"
+          data-service="service"
           data-on-change="vm.onSelectConsultation")
 
         .buttons-container

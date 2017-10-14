@@ -15,7 +15,7 @@ describe('Unit testing: profitelo.controller.invitations', () => {
 
     beforeEach(() => {
 
-      mockState = {
+      mockState = <any>{
         go: (): void => {
         }
       }
