@@ -26,9 +26,6 @@ export class DashboardSettingsGeneralController implements ng.IController {
     this.showUnverifiedEmail = (typeof(this.unverifiedEmail) !== 'undefined' && this.unverifiedEmail !== '')
   }
 
-  $onInit = (): void => {
-  }
-
   public openBasicAccountSettingsModal = (): void => {
     this.modalsService.createBasicAccountSettingsModal(this.onModalClose)
   }

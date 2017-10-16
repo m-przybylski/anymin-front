@@ -6,9 +6,10 @@ import { GetServiceWithInvitations } from 'profitelo-api-ng/model/models'
 import tagsListModule from '../../tags-list/tags-list'
 import filtersModule from '../../../filters/filters'
 import checkboxModule from '../../interface/checkbox/checkbox'
+import {IGetServiceWithInvitationsAndTags} from '../../../../app/invitations/modal/invitations.controller'
 
 export interface IConsultationListItemComponentBindings extends ng.IController {
-  service: GetServiceWithInvitations
+  service: IGetServiceWithInvitationsAndTags
   onChange: (service: GetServiceWithInvitations, isChecked: boolean) => void
 }
 

@@ -17,6 +17,7 @@ import 'common/directives/password-strength-bar/password-strength-bar'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
 
 function _controller($log: ng.ILogService, $filter: ng.IFilterService,
                      $state: ng.ui.IStateService,
@@ -71,21 +72,49 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     }
   }
 
+  const verifyEmailByToken = (token: string): ng.IPromise<Account> =>
+    AccountApi.postConfirmEmailViaInvitationRoute(token)
+
+  const redirectToInvitation = (token: string): void => {
+    $state.go('app.invitations', {token})
+  }
+
+  const clearInvitationFromLocalStorage = (): void => LocalStorageWrapper.removeItem('invitation')
+
+  const onVerifyEmailError = (error: any): void => {
+    $log.error(error)
+    $state.go('app.home')
+  }
+
   this.completeRegistration = (): void => {
     this.enteredCurrentPassword = this.password
-    _updateNewUserObject({
-      password: this.password
-    }, () => {
-
-      // TODO Update session User.setData({hasPassword: true})
-      this.isPending = false
-      topWaitingLoaderService.stopLoader()
-      $state.go('app.post-register.set-email')
-    })
+    const invitationObject = LocalStorageWrapper.getItem('invitation')
+    if (invitationObject && JSON.parse(invitationObject).email) {
+      _updateNewUserObject({
+        password: this.password,
+        unverifiedEmail: JSON.parse(invitationObject).email
+      }, () => {
+        verifyEmailByToken(JSON.parse(invitationObject).token)
+        .then(() => {
+          clearInvitationFromLocalStorage()
+          redirectToInvitation(JSON.parse(invitationObject).token)
+        }, onVerifyEmailError)
+        this.isPending = false
+        topWaitingLoaderService.stopLoader()
+      })
+    } else {
+      _updateNewUserObject({
+        password: this.password
+      }, () => {
+        this.isPending = false
+        topWaitingLoaderService.stopLoader()
+        $state.go('app.post-register.set-email')
+      })
+    }
   }
 
   this.checkIsPasswordCorrect = (): boolean =>
-    this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
+  this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
 
   return this
 }
@@ -119,5 +148,5 @@ angular.module('profitelo.controller.post-register.set-password', [
   inputPasswordModule,
   autoFocus
 ])
-  .config(config)
-  .controller('SetPasswordController', _controller)
+.config(config)
+.controller('SetPasswordController', _controller)

@@ -1,4 +1,4 @@
-export type LocalStorageKeyName = 'invitation'
+export type LocalStorageKeyName = 'invitation' | 'accepted-consultations'
 
 export class LocalStorageWrapper {
 

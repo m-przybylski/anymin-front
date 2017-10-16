@@ -17,7 +17,7 @@ const invitationsPageModule = angular.module('profitelo.controller.invitations',
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.invitations', {
-    url: '/invitations/{companyId}',
+    url: '/invitations/{token}',
     resolve: {
       /* istanbul ignore next */
       invitations: (invitationsResolver: InvitationsResolver,  $stateParams: IInvitationsStateParams): void =>

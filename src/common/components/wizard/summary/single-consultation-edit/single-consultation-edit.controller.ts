@@ -42,15 +42,19 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   }
 
   public removeConsultation = (): void => {
-    if (this.onRemove && typeof this.onRemove === 'function') {
+    if (this.checkIsOnRemoveExist()) {
       this.onRemove(this.service)
     }
   }
 
   public editConsultation = (): void => {
-    if (this.onEdit && typeof this.onEdit === 'function') {
+    if (this.checkIsOnEditExist()) {
       this.onEdit(this.service)
     }
   }
+
+  public checkIsOnRemoveExist = (): boolean => this.onRemove && typeof this.onRemove === 'function'
+
+  public checkIsOnEditExist = (): boolean => this.onEdit && typeof this.onEdit === 'function'
 
 }

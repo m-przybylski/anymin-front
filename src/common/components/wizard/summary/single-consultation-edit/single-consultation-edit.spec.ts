@@ -51,6 +51,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         language: 'pl'
       }
       component.onRemove = (): void => {}
+      expect(component.checkIsOnRemoveExist()).toBe(true)
       spyOn(component, 'onRemove')
       component.removeConsultation()
       expect(component.onRemove).toHaveBeenCalledWith(component.service)
@@ -71,6 +72,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         language: 'pl'
       }
       component.onEdit = (): void => {}
+      expect(component.checkIsOnEditExist()).toBe(true)
       spyOn(component, 'onEdit')
       component.editConsultation()
       expect(component.onEdit).toHaveBeenCalledWith(component.service)

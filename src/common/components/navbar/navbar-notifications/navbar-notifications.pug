@@ -54,7 +54,7 @@
                   user-avatar(data-image-token="invitation.organizationDetails.logo")
               div
                 span.notification-description {{ invitation.organizationDetails.description }}
-                span.notification-time 2 days ago
+                span.notification-time {{ invitation.createdAt }}
 
         ul.right-tab-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab && !$ctrl.areInvitations")
           li.notifications-menu-row.no-invitations

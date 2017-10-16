@@ -24,7 +24,7 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
 
         .buttons-container
           a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.BUTTON.ACCEPT"
-          data-ng-click="vm.acceptInvitations()")
+          data-ng-click="vm.processInvitationState()" data-ng-disabled="vm.isSubmitButtonDisabled")
 
       .no-invitations-modal(data-ng-if="!vm.areInvitations")
         no-results-information(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"
