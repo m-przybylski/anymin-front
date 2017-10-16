@@ -44,7 +44,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   }
 
   public openConsultationFormModal = (): void => {
-    this.modalsService.createConsultationFormModal(this.onModalClose, this.serviceDetails)
+    this.modalsService.createServiceFormModal(this.onModalClose, this.serviceDetails)
   }
 
   public suspendProvideService = (): void => {

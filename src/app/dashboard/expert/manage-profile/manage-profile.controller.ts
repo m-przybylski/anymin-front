@@ -61,7 +61,7 @@ export class DashboardExpertManageProfileController {
   }
 
   public openConsultationFormModal = (): void => {
-    this.modalsService.createConsultationFormModal(this.getExpertProfile)
+    this.modalsService.createServiceFormModal(this.getExpertProfile)
   }
 
 }

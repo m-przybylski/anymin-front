@@ -1,7 +1,7 @@
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {IFilterService} from '../filter/filter.service'
 
-interface ILanguage {
+export interface ILanguage {
   name: string,
   value: string
 }
