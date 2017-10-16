@@ -9,19 +9,14 @@ import {MoneyDto, PostService, PostServiceTag, GetExpertServiceDetails, GetInvit
   from 'profitelo-api-ng/model/models'
 import {ServiceApi, EmploymentApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
-import {LanguagesService} from '../../../../../../services/languages/languages.service'
+import {ILanguage, LanguagesService} from '../../../../../../services/languages/languages.service'
 
-interface ILanguage {
-  name: string,
-  value: string
-}
-
-export interface IConsultationFormModalScope extends ng.IScope {
+export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void
   serviceDetails?: GetExpertServiceDetails
 }
 
-export class ConsultationFormModalController implements ng.IController {
+export class ServiceFormModalController implements ng.IController {
 
   public readonly consultationNameMaxLength: string = '150'
   public readonly consultationDescriptionMaxLength: string = '600'
@@ -57,7 +52,7 @@ export class ConsultationFormModalController implements ng.IController {
               private CommonSettingsService: CommonSettingsService,
               private userService: UserService,
               private ServiceApi: ServiceApi,
-              private $scope: IConsultationFormModalScope,
+              private $scope: IServiceFormModalScope,
               private errorHandler: ErrorHandlerService,
               private languages: LanguagesService,
               private EmploymentApi: EmploymentApi,
@@ -70,6 +65,7 @@ export class ConsultationFormModalController implements ng.IController {
   }
 
   $onInit(): void {
+    // TODO replace it https://git.contactis.pl/itelo/profitelo-frontend/issues/124
     this.recommendedTags = [
       'Tag-1',
       'Tag-2',
@@ -96,9 +92,7 @@ export class ConsultationFormModalController implements ng.IController {
         }
         this.consultationDescription = this.serviceDetails.service.description
         this.consultationPrice = (this.serviceDetails.service.price.amount / this.moneyDivider).toString()
-        this.serviceDetails.tags.forEach((tag) => {
-          this.consultationTags.push(tag.name)
-        })
+        this.consultationTags = this.serviceDetails.tags.map((tag) => tag.name)
         this.getDataFromBackend(this.serviceDetails.service.id)
       }
     })
@@ -144,7 +138,7 @@ export class ConsultationFormModalController implements ng.IController {
     this.isRegExpPriceInputValid = this.isRegExpPriceValid(consultationCost)
   }
 
-  public isNameValid = (): boolean => this.consultationName.length >= ConsultationFormModalController.minValidNameLength
+  public isNameValid = (): boolean => this.consultationName.length >= ServiceFormModalController.minValidNameLength
 
   public areTagsValid = (): boolean => this.consultationTags && this.consultationTags.length > 0
 
@@ -152,7 +146,7 @@ export class ConsultationFormModalController implements ng.IController {
     && this.consultationLanguage.name.length > 0
 
   public isDescriptionValid = (): boolean =>
-    this.consultationDescription.length >= ConsultationFormModalController.minValidDescriptionLength
+    this.consultationDescription.length >= ServiceFormModalController.minValidDescriptionLength
 
   public areInvitationsValid = (): boolean =>
     !this.serviceDetails ? this.consultationNewInvitations.length > 0 || this.isOwnerEmployee : true
@@ -175,27 +169,24 @@ export class ConsultationFormModalController implements ng.IController {
       amount: Number(this.consultationPrice.replace(',', '.')) * this.moneyDivider,
       currency: this.currency
     }
-    const tags: PostServiceTag[] = []
-    this.consultationTags.forEach((tag) => {
-      tags.push({
-        name: tag
+    const tags: PostServiceTag[] = this.consultationTags.map(consultationTag => {
+      const tag: PostServiceTag = {name: consultationTag}
+      return tag
+    })
+    const emails = this.consultationNewInvitations
+      .filter(emailOrPhone => emailOrPhone.indexOf('@') > -1)
+      .map(email => {
+        const invitation: ServiceInvitation = {email}
+        return invitation
       })
-    })
-    const invitations: ServiceInvitation[] = []
-    this.consultationNewInvitations.forEach((emailOrPhone) => {
-      if (emailOrPhone.indexOf('@') > -1) {
-        invitations.push({
-          email: emailOrPhone
-        })
-      } else {
-        invitations.push({
-          msisdn: emailOrPhone
-        })
-      }
-    })
-    let language: string = ''
-    if (this.consultationLanguage)
-      language = this.consultationLanguage.value
+    const msisdns = this.consultationNewInvitations
+      .filter(emailOrPhone => emailOrPhone.indexOf('@') < 0)
+      .map(msisdn => {
+        const invitation: ServiceInvitation = {msisdn}
+        return invitation
+      })
+    const invitations: ServiceInvitation[] = emails.concat(msisdns)
+    const language = this.consultationLanguage ? this.consultationLanguage.value : ''
     return {
       tags,
       invitations,

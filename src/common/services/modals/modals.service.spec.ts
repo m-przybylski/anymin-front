@@ -199,7 +199,7 @@ describe('Unit testing: profitelo.services.modals >', () => {
 
     it('should open consultation form modal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
-      modalsService.createConsultationFormModal(() => {}, <GetExpertServiceDetails>{})
+      modalsService.createServiceFormModal(() => {}, <GetExpertServiceDetails>{})
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 

@@ -1,6 +1,6 @@
 import * as angular from 'angular'
-import {ConsultationFormModalController} from './consultation-form-modal.controller'
-import './consultation-form-modal.sass'
+import {ServiceFormModalController} from './service-form-modal.controller'
+import './service-form-modal.sass'
 import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
 import inputModule from '../../../../../interface/input/input'
 import textareaModule from '../../../../../interface/textarea/textarea'
@@ -13,7 +13,7 @@ import ValidationAlertModule from '../../../../../interface/alert/validation-ale
 import apiModule from 'profitelo-api-ng/api.module'
 import languagesModule from '../../../../../../services/languages/languages'
 
-const consultationFormModalModule = angular.module(
+const serviceFormModalModule = angular.module(
   'profitelo.components.dashboard.expert.manage-profile.modals.consultation-form-modal', [
   'ui.bootstrap',
   'profitelo.components.interface.preloader',
@@ -29,7 +29,7 @@ const consultationFormModalModule = angular.module(
   ValidationAlertModule,
   languagesModule
 ])
-.controller('consultationFormModalController', ConsultationFormModalController)
+.controller('serviceFormModalController', ServiceFormModalController)
   .name
 
-export default consultationFormModalModule
+export default serviceFormModalModule

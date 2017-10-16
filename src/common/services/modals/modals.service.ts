@@ -112,10 +112,10 @@ import {
   IConsultationModalControllerScope
 } from '../../components/search/modals/consultation/consultation.controller'
 import {
-  ConsultationFormModalController,
-  IConsultationFormModalScope
+  ServiceFormModalController,
+  IServiceFormModalScope
 } from
-  '../../components/dashboard/expert/manage-profile/modals/consultation-form-modal/consultation-form-modal.controller'
+  '../../components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -585,20 +585,20 @@ export class ModalsService {
     })
   }
 
-  public createConsultationFormModal = (onModalClose: () => void,
-                                        service?: GetExpertServiceDetails): IModalInstanceService => {
+  public createServiceFormModal = (onModalClose: () => void,
+                                   service?: GetExpertServiceDetails): IModalInstanceService => {
 
-    const dialogScope: IConsultationFormModalScope =
-      <IConsultationFormModalScope>this.$rootScope.$new(true)
+    const dialogScope: IServiceFormModalScope =
+      <IServiceFormModalScope>this.$rootScope.$new(true)
     dialogScope.onModalCloseCallback = onModalClose
     dialogScope.serviceDetails = service
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       openedClass: 'modal-open full-screen',
-      controller: ConsultationFormModalController,
+      controller: ServiceFormModalController,
       template: require(
-        'common/components/dashboard/expert/manage-profile/modals/consultation-form-modal/consultation-form-modal.pug'
+        'common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.pug'
       )(),
       scope: dialogScope
     })
