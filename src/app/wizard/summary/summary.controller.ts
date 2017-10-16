@@ -2,7 +2,7 @@ import {
   GetWizardProfile,
   PartialExpertDetails,
   WizardService,
-  GetServiceWithInvitations,
+  GetServiceWithInvitation,
   PartialOrganizationDetails
 } from 'profitelo-api-ng/model/models'
 import {WizardApi, InvitationApi} from 'profitelo-api-ng/api/api'
@@ -22,7 +22,7 @@ export class SummaryController implements ng.IController {
   public wizardExpertProfileData?: PartialExpertDetails
   public isWizardInvalid: boolean = false
   public isAcceptedConsultation: boolean = false
-  public acceptedServices: GetServiceWithInvitations[]
+  public acceptedServices: GetServiceWithInvitation[]
 
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService,
