@@ -5,6 +5,7 @@ import {SingleServiceComponentController, ISingleServiceComponentControllerScope
 import {GetExpertServiceDetails, Tag} from 'profitelo-api-ng/model/models'
 import userModule from '../../../../../services/user/user'
 import {UserService} from '../../../../../services/user/user.service'
+import {ModalsService} from '../../../../../services/modals/modals.service'
 
 describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.single-service', () => {
   return describe('for singleService >', () => {
@@ -15,6 +16,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
     let componentController: ng.IComponentControllerService
     let component: SingleServiceComponentController
     let serviceDetails: GetExpertServiceDetails
+    let modalsService: ModalsService
     const userService: UserService  = <UserService>{
       getUser: {}
     }
@@ -75,13 +77,15 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
       angular.mock.module(userModule)
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $q: ng.IQService,
-              _$componentController_: ng.IComponentControllerService) => {
+              _$componentController_: ng.IComponentControllerService, _modalsService_: ModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
+        modalsService = _modalsService_
         spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
         compile = $compile
         const injectors = {
           $scope: rootScope,
+          modalService: modalsService,
           $document: document,
           userService: userService
         }
@@ -103,6 +107,11 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
         expect(el.html()).toBeDefined(true)
       })
 
+      it('should open modal form service', inject(() => {
+        spyOn(modalsService, 'createServiceFormModal')
+        component.openConsultationFormModal()
+        expect(modalsService.createServiceFormModal).toHaveBeenCalled()
+      }))
     })
   })
 })
