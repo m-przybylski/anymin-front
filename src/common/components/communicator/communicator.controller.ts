@@ -58,9 +58,6 @@ export class CommunicatorComponentController implements ng.IController {
       communicatorElement.on('dragover', (e) => e.preventDefault())
       communicatorElement.on('drop', (e) => e.preventDefault())
     }
-
-    this.$window.addEventListener('online', this.onOnline)
-    this.$window.addEventListener('offline', this.onOffline)
   }
 
   private onOnline = (): void => {
@@ -115,6 +112,8 @@ export class CommunicatorComponentController implements ng.IController {
 
     this.messageRoom = call.getMessageRoom();
 
+    this.$window.addEventListener('online', this.onOnline)
+    this.$window.addEventListener('offline', this.onOffline)
     call.onLocalStream(this.onLocalStream)
     call.onRemoteStream(this.onRemoteStream)
     call.onEnd(this.onCallEnd)
