@@ -54,11 +54,11 @@ export class ServiceFormModalController implements ng.IController {
               private ServiceApi: ServiceApi,
               private $scope: IServiceFormModalScope,
               private errorHandler: ErrorHandlerService,
-              private languages: LanguagesService,
+              private languagesService: LanguagesService,
               private EmploymentApi: EmploymentApi,
               private $q: ng.IQService) {
 
-    this.languagesList = this.languages.languagesList
+    this.languagesList = this.languagesService.languagesList
 
     this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider
 

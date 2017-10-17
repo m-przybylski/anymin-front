@@ -50,9 +50,9 @@ export class ConsultationController implements ng.IController {
               private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
               private CommonSettingsService: CommonSettingsService,
-              private languages: LanguagesService) {
+              private languagesService: LanguagesService) {
 
-    this.languagesList = this.languages.languagesList
+    this.languagesList = this.languagesService.languagesList
 
     this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider
 

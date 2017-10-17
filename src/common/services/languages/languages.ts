@@ -3,7 +3,7 @@ import {LanguagesService} from './languages.service'
 
 const languagesModule = angular.module('profitelo.services.languages', [
 ])
-  .service('languages', LanguagesService)
+  .service('languagesService', LanguagesService)
   .name
 
 export default languagesModule

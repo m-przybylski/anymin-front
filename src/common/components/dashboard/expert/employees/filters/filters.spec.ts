@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: ExpertEmployeesFiltersComponentController
-    let modalsService: Mod
+    let modalsService: ModalsService
     const validHTML = '<expert-employees-filters></expert-employees-filters>'
 
     function create(html: string): JQuery {
