@@ -5,6 +5,7 @@ import {
 } from './consultation-summary-client.controller'
 import consultationSummaryClientModule from './consultation-summary-client'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import {Tag} from 'profitelo-api-ng/model/models';
 
 describe('Testing Controller: consultationSummaryClientController', () => {
 
@@ -60,6 +61,25 @@ describe('Testing Controller: consultationSummaryClientController', () => {
   it('should comment valid', () => {
     consultationSummaryController.clientCommentInputValue = 'some comment'
     expect(consultationSummaryController.isCommentValid()).toEqual(true)
+  })
+
+  it('should set tab container size', () => {
+    consultationSummaryController.setTabsContainerSize(33)
+    expect(consultationSummaryController.tabsContainerStyles.height).toEqual(33)
+  })
+
+  it('should set tag on select', () => {
+    const tag: Tag[] = [{
+      id: 'id',
+      name: 'name',
+      status: Tag.StatusEnum.NEW,
+      persisted: false
+    }]
+    consultationSummaryController.onTagsSelectChange(tag)
+    expect(consultationSummaryController.tags).toEqual([{id: 'id',
+      name: 'name',
+      status: Tag.StatusEnum.NEW,
+      persisted: false}])
   })
 
 })

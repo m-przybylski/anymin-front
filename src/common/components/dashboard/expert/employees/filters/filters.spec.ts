@@ -3,6 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import expertEmployeesFiltersModule from './filters';
 import IScope = angular.IScope;
 import {ExpertEmployeesFiltersComponentController} from './filters.controller';
+import {ModalsService} from '../../../../../services/modals/modals.service'
 
 describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.filters', () => {
   return describe('for expertFilters >', () => {
@@ -12,6 +13,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: ExpertEmployeesFiltersComponentController
+    let modalsService: ModalsService
     const validHTML = '<expert-employees-filters></expert-employees-filters>'
 
     function create(html: string): JQuery {
@@ -26,11 +28,12 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.
 
       angular.mock.module(expertEmployeesFiltersModule)
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _modalsService_: ModalsService,
               _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
+        modalsService = _modalsService_
       })
         component = componentController<ExpertEmployeesFiltersComponentController, {}>('expertEmployeesFilters', {}, {})
 
@@ -39,9 +42,16 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
     it('should compile the directive', () => {
       const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should open invitation employee modal', inject(() => {
+      spyOn(modalsService, 'createExpertInviteEmployeesModal')
+      component.openInviteEmployeesModal()
+      expect(modalsService.createExpertInviteEmployeesModal).toHaveBeenCalled()
+    }))
   })
 })

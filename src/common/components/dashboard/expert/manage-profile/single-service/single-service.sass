@@ -8,6 +8,13 @@
     +smm
       display: flex
 
+    &.service-deleted
+      background: $c-background
+
+      .consultation-title
+        span
+          color: $c-tertiary-txt
+
     .service-action
       display: flex
       justify-content: space-between
@@ -15,14 +22,16 @@
       .profile-preview
         margin: 0
 
-    .consulation-title
+    .consultation-title
+      margin: 0 0 16px
+
       +smm
         margin: 0
         padding: 0 24px 0 0
 
-  span
-    +paragraphSmall
-    color: $c-primary-txt
+      span
+        +paragraphSmall
+        color: $c-primary-txt
 
   .service-action
     +xsm

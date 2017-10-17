@@ -22,6 +22,9 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   public filterBy: IFilterBy = {
     name: ''
   }
+  public isValid: boolean
+  public validationText: string
+  public isSubmitted: boolean
   private dropdown: JQuery = this.$element.find('.dropdown-list')
   private dropdownSelectedItem: JQuery
   public selectedItemNumber: number = 0

@@ -52,6 +52,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       it('should have a dummy test', inject(() => {
         expect(true).toBeTruthy()
       }))
+
       it('should compile the directive', () => {
         const el = create(validHTML)
         expect(el.html()).toBeDefined(true)

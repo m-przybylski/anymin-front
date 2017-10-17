@@ -1,6 +1,6 @@
-import {IConsultationTagInputBindings} from './consultaiton-tag-input'
+import {IInputConsultationTagBindings} from './input-consultaiton-tag'
 
-export class ConsultationTagInputComponentController implements IConsultationTagInputBindings {
+export class InputConsultationTagComponentController implements IInputConsultationTagBindings {
   public selectedTags: string[] = []
   public dictionary: string[]
   public tagModel: string

@@ -24,7 +24,7 @@ export class DashboardExpertManageProfileController {
     this.getExpertProfile()
   }
 
-  private getExpertProfile = (): void => {
+  public getExpertProfile = (): void => {
     this.userService.getUser().then((user) => {
       this.ViewsApi.getWebExpertProfileRoute(user.id).then((expertProfile) => {
         this.expertProfile = expertProfile
@@ -37,15 +37,13 @@ export class DashboardExpertManageProfileController {
           this.organizationLogo = expertProfile.profile.organizationDetails.logo
         }
         this.services = expertProfile.services
+        this.isLoading = false
       })
         .catch((error) => {
           this.isLoading = false
           this.isError = true
-          this.errorHandler.handleServerError(error, 'Can not load expert profile')
-        })
-        .finally(() => {
-          this.isLoading = false
-          this.isError = false
+          this.errorHandler.handleServerError(error,
+            'Can not load expert profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE')
         })
     })
   }
@@ -60,6 +58,10 @@ export class DashboardExpertManageProfileController {
     if (this.expertProfile.profile.expertDetails)
       this.modalsService.createManageProfileEditProfileModal(this.expertProfile.profile.expertDetails,
         this.getExpertProfile)
+  }
+
+  public openServiceFormModal = (): void => {
+    this.modalsService.createServiceFormModal(this.getExpertProfile)
   }
 
 }

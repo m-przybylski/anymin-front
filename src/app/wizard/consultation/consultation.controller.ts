@@ -6,6 +6,7 @@ import {ServiceInvitation} from '../../../common/models/ServiceInvitation'
 import * as _ from 'lodash'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {IFilterService} from '../../../common/services/filter/filter.service'
+import {LanguagesService} from '../../../common/services/languages/languages.service'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -48,19 +49,10 @@ export class ConsultationController implements ng.IController {
               private userService: UserService,
               private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
-              private CommonSettingsService: CommonSettingsService) {
+              private CommonSettingsService: CommonSettingsService,
+              private languagesService: LanguagesService) {
 
-    const languages: {
-      shortcut: string,
-      name: string,
-      'native-name': string
-    }[] = CommonConfig.getAllData().config['supported-languages']
-
-    this.languagesList = languages.map((lng) =>
-      ({
-        name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('LANGUAGE.' + lng.shortcut)))),
-        value: lng.shortcut
-      }))
+    this.languagesList = this.languagesService.languagesList
 
     this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider
 

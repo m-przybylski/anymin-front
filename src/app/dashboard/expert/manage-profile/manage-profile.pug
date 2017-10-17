@@ -1,6 +1,8 @@
 .manage-profile
   preloader-container(data-is-loading="vm.isLoading"
-  data-is-error="vm.isError" data-error-message="DASHBOARD_CLIENT.ERROR_MESSAGE")
+  data-is-error="vm.isError"
+  data-error-message="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE"
+  data-error-fn="vm.getExpertProfile")
     .profile-section
       header.entry-title
         span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.TITLE")
@@ -19,7 +21,7 @@
             data-ng-click="vm.editCompanyProfile()"
             )
 
-        .list-row.manage-row.expert-row
+        .list-row.manage-row.expert-row(data-ng-show="vm.expertName")
           .profile-preview
             user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
 
@@ -35,6 +37,8 @@
     .consultation-section
       header.entry-title
         span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATIONS.TITLE")
-        a.btn.btn-small.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.ADD_NEW")
+        a.btn.btn-small.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.ADD_NEW"
+        data-ng-click="vm.openServiceFormModal()")
 
-      single-service(data-ng-repeat="service in vm.services" data-service="service")
+      single-service(data-ng-repeat="service in vm.services" data-service-details="service"
+      data-on-modal-close="vm.getExpertProfile")

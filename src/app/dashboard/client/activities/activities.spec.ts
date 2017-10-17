@@ -2,7 +2,9 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {DashboardClientActivitiesController} from './activities'
 import {DashboardActivitiesService} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
-
+import {PromiseService} from '../../../../common/services/promise/promise.service'
+import {GetActivity} from 'profitelo-api-ng/model/models';
+import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
 
 describe('Unit tests: DashboardClientActivitiesController >', () => {
   describe('Testing Controller: DashboardClientActivitiesController', () => {
@@ -12,6 +14,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     const clientActivitiesService: DashboardActivitiesService = {
     } as DashboardActivitiesService
     let $state: ng.ui.IStateService
+    let errorHandler: ErrorHandlerService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
@@ -35,7 +38,8 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
 
             },
             clientActivitiesService: clientActivitiesService,
-            filtersData: {}
+            filtersData: {},
+            errorHandler
           })
       })
     })
@@ -49,6 +53,29 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
       dashboardClientActivitiesController.searchForExpert()
       expect($state.go).toHaveBeenCalledWith('app.search-result')
     })
+
+    it('should load more activities',
+      inject((promiseService: PromiseService, dashboardActivitiesService: DashboardActivitiesService) => {
+      dashboardClientActivitiesController.activities = [{
+          accountId: 'id',
+          activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
+          accountType: GetActivity.AccountTypeEnum.CLIENT,
+          createdAt: new Date()
+      }]
+      spyOn(promiseService, 'setMinimalDelay').and.callThrough()
+      spyOn(dashboardActivitiesService, 'getDashboardActivities').and.returnValue({
+        activities: [{
+          accountId: 'id',
+          activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
+          accountType: GetActivity.AccountTypeEnum.CLIENT,
+          createdAt: new Date()
+        }],
+        count: 1
+      })
+      dashboardClientActivitiesController.loadMoreActivities()
+      expect(promiseService.setMinimalDelay).toHaveBeenCalled()
+      expect(dashboardActivitiesService.getDashboardActivities).toHaveBeenCalled()
+    }))
 
   })
 })

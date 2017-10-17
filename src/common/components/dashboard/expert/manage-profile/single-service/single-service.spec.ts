@@ -5,6 +5,7 @@ import {SingleServiceComponentController, ISingleServiceComponentControllerScope
 import {GetExpertServiceDetails, Tag} from 'profitelo-api-ng/model/models'
 import userModule from '../../../../../services/user/user'
 import {UserService} from '../../../../../services/user/user.service'
+import {ModalsService} from '../../../../../services/modals/modals.service'
 
 describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.single-service', () => {
   return describe('for singleService >', () => {
@@ -14,13 +15,14 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: SingleServiceComponentController
-    let service: GetExpertServiceDetails
+    let serviceDetails: GetExpertServiceDetails
+    let modalsService: ModalsService
     const userService: UserService  = <UserService>{
       getUser: {}
     }
     const validHTML = '<single-service data-service="service"></single-service>'
 
-    service = {
+    serviceDetails = {
       service: {
         id: 'id',
         ownerId: 'ownerId',
@@ -58,7 +60,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
 
     function create(html: string): JQuery {
       scope = <ISingleServiceComponentControllerScope>rootScope.$new()
-      scope.service = service
+      scope.serviceDetails = serviceDetails
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -75,19 +77,22 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
       angular.mock.module(userModule)
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $q: ng.IQService,
-              _$componentController_: ng.IComponentControllerService) => {
+              _$componentController_: ng.IComponentControllerService, _modalsService_: ModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
+        modalsService = _modalsService_
         spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
         compile = $compile
         const injectors = {
           $scope: rootScope,
+          modalService: modalsService,
           $document: document,
           userService: userService
         }
 
         const bindings: ISingleServiceComponentBindings = {
-          service
+          onModalClose: (): void => {},
+          serviceDetails
         }
 
         component = componentController<SingleServiceComponentController, {}>('singleService', injectors, bindings)
@@ -102,6 +107,11 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
         expect(el.html()).toBeDefined(true)
       })
 
+      it('should open modal form service', inject(() => {
+        spyOn(modalsService, 'createServiceFormModal')
+        component.openConsultationFormModal()
+        expect(modalsService.createServiceFormModal).toHaveBeenCalled()
+      }))
     })
   })
 })
