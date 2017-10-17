@@ -1,4 +1,4 @@
-.modal-summary.precall
+x.modal-summary.precall
   .modal-main.container-medium
     top-modal-navbar(data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
@@ -91,7 +91,7 @@
 
           .microphone-output
             label.label-text {{ 'COMMUNICATOR.MODALS.PRECALL.MICROPHONE.LABEL' | translate }}
-            voice-volume-bar()
+            voice-volume-bar(data-stream="vm.mediaStream")
 
         .modal-action
           a.btn.btn-progress.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isRegExpPriceInputValid || " +

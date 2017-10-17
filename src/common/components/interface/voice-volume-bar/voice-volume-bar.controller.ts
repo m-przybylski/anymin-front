@@ -33,6 +33,10 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
     }
   }
 
+  $onDestroy = (): void => {
+    if (this.audioContext) this.audioContext.close()
+  }
+
   private setStream = (stream: MediaStream): void => {
     this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream)
     this.meter = this.volumeMeter.createAudioMeter(this.audioContext)

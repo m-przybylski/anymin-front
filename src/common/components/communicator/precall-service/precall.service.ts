@@ -12,7 +12,7 @@ export class PrecallService {
 
   public openPrecallModal = (serviceDetails: GetService, expertDetails: GetProfile):
     ng.IPromise<IModalInstanceService> =>
-    this.rtcDetectorService.getAllMediaPermissions().then(() =>
-      this.modalsService.createPrecallModal(serviceDetails, expertDetails)
+    this.rtcDetectorService.getAllMedia().then((stream) =>
+      this.modalsService.createPrecallModal(serviceDetails, expertDetails, stream)
     )
 }

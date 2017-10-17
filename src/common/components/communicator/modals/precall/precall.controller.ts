@@ -7,10 +7,12 @@ import {CommonConfig} from '../../../../../../generated_modules/common-config/co
 import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 import {ModalsService} from '../../../../services/modals/modals.service'
 import {ClientCallService} from '../../call-services/client-call.service'
+import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 
 export interface IPrecallModalControllerScope extends ng.IScope {
   service: GetService,
-  owner: GetProfile
+  owner: GetProfile,
+  stream: MediaStream
 }
 
 export class PrecallModalController implements ng.IController {
@@ -33,13 +35,16 @@ export class PrecallModalController implements ng.IController {
   public isUnlimitedPrepaid: boolean = true
   public isButtonProgress: boolean = false
   public isBalanceEnoughForMinimalCallTime: boolean = false
+  public mediaStream?: MediaStream
   private prepaidCallLimitModel: number
   private prepaidValue: string
   private moneyDivider: number = this.CommonConfig.getAllData().config.moneyDivider
   private consultationPrice: number
 
-  public onModalClose = (): void =>
+  public onModalClose = (): void => {
+    this.closeMediaStream()
     this.$uibModalInstance.dismiss('cancel')
+  }
 
   private service: GetService
   private serviceOwner: GetProfile
@@ -59,6 +64,7 @@ export class PrecallModalController implements ng.IController {
               private $state: ng.ui.IStateService,
               private modalsService: ModalsService,
               private clientCallService: ClientCallService,
+              private errorHandler: ErrorHandlerService,
               private $scope: IPrecallModalControllerScope) {
   }
 
@@ -69,6 +75,7 @@ export class PrecallModalController implements ng.IController {
 
     this.service = this.$scope.service
     this.serviceOwner = this.$scope.owner
+    this.mediaStream = this.$scope.stream
 
     if (this.service) {
       this.consultationPrice = this.service.price.amount / this.moneyDivider
@@ -85,8 +92,19 @@ export class PrecallModalController implements ng.IController {
       this.expertAvatar = this.serviceOwner.expertDetails.avatar
     }
 
+    this.$scope.$on('modal.closing', () => {
+      this.closeMediaStream()
+    })
+
     this.PaymentsGetCreditCardsRoute()
     this.FinanceGetClientBalanceRoute()
+  }
+
+  private closeMediaStream = (): void => {
+    if (this.mediaStream) {
+      this.mediaStream.getTracks().forEach(t => {t.enabled = false})
+      this.mediaStream.getTracks().forEach(t => {t.stop()})
+    }
   }
 
   private PaymentsGetCreditCardsRoute = (): void => {
@@ -125,7 +143,7 @@ export class PrecallModalController implements ng.IController {
         message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
         timeout: 2
       })
-      this.$uibModalInstance.dismiss('cancel')
+      this.onModalClose()
     })
   }
 
@@ -137,19 +155,19 @@ export class PrecallModalController implements ng.IController {
       && this.isBalanceEnoughForMinimalCallTime) {
       this.isButtonProgress = true
       this.clientCallService.callServiceId(this.service.id).finally(() => {
-        this.$uibModalInstance.dismiss('cancel')
+        this.onModalClose()
       })
     }
   }
 
   public addNewPaymentMethod = (): void => {
     this.modalsService.createAddPaymentMethodControllerModal(this.onModalClose)
-    this.$uibModalInstance.dismiss('cancel')
+    this.onModalClose()
   }
 
   public showChargeAccountModal = (): void => {
     this.$state.go('app.charge-account')
-    this.$uibModalInstance.dismiss('cancel')
+    this.onModalClose()
   }
 
   public onPriceChange = (consultationCostModel: string): void => {
@@ -178,19 +196,21 @@ export class PrecallModalController implements ng.IController {
     this.callLimitModel = '0'
     this.onPriceChange(this.callLimitModel)
     this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
-
-    // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015
-    const input = angular.element('input-price input')[0]
     this.isPrepaid = data.value === this.prepaidValue
-    if (input) {
-      input.focus()
-    } else {
-      this.topAlertService.error({
-        message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.INPUT'),
-        timeout: 2
-      })
-      this.$uibModalInstance.dismiss('cancel')
-    }
+    const token = this.isPrepaid ? undefined : data.value
+    this.PaymentsApi.putDefaultPaymentMethodRoute({token}).then(() => {
+      // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015
+      const input = angular.element('input-price input')[0]
+      if (input) {
+        input.focus()
+      } else {
+        this.$log.error('Can not find input HTML element')
+      }
+    }, (error) => {
+      this.errorHandler.handleServerError(error,
+        'Can not change default payment method',
+        'COMMUNICATOR.MODALS.PRECALL.ERROR.DEFAULT_PAYMENT')
+    })
   }
 
   private isValueGreaterThanAccountBalanceValid = (model: number): boolean =>

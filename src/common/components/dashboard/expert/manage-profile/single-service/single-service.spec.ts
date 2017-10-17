@@ -109,7 +109,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
 
       it('should open modal form service', inject(() => {
         spyOn(modalsService, 'createServiceFormModal')
-        component.openConsultationFormModal()
+        component.openServiceFormModal()
         expect(modalsService.createServiceFormModal).toHaveBeenCalled()
       }))
     })

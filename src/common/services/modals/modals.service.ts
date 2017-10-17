@@ -517,12 +517,13 @@ export class ModalsService {
     })
   }
 
-  public createPrecallModal = (service: GetService, owner: GetProfile): IModalInstanceService  => {
+  public createPrecallModal = (service: GetService, owner: GetProfile, stream: MediaStream): IModalInstanceService  => {
     const dialogScope: IPrecallModalControllerScope =
       <IPrecallModalControllerScope>this.$rootScope.$new(true)
 
     dialogScope.service = service
     dialogScope.owner = owner
+    dialogScope.stream = stream
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
