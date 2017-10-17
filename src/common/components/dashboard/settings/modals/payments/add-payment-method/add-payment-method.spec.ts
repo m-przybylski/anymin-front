@@ -22,6 +22,7 @@ describe('Testing Controller: AddPaymentMethodController', () => {
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
       scope = <IAddPaymentMethodControllerScope>$rootScope.$new()
+      scope.callback = () => {}
       const injectors = {
         $scope: scope,
         $uibModalInstance: $uibModalInstance
@@ -32,6 +33,18 @@ describe('Testing Controller: AddPaymentMethodController', () => {
   })
 
   it('should exists', () => {
-    return expect(!!controller).toBe(true)
+    expect(!!controller).toBe(true)
   })
+
+  it('should load braintree form ', () => {
+    controller.onLoad()
+    expect(controller.onBraintreeFormLoad).toBe(true)
+  })
+
+  it('should call callback function on form succeed', () => {
+    spyOn(scope, 'callback')
+    controller.onFormSucceed()
+    expect(scope.callback).toHaveBeenCalled()
+  })
+
 })
