@@ -93,6 +93,7 @@
           position: static
 
         input
+          +inputText
           position: absolute
           left: 0
           top: 0
@@ -100,21 +101,15 @@
           width: 100%
           border: 0
           box-shadow: none
+          line-height: normal
 
           +smm
             padding: 0 0 0 16px
 
-          &::-webkit-input-placeholder
-            line-height: $s-navbar-height
-
-          &::-moz-placeholder
-            line-height: $s-navbar-height
-
-          &:-ms-input-placeholder
-            line-height: $s-navbar-height
-
-          &:-moz-placeholder
-            line-height: $s-navbar-height
+          &::placeholder
+            +inputText
+            color: $c-secondary-txt
+            line-height: normal
 
     .search-btn
       display: inline-flex
@@ -198,6 +193,7 @@
         box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
 
       +lgm
+        overflow: visible
         animation: none
         width: auto
         height: auto
@@ -454,7 +450,7 @@
       width: 320px
       right: 24px
       top: 64px
-      z-index: $z-index-minus-100
+      z-index: -$z-index-100
 
   .show-arrow
     +lgm

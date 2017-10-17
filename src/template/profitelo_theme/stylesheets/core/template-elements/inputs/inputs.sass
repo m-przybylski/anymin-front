@@ -1,13 +1,9 @@
-input, textarea
+input
 	+inputText
 	outline: 0
 	border: 0
 
 	&:invalid
-		box-shadow: none
-		outline: 0
-
-	&:focus
 		box-shadow: none
 		outline: 0
 
@@ -19,8 +15,10 @@ input, textarea
 		width: 0
 		height: 0
 
-input
 	&:focus
+		box-shadow: none
+		outline: 0
+		border-radius: 0
 		color: $c-primary
 
 		&[type="number"]
@@ -35,283 +33,25 @@ input
 
 	&::placeholder
 		font-size: $f-header
+		line-height: normal
 
-	&::-webkit-input-placeholder
-		font-size: $f-header
-		line-height: $f-input-height
-
-	&::-moz-placeholder
-		font-size: $f-header
-		line-height: $f-input-height
-
-	&:-ms-input-placeholder
-		font-size: $f-header
-		line-height: $f-input-height
-
-	&:-moz-placeholder
-		font-size: $f-header
-		line-height: $f-input-height
-textarea
-	color: $c-primary-txt
-
-.pin-inputs
-	margin: 0 0 16px
-
-	+smm
-		margin: 0 0 32px
-
-	input
-		+default-font-regular
-		border-bottom: 1px solid $c-lines
-		width: $f-input-height
-		height: $f-input-height
-		line-height: $f-input-height
-		text-align: center
-		margin: 0 8px 0
-		font-size: $f-header
-
-		+smm
-			margin: 0 8px 0
-
-		&::placeholder
-			font-size: $f-header
-
-		&::-webkit-input-placeholder
-			font-size: $f-header
-			line-height: $f-input-height
-
-		&::-moz-placeholder
-			font-size: $f-header
-			line-height: $f-input-height
-
-		&:-ms-input-placeholder
-			font-size: $f-header
-			line-height: $f-input-height
-
-		&:-moz-placeholder
-			font-size: $f-header
-			line-height: $f-input-height
-
-		&:focus
-			color: $c-primary
-			border-color: $c-primary
-
-label
-	+inputLabel
-
-	&.upload-file
-		input[type="file"]
-			display: none
-
-.input-handler
-	+xsm
-		display: flex
-		justify-content: center
-
-	.pro-dropdown
-		width: 100%
-		text-align: left
-		margin: 0 0 16px
-
-		+xsm
-			width: 128px
-			margin: 0 16px 0 0
-
-		.input-group
-			.ui-select-container
-				border-radius: 3px 0 0 3px
-
-.input-group
-	height: $f-input-height
-
-	&.is-label
-		padding: 22px 0 0
-
-		input
-			padding: 0
-
-	label
-		+inputLabel
-		position: absolute
-		top: 0
-		left: 0
-
-	&.invalid
-		input
-			color: $c-error
-
-	input, textarea
-		width: 100%
-		padding: 0
-
-	.input-group-addon
-		color: $c-secondary-txt
-
-		&:hover
-			color: $c-primary
-
-		.icon
-			cursor: pointer
-			position: absolute
-			padding: 16px 0
-			right: 0
-			top: 0
-			bottom: 0
-			margin: auto
-
-			&.cross-addon
-				display: none
-
-			&.icon-class
-				z-index: $z-index-100
-
-	&.ng-not-empty
-		.input-group-addon
-			.icon
-				&.cross-addon
-					display: flex
-
-.input-error-messages
-	+inputError
-	width: 100%
-	min-height: 32px
-	padding: 16px 8px
-
-	.error,
-	.errors
-		+inputError
-
-		&.right
-			text-align: right
-
-		&.left
-			text-align: left
-
-.input-group-addon
-	.icon
-		font-size: $f-icon-size
-
-/* dropdown */
-.ui-select-container
-	transition: border-color 0.2s
-	border-radius: 3px
-	display: flex
-	background: none
-	border: 1px solid $c-lines
-	height: $f-input-height
-	position: relative
-	align-items: stretch
-
-	&:hover
-		border-color: $c-primary
-
-	&.open
-		border-color: $c-primary
-
-	&.ui-select-multiple
-		min-height: $f-input-height
-		padding: 16px
-		background: $c-white
-
-	&.open,
-	&:hover
-		border-color: $c-primary
-
-	&:not(.ng-pristine)
-		.ui-select-match .ui-select-toggle span
-			color: $c-primary-txt
-
-	.ui-select-match
-		flex: 1 0 100%
-		display: flex
-		align-items: stretch
-		z-index: $z-index-100
-
-		&.btn-default-focus
-			box-shadow: none
-			border: 0
-			outline: 0
-			background: none
-
-		.ui-select-toggle
-			flex: 1 0 100%
-			padding: 12px 16px 9px
-			height: 100%
-			align-items: flex-end
-			justify-content: flex-start
-
-			&:hover
-				opacity: 1
-
-			span
-				+default-font-regular
-				color: $c-secondary-txt
-				font-size: $f-paragraph
-				line-height: 1
-				text-transform: none
-
-	.ui-select-choices
-		opacity: 1 !important
-		text-align: left
-		padding: 0
-		width: calc(100% + 2px)
-		max-height: 10px
-		border-radius: 0 0 3px 3px
-		border-top: 0
-		border-color: $c-primary
-		left: -1px !important
-		max-width: inherit
-		transition: all 0.3s
-
-	&.open
-		border-color: $c-primary
-
-		.ui-select-choices
-			max-height: 216px
-
-			.ui-select-choices-group
-				.ui-select-choices-row
-					span
-						+default-font-regular
-						font-size: $f-paragraph
-						padding: 8px
-						color: $c-secondary-txt
-
-					&:hover
-						span
-							background: $c-background
-							color: $c-primary
-
-					&.active
-						> span
-							background: $c-background
-							color: $c-primary-txt
-
-.dropdown-menu
-	max-width: calc(100% + 2px)
-	left: -1px !important
-	border-color: $c-primary
-	border-top: 0
-	position: absolute
-	top: 100% !important
-	z-index: 1000
-	padding: 5px 0 0 0
-	margin: 2px 0 0
-	list-style: none
-	text-align: center
-	background-color: $c-white
-	border: 1px solid $c-lines
-	width: 100%
-	overflow: hidden
-	outline: none
-/* dropdown end*/
-
-
-input
+	//Input Types
 	&[type="range"]
 		background: none
 		height: 24px
 		margin: 0
+
+		&::-moz-range-progress
+			background: $c-primary
+
+		&::-moz-range-track
+			background: $c-primary
+
+		&::-ms-fill-upper
+			background: $c-primary
+
+		&::-ms-fill-lower
+			background: $c-primary
 
 		&::-webkit-slider-runnable-track
 			height: 3px
@@ -349,40 +89,81 @@ input
 			position: relative
 			top: -1px
 
-// FF
-input[type="range"]
-	&::-moz-range-progress
-		background: $c-primary
-	&::-moz-range-track
-		background: $c-primary
-	&::-ms-fill-lower
-		background: $c-primary
-	&::-ms-fill-upper
-		background: $c-primary
+textarea
+	+textareaText
+	outline: 0
+	border: 0
 
-// IE
-input[type="range"]::-ms-fill-lower
-	background: $c-primary
+	&:invalid
+		box-shadow: none
+		outline: 0
 
-input[type="range"]::-ms-fill-upper
-	background: $c-primary
+	&:focus
+		box-shadow: none
+		outline: 0
 
-\::placeholder
-	+inputTextPlaceholder
+	&::-ms-clear
+		width: 0
+		height: 0
 
-\::-webkit-input-placeholder
-	+inputTextPlaceholder
+	&::-ms-reveal
+		width: 0
+		height: 0
 
-\::-moz-placeholder
-	+inputTextPlaceholder
+.pin-inputs
+	margin: 0 0 16px
 
-\:-ms-input-placeholder
-	+inputTextPlaceholder
+	+smm
+		margin: 0 0 32px
 
-\:-moz-placeholder
-	+inputTextPlaceholder
+	input
+		+default-font-regular
+		border-bottom: 1px solid $c-lines
+		width: $f-input-height
+		height: $f-input-height
+		line-height: normal
+		text-align: center
+		margin: 0 8px 0
+		font-size: $f-header
 
-//radio
+		+smm
+			margin: 0
+
+		&::placeholder
+			font-size: $f-header
+			line-height: normal
+
+		&:focus
+			color: $c-primary
+			border-color: $c-primary
+
+label
+	+inputLabel
+
+	&.upload-file
+		input[type="file"]
+			display: none
+
+.input-handler
+	+xsm
+		display: flex
+		justify-content: center
+
+	.pro-dropdown
+		width: 100%
+		text-align: left
+		margin: 0 0 16px
+
+		+xsm
+			width: 128px
+			margin: 0 16px 0 0
+
+		.input-group
+			.ui-select-container
+				border-radius: 3px 0 0 3px
+
+
+//TODO Refactor radio-components
 .radio
 	display: flex
 	align-items: flex-start
@@ -431,7 +212,6 @@ input[type="range"]::-ms-fill-upper
 				display: block
 				border-radius: 50%
 
-
 radio-btn-text
 	display: block
 	margin: 0 0 8px
@@ -449,4 +229,3 @@ radio-btn-text
 			text-align: left
 			color: $c-secondary-txt
 			margin: 12px 0 0
-
