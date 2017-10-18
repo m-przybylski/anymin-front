@@ -6,8 +6,6 @@ import {CurrentExpertCall} from './models/current-expert-call';
 import {CurrentCall} from './models/current-call';
 import {MessageRoom} from './models/message-room';
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
-import {CommunicatorService} from './communicator.service'
-import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -36,25 +34,22 @@ export class CommunicatorComponentController implements ng.IController {
 
   public messageRoom: MessageRoom
 
-  public callActive: boolean
-
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
               private $filter: ng.IFilterService,
-              private expertCallService: ExpertCallService,
               private topAlertService: TopAlertService,
-              private communicatorService: CommunicatorService,
-              clientCallService: ClientCallService) {
+              clientCallService: ClientCallService,
+              expertCallService: ExpertCallService) {
 
     clientCallService.onNewCall(this.registerClientCall)
     clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
     clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
     expertCallService.onNewCall(this.registerExpertCall)
 
-    expertCallService.onPullCall(this.onPullCall)
-    expertCallService.onActiveDevice(this.onActiveDevice)
+    expertCallService.onCallPull(this.onCallPull)
+    expertCallService.onCallTaken(this.closeCommunicator)
   }
 
   $onInit = (): void => {
@@ -90,10 +85,6 @@ export class CommunicatorComponentController implements ng.IController {
     })
   }
 
-  public pullCall = (): void => {
-    this.expertCallService.pullCall()
-  }
-
   private registerClientCall = (call: CurrentClientCall): void => {
     this.cleanupComponent()
     this.currentCall = call
@@ -109,7 +100,7 @@ export class CommunicatorComponentController implements ng.IController {
     this.registerCommonCallEvents(call);
   }
 
-  private onPullCall = (call: CurrentExpertCall): void => {
+  private onCallPull = (call: CurrentExpertCall): void => {
     this.cleanupComponent()
     this.currentCall = call
     this.service = call.getService();
@@ -146,17 +137,6 @@ export class CommunicatorComponentController implements ng.IController {
     call.onParticipantOffline(this.onUserOffline)
   }
 
-  private onActiveDevice = (activeDevice: CallActiveDevice): void => {
-    if (activeDevice.device !== this.communicatorService.getClientDeviceId()) {
-      this.isDisconnectedAnimation = true
-      this.callActive = true
-      this.$timeout(() => {
-        this.isClosed = true
-        this.cleanupComponent()
-      }, CommunicatorComponentController.disconnectedAnimationTimeout)
-    }
-  }
-
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
     this.callLengthInSeconds = timeMoneyTuple.time
     this.callCost = timeMoneyTuple.money
@@ -172,6 +152,14 @@ export class CommunicatorComponentController implements ng.IController {
 
   private onUserBackOnline = (): void => {
     this.isParticipantOffline = false
+  }
+
+  private closeCommunicator = (): void => {
+    this.isDisconnectedAnimation = true
+    this.$timeout(() => {
+      this.isClosed = true
+      this.cleanupComponent()
+    }, CommunicatorComponentController.disconnectedAnimationTimeout)
   }
 
   private onUserOffline = (): void => {
@@ -196,14 +184,9 @@ export class CommunicatorComponentController implements ng.IController {
   }
 
   private onCallEnd = (): void => {
-    this.isDisconnectedAnimation = true
-    this.callActive = false
+    this.closeCommunicator()
     this.$window.removeEventListener('online', this.onOnline)
     this.$window.removeEventListener('offline', this.onOffline)
-    this.$timeout(() => {
-      this.isClosed = true
-      this.cleanupComponent()
-    }, CommunicatorComponentController.disconnectedAnimationTimeout)
   }
 
   /* Other events */

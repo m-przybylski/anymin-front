@@ -45,7 +45,7 @@ export class CurrentCall {
     onAnswered: 'onAnswered',
     onRejected: 'onRejected',
     onEnd: 'onEnd',
-    onActiveDevice: 'onActiveDevice',
+    onCallTaken: 'onCallTaken',
     onInvited: 'onInvited',
     onJoined: 'onJoined',
     onLeft: 'onLeft',
@@ -182,10 +182,7 @@ export class CurrentCall {
     if (this.timer) this.timer.resume()
   }
 
-  public pullCall = (mediaStream: MediaStream): Promise<void> => {
-    this.stopLocalStream()
-    return this.ratelCall.pull(mediaStream)
-  }
+  public pullCall = (mediaStream: MediaStream): Promise<void> => this.ratelCall.pull(mediaStream)
 
   public onParticipantOnline = (cb: () => void): void => this.callbacks.methods.onParticipantOnline(cb)
 
@@ -209,8 +206,8 @@ export class CurrentCall {
     this.callbacks.methods.onLocalStream(cb);
   }
 
-  public onActiveDevice =
-    (cb: (activeDevice: CallActiveDevice) => void): void => this.callbacks.methods.onActiveDevice(cb);
+  public onCallTaken =
+    (cb: (activeDevice: CallActiveDevice) => void): void => this.callbacks.methods.onCallTaken(cb);
 
   private registerCallbacks = (): void => {
     this.ratelCall.onAnswered(() => this.callbacks.notify(CurrentCall.events.onAnswered, null))
@@ -221,11 +218,7 @@ export class CurrentCall {
       this.setState(this.ratelCall.users.length > 1 ? CallState.ENDED : CallState.CANCELLED)
       this.callbacks.notify(CurrentCall.events.onEnd, null)
     })
-    this.ratelCall.onActiveDevice((activeDevice) => {
-      this.stopLocalStream()
-      this.stopTimer()
-      this.callbacks.notify(CurrentCall.events.onActiveDevice, activeDevice)
-    })
+    this.ratelCall.onActiveDevice(this.onActiveDevice)
     this.ratelCall.onInvited(() => this.callbacks.notify(CurrentCall.events.onInvited, null))
     this.ratelCall.onJoined(() => this.callbacks.notify(CurrentCall.events.onJoined, null))
     this.ratelCall.onLeft(() => {
@@ -255,6 +248,12 @@ export class CurrentCall {
       this.resumeTimer()
       this.callbacks.notify(CurrentCall.events.onParticipantOnline, null)
     })
+  }
+
+  private onActiveDevice = (activeDevice: CallActiveDevice): void => {
+    this.stopLocalStream()
+    this.stopTimer()
+    this.callbacks.notify(CurrentCall.events.onCallTaken, activeDevice)
   }
 
   private createTimer = (price: MoneyDto, freeMinutesCount: number): TimerService =>

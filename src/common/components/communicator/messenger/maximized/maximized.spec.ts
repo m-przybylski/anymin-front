@@ -36,7 +36,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
 
     const expertCallService: ExpertCallService = {
       onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {},
-      onPullCall: (_cb: (call: CurrentExpertCall) => void): void => {}
+      onCallPull: (_cb: (call: CurrentExpertCall) => void): void => {}
     } as ExpertCallService
 
     const uploaderFactory: UploaderFactory = {

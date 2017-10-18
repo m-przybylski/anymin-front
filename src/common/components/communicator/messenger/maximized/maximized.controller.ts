@@ -52,7 +52,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
     this.clientCallService.onNewCall(this.clientInit)
     this.expertCallService.onNewCall(this.expertInit)
-    this.expertCallService.onPullCall((currentExpertCall) => {
+    this.expertCallService.onCallPull((currentExpertCall) => {
       if (!this.messageRoom) this.expertInit(currentExpertCall)
     })
 

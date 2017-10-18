@@ -23,8 +23,8 @@ export class ExpertCallService {
 
   private static readonly events = {
     onNewCall: 'onNewCall',
-    onPullCall: 'onPullCall',
-    onActiveDevice: 'onActiveDevice'
+    onCallPull: 'onCallPull',
+    onCallTaken: 'onCallTaken'
   };
 
   /* @ngInject */
@@ -45,12 +45,12 @@ export class ExpertCallService {
     this.callbacks.methods.onNewCall(cb);
   }
 
-  public onPullCall = (cb: (currentExpertCall: CurrentExpertCall) => void): void => {
-    this.callbacks.methods.onPullCall(cb);
+  public onCallPull = (cb: (currentExpertCall: CurrentExpertCall) => void): void => {
+    this.callbacks.methods.onCallPull(cb);
   }
 
-  public onActiveDevice =
-    (cb: (activeDevice: CallActiveDevice) => void): void => this.callbacks.methods.onActiveDevice(cb)
+  public onCallTaken =
+    (cb: (activeDevice: CallActiveDevice) => void): void => this.callbacks.methods.onCallTaken(cb)
 
   private onExpertCallIncoming = (callInvitation: RatelSdk.events.CallInvitation): void => {
     if (!this.currentExpertCall) {
@@ -65,11 +65,7 @@ export class ExpertCallService {
 
         this.soundsService.callIncomingSound().play()
 
-        this.currentExpertCall.onActiveDevice((activeDevice) => {
-          this.soundsService.callIncomingSound().stop()
-          this.callingModal.dismiss();
-          this.callbacks.notify(ExpertCallService.events.onActiveDevice, activeDevice)
-        })
+        this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken)
 
         this.callingModal = this.modalsService.createIncomingCallModal(
           incomingCallDetails.service,
@@ -90,11 +86,19 @@ export class ExpertCallService {
     }, this.onGetUserMediaStreamFailure)
     .then(() => {
       if (this.currentExpertCall) this.onCallPulled(this.currentExpertCall)
-      else this.$log.error('Call does not exist')
+      else throw new Error('Call does not exist')
     })
     .catch((error) => {
       this.$log.error(error);
     })
+  }
+
+  private onCurrentExpertCallTaken = (activeDevice: CallActiveDevice): void => {
+    if (activeDevice.device !== this.communicatorService.getClientDeviceId()) {
+      this.soundsService.callIncomingSound().stop()
+      this.callingModal.dismiss();
+      this.callbacks.notify(ExpertCallService.events.onCallTaken, activeDevice)
+    }
   }
 
   private onExpertCallDisappearBeforeAnswering = (): void => {
@@ -116,7 +120,7 @@ export class ExpertCallService {
   }
 
   private onCallPulled = (currentExpertCall: CurrentExpertCall): void => {
-    this.callbacks.notify(ExpertCallService.events.onPullCall, currentExpertCall);
+    this.callbacks.notify(ExpertCallService.events.onCallPull, currentExpertCall);
     currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId()).then((incomingCallDetails) => {
       currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
