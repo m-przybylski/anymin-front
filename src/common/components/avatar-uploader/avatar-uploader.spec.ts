@@ -103,8 +103,7 @@ describe('Unit testing: profitelo.components.avatar-uploader', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
       const imagePath = '../img/src.jpg'
       const file: File = new File([], '0')
-      component.addPhoto(imagePath, file, () => {
-      })
+      component.addPhoto(imagePath, file, () => {})
       expect(component.imageSource).toEqual(imagePath)
       expect(component.isFileFormatValidError).toBe(false)
     })
@@ -113,8 +112,7 @@ describe('Unit testing: profitelo.components.avatar-uploader', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const imagePath = '../img/src.jpg'
       const file: File = new File([], '0')
-      component.addPhoto(imagePath, file, () => {
-      })
+      component.addPhoto(imagePath, file, () => {})
       expect(component.isFileFormatValidError).toBe(true)
     })
 

@@ -35,7 +35,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
               private FilesApi: FilesApi,
               private $filter: IFilterService,
               uploaderFactory: UploaderFactory) {
-    this.uploader = uploaderFactory.getInstance(1)
+    this.uploader = uploaderFactory.getInstance()
   }
 
   public onUploadEnd = (uploadingStatus: boolean): void => {
@@ -67,7 +67,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
 
   public reuploadFile = (file: IDocumentFile): void => {
     const reuploadedFile: IDocumentFile | undefined = _.find(this.documentFiles, (documentFile) =>
-    file === documentFile)
+      file === documentFile)
     if (reuploadedFile && reuploadedFile.file) {
       this.onUploadEnd(false)
       reuploadedFile.isUploadFailed = false

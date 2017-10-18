@@ -72,7 +72,7 @@ export class BasicAccountSettingsController implements ng.IController {
     $scope.isUserUploadImage = false
     $scope.isUploadInProgress = false
 
-    this.uploader = uploaderFactory.getInstance(1)
+    this.uploader = uploaderFactory.getInstance()
 
     userService.getUser().then(user => {
       const userBasicSettings = user.settings
