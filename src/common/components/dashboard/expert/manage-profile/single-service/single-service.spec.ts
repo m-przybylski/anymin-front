@@ -7,8 +7,8 @@ import userModule from '../../../../../services/user/user'
 import {UserService} from '../../../../../services/user/user.service'
 import {ModalsService} from '../../../../../services/modals/modals.service'
 
-describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.single-service', () => {
-  return describe('for singleService >', () => {
+describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.single-service', () =>
+  describe('for singleService >', () => {
 
     let scope: ISingleServiceComponentControllerScope
     let rootScope: ng.IRootScopeService
@@ -87,7 +87,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
           $scope: rootScope,
           modalService: modalsService,
           $document: document,
-          userService: userService
+          userService
         }
 
         const bindings: ISingleServiceComponentBindings = {
@@ -109,9 +109,9 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
 
       it('should open modal form service', inject(() => {
         spyOn(modalsService, 'createServiceFormModal')
-        component.openConsultationFormModal()
+        component.openServiceFormModal()
         expect(modalsService.createServiceFormModal).toHaveBeenCalled()
       }))
     })
   })
-})
+)
