@@ -27,9 +27,6 @@ describe('Testing Controller: basicAccountSettingsController', () => {
 
   const uploaderFactory = {
     getInstance: (): void => {
-    },
-    collectionTypes: {
-      avatar: {}
     }
   }
 

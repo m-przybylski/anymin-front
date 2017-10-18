@@ -29,7 +29,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     }
 
     let uploaderService: UploaderService
-    
+
     const clientCallService: ClientCallService = {
       onNewCall: (_cb: (call: CurrentClientCall) => void): void => {}
     } as ClientCallService
@@ -39,7 +39,6 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     } as ExpertCallService
 
     const uploaderFactory: UploaderFactory = {
-      collectionTypes: {avatar: 'avatar'},
       getInstance: (): UploaderService => uploaderService as UploaderService
     } as UploaderFactory
 

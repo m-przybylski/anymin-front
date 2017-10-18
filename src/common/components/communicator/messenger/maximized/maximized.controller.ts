@@ -47,7 +47,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
               private expertCallService: ExpertCallService,
               uploaderFactory: UploaderFactory) {
 
-    this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
+    this.uploader = uploaderFactory.getInstance(1)
     this.messagesScroll.perfectScrollbar()
 
     this.clientCallService.onNewCall(this.clientInit)
