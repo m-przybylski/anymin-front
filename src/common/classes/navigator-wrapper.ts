@@ -4,9 +4,9 @@ export class NavigatorWrapper {
 
   private static videoConstraints: MediaStreamConstraints = {
     video: {
-      width: 320,
-      height: 200,
-      frameRate: 15
+      width: { min: 320, ideal: 640, max: 640 },
+      height: { min: 240, ideal: 480, max: 480 },
+      frameRate: 30
     }
   }
 
