@@ -35,7 +35,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
               private FilesApi: FilesApi,
               private $filter: IFilterService,
               uploaderFactory: UploaderFactory) {
-    this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
+    this.uploader = uploaderFactory.getInstance()
   }
 
   public onUploadEnd = (uploadingStatus: boolean): void => {

@@ -26,8 +26,7 @@ export class UploaderService {
 
   /* @ngInject */
   constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, CommonConfig: CommonConfig,
-              private FilesApi: FilesApi, private Upload: any, private simultaneousUploadCount: number,
-              private collectionType: string) {
+              private FilesApi: FilesApi, private Upload: any, private simultaneousUploadCount: number) {
 
     this.urls = CommonConfig.getAllData().urls
   }
@@ -82,7 +81,7 @@ export class UploaderService {
   }
 
   private getFileToken = (fileObj: IFileObject): ng.IPromise<FileIdDto> =>
-    this.FilesApi.createFileTokenPath(this.collectionType, fileObj.postProcessOptions)
+    this.FilesApi.createFileTokenPath(fileObj.postProcessOptions)
 
   private processUpload = (): void => {
     if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&

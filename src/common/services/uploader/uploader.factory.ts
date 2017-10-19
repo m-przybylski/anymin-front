@@ -4,17 +4,11 @@ import {CommonConfig} from '../../../../generated_modules/common-config/common-c
 
 export class UploaderFactory {
 
-  public collectionTypes = {
-    avatar: 'avatar'
-  }
-
   /* @ngInject */
   constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
               private CommonConfig: CommonConfig, private FilesApi: FilesApi, private Upload: any) {
   }
 
-  public getInstance = (simultaneousUploadCount: number = 1,
-                        collectionType: string = this.collectionTypes.avatar): UploaderService =>
-    new UploaderService(this.$q, this.$timeout, this.CommonConfig, this.FilesApi, this.Upload,
-      simultaneousUploadCount, collectionType)
+  public getInstance = (simultaneousUploadCount: number = 1): UploaderService =>
+    new UploaderService(this.$q, this.$timeout, this.CommonConfig, this.FilesApi, this.Upload, simultaneousUploadCount)
 }

@@ -3,6 +3,7 @@ import {FilesApi, FilesApiMock} from 'profitelo-api-ng/api/api'
 import {UploaderFactory} from './uploader.factory'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import uploaderModule from './uploader'
+import {httpCodes} from '../../classes/http-codes'
 
 class File {
   constructor() {
@@ -58,9 +59,10 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     it('should upload 2 files at a time', inject(($q: ng.IQService, $timeout: ng.ITimeoutService,
                                                   FilesApiMock: FilesApiMock, $httpBackend: ng.IHttpBackendService) => {
 
-      FilesApiMock.createFileTokenPath(200, 'avatar', {fileId: '1'})
+      FilesApiMock.createFileTokenPath(httpCodes.ok, {fileId: '1'})
 
-      const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
+      const simultaneousUploadCount = 2
+      const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       spyOn(UploadMock, 'upload').and.returnValue($q.resolve('result'))
 
@@ -76,7 +78,8 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     }))
 
     it('should not upload empty file', inject(($rootScope: IRootScopeService) => {
-      const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
+      const simultaneousUploadCount = 2
+      const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       let promiseValue = ''
       instance.uploadFile(<any>null, {}, () => {
@@ -90,9 +93,10 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
     it('should not upload file if token error', inject(($timeout: ng.ITimeoutService, $rootScope: IRootScopeService,
                                                         $httpBackend: ng.IHttpBackendService, FilesApiMock: FilesApiMock) => {
-      FilesApiMock.createFileTokenPath(403, 'avatar', undefined, 'error')
+      FilesApiMock.createFileTokenPath(httpCodes.forbidden, undefined, 'error')
 
-      const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
+      const simultaneousUploadCount = 2
+      const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       let returnValue: any = {}
       instance.uploadFile(<any>new File, {}, () => {
@@ -111,9 +115,10 @@ describe('Unit testing: profitelo.services.uploader >', () => {
                                                       $rootScope: IRootScopeService, FilesApiMock: FilesApiMock,
                                                       $httpBackend: ng.IHttpBackendService) => {
 
-      FilesApiMock.createFileTokenPath(200, uploaderFactory.collectionTypes.avatar, {fileId: '1'})
+      FilesApiMock.createFileTokenPath(httpCodes.ok, {fileId: '1'})
 
-      const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
+      const simultaneousUploadCount = 2
+      const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       spyOn(UploadMock, 'upload').and.returnValue($q.reject('error'))
 
@@ -141,7 +146,8 @@ describe('Unit testing: profitelo.services.uploader >', () => {
         }
       }
 
-      const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
+      const simultaneousUploadCount = 2
+      const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       spyOn(obj, 'callback')
       spyOn(UploadMock, 'upload').and.callFake(() => {
@@ -163,7 +169,8 @@ describe('Unit testing: profitelo.services.uploader >', () => {
                                                      FilesApi: FilesApi) => {
       spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.resolve({fileId: 1}))
 
-      const instance = uploaderFactory.getInstance(0, uploaderFactory.collectionTypes.avatar)
+      const simultaneousUploadCount = 0
+      const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       spyOn(UploadMock, 'upload').and.returnValue($q.resolve(''))
 

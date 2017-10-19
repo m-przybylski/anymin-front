@@ -24,7 +24,7 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
 
   /* @ngInject */
   constructor(uploaderFactory: UploaderFactory, private $scope: ng.IScope) {
-    this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
+    this.uploader = uploaderFactory.getInstance()
   }
 
   public addPhoto = (imagePath: string, file: File, callback: () => void): void => {

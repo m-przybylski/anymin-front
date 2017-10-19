@@ -19,7 +19,6 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
     let httpBackend: ng.IHttpBackendService
 
     const uploaderFactory = {
-      collectionTypes: {avatar: 'avatar'},
       getInstance: (): void => {
       }
     }
