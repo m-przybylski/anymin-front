@@ -4,7 +4,7 @@ import {Tag, GetOrganizationServiceDetails, GetProfileDetails, GetProfile} from 
 import './profile-company-single-consultation.sass'
 
 export interface IProfileCompanyConsultationComponentBindings extends ng.IController {
-  service: GetOrganizationServiceDetails
+  organizationServiceDetails: GetOrganizationServiceDetails
   tags: Tag[]
   employees: GetProfileDetails[]
   ownerProfile: GetProfile
