@@ -47,6 +47,9 @@ export class CommunicatorComponentController implements ng.IController {
     clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
     clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
     expertCallService.onNewCall(this.registerExpertCall)
+
+    expertCallService.onCallPull(this.onCallPull)
+    expertCallService.onCallTaken(this.closeCommunicator)
   }
 
   $onInit = (): void => {
@@ -94,6 +97,15 @@ export class CommunicatorComponentController implements ng.IController {
     this.registerCommonCallEvents(call);
   }
 
+  private onCallPull = (call: CurrentExpertCall): void => {
+    this.cleanupComponent()
+    this.currentCall = call
+    this.service = call.getService();
+    this.isConnecting = false
+    this.isClosed = false
+    this.registerCommonCallEvents(call);
+  }
+
   private registerExpertCall = (call: CurrentExpertCall): void => {
     this.cleanupComponent()
     this.currentCall = call
@@ -109,7 +121,6 @@ export class CommunicatorComponentController implements ng.IController {
 
     const localStream = call.getLocalStream();
     if (localStream) this.onLocalStream(localStream);
-
     this.messageRoom = call.getMessageRoom();
 
     this.$window.addEventListener('online', this.onOnline)
@@ -142,6 +153,14 @@ export class CommunicatorComponentController implements ng.IController {
     this.isParticipantOffline = false
   }
 
+  private closeCommunicator = (): void => {
+    this.isDisconnectedAnimation = true
+    this.$timeout(() => {
+      this.isClosed = true
+      this.cleanupComponent()
+    }, CommunicatorComponentController.disconnectedAnimationTimeout)
+  }
+
   private onUserOffline = (): void => {
     this.isParticipantOffline = true
     this.topAlertService.error({
@@ -164,13 +183,9 @@ export class CommunicatorComponentController implements ng.IController {
   }
 
   private onCallEnd = (): void => {
-    this.isDisconnectedAnimation = true
+    this.closeCommunicator()
     this.$window.removeEventListener('online', this.onOnline)
     this.$window.removeEventListener('offline', this.onOffline)
-    this.$timeout(() => {
-      this.isClosed = true
-      this.cleanupComponent()
-    }, CommunicatorComponentController.disconnectedAnimationTimeout)
   }
 
   /* Other events */

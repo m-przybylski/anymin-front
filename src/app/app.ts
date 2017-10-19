@@ -42,6 +42,7 @@ import './../template/profitelo_theme/stylesheets/main.sass'
 import {CommonConfig, default as commonConfigModule} from '../../generated_modules/common-config/common-config'
 import profiteloWebsocketModule from '../common/services/profitelo-websocket/profitelo-websocket'
 import pagePreloaderModule from '../common/components/interface/page-preloader/page-preloader'
+import activeCallBarModule from '../common/components/communicator/active-call-bar/active-call-bar'
 
 declare const Raven: any
 
@@ -85,6 +86,7 @@ angular.module('profitelo', [
 
   // components
   pagePreloaderModule,
+  activeCallBarModule,
 
   // directives
   'profitelo.components.interface.preloader-container',

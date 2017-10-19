@@ -17,7 +17,8 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
     }
 
     const expertCallService = {
-      onNewCall: (_cb: CurrentExpertCall): void => {}
+      onNewCall: (_cb: CurrentExpertCall): void => {},
+      onCallPull: (_cb: CurrentExpertCall): void => {}
     }
 
     const validHTML =

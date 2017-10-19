@@ -8,7 +8,7 @@ import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 export class MessageRoom {
 
   private static readonly chatHistoryLimit: number = 200
-  private room?: RatelSdk.BusinessRoom
+  public room?: RatelSdk.BusinessRoom
 
   private callbacks: CallbacksService
 
@@ -57,12 +57,12 @@ export class MessageRoom {
 
   public sendMessage =
     (msg: string, tag = 'message', context?: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
-    if (this.room) {
-      return this.room.sendCustom(msg, tag, context)
-    } else {
-      return Promise.reject('No room')
+      if (this.room) {
+        return this.room.sendCustom(msg, tag, context)
+      } else {
+        return Promise.reject('No room')
+      }
     }
-  }
 
   public mark = (timestamp: RatelSdk.protocol.Timestamp): Promise<void> => {
     if (this.room) {
@@ -72,10 +72,14 @@ export class MessageRoom {
     }
   }
 
-  public setRoom = (room: RatelSdk.BusinessRoom): Promise<void> => {
+  public setRoom = (room: RatelSdk.BusinessRoom): void => {
+    this.room = room;
+    this.registerRoomEvent(room);
+  }
+
+  public joinRoom = (room: RatelSdk.BusinessRoom): Promise<void> => {
     if (!this.room) {
-      this.room = room;
-      this.registerRoomEvent(room)
+      this.setRoom(room)
       return room.join()
     }
     else {
