@@ -19,18 +19,17 @@
           .details-row.details-header-row
             .details-tab-label
 
-          .details-tab-row
+          .details-tab-row(data-ng-if="vm.financialOperation")
             .details-tab-label
               span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.INCOME")
             .details-tab-content
-              .price-section(data-ng-bind-html="vm.callCost | money")
+              .price-section(data-ng-bind-html="vm.financialOperation | money")
 
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONSULTATION_ID")
             .details-tab-content
-              span {{ vm.sueId }}
-
+              span {{ vm.sueId | uuidTrimmer }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.DATE")
@@ -47,7 +46,7 @@
             .details-tab-label
               span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
             .details-tab-content
-              span {{ vm.callDuration | millisecondsToDatetime | date: 'HH:mm:ss' }}
+              span {{ vm.callDuration | secondsToDateTime | date: 'HH:mm:ss' }}
 
         tags-list(data-title="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE"
         data-tags="vm.recommendedTag" data-ng-if='vm.isRecommended')
