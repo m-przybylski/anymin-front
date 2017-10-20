@@ -1,20 +1,20 @@
 import * as angular from 'angular'
 import {IFilterService} from '../../services/filter/filter.service'
+import filtersModule from "../filters";
 
-describe('Unit testing: profitelo.filters.uuid-trimmer-filter.uuid-trimmer>', () => {
-  describe('for message >', () => {
+describe('Unit testing: profitelo.filters.uuid-trimmer-filter.uuid-trimmer >', () => {
+  describe('for uuid filter >', () => {
 
     let $filter: IFilterService
+    const filterName = 'uuidTrimmer'
 
     beforeEach(() => {
-      angular.mock.module('profitelo.filters.uuid-trimmer-filter.uuid-trimmer')
+      angular.mock.module(filtersModule)
     })
 
     beforeEach(inject((_$filter_: IFilterService) => {
       $filter = _$filter_
     }))
-
-    const filterName = 'uuidTrimmer'
 
     it('should trim defined uuid', () => {
       const testUUID: string = 'bc056578-2a53-473c-bd74-afa8af5e146d'
@@ -32,7 +32,7 @@ describe('Unit testing: profitelo.filters.uuid-trimmer-filter.uuid-trimmer>', ()
     it('should not trim undefined uuid', () => {
       const undefinedUUID: any = undefined
 
-      expect($filter(filterName)(undefinedUUID)).toEqual(undefinedUUID)
+      expect($filter(filterName)(undefinedUUID)).toEqual('')
     })
 
   })
