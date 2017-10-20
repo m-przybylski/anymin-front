@@ -44,7 +44,7 @@ describe('Testing Controller: editExpertProfileController', () => {
   })
 
   it('should exists', () => {
-    return expect(!!editExpertProfileController).toBe(true)
+    expect(!!editExpertProfileController).toBe(true)
   })
 
   it('should uibModalInstance', () => {
@@ -120,5 +120,17 @@ describe('Testing Controller: editExpertProfileController', () => {
     expect(editExpertProfileController.isSubmitted).toBe(false)
     expect(ProfileApi.patchProfileRoute).toHaveBeenCalledWith(updatedProfile)
   }))
+
+  it('should check is profile name valid', () => {
+    editExpertProfileController.profileName = 'Franek'
+    editExpertProfileController.isNameValid()
+    expect(editExpertProfileController.isNameValid()).toBe(true)
+  })
+
+  it('should check is profile name valid', () => {
+    editExpertProfileController.profileName = 'Franek'
+    editExpertProfileController.isNameValid()
+    expect(editExpertProfileController.isNameValid()).toBe(true)
+  })
 
 })

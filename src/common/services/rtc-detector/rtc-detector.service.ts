@@ -26,10 +26,14 @@ export class RtcDetectorService {
       DetectRTC.isWebsiteHasWebcamPermissions && DetectRTC.isWebsiteHasMicrophonePermissions
     )
 
-  public getAllMediaPermissions = (): ng.IPromise<void> =>
-    this.$q<void>((resolve, reject) => {
+  public getAllMedia = (): ng.IPromise<MediaStream> =>
+    this.$q<MediaStream>((resolve, reject) => {
       this.isMediaPermissionGiven().then(() => {
-        resolve()
+        navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), (stream) => {
+          resolve(stream);
+        }, () => {
+          reject()
+        })
       }, () => {
         if (DetectRTC.browser.isIe || DetectRTC.browser.isEdge)
           this.modalsService.createBrowserDoesNotSupportRtcModal()
@@ -38,7 +42,7 @@ export class RtcDetectorService {
       })
     })
 
-  private getUserMedia = (resolve: () => void, reject: () => void): void => {
+  private getUserMedia = (resolve: (stream: MediaStream) => void, reject: () => void): void => {
     const mediaDisplayObject = {
       shouldDisplayMedia: true
     };
@@ -46,9 +50,9 @@ export class RtcDetectorService {
 
     this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay)
 
-    navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), () => {
+    navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), (stream) => {
       this.instanceModal.close('cancel')
-      resolve();
+      resolve(stream);
     }, () => {
       this.modalsService.createRtcDetectorBlockedModal()
       mediaDisplayObject.shouldDisplayMedia = false;

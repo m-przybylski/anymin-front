@@ -20,11 +20,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
     })
 
     it('should use timer factory', inject(($interval: ng.IIntervalService) => {
-      const callbacks = {
-        cb1: (): void => {}
-      }
-
-      spyOn(callbacks, 'cb1')
+      let functionCalled: boolean = false
 
       const money = {
         amount: 100,
@@ -34,13 +30,17 @@ describe('Unit testing: profitelo.services.timer >', () => {
       // FIXME
       const timer = timerFactory.getInstance(money, <any>undefined , <any>undefined)
 
-      timer.start(callbacks.cb1)
+      timer.start(() => {
+        functionCalled = true
+      })
 
-      $interval.flush(1000)
-
+      $interval.flush(5000)
+      timer.pause()
+      $interval.flush(5000)
+      timer.resume()
       timer.stop()
+      expect(functionCalled).toEqual(true)
 
-      expect(callbacks.cb1).toHaveBeenCalled()
     }))
   })
 })
