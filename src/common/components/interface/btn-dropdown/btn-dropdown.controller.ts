@@ -1,10 +1,12 @@
 import {IBtnDropdownComponentBindings} from './btn-dropdown'
+import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
 
 export class BtnDropdownComponentController implements ng.IController, IBtnDropdownComponentBindings {
   public callback: () => void
   public isOpen: boolean = false
   public buttonText: string = ''
   public buttonClass: string
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
   constructor(private $scope: ng.IScope,

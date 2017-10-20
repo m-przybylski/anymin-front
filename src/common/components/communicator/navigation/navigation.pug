@@ -1,6 +1,6 @@
 .communicator-nav
   .communicator-upper-nav
-    .communicator-window-nav
+    .communicator-window-nav(data-ng-if="!$ctrl.isPlatformForExpert")
       a.btn.btn-circle.black(data-ng-click="$ctrl.toggleOptions($event) && $ctrl.pullCall()")
         span.icon.icon-smartphone-24
         span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.SWITCH_GSM")

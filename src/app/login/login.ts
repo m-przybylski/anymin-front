@@ -4,8 +4,12 @@ import './account/account'
 import './register/register'
 import './forgot-password/forgot-password'
 import './set-new-password/set-new-password'
+import {isPlatformForExpert} from '../../common/constants/platform-for-expert.constant'
 
 function LoginController(): void {
+  this.isPlatformForExpert = isPlatformForExpert
+
+  this.isPlatformForExpert ? this.onLogoLink = 'app.login.account' : this.onLogoLink = 'app.home'
 
   return this
 }

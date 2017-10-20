@@ -8,6 +8,7 @@ import expertNavigationModule from '../../../common/components/dashboard/expert/
 import dashboardExpertInvoicesModule from './invoices/invoices'
 import dashboardExpertManageProfileModule from './manage-profile/manage-profile'
 import AvatarUploaderModule from '../../../common/components/avatar-uploader/avatar-uploader'
+import {UserService} from '../../../common/services/user/user.service'
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
   'ui.router',
@@ -27,6 +28,18 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
     abstract: true,
     template: require('./expert.pug')(),
     controller: 'expertDashboard',
+    resolve: {
+      isPlatformForExpert: (userService: UserService, $state: ng.ui.IStateService): void => {
+        userService.getUser().then((user) => {
+          if ((user.isExpert || user.isCompany)) {
+            return true
+          } else {
+            $state.go('app.wizard.create-profile')
+            return
+          }
+        })
+      }
+    },
     data: {
       pageTitle: 'PAGE_TITLE.EXPERT_DASHBOARD',
     }

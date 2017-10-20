@@ -4,7 +4,9 @@
       span.icon.icon-reject-24
       | {{ $ctrl.buttonText | translate}}
 
-    span.toggle-btn(data-ng-click="$ctrl.toggleButton()")
+    span.toggle-btn(
+    data-ng-if="!$ctrl.isPlatformForExpert"
+    data-ng-click="$ctrl.toggleButton()")
       span.icon-down-12
 
   ul.btn-dropdown-list.collapse-height.animation(data-ng-if="$ctrl.isOpen")

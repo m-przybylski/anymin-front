@@ -3,9 +3,10 @@ import * as angular from 'angular'
 import {HelpdeskService} from '../../../services/helpdesk/helpdesk.service'
 import {ISearchArticle} from '../../../services/helpdesk/search-article.interface'
 import * as _ from 'lodash'
+import {urls} from '../../../constants/urls.constant'
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
-  public readonly zendeskUrl: string = 'https://anymind.zendesk.com/hc/pl/'
+  public readonly zendeskUrl: string = urls.zendesk
   public searchResults: ISearchArticle[] = []
   public helpSearchQuery: string
   public onClick: () => void

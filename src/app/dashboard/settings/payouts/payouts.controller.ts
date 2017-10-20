@@ -1,10 +1,12 @@
 import {PayoutsApi} from 'profitelo-api-ng/api/api'
 import {PayPalAccountDto, PayoutMethodsDto} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
+import {isPlatformForExpert} from '../../../../common/constants/platform-for-expert.constant'
 
 export class DashboardSettingsPayoutsController implements ng.IController {
   public isAnyPayoutMethod: boolean = false
   public payPalAccount?: PayPalAccountDto
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
   constructor(private modalsService: ModalsService, private $state: ng.ui.IStateService,

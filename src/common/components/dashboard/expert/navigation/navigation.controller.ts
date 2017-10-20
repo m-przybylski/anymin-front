@@ -4,12 +4,14 @@ import {MoneyDto} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {PromiseService} from '../../../../services/promise/promise.service'
 import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
+import {isPlatformForExpert} from '../../../../constants/platform-for-expert.constant'
 
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
   private static readonly loaderDelay: number = 500
   public expertBalance: MoneyDto
   public isLoading: boolean = true
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
   constructor(FinancesApi: FinancesApi,

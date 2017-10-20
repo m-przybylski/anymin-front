@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
 import IStyleConstant = profitelo.constants.style.IStyleConstant
+import {isPlatformForExpert} from '../../constants/platform-for-expert.constant'
 
 export class NavbarComponentController implements INavbarComponentBindings {
   isWindowScrollBottom: boolean = false
@@ -14,6 +15,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
   navbarStyle: {
     transform: string
   }
+  public onLogoLink: string = ''
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
@@ -68,6 +70,10 @@ export class NavbarComponentController implements INavbarComponentBindings {
 
       this.$scope.$apply()
     })
+  }
+
+  $onInit = (): void => {
+    isPlatformForExpert ? this.onLogoLink = 'app.dashboard.expert.activities' : this.onLogoLink = 'app.home'
   }
 
   public onMobileMenuCollapsed = (): void => {

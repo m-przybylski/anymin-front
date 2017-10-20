@@ -4,13 +4,25 @@ footer.pro-footer
       .footer-applications
         h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")
         ul
-        a
+        a(data-ng-if="!isPlatformForExpert")
           img(src="assets/images/app_store.png")
         a
           img(src="assets/images/google_play.png")
     
       .footer-links
+        ul(data-ng-if="isPlatformForExpert")
+          li.head
+            a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.WIDGETS" target="_blank")
         ul
+          li.head
+            a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.HELP_CENTER"
+            href="{{ zendeskUrl }}"
+            target="_blank")
+        ul
+          li.head
+            a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.BLOG" target="_blank")
+
+        ul(data-ng-if="!isPlatformForExpert")
           li.head 
             h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_PARTNER_SPACE")
           li 
@@ -20,7 +32,7 @@ footer.pro-footer
           li 
             a(data-translate="HOME.FOOTER.INTEGRATION")
             
-        ul
+        ul(data-ng-if="!isPlatformForExpert")
           li.head 
             h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_COMPLAINTS")
           li 
@@ -28,7 +40,7 @@ footer.pro-footer
           li 
             a(data-translate="HOME.FOOTER.RECORD_CALLS")
             
-        ul
+        ul(data-ng-if="!isPlatformForExpert")
           li.head 
             h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_OTHER")
           li 
@@ -43,13 +55,19 @@ footer.pro-footer
   .bottom-footer
     .container
       .bottom-footer-about
-        p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT")
+        p {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.YEAR' | translate }} &reg;
+          a.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.REGULATIONS" target="_blank")
+        p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.ITELO")
 
       .bottom-footer-fast-contact
         ul
-          li
+          li(data-ng-if="!isPlatformForExpert")
             p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT")
           li
-            a(href="mailto:{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER' | translate}}")
-              span(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
+            a(href="mailto:{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER' | translate}}" target="_blank")
+              span.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
 
+  .bottom-footer.cookies
+    .container
+      p  {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.COOKIES' | translate }}
+        a.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MORE")

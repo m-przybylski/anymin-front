@@ -1,11 +1,11 @@
 .login-page.flex-row
   .left-column
     .top-content
-      img.logo(src="/assets/images/logo_profitelo_black.svg" data-ui-sref="app.home")
+      img.logo(src="/assets/images/AnyMind_logo.png" data-ui-sref="{{ vm.onLogoLink }}")
       
       .top-div
         h3.light(data-translate="LOGIN.TRUST_EXPERTS")
-        h4
+        h4(data-ng-if="!vm.isPlatformForExpert")
           span(data-translate="LOGIN.OUR_SERVICES_1")
           span.purple &#32; {{ 16000 + 557 }}	&#32;
           span(data-translate="LOGIN.OUR_SERVICES_2")
@@ -18,7 +18,7 @@
         .app-buttons
           a
             img(src="/assets/images/google_play.png")
-          a
+          a(data-ng-if="!vm.isPlatformForExpert")
             img(src="/assets/images/app_store.png")
             
   .img-column
