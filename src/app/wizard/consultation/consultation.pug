@@ -31,6 +31,20 @@ section.consultation
         )
 
       wizard-step.step(
+      data-title="WIZARD.CONSULTATION.DESCRIPTION.TITLE"
+      data-tooltip-text="WIZARD.CONSULTATION.DESCRIPTION.TOOLTIP"
+      data-check-is-step-valid="vm.checkIsDescriptionInputValid"
+      data-required="vm.isStepRequired"
+      )
+        textarea-primary(
+        data-ng-model="vm.descriptionInputValue"
+        data-id="consultationDescription"
+        data-is-valid="vm.checkIsDescriptionInputValid()"
+        data-validation-text="WIZARD.CONSULTATION.DESCRIPTION.VALIDATION_TEXT"
+        data-max-length="600"
+        )
+
+      wizard-step.step(
         data-title="WIZARD.SUMMARY.CONSULTATION.TAGS.TITLE"
         data-additional-text="WIZARD.SUMMARY.CONSULTATION.TAGS.ADDITIONAL_TEXT.TITLE"
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.TAGS.TOOLTIP"
@@ -43,20 +57,6 @@ section.consultation
           data-validation-text="WIZARD.CONSULTATION.TAG.RECOMMENDED.ALERT"
           data-is-submitted="vm.isSubmitted"
           data-is-valid="vm.checkIsTagsInputValid()"
-        )
-
-      wizard-step.step(
-      data-title="WIZARD.CONSULTATION.DESCRIPTION.TITLE"
-      data-tooltip-text="WIZARD.CONSULTATION.DESCRIPTION.TOOLTIP"
-      data-check-is-step-valid="vm.checkIsDescriptionInputValid"
-      data-required="vm.isStepRequired"
-      )
-        textarea-primary(
-        data-ng-model="vm.descriptionInputValue"
-        data-id="consultationDescription"
-        data-is-valid="vm.checkIsDescriptionInputValid()"
-        data-validation-text="WIZARD.CONSULTATION.DESCRIPTION.VALIDATION_TEXT"
-        data-max-length="600"
         )
 
       wizard-step.step(
