@@ -25,21 +25,16 @@
 
     input
       &.help-search
+        +inputText
         flex: 1
         min-height: $f-input-height
+        line-height: normal
         background: $c-background-2
 
-        &::-webkit-input-placeholder
-          line-height: $f-input-height
-
-        &::-moz-placeholder
-          line-height: $f-input-height
-
-        &:-ms-input-placeholder
-          line-height: $f-input-height
-
-        &:-moz-placeholder
-          line-height: $f-input-height
+        &::placeholder
+          +inputText
+          color: $c-secondary-txt
+          line-height: normal
 
   .help-menu-container
     display: flex
