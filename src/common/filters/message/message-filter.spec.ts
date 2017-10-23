@@ -25,9 +25,13 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
       const messageObject: Message  = <Message>{
         type: 'message',
         id: 'asdasd',
-        body: 'asdasdasd'
+        body: 'asdasdasd',
+        context: {
+          content: 'asdasdasd',
+          mimeType: 'image/png'
+        }
       }
-      expect($filter('message')(messageObject)).toEqual(messageObject.body)
+      expect($filter('message')(messageObject)).toEqual(messageObject.context.content)
     })
 
     it('should return html link element', () => {
@@ -35,41 +39,49 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
       const messageObject: Message  = <Message>{
         type: 'message',
         id: 'asdasd',
+        context: {
+          content: 'asasas',
+          type: 'plain/text'
+        },
         body: 'asdasdasd'
       }
       const simpleUrl = 'www.kwejk.pl'
       const complexUrl = 'https://www.kołding.pl/search?q=angular3.0&&aqs=chrome.0.69i59j69i57j0l4.766j0j7&sourceid=chrome&ie=UTF-8'
 
-      messageObject.body = simpleUrl
-      expect($filter('message')(messageObject)).toEqual('<a href="http://' + messageObject.body + '" target="_blank">'
-        + messageObject.body + '</a>')
+      messageObject.context.content = simpleUrl
+      expect($filter('message')(messageObject)).toEqual('<a href="http://' + messageObject.context.content + '" target="_blank">'
+        + messageObject.context.content + '</a>')
 
-      messageObject.body = complexUrl
-      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.body + '" ' +
-        'target="_blank">' + messageObject.body + '</a>')
+      messageObject.context.content = complexUrl
+      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.context.content + '" ' +
+        'target="_blank">' + messageObject.context.content + '</a>')
     })
 
     it('should return html img element', () => {
       const messageObject: Message  = <Message>{
         type: 'message',
         id: 'asdasd',
+        context: {
+          content: 'asasas',
+          type: 'plain/text'
+        },
         body: 'asdasdasd'
       }
       const jpg = 'www.zabawneobrazki.pl/asdasdasdasd.jpg'
       const png = 'http://www.kołczingdlaopornych.pl/człowieksukcesu.png'
       const gif = 'https://www.kołczingdlaopornych.pl/człowiekporazka.gif'
 
-      messageObject.body = jpg
-      expect($filter('message')(messageObject)).toEqual('<a href="http://' + messageObject.body
-        + '" target="_blank" ><img src="http://' + messageObject.body + '"/></a>')
+      messageObject.context.content = jpg
+      expect($filter('message')(messageObject)).toEqual('<a href="http://' + messageObject.context.content
+        + '" target="_blank" ><img src="http://' + messageObject.context.content + '"/></a>')
 
-      messageObject.body = png
-      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.body
-        + '" target="_blank" ><img src="' + messageObject.body + '"/></a>')
+      messageObject.context.content = png
+      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.context.content
+        + '" target="_blank" ><img src="' + messageObject.context.content + '"/></a>')
 
-      messageObject.body = gif
-      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.body
-        + '" target="_blank" ><img src="' + messageObject.body + '"/></a>')
+      messageObject.context.content = gif
+      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.context.content
+        + '" target="_blank" ><img src="' + messageObject.context.content + '"/></a>')
     })
 
   })

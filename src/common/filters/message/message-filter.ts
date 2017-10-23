@@ -28,11 +28,11 @@ import {UrlService} from '../../services/url/url.service'
 
     const handleMessage = (message: Message): string => {
       const messageContext = message.context
-      const messageUrls = getUrls(message.body)
-      if (messageContext && messageContext.type === 'file') {
-        const fileUrl = urlService.resolveFileUrl(messageContext.payload)
+      const messageUrls = getUrls(messageContext.content)
+      if (messageContext && messageContext.description && messageContext.description.length > 0) {
+        const fileUrl = urlService.resolveFileUrl(messageContext.content)
         return '<a href="' + fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' +
-          message.body + '</a>'
+          message.context.description + '</a>'
 
       } else if (messageUrls && messageUrls.length > 0) {
         for (const url in messageUrls) {
@@ -41,17 +41,17 @@ import {UrlService} from '../../services/url/url.service'
             const urlRegexp = createRegexpFromUrl(currentUrl)
 
             if (hasImageUrl(currentUrl)) {
-              return message.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
+              return message.context.content.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
                 '" target="_blank" >' + '<img src="' + getCorrectUrl(currentUrl) + '"/></a>')
             } else {
-              return message.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
+              return message.context.content.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
                 '" target="_blank">' + currentUrl + '</a>')
             }
           }
         }
       }
 
-      return message.body
+      return message.context.content
     }
 
     return function(message: Message): string {
