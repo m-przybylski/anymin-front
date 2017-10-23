@@ -19,7 +19,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public expertName?: string
   public serviceName: string
   public serviceId: string
-  public callCost: MoneyDto
+  public financialOperation?: MoneyDto
   public startedAt: Date
   public callDuration: number
   public isRecommended: boolean
@@ -38,8 +38,10 @@ export class ExpertConsultationDetailsController implements ng.IController {
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,
               ViewsApi: ViewsApi) {
 
-    ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
+    ViewsApi.getDashboardCallDetailsRoute($scope.$parent.sueId)
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
+
+    this.sueId = this.$scope.$parent.sueId
 
     this.complaintReasons = [
       {
@@ -94,11 +96,10 @@ export class ExpertConsultationDetailsController implements ng.IController {
   private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
     this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
-    this.sueId = this.$scope.$parent.sueId
     this.recommendedTags = this.callDetails.recommendedTags
     this.serviceName = this.callDetails.service.name
     this.serviceId = this.callDetails.service.id
-    this.callCost = this.callDetails.serviceUsageDetails.callCost
+    this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation
     this.startedAt = this.callDetails.serviceUsageDetails.startedAt
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
     this.isRecommended = this.callDetails.isRecommended

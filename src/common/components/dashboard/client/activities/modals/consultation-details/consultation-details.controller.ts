@@ -16,7 +16,7 @@ export class ClientConsultationDetailsController implements ng.IController {
   public expertName?: string
   public serviceName: string
   public serviceId: string
-  public callCost: MoneyDto
+  public financialOperation?: MoneyDto
   public startedAt: Date
   public callDuration: number
   public callCostPerMinute?: MoneyDto
@@ -35,7 +35,7 @@ export class ClientConsultationDetailsController implements ng.IController {
 
     this.sueId = $scope.sueId
 
-    ViewsApi.getClientDashboardCallDetailsRoute(this.sueId)
+    ViewsApi.getDashboardCallDetailsRoute(this.sueId)
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
   }
 
@@ -71,7 +71,7 @@ export class ClientConsultationDetailsController implements ng.IController {
     this.recommendedTags = this.callDetails.recommendedTags
     this.serviceName = this.callDetails.service.name
     this.serviceId = this.callDetails.service.id
-    this.callCost = this.callDetails.serviceUsageDetails.callCost
+    this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation
     this.startedAt = this.callDetails.serviceUsageDetails.startedAt
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
     this.callCostPerMinute = this.callDetails.service.price

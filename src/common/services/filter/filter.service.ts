@@ -29,5 +29,8 @@ export interface IFilterService extends ng.IFilterService {
   (name: 'newLineFilter'): {
     (content: string): string
   }
+  (name: 'uuidTrimmer'): {
+    (content: string): string
+  }
 }
 

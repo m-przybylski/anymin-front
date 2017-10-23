@@ -21,29 +21,29 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
       .modal-container
         header.entry-title
           span.icon.icon-consultation-details-24
-          span Details consultaiton
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TITLE")
 
         .details-tab
-          .details-tab-row.details-header-row
+          .details-tab-row(data-ng-if="vm.financialOperation").details-header-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-            .details-tab-content.details-tab-price.price-section(data-ng-bind-html="vm.callCost | money")
+            .details-tab-content.details-tab-price.price-section(data-ng-bind-html="vm.financialOperation | money")
 
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
             .details-tab-content
-              span {{ vm.callDuration | millisecondsToDatetime | date: 'HH:mm:ss' }}
+              span {{ vm.callDuration | secondsToDateTime | date: 'HH:mm:ss' }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.DATE_AND_TIME")
             .details-tab-content
-              span {{ vm.startedAt | date: 'dd-MM-yyyy HH:mm ' }}
+              span {{ vm.startedAt | date: 'dd-MM-yyyy HH:mm' }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONSULTATION_ID")
             .details-tab-content
-              span {{ vm.sueId }}
+              span {{ vm.sueId | uuidTrimmer }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONVERSATION_PRICE_MIN")
