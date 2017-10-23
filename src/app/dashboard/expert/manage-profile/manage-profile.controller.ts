@@ -36,7 +36,9 @@ export class DashboardExpertManageProfileController {
           this.organizationName = expertProfile.profile.organizationDetails.name
           this.organizationLogo = expertProfile.profile.organizationDetails.logo
         }
-        this.services = expertProfile.services
+        this.services = expertProfile.services.filter(serviceDetails =>
+          serviceDetails.service.deletedAt === undefined
+        )
         this.isLoading = false
       })
         .catch((error) => {
