@@ -5,12 +5,12 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
 import {SessionService} from '../../services/session/session.service'
-import {IConfirmEmailStateParams} from '../../../app/login/confirm-email/confirm-email'
+import {IConfirmEmailStateParams} from '../../../app/confirm-email/confirm-email'
 import topAlertModule from '../../services/top-alert/top-alert'
 import sessionModule from '../../services/session/session'
 
 export interface ILoginConfirmEmailService {
-  resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<undefined>
+  resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<void>
 }
 
 class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
@@ -22,7 +22,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
   }
 
-  public resolve = (stateParams: IConfirmEmailStateParams): ng.IPromise<undefined> => {
+  public resolve = (stateParams: IConfirmEmailStateParams): ng.IPromise<void> => {
     const _deferred = this.$q.defer<undefined>()
 
     const handleBadToken = (): void => {

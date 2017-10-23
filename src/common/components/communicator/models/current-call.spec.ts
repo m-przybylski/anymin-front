@@ -2,7 +2,7 @@ import {CurrentCall} from './current-call'
 import * as angular from 'angular'
 import {SoundsService} from '../../../services/sounds/sounds.service'
 import {TimerFactory} from '../../../services/timer/timer.factory'
-import {RatelApiMock} from 'profitelo-api-ng/api/api';
+import {RatelApi} from 'profitelo-api-ng/api/api';
 import {ServiceUsageEvent} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory'
@@ -66,12 +66,12 @@ describe('Unit tests: CurrentCall', () => {
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
     $provide.value('soundsService', SoundsService)
-    $provide.value('RatelApiMock', RatelApiMock)
+    $provide.value('RatelApi', RatelApi)
   }))
 
   beforeEach((inject((soundsService: SoundsService,
-                      RatelApiMock: RatelApiMock) => {
-    currentCall = new CurrentCall(callbacksFactory, soundsService, ratelCall, timerFactory, service, sue, RatelApiMock)
+                      RatelApi: RatelApi) => {
+    currentCall = new CurrentCall(callbacksFactory, soundsService, ratelCall, timerFactory, service, sue, RatelApi)
   })))
 
   it('should currentCall exist', () => {

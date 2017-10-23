@@ -1,13 +1,13 @@
 import * as angular from 'angular'
-import {ILoginConfirmEmailService} from '../../../common/resolvers/login-confirm-email/login-confirm-email.service'
-import 'common/resolvers/login-confirm-email/login-confirm-email.service'
+import '../../common/resolvers/login-confirm-email/login-confirm-email.service'
+import {ILoginConfirmEmailService} from '../../common/resolvers/login-confirm-email/login-confirm-email.service'
 
 export interface IConfirmEmailStateParams extends ng.ui.IStateParamsService {
   token: string
 }
 
 function config($stateProvider: ng.ui.IStateProvider): void {
-  $stateProvider.state('app.login.confirm-email', {
+  $stateProvider.state('app.confirm-email', {
     url: '/confirm-email/token/:token',
     /* istanbul ignore next */
     resolve: {
@@ -15,7 +15,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
       account: (
         LoginConfirmEmailResolver: ILoginConfirmEmailService,
         $stateParams: IConfirmEmailStateParams
-      ): ng.IPromise<undefined> => LoginConfirmEmailResolver.resolve($stateParams)
+      ): ng.IPromise<void> => LoginConfirmEmailResolver.resolve($stateParams)
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.CONFIRM_EMAIL'
@@ -23,8 +23,11 @@ function config($stateProvider: ng.ui.IStateProvider): void {
   })
 }
 
-angular.module('profitelo.controller.login.confirm-email', [
+const confirmEmailModule = angular.module('profitelo.controller.confirm-email', [
   'ui.router',
   'profitelo.resolvers.login-confirm-email'
 ])
-  .config(config)
+.config(config)
+  .name
+
+export default confirmEmailModule
