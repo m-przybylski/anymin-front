@@ -178,6 +178,8 @@ export class CommunicatorComponentController implements ng.IController {
     this.isRemoteVideo = false
     this.isLocalVideo = false
     this.isMessenger = false
+    this.isParticipantOffline = false
+    this.isOffline = false
     this.callLengthInSeconds = 0
     this.callCost = undefined
   }
