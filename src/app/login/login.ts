@@ -4,7 +4,6 @@ import './account/account'
 import './register/register'
 import './forgot-password/forgot-password'
 import './set-new-password/set-new-password'
-import './confirm-email/confirm-email'
 
 function LoginController(): void {
 
@@ -34,8 +33,7 @@ const loginPageModule = angular.module('profitelo.controller.login', [
   'profitelo.controller.login.account',
   'profitelo.controller.login.register',
   'profitelo.controller.login.forgot-password',
-  'profitelo.controller.login.set-new-password',
-  'profitelo.controller.login.confirm-email'
+  'profitelo.controller.login.set-new-password'
 ])
   .config(config)
   .controller('LoginController', LoginController)
