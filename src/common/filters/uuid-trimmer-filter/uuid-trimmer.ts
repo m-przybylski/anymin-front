@@ -3,13 +3,25 @@ const uuidSeparator = '-'
 function filter($log: ng.ILogService): (uuid: string) => string {
   return function (uuid: string): string {
     if (uuid) {
-      return _.last(uuid.split(uuidSeparator))
+      return trimUUID(uuid)
     } else {
       $log.error('Provided UUID is undefined')
       return ''
     }
   }
+
+  function trimUUID(uuid: string): string {
+    const splitUUID = uuid.split(uuidSeparator).pop()
+
+    if (splitUUID) {
+      return splitUUID
+    } else {
+      $log.error('Provided string can not be split', uuid)
+      return ''
+    }
+  }
 }
+
 
 angular.module('profitelo.filters.uuid-trimmer-filter.uuid-trimmer', [])
   .filter('uuidTrimmer', filter)
