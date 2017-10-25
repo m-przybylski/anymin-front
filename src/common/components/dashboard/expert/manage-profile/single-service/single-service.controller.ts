@@ -19,8 +19,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public serviceOwnerName: string
   public serviceOwnerLogo: string
   public onModalClose: () => void
-  public isServiceDeleted: boolean = false
-  public isEmploymentDeleted: boolean = false
+  public isDeleted: boolean = false
 
   /* @ngInject */
   constructor(private userService: UserService,
@@ -33,7 +32,6 @@ export class SingleServiceComponentController implements ng.IController, ISingle
 
   $onInit = (): void => {
     this.serviceName = this.serviceDetails.service.name
-    this.isServiceDeleted = this.serviceDetails.service.deletedAt !== undefined
     if (this.serviceDetails.ownerProfile.organizationDetails) {
       this.serviceOwnerName = this.serviceDetails.ownerProfile.organizationDetails.name
       this.serviceOwnerLogo = this.serviceDetails.ownerProfile.organizationDetails.logo
@@ -64,7 +62,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
           message: this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
           timeout: 2
         })
-        this.isServiceDeleted = true
+        this.isDeleted = true
       }, this.onReject)
     }
   }
@@ -78,7 +76,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
             message: this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
             timeout: 2
           })
-          this.isEmploymentDeleted = true
+          this.isDeleted = true
         }, this.onReject)
     }
   }

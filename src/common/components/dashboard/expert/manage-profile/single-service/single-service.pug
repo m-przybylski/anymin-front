@@ -1,5 +1,5 @@
-.single-service(data-ng-if="!$ctrl.isEmploymentDeleted")
-  .list-row.service-row(data-ng-class="{'service-deleted': $ctrl.isServiceDeleted}")
+.single-service(data-ng-if="!$ctrl.isDeleted")
+  .list-row.service-row
     .consultation-title
       span {{ $ctrl.serviceName }}
 
@@ -13,8 +13,7 @@
 
       .btn-handler
         a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY"
-        data-ng-show="!$ctrl.isServiceDeleted"
         data-ng-click="$ctrl.suspendProvideService()")
         a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT"
-        data-ng-show="$ctrl.isOwnerOfService && !$ctrl.isServiceDeleted"
+        data-ng-show="$ctrl.isOwnerOfService"
         data-ng-click="$ctrl.openServiceFormModal()")
