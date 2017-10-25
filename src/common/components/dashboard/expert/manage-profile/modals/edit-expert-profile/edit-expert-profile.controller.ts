@@ -2,6 +2,7 @@ import {ProfileApi} from 'profitelo-api-ng/api/api';
 import {TopAlertService} from '../../../../../../services/top-alert/top-alert.service'
 import {GetOrganizationDetails, GetExpertDetails, OrganizationDetailsUpdate, ExpertDetailsUpdate}
   from 'profitelo-api-ng/model/models';
+import {TranslatorService} from '../../../../../../services/translator/translator.service'
 
 export interface IEditExpertProfileScope extends ng.IScope {
   profile: GetOrganizationDetails | GetExpertDetails
@@ -31,7 +32,7 @@ export class EditExpertProfileController implements ng.IController {
               private ProfileApi: ProfileApi,
               private $log: ng.ILogService,
               private topAlertService: TopAlertService,
-              private $filter: ng.IFilterService,
+              private translatorService: TranslatorService,
               private $scope: IEditExpertProfileScope) {}
 
   $onInit(): void {
@@ -108,7 +109,7 @@ export class EditExpertProfileController implements ng.IController {
     }, (err) => {
       this.$log.error(err)
       this.topAlertService.error({
-        message: this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE'),
+        message: this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE'),
         timeout: 5
       })
     })

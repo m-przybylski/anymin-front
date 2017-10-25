@@ -4,6 +4,7 @@ import {UserService} from '../../../services/user/user.service'
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import {IStateService} from 'angular-ui-router'
 import IStyleConstant = profitelo.constants.style.IStyleConstant
+import {TranslatorService} from '../../../services/translator/translator.service'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
@@ -18,7 +19,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   /* @ngInject */
   constructor(private userService: UserService,
-              private $filter: ng.IFilterService,
+              private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
               private $state: IStateService,
               private $element: ng.IRootElementService,
@@ -63,7 +64,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     this.userService.logout().then(() => {
       this.$state.reload()
       this.topAlertService.success({
-        message: this.$filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
+        message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
         timeout: 2
       })
     })

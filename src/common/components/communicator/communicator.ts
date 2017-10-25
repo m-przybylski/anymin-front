@@ -22,6 +22,7 @@ import userAvatarModule from '../interface/user-avatar/user-avatar'
 import navigationModule from './navigation/navigation'
 import RtcDetectorModule from '../../services/rtc-detector/rtc-detector'
 import {PrecallService} from './precall-service/precall.service'
+import translatorModule from '../../services/translator/translator'
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',
@@ -42,6 +43,7 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   callbacksModule,
   filtersModule,
   ratelSdkModule,
+  translatorModule,
   RtcDetectorModule,
   'profitelo.components.communicator.navigation',
   'profitelo.components.communicator.messenger'

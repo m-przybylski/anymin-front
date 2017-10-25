@@ -35,6 +35,7 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL/')
       $provide.value('uploaderFactory', uploaderFactory)
+      $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
     }))
 
     beforeEach(() => {

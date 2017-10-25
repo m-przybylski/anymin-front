@@ -22,6 +22,7 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
 
       angular.mock.module('profitelo.resolvers.login-register', function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
+        $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
       })
 
       inject(($injector: ng.auto.IInjectorService) => {

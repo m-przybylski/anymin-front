@@ -6,6 +6,7 @@ import {CurrentExpertCall} from './models/current-expert-call';
 import {CurrentCall} from './models/current-call';
 import {MessageRoom} from './models/message-room';
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import {TranslatorService} from '../../services/translator/translator.service'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -38,7 +39,7 @@ export class CommunicatorComponentController implements ng.IController {
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
-              private $filter: ng.IFilterService,
+              private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
@@ -68,7 +69,7 @@ export class CommunicatorComponentController implements ng.IController {
     if (this.currentCall) this.currentCall.resumeTimer()
 
     this.topAlertService.success({
-      message: this.$filter('translate')('COMMUNICATOR.NETWORK_RECONNECTED'),
+      message: this.translatorService.translate('COMMUNICATOR.NETWORK_RECONNECTED'),
       timeout: 2
     })
   }
@@ -77,7 +78,7 @@ export class CommunicatorComponentController implements ng.IController {
     this.isOffline = true
     if (this.currentCall) this.currentCall.pauseTimer()
     this.topAlertService.error({
-      message: this.$filter('translate')('COMMUNICATOR.NETWORK_INTERRUPT'),
+      message: this.translatorService.translate('COMMUNICATOR.NETWORK_INTERRUPT'),
       timeout: 5
     })
   }
@@ -164,7 +165,7 @@ export class CommunicatorComponentController implements ng.IController {
   private onUserOffline = (): void => {
     this.isParticipantOffline = true
     this.topAlertService.error({
-      message: this.$filter('translate')('COMMUNICATOR.INTERLOCUTOR_NETWORK_INTERRUPT'),
+      message: this.translatorService.translate('COMMUNICATOR.INTERLOCUTOR_NETWORK_INTERRUPT'),
       timeout: 5
     })
   }

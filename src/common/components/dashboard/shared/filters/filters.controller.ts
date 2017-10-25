@@ -2,10 +2,10 @@ import * as _ from 'lodash'
 import * as angular from 'angular'
 import {GetActivityFilters, ServiceFilter, ExpertFilter, FinancialOperation} from 'profitelo-api-ng/model/models'
 import {IDashboardFiltersComponentBindings} from './filters'
-import {IFilterService} from '../../../../services/filter/filter.service'
 import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
 import {UserService} from '../../../../services/user/user.service'
+import {TranslatorService} from '../../../../services/translator/translator.service'
 
 interface IDropdownList {
   name: string,
@@ -41,7 +41,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   $onInit = (): void => {
     this.activityTypesList = this.filters.activityTypes.map((type: string) =>
       ({
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('DASHBOARD.FILTERS.' + type))),
+        name: this.translatorService.translate('DASHBOARD.FILTERS.' + type),
         value: type
       })
     )
@@ -56,13 +56,15 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     }
 
     this.activityTypesList.unshift({
-      name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('DASHBOARD.FILTERS.ALL_ACTIVITY'))),
+      name: this.translatorService.translate('DASHBOARD.FILTERS.ALL_ACTIVITY'),
       value: undefined
     })
   }
 
   /* @ngInject */
-  constructor(private $filter: IFilterService, $scope: IDashboardFiltersComponentScope, userService: UserService) {
+  constructor(private translatorService: TranslatorService,
+              $scope: IDashboardFiltersComponentScope,
+              userService: UserService) {
 
     this.showMobileFilters = true
 

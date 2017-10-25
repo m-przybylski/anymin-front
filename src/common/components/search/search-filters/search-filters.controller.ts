@@ -1,7 +1,7 @@
 import {ISearchFiltersComponentBindings} from './search-filters'
 import {IPrimaryDropdownListElement} from '../../interface/dropdown-primary/dropdown-primary'
-import {IFilterService} from '../../../services/filter/filter.service'
 import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
+import {TranslatorService} from '../../../services/translator/translator.service'
 export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
 
   public languagesList: {}[]
@@ -23,18 +23,15 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   $onInit = (): void => {
     this.sortBy = {
-      name: (this.$filter('translate')
-      (this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.' + this.$state.params.sortBy)))),
+      name: this.translatorService.translate('SEARCH.SORT_BY.' + this.$state.params.sortBy),
       value: this.$state.params.sortBy
     }
     this.language = {
-      name: (this.$filter('translate')
-      (this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + this.$state.params.language)))),
+      name: this.translatorService.translate('SEARCH.LANGUAGE.' + this.$state.params.language),
       value: this.$state.params.language
     }
     this.profileType = {
-      name: this.$filter('translate')
-      (this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + this.$state.params.serviceType))),
+      name: this.translatorService.translate('SEARCH.PROFILE_TYPE.' + this.$state.params.serviceType),
       value: this.$state.params.serviceType
     }
 
@@ -43,7 +40,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   }
 
   /* @ngInject */
-  constructor(private $filter: IFilterService,
+  constructor(private translatorService: TranslatorService,
               private $window: ng.IWindowService,
               private $state: ng.ui.IStateService,
               CommonConfig: CommonConfig) {
@@ -58,41 +55,40 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
     this.languagesList = languages.map((lng) =>
       ({
-        name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + lng.name)))),
+        name: this.translatorService.translate('SEARCH.LANGUAGE.' + lng.name),
         value: lng.shortcut
       }))
 
     this.sortList = [
       {
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.TOP'))),
+        name: this.translatorService.translate('SEARCH.SORT_BY.TOP'),
         value: 'TOP'
       },
       {
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.NEW'))),
+        name: this.translatorService.translate('SEARCH.SORT_BY.NEW'),
         value: 'NEW'
       },
       {
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.PRICE'))),
+        name: this.translatorService.translate('SEARCH.SORT_BY.PRICE'),
         value: 'PRICE'
       },
       {
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY._PRICE'))),
+        name: this.translatorService.translate('SEARCH.SORT_BY._PRICE'),
         value: '_PRICE'
       },
     ]
 
     this.profileTypeList = [
       {
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + 'ALL'))),
+        name: this.translatorService.translate('SEARCH.PROFILE_TYPE.' + 'ALL'),
         value: undefined
       },
       {
-        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + 'EXPERT'))),
+        name: this.translatorService.translate('SEARCH.PROFILE_TYPE.' + 'EXPERT'),
         value: 'EXP'
       },
       {
-        name: this.$filter('translate')
-        (this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + 'ORGANIZATION'))),
+        name: this.translatorService.translate('SEARCH.PROFILE_TYPE.' + 'ORGANIZATION'),
         value: 'ORG'
       }
     ]

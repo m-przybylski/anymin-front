@@ -1,4 +1,3 @@
-import {IFilterService} from '../../../../../../services/filter/filter.service'
 import {CommonConfig} from '../../../../../../../../generated_modules/common-config/common-config'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 import {UserService} from '../../../../../../services/user/user.service'
@@ -10,6 +9,7 @@ import {MoneyDto, PostService, PostServiceTag, GetExpertServiceDetails, GetInvit
 import {ServiceApi, EmploymentApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import {ILanguage, LanguagesService} from '../../../../../../services/languages/languages.service'
+import {TranslatorService} from '../../../../../../services/translator/translator.service'
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void
@@ -47,7 +47,7 @@ export class ServiceFormModalController implements ng.IController {
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private $filter: IFilterService,
+              private translatorService: TranslatorService,
               private CommonConfig: CommonConfig,
               private CommonSettingsService: CommonSettingsService,
               private userService: UserService,
@@ -86,8 +86,7 @@ export class ServiceFormModalController implements ng.IController {
         this.serviceDetails = this.$scope.serviceDetails
         this.consultationName = this.serviceDetails.service.name
         this.consultationLanguage = {
-          name: (this.$filter('translate')
-          (this.$filter('normalizeTranslationKey')(('LANGUAGE.' + this.serviceDetails.service.language)))),
+          name: this.translatorService.translate('LANGUAGE.' + this.serviceDetails.service.language),
           value: this.serviceDetails.service.language
         }
         this.consultationDescription = this.serviceDetails.service.description

@@ -5,7 +5,7 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 import {PostProcessOption, FileInfo} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {FileCategoryEnum, FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
-import {IFilterService} from '../../services/filter/filter.service'
+import {TranslatorService} from '../../services/translator/translator.service'
 
 export interface IFileUploaderComponentScope extends ng.IScope {
   tokenList: string[]
@@ -33,7 +33,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
   /* @ngInject */
   constructor(private $log: ng.ILogService,
               private FilesApi: FilesApi,
-              private $filter: IFilterService,
+              private translatorService: TranslatorService,
               uploaderFactory: UploaderFactory) {
     this.uploader = uploaderFactory.getInstance()
   }
@@ -116,8 +116,9 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
       this.isFileTypeError = true
       this.filesNames = this.invalidTypeFilesNames.join(', ')
     }
-    this.fileValidationErrorMessage = this.$filter('translate')('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.FILE') + ' ' +
-      this.filesNames + ' ' + this.$filter('translate')('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.MESSAGE')
+    this.fileValidationErrorMessage =
+      this.translatorService.translate('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.FILE') + ' ' +
+      this.filesNames + ' ' + this.translatorService.translate('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.MESSAGE')
   }
 
   private uploadFile = (file: File, currenFile: IDocumentFile): void => {

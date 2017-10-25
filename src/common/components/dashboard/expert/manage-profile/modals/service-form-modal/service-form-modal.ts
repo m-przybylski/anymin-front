@@ -12,6 +12,7 @@ import consultationTagInputModule from '../../../../../interface/input-consultai
 import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert'
 import apiModule from 'profitelo-api-ng/api.module'
 import languagesModule from '../../../../../../services/languages/languages'
+import translatorModule from '../../../../../../services/translator/translator'
 
 const serviceFormModalModule = angular.module(
   'profitelo.components.dashboard.expert.manage-profile.modals.consultation-form-modal', [
@@ -27,7 +28,8 @@ const serviceFormModalModule = angular.module(
   inputPriceModule,
   consultationTagInputModule,
   ValidationAlertModule,
-  languagesModule
+  languagesModule,
+  translatorModule
 ])
 .controller('serviceFormModalController', ServiceFormModalController)
   .name
