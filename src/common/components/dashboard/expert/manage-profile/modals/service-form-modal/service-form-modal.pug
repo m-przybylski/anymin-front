@@ -29,18 +29,6 @@
 
       .modal-section
         header.section-title
-          p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.TITLE")
-          p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.SUBTITLE")
-        input-consultation-tag(
-        data-dictionary="vm.recommendedTags"
-        data-selected-tags="vm.consultationTags"
-        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.VALIDATION_TEXT"
-        data-is-submitted="vm.isSubmitted"
-        data-is-valid="vm.areTagsValid()"
-        )
-
-      .modal-section
-        header.section-title
           p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.TITLE")
         textarea-primary(
         data-ng-model="vm.consultationDescription"
@@ -49,6 +37,18 @@
         data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.VALIDATION_TEXT"
         data-max-length="{{ vm.consultationDescriptionMaxLength }}"
         data-is-submitted="vm.isSubmitted"
+        )
+
+      .modal-section
+        header.section-title
+          p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.TITLE")
+          p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.SUBTITLE")
+        input-consultation-tag(
+        data-dictionary="vm.recommendedTags"
+        data-selected-tags="vm.consultationTags"
+        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.VALIDATION_TEXT"
+        data-is-submitted="vm.isSubmitted"
+        data-is-valid="vm.areTagsValid()"
         )
 
       .modal-section
