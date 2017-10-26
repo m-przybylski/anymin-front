@@ -9,6 +9,7 @@ import textareaModule from '../../../../../interface/textarea/textarea'
 import avatarUploaderModule from '../../../../../avatar-uploader/avatar-uploader'
 import fileUploaderModule from '../../../../../file-uploader/file-uploader'
 import apiModule from 'profitelo-api-ng/api.module'
+import translatorModule from '../../../../../../services/translator/translator'
 
 const manageProfileEditProfileModule = angular.module(
   'profitelo.components.dashboard.expert.manage-profile.modals.edit-expert-profile', [
@@ -22,7 +23,8 @@ const manageProfileEditProfileModule = angular.module(
   apiModule,
   textareaModule,
   avatarUploaderModule,
-  fileUploaderModule
+  fileUploaderModule,
+  translatorModule
 ])
 .controller('editExpertProfile', EditExpertProfileController)
   .name

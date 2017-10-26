@@ -9,6 +9,7 @@ import {DashboardFiltersComponent} from './filters.component'
 import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
 import userModule from '../../../../services/user/user'
+import translatorModule from '../../../../services/translator/translator'
 
 export interface IDashboardFiltersComponentBindings extends ng.IController {
   onSetSearchParams: (queryParams: ActivitiesQueryParams) => void
@@ -23,7 +24,8 @@ const dashboardFiltersModule = angular.module('profitelo.components.dashboard.ex
   'profitelo.directives.interface.pro-calendar',
   dashboardActivitiesModule,
   userModule,
-  apiModule
+  apiModule,
+  translatorModule
 ])
   .component('dashboardFilters', new DashboardFiltersComponent())
   .name

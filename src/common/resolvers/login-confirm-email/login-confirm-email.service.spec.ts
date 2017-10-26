@@ -38,6 +38,7 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.resolvers.login-confirm-email', function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
+        $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
       })
 
       inject(($injector: ng.auto.IInjectorService, $q: ng.IQService) => {

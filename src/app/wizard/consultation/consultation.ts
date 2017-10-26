@@ -18,6 +18,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import commonConfigModule from '../../../../generated_modules/common-config/common-config'
 import inputPriceModule from '../../../common/components/interface/input-price/input-price'
 import languagesModule from '../../../common/services/languages/languages'
+import translatorModule from '../../../common/services/translator/translator'
 
 const consultaionWizardModule = angular.module('profitelo.controller.wizard.consultation', [
   'ui.router',
@@ -34,7 +35,8 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
   commonConfigModule,
   consultationEmployeeInputModule,
   inputPriceModule,
-  languagesModule
+  languagesModule,
+  translatorModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.consultation', {

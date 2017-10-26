@@ -1,5 +1,5 @@
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
-import {IFilterService} from '../filter/filter.service'
+import {TranslatorService} from '../translator/translator.service'
 
 export interface ILanguage {
   name: string,
@@ -9,7 +9,7 @@ export interface ILanguage {
 export class LanguagesService {
 
   /* @ngInject */
-  constructor(private $filter: IFilterService,
+  constructor(private translatorService: TranslatorService,
               private CommonConfig: CommonConfig) {}
 
   private languages: {
@@ -20,7 +20,7 @@ export class LanguagesService {
 
   public languagesList: ILanguage[] = this.languages.map((lng) =>
     ({
-      name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('LANGUAGE.' + lng.shortcut)))),
+      name: this.translatorService.translate('LANGUAGE.' + lng.shortcut),
       value: lng.shortcut
     }))
 

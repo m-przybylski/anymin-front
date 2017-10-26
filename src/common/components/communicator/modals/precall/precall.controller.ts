@@ -8,6 +8,7 @@ import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 import {ModalsService} from '../../../../services/modals/modals.service'
 import {ClientCallService} from '../../call-services/client-call.service'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import {TranslatorService} from '../../../../services/translator/translator.service'
 
 export interface IPrecallModalControllerScope extends ng.IScope {
   service: GetService,
@@ -60,7 +61,7 @@ export class PrecallModalController implements ng.IController {
               private CommonSettingsService: CommonSettingsService,
               private CommonConfig: CommonConfig,
               private topAlertService: TopAlertService,
-              private $filter: ng.IFilterService,
+              private translatorService: TranslatorService,
               private $state: ng.ui.IStateService,
               private modalsService: ModalsService,
               private clientCallService: ClientCallService,
@@ -69,9 +70,9 @@ export class PrecallModalController implements ng.IController {
   }
 
   $onInit = (): void => {
-    this.prepaidValue = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.READONLY.VALUE')
-    this.prepaidTranslation = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL')
-    this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
+    this.prepaidValue = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.PREPAID.READONLY.VALUE')
+    this.prepaidTranslation = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL')
+    this.dateTimeLimit = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
 
     this.service = this.$scope.service
     this.serviceOwner = this.$scope.owner
@@ -118,7 +119,7 @@ export class PrecallModalController implements ng.IController {
     }, (error) => {
       this.$log.error(error)
       this.topAlertService.error({
-        message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
+        message: this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
         timeout: 2
       })
       this.$uibModalInstance.dismiss('cancel')
@@ -140,7 +141,7 @@ export class PrecallModalController implements ng.IController {
     }, (error) => {
       this.$log.error(error)
       this.topAlertService.error({
-        message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
+        message: this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
         timeout: 2
       })
       this.onModalClose()
@@ -188,14 +189,14 @@ export class PrecallModalController implements ng.IController {
     }
     else {
       this.isUnlimitedPrepaid = true
-      this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
+      this.dateTimeLimit = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
     }
   }
 
   public onSelectItemDropdown = (data: IPrimaryDropdownListElement): void => {
     this.callLimitModel = '0'
     this.onPriceChange(this.callLimitModel)
-    this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
+    this.dateTimeLimit = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
     this.isPrepaid = data.value === this.prepaidValue
     const token = this.isPrepaid ? undefined : data.value
     this.PaymentsApi.putDefaultPaymentMethodRoute({token}).then(() => {

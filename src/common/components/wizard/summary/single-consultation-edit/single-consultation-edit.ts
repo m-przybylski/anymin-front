@@ -3,6 +3,7 @@ import {SingleConsultationEditComponent} from './single-consultation-edit.compon
 import tagsListModule from '../../../tags-list/tags-list'
 import {WizardService} from 'profitelo-api-ng/model/models'
 import './single-consultation-edit.sass'
+import translatorWrapperModule from '../../../../services/translator/translator'
 
 export interface ISingleConsultationEditComponentBindings extends ng.IController {
   service: WizardService
@@ -12,7 +13,8 @@ export interface ISingleConsultationEditComponentBindings extends ng.IController
 }
 
 const singleConsultationEditModule = angular.module('profitelo.component.wizard.summary.single-consultation-edit', [
-  tagsListModule
+  tagsListModule,
+  translatorWrapperModule
 
 ]).component('singleConsultationEdit', new SingleConsultationEditComponent)
   .name

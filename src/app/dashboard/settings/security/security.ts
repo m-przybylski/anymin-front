@@ -14,7 +14,7 @@ import {UserService} from '../../../../common/services/user/user.service'
 import {IStateService} from 'angular-ui-router'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import topAlertModule from '../../../../common/services/top-alert/top-alert'
-import {IFilterService} from '../../../../common/services/filter/filter.service'
+import {TranslatorService} from '../../../../common/services/translator/translator.service'
 
 interface ISession {
   device: string
@@ -31,7 +31,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
   constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: GetSession[],
               private SessionApi: SessionApi, private userService: UserService,
               private $state: IStateService, private topAlertService: TopAlertService,
-              private $filter: IFilterService) {
+              private translatorService: TranslatorService) {
 
     if (currentSession.account) {
       this.hasMobilePin = currentSession.account.hasMobilePin
@@ -79,7 +79,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
       this.userService.logout().then(() => {
         this.$state.reload()
         this.topAlertService.success({
-          message: this.$filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
+          message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
         })
       })

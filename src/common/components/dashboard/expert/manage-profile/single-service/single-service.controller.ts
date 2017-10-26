@@ -5,6 +5,7 @@ import {ModalsService} from '../../../../../services/modals/modals.service'
 import {ServiceApi, EmploymentApi} from 'profitelo-api-ng/api/api';
 import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
 import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service'
+import {TranslatorService} from '../../../../../services/translator/translator.service'
 
 export interface ISingleServiceComponentControllerScope extends ng.IScope {
   onModalClose: () => void,
@@ -26,7 +27,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
               private modalsService: ModalsService,
               private ServiceApi: ServiceApi,
               private EmploymentApi: EmploymentApi,
-              private $filter: ng.IFilterService,
+              private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
               private errorHandler: ErrorHandlerService) {}
 
@@ -55,11 +56,11 @@ export class SingleServiceComponentController implements ng.IController, ISingle
 
   private deleteService = (): void => {
     const confirmWindowMessage: string =
-      this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT')
+      this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT')
     if (confirm(confirmWindowMessage)) {
       this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then( () => {
         this.topAlertService.success({
-          message: this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
+          message: this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
           timeout: 2
         })
         this.isDeleted = true
@@ -69,11 +70,12 @@ export class SingleServiceComponentController implements ng.IController, ISingle
 
   private deleteEmployment = (): void => {
     const confirmWindowMessage: string =
-      this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT')
+      this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT')
     if (confirm(confirmWindowMessage)) {
         this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.service.id).then(() => {
           this.topAlertService.success({
-            message: this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
+            message:
+              this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
             timeout: 2
           })
           this.isDeleted = true

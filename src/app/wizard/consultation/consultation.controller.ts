@@ -5,8 +5,8 @@ import {UserService} from '../../../common/services/user/user.service'
 import {ServiceInvitation} from '../../../common/models/ServiceInvitation'
 import * as _ from 'lodash'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
-import {IFilterService} from '../../../common/services/filter/filter.service'
 import {LanguagesService} from '../../../common/services/languages/languages.service'
+import {TranslatorService} from '../../../common/services/translator/translator.service'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -42,7 +42,7 @@ export class ConsultationController implements ng.IController {
   private defaultLanguageISO: string = ''
 
   /* @ngInject */
-  constructor(private $filter: IFilterService,
+  constructor(private translatorService: TranslatorService,
               private $state: ng.ui.IStateService,
               private $stateParams: IConsultationStateParams,
               private WizardApi: WizardApi,
@@ -94,8 +94,7 @@ export class ConsultationController implements ng.IController {
         this.tagsInputValue.push(tag.name)
       })
       this.languageInputValue = {
-        name: (this.$filter('translate')
-        (this.$filter('normalizeTranslationKey')(('LANGUAGE.' + this.$stateParams.service.language)))),
+        name: this.translatorService.translate('LANGUAGE.' + this.$stateParams.service.language),
         value: this.$stateParams.service.language
       }
       this.descriptionInputValue = this.$stateParams.service.description

@@ -18,9 +18,7 @@ describe('Unit testing: profitelo.services.search >', () => {
     let $rootScope: IRootScopeService
     let searchQueryParams: SearchQueryParams
     let q: ng.IQService
-    const errorHandler: ErrorHandlerService = <ErrorHandlerService>{
-      handleServerError: (_err: any, _logMessage: string) => {}
-    }
+    let errorHandler: ErrorHandlerService
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
     }))
@@ -30,6 +28,7 @@ describe('Unit testing: profitelo.services.search >', () => {
       searchQueryParams = new SearchQueryParams
       inject(($injector: ng.auto.IInjectorService,  $q: ng.IQService) => {
         q = $q
+        errorHandler = $injector.get<ErrorHandlerService>('errorHandler')
         searchService = $injector.get<SearchService>('searchService')
         httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
         SearchApiMock = $injector.get<SearchApiMock>('SearchApiMock')

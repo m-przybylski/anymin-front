@@ -1,7 +1,7 @@
 import {ISingleConsultationEditComponentBindings} from './single-consultation-edit'
 import {WizardService, WizardTag, MoneyDto} from 'profitelo-api-ng/model/models'
 import {ServiceInvitation} from '../../../../models/ServiceInvitation'
-import {IFilterService} from '../../../../services/filter/filter.service';
+import {TranslatorService} from '../../../../services/translator/translator.service'
 
 export class SingleConsultationEditComponentController implements ISingleConsultationEditComponentBindings {
 
@@ -18,7 +18,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public description: string
 
   /* @ngInject */
-  constructor(private $filter: IFilterService) {
+  constructor(private translatorService: TranslatorService) {
   }
 
   $onInit(): void {
@@ -36,8 +36,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
     this.name = this.service.name
     this.price = this.service.price
     this.isOwnerEmployee = this.service.isOwnerEmployee
-    this.language = (this.$filter('translate')
-    (this.$filter('normalizeTranslationKey')(('LANGUAGE.' + this.service.language))))
+    this.language = this.translatorService.translate('LANGUAGE.' + this.service.language)
     this.description = this.service.description
   }
 

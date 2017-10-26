@@ -1,12 +1,13 @@
 import * as angular from 'angular'
 import {IForgotPasswordStateParams} from '../../../app/login/forgot-password/forgot-password'
-import {IFilterService} from '../../services/filter/filter.service'
 import {LoginStateService} from '../../services/login-state/login-state.service'
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
 import loginStateModule from '../../services/login-state/login-state'
 import topAlertModule from '../../services/top-alert/top-alert'
+import {TranslatorService} from '../../services/translator/translator.service'
+import translatorModule from '../../services/translator/translator'
 
 export interface ILoginForgotPassword {
   recoveryMethod: string
@@ -19,9 +20,13 @@ export interface ILoginForgotPasswordService {
 
 class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
-  constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, private $filter: IFilterService,
-              private $state: ng.ui.IStateService, private topAlertService: TopAlertService,
-              private loginStateService: LoginStateService, private RecoverPasswordApi: RecoverPasswordApi) {
+  constructor(private $q: ng.IQService,
+              private $timeout: ng.ITimeoutService,
+              private translatorService: TranslatorService,
+              private $state: ng.ui.IStateService,
+              private topAlertService: TopAlertService,
+              private loginStateService: LoginStateService,
+              private RecoverPasswordApi: RecoverPasswordApi) {
 
   }
 
@@ -33,7 +38,7 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
     const handleError = (): void => {
       _deferred.reject()
       this.topAlertService.error({
-        message: this.$filter('translate')('LOGIN.PASSWORD_RECOVERY.ERROR')
+        message: this.translatorService.translate('LOGIN.PASSWORD_RECOVERY.ERROR')
       })
       this.$timeout(() => {
         this.$state.go('app.login.account')
@@ -77,6 +82,7 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 angular.module('profitelo.resolvers.login-forgot-password', [
   apiModule,
   loginStateModule,
+  translatorModule,
   topAlertModule
 ])
   .service('LoginForgotPasswordResolver', LoginForgotPasswordResolver)

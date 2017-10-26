@@ -1,12 +1,13 @@
 import * as angular from 'angular'
 import {ISetNewPasswordStateParams} from '../../../app/login/set-new-password/set-new-password'
-import {IFilterService} from '../../services/filter/filter.service'
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
 import {LoginStateService} from '../../services/login-state/login-state.service'
 import topAlertModule from '../../services/top-alert/top-alert'
 import loginStateModule from '../../services/login-state/login-state'
+import {TranslatorService} from '../../services/translator/translator.service'
+import translatorModule from '../../services/translator/translator'
 
 export interface ILoginSetNewPassword {
   method: string
@@ -22,7 +23,7 @@ export interface ILoginSetNewPasswordService {
 
 class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
-  constructor(private $state: ng.ui.IStateService, private $filter: IFilterService,
+  constructor(private $state: ng.ui.IStateService, private translatorService: TranslatorService,
               private $timeout: ng.ITimeoutService, private $q: ng.IQService,
               private loginStateService: LoginStateService, private topAlertService: TopAlertService,
               private RecoverPasswordApi: RecoverPasswordApi) {
@@ -57,7 +58,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
       }, () => {
         _deferred.reject()
         this.topAlertService.warning({
-          message: this.$filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN'),
+          message: this.translatorService.translate('LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN'),
           timeout: 5
         })
         this.$timeout(() => {
@@ -95,6 +96,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 angular.module('profitelo.resolvers.login-set-new-password', [
   apiModule,
   topAlertModule,
+  translatorModule,
   loginStateModule
 ])
   .service('LoginSetNewPasswordResolver', LoginSetNewPasswordResolver)

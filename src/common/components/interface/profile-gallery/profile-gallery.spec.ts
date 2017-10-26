@@ -35,6 +35,7 @@ describe('Unit testing: profitelo.components.interface.profile-gallery', (): voi
       $provide.value('apiUrl', 'awesomeUrl')
       $provide.value('modalsService', ModalsService)
       $provide.value('errorHandler', ErrorHandlerService)
+      $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
     }))
 
     beforeEach((): void => {

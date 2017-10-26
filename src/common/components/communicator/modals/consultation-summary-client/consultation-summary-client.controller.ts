@@ -2,10 +2,10 @@ import {Tag} from 'profitelo-api-ng/model/models'
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
 import {IAngularEvent} from 'angular'
 import {ClientCallSummary} from '../../../../models/ClientCallSummary'
-import {IFilterService} from '../../../../services/filter/filter.service'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {TranslatorService} from '../../../../services/translator/translator.service'
 
 export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   expertAvatar: string
@@ -55,7 +55,7 @@ export class ConsultationSummaryClientController implements ng.IController {
               private $scope: IConsultationSummaryClientControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
-              private $filter: IFilterService,
+              private translatorService: TranslatorService,
               private ServiceApi: ServiceApi,
               private errorHandler: ErrorHandlerService) {
 
@@ -126,7 +126,7 @@ export class ConsultationSummaryClientController implements ng.IController {
     this.$scope.$on('modal.closing', (event: IAngularEvent) => {
       if (this.isCommentValid() && !this.isSendButtonClicked) {
         const confirmWindowMessage: string =
-          this.$filter('translate')('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.CONFIRM_WINDOW_MESSAGE')
+          this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.CONFIRM_WINDOW_MESSAGE')
         if (!confirm(confirmWindowMessage)) {
           event.preventDefault()
         }

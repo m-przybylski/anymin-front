@@ -5,6 +5,7 @@ import './single-service.sass'
 import {GetExpertServiceDetails} from 'profitelo-api-ng/model/models';
 import userModule from '../../../../../services/user/user'
 import modalsModule from '../../../../../services/modals/modals'
+import translatorModule from '../../../../../services/translator/translator'
 
 export interface ISingleServiceComponentBindings {
   serviceDetails: GetExpertServiceDetails,
@@ -15,6 +16,7 @@ const singleServiceModule = angular.module('profitelo.components.dashboard.exper
   'pascalprecht.translate',
   userAvatarModule,
   userModule,
+  translatorModule,
   modalsModule
 ])
   .component('singleService', new SingleServiceComponent())

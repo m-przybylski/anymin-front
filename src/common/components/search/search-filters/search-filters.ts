@@ -7,6 +7,7 @@ import 'common/directives/pro-tags-slider/pro-tags-slider'
 import 'common/directives/interface/pro-switcher/pro-switcher'
 import {default as commonConfigModule} from '../../../../../generated_modules/common-config/common-config'
 import {SearchFiltersComponent} from './search-filter.component'
+import translatorModule from '../../../services/translator/translator'
 
 export interface ISearchFiltersComponentBindings {
   tags: string[]
@@ -20,6 +21,7 @@ angular.module('profitelo.components.search.searchFilters', [
   'profitelo.directives.pro-tags-slider',
   'profitelo.directives.interface.pro-switcher',
   searchModule,
+  translatorModule,
   commonConfigModule,
   filtersModule
 ])
