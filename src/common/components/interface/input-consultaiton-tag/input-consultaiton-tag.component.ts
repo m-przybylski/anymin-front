@@ -4,7 +4,8 @@ export class InputConsultationTagComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationTagComponentController
   template = require('./input-consultaiton-tag.pug')()
   bindings: {[boundProperty: string]: string} = {
-    dictionary: '<',
+    serviceName: '<',
+    serviceDescription: '<',
     selectedTags: '=?',
     isValid: '<',
     validationText: '@',

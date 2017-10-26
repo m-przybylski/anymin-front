@@ -19,7 +19,6 @@ interface ILanguagesList {
 
 export class ConsultationController implements ng.IController {
   public isStepRequired: boolean = true
-  public consultationsMock: string[]
   public priceRegexp: RegExp
   public currency: string
   public nameInputValue: string
@@ -63,12 +62,6 @@ export class ConsultationController implements ng.IController {
         this.isOwnerEmployee = true
       }
     }
-
-    this.consultationsMock = [
-      'Tag-1',
-      'Tag-2',
-      'Tag-3'
-    ]
   }
 
   $onInit(): void {

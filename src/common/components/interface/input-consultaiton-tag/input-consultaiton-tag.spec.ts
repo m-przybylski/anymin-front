@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import inputConsultationTagModule, {IInputConsultationTagBindings} from './input-consultaiton-tag'
 import {InputConsultationTagComponentController} from './input-consultaiton-tag.controller'
+import {PromiseService} from '../../../services/promise/promise.service'
 
 describe('Unit testing: profitelo.components.interface.input-consultation-tag', () =>
   describe('for inputConsultationTag component >', () => {
@@ -24,15 +25,20 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       angular.mock.module(inputConsultationTagModule)
     })
 
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
+      $provide.value('apiUrl', 'url')
+    }))
+
     beforeEach(() => {
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, promiseService: PromiseService,
               $componentController: ng.IComponentControllerService) => {
         rootScope = $rootScope.$new()
         compile = $compile
 
         const injectors = {
           $element: create(validHTML),
-          $scope: rootScope
+          $scope: rootScope,
+          promiseService
         }
 
         component = $componentController<InputConsultationTagComponentController, IInputConsultationTagBindings>(
@@ -63,11 +69,11 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
     it('should add selected number', () => {
       const item: string = 'item'
       const index: number = 1
-      component.dictionary = ['asd', 'dsa']
+      component.suggestedTags = ['asd', 'dsa']
       component.addSelectedItem(item, index)
       expect(component.selectedTags.length).toBe(1)
       expect(component.isInputValueInvalid).toBe(false)
-      expect(component.dictionary.length).toBe(1)
+      expect(component.suggestedTags.length).toBe(1)
     })
 
     it('should onBlur', () => {

@@ -65,13 +65,6 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   $onInit(): void {
-    // TODO replace it https://git.contactis.pl/itelo/profitelo-frontend/issues/124
-    this.recommendedTags = [
-      'Tag-1',
-      'Tag-2',
-      'Tag-3'
-    ]
-
     this.priceRegexp = this.CommonSettingsService.localSettings.pricePattern
 
     this.userService.getUser().then((user) => {
