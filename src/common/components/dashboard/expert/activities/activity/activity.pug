@@ -1,42 +1,40 @@
 .last-activities
-  .container
-    .last-activities-container(data-ng-click=":: $ctrl.openActivityDescription()")
-      .list-row.call-activity(data-ng-if="$ctrl.isCallActivity")
-        .last-activity-details
-          .last-activity-icon
-            span.icon.icon-incoming-call-24
-
-          .last-activity-about
-            .last-activity-date
-              span  {{:: $ctrl.activity.serviceUsageDetails.createdAt| date : 'EEE d.MM.y'}}
-
-        .last-activity-description
-          span {{:: $ctrl.activity.serviceName }}
-
-        .last-activity-profile
-          .profile-preview(data-ng-if="$ctrl.isCompany")
-            .thumb.x32
-              user-avatar(data-image-token=":: $ctrl.activity.serviceUsageDetails.expertAvatar")
-
-            .profile-name
-              span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
-
-          .price-small
-            span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
-
-    .list-row.money-activity(data-ng-if="!$ctrl.isCallActivity")
+  .last-activities-container(data-ng-click=":: $ctrl.openActivityDescription()")
+    .list-row.call-activity(data-ng-if="$ctrl.isCallActivity")
       .last-activity-details
         .last-activity-icon
-          span.icon.icon-payout-24
+          span.icon.icon-incoming-call-24
 
-          .last-activity-about
-            .last-activity-date
-              span {{ ::$ctrl.activity.createdAt | date : "EEE d.MM.y" }}
+        .last-activity-about
+          .last-activity-date
+            span  {{:: $ctrl.activity.serviceUsageDetails.createdAt| date : 'EEE d.MM.y'}}
 
-        .money-activity-informations-container
-          .last-activity-description
-            span {{ ::'DASHBOARD_CLIENT.CHARGE_ACCOUNT_ACTIVITY_HEADER' | translate}}
+      .last-activity-description
+        span {{:: $ctrl.activity.serviceName }}
 
-          .price-small
-            span +
-            span(data-ng-bind-html="::$ctrl.activity.financialOperation.operation | money")
+      .last-activity-profile
+        .profile-preview(data-ng-if="$ctrl.isCompany")
+          user-avatar.thumb.x48(data-image-token=":: $ctrl.activity.serviceUsageDetails.expertAvatar")
+
+          .profile-name
+            span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
+
+        .price-small
+          span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
+
+  .list-row.money-activity(data-ng-if="!$ctrl.isCallActivity")
+    .last-activity-details
+      .last-activity-icon
+        span.icon.icon-payout-24
+
+        .last-activity-about
+          .last-activity-date
+            span {{ ::$ctrl.activity.createdAt | date : "EEE d.MM.y" }}
+
+      .money-activity-informations-container
+        .last-activity-description
+          span {{ ::'DASHBOARD_CLIENT.CHARGE_ACCOUNT_ACTIVITY_HEADER' | translate}}
+
+        .price-small
+          span +
+          span(data-ng-bind-html="::$ctrl.activity.financialOperation.operation | money")

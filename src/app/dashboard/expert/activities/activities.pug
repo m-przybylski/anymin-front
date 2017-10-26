@@ -8,15 +8,14 @@
     data-account-type="vm.accountType")
     expert-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
 
-    .container
-      .load-more-results-container
-        span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")
+    .load-more-results-container
+      span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")
 
-        .load-more-btn-handler
-          span.btn.btn-preloader.animation(data-ng-if="vm.isActivitiesLoading")
-          a.btn.btn-link(
-          data-ng-class="{'is-disabled-link': vm.isActivitiesLoading}"
-          data-ng-if="vm.isMoreResults"
-          data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS"
-          data-ng-click="vm.loadMoreActivities()"
-          )
+      .load-more-btn-handler
+        span.btn.btn-preloader.animation(data-ng-if="vm.isActivitiesLoading")
+        a.btn.btn-link(
+        data-ng-class="{'is-disabled-link': vm.isActivitiesLoading}"
+        data-ng-if="vm.isMoreResults"
+        data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS"
+        data-ng-click="vm.loadMoreActivities()"
+        )
