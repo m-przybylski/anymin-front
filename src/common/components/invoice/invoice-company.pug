@@ -27,8 +27,10 @@
 
             button.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
 
-          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
-            span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
+          validation-alert(
+            data-alert-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+            data-is-visible="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && !$ctrl.mailValidation()"
+          )
           // TODO on GUS API IMPLEMENT
           //p(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.NO_VAT.DESCRIPTION")
 
@@ -43,9 +45,6 @@
         data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME.VALIDATION"
         data-ng-required="true"
         )
-
-        .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
-          span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
 
     .invoice-form-address
       header.entry-title
