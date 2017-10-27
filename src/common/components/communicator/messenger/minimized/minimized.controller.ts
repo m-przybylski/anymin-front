@@ -36,7 +36,7 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
     this.messages = this.messages.filter(msg => msg !== message)
 
   private showMessage = (message: RatelSdk.Message): void => {
-    if (typeof this.clientSession !== 'undefined' && this.clientSession.id !== message.user) {
+    if (typeof this.clientSession !== 'undefined' && this.clientSession.id !== message.userId) {
       this.messages.push(message)
       this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout)
     }

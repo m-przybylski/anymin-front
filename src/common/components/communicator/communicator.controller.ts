@@ -47,8 +47,8 @@ export class CommunicatorComponentController implements ng.IController {
     clientCallService.onNewCall(this.registerClientCall)
     clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
     clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
-    expertCallService.onNewCall(this.registerExpertCall)
 
+    expertCallService.onNewCall(this.registerExpertCall)
     expertCallService.onCallPull(this.onCallPull)
     expertCallService.onCallTaken(this.closeCommunicator)
   }
@@ -94,7 +94,6 @@ export class CommunicatorComponentController implements ng.IController {
     call.onAnswered(() => {
       this.isConnecting = false
     })
-
     this.registerCommonCallEvents(call);
   }
 
@@ -135,6 +134,7 @@ export class CommunicatorComponentController implements ng.IController {
     call.onTimeCostChange(this.onTimeCostChange)
     call.onParticipantOnline(this.onUserBackOnline)
     call.onParticipantOffline(this.onUserOffline)
+    call.onSuspendedCallEnd(this.closeCommunicator)
   }
 
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {

@@ -18,7 +18,7 @@ interface ICallSound {
 }
 
 describe('Unit testing: profitelo.services.call >', () => {
-  describe('for profitelo.services.call >', () => {
+  describe('for client call service >', () => {
 
     let clientCallService: ClientCallService
     let onCall: any
@@ -34,7 +34,8 @@ describe('Unit testing: profitelo.services.call >', () => {
     }
 
     const communicatorServiceMock = {
-      onCall: (cb: any): void => onCall = cb
+      onCall: (cb: any): void => onCall = cb,
+      onSuspendedCallEnd: (cb: () => void): void => cb()
     }
 
     const testSUR: GetServiceUsageRequest = {

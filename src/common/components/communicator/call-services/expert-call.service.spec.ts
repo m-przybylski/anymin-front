@@ -11,7 +11,7 @@ interface ICallSound {
 }
 
 describe('Unit testing: profitelo.services.call >', () => {
-  describe('for profitelo.services.call >', () => {
+  describe('for expert call service >', () => {
 
     let expertCallService: ExpertCallService
     let onCallInvitation: (callInvitation: RatelSdk.events.CallInvitation) => void
@@ -27,7 +27,8 @@ describe('Unit testing: profitelo.services.call >', () => {
     }
 
     const communicatorServiceMock = {
-      onCallInvitation: (cb: any): void => onCallInvitation = cb
+      onCallInvitation: (cb: any): void => onCallInvitation = cb,
+      onSuspendedCallEnd: (cb: () => void): void => cb()
     }
 
     const soundsService = {

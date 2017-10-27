@@ -6,6 +6,7 @@ import * as RatelSdk from 'ratel-sdk-js'
 import {UserService} from '../../services/user/user.service'
 import {CommonConfig, Settings} from '../../../../generated_modules/common-config/common-config'
 import {EventsService} from '../../services/events/events.service'
+import {Call} from 'ratel-sdk-js/dist/call'
 
 export class CommunicatorService {
 
@@ -19,7 +20,8 @@ export class CommunicatorService {
     onCallInvitation: 'onCallInvitation',
     onCallCreated: 'onCallCreated',
     onRoomInvitation: 'onRoomInvitation',
-    onRoomCreated: 'onRoomCreated'
+    onRoomCreated: 'onRoomCreated',
+    onReconnectActiveCalls: 'onReconnectActiveCalls'
   }
 
   private createRatelConnection = (session: RatelSdk.Session): void => {
@@ -78,8 +80,15 @@ export class CommunicatorService {
     })
 
     $window.addEventListener('online', () => {
-      if (this.ratelSession)
+      if (this.ratelSession) {
         this.ratelSession.chat.connect()
+        this.ratelSession.chat.getActiveCalls()
+        .then((response) => {
+            this.callbacks.notify(CommunicatorService.events.onReconnectActiveCalls, response)
+        }, (error) => {
+          this.$log.error(error)
+        })
+      }
     })
   }
 
@@ -87,7 +96,7 @@ export class CommunicatorService {
     const ratelUrl = new URL(this.commonConfig.urls.communicator.briefcase)
     const chatUrl = new URL(this.commonConfig.urls.communicator.artichoke)
     this.chatConfig = {
-      debug: true,
+      logLevel: RatelSdk.logger.LogLevel.DEBUG,
       ratel: {
         protocol: ratelUrl.protocol,
         hostname: ratelUrl.hostname,
@@ -145,4 +154,8 @@ export class CommunicatorService {
   public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): void => {
     this.callbacks.methods.onRoomInvitation(callback)
   }
+
+  public onReconnectActiveCalls = (callback: (activeCalls: Call[]) => void): void =>
+    this.callbacks.methods.onReconnectActiveCalls(callback)
+
 }

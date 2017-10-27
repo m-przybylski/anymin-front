@@ -10,6 +10,8 @@ import {StreamManager} from '../../../classes/stream-manager';
 import {MessageRoom} from './message-room';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
+import {CommunicatorService} from '../communicator.service'
+import * as _ from 'lodash'
 
 export enum CallState {
   NEW,
@@ -55,7 +57,8 @@ export class CurrentCall {
     onVideoStart: 'onVideoStart',
     onVideoStop: 'onVideoStop',
     onParticipantOnline: 'onParticipantOnline',
-    onParticipantOffline: 'onParticipantOffline'
+    onParticipantOffline: 'onParticipantOffline',
+    onSuspendedCallEnd: 'onSuspendedCallEnd'
   }
 
   constructor(callbacksFactory: CallbacksFactory,
@@ -64,6 +67,7 @@ export class CurrentCall {
               private timerFactory: TimerFactory,
               private service: GetService,
               private sue: ServiceUsageEvent,
+              private communicatorService: CommunicatorService,
               private RatelApi: RatelApi) {
     this.callbacks = callbacksFactory.getInstance(Object.keys(CurrentCall.events))
     this.registerCallbacks();
@@ -188,6 +192,12 @@ export class CurrentCall {
 
   public onParticipantOffline = (cb: () => void): void => this.callbacks.methods.onParticipantOffline(cb)
 
+  public onLeft = (cb: () => void): void => {
+    this.callbacks.methods.onLeft(cb)
+  }
+
+  public onSuspendedCallEnd = (cb: () => void): void => this.callbacks.methods.onSuspendedCallEnd(cb)
+
   private updateLocalStream = (mediaStream: MediaStream, stopLocalStream?: () => void): void => {
     if (this.localStream) {
       this.ratelCall.removeStream(this.localStream);
@@ -221,8 +231,10 @@ export class CurrentCall {
     this.ratelCall.onActiveDevice(this.onActiveDevice)
     this.ratelCall.onInvited(() => this.callbacks.notify(CurrentCall.events.onInvited, null))
     this.ratelCall.onJoined(() => this.callbacks.notify(CurrentCall.events.onJoined, null))
-    this.ratelCall.onLeft(() => {
-        this.callbacks.notify(CurrentCall.events.onLeft, null)
+    this.ratelCall.onLeft((reason) => {
+        if (reason.context.reason === 'connection_dropped') {
+          this.hangup()
+        }
       }
     )
     this.ratelCall.onRemoteStream((_id, stream) => {
@@ -247,6 +259,15 @@ export class CurrentCall {
     this.ratelCall.onOnline(() => {
       this.resumeTimer()
       this.callbacks.notify(CurrentCall.events.onParticipantOnline, null)
+    })
+
+    this.communicatorService.onReconnectActiveCalls((activeCalls) => {
+      if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
+        this.stopLocalStream()
+        this.stopTimer()
+        this.setState(CallState.ENDED)
+        this.callbacks.notify(CurrentCall.events.onSuspendedCallEnd, null)
+      }
     })
   }
 

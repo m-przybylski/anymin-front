@@ -16,7 +16,7 @@ export class GroupedMessagesComponentController implements ng.IController, IGrou
     if (this.messages) {
       const message = this.messages[0]
       const clientSession = this.communicatorService.getClientSession()
-      this.isMine = typeof clientSession !== 'undefined' && clientSession.id === message.user
+      this.isMine = typeof clientSession !== 'undefined' && clientSession.id === message.userId
     }
   }
 

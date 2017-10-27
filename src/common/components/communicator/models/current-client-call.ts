@@ -5,6 +5,7 @@ import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
+import {CommunicatorService} from '../communicator.service'
 
 export class CurrentClientCall extends CurrentCall {
 
@@ -16,9 +17,10 @@ export class CurrentClientCall extends CurrentCall {
               sue: ServiceUsageEvent,
               soundsService: SoundsService,
               RatelApi: RatelApi,
+              communicatorService: CommunicatorService,
               private expert: GetProfile) {
 
-    super(callbacksFactory, soundsService, call, timerFactory, service, sue, RatelApi);
+    super(callbacksFactory, soundsService, call, timerFactory, service, sue, communicatorService, RatelApi);
     this.setLocalStream(localStream);
     this.ratelCall.addStream(localStream);
 

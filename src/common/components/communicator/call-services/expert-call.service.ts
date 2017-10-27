@@ -57,11 +57,12 @@ export class ExpertCallService {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
         const currentExpertCall = new CurrentExpertCall(this.timerFactory, this.callbacksFactory, callInvitation,
-          incomingCallDetails, this.soundsService, this.RatelApi);
+          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
 
         this.currentExpertCall = currentExpertCall;
 
         this.currentExpertCall.onEnd(this.onExpertCallDisappearBeforeAnswering);
+        this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd)
 
         this.soundsService.callIncomingSound().play()
 
@@ -99,6 +100,15 @@ export class ExpertCallService {
       this.callingModal.dismiss();
       this.callbacks.notify(ExpertCallService.events.onCallTaken, activeDevice)
     }
+  }
+
+  private onSuspendedCallEnd = (): void => {
+    this.soundsService.playCallEnded();
+    if (this.currentExpertCall)
+      this.modalsService.createExpertConsultationSummaryModal(this.currentExpertCall.getService().id);
+    else
+      this.$log.error('call does not exist')
+    this.currentExpertCall = undefined;
   }
 
   private onExpertCallDisappearBeforeAnswering = (): void => {
