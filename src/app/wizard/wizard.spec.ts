@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {WizardController} from './wizard.controller'
 import wizardWizardModule from './wizard'
-
+import {isPlatformForExpert} from '../../common/constants/platform-for-expert.constant'
 
 describe('Testing Controller: WizardController', () => {
 
@@ -23,7 +23,7 @@ describe('Testing Controller: WizardController', () => {
       }
 
       WizardController = $controller<WizardController>('wizardController', {
-        $state: $state,
+        $state,
         previousState: ''
       })
     })
@@ -33,22 +33,23 @@ describe('Testing Controller: WizardController', () => {
     expect(!!WizardController).toBe(true)
   })
 
-  it('should call onModalClose and redirect to home page', () => {
-    spyOn($state, 'go')
-    WizardController.onModalClose()
-    expect($state.go).toHaveBeenCalledWith('app.home')
-  })
-
-  it('should call onModalClose and redirect to previous state', inject(($controller: ng.IControllerService) => {
-    const previousState = 'previousState'
-
-    WizardController = $controller<WizardController>('wizardController', {
-      $state: $state,
-      previousState: previousState
+  if (!isPlatformForExpert)
+    it('should call onModalClose and redirect to home page', () => {
+      spyOn($state, 'go')
+      WizardController.onModalClose()
+      expect($state.go).toHaveBeenCalledWith('app.home')
     })
 
-    spyOn($state, 'go')
-    WizardController.onModalClose()
-    expect($state.go).toHaveBeenCalledWith(previousState)
-  }))
+  if (!isPlatformForExpert)
+    it('should call onModalClose and redirect to previous state', inject(($controller: ng.IControllerService) => {
+      const previousState = 'previousState'
+      WizardController = $controller<WizardController>('wizardController', {
+        $state,
+        previousState
+      })
+
+      spyOn($state, 'go')
+      WizardController.onModalClose()
+      expect($state.go).toHaveBeenCalledWith(previousState)
+    }))
 })

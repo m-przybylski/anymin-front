@@ -5,6 +5,7 @@ import {TopWaitingLoaderService} from '../../../common/services/top-waiting-load
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import './set-email'
+import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 
 describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
   describe('Testing Controller: SetEmailController', () => {
@@ -35,16 +36,17 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.controller.post-register.set-email')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
-              _topWaitingLoaderService_: TopWaitingLoaderService, _AccountApi_: AccountApi, _topAlertService_: TopAlertService,
-              _$httpBackend_: ng.IHttpBackendService, AccountApiMock: AccountApiMock) => {
+              _topWaitingLoaderService_: TopWaitingLoaderService, _AccountApi_: AccountApi,
+              _topAlertService_: TopAlertService, _$httpBackend_: ng.IHttpBackendService,
+              AccountApiMock: AccountApiMock) => {
 
         scope = $rootScope.$new()
 
         SetEmailController = $controller('SetEmailController', {
-          $filter: $filter,
-          $state: $state,
+          $filter,
+          $state,
+          user,
           topWaitingLoaderService: _topWaitingLoaderService_,
-          user: user,
           topAlertService: _topAlertService_,
           AccountApi: _AccountApi_
         })
@@ -61,16 +63,17 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
       expect(!!SetEmailController).toBe(true)
     })
 
-    it('should set new email', () => {
-      spyOn($state, 'go')
-      // FIXME
-      _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
-      _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
-      SetEmailController.setNewEmail()
-      _$httpBackend.flush()
+    if (!isPlatformForExpert)
+      it('should set new email', () => {
+        spyOn($state, 'go')
+        // FIXME
+        _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
+        _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
+        SetEmailController.setNewEmail()
+        _$httpBackend.flush()
 
-      expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
-    })
+        expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
+      })
 
     it('should handle bad requesnt while setting new email', () => {
       spyOn(_topAlertService, 'error')

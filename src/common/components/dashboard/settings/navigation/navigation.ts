@@ -1,9 +1,12 @@
 import {UserService} from '../../../../services/user/user.service'
 import * as angular from 'angular'
 import userModule from '../../../../services/user/user'
+import {isPlatformForExpert} from '../../../../constants/platform-for-expert.constant'
 
   /* @ngInject */
   function controller(userService: UserService): void {
+
+    this.isPlatformForExpert = isPlatformForExpert
 
     userService.getUser().then((accountDetails) => {
       this.isWizardComplete = accountDetails.isCompany || accountDetails.isExpert

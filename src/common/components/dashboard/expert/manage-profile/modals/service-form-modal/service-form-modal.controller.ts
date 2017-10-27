@@ -148,7 +148,7 @@ export class ServiceFormModalController implements ng.IController {
     this.consultationDescription.length >= ServiceFormModalController.minValidDescriptionLength
 
   public areInvitationsValid = (): boolean =>
-    !this.serviceDetails ? this.consultationNewInvitations.length > 0 || this.isOwnerEmployee : true
+    this.isCompany ? this.consultationNewInvitations.length > 0 || this.isOwnerEmployee : true
 
   public isPriceValid = (): boolean => this.consultationPrice.length > 0
 

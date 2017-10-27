@@ -8,6 +8,7 @@ import './account'
 import communicatorModule from '../../../common/components/communicator/communicator'
 import userModule from '../../../common/services/user/user'
 import {UserService} from '../../../common/services/user/user.service'
+import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {
@@ -146,16 +147,17 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
     })
 
-    it('should login user', inject(($q: ng.IQService) => {
-      spyOn(userService, 'login').and.returnValue($q.resolve())
-      spyOn($state, 'go')
+    if (!isPlatformForExpert)
+      it('should login user', inject(($q: ng.IQService) => {
+        spyOn(userService, 'login').and.returnValue($q.resolve())
+        spyOn($state, 'go')
 
-      AccountFormController.current = 2
-      AccountFormController.login()
-      scope.$digest()
+        AccountFormController.current = 2
+        AccountFormController.login()
+        scope.$digest()
 
-      expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
-    }))
+        expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
+      }))
 
     it('should display error', inject(($q: ng.IQService) => {
       spyOn(userService, 'login').and.returnValue($q.reject())

@@ -5,6 +5,7 @@ import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import {IStateService} from 'angular-ui-router'
 import IStyleConstant = profitelo.constants.style.IStyleConstant
 import {TranslatorService} from '../../../services/translator/translator.service'
+import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
@@ -16,6 +17,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   isInvitationsTab: boolean = false
   isHelpMenuShow: boolean = false
   isAnyMenuShow: boolean = false
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
   constructor(private userService: UserService,

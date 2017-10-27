@@ -10,7 +10,9 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-sl
         a(data-ui-sref="app.dashboard.expert.activities")
           span.mobile-only.icon.icon-suitcase-24
           span(data-translate="NAVIGATION.MENU_ITEMS.EXPERT")
-      li(data-ui-sref-active="{'is-active' : 'app.dashboard.client'}")
+      li(
+      data-ng-if="!$ctrl.isPlatformForExpert"
+      data-ui-sref-active="{'is-active' : 'app.dashboard.client'}")
         a(data-ui-sref="app.dashboard.client.favourites")
           span.mobile-only.icon.icon-client-24
           span(data-translate="NAVIGATION.MENU_ITEMS.CLIENT")
@@ -42,7 +44,9 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-sl
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.AVAILABILITY")
           span.mobile-only.icon.icon-next-24
 
-      li.navbar-parent.notifications-tab-link(data-ng-class="{'show-arrow' : $ctrl.isNotificationsMenuShow}")
+      li.navbar-parent.notifications-tab-link(
+      data-ng-if="!$ctrl.isPlatformForExpert"
+      data-ng-class="{'show-arrow' : $ctrl.isNotificationsMenuShow}")
         a(data-ng-click="$ctrl.toggleNotificationsTabShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24(data-ng-class="{'active-icon' : $ctrl.isNotificationsMenuShow}")
@@ -55,10 +59,26 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-sl
             data-is-invitations-tab="$ctrl.isInvitationsTab"
             data-on-click="$ctrl.toggleNotificationsMenuShow")
 
-      li.navbar-parent.invitations-tab-link
+      li.navbar-parent.invitations-tab-link(data-ng-if="!$ctrl.isPlatformForExpert")
         a(data-ng-click="$ctrl.toggleInvitationsTabShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24
             span.notifications-count(data-ng-hide="$ctrl.areInvitationsDisplayed") 2
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.INVITATIONS")
           span.mobile-only.icon.icon-next-24
+
+      // isPlatformForExpert - after restore project to full functionality delete following 'li'
+      li.navbar-parent.notifications-tab-link(
+      data-ng-if="$ctrl.isPlatformForExpert"
+      data-ng-class="{'show-arrow' : $ctrl.isNotificationsMenuShow}")
+        a(data-ng-click="$ctrl.toggleNotificationsTabShow()")
+          span.navbar-item-handler
+            span.icon.icon-bell-24(data-ng-class="{'active-icon' : $ctrl.isNotificationsMenuShow}")
+            span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") +9
+            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.NOTIFICATION")
+          span.mobile-only.icon.icon-next-24
+
+        .navbar-menu-container.navbar-menu-animation.animation(data-ng-if="$ctrl.isNotificationsMenuShow")
+          navbar-notifications(data-is-notifications-tab="$ctrl.isNotificationsTab"
+          data-is-invitations-tab="$ctrl.isInvitationsTab"
+          data-on-click="$ctrl.toggleNotificationsMenuShow")

@@ -1,4 +1,5 @@
 import {AppComponentController} from './app.controller'
+import {isPlatformForExpert} from '../common/constants/platform-for-expert.constant'
 
 /* @ngInject */
 export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
@@ -9,8 +10,13 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
 
   $urlRouterProvider.deferIntercept()
 
-  $urlRouterProvider
-    .otherwise('/home')
+  if (isPlatformForExpert) {
+    $urlRouterProvider
+      .otherwise('/dashboard/settings/general')
+  } else {
+    $urlRouterProvider
+      .otherwise('/home')
+  }
 
   $httpProvider.defaults.withCredentials = true
 

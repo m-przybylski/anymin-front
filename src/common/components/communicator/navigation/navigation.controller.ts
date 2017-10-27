@@ -1,5 +1,6 @@
 import {RatelCallDetails} from 'profitelo-api-ng/model/models'
 import {CurrentCall} from '../models/current-call';
+import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
 
 export interface INavigationComponentBindings {
   isVideo: boolean
@@ -19,6 +20,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
   isVideo: boolean
   isMessenger: boolean
   currentCall: CurrentCall
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
   constructor() {

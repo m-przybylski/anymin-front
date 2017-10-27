@@ -5,7 +5,7 @@
         p(data-translate="{{ $ctrl.activeAccountTranslation | translate: $ctrl.translationPayoutsHref }}")
       no-results-information(data-icon-src="assets/images/profitelo_icons/icon_expert_no_activities.png"
         data-information-title="DASHBOARD.EXPERT_ACCOUNT.NO_ACTIVITIES.TITLE")
-      .blog-news-container.tiles-row
+      .blog-news-container.tiles-row(data-ng-if="!$ctrl.isPlatformForExpert")
         .post-container.tiles-item
           .post-thumb-container
             .post-thumb
