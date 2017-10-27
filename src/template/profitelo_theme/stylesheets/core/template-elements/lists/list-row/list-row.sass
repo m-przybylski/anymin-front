@@ -47,10 +47,15 @@
 
 .list-row-double
   border-bottom: 1px solid $c-lines
+
   .list-row
     border-bottom: 0
+
     &:first-child
-      padding: 20px 12px
+      padding: 20px 0
+
+      +xsm
+        padding: 20px 12px
 
       +smm
         padding: 20px 16px

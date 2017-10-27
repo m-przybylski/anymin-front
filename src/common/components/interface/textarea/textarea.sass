@@ -1,9 +1,5 @@
 @import "../../../../template/profitelo_theme/stylesheets/variables/variables"
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins"
-@import "../../../../template/profitelo_theme/stylesheets/core/interface/icons/icons"
-
-checkbox
-	display: block
 
 .textarea
 	display: flex
@@ -42,6 +38,9 @@ checkbox
 		height: 1px
 		width: 100%
 		animation: inputBorderLineAnimationOut 0.3s
+
+	label
+		+inputLabel
 
 	&.is-focused
 		&::after
