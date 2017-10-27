@@ -1,191 +1,188 @@
 .modal-open
-  display: block
+	display: block
 
-  .modal-dialog
-    transform: none !important
-    display: block
-    width: 100%
-    justify-content: center
-    margin: 0
-    min-height: 100vh
-    overflow: scroll
+	&.full-screen
+		.modal
+			.modal-content
+				background: $c-white
 
-    +mdm
-      min-height: 100vh
+				.modal-summary
+					box-shadow: none
 
-    .modal-content
-      background: none
-      box-shadow: none
-      border: 0
-      display: flex
-      justify-content: center
-      align-items: center
-      min-height: 100vh
-      padding: 0
-      border-radius: 0
+	&.modal-dark
+		.modal
+			.modal-dialog
+				.modal-content
+					background: $c-primary-txt
 
-      +smm
-        padding: 32px 0
+.modal
+	.modal-dialog
+		transform: none !important
+		display: block
+		width: 100%
+		justify-content: center
+		margin: 0
+		min-height: 100vh
+		overflow: scroll
 
-  &.full-screen
-    .modal-content
-      background: $c-white
+		+mdm
+			min-height: 100vh
 
-      .modal-summary
-        box-shadow: none
+		.modal-content
+			background: none
+			box-shadow: none
+			border: 0
+			display: flex
+			justify-content: center
+			align-items: center
+			min-height: 100vh
+			padding: 0
+			border-radius: 0
 
-  &.modal-dark
-    .modal-content
-      background: $c-primary-txt
-
+			+smm
+				padding: 32px 0
 
 .modal-action
-  margin: 48px 0 0
+	margin: 48px 0 0
 
-  +xsm
-    display: flex
-    justify-content: center
+	+xsm
+		display: flex
+		justify-content: center
 
-  .btn
-    display: flex
-    margin: 0 0 16px
+	.btn
+		display: flex
+		margin: 0 0 16px
 
-    +xsm
-      margin: 0 16px
-
+		+xsm
+			margin: 0 16px
 
 .modal-settings
-  animation: fadeInY 0.3s
-  animation-fill-mode: forwards
-  text-align: center
+	animation: fadeInY 0.3s
+	animation-fill-mode: forwards
+	text-align: center
 
-  .entry-title
-    +header
-    display: block
-    padding: 0 0 48px
-
+	.entry-title
+		+header
+		display: block
+		padding: 0 0 48px
 
 .modal-form
-  animation: fadeInY 0.3s
-  animation-fill-mode: forwards
-  padding: 0
+	animation: fadeInY 0.3s
+	animation-fill-mode: forwards
+	padding: 0
 
-  +smm
-    border: 1px solid $c-lines
+	+smm
+		border: 1px solid $c-lines
 
-  .modal-header
-    border: 0
+	.modal-header
+		border: 0
 
-    +smm
-      padding: 48px 48px 0
+		+smm
+			padding: 48px 48px 0
 
-  .modal-container
-    display: block
-    padding:  24px 16px
+	.modal-container
+		display: block
+		padding: 24px 16px
 
-    +smm
-      padding: 48px 48px
+		+smm
+			padding: 48px 48px
 
-    > *:not(:last-child):not(header)
-      display: block
-      margin: 0 0 $s-input-section-margin
+		> *:not(:last-child):not(header)
+			display: block
+			margin: 0 0 $s-input-section-margin
 
-  .modal-footer
-    padding: 48px 16px
+	.modal-footer
+		padding: 48px 16px
 
-    +smm
-      padding: 48px 48px
+		+smm
+			padding: 48px 48px
 
 .modal-default
-  text-align: center
-  background: $c-white
-  padding: 48px 24px
+	text-align: center
+	background: $c-white
+	padding: 48px 24px
 
-  +smm
-    padding: 48px 16px
+	+smm
+		padding: 48px 16px
 
-  img
-    margin: 0 auto 24px
-    display: block
+	img
+		margin: 0 auto 24px
+		display: block
 
-  p
-    +paragraphSmall
+	p
+		+paragraphSmall
 
-  .entry-title
-    padding: 0 0 8px
-    justify-content: center
+	.entry-title
+		padding: 0 0 8px
+		justify-content: center
 
-  > div
-    > *
-      animation: fadeInY 0.3s
-      animation-fill-mode: forwards
-      position: relative
-      top: -20px
-      opacity: 0
+	> div
+		> *
+			animation: fadeInY 0.3s
+			animation-fill-mode: forwards
+			position: relative
+			top: -20px
+			opacity: 0
 
-      @for $i from 1 through 5
-        &:nth-child(#{$i})
-          animation-delay: $i * 0.1s
-
+			@for $i from 1 through 5
+				&:nth-child(#{$i})
+					animation-delay: $i * 0.1s
 
 .modal-primary
-  text-align: left
-  background: $c-white
-  padding: 48px 24px
+	text-align: left
+	background: $c-white
+	padding: 48px 24px
 
-  .modal-section
-    margin: 0 0 96px
-
-
+	.modal-section
+		margin: 0 0 96px
 
 // Summary modal with white background
 .modal-summary
-  animation: fadeInY 0.6s
-  box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
-  border-radius: $s-border-radius
-  overflow: hidden
+	animation: fadeInY 0.6s
+	box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+	border-radius: $s-border-radius
+	overflow: hidden
 
-  .top-modal-navbar
-    position: absolute
-    padding: 0
+	.top-modal-navbar
+		position: absolute
+		padding: 0
 
-    .btn-close
-      border: 0
+		.btn-close
+			border: 0
 
-      span
-        color: $c-tertiary-txt
-        font-size: $f-icon-22
+			span
+				color: $c-tertiary-txt
+				font-size: $f-icon-22
 
-  .modal-main
-    background: $c-white
-    position: relative
-    border-radius: $s-border-radius
-    padding: 0
+	.modal-main
+		background: $c-white
+		position: relative
+		border-radius: $s-border-radius
+		padding: 0
 
-    .modal-header
-      padding: 32px
-      text-align: center
-      border: none
+		.modal-header
+			padding: 32px
+			text-align: center
+			border: none
 
-      *
-        +default-font-regular
+			*
+				+default-font-regular
 
-      .profile-preview
-        &.vertical-preview
-          .thumb
-            margin: 0 0 16px
+			.profile-preview
+				&.vertical-preview
+					.thumb
+						margin: 0 0 16px
 
-          .profile-name
-            color: $c-black
-            margin: 0 0 24px
+					.profile-name
+						color: $c-black
+						margin: 0 0 24px
 
-            span
-              font-size: $f-paragraph-title
-              color: $c-black
+						span
+							font-size: $f-paragraph-title
+							color: $c-black
 
+		.modal-container
+			padding: 32px
 
-    .modal-container
-      padding: 32px
-
-    .input-sign-counter
-      text-align: right
+		.input-sign-counter
+			text-align: right
