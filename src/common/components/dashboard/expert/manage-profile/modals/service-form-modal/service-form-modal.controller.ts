@@ -10,6 +10,7 @@ import {ServiceApi, EmploymentApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import {ILanguage, LanguagesService} from '../../../../../../services/languages/languages.service'
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
+import {isPlatformForExpert} from '../../../../../../constants/platform-for-expert.constant'
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void
@@ -35,6 +36,7 @@ export class ServiceFormModalController implements ng.IController {
   public isRegExpPriceInputValid: boolean = true
   public isCompany: boolean = false
   public isExpert: boolean = false
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   private static readonly minValidNameLength: number = 5
   private static readonly minValidDescriptionLength: number = 50

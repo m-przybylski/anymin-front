@@ -67,7 +67,7 @@ section.consultation
         data-is-company="vm.isCompany"
         data-required="vm.isStepRequired"
       )
-        .hint
+        .hint(data-ng-if="!vm.isPlatformForExpert")
           p(data-translate="WIZARD.CONSULTATION.PRICE.SUGGESTED")
           tooltip(data-tooltip-text="WIZARD.CONSULTATION.PRICE.TOOLTIP")
 
