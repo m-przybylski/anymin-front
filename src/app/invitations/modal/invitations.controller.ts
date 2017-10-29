@@ -16,7 +16,7 @@ export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitat
 export class InvitationsModalController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
-  public areInvitations: boolean = true
+  public areInvitations: boolean = false
 
   public companyName?: string
   public logo?: string
@@ -42,8 +42,12 @@ export class InvitationsModalController implements ng.IController {
               $scope: IInvitationsModalScope) {
     if ($scope.profileWithServicesInvitations) {
       this.setInvitationData($scope.profileWithServicesInvitations)
+    } else {
+      this.isLoading = false
     }
-    if (this.services && this.services.length > 0) this.areInvitations = true
+    if (this.services && this.services.length > 0) {
+      this.areInvitations = true
+    }
   }
 
   private setInvitationData = (profileWithServicesInvitations?: GetProfileWithServicesInvitations): void => {
