@@ -100,7 +100,6 @@ export class ExpertInviteEmployeesController implements ng.IController {
         })
       }
     })
-    console.log(this.invitations)
   }
 
   private onSendInvitations = (): void => {
