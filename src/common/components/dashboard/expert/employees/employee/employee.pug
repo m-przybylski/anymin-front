@@ -1,20 +1,17 @@
-.expert-employees
-  .employees-list-container(data-ng-click=":: $ctrl.openEmployeeDescriptions()")
-    .list-row
-      .employee-informations
-        checkbox(
-          id="idEmployee"
-          data-ng-model='$ctrl.isChecked'
-        )
-        .profile-preview
-          .thumb.x48
-            user-avatar
-        .employee-details
-          .employee-name-container
-            span Tomek Bolek
-          .employee-consultation-count-container
-            span 1 kosultacja
+.expert-employee(data-ng-if="!$ctrl.isEmploeeDeleted")
+  .list-row
+    .employee-informations
+      .profile-preview
+        user-avatar.thumb.x48(data-image-token="$ctrl.employeeAvatar")
+      .employee-details
+        .employee-name-container
+          span {{ $ctrl.employeeName }}
+        .consultations-count-container
+          span {{ $ctrl.employmentsCount | translate}}
+          span.consultation-slug {{ $ctrl.consultationText }}
 
-      .employee-buttons-container
-        a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_BUTTON")
-        a.bnt.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.INVITATION_BUTTON")
+    .employee-buttons-container
+      a.btn.btn-link(
+      data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_BUTTON"
+      data-ng-click="$ctrl.deleteEmployee()"
+      )

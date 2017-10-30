@@ -1,10 +1,9 @@
 @import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
 @import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
 
-.expert-employees
+.expert-employee
   .list-row
     padding: 16px 0
-    cursor: pointer
 
     +lgm
       padding: 16px
@@ -33,10 +32,13 @@
     .employee-avatar-container
       margin: 0 24px 0 0
 
-    .employee-consultation-count-container
+    .consultations-count-container
       span
         +paragraphSmall
         color: $c-primary-txt
+
+      .consultation-slug
+        margin: 0 0 0 8px
 
     .employee-details
       display: flex

@@ -1,26 +1,31 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import singleServiceModule, {ISingleServiceComponentBindings} from './single-service'
-import {SingleServiceComponentController, ISingleServiceComponentControllerScope} from './single-service.controller'
+import {SingleServiceComponentController} from './single-service.controller'
 import {GetExpertServiceDetails, Tag} from 'profitelo-api-ng/model/models'
 import userModule from '../../../../../services/user/user'
 import {UserService} from '../../../../../services/user/user.service'
 import {ModalsService} from '../../../../../services/modals/modals.service'
+import {EmploymentApiMock} from 'profitelo-api-ng/api/api';
+import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service';
+import {httpCodes} from '../../../../../classes/http-codes'
 
 describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.single-service', () =>
   describe('for singleService >', () => {
 
-    let scope: ISingleServiceComponentControllerScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: SingleServiceComponentController
     let serviceDetails: GetExpertServiceDetails
     let modalsService: ModalsService
+    let $httpBackend: ng.IHttpBackendService
+    let EmploymentApiMock: EmploymentApiMock
+    let errorHandler: ErrorHandlerService
+
     const userService: UserService  = <UserService>{
       getUser: {}
     }
-    const validHTML = '<single-service data-service="service"></single-service>'
 
     serviceDetails = {
       service: {
@@ -58,15 +63,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
       }]
     }
 
-    function create(html: string): JQuery {
-      scope = <ISingleServiceComponentControllerScope>rootScope.$new()
-      scope.serviceDetails = serviceDetails
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
-
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
@@ -76,11 +72,21 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
       angular.mock.module(singleServiceModule)
       angular.mock.module(userModule)
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $q: ng.IQService,
-              _$componentController_: ng.IComponentControllerService, _modalsService_: ModalsService) => {
+      inject(($rootScope: IRootScopeService,
+              $compile: ng.ICompileService,
+              $q: ng.IQService,
+              _$componentController_: ng.IComponentControllerService,
+              _modalsService_: ModalsService,
+              _$httpBackend_: ng.IHttpBackendService,
+              _EmploymentApiMock_: EmploymentApiMock,
+              _errorHandler_: ErrorHandlerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         modalsService = _modalsService_
+        $httpBackend = _$httpBackend_
+        EmploymentApiMock = _EmploymentApiMock_
+        errorHandler = _errorHandler_
+
         spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
         compile = $compile
         const injectors = {
@@ -97,21 +103,26 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
 
         component = componentController<SingleServiceComponentController, {}>('singleService', injectors, bindings)
       })
+    })
 
-      it('should have a dummy test', inject(() => {
-        expect(true).toBeTruthy()
-      }))
+    it('should have a dummy test', inject(() => {
+      expect(true).toBeTruthy()
+    }))
 
-      it('should compile the directive', () => {
-        const el = create(validHTML)
-        expect(el.html()).toBeDefined(true)
-      })
+    it('should open modal form service', inject(() => {
+      spyOn(modalsService, 'createServiceFormModal')
+      component.openServiceFormModal()
+      expect(modalsService.createServiceFormModal).toHaveBeenCalled()
+    }))
 
-      it('should open modal form service', inject(() => {
-        spyOn(modalsService, 'createServiceFormModal')
-        component.openServiceFormModal()
-        expect(modalsService.createServiceFormModal).toHaveBeenCalled()
-      }))
+    it('should show error when delete employment failed', () => {
+      component.isOwnerOfService = false
+      spyOn(window, 'confirm').and.returnValue(true)
+      spyOn(errorHandler, 'handleServerError')
+      EmploymentApiMock.deleteEmploymentForServiceRoute(httpCodes.badRequest, 'id')
+      component.suspendProvideService()
+      $httpBackend.flush()
+      expect(errorHandler.handleServerError).toHaveBeenCalled()
     })
   })
 )
