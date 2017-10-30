@@ -4,6 +4,7 @@ import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
+import * as _ from 'lodash'
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
 
@@ -32,9 +33,8 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
 
   $onInit(): void {
     this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
-      this.invitations = response.filter((profileInvitations) =>
-        profileInvitations.services.forEach((service) => service.invitation.status === GetInvitation.StatusEnum.NEW))
-
+      this.invitations = response.filter((profileInvitation) =>
+         _.find(profileInvitation.services, (service) => service.invitation.status === GetInvitation.StatusEnum.NEW))
       this.areInvitations = this.invitations.length > 0
       this.isLoading = false
     }, (_error) => {
