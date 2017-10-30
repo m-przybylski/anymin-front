@@ -43,6 +43,7 @@ import {CommonConfig, default as commonConfigModule} from '../../generated_modul
 import profiteloWebsocketModule from '../common/services/profitelo-websocket/profitelo-websocket'
 import pagePreloaderModule from '../common/components/interface/page-preloader/page-preloader'
 import activeCallBarModule from '../common/components/communicator/active-call-bar/active-call-bar'
+import toggleClassOnPullCall from '../common/directives/toggle-class-on-pull-call/toggle-class-on-pull-call'
 
 declare const Raven: any
 
@@ -91,6 +92,7 @@ angular.module('profitelo', [
   // directives
   'profitelo.components.interface.preloader-container',
   'profitelo.directives.pro-top-waiting-loader',
+  toggleClassOnPullCall,
 
   // translations
   'profitelo.translations.en-us',

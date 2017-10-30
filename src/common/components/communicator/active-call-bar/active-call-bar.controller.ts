@@ -1,4 +1,5 @@
 import {ExpertCallService} from '../call-services/expert-call.service'
+
 export class ActiveCallBarComponentController implements ng.IController {
 
   public isCallPendingOnOtherDevice: boolean
