@@ -1,5 +1,20 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .call-bar
-  height: 500px
-  width: 500px
-  position: fixed
-  z-index: 900
+	.btn
+		width: 100%
+		height: $s-messenger-input-height
+		position: fixed
+		left: 0
+		top: 0
+		z-index: 800
+		background: $c-primary
+		display: flex
+		align-items: center
+		justify-content: center
+
+		&:hover
+			background: $c-primary-dark
+
+		span
+			color: $c-white

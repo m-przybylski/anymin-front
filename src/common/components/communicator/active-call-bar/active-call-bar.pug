@@ -1,2 +1,3 @@
 .call-bar(data-ng-if="$ctrl.isCallPendingOnOtherDevice")
-  button(data-ng-click="$ctrl.pullCall()") PULL
+  button.btn.btn-link(data-ng-click="$ctrl.pullCall()")
+    span(data-translate="COMMUNICATOR.CONNECTION.ACTIVE_BAR.TITLE")
