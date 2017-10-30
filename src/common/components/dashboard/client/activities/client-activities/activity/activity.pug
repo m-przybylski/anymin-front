@@ -15,8 +15,7 @@
 
       .last-activity-profile
         .profile-preview
-          .thumb.x48
-            img.user-avatar(src data-ng-src="{{ ::$ctrl.imageUrl }}")
+          user-avatar.thumb.x48(data-image-token="vm.imageToken")
 
           .profile-name
             span {{:: $ctrl.activity.serviceUsageDetails.expertName }}
