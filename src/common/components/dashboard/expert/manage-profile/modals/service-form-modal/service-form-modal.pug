@@ -62,7 +62,7 @@
         data-callback="vm.onPriceChange"
         data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
         )
-        .hint
+        .hint(data-ng-if="!vm.isPlatformForExpert")
           p(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.SUGGESTED_PRICE")
           tooltip(data-tooltip-text="WIZARD.CONSULTATION.PRICE.TOOLTIP")
 

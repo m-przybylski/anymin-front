@@ -7,6 +7,7 @@ import * as _ from 'lodash'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {LanguagesService} from '../../../common/services/languages/languages.service'
 import {TranslatorService} from '../../../common/services/translator/translator.service'
+import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -29,6 +30,7 @@ export class ConsultationController implements ng.IController {
   public languagesList: ILanguagesList[]
   public languageInputValue: ILanguagesList
   public descriptionInputValue: string
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   public isCompany: boolean
   public isSubmitted: boolean = false
