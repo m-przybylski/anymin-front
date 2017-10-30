@@ -7,6 +7,7 @@ import loginStateModule from '../../services/login-state/login-state'
 import topAlertModule from '../../services/top-alert/top-alert'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
+import {httpCodes} from '../../classes/http-codes'
 
 export interface ILoginRegister {
   sessionId: string
@@ -34,11 +35,18 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
     const _deferred = this.$q.defer()
 
-    const handleError = (): void => {
-      _deferred.reject()
+    const handleError = (error: any): void => {
+      if (error.status === httpCodes.badRequest) {
+        _deferred.resolve({})
+        this.topAlertService.warning({
+          message: this.translatorService.translate('REGISTER.SMS_CODE_TIMEOUT_ERROR'),
+          timeout: 3
+        })
+      } else _deferred.reject()
       this.$timeout(() => {
         this.$state.go('app.login.account')
       })
+      this.$log.error(error)
     }
 
     const _account = this.loginStateService.getAccountObject()
@@ -48,7 +56,10 @@ class LoginRegisterResolver implements ILoginRegisterService {
         message: this.translatorService.translate('REGISTER.ENTER_PHONE_NUMBER_FIRST'),
         timeout: 3
       })
-      handleError()
+      this.$timeout(() => {
+        this.$state.go('app.login.account')
+      })
+      _deferred.resolve({})
     } else {
       this.RegistrationApi.requestVerificationRoute({
         msisdn: _account.phoneNumber.prefix + _account.phoneNumber.number
@@ -58,12 +69,7 @@ class LoginRegisterResolver implements ILoginRegisterService {
           accountObject: _account
         })
       }, (error: any) => {
-        this.$log.error(error)
-        this.topAlertService.warning({
-          message: this.translatorService.translate('INTERFACE.API_ERROR'),
-          timeout: 3
-        })
-        handleError()
+        handleError(error)
       })
     }
 

@@ -39,21 +39,9 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
 
       spyOn(mockState, 'go')
 
-      const spy = {
-        spy: (): void => {
-        }
-      }
-
-      spyOn(spy, 'spy')
-
-      AppLoginRegisterResolver.resolve().then(
-        () => {
-        }, () => {
-          spy.spy()
-        })
+      AppLoginRegisterResolver.resolve()
 
       _timeout.flush()
-      expect(spy.spy).toHaveBeenCalled()
       expect(mockState.go).toHaveBeenCalledWith('app.login.account')
 
     })
