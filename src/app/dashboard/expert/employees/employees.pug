@@ -1,6 +1,26 @@
 .employees
-  expert-employees-filters()
-  expert-employee(data-ng-if="vm.areEmployees")
-  .load-more-results-container(data-ng-if="vm.areEmployees")
-    span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.COUNTER")
-    a.btn.btn-link(data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS")
+  preloader-container(data-is-loading="vm.isLoading"
+  data-is-error="vm.isError"
+  data-error-fn="vm.getProfilesWithEmployments"
+  data-error-message="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.LOAD_DATA_ERROR")
+
+    header.entry-title(data-ng-show="vm.areEmployees")
+      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.YOUR_EMPLOYEES")
+      a.btn.btn-circle(data-ng-click="vm.openInviteEmployeesModal()")
+        span.icon.icon-add-expert-24
+
+    expert-employee(
+    data-ng-show="vm.areEmployees"
+    data-ng-repeat="profileWithEmployments in vm.profilesWithEmployments"
+    data-profile-with-employments="profileWithEmployments"
+    data-on-delete-callback="vm.areEmployeesAfterDelete"
+    )
+
+    no-results-information(
+    data-ng-hide="vm.areEmployees"
+    data-icon-src="/assets/images/profitelo_icons/icon_expert_no_employees.png"
+    data-information-title="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.NO_RESULTS.TITLE"
+    data-button-title="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.NO_RESULTS.BUTTON"
+    data-button-class="btn-default"
+    data-button-on-click="vm.openInviteEmployeesModal"
+    )
