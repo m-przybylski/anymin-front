@@ -7,6 +7,7 @@ import {PromiseService} from '../../../../services/promise/promise.service';
 import {ExpertNavigationComponentController} from './navigation.controller';
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service';
 import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
+import {UserService} from '../../../../services/user/user.service'
 
   describe('Unit testing: profitelo.components.dashboard.expert.navigation', () => {
     return describe('for expertNavigation >', () => {
@@ -35,13 +36,14 @@ import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocke
 
         angular.mock.module(expertNavigationModule)
 
-        inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+        inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, userService: UserService, $q: ng.IQService,
                 profiteloWebsocket: ProfiteloWebsocketService, _$componentController_: ng.IComponentControllerService,
                 FinancesApi: FinancesApi, _FinancesApiMock_: FinancesApiMock, promiseService: PromiseService,
                 errorHandler: ErrorHandlerService) => {
           FinancesApiMock = _FinancesApiMock_
           componentController = _$componentController_
           rootScope = $rootScope.$new()
+          spyOn(userService, 'getUser').and.callFake(() => $q.resolve({isCompany: true}))
           compile = $compile
           injectors = {
             FinancesApi: FinancesApi,

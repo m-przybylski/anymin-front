@@ -5,6 +5,7 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
 import {PromiseService} from '../../../../services/promise/promise.service'
 import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
 import {isPlatformForExpert} from '../../../../constants/platform-for-expert.constant'
+import {UserService} from '../../../../services/user/user.service'
 
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
@@ -12,12 +13,18 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
   public expertBalance: MoneyDto
   public isLoading: boolean = true
   public isPlatformForExpert: boolean = isPlatformForExpert
+  public isCompany: boolean = true
 
   /* @ngInject */
   constructor(FinancesApi: FinancesApi,
+              userService: UserService,
               errorHandler: ErrorHandlerService,
               promiseService: PromiseService,
               profiteloWebsocket: ProfiteloWebsocketService) {
+
+    userService.getUser().then((account) => {
+      this.isCompany = account.isCompany
+    })
 
     profiteloWebsocket.onNewFinancialOperation((data) => {
       this.expertBalance = data.balanceAfter
