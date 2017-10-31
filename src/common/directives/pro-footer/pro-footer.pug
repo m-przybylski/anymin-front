@@ -13,12 +13,12 @@ footer.pro-footer
         ul(data-ng-if="isPlatformForExpert")
           li.head
             a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.WIDGETS" target="_blank")
-        ul
+        ul(data-ng-if="isPlatformForExpert")
           li.head
             a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.HELP_CENTER"
             href="{{ zendeskUrl }}"
             target="_blank")
-        ul
+        ul(data-ng-if="isPlatformForExpert")
           li.head
             a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.BLOG" target="_blank")
 
@@ -52,8 +52,7 @@ footer.pro-footer
           li 
             a(data-translate="HOME.FOOTER.PRIVACY_POLICY")
 
-  .bottom-footer
-    .container
+    .bottom-footer
       .bottom-footer-about
         p {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.YEAR' | translate }} &reg;
           a.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.REGULATIONS" target="_blank")
@@ -67,7 +66,6 @@ footer.pro-footer
             a(href="mailto:{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER' | translate}}" target="_blank")
               span.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
 
-  .bottom-footer.cookies
-    .container
+    .bottom-footer.cookies
       p  {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.COOKIES' | translate }}
         a.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MORE")
