@@ -8,6 +8,7 @@ export class ExpertNoActivitiesComponentController implements IExpertNoActivitie
   }
   public activeAccountTranslation: string
   public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPayoutMethod: boolean
 
   /* @ngInject */
   constructor() {
