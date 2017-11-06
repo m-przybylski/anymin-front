@@ -10,6 +10,7 @@ import * as _ from 'lodash'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {IGetServiceWithInvitationsAndTags} from '../../invitations/modal/invitations.controller'
 
 export class SummaryController implements ng.IController {
 
@@ -31,7 +32,8 @@ export class SummaryController implements ng.IController {
               private wizardProfile: GetWizardProfile,
               private userService: UserService,
               private InvitationApi: InvitationApi,
-              private $q: ng.IQService) {
+              private $q: ng.IQService,
+              private $log: ng.ILogService) {
 
     this.setInvitationsServices()
     if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
@@ -141,8 +143,17 @@ export class SummaryController implements ng.IController {
   private setInvitationsServices = (): void => {
     const acceptedConsultationsObject = LocalStorageWrapper.getItem('accepted-consultations')
     if (acceptedConsultationsObject) {
-      this.isAcceptedConsultation = true
-      this.acceptedServices = JSON.parse(acceptedConsultationsObject)
+      this.InvitationApi.getInvitationsRoute().then((invitations) => {
+        const differenceArray = _.difference(JSON.parse(acceptedConsultationsObject)
+          .map((accpetedConsultation: IGetServiceWithInvitationsAndTags) => accpetedConsultation.invitation.id),
+          invitations.map((invitation) => invitation.id))
+        if (differenceArray && differenceArray.length === 0) {
+          this.isAcceptedConsultation = true
+          this.acceptedServices = JSON.parse(acceptedConsultationsObject)
+        }
+      }, (error) => {
+        this.$log.error(error)
+      })
     }
   }
 
