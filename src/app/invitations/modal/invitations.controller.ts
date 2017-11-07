@@ -1,5 +1,5 @@
 import {
-  GetInvitation, GetServiceWithInvitations, GetServiceTags, Tag, GetProfileWithServicesInvitations,
+  GetInvitation, GetServiceTags, Tag, GetProfileWithServicesInvitations,
   GetServiceWithInvitation } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ServiceApi} from 'profitelo-api-ng/api/api'
 export interface IInvitationsModalScope extends ng.IScope {
@@ -29,7 +29,7 @@ export class InvitationsModalController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
     if (this.$state.current.name === 'app.invitations') this.$state.go('app.home')
   }
-  private acceptedServices: GetServiceWithInvitations[] = []
+  private acceptedServices: IGetServiceWithInvitationsAndTags[] = []
 
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService,
@@ -71,7 +71,7 @@ export class InvitationsModalController implements ng.IController {
     }
   }
 
-  public onSelectConsultation = (service: GetServiceWithInvitations, isUnchecked: boolean): void => {
+  public onSelectConsultation = (service: IGetServiceWithInvitationsAndTags, isUnchecked: boolean): void => {
     if (!isUnchecked) {
       this.acceptedServices.push(service)
     } else {
@@ -86,6 +86,8 @@ export class InvitationsModalController implements ng.IController {
       } else if (this.acceptedServices && this.acceptedServices.length > 0) {
         this.rejectInvitations(this.services).then(this.redirectToWizards)
       } else {
+        if (LocalStorageWrapper.getItem('accepted-consultations'))
+          LocalStorageWrapper.removeItem('accepted-consultations')
         this.rejectInvitations(this.services).then(this.onModalClose)
       }
     })
@@ -130,7 +132,8 @@ export class InvitationsModalController implements ng.IController {
   }
 
   private redirectToWizards = (): void => {
-    LocalStorageWrapper.setItem('accepted-consultations', JSON.stringify(this.acceptedServices))
+    LocalStorageWrapper.setItem('accepted-consultations',
+      JSON.stringify(this.acceptedServices))
     this.$state.go('app.wizard.create-profile.expert')
     this.$uibModalInstance.dismiss('cancel')
   }
