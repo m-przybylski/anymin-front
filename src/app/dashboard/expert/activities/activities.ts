@@ -9,6 +9,8 @@ import {FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/mod
 import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters'
 import promiseModule from '../../../../common/services/promise/promise'
 import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
+import noResultsInformationModule
+  from '../../../../common/components/dashboard/no-results-information/no-results-information'
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
   'ui.router',
@@ -18,7 +20,8 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
   expertActivitiesModule,
   expertActivityModule,
   promiseModule,
-  errorHandlerModule
+  errorHandlerModule,
+  noResultsInformationModule
 ])
 .config(function ($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.expert.activities', {
