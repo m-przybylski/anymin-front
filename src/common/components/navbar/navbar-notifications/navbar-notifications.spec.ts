@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {NavbarNotificationsComponentController} from './navbar-notifications.controller'
 import navbarNotificationsModule from './navbar-notifications'
-import {ProfileApiMock} from 'profitelo-api-ng/api/api'
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
 
@@ -12,11 +11,10 @@ describe('Unit testing: navbarNotifications', () => {
     let compile: ng.ICompileService
     let component: NavbarNotificationsComponentController
     let bindings: INavbarNotificationsComponentBindings
-    let ProfileApiMock: ProfileApiMock
     let httpBackend: ng.IHttpBackendService
     let q: ng.IQService
     const validHTML =
-      '<navbar-notifications></navbar-notifications>'
+      '<navbar-notifications invitations="[]"></navbar-notifications>'
 
     const userService = {
       getUser: (): ng.IPromise<{}> => {
@@ -40,8 +38,6 @@ describe('Unit testing: navbarNotifications', () => {
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('userService', userService)
       $provide.value('apiUrl', 'awesomeUrl/')
-      $provide.value('ProfileApi', ProfileApiMock)
-      $provide.value('ProfileApiMock', ProfileApiMock)
       $provide.value('topAlertService', {})
     }))
 
@@ -51,25 +47,23 @@ describe('Unit testing: navbarNotifications', () => {
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService,
-              $httpBackend: ng.IHttpBackendService, _modalsService_: ModalsService,
-              _ProfileApiMock_: ProfileApiMock) => {
+              $httpBackend: ng.IHttpBackendService, _modalsService_: ModalsService) => {
 
         rootScope = $rootScope
         compile = $compile
         q = $q
         httpBackend = $httpBackend
-        ProfileApiMock = _ProfileApiMock_
         bindings = {
           isNotificationsTab: true,
           isInvitationsTab: false,
-          onClick: (): void => {}
+          onClick: (): void => {},
+          invitations: []
         }
 
         const injectors = {
           userService: userService,
           $element: create(validHTML, bindings),
           modalService: _modalsService_,
-          ProfileApi: ProfileApiMock,
           $state: state
         }
         component = $componentController<NavbarNotificationsComponentController, INavbarNotificationsComponentBindings>(

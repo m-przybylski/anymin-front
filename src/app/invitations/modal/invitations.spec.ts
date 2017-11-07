@@ -7,6 +7,8 @@ import {
 } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import IQService = angular.IQService
+import {NavbarNotificationsService} from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
+import navbarNotificationsModule from '../../../common/components/navbar/navbar-notifications/navbar-notifications'
 
 describe('Testing Controller: InvitationsModal', () => {
 
@@ -32,10 +34,13 @@ describe('Testing Controller: InvitationsModal', () => {
     $provide.value('apiUrl', 'awesomeURL')
     $provide.value('InvitationApi', InvitationApi)
     $provide.value('ProfileApi', ProfileApi)
+    $provide.value('navbarNotificationsServiceProvider', NavbarNotificationsService)
+
   }))
 
   beforeEach(() => {
     angular.mock.module(invitationsModalModule)
+    angular.mock.module(navbarNotificationsModule)
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
             InvitationApi: InvitationApi, _$q_: IQService, ProfileApi: ProfileApi) => {
 

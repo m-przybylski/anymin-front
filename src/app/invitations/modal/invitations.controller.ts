@@ -1,6 +1,7 @@
 import {
   GetInvitation, GetServiceTags, Tag, GetProfileWithServicesInvitations,
-  GetServiceWithInvitation } from 'profitelo-api-ng/model/models'
+  GetServiceWithInvitation
+} from 'profitelo-api-ng/model/models'
 import {InvitationApi, ServiceApi} from 'profitelo-api-ng/api/api'
 export interface IInvitationsModalScope extends ng.IScope {
   profileWithServicesInvitations?: GetProfileWithServicesInvitations
@@ -8,6 +9,9 @@ export interface IInvitationsModalScope extends ng.IScope {
 import * as _ from 'lodash'
 import {UserService} from '../../../common/services/user/user.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {
+  NavbarNotificationsService
+} from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
 
 export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitation {
   tags?: Tag[]
@@ -39,6 +43,7 @@ export class InvitationsModalController implements ng.IController {
               private ServiceApi: ServiceApi,
               private $q: ng.IQService,
               private $log: ng.ILogService,
+              private navbarNotificationsService: NavbarNotificationsService,
               $scope: IInvitationsModalScope) {
     if ($scope.profileWithServicesInvitations) {
       this.setInvitationData($scope.profileWithServicesInvitations)
@@ -57,7 +62,7 @@ export class InvitationsModalController implements ng.IController {
       this.description = profileWithServicesInvitations.organizationDetails.description
 
       this.services = profileWithServicesInvitations.services.filter((service) =>
-        service.invitation.status === GetInvitation.StatusEnum.NEW)
+      service.invitation.status === GetInvitation.StatusEnum.NEW)
 
       this.ServiceApi.postServicesTagsRoute({
         serviceIds: this.services.map((service) => service.id)
@@ -125,6 +130,7 @@ export class InvitationsModalController implements ng.IController {
         this.$log.error(error)
       })
       .finally(() => {
+        this.navbarNotificationsService.resolveInvitations()
         this.isSubmitButtonDisabled = false
       })
     else
@@ -140,6 +146,7 @@ export class InvitationsModalController implements ng.IController {
 
   private onEmploymentUpdateDone = (service: GetServiceWithInvitation): void => {
     if (_.last(this.services) === service) {
+      this.navbarNotificationsService.resolveInvitations()
       this.onModalClose()
     }
   }

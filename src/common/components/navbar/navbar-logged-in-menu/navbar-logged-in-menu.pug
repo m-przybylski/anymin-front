@@ -50,7 +50,7 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-sl
         a(data-ng-click="$ctrl.toggleNotificationsTabShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24(data-ng-class="{'active-icon' : $ctrl.isNotificationsMenuShow}")
-            span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") +9
+            span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") {{ $ctrl.notificationCounter }}
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.NOTIFICATION")
           span.mobile-only.icon.icon-next-24
 
@@ -74,11 +74,12 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-sl
         a(data-ng-click="$ctrl.toggleNotificationsTabShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24(data-ng-class="{'active-icon' : $ctrl.isNotificationsMenuShow}")
-            span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") +9
+            span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") {{ $ctrl.notificationCounter }}
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.NOTIFICATION")
           span.mobile-only.icon.icon-next-24
 
         .navbar-menu-container.navbar-menu-animation.animation(data-ng-if="$ctrl.isNotificationsMenuShow")
           navbar-notifications(data-is-notifications-tab="$ctrl.isNotificationsTab"
           data-is-invitations-tab="$ctrl.isInvitationsTab"
+          data-invitations="$ctrl.invitations"
           data-on-click="$ctrl.toggleNotificationsMenuShow")

@@ -6,6 +6,7 @@ export class NavbarNotificationsComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     isNotificationsTab: '<',
     isInvitationsTab: '<',
-    onClick: '<'
+    onClick: '<',
+    invitations: '<'
   }
 }

@@ -11,6 +11,9 @@ import {ErrorHandlerService} from '../../../common/services/error-handler/error-
 import {UserService} from '../../../common/services/user/user.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
 import {IGetServiceWithInvitationsAndTags} from '../../invitations/modal/invitations.controller'
+import {
+  NavbarNotificationsService
+}from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
 
 export class SummaryController implements ng.IController {
 
@@ -22,7 +25,7 @@ export class SummaryController implements ng.IController {
   public isCompanyWithExpert: boolean = false
   public wizardExpertProfileData?: PartialExpertDetails
   public isWizardInvalid: boolean = false
-  public isAcceptedConsultation: boolean = false
+  public isConsultationInvitationAccepted: boolean = false
   public acceptedServices: GetServiceWithInvitation[]
 
   /* @ngInject */
@@ -33,6 +36,7 @@ export class SummaryController implements ng.IController {
               private userService: UserService,
               private InvitationApi: InvitationApi,
               private $q: ng.IQService,
+              private navbarNotificationsService: NavbarNotificationsService,
               private $log: ng.ILogService) {
 
     this.setInvitationsServices()
@@ -53,7 +57,7 @@ export class SummaryController implements ng.IController {
 
   $onInit(): void {
     this.isConsultation = this.wizardProfile.services
-      && this.wizardProfile.services.length > 0 || this.isAcceptedConsultation
+      && this.wizardProfile.services.length > 0 || this.isConsultationInvitationAccepted
     this.services = this.wizardProfile.services
   }
 
@@ -148,8 +152,10 @@ export class SummaryController implements ng.IController {
           .map((accpetedConsultation: IGetServiceWithInvitationsAndTags) => accpetedConsultation.invitation.id),
           invitations.map((invitation) => invitation.id))
         if (differenceArray && differenceArray.length === 0) {
-          this.isAcceptedConsultation = true
+          this.isConsultationInvitationAccepted = true
           this.acceptedServices = JSON.parse(acceptedConsultationsObject)
+          this.isConsultation = this.wizardProfile.services
+            && this.wizardProfile.services.length > 0 || this.isConsultationInvitationAccepted
         }
       }, (error) => {
         this.$log.error(error)
@@ -173,20 +179,22 @@ export class SummaryController implements ng.IController {
   }
 
   private checkIsExpertProfileValid = (): string | boolean | undefined =>
-  this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
-  && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
-  && this.wizardProfile.expertDetailsOption.name
+    this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
+    && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
+    && this.wizardProfile.expertDetailsOption.name
 
   private checkIsWizardHasService = (): boolean | undefined =>
-  this.wizardProfile.services && this.wizardProfile.services.length > 0
+    this.wizardProfile.services && this.wizardProfile.services.length > 0
 
   private checkIsWizardHasInvitationServices = (): boolean =>
-  this.isAcceptedConsultation && typeof this.acceptedServices !== undefined && this.acceptedServices.length > 0
+    this.isConsultationInvitationAccepted
+    && typeof this.acceptedServices !== undefined
+    && this.acceptedServices.length > 0
 
   private checkIsCompanyProfileValid = (): string | boolean | undefined =>
-  this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
-  && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
-  && this.wizardProfile.organizationDetailsOption.description
+    this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
+    && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
+    && this.wizardProfile.organizationDetailsOption.description
 
   private checkIfUserCanCreateExpertProfile = (): boolean => {
     if (this.wizardProfile && this.wizardProfile.services && !this.acceptedServices) {
@@ -201,6 +209,7 @@ export class SummaryController implements ng.IController {
   private acceptInvitations = (): ng.IPromise<void> =>
     this.$q.all(this.acceptedServices.map(
       (acceptedService) => this.InvitationApi.postInvitationAcceptRoute(acceptedService.invitation.id)))
+    .then(() => this.navbarNotificationsService.resolveInvitations())
     .catch((error) => this.errorHandler.handleServerError(error))
 
 }
