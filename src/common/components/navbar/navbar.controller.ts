@@ -81,9 +81,10 @@ export class NavbarComponentController implements INavbarComponentBindings {
   }
 
   public onSearchCollapsed = (): void => {
-    /* this.isSearchVisible is overwrite in CSS when resolution is bigger than 768px */
-    this.isSearchVisible = !this.isSearchVisible
-    this.isNavigationCollapsed = false
+    if (!isPlatformForExpert)
+      /* this.isSearchVisible is overwrite in CSS when resolution is bigger than 768px */
+      this.isSearchVisible = !this.isSearchVisible
+      this.isNavigationCollapsed = false
   }
 
   private setNavbarStatus = (): void => {
