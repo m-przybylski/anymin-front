@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import {ExpertCallService} from '../../components/communicator/call-services/expert-call.service'
+import {CurrentExpertCall} from '../../components/communicator/models/current-expert-call'
 
 class ToggleClassOnPullCallClass implements ng.IDirective {
   public restrict: string = 'A'
@@ -10,8 +11,11 @@ class ToggleClassOnPullCallClass implements ng.IDirective {
 
   public link = (_scope: ng.IScope,
                  element: ng.IRootElementService): void => {
-    this.expertCallService.onCallPull(() => {
+    this.expertCallService.onCallPull((currentExpertCall: CurrentExpertCall) => {
       element.toggleClass('is-call-pending')
+      currentExpertCall.onEnd(() => {
+        element.removeClass('is-call-pending')
+      })
     })
 
     this.expertCallService.onCallTaken(() => {

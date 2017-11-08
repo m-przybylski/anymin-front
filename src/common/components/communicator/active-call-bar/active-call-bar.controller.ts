@@ -1,4 +1,5 @@
 import {ExpertCallService} from '../call-services/expert-call.service'
+import {CurrentExpertCall} from '../models/current-expert-call'
 
 export class ActiveCallBarComponentController implements ng.IController {
 
@@ -10,8 +11,11 @@ export class ActiveCallBarComponentController implements ng.IController {
     expertCallService.onCallTaken(this.onCallTaken)
   }
 
-  private onPullCall = (): void => {
+  private onPullCall = (currentExpertCall: CurrentExpertCall): void => {
     this.isCallPendingOnOtherDevice = false
+    currentExpertCall.onEnd(() => {
+      this.isCallPendingOnOtherDevice = false
+    })
   }
 
   private onCallTaken = (): void => {
