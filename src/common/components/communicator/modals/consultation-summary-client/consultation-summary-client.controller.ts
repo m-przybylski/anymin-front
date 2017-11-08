@@ -6,6 +6,7 @@ import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 import {TranslatorService} from '../../../../services/translator/translator.service'
+import {CallSummary} from '../../../../models/CallSummary'
 
 export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   expertAvatar: string
@@ -58,7 +59,6 @@ export class ConsultationSummaryClientController implements ng.IController {
               private translatorService: TranslatorService,
               private ServiceApi: ServiceApi,
               private errorHandler: ErrorHandlerService) {
-
     this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
 
@@ -152,10 +152,9 @@ export class ConsultationSummaryClientController implements ng.IController {
     }
   }
 
-  private onCallSummary = (data: any): void => {
-    this.$log.debug(data)
-    const callSummary = data.callSummary
-    if (callSummary.service.id === this.$scope.serviceId) {
+  private onCallSummary = (callSummary: CallSummary): void => {
+    this.$log.debug(callSummary)
+    if (!this.callSummaryService.isExpertCallSummary(callSummary) && callSummary.service.id === this.$scope.serviceId) {
       this.setCallSummary(callSummary)
     }
   }

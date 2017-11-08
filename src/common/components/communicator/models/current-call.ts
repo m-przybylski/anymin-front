@@ -225,7 +225,7 @@ export class CurrentCall {
     this.ratelCall.onEnd(() => {
       this.stopLocalStream()
       this.stopTimer()
-      this.setState(this.ratelCall.users.length > 1 ? CallState.ENDED : CallState.CANCELLED)
+      this.setState(this.ratelCall.users.length > 0 ? CallState.ENDED : CallState.CANCELLED)
       this.callbacks.notify(CurrentCall.events.onEnd, null)
     })
     this.ratelCall.onActiveDevice(this.onActiveDevice)

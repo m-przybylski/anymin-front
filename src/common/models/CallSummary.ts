@@ -1,8 +1,12 @@
 import {
   ExpertCallSummary
 } from './ExpertCallSummary'
+import {
+  ClientCallSummary
+} from './ClientCallSummary'
 
-export interface CallSummary {
-  callSummary: ExpertCallSummary,
-  accountId: string
+export type CallSummary = ExpertCallSummary | ClientCallSummary
+
+export interface CallSummaryWebsocketObject {
+  callSummary: CallSummary
 }

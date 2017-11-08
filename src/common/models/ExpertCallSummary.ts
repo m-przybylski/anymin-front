@@ -1,9 +1,14 @@
-import {CallSummary} from './CallSummary'
 import {MoneyDto, GetService} from 'profitelo-api-ng/model/models'
 
-export interface ExpertCallSummary extends CallSummary {
+interface IAccountSettings {
+  nickname: string
+  avatar: string
+}
+
+export interface ExpertCallSummary {
   serviceUsageEventId: string
   profit: MoneyDto
-  service: GetService
   callDuration: number
+  service: GetService
+  clientAccountSettings?: IAccountSettings
 }

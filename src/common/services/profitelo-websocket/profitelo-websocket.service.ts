@@ -1,9 +1,9 @@
 import {CallbacksFactory} from '../callbacks/callbacks.factory'
 import {CallbacksService} from '../callbacks/callbacks.service'
-import {CallSummary} from '../../models/CallSummary'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {UserService} from '../user/user.service'
 import {EventsService} from '../events/events.service'
+import {CallSummaryWebsocketObject} from '../../models/CallSummary'
 
 export class ProfiteloWebsocketService {
 
@@ -56,7 +56,7 @@ export class ProfiteloWebsocketService {
     this.callbacks.methods.onInit(callback)
   }
 
-  public onCallSummary = (callback: (data: CallSummary) => void): void => {
+  public onCallSummary = (callback: (data: CallSummaryWebsocketObject) => void): void => {
     this.callbacks.methods.onCallSummary(callback)
   }
 

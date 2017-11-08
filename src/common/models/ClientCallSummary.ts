@@ -1,16 +1,15 @@
-import {CallSummary} from './CallSummary'
-import {MoneyDto, GetService, Tag, GetProfile} from 'profitelo-api-ng/model/models'
+import {MoneyDto, Tag, GetProfile, GetService} from 'profitelo-api-ng/model/models'
 
-export interface ClientCallSummary extends CallSummary {
+export interface ClientCallSummary {
 	serviceUsageEventId: string
 	cost: MoneyDto
-	service: GetService
 	tags: {
     serviceId: string,
     tags: Tag[]
   }
-	callDuration: number
 	isRecommendable: boolean
 	companyExpertProfile: GetProfile
 	serviceOwnerProfile: GetProfile
+  callDuration: number
+  service: GetService
 }
