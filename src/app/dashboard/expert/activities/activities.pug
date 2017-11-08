@@ -8,14 +8,18 @@
     data-account-type="vm.accountType")
     expert-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
 
-    .load-more-results-container
+    no-results-information(data-icon-src="assets/images/profitelo_icons/icon_expert_no_activities.png"
+    data-information-title="DASHBOARD.EXPERT.ACTIVITIES.NO_FILTERED_RESULTS"
+    data-ng-hide="vm.areFilteredResults")
+
+    .load-more-results-container(data-ng-show="vm.areFilteredResults")
       span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")
 
       .load-more-btn-handler
         span.btn.btn-preloader.animation(data-ng-if="vm.isActivitiesLoading")
         a.btn.btn-link(
         data-ng-class="{'is-disabled-link': vm.isActivitiesLoading}"
-        data-ng-if="vm.isMoreResults"
+        data-ng-if="vm.areMoreResults"
         data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS"
         data-ng-click="vm.loadMoreActivities()"
         )

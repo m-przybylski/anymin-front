@@ -11,11 +11,11 @@ import {ErrorHandlerService} from '../../../../common/services/error-handler/err
 export class DashboardExpertActivitiesController {
 
   public areActivities: boolean
-  public activities: GetActivity[]
+  public activities: GetActivity[] = []
 
   public isSearchLoading: boolean = true
   public isError: boolean = false
-  public isMoreResults: boolean
+  public areMoreResults: boolean
   public filters: GetActivityFilters
   public translationCounter: {
     currentResultsCount: number
@@ -23,6 +23,7 @@ export class DashboardExpertActivitiesController {
   }
   public accountType = FinancialOperation.AccountTypeEnum.PROFILE
   public isActivitiesLoading = false
+  public areFilteredResults: boolean = false
 
   private activitiesQueryParam: ActivitiesQueryParams
   private static readonly queryLimit: number = 10
@@ -50,7 +51,8 @@ export class DashboardExpertActivitiesController {
         currentResultsCount: this.activities.length,
         allResultsCount: getActivities.count
       }
-      this.isMoreResults = !(getActivities.count === this.activities.length)
+      this.areFilteredResults = this.activities.length > 0
+      this.areMoreResults = getActivities.count > this.activities.length
     })
     this.filters = filtersData
   }
@@ -72,7 +74,7 @@ export class DashboardExpertActivitiesController {
       this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam),
       DashboardExpertActivitiesController.promiseLoaderDelay).then((getActivities) => {
       this.activities = this.activities.concat(getActivities.activities)
-      this.isMoreResults = getActivities.count > DashboardExpertActivitiesController.queryLimit
+      this.areMoreResults = getActivities.count > this.activities.length
       this.translationCounter.currentResultsCount = this.activities.length
     }).catch((error) => {
       this.errorHandler.handleServerError(error, 'Can not load more activities')
@@ -87,6 +89,12 @@ export class DashboardExpertActivitiesController {
     .then((getActivities) => {
       this.activitiesQueryParam = activitiesQueryParams
       this.activities = getActivities.activities
+      this.translationCounter = {
+        currentResultsCount: getActivities.activities.length,
+        allResultsCount: getActivities.count
+      }
+      this.areFilteredResults = getActivities.count > 0
+      this.areMoreResults = getActivities.count > getActivities.activities.length
     })
   }
 
