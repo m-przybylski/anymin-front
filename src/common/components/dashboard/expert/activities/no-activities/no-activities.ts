@@ -5,6 +5,7 @@ import noResultsInformationModule from '../../../no-results-information/no-resul
 import './no-activities.sass'
 
 export interface IExpertNoActivitiesComponentBindings extends ng.IController {
+  isPayoutMethod: boolean
 }
 
 const expertNoActivitiesModule = angular.module('profitelo.components.dashboard.expert.activities.no-activities', [
