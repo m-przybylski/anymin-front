@@ -175,14 +175,15 @@ export class ServiceFormModalController implements ng.IController {
       })
     const invitations: ServiceInvitation[] = emails.concat(msisdns)
     const language = this.consultationLanguage ? this.consultationLanguage.value : ''
+    const isOwnerEmployee: boolean = this.isExpert && !this.isCompany ? true : this.isOwnerEmployee
     return {
       tags,
       invitations,
       language,
+      isOwnerEmployee,
       description: this.consultationDescription,
       name: this.consultationName,
-      price: priceModel,
-      isOwnerEmployee: this.isOwnerEmployee
+      price: priceModel
     }
   }
 
