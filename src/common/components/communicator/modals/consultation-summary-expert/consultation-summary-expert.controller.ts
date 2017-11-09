@@ -70,8 +70,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.loadFromExistingCallSummaries()
   }
 
-  private onCallSummary = (data: CallSummary): void => {
-    const callSummary: ExpertCallSummary = data.callSummary
+  private onCallSummary = (callSummary: ExpertCallSummary): void => {
     if (callSummary.service.id === this.$scope.serviceId) {
       this.callSummary = callSummary
       this.isLoading = false
@@ -87,6 +86,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   private loadFromExistingCallSummaries = (): void => {
     const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
-    callSummary ? this.onCallSummary(callSummary) : undefined
+    callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
+      ? this.onCallSummary(callSummary) : undefined
   }
 }

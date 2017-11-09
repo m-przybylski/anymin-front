@@ -1,8 +1,10 @@
 import {CallbacksService} from '../callbacks/callbacks.service'
 import {CallbacksFactory} from '../callbacks/callbacks.factory'
-import {CallSummary} from '../../models/CallSummary'
+import {CallSummary, CallSummaryWebsocketObject} from '../../models/CallSummary'
 import * as _ from 'lodash'
 import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websocket.service'
+import {ExpertCallSummary} from '../../models/ExpertCallSummary'
+import {ClientCallSummary} from '../../models/ClientCallSummary'
 
 export class CallSummaryService {
 
@@ -25,9 +27,8 @@ export class CallSummaryService {
     this.callbacks.methods.onCallSummary(callback)
   }
 
-  public takeCallSummary = (accountId: string): CallSummary | undefined => {
-    const callSummary = _.find(this.callSummaries, callSummary => callSummary.accountId === accountId)
-
+  public takeCallSummary = (serviceId: string): CallSummary | undefined => {
+    const callSummary = _.find(this.callSummaries, callSummary => callSummary.service.id === serviceId)
     if (callSummary) {
       _.remove(this.callSummaries, callSummary)
     }
@@ -35,8 +36,12 @@ export class CallSummaryService {
     return callSummary
   }
 
-  private onNewCallSummary = (_callSummary: CallSummary): void => {
-    this.callSummaries.push(_callSummary)
-    this.callbacks.notify(CallSummaryService.events.onCallSummary, _callSummary)
+  public isExpertCallSummary =
+    (callSummary: ExpertCallSummary | ClientCallSummary): callSummary is ExpertCallSummary =>
+    (<ExpertCallSummary>callSummary).profit !== undefined
+
+  private onNewCallSummary = (data: CallSummaryWebsocketObject): void => {
+    this.callSummaries.push(data.callSummary)
+    this.callbacks.notify(CallSummaryService.events.onCallSummary, data.callSummary)
   }
 }
