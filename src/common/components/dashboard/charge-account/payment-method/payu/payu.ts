@@ -117,14 +117,14 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
       } else {
         // FIXME after company info optional fields fix
         AccountApi.postInvoiceDetailsRoute({
-          vatNumber: '',
+          vatNumber: '6282232071',
           companyName: this.firstNameModel + ' ' + this.lastNameModel,
           // TODO On GUS API Implement
           email: this.emailModel,
           address: {
             number: '',
             city: '',
-            postalCode: '',
+            postalCode: '32-321',
             countryISO: 'PL',
             street: ''
           }
