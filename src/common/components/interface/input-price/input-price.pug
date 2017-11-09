@@ -18,3 +18,8 @@
     data-ng-blur="$ctrl.onBlur()"
     data-ng-disabled="$ctrl.isDisabled"
   )
+
+validation-alert(
+data-alert-text="INPUT.PRICE.REGEXP_ERROR"
+data-is-visible="!$ctrl.isRegExpPriceValid()"
+)

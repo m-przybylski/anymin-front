@@ -12,7 +12,8 @@ export interface IInputPriceComponentBindings extends ng.IController {
   isSubmitted?: boolean
   ngModel: number
   currency: string
-  callback: (num: number) => boolean
+  inputValueCallback: (num: number) => void
+  isValid: (isValid: boolean) => void
   isDisabled: boolean
 }
 

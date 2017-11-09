@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {PaymentsApi, FinancesApi} from 'profitelo-api-ng/api/api'
 import {GetProfile, GetService, MoneyDto} from 'profitelo-api-ng/model/models'
 import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
-import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
 import {CommonConfig} from '../../../../../../generated_modules/common-config/common-config'
 import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 import {ModalsService} from '../../../../services/modals/modals.service'
@@ -24,7 +23,6 @@ export class PrecallModalController implements ng.IController {
   public onSelectMain: IPrimaryDropdownListElement
   public isPrepaid: boolean = true
   public expertAvatar: string
-  public priceRegexp: RegExp = this.CommonSettingsService.localSettings.pricePattern
   public prepaidTranslation: string
   public dateTimeLimit: string
   public isRegExpPriceInputValid: boolean = true
@@ -58,7 +56,6 @@ export class PrecallModalController implements ng.IController {
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private FinancesApi: FinancesApi,
               private PaymentsApi: PaymentsApi,
-              private CommonSettingsService: CommonSettingsService,
               private CommonConfig: CommonConfig,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
@@ -171,11 +168,14 @@ export class PrecallModalController implements ng.IController {
     this.onModalClose()
   }
 
+  public isRegexpPriceValid = (isValid: boolean): void => {
+    this.isRegExpPriceInputValid = isValid
+  }
+
   public onPriceChange = (consultationCostModel: string): void => {
     const amount = Number(consultationCostModel.toString().replace(',', '.'))
     this.changeAmountPerTimeCall(amount)
     this.isInputValueGreaterThanAccountBalance = this.isValueGreaterThanAccountBalanceValid(amount)
-    this.isRegExpPriceInputValid = this.isRegExpPriceValid(amount)
     this.isPriceInputValid = this.isPriceValid(amount)
   }
 
@@ -216,9 +216,6 @@ export class PrecallModalController implements ng.IController {
 
   private isValueGreaterThanAccountBalanceValid = (model: number): boolean =>
     this.isPrepaid ? this.isValueGraterThanAccountBalance(model) : model >= 0
-
-  private isRegExpPriceValid = (model: number): boolean =>
-    (model && this.priceRegexp.test(model.toString())) || model === 0
 
   private isPriceValid = (model: number): boolean =>
     this.isPrepaid ? this.isPriceEnoughtForMinimalCallTime(model) || model === 0 : true

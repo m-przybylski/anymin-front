@@ -13,9 +13,9 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public isFocus: boolean = false
   public isDirty: boolean = false
   public currency: string
-  public isPatternValid: boolean
   private priceRegexp: RegExp
-  public callback: (num: number) => boolean
+  public inputValueCallback: (num: number) => void
+  public isValid: (isValid: boolean) => void
   public isValidate: boolean
   public isDisabled: boolean = false
 
@@ -48,7 +48,6 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     ]
 
     this.blockInvalidDigits(digitsCodes)
-    this.isPatternValid = true
   }
 
   public blockInvalidDigits = (digitsCodes: number[]): void => {
@@ -67,10 +66,12 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     return digitsCodes.indexOf(code) === -1
   }
 
+  public isRegExpPriceValid = (): boolean =>
+    (this.priceRegexp).test(this.ngModel.toString()) || (this.ngModel.toString().length  === 0 && this.isDirty)
+
   public onChange = (): void => {
     this.isUsignPunctuationMarks = this.ngModel.toString().indexOf('.') !== -1 ||
                                    this.ngModel.toString().indexOf(',') !== -1
-    this.isPatternValid = ((this.priceRegexp).test(this.ngModel.toString()))
 
     if (this.isUsignPunctuationMarks) {
       this.digitsCodesBlocked = [keyboardCodes.dot, keyboardCodes.comma, keyboardCodes.dotASCI, keyboardCodes.commaASCI]
@@ -78,9 +79,12 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
       this.digitsCodesBlocked = []
     }
 
-    if (this.callback) {
-      this.callback(this.ngModel)
+    if (this.inputValueCallback) {
+      this.inputValueCallback(this.ngModel)
     }
+
+    if (this.isValid)
+      this.isValid(this.isRegExpPriceValid())
   }
 
   public onFocus = (): void => {
