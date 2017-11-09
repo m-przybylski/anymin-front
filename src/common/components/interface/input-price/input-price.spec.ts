@@ -17,7 +17,7 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
     let bindings: IInputPriceComponentBindings
     let document: ng.IDocumentService
     let injectors: { $scope?: IScope, [key: string]: any }
-    let validHTML = '<input-price>'
+    let validHTML = '<input-price data-ng-model="ngModel">'
 
     function create(html: string, bindings: IInputPriceComponentBindings): JQuery {
       scope = rootScope.$new()
@@ -47,11 +47,11 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
         inputText: 'labeltext',
         placeholder: 'placeholder',
         validationText: 's',
-        isValid: false,
         isSubmitted: false,
         ngModel: 0,
         currency: 'PLN',
-        callback: () => true,
+        inputValueCallback: (): void => {},
+        isValid: (): void => {},
         isDisabled: false
       }
 

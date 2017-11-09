@@ -1,4 +1,3 @@
-import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile, MoneyDto, WizardService, WizardTag} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../common/services/user/user.service'
@@ -20,7 +19,6 @@ interface ILanguagesList {
 
 export class ConsultationController implements ng.IController {
   public isStepRequired: boolean = true
-  public priceRegexp: RegExp
   public currency: string
   public nameInputValue: string
   public tagsInputValue: string[] = []
@@ -50,7 +48,6 @@ export class ConsultationController implements ng.IController {
               private userService: UserService,
               private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
-              private CommonSettingsService: CommonSettingsService,
               private languagesService: LanguagesService) {
 
     this.languagesList = this.languagesService.languagesList
@@ -68,7 +65,6 @@ export class ConsultationController implements ng.IController {
 
   $onInit(): void {
     this.checkIsPriceInputValid()
-    this.priceRegexp = this.CommonSettingsService.localSettings.pricePattern
 
     this.userService.getUser().then((response) => {
       this.currency = response.currency
@@ -167,13 +163,9 @@ export class ConsultationController implements ng.IController {
     this.$state.go('app.wizard.summary')
   }
 
-  public onPriceChange = (consultationCostModel: string): void => {
-    const amount = Number(consultationCostModel.replace(',', '.'))
-    this.isRegExpPriceInputValid = this.isRegExpPriceValid(amount)
+  public isRegExpPriceValid = (isRegExpPriceValid: boolean): void => {
+    this.isRegExpPriceInputValid = isRegExpPriceValid
   }
-
-  private isRegExpPriceValid = (priceValue: number): boolean =>
-    (priceValue && this.priceRegexp.test(priceValue.toString())) || priceValue > 0
 
   public checkIsNameInputValid = (): boolean =>
     !!(this.nameInputValue && this.nameInputValue.length >= ConsultationController.minValidNameLength)
@@ -193,6 +185,6 @@ export class ConsultationController implements ng.IController {
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
 
   public checkIsPriceInputValid = (): boolean =>
-    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0)
+    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 && this.isRegExpPriceInputValid)
 
 }

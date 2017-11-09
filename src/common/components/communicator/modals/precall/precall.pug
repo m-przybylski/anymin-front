@@ -59,13 +59,9 @@ x.modal-summary.precall
                 data-is-submitted="vm.isSubmitted"
                 data-placeholder="{{ 'COMMUNICATOR.MODALS.PRECALL.PRICE.PLACEHOLDER' | translate }}"
                 data-input-text="COMMUNICATOR.MODALS.PRECALL.INPUT_PRICE.LABEL"
-                data-callback="vm.onPriceChange"
+                data-input-value-callback="vm.onPriceChange"
+                data-is-valid="vm.isRegexpPriceValid"
                 data-is-disabled="vm.prepaidCallLimitModel === 0 && vm.isPrepaid"
-              )
-
-              validation-alert(
-                data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.ERROR"
-                data-is-visible="!vm.isRegExpPriceInputValid"
               )
 
               validation-alert(

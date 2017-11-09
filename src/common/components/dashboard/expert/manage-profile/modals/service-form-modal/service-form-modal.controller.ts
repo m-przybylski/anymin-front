@@ -1,5 +1,4 @@
 import {CommonConfig} from '../../../../../../../../generated_modules/common-config/common-config'
-import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 import {UserService} from '../../../../../../services/user/user.service'
 import * as _ from 'lodash'
 import {ServiceInvitation} from '../../../../../../models/ServiceInvitation'
@@ -42,7 +41,6 @@ export class ServiceFormModalController implements ng.IController {
   private static readonly minValidDescriptionLength: number = 50
   private moneyDivider: number
   private currency: string
-  private priceRegexp: RegExp
   private defaultLanguageISO: string = ''
   private onModalCloseCallback: () => void
   private serviceDetails?: GetExpertServiceDetails
@@ -51,7 +49,6 @@ export class ServiceFormModalController implements ng.IController {
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private translatorService: TranslatorService,
               private CommonConfig: CommonConfig,
-              private CommonSettingsService: CommonSettingsService,
               private userService: UserService,
               private ServiceApi: ServiceApi,
               private $scope: IServiceFormModalScope,
@@ -67,8 +64,6 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   $onInit(): void {
-    this.priceRegexp = this.CommonSettingsService.localSettings.pricePattern
-
     this.userService.getUser().then((user) => {
       this.isCompany = user.isCompany
       this.isExpert = user.isExpert
@@ -127,9 +122,8 @@ export class ServiceFormModalController implements ng.IController {
    }
   }
 
-  public onPriceChange = (consultationCostInputValue: string): void => {
-    const consultationCost = Number(consultationCostInputValue.replace(',', '.'))
-    this.isRegExpPriceInputValid = this.isRegExpPriceValid(consultationCost)
+  public isRegExpPriceValid = (isRegExpPriceValid: boolean): void => {
+    this.isRegExpPriceInputValid = isRegExpPriceValid
   }
 
   public isNameValid = (): boolean => this.consultationName.length >= ServiceFormModalController.minValidNameLength
@@ -145,7 +139,7 @@ export class ServiceFormModalController implements ng.IController {
   public areInvitationsValid = (): boolean =>
     this.isCompany ? this.consultationNewInvitations.length > 0 || this.isOwnerEmployee : true
 
-  public isPriceValid = (): boolean => this.consultationPrice.length > 0
+  public isPriceValid = (): boolean => this.consultationPrice.length > 0 && this.isRegExpPriceInputValid
 
   public isFormValid = (): boolean =>
     this.isNameValid()
@@ -222,6 +216,4 @@ export class ServiceFormModalController implements ng.IController {
       'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE')
   }
 
-  private isRegExpPriceValid = (priceValue: number): boolean =>
-    (priceValue && this.priceRegexp.test(priceValue.toString())) || priceValue > 0
 }

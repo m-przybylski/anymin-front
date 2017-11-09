@@ -11,7 +11,8 @@ export class InputPriceComponent implements ng.IComponentOptions {
     isSubmitted: '<',
     ngModel: '=',
     currency: '@',
-    callback: '=',
+    inputValueCallback: '<',
+    isValid: '<',
     isDisabled: '<'
   }
 }

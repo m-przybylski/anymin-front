@@ -122,7 +122,7 @@ describe('Testing Controller: ServiceFormModalController', () => {
   })
 
   it('should price not pass RegExpPrice test', () => {
-    serviceFormModalController.onPriceChange('123,aa')
+    serviceFormModalController.isRegExpPriceValid(false)
     expect(serviceFormModalController.isRegExpPriceInputValid).toBe(false)
   })
 
