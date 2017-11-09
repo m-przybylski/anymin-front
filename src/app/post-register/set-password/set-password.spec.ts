@@ -98,7 +98,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     it('should set new password on completeRegistration', () => {
       spyOn(_topAlertService, 'success')
 
-      _AccountApiMock_.partialUpdateAccountRoute(200, user.id, <any>{})
+      _AccountApiMock_.patchUpdateAccountRoute(200, user.id, <any>{})
 
       SetPasswordController.completeRegistration()
       _$httpBackend.flush()

@@ -37,7 +37,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       this.vatNumber = getInvoiceData.vatNumber
       if (getInvoiceData.address) {
         this.address = getInvoiceData.address.street + ', ' + getInvoiceData.address.number +
-          ', ' + getInvoiceData.address.zipCode + ', ' + getInvoiceData.address.city + ', ' +
+          ', ' + getInvoiceData.address.postalCode + ', ' + getInvoiceData.address.city + ', ' +
           getInvoiceData.address.countryISO
         this.isLongAddress = this.address.length > DashboardSettingsPaymentsController.maxShortAddressLength
       }

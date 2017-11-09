@@ -56,7 +56,7 @@ export class GeneralCountrySettingsController implements ng.IController {
   public setNewCountry = (): void => {
     this.userService.getUser().then(user => {
       if (!!this.selectedCountry) {
-        this.AccountApi.partialUpdateAccountRoute(user.id, {
+        this.AccountApi.patchUpdateAccountRoute(user.id, {
           countryISO: this.selectedCountry.value.countryISO,
           currencyUnit: this.selectedCountry.value.currency
         })

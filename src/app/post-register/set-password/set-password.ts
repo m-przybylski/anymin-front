@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import userModule from '../../../common/services/user/user'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
-import {AccountDetails} from 'profitelo-api-ng/model/models'
+import {AccountDetails, PutAccount} from 'profitelo-api-ng/model/models'
 import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
 import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
@@ -18,13 +18,17 @@ import checkboxModule from '../../../common/components/interface/checkbox/checkb
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
+import errorHandlerModule from '../../../common/services/error-handler/error-handler'
 
-function _controller($log: ng.ILogService, $filter: ng.IFilterService,
+function _controller($log: ng.ILogService,
+                     $filter: ng.IFilterService,
                      $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService,
                      passwordStrengthService: PasswordStrengthService,
                      user: AccountDetails,
                      topAlertService: TopAlertService,
+                     errorHandler: ErrorHandlerService,
                      CommonSettingsService: CommonSettingsService,
                      AccountApi: AccountApi): void {
 
@@ -59,7 +63,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
 
       const accountId = user.id
 
-      AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
+      AccountApi.patchUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
         this.isPending = false
         this.isServerError = true
         topWaitingLoaderService.stopLoader()
@@ -90,9 +94,10 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     this.enteredCurrentPassword = this.password
     const invitationObject = LocalStorageWrapper.getItem('invitation')
     if (invitationObject && JSON.parse(invitationObject).email) {
-      _updateNewUserObject({
+      putNewUserObject({
         password: this.password,
-        unverifiedEmail: JSON.parse(invitationObject).email
+        unverifiedEmail: JSON.parse(invitationObject).email,
+        isBlocked: false
       }, () => {
         verifyEmailByToken(JSON.parse(invitationObject).token)
         .then(() => {
@@ -109,6 +114,23 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
         this.isPending = false
         topWaitingLoaderService.stopLoader()
         $state.go('app.post-register.set-email')
+      })
+    }
+  }
+
+  const putNewUserObject = (updateObject: PutAccount, successCallback: () => void): void => {
+    if (!this.isPending) {
+      this.isPending = true
+      this.isServerError = false
+      topWaitingLoaderService.immediate()
+      AccountApi.putAccountRoute(user.id, updateObject)
+      .then(successCallback, (error) => {
+        this.isServerError = true
+        topWaitingLoaderService.stopLoader()
+        errorHandler.handleServerError(error)
+      })
+      .finally(() => {
+        this.isPending = false
       })
     }
   }
@@ -146,7 +168,8 @@ angular.module('profitelo.controller.post-register.set-password', [
   'profitelo.directives.password-strength-bar',
   checkboxModule,
   inputPasswordModule,
-  autoFocus
+  autoFocus,
+  errorHandlerModule
 ])
 .config(config)
 .controller('SetPasswordController', _controller)

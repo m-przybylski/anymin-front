@@ -59,7 +59,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         this.companyName = response.companyName
         this.street = response.address.street
         this.apartmentNumber = response.address.number
-        this.postalCode = response.address.zipCode
+        this.postalCode = response.address.postalCode
         this.city = response.address.city
         this.isGetCompanyInfo = true
         this.selectedCountry = _.find(
@@ -104,7 +104,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
           address: {
             number: this.apartmentNumber,
             city: this.city,
-            zipCode: this.postalCode,
+            postalCode: this.postalCode,
             countryISO: this.countryISO,
             street: this.street
           }
@@ -124,7 +124,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
           address: {
             number: '',
             city: '',
-            zipCode: '',
+            postalCode: '',
             countryISO: 'PL',
             street: ''
           }

@@ -33,7 +33,7 @@ export class GeneralEmailSettingsController implements ng.IController {
     this.newEnteredEmail = this.newEmail
     this.userService.getUser().then(user => {
       this.isEmailExist = false
-      this.AccountApi.partialUpdateAccountRoute(user.id, {
+      this.AccountApi.patchUpdateAccountRoute(user.id, {
         unverifiedEmail: this.newEmail
       }).then(this.onEmailChangeSucces, this.onEmailChangeError)
     })
