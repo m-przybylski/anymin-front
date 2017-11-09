@@ -39,7 +39,7 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
         address: {
           street: 'Grow Street',
           number: '13',
-          zipCode: '42-200',
+          postalCode: '42-200',
           city: 'Zagacie'
 
         }})

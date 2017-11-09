@@ -38,7 +38,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
 
       const accountId = user.id
 
-      AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
+      AccountApi.patchUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
         $log.error(error)
         this.isPending = false
         topWaitingLoaderService.stopLoader()

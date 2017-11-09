@@ -46,7 +46,7 @@ export class EditCompanyInvoiceController implements ng.IController {
       address: {
         number: this.apartmentNumber,
         city: this.city,
-        zipCode: this.postalCode,
+        postalCode: this.postalCode,
         countryISO: this.countryISO,
         street: this.street
       }
@@ -68,7 +68,7 @@ export class EditCompanyInvoiceController implements ng.IController {
       this.companyName = response.companyName
       this.street = response.address.street
       this.apartmentNumber = response.address.number
-      this.postalCode = response.address.zipCode
+      this.postalCode = response.address.postalCode
       this.city = response.address.city
       this.email = response.email
 

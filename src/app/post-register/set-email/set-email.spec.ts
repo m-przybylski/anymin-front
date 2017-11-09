@@ -67,7 +67,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
       it('should set new email', () => {
         spyOn($state, 'go')
         // FIXME
-        _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
+        _AccountApiMock.patchUpdateAccountRoute(200, user.id, <any>{})
         _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
         SetEmailController.setNewEmail()
         _$httpBackend.flush()
@@ -77,7 +77,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
 
     it('should handle bad requesnt while setting new email', () => {
       spyOn(_topAlertService, 'error')
-      _AccountApiMock.partialUpdateAccountRoute(500, user.id)
+      _AccountApiMock.patchUpdateAccountRoute(500, user.id)
       _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
       SetEmailController.setNewEmail()
       _$httpBackend.flush()

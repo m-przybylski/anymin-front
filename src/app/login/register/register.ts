@@ -100,7 +100,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
       this.isPending = true
       topWaitingLoaderService.immediate()
 
-      AccountApi.partialUpdateAccountRoute(userid, patchObject).then(successCallback, (error) => {
+      AccountApi.patchUpdateAccountRoute(userid, patchObject).then(successCallback, (error) => {
         this.isPending = false
         $log.error(error)
         topWaitingLoaderService.stopLoader()
