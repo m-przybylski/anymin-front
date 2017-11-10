@@ -30,7 +30,7 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
   public onAddLink = (): void => {
     this.urlExist = false
     if (!this.linkModel.match(this.urlPattern) && this.httpAdded === false) {
-      this.linkModel = 'http://' + this.linkModel
+      this.linkModel = 'http://' + this.linkModel.toLowerCase()
       this.httpAdded = true
     }
 
@@ -40,7 +40,7 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
       if (this.checkLinkExist(this.linkModel)) {
         this.urlExist = true
       } else {
-        this.selectedLinks.push(this.linkModel)
+        this.selectedLinks.push(this.linkModel.toLowerCase())
         this.linkModel = ''
       }
     } else {

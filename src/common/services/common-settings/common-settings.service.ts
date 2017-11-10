@@ -83,7 +83,8 @@ export class CommonSettingsService {
       emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
       numberPattern: /^\+?\d+(\s\d+)*$/,
       pricePattern: /^\d{1,3}([\.,](\d{1,2})?)?$/,
-      urlPattern: /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\&\?\=\+\#-]*)*\/?$/,
+      // tslint:disable-next-line: max-line-length
+      urlPattern: /^(https?:\/\/)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
       socialNetworks: [
         {
           iconClass: 'icon-behance-24',
