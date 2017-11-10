@@ -1,3 +1,5 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .dashboard-filters
   display: flex
   flex-wrap: wrap
@@ -59,6 +61,42 @@
 
     > drop-down
       display: flex
+
+    .dropdown-input
+      .dropdown-header
+        span
+          line-height: $s-input-height
+
+          &::-moz-placeholder
+            line-height: $s-input-height
+
+          &:-moz-placeholder
+            line-height: $s-input-height
+
+    .dropdown-content
+      .dropdown-input
+        height: $s-messenger-input-height
+
+        input
+          +inputText
+          padding: 0
+          min-height: $s-messenger-input-height
+
+          &::placeholder
+            font-size: $f-input-txt
+            line-height: normal
+
+          &::-webkit-input-placeholder
+            line-height: normal
+
+          &::-moz-placeholder
+            line-height: $s-messenger-input-height
+
+          &:-ms-input-placeholder
+            line-height: normal
+
+          &:-moz-placeholder
+            line-height: $s-messenger-input-height
 
 .dashboard-filters-collapse
   max-height: 305px
