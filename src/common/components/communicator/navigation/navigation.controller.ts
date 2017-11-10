@@ -1,11 +1,13 @@
 import {RatelCallDetails} from 'profitelo-api-ng/model/models'
 import {CurrentCall} from '../models/current-call';
 import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
+import {ClientCallService} from '../call-services/client-call.service'
+import {ExpertCallService} from '../call-services/expert-call.service'
 
 export interface INavigationComponentBindings {
-  isVideo: boolean
   isMessenger: boolean
   currentCall: CurrentCall
+  isVideo: boolean
 }
 
 interface INavigationComponentController extends INavigationComponentBindings {
@@ -23,7 +25,11 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
-  constructor() {
+  constructor(clientCallService: ClientCallService,
+              expertCallService: ExpertCallService) {
+    clientCallService.onNewCall(this.clearButtonsState)
+    expertCallService.onNewCall(this.clearButtonsState)
+    expertCallService.onCallPull(this.clearButtonsState)
   }
 
   public hangupCall = (): ng.IPromise<RatelCallDetails> =>
@@ -72,5 +78,10 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public toggleMessenger = (elem: Element): void => {
     this.animateButtons(elem)
     this.isMessenger = !this.isMessenger
+  }
+
+  private clearButtonsState = (): void => {
+    this.isAudio = true
+    this.isVideo = false
   }
 }
