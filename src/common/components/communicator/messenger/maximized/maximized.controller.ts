@@ -11,6 +11,7 @@ import {CurrentCall} from '../../models/current-call';
 import {CurrentClientCall} from '../../models/current-client-call';
 import {CurrentExpertCall} from '../../models/current-expert-call';
 import {Message} from 'ratel-sdk-js'
+import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 import {IMessageContext} from '../message-context'
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
@@ -31,8 +32,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private messagesScroll = angular.element('.messenger-scroll')
   private indicateTypingDebounceTimeout = 1000
-  public indicateTypingDebounce = (): void => {
-  }
+  public indicateTypingDebounce = (): void => {}
   private typingTimeout = 2000
   private fileUploadErrorMessageTimeout = 15000
   private uploader: UploaderService
@@ -41,7 +41,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   public expertName: string = ''
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
+  constructor(private $log: ng.ILogService,
+              private $timeout: ng.ITimeoutService,
               private $element: ng.IRootElementService,
               private clientCallService: ClientCallService,
               private expertCallService: ExpertCallService,
@@ -54,8 +55,28 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.expertCallService.onNewCall(this.expertInit)
     this.expertCallService.onCallPull((currentExpertCall) => {
       if (!this.messageRoom) this.expertInit(currentExpertCall)
+      else this.getMessages(currentExpertCall)
     })
+  }
 
+  private getMessages = (currentCall: CurrentCall): Promise<void> =>
+    currentCall.getMessageRoom().getHistory()
+      .then(this.onGetHistory)
+      .catch(this.onGetHistoryError)
+
+  private onGetHistoryError = (error: any): void => {
+    this.$log.error(error)
+  }
+
+  private clearChatMessages = (): void => {
+    this.groupedMessages = []
+  }
+
+  private onGetHistory = (messages: Paginated<Message>): void => {
+    this.clearChatMessages()
+    messages.items.forEach((message) => {
+      if (message.tag === 'MESSAGE')  this.addGroupedMessage(message)
+    })
   }
 
   private onNewCall = (currentCall: CurrentCall): void => {
@@ -66,6 +87,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       this.callLength = data.time
       this.callCost = data.money
     })
+
+    this.getMessages(currentCall)
     this.indicateTypingDebounce = _.throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
       leading: true,
       trailing: false
