@@ -129,17 +129,18 @@ export class ExpertCallService {
     alert('Accept the user media to answer the call!');
   }
 
-  private onCallPulled = (currentExpertCall: CurrentExpertCall): void => {
-    this.callbacks.notify(ExpertCallService.events.onCallPull, currentExpertCall);
+  private onCallPulled = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
     currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
-    this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId()).then((incomingCallDetails) => {
-      currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
-      const session = this.communicatorService.getClientSession()
-      if (!session) throw new Error('Session not available')
-      if (incomingCallDetails.sue.ratelRoomId)
-        session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
-          currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
-        })
+    return this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId())
+      .then((incomingCallDetails) => {
+        currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
+        const session = this.communicatorService.getClientSession()
+        if (!session) throw new Error('Session not available')
+        if (incomingCallDetails.sue.ratelRoomId)
+          session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
+            currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
+            this.callbacks.notify(ExpertCallService.events.onCallPull, currentExpertCall)
+          })
     })
   }
 
