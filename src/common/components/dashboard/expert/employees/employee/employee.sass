@@ -11,7 +11,7 @@
     &:hover
       background: $c-background
 
-      .employee-buttons-container
+      .employee-button-container
         +lgm
           display: flex
 
@@ -44,8 +44,9 @@
       display: flex
       flex-wrap: wrap
 
-    .employee-buttons-container
-      display: none
+    .employee-button-container
+      +lgm
+        display: none
 
       a:first-child
         margin: 0 24px 0 0
