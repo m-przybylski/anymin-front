@@ -21,6 +21,19 @@ input-price
     height: $s-input-height
     align-self: flex-end
 
+    &::placeholder
+      font-size: $f-input-txt
+      line-height: normal
+
+    &::-moz-placeholder
+      line-height: $s-input-height
+
+    &:-ms-input-placeholder
+      line-height: $s-input-height
+
+    &:-moz-placeholder
+      line-height: $s-input-height
+
   &.is-disabled
     input
       color: $c-secondary-txt
