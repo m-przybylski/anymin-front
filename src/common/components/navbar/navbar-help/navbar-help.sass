@@ -32,9 +32,21 @@
         background: $c-background-2
 
         &::placeholder
-          +inputText
-          color: $c-secondary-txt
-          line-height: normal
+          +inputTextPlaceholder
+
+          &::-webkit-input-placeholder
+            +inputTextPlaceholder
+
+          &::-moz-placeholder
+            line-height: $f-input-height
+
+          &:-ms-input-placeholder
+            +inputTextPlaceholder
+            line-height: $f-input-height
+
+          &:-moz-placeholder
+            +inputTextPlaceholder
+            line-height: $f-input-height
 
   .help-menu-container
     display: flex
