@@ -1,10 +1,8 @@
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
-import {ProfileApi} from 'profitelo-api-ng/api/api'
-import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
+import {GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
-import * as _ from 'lodash'
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
 
@@ -12,15 +10,13 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   isInvitationsTab: boolean = false
   areInvitationsDisplayed: boolean = false
   areInvitations: boolean = true
-  isLoading: boolean = true
   onClick: () => void
   buttonCallback: () => void
-  invitations: GetProfileWithServicesInvitations[] = []
+  invitations: GetProfileWithServicesInvitations[]
   public isPlatformForExpert: boolean = isPlatformForExpert
-  /* @ngInject */
 
+  /* @ngInject */
   constructor(private modalsService: ModalsService,
-              private ProfileApi: ProfileApi,
               private $element: ng.IRootElementService) {
 
     this.buttonCallback = (): void => {
@@ -31,16 +27,8 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     }
   }
 
-  $onInit(): void {
-    this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
-      this.invitations = response.filter((profileInvitation) =>
-         _.find(profileInvitation.services, (service) => service.invitation.status === GetInvitation.StatusEnum.NEW))
-      this.areInvitations = this.invitations.length > 0
-      this.isLoading = false
-    }, (_error) => {
-      this.isLoading = false
-      this.areInvitations = false
-    })
+  $onChanges(): void {
+    this.areInvitations = this.invitations.length > 0
   }
 
   public showNotifications = (): void => {

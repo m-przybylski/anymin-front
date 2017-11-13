@@ -12,6 +12,7 @@ import singleConsultationEditModule
 import apiModule from 'profitelo-api-ng/api.module'
 import errorHandlerModule from '../../../common/services/error-handler/error-handler'
 import userModule from '../../../common/services/user/user'
+import navbarNotificationsModule from '../../../common/components/navbar/navbar-notifications/navbar-notifications'
 
 const summaryWizardModule = angular.module('profitelo.controller.wizard.summary', [
   'ui.router',
@@ -23,6 +24,7 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
   singleConsultationEditModule,
   apiModule,
   errorHandlerModule,
+  navbarNotificationsModule,
   userModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {

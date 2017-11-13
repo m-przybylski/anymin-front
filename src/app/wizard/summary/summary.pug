@@ -13,7 +13,7 @@
     data-on-edit="vm.editConsultation"
     data-is-company="!vm.isExpertWizardPath")
 
-  .container(data-ng-if="vm.isAcceptedConsultation")
+  .container(data-ng-if="vm.isConsultationInvitationAccepted")
     single-consultation-edit(
     data-ng-repeat="service in vm.acceptedServices"
     data-service="service"
@@ -39,7 +39,7 @@
     )
 
     .container
-      .add-another-consultation(data-ng-show="vm.isConsultation || vm.isAcceptedConsultation")
+      .add-another-consultation(data-ng-show="vm.isConsultation || vm.isConsultationInvitationAccepted")
         p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")
 
         .btn-handler

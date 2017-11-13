@@ -4,8 +4,12 @@ import {UserService} from '../../../services/user/user.service'
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import {IStateService} from 'angular-ui-router'
 import IStyleConstant = profitelo.constants.style.IStyleConstant
+import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {TranslatorService} from '../../../services/translator/translator.service'
 import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
+import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
+import * as _ from 'lodash'
+import {NavbarNotificationsService} from '../navbar-notifications/navbar-notifications.service'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
@@ -17,6 +21,8 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   isInvitationsTab: boolean = false
   isHelpMenuShow: boolean = false
   isAnyMenuShow: boolean = false
+  notificationCounter?: number
+  invitations: GetProfileWithServicesInvitations[] = []
   public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
@@ -28,8 +34,11 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
               private $document: ng.IDocumentService,
               private $window: ng.IWindowService,
               private styleConstant: IStyleConstant,
-              private $scope: ng.IScope) {
-
+              private $scope: ng.IScope,
+              private $log: ng.ILogService,
+              private ProfileApi: ProfileApi,
+              navbarNotificationsService: NavbarNotificationsService) {
+    navbarNotificationsService.onInvitationsResolved(this.fetchInvitations)
   }
 
   $onInit(): void {
@@ -55,6 +64,18 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       this.$scope.$apply()
     })
 
+    this.fetchInvitations()
+  }
+
+  private fetchInvitations = (): void => {
+    this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
+      this.invitations = response.filter((profileInvitation) =>
+        _.find(profileInvitation.services, (service) => service.invitation.status === GetInvitation.StatusEnum.NEW))
+      this.areNotificationsDisplayed = this.invitations.length < 0
+      this.notificationCounter = this.invitations.length
+    }, (error) => {
+      this.$log.error(error)
+    })
   }
 
   $onDestroy(): void {
@@ -87,7 +108,6 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   public toggleNotificationsTabShow = (): void => {
     this.toggleNotificationsMenuShow()
-    this.areNotificationsDisplayed = true
     this.isNotificationsTab = true
     this.isInvitationsTab = false
     this.isHelpMenuShow = false

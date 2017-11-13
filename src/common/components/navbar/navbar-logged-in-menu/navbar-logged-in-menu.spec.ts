@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {NavbarLoggedInMenuComponentController} from './navbar-logged-in-menu.controller'
 import {INavbarLoggedInMenuComponentBindings, default as navbarLoggedInMenuModule} from './navbar-logged-in-menu'
-
+import {ProfileApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing: navbar-logged-in-menu', () => {
   return describe('for navbar-logged-in-menu component >', () => {
@@ -34,6 +34,7 @@ describe('Unit testing: navbar-logged-in-menu', () => {
       $provide.value('userService', userService)
       $provide.value('topAlertService', {})
       $provide.value('styleConstant', {})
+      $provide.value('apiUrl', 'awesomeUrl/')
     }))
 
     beforeEach(() => {
@@ -42,7 +43,7 @@ describe('Unit testing: navbar-logged-in-menu', () => {
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService,
-              _$document_: ng.IDocumentService) => {
+              _$document_: ng.IDocumentService, ProfileApiMock: ProfileApiMock) => {
 
         rootScope = $rootScope
         compile = $compile
@@ -54,7 +55,8 @@ describe('Unit testing: navbar-logged-in-menu', () => {
         const injectors = {
           userService: userService,
           $element: create(validHTML, bindings),
-          $document: document
+          $document: document,
+          ProfileApi: ProfileApiMock
         }
 
         component = $componentController<NavbarLoggedInMenuComponentController, INavbarLoggedInMenuComponentBindings>(
@@ -74,7 +76,6 @@ describe('Unit testing: navbar-logged-in-menu', () => {
     it('should show notifications tab', () => {
       component.toggleNotificationsTabShow()
       expect(component.isNotificationsMenuShow).toBe(true)
-      expect(component.areNotificationsDisplayed).toBe(true)
       expect(component.isNotificationsTab).toBe(true)
       expect(component.isInvitationsTab).toBe(false)
     })
