@@ -10,7 +10,8 @@
         span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.MORE")
 
   .communicator-lower-nav
-    a.btn.btn-circle.black(data-ng-click="$ctrl.animateButtons($event)")
+    a.btn.btn-circle.black(
+    data-ng-class="{'is-active': $ctrl.isAudio, 'is-inactive': !$ctrl.isAudio}")
       span.icon.icon-mic-on-24(data-ng-click="$ctrl.stopAudio()"  data-ng-show="$ctrl.isAudio")
       span.icon.icon-mic-off-24(data-ng-click="$ctrl.startAudio()" data-ng-hide="$ctrl.isAudio")
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.MICROPHONE")
@@ -19,7 +20,7 @@
       span.icon.icon-reject-24
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.END_CALL")
 
-    a.btn.btn-circle.black(data-ng-class="{'is-active': !$ctrl.isVideo, 'is-inactive': $ctrl.isVideo}")
+    a.btn.btn-circle.black(data-ng-class="{'is-active': $ctrl.isVideo, 'is-inactive': !$ctrl.isVideo}")
       span.icon.icon-camera-on-24(data-ng-click="$ctrl.stopVideo()" data-ng-show="$ctrl.isVideo")
       span.icon.icon-camera-off-24(data-ng-click="$ctrl.startVideo($event)" data-ng-hide="$ctrl.isVideo")
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.CAMERA")

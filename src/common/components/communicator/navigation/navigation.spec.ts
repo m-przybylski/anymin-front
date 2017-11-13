@@ -7,6 +7,8 @@ import {ClientCallService} from '../call-services/client-call.service';
 import {ExpertCallService} from '../call-services/expert-call.service';
 import navigationModule from './navigation';
 import {INavigationComponentBindings, NavigationComponentController} from './navigation.controller';
+import {CurrentExpertCall} from '../models/current-expert-call'
+import {CurrentClientCall} from '../models/current-client-call'
 
 describe('Unit testing: profitelo.components.communicator.navigation', () => {
   return describe('for communicatorNav component >', () => {
@@ -25,15 +27,18 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
     } as CurrentCall
 
     const bindings: INavigationComponentBindings = {
-      isVideo: false,
       currentCall: currentCall,
-      isMessenger: false
+      isMessenger: false,
+      isVideo: false
     }
 
     const clientCallService: ClientCallService = {
+      onNewCall: (_cb: (call: CurrentClientCall) => void): void => {}
     } as ClientCallService
 
     const expertCallService: ExpertCallService = {
+      onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {},
+      onCallPull: (_cb: (call: CurrentExpertCall) => void): void => {}
     } as ExpertCallService
 
     beforeEach(() => {
