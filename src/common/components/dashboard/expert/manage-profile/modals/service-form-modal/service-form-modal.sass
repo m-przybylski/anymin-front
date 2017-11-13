@@ -12,7 +12,6 @@
   +smm
     padding: 80px 20px
 
-
   .modal-section
     margin: 0 0 96px
 
@@ -25,9 +24,6 @@
         color: $c-tertiary-txt
         font-size: $f-paragraph-small
 
-    input-price
-      margin: 0 0 8px 0
-
     .hint
       display: flex
       align-items: center
@@ -38,6 +34,7 @@
     input-consultation-employee,
     input-consultation-tag
       input
+        height: $s-input-height
         border-bottom: 1px solid $c-lines
         width: 100%
 
@@ -45,6 +42,10 @@
       input
         margin: 0 0 16px
 
+    textarea-primary
+      textarea
+        margin: 8px 0 0
+        height: $s-input-height-container
 
   .modal-action
     flex-wrap: wrap
