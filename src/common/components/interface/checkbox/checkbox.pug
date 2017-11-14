@@ -10,7 +10,7 @@
     )
 
     label.label-text
-      label(data-translate="{{:: $ctrl.inputText | translate }}")
+      label(data-translate="{{ ::$ctrl.inputText | translate: $ctrl.inputTextTranslationParam }}")
       span.is-required(data-ng-if="$ctrl.ngRequired") *
 
   validation-alert(

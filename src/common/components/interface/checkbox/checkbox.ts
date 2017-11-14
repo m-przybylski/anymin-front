@@ -13,6 +13,7 @@ export interface ICheckboxComponentBindings extends ng.IController {
   isDisabled?: boolean
   ngRequired?: boolean
   onChange?: () => void
+  translationParam?: string
 }
 
 const checkboxModule = angular.module('profitelo.components.interface.checkbox', [
