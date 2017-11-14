@@ -6,6 +6,7 @@ export class CheckboxComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     inputText: '@',
     additionalText: '@',
+    inputTextTranslationParam: '<',
     name: '@',
     alertText: '@',
     validation: '<',

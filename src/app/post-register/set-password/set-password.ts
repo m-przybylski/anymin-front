@@ -41,11 +41,12 @@ function _controller($log: ng.ILogService,
   this.alreadyCheck = false
   this.isServerError = false
 
+  this.rulesTranslationUrl = {
+    hrefUrl: 'https://anymind.com/files/policy.pdf'
+  }
+
   this.msisdn = {
     number: user.msisdn
-  }
-  this.translationUrl = {
-    hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
   }
 
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
