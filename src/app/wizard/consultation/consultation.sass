@@ -26,6 +26,10 @@
 		&::before, &::after
 			content: none
 
+		input
+			&::placeholder
+				font-size: $f-input-big
+
 		.price-mock
 			display: flex
 			align-items: flex-end
@@ -39,7 +43,7 @@
 			background: none
 
 			&::-webkit-input-placeholder
-			line-height: $s-input-height-container
+				line-height: normal
 
 			&::-moz-placeholder
 				line-height: $s-input-height-container
