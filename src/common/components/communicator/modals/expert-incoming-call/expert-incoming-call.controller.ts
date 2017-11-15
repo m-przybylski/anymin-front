@@ -27,7 +27,6 @@ export class ExpertIncomingCallController implements ng.IController {
     }
 
     $scope.answerCall = (): void => {
-      $uibModalInstance.close('answer')
       $scope.$parent.answerCall()
     }
   }

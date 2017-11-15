@@ -118,11 +118,13 @@ export class ExpertCallService {
     this.soundsService.playCallRejected();
   }
 
-  private answerCall = (currentExpertCall: CurrentExpertCall): Promise<void> =>
-    this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
-    .then(localStream => currentExpertCall.answer(localStream), this.onGetUserMediaStreamFailure)
-    .then(() => this.onCallAnswered(currentExpertCall))
-    .catch(this.onAnswerCallError);
+  private answerCall = (currentExpertCall: CurrentExpertCall): Promise<void> => {
+    this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
+    return this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
+      .then(localStream => currentExpertCall.answer(localStream), this.onGetUserMediaStreamFailure)
+      .then(() => this.onCallAnswered(currentExpertCall))
+      .catch(this.onAnswerCallError);
+  }
 
   private onGetUserMediaStreamFailure = (err: any): void => {
     this.$log.error(err);
@@ -145,7 +147,6 @@ export class ExpertCallService {
   }
 
   private onCallAnswered = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
-    this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
     this.soundsService.callIncomingSound().stop();
     currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
