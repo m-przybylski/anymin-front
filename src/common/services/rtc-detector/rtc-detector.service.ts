@@ -1,19 +1,16 @@
 import {NavigatorWrapper} from '../../classes/navigator-wrapper'
 const DetectRTC = require('detectrtc')
 import {ModalsService} from '../modals/modals.service'
+import {MediaStreamConstraintsWrapper} from '../../classes/media-stream-constraints-wrapper'
 
 export class RtcDetectorService {
-  private navigator: any
   private instanceModal: ng.ui.bootstrap.IModalInstanceService
+  private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper()
 
   /* @ngInject */
   constructor(private modalsService: ModalsService,
               private $q: ng.IQService,
               private $timeout: ng.ITimeoutService) {
-
-    this.navigator = window['navigator']
-    this.navigator.getUserMedia =
-      this.navigator.getUserMedia || this.navigator.mozGetUserMedia || this.navigator.webkitGetUserMedia
   }
 
   public isBrowserSupported = (): ng.IPromise<boolean> =>
@@ -29,7 +26,7 @@ export class RtcDetectorService {
   public getAllMedia = (): ng.IPromise<MediaStream> =>
     this.$q<MediaStream>((resolve, reject) => {
       this.isMediaPermissionGiven().then(() => {
-        navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), (stream) => {
+        this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault()).then((stream) => {
           resolve(stream);
         }, () => {
           reject()
@@ -50,7 +47,7 @@ export class RtcDetectorService {
 
     this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay)
 
-    navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), (stream) => {
+    this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault()).then((stream) => {
       this.instanceModal.close('cancel')
       resolve(stream);
     }, () => {
