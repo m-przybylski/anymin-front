@@ -14,7 +14,6 @@ import commonSettingsModule from '../../../common/services/common-settings/commo
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import 'common/directives/interface/pro-alert/pro-alert'
 import 'common/directives/password-strength-bar/password-strength-bar'
-import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
@@ -36,14 +35,8 @@ function _controller($log: ng.ILogService,
   this.password = ''
   this.enteredCurrentPassword = ''
   this.isPending = false
-  this.isRequired = true
-  this.rulesAccepted = false
   this.alreadyCheck = false
   this.isServerError = false
-
-  this.rulesTranslationUrl = {
-    hrefUrl: 'https://anymind.com/files/policy.pdf'
-  }
 
   this.msisdn = {
     number: user.msisdn
@@ -167,7 +160,6 @@ angular.module('profitelo.controller.post-register.set-password', [
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
   'profitelo.directives.password-strength-bar',
-  checkboxModule,
   inputPasswordModule,
   autoFocus,
   errorHandlerModule
