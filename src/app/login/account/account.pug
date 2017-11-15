@@ -26,7 +26,11 @@
     button.btn.btn-default(data-translate="LOGIN.NEXT" type="submit")
 
 .password(data-ng-if="vm.current == 2")
-  form.input-form(name="passwordForm" data-ng-submit="passwordForm.$valid && vm.login()" novalidate autocomplete="off")
+  form.input-form(
+  name="passwordForm"
+  data-ng-submit="passwordForm.$valid && vm.login()"
+  novalidate)
+    input.hidden-input(data-ng-model="vm.account.phoneNumber.number" type="text" name="phone-number" tabindex="-1")
     input-password(
     data-id="password"
     data-ng-model="vm.account.password"
