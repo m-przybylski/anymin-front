@@ -3,7 +3,9 @@
 
 .tooltip
   display: inline-flex
-  position: relative
+
+  +xsm
+    position: relative
 
   &.is-hover
     .btn
@@ -15,8 +17,11 @@
 
   &.is-longtext
     .tooltip-content
-      min-width: 280px
       white-space: normal
+      min-width: 100%
+
+      +xsm
+        min-width: 280px
 
   .btn
     border: 1px solid $c-primary
@@ -31,14 +36,20 @@
     box-shadow: 0 1px 3px rgba($c-black, 0.15)
     position: absolute
     left: 0
-    margin-left: 12px
+    margin: 0
     bottom: calc(100% + 12px)
     padding: 4px
     max-width: 280px
     text-align: center
     white-space: nowrap
     z-index: $z-index-900
+    min-width: 100%
 
+    +xsm
+      min-width: 280px
+
+    +mdm
+      margin: 0 0 0 12px
 
     p
       +paragraphSmall
