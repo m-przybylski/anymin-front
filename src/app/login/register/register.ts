@@ -22,13 +22,21 @@ import {EventsService} from '../../../common/services/events/events.service'
 import eventsModule from '../../../common/services/events/events'
 import inputModule from '../../../common/components/interface/input/input'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
-function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
-                            topWaitingLoaderService: TopWaitingLoaderService, eventsService: EventsService,
-                            sessionService: SessionService, topAlertService: TopAlertService,
-                            smsSessionId: ILoginRegister, CommonSettingsService: CommonSettingsService,
-                            RegistrationApi: RegistrationApi, AccountApi: AccountApi,
-                            loginStateService: LoginStateService): void {
+function RegisterController($log: ng.ILogService,
+                            $filter: IFilterService,
+                            $state: ng.ui.IStateService,
+                            topWaitingLoaderService: TopWaitingLoaderService,
+                            eventsService: EventsService,
+                            sessionService: SessionService,
+                            topAlertService: TopAlertService,
+                            smsSessionId: ILoginRegister,
+                            CommonSettingsService: CommonSettingsService,
+                            RegistrationApi: RegistrationApi,
+                            AccountApi: AccountApi,
+                            loginStateService: LoginStateService,
+                            CommonConfig: CommonConfig): void {
   this.passwordStrength = 0
   this.isPending = false
   this.rulesAccepted = false
@@ -47,7 +55,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   }
 
   this.rulesTranslationUrl = {
-    hrefUrl: 'https://anymind.com/files/policy.pdf'
+    hrefUrl: CommonConfig.getAllData().urls['terms-of-service']
   }
 
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
