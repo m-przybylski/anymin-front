@@ -2,7 +2,7 @@
   header.entry-title
     span(data-translate="SETTINGS.GENERAL.TITLE")
 
-  .list-row
+  .list-row(data-ng-if="!vm.isPlatformForExpert")
     .list-icon
       .thumb.x24
         user-avatar(data-image-token="vm.avatarImageSource")
