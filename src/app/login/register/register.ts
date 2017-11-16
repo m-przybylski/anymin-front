@@ -21,6 +21,7 @@ import permissionModule from '../../../common/services/permission/permission'
 import {EventsService} from '../../../common/services/events/events.service'
 import eventsModule from '../../../common/services/events/events'
 import inputModule from '../../../common/components/interface/input/input'
+import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                             topWaitingLoaderService: TopWaitingLoaderService, eventsService: EventsService,
@@ -35,12 +36,18 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   this.newCurrentSmsCode = ''
   this.alreadyCheck = false
   this.correctCode = false
+  this.areRulesAccepted = false
+  this.isRequired = true
   let userid = ''
 
   this.registrationSteps = {
     account: smsSessionId.accountObject,
     smsCode: null,
     sessionId: smsSessionId.sessionId
+  }
+
+  this.rulesTranslationUrl = {
+    hrefUrl: 'https://anymind.com/files/policy.pdf'
   }
 
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
@@ -161,7 +168,8 @@ angular.module('profitelo.controller.login.register', [
   eventsModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
-  inputModule
+  inputModule,
+  checkboxModule
 ])
 .config(config)
 .controller('RegisterController', RegisterController)

@@ -1,5 +1,7 @@
 .sms-code
-  form.input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.getSmsCodeStatus()" novalidate)
+  form.input-form(name="smsCodeForm"
+  data-ng-submit="smsCodeForm.$valid && vm.getSmsCodeStatus() && vm.areRulesAccepted"
+  novalidate)
     input-primary(
     data-type="tel"
     data-id="smsCode"
@@ -11,6 +13,17 @@
     data-is-valid="vm.checkIsCodeCorrect() || !vm.serverError"
     data-validation-text="REGISTER.CODE_REQUIRED"
     data-is-submitted="smsCodeForm.$submitted"
+    )
+
+    checkbox(
+    id="acceptRules"
+    data-input-text="LOGIN.ACCEPT_RULES"
+    data-input-text-translation-param="vm.rulesTranslationUrl"
+    data-ng-model="vm.areRulesAccepted"
+    data-name="acceptRules"
+    data-ng-required="vm.isRequired"
+    data-validation="!vm.areRulesAccepted && smsCodeForm.$submitted"
+    data-alert-text="REGISTER.VALID_CHECKBOX"
     )
 
     .btn-handle.btn-handler.flex-row.login-handler
