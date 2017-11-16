@@ -91,9 +91,6 @@ export class CommunicatorComponentController implements ng.IController {
     this.expertAvatar = this.expert.expertDetails ? this.expert.expertDetails.avatar : undefined
     this.isConnecting = true
     this.isClosed = false
-    call.onAnswered(() => {
-      this.isConnecting = false
-    })
     this.registerCommonCallEvents(call);
   }
 
@@ -110,7 +107,7 @@ export class CommunicatorComponentController implements ng.IController {
     this.cleanupComponent()
     this.currentCall = call
     this.service = call.getService();
-    this.isConnecting = false
+    this.isConnecting = true
     this.isClosed = false
     this.registerCommonCallEvents(call);
   }
@@ -135,11 +132,16 @@ export class CommunicatorComponentController implements ng.IController {
     call.onParticipantOnline(this.onUserBackOnline)
     call.onParticipantOffline(this.onUserOffline)
     call.onSuspendedCallEnd(this.closeCommunicator)
+    call.onAnswered(this.onAnswered)
   }
 
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
     this.callLengthInSeconds = timeMoneyTuple.time
     this.callCost = timeMoneyTuple.money
+  }
+
+  private onAnswered = (): void => {
+    this.isConnecting = false
   }
 
   private onRemoteStream = (stream: MediaStream): void => {

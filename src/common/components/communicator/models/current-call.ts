@@ -162,7 +162,7 @@ export class CurrentCall {
     this.state = state;
   }
 
-  protected onAnswered = (cb: () => void): void => {
+  public onAnswered = (cb: () => void): void => {
     this.callbacks.methods.onAnswered(cb);
   }
 
