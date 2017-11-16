@@ -38,15 +38,10 @@ class LoginRegisterResolver implements ILoginRegisterService {
     const handleError = (error: any): void => {
       if (error.status === httpCodes.badRequest) {
         _deferred.resolve({})
-        this.topAlertService.warning({
-          message: this.translatorService.translate('REGISTER.SMS_CODE_TIMEOUT_ERROR'),
-          timeout: 3
-        })
-      } else _deferred.reject()
-      this.$timeout(() => {
-        this.$state.go('app.login.account')
-      })
-      this.$log.error(error)
+      } else {
+        _deferred.reject()
+        this.$log.error(error)
+      }
     }
 
     const _account = this.loginStateService.getAccountObject()
