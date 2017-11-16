@@ -1,3 +1,6 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .modal-open
 	display: block
 
@@ -64,7 +67,10 @@
 	.entry-title
 		+header
 		display: block
-		padding: 0 0 48px
+		padding: 0 0 24px
+
+		+xsm
+			padding: 0 0 48px
 
 .modal-form
 	animation: fadeInY 0.3s
