@@ -74,8 +74,9 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private onGetHistory = (messages: Paginated<Message>): void => {
     this.clearChatMessages()
-    messages.items.forEach((message) => {
-      if (message.tag === 'MESSAGE')  this.addGroupedMessage(message)
+    const chatMessages: Message[] = messages.items.filter(message => message.tag === 'MESSAGE')
+    chatMessages.forEach((message) => {
+      this.addGroupedMessage(message)
     })
   }
 
