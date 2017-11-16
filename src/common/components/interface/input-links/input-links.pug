@@ -3,6 +3,7 @@
     .links-submit
       div.input-handler
         input-primary(
+          data-input-text="{{ $ctrl.label }}"
           placeholder="WIZARD.STEP.EXPERT.LINKS.PLACEHOLDER"
           data-ng-model="$ctrl.linkModel"
           data-ng-enter="$ctrl.onAddLink()"
