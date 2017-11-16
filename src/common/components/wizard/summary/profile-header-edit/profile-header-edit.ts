@@ -5,6 +5,7 @@ import {GetExpertDetails} from 'profitelo-api-ng/model/models'
 import userAvatarModule from '../../../interface/user-avatar/user-avatar'
 import profileGalleryModule from '../../../interface/profile-gallery/profile-gallery'
 import filtersModule from '../../../../filters/filters'
+import translatorModule from '../../../../services/translator/translator'
 
 export interface IProfileHeaderEditComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails,
@@ -22,7 +23,8 @@ const profileHeaderEditModule = angular.module('profitelo.components.wizard.prof
   'profitelo.directives.pro-social-icon-getter',
   userAvatarModule,
   profileGalleryModule,
-  filtersModule
+  filtersModule,
+  translatorModule
 ])
 .component('profileHeaderEdit', new ProfileHeaderEditComponent())
   .name

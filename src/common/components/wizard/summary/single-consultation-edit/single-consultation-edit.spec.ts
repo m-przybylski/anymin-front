@@ -52,6 +52,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
       }
       component.onRemove = (): void => {}
       expect(component.checkIsOnRemoveExist()).toBe(true)
+      spyOn(window, 'confirm').and.returnValue(true)
       spyOn(component, 'onRemove')
       component.removeConsultation()
       expect(component.onRemove).toHaveBeenCalledWith(component.service)
