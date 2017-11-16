@@ -83,5 +83,6 @@ export class NavigationComponentController implements ng.IController, INavigatio
   private clearButtonsState = (): void => {
     this.isAudio = true
     this.isVideo = false
+    this.isMessenger = false
   }
 }

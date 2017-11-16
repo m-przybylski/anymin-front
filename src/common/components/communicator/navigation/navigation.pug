@@ -25,6 +25,8 @@
       span.icon.icon-camera-off-24(data-ng-click="$ctrl.startVideo($event)" data-ng-hide="$ctrl.isVideo")
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.CAMERA")
 
-    a.btn.btn-circle.black.chat-switcher(data-ng-click="$ctrl.toggleMessenger($event)")
+    a.btn.btn-circle.black.chat-switcher(
+    data-ng-class="{'is-active': $ctrl.isMessenger, 'is-inactive': !$ctrl.isMessenger}"
+    data-ng-click="$ctrl.toggleMessenger($event)")
       span.icon.icon-chat-24
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.CHAT")
