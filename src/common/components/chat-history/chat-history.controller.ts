@@ -45,7 +45,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   }
 
   private onGetMessages = (messages: Paginated<Message>): void => {
-    this.chatMessages = messages.items
+    this.chatMessages = messages.items.filter(message => message.tag === 'MESSAGE')
     this.isChatHistory = this.chatMessages.length > 0
     this.isLoading = false
     this.isError = false
