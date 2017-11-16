@@ -1,3 +1,6 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .image-crop
   margin: 0 auto
   width: 288px
@@ -7,14 +10,17 @@
 
   .croppie-container
     position: relative
-    margin: 0 0 32px
+    margin: 0 0 16px
+
+    +xsm
+      margin: 0 0 32px
 
     +smm
       margin: 0 0 64px
 
     .cr-boundary
-      width: 270px
-      height: 270px
+      width: 250px
+      height: 250px
 
       +xsm
         height: 420px
