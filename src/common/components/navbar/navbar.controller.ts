@@ -16,6 +16,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
     transform: string
   }
   public onLogoLink: string = ''
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
