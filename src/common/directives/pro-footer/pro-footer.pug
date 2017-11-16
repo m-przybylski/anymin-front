@@ -1,71 +1,32 @@
 footer.pro-footer
   .container
-    .footer-container(data-ng-class="{'is-platform-for-expert': isPlatformForExpert}")
-      .footer-applications
-        h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")
-        ul
-        a(data-ng-if="!isPlatformForExpert")
-          img(src="assets/images/app_store.png")
-        a
-          img(src="assets/images/google_play.png")
-    
-      .footer-links
-        ul(data-ng-if="isPlatformForExpert")
-          li.head
-            a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.WIDGETS" target="_blank")
-        ul(data-ng-if="isPlatformForExpert")
-          li.head
-            a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.HELP_CENTER"
-            href="{{ zendeskUrl }}"
-            target="_blank")
-        ul(data-ng-if="isPlatformForExpert")
-          li.head
-            a(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.BLOG" target="_blank")
+    .download-app-content
+      h5(data-translate="HOME.FOOTER.DOWNLOAD.LABEL.TITLE")
+      img(src="/assets/images/google_play.png" alt="google play")
 
-        ul(data-ng-if="!isPlatformForExpert")
-          li.head 
-            h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_PARTNER_SPACE")
-          li 
-            a(data-translate="HOME.FOOTER.ADVANTAGE_TO_PARTNERS")
-          li 
-            a(data-translate="HOME.FOOTER.ABOUT_US")
-          li 
-            a(data-translate="HOME.FOOTER.INTEGRATION")
-            
-        ul(data-ng-if="!isPlatformForExpert")
-          li.head 
-            h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_COMPLAINTS")
-          li 
-            a(data-translate="HOME.FOOTER.REFUND")
-          li 
-            a(data-translate="HOME.FOOTER.RECORD_CALLS")
-            
-        ul(data-ng-if="!isPlatformForExpert")
-          li.head 
-            h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_OTHER")
-          li 
-            a(data-translate="HOME.FOOTER.BLOG")
-          li 
-            a(data-translate="HOME.FOOTER.FAQ")
-          li 
-            a(data-translate="HOME.FOOTER.RULE")
-          li 
-            a(data-translate="HOME.FOOTER.PRIVACY_POLICY")
+    .footer-navigation
+      ul
+        li
+          a(href="{{ anymindLandingUrl }}" target="_blank" data-translate="HOME.FOOTER.NAVIGATION.WIDGET")
+        li
+          a(href="{{ zendeskUrl }}" target="_blank" data-translate="HOME.FOOTER.NAVIGATION.HELP")
+        li
+          a(href="{{ anymindBlogUrl }}" target="_blank" data-translate="HOME.FOOTER.NAVIGATION.BLOG")
 
-    .bottom-footer
-      .bottom-footer-about
-        p {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.YEAR' | translate }} &reg;
-          a.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.REGULATIONS" target="_blank")
-        p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.ITELO")
+  .copyrights
+    .container
+      p(data-translate="HOME.FOOTER.COPYRIGHT.TITLE")
 
-      .bottom-footer-fast-contact
-        ul
-          li(data-ng-if="!isPlatformForExpert")
-            p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT")
-          li
-            a(href="mailto:{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER' | translate}}" target="_blank")
-              span.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
+      ul
+        li
+          a(href="{{privacyPolicyUrl}}" target="_blank" data-translate="HOME.FOOTER.PRIVACY_POLICY")
 
-    .bottom-footer.cookies
-      p  {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.COOKIES' | translate }}
-        a.link(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MORE")
+        li.separator
+          p &
+
+        li
+          a(href="{{termsOfServiceUrl}}" target="_blank" data-translate="HOME.FOOTER.RULE")
+
+      .contact
+        a.mail(href="mailto: {{helpMailUrl}}")
+          | {{helpMailUrl}}

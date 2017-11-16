@@ -11,6 +11,7 @@ namespace profitelo.directives.proFooter {
       beforeEach(() => {
 
         angular.mock.module('profitelo.directives.pro-footer')
+        angular.mock.module('commonConfig')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
           rootScope = $rootScope.$new()

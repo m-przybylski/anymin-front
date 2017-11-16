@@ -1,19 +1,29 @@
 import * as angular from 'angular'
 import {IDirective} from 'angular'
 import {isPlatformForExpert} from '../../constants/platform-for-expert.constant'
-import {urls} from '../../constants/urls.constant'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 interface IProFooterScope extends ng.IScope {
   isPlatformForExpert: boolean
   zendeskUrl: string
+  anymindLandingUrl: string
+  anymindBlogUrl: string
+  termsOfServiceUrl: string
+  privacyPolicyUrl: string
+  helpMailUrl: string
 }
 
 (function(): void {
-  function proFooter(): IDirective {
+  function proFooter(CommonConfig: CommonConfig): IDirective {
 
     function linkFunction(scope: IProFooterScope): void {
       scope.isPlatformForExpert = isPlatformForExpert
-      scope.zendeskUrl = urls.zendesk
+      scope.zendeskUrl = CommonConfig.getAllData().urls.zendesk
+      scope.anymindLandingUrl = CommonConfig.getAllData().urls['widget-landing']
+      scope.anymindBlogUrl = CommonConfig.getAllData().urls['widget-blog']
+      scope.termsOfServiceUrl = CommonConfig.getAllData().urls['terms-of-service']
+      scope.privacyPolicyUrl = CommonConfig.getAllData().urls['privacy-policy']
+      scope.helpMailUrl = CommonConfig.getAllData().config['help-mail']
     }
 
     return {
@@ -25,7 +35,8 @@ interface IProFooterScope extends ng.IScope {
   }
 
   angular.module('profitelo.directives.pro-footer', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'commonConfig'
   ])
   .directive('proFooter', proFooter)
 
