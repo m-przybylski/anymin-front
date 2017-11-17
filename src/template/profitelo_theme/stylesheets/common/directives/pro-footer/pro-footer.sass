@@ -1,182 +1,119 @@
 .pro-footer
-  background-color: $c-background
-  text-align: center
-  margin: 32px 0 0
+  background-color: $c-white
+  padding: 32px 0 0
 
-  +lgm
-    margin: 0
-    text-align: left
-
-  .footer-container
-    padding: 64px 0
+  .container
+    text-align: center
+    display: flex
+    flex-wrap: wrap
 
     +smm
-      display: flex
-      flex-wrap: wrap
+      justify-content: space-between
+      align-items: flex-start
+      text-align: left
 
-    &.is-platform-for-expert
-      padding: 24px 0 0
+    &::after,
+    &::before
+      content: none
 
-      .footer-applications
-        img
-          margin: 0
-
-    .footer-applications
-      +smm
-        flex: 1 0 100%
-
-      +lgm
-        flex: 1 0
-
-      h5
-        +default-font-bold
-        text-transform: uppercase
-        font-size: $f-input-small
-        margin: 0 0 32px
-
-        +lgm
-          margin: 0 0 24px
-
-      a
-        display: inline-block
-        margin: 0 16px 0 0
-
-        &:last-child
-          margin: 0
-
-      img
-        margin: 0 8px 0
-        max-width: 128px
-
-        +lgm
-          display: block
-          margin: 0 0 16px
-
-      div
-        img
-          margin: 0 8px 16px
-
-    .footer-links
-      flex: 1 0
-      justify-content: flex-end
-      padding: 64px 0 0
+    > *
+      flex: 1 0 100%
 
       +smm
-        flex-direction: row
+        flex: inherit
+
+    .download-app-content
+      text-align: center
+      margin: 0 0 24px
+
+      +smm
+        margin: 0
         text-align: left
-        display: flex
-        justify-content: space-between
-        flex: 1 0 100%
 
-      +lgm
-        flex: 1 0
-        padding: 0
+    .footer-navigation
+      text-align: right
+      order: -1
+      margin: 0 0 24px
+
+      +smm
+        margin: 0
+        order: 1
 
       ul
-        margin: 0 0 64px
+        display: flex
+        justify-content: center
 
-        &:last-child
-          margin: 0
+        +smm
+          justify-content: flex-end
+
+        li
+          margin: 0 8px
+
+          +smm
+            margin: 0 0 0 32px
+
+          a
+            +default-font-medium
+            color: $c-primary
+
+  h5
+    +default-font-medium
+    font-size: $f-paragraph-title
+    color: $c-primary-txt
+    line-height: 23px
+    margin: 0 0 24px
+
+  .copyrights
+    padding: 24px 0
+    background: $c-background-2
+
+    +smm
+      margin: 48px 0 0
+
+    .container
+      text-align: center
+
+      +smm
+        display: flex
+        justify-content: space-between
+        align-items: flex-start
+        text-align: left
+
+      > *
+        flex: 1 0 100%
+
+        +smm
+          flex: inherit
+
+      ul
+        display: flex
+        align-items: center
+        justify-content: center
+        flex: 1
+        margin: 0 0 24px
+
+        +smm
+          justify-content: flex-start
+          margin: 0 0 0 32px
+
+        li
+          &.separator
+            padding: 0 4px
+
+          p
+            margin: 0
+
+      p
+        order: 1
+        margin: 24px auto 0
 
         +smm
           margin: 0
+          order: inherit
+    p
+      color: $c-secondary-txt
+      font-size: $f-paragraph-small
 
-        li
-          text-transform: uppercase
-          font-size: $f-paragraph
-          margin: 0 0 16px
-
-          &:last-child
-            margin: 0
-
-          &.head
-            margin: 0 0 24px
-
-          a
-            +transition(color 0.2s)
-            +default-font-regular
-            color: $c-secondary-txt
-            font-size: $f-input-small
-
-            &:hover
-              color: $c-primary-txt
-
-          h5
-            +default-font-bold
-            font-size: $f-input-small
-
-  .bottom-footer.cookies
-    padding: 0 0 24px
-    justify-content: center
-
-    +lgm
-      justify-content: flex-start
-
-  .bottom-footer
-    display: flex
-    align-items: center
-    flex-wrap: wrap
-    padding: 24px 0
-
-    a, p
-      +default-font-regular
-      color: $c-primary-txt
-      text-transform: uppercase
-      font-size: $f-input-small
-
-    .link
+    a
       color: $c-primary
-
-    .bottom-footer-about
-      flex: 1 0 100%
-      order: 2
-
-      +lgm
-        flex: 1 0
-        order: 1
-
-      p
-        padding: 0 48px
-
-        +lgm
-          padding: 0
-
-      a
-        margin: 0 0 0 8px
-
-    .bottom-footer-fast-contact
-      order: 1
-      flex: 1 0 100%
-      display: flex
-      align-items: center
-      justify-content: center
-      margin: 0 0 32px
-
-      +lgm
-        flex: 1 0
-        margin: 0
-        justify-content: flex-end
-
-      ul
-
-        +xsm
-          display: flex
-          align-items: center
-
-        li
-          margin: 0 0 16px
-          display: flex
-
-          align-items: center
-          justify-content: center
-
-
-          +xsm
-            margin: 0 24px 0 0
-            justify-content: flex-start
-
-          &:last-child
-            margin: 0
-
-          p, a
-            color: $c-secondary-txt
+      font-size: $f-paragraph-small

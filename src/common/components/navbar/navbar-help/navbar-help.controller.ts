@@ -3,10 +3,10 @@ import * as angular from 'angular'
 import {HelpdeskService} from '../../../services/helpdesk/helpdesk.service'
 import {ISearchArticle} from '../../../services/helpdesk/search-article.interface'
 import * as _ from 'lodash'
-import {urls} from '../../../constants/urls.constant'
+import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
-  public readonly zendeskUrl: string = urls.zendesk
+  public zendeskUrl?: string
   public searchResults: ISearchArticle[] = []
   public helpSearchQuery: string
   public onClick: () => void
@@ -18,7 +18,8 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
 
   /* @ngInject */
   constructor(private helpdeskService: HelpdeskService,
-  private $log: ng.ILogService) {
+              private $log: ng.ILogService,
+              private CommonConfig: CommonConfig) {
 
     this.buttonCallback = (): void => {
       if (this.onClick && angular.isFunction(this.onClick)) {
@@ -28,6 +29,10 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
       }
     }
     this.debouncedSearch = _.debounce(this.querySearchResults, NavbarHelpComponentController.searchDebounceDelay)
+  }
+
+  $onInit(): void {
+    this.zendeskUrl = this.CommonConfig.getAllData().urls.zendesk
   }
 
   public onHelpSearchInputChange = (): void => {
