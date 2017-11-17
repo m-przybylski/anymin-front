@@ -1,12 +1,10 @@
 import {SearchService} from '../../services/search/search.service'
 import {keyboardCodes} from '../../classes/keyboard'
-import {isPlatformForExpert} from '../../constants/platform-for-expert.constant'
 
 export class SearchDropdownController {
 
   public suggestions: string[] = []
   public searchValue?: string
-  public isPlatformForExpert = isPlatformForExpert
 
   private static readonly minimumValidInputValueLength: number = 3
   private isFocus: boolean = false

@@ -4,7 +4,7 @@
     a
       img.logo( src="/assets/images/AnyMind_logo_small.png" alt="Profitelo-logo")
 
-  .navbar-search
+  .navbar-search(data-ng-if="!$ctrl.isPlatformForExpert")
     a.search-btn(data-ng-click="$ctrl.onSearchCollapsed()")
       span.icon.icon-search-24
 
