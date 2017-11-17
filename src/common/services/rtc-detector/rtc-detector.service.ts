@@ -53,7 +53,7 @@ export class RtcDetectorService {
     }, () => {
       this.modalsService.createRtcDetectorBlockedModal()
       mediaDisplayObject.shouldDisplayMedia = false;
-      this.instanceModal.close('cancel')
+      if (this.instanceModal) this.instanceModal.close('cancel')
 
       reject();
     });

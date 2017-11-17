@@ -6,14 +6,10 @@ import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CurrentExpertCall} from '../models/current-expert-call';
-import {NavigatorWrapper} from '../../../classes/navigator-wrapper';
 import {TimerFactory} from '../../../services/timer/timer.factory';
-import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
 import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
-
+import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
 export class ExpertCallService {
-
-  private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper();
 
   private currentExpertCall?: CurrentExpertCall;
 
@@ -33,6 +29,7 @@ export class ExpertCallService {
               private modalsService: ModalsService,
               private soundsService: SoundsService,
               private $log: ng.ILogService,
+              private rtcDetectorService: RtcDetectorService,
               private callbacksFactory: CallbacksFactory,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService) {
@@ -80,7 +77,7 @@ export class ExpertCallService {
   }
 
   public pullCall = (): void => {
-    this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
+    this.rtcDetectorService.getAllMedia()
     .then(localStream => {
       if (this.currentExpertCall) return this.currentExpertCall.pull(localStream)
       else throw new Error('Call does not exist')
@@ -118,31 +115,31 @@ export class ExpertCallService {
     this.soundsService.playCallRejected();
   }
 
-  private answerCall = (currentExpertCall: CurrentExpertCall): Promise<void> => {
-    this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
-    return this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
-      .then(localStream => currentExpertCall.answer(localStream), this.onGetUserMediaStreamFailure)
-      .then(() => this.onCallAnswered(currentExpertCall))
-      .catch(this.onAnswerCallError);
-  }
+  private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
+    this.rtcDetectorService.getAllMedia()
+    .then(localStream => {
+      this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
+      currentExpertCall.answer(localStream)
+      this.onCallAnswered(currentExpertCall)
+    }, this.onGetUserMediaStreamFailure)
+    .catch(this.onAnswerCallError);
 
   private onGetUserMediaStreamFailure = (err: any): void => {
-    this.$log.error(err);
-    alert('Accept the user media to answer the call!');
+    this.$log.debug(err);
   }
 
   private onCallPulled = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
     currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId())
-      .then((incomingCallDetails) => {
-        currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
-        const session = this.communicatorService.getClientSession()
-        if (!session) throw new Error('Session not available')
-        if (incomingCallDetails.sue.ratelRoomId)
-          session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
-            currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
-            this.callbacks.notify(ExpertCallService.events.onCallPull, currentExpertCall)
-          })
+    .then((incomingCallDetails) => {
+      currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
+      const session = this.communicatorService.getClientSession()
+      if (!session) throw new Error('Session not available')
+      if (incomingCallDetails.sue.ratelRoomId)
+        session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
+          currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
+          this.callbacks.notify(ExpertCallService.events.onCallPull, currentExpertCall)
+        })
     })
   }
 
