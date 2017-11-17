@@ -1,5 +1,6 @@
 import {IProfileHeaderEditComponentBindings, ProfileTypes} from './profile-header-edit'
 import {GetExpertDetails, ProfileDocument} from 'profitelo-api-ng/model/models'
+import {TranslatorService} from '../../../../services/translator/translator.service'
 
 export class ProfileHeaderEditComponentController implements IProfileHeaderEditComponentBindings {
 
@@ -11,7 +12,7 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   onEdit?: () => void
 
   /* @ngInject */
-  constructor() {
+  constructor(private translatorService: TranslatorService) {
     this.editLink = 'app.wizard.create-profile.expert'
   }
 
@@ -25,7 +26,9 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
     this.profileType === ProfileTypes.expert
 
   public deleteProfile = (): void => {
-    if (this.onDelete && typeof this.onDelete === 'function') {
+    const confirmWindowMessage: string =
+      this.translatorService.translate('WIZARD.SUMMARY.DELETE_PROFILE.BUTTON.CONFIRMATION_MESSAGE')
+    if (this.onDelete && typeof this.onDelete === 'function' && confirm(confirmWindowMessage)) {
       this.onDelete()
     }
   }

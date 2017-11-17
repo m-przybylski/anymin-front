@@ -41,7 +41,9 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   }
 
   public removeConsultation = (): void => {
-    if (this.checkIsOnRemoveExist()) {
+    const confirmWindowMessage: string =
+      this.translatorService.translate('WIZARD.SUMMARY.DELETE_SERVICE.BUTTON.CONFIRMATION_MESSAGE')
+    if (this.checkIsOnRemoveExist() && confirm(confirmWindowMessage)) {
       this.onRemove(this.service)
     }
   }
