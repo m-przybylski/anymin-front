@@ -5,6 +5,7 @@ import modalsModule from '../../../../common/services/modals/modals'
 import {UserService} from '../../../../common/services/user/user.service'
 import {AccountDetails} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
+import {isPlatformForExpert} from '../../../../common/constants/platform-for-expert.constant'
 
 export class DashboardSettingsGeneralController implements ng.IController {
 
@@ -15,6 +16,7 @@ export class DashboardSettingsGeneralController implements ng.IController {
   public country: string
   public unverifiedEmail?: string
   public showUnverifiedEmail: boolean
+  public isPlatformForExpert: boolean = isPlatformForExpert
 
   constructor(private modalsService: ModalsService, user: AccountDetails, private $state: ng.ui.IStateService) {
     this.nickname = user.settings.nickname
