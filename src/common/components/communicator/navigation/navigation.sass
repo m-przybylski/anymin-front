@@ -28,14 +28,22 @@
       display: flex
       padding: 0 16px
 
-  .communicator-window-nav
-    display: none
+    .communicator-window-nav
+      display: none
 
-    +smm
-      display: flex
+      +smm
+        display: flex
 
-    .icon
-      transform: rotate(90deg)
+      &.hideable
+        a
+          bottom: 110px
+
+      a
+        bottom: 0px
+        transition: bottom 1s ease
+
+      .icon
+        transform: rotate(90deg)
 
     a:first-child
       &.is-active
@@ -58,9 +66,23 @@
     +smm
       position: relative
 
+    a
+      transition: top 1s ease
+      top: 0
+
+    .switch-camera
+      +smm
+        display: none
+
+    .hideable
+      top: 150px
+
   .btn-circle
-    margin: 0 12px
+    margin: 0 6px
     overflow: visible
+
+    +mdm
+      margin: 0 16px
 
     span
       align-self: stretch
@@ -80,16 +102,27 @@
           margin: auto
           text-transform: none
 
+      &:hover
+        &::before
+          +mdm
+            width: 100%
+            height: 100%
+
     &.cancel-conversation
-      background: none
       border: 0
       background: rgba($c-error, 0.8)
       box-shadow: 0 1px 4px 0 rgba($c-primary-txt, 0.15)
-      +btn-circle-hover($c-error)
 
-      &:hover
-        transition: background 0s 0.3s
-        background: none
+      &::before
+        content: " "
+        display: block
+        width: 0
+        height: 0
+        background: $c-error
+        position: absolute
+        transition: all 0.2s
+        border-radius: 50%
+        z-index: -1
 
       span
         font-size: $f-icon-22
@@ -119,7 +152,6 @@
       animation: messenger-btn-animation-seconds-active 0.3s 0.15s linear
 
       &::before
-        background: $c-white
         animation: messenger-btn-animation 0.18s linear
         animation-fill-mode: forwards
 
@@ -135,7 +167,8 @@
     &:hover:not(.cancel-conversation):not(.connect-conversation)
       span
         &:not(.icon-title)
-          color: $c-primary
+          +mdm
+            color: $c-primary
 
     &.chat-switcher
       align-self: flex-end

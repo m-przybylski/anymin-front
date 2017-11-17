@@ -1,89 +1,88 @@
 @import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
 @import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
 
-.messenger-messages
-  .grouped-messages
+.grouped-messages
+  display: flex
+  justify-content: flex-end
+
+  .message
+    text-align: left
+    flex: 1
+    margin: 0 0 8px
     display: flex
     justify-content: flex-end
 
-    .message
-      text-align: left
-      flex: 1
-      margin: 0 0 8px
-      display: flex
-      justify-content: flex-end
+    &.is-active
+      animation: bounce 0.4s ease-out
 
-      &.is-active
-        animation: bounce 0.4s ease-out
+    span
+      +paragraphSmall
+      +default-font-regular
+      display: inline-block
+      background: $c-lines
+      padding: 8px 16px
+      color: $c-primary-txt
+      border-radius: 8px 0 0 8px
+      transform-origin: 100% 0
+      word-break: break-word
+      max-width: 298px
+
+      .file
+        color: $c-primary-txt
+
+        i
+          padding-right: 8px
+
+    &:last-child
+      span
+        border-radius: 8px 0 8px 8px
+
+    &:first-child
+      span
+        border-radius: 8px 8px 0 8px
+
+  /* green messages */
+  &.interlocutor
+    flex: 1
+    margin: 0 0 8px
+    display: flex
+    justify-content: flex-start
+
+    .message
+      justify-content: flex-start
+      text-align: left
 
       span
         +paragraphSmall
-        +default-font-regular
-        display: inline-block
-        background: $c-lines
+        transform-origin: 0 0
         padding: 8px 16px
-        color: $c-primary-txt
-        border-radius: 8px 0 0 8px
-        transform-origin: 100% 0
-        word-break: break-word
-        max-width: 298px
+        background: $c-primary
+        color: $c-white
+        border-radius: 0 8px 8px 0
 
         .file
-          color: $c-primary-txt
-
-          i
-            padding-right: 8px
+          color: $c-white
 
       &:last-child
         span
-          border-radius: 8px 0 8px 8px
+          border-radius: 0 8px 8px 8px
 
       &:first-child
         span
-          border-radius: 8px 8px 0 8px
+          border-radius: 8px 8px 8px 0
 
-    /* green messages */
-    &.interlocutor
-      flex: 1
-      margin: 0 0 8px
-      display: flex
-      justify-content: flex-start
-
-      .message
-        justify-content: flex-start
-        text-align: left
-
-        span
-          +paragraphSmall
-          transform-origin: 0 0
-          padding: 8px 16px
-          background: $c-primary
-          color: $c-white
-          border-radius: 0 8px 8px 0
-
-          .file
-            color: $c-white
-
-        &:last-child
-          span
-            border-radius: 0 8px 8px 8px
-
-        &:first-child
-          span
-            border-radius: 8px 8px 8px 0
-
-      .thumb
-        margin: 0 8px 0 0
-
-    .message-date
-      p
-        text-align: left
+    .thumb
+      margin: 0 8px 0 0
 
   .message-date
     p
-      +default-font-bold
-      padding: 8px 16px 0
-      color: $c-tertiary-txt
-      font-size: $f-btn-small
-      text-align: right
+      text-align: left
+
+.message-date
+  p
+    +default-font-bold
+    padding: 8px 16px 0
+    color: $c-tertiary-txt
+    font-size: $f-btn-small
+    text-align: right
 
