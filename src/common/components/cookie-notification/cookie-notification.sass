@@ -1,0 +1,51 @@
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
+
+.cookie
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  padding: 24px 0
+  z-index: $z-index-1000
+  background: $c-white
+  box-shadow: 0 0 6px 0 rgba($c-black, 0.1)
+
+  +smm
+    padding: 16px 0
+
+  .cookie-content
+    +smm
+      display: flex
+      align-items: center
+      justify-content: space-between
+
+    > div
+      margin: 0 0 24px
+      display: flex
+      align-items: flex-start
+
+      +smm
+        margin: 0
+        align-items: center
+        max-width: 75%
+
+      img
+        max-width: 64px
+        margin: 0 16px 24px
+
+        +smm
+          max-width: 192px
+          margin: 0 32px 0 0
+
+      p
+        font-size: $f-paragraph-small
+        color: $c-primary-txt
+        line-height: 16px
+
+        +smm
+          line-height: 24px
+          font-size: $f-paragraph-title
+
+        a
+          color: $c-primary
