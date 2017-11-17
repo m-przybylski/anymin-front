@@ -18,15 +18,18 @@ export class RtcDetectorService {
       DetectRTC.isWebRTCSupported
     )
 
-  public isMediaPermissionGiven = (): ng.IPromise<boolean> =>
+  private isMediaPermissionGiven = (mediaStreamConstraints: MediaStreamConstraints): ng.IPromise<boolean> =>
     this.webRtcLoadWrapper(() =>
-      DetectRTC.isWebsiteHasWebcamPermissions && DetectRTC.isWebsiteHasMicrophonePermissions
+      mediaStreamConstraints.audio && !mediaStreamConstraints.video ? DetectRTC.isWebsiteHasMicrophonePermissions :
+      !mediaStreamConstraints.audio && mediaStreamConstraints.video ? DetectRTC.isWebsiteHasWebcamPermissions :
+      mediaStreamConstraints.audio && mediaStreamConstraints.video  ? DetectRTC.isWebsiteHasWebcamPermissions
+      && DetectRTC.isWebsiteHasMicrophonePermissions : false
     )
 
-  public getAllMedia = (): ng.IPromise<MediaStream> =>
+  public getMedia = (mediaStreamConstraints: MediaStreamConstraints): ng.IPromise<MediaStream> =>
     this.$q<MediaStream>((resolve, reject) => {
-      this.isMediaPermissionGiven().then(() => {
-        this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault()).then((stream) => {
+      this.isMediaPermissionGiven(mediaStreamConstraints).then(() => {
+        this.navigatorWrapper.getUserMediaStream(mediaStreamConstraints).then((stream) => {
           resolve(stream);
         }, () => {
           reject()
