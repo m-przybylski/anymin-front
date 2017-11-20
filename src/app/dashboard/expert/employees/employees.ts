@@ -5,13 +5,17 @@ import expertEmployeesFiltersModule from '../../../../common/components/dashboar
 import './employees.sass'
 import modalsModule from '../../../../common/services/modals/modals'
 import apiModule from 'profitelo-api-ng/api.module'
+import pendingInvitationModule
+  from '../../../../common/components/dashboard/expert/employees/pending-invitation/pending-invitation'
 
 const  dashboardExpertEmployeesModule = angular.module('profitelo.controller.dashboard.expert.employees', [
   'ui.router',
+  'profitelo.components.interface.preloader-container',
   expertEmployeesFiltersModule,
   expertEmployeeModule,
   modalsModule,
-  apiModule
+  apiModule,
+  pendingInvitationModule
 ])
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.expert.employees', {

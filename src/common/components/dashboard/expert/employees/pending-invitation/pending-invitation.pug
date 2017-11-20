@@ -1,0 +1,17 @@
+.pending-invitation(data-ng-if="!$ctrl.areInvitationsDeleted")
+  .list-row
+    .invitations-informations
+      .profile-preview
+        user-avatar.thumb.x48(data-image-token="")
+      .invitations-details
+        .invitations-name-container
+          span {{ $ctrl.emailOrMsisdn }}
+        .invitations-count-container
+          span {{ $ctrl.invitationsCount | translate}}
+          span.invitations-slug {{ $ctrl.invitationText }}
+
+    .invitations-button-container
+      a.btn.btn-link(
+      data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_BUTTON"
+      data-ng-click="$ctrl.deleteInvitations()"
+      )
