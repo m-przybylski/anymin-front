@@ -66,12 +66,12 @@ describe('Unit testing: profitelo.components.braintreeForm', () => {
         httpBackend = $httpBackend
 
         const injectors = {
-          PaymentsApi: PaymentsApi,
-          userService: userService,
+          PaymentsApi,
+          userService,
           CommonSettingsService: {}
         }
 
-        PaymentsApiMock.getClientTokenRoute(200, {token: 'dumbToken'})
+        PaymentsApiMock.getDefaultPaymentMethodRoute(200, {card: undefined})
 
         component = $componentController<BraintreeFormComponentController, IBraintreeFormComponentBindings>(
           'braintreeForm', injectors, bindings)

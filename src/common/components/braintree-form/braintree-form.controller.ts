@@ -1,8 +1,7 @@
 import * as angular from 'angular'
 import {UserService} from '../../services/user/user.service'
-import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 import {PaymentsApi} from 'profitelo-api-ng/api/api'
-import {JValue, ClientToken, PostPayment} from 'profitelo-api-ng/model/models'
+import {JValue, DefaultCreditCard, PostPayment} from 'profitelo-api-ng/model/models'
 import * as braintree from 'braintree-web'
 import {IBraintreeFormComponentBindings} from './braintree-form';
 /* istanbul ignore next */
@@ -18,19 +17,18 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   public isSubmitted: boolean = false
 
   /* @ngInject */
-  constructor(private PaymentsApi: PaymentsApi, private userService: UserService,
-              private CommonSettingsService: CommonSettingsService) {
-    this.PaymentsApi.getClientTokenRoute().then(this.createBrainTree, this.onGetTokenError)
+  constructor(private PaymentsApi: PaymentsApi, private userService: UserService) {
+    this.PaymentsApi.getDefaultPaymentMethodRoute().then(this.createBrainTree, this.onGetTokenError)
   }
 
   private onGetTokenError = (err: any): void => {
     throw new Error('Can not get token: ' + err)
   }
 
-  private createBrainTree = (tokenObject: ClientToken): void => {
-    if (!!tokenObject.token) {
+  private createBrainTree = (tokenObject: DefaultCreditCard): void => {
+    if (!!tokenObject.card) {
       braintree.client.create({
-        authorization: tokenObject.token
+        authorization: tokenObject.card.cardAuth
       }, (err, clientInstance) => {
         if (err) {
           throw new Error('Can not authorize braintree: ' + err)
@@ -127,26 +125,28 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
           angular.element('.panel-body').submit((event) => {
             this.isSubmitted = true
             event.preventDefault()
-            hostedFieldsInstance.tokenize((err: any, payload: any) => {
+            hostedFieldsInstance.tokenize((err: any, _payload: any) => {
               if (err) {
                 this.isInvalid = true
               } else if (this.transaction) {
                 this.isInvalid = false
-                this.PaymentsApi.createTransactionRoute({
+                /*this.PaymentsApi.createTransactionRoute({
                   nonce: payload.nonce,
                   payment: this.transaction
-                }).then(this.onCreateTransaction, this.onCreateTransactionError)
+                }).then(this.onCreateTransaction, this.onCreateTransactionError)*/
+                alert('Sorry, not implemented')
               } else {
                 this.isInvalid = false
-                this.userService.getUser().then(user => {
-                  this.PaymentsApi.addPaymentMethodRoute({
+                this.userService.getUser().then(_user => {
+                  alert('Sorry, not implemented')
+                  /*this.PaymentsApi.addPaymentMethodRoute({
                     nonce: payload.nonce,
                     isDefault: false,
                     limit: {
                       currency: user.currency,
                       amount: Number(this.defaultCardLimit) * this.CommonSettingsService.localSettings.amountMultiplier
                     }
-                  }).then(this.onAddPaymentMethod, this.onAddPaymentMethodError)
+                  }).then(this.onAddPaymentMethod, this.onAddPaymentMethodError)*/
                 })
 
               }
@@ -157,7 +157,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
     }
   }
 
-  private onAddPaymentMethod = (res: ng.IPromise<JValue>): void => {
+/*  private onAddPaymentMethod = (res: ng.IPromise<JValue>): void => {
     this.onFormSucceed(res)
   }
 
@@ -171,7 +171,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
 
   private onCreateTransactionError = (err: any): void => {
     throw new Error('Can not send nonce: ' + err)
-  }
+  }*/
 
   public checkIsValueCorrect = (): boolean =>
     !!this.defaultCardLimit && this.showCardLimitForm
