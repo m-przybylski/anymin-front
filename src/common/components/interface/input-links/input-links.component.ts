@@ -4,6 +4,7 @@ export class InputLinksComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = InputLinksComponentController
   template = require('./input-links.pug')()
   bindings: {[boundProperty: string]: string} = {
-    selectedLinks: '=?'
+    selectedLinks: '=?',
+    label: '@'
   }
 }

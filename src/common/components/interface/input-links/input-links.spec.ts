@@ -5,8 +5,8 @@ import {InputLinksComponentController} from './input-links.controller'
 import inputLinksModule from './input-links'
 import {IInputLinksComponentBindings} from './input-links'
 
-describe('Unit testing: InputLinksController', () => {
-  return describe('for InputLinksInput component >', () => {
+describe('Unit testing: InputLinksController', () =>
+  describe('for InputLinksInput component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
@@ -41,7 +41,8 @@ describe('Unit testing: InputLinksController', () => {
 
         component = $componentController<InputLinksComponentController, IInputLinksComponentBindings>(
           'inputLinks', injectors, {
-            selectedLinks: selectedLinks
+            selectedLinks,
+            label: ''
           }
         )
 
@@ -90,4 +91,4 @@ describe('Unit testing: InputLinksController', () => {
     })
 
   })
-})
+)

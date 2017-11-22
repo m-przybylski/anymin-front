@@ -9,6 +9,13 @@ export interface IEditExpertProfileScope extends ng.IScope {
   onModalCloseCallback: () => void
 }
 
+interface ILabels {
+  expertName: string
+  expertDescription: string
+  organizationName: string
+  organizationDescription: string
+}
+
 export class EditExpertProfileController implements ng.IController {
 
   public profileAvatarToken: string
@@ -20,11 +27,19 @@ export class EditExpertProfileController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
   public isSubmitted: boolean = false
+  public profileNameLabel: string
+  public profileDescriptionLabel: string
   public readonly inputDescriptionMaxLength: string = '600'
   public readonly inputNameMaxLength: string = '150'
 
   private static readonly minValidExpertNameLength: number = 3
   private static readonly minValidExpertDescriptionLength: number = 50
+  private static readonly labels: ILabels = {
+    expertName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE',
+    expertDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE',
+    organizationName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.TITLE',
+    organizationDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE'
+  }
   private isUploaded: boolean = true
 
   /* @ngInject */
@@ -38,8 +53,12 @@ export class EditExpertProfileController implements ng.IController {
   $onInit(): void {
     if (this.isGetExpertDetails(this.$scope.profile)) {
       this.profileAvatarToken = this.$scope.profile.avatar
+      this.profileNameLabel = EditExpertProfileController.labels.expertName
+      this.profileDescriptionLabel = EditExpertProfileController.labels.expertDescription
     } else {
       this.profileAvatarToken = this.$scope.profile.logo
+      this.profileNameLabel = EditExpertProfileController.labels.organizationName
+      this.profileDescriptionLabel = EditExpertProfileController.labels.organizationDescription
     }
       this.profileName = this.$scope.profile.name
       this.profileDescription = this.$scope.profile.description

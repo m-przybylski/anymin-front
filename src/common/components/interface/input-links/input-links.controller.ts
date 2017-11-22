@@ -9,6 +9,7 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
   public badUrl: boolean = false
   public urlExist: boolean = false
   public noUrl: boolean = false
+  public label?: string
 
   private httpAdded: boolean = false
   /* @ngInject */

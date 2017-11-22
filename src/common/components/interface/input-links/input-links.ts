@@ -6,6 +6,7 @@ import './input-links.sass'
 
 export interface IInputLinksComponentBindings extends ng.IController {
   selectedLinks: string[]
+  label?: string
 }
 
 const inputLinksModule = angular.module('profitelo.components.interface.input-links', [
