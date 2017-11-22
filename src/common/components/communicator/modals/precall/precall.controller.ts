@@ -109,8 +109,8 @@ export class PrecallModalController implements ng.IController {
     this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
       this.isLoading = false
       this.paymentMethods = paymentMethods.map((el) => ({
-        name: el.cardType + ': ' + el.maskedNumber,
-        value: el.token
+        name: /*el.cardType + ': ' + */el.maskedNumber,
+        value: el.cardAuth
       }))
       this.paymentMethods.push(this.clientBalance)
     }, (error) => {
@@ -199,7 +199,7 @@ export class PrecallModalController implements ng.IController {
     this.dateTimeLimit = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
     this.isPrepaid = data.value === this.prepaidValue
     const token = this.isPrepaid ? undefined : data.value
-    this.PaymentsApi.putDefaultPaymentMethodRoute({token}).then(() => {
+    this.PaymentsApi.putDefaultPaymentMethodRoute({cardAuth: token}).then(() => {
       // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015
       const input = angular.element('input-price input')[0]
       if (input) {
@@ -207,7 +207,7 @@ export class PrecallModalController implements ng.IController {
       } else {
         this.$log.error('Can not find input HTML element')
       }
-    }, (error) => {
+    }, (error: any) => {
       this.errorHandler.handleServerError(error,
         'Can not change default payment method',
         'COMMUNICATOR.MODALS.PRECALL.ERROR.DEFAULT_PAYMENT')

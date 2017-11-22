@@ -73,7 +73,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
         compile = $compile
         httpBackend = $httpBackend
 
-        PaymentsApiMock.getClientTokenRoute(200, {token: '123'})
+        PaymentsApiMock.getDefaultPaymentMethodRoute(200, {card: undefined})
 
         component = $componentController<CardPaymentFormComponentController, ICardPaymentFormComponentBindings>(
           'cardPaymentForm', {}, bindings)
