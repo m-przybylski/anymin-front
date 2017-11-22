@@ -3,7 +3,7 @@ import topWaitingLoader from '../../services/top-waiting-loader/top-waiting-load
 import {TopWaitingLoaderService} from '../../services/top-waiting-loader/top-waiting-loader.service'
 import {IDirective} from 'angular'
 
-function proTopWaitingLoader(topWaitingLoaderService: TopWaitingLoaderService): IDirective {
+function proTopWaitingLoader(topWaitingLoaderService: TopWaitingLoaderService): IDirective<ng.IScope, ng.IScope> {
 
   function proTopWaitingLoaderLinkFn(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
 

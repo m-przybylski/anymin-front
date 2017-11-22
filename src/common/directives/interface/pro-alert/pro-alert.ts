@@ -8,7 +8,7 @@ export interface IProAlertScope extends ng.IScope {
   destroyAlert: (id: number) => void
 }
 
-function proAlert(topAlertService: TopAlertService): IDirective {
+function proAlert(topAlertService: TopAlertService): IDirective<ng.IScope, ng.IScope> {
 
   function linkFunction(scope: IProAlertScope, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
     scope.alerts = []

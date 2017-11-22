@@ -4,7 +4,7 @@ interface IGetHeightScope extends ng.IScope {
   getHeight: (height: string) => void
 }
 
-class GetHeight implements ng.IDirective {
+class GetHeight implements ng.IDirective<ng.IScope, ng.IScope> {
 
   public restrict: string = 'A'
   public scope = {

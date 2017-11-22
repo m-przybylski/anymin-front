@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import commonSettingsModule from '../../services/common-settings/common-settings'
 import {keyboardCodes} from '../../classes/keyboard'
 
-  class NgEnter implements ng.IDirective {
+  class NgEnter implements ng.IDirective<ng.IScope, ng.IScope> {
     public restrict: string = 'A'
 
     /* @ngInject */

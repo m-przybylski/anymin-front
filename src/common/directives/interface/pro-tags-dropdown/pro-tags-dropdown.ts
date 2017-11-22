@@ -27,7 +27,7 @@ export interface IProTagsDropdownScope extends ng.IScope {
 }
 
 /* @ngInject */
-function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
+function proTagsDropdown($timeout: ng.ITimeoutService): IDirective<ng.IScope, ng.IScope> {
 
   function linkFunction(scope: IProTagsDropdownScope, element: ng.IRootElementService, attr: ng.IAttributes): void {
     let myScrollbarChoices: JQuery

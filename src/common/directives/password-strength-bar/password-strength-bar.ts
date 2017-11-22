@@ -9,7 +9,7 @@ export interface IPasswordStrengthScope extends ng.IScope {
 }
 
 (function(): void {
-  function passwordStrengthBar(): IDirective {
+  function passwordStrengthBar(): IDirective<ng.IScope, ng.IScope> {
 
     function linkFunction(scope: IPasswordStrengthScope,
                           _element: ng.IRootElementService,

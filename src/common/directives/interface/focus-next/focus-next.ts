@@ -4,7 +4,7 @@ import {keyboardCodes} from '../../../classes/keyboard'
 interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
 }
 
-class LocalAvatarUploaderDirective implements ng.IDirective {
+class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope, ng.IScope> {
   public restrict: string = 'A'
 
   /* @ngInject */
