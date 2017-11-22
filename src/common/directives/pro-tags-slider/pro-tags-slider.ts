@@ -25,7 +25,7 @@ export interface IProTagsSliderScope extends ng.IScope {
 function proTagsSlider($window: IWindowService,
                        $state: ng.ui.IStateService,
                        $location: ng.ILocationService,
-                       $timeout: ng.ITimeoutService): IDirective {
+                       $timeout: ng.ITimeoutService): IDirective<ng.IScope, ng.IScope> {
   function linkFunction(scope: IProTagsSliderScope, element: ng.IRootElementService): void {
 
     let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth

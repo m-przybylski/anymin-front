@@ -3,7 +3,7 @@ import {IFilterService} from '../../services/filter/filter.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IDirective} from 'angular'
 
-function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService): IDirective {
+function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService): IDirective<ng.IScope, ng.IScope> {
 
   function linkFunction(_scope: ng.IScope, element: ng.IRootElementService, _attrs: ng.IAttributes): void {
 

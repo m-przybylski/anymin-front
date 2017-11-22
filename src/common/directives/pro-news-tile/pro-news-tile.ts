@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {IDirective} from 'angular'
 
 (function(): void {
-  function proNewsTile(): IDirective {
+  function proNewsTile(): IDirective<ng.IScope, ng.IScope> {
 
     return {
       template:  require('./pro-news-tile.pug')(),

@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {IAttributes} from 'angular'
 
-class ErrorImageClass implements ng.IDirective {
+class ErrorImageClass implements ng.IDirective<ng.IScope, ng.IScope> {
   public restrict: string = 'A'
 
   /* @ngInject */

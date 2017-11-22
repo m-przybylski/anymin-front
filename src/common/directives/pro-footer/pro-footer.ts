@@ -14,7 +14,7 @@ interface IProFooterScope extends ng.IScope {
 }
 
 (function(): void {
-  function proFooter(CommonConfig: CommonConfig): IDirective {
+  function proFooter(CommonConfig: CommonConfig): IDirective<ng.IScope, ng.IScope> {
 
     function linkFunction(scope: IProFooterScope): void {
       scope.isPlatformForExpert = isPlatformForExpert

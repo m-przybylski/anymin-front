@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {IDirective} from 'angular'
 
 (function(): void {
-  function proExpertCard(): IDirective {
+  function proExpertCard(): IDirective<ng.IScope, ng.IScope> {
     function linkFunction(): void {
       this.translations = {
         available: 'HOME.EXPERT_CARD_AVAILABLE',

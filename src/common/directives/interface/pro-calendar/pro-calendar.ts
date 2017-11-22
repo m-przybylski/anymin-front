@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {IDirective} from 'angular'
 
-function proCalendar(): IDirective {
+function proCalendar(): IDirective<ng.IScope, ng.IScope> {
 
   const maxDateYear: number = new Date().getFullYear() + 1
   const maxDateMonth: number = 5

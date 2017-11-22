@@ -204,11 +204,12 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   private onGetEmployments = (employments: GetProfileDetailsWithEmployments[]): void => {
-    const serviceOwnerEmployments = _.find(employments, (employment) =>
-      this.serviceDetails && employment.expertProfile.id === this.serviceDetails.ownerProfile.id
-    )
+    const serviceOwnerEmployments: GetProfileDetailsWithEmployments | undefined =
+      _.find<GetProfileDetailsWithEmployments>(employments, (employment) =>
+      this.serviceDetails && employment.expertProfile.id === this.serviceDetails.ownerProfile.id)
+
     if (serviceOwnerEmployments)
-      this.isOwnerEmployee = _.find(serviceOwnerEmployments.employments, (employment) =>
+      this.isOwnerEmployee = _.find(serviceOwnerEmployments.employments || [], (employment) =>
         (this.serviceDetails && this.serviceDetails.service.id === employment.serviceId)) !== undefined
   }
 

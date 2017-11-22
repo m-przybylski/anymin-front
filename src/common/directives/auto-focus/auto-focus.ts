@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 
-  class AutoFocus implements ng.IDirective {
+  class AutoFocus implements ng.IDirective<ng.IScope, ng.IScope> {
     public restrict: string = 'A'
 
     /* @ngInject */

@@ -4,7 +4,7 @@ import urlModule from '../../../services/url/url'
 import 'common/components/interface/show-more-text/show-more-text'
 import {IDirective} from 'angular'
 
-function proExpertHeader(urlService: UrlService): IDirective {
+function proExpertHeader(urlService: UrlService): IDirective<ng.IScope, ng.IScope> {
 
   function linkFunction(scope: any, _element: ng.IRootElementService): void {
 

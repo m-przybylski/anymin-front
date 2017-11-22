@@ -11,7 +11,7 @@ const Masonry = require('masonry-layout');
 // make Masonry a jQuery plugin
 jQueryBridget( 'masonry', Masonry, $ );
 
-function proMasonry($timeout: ng.ITimeoutService, $log: ng.ILogService): IDirective {
+function proMasonry($timeout: ng.ITimeoutService, $log: ng.ILogService): IDirective<ng.IScope, ng.IScope> {
 
   function linkFunction(_scope: ng.IScope, element: any, attr: any): void {
 

@@ -7,7 +7,7 @@ export interface IProSwitcherScope extends ng.IScope {
 }
 
 (function(): void {
-  function proSwitcher(): IDirective {
+  function proSwitcher(): IDirective<ng.IScope, ng.IScope> {
 
     function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes): void {
 
