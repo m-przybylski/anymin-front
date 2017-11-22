@@ -1,4 +1,4 @@
-.messenger-maximized
+.messenger-maximized(data-ng-class="{'messenger-maximized-on': $ctrl.isMessenger}")
   .messenger-header(data-ng-if="$ctrl.expertName")
     span {{:: 'COMMUNICATOR.MESSENGER.HEADER.TITLE' | translate }}
       span.expert-name {{ $ctrl.expertName }}

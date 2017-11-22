@@ -2,7 +2,7 @@
   display: flex
   align-items: center
   justify-content: center
-  position: absolute
+  position: fixed
   overflow: hidden
   width: 100%
   height: 100%
@@ -11,6 +11,9 @@
   z-index: $z-index-900
   background: $c-primary-txt
 
+  +mdm
+    position: absolute
+
   &::before
     content: ""
     position: absolute
@@ -18,7 +21,7 @@
     top: 0
     width: 100%
     height: 196px
-    +background-gradient(rgba($c-black, 0.5), transparent)
+    background: linear-gradient(rgba($c-black, 0.5), transparent)
     z-index: $z-index-400
 
   .video-player-local
@@ -99,10 +102,14 @@
       .thumb
         width: 128px
         height: 128px
+        min-width: 128px
+        min-height: 128px
 
         +smm
           width: 192px
           height: 192px
+          min-width: 192px
+          min-height: 192px
 
       .communicator-equalizer
         position: absolute
@@ -115,10 +122,11 @@
           span
             animation: none
             display: none
-        &.is-offline
-          span
-            animation: communicator-bounce 1.8s infinite ease-in-out
-            display: block
+
+          &.is-offline
+            span
+              animation: communicator-bounce 1.8s infinite ease-in-out
+              display: block
 
         span
           position: absolute
@@ -174,9 +182,14 @@
     left: 36px
     top: 36px
     z-index: $z-index-400
+    transition: top 1s ease
+
+    &.hideable
+      top: -85px
 
     .consultation-profile
       align-items: stretch
+
 
       > div
         display: flex

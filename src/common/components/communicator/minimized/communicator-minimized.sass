@@ -1,75 +1,45 @@
-.communicator-minimized
-  transition: opacity 0.3s 0.3s, z-index 0.3s 0.3s
-  background: $c-primary-txt
-  width: 320px
+.messenger-minimized
   position: absolute
   z-index: $z-index-900
-  bottom: 0
-  height: 104px
-  right: 0
-  padding: 24px 16px
+  right: 16px
+  bottom: 128px
+  width: 100%
+  height: 50vh
   display: flex
-  align-items: flex-start
-  cursor: pointer
-  opacity: 1
+  align-items: flex-end
+  justify-content: flex-end
 
-  .thumb
-    min-width: 56px
-    min-height: 56px
+  +smm
+    right: 32px
+    width: 320px
 
-    .message-counter
-      border: 2px solid $c-primary-txt
-      background: $c-success
-      width: 20px
-      height: 20px
-      display: flex
-      align-items: center
-      justify-content: center
-      position: absolute
-      right: -2px
-      top: -2px
-      z-index: $z-index-100
-      border-radius: 50%
+  .messenger-messages
+    height: auto
+    position: static
 
+    .messenger-scroll-minimize
+      position: relative
+      max-height: 100%
+      flex: 1 0 100%
+      padding: 0
+
+    .grouped-messages
+      justify-content: flex-end
+
+      .message
+        display: flex
+        justify-content: flex-end
+        margin: 0 0 8px
+
+    .content
       span
-        +default-font-bold
-        font-size: $f-input-small
+        +paragraphSmall
+        +default-font-regular
+        display: inline-block
+        background: $c-primary
+        padding: 8px 16px
         color: $c-white
-
-  .communicator-details
-    min-height: 56px
-    display: flex
-    justify-content: space-between
-    flex-direction: column
-    margin: 0 0 0 16px
-
-    > *
-      line-height: 1
-
-    span
-      +default-font-regular
-      color: $c-secondary-txt
-      font-size: $f-input-small
-
-    h4
-      font-size: $f-subheader
-      color: $c-white
-
-    ul
-      &.communicator-price,
-      &.communicator-counter
-        display: inline-flex
-        margin: 0 16px 0 0
-
-        li
-          +default-font-bold
-          font-size: $f-paragraph-title
-          color: $c-white
-
-          &::after
-            content: ":"
-            margin: 0 1px
-
-          &:last-child
-            &::after
-              content: none
+        border-radius: 8px 0 0 8px
+        transform-origin: 100% 0
+        word-break: break-word
+        max-width: 298px

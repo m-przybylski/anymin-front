@@ -1,24 +1,36 @@
 @import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
 
 .messenger-input
   background: $c-white
   display: flex
   justify-content: space-between
-  padding: 0 16px
-  position: relative
+  padding: 0
+  position: fixed
   border-radius: 0 0 3px 3px
   border-top: 1px solid $c-lines
+  width: 100%
+  bottom: 0
+  left: 0
+  z-index: $z-index-300
+
+  +mdm
+    position: absolute
+    bottom: 0
 
   &::after
-    content: ""
-    width: 0
-    height: 0
-    position: absolute
-    right: 20px
-    top: 100%
-    border-top: 10px solid $c-white
-    border-right: 10px solid transparent
-    border-left: 10px solid transparent
+    content: none
+
+    +mdm
+      content: ""
+      width: 0
+      height: 0
+      position: absolute
+      right: 20px
+      top: 100%
+      border-top: 10px solid $c-white
+      border-right: 10px solid transparent
+      border-left: 10px solid transparent
 
   input
     height: $s-messenger-input-height
@@ -27,6 +39,10 @@
     color: $c-secondary-txt
     font-size: $f-paragraph-small
     border: 0
+    padding: 0 16px
+
+    &[type="file"]
+      display: none
 
     &::placeholder
       line-height: $s-messenger-input-height
@@ -40,8 +56,10 @@
     a
       display: inline-flex
       align-items: center
-      margin: 0 0 0 24px
       cursor: pointer
+      position: relative
+      z-index: $z-index-300
+      padding: 0 16px
 
       &.disable
         span
@@ -49,3 +67,4 @@
 
       span
         color: $c-primary
+        cursor: pointer
