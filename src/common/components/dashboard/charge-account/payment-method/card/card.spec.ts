@@ -13,6 +13,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: CardPaymentFormComponentController
+    let state: ng.ui.IStateService
 
     const validHTML: string = '<card-payment-form amount-method-modal="amountMethodModal"' +
       'payments-links="paymentsLinks" payment-country-id="paymentCountryId"></card-payment-form>'
@@ -64,7 +65,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       angular.mock.module(cardModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService,
+              $componentController: ng.IComponentControllerService, $state: ng.ui.IStateService,
               $httpBackend: ng.IHttpBackendService, PaymentsApiMock: PaymentsApiMock, $q: ng.IQService) => {
 
         spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))
@@ -72,11 +73,11 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
         rootScope = $rootScope
         compile = $compile
         httpBackend = $httpBackend
-
+        state = $state
         PaymentsApiMock.getDefaultPaymentMethodRoute(200, {card: undefined})
 
         component = $componentController<CardPaymentFormComponentController, ICardPaymentFormComponentBindings>(
-          'cardPaymentForm', {}, bindings)
+          'cardPaymentForm', {$state: state}, bindings)
       })
     })
 
@@ -88,5 +89,25 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should call the function on succeed method', () => {
+      spyOn(component, 'onCardPayment')
+      component.onSucceed()
+      expect(component.onCardPayment).toHaveBeenCalled()
+    })
+
+    it('should call the function on succeed method', () => {
+      spyOn(component, 'onCardPayment')
+      component.onSucceed()
+      expect(component.onCardPayment).toHaveBeenCalled()
+    })
+
+    it('should redirect to the client activities when function on succeed not defined', () => {
+      component.onCardPayment = <any>undefined
+      spyOn(state, 'go')
+      component.onSucceed()
+      expect(state.go).toHaveBeenCalledWith('app.dashboard.client.activities')
+    })
+
   })
 })

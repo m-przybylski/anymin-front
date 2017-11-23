@@ -9,6 +9,7 @@ import {CurrentExpertCall} from '../models/current-expert-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
+import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper'
 export class ExpertCallService {
 
   private currentExpertCall?: CurrentExpertCall;
@@ -77,7 +78,7 @@ export class ExpertCallService {
   }
 
   public pullCall = (): void => {
-    this.rtcDetectorService.getAllMedia()
+    this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
     .then(localStream => {
       if (this.currentExpertCall) return this.currentExpertCall.pull(localStream)
       else throw new Error('Call does not exist')
@@ -116,7 +117,7 @@ export class ExpertCallService {
   }
 
   private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
-    this.rtcDetectorService.getAllMedia()
+    this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
     .then(localStream => {
       this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
       currentExpertCall.answer(localStream)

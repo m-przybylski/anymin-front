@@ -170,7 +170,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> =>
           $q.reject(err)
 
-        rtcDetectorService.getAllMedia = (): ng.IPromise<MediaStream> =>
+        rtcDetectorService.getMedia = (): ng.IPromise<MediaStream> =>
           $q.resolve(<MediaStream>{})
 
         clientCallService.callServiceId(serviceId).then((res) => {
@@ -198,7 +198,7 @@ describe('Unit testing: profitelo.services.call >', () => {
           return $q.reject(testSUR)
         }
 
-        rtcDetectorService.getAllMedia = (): ng.IPromise<MediaStream> => {
+        rtcDetectorService.getMedia = (): ng.IPromise<MediaStream> => {
           return $q.resolve(<MediaStream>{})
         }
 
