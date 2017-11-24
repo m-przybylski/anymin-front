@@ -31,7 +31,7 @@ describe('Unit tests: CurrentCall', () => {
   }
 
   const communicatorService: CommunicatorService = <any>{
-    onReconnectActiveCalls: () => {}
+    onActiveCall: () => {}
   }
 
   const businessRoom: RatelSdk.BusinessRoom = <any>{

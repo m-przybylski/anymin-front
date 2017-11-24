@@ -256,7 +256,7 @@ export class CurrentCall {
       this.events.onParticipantOnline.next()
     })
 
-    this.communicatorService.onReconnectActiveCalls((activeCalls) => {
+    this.communicatorService.onActiveCall((activeCalls) => {
       if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
         this.stopLocalStream()
         this.stopTimer()

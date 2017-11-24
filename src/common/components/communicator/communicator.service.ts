@@ -20,7 +20,7 @@ export class CommunicatorService {
     onCallCreated: new Subject<RatelSdk.events.CallCreated>(),
     onRoomInvitation: new Subject<RatelSdk.events.RoomInvitation>(),
     onRoomCreated: new Subject<RatelSdk.events.RoomCreated>(),
-    onReconnectActiveCalls: new Subject<Call[]>(),
+    onActiveCall: new Subject<Call[]>(),
   }
 
   private createRatelConnection = (session: RatelSdk.Session): void => {
@@ -34,7 +34,14 @@ export class CommunicatorService {
       this.events.onCallCreated.next(callCreated))
 
     chat.onConnect((hello: RatelSdk.events.Hello) => {
-      this.ratelDeviceId = hello.deviceId;
+      this.ratelDeviceId = hello.deviceId
+
+      chat.getActiveCalls()
+      .then((res) => {
+        this.events.onActiveCall.next(res)
+      }, (err) => {
+          this.$log.error('Artichoke: getActiveCalls', err)
+      })
       this.$log.debug('Artichoke: onConnect', session.id, hello)
     })
 
@@ -81,7 +88,7 @@ export class CommunicatorService {
         this.ratelSession.chat.connect()
         this.ratelSession.chat.getActiveCalls()
         .then((response) => {
-            this.events.onReconnectActiveCalls.next(response)
+            this.events.onActiveCall.next(response)
         }, (error) => {
           this.$log.error(error)
         })
@@ -119,6 +126,7 @@ export class CommunicatorService {
 
   private onCreateClientSession = (session: RatelSdk.Session): ng.IPromise<void> => {
     this.ratelSession = session;
+
     this.createRatelConnection(session)
     return this.RatelApi.postBriefcaseUserConfigRoute({id: session.id})
     .then(() => this.$log.debug('Client session created', session))
@@ -150,7 +158,7 @@ export class CommunicatorService {
   public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): Subscription =>
     this.events.onRoomInvitation.subscribe(callback)
 
-  public onReconnectActiveCalls = (callback: (activeCalls: Call[]) => void): Subscription =>
-    this.events.onReconnectActiveCalls.subscribe(callback)
+  public onActiveCall = (callback: (activeCalls: Call[]) => void): Subscription =>
+    this.events.onActiveCall.subscribe(callback)
 
 }

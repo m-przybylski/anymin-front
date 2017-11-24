@@ -10,6 +10,7 @@ import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.se
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
+import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 
 export class ExpertCallService {
 
@@ -20,7 +21,9 @@ export class ExpertCallService {
   private readonly events = {
     onNewCall: new Subject<CurrentExpertCall>(),
     onCallPull: new Subject<CurrentExpertCall>(),
-    onCallTaken: new Subject<CallActiveDevice>()
+    onCallTaken: new Subject<CallActiveDevice>(),
+    onCallActive: new Subject<Call[]>(),
+    onCallEnd: new Subject<CurrentExpertCall>()
   };
 
   /* @ngInject */
@@ -33,6 +36,7 @@ export class ExpertCallService {
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService) {
     communicatorService.onCallInvitation(this.onExpertCallIncoming)
+    communicatorService.onActiveCall(this.onActiveCall)
   }
 
   public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
@@ -43,6 +47,25 @@ export class ExpertCallService {
 
   public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
       this.events.onCallTaken.subscribe(cb)
+
+  public onCallActive = (cb: (activeCalls: Call[]) => void): Subscription => this.events.onCallActive.subscribe(cb)
+
+  public onCallEnd = (cb: () => void): Subscription => this.events.onCallEnd.subscribe(cb)
+
+  private onActiveCall = (activeCalls: Call[]): void => {
+    if (activeCalls[0]) {
+      this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
+        this.currentExpertCall = new CurrentExpertCall(this.timerFactory, activeCalls[0],
+          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
+        this.events.onCallActive.next(activeCalls)
+        this.currentExpertCall.onEnd(() =>
+          this.currentExpertCall ? this.onExpertCallEnd(this.currentExpertCall) :
+            this.$log.error('Current expert call does not exist'))
+        this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd);
+        this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
+      })
+    } else this.$log.debug('No active call exists')
+  }
 
   private onExpertCallIncoming = (callInvitation: RatelSdk.events.CallInvitation): void => {
     if (!this.currentExpertCall) {
@@ -89,7 +112,7 @@ export class ExpertCallService {
   private onCurrentExpertCallTaken = (activeDevice: CallActiveDevice): void => {
     if (activeDevice.device !== this.communicatorService.getClientDeviceId()) {
       this.soundsService.callIncomingSound().stop()
-      this.callingModal.dismiss();
+      this.dismissCallingModal()
       this.events.onCallTaken.next(activeDevice)
     }
   }
@@ -105,7 +128,8 @@ export class ExpertCallService {
 
   private onExpertCallDisappearBeforeAnswering = (): void => {
     this.currentExpertCall = undefined;
-    this.callingModal.dismiss();
+    this.dismissCallingModal();
+    this.events.onCallEnd.next()
     this.soundsService.callIncomingSound().stop()
     this.soundsService.playCallRejected();
   }
@@ -162,7 +186,12 @@ export class ExpertCallService {
 
   private onExpertCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     this.soundsService.playCallEnded();
+    this.events.onCallEnd.next()
     this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getService().id);
     this.currentExpertCall = undefined;
+  }
+
+  private dismissCallingModal = (): void => {
+    if (this.callingModal) this.callingModal.dismiss();
   }
 }

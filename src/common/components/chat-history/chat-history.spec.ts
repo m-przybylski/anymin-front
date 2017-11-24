@@ -15,9 +15,15 @@ describe('Unit testing: profitelo.components.chat-history', () => {
     const bindings: IChatHistoryBindings = {
       roomId: ''
     }
+    let q: ng.IQService
+    let log: ng.ILogService
 
-    const communicatorService = {
-      getClientSession: (): void => {}
+    let communicatorService = {
+      getClientSession: (): any => ({
+        chat: {
+          getRoom: () => q.resolve({})
+        }
+      })
     }
 
     function create(html: string, bindings: IChatHistoryBindings): JQuery {
@@ -39,13 +45,18 @@ describe('Unit testing: profitelo.components.chat-history', () => {
     }))
 
     beforeEach(() => {
-      inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
+      inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $log: ng.ILogService, $q: ng.IQService,
               $componentController: ng.IComponentControllerService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
+        log = $log
+        q = $q
 
-        const injectors = {}
+        const injectors = {
+          $log: log,
+          communicatorService: communicatorService
+        }
 
         component = $componentController<ChatHistoryComponentController, IChatHistoryBindings>(
           'chatHistory', injectors, bindings)
@@ -59,6 +70,12 @@ describe('Unit testing: profitelo.components.chat-history', () => {
     it('should compile the component', () => {
       const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
+    })
+
+    it('should not get messages ', () => {
+      spyOn(log, 'error')
+      component.getMessages()
+      expect(log.error).toHaveBeenCalled()
     })
 
   })

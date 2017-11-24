@@ -7,7 +7,7 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CommunicatorService} from '../communicator.service'
 import {CurrentClientCall} from './current-client-call'
 
-describe('Unit tests: CurrentCall', () => {
+describe('Unit tests: CurrentClientCall', () => {
 
   let currentClientCall: CurrentClientCall
   let RatelApi: RatelApi
@@ -31,7 +31,7 @@ describe('Unit tests: CurrentCall', () => {
   }
 
   const communicatorService: CommunicatorService = <any>{
-    onReconnectActiveCalls: () => {}
+    onActiveCall: () => {}
   }
 
   const timerFactory: TimerFactory = <any>{
