@@ -1,20 +1,20 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {BtnDropdownComponentController} from './btn-dropdown.controller'
-import {IBtnDropdownComponentBindings} from './btn-dropdown'
-import btnDropdownModule from './btn-dropdown'
+import {BtnDropdownCallComponentController} from './btn-dropdown-call.controller'
+import {IBtnDropdownCallComponentBindings} from './btn-dropdown-call'
+import btnDropdownCallModule from './btn-dropdown-call'
 
-describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
-  return describe('for btn-dropdown component >', () => {
+describe('Unit testing: profitelo.components.interface.btn-dropdown-call', () => {
+  return describe('for btn-dropdown-call component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
-    let component: BtnDropdownComponentController
-    let bindings: IBtnDropdownComponentBindings
+    let component: BtnDropdownCallComponentController
+    let bindings: IBtnDropdownCallComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<btn-dropdown></btn-dropdown>'
+    const validHTML = '<btn-dropdown-call></btn-dropdown-call>'
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -27,7 +27,7 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
     let element: ng.IRootElementService
 
     beforeEach(() => {
-      angular.mock.module(btnDropdownModule)
+      angular.mock.module(btnDropdownCallModule)
     })
 
     beforeEach(() => {
@@ -55,14 +55,14 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
 
       element = compile(validHTML)(rootScope)
 
-      component = componentController<BtnDropdownComponentController, {}>('btnDropdown', injectors, bindings)
+      component = componentController<BtnDropdownCallComponentController, {}>('btnDropdownCall', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
 
-    it('should click on document and close btn-dropdown', () => {
+    it('should click on document and close btn-dropdown-call', () => {
       document.trigger('click')
       document.bind(event)
       expect(component.isOpen).toBe(false)

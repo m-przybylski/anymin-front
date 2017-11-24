@@ -1,0 +1,51 @@
+.navbar-availbility
+  .btn-dropdown
+    .btn-dropdown-header(data-ng-click="$ctrl.toggleButton()")
+      a.btn.btn-availbility(data-ng-show="$ctrl.isVisiblePresentsChecked")
+        span.icon.icon-check-10
+      a.btn.btn-not-availbility(data-ng-show="!$ctrl.isVisiblePresentsChecked")
+        span.icon.icon-close-12
+
+    ul.btn-dropdown-list.collapse-height.animation.mobile-hidden(
+      data-ng-if="$ctrl.isOpen"
+    )
+      li
+        radio-btn(
+          data-ng-click="$ctrl.selectVisibleOption()"
+          data-id="visible"
+          data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.VISIBLE"
+          name="availbility_name"
+          data-value="visible"
+          data-ng-model="$ctrl.radioModel.name"
+        )
+
+      li
+        radio-btn(
+          data-ng-click="$ctrl.selectInvisibleOption()"
+          data-id="invisible"
+          data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.INVISIBLE"
+          name="availbility_name"
+          data-value="invisible"
+          data-ng-model="$ctrl.radioModel.name"
+        )
+
+    ul.btn-dropdown-list.desktop-hidden
+      li
+        radio-btn(
+          data-ng-click="$ctrl.selectVisibleOption()"
+          data-id="visible_mobile"
+          data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.VISIBLE"
+          name="availbility_name_mobile"
+          data-value="visible"
+          data-ng-model="$ctrl.radioModel.name"
+        )
+
+      li
+        radio-btn(
+          data-ng-click="$ctrl.selectInvisibleOption()"
+          data-id="invisible_mobile"
+          data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.INVISIBLE"
+          name="availbility_name_mobile"
+          data-value="invisible"
+          data-ng-model="$ctrl.radioModel.name"
+        )

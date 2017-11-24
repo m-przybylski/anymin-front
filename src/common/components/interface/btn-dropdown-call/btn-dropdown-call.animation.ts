@@ -4,7 +4,8 @@ interface IValidationAlertAnimation {
 }
 
 /* @ngInject */
-export function BtnDropdownAnimationComponent($animateCss: ng.animate.IAnimateCssService): IValidationAlertAnimation {
+export function BtnDropdownCallAnimationComponent($animateCss: ng.animate.IAnimateCssService):
+  IValidationAlertAnimation {
 
   return {
     enter: (element: JQuery): ng.animate.IAnimateCssRunner => {

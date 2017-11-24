@@ -10,6 +10,7 @@ import {isPlatformForExpert} from '../../../constants/platform-for-expert.consta
 import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {NavbarNotificationsService} from '../navbar-notifications/navbar-notifications.service'
+import {GetExpertVisibility} from 'profitelo-api-ng/model/GetExpertVisibility'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
@@ -20,6 +21,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   isNotificationsTab: boolean = true
   isInvitationsTab: boolean = false
   isHelpMenuShow: boolean = false
+  isAvailbilityMenuShow: boolean = false
   isAnyMenuShow: boolean = false
   notificationCounter?: number
   invitations: GetProfileWithServicesInvitations[] = []
@@ -51,6 +53,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
         this.isNotificationsMenuShow = false
         this.isHelpMenuShow = false
         this.isAnyMenuShow = false
+        this.isAvailbilityMenuShow = false
       }
       this.$scope.$apply()
     })
@@ -124,6 +127,12 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     this.isHelpMenuShow = !this.isHelpMenuShow
     this.isNotificationsMenuShow = false
     this.isAnyMenuShow = !this.isAnyMenuShow
+  }
+
+  public toggleAvailbilityNav = (): void => {
+    this.isHelpMenuShow = false
+    this.isNotificationsMenuShow = false
+    this.isAvailbilityMenuShow = !this.isAvailbilityMenuShow
   }
 
 }

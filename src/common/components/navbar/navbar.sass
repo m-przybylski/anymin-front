@@ -106,19 +106,7 @@
 					+smm
 						padding: 0 0 0 16px
 
-					&::-webkit-input-placeholder
-						+inputTextPlaceholder
-						line-height: $s-navbar-height
-
-					&::-moz-placeholder
-						+inputTextPlaceholder
-						line-height: $s-navbar-height
-
-					&:-ms-input-placeholder
-						+inputTextPlaceholder
-						line-height: $s-navbar-height
-
-					&:-moz-placeholder
+					&::placeholder
 						+inputTextPlaceholder
 						line-height: $s-navbar-height
 
@@ -334,6 +322,22 @@
 							+lgm
 								padding: 0
 
+					li
+						&.navbar-availbility
+							order: -1
+							border-bottom: 1px solid $c-lines
+							margin: 0 0 12px
+
+							+lgm
+								margin: 0
+								padding: 0
+								border: 0
+								order: inherit
+
+							.btn-dropdown
+								.btn-dropdown-list
+									padding: 8px 0
+
 					.navbar-menu
 						background: $c-white
 						width: 100%
@@ -476,11 +480,11 @@
 
 			&::before
 				bottom: 0
-				border-bottom: 10px solid $c-background
+				border-bottom: 10px solid $c-lines
 
 			&::after
 				bottom: -2px
-				border-bottom: 10px solid $c-background-2
+				border-bottom: 10px solid $c-white
 
 	.navbar-menu-animation
 		&.ng-enter

@@ -4,7 +4,8 @@ import filtersModule from '../../../filters/filters'
 import communicatorModule from '../../communicator/communicator'
 import 'common/components/interface/slider/slider'
 import 'common/components/expert-profile/experts-consultation-slider/experts-consultation-slider'
-import {UserService} from '../../../services/user/user.service'
+import {
+  UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 
 /* @ngInject */

@@ -16,7 +16,8 @@ export class ProfiteloWebsocketService {
     onOneMinuteLeftWarning: new Subject<void>(),
     onNewFinancialOperation: new Subject<any>(),
     onClientCallCost: new Subject<any>(),
-    onProfileCallProfit: new Subject<any>()
+    onProfileCallProfit: new Subject<any>(),
+    onExpertVisibilityUpdate: new Subject<any>()
   }
 
   /* @ngInject */
@@ -66,6 +67,9 @@ export class ProfiteloWebsocketService {
   public onProfileCallProfit = (callback: (data: any) => void): Subscription =>
     this.events.onProfileCallProfit.subscribe(callback)
 
+  public onExpertVisibilityUpdate = (callback: (data: any) => void): Subscription =>
+    this.events.onExpertVisibilityUpdate.subscribe(callback)
+
   private onSocketOpen = (): void => {
     this.events.onInit.next()
   }
@@ -89,6 +93,9 @@ export class ProfiteloWebsocketService {
         break
       case 'PROFILE_CALL_PROFIT':
         this.events.onProfileCallProfit.next(value)
+        break
+      case 'EXPERT_PRESENCE_UPDATE':
+        this.events.onExpertVisibilityUpdate.next(value)
         break
       default:
         this.$log.info('Unknown messageType ' + type)

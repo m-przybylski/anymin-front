@@ -1,0 +1,110 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+navbar-availbility
+	display: flex
+	align-items: center
+
+.navbar-availbility
+	+lgm
+		border: 0
+
+	.btn
+		&.btn-not-availbility
+			background: $c-lines
+			border: 0
+			width: 24px
+			height: 24px
+			border-radius: 50%
+			padding: 0 !important
+
+			span
+				padding: 0 !important
+				color: $c-white
+
+		&.btn-availbility
+			background: $c-success
+			border: 0
+			width: 24px
+			height: 24px
+			border-radius: 50%
+			padding: 0 !important
+
+			span
+				padding: 0 !important
+				color: $c-white
+
+	.btn-dropdown
+		position: static
+
+		.btn-dropdown-header
+			display: none
+
+			+lgm
+				display: flex
+
+		ul
+			&.btn-dropdown-list
+				position: static
+				width: 100%
+
+				+lgm
+					z-index: $z-index-100
+					background: $c-white
+					border-radius: $s-border-radius
+					box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+					width: $s-btn-dropdown-navbar-availbility
+					margin: 0 0 0 (-#{$s-btn-dropdown-navbar-availbility/2 + 24px})
+					padding: 8px 0
+					position: absolute
+					top: 100%
+					left: auto
+
+				&::before, &::after
+					+lgm
+						content: ""
+						width: 0
+						height: 0
+						position: absolute
+						right: 44px
+
+				&::before
+					+lgm
+						border-right: 11px solid transparent
+						border-left: 11px solid transparent
+						top: -11px
+						right: 43px
+						border-bottom: 11px solid $c-lines
+
+				&::after
+					+lgm
+						top: -10px
+						border-right: 10px solid transparent
+						border-left: 10px solid transparent
+						border-bottom: 10px solid $c-white
+
+			&.collapse-height
+				overflow: visible
+
+				&.animation-in
+					+lgm
+						animation: fadeInYInverse 0.3s
+						animation-fill-mode: forwards
+						transition: height 0.3s
+
+				&.animation-out
+					+lgm
+						animation: fadeOutYInverse 0.3s
+						animation-fill-mode: forwards
+						transition: height 0.3s
+
+			li
+				text-transform: uppercase
+				padding: 12px 0 !important
+				font-size: $f-paragraph-title
+
+				+lgm
+					text-transform: none
+					padding: 12px 32px !important
+
+
