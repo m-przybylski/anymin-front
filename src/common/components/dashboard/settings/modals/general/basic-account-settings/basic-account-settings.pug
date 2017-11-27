@@ -22,12 +22,17 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
               data-is-visible="vm.isFileFormatValidError"
             )
 
+            validation-alert.user-avatar-error(
+              data-alert-text="SETTINGS.GENERAL.BASIC_ACCOUNT.FILE_SIZE_ERROR"
+              data-is-visible="vm.isFileSizeError"
+            )
+
             .user-name
               input-primary.full-name(
                 data-placeholder="SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_PLACEHOLDER"
                 data-ng-model="generalSettingsObject.nickname"
                 data-input-text="SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_LABEL"
-                data-is-valid="generalSettingsObject.nickname.length !== 0"
+                data-is-valid="isNicknameValid()"
                 data-validation-text="SETTINGS.GENERAL.BASIC_ACCOUNT.FULL_NAME.INPUT.VALIDATION"
               )
 
@@ -39,7 +44,10 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
               data-validaion='!$ctrl.rulesAccepted && paymentForm.$submitted'
             )
 
-            button.btn.btn-default(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES" type="submit")
+            button.btn.btn-default(
+            data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES"
+            data-ng-disabled="!isNicknameValid()"
+            type="submit")
 
           .crop-avatar-step(data-ng-show="isUserUploadImage")
             h2(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT.CROP_AVATAR_HEADER")

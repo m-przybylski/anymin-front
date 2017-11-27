@@ -7,6 +7,7 @@ import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import apiModule from 'profitelo-api-ng/api.module'
 import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
 import {httpCodes} from '../../../../common/classes/http-codes'
+import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
 
 const companyWizardModule = angular.module('profitelo.controller.wizard.create-profile.company', [
   'ui.router',
@@ -14,7 +15,8 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
   'permission.ui',
   'ngTouch',
   apiModule,
-  ValidationAlertModule
+  ValidationAlertModule,
+  commonSettingsModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile.company', {

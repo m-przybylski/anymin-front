@@ -29,6 +29,11 @@
   data-is-visible="$ctrl.isValidEmployee"
   )
 
+  validation-alert(
+  data-alert-text="WIZARD.CONSULTATION.INVITATIONS_INPUT_VALIDATION.TOO_MUCH_EMPLOYEES"
+  data-is-visible="$ctrl.isMaxConsultationCountError"
+  )
+
   .invited-list
     ul.tag-list
       li(data-ng-repeat="tag in $ctrl.addedItemsList")

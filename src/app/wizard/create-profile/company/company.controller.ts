@@ -3,6 +3,7 @@ import {WizardApi} from 'profitelo-api-ng/api/api'
 
 import * as _ from 'lodash'
 import * as angular from 'angular'
+import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
 
 export class CompanyController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
@@ -22,11 +23,13 @@ export class CompanyController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
-  private static readonly minValidNameLength: number = 3
-  private static readonly minValidProfileDescriptionLength: number = 50
+  private companyNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
+  private companyDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern
 
   /* @ngInject */
-  constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
+  constructor(private WizardApi: WizardApi,
+              private $state: ng.ui.IStateService,
+              private CommonSettingsService: CommonSettingsService,
               private wizardProfile?: GetWizardProfile) {
   }
 
@@ -87,14 +90,12 @@ export class CompanyController implements ng.IController {
     }
   }
 
-  public checkIsNameInputValid = (): boolean =>
-    (this.nameModel) ? this.nameModel.length >= CompanyController.minValidNameLength : false
+  public checkIsNameInputValid = (): boolean => this.nameModel ? this.companyNamePattern.test(this.nameModel) : false
 
-  public checkIsLogoValid = (): boolean =>
-    (this.logoModel) ? this.logoModel.length > 0 : false
+  public checkIsLogoValid = (): boolean => (this.logoModel) ? this.logoModel.length > 0 : false
 
   public checkIsProfileDescriptionValid = (): boolean =>
-    (this.descriptionModel) ? this.descriptionModel.length >= CompanyController.minValidProfileDescriptionLength : false
+    this.descriptionModel ? this.companyDescriptionPattern.test(this.descriptionModel) : false
 
   public checkIsFileUploadValid = (): boolean => this.isUploading
 

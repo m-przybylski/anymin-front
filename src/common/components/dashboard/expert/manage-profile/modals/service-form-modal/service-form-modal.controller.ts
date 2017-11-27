@@ -10,6 +10,7 @@ import {ErrorHandlerService} from '../../../../../../services/error-handler/erro
 import {ILanguage, LanguagesService} from '../../../../../../services/languages/languages.service'
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
 import {isPlatformForExpert} from '../../../../../../constants/platform-for-expert.constant'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void
@@ -18,7 +19,7 @@ export interface IServiceFormModalScope extends ng.IScope {
 
 export class ServiceFormModalController implements ng.IController {
 
-  public readonly consultationNameMaxLength: string = '150'
+  public readonly consultationNameMaxLength: string = '350'
   public readonly consultationDescriptionMaxLength: string = '600'
   public isLoading: boolean = true
   public isError: boolean = false
@@ -36,14 +37,26 @@ export class ServiceFormModalController implements ng.IController {
   public isCompany: boolean = false
   public isExpert: boolean = false
   public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPriceAmountValid: boolean = true
 
-  private static readonly minValidNameLength: number = 5
-  private static readonly minValidDescriptionLength: number = 50
   private moneyDivider: number
   private currency: string
   private defaultLanguageISO: string = ''
   private onModalCloseCallback: () => void
   private serviceDetails?: GetExpertServiceDetails
+  private consultationNamePattern: RegExp = this.CommonSettingsService.localSettings.consultationNamePattern
+  private consultationDescriptionPattern: RegExp =
+    this.CommonSettingsService.localSettings.consultationDescriptionPattern
+  private consultationTagsMinCount: number = this.CommonSettingsService.localSettings.consultationTagsMinCount
+  private consultationTagsMaxCount: number = this.CommonSettingsService.localSettings.consultationTagsMaxCount
+  private consultationInvitationsMinCount: number =
+    this.CommonSettingsService.localSettings.consultationInvitationsMinCount
+  private consultationInvitationsMaxCount: number =
+    this.CommonSettingsService.localSettings.consultationInvitationsMaxCount
+  private consultationPriceMin: number =
+    this.CommonSettingsService.localSettings.consultationPriceMin / this.CommonConfig.getAllData().config.moneyDivider
+  private consultationPriceMax: number =
+    this.CommonSettingsService.localSettings.consultationPriceMax / this.CommonConfig.getAllData().config.moneyDivider
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -55,7 +68,8 @@ export class ServiceFormModalController implements ng.IController {
               private errorHandler: ErrorHandlerService,
               private languagesService: LanguagesService,
               private EmploymentApi: EmploymentApi,
-              private $q: ng.IQService) {
+              private $q: ng.IQService,
+              private CommonSettingsService: CommonSettingsService) {
 
     this.languagesList = this.languagesService.languagesList
 
@@ -127,20 +141,33 @@ export class ServiceFormModalController implements ng.IController {
     this.isRegExpPriceInputValid = isRegExpPriceValid
   }
 
-  public isNameValid = (): boolean => this.consultationName.length >= ServiceFormModalController.minValidNameLength
+  public onPriceChange = (ngModel: number): void => {
+    const amount = Number(ngModel.toString().replace(',', '.'))
+    this.isPriceAmountValid = amount <= this.consultationPriceMax && amount >= this.consultationPriceMin
+  }
 
-  public areTagsValid = (): boolean => this.consultationTags && this.consultationTags.length > 0
+  public isNameValid = (): boolean => this.consultationNamePattern.test(this.consultationName)
+
+  public areTagsValid = (): boolean => this.consultationTags
+    && this.consultationTags.length >= this.consultationTagsMinCount
+    && this.consultationTags.length <= this.consultationTagsMaxCount
 
   public isLanguageValid = (): boolean => this.consultationLanguage !== undefined
     && this.consultationLanguage.name.length > 0
 
-  public isDescriptionValid = (): boolean =>
-    this.consultationDescription.length >= ServiceFormModalController.minValidDescriptionLength
+  public isDescriptionValid = (): boolean => this.consultationDescriptionPattern.test(this.consultationDescription)
 
-  public areInvitationsValid = (): boolean =>
-    this.isCompany ? this.consultationNewInvitations.length > 0 || this.isOwnerEmployee : true
+  public areInvitationsValid = (): boolean => {
+    if (this.isCompany) {
+      return this.isOwnerEmployee && this.consultationNewInvitations.length <= this.consultationInvitationsMaxCount
+        || this.consultationNewInvitations.length >= this.consultationInvitationsMinCount
+        && this.consultationNewInvitations.length <= this.consultationInvitationsMaxCount
+    } else {
+      return true
+    }
+  }
 
-  public isPriceValid = (): boolean => this.consultationPrice.length > 0 && this.isRegExpPriceInputValid
+  public isPriceValid = (): boolean => this.isPriceAmountValid && this.isRegExpPriceInputValid
 
   public isFormValid = (): boolean =>
     this.isNameValid()

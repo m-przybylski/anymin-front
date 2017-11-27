@@ -4,6 +4,7 @@ import './file-uploader.sass'
 import uploaderModule from '../../services/uploader/uploader'
 import loaderModule from '../interface/loader/loader'
 import translatorModule from '../../services/translator/translator'
+import commonSettingsModule from '../../services/common-settings/common-settings'
 
 export interface IFileUploaderModuleComponentBindings extends ng.IController {
   tokenList: string[]
@@ -14,7 +15,8 @@ const fileUploaderModule = angular.module('profitelo.components.file-uploader', 
   uploaderModule,
   loaderModule,
   translatorModule,
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  commonSettingsModule
 ])
 .component('fileUploader', new FileUploaderComponent)
   .name

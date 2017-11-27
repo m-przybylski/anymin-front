@@ -44,7 +44,13 @@ describe('Testing Controller: ConsultationController', () => {
       currency: 'PLN'
     },
     tags: [{
-      name: 'Tag-1'
+        name: 'Tag-1'
+      },
+      {
+        name: 'Tag-2'
+      },
+      {
+        name: 'Tag-3'
     }],
     invitations: [{
       email: 'testowy@profitelo.pl'
@@ -153,7 +159,13 @@ describe('Testing Controller: ConsultationController', () => {
         },
         tags: [{
           name: 'Tag-1'
-        }],
+        },
+          {
+            name: 'Tag-2'
+          },
+          {
+            name: 'Tag-3'
+          }],
         isOwnerEmployee: true,
         description: 'saksjdf kjhsakfjdh ahfjh ajkhgsf kjasjf gjkag fasdjhf jasd',
         language: 'pl'
@@ -179,7 +191,13 @@ describe('Testing Controller: ConsultationController', () => {
         },
         tags: [{
           name: 'Tag-1'
-        }],
+        },
+          {
+            name: 'Tag-2'
+          },
+          {
+            name: 'Tag-3'
+          }],
         isOwnerEmployee: true,
         description: 'saksjdf kjhsakfjdh ahfjh ajkhgsf kjasjf gjkag fasdjhf jasd',
         language: 'pl'
@@ -240,13 +258,13 @@ describe('Testing Controller: ConsultationController', () => {
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')
   })
 
-  it('should name input valid', () => {
-    consultationController.nameInputValue = 'ThisIsName'
-    expect(consultationController.checkIsNameInputValid()).toEqual(true)
+  it('should name input invalid', () => {
+    consultationController.nameInputValue = ''
+    expect(consultationController.checkIsNameInputValid()).toEqual(false)
   })
 
   it('should tags input valid', () => {
-    consultationController.tagsInputValue = ['tag-1']
+    consultationController.tagsInputValue = ['tag-1', 'tag-2', 'tag-3']
     expect(consultationController.checkIsTagsInputValid()).toEqual(true)
   })
 
@@ -256,13 +274,13 @@ describe('Testing Controller: ConsultationController', () => {
   })
 
   it('should description input invalid', () => {
-    consultationController.descriptionInputValue = 'invalid description mock'
+    consultationController.descriptionInputValue = 'a'
     expect(consultationController.checkIsDescriptionInputValid()).toEqual(false)
   })
 
   it('should form valid', () => {
     consultationController.nameInputValue = 'ThisIsName'
-    consultationController.tagsInputValue = ['tag-1']
+    consultationController.tagsInputValue = ['tag-1', 'tag-2', 'tag-3']
     consultationController.priceAmountInputValue = '123'
     consultationController.invitationsInputValue = ['invitation']
     consultationController.languageInputValue = {name: 'polski', value: 'pl'}
@@ -273,6 +291,12 @@ describe('Testing Controller: ConsultationController', () => {
   it('should price button disabled', () => {
     consultationController.isCompany = false
     expect(consultationController.checkIsPriceButtonDisabled()).toEqual(true)
+  })
+
+  it('should consultation price be valid', () => {
+    const price: number = 13
+    consultationController.onPriceChange(price)
+    expect(consultationController.checkIsPriceInputValid()).toBe(true)
   })
 
 })

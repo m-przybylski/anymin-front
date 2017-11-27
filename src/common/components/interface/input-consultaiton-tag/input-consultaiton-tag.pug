@@ -12,6 +12,11 @@
   data-is-visible="$ctrl.isInputValueInvalid"
   )
 
+  validation-alert(
+  data-alert-text="{{ $ctrl.validationText }}"
+  data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus || $ctrl.isSubmitted && !$ctrl.isValid"
+  )
+
   .checked-list
     ul.tag-list
       li(data-ng-repeat="tag in $ctrl.selectedTags")
@@ -26,8 +31,3 @@
         li(data-ng-repeat="item in $ctrl.suggestedTags track by $index")
           a(data-ng-click="$ctrl.addSelectedItem(item, $index)")
             span {{ item }}
-
-  validation-alert(
-    data-alert-text="{{ $ctrl.validationText }}"
-    data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus || $ctrl.isSubmitted && !$ctrl.isValid"
-  )

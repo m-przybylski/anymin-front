@@ -7,6 +7,7 @@ import {CommonConfig} from '../../../../generated_modules/common-config/common-c
 import {LanguagesService} from '../../../common/services/languages/languages.service'
 import {TranslatorService} from '../../../common/services/translator/translator.service'
 import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -18,6 +19,8 @@ interface ILanguagesList {
 }
 
 export class ConsultationController implements ng.IController {
+  public readonly consultationNameMaxLength: string = '350'
+  public readonly consultationDescriptionMaxLength: string = '600'
   public isStepRequired: boolean = true
   public currency: string
   public nameInputValue: string
@@ -29,16 +32,28 @@ export class ConsultationController implements ng.IController {
   public languageInputValue: ILanguagesList
   public descriptionInputValue: string
   public isPlatformForExpert: boolean = isPlatformForExpert
-
+  public isRegExpPriceInputValid: boolean = true
   public isCompany: boolean
   public isSubmitted: boolean = false
+  public isPriceAmountValid: boolean = true
+
   private isExpert: boolean
   private currentEditServiceIndex: number = -1
   private moneyDivider: number
-  private static readonly minValidNameLength: number = 5
-  private static readonly minValidDescriptionLength: number = 50
-  public isRegExpPriceInputValid: boolean = true
   private defaultLanguageISO: string = ''
+  private consultationNamePattern: RegExp = this.CommonSettingsService.localSettings.consultationNamePattern
+  private consultationDescriptionPattern: RegExp =
+    this.CommonSettingsService.localSettings.consultationDescriptionPattern
+  private consultationTagsMinCount: number = this.CommonSettingsService.localSettings.consultationTagsMinCount
+  private consultationTagsMaxCount: number = this.CommonSettingsService.localSettings.consultationTagsMaxCount
+  private consultationInvitationsMinCount: number =
+    this.CommonSettingsService.localSettings.consultationInvitationsMinCount
+  private consultationInvitationsMaxCount: number =
+    this.CommonSettingsService.localSettings.consultationInvitationsMaxCount
+  private consultationPriceMin: number =
+    this.CommonSettingsService.localSettings.consultationPriceMin / this.CommonConfig.getAllData().config.moneyDivider
+  private consultationPriceMax: number =
+    this.CommonSettingsService.localSettings.consultationPriceMax / this.CommonConfig.getAllData().config.moneyDivider
 
   /* @ngInject */
   constructor(private translatorService: TranslatorService,
@@ -48,7 +63,8 @@ export class ConsultationController implements ng.IController {
               private userService: UserService,
               private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
-              private languagesService: LanguagesService) {
+              private languagesService: LanguagesService,
+              private CommonSettingsService: CommonSettingsService) {
 
     this.languagesList = this.languagesService.languagesList
 
@@ -167,24 +183,34 @@ export class ConsultationController implements ng.IController {
     this.isRegExpPriceInputValid = isRegExpPriceValid
   }
 
-  public checkIsNameInputValid = (): boolean =>
-    !!(this.nameInputValue && this.nameInputValue.length >= ConsultationController.minValidNameLength)
+  public onPriceChange = (ngModel: number): void => {
+    const amount = Number(ngModel.toString().replace(',', '.'))
+    this.isPriceAmountValid = amount <= this.consultationPriceMax && amount >= this.consultationPriceMin
+  }
 
-  public checkIsTagsInputValid = (): boolean => this.tagsInputValue && this.tagsInputValue.length > 0
+  public checkIsNameInputValid = (): boolean => this.consultationNamePattern.test(this.nameInputValue)
 
-  public checkIsDescriptionInputValid = (): boolean => typeof this.descriptionInputValue === 'string'
-    && this.descriptionInputValue.length >= ConsultationController.minValidDescriptionLength
+  public checkIsTagsInputValid = (): boolean => this.tagsInputValue
+    && this.tagsInputValue.length >= this.consultationTagsMinCount
+    && this.tagsInputValue.length <= this.consultationTagsMaxCount
+
+  public checkIsDescriptionInputValid = (): boolean =>
+    this.consultationDescriptionPattern.test(this.descriptionInputValue)
 
   public checkIsEmployeesInputValid = (): boolean =>
-    this.invitationsInputValue && this.invitationsInputValue.length > 0 || this.isOwnerEmployee
+    this.isOwnerEmployee && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
+    || this.invitationsInputValue.length >= this.consultationInvitationsMinCount
+        && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
 
   public checkIsFormValid = (): boolean =>
-    this.checkIsNameInputValid() && this.checkIsTagsInputValid() && this.checkIsPriceInputValid()
-    && this.checkIsEmployeesInputValid() && this.checkIsDescriptionInputValid()
+    this.checkIsNameInputValid()
+    && this.checkIsTagsInputValid()
+    && this.checkIsPriceInputValid()
+    && this.checkIsEmployeesInputValid()
+    && this.checkIsDescriptionInputValid()
 
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
 
-  public checkIsPriceInputValid = (): boolean =>
-    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 && this.isRegExpPriceInputValid)
+  public checkIsPriceInputValid = (): boolean => this.isPriceAmountValid && this.isRegExpPriceInputValid
 
 }

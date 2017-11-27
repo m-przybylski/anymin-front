@@ -5,22 +5,10 @@ import userModule from '../../../../../../services/user/user'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {FileTypeChecker} from '../../../../../../classes/file-type-checker/file-type-checker'
 
-class File {
-  constructor() {
-  }
-}
-
-interface Window {
-  File: any
-}
-
-declare const window: Window
-
 describe('Testing Controller: basicAccountSettingsController', () => {
 
   let controller: BasicAccountSettingsController
   let scope: IBasicAccountSettingsControllerScope
-  let originalFile: any
 
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
@@ -29,15 +17,6 @@ describe('Testing Controller: basicAccountSettingsController', () => {
     getInstance: (): void => {
     }
   }
-
-  beforeEach(() => {
-    originalFile = window.File
-    window.File = File
-  })
-
-  afterEach(() => {
-    window.File = originalFile
-  })
 
   const userService = {
     getUser: (): void => {
@@ -56,7 +35,10 @@ describe('Testing Controller: basicAccountSettingsController', () => {
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
     angular.mock.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings')
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_: AccountApi, $q: ng.IQService) => {
+    inject(($rootScope: IRootScopeService,
+            $controller: ng.IControllerService,
+            _AccountApi_: AccountApi,
+            $q: ng.IQService) => {
 
       spyOn(userService, 'getUser').and.callFake(() => $q.resolve({
         settings: {
@@ -68,11 +50,11 @@ describe('Testing Controller: basicAccountSettingsController', () => {
       scope = <IBasicAccountSettingsControllerScope>$rootScope.$new()
 
       const injectors = {
+        $uibModalInstance,
+        uploaderFactory,
+        userService,
         $scope: scope,
-        $uibModalInstance: $uibModalInstance,
-        AccountApi: _AccountApi_,
-        userService: userService,
-        uploaderFactory: uploaderFactory
+        AccountApi: _AccountApi_
       }
 
       controller = $controller<BasicAccountSettingsController>('basicAccountSettingsController', injectors)
@@ -90,12 +72,19 @@ describe('Testing Controller: basicAccountSettingsController', () => {
 
   it('should add photo', () => {
     const imagePath = 'string'
-    const file: any = new File()
     const cb = (): void => {
     }
     spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
-    scope.addPhoto(imagePath, file, cb)
+    scope.addPhoto(imagePath, <File>{size: 2000}, cb)
 
     expect(scope.isUserUploadImage).toBeTruthy()
+  })
+
+  it('should nick name be valid' , () => {
+    scope.generalSettingsObject = {
+      isNotAnonymous: false,
+      nickname: 'someNickName'
+    }
+    expect(scope.isNicknameValid()).toEqual(true)
   })
 })

@@ -3,6 +3,7 @@ import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitel
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
+import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
 
 export class ExpertController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
@@ -20,11 +21,13 @@ export class ExpertController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
-  private static readonly minValidNameLength: number = 3
-  private static readonly minValidDescriptionLength: number = 50
+  private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
+  private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern
 
   /* @ngInject */
-  constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
+  constructor(private WizardApi: WizardApi,
+              private $state: ng.ui.IStateService,
+              private CommonSettingsService: CommonSettingsService,
               private wizardProfile?: GetWizardProfile) {}
 
   $onInit = (): void => {
@@ -87,13 +90,13 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  public checkIsNameInputValid = (): boolean =>
-    !!(this.nameModel && this.nameModel.length >= ExpertController.minValidNameLength)
+  public checkIsNameInputValid = (): boolean => this.nameModel ?
+    this.profileNamePattern.test(this.nameModel) : false
 
   public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0)
 
-  public checkIsProfileDescriptionValid = (): boolean =>
-    !!(this.descriptionModel && this.descriptionModel.length >= ExpertController.minValidDescriptionLength)
+  public checkIsProfileDescriptionValid = (): boolean => this.descriptionModel ?
+    this.profileDescriptionPattern.test(this.descriptionModel) : false
 
   public checkIsFileUploadValid = (): boolean => this.isUploading
 

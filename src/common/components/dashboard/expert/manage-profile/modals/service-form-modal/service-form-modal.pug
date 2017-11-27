@@ -61,6 +61,7 @@
         data-is-submitted="vm.isSubmitted"
         data-is-valid="vm.isRegExpPriceValid"
         data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
+        data-input-value-callback="vm.onPriceChange"
         )
         .hint(data-ng-if="!vm.isPlatformForExpert")
           p(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.SUGGESTED_PRICE")
@@ -68,7 +69,7 @@
 
         validation-alert(
         data-alert-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.PRICE_VALIDATION_ERROR"
-        data-is-visible="!vm.consultationPrice"
+        data-is-visible="!vm.isPriceAmountValid"
         )
 
       .modal-section(data-ng-if="vm.isCompany")

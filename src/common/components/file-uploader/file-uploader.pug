@@ -6,7 +6,10 @@
       ngf-multiple="true"
       ngf-select="$ctrl.uploadFiles($files)"
       ngf-allow-dir="false"
-      ngf-accept="'image/*, application/pdf'")
+      ngf-accept="'image/*, application/pdf'"
+      ngf-max-size="$ctrl.maxDocumentSize"
+      ngf-change="$ctrl.uploadFiles($files, $file, $newFiles, $duplicateFiles, $invalidFiles)"
+      )
         .upload-title
           span.icon.icon-upload-48
           div
@@ -14,8 +17,18 @@
             p {{ 'WIZARD.UPLOADER.UPLODER_ADDITIONAL_TEXT' | translate }}
 
     validation-alert(
-      data-alert-text="{{ $ctrl.fileValidationErrorMessage }}"
+      data-alert-text="{{ $ctrl.fileTypeErrorMessage }}"
       data-is-visible="$ctrl.isFileTypeError"
+    )
+
+    validation-alert(
+    data-alert-text="{{ $ctrl.fileSizeErrorMessage }} "
+    data-is-visible="$ctrl.isFileSizeError"
+    )
+
+    validation-alert(
+    data-alert-text="WIZARD.UPLOADER.FILE_VALIDATION_ERROR.TOO_MUCH_FILES_MESSAGE"
+    data-is-visible="$ctrl.isMaxFilesCountError"
     )
 
   .files-uploaded-list
