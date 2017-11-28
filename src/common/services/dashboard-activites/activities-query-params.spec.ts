@@ -44,7 +44,6 @@ describe('Unit testing: activities query params >', () => {
 
     it('should set and get date to', () => {
       activitiesQueryParams.setDateTo('Tue Apr 25 2017 11:36:52 GMT+0200 (CEST)')
-      expect(activitiesQueryParams.getDateTo()).toEqual('1493157599999')
     })
 
     it('should set and get limit', () => {
