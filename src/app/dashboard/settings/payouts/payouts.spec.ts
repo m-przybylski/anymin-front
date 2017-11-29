@@ -49,14 +49,14 @@ import dashboardSettingsPayoutsModule from './payouts'
 
       it('should delete payment method', () => {
         spyOn(state, 'reload')
-        PayoutsApiMock.deletePayPalAccountPayoutMethodRoute(200, {})
+        PayoutsApiMock.putPayoutMethodRoute(200, {})
         dashboardSettingsPayoutsController.deletePaymentMethod()
         httpBackend.flush()
         expect(state.reload).toHaveBeenCalled()
       })
 
       it('should throw error on delete payment method', () => {
-        PayoutsApiMock.deletePayPalAccountPayoutMethodRoute(500)
+        PayoutsApiMock.putPayoutMethodRoute(500)
         expect(() => {
           dashboardSettingsPayoutsController.deletePaymentMethod()
           httpBackend.flush()

@@ -1,5 +1,5 @@
 import {PayoutsApi} from 'profitelo-api-ng/api/api'
-import {PayPalAccountDto, PayoutMethodsDto} from 'profitelo-api-ng/model/models'
+import {PayPalAccountDto, GetPayoutMethodDto} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
 import {isPlatformForExpert} from '../../../../common/constants/platform-for-expert.constant'
 
@@ -10,7 +10,7 @@ export class DashboardSettingsPayoutsController implements ng.IController {
 
   /* @ngInject */
   constructor(private modalsService: ModalsService, private $state: ng.ui.IStateService,
-              payoutsMethods: PayoutMethodsDto, private PayoutsApi: PayoutsApi) {
+              payoutsMethods: GetPayoutMethodDto, private PayoutsApi: PayoutsApi) {
 
     if (payoutsMethods && payoutsMethods.payPalAccount) {
       this.isAnyPayoutMethod = true
@@ -19,7 +19,7 @@ export class DashboardSettingsPayoutsController implements ng.IController {
   }
 
   public deletePaymentMethod = (): void => {
-    this.PayoutsApi.deletePayPalAccountPayoutMethodRoute().then(() => {
+    this.PayoutsApi.putPayoutMethodRoute({}).then(() => {
       this.$state.reload()
     }, (error) => {
       throw new Error('Can Not delete payout methods: ' + error)
