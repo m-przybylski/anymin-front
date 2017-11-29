@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {NavbarAvailbilityComponent} from './navbar-availbility.component'
 import './navbar-availbility.sass'
-import {NavbarAvailbilityComponentService} from './navbar-availbility.service'
+import {NavbarAvailbilityService} from './navbar-availbility.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import profiteloWebsocketModule from '../../../services/profitelo-websocket/profitelo-websocket'
 import {NavbarAvailbilityAnimation} from './navbar-availbility.animation'
@@ -14,7 +14,7 @@ const navbarAvailbilityModule = angular.module('profitelo.components.navbar.navb
   errorHandlerModule
 ])
 .component('navbarAvailbility', new NavbarAvailbilityComponent)
-.service('navbarAvailbilityComponentService', NavbarAvailbilityComponentService)
+.service('navbarAvailbilityService', NavbarAvailbilityService)
 .animation('.collapse-height', NavbarAvailbilityAnimation.getInstance())
   .name
 

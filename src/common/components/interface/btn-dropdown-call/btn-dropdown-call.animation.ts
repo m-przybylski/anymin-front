@@ -1,30 +1,33 @@
-interface IValidationAlertAnimation {
-  enter: (element: JQuery) => ng.animate.IAnimateCssRunner,
-  leave: (element: JQuery) => ng.animate.IAnimateCssRunner
-}
+export class BtnDropdownCallAnimation {
 
-/* @ngInject */
-export function BtnDropdownCallAnimationComponent($animateCss: ng.animate.IAnimateCssService):
-  IValidationAlertAnimation {
+  /* @ngInject */
+  constructor(private $animateCss: ng.animate.IAnimateCssService) {}
 
-  return {
+  private createAnimation = (): ng.animate.IAnimateCallbackObject => ({
     enter: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height = element[0].offsetHeight
+      const height: number = (element.length !== 0) ? element[0].offsetHeight : 0
 
-      return $animateCss(element, {
+      return this.$animateCss(element, {
         addClass: 'animation-in',
         from: {height: '0px'},
-        to: {height: height + 'px'},
+        to: {height: height + 'px'}
       })
     },
     leave: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height = element[0].offsetHeight
+      const height: number = (element.length !== 0) ? element[0].offsetHeight : 0
 
-      return $animateCss(element, {
+      return this.$animateCss(element, {
         addClass: 'animation-out',
         to: {height: '0px'},
-        from: {height: height + 'px'},
+        from: {height: height + 'px'}
       })
     }
+  })
+
+  public static getInstance = (): ($animateCss: ng.animate.IAnimateCssService) => ng.animate.IAnimateCallbackObject => {
+    const instance = ($animateCss: ng.animate.IAnimateCssService): ng.animate.IAnimateCallbackObject =>
+      new BtnDropdownCallAnimation($animateCss).createAnimation()
+    instance.$inject = ['$animateCss']
+    return instance
   }
 }

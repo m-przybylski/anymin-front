@@ -1,13 +1,9 @@
-import {NavbarAvailbilityComponentService} from './navbar-availbility.service'
+import {IExpertPresenceUpdate, NavbarAvailbilityService} from './navbar-availbility.service'
 import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 
 interface IRadioModel {
   name: GetExpertVisibility.VisibilityEnum
-}
-
-export interface IWebSocketChange {
-  status: GetExpertVisibility.VisibilityEnum
 }
 
 export class NavbarAvailbilityComponentController implements ng.IController {
@@ -25,9 +21,9 @@ export class NavbarAvailbilityComponentController implements ng.IController {
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private errorHandler: ErrorHandlerService,
-              private navbarAvailbilityComponentService: NavbarAvailbilityComponentService) {
+              private navbarAvailbilityService: NavbarAvailbilityService) {
 
-    navbarAvailbilityComponentService.onChangeWebsocket(this.changeWebsocket)
+    navbarAvailbilityService.onChangeWebsocket(this.changeWebsocket)
   }
 
   $onInit = (): void => {
@@ -42,13 +38,13 @@ export class NavbarAvailbilityComponentController implements ng.IController {
     this.setExpertVisibleStatus()
   }
 
-  private changeWebsocket = (data: IWebSocketChange): void => {
+  private changeWebsocket = (data: IExpertPresenceUpdate): void => {
     this.radioModel.name = data.status
     this.isVisiblePresentsChecked = data.status === GetExpertVisibility.VisibilityEnum.Visible
   }
 
   private setExpertVisibleStatus = (): void => {
-    this.navbarAvailbilityComponentService.getExpertVisibilityRoute().then((res: GetExpertVisibility): void => {
+    this.navbarAvailbilityService.getExpertVisibilityRoute().then((res: GetExpertVisibility): void => {
       this.radioModel.name = res.visibility
       this.isVisiblePresentsChecked = res.visibility === GetExpertVisibility.VisibilityEnum.Visible
     }, (error: any) => this.errorHandler.handleServerError(error))
@@ -58,17 +54,24 @@ export class NavbarAvailbilityComponentController implements ng.IController {
     this.$document.unbind('click')
   }
 
-  public toggleButton = (): void => {
+  public toggleButton = (): boolean =>
     this.isOpen = !this.isOpen
-  }
 
   public selectVisibleOption = (): void => {
-    this.navbarAvailbilityComponentService.setExpertPresenceVisible()
-    this.isVisiblePresentsChecked = true
+    this.navbarAvailbilityService.getExpertVisibility().then(() => {
+      this.isVisiblePresentsChecked = true
+    }).catch((error) => {
+      (this.isVisiblePresentsChecked) ? this.isVisiblePresentsChecked = true : this.isVisiblePresentsChecked = false
+      this.errorHandler.handleServerError(error)
+    })
   }
 
   public selectInvisibleOption = (): void => {
-    this.navbarAvailbilityComponentService.setExpertPresenceInvisible()
-    this.isVisiblePresentsChecked = false
+    this.navbarAvailbilityService.getExpertInvisibility().then(() => {
+      this.isVisiblePresentsChecked = false
+    }).catch((error) => {
+      (this.isVisiblePresentsChecked) ? this.isVisiblePresentsChecked = true : this.isVisiblePresentsChecked = false
+      this.errorHandler.handleServerError(error)
+    })
   }
 }

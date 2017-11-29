@@ -10,7 +10,6 @@ import {isPlatformForExpert} from '../../../constants/platform-for-expert.consta
 import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {NavbarNotificationsService} from '../navbar-notifications/navbar-notifications.service'
-import {GetExpertVisibility} from 'profitelo-api-ng/model/GetExpertVisibility'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
