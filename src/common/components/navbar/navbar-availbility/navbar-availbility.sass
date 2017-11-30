@@ -10,9 +10,12 @@ navbar-availbility
 		border: 0
 
 	.btn
+		&.btn-preloader
+			margin: 0
+
 		&.btn-not-availbility
-			background: $c-lines
-			border: 0
+			background: $c-white
+			border: 3px solid $c-lines
 			width: 24px
 			height: 24px
 			border-radius: 50%
@@ -60,6 +63,10 @@ navbar-availbility
 					top: 100%
 					left: auto
 
+				&.is-pending
+					pointer-events: none
+
+
 				&::before, &::after
 					+lgm
 						content: ""
@@ -84,7 +91,7 @@ navbar-availbility
 						border-bottom: 10px solid $c-white
 
 			&.collapse-height
-				overflow: visible
+				overflow: hidden
 
 				&.animation-in
 					+lgm

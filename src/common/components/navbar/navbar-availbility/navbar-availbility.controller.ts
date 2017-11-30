@@ -1,29 +1,32 @@
 import {IExpertPresenceUpdate, NavbarAvailbilityService} from './navbar-availbility.service'
 import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
+import {Subscription} from 'rxjs/Subscription'
 
 interface IRadioModel {
-  name: GetExpertVisibility.VisibilityEnum
+  name?: GetExpertVisibility.VisibilityEnum
 }
 
 export class NavbarAvailbilityComponentController implements ng.IController {
 
   public callback: () => void
   public isOpen: boolean = false
-  public isVisiblePresentsChecked: boolean
-
+  public isVisible?: boolean
   public radioModel: IRadioModel = {
-    name: GetExpertVisibility.VisibilityEnum.Visible
+    name: undefined
   }
+  public isLoading: boolean = true
+  public isVisibilityPending = false
+  private visibilitySubscription: Subscription
+  private requestDelay: number = 8000
 
   /* @ngInject */
   constructor(private $scope: ng.IScope,
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private errorHandler: ErrorHandlerService,
+              private $timeout: ng.ITimeoutService,
               private navbarAvailbilityService: NavbarAvailbilityService) {
-
-    navbarAvailbilityService.onChangeWebsocket(this.changeWebsocket)
   }
 
   $onInit = (): void => {
@@ -34,44 +37,67 @@ export class NavbarAvailbilityComponentController implements ng.IController {
 
       this.$scope.$apply()
     })
+    this.visibilitySubscription = this.navbarAvailbilityService.onVisibilityChange(this.changeWebsocket)
 
     this.setExpertVisibleStatus()
   }
 
   private changeWebsocket = (data: IExpertPresenceUpdate): void => {
     this.radioModel.name = data.status
-    this.isVisiblePresentsChecked = data.status === GetExpertVisibility.VisibilityEnum.Visible
+    this.isVisible = data.status === GetExpertVisibility.VisibilityEnum.Visible
   }
 
   private setExpertVisibleStatus = (): void => {
-    this.navbarAvailbilityService.getExpertVisibilityRoute().then((res: GetExpertVisibility): void => {
+    this.navbarAvailbilityService.getExpertVisibility().then((res: GetExpertVisibility): void => {
       this.radioModel.name = res.visibility
-      this.isVisiblePresentsChecked = res.visibility === GetExpertVisibility.VisibilityEnum.Visible
-    }, (error: any) => this.errorHandler.handleServerError(error))
+      this.isVisible = res.visibility === GetExpertVisibility.VisibilityEnum.Visible
+      this.isLoading = false
+    }).catch((error: any) => {
+      const getVisibilityRequestDelay = this.requestDelay
+      this.$timeout(() => {
+        this.setExpertVisibleStatus()
+        this.requestDelay += getVisibilityRequestDelay
+      }, getVisibilityRequestDelay)
+      this.isLoading = true
+      this.errorHandler.handleServerError(error)
+    })
   }
 
   $onDestroy = (): void => {
     this.$document.unbind('click')
+    this.visibilitySubscription.unsubscribe()
   }
 
   public toggleButton = (): boolean =>
     this.isOpen = !this.isOpen
 
   public selectVisibleOption = (): void => {
-    this.navbarAvailbilityService.getExpertVisibility().then(() => {
-      this.isVisiblePresentsChecked = true
-    }).catch((error) => {
-      (this.isVisiblePresentsChecked) ? this.isVisiblePresentsChecked = true : this.isVisiblePresentsChecked = false
+    const currentVisibility = this.isVisible
+    this.isVisible = true
+    this.radioModel.name = GetExpertVisibility.VisibilityEnum.Visible
+    this.isVisibilityPending = true
+
+    this.navbarAvailbilityService.setExpertVisibile().catch((error) => {
+      this.isVisible = currentVisibility
+      this.radioModel.name = undefined
       this.errorHandler.handleServerError(error)
+    }).finally(() => {
+      this.isVisibilityPending = false
     })
   }
 
   public selectInvisibleOption = (): void => {
-    this.navbarAvailbilityService.getExpertInvisibility().then(() => {
-      this.isVisiblePresentsChecked = false
-    }).catch((error) => {
-      (this.isVisiblePresentsChecked) ? this.isVisiblePresentsChecked = true : this.isVisiblePresentsChecked = false
+    const currentVisibility = this.isVisible
+    this.isVisible = false
+    this.radioModel.name = GetExpertVisibility.VisibilityEnum.Invisible
+    this.isVisibilityPending = true
+
+    this.navbarAvailbilityService.setExpertInvisibile().catch((error) => {
+      this.isVisible = currentVisibility
+      this.radioModel.name = undefined
       this.errorHandler.handleServerError(error)
+    }).finally(() => {
+      this.isVisibilityPending = false
     })
   }
 }

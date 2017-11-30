@@ -11,7 +11,8 @@ const navbarAvailbilityModule = angular.module('profitelo.components.navbar.navb
   'pascalprecht.translate',
   apiModule,
   profiteloWebsocketModule,
-  errorHandlerModule
+  errorHandlerModule,
+  'profitelo.components.interface.preloader'
 ])
 .component('navbarAvailbility', new NavbarAvailbilityComponent)
 .service('navbarAvailbilityService', NavbarAvailbilityService)

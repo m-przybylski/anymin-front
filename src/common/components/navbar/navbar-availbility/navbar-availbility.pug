@@ -1,13 +1,14 @@
 .navbar-availbility
   .btn-dropdown
-    .btn-dropdown-header(data-ng-click="$ctrl.toggleButton()")
-      a.btn.btn-availbility(data-ng-show="$ctrl.isVisiblePresentsChecked")
+    span.btn.btn-preloader(data-ng-if="$ctrl.isLoading")
+    .btn-dropdown-header(data-ng-if="!$ctrl.isLoading" data-ng-click="$ctrl.toggleButton()")
+      a.btn.btn-availbility(data-ng-show="$ctrl.isVisible")
         span.icon.icon-check-10
-      a.btn.btn-not-availbility(data-ng-show="!$ctrl.isVisiblePresentsChecked")
-        span.icon.icon-close-12
+      a.btn.btn-not-availbility(data-ng-show="!$ctrl.isVisible")
 
     ul.btn-dropdown-list.collapse-height.animation.mobile-hidden(
       data-ng-if="$ctrl.isOpen"
+      data-ng-class="{'is-pending': $ctrl.isVisibilityPending}"
     )
       li
         radio-btn(
@@ -29,7 +30,7 @@
           data-ng-model="$ctrl.radioModel.name"
         )
 
-    ul.btn-dropdown-list.desktop-hidden
+    ul.btn-dropdown-list.desktop-hidden(data-ng-class="{'is-pending': $ctrl.isVisibilityPending}")
       li
         radio-btn(
           data-ng-click="$ctrl.selectVisibleOption()"

@@ -1,14 +1,12 @@
 import * as angular from 'angular'
 import {NavbarAvailbilityComponentController} from './navbar-availbility.controller'
-import {PresenceApi} from 'profitelo-api-ng/api/api'
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
-import {NavbarAvailbilityService} from './navbar-availbility.service'
+import {IExpertPresenceUpdate, NavbarAvailbilityService} from './navbar-availbility.service'
 import navbarAvailbilityModule from './navbar-availbility'
-import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 import profiteloWebsocketModule from '../../../services/profitelo-websocket/profitelo-websocket'
-import {PresenceApiMock} from 'profitelo-api-ng/api/PresenceApi'
-import {GetExpertVisibility} from 'profitelo-api-ng/model/GetExpertVisibility'
-import {CallbacksService} from '../../../services/callbacks/callbacks.service'
+import SpyObj = jasmine.SpyObj
+import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
+import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 
 describe('Unit testing: navbar-availbility', () => {
   return describe('for navbar-availbility component >', () => {
@@ -16,27 +14,20 @@ describe('Unit testing: navbar-availbility', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: NavbarAvailbilityComponentController
-    let bindings: any
-    let document: ng.IDocumentService
     const validHTML =
       '<navbar-availbility></navbar-availbility>'
-    let errorHandler: ErrorHandlerService
 
-    let presenceApiMock: PresenceApiMock
+    let injectors = {}
+    let timeout: ng.ITimeoutService
 
-    let navbarAvailbilityService: any = {
-    }
-    let $httpBackend: ng.IHttpBackendService
+    const navbarAvailbilityService: SpyObj<NavbarAvailbilityService> =
+      jasmine.createSpyObj<NavbarAvailbilityService>('navbarAvailbilityService', [
+        'setExpertVisibile', 'setExpertInvisibile', 'getExpertVisibility', 'onVisibilityChange'
+      ])
 
-    const callbacksFactory: any = {
-      getInstance: (keys: string[]): CallbacksService => {
-        return new CallbacksService(this.$timeout, keys)
-      }
-    }
-
-    function create(html: string, {}): JQuery {
+    function create(html: string): JQuery {
       const parentScope = rootScope.$new()
-      const parentBoundScope = angular.extend(parentScope, bindings)
+      const parentBoundScope = angular.extend(parentScope)
       const elem = angular.element(html)
       const compiledElement = compile(elem)(parentBoundScope)
       parentBoundScope.$digest()
@@ -45,51 +36,31 @@ describe('Unit testing: navbar-availbility', () => {
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl')
-      $provide.value('navbarAvailbilityService', NavbarAvailbilityService)
       $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
-      $provide.value('presenceApiMock', PresenceApiMock)
-      $provide.value('callbacksService', CallbacksService)
-      $provide.value('callbacksFactory', callbacksFactory)
     }))
 
     beforeEach(() => {
       angular.mock.module(navbarAvailbilityModule)
       angular.mock.module(profiteloWebsocketModule)
 
-      inject(($rootScope: ng.IRootScopeService,
-              $compile: ng.ICompileService,
+      inject(($compile: ng.ICompileService,
+              $rootScope: ng.IRootScopeService,
+              $timeout: ng.ITimeoutService,
               $componentController: ng.IComponentControllerService,
-              profiteloWebsocket: ProfiteloWebsocketService,
-              _navbarAvailbilityService_: NavbarAvailbilityService,
-              _errorHandler_: ErrorHandlerService,
-              _$httpBackend_: ng.IHttpBackendService,
-              _$document_: ng.IDocumentService,
-              _PresenceApiMock_: PresenceApiMock) => {
+              profiteloWebsocket: ProfiteloWebsocketService) => {
 
         rootScope = $rootScope
         compile = $compile
-        document = _$document_
-        navbarAvailbilityService = _navbarAvailbilityService_
-        errorHandler = _errorHandler_
-        presenceApiMock = _PresenceApiMock_
-        $httpBackend = _$httpBackend_
+        timeout = $timeout
 
-        presenceApiMock.expertVisibilityRoute(200, {visibility: GetExpertVisibility.VisibilityEnum.Visible})
-
-        bindings = {}
-
-        const injectors = {
-          $element: create(validHTML, bindings),
-          $document: document,
-          PresenceApi,
-          errorHandler,
-          navbarAvailbilityService,
+        injectors = {
+          $element: create(validHTML),
           profiteloWebsocket,
-          presenceApiMock
+          navbarAvailbilityService
         }
 
         component = $componentController<NavbarAvailbilityComponentController, {}>(
-          'navbarAvailbility', injectors, bindings)
+          'navbarAvailbility', injectors, {})
       })
     })
 
@@ -98,78 +69,243 @@ describe('Unit testing: navbar-availbility', () => {
     }))
 
     it('should compile the component', () => {
-      const el = create(validHTML, bindings)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should open dropdown ', () => {
+    it('should open modal', () => {
       component.toggleButton()
       expect(component.isOpen).toBe(true)
     })
 
-    it('should open and close dropdown ', () => {
+    it('should open and close modal', () => {
       component.toggleButton()
       component.toggleButton()
       expect(component.isOpen).toBe(false)
     })
 
-    it('should open and close dropdown unclick on document', () => {
-      component.toggleButton()
-      const el = create(validHTML, bindings)
-      el.trigger('click')
-      el.bind(event)
-      rootScope.$digest()
-      expect(component.isOpen).toBe(true)
-    })
+    it('should set visible visibility on init',
+      inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
 
-    it('should open and close dropdown unclick on document', () => {
-      document.trigger('click')
-      document.bind(event)
-      rootScope.$digest()
-      expect(component.isOpen).toBe(false)
-    })
+      const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
+      component.$onInit()
+      rootScope.$apply()
+      expect(component.isVisible).toBe(true)
+      expect(component.radioModel.name).toEqual(res.visibility)
+      expect(component.isLoading).toBe(false)
+    }))
 
-    it('should change visibility on visible', () => {
-      component.selectVisibleOption()
-      presenceApiMock.expertVisibleRoute(204, {visibility: GetExpertVisibility.VisibilityEnum.Visible})
-      navbarAvailbilityService.getExpertVisibility().then(() => {
-        expect(component.isVisiblePresentsChecked).toBe(true)
-      })
-      $httpBackend.flush()
-    })
-
-    it('should change visibility on visible when error', () => {
-      component.selectVisibleOption()
-      spyOn(errorHandler, 'handleServerError')
-      presenceApiMock.expertVisibleRoute(404)
-      navbarAvailbilityService.getExpertVisibility().catch(() => {
-        expect(component.isVisiblePresentsChecked).toBe(false)
-      })
-      $httpBackend.flush()
-      expect(errorHandler.handleServerError).toHaveBeenCalled()
-    })
-
-    it('should change visibility on invisible', () => {
-      component.selectInvisibleOption()
-      presenceApiMock.expertInvisibleRoute(204, {visibility: GetExpertVisibility.VisibilityEnum.Invisible})
-      navbarAvailbilityService.getExpertInvisibility().then(() => {
-        expect(component.isVisiblePresentsChecked).toBe(false)
-      })
-      $httpBackend.flush()
-    })
-
-    it('should change visibility on invisible when error', () => {
-      presenceApiMock.expertVisibilityRoute(200, {visibility: GetExpertVisibility.VisibilityEnum.Invisible})
+    it('should set visibility when promise reject on init',
+      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
 
       spyOn(errorHandler, 'handleServerError')
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.reject())
+      component.$onInit()
+      rootScope.$apply()
+      timeout.flush()
+      expect(component.isVisible).toBe(undefined)
+      expect(errorHandler.handleServerError).toHaveBeenCalled()
+      expect(navbarAvailbilityService.getExpertVisibility).toHaveBeenCalled()
+      expect(component.isLoading).toBe(true)
+    }))
+
+    it('should set invisible visibility on init', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+
+      const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
+      component.$onInit()
+      rootScope.$apply()
+      expect(component.isVisible).toBe(false)
+      expect(component.isLoading).toBe(false)
+      expect(component.radioModel.name).toEqual(res.visibility)
+    }))
+
+    it('should set expert visibility when error on init',
+      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+
+      spyOn(errorHandler, 'handleServerError')
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.reject())
+      component.$onInit()
+      rootScope.$apply()
+      expect(component.isVisible).toBe(undefined)
+      expect(errorHandler.handleServerError).toHaveBeenCalled()
+      expect(component.isLoading).toBe(true)
+    }))
+
+    it('should set visibility on service visibility update', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
+
+      navbarAvailbilityService.onVisibilityChange.and.callFake(
+        (callback: (data: IExpertPresenceUpdate) => void) =>
+          callback({status: GetExpertVisibility.VisibilityEnum.Visible})
+      )
+
+      component.$onInit()
+      expect(component.isVisible).toBe(true)
+      expect(component.radioModel.name).toBe(GetExpertVisibility.VisibilityEnum.Visible)
+    }))
+
+
+    //TODO
+    it('should get visibility if promise was reject', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.reject())
+      component.$onInit()
+      expect(navbarAvailbilityService.onVisibilityChange).toHaveBeenCalled()
+    }))
+
+    it('should open and close dropdown by click on document', inject(($document: ng.IDocumentService) => {
+      const el = create(validHTML)
+      const controller = el.controller('navbar-availbility')
+      const isoScope: any = el.isolateScope()
+      controller.isLoading = false
+      isoScope.$apply()
+      expect(controller.isOpen).toBe(false)
+
+      el.find('.btn-dropdown-header').triggerHandler('click')
+      expect(controller.isOpen).toBe(true)
+
+      $document.trigger('click')
+      $document.bind(event)
+      rootScope.$apply()
+      expect(controller.isOpen).toBe(false)
+    }))
+
+    it('should set visibiliti on Visible', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+
+      const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      component.$onInit()
+      rootScope.$apply()
+
+      const currentVisibility = component.isVisible
+      const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
+      navbarAvailbilityService.setExpertVisibile.and.callFake(() => $q.resolve({res}))
+
+      component.selectVisibleOption()
+      expect(component.isVisibilityPending).toBe(true)
+      rootScope.$apply()
+
+      expect(component.isVisible).toBe(true)
+      expect(component.isVisibilityPending).toBe(false)
+      expect(component.isVisible).not.toEqual(currentVisibility)
+      expect(component.isVisibilityPending).toBe(false)
+      expect(component.radioModel.name).toEqual(res.visibility)
+    }))
+
+    it('should set visibility to visible if setExpertVisibile was rejected',
+      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      component.$onInit()
+      rootScope.$apply()
+
+      spyOn(errorHandler, 'handleServerError')
+      navbarAvailbilityService.setExpertVisibile.and.callFake(() => $q.reject({}))
+      component.selectVisibleOption()
+      rootScope.$apply()
+
+      expect(component.isVisible).toEqual(false)
+      expect(component.radioModel.name).toEqual(undefined)
+      expect(errorHandler.handleServerError).toHaveBeenCalled()
+    }))
+
+    it('should set visibility to visible if promise was rejected and visibility was visible',
+      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      component.$onInit()
+      rootScope.$apply()
+
+      spyOn(errorHandler, 'handleServerError')
+      navbarAvailbilityService.setExpertVisibile.and.callFake(() => $q.reject({}))
+      component.selectVisibleOption()
+      rootScope.$apply()
+
+      expect(component.isVisible).toEqual(true)
+      expect(component.radioModel.name).toEqual(undefined)
+      expect(errorHandler.handleServerError).toHaveBeenCalled()
+    }))
+
+    it('should set visibility on Invisible', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      component.$onInit()
+      rootScope.$apply()
+
+      const currentVisibility = component.isVisible
+
+      const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
+      navbarAvailbilityService.setExpertInvisibile.and.callFake(() => $q.resolve({res}))
 
       component.selectInvisibleOption()
-      presenceApiMock.expertInvisibleRoute(404)
-      navbarAvailbilityService.getExpertInvisibility().catch(() => {
-        expect(component.isVisiblePresentsChecked).toBe(false)
-      })
-      $httpBackend.flush()
+      expect(component.isVisibilityPending).toBe(true)
+
+      rootScope.$apply()
+      expect(component.isVisible).toBe(false)
+      expect(component.isVisibilityPending).toBe(false)
+      expect(component.isVisible).toEqual(currentVisibility)
+      expect(component.radioModel.name).toEqual(res.visibility)
+      expect(component.isLoading).toBe(false)
+    }))
+
+    it('should set visibility to invisible if promise was rejected and visibility was visible.',
+      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      component.$onInit()
+      rootScope.$apply()
+
+      spyOn(errorHandler, 'handleServerError')
+      navbarAvailbilityService.setExpertInvisibile.and.callFake(() => $q.reject({}))
+      component.selectInvisibleOption()
+      rootScope.$apply()
+
+      expect(component.isVisible).toEqual(true)
+      expect(component.radioModel.name).toEqual(undefined)
       expect(errorHandler.handleServerError).toHaveBeenCalled()
-    })
+    }))
+
+    it('should set visibility to invisible if promise was rejected and visibility was invisible',
+      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
+      component = $componentController<NavbarAvailbilityComponentController, {}>(
+        'navbarAvailbility', injectors, {})
+      const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
+      navbarAvailbilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      component.$onInit()
+      rootScope.$apply()
+
+      spyOn(errorHandler, 'handleServerError')
+      navbarAvailbilityService.setExpertInvisibile.and.callFake(() => $q.reject({}))
+      component.selectInvisibleOption()
+      rootScope.$apply()
+
+      expect(component.isVisible).toEqual(false)
+      expect(component.radioModel.name).toEqual(undefined)
+      expect(errorHandler.handleServerError).toHaveBeenCalled()
+    }))
   })
 })

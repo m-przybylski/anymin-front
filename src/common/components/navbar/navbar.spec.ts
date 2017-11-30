@@ -59,7 +59,7 @@ describe('Unit testing: navbar', () => {
         navbarAvailbilityService = _navbarAvailbilityService_
 
         spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
-        spyOn(navbarAvailbilityService, 'getExpertVisibilityRoute').and.returnValue($q.resolve({}))
+        spyOn(navbarAvailbilityService, 'getExpertVisibility').and.returnValue($q.resolve({}))
 
         bindings = {
           searchInputQueryValue: searchInputQueryValue

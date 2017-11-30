@@ -5,7 +5,7 @@ export class NavbarAvailbilityAnimation {
 
   private createAnimation = (): ng.animate.IAnimateCallbackObject => ({
     enter: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height: number = (element.length !== 0) ? element[0].offsetHeight : 0
+      const height: number = (element[0]) ? element[0].offsetHeight : 0
 
       return this.$animateCss(element, {
         addClass: 'animation-in',
@@ -14,7 +14,7 @@ export class NavbarAvailbilityAnimation {
       })
     },
     leave: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height: number = (element.length !== 0) ? element[0].offsetHeight : 0
+      const height: number = (element[0]) ? element[0].offsetHeight : 0
 
       return this.$animateCss(element, {
         addClass: 'animation-out',

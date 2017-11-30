@@ -1,8 +1,8 @@
 import {PresenceApi} from 'profitelo-api-ng/api/api'
 import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
-import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory'
-import {CallbacksService} from '../../../services/callbacks/callbacks.service'
+import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export interface IExpertPresenceUpdate {
   status: GetExpertVisibility.VisibilityEnum
@@ -10,35 +10,29 @@ export interface IExpertPresenceUpdate {
 
 export class NavbarAvailbilityService  {
 
-  private callbacks: CallbacksService
-  private static readonly events = {
-    onChangeWebsocket: 'onChangeWebsocket'
-  }
+  private readonly changeVisibilityEvent = new Subject<IExpertPresenceUpdate>()
 
   /* @ngInject */
   constructor(private PresenceApi: PresenceApi,
-              profiteloWebsocket: ProfiteloWebsocketService,
-              callbacksFactory: CallbacksFactory) {
+              profiteloWebsocket: ProfiteloWebsocketService) {
 
-    this.callbacks = callbacksFactory.getInstance(Object.keys(NavbarAvailbilityService.events))
-    profiteloWebsocket.onExpertVisibilityUpdate(this.setVisibility)
+    profiteloWebsocket.onExpertVisibilityUpdate(this.notifyVisibilityChange)
   }
 
-  public getExpertVisibilityRoute = (): ng.IPromise<GetExpertVisibility> =>
+  public getExpertVisibility = (): ng.IPromise<GetExpertVisibility> =>
     this.PresenceApi.expertVisibilityRoute()
 
-  private setVisibility = (data: IExpertPresenceUpdate): void => {
-    this.callbacks.notify(NavbarAvailbilityService.events.onChangeWebsocket, data)
+  private notifyVisibilityChange = (data: IExpertPresenceUpdate): void => {
+    this.changeVisibilityEvent.next(data)
   }
 
-  public onChangeWebsocket = (cb: (data: IExpertPresenceUpdate) => void): void => {
-    this.callbacks.methods.onChangeWebsocket(cb)
-  }
+  public onVisibilityChange = (cb: (data: IExpertPresenceUpdate) => void): Subscription =>
+    this.changeVisibilityEvent.subscribe(cb)
 
-  public getExpertVisibility = (): ng.IPromise<IExpertPresenceUpdate> =>
+  public setExpertVisibile = (): ng.IPromise<IExpertPresenceUpdate> =>
     this.PresenceApi.expertVisibleRoute()
 
-  public getExpertInvisibility = (): ng.IPromise<IExpertPresenceUpdate> =>
+  public setExpertInvisibile = (): ng.IPromise<IExpertPresenceUpdate> =>
     this.PresenceApi.expertInvisibleRoute()
 
 }
