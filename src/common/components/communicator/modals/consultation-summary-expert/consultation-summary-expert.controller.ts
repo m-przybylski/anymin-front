@@ -2,6 +2,11 @@ import {CallSummary} from '../../../../models/CallSummary'
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
 import {ExpertCallSummary} from '../../../../models/ExpertCallSummary'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {ServiceApi} from 'profitelo-api-ng/api/api'
+import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
+import {TranslatorService} from '../../../../services/translator/translator.service';
+import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import {IAngularEvent} from 'angular'
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   callSummary?: CallSummary
@@ -29,14 +34,22 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public callDuration: number
   public profit: MoneyDto
   public clientAvatar: string
+  public clientReportMessage: string = ''
+  public isSendingClientReport: boolean = false
+  public isClientReportSent: boolean = false
+  public isSubmitted: boolean = false
 
-  public onModalClose = (): void =>
-    this.$uibModalInstance.dismiss('cancel')
+  private static readonly minValidClientReportMessageLength: number = 3
+  private sueId: string
 
   /* @ngInject */
   constructor(private $scope: IConsultationSummaryExpertControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private callSummaryService: CallSummaryService) {
+              private callSummaryService: CallSummaryService,
+              private ServiceApi: ServiceApi,
+              private topAlertService: TopAlertService,
+              private translatorService: TranslatorService,
+              private errorHandler: ErrorHandlerService) {
 
     this.isLoading = true
 
@@ -68,7 +81,37 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
     this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
+
+    this.addCloseModalListener()
   }
+
+  public onSendClientReportClick = (): void => {
+    this.isSubmitted = true
+    if (this.isClientReportValid())
+      this.sendClientReport(this.sueId, this.clientReportMessage)
+  }
+
+  public sendClientReport = (sueId: string, message: string): void => {
+    this.isSendingClientReport = true
+    this.ServiceApi.postExpertComplaintRoute(sueId, {message}).then(() => {
+      this.topAlertService.success({
+        message:
+          this.translatorService.translate(
+            'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.REPORT_CLIENT.CONFIRM_MESSAGE'),
+        timeout: 2
+      })
+      this.isClientReportSent = true
+    }).catch((error) => {
+      this.errorHandler.handleServerError(error, 'Can not send report client')
+    }).finally(() => {
+      this.isSendingClientReport = false
+    })
+  }
+
+  public isClientReportValid = (): boolean => this.clientReportMessage.length >=
+    ConsultationSummaryExpertController.minValidClientReportMessageLength
+
+  public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel')
 
   private onCallSummary = (callSummary: ExpertCallSummary): void => {
     if (callSummary.service.id === this.$scope.serviceId) {
@@ -81,6 +124,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
       this.serviceName = this.callSummary.service.name
       this.profit = this.callSummary.profit
       this.callDuration = this.callSummary.callDuration
+      this.sueId = this.callSummary.serviceUsageEventId
     }
   }
 
@@ -88,5 +132,16 @@ export class ConsultationSummaryExpertController implements ng.IController {
     const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
     callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
       ? this.onCallSummary(callSummary) : undefined
+  }
+
+  private addCloseModalListener = (): void => {
+    this.$scope.$on('modal.closing', (event: IAngularEvent) => {
+      const confirmWindowMessage: string =
+        this.translatorService
+          .translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.REPORT_CLIENT.CONFIRM_MESSAGE')
+      if (!confirm(confirmWindowMessage)) {
+        event.preventDefault()
+      }
+    })
   }
 }

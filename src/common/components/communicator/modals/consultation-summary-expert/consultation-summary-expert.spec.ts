@@ -1,16 +1,24 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ViewsApi} from 'profitelo-api-ng/api/api'
+import {ViewsApi, ServiceApiMock} from 'profitelo-api-ng/api/api'
 import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertControllerScope
 } from './consultation-summary-expert.controller'
 import consultationSummaryExpertModule from './consultation-summary-expert'
+import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import {httpCodes} from '../../../../classes/http-codes'
+import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 
 describe('Testing Controller: consultationSummaryExpertController', () => {
 
-  let expertConsultationDetails: ConsultationSummaryExpertController
+  let consultationSummaryExpertController: ConsultationSummaryExpertController
   let scope: IConsultationSummaryExpertControllerScope
+  let serviceApiMock: ServiceApiMock
+  let errorHandler: ErrorHandlerService
+  let $httpBackend: ng.IHttpBackendService
+  let topAlertService: TopAlertService
+
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
@@ -20,18 +28,28 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
+    $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
   }))
 
-  beforeEach(() => {
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
-            _ViewsApi_: ViewsApi) => {
+  beforeEach(() => {inject(($rootScope: IRootScopeService,
+            $controller: ng.IControllerService,
+            _$httpBackend_: ng.IHttpBackendService,
+            _ViewsApi_: ViewsApi,
+            _ServiceApiMock_: ServiceApiMock,
+            _errorHandler_: ErrorHandlerService,
+            _topAlertService_: TopAlertService) => {
 
       scope = <IConsultationSummaryExpertControllerScope>$rootScope.$new()
       scope.serviceId = '123'
+      serviceApiMock = _ServiceApiMock_
+      errorHandler = _errorHandler_
+      $httpBackend = _$httpBackend_
+      topAlertService = _topAlertService_
 
-      expertConsultationDetails = $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
+      consultationSummaryExpertController =
+        $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
         $scope: scope,
-        $uibModalInstance: $uibModalInstance,
+        $uibModalInstance,
         httpBackend: _$httpBackend_,
         ViewsApi: _ViewsApi_
       })
@@ -39,12 +57,40 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   })
 
   it('should exists', () => {
-    return expect(!!expertConsultationDetails).toBe(true)
+    expect(!!consultationSummaryExpertController).toBe(true)
   })
 
   it('should uibModalInstance', () => {
-    expertConsultationDetails.onModalClose()
+    consultationSummaryExpertController.onModalClose()
     expect($uibModalInstance.dismiss).toHaveBeenCalled()
+  })
+
+  it('should client report message be valid', () => {
+    consultationSummaryExpertController.clientReportMessage = 'message'
+    expect(consultationSummaryExpertController.isClientReportValid()).toEqual(true)
+  })
+
+  it('should send client report', () => {
+    spyOn(topAlertService, 'success')
+    serviceApiMock.postExpertComplaintRoute(httpCodes.ok, 'sueId', {})
+    consultationSummaryExpertController.sendClientReport('sueId', 'message')
+    $httpBackend.flush()
+    expect(topAlertService.success).toHaveBeenCalled()
+  })
+
+  it('should show error when send client report failed', () => {
+    spyOn(errorHandler, 'handleServerError')
+    serviceApiMock.postExpertComplaintRoute(httpCodes.notFound, 'sueId')
+    consultationSummaryExpertController.sendClientReport('sueId', 'message')
+    $httpBackend.flush()
+    expect(errorHandler.handleServerError).toHaveBeenCalled()
+  })
+
+  it('should invoke send report function if report message is valid', () => {
+    spyOn(consultationSummaryExpertController, 'sendClientReport')
+    consultationSummaryExpertController.clientReportMessage = 'message'
+    consultationSummaryExpertController.onSendClientReportClick()
+    expect(consultationSummaryExpertController.sendClientReport).toHaveBeenCalled()
   })
 
 })

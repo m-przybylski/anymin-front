@@ -1,4 +1,4 @@
-.modal-summary
+.modal-summary.expert-call-summary
   .modal-main.container-medium
     top-modal-navbar(data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
@@ -47,18 +47,24 @@
 
       collapse-btn.report-client(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
+      data-ng-hide="vm.isClientReportSent"
       )
-        textarea-primary(
-        data-ng-model="vm.clientReportModel"
-        data-id="client_report"
-        data-input-text="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.TEXTAREA.LABEL"
-        data-max-length="600"
+        preloader-container(
+        data-is-loading="vm.isSendingClientReport"
         )
+          textarea-primary(
+          data-ng-model="vm.clientReportMessage"
+          data-id="client_report"
+          data-input-text="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.REPORT_CLIENT.TEXTAREA_LABEL"
+          data-max-length="600"
+          data-is-submitted="vm.isSubmitted"
+          )
 
-        .btn-group
-          button.btn.btn-primary(
-          data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
+          .btn-group
+            button.btn.btn-primary(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
 
-          button.btn.btn-default(
-          data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
-
+            button.btn.btn-default(
+            data-ng-disabled="!vm.isClientReportValid()"
+            data-ng-click="vm.onSendClientReportClick()"
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
