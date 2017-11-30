@@ -34,9 +34,10 @@ export class PayoutsPayPalController implements ng.IController {
   }
 
   public addPayPalAccount = (): void => {
-    this.PayoutsApi.postPayPalAccountPayoutMethodRoute({
-      email: this.payPalEmail,
-      isDefault: true
+    this.PayoutsApi.putPayoutMethodRoute({
+      payPalAccount: {
+        email: this.payPalEmail
+      }
     }).then(this.onPostPayPalAccountSucceed, this.onPostPayPalAccountError)
   }
 
