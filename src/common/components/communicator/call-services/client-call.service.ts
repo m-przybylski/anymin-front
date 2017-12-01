@@ -1,8 +1,6 @@
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
 import {GetSUERatelCall} from 'profitelo-api-ng/model/models';
 import {CommunicatorService} from '../communicator.service';
-import {CallbacksService} from '../../../services/callbacks/callbacks.service';
-import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CurrentClientCall} from '../models/current-client-call';
 import {SoundsService} from '../../../services/sounds/sounds.service';
@@ -12,17 +10,15 @@ import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
 import {CallState} from '../models/current-call'
+import {Subject} from 'rxjs/Subject'
 
 export class ClientCallService {
 
   private navigatorWrapper = new NavigatorWrapper();
 
   private call?: ng.IPromise<CurrentClientCall>;
-  private callbacks: CallbacksService;
 
-  private static readonly events = {
-    onNewCall: 'onNewCall'
-  };
+  private readonly onNewCallSubject = new Subject<CurrentClientCall>()
 
   /* @ngInject */
   constructor(private communicatorService: CommunicatorService,
@@ -32,15 +28,12 @@ export class ClientCallService {
               private RatelApi: RatelApi,
               private soundsService: SoundsService,
               private modalsService: ModalsService,
-              private callbacksFactory: CallbacksFactory,
               private $q: ng.IQService,
               private profiteloWebsocket: ProfiteloWebsocketService) {
-
-    this.callbacks = callbacksFactory.getInstance(Object.keys(ClientCallService.events))
   }
 
   public onNewCall = (cb: (call: CurrentClientCall) => void): void => {
-    this.callbacks.methods.onNewCall(cb);
+    this.onNewCallSubject.subscribe(cb);
   }
 
   public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
@@ -85,7 +78,7 @@ export class ClientCallService {
   }
 
   private onCreateCallSuccess = (call: CurrentClientCall): CurrentClientCall => {
-    this.callbacks.notify(ClientCallService.events.onNewCall, call);
+    this.onNewCallSubject.next(call);
     this.soundsService.callConnectingSound().play();
     call.onRejected(this.onConsultationUnavailable);
     call.onEnd(() => this.onCallEnd(call.getService().id));
@@ -110,7 +103,7 @@ export class ClientCallService {
       .then((stream) =>
         this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
           this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
-            new CurrentClientCall(this.timerFactory, this.callbacksFactory, ratelCall, stream,
+            new CurrentClientCall(this.timerFactory, ratelCall, stream,
               sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi,
               this.communicatorService, sur.expert)))
       )

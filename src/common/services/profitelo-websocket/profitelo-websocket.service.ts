@@ -1,24 +1,21 @@
-import {CallbacksFactory} from '../callbacks/callbacks.factory'
-import {CallbacksService} from '../callbacks/callbacks.service'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {UserService} from '../user/user.service'
 import {EventsService} from '../events/events.service'
 import {CallSummaryWebsocketObject} from '../../models/CallSummary'
+import {Subject} from 'rxjs/Subject'
 
 export class ProfiteloWebsocketService {
-
-  private callbacks: CallbacksService
   private websocket: WebSocket
   private wsEndpoint: string
 
   private static reconnectTimeout = 1000
-  private static readonly events = {
-    onCallSummary: 'onCallSummary',
-    onInit: 'onInit',
-    onOneMinuteLeftWarning: 'onOneMinuteLeftWarning',
-    onNewFinancialOperation: 'onNewFinancialOperation',
-    onClientCallCost: 'onClientCallCost',
-    onProfileCallProfit: 'onProfileCallProfit'
+  private readonly events = {
+    onInit: new Subject<void>(),
+    onCallSummary: new Subject<CallSummaryWebsocketObject>(),
+    onOneMinuteLeftWarning: new Subject<void>(),
+    onNewFinancialOperation: new Subject<any>(),
+    onClientCallCost: new Subject<any>(),
+    onProfileCallProfit: new Subject<any>()
   }
 
   /* @ngInject */
@@ -26,9 +23,7 @@ export class ProfiteloWebsocketService {
               private userService: UserService,
               private eventsService: EventsService,
               private $timeout: ng.ITimeoutService,
-              callbacksFactory: CallbacksFactory,
               CommonConfig: CommonConfig) {
-    this.callbacks = callbacksFactory.getInstance(Object.keys(ProfiteloWebsocketService.events))
     this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'
     this.eventsService.on('login', this.connectWebsocket)
     this.eventsService.on('logout', this.disconnectWebsocket)
@@ -53,31 +48,31 @@ export class ProfiteloWebsocketService {
   }
 
   public onInit = (callback: () => void): void => {
-    this.callbacks.methods.onInit(callback)
+    this.events.onInit.subscribe(callback)
   }
 
   public onCallSummary = (callback: (data: CallSummaryWebsocketObject) => void): void => {
-    this.callbacks.methods.onCallSummary(callback)
+    this.events.onCallSummary.subscribe(callback)
   }
 
   public onOneMinuteLeftWarning = (callback: () => void): void => {
-    this.callbacks.methods.onOneMinuteLeftWarning(callback)
+    this.events.onOneMinuteLeftWarning.subscribe(callback)
   }
 
   public onNewFinancialOperation = (callback: (data: any) => void): void => {
-    this.callbacks.methods.onNewFinancialOperation(callback)
+    this.events.onNewFinancialOperation.subscribe(callback)
   }
 
   public onClientCallCost = (callback: (data: any) => void): void => {
-    this.callbacks.methods.onClientCallCost(callback)
+    this.events.onClientCallCost.subscribe(callback)
   }
 
   public onProfileCallProfit = (callback: (data: any) => void): void => {
-    this.callbacks.methods.onProfileCallProfit(callback)
+    this.events.onProfileCallProfit.subscribe(callback)
   }
 
   private onSocketOpen = (): void => {
-    this.callbacks.notify(ProfiteloWebsocketService.events.onInit, null)
+    this.events.onInit.next()
   }
 
   private handleMessageType = (data: any): void => {
@@ -86,19 +81,19 @@ export class ProfiteloWebsocketService {
 
     switch (type) {
       case 'CALL_SUMMARY':
-        this.callbacks.notify(ProfiteloWebsocketService.events.onCallSummary, value)
+        this.events.onCallSummary.next(value)
         break
       case 'ONE_MINUTE_LEFT_WARNING':
-        this.callbacks.notify(ProfiteloWebsocketService.events.onOneMinuteLeftWarning, value)
+        this.events.onOneMinuteLeftWarning.next(value)
         break
       case 'NEW_FINANCIAL_OPERATION':
-        this.callbacks.notify(ProfiteloWebsocketService.events.onNewFinancialOperation, value)
+        this.events.onNewFinancialOperation.next(value)
         break
       case 'CLIENT_CALL_COST':
-        this.callbacks.notify(ProfiteloWebsocketService.events.onClientCallCost, value)
+        this.events.onClientCallCost.next(value)
         break
       case 'PROFILE_CALL_PROFIT':
-        this.callbacks.notify(ProfiteloWebsocketService.events.onProfileCallProfit, value)
+        this.events.onProfileCallProfit.next(value)
         break
       default:
         this.$log.info('Unknown messageType ' + type)

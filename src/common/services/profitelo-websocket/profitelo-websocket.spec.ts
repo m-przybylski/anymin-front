@@ -1,11 +1,9 @@
 import * as angular from 'angular'
 import profiteloWebsocketModule from './profitelo-websocket'
 import {ProfiteloWebsocketService} from './profitelo-websocket.service'
-import {CallbacksService} from '../callbacks/callbacks.service'
 import IQService = angular.IQService
 import userModule from '../user/user'
 import eventsModule from '../events/events'
-import callbacksModule from '../callbacks/callbacks'
 
 describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
   describe('for profitelo.services.profiteloWebsocket >', () => {
@@ -25,16 +23,9 @@ describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
       }
     }
 
-    const callbacksFactory: any = {
-      getInstance: (keys: string[]): CallbacksService => {
-        return new CallbacksService(this.$timeout, keys)
-      }
-    }
-
     beforeEach(() => {
       angular.mock.module(userModule)
       angular.mock.module(eventsModule)
-      angular.mock.module(callbacksModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -44,8 +35,6 @@ describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('userService', userService)
       $provide.value('eventsService', eventsService)
-      $provide.value('callbacksService', CallbacksService)
-      $provide.value('callbacksFactory', callbacksFactory)
     }))
 
     beforeEach(() => {

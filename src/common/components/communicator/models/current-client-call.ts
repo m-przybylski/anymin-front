@@ -1,7 +1,6 @@
 import * as RatelSdk from 'ratel-sdk-js';
 import {RatelApi} from 'profitelo-api-ng/api/api';
 import {ServiceUsageEvent, GetProfile, GetService} from 'profitelo-api-ng/model/models';
-import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
@@ -10,7 +9,6 @@ import {CommunicatorService} from '../communicator.service'
 export class CurrentClientCall extends CurrentCall {
 
   constructor(timerFactory: TimerFactory,
-              callbacksFactory: CallbacksFactory,
               call: RatelSdk.BusinessCall,
               localStream: MediaStream,
               service: GetService,
@@ -20,19 +18,19 @@ export class CurrentClientCall extends CurrentCall {
               communicatorService: CommunicatorService,
               private expert: GetProfile) {
 
-    super(callbacksFactory, soundsService, call, timerFactory, service, sue, communicatorService, RatelApi);
+    super(soundsService, call, timerFactory, service, sue, communicatorService, RatelApi);
     this.setLocalStream(localStream);
     this.ratelCall.addStream(localStream);
 
     this.setState(CallState.NEW);
 
     call.onRejected(() => {
-      this.callbacks.notify(CurrentCall.events.onRejected)
+      this.events.onRejected.next()
       this.setState(CallState.REJECTED)
     });
     call.onAnswered(() => {
       this.startTimer()
-      this.callbacks.notify(CurrentCall.events.onAnswered)
+      this.events.onAnswered.next()
       this.setState(CallState.PENDING)
     });
 
@@ -41,11 +39,11 @@ export class CurrentClientCall extends CurrentCall {
   public getExpert = (): GetProfile => this.expert
 
   public onAnswered = (cb: () => void): void => {
-    this.callbacks.methods.onAnswered(cb);
+    this.events.onAnswered.subscribe(cb);
   }
 
   public onRejected = (cb: () => void): void => {
-    this.callbacks.methods.onRejected(cb);
+    this.events.onRejected.subscribe(cb);
   }
 
 }

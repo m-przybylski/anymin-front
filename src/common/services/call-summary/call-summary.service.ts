@@ -1,30 +1,25 @@
-import {CallbacksService} from '../callbacks/callbacks.service'
-import {CallbacksFactory} from '../callbacks/callbacks.factory'
 import {CallSummary, CallSummaryWebsocketObject} from '../../models/CallSummary'
 import * as _ from 'lodash'
 import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websocket.service'
 import {ExpertCallSummary} from '../../models/ExpertCallSummary'
 import {ClientCallSummary} from '../../models/ClientCallSummary'
+import {Subject} from 'rxjs/Subject'
 
 export class CallSummaryService {
 
   private callSummaries: CallSummary[]
-  private callbacks: CallbacksService
 
-  private static readonly events = {
-    onCallSummary: 'onCallSummary'
-  }
+  private readonly onCallSummarySubject = new Subject<CallSummary>();
 
   /* @ngInject */
-  constructor(callbacksFactory: CallbacksFactory, profiteloWebsocket: ProfiteloWebsocketService) {
+  constructor(profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callSummaries = []
-    this.callbacks = callbacksFactory.getInstance(Object.keys(CallSummaryService.events))
     profiteloWebsocket.onCallSummary(this.onNewCallSummary)
   }
 
   public onCallSummary = (callback: (callSummary: CallSummary) => void): void => {
-    this.callbacks.methods.onCallSummary(callback)
+    this.onCallSummarySubject.subscribe(callback)
   }
 
   public takeCallSummary = (serviceId: string): CallSummary | undefined => {
@@ -42,6 +37,6 @@ export class CallSummaryService {
 
   private onNewCallSummary = (data: CallSummaryWebsocketObject): void => {
     this.callSummaries.push(data.callSummary)
-    this.callbacks.notify(CallSummaryService.events.onCallSummary, data.callSummary)
+    this.onCallSummarySubject.next(data.callSummary)
   }
 }
