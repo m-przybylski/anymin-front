@@ -43,6 +43,43 @@
 				+default-font-regular
 				color: $c-white
 
+
+	&.is-edge
+		.container-small
+			.rtc-detector-content
+				width: 100%
+				margin: auto
+				padding: 0
+				left: 0
+				right: 0
+				justify-content: flex-start
+				flex-direction: row-reverse
+
+				+smm
+					padding: 0 72px 0 0
+
+				+mdm
+					width: 960px
+
+
+				.rtc-image
+					margin: 0 0 24px
+					display: flex
+					flex: inherit
+					flex-direction: row-reverse
+					justify-content: center
+					padding: 0
+
+					+smm
+						padding: 40px 0 0 80px
+						justify-content: inherit
+						margin: 0
+
+					img
+						&.arrow
+							position: relative
+							transform: scale(-1)
+
 	.rtc-unsupported
 		text-align: center
 

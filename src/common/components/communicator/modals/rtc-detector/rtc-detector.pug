@@ -1,6 +1,6 @@
-.rtc-detector
+.rtc-detector(data-ng-class="{'is-edge': vm.isEdge}")
   .container-small
-    .rtc-detector-content
+    .rtc-detector-content(data-ng-style="vm.iconPosition")
       .rtc-image
         img.arrow(data-ng-src="/assets/images/profitelo_icons/arrow.png")
         img(data-ng-src="/assets/images/profitelo_icons/camera-allow.png")
@@ -8,3 +8,4 @@
       .rtc-header
         h2 {{:: 'COMMUNICATOR.MODALS.RTC.TITLE' | translate }}
         span {{:: 'COMMUNICATOR.MODALS.RTC.DESCRIPTION' | translate }}
+

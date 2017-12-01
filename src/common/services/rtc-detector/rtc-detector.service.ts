@@ -35,7 +35,7 @@ export class RtcDetectorService {
           reject()
         })
       }, () => {
-        if (DetectRTC.browser.isIe || DetectRTC.browser.isEdge)
+        if (DetectRTC.browser.isIe)
           this.modalsService.createBrowserDoesNotSupportRtcModal()
         else
           this.getUserMedia(resolve, reject)
