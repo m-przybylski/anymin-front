@@ -44,6 +44,7 @@ import profiteloWebsocketModule from '../common/services/profitelo-websocket/pro
 import pagePreloaderModule from '../common/components/interface/page-preloader/page-preloader'
 import activeCallBarModule from '../common/components/communicator/active-call-bar/active-call-bar'
 import toggleClassOnPullCall from '../common/directives/toggle-class-on-pull-call/toggle-class-on-pull-call'
+import cookieNotificationModule from '../common/components/cookie-notification/cookie-notification'
 
 declare const Raven: any
 
@@ -88,6 +89,7 @@ angular.module('profitelo', [
   // components
   pagePreloaderModule,
   activeCallBarModule,
+  cookieNotificationModule,
 
   // directives
   'profitelo.components.interface.preloader-container',
