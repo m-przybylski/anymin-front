@@ -97,13 +97,11 @@ export class ExpertCallService {
   public pullCall = (): void => {
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
     .then(localStream => {
-      if (this.currentExpertCall) return this.currentExpertCall.pull(localStream)
-      else throw new Error('Call does not exist')
+      if (this.currentExpertCall) {
+        this.currentExpertCall.pull(localStream)
+        this.onCallPulled(this.currentExpertCall)
+      } else throw new Error('Call does not exist')
     }, this.onGetUserMediaStreamFailure)
-    .then(() => {
-      if (this.currentExpertCall) this.onCallPulled(this.currentExpertCall)
-      else throw new Error('Call does not exist')
-    })
     .catch((error) => {
       this.$log.error(error);
     })
