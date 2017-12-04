@@ -106,6 +106,7 @@ export class ServiceFormModalController implements ng.IController {
 
   public saveConsultation = (): void => {
    if (this.isFormValid()) {
+     this.isLoading = true
      if (this.serviceDetails) {
        this.ServiceApi.putServiceRoute(this.serviceDetails.service.id, this.createServiceModel()).then(() => {
          this.onModalCloseCallback()
@@ -214,6 +215,7 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   private onReject = (error: any): void => {
+    this.isLoading = false
     this.errorHandler.handleServerError(error, 'Can not save consultation',
       'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE')
   }
