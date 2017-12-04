@@ -9,6 +9,7 @@ import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper'
 import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class ExpertCallService {
 
@@ -34,18 +35,14 @@ export class ExpertCallService {
     communicatorService.onCallInvitation(this.onExpertCallIncoming)
   }
 
-  public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): void => {
+  public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
     this.events.onNewCall.subscribe(cb);
-  }
 
-  public onCallPull = (cb: (currentExpertCall: CurrentExpertCall) => void): void => {
+  public onCallPull = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
     this.events.onCallPull.subscribe(cb);
-  }
 
-  public onCallTaken =
-    (cb: (activeDevice: CallActiveDevice) => void): void => {
+  public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
       this.events.onCallTaken.subscribe(cb)
-    }
 
   private onExpertCallIncoming = (callInvitation: RatelSdk.events.CallInvitation): void => {
     if (!this.currentExpertCall) {

@@ -11,6 +11,7 @@ import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-const
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
 import {CallState} from '../models/current-call'
 import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class ClientCallService {
 
@@ -32,9 +33,8 @@ export class ClientCallService {
               private profiteloWebsocket: ProfiteloWebsocketService) {
   }
 
-  public onNewCall = (cb: (call: CurrentClientCall) => void): void => {
+  public onNewCall = (cb: (call: CurrentClientCall) => void): Subscription =>
     this.onNewCallSubject.subscribe(cb);
-  }
 
   public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
     if (this.call) return this.$q.reject('There is a call already');
@@ -51,10 +51,10 @@ export class ClientCallService {
     return this.call;
   }
 
-  public onOneMinuteLeftWarning = (callback: () => void): void =>
+  public onOneMinuteLeftWarning = (callback: () => void): Subscription =>
     this.profiteloWebsocket.onOneMinuteLeftWarning(callback)
 
-  public onNewFinancialOperation = (callback: (data: any) => void): void =>
+  public onNewFinancialOperation = (callback: (data: any) => void): Subscription =>
     this.profiteloWebsocket.onNewFinancialOperation(callback)
 
   private onSuspendedCallEnd = (serviceId: string): void => {

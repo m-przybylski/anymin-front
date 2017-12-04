@@ -3,6 +3,7 @@ import {SoundsService} from '../../../services/sounds/sounds.service';
 import {Message} from 'ratel-sdk-js'
 import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class MessageRoom {
 
@@ -50,8 +51,7 @@ export class MessageRoom {
     }
   }
 
-  public sendMessage =
-    (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
+  public sendMessage = (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
     if (this.room) {
       return this.room.sendCustom(msg, 'MESSAGE', context)
     } else {
@@ -82,17 +82,14 @@ export class MessageRoom {
     }
   }
 
-  public onTyping = (cb: () => void): void => {
+  public onTyping = (cb: () => void): Subscription =>
     this.events.onTyping.subscribe(cb)
-  }
 
-  public onMark = (cb: (roomMark: RatelSdk.events.RoomMark) => void): void => {
+  public onMark = (cb: (roomMark: RatelSdk.events.RoomMark) => void): Subscription =>
     this.events.onMark.subscribe(cb)
-  }
 
-  public onMessage = (cb: (msg: RatelSdk.Message) => void): void => {
+  public onMessage = (cb: (msg: RatelSdk.Message) => void): Subscription =>
     this.events.onMessage.subscribe(cb)
-  }
 
   private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
     room.onTyping(() => this.events.onTyping.next())

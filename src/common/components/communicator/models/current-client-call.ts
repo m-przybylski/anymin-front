@@ -5,6 +5,7 @@ import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CommunicatorService} from '../communicator.service'
+import {Subscription} from 'rxjs/Subscription'
 
 export class CurrentClientCall extends CurrentCall {
 
@@ -38,12 +39,10 @@ export class CurrentClientCall extends CurrentCall {
 
   public getExpert = (): GetProfile => this.expert
 
-  public onAnswered = (cb: () => void): void => {
+  public onAnswered = (cb: () => void): Subscription =>
     this.events.onAnswered.subscribe(cb);
-  }
 
-  public onRejected = (cb: () => void): void => {
+  public onRejected = (cb: () => void): Subscription =>
     this.events.onRejected.subscribe(cb);
-  }
 
 }

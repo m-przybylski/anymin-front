@@ -6,6 +6,7 @@ import {CommonConfig, Settings} from '../../../../generated_modules/common-confi
 import {EventsService} from '../../services/events/events.service'
 import {Call} from 'ratel-sdk-js/dist/call'
 import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class CommunicatorService {
 
@@ -143,16 +144,13 @@ export class CommunicatorService {
   public getClientDeviceId = (): string | undefined =>
     this.ratelDeviceId;
 
-  public onCallInvitation = (callback: (callInvitation: RatelSdk.events.CallInvitation) => void): void => {
+  public onCallInvitation = (callback: (callInvitation: RatelSdk.events.CallInvitation) => void): Subscription =>
     this.events.onCallInvitation.subscribe(callback)
-  }
 
-  public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): void => {
+  public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): Subscription =>
     this.events.onRoomInvitation.subscribe(callback)
-  }
 
-  public onReconnectActiveCalls = (callback: (activeCalls: Call[]) => void): void => {
+  public onReconnectActiveCalls = (callback: (activeCalls: Call[]) => void): Subscription =>
     this.events.onReconnectActiveCalls.subscribe(callback)
-  }
 
 }

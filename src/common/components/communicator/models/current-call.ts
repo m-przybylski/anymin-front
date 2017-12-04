@@ -11,6 +11,7 @@ import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 import {CommunicatorService} from '../communicator.service'
 import * as _ from 'lodash'
 import {Subject} from 'rxjs'
+import {Subscription} from 'rxjs/Subscription'
 
 export enum CallState {
   NEW,
@@ -89,16 +90,14 @@ export class CurrentCall {
     this.streamManager = new StreamManager(this.localStream, new MediaStreamConstraintsWrapper());
   }
 
-  public onEnd = (cb: () => void): void => {
+  public onEnd = (cb: () => void): Subscription =>
     this.events.onEnd.subscribe(() => {
       this.stopLocalStream()
       cb()
     });
-  }
 
-  public onRejected = (cb: () => void): void => {
+  public onRejected = (cb: () => void): Subscription =>
     this.events.onRejected.subscribe(cb);
-  }
 
   public getService = (): GetService =>
     this.service;
@@ -140,21 +139,17 @@ export class CurrentCall {
     if (this.streamManager) this.updateLocalStream(this.streamManager.removeAudio());
   }
 
-  public onTimeCostChange = (cb: (data: { time: number, money: MoneyDto }) => void): void => {
+  public onTimeCostChange = (cb: (data: { time: number, money: MoneyDto }) => void): Subscription =>
     this.events.onTimeCostChange.subscribe(cb)
-  }
 
-  public onVideoStart = (cb: () => void): void => {
+  public onVideoStart = (cb: () => void): Subscription =>
     this.events.onVideoStart.subscribe(cb)
-  }
 
-  public onVideoStop = (cb: () => void): void => {
+  public onVideoStop = (cb: () => void): Subscription =>
     this.events.onVideoStop.subscribe(cb)
-  }
 
-  public onRemoteStream = (cb: (stream: MediaStream) => void): void => {
+  public onRemoteStream = (cb: (stream: MediaStream) => void): Subscription =>
     this.events.onRemoteStream.subscribe(cb)
-  }
 
   public getState = (): CallState => this.state
 
@@ -162,12 +157,11 @@ export class CurrentCall {
     this.state = state;
   }
 
-  public onAnswered = (cb: () => void): void => {
+  public onAnswered = (cb: () => void): Subscription =>
     this.events.onAnswered.subscribe(cb);
-  }
 
   protected startTimer = (): void => {
-    if (this.timer) this.timer.start(this.onTimeMoneyChange)
+    if (this.timer) this.timer.start(this.emitTimeMoneyChange)
   }
 
   protected stopTimer = (): void => {
@@ -188,15 +182,17 @@ export class CurrentCall {
 
   public pullCall = (mediaStream: MediaStream): Promise<void> => this.ratelCall.pull(mediaStream)
 
-  public onParticipantOnline = (cb: () => void): void => {this.events.onParticipantOnline.subscribe(cb)}
+  public onParticipantOnline = (cb: () => void): Subscription =>
+    this.events.onParticipantOnline.subscribe(cb)
 
-  public onParticipantOffline = (cb: () => void): void => {this.events.onParticipantOffline.subscribe(cb)}
+  public onParticipantOffline = (cb: () => void): Subscription =>
+    this.events.onParticipantOffline.subscribe(cb)
 
-  public onLeft = (cb: () => void): void => {
+  public onLeft = (cb: () => void): Subscription =>
     this.events.onLeft.subscribe(cb)
-  }
 
-  public onSuspendedCallEnd = (cb: () => void): void => {this.events.onSuspendedCallEnd.subscribe(cb)}
+  public onSuspendedCallEnd = (cb: () => void): Subscription =>
+    this.events.onSuspendedCallEnd.subscribe(cb)
 
   private updateLocalStream = (mediaStream: MediaStream, stopLocalStream?: () => void): void => {
     if (this.localStream) {
@@ -212,12 +208,11 @@ export class CurrentCall {
 
   public getLocalStream = (): MediaStream | undefined => this.localStream
 
-  public onLocalStream = (cb: (stream: MediaStream) => void): void => {
+  public onLocalStream = (cb: (stream: MediaStream) => void): Subscription =>
     this.events.onLocalStream.subscribe(cb);
-  }
 
-  public onCallTaken =
-    (cb: (activeDevice: CallActiveDevice) => void): void => {this.events.onCallTaken.subscribe(cb)}
+  public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
+    this.events.onCallTaken.subscribe(cb)
 
   private registerCallbacks = (): void => {
     this.ratelCall.onAnswered(() => this.events.onAnswered.next())
@@ -281,7 +276,7 @@ export class CurrentCall {
     this.timer = this.timerFactory.getInstance(
       price, freeMinutesCount, CurrentCall.moneyChangeNotificationInterval)
 
-  private onTimeMoneyChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void =>
+  private emitTimeMoneyChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void =>
     this.events.onTimeCostChange.next(timeMoneyTuple)
 
   private stopLocalStream = (): void => {

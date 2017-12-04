@@ -3,6 +3,7 @@ import {UserService} from '../user/user.service'
 import {EventsService} from '../events/events.service'
 import {CallSummaryWebsocketObject} from '../../models/CallSummary'
 import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class ProfiteloWebsocketService {
   private websocket: WebSocket
@@ -47,29 +48,23 @@ export class ProfiteloWebsocketService {
     }
   }
 
-  public onInit = (callback: () => void): void => {
+  public onInit = (callback: () => void): Subscription =>
     this.events.onInit.subscribe(callback)
-  }
 
-  public onCallSummary = (callback: (data: CallSummaryWebsocketObject) => void): void => {
+  public onCallSummary = (callback: (data: CallSummaryWebsocketObject) => void): Subscription =>
     this.events.onCallSummary.subscribe(callback)
-  }
 
-  public onOneMinuteLeftWarning = (callback: () => void): void => {
+  public onOneMinuteLeftWarning = (callback: () => void): Subscription =>
     this.events.onOneMinuteLeftWarning.subscribe(callback)
-  }
 
-  public onNewFinancialOperation = (callback: (data: any) => void): void => {
+  public onNewFinancialOperation = (callback: (data: any) => void): Subscription =>
     this.events.onNewFinancialOperation.subscribe(callback)
-  }
 
-  public onClientCallCost = (callback: (data: any) => void): void => {
+  public onClientCallCost = (callback: (data: any) => void): Subscription =>
     this.events.onClientCallCost.subscribe(callback)
-  }
 
-  public onProfileCallProfit = (callback: (data: any) => void): void => {
+  public onProfileCallProfit = (callback: (data: any) => void): Subscription =>
     this.events.onProfileCallProfit.subscribe(callback)
-  }
 
   private onSocketOpen = (): void => {
     this.events.onInit.next()

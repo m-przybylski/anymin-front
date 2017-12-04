@@ -4,6 +4,7 @@ import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websoc
 import {ExpertCallSummary} from '../../models/ExpertCallSummary'
 import {ClientCallSummary} from '../../models/ClientCallSummary'
 import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class CallSummaryService {
 
@@ -18,9 +19,8 @@ export class CallSummaryService {
     profiteloWebsocket.onCallSummary(this.onNewCallSummary)
   }
 
-  public onCallSummary = (callback: (callSummary: CallSummary) => void): void => {
+  public onCallSummary = (callback: (callSummary: CallSummary) => void): Subscription =>
     this.onCallSummarySubject.subscribe(callback)
-  }
 
   public takeCallSummary = (serviceId: string): CallSummary | undefined => {
     const callSummary = _.find(this.callSummaries, callSummary => callSummary.service.id === serviceId)
