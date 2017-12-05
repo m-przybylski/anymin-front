@@ -11,7 +11,6 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
   public noUrl: boolean = false
   public label?: string
 
-  private httpAdded: boolean = false
   /* @ngInject */
   constructor(CommonSettingsService: CommonSettingsService) {
     this.urlPattern = CommonSettingsService.localSettings.urlPattern
@@ -30,14 +29,12 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
 
   public onAddLink = (): void => {
     this.urlExist = false
-    if (!this.linkModel.match(this.urlPattern) && this.httpAdded === false) {
+    if (!this.linkModel.match(this.urlPattern) && !this.isHttpAdded()) {
       this.linkModel = 'http://' + this.linkModel.toLowerCase()
-      this.httpAdded = true
     }
 
     if (this.urlPattern.test(this.linkModel)) {
       this.badUrl = false
-      this.httpAdded = false
       if (this.checkLinkExist(this.linkModel)) {
         this.urlExist = true
       } else {
@@ -47,8 +44,9 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
     } else {
       this.badUrl = true
       this.noUrl = false
-
     }
   }
+
+  private isHttpAdded = (): boolean => this.linkModel.includes('http://')
 
 }
