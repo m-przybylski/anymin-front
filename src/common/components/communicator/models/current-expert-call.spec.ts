@@ -34,7 +34,6 @@ describe('Unit tests: current expert call', () => {
       onOffline: () => {},
       onOnline: () => {},
       addStream: (_localStream: MediaStream) => {},
-
     }
   }
 
@@ -58,7 +57,7 @@ describe('Unit tests: current expert call', () => {
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_
     q = $q
-    currentExpertCall = new CurrentExpertCall(timerFactory, callInvitation, incomingCallDetails,
+    currentExpertCall = new CurrentExpertCall(timerFactory, callInvitation.call, incomingCallDetails,
        soundsService, communicatorService, RatelApi)
   })))
 

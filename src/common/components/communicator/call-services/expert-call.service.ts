@@ -71,7 +71,7 @@ export class ExpertCallService {
     if (!this.currentExpertCall) {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
-        const currentExpertCall = new CurrentExpertCall(this.timerFactory, callInvitation,
+        const currentExpertCall = new CurrentExpertCall(this.timerFactory, callInvitation.call,
           incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
 
         this.currentExpertCall = currentExpertCall;
