@@ -2,26 +2,25 @@ import {CommunicatorService} from '../communicator.service';
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
 import * as RatelSdk from 'ratel-sdk-js';
 import {ModalsService} from '../../../services/modals/modals.service';
-import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
-import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CurrentExpertCall} from '../models/current-expert-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper'
+import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
+
 export class ExpertCallService {
 
   private currentExpertCall?: CurrentExpertCall;
 
   private callingModal: ng.ui.bootstrap.IModalInstanceService;
 
-  private callbacks: CallbacksService;
-
-  private static readonly events = {
-    onNewCall: 'onNewCall',
-    onCallPull: 'onCallPull',
-    onCallTaken: 'onCallTaken'
+  private readonly events = {
+    onNewCall: new Subject<CurrentExpertCall>(),
+    onCallPull: new Subject<CurrentExpertCall>(),
+    onCallTaken: new Subject<CallActiveDevice>()
   };
 
   /* @ngInject */
@@ -31,30 +30,25 @@ export class ExpertCallService {
               private soundsService: SoundsService,
               private $log: ng.ILogService,
               private rtcDetectorService: RtcDetectorService,
-              private callbacksFactory: CallbacksFactory,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService) {
-
-    this.callbacks = callbacksFactory.getInstance(Object.keys(ExpertCallService.events))
     communicatorService.onCallInvitation(this.onExpertCallIncoming)
   }
 
-  public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): void => {
-    this.callbacks.methods.onNewCall(cb);
-  }
+  public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
+    this.events.onNewCall.subscribe(cb);
 
-  public onCallPull = (cb: (currentExpertCall: CurrentExpertCall) => void): void => {
-    this.callbacks.methods.onCallPull(cb);
-  }
+  public onCallPull = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
+    this.events.onCallPull.subscribe(cb);
 
-  public onCallTaken =
-    (cb: (activeDevice: CallActiveDevice) => void): void => this.callbacks.methods.onCallTaken(cb)
+  public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
+      this.events.onCallTaken.subscribe(cb)
 
   private onExpertCallIncoming = (callInvitation: RatelSdk.events.CallInvitation): void => {
     if (!this.currentExpertCall) {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
-        const currentExpertCall = new CurrentExpertCall(this.timerFactory, this.callbacksFactory, callInvitation,
+        const currentExpertCall = new CurrentExpertCall(this.timerFactory, callInvitation,
           incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
 
         this.currentExpertCall = currentExpertCall;
@@ -96,7 +90,7 @@ export class ExpertCallService {
     if (activeDevice.device !== this.communicatorService.getClientDeviceId()) {
       this.soundsService.callIncomingSound().stop()
       this.callingModal.dismiss();
-      this.callbacks.notify(ExpertCallService.events.onCallTaken, activeDevice)
+      this.events.onCallTaken.next(activeDevice)
     }
   }
 
@@ -119,7 +113,7 @@ export class ExpertCallService {
   private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
     .then(localStream => {
-      this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
+      this.events.onNewCall.next(currentExpertCall)
       currentExpertCall.answer(localStream)
       this.onCallAnswered(currentExpertCall)
     }, this.onGetUserMediaStreamFailure)
@@ -139,7 +133,7 @@ export class ExpertCallService {
       if (incomingCallDetails.sue.ratelRoomId)
         session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
           currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
-          this.callbacks.notify(ExpertCallService.events.onCallPull, currentExpertCall)
+          this.events.onCallPull.next(currentExpertCall)
         })
     })
   }

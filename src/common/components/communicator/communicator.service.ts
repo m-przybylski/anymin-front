@@ -1,27 +1,26 @@
 import {RatelApi} from 'profitelo-api-ng/api/api'
 import {SignedAgent} from 'profitelo-api-ng/model/models'
-import {CallbacksService} from '../../services/callbacks/callbacks.service'
-import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
 import * as RatelSdk from 'ratel-sdk-js'
 import {UserService} from '../../services/user/user.service'
 import {CommonConfig, Settings} from '../../../../generated_modules/common-config/common-config'
 import {EventsService} from '../../services/events/events.service'
 import {Call} from 'ratel-sdk-js/dist/call'
+import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class CommunicatorService {
 
   private commonConfig: Settings
   private chatConfig: RatelSdk.Config
-  private callbacks: CallbacksService
   private ratelSession?: RatelSdk.Session
   private ratelDeviceId?: string
 
-  private static readonly events = {
-    onCallInvitation: 'onCallInvitation',
-    onCallCreated: 'onCallCreated',
-    onRoomInvitation: 'onRoomInvitation',
-    onRoomCreated: 'onRoomCreated',
-    onReconnectActiveCalls: 'onReconnectActiveCalls'
+  private readonly events = {
+    onCallInvitation: new Subject<RatelSdk.events.CallInvitation>(),
+    onCallCreated: new Subject<RatelSdk.events.CallCreated>(),
+    onRoomInvitation: new Subject<RatelSdk.events.RoomInvitation>(),
+    onRoomCreated: new Subject<RatelSdk.events.RoomCreated>(),
+    onReconnectActiveCalls: new Subject<Call[]>(),
   }
 
   private createRatelConnection = (session: RatelSdk.Session): void => {
@@ -29,10 +28,10 @@ export class CommunicatorService {
     const chat = session.chat
 
     chat.onCallInvitation((callInvitation: RatelSdk.events.CallInvitation) =>
-      this.callbacks.notify(CommunicatorService.events.onCallInvitation, callInvitation))
+      this.events.onCallInvitation.next(callInvitation))
 
     chat.onCallCreated((callCreated: RatelSdk.events.CallCreated) =>
-      this.callbacks.notify(CommunicatorService.events.onCallCreated, callCreated))
+      this.events.onCallCreated.next(callCreated))
 
     chat.onConnect((hello: RatelSdk.events.Hello) => {
       this.ratelDeviceId = hello.deviceId;
@@ -50,10 +49,10 @@ export class CommunicatorService {
       this.$log.debug('Artichoke: onHeartBeat', res))
 
     chat.onRoomCreated((roomCreated: RatelSdk.events.RoomCreated) =>
-      this.callbacks.notify(CommunicatorService.events.onRoomCreated, roomCreated))
+      this.events.onRoomCreated.next(roomCreated))
 
     chat.onRoomInvitation((roomInvitation: RatelSdk.events.RoomInvitation) =>
-      this.callbacks.notify(CommunicatorService.events.onRoomInvitation, roomInvitation))
+      this.events.onRoomInvitation.next(roomInvitation))
 
     chat.connect()
   }
@@ -63,12 +62,10 @@ export class CommunicatorService {
               private RatelApi: RatelApi,
               userService: UserService,
               CommonConfig: CommonConfig,
-              callbacksFactory: CallbacksFactory,
               eventsService: EventsService,
               $window: ng.IWindowService) {
 
     this.commonConfig = CommonConfig.getAllData()
-    this.callbacks = callbacksFactory.getInstance(Object.keys(CommunicatorService.events))
     this.setChatConfig()
 
     userService.getUser().then(this.authenticate)
@@ -84,7 +81,7 @@ export class CommunicatorService {
         this.ratelSession.chat.connect()
         this.ratelSession.chat.getActiveCalls()
         .then((response) => {
-            this.callbacks.notify(CommunicatorService.events.onReconnectActiveCalls, response)
+            this.events.onReconnectActiveCalls.next(response)
         }, (error) => {
           this.$log.error(error)
         })
@@ -147,15 +144,13 @@ export class CommunicatorService {
   public getClientDeviceId = (): string | undefined =>
     this.ratelDeviceId;
 
-  public onCallInvitation = (callback: (callInvitation: RatelSdk.events.CallInvitation) => void): void => {
-    this.callbacks.methods.onCallInvitation(callback)
-  }
+  public onCallInvitation = (callback: (callInvitation: RatelSdk.events.CallInvitation) => void): Subscription =>
+    this.events.onCallInvitation.subscribe(callback)
 
-  public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): void => {
-    this.callbacks.methods.onRoomInvitation(callback)
-  }
+  public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): Subscription =>
+    this.events.onRoomInvitation.subscribe(callback)
 
-  public onReconnectActiveCalls = (callback: (activeCalls: Call[]) => void): void =>
-    this.callbacks.methods.onReconnectActiveCalls(callback)
+  public onReconnectActiveCalls = (callback: (activeCalls: Call[]) => void): Subscription =>
+    this.events.onReconnectActiveCalls.subscribe(callback)
 
 }

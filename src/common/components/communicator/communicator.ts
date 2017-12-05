@@ -3,7 +3,6 @@ import 'angular-translate'
 import 'angular-sanitize'
 import {CommunicatorComponent} from './communicator.component'
 import {CommunicatorService} from './communicator.service'
-import callbacksModule from '../../services/callbacks/callbacks'
 import apiModule from 'profitelo-api-ng/api.module'
 import userModule from '../../services/user/user'
 import urlModule from '../../services/url/url'
@@ -32,7 +31,6 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   apiModule,
   timerModule,
   userModule,
-  callbacksModule,
   modalsModule,
   eventsModule,
   soundsModule,
@@ -40,7 +38,6 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   navigationModule,
   'ngSanitize',
   'commonConfig',
-  callbacksModule,
   filtersModule,
   ratelSdkModule,
   translatorModule,

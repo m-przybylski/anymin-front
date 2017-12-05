@@ -1,26 +1,22 @@
 import * as RatelSdk from 'ratel-sdk-js';
-import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
-import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {Message} from 'ratel-sdk-js'
 import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
+import {Subject} from 'rxjs/Subject'
+import {Subscription} from 'rxjs/Subscription'
 
 export class MessageRoom {
 
   private static readonly chatHistoryLimit: number = 200
   public room?: RatelSdk.BusinessRoom
 
-  private callbacks: CallbacksService
-
-  private static readonly events = {
-    onTyping: 'onTyping',
-    onMark: 'onMark',
-    onMessage: 'onMessage'
+  private readonly events = {
+    onTyping: new Subject<void>(),
+    onMark: new Subject<RatelSdk.events.RoomMark>(),
+    onMessage: new Subject<RatelSdk.Message>()
   }
 
-  constructor(callbacksFactory: CallbacksFactory,
-              private soundsService: SoundsService) {
-    this.callbacks = callbacksFactory.getInstance(Object.keys(MessageRoom.events))
+  constructor(private soundsService: SoundsService) {
   }
 
   public getHistory = (): Promise<Paginated<Message>> => {
@@ -55,8 +51,7 @@ export class MessageRoom {
     }
   }
 
-  public sendMessage =
-    (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
+  public sendMessage = (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
     if (this.room) {
       return this.room.sendCustom(msg, 'MESSAGE', context)
     } else {
@@ -87,20 +82,20 @@ export class MessageRoom {
     }
   }
 
-  public onTyping = (cb: () => void): void =>
-    this.callbacks.methods.onTyping(cb)
+  public onTyping = (cb: () => void): Subscription =>
+    this.events.onTyping.subscribe(cb)
 
-  public onMark = (cb: (roomMark: RatelSdk.events.RoomMark) => void): void =>
-    this.callbacks.methods.onMark(cb)
+  public onMark = (cb: (roomMark: RatelSdk.events.RoomMark) => void): Subscription =>
+    this.events.onMark.subscribe(cb)
 
-  public onMessage = (cb: (msg: RatelSdk.Message) => void): void =>
-    this.callbacks.methods.onMessage(cb)
+  public onMessage = (cb: (msg: RatelSdk.Message) => void): Subscription =>
+    this.events.onMessage.subscribe(cb)
 
   private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
-    room.onTyping(() => this.callbacks.notify(MessageRoom.events.onTyping, null))
-    room.onMark((roomMark) => this.callbacks.notify(MessageRoom.events.onMark, roomMark))
+    room.onTyping(() => this.events.onTyping.next())
+    room.onMark((roomMark) => this.events.onMark.next(roomMark))
     room.onCustom('MESSAGE', (roomMessage) => {
-      this.callbacks.notify(MessageRoom.events.onMessage, roomMessage);
+      this.events.onMessage.next(roomMessage)
       this.soundsService.playMessageNew()
     })
   }
