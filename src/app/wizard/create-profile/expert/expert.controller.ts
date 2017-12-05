@@ -31,11 +31,11 @@ export class ExpertController implements ng.IController {
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile)
       if (this.wizardProfile.expertDetailsOption) {
-        this.nameModel = this.wizardProfile.expertDetailsOption!.name
-        this.avatarModel = this.wizardProfile.expertDetailsOption!.avatar
-        this.filesModel = this.wizardProfile.expertDetailsOption!.files
-        this.descriptionModel = this.wizardProfile.expertDetailsOption!.description
-        this.linksModel = this.wizardProfile.expertDetailsOption!.links
+        this.nameModel = this.wizardProfile.expertDetailsOption.name
+        this.avatarModel = this.wizardProfile.expertDetailsOption.avatar
+        this.filesModel = this.wizardProfile.expertDetailsOption.files
+        this.descriptionModel = this.wizardProfile.expertDetailsOption.description
+        this.linksModel = this.wizardProfile.expertDetailsOption.links
       }
     }
 

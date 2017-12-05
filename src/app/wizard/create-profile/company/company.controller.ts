@@ -19,7 +19,6 @@ export class CompanyController implements ng.IController {
   public dictionary: {
     [key: string]: string
   }
-
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true

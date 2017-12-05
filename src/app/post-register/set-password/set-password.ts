@@ -16,7 +16,7 @@ import 'common/directives/interface/pro-alert/pro-alert'
 import 'common/directives/password-strength-bar/password-strength-bar'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
-import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import errorHandlerModule from '../../../common/services/error-handler/error-handler'
 
