@@ -22,9 +22,10 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
   public passwordStrength: number
   public isCurrentPasswordCorrect: boolean = true
   public arePasswordsDifferent: boolean = true
+  public isError = false
+
   private enteredPassword: string = ''
   private enteredCurrentPassword: string = ''
-  public isError = false
 
   public setNewPassword = (): void => {
     this.isError = false
@@ -55,10 +56,10 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
     this.newPassword.length > 0 && this.currentPassword.length > 0 && this.newPassword !== this.currentPassword &&
       this.patternPassword.test(this.newPassword)
 
-  public checkIsEnteredPasswordIncorrected = (): boolean =>
+  public checkIsEnteredPasswordIncorrect = (): boolean =>
     this.enteredCurrentPassword !== this.currentPassword
 
-  public checkIsNewEnteredPasswordCorrected = (): boolean =>
+  public checkIsNewEnteredPasswordCorrect = (): boolean =>
     this.enteredPassword !== this.newPassword && this.patternPassword.test(this.newPassword)
 
   /* @ngInject */
@@ -70,6 +71,9 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
   public onPasswordChange = (password: string): void => {
     this.passwordStrength = this.passwordStrengthService.getStrength(password)
   }
+
+  public isSamePasswordsError = (): boolean =>
+    this.newPassword.length > 0 && this.currentPassword.length > 0 && this.newPassword === this.currentPassword
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')

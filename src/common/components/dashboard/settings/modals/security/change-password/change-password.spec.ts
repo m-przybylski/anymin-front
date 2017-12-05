@@ -48,11 +48,11 @@ describe('Testing Controller: securityChangePasswordSettingsController', () => {
   })
 
   it('should check is entered password correct', () => {
-    expect(controller.checkIsEnteredPasswordIncorrected()).toBe(false)
+    expect(controller.checkIsEnteredPasswordIncorrect()).toBe(false)
   })
 
   it('should check is new entered password correct', () => {
-    expect(controller.checkIsNewEnteredPasswordCorrected()).toBe(false)
+    expect(controller.checkIsNewEnteredPasswordCorrect()).toBe(false)
   })
 
   it('should handle same passwords', () => {
@@ -83,6 +83,12 @@ describe('Testing Controller: securityChangePasswordSettingsController', () => {
     controller.setNewPassword()
     httpBackend.flush()
     expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+  })
+
+  it('should show error about the same passwords', () => {
+    controller.currentPassword = 'password'
+    controller.newPassword = 'password'
+    expect(controller.isSamePasswordsError()).toEqual(true)
   })
 
 })
