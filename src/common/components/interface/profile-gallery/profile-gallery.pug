@@ -4,8 +4,7 @@
       a(data-ng-click="$ctrl.createGalleryPreviewControllerModal(document.previews[0])")
         img(data-ng-src="{{ document.previews[0] }}")
 
-    li.show-more(data-ng-if="$ctrl.idDocumentsContainerCollapsed"
-    data-ng-click="$ctrl.createGalleryPreviewControllerModal($ctrl.lastDocument.previews[0])")
+    li.show-more(data-ng-if="$ctrl.idDocumentsContainerCollapsed")
       a
         img(data-ng-src="{{ $ctrl.lastDocument.previews[0] }}")
         span {{ $ctrl.documentsCollapsedLength }}
