@@ -4,8 +4,11 @@ import {WizardApi} from 'profitelo-api-ng/api/api'
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
+import {inputsMaxLength} from '../../../../common/constants/inputs-max-length.constant'
 
 export class CompanyController implements ng.IController {
+  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
+  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
@@ -23,14 +26,15 @@ export class CompanyController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
-  private companyNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
-  private companyDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern
+  private companyNamePattern: RegExp
+  private companyDescriptionPattern: RegExp
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi,
               private $state: ng.ui.IStateService,
               private CommonSettingsService: CommonSettingsService,
               private wizardProfile?: GetWizardProfile) {
+    this.assignValidationValues()
   }
 
   public onGoBack = (): void => {
@@ -120,5 +124,11 @@ export class CompanyController implements ng.IController {
   private checkIsAnyStepModelChange = (currentFormModel: PartialOrganizationDetails): boolean =>
     !this.currentWizardState.organizationDetailsOption
       || !(_.isEqual(this.currentWizardState.organizationDetailsOption, currentFormModel))
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.companyNamePattern = localSettings.profileNamePattern
+    this.companyDescriptionPattern = localSettings.profileDescriptionPattern
+  }
 
 }

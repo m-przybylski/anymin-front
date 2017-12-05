@@ -29,13 +29,13 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
   public fileSizeErrorMessage: string = ''
   public isMaxFilesCountError: boolean = false
   public isFileSizeError: boolean = false
-  public maxDocumentSize: number = this.CommonSettingsService.localSettings.profileDocumentSize
+  public maxDocumentSize: number
 
   private uploader: UploaderService
   private countChoosedFiles: number = 0
   private invalidTypeFilesNamesList: string[] = []
   private errorDisplayTime: number = 5000
-  private maxDocumentsCount: number = this.CommonSettingsService.localSettings.profileDocumentsCount
+  private maxDocumentsCount: number
 
   /* @ngInject */
   constructor(private $log: ng.ILogService,
@@ -45,6 +45,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
               private CommonSettingsService: CommonSettingsService,
               uploaderFactory: UploaderFactory) {
     this.uploader = uploaderFactory.getInstance()
+    this.assignValidationValues()
   }
 
   public onUploadEnd = (uploadingStatus: boolean): void => {
@@ -175,5 +176,11 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
     this.$timeout(() => {
       this.isFileSizeError = false
     }, this.errorDisplayTime)
+  }
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.maxDocumentSize = localSettings.profileDocumentSize
+    this.maxDocumentsCount = localSettings.profileDocumentsCount
   }
 }

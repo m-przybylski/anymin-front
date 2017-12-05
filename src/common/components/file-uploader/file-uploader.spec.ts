@@ -7,8 +7,8 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 import {FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
 import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 
-describe('Unit testing: profitelo.components.file-uploader', () => {
-  return describe('for FileUploader component >', () => {
+describe('Unit testing: profitelo.components.file-uploader', () =>
+  describe('for FileUploader component >', () => {
 
     let scope: IFileUploaderComponentScope
     let rootScope: ng.IRootScopeService
@@ -127,10 +127,8 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const file: File = new File([], 'someFile')
       const files: File[] = [file]
-      const _newFiles = files
-      const _duplicateFiles = files
       const invalidFiles: File[] = []
-      component.uploadFiles(files, file, _newFiles, _duplicateFiles, invalidFiles)
+      component.uploadFiles(files, file, files, files, invalidFiles)
       expect(component.isFileTypeError).toBe(true)
     })
 
@@ -138,24 +136,20 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const file: File = new File([], 'someFile')
       const files: File[] = [file]
-      const _newFiles = files
-      const _duplicateFiles = files
       const invalidFiles: File[] = [file]
-      component.uploadFiles(files, file, _newFiles, _duplicateFiles, invalidFiles)
+      component.uploadFiles(files, file, files, files, invalidFiles)
       expect(component.isFileSizeError).toBe(true)
     })
 
     it('should show file count error', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const file: File = new File([], 'someFile')
-      const files: File[] = [file, file, file, file, file, file,
-        file, file, file, file, file, file, file, file, file, file, file, file, file, file, file, file]
-      const _newFiles = files
-      const _duplicateFiles = files
+      const invalidFilesCount: number = 22
+      const files: File[] = new Array(invalidFilesCount).fill(file, 0, invalidFilesCount)
       const invalidFiles: File[] = []
-      component.uploadFiles(files, file, _newFiles, _duplicateFiles, invalidFiles)
+      component.uploadFiles(files, file, files, files, invalidFiles)
       expect(component.isMaxFilesCountError).toBe(true)
     })
 
   })
-})
+)

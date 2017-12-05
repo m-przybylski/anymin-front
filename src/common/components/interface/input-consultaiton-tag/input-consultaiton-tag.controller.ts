@@ -69,6 +69,9 @@ export class InputConsultationTagComponentController implements IInputConsultati
     this.updateSuggestedTags()
   }
 
+  public isValidationAlertVisible = (): boolean =>
+    !this.isValid && this.isDirty && !this.isFocus || this.isSubmitted && !this.isValid
+
   private updateSuggestedTags = (): void => {
     const tagsQuery = {
       description: this.serviceDescription,

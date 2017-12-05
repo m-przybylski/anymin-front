@@ -8,6 +8,7 @@ import {LanguagesService} from '../../../common/services/languages/languages.ser
 import {TranslatorService} from '../../../common/services/translator/translator.service'
 import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import {inputsMaxLength} from '../../../common/constants/inputs-max-length.constant'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -19,11 +20,11 @@ interface ILanguagesList {
 }
 
 export class ConsultationController implements ng.IController {
-  public readonly consultationNameMaxLength: string = '350'
-  public readonly consultationDescriptionMaxLength: string = '600'
+  public readonly inputNameMaxLength: string = inputsMaxLength.consultationName
+  public readonly inputDescriptionMaxLength: string = inputsMaxLength.consultationDescription
   public isStepRequired: boolean = true
   public currency: string
-  public nameInputValue: string
+  public nameInputValue: string = ''
   public tagsInputValue: string[] = []
   public priceAmountInputValue: string = '1,00'
   public invitationsInputValue: string[] = []
@@ -41,20 +42,14 @@ export class ConsultationController implements ng.IController {
   private currentEditServiceIndex: number = -1
   private moneyDivider: number
   private defaultLanguageISO: string = ''
-  private consultationNamePattern: RegExp = this.CommonSettingsService.localSettings.consultationNamePattern
-  private consultationDescriptionPattern: RegExp =
-    this.CommonSettingsService.localSettings.consultationDescriptionPattern
-  private consultationTagsMinCount: number = this.CommonSettingsService.localSettings.consultationTagsMinCount
-  private consultationTagsMaxCount: number = this.CommonSettingsService.localSettings.consultationTagsMaxCount
-  private consultationInvitationsMinCount: number =
-    this.CommonSettingsService.localSettings.consultationInvitationsMinCount
-  private consultationInvitationsMaxCount: number =
-    this.CommonSettingsService.localSettings.consultationInvitationsMaxCount
-  private consultationPriceMin: number =
-    this.CommonSettingsService.localSettings.consultationPriceMin / this.CommonConfig.getAllData().config.moneyDivider
-  private consultationPriceMax: number =
-    this.CommonSettingsService.localSettings.consultationPriceMax / this.CommonConfig.getAllData().config.moneyDivider
-
+  private consultationNamePattern: RegExp
+  private consultationDescriptionPattern: RegExp
+  private consultationTagsMinCount: number
+  private consultationTagsMaxCount: number
+  private consultationInvitationsMinCount: number
+  private consultationInvitationsMaxCount: number
+  private consultationPriceMin: number
+  private consultationPriceMax: number
   /* @ngInject */
   constructor(private translatorService: TranslatorService,
               private $state: ng.ui.IStateService,
@@ -69,6 +64,8 @@ export class ConsultationController implements ng.IController {
     this.languagesList = this.languagesService.languagesList
 
     this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider
+
+    this.assignValidationValues()
 
     if (wizardProfile) {
       this.isCompany = wizardProfile.isCompany
@@ -212,5 +209,17 @@ export class ConsultationController implements ng.IController {
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
 
   public checkIsPriceInputValid = (): boolean => this.isPriceAmountValid && this.isRegExpPriceInputValid
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.consultationNamePattern = localSettings.consultationNamePattern
+    this.consultationDescriptionPattern = localSettings.consultationDescriptionPattern
+    this.consultationTagsMinCount = localSettings.consultationTagsMinCount
+    this.consultationTagsMaxCount = localSettings.consultationTagsMaxCount
+    this.consultationInvitationsMinCount = localSettings.consultationInvitationsMinCount
+    this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount
+    this.consultationPriceMin = localSettings.consultationPriceMin / this.moneyDivider
+    this.consultationPriceMax = localSettings.consultationPriceMax / this.moneyDivider
+  }
 
 }

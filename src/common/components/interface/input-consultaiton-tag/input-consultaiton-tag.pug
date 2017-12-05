@@ -14,7 +14,7 @@
 
   validation-alert(
   data-alert-text="{{ $ctrl.validationText }}"
-  data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus || $ctrl.isSubmitted && !$ctrl.isValid"
+  data-is-visible="$ctrl.isValidationAlertVisible()"
   )
 
   .checked-list

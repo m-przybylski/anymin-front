@@ -24,7 +24,7 @@ section.consultation
         input-primary(
           data-ng-model="vm.nameInputValue"
           data-ng-pattern="vm.patternName"
-          data-max-length="vm.consultationNameMaxLength"
+          data-max-length="{{ vm.inputNameMaxLength }}"
           data-validation-text="WIZARD.CONSULTATION.NAME_INPUT_VALIDATION"
           data-is-submitted="vm.isSubmitted"
           data-is-valid="vm.checkIsNameInputValid()"
@@ -41,7 +41,7 @@ section.consultation
         data-id="consultationDescription"
         data-is-valid="vm.checkIsDescriptionInputValid()"
         data-validation-text="WIZARD.CONSULTATION.DESCRIPTION.VALIDATION_TEXT"
-        data-max-length="vm.consultationDescriptionMaxLength"
+        data-max-length="{{ vm.inputDescriptionMaxLength }}"
         )
 
       wizard-step.step(

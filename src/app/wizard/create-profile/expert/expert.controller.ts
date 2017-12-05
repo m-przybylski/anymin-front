@@ -4,8 +4,11 @@ import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
+import {inputsMaxLength} from '../../../../common/constants/inputs-max-length.constant'
 
 export class ExpertController implements ng.IController {
+  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
+  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
@@ -21,14 +24,16 @@ export class ExpertController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
-  private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
-  private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern
+  private profileNamePattern: RegExp
+  private profileDescriptionPattern: RegExp
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi,
               private $state: ng.ui.IStateService,
               private CommonSettingsService: CommonSettingsService,
-              private wizardProfile?: GetWizardProfile) {}
+              private wizardProfile?: GetWizardProfile) {
+    this.assignValidationValues()
+  }
 
   $onInit = (): void => {
     if (this.wizardProfile) {
@@ -121,4 +126,9 @@ export class ExpertController implements ng.IController {
     !this.currentWizardState.expertDetailsOption
       || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
 
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.profileNamePattern = localSettings.profileNamePattern
+    this.profileDescriptionPattern = localSettings.profileDescriptionPattern
+  }
 }

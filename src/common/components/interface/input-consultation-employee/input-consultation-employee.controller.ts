@@ -25,15 +25,13 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   private CSVFileReader: CSVFileReader
 
   private static readonly defaultCountryPrefix = '+48'
-  private consultationInvitationsMaxCount: number =
-    this.CommonSettingsService.localSettings.consultationInvitationsMaxCount
+  private consultationInvitationsMaxCount: number
 
   /* @ngInject */
   constructor(private CommonSettingsService: CommonSettingsService,
               private $timeout: ng.ITimeoutService) {
-    this.mailRegexp = this.CommonSettingsService.localSettings.emailPattern
-    this.phonePattern = this.CommonSettingsService.localSettings.phonePattern
     this.CSVFileReader = new CSVFileReader
+    this.assignValidationValues()
   }
 
   private getPrefixPhoneNumber = (phoneNumber: string): string => {
@@ -155,4 +153,11 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
 
   private areInvitationsExceedValidLimit = (): boolean =>
     this.addedItemsList.length > this.consultationInvitationsMaxCount
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount
+    this.mailRegexp = localSettings.emailPattern
+    this.phonePattern = localSettings.phonePattern
+  }
 }
