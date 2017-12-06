@@ -15,23 +15,24 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
     let $httpBackend: ng.IHttpBackendService
     let serviceApiMock: ServiceApiMock
     let $log: ng.ILogService
+    let rootScope: ng.IRootScopeService
+    let $q: ng.IQService
 
     const expertEmployees = {
       employees: []
     }
 
-    const userService = {
-      getUser: (): void => {}
-    }
-
-    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('apiUrl', 'awesomeUrl')
-      $provide.value('userService', userService)
-    }))
+    const userService = jasmine.createSpyObj('userService', ['getUser'])
 
     beforeEach(() => {
       angular.mock.module(dashboardExpertEmployeesModule)
+    })
 
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeUrl')
+    }))
+
+    beforeEach(() => {
       inject(($rootScope: IRootScopeService,
               $controller: ng.IControllerService,
               _$state_: ng.ui.IStateService,
@@ -39,22 +40,28 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
               _$httpBackend_: ng.IHttpBackendService,
               _ServiceApiMock_: ServiceApiMock,
               _$log_: ng.ILogService,
-              $q: ng.IQService) => {
+              _$q_: ng.IQService) => {
 
         employmentApiMock = _EmploymentApiMock_
         $httpBackend = _$httpBackend_
         serviceApiMock = _ServiceApiMock_
         $log = _$log_
-        spyOn(userService, 'getUser').and.callFake(() => $q.resolve({id: 'someId'}))
+        $q = _$q_
+        rootScope = $rootScope
 
+        userService.getUser.and.callFake(() => $q.resolve({id: 'someId'}))
         dashboardExpertEmployeesController =
           $controller(DashboardExpertEmployeesController, {
             expertEmployees,
             $state: _$state_,
             $scope: $rootScope.$new(),
             employmentApiMock,
+            serviceApiMock,
+            $log,
             userService
           })
+        dashboardExpertEmployeesController.$onInit()
+        $rootScope.$digest()
       })
     })
 
@@ -143,7 +150,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
 
     it('should log error when get profile services failed', () => {
       spyOn($log, 'error')
-      serviceApiMock.getProfileServicesRoute(httpCodes.notFound, 'id')
+      serviceApiMock.getProfileServicesRoute(httpCodes.notFound, 'someId', <any>{})
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       expect($log.error).toHaveBeenCalled()
@@ -151,7 +158,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
 
     it('should log error when get service invitations failed', () => {
       spyOn($log, 'error')
-      serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'id', [{
+      serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
         id: 'id',
         ownerId: 'ownerId',
         name: 'name',
@@ -175,8 +182,8 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
 
     it('should get service invitations', () => {
       const date = new Date
-      serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'id', [{
-        id: 'id',
+      serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
+        id: 'someId',
         ownerId: 'ownerId',
         name: 'name',
         description: 'desc',
@@ -193,7 +200,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       }])
       serviceApiMock.postServiceInvitationsRoute(httpCodes.ok, [{
         service: {
-          id: 'id',
+          id: 'someId',
           ownerId: 'ownerId',
           name: 'name',
           description: 'desc',
@@ -206,13 +213,15 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           usageDurationInSeconds: 123,
           language: 'pl',
           isSuspended: false,
-          createdAt: 123},
+          createdAt: 123
+        },
         invitations: [{
-          id: 'id',
-          serviceId: 'serviceId',
-          serviceName: 'serviceName',
-          serviceOwnerId: 'serviceOwnerId',
-          email: 'test@test.pl',
+          id: 'ssss',
+          serviceId: 'sss',
+          serviceName: 'sss',
+          serviceOwnerId: 'sss',
+          email: 'ssss',
+          employeeId: 'sss',
           status: GetInvitation.StatusEnum.NEW,
           createdAt: date,
           updatedAt: date
@@ -221,14 +230,15 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       expect(dashboardExpertEmployeesController.pendingInvitations).toEqual([[{
-        id: 'id',
-        serviceId: 'serviceId',
-        serviceName: 'serviceName',
-        serviceOwnerId: 'serviceOwnerId',
-        email: 'test@test.pl',
+        id: 'ssss',
+        serviceId: 'sss',
+        serviceName: 'sss',
+        serviceOwnerId: 'sss',
+        email: 'ssss',
+        employeeId: 'sss',
         status: GetInvitation.StatusEnum.NEW,
         createdAt: date,
-        updatedAt: date,
+        updatedAt: date
       }]])
     })
 

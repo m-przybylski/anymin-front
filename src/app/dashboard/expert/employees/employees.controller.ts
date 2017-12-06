@@ -15,7 +15,7 @@ export class DashboardExpertEmployeesController {
   public areEmployees: boolean = false
   public arePendingInvitations: boolean = false
   public pendingInvitations: GetInvitation[][]
-
+  public dupa = false
   private userId: string
   private servicesId: string[] = []
 
