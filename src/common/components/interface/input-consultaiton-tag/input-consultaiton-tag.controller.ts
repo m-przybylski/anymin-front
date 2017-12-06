@@ -4,6 +4,7 @@ import {PostSuggestTags, GetSuggestedTags} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 import {PromiseService} from '../../../services/promise/promise.service'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import * as _ from 'lodash'
 
 export class InputConsultationTagComponentController implements IInputConsultationTagBindings {
   public selectedTags: string[] = []
@@ -15,14 +16,16 @@ export class InputConsultationTagComponentController implements IInputConsultati
   public isFocus: boolean
   public isInputValueInvalid: boolean
   public isSubmitted: boolean
-  public isSuggestedTagsLoading: boolean
+  public areSuggestedTagsLoading: boolean
   public serviceName: string
   public serviceDescription: string
   public maxTagsCount: number = this.CommonSettingsService.localSettings.consultationTagsMaxCount
+  public cacheSuggestedTags?: PostSuggestTags
+  public isError: boolean = false
 
   private static readonly suggestedTagsLimit = 7
   private static readonly suggestedTagsLoaderDelay = 500
-  private cacheSuggestedTags?: PostSuggestTags
+  private static readonly postTagsSuggestionsDelay = 500
 
   /* @ngInject */
   constructor(private SearchApi: SearchApi,
@@ -72,6 +75,20 @@ export class InputConsultationTagComponentController implements IInputConsultati
   public isValidationAlertVisible = (): boolean =>
     !this.isValid && this.isDirty && !this.isFocus || this.isSubmitted && !this.isValid
 
+  public postTagsSuggestions = (tagsQuery: PostSuggestTags): void => {
+    this.isError = false
+    this.areSuggestedTagsLoading = true
+    this.promiseService.setMinimalDelay(this.SearchApi.postTagsSuggestionsRoute(tagsQuery),
+      InputConsultationTagComponentController.suggestedTagsLoaderDelay)
+      .then((suggestedTags) => {
+        this.onPostTagsSuggestions(suggestedTags, tagsQuery)
+      }).catch((err) => {
+      this.onPostTagsSuggestionsError(err, tagsQuery)
+    }).finally(() => {
+      this.areSuggestedTagsLoading = false
+    })
+  }
+
   private updateSuggestedTags = (): void => {
     const tagsQuery = {
       description: this.serviceDescription,
@@ -80,18 +97,11 @@ export class InputConsultationTagComponentController implements IInputConsultati
       tags: this.selectedTags
     }
 
-    if (!this.isSuggestedTagsLoading
+    if (!this.areSuggestedTagsLoading
       && this.checkIsDataForQueryTagsExist()
       && !this.cacheSuggestedTags
       || this.checkIsQueryForTagsChange(tagsQuery)) {
-      this.isSuggestedTagsLoading = true
-      this.promiseService.setMinimalDelay(this.SearchApi.postTagsSuggestionsRoute(tagsQuery),
-        InputConsultationTagComponentController.suggestedTagsLoaderDelay)
-      .then((suggestedTags) => {
-        this.onPostTagsSuggestions(suggestedTags, tagsQuery)
-      }, this.onPostTagsSuggestionsError).finally(() => {
-        this.isSuggestedTagsLoading = false
-      })
+      this.throttlePostTagsSuggestions(tagsQuery)
     }
   }
 
@@ -109,9 +119,15 @@ export class InputConsultationTagComponentController implements IInputConsultati
     this.cacheSuggestedTags = angular.copy(tagsQuery)
   }
 
-  private onPostTagsSuggestionsError = (error: any): void => {
+  private onPostTagsSuggestionsError = (error: any, tagsQuery: PostSuggestTags): void => {
     this.$log.error(error)
+    this.cacheSuggestedTags = angular.copy(tagsQuery)
+    this.isError = true
   }
+
+  private throttlePostTagsSuggestions = (tagsQuery: PostSuggestTags): void =>
+    _.throttle(() => this.postTagsSuggestions(tagsQuery),
+      InputConsultationTagComponentController.postTagsSuggestionsDelay)()
 
   private isTagsCountValid = (): boolean => this.selectedTags.length < this.maxTagsCount
 
