@@ -2,7 +2,7 @@ import {ActiveCallBarService} from './active-call-bar.service'
 
 export class ActiveCallBarComponentController implements ng.IController {
 
-  public isCallPendingOnOtherDevice: boolean
+  public isCallPendingOnOtherDevice: boolean = false
 
   /* @ngInject */
   constructor(private activeCallBarService: ActiveCallBarService) {

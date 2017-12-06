@@ -6,6 +6,9 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import './set-email'
 import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
+import {httpCodes} from '../../../common/classes/http-codes'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
+
 
 describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
   describe('Testing Controller: SetEmailController', () => {
@@ -83,6 +86,28 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
       _$httpBackend.flush()
 
       expect(_topAlertService.error).toHaveBeenCalledWith({message: 'INTERFACE.API_ERROR', timeout: 4})
+    })
+
+    it('should display error if email already exist', () => {
+      _AccountApiMock.getAccountEmailExistsRoute(httpCodes.ok, 'email', {})
+      SetEmailController.email = 'email'
+      SetEmailController.setNewEmail()
+      _$httpBackend.flush()
+
+      expect(SetEmailController.emailExist).toBe(true)
+    })
+
+    it('should redirect user to invitation', () => {
+      spyOn($state, 'go')
+      spyOn(LocalStorageWrapper, 'getItem').and.returnValue(JSON.stringify({token: 'asdasdasd'}))
+      _AccountApiMock.getAccountEmailExistsRoute(httpCodes.badRequest, 'email', {})
+      _AccountApiMock.patchUpdateAccountRoute(httpCodes.ok, user.id, <any>{})
+      SetEmailController.email = 'email'
+      SetEmailController.setNewEmail()
+      _$httpBackend.flush()
+      console.log(LocalStorageWrapper.getItem('invitation'))
+
+      expect($state.go).toHaveBeenCalled()
     })
   })
 })

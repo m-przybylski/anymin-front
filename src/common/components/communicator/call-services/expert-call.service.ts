@@ -17,6 +17,7 @@ export class ExpertCallService {
   private currentExpertCall?: CurrentExpertCall;
 
   private callingModal: ng.ui.bootstrap.IModalInstanceService;
+  private onEndSubscription?: Subscription
 
   private readonly events = {
     onNewCall: new Subject<CurrentExpertCall>(),
@@ -57,12 +58,13 @@ export class ExpertCallService {
       this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
         this.currentExpertCall = new CurrentExpertCall(this.timerFactory, activeCalls[0],
           incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
-        this.events.onCallActive.next(activeCalls)
-        this.currentExpertCall.onEnd(() =>
-          this.currentExpertCall ? this.onExpertCallEnd(this.currentExpertCall) :
-            this.$log.error('Current expert call does not exist'))
+        this.currentExpertCall.onEnd(() => {
+          this.events.onCallEnd.next()
+          this.currentExpertCall = undefined;
+        })
         this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd);
         this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
+        this.events.onCallActive.next(activeCalls)
       })
     } else this.$log.debug('No active call exists')
   }
@@ -112,6 +114,9 @@ export class ExpertCallService {
       this.soundsService.callIncomingSound().stop()
       this.dismissCallingModal()
       this.events.onCallTaken.next(activeDevice)
+      if (this.currentExpertCall && this.onEndSubscription) {
+        this.onEndSubscription.unsubscribe()
+      }
     }
   }
 
@@ -146,9 +151,10 @@ export class ExpertCallService {
   }
 
   private onCallPulled = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
-    currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
+    this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId())
     .then((incomingCallDetails) => {
+      currentExpertCall.startTimer()
       currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
       const session = this.communicatorService.getClientSession()
       if (!session) throw new Error('Session not available')
@@ -162,7 +168,7 @@ export class ExpertCallService {
 
   private onCallAnswered = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
     this.soundsService.callIncomingSound().stop();
-    currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
+    this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
       const session = this.communicatorService.getClientSession()
       if (!session) throw new Error('Session not available');
@@ -182,10 +188,10 @@ export class ExpertCallService {
     });
   }
 
-  private onExpertCallEnd = (currentExpertCall: CurrentExpertCall): void => {
+  private onExpertCallEnd = (currentExpertCall?: CurrentExpertCall): void => {
     this.soundsService.playCallEnded();
     this.events.onCallEnd.next()
-    this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getService().id);
+    if (currentExpertCall) this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getService().id);
     this.currentExpertCall = undefined;
   }
 

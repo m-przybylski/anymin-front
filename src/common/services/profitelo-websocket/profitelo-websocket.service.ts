@@ -24,6 +24,7 @@ export class ProfiteloWebsocketService {
               private userService: UserService,
               private eventsService: EventsService,
               private $timeout: ng.ITimeoutService,
+              private $rootScope: ng.IRootScopeService,
               CommonConfig: CommonConfig) {
     this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'
     this.eventsService.on('login', this.connectWebsocket)
@@ -100,6 +101,7 @@ export class ProfiteloWebsocketService {
     try {
       const data = JSON.parse(event.data)
       this.handleMessageType(data)
+      this.$rootScope.$apply()
     } catch (err) {
       this.$log.error(err)
     }

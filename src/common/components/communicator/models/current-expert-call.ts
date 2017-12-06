@@ -19,6 +19,9 @@ export class CurrentExpertCall extends CurrentCall {
     super(soundsService, call as RatelSdk.BusinessCall, timerFactory,
       incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi);
     this.setState(CallState.INCOMING)
+    this.onCallTaken(() => {
+      this.setState(CallState.PENDING_ON_OTHER_DEVICE)
+    })
   }
 
   public answer = (localStream: MediaStream): Promise<void> => {
@@ -30,7 +33,6 @@ export class CurrentExpertCall extends CurrentCall {
     this.setLocalStream(localStream)
     return this.pullCall(localStream).then(() => {
       this.setState(CallState.PENDING);
-      this.startTimer()
     })
   }
 
