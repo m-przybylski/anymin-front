@@ -76,49 +76,100 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
     }))
 
     it('should be some employee after delete one', () => {
-      dashboardExpertEmployeesController.profilesWithEmployments = [
-        {
-          expertProfile: {
-            id: 'id',
-            name: 'name',
-            img: 'img'
+      employmentApiMock.getEmployeesRoute(httpCodes.ok, <GetProfileDetailsWithEmployments[]>[{
+        expertProfile: {
+          id: 'id',
+          name: 'name',
+          img: 'img'
+        },
+        employments: [{
+          id: 'id',
+          serviceId: 'id',
+          profileId: 'id',
+          createdAt: new Date()
+        }]
+      },
+      {
+        expertProfile: {
+          id: 'id',
+          name: 'name',
+          img: 'img'
+        },
+        employments: [{
+          id: 'id',
+          serviceId: 'id',
+          profileId: 'id',
+          createdAt: new Date()
+        }]
+      }])
+      dashboardExpertEmployeesController.getProfilesWithEmployments()
+      $httpBackend.flush()
+      dashboardExpertEmployeesController.onDeleteEmploymentsCallback()
+      expect(dashboardExpertEmployeesController.areEmployees).toBe(true)
+    })
+
+    it('should be some pending invitations after delete one', () => {
+      const date = new Date
+      serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
+        id: 'someId',
+        ownerId: 'ownerId',
+        name: 'name',
+        description: 'desc',
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        rating: 123,
+        usageCounter: 123,
+        usageDurationInSeconds: 123,
+        language: 'pl',
+        isSuspended: false,
+        createdAt: 123
+      }])
+      serviceApiMock.postServiceInvitationsRoute(httpCodes.ok, [{
+        service: {
+          id: 'someId',
+          ownerId: 'ownerId',
+          name: 'name',
+          description: 'desc',
+          price: {
+            amount: 123,
+            currency: 'PLN'
           },
-          employments: [{
-            id: 'id',
-            serviceId: 'id',
-            profileId: 'id',
-            createdAt: new Date()
-          }]
+          rating: 123,
+          usageCounter: 123,
+          usageDurationInSeconds: 123,
+          language: 'pl',
+          isSuspended: false,
+          createdAt: 123
+        },
+        invitations: [{
+          id: 'invitationId',
+          serviceId: 'someId',
+          serviceName: 'serviceName',
+          serviceOwnerId: 'serviceOwnerId',
+          email: 'test@test.pl',
+          employeeId: 'employeeId',
+          status: GetInvitation.StatusEnum.NEW,
+          createdAt: date,
+          updatedAt: date
         },
         {
-          expertProfile: {
-            id: 'id2',
-            name: 'name2',
-            img: 'img2'
-          },
-          employments: [{
-            id: 'id2',
-            serviceId: 'id2',
-            profileId: 'id2',
-            createdAt: new Date()
-          }]
-        }
-      ]
-      dashboardExpertEmployeesController.pendingInvitations = [
-        [{
-          id: 'id',
-          serviceId: 'serviceId',
-          serviceName: 'name',
-          serviceOwnerId: 'ownerId',
-          email: 'test@test.com',
+          id: 'invitationId2',
+          serviceId: 'someId2',
+          serviceName: 'serviceName2',
+          serviceOwnerId: 'serviceOwnerId2',
+          email: 'test2@test.pl',
+          employeeId: 'employeeId2',
           status: GetInvitation.StatusEnum.NEW,
-          createdAt: new Date,
-          updatedAt: new Date
+          createdAt: date,
+          updatedAt: date
         }]
-      ]
-      dashboardExpertEmployeesController.onDeleteCallback()
-      expect(dashboardExpertEmployeesController.areEmployees).toBe(true)
-      expect(dashboardExpertEmployeesController.arePendingInvitations).toBe(false)
+      }])
+      dashboardExpertEmployeesController.getServicesInvitations()
+      $httpBackend.flush()
+      dashboardExpertEmployeesController.onDeleteInvitationsCallback()
+      expect(dashboardExpertEmployeesController.arePendingInvitations).toBe(true)
     })
 
     it('should get get profiles with employments', () => {
@@ -180,7 +231,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       expect($log.error).toHaveBeenCalled()
     })
 
-    it('should get service invitations', () => {
+    it('should group pending invitations', () => {
       const date = new Date
       serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
         id: 'someId',
@@ -216,12 +267,12 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           createdAt: 123
         },
         invitations: [{
-          id: 'ssss',
-          serviceId: 'sss',
-          serviceName: 'sss',
-          serviceOwnerId: 'sss',
-          email: 'ssss',
-          employeeId: 'sss',
+          id: 'invitationId',
+          serviceId: 'someId',
+          serviceName: 'serviceName',
+          serviceOwnerId: 'serviceOwnerId',
+          email: 'test@test.pl',
+          employeeId: 'employeeId',
           status: GetInvitation.StatusEnum.NEW,
           createdAt: date,
           updatedAt: date
@@ -230,12 +281,12 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       expect(dashboardExpertEmployeesController.pendingInvitations).toEqual([[{
-        id: 'ssss',
-        serviceId: 'sss',
-        serviceName: 'sss',
-        serviceOwnerId: 'sss',
-        email: 'ssss',
-        employeeId: 'sss',
+        id: 'invitationId',
+        serviceId: 'someId',
+        serviceName: 'serviceName',
+        serviceOwnerId: 'serviceOwnerId',
+        email: 'test@test.pl',
+        employeeId: 'employeeId',
         status: GetInvitation.StatusEnum.NEW,
         createdAt: date,
         updatedAt: date

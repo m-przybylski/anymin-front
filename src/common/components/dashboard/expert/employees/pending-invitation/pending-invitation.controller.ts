@@ -12,7 +12,7 @@ export interface IPendingInvitationComponentControllerScope extends ng.IScope {
 
 export class PendingInvitationComponentController implements IPendingInvitationComponentBindings {
 
-  public invitations: GetInvitation[]
+  public invitations: GetInvitation[]= []
   public onDeleteCallback: () => void
   public emailOrMsisdn?: string
   public invitationsCount: number
@@ -27,8 +27,7 @@ export class PendingInvitationComponentController implements IPendingInvitationC
     private InvitationApi: InvitationApi,
               private errorHandler: ErrorHandlerService,
               private topAlertService: TopAlertService,
-              private translatorService: TranslatorService
-  ) {
+              private translatorService: TranslatorService) {
   }
 
   $onInit = (): void => {
@@ -38,19 +37,7 @@ export class PendingInvitationComponentController implements IPendingInvitationC
     } else {
       this.emailOrMsisdn = this.invitations[0].msisdn
     }
-    switch (true) {
-      case this.invitationsCount === 1:
-        this.invitationText =  this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.ONE_INVITATION')
-        break
-      case (this.invitationsCount >= PendingInvitationComponentController.minRangeOfFewInvitations
-        && this.invitationsCount <= PendingInvitationComponentController.maxRangeOfFewInvitations):
-        this.invitationText = this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.FEW_INVITATIONS')
-        break
-      default:
-        this.invitationText =
-          this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.MANY_INVITATIONS')
-        break
-    }
+    this.invitationText = this.setInvitationText(this.invitationsCount)
   }
 
   public deleteInvitations = (): void => {
@@ -72,6 +59,15 @@ export class PendingInvitationComponentController implements IPendingInvitationC
           this.errorHandler.handleServerError(error, 'Can not delete invitations')
         })
     }
+  }
+
+  private setInvitationText = (invitationsCount: number): string => {
+    if (invitationsCount === 1)
+      return this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.ONE_INVITATION')
+    else if (invitationsCount >= PendingInvitationComponentController.minRangeOfFewInvitations
+      && invitationsCount <= PendingInvitationComponentController.maxRangeOfFewInvitations)
+      return this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.FEW_INVITATIONS')
+    return this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.MANY_INVITATIONS')
   }
 
 }

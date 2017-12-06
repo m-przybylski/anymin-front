@@ -7,6 +7,7 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
   public areEmployees: boolean
   public showMobileFilters: boolean
   public showFilters: () => void
+  public onModalCloseCallback: () => void
 
   /* @ngInject */
   constructor(private modalsService: ModalsService) {
@@ -23,7 +24,7 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
   }
 
   public openInviteEmployeesModal = (): void => {
-    this.modalsService.createExpertInviteEmployeesModal()
+    this.modalsService.createExpertInviteEmployeesModal(this.onModalCloseCallback)
   }
 
 }

@@ -18,9 +18,7 @@
     .invitations-informations
       display: flex
       align-items: center
-
-      .checkbox
-        margin: 0 24px 0 0
+      width: 100%
 
     .invitations-name-container
       min-width: 256px
@@ -48,5 +46,8 @@
       a:first-child
         margin: 0 24px 0 0
 
-  .checkbox
-    align-items: center
+    .invitation-container
+      +smm
+        display: flex
+        justify-content: space-between
+        width: 100%

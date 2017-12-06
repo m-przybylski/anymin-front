@@ -205,7 +205,7 @@ describe('Unit testing: profitelo.services.modals >', () => {
 
     it('should open expert invite employees modal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
-      modalsService.createExpertInviteEmployeesModal()
+      modalsService.createExpertInviteEmployeesModal(() => {})
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 

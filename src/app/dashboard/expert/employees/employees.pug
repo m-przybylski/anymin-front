@@ -2,7 +2,7 @@
   preloader-container(data-is-loading="vm.areEmployeesLoading || vm.arePendingInvitationsLoading")
 
     .error-btn-container
-      a.btn.btn-primary(data-ng-if="vm.isEmployeesError"
+      a.btn.btn-primary(data-ng-if="vm.isGetEmployeesError"
       data-ng-click="vm.getProfilesWithEmployments()"
       data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.TRY_AGAIN_BUTTON")
 
@@ -15,7 +15,7 @@
       expert-employee(
       data-ng-repeat="profileWithEmployments in vm.profilesWithEmployments"
       data-profile-with-employments="profileWithEmployments"
-      data-on-delete-callback="vm.onDeleteCallback"
+      data-on-delete-callback="vm.onDeleteEmploymentsCallback"
       )
 
     .error-btn-container
@@ -25,15 +25,17 @@
 
     header.entry-title(data-ng-show="vm.arePendingInvitations")
       span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.PENDING_INVITATIONS")
+      a.btn.btn-circle(data-ng-click="vm.openInviteEmployeesModal()")
+        span.icon.icon-add-expert-24
 
     pending-invitation(
     data-ng-repeat="invitations in vm.pendingInvitations"
     data-invitations="invitations"
-    data-on-delete-callback="vm.onDeleteCallback"
+    data-on-delete-callback="vm.onDeleteInvitationsCallback"
     )
 
     no-results-information(
-    data-ng-hide="vm.areEmployees || vm.arePendingInvitations || vm.isEmployeesError || vm.isPendingInvitationsError"
+    data-ng-hide="vm.isNoResultsInformation()"
     data-icon-src="/assets/images/profitelo_icons/icon_expert_no_employees.png"
     data-information-title="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.NO_RESULTS.TITLE"
     data-button-title="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.NO_RESULTS.BUTTON"

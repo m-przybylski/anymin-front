@@ -4,6 +4,7 @@ import {UserService} from '../../../../../../services/user/user.service'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 
 export interface IExpertInviteEmployeesControllerScope extends ng.IScope {
+  onModalCloseCallback: () => void
 }
 
 export class ExpertInviteEmployeesController implements ng.IController {
@@ -27,7 +28,8 @@ export class ExpertInviteEmployeesController implements ng.IController {
               private userService: UserService,
               private ServiceApi: ServiceApi,
               private $log: ng.ILogService,
-              private errorHandler: ErrorHandlerService) {}
+              private errorHandler: ErrorHandlerService,
+              private $scope: IExpertInviteEmployeesControllerScope) {}
 
   $onInit = (): void => {
     this.getServices()
@@ -103,6 +105,7 @@ export class ExpertInviteEmployeesController implements ng.IController {
   }
 
   private onSendInvitations = (): void => {
+    this.$scope.onModalCloseCallback()
     this.onModalClose()
     this.isSendingRequest = false
   }

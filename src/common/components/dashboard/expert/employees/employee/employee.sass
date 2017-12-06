@@ -18,9 +18,7 @@
     .employee-informations
       display: flex
       align-items: center
-
-      .checkbox
-        margin: 0 24px 0 0
+      width: 100%
 
     .employee-name-container
       min-width: 184px
@@ -51,5 +49,8 @@
       a:first-child
         margin: 0 24px 0 0
 
-  .checkbox
-    align-items: center
+    .employee-container
+      +smm
+        display: flex
+        justify-content: space-between
+        width: 100%

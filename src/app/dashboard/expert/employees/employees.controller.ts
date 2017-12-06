@@ -9,15 +9,17 @@ export class DashboardExpertEmployeesController {
 
   public profilesWithEmployments: GetProfileDetailsWithEmployments[]
   public areEmployeesLoading: boolean = true
-  public isEmployeesError: boolean = false
+  public isGetEmployeesError: boolean = false
   public arePendingInvitationsLoading: boolean = true
   public isPendingInvitationsError: boolean = false
   public areEmployees: boolean = false
   public arePendingInvitations: boolean = false
   public pendingInvitations: GetInvitation[][]
-  public dupa = false
+
   private userId: string
   private servicesId: string[] = []
+  private pendingInvitationsCount: number
+  private emoloyeesCount: number
 
   /* @ngInject */
   constructor(private EmploymentApi: EmploymentApi,
@@ -40,10 +42,11 @@ export class DashboardExpertEmployeesController {
         this.profilesWithEmployments = profilesWithEmployments.filter(profileWithEmployments =>
           profileWithEmployments.expertProfile.id !== this.userId
         )
-        this.areEmployees = this.profilesWithEmployments.length > 0
-        this.isEmployeesError = false
+        this.emoloyeesCount = this.profilesWithEmployments.length
+        this.areEmployees = this.emoloyeesCount > 0
+        this.isGetEmployeesError = false
       }).catch((error) => {
-        this.isEmployeesError = true
+        this.isGetEmployeesError = true
         this.$log.error('Cannot load data', error)
       }).finally(() => {
         this.areEmployeesLoading = false
@@ -51,9 +54,10 @@ export class DashboardExpertEmployeesController {
   }
 
   public getServicesInvitations = (): void => {
+    this.arePendingInvitationsLoading = true
     this.ServiceApi.getProfileServicesRoute(this.userId).then(services => {
       this.servicesId = services.map(service => service.id)
-      this.getServiceWithInvitations(this.servicesId)
+      this.postServiceWithInvitations(this.servicesId)
       this.isPendingInvitationsError = false
     }).catch((error) => {
       this.arePendingInvitationsLoading = false
@@ -63,15 +67,23 @@ export class DashboardExpertEmployeesController {
   }
 
   public openInviteEmployeesModal = (): void => {
-    this.modalsService.createExpertInviteEmployeesModal()
+    this.modalsService.createExpertInviteEmployeesModal(this.getServicesInvitations)
   }
 
-  public onDeleteCallback = (): void => {
-    this.areEmployees = this.profilesWithEmployments.length - 1 > 0
-    this.arePendingInvitations = this.pendingInvitations.length - 1 > 0
+  public onDeleteInvitationsCallback = (): void => {
+    this.pendingInvitationsCount -= 1
+    this.arePendingInvitations = this.pendingInvitationsCount > 0
   }
 
-  private getServiceWithInvitations = (servicesId: string[]): void => {
+  public onDeleteEmploymentsCallback = (): void => {
+    this.emoloyeesCount -= 1
+    this.areEmployees = this.emoloyeesCount > 0
+  }
+
+  public isNoResultsInformation = (): boolean =>
+    this.areEmployees || this.arePendingInvitations || this.isGetEmployeesError || this.isPendingInvitationsError
+
+  private postServiceWithInvitations = (servicesId: string[]): void => {
     this.ServiceApi.postServiceInvitationsRoute({serviceIds: servicesId}).then(servicesWithInvitations => {
       this.groupInvitations(servicesWithInvitations)
     }).catch((error) => {
@@ -96,7 +108,8 @@ export class DashboardExpertEmployeesController {
     const invitationsGroupedByMsisdn = _.values(groupedByMsisdn)
 
     this.pendingInvitations = invitationsGroupedByEmail.concat(invitationsGroupedByMsisdn)
-    this.arePendingInvitations = this.pendingInvitations.length > 0
+    this.pendingInvitationsCount = this.pendingInvitations.length
+    this.arePendingInvitations = this.pendingInvitationsCount > 0
   }
 
 }

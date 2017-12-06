@@ -6,6 +6,7 @@ import checkboxModule from '../../../../interface/checkbox/checkbox'
 import modalsModule from '../../../../../services/modals/modals'
 
 export interface IExpertEmployeesFiltersComponentBindings extends ng.IController {
+  onModalCloseCallback: () => void
 }
 
 const expertEmployeesFiltersModule = angular.module('profitelo.components.dashboard.expert.employees.filters', [
