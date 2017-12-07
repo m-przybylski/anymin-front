@@ -8,7 +8,7 @@ export interface IInvitationsModalScope extends ng.IScope {
 }
 import * as _ from 'lodash'
 import {UserService} from '../../../common/services/user/user.service'
-import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {
   NavbarNotificationsService
 } from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'

@@ -20,7 +20,7 @@ import {UserService} from '../../../common/services/user/user.service'
 import inputModule from '../../../common/components/interface/input/input'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
-import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 
 function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService,

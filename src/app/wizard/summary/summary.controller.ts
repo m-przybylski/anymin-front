@@ -9,7 +9,7 @@ import {WizardApi, InvitationApi} from 'profitelo-api-ng/api/api'
 import * as _ from 'lodash'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
-import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {IGetServiceWithInvitationsAndTags} from '../../invitations/modal/invitations.controller'
 import {
   NavbarNotificationsService
