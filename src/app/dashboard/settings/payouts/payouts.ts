@@ -1,28 +1,29 @@
 import * as angular from 'angular'
-import apiModule from 'profitelo-api-ng/api.module'
 import {DashboardSettingsPayoutsController} from './payouts.controller'
-import {PayoutsSettingsResolver} from './payouts.resolver'
-
-import {GetPayoutMethodDto} from 'profitelo-api-ng/model/models'
+import './payouts.sass'
+import {PayoutsService} from './payouts.service'
+import modalsModule from '../../../../common/services/modals/modals'
+import translatorModule from '../../../../common/services/translator/translator'
+import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
+import topAlertModule from '../../../../common/services/top-alert/top-alert'
 
 const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dashboard.settings.payouts', [
   'ui.router',
-  apiModule
+  modalsModule,
+  translatorModule,
+  errorHandlerModule,
+  topAlertModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.dashboard.settings.payouts', {
     url: '/payouts',
     template: require('./payouts.pug')(),
     controller: 'dashboardSettingsPayoutsController',
-    controllerAs: 'vm',
-    resolve: {
-      payoutsMethods: (payoutsSettingsResolver: PayoutsSettingsResolver): ng.IPromise<GetPayoutMethodDto> =>
-        payoutsSettingsResolver.resolve()
-    }
+    controllerAs: 'vm'
   })
 })
 .controller('dashboardSettingsPayoutsController', DashboardSettingsPayoutsController)
-.service('payoutsSettingsResolver', PayoutsSettingsResolver)
+.service('payoutsService', PayoutsService)
   .name
 
 export default dashboardSettingsPayoutsModule

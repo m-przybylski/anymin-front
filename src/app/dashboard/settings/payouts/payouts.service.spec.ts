@@ -1,12 +1,13 @@
 import * as angular from 'angular'
 import {PayoutsApiMock, PayoutsApi} from 'profitelo-api-ng/api/api'
-import {PayoutsSettingsResolver} from './payouts.resolver'
+import {PayoutsService} from './payouts.service'
 import dashboardSettingsPayoutsModule from './payouts'
+import {httpCodes} from '../../../../common/classes/http-codes'
 
-describe('Unit testing: profitelo.resolvers.payouts', () => {
+describe('Unit testing: profitelo.dashboard.settings.payouts', () => {
   describe('for PayoutsSettingsResolver service >', () => {
 
-    let payoutsSettingsResolver: PayoutsSettingsResolver
+    let payoutsService: PayoutsService
     let $httpBackend: ng.IHttpBackendService
     let log: ng.ILogService
     let PayoutsApi: PayoutsApi
@@ -24,7 +25,7 @@ describe('Unit testing: profitelo.resolvers.payouts', () => {
 
       inject(($injector: ng.auto.IInjectorService, _PayoutsApiMock_: PayoutsApiMock,
               _PayoutsApi_: PayoutsApi, $q: ng.IQService) => {
-        payoutsSettingsResolver = $injector.get<PayoutsSettingsResolver>('payoutsSettingsResolver')
+        payoutsService = $injector.get<PayoutsService>('payoutsService')
         $httpBackend = $injector.get('$httpBackend')
         log = $injector.get('$log')
         q = $q
@@ -33,37 +34,26 @@ describe('Unit testing: profitelo.resolvers.payouts', () => {
       })
     })
 
-    it('should have resolve function', () => {
-      expect(payoutsSettingsResolver.resolve).toBeDefined()
-    })
-
-    it('should resolve payouts', () => {
+    it('should get payout methods', (done) => {
       const mockPayoutsMethod = {
         payPalAccount: {
-          email: 'mockEmail',
-          isDefault: true
+          email: 'mockEmail@com.pl'
         }
       }
-      PayoutsApiMock.getPayoutMethodsRoute(200, mockPayoutsMethod)
-      payoutsSettingsResolver.resolve().then((response) => {
+      PayoutsApiMock.getPayoutMethodsRoute(httpCodes.ok, mockPayoutsMethod)
+      payoutsService.getPayoutMethods().then((response) => {
         expect(response).toEqual(mockPayoutsMethod)
+        done()
       })
       $httpBackend.flush()
     })
 
-    it('should log error', () => {
-      spyOn(log, 'error')
-      PayoutsApiMock.getPayoutMethodsRoute(500)
-      payoutsSettingsResolver.resolve()
-      $httpBackend.flush()
-      expect(log.error).toHaveBeenCalled()
-    })
-
-    it('should return empty array', () => {
-      spyOn(log, 'error')
-      PayoutsApiMock.getPayoutMethodsRoute(404)
-      payoutsSettingsResolver.resolve().then((response) => {
-        expect(response).toEqual({})
+    it('should put payout methods', (done) => {
+      const mockPayoutsMethod = {}
+      PayoutsApiMock.putPayoutMethodRoute(httpCodes.ok, mockPayoutsMethod)
+      payoutsService.putPayoutMethod().then((response) => {
+        expect(response).toEqual(mockPayoutsMethod)
+        done()
       })
       $httpBackend.flush()
     })

@@ -1,37 +1,43 @@
 .payouts.payouts-options
-  no-results-information(
-    data-ng-hide="vm.isAnyPayoutMethod"
-    data-icon-src="/assets/images/profitelo_icons/icon_payments.png"
-    data-information-title="SETTINGS.PAYMENTS.NO_RESULTS.TITLE"
-    data-button-title="SETTINGS.PAYMENTS.NO_RESULTS.BUTTON"
-    data-button-class="btn-default icon-right"
-    data-button-icon-right-class="icon-arrow-right-16"
-    data-button-on-click="vm.addPayoutsMethod"
+  preloader-container(
+    data-is-loading="vm.isLoading"
+    data-is-error="vm.isLoadMoreError"
+    data-error-fn="vm.getPayoutMethods"
+    data-error-message="SETTINGS.PAYMENTS.LOADING_DATA_ERROR"
   )
+    no-results-information(
+      data-ng-hide="vm.isAnyPayoutMethod"
+      data-icon-src="/assets/images/profitelo_icons/icon_payments.png"
+      data-information-title="SETTINGS.PAYMENTS.NO_RESULTS.TITLE"
+      data-button-title="SETTINGS.PAYMENTS.NO_RESULTS.BUTTON"
+      data-button-class="btn-default icon-right"
+      data-button-icon-right-class="icon-arrow-right-16"
+      data-button-on-click="vm.addPayoutMethod"
+    )
 
-  .payments-method(data-ng-show="vm.isAnyPayoutMethod")
-    header.entry-title
-      span(data-translate="SETTINGS.PAYOUTS.PAYOUTS_METHOD.TITLE")
-      a.btn.btn-primary.btn-small(
-      data-ng-if="!vm.isPlatformForExpert"
-      data-translate="SETTINGS.PAYMENTS.BUTTON.ADD"
-      data-ng-click="vm.addPayoutsMethod()")
+    .payments-method(data-ng-show="vm.isAnyPayoutMethod")
+      header.entry-title
+        span(data-translate="SETTINGS.PAYOUTS.PAYOUTS_METHOD.TITLE")
+        a.btn.btn-primary.btn-small(
+          data-ng-if="!vm.isPlatformForExpert"
+          data-translate="SETTINGS.PAYMENTS.BUTTON.ADD"
+          data-ng-click="vm.addPayoutMethod()"
+        )
 
-    .radio-list.payments-method-list
-      form
-        .radio-list-item
-          .radio-text.radio
-            .radio-input
-              input(id="master-card" type="radio" name="payments-method" data-ng-model="vm.isDefault")
-              label.label
+      .list-row(data-ng-if="vm.payPalAccount")
+        .payout-info
+          span.payout-method(data-translate="SETTINGS.PAYMENTS.PAYMENT_METHOD.PAYPAL")
+          span.payout-data {{ vm.payPalAccount }}
+        a.btn.btn-primary.btn-small.recharge-account(
+          data-translate="SETTINGS.PAYOUTS.BUTTON.DELETE"
+          data-ng-click="vm.deletePaymentMethod()"
+        )
 
-            label.text(for="master-card")
-              .payment-thumb
-                img(data-ng-src="/assets/images/payments/paypal.png")
-
-              span {{ vm.payPalAccount.email }}
-
-          .radio-action
-            a.btn.btn-primary.btn-small.recharge-account(
-            data-translate="SETTINGS.PAYOUTS.BUTTON.DELETE" data-ng-click="vm.deletePaymentMethod()")
-
+      .list-row(data-ng-if="vm.bankAccount")
+        .payout-info
+          span.payout-method(data-translate="SETTINGS.PAYMENTS.PAYMENT_METHOD.BANK_ACCOUNT")
+          span.payout-data {{ vm.bankAccount }}
+        a.btn.btn-primary.btn-small.recharge-account(
+          data-translate="SETTINGS.PAYOUTS.BUTTON.DELETE"
+          data-ng-click="vm.deletePaymentMethod()"
+        )
