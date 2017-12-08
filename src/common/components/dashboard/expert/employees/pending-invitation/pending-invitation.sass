@@ -1,7 +1,7 @@
 @import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
 @import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
 
-.expert-employee
+.pending-invitation
   .list-row
     padding: 16px 0
 
@@ -11,45 +11,42 @@
     &:hover
       background: $c-background
 
-      .employee-button-container
+      .invitations-button-container
         +lgm
           display: flex
 
-    .employee-informations
+    .invitations-informations
       display: flex
       align-items: center
       width: 100%
 
-    .employee-name-container
-      min-width: 184px
+    .invitations-name-container
+      min-width: 256px
       margin: 0 24px 0 0
 
       span
         +paragraphTitle
 
-    .employee-avatar-container
-      margin: 0 24px 0 0
-
-    .consultations-count-container
+    .invitations-count-container
       span
         +paragraphSmall
         color: $c-primary-txt
 
-      .consultation-slug
+      .invitations-slug
         margin: 0 0 0 8px
 
-    .employee-details
+    .invitations-details
       display: flex
       flex-wrap: wrap
 
-    .employee-button-container
+    .invitations-button-container
       +lgm
         display: none
 
       a:first-child
         margin: 0 24px 0 0
 
-    .employee-container
+    .invitation-container
       +smm
         display: flex
         justify-content: space-between

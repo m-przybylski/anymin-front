@@ -5,6 +5,7 @@ import expertInviteEmployeesModule from './invite-employees'
 import {ServiceApi, InvitationApiMock} from 'profitelo-api-ng/api/api';
 import {UserService} from '../../../../../../services/user/user.service'
 import {GetService, PostInvitations} from 'profitelo-api-ng/model/models';
+import {httpCodes} from '../../../../../../classes/http-codes'
 
 describe('Testing Controller: expertInviteEmployeesController', () => {
 
@@ -35,7 +36,7 @@ describe('Testing Controller: expertInviteEmployeesController', () => {
             _InvitationApiMock_: InvitationApiMock,
             _$httpBackend_: ng.IHttpBackendService) => {
 
-      scope = <ng.IScope>$rootScope.$new()
+      scope = <IExpertInviteEmployeesControllerScope>$rootScope.$new()
       $httpBackend = _$httpBackend_
       invitationApiMock = _InvitationApiMock_
 
@@ -80,9 +81,10 @@ describe('Testing Controller: expertInviteEmployeesController', () => {
   })
 
   it('should send invitation', () => {
+    scope.onModalCloseCallback = (): void => {}
     spyOn(expertInviteEmployeesController, 'onModalClose')
     spyOn(expertInviteEmployeesController, 'isFormValid').and.returnValue(true)
-    invitationApiMock.postInvitationRoute(200, <PostInvitations>{})
+    invitationApiMock.postInvitationRoute(httpCodes.ok, <PostInvitations>{})
     expertInviteEmployeesController.sendInvitations()
     $httpBackend.flush()
     expect(expertInviteEmployeesController.onModalClose).toHaveBeenCalled()

@@ -454,9 +454,10 @@ export class ModalsService {
     })
   }
 
-  public createExpertInviteEmployeesModal = (): IModalInstanceService => {
+  public createExpertInviteEmployeesModal = (onModalClose: () => void): IModalInstanceService => {
     const dialogScope: IExpertInviteEmployeesControllerScope =
       <IExpertInviteEmployeesControllerScope>this.$rootScope.$new(true)
+    dialogScope.onModalCloseCallback = onModalClose
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
