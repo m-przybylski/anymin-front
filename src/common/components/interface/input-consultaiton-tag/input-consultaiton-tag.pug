@@ -23,11 +23,16 @@
         a(data-ng-click="$ctrl.deleteSelectedItem($index)") {{tag}}
           span.icon.icon-failure-24
 
-  preloader-container(data-is-loading="$ctrl.isSuggestedTagsLoading")
-    .recommended-lst(data-ng-if="$ctrl.suggestedTags && $ctrl.suggestedTags.length > 0")
+  preloader-container(data-is-loading="$ctrl.areSuggestedTagsLoading")
+    .recommended-lst(data-ng-if="$ctrl.suggestedTags && $ctrl.suggestedTags.length > 0 && !$ctrl.isError")
       p.label(data-translate="WIZARD.CONSULTATION.TAG.RECOMMENDED.TITLE")
 
       ul.tag-list.recomended-tags
         li(data-ng-repeat="item in $ctrl.suggestedTags track by $index")
           a(data-ng-click="$ctrl.addSelectedItem(item, $index)")
             span {{ item }}
+
+    a.btn.btn-error(
+    data-ng-click="$ctrl.postTagsSuggestions($ctrl.cacheSuggestedTags)"
+    data-ng-if="$ctrl.isError"
+    data-translate="WIZARD.CONSULTATION.TAG.RECOMMENDED.ERROR_BUTTON")
