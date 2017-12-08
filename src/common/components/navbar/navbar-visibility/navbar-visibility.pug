@@ -1,4 +1,4 @@
-.navbar-availbility
+.navbar-visibility
   .btn-dropdown
     span.btn.btn-preloader(data-ng-if="$ctrl.isLoading")
     .btn-dropdown-header(data-ng-if="!$ctrl.isLoading" data-ng-click="$ctrl.toggleButton()")
@@ -10,24 +10,24 @@
       data-ng-if="$ctrl.isOpen"
       data-ng-class="{'is-pending': $ctrl.isVisibilityPending}"
     )
-      li
+      li(data-ng-class="{'is-pending': $ctrl.isVisible}")
         radio-btn(
           data-ng-click="$ctrl.selectVisibleOption()"
           data-id="visible"
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.VISIBLE"
           name="availbility_name"
           data-value="visible"
-          data-ng-model="$ctrl.radioModel.name"
+          data-ng-model="$ctrl.radioModel"
         )
 
-      li
+      li(data-ng-class="{'is-pending': !$ctrl.isVisible}")
         radio-btn(
           data-ng-click="$ctrl.selectInvisibleOption()"
           data-id="invisible"
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.INVISIBLE"
           name="availbility_name"
           data-value="invisible"
-          data-ng-model="$ctrl.radioModel.name"
+          data-ng-model="$ctrl.radioModel"
         )
 
     ul.btn-dropdown-list.desktop-hidden(data-ng-class="{'is-pending': $ctrl.isVisibilityPending}")
@@ -38,7 +38,7 @@
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.VISIBLE"
           name="availbility_name_mobile"
           data-value="visible"
-          data-ng-model="$ctrl.radioModel.name"
+          data-ng-model="$ctrl.radioModel"
         )
 
       li
@@ -48,5 +48,5 @@
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.INVISIBLE"
           name="availbility_name_mobile"
           data-value="invisible"
-          data-ng-model="$ctrl.radioModel.name"
+          data-ng-model="$ctrl.radioModel"
         )

@@ -4,7 +4,7 @@ import {EventsService} from '../events/events.service'
 import {CallSummaryWebsocketObject} from '../../models/CallSummary'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
-import {IExpertPresenceUpdate} from '../../components/navbar/navbar-availbility/navbar-availbility.service'
+import {IExpertPresenceUpdate} from '../../components/navbar/navbar-visibility/navbar-visibility.service'
 
 export class ProfiteloWebsocketService {
   private websocket: WebSocket

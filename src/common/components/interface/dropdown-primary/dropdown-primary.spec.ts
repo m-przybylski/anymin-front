@@ -121,12 +121,12 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       expect(component.onSelectMain).toHaveBeenCalled()
     })
 
-    it('should press arrow-bottom key and not invoke preventDefault', inject(() => {
+    it('should press arrow-bottom key and not invoke preventDefault', inject(($window: ng.IWindowService) => {
       const event = jQuery.Event('keydown')
       spyOn(event, 'preventDefault')
       event.which = keyboardCodes.arrowDown
       event.keyCode = keyboardCodes.arrowDown
-      angular.element(window).trigger(event)
+      angular.element($window).trigger(event)
       expect(event.preventDefault).not.toHaveBeenCalled()
     }))
   })

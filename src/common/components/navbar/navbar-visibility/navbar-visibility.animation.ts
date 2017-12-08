@@ -1,4 +1,4 @@
-export class NavbarAvailbilityAnimation {
+export class NavbarVisibilitAnimation {
 
   /* @ngInject */
   constructor(private $animateCss: ng.animate.IAnimateCssService) {}
@@ -26,7 +26,7 @@ export class NavbarAvailbilityAnimation {
 
   public static getInstance = (): ($animateCss: ng.animate.IAnimateCssService) => ng.animate.IAnimateCallbackObject => {
     const instance = ($animateCss: ng.animate.IAnimateCssService): ng.animate.IAnimateCallbackObject =>
-      new NavbarAvailbilityAnimation($animateCss).createAnimation()
+      new NavbarVisibilitAnimation($animateCss).createAnimation()
     instance.$inject = ['$animateCss']
     return instance
   }
