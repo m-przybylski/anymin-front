@@ -47,7 +47,7 @@ describe('Testing Controller: ServiceFormModalController', () => {
       serviceFormModalController = $controller(ServiceFormModalController, {
         $scope: scope,
         $uibModalInstance: uibModalInstance,
-        userService: userService,
+        userService,
         ServiceApi,
         errorHandler
       })
@@ -65,7 +65,7 @@ describe('Testing Controller: ServiceFormModalController', () => {
   it('should save new consultation', inject(($q: ng.IQService) => {
     spyOn(ServiceApi, 'postServiceRoute').and.callFake(() => $q.resolve({}))
     serviceFormModalController.consultationName = 'someName'
-    serviceFormModalController.consultationTags = ['tag']
+    serviceFormModalController.consultationTags = ['tag', 'tag2', 'tag3']
     serviceFormModalController.consultationLanguage = {name: 'pl', value: 'pl'}
     serviceFormModalController.consultationDescription = 'someDescription someDescription someDescription someDescription'
     serviceFormModalController.consultationNewInvitations = ['employee@wp.pl']
@@ -78,7 +78,7 @@ describe('Testing Controller: ServiceFormModalController', () => {
   it('should edit existing consultation', inject(($q: ng.IQService) => {
     spyOn(ServiceApi, 'postServiceRoute').and.callFake(() => $q.resolve({}))
     serviceFormModalController.consultationName = 'someName'
-    serviceFormModalController.consultationTags = ['tag']
+    serviceFormModalController.consultationTags = ['tag', 'tag2', 'tag3']
     serviceFormModalController.consultationLanguage = {name: 'pl', value: 'pl'}
     serviceFormModalController.consultationDescription = 'someDescription someDescription someDescription someDescription'
     serviceFormModalController.consultationNewInvitations = ['48555555555']
@@ -117,8 +117,15 @@ describe('Testing Controller: ServiceFormModalController', () => {
   }))
 
   it('should consultation price be invalid', () => {
-    serviceFormModalController.consultationPrice = ''
+    const price: number = 133
+    serviceFormModalController.onPriceChange(price)
     expect(serviceFormModalController.isPriceValid()).toBe(false)
+  })
+
+  it('should consultation price be valid', () => {
+    const price: number = 13
+    serviceFormModalController.onPriceChange(price)
+    expect(serviceFormModalController.isPriceValid()).toBe(true)
   })
 
   it('should price not pass RegExpPrice test', () => {

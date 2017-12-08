@@ -3,8 +3,12 @@ import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitel
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
+import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
+import {inputsMaxLength} from '../../../../common/constants/inputs-max-length.constant'
 
 export class ExpertController implements ng.IController {
+  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
+  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
@@ -20,12 +24,16 @@ export class ExpertController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
-  private static readonly minValidNameLength: number = 3
-  private static readonly minValidDescriptionLength: number = 50
+  private profileNamePattern: RegExp
+  private profileDescriptionPattern: RegExp
 
   /* @ngInject */
-  constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
-              private wizardProfile?: GetWizardProfile) {}
+  constructor(private WizardApi: WizardApi,
+              private $state: ng.ui.IStateService,
+              private CommonSettingsService: CommonSettingsService,
+              private wizardProfile?: GetWizardProfile) {
+    this.assignValidationValues()
+  }
 
   $onInit = (): void => {
     if (this.wizardProfile) {
@@ -87,13 +95,13 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  public checkIsNameInputValid = (): boolean =>
-    !!(this.nameModel && this.nameModel.length >= ExpertController.minValidNameLength)
+  public checkIsNameInputValid = (): boolean => this.nameModel ?
+    this.profileNamePattern.test(this.nameModel) : false
 
   public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0)
 
-  public checkIsProfileDescriptionValid = (): boolean =>
-    !!(this.descriptionModel && this.descriptionModel.length >= ExpertController.minValidDescriptionLength)
+  public checkIsProfileDescriptionValid = (): boolean => this.descriptionModel ?
+    this.profileDescriptionPattern.test(this.descriptionModel) : false
 
   public checkIsFileUploadValid = (): boolean => this.isUploading
 
@@ -118,4 +126,9 @@ export class ExpertController implements ng.IController {
     !this.currentWizardState.expertDetailsOption
       || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
 
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.profileNamePattern = localSettings.profileNamePattern
+    this.profileDescriptionPattern = localSettings.profileDescriptionPattern
+  }
 }

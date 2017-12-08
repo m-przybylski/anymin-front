@@ -83,6 +83,11 @@ describe('Testing Controller: ExpertController', () => {
     expect(ExpertController.checkIsNameInputValid()).toEqual(true)
   })
 
+  it('should name input invalid', () => {
+    ExpertController.nameModel = ''
+    expect(ExpertController.checkIsNameInputValid()).toEqual(false)
+  })
+
   it('should avatar valid', () => {
     ExpertController.avatarModel = 'SomeAvatar'
     expect(ExpertController.checkIsAvatarValid()).toEqual(true)
@@ -91,6 +96,11 @@ describe('Testing Controller: ExpertController', () => {
   it('should profile description valid', () => {
     ExpertController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     expect(ExpertController.checkIsProfileDescriptionValid()).toEqual(true)
+  })
+
+  it('should profile description invalid', () => {
+    ExpertController.descriptionModel = ''
+    expect(ExpertController.checkIsProfileDescriptionValid()).toEqual(false)
   })
 
   it('should form valid', () => {
@@ -136,4 +146,3 @@ describe('Testing Controller: ExpertController', () => {
   })
 
 })
-

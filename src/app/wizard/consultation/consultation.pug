@@ -24,7 +24,7 @@ section.consultation
         input-primary(
           data-ng-model="vm.nameInputValue"
           data-ng-pattern="vm.patternName"
-          data-max-length="150"
+          data-max-length="{{ vm.inputNameMaxLength }}"
           data-validation-text="WIZARD.CONSULTATION.NAME_INPUT_VALIDATION"
           data-is-submitted="vm.isSubmitted"
           data-is-valid="vm.checkIsNameInputValid()"
@@ -41,7 +41,7 @@ section.consultation
         data-id="consultationDescription"
         data-is-valid="vm.checkIsDescriptionInputValid()"
         data-validation-text="WIZARD.CONSULTATION.DESCRIPTION.VALIDATION_TEXT"
-        data-max-length="600"
+        data-max-length="{{ vm.inputDescriptionMaxLength }}"
         )
 
       wizard-step.step(
@@ -78,11 +78,12 @@ section.consultation
           data-is-submitted="vm.isSubmitted"
           data-is-valid="vm.isRegExpPriceValid"
           data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
+          data-input-value-callback="vm.onPriceChange"
         )
 
         validation-alert(
         data-alert-text="WIZARD.CONSULTATION.PRICE.VALIDATION_ERROR"
-        data-is-visible="!vm.priceAmountInputValue"
+        data-is-visible="!vm.isPriceAmountValid"
         )
 
       wizard-step.step(

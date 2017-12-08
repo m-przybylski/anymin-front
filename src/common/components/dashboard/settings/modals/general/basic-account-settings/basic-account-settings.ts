@@ -18,6 +18,8 @@ import {ErrorHandlerService} from '../../../../../../services/error-handler/erro
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler'
 import inputModule from '../../../../../interface/input/input'
 import {FileCategoryEnum, FileTypeChecker} from '../../../../../../classes/file-type-checker/file-type-checker'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 
 export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
   callback: (cb: () => void) => void
@@ -44,6 +46,7 @@ export interface IBasicAccountSettingsControllerScope extends ng.IScope {
   }
   avatarPreview: string
   isUploadInProgress: boolean
+  isNicknameValid(): boolean
 }
 
 interface ISaveCrop {
@@ -53,14 +56,19 @@ interface ISaveCrop {
 
 export class BasicAccountSettingsController implements ng.IController {
 
+  public isFileFormatValidError: boolean = false
+  public isFileSizeError: boolean = false
+
   private uploadedFile: File
   private uploader: UploaderService
   private clearFormAfterCropping: () => void
-  private isFileFormatValidError: boolean = false
+  private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
+  private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize
 
   /* @ngInject */
   constructor(private $scope: IBasicAccountSettingsControllerScope,
               private AccountApi: AccountApi,
+              private CommonSettingsService: CommonSettingsService,
               private errorHandler: ErrorHandlerService,
               $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               userService: UserService,
@@ -103,15 +111,20 @@ export class BasicAccountSettingsController implements ng.IController {
     }
 
     $scope.addPhoto = (imagePath: string, file: File, callback: () => void): void => {
-      if (imagePath.length > 0 && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)) {
+      if (imagePath.length > 0
+        && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)
+        && this.isFileSizeValid(file)) {
         $scope.imageSource = imagePath
         $scope.isUserUploadImage = true
         this.uploadedFile = file
         this.clearFormAfterCropping = callback
         this.isFileFormatValidError = false
-      } else {
-        this.isFileFormatValidError = true
+        this.isFileSizeError = false
       }
+
+      this.isFileFormatValidError = !FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)
+
+      this.isFileSizeError = !this.isFileSizeValid(file)
     }
 
     $scope.removePhoto = (): void => {
@@ -139,6 +152,11 @@ export class BasicAccountSettingsController implements ng.IController {
 
     $scope.onModalClose = (): void =>
       $uibModalInstance.dismiss('cancel')
+
+    $scope.isNicknameValid = (): boolean =>
+      $scope.generalSettingsObject.nickname ?
+        this.profileNamePattern.test($scope.generalSettingsObject.nickname) :
+        false
   }
 
   private onUploadProgess = (): void => {}
@@ -156,6 +174,9 @@ export class BasicAccountSettingsController implements ng.IController {
     this.$scope.isUploadInProgress = false
     throw new Error('Can not upload file: ' + err)
   }
+
+  private isFileSizeValid = (file: File): boolean => file.size <= this.maxValidAvatarSize
+
 }
 
 angular.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings', [
@@ -170,6 +191,7 @@ angular.module('profitelo.components.dashboard.settings.modals.general.basic-acc
   'profitelo.directives.interface.scrollable',
   checkboxModule,
   errorHandlerModule,
-  inputModule
+  inputModule,
+  commonSettingsModule
 ])
 .controller('basicAccountSettingsController', BasicAccountSettingsController)

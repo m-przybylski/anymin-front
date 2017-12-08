@@ -6,8 +6,8 @@ import avatarUploaderModule from './avatar-uploader'
 import {UrlService} from '../../services/url/url.service'
 import {FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
 
-describe('Unit testing: profitelo.components.avatar-uploader', () => {
-  return describe('for AvatarUploader component >', () => {
+describe('Unit testing: profitelo.components.avatar-uploader', () =>
+  describe('for AvatarUploader component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
@@ -102,10 +102,9 @@ describe('Unit testing: profitelo.components.avatar-uploader', () => {
     it('should add photo', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
       const imagePath = '../img/src.jpg'
-      const file: File = new File([], '0')
-      component.addPhoto(imagePath, file, () => {})
+      component.addPhoto(imagePath, <File>{size: 2000}, () => {})
       expect(component.imageSource).toEqual(imagePath)
-      expect(component.isFileFormatValidError).toBe(false)
+      expect(component.isFileFormatError).toBe(false)
     })
 
     it('should not add photo', () => {
@@ -113,8 +112,8 @@ describe('Unit testing: profitelo.components.avatar-uploader', () => {
       const imagePath = '../img/src.jpg'
       const file: File = new File([], '0')
       component.addPhoto(imagePath, file, () => {})
-      expect(component.isFileFormatValidError).toBe(true)
+      expect(component.isFileFormatError).toBe(true)
     })
 
   })
-})
+)

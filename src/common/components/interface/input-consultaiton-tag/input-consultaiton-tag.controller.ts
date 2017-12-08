@@ -3,6 +3,7 @@ import {SearchApi} from 'profitelo-api-ng/api/api'
 import {PostSuggestTags, GetSuggestedTags} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 import {PromiseService} from '../../../services/promise/promise.service'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 export class InputConsultationTagComponentController implements IInputConsultationTagBindings {
   public selectedTags: string[] = []
@@ -17,6 +18,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
   public isSuggestedTagsLoading: boolean
   public serviceName: string
   public serviceDescription: string
+  public maxTagsCount: number = this.CommonSettingsService.localSettings.consultationTagsMaxCount
 
   private static readonly suggestedTagsLimit = 7
   private static readonly suggestedTagsLoaderDelay = 500
@@ -25,11 +27,14 @@ export class InputConsultationTagComponentController implements IInputConsultati
   /* @ngInject */
   constructor(private SearchApi: SearchApi,
               private promiseService: PromiseService,
-              private $log: ng.ILogService) {
+              private $log: ng.ILogService,
+              private CommonSettingsService: CommonSettingsService) {
   }
 
   public onEnter = (): void => {
-    if (this.tagModel.length > 0 && !(this.selectedTags.indexOf(this.tagModel) !== -1)) {
+    if (this.tagModel.length > 0
+      && !(this.selectedTags.indexOf(this.tagModel) !== -1)
+      && this.isTagsCountValid()) {
       this.selectedTags.push(this.tagModel)
       this.isInputValueInvalid = false
       this.tagModel = ''
@@ -40,7 +45,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
   }
 
   public addSelectedItem = (item: string, index: number): void => {
-    if (this.selectedTags.indexOf(item) === -1) {
+    if (this.selectedTags.indexOf(item) === -1 && this.isTagsCountValid()) {
       this.selectedTags.push(item)
       this.isInputValueInvalid = false
       this.suggestedTags.splice(index, 1)
@@ -63,6 +68,9 @@ export class InputConsultationTagComponentController implements IInputConsultati
     this.selectedTags.splice(index, 1)
     this.updateSuggestedTags()
   }
+
+  public isValidationAlertVisible = (): boolean =>
+    !this.isValid && this.isDirty && !this.isFocus || this.isSubmitted && !this.isValid
 
   private updateSuggestedTags = (): void => {
     const tagsQuery = {
@@ -104,4 +112,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
   private onPostTagsSuggestionsError = (error: any): void => {
     this.$log.error(error)
   }
+
+  private isTagsCountValid = (): boolean => this.selectedTags.length < this.maxTagsCount
+
 }

@@ -19,17 +19,19 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public isValidEmployee: boolean = false
   public isSubmitted: boolean = false
   public isCheckboxVisible: boolean = true
+  public isMaxConsultationCountError: boolean = false
 
   private readonly validationTime: number = 3000
   private CSVFileReader: CSVFileReader
 
   private static readonly defaultCountryPrefix = '+48'
+  private consultationInvitationsMaxCount: number
 
   /* @ngInject */
-  constructor(CommonSettingsService: CommonSettingsService, private $timeout: ng.ITimeoutService) {
-    this.mailRegexp = CommonSettingsService.localSettings.emailPattern
-    this.phonePattern = CommonSettingsService.localSettings.phonePattern
+  constructor(private CommonSettingsService: CommonSettingsService,
+              private $timeout: ng.ITimeoutService) {
     this.CSVFileReader = new CSVFileReader
+    this.assignValidationValues()
   }
 
   private getPrefixPhoneNumber = (phoneNumber: string): string => {
@@ -59,11 +61,14 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     if (phoneNumbers.isValidNumber(inputValue, 'PL')) {
       const correctValue = this.getFullPhoneNumber(inputValue)
 
-      if (this.isValidPhoneNumber(correctValue))
+      if (this.isValidPhoneNumber(correctValue) && !this.isMaxInvitationsCountReached())
         this.addEmployee(correctValue)
     }
-    else if (this.isValidEmailAddress(inputValue)) {
+    else if (this.isValidEmailAddress(inputValue) && !this.isMaxInvitationsCountReached()) {
       this.addEmployee(inputValue)
+    }
+    else if (this.isMaxInvitationsCountReached()) {
+      this.isMaxConsultationCountError = true
     }
     else {
       this.isInputValueInvalid = true
@@ -87,6 +92,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
 
   public deleteSelectedItem = (index: number): void => {
     this.addedItemsList.splice(index, 1)
+    this.isMaxConsultationCountError = this.areInvitationsExceedValidLimit()
   }
 
   public onFocus = (): void => {
@@ -98,6 +104,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     this.isFocus = false
     this.isInputValueInvalid = false
     this.isValidEmployee = false
+    this.isMaxConsultationCountError = false
   }
 
   public uploadCSVFile = (files: FileList): void => {
@@ -120,6 +127,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     if (mailOrNumberList.length < 1) {
       this.showFileUploadError()
     }
+    this.isMaxConsultationCountError = this.areInvitationsExceedValidLimit()
   }
 
   private handleErrorUpload = (): void => {
@@ -138,5 +146,18 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
       this.areUploadedFilesInvalid = false
     }, this.validationTime)
     this.areUploadedFilesInvalid = true
+  }
+
+  private isMaxInvitationsCountReached = (): boolean =>
+    this.addedItemsList.length >= this.consultationInvitationsMaxCount
+
+  private areInvitationsExceedValidLimit = (): boolean =>
+    this.addedItemsList.length > this.consultationInvitationsMaxCount
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount
+    this.mailRegexp = localSettings.emailPattern
+    this.phonePattern = localSettings.phonePattern
   }
 }

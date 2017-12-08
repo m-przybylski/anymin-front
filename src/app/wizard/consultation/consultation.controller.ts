@@ -7,6 +7,8 @@ import {CommonConfig} from '../../../../generated_modules/common-config/common-c
 import {LanguagesService} from '../../../common/services/languages/languages.service'
 import {TranslatorService} from '../../../common/services/translator/translator.service'
 import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import {inputsMaxLength} from '../../../common/constants/inputs-max-length.constant'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -18,9 +20,11 @@ interface ILanguagesList {
 }
 
 export class ConsultationController implements ng.IController {
+  public readonly inputNameMaxLength: string = inputsMaxLength.consultationName
+  public readonly inputDescriptionMaxLength: string = inputsMaxLength.consultationDescription
   public isStepRequired: boolean = true
   public currency: string
-  public nameInputValue: string
+  public nameInputValue: string = ''
   public tagsInputValue: string[] = []
   public priceAmountInputValue: string = '1,00'
   public invitationsInputValue: string[] = []
@@ -29,17 +33,23 @@ export class ConsultationController implements ng.IController {
   public languageInputValue: ILanguagesList
   public descriptionInputValue: string
   public isPlatformForExpert: boolean = isPlatformForExpert
-
+  public isRegExpPriceInputValid: boolean = true
   public isCompany: boolean
   public isSubmitted: boolean = false
+  public isPriceAmountValid: boolean = true
+
   private isExpert: boolean
   private currentEditServiceIndex: number = -1
   private moneyDivider: number
-  private static readonly minValidNameLength: number = 5
-  private static readonly minValidDescriptionLength: number = 50
-  public isRegExpPriceInputValid: boolean = true
   private defaultLanguageISO: string = ''
-
+  private consultationNamePattern: RegExp
+  private consultationDescriptionPattern: RegExp
+  private consultationTagsMinCount: number
+  private consultationTagsMaxCount: number
+  private consultationInvitationsMinCount: number
+  private consultationInvitationsMaxCount: number
+  private consultationPriceMin: number
+  private consultationPriceMax: number
   /* @ngInject */
   constructor(private translatorService: TranslatorService,
               private $state: ng.ui.IStateService,
@@ -48,11 +58,14 @@ export class ConsultationController implements ng.IController {
               private userService: UserService,
               private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
-              private languagesService: LanguagesService) {
+              private languagesService: LanguagesService,
+              private CommonSettingsService: CommonSettingsService) {
 
     this.languagesList = this.languagesService.languagesList
 
     this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider
+
+    this.assignValidationValues()
 
     if (wizardProfile) {
       this.isCompany = wizardProfile.isCompany
@@ -167,24 +180,46 @@ export class ConsultationController implements ng.IController {
     this.isRegExpPriceInputValid = isRegExpPriceValid
   }
 
-  public checkIsNameInputValid = (): boolean =>
-    !!(this.nameInputValue && this.nameInputValue.length >= ConsultationController.minValidNameLength)
+  public onPriceChange = (ngModel: number): void => {
+    const amount = Number(ngModel.toString().replace(',', '.'))
+    this.isPriceAmountValid = amount <= this.consultationPriceMax && amount >= this.consultationPriceMin
+  }
 
-  public checkIsTagsInputValid = (): boolean => this.tagsInputValue && this.tagsInputValue.length > 0
+  public checkIsNameInputValid = (): boolean => this.consultationNamePattern.test(this.nameInputValue)
 
-  public checkIsDescriptionInputValid = (): boolean => typeof this.descriptionInputValue === 'string'
-    && this.descriptionInputValue.length >= ConsultationController.minValidDescriptionLength
+  public checkIsTagsInputValid = (): boolean => this.tagsInputValue
+    && this.tagsInputValue.length >= this.consultationTagsMinCount
+    && this.tagsInputValue.length <= this.consultationTagsMaxCount
+
+  public checkIsDescriptionInputValid = (): boolean =>
+    this.consultationDescriptionPattern.test(this.descriptionInputValue)
 
   public checkIsEmployeesInputValid = (): boolean =>
-    this.invitationsInputValue && this.invitationsInputValue.length > 0 || this.isOwnerEmployee
+    this.isOwnerEmployee && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
+    || this.invitationsInputValue.length >= this.consultationInvitationsMinCount
+        && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
 
   public checkIsFormValid = (): boolean =>
-    this.checkIsNameInputValid() && this.checkIsTagsInputValid() && this.checkIsPriceInputValid()
-    && this.checkIsEmployeesInputValid() && this.checkIsDescriptionInputValid()
+    this.checkIsNameInputValid()
+    && this.checkIsTagsInputValid()
+    && this.checkIsPriceInputValid()
+    && this.checkIsEmployeesInputValid()
+    && this.checkIsDescriptionInputValid()
 
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
 
-  public checkIsPriceInputValid = (): boolean =>
-    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 && this.isRegExpPriceInputValid)
+  public checkIsPriceInputValid = (): boolean => this.isPriceAmountValid && this.isRegExpPriceInputValid
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings
+    this.consultationNamePattern = localSettings.consultationNamePattern
+    this.consultationDescriptionPattern = localSettings.consultationDescriptionPattern
+    this.consultationTagsMinCount = localSettings.consultationTagsMinCount
+    this.consultationTagsMaxCount = localSettings.consultationTagsMaxCount
+    this.consultationInvitationsMinCount = localSettings.consultationInvitationsMinCount
+    this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount
+    this.consultationPriceMin = localSettings.consultationPriceMin / this.moneyDivider
+    this.consultationPriceMax = localSettings.consultationPriceMax / this.moneyDivider
+  }
 
 }

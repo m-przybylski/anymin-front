@@ -5,9 +5,10 @@ import {IFileUploaderModuleComponentBindings} from './file-uploader'
 import fileUploaderModule from './file-uploader'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
+import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 
-describe('Unit testing: profitelo.components.file-uploader', () => {
-  return describe('for FileUploader component >', () => {
+describe('Unit testing: profitelo.components.file-uploader', () =>
+  describe('for FileUploader component >', () => {
 
     let scope: IFileUploaderComponentScope
     let rootScope: ng.IRootScopeService
@@ -17,6 +18,7 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
     let bindings: IFileUploaderModuleComponentBindings
     let $log: ng.ILogService
     let httpBackend: ng.IHttpBackendService
+    let CommonSettingsService: CommonSettingsService
 
     const uploaderFactory = {
       getInstance: (): void => {
@@ -45,7 +47,9 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
     beforeEach(() => {
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $httpBackend: ng.IHttpBackendService,
-              $componentController: ng.IComponentControllerService, _$log_: ng.ILogService) => {
+              $componentController: ng.IComponentControllerService, _$log_: ng.ILogService,
+              _CommonSettingsService_: CommonSettingsService) => {
+        CommonSettingsService = _CommonSettingsService_
         rootScope = $rootScope.$new()
         compile = $compile
         $log = _$log_
@@ -82,14 +86,17 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
       component.documentFiles = []
       const file: File = new File([], '0')
       const files: File[] = [file]
-      component.uploadFiles(files)
+      const _newFiles = files
+      const _duplicateFiles = files
+      const invalidFiles: File[] = []
+      component.uploadFiles(files, file, _newFiles, _duplicateFiles, invalidFiles)
       expect(component.documentFiles.length).toBe(1)
     })
 
     it('should log error when can not find file to remove', () => {
       const file: File = new File([], '0')
       const someFile: IDocumentFile = {
-        file: file,
+        file,
         isUploadFailed: false
       }
       spyOn($log, 'error')
@@ -119,10 +126,30 @@ describe('Unit testing: profitelo.components.file-uploader', () => {
     it('should show file type error', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const file: File = new File([], 'someFile')
-      const someFiles: File[] = [file]
-      component.uploadFiles(someFiles)
+      const files: File[] = [file]
+      const invalidFiles: File[] = []
+      component.uploadFiles(files, file, files, files, invalidFiles)
       expect(component.isFileTypeError).toBe(true)
     })
 
+    it('should show file size error', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
+      const file: File = new File([], 'someFile')
+      const files: File[] = [file]
+      const invalidFiles: File[] = [file]
+      component.uploadFiles(files, file, files, files, invalidFiles)
+      expect(component.isFileSizeError).toBe(true)
+    })
+
+    it('should show file count error', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
+      const file: File = new File([], 'someFile')
+      const invalidFilesCount: number = 22
+      const files: File[] = new Array(invalidFilesCount).fill(file, 0, invalidFilesCount)
+      const invalidFiles: File[] = []
+      component.uploadFiles(files, file, files, files, invalidFiles)
+      expect(component.isMaxFilesCountError).toBe(true)
+    })
+
   })
-})
+)

@@ -95,5 +95,11 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       expect(component.selectedTags.length).toBe(0)
     })
 
+    it('should show validation error', () => {
+      component.isValid = false
+      component.isDirty = true
+      expect(component.isValidationAlertVisible()).toEqual(true)
+    })
+
   })
 )

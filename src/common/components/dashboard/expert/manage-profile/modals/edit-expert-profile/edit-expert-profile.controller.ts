@@ -3,6 +3,8 @@ import {TopAlertService} from '../../../../../../services/top-alert/top-alert.se
 import {GetOrganizationDetails, GetExpertDetails, OrganizationDetailsUpdate, ExpertDetailsUpdate}
   from 'profitelo-api-ng/model/models';
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import {inputsMaxLength} from '../../../../../../constants/inputs-max-length.constant'
 
 export interface IEditExpertProfileScope extends ng.IScope {
   profile: GetOrganizationDetails | GetExpertDetails
@@ -29,11 +31,9 @@ export class EditExpertProfileController implements ng.IController {
   public isSubmitted: boolean = false
   public profileNameLabel: string
   public profileDescriptionLabel: string
-  public readonly inputDescriptionMaxLength: string = '600'
-  public readonly inputNameMaxLength: string = '150'
+  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
+  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
 
-  private static readonly minValidExpertNameLength: number = 3
-  private static readonly minValidExpertDescriptionLength: number = 50
   private static readonly labels: ILabels = {
     expertName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE',
     expertDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE',
@@ -41,6 +41,8 @@ export class EditExpertProfileController implements ng.IController {
     organizationDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE'
   }
   private isUploaded: boolean = true
+  private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
+  private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -48,7 +50,8 @@ export class EditExpertProfileController implements ng.IController {
               private $log: ng.ILogService,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
-              private $scope: IEditExpertProfileScope) {}
+              private $scope: IEditExpertProfileScope,
+              private CommonSettingsService: CommonSettingsService) {}
 
   $onInit(): void {
     if (this.isGetExpertDetails(this.$scope.profile)) {
@@ -101,10 +104,10 @@ export class EditExpertProfileController implements ng.IController {
   public isAvatarValid = (): boolean => (this.profileAvatarToken) ? this.profileAvatarToken.length > 0 : false
 
   public isNameValid = (): boolean => (this.profileName) ?
-    this.profileName.length >= EditExpertProfileController.minValidExpertNameLength : false
+    this.profileNamePattern.test(this.profileName) : false
 
   public isDescriptionValid = (): boolean => (this.profileDescription) ?
-    this.profileDescription.length >= EditExpertProfileController.minValidExpertDescriptionLength : false
+    this.profileDescriptionPattern.test(this.profileDescription) : false
 
   private isFileUploadValid = (): boolean => this.isUploaded
 

@@ -13,7 +13,7 @@
         data-id="firstName"
         data-is-valid="vm.checkIsNameInputValid()"
         data-validation-text="WIZARD.EXPERT.NAME_INPUT_VALIDATION"
-        data-max-length="150"
+        data-max-length="{{ vm.inputNameMaxLength }}"
         data-is-submitted="vm.isSubmitted"
       )
 
@@ -40,7 +40,7 @@
         data-id="desctName"
         data-is-valid="vm.checkIsProfileDescriptionValid()"
         data-validation-text="WIZARD.EXPERT.TEXTAREA_INPUT_VALIDATION"
-        data-max-length="600"
+        data-max-length="{{ vm.inputDescriptionMaxLength }}"
         data-is-submitted="vm.isSubmitted"
       )
 

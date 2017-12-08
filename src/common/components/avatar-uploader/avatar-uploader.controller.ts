@@ -3,40 +3,50 @@ import {UploaderFactory} from '../../services/uploader/uploader.factory'
 import {UploaderService} from '../../services/uploader/uploader.service'
 import {PostProcessOption} from 'profitelo-api-ng/model/models'
 import {FileTypeChecker, FileCategoryEnum} from '../../classes/file-type-checker/file-type-checker'
+import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 
 export class AvatarUploaderComponentController implements IAvatarUploaderComponentBindings, ng.IController {
 
-  private isUploadInProgress: boolean = false
   public uploadedFile: File
-  private uploader: UploaderService
   public isUserUploadImage: boolean = false
-  private clearFormAfterCropping: () => void
   public imageSource: string
   public isLoading: boolean = false
-
   public avatarToken?: string
   public isValid?: boolean
   public isSubmitted?: boolean
   public isFocus: boolean = true
   public isFileUploadError: boolean = false
+  public isFileFormatError: boolean = false
+  public isFileSizeError: boolean = false
 
-  public isFileFormatValidError: boolean = false
+  private isUploadInProgress: boolean = false
+  private uploader: UploaderService
+  private clearFormAfterCropping: () => void
+  private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize
 
   /* @ngInject */
-  constructor(uploaderFactory: UploaderFactory, private $scope: ng.IScope) {
+  constructor(private $scope: ng.IScope,
+              private CommonSettingsService: CommonSettingsService,
+              uploaderFactory: UploaderFactory) {
     this.uploader = uploaderFactory.getInstance()
   }
 
   public addPhoto = (imagePath: string, file: File, callback: () => void): void => {
-    if (imagePath.length > 0 && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)) {
+    if (imagePath.length > 0
+      && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)
+      && this.isFileSizeValid(file)) {
       this.imageSource = imagePath
       this.isUserUploadImage = true
       this.uploadedFile = file
       this.clearFormAfterCropping = callback
-      this.isFileFormatValidError = false
-    } else {
-      this.isFileFormatValidError = true
+      this.isFileFormatError = false
+      this.isFileSizeError = false
     }
+
+    this.isFileFormatError = !FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)
+
+    this.isFileSizeError = !this.isFileSizeValid(file)
+
     this.$scope.$apply()
   }
 
@@ -86,5 +96,7 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
     this.isFileUploadError = true
     throw new Error('Can not upload file: ' + err)
   }
+
+  private isFileSizeValid = (file: File): boolean => file.size <= this.maxValidAvatarSize
 
 }
