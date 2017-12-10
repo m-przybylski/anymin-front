@@ -1,28 +1,24 @@
-import {ExpertCallService} from '../call-services/expert-call.service'
-import {CurrentExpertCall} from '../models/current-expert-call'
+import {ActiveCallBarService} from './active-call-bar.service'
 
 export class ActiveCallBarComponentController implements ng.IController {
 
-  public isCallPendingOnOtherDevice: boolean
+  public isCallPendingOnOtherDevice: boolean = false
 
   /* @ngInject */
-  constructor(private expertCallService: ExpertCallService) {
-    expertCallService.onCallPull(this.onPullCall)
-    expertCallService.onCallTaken(this.onCallTaken)
+  constructor(private activeCallBarService: ActiveCallBarService) {
+    activeCallBarService.onHideCallBar(this.hideCallBar)
+    activeCallBarService.onShowCallBar(this.showCallBar)
   }
 
-  private onPullCall = (currentExpertCall: CurrentExpertCall): void => {
+  private hideCallBar = (): void => {
     this.isCallPendingOnOtherDevice = false
-    currentExpertCall.onEnd(() => {
-      this.isCallPendingOnOtherDevice = false
-    })
   }
 
-  private onCallTaken = (): void => {
+  private showCallBar = (): void => {
     this.isCallPendingOnOtherDevice = true
   }
 
   public pullCall = (): void => {
-    this.expertCallService.pullCall()
+    this.activeCallBarService.pullCall()
   }
 }

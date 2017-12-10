@@ -1,7 +1,7 @@
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import * as _ from 'lodash'
 
-interface ISocialUrl {
+export interface ISocialUrl {
   iconClass: string,
   name: string,
   pattern: RegExp

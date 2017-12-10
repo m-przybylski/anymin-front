@@ -5,19 +5,23 @@ import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CommunicatorService} from '../communicator.service'
+import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 
 export class CurrentExpertCall extends CurrentCall {
 
   constructor(timerFactory: TimerFactory,
-              callInvitation: RatelSdk.events.CallInvitation,
+              call: Call,
               incomingCallDetails: GetIncomingCallDetails,
               soundsService: SoundsService,
               communicatorService: CommunicatorService,
               RatelApi: RatelApi) {
 
-    super(soundsService, callInvitation.call as RatelSdk.BusinessCall, timerFactory,
+    super(soundsService, call as RatelSdk.BusinessCall, timerFactory,
       incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi);
     this.setState(CallState.INCOMING)
+    this.onCallTaken(() => {
+      this.setState(CallState.PENDING_ON_OTHER_DEVICE)
+    })
   }
 
   public answer = (localStream: MediaStream): Promise<void> => {
@@ -29,7 +33,6 @@ export class CurrentExpertCall extends CurrentCall {
     this.setLocalStream(localStream)
     return this.pullCall(localStream).then(() => {
       this.setState(CallState.PENDING);
-      this.startTimer()
     })
   }
 

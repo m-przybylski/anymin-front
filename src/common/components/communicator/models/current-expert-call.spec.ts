@@ -7,14 +7,14 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CommunicatorService} from '../communicator.service'
 import {CurrentExpertCall} from './current-expert-call'
 
-describe('Unit tests: CurrentCall', () => {
+describe('Unit tests: current expert call', () => {
 
   let currentExpertCall: CurrentExpertCall
   let RatelApi: RatelApi
   let q: ng.IQService
 
   const communicatorService: CommunicatorService = <any>{
-    onReconnectActiveCalls: () => {}
+    onActiveCall: () => {}
   }
 
   const timerFactory: TimerFactory = <any>{
@@ -34,7 +34,6 @@ describe('Unit tests: CurrentCall', () => {
       onOffline: () => {},
       onOnline: () => {},
       addStream: (_localStream: MediaStream) => {},
-
     }
   }
 
@@ -58,7 +57,7 @@ describe('Unit tests: CurrentCall', () => {
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_
     q = $q
-    currentExpertCall = new CurrentExpertCall(timerFactory, callInvitation, incomingCallDetails,
+    currentExpertCall = new CurrentExpertCall(timerFactory, callInvitation.call, incomingCallDetails,
        soundsService, communicatorService, RatelApi)
   })))
 

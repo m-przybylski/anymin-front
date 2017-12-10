@@ -4,6 +4,7 @@ import toggleClassOnPullCall from './toggle-class-on-pull-call'
 import {ExpertCallService} from '../../components/communicator/call-services/expert-call.service'
 import {CurrentExpertCall} from '../../components/communicator/models/current-expert-call'
 import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/events'
+import {EventsService} from '../../services/events/events.service'
 
 describe('Unit testing: profitelo.directives.toggle-class-on-pull-call', () => {
   return describe('for toggle-class-on-pull-call directive >', () => {
@@ -15,10 +16,17 @@ describe('Unit testing: profitelo.directives.toggle-class-on-pull-call', () => {
     const expertCallService: any = {
       onCallPull: (_cb: (currentExpertCall: CurrentExpertCall) => void): void => {},
       onCallTaken: (_cb: (activeDevice: CallActiveDevice) => void): void => {},
+      onCallEnd: (_cb: () => void): void => {},
+      onCallActive: (_cb: () => void): void => {}
     } as ExpertCallService
+
+    const eventsService: EventsService = <any>{
+      on: (_event: string, _callback: () => {}) => {}
+    }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('expertCallService', expertCallService)
+      $provide.value('eventsService', eventsService)
     }))
 
     beforeEach(() => {

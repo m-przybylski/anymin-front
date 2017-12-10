@@ -4,6 +4,7 @@ import userModule from '../../../services/user/user'
 import communicatorModule from '../communicator'
 import {ExpertCallService} from './expert-call.service'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
+import Calls = jasmine.Calls
 
 interface ICallSound {
   play: () => void,
@@ -28,7 +29,8 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     const communicatorServiceMock = {
       onCallInvitation: (cb: any): void => onCallInvitation = cb,
-      onSuspendedCallEnd: (cb: () => void): void => cb()
+      onSuspendedCallEnd: (cb: () => void): void => cb(),
+      onActiveCall: (cb: (activeCalls: Calls[]) => void): void => cb([]),
     }
 
     const soundsService = {

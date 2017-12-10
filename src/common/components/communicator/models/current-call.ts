@@ -18,6 +18,7 @@ export enum CallState {
   INCOMING,
   REJECTED,
   PENDING,
+  PENDING_ON_OTHER_DEVICE,
   CANCELLED,
   ENDED
 }
@@ -160,7 +161,7 @@ export class CurrentCall {
   public onAnswered = (cb: () => void): Subscription =>
     this.events.onAnswered.subscribe(cb);
 
-  protected startTimer = (): void => {
+  public startTimer = (): void => {
     if (this.timer) this.timer.start(this.emitTimeMoneyChange)
   }
 
@@ -256,7 +257,7 @@ export class CurrentCall {
       this.events.onParticipantOnline.next()
     })
 
-    this.communicatorService.onReconnectActiveCalls((activeCalls) => {
+    this.communicatorService.onActiveCall((activeCalls) => {
       if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
         this.stopLocalStream()
         this.stopTimer()
