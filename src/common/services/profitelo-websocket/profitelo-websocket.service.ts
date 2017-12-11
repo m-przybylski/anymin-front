@@ -4,6 +4,7 @@ import {EventsService} from '../events/events.service'
 import {CallSummaryWebsocketObject} from '../../models/CallSummary'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
+import {IExpertPresenceUpdate} from '../../components/navbar/navbar-expert-visibility/navbar-expert-visibility.service'
 
 export class ProfiteloWebsocketService {
   private websocket: WebSocket
@@ -16,7 +17,8 @@ export class ProfiteloWebsocketService {
     onOneMinuteLeftWarning: new Subject<void>(),
     onNewFinancialOperation: new Subject<any>(),
     onClientCallCost: new Subject<any>(),
-    onProfileCallProfit: new Subject<any>()
+    onProfileCallProfit: new Subject<any>(),
+    onExpertVisibilityUpdate: new Subject<any>()
   }
 
   /* @ngInject */
@@ -67,6 +69,9 @@ export class ProfiteloWebsocketService {
   public onProfileCallProfit = (callback: (data: any) => void): Subscription =>
     this.events.onProfileCallProfit.subscribe(callback)
 
+  public onExpertVisibilityUpdate = (callback: (data: IExpertPresenceUpdate) => void): Subscription =>
+    this.events.onExpertVisibilityUpdate.subscribe(callback)
+
   private onSocketOpen = (): void => {
     this.events.onInit.next()
   }
@@ -90,6 +95,9 @@ export class ProfiteloWebsocketService {
         break
       case 'PROFILE_CALL_PROFIT':
         this.events.onProfileCallProfit.next(value)
+        break
+      case 'EXPERT_PRESENCE_UPDATE':
+        this.events.onExpertVisibilityUpdate.next(value)
         break
       default:
         this.$log.info('Unknown messageType ' + type)

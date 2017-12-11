@@ -3,6 +3,7 @@ import {NavbarComponentController} from './navbar.controller'
 import navbarModule from './navbar'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
+import {NavbarExpertVisibilityService} from './navbar-expert-visibility/navbar-expert-visibility.service'
 
 describe('Unit testing: navbar', () => {
   return describe('for navbar component >', () => {
@@ -16,10 +17,11 @@ describe('Unit testing: navbar', () => {
       '<navbar data-search-value="assa"></navbar>'
 
     const searchInputQueryValue = 'searchInputQueryValue'
+    let navbarExpertVisibilityService: NavbarExpertVisibilityService
 
-   const userService: UserService  = <UserService>{
+    const userService: UserService  = <UserService>{
       getUser: {}
-   }
+    }
 
     const window = {
       pageYOffset: 20,
@@ -48,21 +50,27 @@ describe('Unit testing: navbar', () => {
       angular.mock.module(navbarModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
+              _navbarExpertVisibilityService_: NavbarExpertVisibilityService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService) => {
 
         rootScope = $rootScope
         compile = $compile
         q = $q
+        navbarExpertVisibilityService = _navbarExpertVisibilityService_
 
         spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
+        spyOn(navbarExpertVisibilityService, 'getExpertVisibility').and.returnValue($q.resolve({}))
+
         bindings = {
-          searchInputQueryValue: searchInputQueryValue
+          searchInputQueryValue
         }
+
         const injectors = {
-          userService: userService,
+          userService,
           $element: create(validHTML),
           $document: document,
-          $window: window
+          $window: window,
+          navbarExpertVisibilityService
         }
 
         component = $componentController<NavbarComponentController, INavbarComponentBindings>(

@@ -1,12 +1,13 @@
 import * as angular from 'angular'
 import {ExpertIncomingCallController} from './expert-incoming-call.controller'
 import './expert-incoming-call.sass'
-import btnDropdownModule from '../../../interface/btn-dropdown/btn-dropdown'
+import btnDropdownCallModule from '../../../interface/btn-dropdown-call/btn-dropdown-call'
 
 const expertIncomingCallModule = angular.module(
   'profitelo.components.communicator.modals.expert-incoming-call', [
     'ui.bootstrap',
-    btnDropdownModule
+    'profitelo.components.interface.radio',
+    btnDropdownCallModule
   ])
 .controller('expertIncomingCall', ExpertIncomingCallController)
   .name

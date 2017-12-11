@@ -4,6 +4,7 @@ import {NavbarLoggedInMenuComponent} from './navbar-logged-in-menu.component'
 import navbarNotificationsModule from '../navbar-notifications/navbar-notifications'
 import navbarHelpModule from '../navbar-help/navbar-help'
 import translatorModule from '../../../services/translator/translator'
+import navbarExperetVisibilityModule from '../navbar-expert-visibility/navbar-expert-visibility'
 
 export interface INavbarLoggedInMenuComponentBindings extends ng.IController {}
 
@@ -12,7 +13,8 @@ const navbarLoggedInMenuModule = angular.module('profitelo.components.navbar-log
   'ui.router',
   translatorModule,
   navbarNotificationsModule,
-  navbarHelpModule
+  navbarHelpModule,
+  navbarExperetVisibilityModule
 ])
 .component('navbarLoggedInMenu', new NavbarLoggedInMenuComponent)
   .name

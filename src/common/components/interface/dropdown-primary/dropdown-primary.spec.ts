@@ -3,6 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IWindowService} from '../../../services/window/window.service'
 import {IDropdownPrimaryComponentBindings} from './dropdown-primary'
 import {DropdownPrimaryComponentController} from './dropdown-primary.controller'
+import {keyboardCodes} from '../../../classes/keyboard'
 describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 
@@ -15,13 +16,15 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     let bindings: IDropdownPrimaryComponentBindings
     let timeout: ng.ITimeoutService
     let document: ng.IDocumentService
-    const validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
+    const validHTML = '<dropdown-primary data-label="asd" data-icon="icon">' +
+      '<div class="dropdown-header"></div><div class="dropdown-content"></div></dropdown-primary>'
 
-    function create(html: string): JQuery {
+    function create(html: string, bindings: IDropdownPrimaryComponentBindings): JQuery {
       scope = rootScope.$new()
+      const parentBoundScope = angular.extend(scope, bindings)
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
-      scope.$digest()
+      parentBoundScope.$digest()
       return compiledElement
     }
 
@@ -45,16 +48,20 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
         inputPlaceholder: '@',
         name: '@',
         placeholder: '@',
-        mainList: [],
-        onSelectMain: () => {},
+        mainList: [{
+          name: 'string',
+          value: 1
+        }],
+        onSelectMain: () => {
+        },
         selectedItem: {
           name: 'name',
-          value:'value'
+          value: 'value'
         }
       }
 
       const injectors = {
-        $element: create(validHTML),
+        $element: create(validHTML, bindings),
         $scope: rootScope,
         $window: window,
         $document: document
@@ -67,7 +74,7 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     }))
 
     it('should compile the component', () => {
-      const el = create(validHTML)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 
@@ -113,5 +120,14 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       expect(typeof component.onSelectMain === 'function').toBe(true)
       expect(component.onSelectMain).toHaveBeenCalled()
     })
+
+    it('should press arrow-bottom key and not invoke preventDefault', inject(($window: ng.IWindowService) => {
+      const event = jQuery.Event('keydown')
+      spyOn(event, 'preventDefault')
+      event.which = keyboardCodes.arrowDown
+      event.keyCode = keyboardCodes.arrowDown
+      angular.element($window).trigger(event)
+      expect(event.preventDefault).not.toHaveBeenCalled()
+    }))
   })
 })

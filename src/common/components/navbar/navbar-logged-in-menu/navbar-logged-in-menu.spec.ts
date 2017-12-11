@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {NavbarLoggedInMenuComponentController} from './navbar-logged-in-menu.controller'
 import {INavbarLoggedInMenuComponentBindings, default as navbarLoggedInMenuModule} from './navbar-logged-in-menu'
 import {ProfileApiMock} from 'profitelo-api-ng/api/api'
+import navbarExperetVisibilityModule from '../navbar-expert-visibility/navbar-expert-visibility'
 
 describe('Unit testing: navbar-logged-in-menu', () => {
   return describe('for navbar-logged-in-menu component >', () => {
@@ -40,6 +41,7 @@ describe('Unit testing: navbar-logged-in-menu', () => {
     beforeEach(() => {
 
       angular.mock.module(navbarLoggedInMenuModule)
+      angular.mock.module(navbarExperetVisibilityModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService,

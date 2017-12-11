@@ -40,6 +40,7 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
         httpBackend = $httpBackend
 
         PaymentsApiMock.getCreditCardsRoute(200, [<GetCreditCard>{}])
+
         component = componentController('clientNavigation', {}, {
           promiseService: promiseService,
           profiteloWebsocket: profiteloWebsocket,
