@@ -8,7 +8,7 @@ export interface IExpertPresenceUpdate {
   status: GetExpertVisibility.VisibilityEnum
 }
 
-export class NavbarVisibilityService {
+export class NavbarExpertVisibilityService {
 
   private readonly requestDelay: number = 2000
   private readonly changeVisibilitySubject = new Subject<IExpertPresenceUpdate>()

@@ -3,7 +3,7 @@ import {NavbarComponentController} from './navbar.controller'
 import navbarModule from './navbar'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
-import {NavbarVisibilityService} from './navbar-visibility/navbar-visibility.service'
+import {NavbarExpertVisibilityService} from './navbar-expert-visibility/navbar-expert-visibility.service'
 
 describe('Unit testing: navbar', () => {
   return describe('for navbar component >', () => {
@@ -17,7 +17,7 @@ describe('Unit testing: navbar', () => {
       '<navbar data-search-value="assa"></navbar>'
 
     const searchInputQueryValue = 'searchInputQueryValue'
-    let navbarVisibilityService: NavbarVisibilityService
+    let navbarExpertVisibilityService: NavbarExpertVisibilityService
 
     const userService: UserService  = <UserService>{
       getUser: {}
@@ -50,16 +50,16 @@ describe('Unit testing: navbar', () => {
       angular.mock.module(navbarModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-              _navbarVisibilityService_: NavbarVisibilityService,
+              _navbarExpertVisibilityService_: NavbarExpertVisibilityService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService) => {
 
         rootScope = $rootScope
         compile = $compile
         q = $q
-        navbarVisibilityService = _navbarVisibilityService_
+        navbarExpertVisibilityService = _navbarExpertVisibilityService_
 
         spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
-        spyOn(navbarVisibilityService, 'getExpertVisibility').and.returnValue($q.resolve({}))
+        spyOn(navbarExpertVisibilityService, 'getExpertVisibility').and.returnValue($q.resolve({}))
 
         bindings = {
           searchInputQueryValue
@@ -70,7 +70,7 @@ describe('Unit testing: navbar', () => {
           $element: create(validHTML),
           $document: document,
           $window: window,
-          navbarVisibilityService
+          navbarExpertVisibilityService
         }
 
         component = $componentController<NavbarComponentController, INavbarComponentBindings>(

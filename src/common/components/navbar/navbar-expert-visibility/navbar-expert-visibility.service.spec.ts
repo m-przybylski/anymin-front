@@ -1,15 +1,17 @@
 import * as angular from 'angular'
 import {PresenceApiMock} from 'profitelo-api-ng/api/api'
-import navbarVisibilityModule from './navbar-visibility'
+import navbarExperetVisibilityModule from './navbar-expert-visibility'
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
 import {GetExpertVisibility} from 'profitelo-api-ng/model/GetExpertVisibility'
 import {httpCodes} from '../../../classes/http-codes'
-import {IExpertPresenceUpdate, NavbarVisibilityService} from './navbar-visibility.service'
+import {
+  IExpertPresenceUpdate, NavbarExpertVisibilityService
+} from './navbar-expert-visibility.service'
 
-describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >', () => {
-  describe('for profitelo.components.navbar.navbar-visibility-service >', () => {
+describe('Unit testing: profitelo.components.navbar.navbar-expert-visibility-service >', () => {
+  describe('for profitelo.components.navbar.navbar-expert-visibility-service >', () => {
 
-    let navbarVisibilityService: NavbarVisibilityService
+    let navbarExpertVisibilityService: NavbarExpertVisibilityService
     let rootScope: angular.IRootScopeService
     let expertVisibilityUpdateCallback: (data: IExpertPresenceUpdate) => void | undefined
     let addEventListenerCallback: () => void | undefined
@@ -20,7 +22,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
     const windowMock = jasmine.createSpyObj<ng.IWindowService>('$window', ['addEventListener'])
 
     beforeEach(() => {
-      angular.mock.module(navbarVisibilityModule)
+      angular.mock.module(navbarExperetVisibilityModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -41,7 +43,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
         }
       )
 
-      navbarVisibilityService = $injector.get<NavbarVisibilityService>('navbarVisibilityService')
+      navbarExpertVisibilityService = $injector.get<NavbarExpertVisibilityService>('navbarExpertVisibilityService')
       rootScope = $rootScope
     }))
 
@@ -51,7 +53,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
 
     it('should handle websocket visibility update', () => {
       const spy = jasmine.createSpy('notifyVisibilityChange')
-      navbarVisibilityService.onVisibilityUpdate(spy)
+      navbarExpertVisibilityService.onVisibilityUpdate(spy)
       const response = {status: GetExpertVisibility.VisibilityEnum.Visible}
       expect(expertVisibilityUpdateCallback).toBeDefined()
       expertVisibilityUpdateCallback(response);
@@ -63,7 +65,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
         const GetExpertVisibilityResponse = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
         PresenceApiMock.expertVisibilityRoute(httpCodes.noContent, GetExpertVisibilityResponse)
 
-        navbarVisibilityService.getExpertVisibility().then((res) => {
+        navbarExpertVisibilityService.getExpertVisibility().then((res) => {
           expect(res).toEqual(GetExpertVisibilityResponse)
           done()
         })
@@ -75,7 +77,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
     it('should get a visibility after reconnect', () => {
       inject((PresenceApiMock: PresenceApiMock, $httpBackend: ng.IHttpBackendService) => {
         const spy = jasmine.createSpy('notifyVisibilityChange')
-        navbarVisibilityService.onVisibilityUpdate(spy)
+        navbarExpertVisibilityService.onVisibilityUpdate(spy)
 
         const GetExpertVisibilityResponse = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
         PresenceApiMock.expertVisibilityRoute(httpCodes.ok, GetExpertVisibilityResponse)
@@ -91,7 +93,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
       inject((PresenceApiMock: PresenceApiMock, $httpBackend: ng.IHttpBackendService) => {
         const IExpertPresenceUpdateResponse = {status: GetExpertVisibility.VisibilityEnum.Visible}
         PresenceApiMock.expertVisibleRoute(httpCodes.noContent, IExpertPresenceUpdateResponse)
-        navbarVisibilityService.setExpertVisibile().then(res => {
+        navbarExpertVisibilityService.setExpertVisibile().then(res => {
           expect(res).toEqual(IExpertPresenceUpdateResponse)
           done()
         })
@@ -103,7 +105,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
       inject((PresenceApiMock: PresenceApiMock, $httpBackend: ng.IHttpBackendService) => {
         PresenceApiMock.expertVisibleRoute(httpCodes.notFound)
 
-        navbarVisibilityService.setExpertVisibile().catch(error => {
+        navbarExpertVisibilityService.setExpertVisibile().catch(error => {
           expect(error.data).toBe(undefined)
           expect(error.status).toBe(httpCodes.notFound)
           done()
@@ -116,7 +118,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
       inject((PresenceApiMock: PresenceApiMock, $httpBackend: ng.IHttpBackendService) => {
         const IExpertPresenceUpdateResponse = {status: GetExpertVisibility.VisibilityEnum.Invisible}
         PresenceApiMock.expertInvisibleRoute(httpCodes.noContent, IExpertPresenceUpdateResponse)
-        navbarVisibilityService.setExpertInvisibile().then(res => {
+        navbarExpertVisibilityService.setExpertInvisibile().then(res => {
           expect(res).toEqual(IExpertPresenceUpdateResponse)
           done()
         })
@@ -127,7 +129,7 @@ describe('Unit testing: profitelo.components.navbar.navbar-visibility-service >'
     it('should get a invisible visibility if promise was reject', (done) => {
       inject((PresenceApiMock: PresenceApiMock, $httpBackend: ng.IHttpBackendService) => {
         PresenceApiMock.expertInvisibleRoute(httpCodes.notFound)
-        navbarVisibilityService.setExpertInvisibile().catch(error => {
+        navbarExpertVisibilityService.setExpertInvisibile().catch(error => {
           expect(error.data).toEqual(undefined)
           expect(error.status).toBe(httpCodes.notFound)
           done()

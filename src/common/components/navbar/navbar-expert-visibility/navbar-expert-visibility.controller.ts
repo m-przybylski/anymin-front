@@ -1,9 +1,9 @@
-import {IExpertPresenceUpdate, NavbarVisibilityService} from './navbar-visibility.service'
+import {IExpertPresenceUpdate, NavbarExpertVisibilityService} from './navbar-expert-visibility.service'
 import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 import {Subscription} from 'rxjs/Subscription'
 
-export class NavbarVisibilityComponentController implements ng.IController {
+export class NavbarExpertVisibilityComponentController implements ng.IController {
 
   public callback: () => void
   public isOpen: boolean = false
@@ -18,7 +18,7 @@ export class NavbarVisibilityComponentController implements ng.IController {
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private errorHandler: ErrorHandlerService,
-              private navbarVisibilityService: NavbarVisibilityService) {
+              private navbarExpertVisibilityService: navbarExpertVisibilityService) {
   }
 
   $onInit = (): void => {
@@ -30,7 +30,7 @@ export class NavbarVisibilityComponentController implements ng.IController {
       this.$scope.$apply()
     })
 
-    this.visibilitySubscription = this.navbarVisibilityService.onVisibilityUpdate(this.changeVisibility)
+    this.visibilitySubscription = this.navbarExpertVisibilityService.onVisibilityUpdate(this.changeVisibility)
     this.setExpertVisibleStatus()
   }
 
@@ -42,7 +42,7 @@ export class NavbarVisibilityComponentController implements ng.IController {
 
   private setExpertVisibleStatus = (): void => {
     this.isLoading = true
-    this.navbarVisibilityService.getExpertVisibility().then((res: GetExpertVisibility): void => {
+    this.navbarExpertVisibilityService.getExpertVisibility().then((res: GetExpertVisibility): void => {
       this.radioModel = res.visibility
       this.isVisible = res.visibility === GetExpertVisibility.VisibilityEnum.Visible
       this.isLoading = false
@@ -67,7 +67,7 @@ export class NavbarVisibilityComponentController implements ng.IController {
     this.radioModel = GetExpertVisibility.VisibilityEnum.Visible
     this.isVisibilityPending = true
 
-    this.navbarVisibilityService.setExpertVisibile().catch((error) => {
+    this.navbarExpertVisibilityService.setExpertVisibile().catch((error) => {
       this.isVisible = currentVisibility
       this.radioModel = currentCheckedRadio
       this.errorHandler.handleServerError(error)
@@ -84,7 +84,7 @@ export class NavbarVisibilityComponentController implements ng.IController {
     this.radioModel = GetExpertVisibility.VisibilityEnum.Invisible
     this.isVisibilityPending = true
 
-    this.navbarVisibilityService.setExpertInvisibile().catch((error) => {
+    this.navbarExpertVisibilityService.setExpertInvisibile().catch((error) => {
       this.isVisible = currentVisibility
       this.radioModel = currentCheckedRadio
       this.errorHandler.handleServerError(error)

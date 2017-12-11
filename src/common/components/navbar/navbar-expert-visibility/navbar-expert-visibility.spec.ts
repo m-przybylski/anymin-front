@@ -1,27 +1,27 @@
 import * as angular from 'angular'
-import {NavbarVisibilityComponentController} from './navbar-visibility.controller'
+import {NavbarExpertVisibilityComponentController} from './navbar-expert-visibility.controller'
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
-import {IExpertPresenceUpdate, NavbarVisibilityService} from './navbar-visibility.service'
-import navbarVisibilityModule from './navbar-visibility'
+import {IExpertPresenceUpdate, NavbarExpertVisibilityService} from './navbar-expert-visibility.service'
+import navbarExperetVisibilityModule from './navbar-expert-visibility'
 import profiteloWebsocketModule from '../../../services/profitelo-websocket/profitelo-websocket'
 import SpyObj = jasmine.SpyObj
 import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 
-describe('Unit testing: navbar-visibility', () => {
-  return describe('for navbar-visibility component >', () => {
+describe('Unit testing: navbar-expert-visibility', () => {
+  return describe('for navbar-expert-visibility component >', () => {
 
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let component: NavbarVisibilityComponentController
+    let component: NavbarExpertVisibilityComponentController
     const validHTML =
-      '<navbar-visibility></navbar-visibility>'
+      '<navbar-expert-visibility></navbar-expert-visibility>'
 
     let injectors = {}
     let timeout: ng.ITimeoutService
 
-    const navbarVisibilityService: SpyObj<NavbarVisibilityService> =
-      jasmine.createSpyObj<NavbarVisibilityService>('navbarVisibilityService', [
+    const navbarExpertVisibilityService: SpyObj<NavbarExpertVisibilityService> =
+      jasmine.createSpyObj<NavbarExpertVisibilityService>('navbarExpertVisibilityService', [
         'setExpertVisibile', 'setExpertInvisibile', 'getExpertVisibility',
         'onVisibilityUpdate', 'onGetExpertisibilityReconnect'
       ])
@@ -41,7 +41,7 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     beforeEach(() => {
-      angular.mock.module(navbarVisibilityModule)
+      angular.mock.module(navbarExperetVisibilityModule)
       angular.mock.module(profiteloWebsocketModule)
 
       inject(($compile: ng.ICompileService,
@@ -57,11 +57,11 @@ describe('Unit testing: navbar-visibility', () => {
         injectors = {
           $element: create(validHTML),
           profiteloWebsocket,
-          navbarVisibilityService
+          navbarExpertVisibilityService
         }
 
-        component = $componentController<NavbarVisibilityComponentController, {}>(
-          'navbarVisibility', injectors, {})
+        component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+          'navbarExpertVisibility', injectors, {})
       })
     })
 
@@ -87,11 +87,11 @@ describe('Unit testing: navbar-visibility', () => {
 
     it('should set visible visibility on init',
       inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
 
       const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
       component.$onInit()
       rootScope.$apply()
       expect(component.isVisible).toBe(true)
@@ -100,27 +100,31 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     it('should set visibility when promise reject on init',
-      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      inject(($componentController: ng.IComponentControllerService,
+              errorHandler: ErrorHandlerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
 
       spyOn(errorHandler, 'handleServerError')
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.reject())
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.reject())
       component.$onInit()
       rootScope.$apply()
       timeout.flush()
       expect(component.isVisible).toBe(undefined)
       expect(errorHandler.handleServerError).toHaveBeenCalled()
-      expect(navbarVisibilityService.getExpertVisibility).toHaveBeenCalled()
+      expect(navbarExpertVisibilityService.getExpertVisibility).toHaveBeenCalled()
       expect(component.isLoading).toBe(true)
     }))
 
-    it('should set invisible visibility on init', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+    it('should set invisible visibility on init',
+      inject(($componentController: ng.IComponentControllerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
 
       const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
       component.$onInit()
       rootScope.$apply()
       expect(component.isVisible).toBe(false)
@@ -129,12 +133,14 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     it('should set expert visibility when error on init',
-      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      inject(($componentController: ng.IComponentControllerService,
+              errorHandler: ErrorHandlerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
 
       spyOn(errorHandler, 'handleServerError')
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.reject())
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.reject())
       component.$onInit()
       rootScope.$apply()
       expect(component.isVisible).toBe(undefined)
@@ -142,14 +148,16 @@ describe('Unit testing: navbar-visibility', () => {
       expect(component.isLoading).toBe(true)
     }))
 
-    it('should set visibility on service visibility update', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+    it('should set visibility on service visibility update',
+      inject(($componentController: ng.IComponentControllerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
 
       const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(res))
 
-      navbarVisibilityService.onVisibilityUpdate.and.callFake(
+      navbarExpertVisibilityService.onVisibilityUpdate.and.callFake(
         (callback: (data: IExpertPresenceUpdate) => void) =>
           callback({status: GetExpertVisibility.VisibilityEnum.Visible})
       )
@@ -159,9 +167,10 @@ describe('Unit testing: navbar-visibility', () => {
       expect(component.radioModel).toBe(GetExpertVisibility.VisibilityEnum.Visible)
     }))
 
-    it('should open and close dropdown by click on document', inject(($document: ng.IDocumentService) => {
+    it('should open and close dropdown by click on document',
+      inject(($document: ng.IDocumentService) => {
       const el = create(validHTML)
-      const controller = el.controller('navbar-visibility')
+      const controller = el.controller('navbar-expert-visibility')
       const isoScope: any = el.isolateScope()
       controller.isLoading = false
       isoScope.$apply()
@@ -176,18 +185,20 @@ describe('Unit testing: navbar-visibility', () => {
       expect(controller.isOpen).toBe(false)
     }))
 
-    it('should set visibility on Visible', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+    it('should set visibility on Visible',
+      inject(($componentController: ng.IComponentControllerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
 
       const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
       component.$onInit()
       rootScope.$apply()
 
       const currentVisibility = component.isVisible
       const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
-      navbarVisibilityService.setExpertVisibile.and.callFake(() => $q.resolve({res}))
+      navbarExpertVisibilityService.setExpertVisibile.and.callFake(() => $q.resolve({res}))
 
       component.selectVisibleOption()
       expect(component.isVisibilityPending).toBe(true)
@@ -201,16 +212,18 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     it('should set visibility to visible if setExpertVisibile was rejected',
-      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      inject(($componentController: ng.IComponentControllerService,
+              errorHandler: ErrorHandlerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
       const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
       component.$onInit()
       rootScope.$apply()
 
       spyOn(errorHandler, 'handleServerError')
-      navbarVisibilityService.setExpertVisibile.and.callFake(() => $q.reject({}))
+      navbarExpertVisibilityService.setExpertVisibile.and.callFake(() => $q.reject({}))
       component.selectVisibleOption()
       rootScope.$apply()
 
@@ -220,16 +233,18 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     it('should set visibility to visible if promise was rejected and visibility was visible',
-      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      inject(($componentController: ng.IComponentControllerService,
+              errorHandler: ErrorHandlerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
       const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
       component.$onInit()
       rootScope.$apply()
 
       spyOn(errorHandler, 'handleServerError')
-      navbarVisibilityService.setExpertVisibile.and.callFake(() => $q.reject({}))
+      navbarExpertVisibilityService.setExpertVisibile.and.callFake(() => $q.reject({}))
       component.selectVisibleOption()
       rootScope.$apply()
 
@@ -238,18 +253,20 @@ describe('Unit testing: navbar-visibility', () => {
       expect(errorHandler.handleServerError).toHaveBeenCalled()
     }))
 
-    it('should set visibility on Invisible', inject(($componentController: ng.IComponentControllerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+    it('should set visibility on Invisible',
+      inject(($componentController: ng.IComponentControllerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
       const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
       component.$onInit()
       rootScope.$apply()
 
       const currentVisibility = component.isVisible
 
       const res: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
-      navbarVisibilityService.setExpertInvisibile.and.callFake(() => $q.resolve({res}))
+      navbarExpertVisibilityService.setExpertInvisibile.and.callFake(() => $q.resolve({res}))
 
       component.selectInvisibleOption()
       expect(component.isVisibilityPending).toBe(true)
@@ -263,16 +280,18 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     it('should set visibility to invisible if promise was rejected and visibility was visible.',
-      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      inject(($componentController: ng.IComponentControllerService,
+              errorHandler: ErrorHandlerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
       const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Visible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
       component.$onInit()
       rootScope.$apply()
 
       spyOn(errorHandler, 'handleServerError')
-      navbarVisibilityService.setExpertInvisibile.and.callFake(() => $q.reject({}))
+      navbarExpertVisibilityService.setExpertInvisibile.and.callFake(() => $q.reject({}))
       component.selectInvisibleOption()
       rootScope.$apply()
 
@@ -282,16 +301,18 @@ describe('Unit testing: navbar-visibility', () => {
     }))
 
     it('should set visibility to invisible if promise was rejected and visibility was invisible',
-      inject(($componentController: ng.IComponentControllerService, errorHandler: ErrorHandlerService, $q: ng.IQService) => {
-      component = $componentController<NavbarVisibilityComponentController, {}>(
-        'navbarVisibility', injectors, {})
+      inject(($componentController: ng.IComponentControllerService,
+              errorHandler: ErrorHandlerService,
+              $q: ng.IQService) => {
+      component = $componentController<NavbarExpertVisibilityComponentController, {}>(
+        'navbarExpertVisibility', injectors, {})
       const resOnInit: GetExpertVisibility = {visibility: GetExpertVisibility.VisibilityEnum.Invisible}
-      navbarVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
+      navbarExpertVisibilityService.getExpertVisibility.and.callFake(() => $q.resolve(resOnInit))
       component.$onInit()
       rootScope.$apply()
 
       spyOn(errorHandler, 'handleServerError')
-      navbarVisibilityService.setExpertInvisibile.and.callFake(() => $q.reject({}))
+      navbarExpertVisibilityService.setExpertInvisibile.and.callFake(() => $q.reject({}))
       component.selectInvisibleOption()
       rootScope.$apply()
 
