@@ -14,7 +14,7 @@ export class RtcDetectorModalController implements ng.IController {
   private static readonly firefoxTopPosition: string = '240px';
   private static readonly chromeTopPosition: string = '145px';
   private static readonly operaTopPosition: string = '190px';
-  private static readonly operaLeftPosition: string = '50%';
+  private static readonly centerPosition: string = '50%';
   private static readonly EdgeLeftPosition: string = '0px';
   private static readonly EdgeBottomPosition: string = '120px';
 
@@ -26,6 +26,9 @@ export class RtcDetectorModalController implements ng.IController {
     if (DetectRTC.browser.isFirefox) {
       this.iconPosition.top = RtcDetectorModalController.firefoxTopPosition
     }
+    if (DetectRTC.browser.isSafari) {
+      this.iconPosition.left = RtcDetectorModalController.centerPosition
+    }
     if (DetectRTC.browser.isEdge) {
       this.isEdge = true
       this.iconPosition = {
@@ -36,7 +39,7 @@ export class RtcDetectorModalController implements ng.IController {
     if (DetectRTC.browser.isOpera) {
       this.iconPosition = {
         top: RtcDetectorModalController.operaTopPosition,
-        left: RtcDetectorModalController.operaLeftPosition
+        left: RtcDetectorModalController.centerPosition
       }
     }
     if (DetectRTC.browser.isChrome) {
