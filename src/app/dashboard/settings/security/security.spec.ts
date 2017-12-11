@@ -1,13 +1,12 @@
 import {DashboardSettingsSecurityController} from './security'
 import * as angular from 'angular'
-import ITimeConstant = profitelo.constants.time.ITimeConstant
 import {ModalsService} from '../../../../common/services/modals/modals.service'
+import {ONE_MINUTES_IN_MILLISECONDS} from '../../../../common/constants/time.constatnt'
 
 describe('Unit tests: dashboardSettingsSecurityController >', () => {
   describe('Testing Controller: dashboardSettingsSecurityController', () => {
 
     let dashboardSettingsSecurityController: DashboardSettingsSecurityController
-
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
     }))
@@ -15,9 +14,7 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.controller.dashboard.settings.security')
       angular.mock.module('ui.router')
-      angular.mock.module('profitelo.constants.time')
-      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService,
-              timeConstant: ITimeConstant) => {
+      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
         dashboardSettingsSecurityController = $controller<DashboardSettingsSecurityController>('dashboardSettingsSecurityController', {
           $state: _$state_,
           $scope: $rootScope.$new(),
@@ -36,7 +33,7 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
               system: 'Windows',
               apiKey: 'kkkkklllaaaa'
             }],
-          timeConstant,
+          ONE_MINUTES_IN_MILLISECONDS,
           currentSession: {
             apiKey: 'someApiKey'
           }
