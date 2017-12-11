@@ -18,7 +18,7 @@ export class NavbarExpertVisibilityComponentController implements ng.IController
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private errorHandler: ErrorHandlerService,
-              private navbarExpertVisibilityService: navbarExpertVisibilityService) {
+              private navbarExpertVisibilityService: NavbarExpertVisibilityService) {
   }
 
   $onInit = (): void => {
