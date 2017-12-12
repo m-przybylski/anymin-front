@@ -16,21 +16,13 @@ describe('Unit testing: profitelo.services.userService >', () => {
     } as AccountDetails
 
     const eventsService = {
-      emit: (param: string): string => {
-        return param
-      }
+      emit: (param: string): string => param
     }
 
     const sessionService = {
-      getSession: (): ng.IPromise<{account: AccountDetails}> => {
-        return resolverParam
-      },
-      logout: (): ng.IPromise<void> => {
-        return q.resolve()
-      },
-      login: (_loginDetails: AccountLogin): ng.IPromise<void> => {
-        return q.resolve()
-      }
+      getSession: (): ng.IPromise<{account: AccountDetails}> => resolverParam,
+      logout: (): ng.IPromise<void> => q.resolve(),
+      login: (_loginDetails: AccountLogin): ng.IPromise<void> => q.resolve()
     }
 
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
@@ -68,7 +60,7 @@ describe('Unit testing: profitelo.services.userService >', () => {
     })
 
     it('should throw error', () => {
-      resolverParam = q.resolve({})
+      resolverParam = <any>q.resolve({})
       expect(() => {
         userService.getUser(false)
         rootScope.$digest()

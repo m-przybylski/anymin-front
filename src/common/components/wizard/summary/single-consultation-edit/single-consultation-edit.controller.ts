@@ -1,13 +1,12 @@
 import {ISingleConsultationEditComponentBindings} from './single-consultation-edit'
 import {WizardService, WizardTag, MoneyDto} from 'profitelo-api-ng/model/models'
-import {ServiceInvitation} from '../../../../models/ServiceInvitation'
 import {TranslatorService} from '../../../../services/translator/translator.service'
 
 export class SingleConsultationEditComponentController implements ISingleConsultationEditComponentBindings {
 
   public service: WizardService
   public tagsList: WizardTag[]
-  public employeeList: ServiceInvitation[]
+  public employeeList: string[]
   public name: string
   public price: MoneyDto
   public onRemove: (service: WizardService) => void

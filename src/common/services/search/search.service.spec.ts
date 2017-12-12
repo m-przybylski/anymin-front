@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.services.search >', () => {
     beforeEach(() => {
       angular.mock.module(searchModule)
       searchQueryParams = new SearchQueryParams
-      inject(($injector: ng.auto.IInjectorService,  $q: ng.IQService) => {
+      inject(($injector: ng.auto.IInjectorService, $q: ng.IQService) => {
         q = $q
         errorHandler = $injector.get<ErrorHandlerService>('errorHandler')
         searchService = $injector.get<SearchService>('searchService')
@@ -41,12 +41,14 @@ describe('Unit testing: profitelo.services.search >', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should call search', () => {
+    it('should call search', (done) => {
       SearchApiMock.postSearchRoute(200, [<GetSearchRequestResult>{}])
       searchQueryParams.setQuery('asd')
-      const searchResult = searchService.search(searchQueryParams)
+      searchService.search(searchQueryParams).then((res) => {
+        expect(res).toEqual(<any>[{}])
+        done()
+      })
       httpBackend.flush()
-      expect(searchResult).toEqual(q.resolve([{}]))
     })
 
     it('should call search and error', () => {
@@ -63,23 +65,27 @@ describe('Unit testing: profitelo.services.search >', () => {
       SearchApiMock.postQueriesSuggestionsRoute(200, <GetSuggestedQueries>{})
       const querySuggestions = searchService.querySuggestions('aaa')
       httpBackend.flush()
-      expect(querySuggestions).toEqual(q.resolve({}))
+      expect(querySuggestions).toEqual(<any>q.resolve({}))
     })
 
-    it('should call querySuggestionsTags', () => {
+    it('should call querySuggestionsTags', (done) => {
       SearchApiMock.postTagsSuggestionsRoute(200, <GetSuggestedTags>{})
-      const querySuggestedTags = searchService.querySuggestedTags('aaa', ['aaa'])
+      searchService.querySuggestedTags('aaa', ['aaa']).then((res) => {
+        expect(res).toEqual(<any>{})
+        done()
+      })
       httpBackend.flush()
-      expect(querySuggestedTags).toEqual(q.resolve({}))
     })
 
-    it('should call search and then load more', () => {
+    it('should call search and then load more', (done) => {
       SearchApiMock.postSearchRoute(200, [<GetSearchRequestResult>{}])
       searchQueryParams.setQuery('asd')
       searchService.search(searchQueryParams)
-      const searchResult = searchService.loadMore(searchQueryParams)
+      searchService.loadMore(searchQueryParams).then((res) => {
+        expect(res).toEqual(<any>[{}])
+        done()
+      })
       httpBackend.flush()
-      expect(searchResult).toEqual(q.resolve([{}]))
     })
 
     it('should call search and then call error on load more', () => {

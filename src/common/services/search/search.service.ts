@@ -14,11 +14,13 @@ export class SearchService {
   constructor(private SearchApi: SearchApi, private errorHandler: ErrorHandlerService) {
   }
 
-  public search = (queryParams: SearchQueryParams): ng.IPromise<GetSearchRequestResult[]> =>
-    this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams))
-    .catch(this.errorHandler.handleServerError)
+  public search = (queryParams: SearchQueryParams): ng.IPromise<GetSearchRequestResult[]> => {
+    const promise = this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams))
+    promise.catch(this.errorHandler.handleServerError)
+    return promise
+  }
 
-  public querySuggestions = (queryParam: string): ng.IPromise<GetSuggestedQueries> => {
+  public querySuggestions = (queryParam: string): ng.IPromise<void | GetSuggestedQueries> => {
     const params: PostSuggestQueries = {
       query: queryParam,
       count: SearchService.suggestedQueriesCounter
@@ -37,16 +39,18 @@ export class SearchService {
       tags,
       count
     }
-    return this.SearchApi.postTagsSuggestionsRoute(params)
-    .catch(this.errorHandler.handleServerError)
+    const promise = this.SearchApi.postTagsSuggestionsRoute(params)
+    promise.catch(this.errorHandler.handleServerError)
+    return promise
   }
 
   public loadMore = (queryParams: SearchQueryParams): ng.IPromise<GetSearchRequestResult[]> => {
     queryParams.setOffset(queryParams.getOffset() + queryParams.getCount())
-    return this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams))
-    .catch((error) => {
+    const promise = this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams))
+    promise.catch((error) => {
       this.handleLoadMoreError(queryParams, error)
     })
+    return promise
   }
 
   private handleLoadMoreError = (queryParams: SearchQueryParams, _error: Error): void => {

@@ -153,7 +153,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     template: require('./register.pug')(),
     resolve: {
       /* istanbul ignore next */
-      smsSessionId: (LoginRegisterResolver: ILoginRegisterService): ng.IPromise<ILoginRegister> =>
+      smsSessionId: (LoginRegisterResolver: ILoginRegisterService): ng.IPromise<{} | ILoginRegister> =>
         /* istanbul ignore next */
         LoginRegisterResolver.resolve()
     },

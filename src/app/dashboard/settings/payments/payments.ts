@@ -24,7 +24,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public isCreditCardsLoaded: boolean = false
   private static readonly maxShortAddressLength: number = 10
 
-  constructor(getInvoiceData: GetInvoiceDetails,
+  constructor(getInvoiceData: void | GetInvoiceDetails,
               FinancesApi: FinancesApi,
               $log: ng.ILogService,
               private PaymentsApi: PaymentsApi,
@@ -115,9 +115,9 @@ const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.se
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<GetInvoiceDetails> =>
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetInvoiceDetails> =>
           invoiceDataResolver.resolveCompanyInfo(),
-          user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
+        user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
       }
     })
   })

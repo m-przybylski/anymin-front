@@ -35,10 +35,11 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
     template: require('./summary.pug')(),
     resolve: {
       /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi, $state: ng.ui.IStateService): ng.IPromise<GetWizardProfile> =>
-        WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (_error) => {
-          $state.go('app.wizard.create-profile')
-        })
+      wizardProfile: (WizardApi: WizardApi, $state: ng.ui.IStateService): ng.IPromise<GetWizardProfile> => {
+       const promise = WizardApi.getWizardProfileRoute()
+       promise.catch(() => $state.go('app.wizard.create-profile'))
+       return promise
+      }
     },
     data: {
       permissions: {

@@ -32,7 +32,7 @@ export class HelpdeskService implements IHelpdesk {
 
     return this.$http(httpRequestParams).then(response => {
       if (typeof response.data !== 'undefined') {
-        return response.data
+        return response.data as ISearchArticleResults
       }
       else {
         throw new Error('Response was not defined')

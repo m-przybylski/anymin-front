@@ -15,7 +15,7 @@ export interface ILoginRegister {
 }
 
 export interface ILoginRegisterService {
-  resolve(): ng.IPromise<ILoginRegister>
+  resolve(): ng.IPromise<{} | ILoginRegister>
 }
 
 class LoginRegisterResolver implements ILoginRegisterService {
@@ -31,9 +31,9 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   }
 
-  public resolve = (): ng.IPromise<{}> => {
+  public resolve = (): ng.IPromise<{} | ILoginRegister> => {
 
-    const _deferred = this.$q.defer()
+    const _deferred = this.$q.defer<{} | ILoginRegister>()
 
     const handleError = (error: any): void => {
       if (error.status === httpCodes.badRequest) {

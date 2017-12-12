@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {ExpertCallService} from '../../components/communicator/call-services/expert-call.service'
 import {EventsService} from '../../services/events/events.service'
 
-class ToggleClassOnPullCall implements ng.IDirective<ng.IScope, ng.IScope> {
+class ToggleClassOnPullCall implements ng.IDirective<ng.IScope> {
   public restrict: string = 'A'
 
   /* @ngInject */

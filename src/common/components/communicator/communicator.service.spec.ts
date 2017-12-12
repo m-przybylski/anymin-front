@@ -3,6 +3,7 @@ import * as RatelSdk from 'ratel-sdk-js'
 import {CommunicatorService} from './communicator.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
+import {SignedAgent, GetProfileWithServices, GetService} from 'profitelo-api-ng/model/models'
 import userModule from '../../services/user/user'
 import communicatorModule from './communicator'
 import './communicator.service'
@@ -14,10 +15,16 @@ describe('Unit testing: profitelo.services.communicator >', () => {
 
     let communicatorService: CommunicatorService
     const session = {} as RatelSdk.Session
-    const config = {}
-    const profilesWithServices = [{
-      services: [{id: '1'}, {id: '2'}]
-    }]
+    const config: SignedAgent = {
+      signature: '123'
+    }
+
+    const profile1: GetProfileWithServices = {
+      id: '123',
+      isActive: true,
+      services: [{id: '1'} as GetService, {id: '2'} as GetService]
+    }
+    const profilesWithServices: GetProfileWithServices[] = [profile1]
 
     const userService = {
       getUser: (): void => {}
@@ -49,13 +56,12 @@ describe('Unit testing: profitelo.services.communicator >', () => {
     it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, RatelApi: RatelApi,
                                       ProfileApi: ProfileApi, ratelSdk: any) => {
 
-      RatelApi.getRatelAuthConfigRoute = (_x: string): ng.IPromise<{}> => {
-        return $q.resolve(config)
-      }
+      RatelApi.getRatelAuthConfigRoute = (_x: string): ng.IPromise<SignedAgent> =>
+        $q.resolve(config)
 
-      ProfileApi.getEmployersProfilesWithServicesRoute = (): ng.IPromise<{}> => {
-        return $q.resolve(profilesWithServices)
-      }
+      ProfileApi.getEmployersProfilesWithServicesRoute = (): ng.IPromise<GetProfileWithServices[]> =>
+        $q.resolve(profilesWithServices)
+
       ratelSdk.withSignedAuth = (): ng.IPromise<Session> => $q.resolve(session)
 
       spyOn(RatelApi, 'getRatelAuthConfigRoute').and.callThrough()

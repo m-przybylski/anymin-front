@@ -31,11 +31,10 @@ export class CompanyProfileResolver {
     const handleCompanyResponseError = (error: any): ng.IPromise<void> =>
       this.$q.reject(error)
 
-    const sortServices = (
-      servicesWithTagsAndEmployees: GetOrganizationServiceDetails[]
-    ): GetOrganizationServiceDetails[] => {
+    const sortServices = (servicesWithTagsAndEmployees: GetOrganizationServiceDetails[]):
+      GetOrganizationServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
-      serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
+        serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
       if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
         && servicesWithTagsAndEmployees.length > 1) {
@@ -47,22 +46,26 @@ export class CompanyProfileResolver {
       return servicesWithTagsAndEmployees
     }
 
-    const handleCompanyResponse = (response: GetOrganizationProfile): ng.IPromise<void> | ICompanyResponse => {
+    const handleCompanyResponse = (response: GetOrganizationProfile): ng.IPromise<ICompanyResponse> => {
       if (!response.profile.organizationDetails) {
         return this.$q.reject('Profile is not organization')
       }
 
-      return {
+      return this.$q.resolve({
         profile: response.profile,
         services: sortServices(response.services),
         isFavourite: response.isFavourite
-      }
+      })
     }
 
-    const resolveCompanyProfile = (): ng.IPromise<GetOrganizationProfile>  =>
-      this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
+    const resolveCompanyProfile = (): ng.IPromise<GetOrganizationProfile> => {
+      const promise = this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
         .then((res) => handleCompanyResponse(res))
-        .catch(handleCompanyResponseError)
+
+      promise.catch(handleCompanyResponseError)
+
+      return promise
+    }
 
     return resolveCompanyProfile()
   }

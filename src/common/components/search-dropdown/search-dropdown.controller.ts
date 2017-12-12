@@ -85,7 +85,7 @@ export class SearchDropdownController {
   public onChange = (): void => {
     this.resetDropdown()
     if (this.searchValue && this.searchValue.length >= SearchDropdownController.minimumValidInputValueLength) {
-      this.searchService.querySuggestions(this.searchValue).then((response) => this.suggestions = response.suggestions,
+      this.searchService.querySuggestions(this.searchValue).then((response) => this.suggestions = response!.suggestions,
         (error) => {this.$log.error(error)})
     }
   }

@@ -46,21 +46,21 @@ export class DashboardExpertActivitiesController {
     this.$q.all([
       this.getDashboardActivities(this.activitiesQueryParam),
       this.PayoutsApi.getPayoutMethodsRoute()])
-    .then((responses) => {
-      this.activities = responses[0].activities
-      this.areActivities = responses[0].activities.length > 0
-      $timeout(() => {
-        this.isSearchLoading = false
-        this.isError = false
-      }, this.timeoutDelay)
-      this.translationCounter = {
-        currentResultsCount: this.activities.length,
-        allResultsCount: responses[0].count
-      }
-      this.areFilteredResults = this.activities.length > 0
-      this.areMoreResults = responses[0].count > this.activities.length
-      this.isAnyPayoutMethodSet = responses[1].payPalAccount !== undefined
-    })
+      .then((responses) => {
+        this.activities = responses[0].activities
+        this.areActivities = responses[0].activities.length > 0
+        $timeout(() => {
+          this.isSearchLoading = false
+          this.isError = false
+        }, this.timeoutDelay)
+        this.translationCounter = {
+          currentResultsCount: this.activities.length,
+          allResultsCount: responses[0].count
+        }
+        this.areFilteredResults = this.activities.length > 0
+        this.areMoreResults = responses[0].count > this.activities.length
+        this.isAnyPayoutMethodSet = responses[1].payPalAccount !== undefined
+      })
     this.filters = filtersData
   }
 
@@ -68,12 +68,12 @@ export class DashboardExpertActivitiesController {
     this.isSearchLoading = true
     this.$q.all([this.getDashboardActivities(activitiesQueryParams),
       this.PayoutsApi.getPayoutMethodsRoute()])
-    .then((responses) => {
-      this.activities = responses[0].activities
-      this.isAnyPayoutMethodSet = responses[1].payPalAccount !== undefined
-      this.isSearchLoading = false
-      this.isError = false
-    })
+      .then((responses) => {
+        this.activities = responses[0].activities
+        this.isAnyPayoutMethodSet = responses[1].payPalAccount !== undefined
+        this.isSearchLoading = false
+        this.isError = false
+      })
   }
 
   public loadMoreActivities = (): void => {
@@ -96,25 +96,28 @@ export class DashboardExpertActivitiesController {
   public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.setBasicQueryParam(activitiesQueryParams)
     this.getDashboardActivities(activitiesQueryParams)
-    .then((getActivities) => {
-      this.activitiesQueryParam = activitiesQueryParams
-      this.activities = getActivities.activities
-      this.translationCounter = {
-        currentResultsCount: getActivities.activities.length,
-        allResultsCount: getActivities.count
-      }
-      this.areFilteredResults = getActivities.count > 0
-      this.areMoreResults = getActivities.count > getActivities.activities.length
-    })
+      .then((getActivities) => {
+        this.activitiesQueryParam = activitiesQueryParams
+        this.activities = getActivities.activities
+        this.translationCounter = {
+          currentResultsCount: getActivities.activities.length,
+          allResultsCount: getActivities.count
+        }
+        this.areFilteredResults = getActivities.count > 0
+        this.areMoreResults = getActivities.count > getActivities.activities.length
+      })
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> =>
-    this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
-    .catch((error) => {
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
+    const promise = this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
+
+    promise.catch((error) => {
       this.isSearchLoading = false
       this.isError = true
       this.errorHandler.handleServerError(error, 'Can not load activities')
     })
+    return promise
+  }
 
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardExpertActivitiesController.queryLimit)

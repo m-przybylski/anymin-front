@@ -8,7 +8,7 @@ namespace profitelo.directives.scrollable {
     isNavbar: boolean
   }
 
-  class ScrollableDirective implements ng.IDirective<ng.IScope, ng.IScope> {
+  class ScrollableDirective implements ng.IDirective<ng.IScope> {
     public template = require('./scrollable.pug')()
     public restrict: string = 'E'
     public transclude: boolean = true

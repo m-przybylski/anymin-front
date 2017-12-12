@@ -30,8 +30,8 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
   }
 
-  public resolve = (stateParams: IForgotPasswordStateParams): ng.IPromise<{}> => {
-    const _deferred = this.$q.defer()
+  public resolve = (stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword> => {
+    const _deferred = this.$q.defer<ILoginForgotPassword>()
 
     const account = this.loginStateService.getAccountObject()
 

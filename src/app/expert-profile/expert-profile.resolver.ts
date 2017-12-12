@@ -12,9 +12,6 @@ export class ExpertProfileResolver {
 
   public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> => {
 
-    const handleExpertResponseError = (error: any): ng.IPromise<void> =>
-      this.$q.reject(error)
-
     const sortServices = (servicesWithTagsAndEmployees: GetExpertServiceDetails[]): GetExpertServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
@@ -42,8 +39,7 @@ export class ExpertProfileResolver {
 
     const resolveExpertProfile = (): ng.IPromise<GetExpertProfile> =>
       this.ViewsApi.getWebExpertProfileRoute(stateParams.profileId)
-        .then((res) => handleExpertResponse(res))
-        .catch(handleExpertResponseError)
+        .then((res) => handleExpertResponse(res), (err) => this.$q.reject(err))
 
     return resolveExpertProfile()
   }
