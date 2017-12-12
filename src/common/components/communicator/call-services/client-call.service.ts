@@ -17,7 +17,7 @@ export class ClientCallService {
 
   private navigatorWrapper = new NavigatorWrapper();
 
-  private call?: ng.IPromise<CurrentClientCall>;
+  private call?: ng.IPromise<void | CurrentClientCall>;
 
   private readonly onNewCallSubject = new Subject<CurrentClientCall>()
 
@@ -36,7 +36,7 @@ export class ClientCallService {
   public onNewCall = (cb: (call: CurrentClientCall) => void): Subscription =>
     this.onNewCallSubject.subscribe(cb);
 
-  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
+  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<void | CurrentClientCall> => {
     if (this.call) return this.$q.reject('There is a call already');
 
     if (!serviceId) return this.$q.reject('serviceId must be defined');
@@ -99,7 +99,7 @@ export class ClientCallService {
   private createCall = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
     this.ServiceApi.postServiceUsageRequestRoute(serviceId, {expertId})
     .then((sur) =>
-      this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
+      this.getUserMediaStream()
       .then((stream) =>
         this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
           this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
@@ -121,10 +121,19 @@ export class ClientCallService {
     }, deviceId)
   }
 
-  private getRatelCallById = (ratelCallId: string): Promise<RatelSdk.BusinessCall> => {
+  private getUserMediaStream = (): ng.IPromise<MediaStream> => {
+    const defer = this.$q.defer<MediaStream>();
+    this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
+      .then(defer.resolve, defer.reject)
+    return defer.promise
+  }
+
+  private getRatelCallById = (ratelCallId: string): ng.IPromise<RatelSdk.BusinessCall> => {
     const session = this.communicatorService.getClientSession();
     if (!session) throw new Error('There is no ratel session');
-    return session.chat.getCall(ratelCallId).then(call => <RatelSdk.BusinessCall>call)
+    const defer = this.$q.defer<RatelSdk.BusinessCall>();
+    session.chat.getCall(ratelCallId).then(call => defer.resolve(<RatelSdk.BusinessCall>call), defer.reject)
+    return defer.promise
   }
 
   private onConsultationUnavailable = (): void => {
@@ -143,7 +152,7 @@ export class ClientCallService {
     if (this.call)
       this.call
       .then((call) => {
-        if (call.getState() !== CallState.CANCELLED)
+        if (call && call.getState() !== CallState.CANCELLED)
           this.modalsService.createClientConsultationSummaryModal(serviceId)
       })
       .finally(() => {

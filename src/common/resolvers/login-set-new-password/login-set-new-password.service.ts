@@ -30,9 +30,9 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
   }
 
-  public resolve = (stateParams: ISetNewPasswordStateParams): ng.IPromise<{}> => {
+  public resolve = (stateParams: ISetNewPasswordStateParams): ng.IPromise<ILoginSetNewPassword> => {
 
-    const _deferred = this.$q.defer()
+    const _deferred = this.$q.defer<ILoginSetNewPassword>()
 
     const smsTokenPath = (): void => {
       _deferred.resolve({

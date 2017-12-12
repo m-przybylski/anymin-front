@@ -96,12 +96,12 @@ export class SoundsService {
     }
   }
 
-  public playMessageNew = (): void =>
+  public playMessageNew = (): Promise<void> =>
     this.soundObjects.messageNew.play()
 
-  public playCallRejected = (): void =>
+  public playCallRejected = (): Promise<void> =>
     this.soundObjects.callRejected.play()
 
-  public playCallEnded = (): void =>
+  public playCallEnded = (): Promise<void> =>
     this.soundObjects.callEnded.play()
 }

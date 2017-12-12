@@ -66,6 +66,7 @@ export class CommunicatorService {
 
   /* @ngInject */
   constructor(private $log: ng.ILogService,
+              private $q: ng.IQService,
               private RatelApi: RatelApi,
               userService: UserService,
               CommonConfig: CommonConfig,
@@ -132,9 +133,14 @@ export class CommunicatorService {
     .then(() => this.$log.debug('Client session created', session))
   }
 
-  private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): Promise<void> =>
+  private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): ng.IPromise<void> => {
+    const defer = this.$q.defer<void>()
+
     RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
-    .then(this.onCreateClientSession)
+      .then((res) => defer.resolve(this.onCreateClientSession(res)), defer.reject)
+
+    return defer.promise
+  }
 
   private authenticateClient = (): ng.IPromise<void> =>
     this.RatelApi.getRatelAuthConfigRoute().then(this.onGetRatelClientAuthConfig)

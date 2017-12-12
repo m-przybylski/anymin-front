@@ -18,33 +18,36 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
   ValidationAlertModule,
   commonSettingsModule
 ])
-.config(($stateProvider: ng.ui.IStateProvider) => {
-  $stateProvider.state('app.wizard.create-profile.company', {
-    url: '/company',
-    controllerAs: 'vm',
-    controller: CompanyController,
-    template: require('./company.pug')(),
-    resolve: {
-      /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
-        WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (error) => {
-          if (error.status === httpCodes.notFound) {
-            return void 0
-          } else {
-            throw new Error('Can not get wizard profile ' + error)
-          }
-        })
-    },
-    data: {
-      permissions: {
-        only: ['user'],
-        redirectTo: 'app.login'
+  .config(($stateProvider: ng.ui.IStateProvider) => {
+    $stateProvider.state('app.wizard.create-profile.company', {
+      url: '/company',
+      controllerAs: 'vm',
+      controller: CompanyController,
+      template: require('./company.pug')(),
+      resolve: {
+        /* istanbul ignore next */
+        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
+          const promise = WizardApi.getWizardProfileRoute()
+          promise.catch((error) => {
+            if (error.status === httpCodes.notFound) {
+              return void 0
+            } else {
+              throw new Error('Can not get wizard profile ' + error)
+            }
+          })
+          return promise
+        }
       },
-      pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE.COMPANY'
-    }
+      data: {
+        permissions: {
+          only: ['user'],
+          redirectTo: 'app.login'
+        },
+        pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE.COMPANY'
+      }
+    })
   })
-})
-.controller('companyController', CompanyController)
+  .controller('companyController', CompanyController)
   .name
 
 export default companyWizardModule

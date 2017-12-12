@@ -16,11 +16,7 @@ export class ClientFavouritesResolver {
 
   public resolve = (): ng.IPromise<GetDashboardClientExperts> =>
     this.ViewsApi.getDashboardClientExpertsRoute()
-      .then((res) =>
-        this.handleAppClientFavouritesResolverResponse(res), this.handleAppClientFavouritesResolverResponseError)
-
-  private handleAppClientFavouritesResolverResponseError = (error: any): ng.IPromise<void> =>
-    this.$q.reject(error)
+      .then((res) => this.handleAppClientFavouritesResolverResponse(res), this.$q.reject)
 
   private handleAppClientFavouritesResolverResponse =
     (response: GetDashboardClientExperts): IAppClientFavouritesResolverResponse => ({

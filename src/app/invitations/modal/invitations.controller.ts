@@ -120,19 +120,19 @@ export class InvitationsModalController implements ng.IController {
     })
   }
 
-  private rejectInvitations = (services: GetServiceWithInvitation[]): ng.IPromise<void> => {
+  private rejectInvitations = (services: GetServiceWithInvitation[]): ng.IPromise<void | {}[]> => {
     this.isSubmitButtonDisabled = true
     const rejectedServices = services.filter((service) => !_.some(this.acceptedServices, service))
     if (rejectedServices && rejectedServices.length > 0)
       return this.$q.all(rejectedServices.map((service) =>
         this.InvitationApi.postInvitationRejectRoute(service.invitation.id)))
-      .catch((error) => {
-        this.$log.error(error)
-      })
-      .finally(() => {
-        this.navbarNotificationsService.resolveInvitations()
-        this.isSubmitButtonDisabled = false
-      })
+        .catch((error) => {
+          this.$log.error(error)
+        })
+        .finally(() => {
+          this.navbarNotificationsService.resolveInvitations()
+          this.isSubmitButtonDisabled = false
+        })
     else
       return this.$q.resolve().finally(() => this.isSubmitButtonDisabled = false)
   }

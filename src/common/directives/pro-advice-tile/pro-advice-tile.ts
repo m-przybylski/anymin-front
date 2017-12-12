@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {IDirective} from 'angular'
 
 (function(): void {
-  function proAdviceTile(): IDirective<ng.IScope, ng.IScope> {
+  function proAdviceTile(): IDirective<ng.IScope> {
 
     return {
       template:  require('./pro-advice-tile.pug')(),

@@ -50,19 +50,19 @@ export class DashboardClientActivitiesController {
     this.activitiesQueryParam = new ActivitiesQueryParams
     this.setBasicQueryParam(this.activitiesQueryParam)
     this.getDashboardActivities(this.activitiesQueryParam)
-    .then((getActivities) => {
-      this.isActivitiesHistory = getActivities.activities.length > 0
-      this.activities = getActivities.activities
-      $timeout(() => {
-        this.isSearchLoading = false
-        this.isError = false
-      }, DashboardClientActivitiesController.timeoutDelay)
-      this.translationCounter = {
-        currentResultsCount: this.activities.length,
-        allResultsCount: getActivities.count
-      }
-      this.isMoreResults = !(getActivities.count === this.activities.length)
-    })
+      .then((getActivities) => {
+        this.isActivitiesHistory = getActivities.activities.length > 0
+        this.activities = getActivities.activities
+        $timeout(() => {
+          this.isSearchLoading = false
+          this.isError = false
+        }, DashboardClientActivitiesController.timeoutDelay)
+        this.translationCounter = {
+          currentResultsCount: this.activities.length,
+          allResultsCount: getActivities.count
+        }
+        this.isMoreResults = !(getActivities.count === this.activities.length)
+      })
     this.filters = filtersData
   }
 
@@ -95,23 +95,26 @@ export class DashboardClientActivitiesController {
   public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.setBasicQueryParam(activitiesQueryParams)
     this.getDashboardActivities(activitiesQueryParams)
-    .then((getActivities) => {
-      this.activitiesQueryParam = activitiesQueryParams
-      this.activities = getActivities.activities
-    })
+      .then((getActivities) => {
+        this.activitiesQueryParam = activitiesQueryParams
+        this.activities = getActivities.activities
+      })
   }
 
   public searchForExpert = (): void => {
     this.$state.go('app.search-result')
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> =>
-    this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
-    .catch((error) => {
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
+    const promise = this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
+
+    promise.catch((error) => {
       this.isSearchLoading = false
       this.isError = true
       this.errorHandler.handleServerError(error, 'Can not load activities')
     })
+    return promise
+  }
 
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardClientActivitiesController.queryLimit)
@@ -132,17 +135,17 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   promiseModule,
   errorHandlerModule
 ])
-.config(function ($stateProvider: ng.ui.IStateProvider): void {
-  $stateProvider.state('app.dashboard.client.activities', {
-    url: '/activities',
-    template: require('./activities.pug')(),
-    controller: 'dashboardClientActivitiesController',
-    controllerAs: 'vm',
-    resolve: {
-      /* istanbul ignore next */
-      filtersData: (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
-        dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)
-    }
+  .config(function ($stateProvider: ng.ui.IStateProvider): void {
+    $stateProvider.state('app.dashboard.client.activities', {
+      url: '/activities',
+      template: require('./activities.pug')(),
+      controller: 'dashboardClientActivitiesController',
+      controllerAs: 'vm',
+      resolve: {
+        /* istanbul ignore next */
+        filtersData: (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
+          dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)
+      }
+    })
   })
-})
-.controller('dashboardClientActivitiesController', DashboardClientActivitiesController)
+  .controller('dashboardClientActivitiesController', DashboardClientActivitiesController)

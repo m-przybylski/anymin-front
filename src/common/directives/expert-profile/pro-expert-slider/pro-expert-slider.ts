@@ -23,7 +23,7 @@ export interface IProExpertSlideScope extends ng.IScope {
   slide: any
 }
 
-function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutService): IDirective<ng.IScope, ng.IScope> {
+function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 
   function linkFunction(scope: IProExpertSlideScope): void {
 

@@ -6,14 +6,14 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {httpCodes} from '../../classes/http-codes'
 
 export interface IInvoiceDataResolver {
-  resolveCompanyInfo: () => ng.IPromise<GetInvoiceDetails>
+  resolveCompanyInfo: () => ng.IPromise<void | GetInvoiceDetails>
 }
 
 export class InvoiceDataResolver implements IInvoiceDataResolver {
   constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }
 
-  public resolveCompanyInfo = (): ng.IPromise<GetInvoiceDetails> =>
+  public resolveCompanyInfo = (): ng.IPromise<void | GetInvoiceDetails> =>
     this.AccountApi.getInvoiceDetailsRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
 
   private onGetCompanyInfoRoute = (invoiceDetails: GetInvoiceDetails): GetInvoiceDetails => invoiceDetails

@@ -115,11 +115,12 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.onUploadFiles((this.uploadedFile.file) ? [this.uploadedFile.file] : [])
   }
 
-  public onSendMessage = (messageBody: string): Promise<void> =>
+  public onSendMessage = (messageBody: string): void => {
     this.sendMessage(messageBody, {
       mimeType: 'text/plain',
       content: messageBody,
-    })
+    }).catch(this.onMessageSendError)
+  }
 
   private clientInit = (currentClientCall: CurrentClientCall): void => {
     this.destroy()
@@ -182,9 +183,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private onMessageSendError = (err: any): void =>
     this.$log.error('msg send err:', err)
 
-  private sendMessage = (messageObject: string, context: IMessageContext): Promise<void> =>
+  private sendMessage = (messageObject: string, context: IMessageContext): Promise<Message> =>
     this.messageRoom.sendMessage(messageObject, context)
-      .catch(this.onMessageSendError)
 
   private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
@@ -199,7 +199,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       mimeType: res.contentType,
       content: res.token,
       description: res.name
-    })
+    }).catch(this.onMessageSendError)
   }
 
   private onFileUploadError = (err: any): void => {
@@ -211,7 +211,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     }, this.fileUploadErrorMessageTimeout)
   }
 
-  private uploadFile = (file: File): ng.IPromise<never> =>
+  private uploadFile = (file: File): ng.IPromise<void> =>
     this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
     .then(this.onFileUpload, this.onFileUploadError)
 

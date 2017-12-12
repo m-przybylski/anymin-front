@@ -1,5 +1,5 @@
 import {PresenceApi} from 'profitelo-api-ng/api/api'
-import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
+import {GetExpertVisibility, Function1RequestContextFutureRouteResult} from 'profitelo-api-ng/model/models'
 import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
@@ -51,10 +51,10 @@ export class NavbarExpertVisibilityService {
   public onVisibilityUpdate = (cb: (data: IExpertPresenceUpdate) => void): Subscription =>
     this.changeVisibilitySubject.subscribe(cb)
 
-  public setExpertVisibile = (): ng.IPromise<IExpertPresenceUpdate> =>
+  public setExpertVisibile = (): ng.IPromise<Function1RequestContextFutureRouteResult> =>
     this.PresenceApi.expertVisibleRoute()
 
-  public setExpertInvisibile = (): ng.IPromise<IExpertPresenceUpdate> =>
+  public setExpertInvisibile = (): ng.IPromise<Function1RequestContextFutureRouteResult> =>
     this.PresenceApi.expertInvisibleRoute()
 
 }

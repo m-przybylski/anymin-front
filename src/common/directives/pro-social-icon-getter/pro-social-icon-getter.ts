@@ -7,7 +7,7 @@ export interface ISocialIconGetterLink extends ng.IScope {
   social?: ISocialUrl
 }
 
-function proSocialIconGetter(urlService: UrlService): IDirective<ng.IScope, ng.IScope> {
+function proSocialIconGetter(urlService: UrlService): IDirective<ng.IScope> {
 
   function proSocialIconGetterLink(scope: ISocialIconGetterLink): void {
 

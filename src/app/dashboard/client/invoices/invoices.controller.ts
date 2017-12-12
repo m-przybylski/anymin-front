@@ -6,7 +6,7 @@ export class DashboardClientInvoicesController {
   public areInvoices: boolean
 
   /* @ngInject */
-  constructor(getInvoiceData: GetInvoiceDetails) {
+  constructor(getInvoiceData: void | GetInvoiceDetails) {
 
     if (getInvoiceData) {
       this.invoiceInfo = getInvoiceData

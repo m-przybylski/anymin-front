@@ -1,6 +1,6 @@
 import {ProfileApi} from 'profitelo-api-ng/api/api';
 import {TopAlertService} from '../../../../../../services/top-alert/top-alert.service'
-import {GetOrganizationDetails, GetExpertDetails, OrganizationDetailsUpdate, ExpertDetailsUpdate}
+import {GetOrganizationDetails, GetExpertDetails, UpdateProfile}
   from 'profitelo-api-ng/model/models';
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
@@ -124,7 +124,7 @@ export class EditExpertProfileController implements ng.IController {
   private isGetExpertDetails = (profileDetails: GetOrganizationDetails | GetExpertDetails):
     profileDetails is GetExpertDetails => (<GetExpertDetails>profileDetails).avatar !== undefined
 
-  private sendUpdatedProfile = (updatedProfile: OrganizationDetailsUpdate | ExpertDetailsUpdate): void => {
+  private sendUpdatedProfile = (updatedProfile: UpdateProfile): void => {
     this.ProfileApi.patchProfileRoute(updatedProfile).then((_res) => {
       this.$scope.onModalCloseCallback()
       this.onModalClose()

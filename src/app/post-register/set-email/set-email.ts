@@ -50,7 +50,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     }
   }
 
-  const _isEmailExists = (email: string): ng.IHttpPromise<{}> => AccountApi.getAccountEmailExistsRoute(email)
+  const _isEmailExists = (email: string): ng.IPromise<{}> => AccountApi.getAccountEmailExistsRoute(email)
 
   this.setNewEmail = (): void => {
     this.newEnteredEmail = this.email

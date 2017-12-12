@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import 'angular-ui-router'
 import {IDirective} from 'angular'
 
-function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope, ng.IScope> {
+function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 
   function linkFunction(scope: any, _elem: ng.IRootElementService, _attrs: ng.IAttributes): void {
     /* istanbul ignore next */
