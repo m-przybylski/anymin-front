@@ -16,9 +16,9 @@ export class CookieNotificationService {
 
   public hideNotification = (): void =>
     this.$cookies.put(CookieNotificationService.cookieKey, CookieNotificationService.cookieKeyValue,
-      {expires: new Date(this.setCookieNotificationExpiration(), CookieNotificationExpirationTime.month)})
+      {expires: new Date(this.getCookieNotificationExpiration(), CookieNotificationExpirationTime.month)})
 
-  private setCookieNotificationExpiration = (): number =>
+  private getCookieNotificationExpiration = (): number =>
     this.date.getFullYear() + CookieNotificationExpirationTime.yearDelta
 
   public isNotificationHidden = (): boolean =>

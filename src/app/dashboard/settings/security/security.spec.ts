@@ -1,7 +1,6 @@
 import {DashboardSettingsSecurityController} from './security'
 import * as angular from 'angular'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
-import {ONE_MINUTES_IN_MILLISECONDS} from '../../../../common/constants/time.constatnt'
 
 describe('Unit tests: dashboardSettingsSecurityController >', () => {
   describe('Testing Controller: dashboardSettingsSecurityController', () => {
@@ -33,7 +32,6 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
               system: 'Windows',
               apiKey: 'kkkkklllaaaa'
             }],
-          ONE_MINUTES_IN_MILLISECONDS,
           currentSession: {
             apiKey: 'someApiKey'
           }
