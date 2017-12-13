@@ -37,15 +37,8 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-sl
         .navbar-menu-container.navbar-menu-animation.animation(data-ng-if="$ctrl.isHelpMenuShow")
           navbar-help(data-on-click="$ctrl.toggleHelpMenuShow")
 
-      li.navbar-availbility(data-ng-if="$ctrl.isExpertOrOrganization" data-ng-click="$ctrl.toggleAvailbilityNav()")
+      li.navbar-availbility(data-ng-if="$ctrl.isExpert" data-ng-click="$ctrl.toggleAvailbilityNav()")
         navbar-expert-visibility()
-
-      li.navbar-parent(data-ng-if="$ctrl.isExpert")
-        a
-          span.navbar-item-handler
-            span.icon.icon-user-available-24
-            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.AVAILABILITY")
-          span.mobile-only.icon.icon-next-24
 
       li.navbar-parent.notifications-tab-link(
       data-ng-if="!$ctrl.isPlatformForExpert"

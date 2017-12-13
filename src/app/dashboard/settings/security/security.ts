@@ -102,7 +102,6 @@ angular.module('profitelo.controller.dashboard.settings.security', [
   userModule,
   apiModule,
   topAlertModule,
-  'profitelo.constants.time',
   'profitelo.resolvers.security-settings',
   'profitelo.components.dashboard.settings.manage-devices',
   modalsModule

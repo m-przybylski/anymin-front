@@ -5,7 +5,6 @@ import './payments/payments'
 import './payouts/payouts'
 import './security/security'
 import 'common/components/dashboard/settings/navigation/navigation'
-import 'common/constants/time.constatnt'
 import 'angular-touch'
 import dashboardSettingsNotificationsModule from './notifications/notifications';
 import settingsNavigation from '../../../common/components/dashboard/settings/navigation/navigation'

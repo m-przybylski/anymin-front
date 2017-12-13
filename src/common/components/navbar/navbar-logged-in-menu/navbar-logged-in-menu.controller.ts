@@ -13,6 +13,7 @@ import {NavbarNotificationsService} from '../navbar-notifications/navbar-notific
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
+  isExpert: boolean = false
   isExpertOrOrganization: boolean
   isNotificationsMenuShow: boolean = false
   areNotificationsDisplayed: boolean = false
@@ -97,9 +98,11 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   private setIsExpert = (): void => {
     this.userService.getUser().then((response) => {
+      this.isExpert = response.isExpert
       this.isExpertOrOrganization = response.isExpert || response.isCompany
     }, () => {
       this.isExpertOrOrganization = false
+      this.isExpert = false
     })
   }
 
