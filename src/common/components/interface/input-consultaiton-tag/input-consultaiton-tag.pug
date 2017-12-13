@@ -31,8 +31,3 @@
         li(data-ng-repeat="item in $ctrl.suggestedTags track by $index")
           a(data-ng-click="$ctrl.addSelectedItem(item, $index)")
             span {{ item }}
-
-    a.btn.btn-error(
-    data-ng-click="$ctrl.postTagsSuggestions($ctrl.cacheSuggestedTags)"
-    data-ng-if="$ctrl.isError"
-    data-translate="WIZARD.CONSULTATION.TAG.RECOMMENDED.ERROR_BUTTON")
