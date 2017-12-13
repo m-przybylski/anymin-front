@@ -4,11 +4,11 @@ import {WizardApi} from 'profitelo-api-ng/api/api'
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
-import {inputsMaxLength} from '../../../../common/constants/inputs-max-length.constant'
+import {Config} from '../../../config';
 
 export class CompanyController implements ng.IController {
-  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
-  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
+  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription
+  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,

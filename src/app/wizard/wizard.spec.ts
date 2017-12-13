@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {WizardController} from './wizard.controller'
 import wizardWizardModule from './wizard'
-import {isPlatformForExpert} from '../../common/constants/platform-for-expert.constant'
+import {Config} from '../config';
 
 describe('Testing Controller: WizardController', () => {
 
@@ -33,14 +33,14 @@ describe('Testing Controller: WizardController', () => {
     expect(!!WizardController).toBe(true)
   })
 
-  if (!isPlatformForExpert)
+  if (!Config.isPlatformForExpert)
     it('should call onModalClose and redirect to home page', () => {
       spyOn($state, 'go')
       WizardController.onModalClose()
       expect($state.go).toHaveBeenCalledWith('app.home')
     })
 
-  if (!isPlatformForExpert)
+  if (!Config.isPlatformForExpert)
     it('should call onModalClose and redirect to previous state', inject(($controller: ng.IControllerService) => {
       const previousState = 'previousState'
       WizardController = $controller<WizardController>('wizardController', {

@@ -1,5 +1,5 @@
 import {IExpertNoActivitiesComponentBindings} from './no-activities'
-import {isPlatformForExpert} from '../../../../../constants/platform-for-expert.constant'
+import {Config} from '../../../../../../app/config';
 
 export class ExpertNoActivitiesComponentController implements IExpertNoActivitiesComponentBindings {
 
@@ -7,7 +7,7 @@ export class ExpertNoActivitiesComponentController implements IExpertNoActivitie
     hrefUrl: string
   }
   public activeAccountTranslation: string
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isPayoutMethod: boolean
 
   /* @ngInject */

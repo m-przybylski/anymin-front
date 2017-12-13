@@ -21,10 +21,6 @@ describe('Unit testing: navbar-logged-out-menu', () => {
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('styleConstant', {})
-    }))
-
     beforeEach(() => {
 
       angular.mock.module(navbarLoggedOutMenuModule)

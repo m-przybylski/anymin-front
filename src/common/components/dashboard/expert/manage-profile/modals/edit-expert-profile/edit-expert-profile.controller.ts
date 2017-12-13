@@ -4,7 +4,7 @@ import {GetOrganizationDetails, GetExpertDetails, UpdateProfile}
   from 'profitelo-api-ng/model/models';
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {inputsMaxLength} from '../../../../../../constants/inputs-max-length.constant'
+import {Config} from '../../../../../../../app/config';
 
 export interface IEditExpertProfileScope extends ng.IScope {
   profile: GetOrganizationDetails | GetExpertDetails
@@ -31,8 +31,8 @@ export class EditExpertProfileController implements ng.IController {
   public isSubmitted: boolean = false
   public profileNameLabel: string
   public profileDescriptionLabel: string
-  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
-  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
+  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription
+  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName
 
   private static readonly labels: ILabels = {
     expertName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE',

@@ -1,7 +1,7 @@
 import {IWindowService} from '../../../services/window/window.service'
 import * as angular from 'angular'
-import IStyleConstant = profitelo.constants.style.IStyleConstant
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
 describe('Unit testing: profitelo.directives.interface.scrollable', () => {
   return describe('for profitelo.directives.scrollable directive >', () => {
 
@@ -11,22 +11,18 @@ describe('Unit testing: profitelo.directives.interface.scrollable', () => {
     let timeout: ng.ITimeoutService
     let interval: ng.IIntervalService
     let window: IWindowService
-    let styleConstant: IStyleConstant
     const validHTML = '<scrollable></scrollable>'
 
     beforeEach(() => {
-
-      angular.mock.module('profitelo.constants.style')
       angular.mock.module('profitelo.directives.interface.scrollable')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$timeout_: ng.ITimeoutService,
-              _$interval_: ng.IIntervalService, _$window_: IWindowService, _styleConstant_: IStyleConstant) => {
+              _$interval_: ng.IIntervalService, _$window_: IWindowService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = _$timeout_
         window = _$window_
         interval = _$interval_
-        styleConstant = _styleConstant_
       })
 
     })

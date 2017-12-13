@@ -14,7 +14,7 @@ import ValidationAlertModule from '../../../common/components/interface/alert/va
 import inputModule from '../../../common/components/interface/input/input'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
-import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
+import {Config} from '../../config';
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
@@ -71,7 +71,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           $state.go('app.invitations', {token: JSON.parse(invitationObject).token})
           LocalStorageWrapper.removeItem('invitation')
         } else {
-          isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
+          Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
             $state.go('app.dashboard.client.favourites')
         }
       })

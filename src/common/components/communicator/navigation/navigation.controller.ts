@@ -1,8 +1,8 @@
 import {RatelCallDetails} from 'profitelo-api-ng/model/models'
 import {CurrentCall} from '../models/current-call';
-import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
 import {ClientCallService} from '../call-services/client-call.service'
 import {ExpertCallService} from '../call-services/expert-call.service'
+import {Config} from '../../../../app/config';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean
@@ -22,7 +22,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
   isVideo: boolean
   isMessenger: boolean
   currentCall: CurrentCall
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
   /* @ngInject */
   constructor(clientCallService: ClientCallService,

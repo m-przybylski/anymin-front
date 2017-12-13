@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import {INavbarLoggedOutMenuComponentBindings} from './navbar-logged-out-menu'
-import IStyleConstant = profitelo.constants.style.IStyleConstant
+import {Config} from '../../../../app/config';
 
 export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutMenuComponentBindings {
 
@@ -8,8 +8,7 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
 
   /* @ngInject */
   constructor(private $document: ng.IDocumentService, private $element: ng.IRootElementService,
-              private $scope: ng.IScope, private $window: ng.IWindowService,
-              private styleConstant: IStyleConstant) {
+              private $scope: ng.IScope, private $window: ng.IWindowService) {
 
     this.$document.bind('click', (event: Event) => {
 
@@ -21,8 +20,8 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
     })
 
     angular.element(this.$window).bind('scroll', () => {
-      if (this.$window.pageYOffset >= this.styleConstant.NAVBAR_HEIGHT
-        && this.$window.innerWidth >= this.styleConstant.DESKTOP_WINDOW_WIDTH) {
+      if (this.$window.pageYOffset >= Config.styles.NAVBAR_HEIGHT
+        && this.$window.innerWidth >= Config.styles.DESKTOP_WINDOW_WIDTH) {
         this.isHelpMenuShow = false
       }
       this.$scope.$apply()

@@ -9,7 +9,7 @@ import topAlertModule from '../../services/top-alert/top-alert'
 import sessionModule from '../../services/session/session'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
-import {isPlatformForExpert} from '../../constants/platform-for-expert.constant'
+import {Config} from '../../../app/config';
 
 export interface ILoginConfirmEmailService {
   resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<void>
@@ -51,7 +51,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
         this.$timeout(() => {
           this.$rootScope.loggedIn = true
-          isPlatformForExpert ?
+          Config.isPlatformForExpert ?
             this.$state.go('app.dashboard.expert.activities') : this.$state.go('app.dashboard.client.favourites')
         })
 
