@@ -1,15 +1,14 @@
 import {ViewsApi} from 'profitelo-api-ng/api/api'
-import {FinancialOperation} from 'profitelo-api-ng/model/models'
+import {FinancialOperation, GetPayoutMethodDto} from 'profitelo-api-ng/model/models'
 import {ActivitiesQueryParams} from './activities-query-params'
 import {GetActivities, GetActivityFilters} from 'profitelo-api-ng/model/models'
+import {PayoutsApi} from 'profitelo-api-ng/api/api';
 
 export class DashboardActivitiesService {
 
-  private queryParams: ActivitiesQueryParams
-
   /* @ngInject */
-  constructor(private ViewsApi: ViewsApi) {
-    this.queryParams = new ActivitiesQueryParams
+  constructor(private ViewsApi: ViewsApi,
+              private PayoutsApi: PayoutsApi) {
   }
 
   private handleActivitiesResponseError = (error: any): void => {
@@ -36,4 +35,6 @@ export class DashboardActivitiesService {
     promise.catch(this.handleActivitiesResponseError)
     return promise
   }
+
+  public getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => this.PayoutsApi.getPayoutMethodsRoute()
 }
