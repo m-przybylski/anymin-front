@@ -8,7 +8,7 @@ import 'common/directives/pro-news-tile/pro-news-tile'
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'common/components/interface/slider/slider'
 import navbarModule from '../../common/components/navbar/navbar'
-import {isPlatformForExpert} from '../../common/constants/platform-for-expert.constant'
+import {Config} from '../config';
 
 function HomeController(): void {
 
@@ -195,7 +195,7 @@ const homePageModule = angular.module('profitelo.controller.home', [
       template: require('./home.pug')(),
       resolve: {
         isPlatformForExpert: ($state: ng.ui.IStateService): void => {
-          if (isPlatformForExpert)
+          if (Config.isPlatformForExpert)
             $state.go('app.dashboard.expert.activities')
         }
       },

@@ -2,7 +2,7 @@ import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
 import {GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
-import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
+import {Config} from '../../../../app/config';
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
 
@@ -13,7 +13,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   onClick: () => void
   buttonCallback: () => void
   invitations: GetProfileWithServicesInvitations[]
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
   /* @ngInject */
   constructor(private modalsService: ModalsService,

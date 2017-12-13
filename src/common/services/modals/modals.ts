@@ -17,7 +17,6 @@ import '../../components/dashboard/settings/modals/payments/add-payment-method/a
 import '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
 import '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
 import '../../directives/interface/scrollable/scrollable'
-import '../../constants/style.constant'
 import '../../components/interface/multiselect/multiselect'
 import callSummaryModule from '../call-summary/call-summary'
 import '../../components/interface/preloader/preloader'

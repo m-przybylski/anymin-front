@@ -6,9 +6,8 @@ import * as _ from 'lodash'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {LanguagesService} from '../../../common/services/languages/languages.service'
 import {TranslatorService} from '../../../common/services/translator/translator.service'
-import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
-import {inputsMaxLength} from '../../../common/constants/inputs-max-length.constant'
+import {Config} from '../../config';
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -20,8 +19,8 @@ interface ILanguagesList {
 }
 
 export class ConsultationController implements ng.IController {
-  public readonly inputNameMaxLength: string = inputsMaxLength.consultationName
-  public readonly inputDescriptionMaxLength: string = inputsMaxLength.consultationDescription
+  public readonly inputNameMaxLength: string = Config.inputsMaxLength.consultationName
+  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.consultationDescription
   public isStepRequired: boolean = true
   public currency: string
   public nameInputValue: string = ''
@@ -32,7 +31,7 @@ export class ConsultationController implements ng.IController {
   public languagesList: ILanguagesList[]
   public languageInputValue: ILanguagesList
   public descriptionInputValue: string
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isRegExpPriceInputValid: boolean = true
   public isCompany: boolean
   public isSubmitted: boolean = false

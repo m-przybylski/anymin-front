@@ -3,7 +3,7 @@ import {PermissionService} from '../common/services/permission/permission.servic
 import {SessionService} from '../common/services/session/session.service'
 import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 import {ProfiteloWebsocketService} from '../common/services/profitelo-websocket/profitelo-websocket.service'
-import {isPlatformForExpert} from '../common/constants/platform-for-expert.constant'
+import {Config} from './config';
 
 /* @ngInject */
 export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogService,
@@ -37,7 +37,7 @@ export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogServi
   $rootScope.$on('$stateChangePermissionDenied', (event, toState, _toParams, _options) => {
     event.preventDefault()
     $log.error('Permission to state', toState.name, 'DENIED')
-    if (isPlatformForExpert) {
+    if (Config.isPlatformForExpert) {
       $state.go('app.login.account')
     } else {
       $state.go('app.home')

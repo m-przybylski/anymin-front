@@ -9,9 +9,8 @@ import {ServiceApi, EmploymentApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import {ILanguage, LanguagesService} from '../../../../../../services/languages/languages.service'
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
-import {isPlatformForExpert} from '../../../../../../constants/platform-for-expert.constant'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {inputsMaxLength} from '../../../../../../constants/inputs-max-length.constant'
+import {Config} from '../../../../../../../app/config';
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void
@@ -20,8 +19,8 @@ export interface IServiceFormModalScope extends ng.IScope {
 
 export class ServiceFormModalController implements ng.IController {
 
-  public readonly consultationNameMaxLength: string = inputsMaxLength.consultationName
-  public readonly consultationDescriptionMaxLength: string = inputsMaxLength.consultationDescription
+  public readonly consultationNameMaxLength: string = Config.inputsMaxLength.consultationName
+  public readonly consultationDescriptionMaxLength: string = Config.inputsMaxLength.consultationDescription
   public isLoading: boolean = true
   public isError: boolean = false
   public consultationName: string = ''
@@ -37,7 +36,7 @@ export class ServiceFormModalController implements ng.IController {
   public isRegExpPriceInputValid: boolean = true
   public isCompany: boolean = false
   public isExpert: boolean = false
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isPriceAmountValid: boolean = true
 
   private moneyDivider: number

@@ -34,7 +34,6 @@ describe('Unit testing: navbar-logged-in-menu', () => {
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('userService', userService)
       $provide.value('topAlertService', {})
-      $provide.value('styleConstant', {})
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 

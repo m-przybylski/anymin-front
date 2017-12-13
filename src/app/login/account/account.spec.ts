@@ -8,7 +8,7 @@ import './account'
 import communicatorModule from '../../../common/components/communicator/communicator'
 import userModule from '../../../common/services/user/user'
 import {UserService} from '../../../common/services/user/user.service'
-import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
+import {Config} from '../../config';
 
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {
@@ -147,7 +147,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
     })
 
-    if (!isPlatformForExpert)
+    if (!Config.isPlatformForExpert)
       it('should login user', inject(($q: ng.IQService) => {
         spyOn(userService, 'login').and.returnValue($q.resolve())
         spyOn($state, 'go')

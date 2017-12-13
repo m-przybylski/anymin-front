@@ -1,8 +1,7 @@
 import * as angular from 'angular'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
-import IStyleConstant = profitelo.constants.style.IStyleConstant
-import {isPlatformForExpert} from '../../constants/platform-for-expert.constant'
+import {Config} from '../../../app/config';
 
 export class NavbarComponentController implements INavbarComponentBindings {
   isWindowScrollBottom: boolean = false
@@ -16,15 +15,14 @@ export class NavbarComponentController implements INavbarComponentBindings {
     transform: string
   }
   public onLogoLink: string = ''
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
-              private userService: UserService, private $document: ng.IDocumentService,
-              private styleConstant: IStyleConstant) {
+              private userService: UserService, private $document: ng.IDocumentService) {
 
     angular.element(this.$window).bind('scroll', () => {
-      if (this.$window.pageYOffset <= this.styleConstant.NAVBAR_HEIGHT) {
+      if (this.$window.pageYOffset <= Config.styles.NAVBAR_HEIGHT) {
         this.isCollapsed = false
         this.navbarStyle = {
           transform: 'translateY(' + (-this.$window.pageYOffset) + 'px)'
@@ -74,7 +72,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
   }
 
   $onInit = (): void => {
-    isPlatformForExpert ? this.onLogoLink = 'app.dashboard.expert.activities' : this.onLogoLink = 'app.home'
+    Config.isPlatformForExpert ? this.onLogoLink = 'app.dashboard.expert.activities' : this.onLogoLink = 'app.home'
   }
 
   public onMobileMenuCollapsed = (): void => {
@@ -82,7 +80,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
   }
 
   public onSearchCollapsed = (): void => {
-    if (!isPlatformForExpert)
+    if (!Config.isPlatformForExpert)
       /* this.isSearchVisible is overwrite in CSS when resolution is bigger than 768px */
       this.isSearchVisible = !this.isSearchVisible
       this.isNavigationCollapsed = false

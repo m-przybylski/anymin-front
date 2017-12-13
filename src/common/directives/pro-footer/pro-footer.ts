@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {IDirective} from 'angular'
-import {isPlatformForExpert} from '../../constants/platform-for-expert.constant'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import {Config} from '../../../app/config';
 
 interface IProFooterScope extends ng.IScope {
   isPlatformForExpert: boolean
@@ -17,7 +17,7 @@ interface IProFooterScope extends ng.IScope {
   function proFooter(CommonConfig: CommonConfig): IDirective<ng.IScope> {
 
     function linkFunction(scope: IProFooterScope): void {
-      scope.isPlatformForExpert = isPlatformForExpert
+      scope.isPlatformForExpert = Config.isPlatformForExpert
       scope.zendeskUrl = CommonConfig.getAllData().urls.zendesk
       scope.anymindLandingUrl = CommonConfig.getAllData().urls['widget-landing']
       scope.anymindBlogUrl = CommonConfig.getAllData().urls['widget-blog']

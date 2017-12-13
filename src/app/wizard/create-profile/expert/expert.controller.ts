@@ -4,11 +4,11 @@ import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
-import {inputsMaxLength} from '../../../../common/constants/inputs-max-length.constant'
+import {Config} from '../../../config';
 
 export class ExpertController implements ng.IController {
-  public readonly inputNameMaxLength: string = inputsMaxLength.profileName
-  public readonly inputDescriptionMaxLength: string = inputsMaxLength.profileDescription
+  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName
+  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,

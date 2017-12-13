@@ -2,10 +2,10 @@ import * as angular from 'angular'
 import 'angular-permission'
 import './set-email/set-email'
 import './set-password/set-password'
-import {isPlatformForExpert} from '../../common/constants/platform-for-expert.constant'
+import {Config} from '../config';
 
 function controller(): void {
-  this.isPlatformForExpert = isPlatformForExpert
+  this.isPlatformForExpert = Config.isPlatformForExpert
 
   return this
 }

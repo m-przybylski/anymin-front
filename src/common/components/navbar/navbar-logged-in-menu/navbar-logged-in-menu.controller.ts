@@ -3,13 +3,12 @@ import {INavbarLoggedInMenuComponentBindings} from './navbar-logged-in-menu'
 import {UserService} from '../../../services/user/user.service'
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import {IStateService} from 'angular-ui-router'
-import IStyleConstant = profitelo.constants.style.IStyleConstant
 import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {TranslatorService} from '../../../services/translator/translator.service'
-import {isPlatformForExpert} from '../../../constants/platform-for-expert.constant'
 import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {NavbarNotificationsService} from '../navbar-notifications/navbar-notifications.service'
+import {Config} from '../../../../app/config';
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
@@ -25,7 +24,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   isAnyMenuShow: boolean = false
   notificationCounter?: number
   invitations: GetProfileWithServicesInvitations[] = []
-  public isPlatformForExpert: boolean = isPlatformForExpert
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
   /* @ngInject */
   constructor(private userService: UserService,
@@ -35,7 +34,6 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private $window: ng.IWindowService,
-              private styleConstant: IStyleConstant,
               private $scope: ng.IScope,
               private $log: ng.ILogService,
               private ProfileApi: ProfileApi,
@@ -59,8 +57,8 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     })
 
     angular.element(this.$window).bind('scroll', () => {
-      if (this.$window.pageYOffset >= this.styleConstant.NAVBAR_HEIGHT
-        && this.$window.innerWidth >= this.styleConstant.DESKTOP_WINDOW_WIDTH) {
+      if (this.$window.pageYOffset >= Config.styles.NAVBAR_HEIGHT
+        && this.$window.innerWidth >= Config.styles.DESKTOP_WINDOW_WIDTH) {
         this.isNotificationsMenuShow = false
         this.isHelpMenuShow = false
       }

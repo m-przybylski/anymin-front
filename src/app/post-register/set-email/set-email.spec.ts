@@ -5,10 +5,9 @@ import {TopWaitingLoaderService} from '../../../common/services/top-waiting-load
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import './set-email'
-import {isPlatformForExpert} from '../../../common/constants/platform-for-expert.constant'
 import {httpCodes} from '../../../common/classes/http-codes'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
-
+import {Config} from '../../config';
 
 describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
   describe('Testing Controller: SetEmailController', () => {
@@ -66,7 +65,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
       expect(!!SetEmailController).toBe(true)
     })
 
-    if (!isPlatformForExpert)
+    if (!Config.isPlatformForExpert)
       it('should set new email', () => {
         spyOn($state, 'go')
         // FIXME
