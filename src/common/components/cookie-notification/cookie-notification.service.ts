@@ -1,26 +1,27 @@
 import {ICookiesService, CookiesKeyName} from '../../services/cookie/cookie.service'
-import {CookieNotificationExpirationTime} from '../../constants/time.constatnt'
+import {Config} from '../../../app/config';
 
 export class CookieNotificationService {
-
-  private static readonly cookieKey: CookiesKeyName = 'anymind-cookie'
   private static readonly cookieKeyValue: string = 'true'
-  private readonly date = new Date()
 
   /* @ngInject */
   constructor(private $cookies: ICookiesService) {
   }
 
+  public hideNotification = (): void =>
+    this.$cookies.put(Config.cookies.cookieNotification.key, CookieNotificationService.cookieKeyValue,
+      {expires: this.getCookieNotificationExpirationDate()})
+
+  public isNotificationHidden = (): boolean =>
+    this.isCookieDefined(Config.cookies.cookieNotification.key)
+
   private isCookieDefined = (cookieKey: CookiesKeyName): boolean =>
     this.$cookies.get(cookieKey) !== undefined
 
-  public hideNotification = (): void =>
-    this.$cookies.put(CookieNotificationService.cookieKey, CookieNotificationService.cookieKeyValue,
-      {expires: new Date(this.getCookieNotificationExpiration(), CookieNotificationExpirationTime.month)})
+  private getCookieNotificationExpirationDate = (): Date =>
+    new Date(this.getCookieExpirationYear(), Config.cookies.cookieNotification.month)
 
-  private getCookieNotificationExpiration = (): number =>
-    this.date.getFullYear() + CookieNotificationExpirationTime.yearDelta
+  private getCookieExpirationYear = (): number =>
+    new Date().getFullYear() + Config.cookies.cookieNotification.yearDelta
 
-  public isNotificationHidden = (): boolean =>
-    this.isCookieDefined(CookieNotificationService.cookieKey)
 }

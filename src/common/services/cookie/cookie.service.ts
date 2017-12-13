@@ -1,4 +1,4 @@
-export type CookiesKeyName = 'anymind-cookie'
+export type CookiesKeyName = string
 
 export interface ICookiesService extends ng.cookies.ICookiesService {
   get(key: CookiesKeyName): string
