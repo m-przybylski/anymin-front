@@ -30,7 +30,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
               private $timeout: ng.ITimeoutService) {
   }
 
-  $postLink(): void {
+  $onInit(): void {
     this.$timeout(() => {
       this.currentStep = this.$element.find('wizard-step')[0]
       this.stepList = this.$element.find('wizard-step')
@@ -54,21 +54,11 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
               this.onStepChange()
             }
 
-            if (this.findInput) {
-              this.findInput.blur()
-            } else if (this.findTextarea) {
-              this.findTextarea.blur()
-            }
-
             this.currentStep = this.stepList[index]
             this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
             this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
 
-            if (this.findInput) {
-              this.findInput.focus()
-            } else if (this.findTextarea) {
-              this.findTextarea.focus()
-            }
+            this.focusCurrentInput()
 
             this.progressStyle = {
               width: this.progressWidth * index + this.progressWidth + '%'
@@ -104,6 +94,16 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         this.stepList[this.indexOfCurrentStep - 1],
         this.$element.find('wizard-step')[this.indexOfCurrentStep - 1].clientHeight,
         this.$window.innerHeight)
+    }
+  }
+
+  private focusCurrentInput = (): void => {
+    if (this.findInput && this.findInput.type !== 'file') {
+      this.findInput.focus()
+    } else if (this.findTextarea) {
+      this.findTextarea.focus()
+    } else {
+      this.$document.find(document.activeElement).blur()
     }
   }
 }
