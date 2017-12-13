@@ -4,10 +4,10 @@ import {
 } from '../../../../common/services/dashboard-activites/dashboard-activities.service'
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
 
-import {GetActivities} from 'profitelo-api-ng/model/models'
+import {GetActivities, GetPayoutMethodDto} from 'profitelo-api-ng/model/models'
 import {PromiseService} from '../../../../common/services/promise/promise.service'
 import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
-import {PayoutsApi} from 'profitelo-api-ng/api/api';
+import {httpCodes} from '../../../../common/classes/http-codes'
 
 export class DashboardExpertActivitiesController {
 
@@ -36,44 +36,41 @@ export class DashboardExpertActivitiesController {
   constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,
               private errorHandler: ErrorHandlerService,
-              private $q: ng.IQService,
-              private PayoutsApi: PayoutsApi,
+              private $log: ng.ILogService,
               filtersData: GetActivityFilters,
               $timeout: ng.ITimeoutService) {
 
     this.activitiesQueryParam = new ActivitiesQueryParams
     this.setBasicQueryParam(this.activitiesQueryParam)
-    this.$q.all([
-      this.getDashboardActivities(this.activitiesQueryParam),
-      this.PayoutsApi.getPayoutMethodsRoute()])
+      this.getDashboardActivities(this.activitiesQueryParam)
       .then((responses) => {
-        this.activities = responses[0].activities
-        this.areActivities = responses[0].activities.length > 0
+        this.activities = responses.activities
+        this.areActivities = responses.activities.length > 0
         $timeout(() => {
           this.isSearchLoading = false
           this.isError = false
         }, this.timeoutDelay)
         this.translationCounter = {
           currentResultsCount: this.activities.length,
-          allResultsCount: responses[0].count
+          allResultsCount: responses.count
         }
         this.areFilteredResults = this.activities.length > 0
-        this.areMoreResults = responses[0].count > this.activities.length
-        this.isAnyPayoutMethodSet = responses[1].payPalAccount !== undefined
+        this.areMoreResults = responses.count > this.activities.length
       })
+
     this.filters = filtersData
+    this.getPayoutMethods().then(() => this.isAnyPayoutMethodSet = true)
   }
 
   public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.isSearchLoading = true
-    this.$q.all([this.getDashboardActivities(activitiesQueryParams),
-      this.PayoutsApi.getPayoutMethodsRoute()])
+    this.getDashboardActivities(activitiesQueryParams)
       .then((responses) => {
-        this.activities = responses[0].activities
-        this.isAnyPayoutMethodSet = responses[1].payPalAccount !== undefined
+        this.activities = responses.activities
         this.isSearchLoading = false
         this.isError = false
       })
+    this.getPayoutMethods().then(() => this.isAnyPayoutMethodSet = true)
   }
 
   public loadMoreActivities = (): void => {
@@ -106,6 +103,15 @@ export class DashboardExpertActivitiesController {
         this.areFilteredResults = getActivities.count > 0
         this.areMoreResults = getActivities.count > getActivities.activities.length
       })
+  }
+
+  private getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => {
+    const promise = this.dashboardActivitiesService.getPayoutMethods()
+    promise.catch((error) => {
+      if (error.status === httpCodes.notFound) this.isAnyPayoutMethodSet = false
+      else this.$log.error(error)
+    })
+    return promise
   }
 
   private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
