@@ -73,7 +73,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
       this.invitations = response.filter((profileInvitation) =>
         _.find(profileInvitation.services, (service) => service.invitation.status === GetInvitation.StatusEnum.NEW))
-      this.areNotificationsDisplayed = this.invitations.length < 0
+      this.areNotificationsDisplayed = this.invitations.length > 0
       this.notificationCounter = this.invitations.length
     }, (error) => {
       this.$log.error(error)
