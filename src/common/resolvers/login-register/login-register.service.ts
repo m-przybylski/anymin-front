@@ -20,6 +20,9 @@ export interface ILoginRegisterService {
 
 class LoginRegisterResolver implements ILoginRegisterService {
 
+  private cacheSessionId?: string
+
+  /* @ngInject */
   constructor(private loginStateService: LoginStateService,
               private $state: ng.ui.IStateService,
               private translatorService: TranslatorService,
@@ -36,8 +39,11 @@ class LoginRegisterResolver implements ILoginRegisterService {
     const _deferred = this.$q.defer<{} | ILoginRegister>()
 
     const handleError = (error: any): void => {
-      if (error.status === httpCodes.badRequest) {
-        _deferred.resolve({})
+      if (error.status === httpCodes.badRequest && this.cacheSessionId) {
+        _deferred.resolve({
+          sessionId: this.cacheSessionId,
+          accountObject: _account
+        })
       } else {
         _deferred.reject()
         this.$log.error(error)
@@ -58,12 +64,13 @@ class LoginRegisterResolver implements ILoginRegisterService {
     } else {
       this.RegistrationApi.requestVerificationRoute({
         msisdn: _account.phoneNumber.prefix + _account.phoneNumber.number
-      }).then((response: any) => {
+      }).then((response) => {
+        this.setCacheVerificationObject(response.sessionId)
         _deferred.resolve({
           sessionId: response.sessionId,
           accountObject: _account
         })
-      }, (error: any) => {
+      }, (error) => {
         handleError(error)
       })
     }
@@ -71,6 +78,9 @@ class LoginRegisterResolver implements ILoginRegisterService {
     return _deferred.promise
   }
 
+  private setCacheVerificationObject = (sessionId: string): void => {
+    this.cacheSessionId = sessionId
+  }
 }
 
 angular.module('profitelo.resolvers.login-register', [

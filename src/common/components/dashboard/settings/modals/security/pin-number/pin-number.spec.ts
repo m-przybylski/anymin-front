@@ -46,7 +46,7 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
   })
 
   it('should exists', () => {
-    return expect(!!controller).toBe(true)
+    expect(!!controller).toBe(true)
   })
 
   it('should uibModalInstance', () => {
@@ -58,6 +58,13 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
   it('should be new pin typed', () => {
     controller.sendPin()
     expect(controller.isNewPinTyped).toBe(true)
+  })
+
+  it('should check is new password is correct', () => {
+    controller.confirmPassword = '123'
+    expect(controller.checkIsNewEnteredPasswordCorrected()).toBeFalsy()
+    controller.confirmPassword = '1234567qqa'
+    expect(controller.checkIsNewEnteredPasswordCorrected()).toBeTruthy()
   })
 
 })
