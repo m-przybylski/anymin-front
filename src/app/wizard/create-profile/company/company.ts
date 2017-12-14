@@ -26,17 +26,14 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
       template: require('./company.pug')(),
       resolve: {
         /* istanbul ignore next */
-        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
-          const promise = WizardApi.getWizardProfileRoute()
-          promise.catch((error) => {
+        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>
+         WizardApi.getWizardProfileRoute().catch((error) => {
             if (error.status === httpCodes.notFound) {
               return void 0
             } else {
               throw new Error('Can not get wizard profile ' + error)
             }
           })
-          return promise
-        }
       },
       data: {
         permissions: {
