@@ -7,6 +7,7 @@ import createProfilePageModule from './create-profile/create-profile'
 import consultaionWizardModule from './consultation/consultation'
 import summaryWizardModule from './summary/summary'
 import {UserService} from '../../common/services/user/user.service'
+import {Config} from '../config'
 
 const wizardPageModule = angular.module('profitelo.controller.wizard', [
   'ui.router',
@@ -27,9 +28,10 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
     template: require('./wizard.pug')(),
     resolve: {
       previousState: (userService: UserService, $state: ng.ui.IStateService): string | undefined => {
-        userService.getUser().then((response) => {
+        userService.getUser(true).then((response) => {
           if ((response.isExpert || response.isCompany)) {
-            $state.go('app.home')
+            if (Config.isPlatformForExpert) $state.go('app.dashboard.settings.general')
+            else $state.go('app.home')
           }
         })
         return $state.current.name
