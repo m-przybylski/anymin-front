@@ -140,9 +140,13 @@ export class ExpertCallService {
   private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
     .then(localStream => {
-      this.events.onNewCall.next(currentExpertCall)
-      currentExpertCall.answer(localStream)
-      this.onCallAnswered(currentExpertCall)
+      if (this.currentExpertCall) {
+        this.events.onNewCall.next(currentExpertCall)
+        currentExpertCall.answer(localStream)
+        this.onCallAnswered(currentExpertCall)
+      } else {
+        localStream.getTracks().forEach(t => t.stop());
+      }
     }, this.onGetUserMediaStreamFailure)
     .catch(this.onAnswerCallError);
 
