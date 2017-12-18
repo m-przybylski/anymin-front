@@ -1,0 +1,75 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
+
+.phone-settings
+	.container-medium
+		+xsm
+			max-width: 484px
+			min-width: 484px
+
+	form
+		&.input-form
+			margin: 0
+
+			+smm
+				margin: 0
+
+				dropdown-primary
+					min-width: 120px
+
+	.input-handler
+		margin: 0 0 32px
+
+		+smm
+			margin: 0 0 64px
+
+		> div
+			.alert-cloud
+				max-width: 220px
+
+
+	.input-content
+		.prefix-phone
+			display: block
+			margin: 0 0 16px
+
+			+xsm
+				margin: 0
+				padding: 0 16px 0 0
+
+		.input-group
+			+xsm
+				margin: 0 0 0 16px
+
+	button
+		margin: 0 0 24px
+
+
+	.collapse-height
+		overflow: hidden
+
+		&.animation-in
+			animation: fadeInYInverse 0.3s 1s
+			animation-fill-mode: forwards
+			transition: height 0.3s 1s
+
+		&.animation-out
+			animation: fadeOutYInverse 0.3s
+			animation-fill-mode: forwards
+			transition: height 0.3s
+
+		&.pin
+			&.animation-in
+				animation: fadeInYInverse 0.3s 0.6s
+				animation-fill-mode: forwards
+				transition: height 0.3s 0.6s
+				background: red
+
+			&.animation-out
+				animation: fadeOutYInverse 0.3s
+				animation-fill-mode: forwards
+				transition: height 0.3s
+				background: green
+
+	pin-verification
+		display: block

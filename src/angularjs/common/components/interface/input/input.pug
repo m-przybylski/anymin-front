@@ -14,7 +14,7 @@
     data-ng-required="$ctrl.ngRequired"
     data-ng-focus="$ctrl.onFocus()"
     data-ng-blur="$ctrl.onBlur()"
-    data-ng-change="$ctrl.onChange()"
+    data-ng-change="$ctrl.onInputChange($ctrl.ngModel)"
   )
 
 .input-sign-counter(data-ng-show="$ctrl.maxLength")

@@ -1,9 +1,11 @@
 import * as angular from 'angular'
-
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import userModule from '../../../../../../services/user/user'
 import phoneSettingsModule from './phone-settings';
 import {GeneralPhoneSettingsController, IGeneralPhoneSettingsControllerScope} from './phone-settings.controller';
+import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
+import {GeneralPhoneSettingsControllerService} from './phone-settings.service'
 
 describe('Testing Controller: generalPhoneSettingsController', () => {
 
@@ -11,17 +13,12 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
   let scope: IGeneralPhoneSettingsControllerScope
 
   const userService = {
-    getUser: (): void => {
-    }
+    getUser: (): void => {}
   }
 
   const uibModalInstance = {
-    dismiss: (): void => {
-
-    },
-    close: (): void => {
-
-    }
+    dismiss: (): void => {},
+    close: (): void => {}
   }
 
   beforeEach(() => {
@@ -36,16 +33,22 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
     angular.mock.module(phoneSettingsModule)
-    inject(($rootScope: any, $controller: ng.IControllerService, AccountApi: AccountApi,
+    inject(($rootScope: IRootScopeService,
+            $controller: ng.IControllerService,
+            AccountApi: AccountApi,
+            errorHandler: ErrorHandlerService,
+            generalPhoneSettingsControllerService: GeneralPhoneSettingsControllerService,
             $log: ng.ILogService) => {
 
       scope = <IGeneralPhoneSettingsControllerScope>$rootScope.$new()
 
       const injectors = {
         $scope: scope,
-        AccountApi: AccountApi,
-        $log: $log,
-        $uibModalInstance: uibModalInstance
+        AccountApi,
+        $log,
+        errorHandler,
+        $uibModalInstance: uibModalInstance,
+        generalPhoneSettingsControllerService
       }
 
       controller = $controller<GeneralPhoneSettingsController>('generalPhoneSettingsController', injectors)
@@ -56,35 +59,9 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
     return expect(!!controller).toBe(true)
   })
 
-  it('should phone number valid', () => {
-    controller.prefixList = [{
-      value: '+48',
-      name: 'pl'
-    }]
-    controller.numberModel = '555555555'
-    controller.setNewNumber()
-    expect(controller.isPhoneNumberInvalid).toBe(false)
-  })
-
-  it('should phone numberModel invalid', () => {
-    controller.prefixList = [{
-      value: '+48',
-      name: 'pl'
-    }]
-    controller.numberModel = '123'
-    controller.setNewNumber()
-    expect(controller.isPhoneNumberInvalid).toBe(true)
-  })
-
-  it('should uibModalInstance', () => {
+  it('should close modal', () => {
     spyOn(uibModalInstance, 'dismiss')
     controller.onModalClose()
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
-
-  it('should uibModalInstance', () => {
-    controller.numberModel = '121'
-    expect(controller.checkIfNewEnteredNumberExists())
-  })
-
 })
