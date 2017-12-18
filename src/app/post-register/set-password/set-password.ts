@@ -19,6 +19,9 @@ import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import errorHandlerModule from '../../../common/services/error-handler/error-handler'
+import {RegistrationInvitationService}
+from '../../../common/services/registration-invitation/registration-invitation.service'
+import registrationInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
 
 function _controller($log: ng.ILogService,
                      $filter: ng.IFilterService,
@@ -26,6 +29,7 @@ function _controller($log: ng.ILogService,
                      topWaitingLoaderService: TopWaitingLoaderService,
                      passwordStrengthService: PasswordStrengthService,
                      user: AccountDetails,
+                     registrationInvitationService: RegistrationInvitationService,
                      topAlertService: TopAlertService,
                      errorHandler: ErrorHandlerService,
                      CommonSettingsService: CommonSettingsService,
@@ -79,36 +83,46 @@ function _controller($log: ng.ILogService,
 
   const clearInvitationFromLocalStorage = (): void => LocalStorageWrapper.removeItem('invitation')
 
+  const checkIsEmailExists = (email: string): ng.IPromise<{}> => AccountApi.getAccountEmailExistsRoute(email)
+
   const onVerifyEmailError = (error: any): void => {
     $log.error(error)
     $state.go('app.home')
   }
 
+  const setPassword = (): void => {
+    _updateNewUserObject({
+      password: this.password
+    }, () => {
+      this.isPending = false
+      topWaitingLoaderService.stopLoader()
+      $state.go('app.post-register.set-email')
+    })
+  }
+
   this.completeRegistration = (): void => {
     this.enteredCurrentPassword = this.password
-    const invitationObject = LocalStorageWrapper.getItem('invitation')
-    if (invitationObject && JSON.parse(invitationObject).email) {
-      putNewUserObject({
-        password: this.password,
-        unverifiedEmail: JSON.parse(invitationObject).email,
-        isBlocked: false
+    const invitationObject = registrationInvitationService.getInvitationObject()
+    if (invitationObject && invitationObject.email) {
+      checkIsEmailExists(invitationObject.email).then(() => {
+        setPassword()
       }, () => {
-        verifyEmailByToken(JSON.parse(invitationObject).token)
-        .then(() => {
-          clearInvitationFromLocalStorage()
-          redirectToInvitation(JSON.parse(invitationObject).token)
-        }, onVerifyEmailError)
-        this.isPending = false
-        topWaitingLoaderService.stopLoader()
+        putNewUserObject({
+          password: this.password,
+          unverifiedEmail: invitationObject.email,
+          isBlocked: false
+        }, () => {
+          verifyEmailByToken(invitationObject.token)
+          .then(() => {
+            clearInvitationFromLocalStorage()
+            redirectToInvitation(invitationObject.token)
+          }, onVerifyEmailError)
+          this.isPending = false
+          topWaitingLoaderService.stopLoader()
+        })
       })
     } else {
-      _updateNewUserObject({
-        password: this.password
-      }, () => {
-        this.isPending = false
-        topWaitingLoaderService.stopLoader()
-        $state.go('app.post-register.set-email')
-      })
+      setPassword()
     }
   }
 
@@ -130,7 +144,7 @@ function _controller($log: ng.ILogService,
   }
 
   this.checkIsPasswordCorrect = (): boolean =>
-  this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
+    this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
 
   return this
 }
@@ -157,6 +171,7 @@ angular.module('profitelo.controller.post-register.set-password', [
   commonSettingsModule,
   passwordStrengthModule,
   topAlertModule,
+  registrationInvitationModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
   'profitelo.directives.password-strength-bar',
