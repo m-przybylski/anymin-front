@@ -15,6 +15,8 @@ import {IStateService} from 'angular-ui-router'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import topAlertModule from '../../../../common/services/top-alert/top-alert'
 import {TranslatorService} from '../../../../common/services/translator/translator.service'
+import {ProfiteloWebsocketService} from '../../../../common/services/profitelo-websocket/profitelo-websocket.service'
+import {ISessionDeleted} from '../../../../common/services/session-deleted/session-deleted.service'
 
 interface ISession {
   device: string
@@ -28,10 +30,15 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean
   public sessions: ISession[]
 
-  constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: GetSession[],
-              private SessionApi: SessionApi, private userService: UserService,
-              private $state: IStateService, private topAlertService: TopAlertService,
-              private translatorService: TranslatorService) {
+  constructor(private modalsService: ModalsService,
+              private currentSession: GetSession,
+              private SessionApi: SessionApi,
+              private userService: UserService,
+              private $state: IStateService,
+              private topAlertService: TopAlertService,
+              private translatorService: TranslatorService,
+              sessionsData: GetSession[],
+              profiteloWebsocket: ProfiteloWebsocketService) {
 
     if (currentSession.account) {
       this.hasMobilePin = currentSession.account.hasMobilePin
@@ -41,16 +48,16 @@ export class DashboardSettingsSecurityController implements ng.IController {
       const deviceType = (): string => {
         if (
           session.userAgent && (
-          session.userAgent.includes('Win') ||
-          session.userAgent.includes('Mac') ||
-          session.userAgent.includes('Linux'))
+            session.userAgent.includes('Win') ||
+            session.userAgent.includes('Mac') ||
+            session.userAgent.includes('Linux'))
         ) {
           return 'desktop'
         } else if (
           session.userAgent && (session.userAgent.includes('Android') ||
-          session.userAgent.includes('Mobile') ||
-          session.userAgent.includes('iOS') ||
-          session.userAgent.includes('Windows Phone'))
+            session.userAgent.includes('Mobile') ||
+            session.userAgent.includes('iOS') ||
+            session.userAgent.includes('Windows Phone'))
         ) {
           return 'mobile'
         } else {
@@ -66,6 +73,9 @@ export class DashboardSettingsSecurityController implements ng.IController {
         apiKey: session.apiKey
       }
     })
+
+    profiteloWebsocket.onSessionDeleted(this.onSessionDeleted)
+
   }
 
   public removeSession = (apiKey: string): void => {
@@ -94,6 +104,10 @@ export class DashboardSettingsSecurityController implements ng.IController {
 
   public openSecurityPinSecuritySettingsModal = (): void => {
     this.modalsService.createSecurityPinSecuritySettingsModal()
+  }
+
+  private onSessionDeleted = (deletedSession: ISessionDeleted): void => {
+    _.remove(this.sessions, session => session.apiKey === deletedSession.removedSessionApiKey)
   }
 }
 

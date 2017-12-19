@@ -1,5 +1,6 @@
 import {GetSession, AccountLogin} from 'profitelo-api-ng/model/models'
 import {SessionApi} from 'profitelo-api-ng/api/api'
+import {EventsService} from '../events/events.service'
 
 export class SessionService {
 
@@ -7,7 +8,15 @@ export class SessionService {
   private apiKeyKey: string = 'X-Api-Key'
 
   /* @ngInject */
-  constructor(private SessionApi: SessionApi, private $http: ng.IHttpService, private $q: ng.IQService) {
+  constructor(private SessionApi: SessionApi,
+              private $http: ng.IHttpService,
+              private $q: ng.IQService,
+              eventsService: EventsService
+              ) {
+    eventsService.on('remote-session-deleted', () => {
+      this.onSuccessLogout()
+      eventsService.emit('logout')
+    })
   }
 
   public logout = (): ng.IPromise<void> => this.SessionApi.logoutCurrentRoute().then(this.onSuccessLogout)
@@ -49,7 +58,8 @@ export class SessionService {
     this.$http.defaults.headers!.common[this.apiKeyKey] = apiKey
   }
 
-  public static $get(SessionApi: SessionApi, $http: ng.IHttpService, $q: ng.IQService): SessionService {
-    return new SessionService(SessionApi, $http, $q)
+  public static $get(SessionApi: SessionApi, $http: ng.IHttpService,
+                     $q: ng.IQService, eventsService: EventsService): SessionService {
+    return new SessionService(SessionApi, $http, $q, eventsService)
   }
 }

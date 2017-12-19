@@ -4,15 +4,20 @@ import {SessionService} from '../common/services/session/session.service'
 import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 import {ProfiteloWebsocketService} from '../common/services/profitelo-websocket/profitelo-websocket.service'
 import {Config} from './config';
+import {SessionDeletedService} from '../common/services/session-deleted/session-deleted.service'
+import {EventsService} from '../common/services/events/events.service'
 
 /* @ngInject */
-export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogService,
+export function AppRunFunction($rootScope: IRootScopeService,
+                               $log: ng.ILogService,
                                permissionService: PermissionService,
                                $anchorScroll: ng.IAnchorScrollService,
+                               eventsService: EventsService,
                                sessionService: SessionService,
                                $urlRouter: ng.ui.IUrlRouterService,
                                $state: ng.ui.IStateService,
                                topAlertService: TopAlertService,
+                               sessionDeletedService: SessionDeletedService,
                                profiteloWebsocket: ProfiteloWebsocketService): void {
 
   // initialize all views permissions
@@ -20,11 +25,15 @@ export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogServi
 
   // initialize websocket service
   profiteloWebsocket.initializeWebsocket()
+  sessionDeletedService.init()
+
+  eventsService.on('logout', () => $state.go('app.login.account'))
 
   // scrollup after every state change
   $rootScope.$on('$locationChangeSuccess', () => {
     $anchorScroll()
   })
+
   $rootScope.$on('$stateChangeError', (event, _toState, _toParams, _fromState, _fromParams, error) => {
     $log.error(error)
     event.preventDefault()
