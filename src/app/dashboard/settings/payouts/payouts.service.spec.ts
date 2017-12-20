@@ -1,40 +1,29 @@
 import * as angular from 'angular'
-import {PayoutsApiMock, PayoutsApi} from 'profitelo-api-ng/api/api'
+import {PayoutsApiMock} from 'profitelo-api-ng/api/api'
 import {PayoutsService} from './payouts.service'
 import dashboardSettingsPayoutsModule from './payouts'
 import {httpCodes} from '../../../../common/classes/http-codes'
+import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
 
 describe('Unit testing: profitelo.dashboard.settings.payouts', () => {
   describe('for PayoutsSettingsResolver service >', () => {
 
     let payoutsService: PayoutsService
-    let $httpBackend: ng.IHttpBackendService
-    let log: ng.ILogService
-    let PayoutsApi: PayoutsApi
-    let PayoutsApiMock: PayoutsApiMock
-    let q: ng.IQService
 
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesomeUrl')
-      $provide.value('PayoutsApiMock', PayoutsApiMock)
-      $provide.value('PayoutsApi', PayoutsApi)
     }))
 
     beforeEach(() => {
       angular.mock.module(dashboardSettingsPayoutsModule)
 
-      inject(($injector: ng.auto.IInjectorService, _PayoutsApiMock_: PayoutsApiMock,
-              _PayoutsApi_: PayoutsApi, $q: ng.IQService) => {
+      inject(($injector: ng.auto.IInjectorService) => {
         payoutsService = $injector.get<PayoutsService>('payoutsService')
-        $httpBackend = $injector.get('$httpBackend')
-        log = $injector.get('$log')
-        q = $q
-        PayoutsApiMock = _PayoutsApiMock_
-        PayoutsApi = _PayoutsApi_
       })
     })
 
-    it('should get payout methods', (done) => {
+    it('should get payout methods',
+      (done) => inject(($httpBackend: ng.IHttpBackendService, PayoutsApiMock: PayoutsApiMock) => {
       const mockPayoutsMethod = {
         payPalAccount: {
           email: 'mockEmail@com.pl'
@@ -46,9 +35,10 @@ describe('Unit testing: profitelo.dashboard.settings.payouts', () => {
         done()
       })
       $httpBackend.flush()
-    })
+    }))
 
-    it('should put payout methods', (done) => {
+    it('should put payout methods',
+      (done) => inject(($httpBackend: ng.IHttpBackendService, PayoutsApiMock: PayoutsApiMock) => {
       const mockPayoutsMethod = {}
       PayoutsApiMock.putPayoutMethodRoute(httpCodes.ok, mockPayoutsMethod)
       payoutsService.putPayoutMethod().then((response) => {
@@ -56,7 +46,31 @@ describe('Unit testing: profitelo.dashboard.settings.payouts', () => {
         done()
       })
       $httpBackend.flush()
-    })
+    }))
+
+    it('should show error when put payout methods fails',
+      (done) => inject(($httpBackend: ng.IHttpBackendService, errorHandler: ErrorHandlerService,
+                        PayoutsApiMock: PayoutsApiMock) => {
+      spyOn(errorHandler, 'handleServerError')
+      PayoutsApiMock.putPayoutMethodRoute(httpCodes.badRequest)
+      payoutsService.putPayoutMethod().catch( _error => {
+        expect(errorHandler.handleServerError).toHaveBeenCalled()
+        done()
+      })
+      $httpBackend.flush()
+    }))
+
+    it('should log error when get payout methods fails',
+      (done) => inject(($httpBackend: ng.IHttpBackendService, $log: ng.ILogService,
+                        PayoutsApiMock: PayoutsApiMock) => {
+      spyOn($log, 'error')
+      PayoutsApiMock.getPayoutMethodsRoute(httpCodes.badRequest)
+      payoutsService.getPayoutMethods().catch( _error => {
+        expect($log.error).toHaveBeenCalled()
+        done()
+      })
+      $httpBackend.flush()
+    }))
 
   })
 })

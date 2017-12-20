@@ -24,19 +24,19 @@
           data-ng-click="vm.addPayoutMethod()"
         )
 
-      .list-row(data-ng-if="vm.payPalAccount")
+      .list-row(data-ng-if="vm.payPalAccountEmail")
         .payout-info
           span.payout-method(data-translate="SETTINGS.PAYMENTS.PAYMENT_METHOD.PAYPAL")
-          span.payout-data {{ vm.payPalAccount }}
+          span.payout-data {{ vm.payPalAccountEmail }}
         a.btn.btn-primary.btn-small.recharge-account(
           data-translate="SETTINGS.PAYOUTS.BUTTON.DELETE"
           data-ng-click="vm.deletePaymentMethod()"
         )
 
-      .list-row(data-ng-if="vm.bankAccount")
+      .list-row(data-ng-if="vm.bankAccountNumber")
         .payout-info
           span.payout-method(data-translate="SETTINGS.PAYMENTS.PAYMENT_METHOD.BANK_ACCOUNT")
-          span.payout-data {{ vm.bankAccount }}
+          span.payout-data {{ vm.bankAccountNumber }}
         a.btn.btn-primary.btn-small.recharge-account(
           data-translate="SETTINGS.PAYOUTS.BUTTON.DELETE"
           data-ng-click="vm.deletePaymentMethod()"

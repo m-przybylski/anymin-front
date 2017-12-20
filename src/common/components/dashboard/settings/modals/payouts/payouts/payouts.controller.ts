@@ -1,7 +1,6 @@
 import {JValue, PutPayoutMethodDto} from 'profitelo-api-ng/model/models'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 import {PayoutsModalService} from './payouts.service'
-import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 
 export interface IPayoutsModalControllerScope extends ng.IScope {
   onModalCloseCallback: () => void
@@ -15,22 +14,27 @@ export class PayoutsModalController implements ng.IController {
   public bankAccountNumber: string = ''
   public emailPattern = this.CommonSettingsService.localSettings.emailPattern
   public bankAccountNumberPattern = this.CommonSettingsService.localSettings.bankAccountNumberPattern
+  public payoutMethod: string = ''
 
   private onModalCloseCallback: () => void
+  private static readonly payoutMethodId = {
+    bankAccount: 'bankAccount',
+    payPalAccount: 'paypalAccount'
+  }
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IPayoutsModalControllerScope,
               private CommonSettingsService: CommonSettingsService,
-              private payoutsModalService: PayoutsModalService,
-              private errorHandler: ErrorHandlerService) {
+              private payoutsModalService: PayoutsModalService) {
 
     this.onModalCloseCallback = this.$scope.onModalCloseCallback
   }
 
-  public isPayPalEmailValid = (): boolean => this.emailPattern.test(this.payPalEmail)
+  public isPayPalEmailValid = (): boolean => this.payPalEmail && this.emailPattern.test(this.payPalEmail)
 
-  public isBankAccountNumberValid = (): boolean => this.bankAccountNumberPattern.test(this.bankAccountNumber)
+  public isBankAccountNumberValid = (): boolean =>
+    this.bankAccountNumber && this.bankAccountNumberPattern.test(this.bankAccountNumber)
 
   public addPayPalAccount = (): void => {
     this.isLoading = true
@@ -55,13 +59,11 @@ export class PayoutsModalController implements ng.IController {
   }
 
   public choosePayoutPaypalMethod = (): void => {
-    this.isPayoutPaypalMethod = true
-    this.isPayoutBankMethod = false
+    this.payoutMethod = PayoutsModalController.payoutMethodId.payPalAccount
   }
 
   public choosePayoutBankMethod = (): void => {
-    this.isPayoutBankMethod = true
-    this.isPayoutPaypalMethod = false
+    this.payoutMethod = PayoutsModalController.payoutMethodId.bankAccount
   }
 
   public onModalClose = (): void => {
@@ -73,9 +75,8 @@ export class PayoutsModalController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  private onPutPayoutMethodError = (error: any): void => {
+  private onPutPayoutMethodError = (): void => {
     this.isLoading = false
-    this.errorHandler.handleServerError(error, 'Cannot put payout method')
   }
 
 }

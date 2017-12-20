@@ -11,7 +11,6 @@ describe('Testing Controller: PayoutsModalController', () => {
   let controller: PayoutsModalController
   let scope: IPayoutsModalControllerScope
   let injectors = {}
-  let errorHandler: ErrorHandlerService
 
   const $uibModalInstance = {
     dismiss: (): void => {},
@@ -33,14 +32,11 @@ describe('Testing Controller: PayoutsModalController', () => {
   beforeEach(() => {
 
     inject(($rootScope: IRootScopeService,
-            $controller: ng.IControllerService,
-            _errorHandler_: ErrorHandlerService) => {
+            $controller: ng.IControllerService) => {
 
       scope = <IPayoutsModalControllerScope>$rootScope.$new()
-      errorHandler = _errorHandler_
       injectors = {
         $uibModalInstance,
-        errorHandler,
         payoutsModalService,
         $scope: scope
       }
@@ -55,12 +51,12 @@ describe('Testing Controller: PayoutsModalController', () => {
 
   it('should email be valid',  () => {
     controller.payPalEmail = 'test@test.com'
-    expect(controller.isPayPalEmailValid()).toEqual(true)
+    expect(controller.isPayPalEmailValid()).toBe(true)
   })
 
   it('should bank account number valid', () => {
     controller.bankAccountNumber = '12312312312312312312312312'
-    expect(controller.isBankAccountNumberValid()).toEqual(true)
+    expect(controller.isBankAccountNumberValid()).toBe(true)
   })
 
   it('should close modal', () => {
@@ -71,14 +67,12 @@ describe('Testing Controller: PayoutsModalController', () => {
 
   it('should choose payout paypal method', () => {
     controller.choosePayoutPaypalMethod()
-    expect(controller.isPayoutPaypalMethod).toBe(true)
-    expect(controller.isPayoutBankMethod).toBe(false)
+    expect(controller.payoutMethod).toBe('paypalAccount')
   })
 
   it('should choose payout bank method', () => {
     controller.choosePayoutBankMethod()
-    expect(controller.isPayoutPaypalMethod).toBe(false)
-    expect(controller.isPayoutBankMethod).toBe(true)
+    expect(controller.payoutMethod).toBe('bankAccount')
   })
 
   it('should add pay pal account', inject(($q: ng.IQService, $controller: ng.IControllerService) => {
@@ -95,8 +89,8 @@ describe('Testing Controller: PayoutsModalController', () => {
     expect($uibModalInstance.dismiss).toHaveBeenCalled()
   }))
 
-  it('should show error when add pay pal account fails',
-    inject(($q: ng.IQService, $controller: ng.IControllerService) => {
+  it('should hide loader when add pay pal account fails',
+    inject(($q: ng.IQService, $controller: ng.IControllerService, errorHandler: ErrorHandlerService) => {
     spyOn(errorHandler, 'handleServerError')
     payoutsModalService.putPayoutMethod.and.callFake(() => $q.reject())
     controller = $controller<PayoutsModalController>('payoutsModalController', {
@@ -107,7 +101,6 @@ describe('Testing Controller: PayoutsModalController', () => {
     controller.addPayPalAccount()
     scope.$apply()
     expect(controller.isLoading).toBe(false)
-    expect(errorHandler.handleServerError).toHaveBeenCalled()
   }))
 
 })
