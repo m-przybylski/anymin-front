@@ -7,7 +7,7 @@ export interface IWizardStepModuleComponentBindings extends ng.IController {
   title: string
   checkIsStepValid: () => boolean
   additionalText: string
-  tooltipText: string
+  tooltipText?: string
   buttonTitle: string
   required: boolean
   onGoToNext?: () => void
