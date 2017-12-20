@@ -13,8 +13,7 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
 export class ExpertConsultationDetailsController implements ng.IController {
   public roomId?: string
   public isLoading: boolean = true
-  public recommendedTags: any[] = []
-  public serviceTags: any[] = []
+  public serviceTags: Tag[] = []
   public expertAvatar?: string
   public expertName?: string
   public serviceName: string
@@ -24,8 +23,9 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public callDuration: number
   public isRecommended: boolean
   public sueId: string
-  public recommendedTag: Tag[]
+  public recommendedTags: Tag[] = []
   public isRecommendable: boolean
+  public consultationComment?: string
   private callDetails: GetCallDetails
 
   public complaintReasons: any
@@ -94,6 +94,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   }
 
   private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
+    this.isLoading = false
     this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
     this.recommendedTags = this.callDetails.recommendedTags
@@ -104,9 +105,9 @@ export class ExpertConsultationDetailsController implements ng.IController {
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
     this.isRecommended = this.callDetails.isRecommended
     this.isRecommendable = this.callDetails.isRecommendable
+    this.consultationComment = this.callDetails.comment!.content
     this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId
     this.serviceTags = serviceTags
-    this.isLoading = false
   }
 
 }

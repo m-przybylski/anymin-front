@@ -48,8 +48,25 @@
             .details-tab-content
               span {{ vm.callDuration | secondsToDateTime | date: 'HH:mm:ss' }}
 
+          .details-tab-row(data-ng-if="vm.isRecommended")
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.IS_RECOMMENDED.TITLE")
+            .details-tab-content
+              span(data-ng-if="vm.isRecommended")
+                | {{ 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.IS_RECOMMENDED.YES' | translate }}
+              span(data-ng-if="!vm.isRecommended")
+                | {{ 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.IS_RECOMMENDED.NO' | translate }}
+
+          .details-tab-row(data-ng-if="vm.consultationComment")
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMMENTS.TITLE")
+
+          .details-tab-row.comment(data-ng-if="vm.consultationComment")
+            p {{ vm.consultationComment }}
+
         tags-list(data-title="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE"
-        data-tags="vm.recommendedTag" data-ng-if='vm.isRecommended')
+        data-tags="vm.recommendedTags" data-ng-if='vm.recommendedTags.length !== 0')
+
 
       collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
       data-collapse-icon="icon-chat-24")
