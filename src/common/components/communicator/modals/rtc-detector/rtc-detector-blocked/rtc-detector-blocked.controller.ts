@@ -1,3 +1,5 @@
+import {CommonSettingsService} from '../../../../../services/common-settings/common-settings.service'
+
 export interface IRtcDetectorBlockedModalControllerScope extends ng.IScope {
 }
 
@@ -10,9 +12,10 @@ export class RtcDetectorBlockedModalController implements ng.IController {
   public rtcBlockedTranslationHref: ITranslateHref
 
   /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+              CommonSettingsService: CommonSettingsService) {
     this.rtcBlockedTranslationHref = {
-      hrefUrl: '/dashboard/settings/payouts'
+      hrefUrl: CommonSettingsService.links.zendeskAllowMediaUrl
     }
   }
 
