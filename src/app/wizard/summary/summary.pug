@@ -40,8 +40,6 @@
 
     .container
       .add-another-consultation(data-ng-show="vm.isConsultation || vm.isConsultationInvitationAccepted")
-        p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")
-
         .btn-handler
           a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"  data-ng-if="!vm.isCompanyWithExpert"
           data-ui-sref="app.wizard.consultation")
