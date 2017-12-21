@@ -7,43 +7,45 @@ import {ServiceUsageEvent} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {roomType} from 'ratel-sdk-js'
 import {CommunicatorService} from '../communicator.service'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 describe('Unit tests: CurrentCall', () => {
 
   let currentCall: CurrentCall
   let RatelApi: RatelApi
   let q: ng.IQService
+  const microphoneService: MicrophoneService = jasmine.createSpyObj('microphoneService', [''])
 
   const ratelCall: RatelSdk.BusinessCall = <any>{
-    onAnswered: () => {},
-    onRejected: () => {},
-    onEnd: () => {},
-    onActiveDevice: () => {},
-    onInvited: () => {},
-    onJoined: () => {},
-    onLeft: () => {},
-    onRemoteStream: () => {},
-    onOffline: () => {},
-    onOnline: () => {}
+    onAnswered: (): void => {},
+    onRejected: (): void => {},
+    onEnd: (): void => {},
+    onActiveDevice: (): void => {},
+    onInvited: (): void => {},
+    onJoined: (): void => {},
+    onLeft: (): void => {},
+    onRemoteStream: (): void => {},
+    onOffline: (): void => {},
+    onOnline: (): void => {}
   }
   const service = <any>{
     price: 23
   }
 
   const communicatorService: CommunicatorService = <any>{
-    onActiveCall: () => {}
+    onActiveCall: (): void => {}
   }
 
   const businessRoom: RatelSdk.BusinessRoom = <any>{
     roomType: roomType.RoomType.BUSINESS,
-    onTyping: () => {},
-    onMark: () => {},
-    onCustom: () => {},
-    onInvited: () => {},
-    join: () => {}
+    onTyping: (): void => {},
+    onMark: (): void => {},
+    onCustom: (): void => {},
+    onInvited: (): void => {},
+    join: (): void => {}
   }
   const timerFactory: TimerFactory = <any>{
-    getInstance: () => {}
+    getInstance: (): void => {}
   }
   const sue: ServiceUsageEvent = <any>{
     id: '12'
@@ -60,7 +62,8 @@ describe('Unit tests: CurrentCall', () => {
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_
     q = $q
-    currentCall = new CurrentCall(soundsService, ratelCall, timerFactory, service, sue, communicatorService, RatelApi)
+    currentCall = new CurrentCall(soundsService, ratelCall, timerFactory, service, sue, communicatorService,
+      RatelApi, microphoneService)
   })))
 
   it('should currentCall exist', () => {

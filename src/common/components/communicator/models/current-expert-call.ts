@@ -6,6 +6,7 @@ import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CommunicatorService} from '../communicator.service'
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 export class CurrentExpertCall extends CurrentCall {
 
@@ -14,10 +15,11 @@ export class CurrentExpertCall extends CurrentCall {
               incomingCallDetails: GetIncomingCallDetails,
               soundsService: SoundsService,
               communicatorService: CommunicatorService,
-              RatelApi: RatelApi) {
+              RatelApi: RatelApi,
+              microphoneService: MicrophoneService) {
 
     super(soundsService, call as RatelSdk.BusinessCall, timerFactory,
-      incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi);
+      incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi, microphoneService);
     this.setState(CallState.INCOMING)
     this.onCallTaken(() => {
       this.setState(CallState.PENDING_ON_OTHER_DEVICE)

@@ -7,6 +7,7 @@ import {CurrentCall} from './models/current-call';
 import {MessageRoom} from './models/message-room';
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
 import {TranslatorService} from '../../services/translator/translator.service'
+import {MicrophoneService, MicrophoneStateEnum} from './microphone-service/microphone.service'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -35,12 +36,15 @@ export class CommunicatorComponentController implements ng.IController {
 
   public messageRoom: MessageRoom
 
+  public isMicrophoneMuted: boolean = false
+
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
+              private microphoneService: MicrophoneService,
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
 
@@ -62,6 +66,8 @@ export class CommunicatorComponentController implements ng.IController {
       communicatorElement.on('dragover', (e) => e.preventDefault())
       communicatorElement.on('drop', (e) => e.preventDefault())
     }
+    this.microphoneService.onMicrophoneStatusChange((state) =>
+      this.isMicrophoneMuted = state === MicrophoneStateEnum.MUTED)
   }
 
   private onOnline = (): void => {
@@ -185,6 +191,7 @@ export class CommunicatorComponentController implements ng.IController {
     this.isOffline = false
     this.callLengthInSeconds = 0
     this.callCost = undefined
+    this.isMicrophoneMuted = false
   }
 
   private onCallEnd = (): void => {

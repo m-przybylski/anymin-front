@@ -11,6 +11,7 @@ import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-const
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 export class ExpertCallService {
 
@@ -35,7 +36,8 @@ export class ExpertCallService {
               private $log: ng.ILogService,
               private rtcDetectorService: RtcDetectorService,
               private RatelApi: RatelApi,
-              private communicatorService: CommunicatorService) {
+              private communicatorService: CommunicatorService,
+              private microphoneService: MicrophoneService) {
     communicatorService.onCallInvitation(this.onExpertCallIncoming)
     communicatorService.onActiveCall(this.onActiveCall)
   }
@@ -57,7 +59,7 @@ export class ExpertCallService {
     if (activeCalls[0]) {
       this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
         this.currentExpertCall = new CurrentExpertCall(this.timerFactory, activeCalls[0],
-          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
+          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
         this.currentExpertCall.onEnd(() => {
           this.events.onCallEnd.next()
           this.currentExpertCall = undefined;
@@ -74,7 +76,7 @@ export class ExpertCallService {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
         const currentExpertCall = new CurrentExpertCall(this.timerFactory, callInvitation.call,
-          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi);
+          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
 
         this.currentExpertCall = currentExpertCall;
 

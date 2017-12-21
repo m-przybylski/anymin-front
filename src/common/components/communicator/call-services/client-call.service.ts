@@ -12,6 +12,7 @@ import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/p
 import {CallState} from '../models/current-call'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 export class ClientCallService {
 
@@ -30,7 +31,8 @@ export class ClientCallService {
               private soundsService: SoundsService,
               private modalsService: ModalsService,
               private $q: ng.IQService,
-              private profiteloWebsocket: ProfiteloWebsocketService) {
+              private profiteloWebsocket: ProfiteloWebsocketService,
+              private microphoneService: MicrophoneService) {
   }
 
   public onNewCall = (cb: (call: CurrentClientCall) => void): Subscription =>
@@ -105,7 +107,7 @@ export class ClientCallService {
           this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
             new CurrentClientCall(this.timerFactory, ratelCall, stream,
               sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi,
-              this.communicatorService, sur.expert)))
+              this.communicatorService, this.microphoneService, sur.expert)))
       )
     )
 

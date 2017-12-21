@@ -6,6 +6,7 @@ import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CommunicatorService} from '../communicator.service'
 import {Subscription} from 'rxjs/Subscription'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 export class CurrentClientCall extends CurrentCall {
 
@@ -17,9 +18,10 @@ export class CurrentClientCall extends CurrentCall {
               soundsService: SoundsService,
               RatelApi: RatelApi,
               communicatorService: CommunicatorService,
+              microphoneService: MicrophoneService,
               private expert: GetProfile) {
 
-    super(soundsService, call, timerFactory, service, sue, communicatorService, RatelApi);
+    super(soundsService, call, timerFactory, service, sue, communicatorService, RatelApi, microphoneService);
     this.setLocalStream(localStream);
     this.ratelCall.addStream(localStream);
 

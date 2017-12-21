@@ -22,6 +22,7 @@ import navigationModule from './navigation/navigation'
 import RtcDetectorModule from '../../services/rtc-detector/rtc-detector'
 import {PrecallService} from './precall-service/precall.service'
 import translatorModule from '../../services/translator/translator'
+import {MicrophoneService} from './microphone-service/microphone.service'
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',
@@ -53,6 +54,7 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   .service('precallService', PrecallService)
   .service('clientCallService', ClientCallService)
   .service('expertCallService', ExpertCallService)
+  .service('microphoneService', MicrophoneService)
   .name
 
 export default communicatorModule;
