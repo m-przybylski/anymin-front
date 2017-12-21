@@ -45,6 +45,7 @@ import pagePreloaderModule from '../common/components/interface/page-preloader/p
 import activeCallBarModule from '../common/components/communicator/active-call-bar/active-call-bar'
 import toggleClassOnPullCall from '../common/directives/toggle-class-on-pull-call/toggle-class-on-pull-call'
 import cookieNotificationModule from '../common/components/cookie-notification/cookie-notification'
+import sessionDeletedModule from '../common/services/session-deleted/session-deleted'
 
 declare const Raven: any
 
@@ -81,6 +82,7 @@ angular.module('profitelo', [
   sessionModule,
   profiteloWebsocketModule,
   permissionModule,
+  sessionDeletedModule,
 
   // controllers
   pagesModule,
