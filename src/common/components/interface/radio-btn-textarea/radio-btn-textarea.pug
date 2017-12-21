@@ -1,0 +1,22 @@
+.radio-btn-textarea
+  .radio-btn
+    label
+      input(
+      type="radio"
+      id="{{$ctrl.id}}"
+      name="{{$ctrl.name}}"
+      value="{{$ctrl.value}}"
+      data-ng-model="$ctrl.ngModel"
+      data-ng-click="$ctrl.onClick($ctrl.ngModel)"
+      )
+      span.icon.icon-radio
+      span.text(for="{{$ctrl.id}}") {{$ctrl.label | translate}}
+
+  .radio-description.animation.collapse-height(data-ng-if="$ctrl.checkedItem === $ctrl.ngModel && $ctrl.isTextarea")
+    textarea-primary(
+      auto-focus
+      data-ng-model="$ctrl.description"
+      data-id="textarea_{{$ctrl.id}}"
+      data-max-length="600"
+      data-on-change="$ctrl.onDescriptionChange"
+    )

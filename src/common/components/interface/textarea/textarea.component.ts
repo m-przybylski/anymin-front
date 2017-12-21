@@ -12,6 +12,7 @@ export class InputComponent implements ng.IComponentOptions {
     maxLength: '@',
     isValid: '<',
     ngModel: '=',
-    isSubmitted: '<'
+    isSubmitted: '<',
+    onChange: '<'
   }
 }

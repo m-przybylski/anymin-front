@@ -10,6 +10,7 @@
     data-ng-model="$ctrl.ngModel"
     data-ng-focus="$ctrl.onFocus()"
     data-ng-blur="$ctrl.onBlur()"
+    data-ng-change="$ctrl.onDescriptionChange($ctrl.ngModel)"
   )
 
 .input-sign-counter(data-ng-show="$ctrl.maxLength")

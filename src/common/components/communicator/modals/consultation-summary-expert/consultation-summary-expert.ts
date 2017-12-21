@@ -6,6 +6,8 @@ import topAlertModule from '../../../../services/top-alert/top-alert'
 import translatorModule from '../../../../services/translator/translator'
 import errorHandlerModule from '../../../../services/error-handler/error-handler'
 import './consultation-summary-expert.sass'
+import radioBtnTextarea from '../../../interface/radio-btn-textarea/radio-btn-textarea'
+import {ConsultationSummaryExpertService} from './consultation-summary-expert.service'
 
 const consultationSummaryExpertControllerModule = angular.module(
   'profitelo.components.communicator.modals.consultation-summary-expert', [
@@ -17,9 +19,11 @@ const consultationSummaryExpertControllerModule = angular.module(
   textareaModule,
   topAlertModule,
   translatorModule,
-  errorHandlerModule
+  errorHandlerModule,
+  radioBtnTextarea
 ])
 .controller('consultationSummaryExpertController', ConsultationSummaryExpertController)
+.service('consultationSummaryExpertService', ConsultationSummaryExpertService)
   .name
 
 export default consultationSummaryExpertControllerModule

@@ -12,16 +12,20 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public isDirty: boolean = false
   public isValid: boolean
   public validationText: string
+  public onChange?: (description: string) => void
+
+  /* @ngInject */
+  constructor() {}
 
   public onFocus = (): void => {
     this.isFocus = true
     this.isDirty = true
   }
 
-  public onBlur = (): void => {
+  public onBlur = (): boolean =>
     this.isFocus = false
-  }
 
-  /* @ngInject */
-  constructor() {}
+  public onDescriptionChange = (textareaValue: string): void =>
+    (this.onChange) ? this.onChange(textareaValue) : undefined
+
 }

@@ -28,21 +28,25 @@
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
       )
         form(novalidate)
-          radio-btn-text(
-          data-ng-repeat="reason in vm.complaintReasons"
-          data-ng-model="vm.model.value"
-          value="{{ reason.id }} "
-          data-id="{{ reason.id }}"
-          data-label="{{ reason.name }}"
-          data-is-descriptive="reason.isDescriptive"
-          data-ng-class="{'is-active': vm.isSelected(reason)}"
+          radio-btn-textarea(
+            data-ng-repeat="reason in vm.complaintReasons"
+            data-id="{{ reason.id }}"
+            data-value="{{ reason.id }}"
+            data-name="{{ reason.name }}"
+            data-label="{{ reason.label }}"
+            data-checked-item="{{vm.radioModel}}"
+            data-is-textarea="reason.isDescriptionRequired"
+            data-on-selected-item="vm.onSelectComplaint"
+            data-on-description-callback="vm.onDescriptionChange"
           )
 
           .btn-group
             button.btn.btn-primary(
+            data-ng-click="vm.onModalClose()"
             data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
 
             button.btn.btn-default(
+            data-ng-click="vm.onSendTechnicalProblems()"
             data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
 
       collapse-btn.report-client(

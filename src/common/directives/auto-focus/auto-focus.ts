@@ -11,10 +11,15 @@ import * as angular from 'angular'
                    $log: ng.ILogService): void => {
 
       const input = element.find('input')
+      const textarea = element.find('textarea')
 
-      if (input !== undefined) {
+      if (input[0]) {
         if ('autoFocus' in attr.$attr) {
           input[0].focus()
+        }
+      } else if (textarea[0]) {
+        if ('autoFocus' in attr.$attr) {
+          textarea[0].focus()
         }
       } else {
         $log.error('Input is undefined')
