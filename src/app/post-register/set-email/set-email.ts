@@ -15,10 +15,14 @@ import inputModule from '../../../common/components/interface/input/input'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {Config} from '../../config';
+import {RegistrationInvitationService}
+from '../../../common/services/registration-invitation/registration-invitation.service'
+import registrationInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
                      CommonSettingsService: CommonSettingsService,
+                     registrationInvitationService: RegistrationInvitationService,
                      topAlertService: TopAlertService, AccountApi: AccountApi): void {
 
   this.isPending = false
@@ -66,9 +70,9 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           timeout: 3
         })
         // TODO update session service User.setData({unverifiedEmail: this.email})
-        const invitationObject = LocalStorageWrapper.getItem('invitation')
-        if (invitationObject) {
-          $state.go('app.invitations', {token: JSON.parse(invitationObject).token})
+        const invitationObject = registrationInvitationService.getInvitationObject()
+        if (invitationObject && invitationObject.email === undefined) {
+          $state.go('app.invitations', {token: invitationObject.token})
           LocalStorageWrapper.removeItem('invitation')
         } else {
           Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
@@ -109,6 +113,7 @@ angular.module('profitelo.controller.post-register.set-email', [
   loginStateModule,
   'profitelo.resolvers.login-register',
   apiModule,
+  registrationInvitationModule,
   commonSettingsModule,
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',

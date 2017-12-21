@@ -22,12 +22,17 @@ import inputPasswordModule from '../../../common/components/interface/input-pass
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {Config} from '../../config';
+import {IInvitationObject} from '../../invitations/invitation.interface'
+import {RegistrationInvitationService} from
+  '../../../common/services/registration-invitation/registration-invitation.service'
+import registerInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
 
 function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService,
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
                                topWaitingLoaderService: TopWaitingLoaderService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
-                               CommonSettingsService: CommonSettingsService): void {
+                               CommonSettingsService: CommonSettingsService,
+                               registrationInvitationService: RegistrationInvitationService): void {
 
   this.enteredPassword = ''
   this.isPending = false
@@ -49,13 +54,13 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     return false
   }
 
-  const setPhoneNumberFromLocalStorage = (invitationObject: string | null): void => {
-    if (invitationObject && JSON.parse(invitationObject).msisdn) {
-      this.account.phoneNumber.number = phonenumbers.parse(JSON.parse(invitationObject).msisdn).phone
+  const setPhoneNumberFromLocalStorage = (invitationObject: IInvitationObject | undefined): void => {
+    if (invitationObject && invitationObject.msisdn) {
+      this.account.phoneNumber.number = phonenumbers.parse(invitationObject.msisdn).phone
     }
   }
 
-  const invitationObject = LocalStorageWrapper.getItem('invitation')
+  const invitationObject = registrationInvitationService.getInvitationObject()
   setPhoneNumberFromLocalStorage(invitationObject)
   this.account.phoneNumber.prefix = this.prefixes[0].value
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
@@ -78,6 +83,10 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
         $state.go('app.login.register')
     }
   }
+
+  const checkIsUserFromInvitation = (invitationObject: IInvitationObject | undefined): boolean =>
+    typeof invitationObject !== 'undefined' && (invitationObject.msisdn === undefined
+    || invitationObject.msisdn === this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number)
 
   this.updateSortTypeParam = (item: any): void => {
     this.account.phoneNumber.prefix = item.value
@@ -118,8 +127,8 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
       }).then(() => {
         this.isPending = false
         topWaitingLoaderService.stopLoader()
-        if (invitationObject) {
-          $state.go('app.invitations', {token: JSON.parse(invitationObject).token})
+        if (invitationObject && checkIsUserFromInvitation(invitationObject)) {
+          $state.go('app.invitations', {token: invitationObject.token})
           LocalStorageWrapper.removeItem('invitation')
         } else {
           Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
@@ -166,6 +175,7 @@ angular.module('profitelo.controller.login.account', [
   commonSettingsModule,
   communicatorModule,
   topWaitingLoader,
+  registerInvitationModule,
   topAlertModule,
   'profitelo.directives.interface.pro-alert',
   'profitelo.components.interface.dropdown-primary',

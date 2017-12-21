@@ -96,7 +96,6 @@ function RegisterController($log: ng.ILogService,
           topWaitingLoaderService.stopLoader()
           eventsService.emit('login')
           userid = session.accountId
-
           loginStateService.clearServiceObject()
           $state.go('app.post-register.set-password')
         })
