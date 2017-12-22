@@ -1,7 +1,8 @@
 import * as angular from 'angular'
 import {AccountApiMock, AccountApi} from 'profitelo-api-ng/api/api'
 import {InvoiceDataResolver} from './invoice-data.resolver'
-import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
+import {GetCompanyInvoiceDetails} from 'profitelo-api-ng/model/models'
+import {httpCodes} from '../../classes/http-codes'
 
 describe('Unit testing: profitelo.resolvers.invoice-data', () => {
   describe('for InvoiceDataResolver service >', () => {
@@ -35,8 +36,8 @@ describe('Unit testing: profitelo.resolvers.invoice-data', () => {
     })
 
     it('should resolve company info', () => {
-      const response =  <GetInvoiceDetails>{}
-      AccountApiMock.getInvoiceDetailsRoute(200, response)
+      const response =  <GetCompanyInvoiceDetails>{}
+      AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.ok, response)
       invoiceDataResolver.resolveCompanyInfo().then(response => {
         expect(response).toEqual(response)
       })
@@ -45,14 +46,14 @@ describe('Unit testing: profitelo.resolvers.invoice-data', () => {
 
     it('should log error', () => {
       spyOn(log, 'error')
-      AccountApiMock.getInvoiceDetailsRoute(500)
+      AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.internalServerError)
       invoiceDataResolver.resolveCompanyInfo()
       $httpBackend.flush()
       expect(log.error).toHaveBeenCalled()
     })
 
     it('should return empty object on 404', () => {
-      AccountApiMock.getInvoiceDetailsRoute(404)
+      AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.notFound)
       invoiceDataResolver.resolveCompanyInfo().catch(response => {
         expect(response).toEqual({})
       })

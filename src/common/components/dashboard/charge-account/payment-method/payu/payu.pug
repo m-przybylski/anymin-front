@@ -123,29 +123,17 @@
 
             input-primary(
             data-type="text"
-            data-id="street"
+            data-id="address"
             data-is-submitted="paymentForm.$submitted"
             data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.PLACEHOLDER"
-            data-ng-model="$ctrl.street"
+            data-ng-model="$ctrl.address"
             data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.LABEL"
-            data-is-valid="paymentForm.$submitted && $ctrl.street || $ctrl.street"
+            data-is-valid="paymentForm.$submitted && $ctrl.address || $ctrl.address"
             data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.STREET.VALIDATION"
             data-ng-required="$ctrl.showInvoiceForm"
             )
 
             .invoice-address-nr
-              input-primary(
-              data-type="text"
-              data-id="apartmentNumber"
-              data-is-submitted="paymentForm.$submitted"
-              data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.NUMBER.PLACEHOLDER"
-              data-ng-model="$ctrl.apartmentNumber"
-              data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.NUMBER.LABEL"
-              data-is-valid="paymentForm.$submitted && $ctrl.apartmentNumber || $ctrl.apartmentNumber"
-              data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.APARTMENT_NUMBER.VALIDATION"
-              data-ng-required="$ctrl.showInvoiceForm"
-              )
-
               input-primary(
               data-type="text"
               data-id="postalCode"
@@ -158,17 +146,17 @@
               data-ng-required="$ctrl.showInvoiceForm"
               )
 
-            input-primary(
-            data-type="text"
-            data-id="city"
-            data-is-submitted="paymentForm.$submitted"
-            data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.PLACEHOLDER"
-            data-ng-model="$ctrl.city"
-            data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.LABEL"
-            data-is-valid="paymentForm.$submitted && $ctrl.city || $ctrl.city"
-            data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.CITY.VALIDATION"
-            data-ng-required="$ctrl.showInvoiceForm"
-            )
+              input-primary(
+              data-type="text"
+              data-id="city"
+              data-is-submitted="paymentForm.$submitted"
+              data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.PLACEHOLDER"
+              data-ng-model="$ctrl.city"
+              data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.LABEL"
+              data-is-valid="paymentForm.$submitted && $ctrl.city || $ctrl.city"
+              data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.CITY.VALIDATION"
+              data-ng-required="$ctrl.showInvoiceForm"
+              )
 
           // TODO on GUS API IMPLEMENT
           //.invoice-tax

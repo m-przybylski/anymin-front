@@ -54,11 +54,10 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   // FIXME on new checkbox component
   $scope.$watch(() => this.showInvoiceForm, (newValue: boolean) => {
     if (newValue && !this.isGetCompanyInfo) {
-      AccountApi.getInvoiceDetailsRoute().then((response) => {
+      AccountApi.getCompanyPayoutInvoiceDetailsRoute().then((response) => {
         this.vatNumber = response.vatNumber
         this.companyName = response.companyName
-        this.street = response.address.street
-        this.apartmentNumber = response.address.number
+        this.address = response.address.address
         this.postalCode = response.address.postalCode
         this.city = response.address.city
         this.isGetCompanyInfo = true
@@ -96,42 +95,42 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
       isPending = true
 
       if (this.showInvoiceForm) {
-        AccountApi.postInvoiceDetailsRoute({
+        AccountApi.postCompanyPayoutInvoiceDetailsRoute({
           vatNumber: this.vatNumber,
           companyName: this.companyName,
           // TODO On GUS API Implement
           email: this.emailModel,
           address: {
-            number: this.apartmentNumber,
+            address: this.address,
             city: this.city,
             postalCode: this.postalCode,
             countryISO: this.countryISO,
-            street: this.street
           }
         }).then((_response) => {
           sendPayuOrder()
 
         }, (error) => {
+          isPending = false
           throw new Error('Can not post company info: ' + error)
         })
       } else {
         // FIXME after company info optional fields fix
-        AccountApi.postInvoiceDetailsRoute({
+        AccountApi.postCompanyPayoutInvoiceDetailsRoute({
           vatNumber: '6282232071',
           companyName: this.firstNameModel + ' ' + this.lastNameModel,
           // TODO On GUS API Implement
           email: this.emailModel,
           address: {
-            number: '',
+            address: '',
             city: '',
             postalCode: '32-321',
             countryISO: 'PL',
-            street: ''
           }
         }).then((_response) => {
           sendPayuOrder()
 
         }, (error) => {
+          isPending = false
           throw new Error('Can not post company info: ' + error)
         })
       }
@@ -151,8 +150,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         && (!this.selectedCountry
         || !this.vatNumber
         || !this.companyName
-        || !this.street
-        || !this.apartmentNumber
+        || !this.address
         || !this.postalCode
         || !this.city)) {
         return false

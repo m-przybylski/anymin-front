@@ -6,10 +6,11 @@ import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from 'profitel
 import userModule from '../../../../../services/user/user'
 import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
 import {IWindowService} from '../../../../../services/window/window.service'
-import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
+import {GetCompanyInvoiceDetails} from 'profitelo-api-ng/model/models'
+import {httpCodes} from '../../../../../classes/http-codes'
 
-describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
-  return describe('for payuPaymentFormController component >', () => {
+describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () =>
+  describe('for payuPaymentFormController component >', () => {
     const url = 'awesomUrl/'
 
     let scope: any
@@ -69,8 +70,8 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
         smoothScrollingService = _smoothScrollingService_
 
         injectors = {
-          PaymentsApi: PaymentsApi,
-          AccountApi: AccountApi,
+          PaymentsApi,
+          AccountApi,
           $element: {}
         }
       })
@@ -99,9 +100,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     }))
 
     it('should redirect to app.dashboard.client.activities on form error', inject(() => {
-      bindings.validAction =  () => {
-        return true
-      }
+      bindings.validAction =  (): boolean => true
       component = componentController('payuPaymentForm', {}, bindings)
       component.$onInit()
       component.bankModel = 't'
@@ -109,11 +108,11 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       component.lastNameModel = 'dumbLastName'
       component.emailModel = 'dumb@email.com'
       component.rulesAccepted = true
-      AccountApiMock.postInvoiceDetailsRoute(200, <GetInvoiceDetails>{
+      AccountApiMock.postCompanyPayoutInvoiceDetailsRoute(httpCodes.ok, <GetCompanyInvoiceDetails>{
 
       })
       spyOn(state, 'go')
-      PaymentApiMock.postPayUOrderRoute(400)
+      PaymentApiMock.postPayUOrderRoute(httpCodes.badRequest)
       component.sendPayment()
       httpBackend.flush()
       expect(state.go).toHaveBeenCalled()
@@ -166,9 +165,9 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       bindings.amountMethodModal.payMethodValue = undefined
       component = componentController('payuPaymentForm', {}, bindings)
       // FIXME
-      PaymentApiMock.postPayUOrderRoute(200, <any>{})
+      PaymentApiMock.postPayUOrderRoute(httpCodes.ok, <any>{})
       component.sendPayment()
       expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     }))
   })
-})
+)
