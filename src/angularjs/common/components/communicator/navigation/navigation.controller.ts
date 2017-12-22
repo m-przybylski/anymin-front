@@ -3,6 +3,7 @@ import {CurrentCall} from '../models/current-call';
 import {ClientCallService} from '../call-services/client-call.service'
 import {ExpertCallService} from '../call-services/expert-call.service'
 import {Config} from '../../../../app/config';
+import { IFilterService } from '../../../services/filter/filter.service';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean
@@ -25,7 +26,8 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
     constructor(clientCallService: ClientCallService,
-              expertCallService: ExpertCallService) {
+                expertCallService: ExpertCallService,
+                private $filter: IFilterService) {
     clientCallService.onNewCall(this.clearButtonsState)
     expertCallService.onNewCall(this.clearButtonsState)
     expertCallService.onCallPull(this.clearButtonsState)
@@ -42,6 +44,14 @@ export class NavigationComponentController implements ng.IController, INavigatio
       elem.currentTarget.classList.remove('is-inactive')
       elem.currentTarget.classList.add('is-active')
     }
+  }
+
+  public changeCamera = (): void => {
+    this.currentCall.changeCamera().then(() => {
+      this.isVideo = true;
+    }, (_err) => {
+      alert(this.$filter('translate')('COMMUNICATOR.ERROR.SWITCH_CAMERA'));
+    });
   }
 
   public startAudio = (): void => {

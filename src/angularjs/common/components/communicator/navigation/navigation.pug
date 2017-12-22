@@ -20,6 +20,10 @@
       span.icon.icon-reject-24
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.END_CALL")
 
+    a.btn.btn-circle.black.switch-camera(data-ng-click="$ctrl.changeCamera()")
+      span.icon.icon-reload-24
+      span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.CAMERA_SWITCH")
+
     a.btn.btn-circle.black(data-ng-class="{'is-active': $ctrl.isVideo, 'is-inactive': !$ctrl.isVideo}")
       span.icon.icon-camera-on-24(data-ng-click="$ctrl.stopVideo()" data-ng-show="$ctrl.isVideo")
       span.icon.icon-camera-off-24(data-ng-click="$ctrl.startVideo($event)" data-ng-hide="$ctrl.isVideo")

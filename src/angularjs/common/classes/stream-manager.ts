@@ -3,8 +3,8 @@ import {NavigatorWrapper} from './navigator-wrapper';
 
 export class StreamManager {
 
-  private isAudio: boolean;
-  private navigator: NavigatorWrapper;
+  private isAudio: boolean
+  private navigator: NavigatorWrapper
 
   constructor(private stream: MediaStream, private constraints: MediaStreamConstraintsWrapper) {
     this.navigator = new NavigatorWrapper();
@@ -12,11 +12,11 @@ export class StreamManager {
   }
 
   public addAudio = (): Promise<MediaStream> => {
-    this.constraints.addAudio();
-    this.isAudio = true;
+    this.constraints.addAudio()
+    this.isAudio = true
     return this.navigator.getUserMediaStream(this.constraints.getConstraints()).then((stream) => {
-      this.stream = stream;
-      return stream;
+      this.stream = stream
+      return stream
     });
   }
 
@@ -48,8 +48,20 @@ export class StreamManager {
     });
   }
 
+  public changeCamera = (): Promise<MediaStream> => {
+    this.constraints.toggleCamera();
+    return this.navigator.getUserMediaStream(this.constraints.getConstraints()).then((stream) => {
+      if (!this.isAudio) {
+        this.disableAudioTracks(stream);
+      }
+      this.stream = stream;
+      return stream;
+    });
+  }
+
   private disableAudioTracks = (stream: MediaStream): void => {
     stream.getAudioTracks().forEach(t => {t.enabled = false});
     stream.getAudioTracks().forEach(t => {t.stop()});
   }
+
 }
