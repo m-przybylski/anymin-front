@@ -25,17 +25,21 @@
     z-index: $z-index-400
 
   .video-player-local
-    display: none
+    display: block
+    position: absolute
+    width: 160px
+    height: 120px
+    top: 20px
+    right: 20px
+    overflow: hidden
+    z-index: $z-index-200
 
     +smm
-      display: block
-      position: absolute
+      top: auto
       left: 36px
       bottom: 36px
       width: 240px
       height: 320px
-      overflow: hidden
-      z-index: $z-index-200
 
     +lgm
       width: 320px
