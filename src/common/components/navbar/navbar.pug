@@ -1,8 +1,8 @@
 .navbar(data-ng-style="$ctrl.navbarStyle"
   data-ng-class="{'is-hidden': $ctrl.isWindowScrollBottom, 'is-scroll-top': !$ctrl.isWindowScrollBottom, 'is-not-collapsed': !$ctrl.isCollapsed, 'is-menu-collapsed': $ctrl.isNavigationCollapsed}")
-  .navbar-logo(data-ui-sref="{{ $ctrl.onLogoLink }}")
-    a
-      img.logo( src="/assets/images/AnyMind_logo_small.png" alt="Profitelo-logo")
+  .navbar-logo
+    a(data-ui-sref="{{ $ctrl.onLogoLink }}")
+      img.logo( src="/assets/images/AnyMind_logo_small.png" alt="AnyMind-logo")
 
   .navbar-search(data-ng-if="!$ctrl.isPlatformForExpert")
     a.search-btn(data-ng-click="$ctrl.onSearchCollapsed()")

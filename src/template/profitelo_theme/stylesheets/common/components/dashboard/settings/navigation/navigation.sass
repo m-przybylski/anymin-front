@@ -51,7 +51,7 @@
 
         &.is-active
           a
-            color: $c-white
+            opacity: 1
 
             &::after
               border-bottom-color: $c-white
@@ -64,11 +64,12 @@
           align-items: center
           text-transform: uppercase
           position: relative
-          transition: color 0.3s
+          transition: opacity 0.3s
           color: $c-white
+          opacity: 0.5
 
           &:hover
-            color: $c-white
+            opacity: 1
 
           &::after
             transition: all 0.3s
