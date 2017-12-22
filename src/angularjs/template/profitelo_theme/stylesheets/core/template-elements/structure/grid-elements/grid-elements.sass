@@ -36,12 +36,15 @@
   min-width: 320px
   margin: 0 auto
   padding: 0 16px
-  width: 100%
+  width: 100vw
+
+  +xsm
+    width: auto
+    min-width: 420px
+    max-width: 420px
 
   +smm
     padding: 0
-    min-width: 420px
-    max-width: 420px
 
   &.no-padding
     padding: 0
@@ -56,9 +59,10 @@
   min-width: 320px
   margin: 0 auto
   padding: 0 16px
-  width: 100%
+  width: 100vw
 
-  +smm
+  +xsm
+    width: auto
     min-width: 480px
     max-width: 480px
 
@@ -81,7 +85,7 @@
   min-width: 320px
   margin: 0 auto
   padding: 0 16px
-  width: 100%
+  width: 100vw
 
   +smm
     padding: 0
