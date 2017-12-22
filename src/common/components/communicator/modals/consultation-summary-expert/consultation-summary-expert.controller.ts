@@ -6,7 +6,7 @@ import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 import {TranslatorService} from '../../../../services/translator/translator.service';
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
-import {IAngularEvent} from 'angular'
+
 import {
   ConsultationSummaryExpertService, IComplaintReason
 } from './consultation-summary-expert.service'
@@ -57,8 +57,6 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
     this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
-
-    this.addCloseModalListener()
   }
 
   public onSendTechnicalProblems = (): void => {
@@ -124,16 +122,5 @@ export class ConsultationSummaryExpertController implements ng.IController {
     const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
     callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
       ? this.onCallSummary(callSummary) : undefined
-  }
-
-  private addCloseModalListener = (): void => {
-    this.$scope.$on('modal.closing', (event: IAngularEvent) => {
-      const confirmWindowMessage: string =
-        this.translatorService
-        .translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.REPORT_CLIENT.CONFIRM_MESSAGE')
-      if (!confirm(confirmWindowMessage)) {
-        event.preventDefault()
-      }
-    })
   }
 }

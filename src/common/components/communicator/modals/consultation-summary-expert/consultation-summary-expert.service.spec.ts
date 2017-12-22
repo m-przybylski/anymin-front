@@ -10,6 +10,7 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     let consultationSummaryExpertService: ConsultationSummaryExpertService
     let rootScope: angular.IRootScopeService
+    const sueId: string = '194b2e05-dca5-400e-b292-75a7ffbcefac'
 
     beforeEach(() => {
       angular.mock.module(consultationSummaryExpertControllerModule)
@@ -32,7 +33,6 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     it('should send technical problem if promise was reject', (done) => {
       inject((ServiceApiMock: ServiceApiMock, $httpBackend: ng.IHttpBackendService) => {
-        const sueId = '194b2e05-dca5-400e-b292-75a7ffbcefac'
         const problemType = GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT
         ServiceApiMock.postTechnicalProblemRoute(httpCodes.notFound, sueId, problemType)
 
@@ -46,7 +46,6 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     it('should send technical problem without description', (done) => {
       inject((ServiceApiMock: ServiceApiMock, $httpBackend: ng.IHttpBackendService) => {
-        const sueId = '194b2e05-dca5-400e-b292-75a7ffbcefac'
         const problemType = GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT
         ServiceApiMock.postTechnicalProblemRoute(httpCodes.noContent, sueId, problemType)
 
@@ -61,7 +60,6 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
     it('should send technical problem with description', (done) => {
       inject((ServiceApiMock: ServiceApiMock, $httpBackend: ng.IHttpBackendService) => {
         const description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        const sueId = '194b2e05-dca5-400e-b292-75a7ffbcefac'
         const problemType = GetTechnicalProblem.ProblemTypeEnum.OTHER
         ServiceApiMock.postTechnicalProblemRoute(httpCodes.noContent, sueId, {problemType, description})
 

@@ -11,7 +11,7 @@ export class RadioBtnTextareaComponentController implements IRadioBtnTextareaBin
   public checkedItem: string
   public description: string
   public isTextarea: boolean
-  public onDescriptionCallback: (description: string) => void
+  public onDescriptionCallback: (description: string) => string
 
   /* @ngInject */
   constructor() {}
@@ -22,6 +22,6 @@ export class RadioBtnTextareaComponentController implements IRadioBtnTextareaBin
   public onClick = (selectedItem: string): void =>
     this.onSelectedItem(selectedItem)
 
-  public onDescriptionChange = (description: string): void =>
+  public onDescriptionChange = (description: string): string =>
     this.onDescriptionCallback(description)
 }

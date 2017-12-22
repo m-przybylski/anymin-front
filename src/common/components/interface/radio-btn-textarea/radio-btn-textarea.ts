@@ -12,7 +12,7 @@ export interface IRadioBtnTextareaBindings extends ng.IController {
   ngModel: string
   checkedItem?: string
   onSelectedItem: (value: string) => void
-  onDescriptionCallback: (description: string) => void
+  onDescriptionCallback: (description: string) => string
   isTextarea: boolean
 }
 

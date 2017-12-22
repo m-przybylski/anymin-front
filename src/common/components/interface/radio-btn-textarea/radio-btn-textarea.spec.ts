@@ -49,8 +49,7 @@ describe('Unit testing: profitelo.components.interface.radio-btn-textarea', () =
         onSelectedItem: (): void => {
         },
         labelDescription: 'string',
-        onDescriptionCallback: (): void => {
-        },
+        onDescriptionCallback: (desc: string): string => desc,
         isTextarea: true
       }
 

@@ -22,7 +22,7 @@ import * as angular from 'angular'
           textarea[0].focus()
         }
       } else {
-        $log.error('Input is undefined')
+        $log.error('Can not find element to focus')
       }
     }
 
