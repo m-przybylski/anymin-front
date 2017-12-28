@@ -5,7 +5,7 @@ import filtersModule from '../../../../common/filters/filters'
 import 'common/resolvers/invoice-data/invoice-data.resolver'
 import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentsApi, FinancesApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, GetInvoiceDetails, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetCompanyInvoiceDetails, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
@@ -24,7 +24,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public isCreditCardsLoaded: boolean = false
   private static readonly maxShortAddressLength: number = 10
 
-  constructor(getInvoiceData: void | GetInvoiceDetails,
+  constructor(getInvoiceData: void | GetCompanyInvoiceDetails,
               FinancesApi: FinancesApi,
               $log: ng.ILogService,
               private PaymentsApi: PaymentsApi,
@@ -36,9 +36,8 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       this.companyName = getInvoiceData.companyName
       this.vatNumber = getInvoiceData.vatNumber
       if (getInvoiceData.address) {
-        this.address = getInvoiceData.address.street + ', ' + getInvoiceData.address.number +
-          ', ' + getInvoiceData.address.postalCode + ', ' + getInvoiceData.address.city + ', ' +
-          getInvoiceData.address.countryISO
+        this.address = getInvoiceData.address.address + ', ' + getInvoiceData.address.postalCode +
+          ', ' + getInvoiceData.address.city + ', ' + getInvoiceData.address.countryISO
         this.isLongAddress = this.address.length > DashboardSettingsPaymentsController.maxShortAddressLength
       }
     }
@@ -115,7 +114,7 @@ const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.se
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetInvoiceDetails> =>
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetCompanyInvoiceDetails> =>
           invoiceDataResolver.resolveCompanyInfo(),
         user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
       }

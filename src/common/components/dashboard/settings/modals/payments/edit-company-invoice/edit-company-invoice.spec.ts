@@ -2,7 +2,8 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {AccountApiMock} from 'profitelo-api-ng/api/api'
 import {EditCompanyInvoiceController, IEditCompanyInvoiceControllerScope} from './edit-company-invoice'
-import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
+import {GetCompanyInvoiceDetails} from 'profitelo-api-ng/model/models'
+import {httpCodes} from '../../../../../../classes/http-codes'
 
 describe('Testing Controller: EditCompanyInvoiceController', () => {
 
@@ -31,17 +32,15 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
       scope = <IEditCompanyInvoiceControllerScope>$rootScope.$new()
       scope.callback = (): boolean => true
       const injectors = {
-        $scope: scope,
-        $uibModalInstance: $uibModalInstance
+        $uibModalInstance,
+        $scope: scope
       }
 
-      AccountApiMock.getInvoiceDetailsRoute(200, <GetInvoiceDetails>{
+      AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.ok, <GetCompanyInvoiceDetails>{
         address: {
-          street: 'Grow Street',
-          number: '13',
+          address: 'Grow Street 13',
           postalCode: '42-200',
           city: 'Zagacie'
-
         }})
 
       controller = controllerService<EditCompanyInvoiceController>('editCompanyInvoiceController', injectors)
@@ -54,7 +53,7 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
   })
 
   it('should throw error on component initialize', () => {
-    AccountApiMock.getInvoiceDetailsRoute(404, <GetInvoiceDetails>{})
+    AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.notFound, <GetCompanyInvoiceDetails>{})
     expect(() => {
       controller = controllerService<EditCompanyInvoiceController>('editCompanyInvoiceController', {})
       httpBackend.flush()
@@ -64,14 +63,14 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
 
   it('should edit invoice', () => {
     spyOn(scope, 'callback')
-    AccountApiMock.postInvoiceDetailsRoute(200, <GetInvoiceDetails>{})
+    AccountApiMock.postCompanyPayoutInvoiceDetailsRoute(httpCodes.ok, <GetCompanyInvoiceDetails>{})
     controller.editInvoice()
     httpBackend.flush()
     expect(scope.callback).toHaveBeenCalled()
   })
 
   it('should throw error - edit invoice', () => {
-    AccountApiMock.postInvoiceDetailsRoute(404, <GetInvoiceDetails>{})
+    AccountApiMock.postCompanyPayoutInvoiceDetailsRoute(httpCodes.notFound, <GetCompanyInvoiceDetails>{})
     expect(() => {
       controller.editInvoice()
       scope.$digest()
