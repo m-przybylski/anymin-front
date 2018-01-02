@@ -13,6 +13,7 @@ export interface ITextareaComponentBindings extends ng.IController {
   isSubmitted?: boolean
   maxLength: string
   ngModel: boolean
+  onChange?: (description: string) => void
 }
 
 const textareaModule = angular.module('profitelo.components.interface.textarea', [

@@ -9,6 +9,8 @@ import consultationSummaryExpertModule from './consultation-summary-expert'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {httpCodes} from '../../../../classes/http-codes'
 import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
+import {ConsultationSummaryExpertService} from './consultation-summary-expert.service'
+import SpyObj = jasmine.SpyObj
 
 describe('Testing Controller: consultationSummaryExpertController', () => {
 
@@ -21,6 +23,11 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
 
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
+
+  const consultationSummaryExpertService: SpyObj<ConsultationSummaryExpertService> =
+    jasmine.createSpyObj<ConsultationSummaryExpertService>('consultationSummaryExpertService', [
+      'sendTechnicalProblems'
+    ])
 
   beforeEach(() => {
     angular.mock.module(consultationSummaryExpertModule)
@@ -51,7 +58,8 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
         $scope: scope,
         $uibModalInstance,
         httpBackend: _$httpBackend_,
-        ViewsApi: _ViewsApi_
+        ViewsApi: _ViewsApi_,
+        consultationSummaryExpertService
       })
     })
   })

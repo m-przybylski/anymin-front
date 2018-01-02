@@ -1,12 +1,15 @@
 import {CallSummary} from '../../../../models/CallSummary'
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
 import {ExpertCallSummary} from '../../../../models/ExpertCallSummary'
-import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetTechnicalProblem} from 'profitelo-api-ng/model/models'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 import {TranslatorService} from '../../../../services/translator/translator.service';
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
-import {IAngularEvent} from 'angular'
+
+import {
+  ConsultationSummaryExpertService, IComplaintReason
+} from './consultation-summary-expert.service'
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   callSummary?: CallSummary
@@ -14,12 +17,6 @@ export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   isFullscreen: boolean
   isNavbar: boolean
   serviceId: string
-}
-
-interface IComplaintReason {
-  id: string,
-  isDescriptive: boolean,
-  name: string
 }
 
 export class ConsultationSummaryExpertController implements ng.IController {
@@ -39,6 +36,9 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public isClientReportSent: boolean = false
   public isSubmitted: boolean = false
 
+  public radioModel: GetTechnicalProblem.ProblemTypeEnum
+  public technicalProblemsDescription: string
+
   private static readonly minValidClientReportMessageLength: number = 3
   private sueId: string
 
@@ -49,41 +49,30 @@ export class ConsultationSummaryExpertController implements ng.IController {
               private ServiceApi: ServiceApi,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
-              private errorHandler: ErrorHandlerService) {
+              private errorHandler: ErrorHandlerService,
+              private consultationSummaryExpertService: ConsultationSummaryExpertService) {
 
     this.isLoading = true
-
-    this.complaintReasons = [
-      {
-        id: 'id2value',
-        isDescriptive: false,
-        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
-        'REASON_INCOPENTENT_CLIENT',
-      },
-      {
-        id: 'id3value',
-        isDescriptive: false,
-        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
-        'REASON_RUDE_CLIENT',
-      },
-      {
-        id: 'id4value',
-        isDescriptive: false,
-        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
-        'REASON_TECHNICAL_PROBLEMS',
-      },
-      {
-        id: 'id5value',
-        isDescriptive: true,
-        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER',
-      }
-    ]
+    this.complaintReasons = this.consultationSummaryExpertService.complaintReasons
 
     this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
-
-    this.addCloseModalListener()
   }
+
+  public onSendTechnicalProblems = (): void => {
+    this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
+      this.technicalProblemsDescription).then(() => {
+        this.onModalClose()
+    }).catch((error) => {
+      this.errorHandler.handleServerError(error)
+    })
+  }
+
+  public onSelectComplaint = (problemType: GetTechnicalProblem.ProblemTypeEnum): GetTechnicalProblem.ProblemTypeEnum =>
+    this.radioModel = problemType
+
+  public onDescriptionChange = (description: string): string =>
+    this.technicalProblemsDescription = description
 
   public onSendClientReportClick = (): void => {
     this.isSubmitted = true
@@ -93,6 +82,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   public sendClientReport = (sueId: string, message: string): void => {
     this.isSendingClientReport = true
+
     this.ServiceApi.postExpertComplaintRoute(sueId, {message}).then(() => {
       this.topAlertService.success({
         message:
@@ -132,16 +122,5 @@ export class ConsultationSummaryExpertController implements ng.IController {
     const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
     callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
       ? this.onCallSummary(callSummary) : undefined
-  }
-
-  private addCloseModalListener = (): void => {
-    this.$scope.$on('modal.closing', (event: IAngularEvent) => {
-      const confirmWindowMessage: string =
-        this.translatorService
-          .translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.REPORT_CLIENT.CONFIRM_MESSAGE')
-      if (!confirm(confirmWindowMessage)) {
-        event.preventDefault()
-      }
-    })
   }
 }
