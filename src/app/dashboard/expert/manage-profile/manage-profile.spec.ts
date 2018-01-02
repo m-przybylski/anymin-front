@@ -152,6 +152,40 @@ describe('Unit tests: dashboardExpertManageProfile >', () => {
       })
     })
 
+    it('should open edit expert profile modal', () => {
+      inject(($q: ng.IQService, ViewsApiMock: ViewsApiMock, $rootScope: IRootScopeService,
+              $httpBackend: ng.IHttpBackendService, $controller: ng.IControllerService)=> {
+
+        userService.getUser.and.callFake(() => $q.resolve({id: 'someId'}))
+        const modalsService = jasmine.createSpyObj('modalsService',
+          ['createManageProfileEditProfileModal'])
+        const mockResponse = {
+          profile: {
+            id: 'someId',
+            isActive: true,
+            expertDetails: {
+              name: 'Marek',
+              avatar: '1234234234'
+            }
+          },
+          services: [],
+          isFavourite: true
+        }
+        userService.getUser.and.callFake(() => $q.resolve({id: 'someId'}))
+        const dashboardExpertManageProfileController = createController($controller, {
+          $scope: $rootScope.$new(),
+          ViewsApiMock,
+          userService,
+          modalsService
+        })
+        ViewsApiMock.getWebExpertProfileRoute(httpCodes.ok, 'someId', <any>mockResponse)
+        dashboardExpertManageProfileController.getExpertProfile()
+        $httpBackend.flush()
+        dashboardExpertManageProfileController.editExpertProfile()
+        expect(modalsService.createManageProfileEditProfileModal).toHaveBeenCalled()
+      })
+    })
+
   })
 })
 
