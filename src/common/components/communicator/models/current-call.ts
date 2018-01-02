@@ -12,6 +12,7 @@ import {CommunicatorService} from '../communicator.service'
 import * as _ from 'lodash'
 import {Subject} from 'rxjs'
 import {Subscription} from 'rxjs/Subscription'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 export enum CallState {
   NEW,
@@ -66,7 +67,8 @@ export class CurrentCall {
               private service: GetService,
               private sue: ServiceUsageEvent,
               private communicatorService: CommunicatorService,
-              private RatelApi: RatelApi) {
+              private RatelApi: RatelApi,
+              private microphoneService: MicrophoneService) {
     this.registerCallbacks();
     this.createTimer(service.price, this.serviceFreeMinutesCount)
     this.messageRoom = new MessageRoom(soundsService);
@@ -87,6 +89,9 @@ export class CurrentCall {
     this.sue.id
 
   protected setLocalStream = (localStream: MediaStream): void => {
+    if (typeof localStream.getAudioTracks()[0] !== 'undefined') {
+      this.microphoneService.startAudioStreamListening(localStream.getAudioTracks()[0]);
+    }
     this.localStream = localStream;
     this.streamManager = new StreamManager(this.localStream, new MediaStreamConstraintsWrapper());
   }

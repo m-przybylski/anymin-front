@@ -6,34 +6,36 @@ import {GetIncomingCallDetails} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CommunicatorService} from '../communicator.service'
 import {CurrentExpertCall} from './current-expert-call'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 describe('Unit tests: current expert call', () => {
 
   let currentExpertCall: CurrentExpertCall
   let RatelApi: RatelApi
   let q: ng.IQService
+  const microphoneService: MicrophoneService = jasmine.createSpyObj('microphoneService', [''])
 
   const communicatorService: CommunicatorService = <any>{
-    onActiveCall: () => {}
+    onActiveCall: (): void => {}
   }
 
   const timerFactory: TimerFactory = <any>{
-    getInstance: () => {}
+    getInstance: (): void => {}
   }
 
   const callInvitation: RatelSdk.events.CallInvitation = <any>{
     call: <any>{
-      onAnswered: () => (cb: () => void) => {cb()},
-      onRejected: () => (cb: () => void) => {cb()},
-      onEnd: () => {},
-      onActiveDevice: () => {},
-      onInvited: () => {},
-      onJoined: () => {},
-      onLeft: () => {},
-      onRemoteStream: () => {},
-      onOffline: () => {},
-      onOnline: () => {},
-      addStream: (_localStream: MediaStream) => {},
+      onAnswered: (): (cb: () => void) => void => (cb: () => void): void => {cb()},
+      onRejected: (): (cb: () => void) => void => (cb: () => void): void => {cb()},
+      onEnd: (): void => {},
+      onActiveDevice: (): void => {},
+      onInvited: (): void => {},
+      onJoined: (): void => {},
+      onLeft: (): void => {},
+      onRemoteStream: (): void => {},
+      onOffline: (): void => {},
+      onOnline: (): void => {},
+      addStream: (_localStream: MediaStream): void => {},
     }
   }
 
@@ -58,12 +60,11 @@ describe('Unit tests: current expert call', () => {
     RatelApi = _RatelApi_
     q = $q
     currentExpertCall = new CurrentExpertCall(timerFactory, callInvitation.call, incomingCallDetails,
-       soundsService, communicatorService, RatelApi)
+       soundsService, communicatorService, RatelApi, microphoneService)
   })))
 
   it('should currentExpertCall exist', () => {
     expect(currentExpertCall).toBeTruthy()
   })
-
 
 })

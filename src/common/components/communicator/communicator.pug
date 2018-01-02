@@ -27,6 +27,8 @@ data-ng-hide="$ctrl.isClosed")
           .user-avatar.communicator-avatar
             user-avatar.thumb.x192(data-image-token="$ctrl.expertAvatar")
 
+      p.call.connecting-with(data-translate="COMMUNICATOR.MICROPHONE_PROBLEM"
+      data-ng-show="$ctrl.isMicrophoneMuted")
       p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
       p.call.connecting-with(data-translate="COMMUNICATOR.RECONNECTING" data-ng-show="$ctrl.isOffline")
       p.call.connecting-with(data-translate="COMMUNICATOR.NETWORK_PROBLEM" data-ng-show="$ctrl.isParticipantOffline")

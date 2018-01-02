@@ -6,42 +6,45 @@ import {ServiceUsageEvent, GetProfile} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CommunicatorService} from '../communicator.service'
 import {CurrentClientCall} from './current-client-call'
+import {MicrophoneService} from '../microphone-service/microphone.service'
 
 describe('Unit tests: CurrentClientCall', () => {
 
   let currentClientCall: CurrentClientCall
   let RatelApi: RatelApi
   let q: ng.IQService
+  const microphoneService: MicrophoneService = jasmine.createSpyObj('microphoneService', [''])
 
   const ratelCall: RatelSdk.BusinessCall = <any>{
-    onAnswered: () => (cb: () => void) => {cb()},
-    onRejected: () => (cb: () => void) => {cb()},
-    onEnd: () => {},
-    onActiveDevice: () => {},
-    onInvited: () => {},
-    onJoined: () => {},
-    onLeft: () => {},
-    onRemoteStream: () => {},
-    onOffline: () => {},
-    onOnline: () => {},
-    addStream: (_localStream: MediaStream) => {},
+    onAnswered: (): (cb: () => void) => void => (cb: () => void): void => {cb()},
+    onRejected: (): (cb: () => void) => void => (cb: () => void): void => {cb()},
+    onEnd: (): void => {},
+    onActiveDevice: (): void => {},
+    onInvited: (): void => {},
+    onJoined: (): void => {},
+    onLeft: (): void => {},
+    onRemoteStream: (): void => {},
+    onOffline: (): void => {},
+    onOnline: (): void => {},
+    addStream: (_localStream: MediaStream): void => {},
   }
   const service = <any>{
     price: 23
   }
 
   const communicatorService: CommunicatorService = <any>{
-    onActiveCall: () => {}
+    onActiveCall: (): void => {}
   }
 
   const timerFactory: TimerFactory = <any>{
-    getInstance: () => {}
+    getInstance: (): void => {}
   }
   const sue: ServiceUsageEvent = <any>{
     id: '12'
   }
 
   const localStream: MediaStream = <any> {
+    getAudioTracks: (): MediaStreamTrack[] => []
   }
 
   const expert: GetProfile = <any> {
@@ -60,7 +63,7 @@ describe('Unit tests: CurrentClientCall', () => {
     RatelApi = _RatelApi_
     q = $q
     currentClientCall = new CurrentClientCall(timerFactory, ratelCall, localStream,
-      service, sue, soundsService, RatelApi, communicatorService, expert)
+      service, sue, soundsService, RatelApi, communicatorService, microphoneService, expert)
   })))
 
   it('should currentClientCall exist', () => {
