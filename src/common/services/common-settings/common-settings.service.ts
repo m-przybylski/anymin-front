@@ -97,6 +97,7 @@ export class CommonSettingsService {
       smsCodePattern: /^[0-9]{4}$/,
       phonePattern: /^\+?\d+(\s\d+)*$/,
       emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+      bankAccountNumberPattern: /^(PL)?[0-9]{26}$/,
       numberPattern: /^\+?\d+(\s\d+)*$/,
       pricePattern: /^\d{1,}([\.,](\d{1,2})?)?$/,
       urlPattern: /^(https?:\/\/)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,

@@ -29,8 +29,8 @@ import {
   IEditCompanyInvoiceControllerScope
 } from '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
 import {
-  IPayoutsPayPalControllerScope
-} from '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
+  IPayoutsModalControllerScope
+} from '../../components/dashboard/settings/modals/payouts/payouts/payouts.controller'
 import {
   IAddPaymentMethodControllerScope
 } from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
@@ -365,15 +365,16 @@ export class ModalsService {
   }
 
   public createPayoutsMethodControllerModal = (onModalClose: () => void): IModalInstanceService => {
-    const dialogScope: IPayoutsPayPalControllerScope =
-      <IPayoutsPayPalControllerScope>this.$rootScope.$new(true)
+    const dialogScope: IPayoutsModalControllerScope =
+      <IPayoutsModalControllerScope>this.$rootScope.$new(true)
 
-    dialogScope.callback = onModalClose
+    dialogScope.onModalCloseCallback = onModalClose
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      controller: 'payoutsPayPalController',
-      template: require('common/components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal.pug')(),
+      controller: 'payoutsModalController',
+      openedClass: 'modal-open full-screen',
+      template: require('common/components/dashboard/settings/modals/payouts/payouts/payouts.pug')(),
       scope: dialogScope
     })
   }
