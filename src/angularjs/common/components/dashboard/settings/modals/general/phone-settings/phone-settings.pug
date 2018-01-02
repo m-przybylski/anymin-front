@@ -41,9 +41,9 @@
         .pin-verification-counter.animation.collapse-height(data-ng-if="vm.counter > 0 && !vm.showPinCodeForm")
           p {{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.COUNTER' | translate }} {{ vm.counter }}s.
 
-  pin-verification.animation.collapse-height.pin(
-    data-ng-if="vm.showPinCodeForm"
-    data-on-send-pin-again="vm.reSendSms"
-    data-on-complete-pin-inputs="vm.getPhoneNumber"
-  )
+    pin-verification.animation.collapse-height.pin(
+      data-ng-if="vm.showPinCodeForm"
+      data-on-send-pin-again="vm.reSendSms"
+      data-on-complete-pin-inputs="vm.getPhoneNumber"
+    )
 

@@ -380,7 +380,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'payoutsModalController',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       template: require('angularjs/common/components/dashboard/settings/modals/payouts/payouts/payouts.html'),
       scope: dialogScope
     })
