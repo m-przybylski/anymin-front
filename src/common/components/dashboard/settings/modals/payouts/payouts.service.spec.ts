@@ -2,8 +2,8 @@ import * as angular from 'angular'
 import {PayoutsApiMock} from 'profitelo-api-ng/api/api'
 import {PayoutsModalService} from './payouts.service'
 import payoutsModalModule from './payouts'
-import {httpCodes} from '../../../../../../../common/classes/http-codes'
-import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
+import {httpCodes} from '../../../../../classes/http-codes'
+import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service'
 
 describe('Unit testing: profitelo.components.settings.modals.payouts', () => {
   describe('for PayoutsModalService service >', () => {

@@ -1,5 +1,5 @@
 import {JValue, PutPayoutMethodDto} from 'profitelo-api-ng/model/models'
-import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import {CommonSettingsService} from '../../../../../services/common-settings/common-settings.service'
 import {PayoutsModalService} from './payouts.service'
 
 export interface IPayoutsModalControllerScope extends ng.IScope {

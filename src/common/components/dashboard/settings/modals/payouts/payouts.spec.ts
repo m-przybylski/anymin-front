@@ -3,7 +3,7 @@ import {PayoutsModalController, IPayoutsModalControllerScope} from './payouts.co
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {PayoutsModalService} from './payouts.service'
 import SpyObj = jasmine.SpyObj
-import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
+import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service'
 import payoutsModalModule from './payouts'
 
 describe('Testing Controller: PayoutsModalController', () => {
