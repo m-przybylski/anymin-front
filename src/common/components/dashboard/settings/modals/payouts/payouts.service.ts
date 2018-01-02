@@ -1,7 +1,7 @@
 import {JValue} from 'profitelo-api-ng/model/JValue'
 import {PayoutsApi} from 'profitelo-api-ng/api/api'
 import {PutPayoutMethodDto} from 'profitelo-api-ng/model/models';
-import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
+import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service'
 
 export class PayoutsModalService {
 

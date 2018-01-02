@@ -30,7 +30,7 @@ import {
 } from '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
 import {
   IPayoutsModalControllerScope
-} from '../../components/dashboard/settings/modals/payouts/payouts/payouts.controller'
+} from '../../components/dashboard/settings/modals/payouts/payouts.controller'
 import {
   IAddPaymentMethodControllerScope
 } from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
@@ -374,7 +374,7 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: 'payoutsModalController',
       openedClass: 'modal-open full-screen',
-      template: require('common/components/dashboard/settings/modals/payouts/payouts/payouts.pug')(),
+      template: require('common/components/dashboard/settings/modals/payouts/payouts.pug')(),
       scope: dialogScope
     })
   }

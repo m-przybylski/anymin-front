@@ -15,7 +15,7 @@ import '../../components/dashboard/settings/modals/security/change-password/chan
 import '../../components/dashboard/settings/modals/security/pin-number/pin-number'
 import '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
 import '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
-import '../../components/dashboard/settings/modals/payouts/payouts/payouts'
+import '../../components/dashboard/settings/modals/payouts/payouts'
 import '../../directives/interface/scrollable/scrollable'
 import '../../components/interface/multiselect/multiselect'
 import callSummaryModule from '../call-summary/call-summary'
