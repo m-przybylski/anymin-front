@@ -1,61 +1,61 @@
-import {GeneralPhoneSettingsControllerService, IPrefixListElement} from './phone-settings.service'
+import {PhoneSettingsService, IPrefixListElement} from './phone-settings.service'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 
-export interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
+export interface IPhoneSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void
 }
 
-export class GeneralPhoneSettingsController implements ng.IController {
+export class PhoneSettingsController implements ng.IController {
   public numberModel: string = ''
   public prefixList: IPrefixListElement[] = []
   public prefixPlaceholder: string
   public counter: number
+  public showPinCodeForm: boolean
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private generalPhoneSettingsControllerService: GeneralPhoneSettingsControllerService,
+              private phoneSettingsService: PhoneSettingsService,
               private AccountApi: AccountApi,
               private errorHandler: ErrorHandlerService,
-              private $scope: IGeneralPhoneSettingsControllerScope) {}
+              private $scope: IPhoneSettingsControllerScope) {}
 
   $onInit(): void {
-    this.prefixList = this.setPrefixList()
+    this.prefixList = this.phoneSettingsService.getPrefixList()
     this.prefixPlaceholder = this.prefixList[0].value
-    this.generalPhoneSettingsControllerService.onCountDownUpdate(this.updateCountDown)
+    this.phoneSettingsService.onCountDownUpdate(this.updateCountDown)
+    this.phoneSettingsService.onNewPhoneNumberCreate(this.udpatePinCodeFormVisibility)
   }
 
   public updateCountDown = (time: number): number =>
     this.counter = time
 
   public onSubmit = (): void => {
-    this.generalPhoneSettingsControllerService.markNumberAsUsed(this.numberModel)
+    this.phoneSettingsService.markNumberAsUsed(this.numberModel)
   }
 
   public onInputValueChange = (): void =>
-    this.generalPhoneSettingsControllerService.onPhoneNumberChange()
+    this.phoneSettingsService.onPhoneNumberChange()
 
   public isNumberExist = (): boolean =>
-    this.generalPhoneSettingsControllerService.getIsNumberExist()
+    this.phoneSettingsService.getIsNumberExist()
 
   public isNumberValid = (): boolean =>
-    this.generalPhoneSettingsControllerService.onNumberValid(this.numberModel)
+    this.phoneSettingsService.onNumberValid(this.numberModel)
 
   public isButtonDisabled = (): boolean =>
-    this.generalPhoneSettingsControllerService.onButtonDisabled(this.numberModel)
+    this.phoneSettingsService.onButtonDisabled(this.numberModel)
 
-  public showPinCodeForm = (): boolean =>
-    this.generalPhoneSettingsControllerService.getIsNewPhoneNumberCreate()
-
-  private setPrefixList = (): IPrefixListElement[] => this.generalPhoneSettingsControllerService.getPrefixList()
+  private udpatePinCodeFormVisibility = (formVisibility: boolean): boolean =>
+    this.showPinCodeForm = formVisibility
 
   public setPrefix = (prefix: IPrefixListElement): void => {
     this.prefixPlaceholder = prefix.value
-    this.generalPhoneSettingsControllerService.updatePrefix(prefix)
+    this.phoneSettingsService.updatePrefix(prefix)
   }
 
-  public sendVerificationPin = (token: string, onError: () => void): void => {
-    this.generalPhoneSettingsControllerService.sendVerificationPin().then(user => {
+  public sendVerificationPin = (token: string, onError: () => void): ng.IPromise<void> =>
+    this.phoneSettingsService.sendVerificationPin().then(user => {
       this.AccountApi.confirmMsisdnVerificationRoute({
         token,
         accountId: user.id
@@ -67,8 +67,9 @@ export class GeneralPhoneSettingsController implements ng.IController {
         onError()
       })
     })
-  }
 
-  public onModalClose = (): void =>
+  public onModalClose = (): void => {
+    this.phoneSettingsService.clearInterval()
     this.$uibModalInstance.dismiss('cancel')
+  }
 }

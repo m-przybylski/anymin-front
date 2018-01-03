@@ -33,15 +33,15 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
 
       button.btn.btn-default(
       data-translate="SETTINGS.GENERAL.PHONE_NUMBER.BUTTON" type="submit"
-      data-ng-if="!vm.showPinCodeForm()"
+      data-ng-if="!vm.showPinCodeForm"
       data-ng-disabled="!vm.isButtonDisabled()"
       )
 
-      .pin-verification-counter.animation.collapse-height(data-ng-if="vm.counter > 0 && !vm.showPinCodeForm()")
+      .pin-verification-counter.animation.collapse-height(data-ng-if="vm.counter > 0 && !vm.showPinCodeForm")
         p {{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.COUNTER' | translate }} {{ vm.counter }}s.
 
   pin-verification.animation.collapse-height.pin(
-    data-ng-if="vm.showPinCodeForm()"
+    data-ng-if="vm.showPinCodeForm"
     data-on-send-pin-again="vm.setNewNumber"
     data-on-complete-pin-inputs="vm.sendVerificationPin"
   )

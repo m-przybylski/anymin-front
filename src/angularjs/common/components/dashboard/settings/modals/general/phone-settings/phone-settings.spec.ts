@@ -3,14 +3,14 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import userModule from '../../../../../../services/user/user'
 import phoneSettingsModule from './phone-settings';
-import {GeneralPhoneSettingsController, IGeneralPhoneSettingsControllerScope} from './phone-settings.controller';
+import {PhoneSettingsController, IPhoneSettingsControllerScope} from './phone-settings.controller';
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
-import {GeneralPhoneSettingsControllerService} from './phone-settings.service'
+import {PhoneSettingsService} from './phone-settings.service'
 
-describe('Testing Controller: generalPhoneSettingsController', () => {
+describe('Testing Controller: PhoneSettingsController', () => {
 
-  let controller: GeneralPhoneSettingsController
-  let scope: IGeneralPhoneSettingsControllerScope
+  let controller: PhoneSettingsController
+  let scope: IPhoneSettingsControllerScope
 
   const userService = {
     getUser: (): void => {}
@@ -37,10 +37,10 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
             $controller: ng.IControllerService,
             AccountApi: AccountApi,
             errorHandler: ErrorHandlerService,
-            generalPhoneSettingsControllerService: GeneralPhoneSettingsControllerService,
+            phoneSettingsService: PhoneSettingsService,
             $log: ng.ILogService) => {
 
-      scope = <IGeneralPhoneSettingsControllerScope>$rootScope.$new()
+      scope = <IPhoneSettingsControllerScope>$rootScope.$new()
 
       const injectors = {
         $scope: scope,
@@ -48,10 +48,10 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
         $log,
         errorHandler,
         $uibModalInstance: uibModalInstance,
-        generalPhoneSettingsControllerService
+        phoneSettingsService
       }
 
-      controller = $controller<GeneralPhoneSettingsController>('generalPhoneSettingsController', injectors)
+      controller = $controller<PhoneSettingsController>('phoneSettingsController', injectors)
     })
   })
 

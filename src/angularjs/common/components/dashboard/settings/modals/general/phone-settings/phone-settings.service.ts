@@ -1,4 +1,3 @@
-import * as angular from 'angular'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {httpCodes} from '../../../../../../classes/http-codes'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
@@ -16,12 +15,16 @@ export interface IPrefixListElement {
   name: string
 }
 
-export class GeneralPhoneSettingsControllerService {
-  public isNumberExist: boolean = false
-  public isButtonDisabled: boolean = false
-  public counter: number
+interface ISendedSMS {
+  phoneNumber: string,
+  date: number
+}
 
-  private isNewPhoneNumberCreate: boolean = false
+export class PhoneSettingsService {
+  private isNumberExist: boolean = false
+  private isButtonDisabled: boolean = false
+
+  private counter: number
   private numberPattern = this.CommonSettingsService.localSettings.phoneNumberPattern
   private prefixList: IPrefixListElement[] = this.CommonSettingsService.localSettings.countryCodes
   .map((countryCode: string) => ({
@@ -29,14 +32,12 @@ export class GeneralPhoneSettingsControllerService {
     name: countryCode
   }))
   private prefix: string = this.prefixList[0].value
-  private sendedSMSArray: {
-    phoneNumber: string,
-    date: number
-  }[] = [];
+  private sendedSMSArray: ISendedSMS[] = []
 
   private interval: ng.IPromise<ng.IIntervalService>
   private readonly events = {
-    onCountDownUpdate: new Subject<number>()
+    onCountDownUpdate: new Subject<number>(),
+    onNewPhoneNumberCreate: new Subject<boolean>()
   }
   private static readonly oneSecondInMillisecond: number = 1000
   private static readonly timeToResend: number = 30
@@ -53,12 +54,14 @@ export class GeneralPhoneSettingsControllerService {
   public onCountDownUpdate = (cb: (value: number) => void): Subscription =>
     this.events.onCountDownUpdate.subscribe(cb)
 
-  public setNewNumber = (phoneNumber: string): void => {
+  public onNewPhoneNumberCreate = (cb: (value: boolean) => boolean): Subscription =>
+    this.events.onNewPhoneNumberCreate.subscribe(cb)
+
+  private setNewNumber = (phoneNumber: string): ng.IPromise<void> =>
     this.AccountApi.newMsisdnVerificationRoute({unverifiedMsisdn: this.prefix + phoneNumber})
     .then(() => {
-      this.isNewPhoneNumberCreate = true
-      this.counter = 0
-    }, (err: any) => {
+      this.events.onNewPhoneNumberCreate.next(true)
+    }).catch((err) => {
       if (err.status === httpCodes.conflict) {
         this.isNumberExist = true
         this.isButtonDisabled = true
@@ -67,10 +70,9 @@ export class GeneralPhoneSettingsControllerService {
         this.$log.error('Can not send new phone number: ' + err)
       }
     })
-  }
 
-  public startCountDown = (phoneNumber: string, time: number): void => {
-    this.counter = GeneralPhoneSettingsControllerService.timeToResend
+  private startCountDown = (phoneNumber: string, time: number): void => {
+    this.counter = PhoneSettingsService.timeToResend
     this.counter -= time
     this.isButtonDisabled = true
 
@@ -81,8 +83,11 @@ export class GeneralPhoneSettingsControllerService {
         this.isButtonDisabled = false
         this.markNumberAsUnused(phoneNumber)
       }
-    }, GeneralPhoneSettingsControllerService.oneSecondInMillisecond, this.counter)
+    }, PhoneSettingsService.oneSecondInMillisecond, this.counter)
   }
+
+  public clearInterval = (): boolean =>
+    this.$interval.cancel(this.interval)
 
   public getPrefixList = (): IPrefixListElement[] => this.prefixList
   public updatePrefix = (prefix: IPrefixListElement): void => {
@@ -90,8 +95,7 @@ export class GeneralPhoneSettingsControllerService {
   }
 
   private checkIsFormValid = (prefix: string, phoneNumber: string): boolean => {
-    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) &&
-      prefix && phoneNumber && phoneNumber.length > 1) {
+    if (prefix && phoneNumber && this.numberPattern.test(phoneNumber)) {
       const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
     } else {
@@ -106,23 +110,22 @@ export class GeneralPhoneSettingsControllerService {
     !this.isButtonDisabled && this.onNumberValid(phoneNumber)
 
   public onPhoneNumberChange = (): void => {
-    this.isNewPhoneNumberCreate = false
+    this.events.onNewPhoneNumberCreate.next(false)
     this.isButtonDisabled = false
     this.isNumberExist = false
-    this.counter = 0
   }
 
   public sendVerificationPin = (): ng.IPromise<AccountDetails> =>
     this.userService.getUser()
 
   public markNumberAsUsed = (phoneNumber: string): void => {
-    this.isNewPhoneNumberCreate = false
-
-    this.$interval.cancel(this.interval)
+    this.events.onNewPhoneNumberCreate.next(false)
+    this.clearInterval()
 
     const phoneObject = this.sendedSMSArray.find(el => el.phoneNumber === phoneNumber)
+
     if (phoneObject) {
-      if (this.timeElapse(phoneObject.date) >= GeneralPhoneSettingsControllerService.timeToResend) {
+      if (this.timeElapse(phoneObject.date) >= PhoneSettingsService.timeToResend) {
         phoneObject.date = Date.now()
       }
       this.isButtonDisabled = true
@@ -133,7 +136,6 @@ export class GeneralPhoneSettingsControllerService {
     }
   }
 
-  public getIsNewPhoneNumberCreate = (): boolean => this.isNewPhoneNumberCreate
   public getIsNumberExist = (): boolean => this.isNumberExist
 
   private markNumberAsUnused = (phoneNumber: string): void => {
@@ -145,6 +147,6 @@ export class GeneralPhoneSettingsControllerService {
   }
 
   private timeElapse = (newValue: number): number =>
-    Number(((Date.now() - newValue) / GeneralPhoneSettingsControllerService.oneSecondInMillisecond)
+    Number(((Date.now() - newValue) / PhoneSettingsService.oneSecondInMillisecond)
     .toFixed(0))
 }

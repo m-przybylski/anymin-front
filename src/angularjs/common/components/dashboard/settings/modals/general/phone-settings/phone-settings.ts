@@ -4,10 +4,10 @@ import userModule from '../../../../../../services/user/user'
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 import '../../../../../../components/interface/dropdown-primary/dropdown-primary'
 import '../../../../../../components/interface/pin-verification/pin-verification'
-import {GeneralPhoneSettingsController} from './phone-settings.controller';
+import {PhoneSettingsController} from './phone-settings.controller';
 import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert'
 import inputModule from '../../../../../interface/input/input'
-import {GeneralPhoneSettingsControllerService} from './phone-settings.service'
+import {PhoneSettingsService} from './phone-settings.service'
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler'
 
 const phoneSettingsModule: string = angular.module(
@@ -23,8 +23,8 @@ const phoneSettingsModule: string = angular.module(
   inputModule,
   'profitelo.components.interface.preloader-container'
 ])
-  .controller('generalPhoneSettingsController', GeneralPhoneSettingsController)
-  .service('generalPhoneSettingsControllerService', GeneralPhoneSettingsControllerService)
+  .controller('phoneSettingsController', PhoneSettingsController)
+  .service('phoneSettingsService', PhoneSettingsService)
   .name
 
 export default phoneSettingsModule
