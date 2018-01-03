@@ -4,12 +4,14 @@
 .rtc-detector
 	.rtc-detector-content
 		padding: 0 16px
+		visibility: hidden
 
 		+smm
+			visibility: visible
 			position: fixed
 			padding: 0
-			left: 360px
-			top: 136px
+			left: 340px
+			top: 120px
 			display: flex
 			align-items: flex-end
 
@@ -44,7 +46,73 @@
 				+default-font-regular
 				color: $c-white
 
+	&.is-firefox
+		.container-small
+			.rtc-detector-content
+				margin: 0 0 0 24px
+				padding: 0
+				left: 490px
+				top: 200px
 
+				+smm
+					left: 400px
+
+				+mdm
+					left: 490px
+
+	&.is-opera
+		.container-small
+			.rtc-detector-content
+				margin: 0 0 0 24px
+				padding: 0
+				left: 0
+				right: 0
+				top: 220px
+				justify-content: center
+				flex-direction: row-reverse
+
+				+smm
+					padding: 0 250px 0 0
+
+				+mdm
+					padding: 0 280px 0 0
+
+				.rtc-image
+					display: flex
+					flex: inherit
+					flex-direction: row-reverse
+					justify-content: center
+					padding: 0
+
+					img
+						&.arrow
+							padding: 0 0 36px
+							position: relative
+							transform: scaleX(-1)
+
+	&.is-safari
+		.container-small
+			.rtc-detector-content
+				margin: 0 0 0 24px
+				padding: 0 150px 0 0
+				left: 0
+				right: 0
+				top: 180px
+				justify-content: center
+				flex-direction: row-reverse
+
+				.rtc-image
+					display: flex
+					flex: inherit
+					flex-direction: row-reverse
+					justify-content: center
+					padding: 0
+
+					img
+						&.arrow
+							padding: 0 0 36px
+							position: relative
+							transform: scaleX(-1)
 	&.is-edge
 		.container-small
 			.rtc-detector-content
@@ -53,6 +121,7 @@
 				padding: 0
 				left: 0
 				right: 0
+				bottom: 120px
 				justify-content: flex-start
 				flex-direction: row-reverse
 

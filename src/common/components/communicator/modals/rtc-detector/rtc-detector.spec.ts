@@ -38,34 +38,5 @@ describe('Testing Controller: rtcDetectorModal', () => {
   it('should exists', () => {
     expect(modalController).toBeTruthy()
   })
-
-  it('should set position od modal for firefox', () => {
-    DetectRTC.browser.isFirefox = true
-    createModalController()
-    expect(modalController.iconPosition.left).toEqual('330px')
-    expect(modalController.iconPosition.top).toEqual('240px')
-  })
-
-  it('should set position od modal for edge', () => {
-    DetectRTC.browser.isEdge = true
-    createModalController()
-    expect(modalController.isEdge).toBe(true)
-    expect(modalController.iconPosition.left).toEqual('0px')
-    expect(modalController.iconPosition.bottom).toEqual('120px')
-  })
-
-  it('should set position od modal for opera', () => {
-    DetectRTC.browser.isOpera = true
-    createModalController()
-    expect(modalController.iconPosition.left).toEqual('50%')
-    expect(modalController.iconPosition.top).toEqual('190px')
-  })
-
-  it('should set position od modal for chrome', () => {
-    DetectRTC.browser.isChrome = true
-    createModalController()
-    expect(modalController.iconPosition.left).toEqual('330px')
-    expect(modalController.iconPosition.top).toEqual('145px')
-  })
 })
 

@@ -1,6 +1,7 @@
-.rtc-detector(data-ng-class="{'is-edge': vm.isEdge}")
+.rtc-detector(data-ng-class=
+"[{'is-edge': vm.isEdge}, {'is-opera': vm.isOpera}, {'is-firefox': vm.isFirefox}, {'is-safari': vm.isSafari}]")
   .container-small
-    .rtc-detector-content(data-ng-style="vm.iconPosition")
+    .rtc-detector-content
       .rtc-image
         img.arrow(data-ng-src="/assets/images/profitelo_icons/arrow.png")
         img(data-ng-src="/assets/images/profitelo_icons/camera-allow.png")
