@@ -6,7 +6,7 @@ export type Settings = {{{json jsonSettings}}}
 /* istanbul ignore next */
 export class CommonConfig {
 
-    private static settings: Settings = {{{json jsonSettings}}}
+    public static readonly settings: Settings = {{{json jsonSettings}}}
 
     constructor() {}
 

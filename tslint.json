@@ -3,6 +3,7 @@
     "typedef": [true, "call-signature", "arrow-call-signature"],
     "class-name": true,
     "comment-format": [true, "check-space"],
+    "trailing-comma": true,
     "indent": [true, "spaces"],
     "no-duplicate-variable": true,
     "no-eval": true,

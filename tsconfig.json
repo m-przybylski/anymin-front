@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/out-tsc",
     "noImplicitAny": true,
     "target": "es5",
     "noEmitOnError": false,
     "sourceMap": true,
-    "module": "commonjs",
-    "lib": ["dom", "es6"],
+    "moduleResolution": "node",
+    "declaration": false,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     //"noImplicitThis": true, // TODO enable after rewriting all ctrls to classes
@@ -16,6 +21,9 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "types" : [
       "angular",
       "angular-animate",

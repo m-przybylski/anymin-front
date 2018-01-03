@@ -1,0 +1,102 @@
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "maximized/communicator-maximized"
+@import "active-call-bar/active-call-bar"
+@import "messenger/minimized/minimized"
+@import "messenger/maximized/maximized"
+@import "messenger/maximized/messenger-input/messenger-input"
+@import "messenger/maximized/grouped-messages/grouped-messages"
+@import "modals/consultation-summary-client/consultation-summary-client"
+@import "modals/consultation-summary-expert/consultation-summary-expert"
+@import "modals/expert-incoming-call/expert-incoming-call"
+@import "modals/precall/precall"
+@import "modals/rtc-detector/rtc-detector"
+@import "modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked"
+@import "modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support"
+@import "navigation/navigation"
+
+.communicator
+  transition: z-index 0s, right 0.3s 0s, bottom 0.3s 0s, opacity 0.3s 0.3s
+  height: 100vh
+  width: 100%
+  position: fixed
+  top: 0
+  right: 0
+  z-index: $z-index-1100
+  overflow: hidden
+  opacity: 1
+  animation: animation-opacity 0.3s
+
+  &.is-minimized
+    transition: width 0.3s 0.4s, height 0.3s 0.4s, right 0.3s 0.4s, bottom 0.3s 0.4s, z-index 0s 0.4s
+    bottom: 0
+    right: 0
+    z-index: $z-index-900
+    height: 104px
+    width: 320px
+
+    +smm
+      right: 32px
+      bottom: 32px
+
+    .video-player-remote
+      animation: video-player-display 0s 0.6s
+      animation-fill-mode: forwards
+
+  &.is-disconnected
+    opacity: 0
+
+    .communicator-current-profile
+      animation: communicator-disconnect 0.3s linear
+      animation-fill-mode: forwards
+
+  &.is-closed
+    z-index: -$z-index-900
+
+  .communicator-maximized
+    border-radius: 0
+    transition: height 0.3s 0s, width 0.3s 0s, z-index 0s, border-radius 0.3s 0.3s, transform 0.3s 0.3s
+
+    .communicator-content
+      transition: opacity 0.3s 0s
+      opacity: 1
+
+  .conversation-hidden
+    height: 88px
+    width: 320px
+    overflow: hidden
+
+    .communicator-minimized
+      transition: opacity 0.3s 0.3s, z-index 0.3s 0s
+      opacity: 0
+      z-index: $z-index-100
+
+    .communicator-maximized
+      transition: height 0.3s 0.6s, width 0.3s 0.6s, z-index 0s, border-radius 0.3s 0.6s, transform 0.3s 0.6s
+      height: 88px
+      width: 320px
+      transform: translate(-16px, -16px)
+      border-radius: 44px
+      position: absolute
+      z-index: -900
+
+      .communicator-content
+        transition: opacity 0.3s 0.3s
+        opacity: 0
+
+      .communicator-current-profile
+        animation: communicator-disconnect 0.4s linear
+        animation-fill-mode: forwards
+
+    .communicator-nav
+      transition: opacity 0.3s 0.1s, padding 0.4s 0.1s
+      opacity: 0
+      padding: 0
+
+  .communicator-nav
+    transition: opacity 0.3s 0.3s, padding 0.4s 0.3s
+
+  .connecting-with
+    +header
+    +default-font-regular
+    text-align: center
