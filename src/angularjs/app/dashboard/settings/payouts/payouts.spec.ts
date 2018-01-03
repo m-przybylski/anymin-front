@@ -10,8 +10,9 @@ describe('Unit tests: dashboardSettingsPayoutsController >', () => {
   describe('Testing Controller: dashboardSettingsPayoutsController', () => {
 
     let dashboardSettingsPayoutsController: DashboardSettingsPayoutsController
+
     const payoutsService: SpyObj<PayoutsService> = jasmine.createSpyObj<PayoutsService>('payoutsService',
-      ['getPayoutMethods', 'putPayoutMethod'])
+      ['getPayoutMethods', 'putPayoutMethod', 'getCompanyPayoutsInvoiceDetails'])
     const modalsService: SpyObj<ModalsService> = jasmine.createSpyObj<ModalsService>('modalsService',
       ['createConfirmAlertModal'])
     beforeEach(() => {
@@ -65,41 +66,113 @@ describe('Unit tests: dashboardSettingsPayoutsController >', () => {
 
     it('should get paypal payout method',
       inject(($q: ng.IQService, $controller: ng.IControllerService, $rootScope: ng.IRootScopeService) => {
-        payoutsService.getPayoutMethods.and.callFake(() => $q.resolve({
-          payPalAccount: {
-            email: 'paypal@com.pl'
-          }
-        }))
-        dashboardSettingsPayoutsController =
-          $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
-            payoutsService,
-          })
-        dashboardSettingsPayoutsController.getPayoutMethods()
-        expect(dashboardSettingsPayoutsController.isLoading).toBe(true)
-        $rootScope.$apply()
-        expect(dashboardSettingsPayoutsController.payPalAccountEmail).toBe('paypal@com.pl')
-        expect(dashboardSettingsPayoutsController.isAnyPayoutMethod).toBe(true)
-        expect(dashboardSettingsPayoutsController.isLoading).toBe(false)
+      payoutsService.getPayoutMethods.and.callFake(() => $q.resolve({
+        payPalAccount: {
+          email: 'paypal@com.pl'
+        }
       }))
+        payoutsService.getCompanyPayoutsInvoiceDetails.and.callFake(() => $q.resolve({
+          id: 'id',
+          accountId: 'id',
+          vatNumber: '1231231212',
+          companyName: 'companyName',
+          vat: 23,
+          address: {
+            address: 'address',
+            postalCode: '21-212',
+            city: 'KR',
+            countryISO: 'PL'
+          },
+          email: 'email@com.pl',
+          createdAt: new Date()
+        }))
+      dashboardSettingsPayoutsController =
+        $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
+          payoutsService,
+        })
+      dashboardSettingsPayoutsController.getPayoutsSettings()
+      expect(dashboardSettingsPayoutsController.isLoading).toBe(true)
+      $rootScope.$apply()
+      expect(dashboardSettingsPayoutsController.payPalAccountEmail).toBe('paypal@com.pl')
+      expect(dashboardSettingsPayoutsController.isAnyPayoutMethod).toBe(true)
+      expect(dashboardSettingsPayoutsController.isLoading).toBe(false)
+    }))
 
     it('should get bank payout method',
       inject(($q: ng.IQService, $controller: ng.IControllerService, $rootScope: ng.IRootScopeService) => {
-        payoutsService.getPayoutMethods.and.callFake(() => $q.resolve({
-          bankAccount: {
-            accountNumber: '12312312312312312312312312'
-          }
-        }))
-        dashboardSettingsPayoutsController =
-          $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
-            payoutsService,
-          })
-        dashboardSettingsPayoutsController.getPayoutMethods()
-        expect(dashboardSettingsPayoutsController.isLoading).toBe(true)
-        $rootScope.$apply()
-        expect(dashboardSettingsPayoutsController.bankAccountNumber).toBe('12312312312312312312312312')
-        expect(dashboardSettingsPayoutsController.isAnyPayoutMethod).toBe(true)
-        expect(dashboardSettingsPayoutsController.isLoading).toBe(false)
+      payoutsService.getPayoutMethods.and.callFake(() => $q.resolve({
+        bankAccount: {
+          accountNumber: '12312312312312312312312312'
+        }
       }))
+      payoutsService.getCompanyPayoutsInvoiceDetails.and.callFake(() => $q.resolve({
+        id: 'id',
+        accountId: 'id',
+        vatNumber: '1231231212',
+        companyName: 'companyName',
+        vat: 23,
+        address: {
+          address: 'address',
+          postalCode: '21-212',
+          city: 'KR',
+          countryISO: 'PL'
+        },
+        email: 'email@com.pl',
+        createdAt: new Date()
+      }))
+      dashboardSettingsPayoutsController =
+        $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
+          payoutsService,
+        })
+      dashboardSettingsPayoutsController.getPayoutsSettings()
+      expect(dashboardSettingsPayoutsController.isLoading).toBe(true)
+      $rootScope.$apply()
+      expect(dashboardSettingsPayoutsController.bankAccountNumber).toBe('12312312312312312312312312')
+      expect(dashboardSettingsPayoutsController.isAnyPayoutMethod).toBe(true)
+      expect(dashboardSettingsPayoutsController.isLoading).toBe(false)
+    }))
+
+    it('should get company invoice details',
+      inject(($q: ng.IQService, $controller: ng.IControllerService, $rootScope: ng.IRootScopeService) => {
+      const mockGetCompanyInvoiceDetailsResponse = {
+        id: 'id',
+        accountId: 'id',
+        vatNumber: '1231231212',
+        companyName: 'companyName',
+        vat: 23,
+        address: {
+          address: 'address',
+          postalCode: '21-212',
+          city: 'KR',
+          countryISO: 'PL'
+        },
+        email: 'email@com.pl',
+        createdAt: new Date()
+      }
+      payoutsService.getPayoutMethods.and.callFake(() => $q.resolve({
+        bankAccount: {
+          accountNumber: '12312312312312312312312312'
+        }
+      }))
+      payoutsService.getCompanyPayoutsInvoiceDetails.and.callFake(() =>
+        $q.resolve(mockGetCompanyInvoiceDetailsResponse))
+      dashboardSettingsPayoutsController =
+        $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
+          payoutsService,
+        })
+      dashboardSettingsPayoutsController.getPayoutsSettings()
+      expect(dashboardSettingsPayoutsController.isLoading).toBe(true)
+      $rootScope.$apply()
+      expect(dashboardSettingsPayoutsController.companyName).toEqual(mockGetCompanyInvoiceDetailsResponse.companyName)
+      expect(dashboardSettingsPayoutsController.vatNumber).toEqual(mockGetCompanyInvoiceDetailsResponse.vatNumber)
+      expect(dashboardSettingsPayoutsController.address)
+        .toEqual(mockGetCompanyInvoiceDetailsResponse.address.address + ', ' +
+          mockGetCompanyInvoiceDetailsResponse.address.postalCode + ', ' +
+          mockGetCompanyInvoiceDetailsResponse.address.city + ', ' + 'COUNTRIES.' +
+          mockGetCompanyInvoiceDetailsResponse.address.countryISO)
+      expect(dashboardSettingsPayoutsController.email).toEqual(mockGetCompanyInvoiceDetailsResponse.email)
+      expect(dashboardSettingsPayoutsController.isLoading).toBe(false)
+    }))
 
   })
 })

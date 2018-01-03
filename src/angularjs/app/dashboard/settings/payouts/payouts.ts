@@ -7,13 +7,16 @@ import errorHandlerModule from '../../../../common/services/error-handler/error-
 import topAlertModule from '../../../../common/services/top-alert/top-alert';
 import { StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
+import invoiceDetailsModalModule
+from '../../../../common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details';
 
 const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dashboard.settings.payouts', [
   modalsModule,
   translatorModule,
   errorHandlerModule,
   uiRouter,
-  topAlertModule
+  topAlertModule,
+  invoiceDetailsModalModule
 ])
   .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.settings.payouts', {

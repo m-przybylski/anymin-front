@@ -1,0 +1,100 @@
+.modal-primary.company-invoice-details
+  .container-medium
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
+
+      .modal-section
+        p(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.EXPLAIN_INFO")
+
+      form(
+        name="companyInvoiceDetailsForm"
+        data-ng-submit="vm.isFormValid() && vm.saveCompanyInvoiceDetails()"
+        novalidate
+      )
+
+        .company-info.modal-section
+          header.entry-title
+            span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
+
+          dropdown-primary(
+          data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
+          data-main-list="vm.countryList"
+          data-selected-item="vm.selectedCountry"
+          data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
+          )
+
+          input-primary(
+            data-type="text"
+            data-id="vatNumber"
+            data-is-submitted="companyInvoiceDetailsForm.$submitted"
+            data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER"
+            data-ng-model="vm.vatNumber"
+            data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL"
+            data-is-valid="vm.isVatNumberValid()"
+            data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.VAT.VALIDATION"
+          )
+
+          input-primary(
+          data-type="text"
+          data-id="name"
+          data-is-submitted="companyInvoiceDetailsForm.$submitted"
+          data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.PLACEHOLDER"
+          data-ng-model="vm.name"
+          data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL"
+          data-is-valid="vm.isNameValid()"
+          data-validation-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.COMPANY_VALIDATION"
+          )
+
+        .address-container.modal-section
+          header.entry-title
+            span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.ADDRESS.TITLE")
+
+          input-primary(
+          data-type="text"
+          data-id="address"
+          data-is-submitted="companyInvoiceDetailsForm.$submitted"
+          data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.PLACEHOLDER"
+          data-ng-model="vm.address"
+          data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.LABEL"
+          data-is-valid="vm.isAddressValid()"
+          data-validation-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.ADDRESS_VALIDATION"
+          )
+
+          .city-container
+            input-primary.postal-code(
+            data-type="text"
+            data-id="postalCode"
+            data-is-submitted="companyInvoiceDetailsForm.$submitted"
+            data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.ZIP_CODE.PLACEHOLDER"
+            data-ng-model="vm.postalCode"
+            data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.ZIP_CODE.LABEL"
+            data-is-valid="vm.isPostalCodeValid()"
+            data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.POSTAL_CODE.VALIDATION"
+            )
+
+            input-primary.city-name(
+            data-type="text"
+            data-id="city"
+            data-is-submitted="companyInvoiceDetailsForm.$submitted"
+            data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.PLACEHOLDER"
+            data-ng-model="vm.city"
+            data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.LABEL"
+            data-is-valid="vm.isCityValid()"
+            data-validation-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.CITY_VALIDATION"
+            )
+
+          input-primary(
+          data-type="text"
+          data-id="email"
+          data-is-submitted="companyInvoiceDetailsForm.$submitted"
+          data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.EMAIL_PLACEHOLDER"
+          data-ng-model="vm.email"
+          data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.EMAIL_LABEL"
+          data-is-valid="vm.isEmailValid()"
+          data-validation-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.EMAIL_VALIDATION"
+          )
+
+        .save-btn-container
+          button.btn.btn-default(type="submit"
+          data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.SAVE_BUTTON"
+          data-ng-disabled="!companyInvoiceDetailsForm.$dirty")

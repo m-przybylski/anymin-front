@@ -1,8 +1,8 @@
 .payouts.payouts-options
   preloader-container(
     data-is-loading="vm.isLoading"
-    data-is-error="vm.isLoadMoreError"
-    data-error-fn="vm.getPayoutMethods"
+    data-is-error="vm.isLoadingError"
+    data-error-fn="vm.getPayoutsSettings"
     data-error-message="SETTINGS.PAYMENTS.LOADING_DATA_ERROR"
   )
     no-results-information(
@@ -15,7 +15,7 @@
       data-button-on-click="vm.addPayoutMethod"
     )
 
-    .payments-method(data-ng-show="vm.isAnyPayoutMethod")
+    .payouts-methods(data-ng-show="vm.isAnyPayoutMethod")
       header.entry-title
         span(data-translate="SETTINGS.PAYOUTS.PAYOUTS_METHOD.TITLE")
         a.btn.btn-primary.btn-small(
@@ -41,3 +41,25 @@
           data-translate="SETTINGS.PAYOUTS.BUTTON.DELETE"
           data-ng-click="vm.deletePaymentMethod()"
         )
+
+    .payouts-invoice-details(data-ng-show="vm.isAnyPayoutMethod")
+      header.entry-title
+        span(data-translate="SETTINGS.PAYOUTS.INVOICE_DETAILS.TITLE")
+        a.btn.btn-primary.btn-small(
+          data-translate="{{ vm.invoiceDetailsButtonText }}"
+          data-ng-click="vm.editCompanyInvoiceDetails()"
+        )
+
+      ul(data-ng-show="vm.vatNumber")
+        li.invoice-details-row
+          span.detail-name(data-translate="SETTINGS.PAYOUTS.INVOICE_DETAILS.VAT_NUMBER")
+          span.detail-value {{ vm.vatNumber }}
+        li.invoice-details-row
+          span.detail-name(data-translate="SETTINGS.PAYOUTS.INVOICE_DETAILS.COMPANY_NAME")
+          span.detail-value {{ vm.companyName }}
+        li.invoice-details-row
+          span.detail-name(data-translate="SETTINGS.PAYOUTS.INVOICE_DETAILS.ADDRESS")
+          span.detail-value {{ vm.address }}
+        li.invoice-details-row
+          span.detail-name(data-translate="SETTINGS.PAYOUTS.INVOICE_DETAILS.EMAIL")
+          span.detail-value {{ vm.email }}

@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {PayoutsApiMock} from 'profitelo-api-ng/api/api'
+import {PayoutsApiMock, AccountApiMock} from 'profitelo-api-ng/api/api'
 import {PayoutsService} from './payouts.service'
 import dashboardSettingsPayoutsModule from './payouts'
 import {httpCodes} from '../../../../common/classes/http-codes'
@@ -71,6 +71,43 @@ describe('Unit testing: profitelo.dashboard.settings.payouts', () => {
       })
       $httpBackend.flush()
     }))
+
+    it('should get company invoice details',
+      (done) => inject(($httpBackend: ng.IHttpBackendService, AccountApiMock: AccountApiMock) => {
+        const mockCompanyInvoiceDetails = {
+          id: 'id',
+          accountId: 'id',
+          vatNumber: '1231231212',
+          companyName: 'companyName',
+          vat: 23,
+          address: {
+            address: 'address',
+            postalCode: '21-212',
+            city: 'KR',
+            countryISO: 'PL'
+          },
+          email: 'email@com.pl',
+          createdAt: new Date()
+        }
+        AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.ok, mockCompanyInvoiceDetails)
+        payoutsService.getCompanyPayoutsInvoiceDetails().then((response) => {
+          expect(response).toEqual(mockCompanyInvoiceDetails)
+          done()
+        })
+        $httpBackend.flush()
+      }))
+
+    it('should log error when get company invoice details fails',
+      (done) => inject(($httpBackend: ng.IHttpBackendService, $log: ng.ILogService,
+                        AccountApiMock: AccountApiMock) => {
+        spyOn($log, 'error')
+        AccountApiMock.getCompanyPayoutInvoiceDetailsRoute(httpCodes.badRequest)
+        payoutsService.getCompanyPayoutsInvoiceDetails().catch( _error => {
+          expect($log.error).toHaveBeenCalled()
+          done()
+        })
+        $httpBackend.flush()
+      }))
 
   })
 })

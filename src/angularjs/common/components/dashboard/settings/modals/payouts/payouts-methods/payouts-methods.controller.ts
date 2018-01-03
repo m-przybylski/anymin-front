@@ -1,13 +1,13 @@
 import { JValue, PutPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
-import { PayoutsModalService } from './payouts.service';
+import { PayoutsMethodsModalService } from './payouts-methods.service';
 
 export interface IPayoutsModalControllerScope extends ng.IScope {
   onModalCloseCallback: () => void;
 }
 
 // tslint:disable:member-ordering
-export class PayoutsModalController implements ng.IController {
+export class PayoutsMethodsModalController implements ng.IController {
   public isPayoutBankMethod = false;
   public isPayoutPaypalMethod = false;
   public isLoading = false;
@@ -23,12 +23,12 @@ export class PayoutsModalController implements ng.IController {
     payPalAccount: 'paypalAccount'
   };
 
-  public static $inject = ['$uibModalInstance', '$scope', 'CommonSettingsService', 'payoutsModalService'];
+  public static $inject = ['$uibModalInstance', '$scope', 'CommonSettingsService', 'payoutsMethodsModalService'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IPayoutsModalControllerScope,
               private CommonSettingsService: CommonSettingsService,
-              private payoutsModalService: PayoutsModalService) {
+              private payoutsMethodsModalService: PayoutsMethodsModalService) {
 
     this.onModalCloseCallback = this.$scope.onModalCloseCallback;
   }
@@ -45,7 +45,7 @@ export class PayoutsModalController implements ng.IController {
         email: this.payPalEmail
       }
     };
-    this.payoutsModalService.putPayoutMethod(payoutMethod)
+    this.payoutsMethodsModalService.putPayoutMethod(payoutMethod)
       .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError);
   }
 
@@ -56,16 +56,16 @@ export class PayoutsModalController implements ng.IController {
         accountNumber: this.bankAccountNumber
       }
     };
-    this.payoutsModalService.putPayoutMethod(payoutMethod)
+    this.payoutsMethodsModalService.putPayoutMethod(payoutMethod)
       .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError);
   }
 
   public choosePayoutPaypalMethod = (): void => {
-    this.payoutMethod = PayoutsModalController.payoutMethodId.payPalAccount;
+    this.payoutMethod = PayoutsMethodsModalController.payoutMethodId.payPalAccount;
   }
 
   public choosePayoutBankMethod = (): void => {
-    this.payoutMethod = PayoutsModalController.payoutMethodId.bankAccount;
+    this.payoutMethod = PayoutsMethodsModalController.payoutMethodId.bankAccount;
   }
 
   public onModalClose = (): void => {

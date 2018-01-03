@@ -1,24 +1,24 @@
 import * as angular from 'angular'
 import {PayoutsApiMock} from 'profitelo-api-ng/api/api'
-import {PayoutsModalService} from './payouts.service'
-import payoutsModalModule from './payouts'
+import {PayoutsMethodsModalService} from './payouts-methods.service'
+import {default as payoutsMethodsModalModule} from './payouts-methods'
 import {httpCodes} from '../../../../../../../common/classes/http-codes'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 
-describe('Unit testing: profitelo.components.settings.modals.payouts', () => {
-  describe('for PayoutsModalService service >', () => {
+describe('Unit testing: profitelo.components.settings.modals.payouts.payouts-methods', () => {
+  describe('for PayoutsMethodsModalService service >', () => {
 
-    let payoutsModalService: PayoutsModalService
+    let payoutsMethodsModalService: PayoutsMethodsModalService
 
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesomeUrl')
     }))
 
     beforeEach(() => {
-      angular.mock.module(payoutsModalModule)
+      angular.mock.module(payoutsMethodsModalModule)
 
       inject(($injector: ng.auto.IInjectorService) => {
-        payoutsModalService = $injector.get<PayoutsModalService>('payoutsModalService')
+        payoutsMethodsModalService = $injector.get<PayoutsMethodsModalService>('payoutsMethodsModalService')
       })
     })
 
@@ -30,7 +30,7 @@ describe('Unit testing: profitelo.components.settings.modals.payouts', () => {
         }
       }
       PayoutsApiMock.putPayoutMethodRoute(httpCodes.ok, mockPayoutsMethod)
-      payoutsModalService.putPayoutMethod(mockPayoutsMethod).then((response) => {
+        payoutsMethodsModalService.putPayoutMethod(mockPayoutsMethod).then((response) => {
         expect(response).toEqual(mockPayoutsMethod)
         done()
       })
@@ -42,7 +42,7 @@ describe('Unit testing: profitelo.components.settings.modals.payouts', () => {
                         PayoutsApiMock: PayoutsApiMock) => {
       spyOn(errorHandler, 'handleServerError')
       PayoutsApiMock.putPayoutMethodRoute(httpCodes.badRequest)
-      payoutsModalService.putPayoutMethod({}).catch( _error => {
+        payoutsMethodsModalService.putPayoutMethod({}).catch( _error => {
         expect(errorHandler.handleServerError).toHaveBeenCalled()
         done()
       })
