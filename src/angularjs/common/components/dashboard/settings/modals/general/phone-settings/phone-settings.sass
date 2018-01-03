@@ -50,25 +50,28 @@
 
 		&.pin-verification-counter
 			&.animation-in
-				animation: fadeInYInverse 0.3s 1s
+				animation: fadeInYInverse 0.3s
 				animation-fill-mode: forwards
-				transition: height 0.3s 1s
+				transition: height 0.3s
 
 			&.animation-out
 				animation: fadeOutYInverse 0.3s
 				animation-fill-mode: forwards
-				transition: height 0.3s, padding 0.3s
+				transition: height 0.3s
 
 		&.pin
 			&.animation-in
-				animation: fadeInYInverse 0.3s 0.6s
+				animation: fadeInYInverse 0.3s 0.3s
 				animation-fill-mode: forwards
-				transition: height 0.3s 0.6s
+				transition: height 0.3s 0.3s
 
 			&.animation-out
 				animation: fadeOutYInverse 0.3s
 				animation-fill-mode: forwards
-				transition: height 0.3s, padding 0.3s
+				transition: height 0.3s
 
 	pin-verification
 		display: block
+
+		.pin-verification-counter
+			margin: 0 0 16px 0

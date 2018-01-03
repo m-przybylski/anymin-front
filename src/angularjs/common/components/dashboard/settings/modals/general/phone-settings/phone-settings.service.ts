@@ -1,9 +1,7 @@
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {httpCodes} from '../../../../../../classes/http-codes'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
-import {UserService} from '../../../../../../services/user/user.service'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {AccountDetails} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
@@ -45,7 +43,6 @@ export class PhoneSettingsService {
   /* @ngInject */
   constructor(private AccountApi: AccountApi,
               private errorHandler: ErrorHandlerService,
-              private userService: UserService,
               private CommonSettingsService: CommonSettingsService,
               private $interval: ng.IIntervalService,
               private $log: ng.ILogService) {
@@ -103,20 +100,20 @@ export class PhoneSettingsService {
     }
   }
 
-  public onNumberValid = (phoneNumber: string): boolean =>
+  public setNumberValid = (phoneNumber: string): boolean =>
     this.numberPattern.test(phoneNumber) && this.checkIsFormValid(this.prefix, phoneNumber)
 
-  public onButtonDisabled = (phoneNumber: string): boolean =>
-    !this.isButtonDisabled && this.onNumberValid(phoneNumber)
+  public setButtonDisabled = (phoneNumber: string): boolean =>
+    !this.isButtonDisabled && this.setNumberValid(phoneNumber)
 
   public onPhoneNumberChange = (): void => {
-    this.events.onNewPhoneNumberCreate.next(false)
     this.isButtonDisabled = false
     this.isNumberExist = false
+    this.counter = 0
+    this.clearInterval()
+    this.events.onCountDownUpdate.next(this.counter)
+    this.events.onNewPhoneNumberCreate.next(false)
   }
-
-  public sendVerificationPin = (): ng.IPromise<AccountDetails> =>
-    this.userService.getUser()
 
   public markNumberAsUsed = (phoneNumber: string): void => {
     this.events.onNewPhoneNumberCreate.next(false)

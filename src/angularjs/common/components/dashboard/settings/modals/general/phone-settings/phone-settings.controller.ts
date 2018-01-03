@@ -1,6 +1,7 @@
 import {PhoneSettingsService, IPrefixListElement} from './phone-settings.service'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
+import {UserService} from '../../../../../../services/user/user.service'
 
 export interface IPhoneSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void
@@ -17,6 +18,7 @@ export class PhoneSettingsController implements ng.IController {
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private phoneSettingsService: PhoneSettingsService,
               private AccountApi: AccountApi,
+              private userService: UserService,
               private errorHandler: ErrorHandlerService,
               private $scope: IPhoneSettingsControllerScope) {}
 
@@ -41,10 +43,10 @@ export class PhoneSettingsController implements ng.IController {
     this.phoneSettingsService.getIsNumberExist()
 
   public isNumberValid = (): boolean =>
-    this.phoneSettingsService.onNumberValid(this.numberModel)
+    this.phoneSettingsService.setNumberValid(this.numberModel)
 
   public isButtonDisabled = (): boolean =>
-    this.phoneSettingsService.onButtonDisabled(this.numberModel)
+    this.phoneSettingsService.setButtonDisabled(this.numberModel)
 
   private udpatePinCodeFormVisibility = (formVisibility: boolean): boolean =>
     this.showPinCodeForm = formVisibility
@@ -54,8 +56,8 @@ export class PhoneSettingsController implements ng.IController {
     this.phoneSettingsService.updatePrefix(prefix)
   }
 
-  public sendVerificationPin = (token: string, onError: () => void): ng.IPromise<void> =>
-    this.phoneSettingsService.sendVerificationPin().then(user => {
+  public getPhoneNumber = (token: string, onError: () => void): ng.IPromise<void> =>
+    this.userService.getUser().then(user => {
       this.AccountApi.confirmMsisdnVerificationRoute({
         token,
         accountId: user.id

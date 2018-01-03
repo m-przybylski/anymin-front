@@ -39,21 +39,21 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
       jasmine.clock().install()
       jasmine.clock().mockDate(new Date())
       phoneSettingsService.markNumberAsUsed(phoneNumber)
-      expect(phoneSettingsService.onButtonDisabled(phoneNumber)).toBeTruthy()
+      expect(phoneSettingsService.setButtonDisabled(phoneNumber)).toBeTruthy()
       jasmine.clock().tick(thirtySeconds)
       phoneSettingsService.markNumberAsUsed(phoneNumber)
-      expect(phoneSettingsService.onButtonDisabled(phoneNumber)).toBeFalsy()
+      expect(phoneSettingsService.setButtonDisabled(phoneNumber)).toBeFalsy()
     })
 
     it('should check if number valid', () => {
-      phoneSettingsService.onNumberValid(phoneNumber)
-      expect(phoneSettingsService.onNumberValid(phoneNumber)).toBeTruthy()
+      phoneSettingsService.setNumberValid(phoneNumber)
+      expect(phoneSettingsService.setNumberValid(phoneNumber)).toBeTruthy()
     })
 
     it('should check if number invalid', () => {
       const incorrectPhoneNumber = '500123'
-      phoneSettingsService.onNumberValid(incorrectPhoneNumber)
-      expect(phoneSettingsService.onNumberValid(incorrectPhoneNumber)).toBeFalsy()
+      phoneSettingsService.setNumberValid(incorrectPhoneNumber)
+      expect(phoneSettingsService.setNumberValid(incorrectPhoneNumber)).toBeFalsy()
     })
   })
 })
