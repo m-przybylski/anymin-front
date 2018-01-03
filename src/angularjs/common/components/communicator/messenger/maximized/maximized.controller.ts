@@ -37,7 +37,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private fileUploadErrorMessageTimeout = 15000
   private uploader: UploaderService
 
-  private messageRoom: MessageRoom
+  private messageRoom?: MessageRoom
   public expertName: string = ''
 
   /* @ngInject */
@@ -53,6 +53,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
     this.clientCallService.onNewCall(this.clientInit)
     this.expertCallService.onNewCall(this.expertInit)
+    this.expertCallService.onCallEnd(this.destroy)
     this.expertCallService.onCallPull((currentExpertCall) => {
       if (!this.messageRoom) this.expertInit(currentExpertCall)
       else this.getMessages(currentExpertCall)
@@ -119,11 +120,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.sendMessage(messageBody, {
       mimeType: 'text/plain',
       content: messageBody,
-    }).catch(this.onMessageSendError)
+    })
   }
 
   private clientInit = (currentClientCall: CurrentClientCall): void => {
-    this.destroy()
     const expert = currentClientCall.getExpert()
 
     if (expert.expertDetails && expert.expertDetails.avatar) {
@@ -138,7 +138,6 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   private expertInit = (currentExpertCall: CurrentExpertCall): void => {
-    this.destroy()
     this.participantAvatar = ''
     this.onNewCall(currentExpertCall)
   }
@@ -183,8 +182,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private onMessageSendError = (err: any): void =>
     this.$log.error('msg send err:', err)
 
-  private sendMessage = (messageObject: string, context: IMessageContext): Promise<Message> =>
-    this.messageRoom.sendMessage(messageObject, context)
+  private sendMessage = (messageObject: string, context: IMessageContext): void => {
+    this.messageRoom ? this.messageRoom.sendMessage(messageObject, context).catch(this.onMessageSendError) :
+      this.$log.error('Can not send message cause room does not exist')
+  }
 
   private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
@@ -199,7 +200,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       mimeType: res.contentType,
       content: res.token,
       description: res.name
-    }).catch(this.onMessageSendError)
+    })
   }
 
   private onFileUploadError = (err: any): void => {
@@ -226,5 +227,6 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.isTyping = false
     this.groupedMessages = []
     this.uploadedFile = {}
+    this.messageRoom = undefined
   }
 }

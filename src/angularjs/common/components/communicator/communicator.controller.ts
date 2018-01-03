@@ -34,7 +34,7 @@ export class CommunicatorComponentController implements ng.IController {
   public localStreamElement: ng.IAugmentedJQuery
   public remoteStreamElement: ng.IAugmentedJQuery
 
-  public messageRoom: MessageRoom
+  public messageRoom?: MessageRoom
 
   public isMicrophoneMuted: boolean = false
 
@@ -180,6 +180,7 @@ export class CommunicatorComponentController implements ng.IController {
 
   private cleanupComponent = (): void => {
     this.currentCall = undefined
+    this.messageRoom = undefined
     this.isDisconnectedAnimation = false
     this.isConnecting = false
     this.service = undefined
