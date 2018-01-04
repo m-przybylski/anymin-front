@@ -1,0 +1,530 @@
+@import "../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../template/profitelo_theme/stylesheets/core/interface/typography/typography"
+
+@import "navbar-expert-visibility/navbar-expert-visibility"
+@import "navbar-help/navbar-help"
+@import "navbar-notifications/navbar-notifications"
+
+.navbar
+	background: $c-white
+	height: 64px
+	display: flex
+	justify-content: space-between
+	z-index: $z-index-700
+	position: fixed
+	left: 0
+	top: 0
+	width: 100%
+	transition: transform 0.3s
+	box-shadow: 0 1px 3px 0 rgba($c-black, 0.15)
+
+	&.is-not-collapsed
+		transition: none
+
+	&.is-hidden
+		transform: translateY(-64px)
+
+	.navbar-logo
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		border-bottom: 1px solid $c-lines
+		width: 100%
+
+		+smm
+			width: auto
+			padding: 0 24px
+
+		img
+			max-width: 90px
+
+	.navbar-search
+		display: inline-flex
+		align-items: center
+		padding: 0 16px
+		order: -1
+		border-bottom: 1px solid $c-lines
+
+		+smm
+			flex: 1
+			order: 0
+			padding: 0 0 0 24px
+			overflow: hidden
+
+		.search-expandable
+			position: fixed
+			top: 0
+			left: 64px
+			width: calc(100% - 64px)
+			height: $s-navbar-height
+			background: $c-white
+			z-index: $z-index-200
+			display: flex
+			align-items: center
+			justify-content: space-between
+			border-bottom: 1px solid $c-lines
+
+			+smm
+				width: 100%
+				position: relative
+				display: flex !important
+				padding: 0
+				margin: 0 0 0 16px
+				left: 0
+
+			.btn-close
+				opacity: 0
+				height: 100%
+				background: $c-white
+				border: none
+				padding: 0 16px
+
+				+smm
+					display: none
+
+			search-dropdown
+				width: calc(100% - 72px)
+				height: 100%
+				top: 0
+				left: 0
+
+				+mdm
+					width: 100%
+
+				.search-bar-container
+					position: static
+
+				input
+					+inputText
+					position: absolute
+					left: 0
+					top: 0
+					height: 100%
+					width: 100%
+					border: 0
+					box-shadow: none
+					background: none
+
+					+smm
+						padding: 0 0 0 16px
+
+					&::placeholder
+						+inputTextPlaceholder
+						line-height: $s-navbar-height
+
+		.search-btn
+			display: inline-flex
+			align-items: center
+			z-index: $z-index-100
+			color: $c-secondary-txt
+
+	nav
+		display: flex
+		align-items: stretch
+
+		.mobile-nav
+			display: inline-flex
+			align-items: center
+			border-bottom: 1px solid $c-lines
+
+			+smm
+				border-left: 1px solid $c-lines
+
+			+lgm
+				display: none
+
+			.mobile-nav-hamburger
+				height: 100%
+				display: flex
+				align-items: center
+
+			#hamburger
+				background: none
+				display: flex
+				flex-direction: column
+				justify-content: space-between
+				height: 16px
+				padding: 0 16px
+
+				+lgm
+					display: none
+
+				span
+					position: relative
+					background: $c-secondary-txt
+					width: 24px
+					height: 1px
+					display: block
+					opacity: 1
+					top: 0
+					transition: top 0.3s 0.3s, transform 0.3s
+					transform-origin: 50% 50%
+
+			&.is-active
+				#hamburger
+					span
+						transition: top 0.3s 0.3s
+
+						&:nth-child(2)
+							opacity: 0
+							transition: opacity 0s 0.3s
+
+						&:first-child
+							transition: top 0.3s, transform 0.3s 0.3s
+							transform: rotate(45deg)
+							top: 8px
+
+						&:last-child
+							transition: top 0.3s, transform 0.3s 0.3s
+							transform: rotate(-45deg)
+							top: -7px
+
+		.navbar-navigation
+			position: absolute
+			right: 0
+			top: 100%
+			width: 100%
+			height: 100vh
+			background: $c-white
+			z-index: $z-index-100
+			overflow: hidden
+
+			+smm
+				width: 320px
+				box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+
+			+lgm
+				animation: none
+				width: auto
+				height: auto
+				display: flex !important
+				position: static
+				box-shadow: none
+
+			> *
+				+lgm
+					display: flex
+
+			&.is-active
+				display: block
+
+				+lgm
+					display: flex
+
+			.expert-state,
+			.nologin-state
+				background: $c-white
+				border-bottom: 1px solid $c-lines
+
+			.navbar-parent
+				margin: 0 16px
+				position: relative
+
+				+smm
+					margin: 0 24px
+
+				+lgm
+					margin: 0 8px
+
+				.icon-next-24
+					font-size: $f-btn-icon
+
+				a
+					padding: 12px 0
+					flex: 1 0
+					justify-content: space-between
+
+					+lgm
+						padding: 0
+
+					.navbar-item-handler
+						display: inline-flex
+						align-items: center
+						position: relative
+
+						.notifications-count
+							+default-font-medium
+							font-size: $f-btn-small
+							display: flex
+							justify-content: center
+							align-items: center
+							background: $c-primary
+							color: $c-white
+							width: 27px
+							height: 27px
+							border: 3px solid $c-white
+							border-radius: 50%
+							position: absolute
+							top: -12px
+							left: 12px
+
+						.fade-out-animation
+							animation: fade-out 3s forwards
+
+			[class*="state"]
+
+				> li
+					margin: 0
+					display: block
+
+					+lgm
+						display: flex
+						align-items: stretch
+
+				.navbar-notifications
+					order: -1
+					border-bottom: 1px solid $c-lines
+
+					+lgm
+						order: 0
+						border: 0
+						margin: 0 24px 0 4px
+
+						a
+							&:hover
+								.notifications-count
+									background-color: $c-primary
+									color: $c-white
+
+				.menu-list
+					padding: 12px 0
+
+					+lgm
+						padding: 0
+
+					li:not(.navbar-parent)
+						display: block
+						padding: 0 16px
+						margin: 0
+
+						&.is-active
+							a
+								span
+									color: $c-primary
+
+						+smm
+							padding: 0 24px
+
+						+lgm
+							padding: 0 12px
+							display: flex
+
+						a
+							display: flex
+							justify-content: flex-start
+							padding: 12px 0
+
+							&.btn
+								+lgm
+									padding: 0 24px
+
+							+lgm
+								padding: 0
+
+					li
+						&.navbar-availbility
+							order: -1
+							border-bottom: 1px solid $c-lines
+							margin: 0 0 12px
+
+							+lgm
+								margin: 0 8px
+								padding: 0
+								border: 0
+								order: inherit
+
+							.btn-dropdown
+								.btn-dropdown-list
+									padding: 8px 0
+
+					.navbar-menu
+						background: $c-white
+						width: 100%
+						height: 100vh
+						overflow: scroll
+
+						+smm
+							width: 320px
+
+						+lgm
+							height: 560px
+							box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+
+						.navbar-menu-header
+							background: $c-background-2
+
+			> ul
+				> li
+					margin: 0
+
+		.navbar-list
+			display: flex
+			flex-direction: column
+
+			+lgm
+				flex-direction: row
+
+			.invitations-tab-link
+				+lgm
+					display: none
+
+			li
+				display: flex
+				align-items: center
+				margin: 0 16px
+
+				a
+					&.navbar-btn
+						+default-font-medium
+						padding: 0
+						border: 0
+						color: $c-secondary-txt
+						height: auto
+						z-index: initial
+
+						+lgm
+							padding: 0 24px
+							border: 1px solid $c-lines
+							color: $c-primary
+							height: 32px
+
+					&:not(.btn)
+						+default-font-medium
+						font-size: $f-btn-small
+						color: $c-secondary-txt
+						display: flex
+						align-items: center
+						text-transform: uppercase
+
+						&:hover
+							color: $c-primary
+
+					span
+						&[class*="icon"]:not([class*="icon-next"])
+							margin: 0 16px 0 0
+
+							+lgm
+								margin: 0
+
+						&[class*="mobile"]
+							+lgm
+								display: none
+
+	.mobile-menu-animation
+		+lgm
+			animation: none
+
+		&.ng-hide-remove-active
+			animation: mobile-menu-animation-in 0.4s ease
+			animation-fill-mode: forwards
+
+			+lgm
+				animation: none
+
+		&.ng-hide-add-active
+			animation: mobile-menu-animation-out 0.4s
+
+			+lgm
+				animation: none
+
+	.mobile-search-animation
+		.btn-close
+			animation: mobile-search-animation-elem-in 0.3s 0.3s
+			animation-fill-mode: forwards
+
+			+lgm
+				animation: none
+
+		&.ng-hide-remove-active
+			animation: mobile-search-animation-in 0.3s
+			animation-fill-mode: forwards
+
+			+smm
+				animation: none
+
+		&.ng-hide-add-active
+			animation: mobile-search-animation-out 0.3s
+			animation-fill-mode: forwards
+
+			+smm
+				animation: none
+
+	.active-icon
+		color: $c-primary
+
+	.navbar-menu-container
+		position: fixed
+		height: auto
+		width: 100%
+		top: 0
+		right: -100%
+
+		+lgm
+			width: 320px
+			right: 24px
+			top: 64px
+			z-index: -$z-index-100
+
+	.show-arrow
+		+lgm
+			&::before,
+			&::after
+				content: ""
+				width: 0
+				height: 0
+				position: absolute
+				right: 3px
+				border-right: 10px solid transparent
+				border-left: 10px solid transparent
+
+			&::before
+				bottom: 0
+				border-bottom: 10px solid $c-lines
+
+			&::after
+				bottom: -2px
+				border-bottom: 10px solid $c-white
+
+	.navbar-menu-animation
+		&.ng-enter
+			animation: mobile-menu-animation-in 0.4s
+			animation-fill-mode: forwards
+
+		&.ng-leave
+			animation: mobile-menu-animation-out 0.4s
+			animation-fill-mode: forwards
+
+	+lgm
+		.navbar-menu-animation
+			&.ng-enter
+				animation: navbar-menu-slide-down 0.4s
+
+			&.ng-leave
+				animation: navbar-menu-slide-up 0.4s
+
+	.mobile-menu-slide-left
+		animation: navbar-menu-slide-left 0.4s forwards
+
+		+lgm
+			animation: none
+
+	.mobile-menu-slide-right
+		animation: navbar-menu-slide-right 0.4s forwards
+
+		+lgm
+			animation: none
+
+	.left-tab-animation
+		&.ng-hide-remove-active
+			animation: navbar-menu-slide-right 0.4s
+
+		&.ng-hide-add-active
+			animation: navbar-menu-slide-left 0.4s forwards
+
+	.right-tab-animation
+		&.ng-hide-remove-active
+			animation: navbar-menu-slide-left 0.4s forwards
+
+		&.ng-hide-add-active
+			animation: navbar-menu-slide-right 0.4s

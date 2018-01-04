@@ -1,0 +1,12 @@
+.calendar-container.input
+  .input-group(data-ng-click='open1()')
+    label.label-text {{label}}
+    input(type='text' uib-datepicker-popup='{{format}}'
+    data-ng-model='ngModel')
+
+  input(type='text' uib-datepicker-popup='{{format}}'
+  data-ng-model='ngModel' is-open='popup1.opened' datepicker-options='dateOptions'
+  datepicker-popup-template-url="/assets/html/calendar/popup.html"
+  datepicker-template-url="/assets/html/calendar/datepicker.html"
+  data-ng-required='true' close-text='Close' alt-input-formats='altInputFormats'
+  popup-placement="" class="calendar-input")

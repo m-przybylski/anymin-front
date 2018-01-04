@@ -1,0 +1,29 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "commonjs",
+    "types": [
+      "angular",
+      "angular-mocks",
+      "jquery",
+      "perfect-scrollbar",
+      "node"
+    ]
+  },
+  "files": [
+    "angular/features/angularjs/angularjs.module.ts",
+    "angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts",
+    "polyfills.ts",
+    "main.ts",
+    "../node_modules/profitelo-api-ng/api.module.ts",
+    "../node_modules/profitelo-api-ng/api/api.ts",
+    "../node_modules/profitelo-api-ng4/variables.ts",
+    "../node_modules/profitelo-api-ng4/api/api.ts"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

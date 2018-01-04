@@ -1,175 +1,51 @@
-const path = require('path');
-const webpack = require('webpack');
-const {CheckerPlugin} = require('awesome-typescript-loader')
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
   config.set({
-    // base path used to resolve all patterns
     basePath: '',
-
-    mime: {'text/x-typescript': ['ts', 'tsx']},
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'source-map-support'],
-
-    // list of files/patterns to load in the browser
-    files: [
-      // Polyfill phantomjs unsupported things, Audio, Object.assign etc.
-      './lib/karma/polyfill.js',
-      'node_modules/babel-polyfill/dist/polyfill.js',
-      {pattern: 'spec.bundle.js', watched: false}
-    ],
-
-    // files to exclude
-    exclude: [],
-
+    frameworks: ['jasmine', '@angular/cli'],
     plugins: [
-      require("karma-jasmine"),
-      require("karma-webpack"),
-      require("karma-sourcemap-loader"),
-      require("karma-source-map-support"),
-      require("karma-mocha-reporter"),
-      require("karma-coverage"),
-      require("karma-phantomjs-launcher")
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular/cli/plugins/karma')
     ],
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'spec.bundle.js': ['webpack', 'sourcemap']
+    client:{
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-
-    webpack: {
-      devtool: 'inline-source-map',
-      resolve: {
-        extensions: [/*"", */".ts", ".webpack.js", ".web.js", ".js", ".json"],
-        modules: [
-          path.resolve('./src'),
-          path.resolve('./node_modules')
-        ]
-      },
-      module: {
-        rules: [
-          //to generate static html files for some external directives
-          {test: /\.tpl\.pug$/, use: [
-            {loader: 'file-loader', options: {name: '[hash].html'}},
-            {loader:'pug-html-loader', options: {exports: 'false'}}]
-          },
-          {test: /\.pug$/, exclude: [/\.tpl\.pug$/], use: [{loader: "pug-loader"}]},
-          {test: /\.ts$/, exclude: [], use: [
-            {loader: 'ng-annotate-loader'},
-            {loader: 'awesome-typescript-loader'}
-          ]},
-          {test: /\.html$/, use: [{loader: 'raw-loader'}]},
-          {
-            test: /\.(scss|sass)$/,
-            use: [
-              {loader: 'style-loader'},
-              {loader: 'css-loader'},
-              {loader: 'sass-loader'}
-            ]
-          },
-          {
-            test: /\.css$/,
-            use: [
-              {loader: 'style-loader'},
-              {loader: 'css-loader'}
-            ]
-          },
-          // TODO Add linter to tests: https://git.contactis.pl/itelo/profitelo/issues/930
-          // {
-          //   test: /\.ts$/, exclude: /node_modules|generated_modules/,
-          //   enforce: 'post',
-          //   loader: 'tslint-loader',
-          //   options: {
-          //     rulesDirectory: 'tslint.json'
-          //   }
-          // },
-          /**
-           * Instruments source files for subsequent code coverage.
-           * See https://github.com/deepsweet/istanbul-instrumenter-loader
-           */
-          {
-            test: /\.ts$/,
-            enforce: 'post',
-            use: [{loader: 'istanbul-instrumenter-loader', options: {embedSource: true, noAutoWrap: true}}],
-            exclude: [
-              /\.spec.ts$/,
-              /generated_modules/,
-              /src\/common\/api/,
-              /node_modules/
-            ]
-          }
-        ]
-      },
-      plugins: [
-        // to provide full jquery for angular
-        new webpack.ProvidePlugin({
-          $: "jquery",
-          jQuery: "jquery",
-          "window.jQuery": "jquery"
-        }),
-
-        new CheckerPlugin(),
-
-        new webpack.ProvidePlugin({
-          "window.i18n": "phonenumber"
-        })
-      ]
+    coverageIstanbulReporter: {
+      reports: [ 'html', 'lcovonly' ],
+      fixWebpackSourcePaths: true,
+      thresholds: {
+        statements: 79,
+        branches: 50.73,
+        functions: 64.82,
+        lines: 80
+      }
     },
-
-    webpackServer: {
-      noInfo: true // prevent console spamming when running in Karma!
+    angularCli: {
+      environment: 'dev'
     },
-
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha', /*'progress',*/ 'coverage'],
-
-    coverageReporter: {
-      includeAllSources: true,
-      check: {
-        global: {
-          statements: 79,
-          branches: 50.73,
-          functions: 64.82,
-          lines: 80
-        }
-      },
-      reporters: [
-        {
-          type: 'cobertura',
-          dir: './coverage/cobertura'
-        },
-        {
-          type: 'html',
-          dir: './coverage/html'
-        },
-        {
-          type: 'text-summary'
-        }
-      ],
-      dir : 'coverage/'
-    },
-
-    // web server port
+    reporters: ['progress', 'kjhtml'],
     port: 9876,
-
-    // enable colors in the output
     colors: true,
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_WARN,
-
-    // toggle whether to watch files and rerun tests upon incurring changes
-    autoWatch: false,
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
-
-    // if true, Karma runs tests once and exits
-    singleRun: true
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['ChromeHeadlessNoSandbox'],
+    browserNoActivityTimeout: 60000,
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox', // required to run without privileges in docker
+          '--user-data-dir=/tmp/chrome-test-profile',
+          '--disable-web-security',
+          '--lang=pl'
+        ]
+      }
+    },
+    singleRun: false
   });
 };
