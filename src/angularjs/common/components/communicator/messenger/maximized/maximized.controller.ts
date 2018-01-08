@@ -88,8 +88,6 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       this.callLength = data.time
       this.callCost = data.money
     })
-
-    this.getMessages(currentCall)
     this.indicateTypingDebounce = _.throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
       leading: true,
       trailing: false
