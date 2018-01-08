@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-translate'
 import {ExpertInvoiceComponent} from './invoice.component';
-import './invoice.sass'
 
 export interface IExpertInvoiceComponentBindings {}
 

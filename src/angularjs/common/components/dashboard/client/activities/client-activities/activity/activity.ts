@@ -4,7 +4,6 @@ import {ClientActivityComponent} from './activity.component';
 import modalsModule from '../../../../../../services/modals/modals'
 import urlModule from '../../../../../../services/url/url'
 import 'angularjs/common/components/complaints/status/status'
-import './activity.sass'
 
 export interface IClientActivityComponentBindings {
   activity: GetActivity

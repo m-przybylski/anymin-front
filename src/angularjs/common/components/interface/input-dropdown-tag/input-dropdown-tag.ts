@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InputDropdownTagComponent} from './input-dropdown-tag.component'
-import './input-dropdown-tag.sass'
 import {IDropdownInputDictionary} from './input-dropdown-tag.controller'
 import ngEnter from '../../../directives/ng-enter/ng-enter'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'

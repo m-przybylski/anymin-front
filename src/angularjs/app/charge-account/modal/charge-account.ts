@@ -5,7 +5,6 @@ import topAlertModule from '../../../common/services/top-alert/top-alert'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
 import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling'
 import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal'
-import './charge-account.sass'
 const chargeAccountModalModule = angular.module('profitelo.app.charge-account.modal', [
   'ui.bootstrap',
   'profitelo.components.interface.preloader',

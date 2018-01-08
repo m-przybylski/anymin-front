@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {RadioBtnTextareaComponent} from './radio-btn-textarea.component'
-import './radio-btn-textarea.sass'
 import autoFocus from '../../../directives/auto-focus/auto-focus'
 import {RadioBtnTextareaAnimation} from './radio-btn-textarea.animation'
 

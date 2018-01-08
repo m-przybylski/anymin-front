@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InputPasswordComponent} from './input-password.component'
-import './input-password.sass'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 export interface IInputPasswordComponentBindings extends ng.IController {

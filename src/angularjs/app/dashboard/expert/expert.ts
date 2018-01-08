@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './expert.sass'
 import {ExpertController} from './expert.controller'
 import dashboardExpertActivitiesModule from './activities/activities'
 import dashboardExpertEmployeesModule from './employees/employees'

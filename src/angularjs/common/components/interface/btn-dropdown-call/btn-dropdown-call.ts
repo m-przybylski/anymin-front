@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {BtnDropdownCallComponent} from './btn-dropdown-call.component'
-import './btn-dropdown-call.sass'
 import {BtnDropdownCallAnimation} from './btn-dropdown-call.animation'
 
 export interface IBtnDropdownCallComponentBindings extends ng.IController {

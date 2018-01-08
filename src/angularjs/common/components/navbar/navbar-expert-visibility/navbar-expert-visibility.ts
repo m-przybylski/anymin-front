@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {NavbarExpertVisibilityComponent} from './navbar-expert-visibility.component'
-import './navbar-expert-visibility.sass'
 import {NavbarExpertVisibilityService} from './navbar-expert-visibility.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import profiteloWebsocketModule from '../../../services/profitelo-websocket/profitelo-websocket'

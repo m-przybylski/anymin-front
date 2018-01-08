@@ -4,7 +4,6 @@ import urlModule from '../../../../services/url/url'
 import uploaderModule from '../../../../services/uploader/uploader'
 import filtersModule from '../../../../filters/filters'
 import './grouped-messages/grouped-messages'
-import './maximized.sass'
 import messengerInputModule from './messenger-input/messenger-input'
 import userAvatarModule from '../../../interface/user-avatar/user-avatar'
 

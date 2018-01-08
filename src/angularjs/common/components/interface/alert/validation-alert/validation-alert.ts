@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {ValidationAlertComponent} from './validation-alert.component'
-import './validation-alert.sass'
 import {ValidationAlertAnimation} from './validation-alert.animation'
 
 export interface IValidationAlertBindings extends ng.IController {

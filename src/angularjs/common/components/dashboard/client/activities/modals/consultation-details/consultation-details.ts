@@ -7,7 +7,6 @@ import './complain/complain'
 import './recommended-tags/recommended-tags'
 import {ClientConsultationDetailsController} from './consultation-details.controller'
 import userAvatarModule from '../../../../../interface/user-avatar/user-avatar'
-import './consultation-details.sass'
 import chatHistoryModule from '../../../../../chat-history/chat-history'
 
 const clientConsultationDetailsModalModule = angular.module(

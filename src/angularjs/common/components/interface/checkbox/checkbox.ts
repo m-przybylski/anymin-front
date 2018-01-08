@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {CheckboxComponent} from './checkbox.component'
-import './checkbox.sass'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 export interface ICheckboxComponentBindings extends ng.IController {

@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import communicatorModule from '../../communicator/communicator'
 import filtersModule from '../../../filters/filters'
 import urlModule from '../../../services/url/url'
-import './single-consultation.sass'
 import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 import {GetSearchRequestResult} from 'profitelo-api-ng/model/models';

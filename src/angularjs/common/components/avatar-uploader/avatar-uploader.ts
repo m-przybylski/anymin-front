@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {AvatarUploaderComponent} from './avatar-uploader.component'
-import './avatar-uploader.sass'
 import ValidationAlertModule from '../interface/alert/validation-alert/validation-alert'
 import commonSettingsModule from '../../services/common-settings/common-settings'
 

@@ -15,7 +15,6 @@ import 'angularjs/common/components/expert-profile/social-links/social-links'
 import navbarModule from '../../common/components/navbar/navbar'
 import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
-import './company-profile.sass'
 import profileCompanyConsultationModule
   from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
 

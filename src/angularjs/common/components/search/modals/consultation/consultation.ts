@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
 import {ConsultationModalController} from './consultation.controller'
-import './consultation.sass'
 import tagsListModule from '../../../tags-list/tags-list'
 
 const consultationModalModule = angular.module(

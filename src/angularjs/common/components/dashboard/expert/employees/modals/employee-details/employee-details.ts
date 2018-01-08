@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {ExpertEmployeeDetailsModalController} from './employee-details.controller'
-import './employee-details.sass'
 import consultationListItemModule from '../../../../../invitations/consultation-list-item/consultation-list-item'
 import userAvatarModule from '../../../../../interface/user-avatar/user-avatar'
 

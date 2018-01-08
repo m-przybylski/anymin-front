@@ -5,7 +5,6 @@ import {SummaryController} from './summary.controller'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import userAvatarModule from '../../../common/components/interface/user-avatar/user-avatar'
-import './summary.sass'
 import profileHeaderEditModule from '../../../common/components/wizard/summary/profile-header-edit/profile-header-edit'
 import singleConsultationEditModule
   from '../../../common/components/wizard/summary/single-consultation-edit/single-consultation-edit'

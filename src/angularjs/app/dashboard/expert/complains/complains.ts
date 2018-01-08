@@ -4,7 +4,6 @@ import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information';
 import dashboardExpertComplainsListModule
   from '../../../../common/components/dashboard/expert/complains/complains-list/complains-list'
-import './complains.sass'
 
 const dashboardExpertComplainsModule = angular.module('profitelo.controller.dashboard.expert.complains', [
   'ui.router',

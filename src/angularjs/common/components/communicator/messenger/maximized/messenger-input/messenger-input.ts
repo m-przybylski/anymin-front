@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './messenger-input.sass'
 import {MessengerInputComponent} from './messenger-input.component'
 
 export interface IMessengerInputBindings {

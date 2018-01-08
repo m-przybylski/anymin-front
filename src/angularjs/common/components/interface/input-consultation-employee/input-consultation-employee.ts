@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InputConsultationEmployeeComponent} from './input-consultation-employee.component'
-import './input-consultation-employee.sass'
 import inputModule from '../../interface/input/input'
 import checkboxModule from '../../interface/checkbox/checkbox'
 import commonSettingsModule from '../../../services/common-settings/common-settings'

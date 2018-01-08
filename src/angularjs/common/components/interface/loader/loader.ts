@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {LoaderComponent} from './loader.component'
-import './loader.sass'
 
 export interface ILoaderComponentBindings  extends ng.IController {
   fileUploadInfo: any

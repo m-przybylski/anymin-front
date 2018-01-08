@@ -5,7 +5,6 @@ import {ConsultationSummaryExpertController} from './consultation-summary-expert
 import topAlertModule from '../../../../services/top-alert/top-alert'
 import translatorModule from '../../../../services/translator/translator'
 import errorHandlerModule from '../../../../services/error-handler/error-handler'
-import './consultation-summary-expert.sass'
 import radioBtnTextarea from '../../../interface/radio-btn-textarea/radio-btn-textarea'
 import {ConsultationSummaryExpertService} from './consultation-summary-expert.service'
 

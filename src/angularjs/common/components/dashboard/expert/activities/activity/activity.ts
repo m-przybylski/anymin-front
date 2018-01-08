@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {ExpertActivityComponent} from './activity.component';
-import './activity.sass'
 import userAvatarModule from '../../../../interface/user-avatar/user-avatar'
 import modalsModule from '../../../../../services/modals/modals'
 import userModule from '../../../../../services/user/user'

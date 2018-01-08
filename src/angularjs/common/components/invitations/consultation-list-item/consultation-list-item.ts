@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-translate'
 import {ConsultationListItemComponent} from './consultation-list-item.component'
-import './consultation-list-item.sass'
 import { GetServiceWithInvitation } from 'profitelo-api-ng/model/models'
 import tagsListModule from '../../tags-list/tags-list'
 import filtersModule from '../../../filters/filters'
