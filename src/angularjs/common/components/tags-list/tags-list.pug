@@ -5,4 +5,4 @@
 
   ul.tag-list.slide-page
     li(ng-repeat="tag in $ctrl.tags | limitTo: 7")
-      a.slide-btn-tag(data-ui-sref="app.search-result({q: tag.name})") {{ tag.name }}
+      span.slide-btn-tag {{ tag.name }}

@@ -21,15 +21,29 @@
   li
     margin: 0 8px 8px 0
     border-radius: 0
-    transition: transform 0.3s
     animation: fadeInY 0.3s
 
     &.ng-leave-active
       animation: none
 
-    a
+    > span
       +default-font-regular
       transition: color 0.3s, border 0.3s
+      background: $c-white
+      border: 1px solid $c-lines
+      color: $c-secondary-txt
+      height: 24px
+      display: inline-flex
+      align-items: center
+      padding: 0 16px
+      white-space: pre
+      font-size: $f-paragraph-small
+      border-radius: 5px
+
+
+    a
+      +default-font-regular
+      transition: color 0.3s, border 0.3s, transform 0.3s
       background: $c-white
       border: 1px solid $c-lines
       color: $c-secondary-txt
@@ -46,12 +60,12 @@
       a
         color: $c-primary
         border-color: $c-primary
+        transform: translateY(-4px)
 
         span
           color: $c-primary
 
-    &:hover
-      transform: translateY(-4px)
+
 
   &.dropdown-tag-list
     li
