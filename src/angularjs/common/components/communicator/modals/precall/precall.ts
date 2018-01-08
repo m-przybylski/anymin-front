@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './precall.sass'
 import {PrecallModalController} from './precall.controller'
 import apiModule from 'profitelo-api-ng/api.module'
 import inputModule from '../../../interface/input/input'

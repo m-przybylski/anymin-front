@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {EditExpertProfileController} from './edit-expert-profile.controller'
-import './edit-expert-profile.sass'
 import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
 import inputDropdownTagModule from '../../../../../interface/input-dropdown-tag/input-dropdown-tag'
 import inputLinksModule from '../../../../../interface/input-links/input-links'

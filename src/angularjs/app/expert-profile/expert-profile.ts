@@ -5,7 +5,6 @@ import {ExpertProfileResolver} from './expert-profile.resolver'
 import {ExpertProfileController} from './expert-profile.controller'
 import 'angularjs/common/directives/pro-footer/pro-footer'
 import navbarModule from '../../common/components/navbar/navbar'
-import './expert-profile.sass'
 
 import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'

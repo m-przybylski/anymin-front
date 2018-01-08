@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {PagePreloaderComponent} from './page-preloader.component'
-import './page-preloader.sass'
 import promiseModule from '../../../services/promise/promise'
 
 const pagePreloaderModule = angular.module('profitelo.components.interface.page-preloader', [

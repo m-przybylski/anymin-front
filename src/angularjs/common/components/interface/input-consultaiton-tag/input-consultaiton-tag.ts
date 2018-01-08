@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InputConsultationTagComponent} from './input-consultaiton-tag.component'
-import './input-consultaiton-tag.sass'
 import inputModule from '../../interface/input/input'
 import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
 import apiModule from 'profitelo-api-ng/api.module'

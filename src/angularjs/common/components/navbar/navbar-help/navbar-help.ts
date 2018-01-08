@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {NavbarHelpComponent} from './navbar-help.component'
-import './navbar-help.sass'
 import helpdeskModule from '../../../services/helpdesk/helpdesk'
 
 export interface INavbarHelpComponentBindings extends ng.IController {

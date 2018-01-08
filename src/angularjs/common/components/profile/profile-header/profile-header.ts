@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {ProfileHeaderComponent} from './profile-header.component'
-import './profile-header.sass'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
 import profileGalleryModule from '../../interface/profile-gallery/profile-gallery'
 import filtersModule from '../../../filters/filters'

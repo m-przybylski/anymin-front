@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {ServiceFormModalController} from './service-form-modal.controller'
-import './service-form-modal.sass'
 import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
 import inputModule from '../../../../../interface/input/input'
 import textareaModule from '../../../../../interface/textarea/textarea'

@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {TagsListComponent} from './tags-list.component'
-import './tags-list.sass'
 import 'angular-translate'
 import { Tag } from 'profitelo-api-ng/model/models'
 

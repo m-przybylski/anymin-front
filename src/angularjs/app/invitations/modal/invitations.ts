@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InvitationsModalController} from './invitations.controller'
-import './invitations.sass'
 import userAvatarModule from '../../../common/components/interface/user-avatar/user-avatar'
 import consultationListItemModule
   from '../../../common/components/invitations/consultation-list-item/consultation-list-item'

@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {ExpertEmployeeComponent} from './employee.component'
 import 'angular-translate'
-import './employee.sass'
 import userAvatarModule from '../../../../interface/user-avatar/user-avatar';
 import {GetProfileDetailsWithEmployments} from 'profitelo-api-ng/model/models';
 import apiModule from 'profitelo-api-ng/api.module'

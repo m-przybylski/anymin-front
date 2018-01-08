@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {NavbarNotificationsComponent} from './navbar-notifications.component'
-import './navbar-notifications.sass'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
 import noResultsInformationModule from '../../dashboard/no-results-information/no-results-information'
 import modalsModule from '../../../services/modals/modals'

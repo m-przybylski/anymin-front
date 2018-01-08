@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-translate'
 import {DashboardSettingsNotificationsController} from './notifications.controller'
-import './notifications.sass'
 import '../../../../common/components/interface/radio/radio'
 
 const dashboardSettingsNotificationsModule = angular.module('profitelo.controller.dashboard.settings.notifications', [

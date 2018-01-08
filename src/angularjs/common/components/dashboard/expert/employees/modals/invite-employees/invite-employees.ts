@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
 import {ExpertInviteEmployeesController} from './invite-employees.controller'
-import './invite-employees.sass'
 import consultationListItemModule from '../../../../../invitations/consultation-list-item/consultation-list-item'
 import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert'
 import inputConsultationEmployeeModule

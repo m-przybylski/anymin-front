@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InputComponent} from './textarea.component'
-import './textarea.sass'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 export interface ITextareaComponentBindings extends ng.IController {

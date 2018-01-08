@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {WizardStepModuleComponent} from './wizard-step.component'
-import './wizard-step.sass'
 import tooltipModule from '../../interface/tooltip/tooltip'
 
 export interface IWizardStepModuleComponentBindings extends ng.IController {

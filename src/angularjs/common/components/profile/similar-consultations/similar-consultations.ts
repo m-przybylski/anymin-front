@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './similar-consultations.sass'
 import {SimilarConsultationComponent} from './similar-consultations.component'
 import tilesModule from '../../interface/tiles/tiles'
 

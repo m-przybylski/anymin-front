@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-translate'
 import {NoResultsInformationComponent} from './no-results-information.component'
-import './no-results-information.sass'
 
 export interface INoResultsInformationComponentBindings extends ng.IController {
   iconSrc: string

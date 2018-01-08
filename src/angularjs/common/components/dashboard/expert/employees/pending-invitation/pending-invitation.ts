@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {PendingInvitationComponent} from './pending-invitation.component'
 import 'angular-translate'
-import './pending-invitation.sass'
 import userAvatarModule from '../../../../interface/user-avatar/user-avatar';
 import apiModule from 'profitelo-api-ng/api.module'
 import errorHandlerModule from '../../../../../services/error-handler/error-handler'

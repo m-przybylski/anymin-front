@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './tiles.sass'
 import {TilesComponent} from './tiles.component'
 import 'angular-translate'
 

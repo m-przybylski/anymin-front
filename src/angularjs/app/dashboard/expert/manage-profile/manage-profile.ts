@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {DashboardExpertManageProfileController} from './manage-profile.controller'
-import './manage-profile.sass'
 import modalsModule from '../../../../common/services/modals/modals'
 import singleServiceModule
   from '../../../../common/components/dashboard/expert/manage-profile/single-service/single-service'

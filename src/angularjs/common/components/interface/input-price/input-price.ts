@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {InputPriceComponent} from './input-price.component'
-import './input-price.sass'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
 

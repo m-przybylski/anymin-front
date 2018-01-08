@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {NavigationComponent} from './navigation.component';
-import './navigation.sass'
 
 const navigationModule = angular.module('profitelo.components.communicator.navigation', [
   'pascalprecht.translate'

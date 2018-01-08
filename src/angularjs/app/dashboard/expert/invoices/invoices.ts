@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {DashboardExpertInvoicesController} from './invoices.controller'
-import './invoices.sass'
 import expertInvoiceModule from '../../../../common/components/dashboard/expert/invoices/invoice/invoice';
 
 const  dashboardExpertInvoicesModule = angular.module('profitelo.controller.dashboard.expert.filters', [

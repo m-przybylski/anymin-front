@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {ExpertIncomingCallController} from './expert-incoming-call.controller'
-import './expert-incoming-call.sass'
 import btnDropdownCallModule from '../../../interface/btn-dropdown-call/btn-dropdown-call'
 
 const expertIncomingCallModule = angular.module(

@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {DashboardSettingsPayoutsController} from './payouts.controller'
-import './payouts.sass'
 import {PayoutsService} from './payouts.service'
 import modalsModule from '../../../../common/services/modals/modals'
 import translatorModule from '../../../../common/services/translator/translator'

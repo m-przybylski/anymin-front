@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import {FileUploaderComponent} from './file-uploader.component'
-import './file-uploader.sass'
 import uploaderModule from '../../services/uploader/uploader'
 import loaderModule from '../interface/loader/loader'
 import translatorModule from '../../services/translator/translator'

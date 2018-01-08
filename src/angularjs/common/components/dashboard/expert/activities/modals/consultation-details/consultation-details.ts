@@ -6,7 +6,6 @@ import '../../../../../../components/interface/collapse-btn/collapse-btn'
 import {ExpertConsultationDetailsController} from './consultation-details.controller'
 import tagsListModule from '../../../../../tags-list/tags-list'
 import '../../../../../../components/interface/radio-text/radio-text'
-import './consultation-details.sass'
 import textareaModule from '../../../../../interface/textarea/textarea'
 import chatHistoryModule from '../../../../../chat-history/chat-history'
 

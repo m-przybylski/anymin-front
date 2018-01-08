@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-translate'
 import apiModule from 'profitelo-api-ng/api.module'
-import './filters.sass'
 import '../../../interface/dropdown/dropdown'
 import '../../../../directives/interface/pro-calendar/pro-calendar'
 import {GetActivityFilters, FinancialOperation} from 'profitelo-api-ng/model/models'
