@@ -2,27 +2,26 @@
 @import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
 
 .modal-open
-	display: block
-
-	&.full-screen
-		.modal
-			.modal-content
-				background: $c-white
-
-				.modal-summary
-					box-shadow: none
-
-.modal-dark
-	.modal
-		.modal-dialog
-			.modal-content
-				background: $c-primary-txt
+  display: block
+  
+  &.full-screen
+    .modal-dialog
+      .modal-content
+        background: $c-white
+    
+    .modal-summary
+      box-shadow: none
+    
+    &.modal-dark
+      .modal-dialog
+        .modal-content
+          background: $c-primary-txt
 
 .modal
 	.modal-dialog
 		transform: none !important
 		display: block
-		width: 100%
+    width: 100%
 		justify-content: center
 		margin: 0
 		min-height: 100vh
