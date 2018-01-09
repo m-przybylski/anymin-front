@@ -135,7 +135,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: ExpertIncomingCallController,
-      openedClass: 'modal-open full-screen modal-dark',
+      windowClass: 'modal-open full-screen modal-dark',
       template: require(
         'angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.pug'),
       scope: dialogScope
@@ -275,8 +275,7 @@ export class ModalsService {
     dialogScope.callback = onModalClose
 
     return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: 'generalPhoneSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.pug'),
@@ -291,7 +290,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: 'generalEmailSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.pug'),
@@ -319,7 +318,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: 'securityChangePasswordSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.pug'),
@@ -361,7 +360,7 @@ export class ModalsService {
     dialogScope.callback = onModalClose
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: 'editCompanyInvoiceController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.pug'
@@ -379,7 +378,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'payoutsModalController',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       template: require('angularjs/common/components/dashboard/settings/modals/payouts/payouts/payouts.pug'),
       scope: dialogScope
     })
@@ -470,7 +469,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: 'expertInviteEmployees',
       template: require('angularjs/common/components/dashboard/expert/employees/modals/' +
         'invite-employees/invite-employees.pug'),
@@ -504,7 +503,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: ChargeAccountController,
       template: require('angularjs/app/charge-account/modal/charge-account.pug'),
       scope: dialogScope
@@ -575,7 +574,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: RtcDetectorNoBrowserSupportModalController,
       template: require('angularjs/common/components/communicator/modals/rtc-detector/' +
         'rtc-detector-no-browser-support/rtc-detector-no-browser-support.pug'),
@@ -607,7 +606,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: ServiceFormModalController,
       template: require(
         'angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.pug'
