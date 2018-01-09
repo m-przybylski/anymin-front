@@ -5,6 +5,8 @@ import urlModule from '../../../services/url/url'
 import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 import {GetSearchRequestResult} from 'profitelo-api-ng/model/models';
+import {StateService} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export interface ISingleConsultationScope extends ng.IScope {
   isLinkActive: boolean
@@ -12,11 +14,11 @@ export interface ISingleConsultationScope extends ng.IScope {
 }
 
 /* @ngInject */
-function singleConsultationController($state: ng.ui.IStateService, clientCallService: ClientCallService,
+function singleConsultationController($state: StateService, clientCallService: ClientCallService,
                                       userService: UserService): void {
 
   this.isLinkActive = false
-  const percentage: number  = 100
+  const percentage: number = 100
   const usageCounter: number = 500
 
   // TODO Replace mocks by correct values: https://git.contactis.pl/itelo/profitelo/issues/996
@@ -30,7 +32,7 @@ function singleConsultationController($state: ng.ui.IStateService, clientCallSer
         this.consultation.ownerProfile.expertDetails.name
     this.price = this.consultation.service.price
     this.imageToken =
-      this.consultation.ownerProfile.organizationDetails  ? this.consultation.ownerProfile.organizationDetails.logo
+      this.consultation.ownerProfile.organizationDetails ? this.consultation.ownerProfile.organizationDetails.logo
         : this.consultation.ownerProfile.expertDetails.avatar
   }
 
@@ -39,8 +41,10 @@ function singleConsultationController($state: ng.ui.IStateService, clientCallSer
       const stateName = this.consultation.ownerProfile.organizationDetails
         ? 'app.company-profile' : 'app.expert-profile'
 
-      $state.go(stateName, {profileId: this.consultation.ownerProfile.id,
-        primaryConsultationId: this.consultation.service.id})
+      $state.go(stateName, {
+        profileId: this.consultation.ownerProfile.id,
+        primaryConsultationId: this.consultation.service.id
+      })
     }
   }
 
@@ -55,8 +59,8 @@ function singleConsultationController($state: ng.ui.IStateService, clientCallSer
   this.startCall = (): void => {
     if (this.isLinkActive) {
       userService.getUser()
-      .then(() => clientCallService.callServiceId(this.consultation.service.id),
-        () => $state.go('app.login.account'))
+        .then(() => clientCallService.callServiceId(this.consultation.service.id),
+          () => $state.go('app.login.account'))
     }
   }
 
@@ -72,10 +76,10 @@ const singleConsultation = {
 }
 
 angular.module('profitelo.components.search.single-consultation', [
-  'ui.router',
   'pascalprecht.translate',
+  uiRouter,
   communicatorModule,
   filtersModule,
   urlModule
 ])
-.component('singleConsultation', singleConsultation)
+  .component('singleConsultation', singleConsultation)

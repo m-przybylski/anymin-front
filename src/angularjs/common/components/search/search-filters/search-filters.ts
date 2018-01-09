@@ -8,6 +8,7 @@ import 'angularjs/common/directives/interface/pro-switcher/pro-switcher'
 import {default as commonConfigModule} from '../../../../../../generated_modules/common-config/common-config'
 import {SearchFiltersComponent} from './search-filter.component'
 import translatorModule from '../../../services/translator/translator'
+import uiRouter from '@uirouter/angularjs'
 
 export interface ISearchFiltersComponentBindings {
   tags: string[]
@@ -15,7 +16,7 @@ export interface ISearchFiltersComponentBindings {
 
 angular.module('profitelo.components.search.searchFilters', [
   'rzModule',
-  'ui.router',
+  uiRouter,
   'pascalprecht.translate',
   'profitelo.directives.interface.pro-range-slider',
   'profitelo.directives.pro-tags-slider',
@@ -25,4 +26,4 @@ angular.module('profitelo.components.search.searchFilters', [
   commonConfigModule,
   filtersModule
 ])
-.component('searchFilters', new SearchFiltersComponent())
+  .component('searchFilters', new SearchFiltersComponent())

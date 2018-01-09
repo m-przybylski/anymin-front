@@ -1,16 +1,14 @@
 import * as angular from 'angular'
-import IScope = angular.IScope
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import createProfilePageModule from './create-profile'
 import {CreateProfileController} from './create-profile.controller'
-
+import {StateService, } from '@uirouter/angularjs'
 
 describe('Testing Controller: CreateProfileController', () => {
 
   let CreateProfileController: CreateProfileController
-  let scope: IScope
   let httpBackend: ng.IHttpBackendService
-  let $state: ng.ui.IStateService
+  let $state: StateService
 
   beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', 'awesomeURL/')
@@ -35,7 +33,7 @@ describe('Testing Controller: CreateProfileController', () => {
         isExpert: false
       })
       CreateProfileController = $controller<CreateProfileController>('createProfileController', {
-        $scope: scope,
+        $scope: {},
         WizardApi: WizardApi,
         previousState: '',
         $state: $state

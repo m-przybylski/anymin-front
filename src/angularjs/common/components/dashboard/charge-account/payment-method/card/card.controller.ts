@@ -1,5 +1,6 @@
 import {MoneyDto, PaymentLink} from 'profitelo-api-ng/model/models'
 import {ICardPaymentFormComponentBindings} from './card.component';
+import {StateService} from '@uirouter/angularjs'
 
 export interface ITransaction {
   amount: MoneyDto
@@ -26,7 +27,7 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
     }
   }
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService) {
+  constructor(private $state: StateService) {
     this.isInvoice = false
     this.onBraintreeFormLoad = false
   }

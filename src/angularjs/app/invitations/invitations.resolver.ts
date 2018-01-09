@@ -6,12 +6,13 @@ import {LocalStorageWrapper} from '../../common/classes/local-storage-wrapper/lo
 import {UserService} from '../../common/services/user/user.service'
 import {GetInvitation, GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
+import {StateService} from '@uirouter/angularjs'
 
 export class InvitationsResolver {
 
   /* @ngInject */
   constructor(private InvitationApi: InvitationApi,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private modalsService: ModalsService,
               private $log: ng.ILogService,
               private userService: UserService,

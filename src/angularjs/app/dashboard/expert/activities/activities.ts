@@ -11,10 +11,10 @@ import promiseModule from '../../../../common/services/promise/promise'
 import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
+import {StateProvider} from '@uirouter/angularjs'
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
-  'ui.router',
-  'profitelo.components.interface.preloader-container',
+    'profitelo.components.interface.preloader-container',
   expertNoActivitiesModule,
   dashboardFiltersModule,
   expertActivitiesModule,
@@ -23,7 +23,7 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
   errorHandlerModule,
   noResultsInformationModule
 ])
-.config(function ($stateProvider: ng.ui.IStateProvider): void {
+.config(function ($stateProvider: StateProvider): void {
   $stateProvider.state('app.dashboard.expert.activities', {
     url: '/activities',
     template: require('./activities.pug'),

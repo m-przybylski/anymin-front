@@ -6,6 +6,7 @@ import smoothScrollingModule from '../../../common/services/smooth-scrolling/smo
 import {IChargeAccountScope, ChargeAccountController} from './charge-account.controller'
 import {keyboardCodes} from '../../../common/classes/keyboard'
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
+import {StateService, TransitionPromise} from '@uirouter/angularjs';
 
 describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void => {
   describe('Testing Controller: chargeAccountController', (): void => {
@@ -18,7 +19,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
     let smoothScrollingService: SmoothScrollingService
     let httpBackend: ng.IHttpBackendService
     let controller: ng.IControllerService
-    let $state: ng.ui.IStateService
+    let $state: StateService
 
     const uibModalInstance = {
       dismiss: (): void => {
@@ -50,7 +51,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
       angular.mock.module(smoothScrollingModule)
 
       inject(($rootScope: IRootScopeService, $httpBackend: ng.IHttpBackendService, $controller: ng.IControllerService,
-              $timeout: ng.ITimeoutService, $window: ng.IWindowService, $q: ng.IQService,
+              $timeout: ng.ITimeoutService, $window: ng.IWindowService,
               _smoothScrollingService_: SmoothScrollingService): void => {
 
         scope = $rootScope.$new()
@@ -59,8 +60,8 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
         timeout = $timeout
         controller = $controller
         smoothScrollingService = _smoothScrollingService_
-        $state = <ng.ui.IStateService>{
-          go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+        $state = <StateService>{
+          go: (_to: string): TransitionPromise => <any>Promise.resolve({})
         }
 
         createController(controller)

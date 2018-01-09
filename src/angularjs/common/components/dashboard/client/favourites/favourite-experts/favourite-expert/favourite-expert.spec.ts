@@ -1,6 +1,7 @@
-namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favouriteExpert {
+import {StateService} from '@uirouter/angularjs'
+import * as angular from 'angular'
 
-  describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', () => {
+describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', () => {
   return describe('for clientFavouriteExpert >', () => {
 
     let scope: any
@@ -9,7 +10,7 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favo
     let componentController: any
     let component: any
     const validHTML = '<client-favourite-expert favourite-expert="favouriteExpert"></client-favourite-expert>'
-    let state: ng.ui.IStateService
+    let state: StateService
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -42,10 +43,10 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favo
 
     beforeEach(() => {
 
-    angular.mock.module('profitelo.services.url')
-    angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert')
+      angular.mock.module('profitelo.services.url')
+      angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert')
 
-      inject(($rootScope: any, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService) => {
+      inject(($rootScope: any, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService, _$state_: StateService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -68,4 +69,3 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favo
     })
   })
 })
-}

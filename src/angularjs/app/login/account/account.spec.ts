@@ -11,6 +11,7 @@ import userModule from '../../../common/services/user/user'
 import {UserService} from '../../../common/services/user/user.service'
 import {Config} from '../../config';
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {
@@ -25,7 +26,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       _RegistrationApiMock: RegistrationApiMock,
       _ServiceApiMock: ServiceApiMock,
       _SessionApiMock: SessionApiMock,
-      $state: ng.ui.IStateService,
+      $state: StateService,
       topAlertService: TopAlertService
 
     const userService = {

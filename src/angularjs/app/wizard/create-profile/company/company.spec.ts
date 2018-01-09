@@ -3,13 +3,13 @@ import companyWizardModule from './company'
 import {GetWizardProfile, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import {CompanyController} from './company.controller'
-
+import {StateService, TransitionPromise} from '@uirouter/angularjs';
 
 describe('Testing Controller: CompanyController', () => {
 
   let CompanyController: CompanyController
   let httpBackend: ng.IHttpBackendService
-  let $state: ng.ui.IStateService
+  let $state: StateService
   let WizardApiMock: WizardApiMock
 
   const wizardProfile: GetWizardProfile = {
@@ -26,10 +26,10 @@ describe('Testing Controller: CompanyController', () => {
     angular.mock.module(companyWizardModule)
 
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, WizardApi: WizardApi,
-            _WizardApiMock_: WizardApiMock, $q: ng.IQService) => {
+            _WizardApiMock_: WizardApiMock) => {
 
-      $state = <ng.ui.IStateService>{
-        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+      $state = <StateService>{
+        go: (_to: string): TransitionPromise => <any>Promise.resolve({})
       }
       httpBackend = $httpBackend
       WizardApiMock = _WizardApiMock_

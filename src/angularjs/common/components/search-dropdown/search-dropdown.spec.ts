@@ -1,6 +1,5 @@
 import * as angular from 'angular'
-
-
+import {StateService} from '@uirouter/angularjs'
 import {SearchApiMock} from 'profitelo-api-ng/api/api'
 import searchDropdownModule from './search-dropdown'
 import {SearchDropdownController} from './search-dropdown.controller'
@@ -12,7 +11,7 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let scope: ng.IScope
-    let state: ng.ui.IStateService
+    let state: StateService
     let componentController: ng.IComponentControllerService
     let component: SearchDropdownController
     const validHTML = '<search-dropdown></search-dropdown>'
@@ -29,7 +28,8 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', '')
-      $provide.value('translateFilter', (x: string) => x)}))
+      $provide.value('translateFilter', (x: string) => x)
+    }))
 
     beforeEach(() => {
 
@@ -100,7 +100,6 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
       el.triggerHandler(e)
       expect(controller.isSuggestionsDropdown).toHaveBeenCalled()
     })
-
 
   })
 })

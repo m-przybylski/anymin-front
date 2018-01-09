@@ -6,7 +6,7 @@ import * as angular from 'angular'
 import 'angular-translate'
 import 'angular-dynamic-locale'
 import 'angular-animate'
-import 'angular-ui-router'
+import uiRouter from '@uirouter/angularjs';
 import 'angular-ui-bootstrap'
 import 'angular-ui-mask'
 import 'angular-permission'
@@ -55,7 +55,7 @@ export const angularjsModule = angular.module('profitelo', [
   'tmh.dynamicLocale',
   'ngAnimate',
 
-  'ui.router',
+  uiRouter,
   'permission',
   'permission.ui',
 

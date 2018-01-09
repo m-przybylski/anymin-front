@@ -3,6 +3,7 @@ import {NavbarNotificationsComponentController} from './navbar-notifications.con
 import navbarNotificationsModule from './navbar-notifications'
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
+import {StateService, TransitionPromise} from '@uirouter/angularjs'
 
 describe('Unit testing: navbarNotifications', () => {
   return describe('for navbarNotifications component >', () => {
@@ -22,8 +23,8 @@ describe('Unit testing: navbarNotifications', () => {
       }
     }
 
-    const state = <ng.ui.IStateService>{
-      go: (_to: string): ng.IPromise<{}> => q.resolve({})
+    const state = <StateService>{
+      go: (_to: string): TransitionPromise => <any>Promise.resolve({})
     }
 
     function create(html: string,  bindings: INavbarNotificationsComponentBindings): JQuery {

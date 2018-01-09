@@ -3,6 +3,8 @@ import 'angular-permission'
 import './set-email/set-email'
 import './set-password/set-password'
 import {Config} from '../config';
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 function controller(): void {
   this.isPlatformForExpert = Config.isPlatformForExpert
@@ -10,7 +12,7 @@ function controller(): void {
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.post-register', {
     url: '/post-register',
     controllerAs: 'vm',
@@ -28,8 +30,8 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 const postRegisterPageModule = angular.module('profitelo.controller.post-register', [
-  'ui.router',
   'permission',
+  uiRouter,
   'permission.ui',
   'profitelo.controller.post-register.set-password',
   'profitelo.controller.post-register.set-email'

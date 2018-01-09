@@ -1,6 +1,7 @@
 import {DashboardSettingsSecurityController} from './security'
 import * as angular from 'angular'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit tests: dashboardSettingsSecurityController >', () => {
   describe('Testing Controller: dashboardSettingsSecurityController', () => {
@@ -13,7 +14,7 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.controller.dashboard.settings.security')
       angular.mock.module('ui.router')
-      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
+      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: StateService) => {
         dashboardSettingsSecurityController = $controller<DashboardSettingsSecurityController>('dashboardSettingsSecurityController', {
           $state: _$state_,
           $scope: $rootScope.$new(),

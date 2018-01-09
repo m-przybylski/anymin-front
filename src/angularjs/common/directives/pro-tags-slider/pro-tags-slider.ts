@@ -1,9 +1,10 @@
 // TODO should be refactor to component: https://git.contactis.pl/itelo/profitelo/issues/1000
 import * as angular from 'angular'
-import 'angular-ui-router'
 import {Tag} from 'profitelo-api-ng/model/models'
 import {IWindowService} from '../../services/window/window.service'
 import {IDirective} from 'angular'
+import {StateService} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs';
 
 interface ILeftOffset {
   left: number
@@ -23,7 +24,7 @@ export interface IProTagsSliderScope extends ng.IScope {
 }
 
 function proTagsSlider($window: IWindowService,
-                       $state: ng.ui.IStateService,
+                       $state: StateService,
                        $location: ng.ILocationService,
                        $timeout: ng.ITimeoutService): IDirective<ng.IScope> {
   function linkFunction(scope: IProTagsSliderScope, element: ng.IRootElementService): void {
@@ -113,6 +114,6 @@ function proTagsSlider($window: IWindowService,
 }
 
 angular.module('profitelo.directives.pro-tags-slider', [
-  'ui.router'
-])
+  uiRouter
+  ])
 .directive('proTagsSlider', proTagsSlider)

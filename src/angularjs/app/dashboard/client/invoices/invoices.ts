@@ -3,14 +3,15 @@ import {DashboardClientInvoicesController} from './invoices.controller'
 import expertInvoiceModule from '../../../../common/components/dashboard/expert/invoices/invoice/invoice';
 import {UserService} from '../../../../common/services/user/user.service'
 import {InvoiceDataResolver} from '../../../../common/resolvers/invoice-data/invoice-data.resolver'
-
 import {GetCompanyInvoiceDetails, AccountDetails} from 'profitelo-api-ng/model/models'
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
-const  DashboardClientInvoicesModule = angular.module('profitelo.controller.dashboard.client.filters', [
-  'ui.router',
-  expertInvoiceModule
+const DashboardClientInvoicesModule = angular.module('profitelo.controller.dashboard.client.filters', [
+  expertInvoiceModule,
+  uiRouter
 ])
-  .config(function ($stateProvider: ng.ui.IStateProvider): void {
+  .config(function ($stateProvider: StateProvider): void {
     $stateProvider.state('app.dashboard.client.invoices', {
       url: '/invoices',
       template: require('./invoices.pug'),

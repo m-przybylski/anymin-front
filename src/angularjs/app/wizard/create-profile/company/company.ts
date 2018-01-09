@@ -8,17 +8,19 @@ import apiModule from 'profitelo-api-ng/api.module'
 import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
 import {httpCodes} from '../../../../common/classes/http-codes'
 import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const companyWizardModule = angular.module('profitelo.controller.wizard.create-profile.company', [
-  'ui.router',
   'permission',
+  uiRouter,
   'permission.ui',
   'ngTouch',
   apiModule,
   ValidationAlertModule,
   commonSettingsModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.wizard.create-profile.company', {
       url: '/company',
       controllerAs: 'vm',
@@ -27,7 +29,7 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
       resolve: {
         /* istanbul ignore next */
         wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>
-         WizardApi.getWizardProfileRoute().catch((error) => {
+          WizardApi.getWizardProfileRoute().catch((error) => {
             if (error.status === httpCodes.notFound) {
               return void 0
             } else {

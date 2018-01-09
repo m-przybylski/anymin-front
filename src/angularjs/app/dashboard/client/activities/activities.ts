@@ -17,6 +17,7 @@ import promiseModule from '../../../../common/services/promise/promise'
 import {PromiseService} from '../../../../common/services/promise/promise.service'
 import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
 import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
+import {StateService, StateProvider} from '@uirouter/angularjs'
 
 export class DashboardClientActivitiesController {
 
@@ -42,7 +43,7 @@ export class DashboardClientActivitiesController {
   /* @ngInject */
   constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private errorHandler: ErrorHandlerService,
               filtersData: GetActivityFilters,
               $timeout: ng.ITimeoutService) {
@@ -125,8 +126,7 @@ export class DashboardClientActivitiesController {
 }
 
 angular.module('profitelo.controller.dashboard.client.activities', [
-  'ui.router',
-  dashboardFiltersModule,
+    dashboardFiltersModule,
   dashboardActivitiesModule,
   'profitelo.components.dashboard.client.activities.client-activity',
   'profitelo.components.interface.preloader-container',
@@ -135,7 +135,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   promiseModule,
   errorHandlerModule
 ])
-  .config(function ($stateProvider: ng.ui.IStateProvider): void {
+  .config(function ($stateProvider: StateProvider): void {
     $stateProvider.state('app.dashboard.client.activities', {
       url: '/activities',
       template: require('./activities.pug'),

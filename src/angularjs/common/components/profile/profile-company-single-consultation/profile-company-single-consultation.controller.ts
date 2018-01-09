@@ -3,6 +3,7 @@ import {Tag, GetOrganizationServiceDetails,
   GetProfile, MoneyDto, GetProfileDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../services/user/user.service'
 import {PrecallService} from '../../communicator/precall-service/precall.service'
+import {StateService} from '@uirouter/angularjs'
 
 export class ProfileCompanyConsultationComponentController implements IProfileCompanyConsultationComponentBindings {
 
@@ -18,7 +19,7 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
   /* @ngInject */
   constructor(private precallService: PrecallService,
               private userService: UserService,
-              private $state: ng.ui.IStateService) {
+              private $state: StateService) {
   }
 
   public startCall = (): void => {

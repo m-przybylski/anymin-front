@@ -5,6 +5,8 @@ import './register/register'
 import './forgot-password/forgot-password'
 import './set-new-password/set-new-password'
 import {Config} from '../config';
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 function LoginController(): void {
   this.isPlatformForExpert = Config.isPlatformForExpert
@@ -14,7 +16,7 @@ function LoginController(): void {
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.login', {
     abstract: true,
     url: '/login',
@@ -31,8 +33,8 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 const loginPageModule = angular.module('profitelo.controller.login', [
-  'ui.router',
   'permission',
+  uiRouter,
   'permission.ui',
   'profitelo.controller.login.account',
   'profitelo.controller.login.register',

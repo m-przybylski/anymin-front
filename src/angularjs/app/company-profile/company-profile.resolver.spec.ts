@@ -29,7 +29,7 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
         }
       }
 
-      stateParams = {
+      stateParams = <any>{
         profileId: '1234567654321',
         primaryConsultationId: primaryConsultationId
       }

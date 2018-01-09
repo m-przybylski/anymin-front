@@ -7,9 +7,10 @@ import 'angularjs/common/components/expert-profile/experts-consultation-slider/e
 import {
   UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
+import {StateService} from '@uirouter/angularjs'
 
 /* @ngInject */
-function controller(clientCallService: ClientCallService, userService: UserService, $state: ng.ui.IStateService): void {
+function controller(clientCallService: ClientCallService, userService: UserService, $state: StateService): void {
 
   this.startCall = (): void => {
     userService.getUser().then((accountDetails) => {

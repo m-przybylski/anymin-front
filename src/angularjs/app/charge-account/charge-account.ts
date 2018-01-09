@@ -9,26 +9,28 @@ import 'angularjs/common/components/dashboard/charge-account/choose-amount-charg
 import 'angularjs/common/components/dashboard/charge-account/payment-method/payment-method'
 import {ChargeAccountResolver} from './charge-account.resolver'
 import modalsModule from '../../common/services/modals/modals'
+import {StateProvider, StateService} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const chargeAccountModule = angular.module('profitelo.controller.charge-account', [
-  'ui.router',
+  uiRouter,
   'permission',
   'permission.ui',
   'ngTouch',
   modalsModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
-  $stateProvider.state('app.charge-account', {
-    url: '/charge-account',
-    onEnter: (chargeAccountResolver: ChargeAccountResolver,  $state: ng.ui.IStateService): void => {
-      chargeAccountResolver.resolve($state.current.name)
-    },
-    data: {
-      pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT'
-    }
+  .config(($stateProvider: StateProvider) => {
+    $stateProvider.state('app.charge-account', {
+      url: '/charge-account',
+      onEnter: (chargeAccountResolver: ChargeAccountResolver, $state: StateService): void => {
+        chargeAccountResolver.resolve($state.current.name)
+      },
+      data: {
+        pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT'
+      }
+    })
   })
-})
   .service('chargeAccountResolver', ChargeAccountResolver)
-    .name
+  .name
 
-  export default chargeAccountModule
+export default chargeAccountModule

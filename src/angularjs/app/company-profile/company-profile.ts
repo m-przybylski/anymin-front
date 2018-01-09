@@ -17,15 +17,15 @@ import profileHeaderModule from '../../common/components/profile/profile-header/
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import profileCompanyConsultationModule
   from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
+import {StateProvider, StateParams} from '@uirouter/angularjs'
 
-export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
+export interface ICompanyProfileStateParams extends StateParams {
   primaryConsultationId: string
   profileId: string
 }
 
 const companyProfilePageModule = angular.module('profitelo.controller.company-profile', [
-  'ui.router',
-  apiModule,
+    apiModule,
   sessionModule,
   smoothScrollingModule,
   topAlertModule,
@@ -43,7 +43,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'commonConfig'
 
 ])
-.config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
+.config(($stateProvider: StateProvider, $qProvider: ng.IQProvider) => {
   $qProvider.errorOnUnhandledRejections(false)
   $stateProvider.state('app.company-profile', {
     controllerAs: 'vm',

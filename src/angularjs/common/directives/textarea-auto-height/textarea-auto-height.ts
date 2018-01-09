@@ -25,7 +25,7 @@ class TextareaAutoHeightClass implements ng.IDirective {
 
   private resizeElement = (element: HTMLElement): void => {
     element.style.height = 'auto'
-    element.style.height = Math.min(element.scrollHeight, TextareaAutoHeightClass.elementMaxHeight) + 'px'
+    element.style.height = String(Math.min(element.scrollHeight, TextareaAutoHeightClass.elementMaxHeight)) + 'px'
   }
 
   public static getInstance = (): () => TextareaAutoHeightClass => {

@@ -1,5 +1,6 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {httpCodes} from '../../../common/classes/http-codes'
+import {StateService} from '@uirouter/angularjs'
 
 export class CreateProfileController implements ng.IController {
 
@@ -7,7 +8,7 @@ export class CreateProfileController implements ng.IController {
   public isSummary: boolean = false
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, WizardApi: WizardApi, previousState: string) {
+  constructor(private $state: StateService, WizardApi: WizardApi, previousState: string) {
     WizardApi.getWizardProfileRoute().then((wizardProfile) => {
       this.isSummary = wizardProfile.isSummary
       this.isLoading = false

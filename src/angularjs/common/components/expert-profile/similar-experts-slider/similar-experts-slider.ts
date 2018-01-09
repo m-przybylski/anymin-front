@@ -1,9 +1,10 @@
 import * as angular from 'angular'
 import {UrlService} from '../../../services/url/url.service'
 import urlModule from '../../../services/url/url'
+import {StateService} from '@uirouter/angularjs'
 
 /* @ngInject */
-function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlService): void {
+function controller($scope: any, $state: StateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {
     const minConsultationsLength: number = 4

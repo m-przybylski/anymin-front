@@ -10,6 +10,8 @@ import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
 import {httpCodes} from '../../../../common/classes/http-codes'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -29,7 +31,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
               $log: ng.ILogService,
               private PaymentsApi: PaymentsApi,
               private modalsService: ModalsService,
-              private $state: ng.ui.IStateService) {
+              private $state: StateService) {
 
     if (getInvoiceData) {
       this.isAnyPaymentMethod = true
@@ -98,16 +100,16 @@ export class DashboardSettingsPaymentsController implements ng.IController {
 }
 
 const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.settings.payments', [
-  'ui.router',
   apiModule,
   'profitelo.services.user',
   'profitelo.filters.money',
   'profitelo.components.interface.preloader-container',
   filtersModule,
+  uiRouter,
   'profitelo.resolvers.invoice-data',
   noResultsInformationModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.settings.payments', {
       url: '/payments',
       template: require('./payments.pug'),

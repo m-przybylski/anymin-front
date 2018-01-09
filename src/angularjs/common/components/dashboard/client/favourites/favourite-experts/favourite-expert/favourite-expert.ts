@@ -1,8 +1,10 @@
 import * as angular from 'angular'
 import {UrlService} from '../../../../../../services/url/url.service'
+import {StateService} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 /* @ngInject */
-function controller($state: ng.ui.IStateService, urlService: UrlService): void {
+function controller($state: StateService, urlService: UrlService): void {
 
   const ORGANIZATION_SHORTCUT = 'ORG'
 
@@ -36,7 +38,7 @@ const component = {
 
 angular.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', [
   'pascalprecht.translate',
-  'ui.router',
-  'profitelo.services.url'
+    uiRouter,
+    'profitelo.services.url'
 ])
   .component('clientFavouriteExpert', component)

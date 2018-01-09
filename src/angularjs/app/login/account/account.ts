@@ -26,8 +26,10 @@ import {IInvitationObject} from '../../invitations/invitation.interface'
 import {RegistrationInvitationService} from
   '../../../common/services/registration-invitation/registration-invitation.service'
 import registerInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
-function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService,
+function AccountFormController($log: ng.ILogService, $state: StateService,
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
                                topWaitingLoaderService: TopWaitingLoaderService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
@@ -98,7 +100,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
       topWaitingLoaderService.immediate()
       loginStateService.setAccountObject(this.account)
       RegistrationApi.checkRegistrationStatusRoute(
-        this.account.phoneNumber.prefix + this.account.phoneNumber.number
+        <string>this.account.phoneNumber.prefix + <string>this.account.phoneNumber.number
       ).then((response) => {
         this.isPending = false
         _determinePhoneNumberStatus(response.status)
@@ -155,7 +157,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.login.account', {
     url: '/account',
     controllerAs: 'vm',
@@ -168,12 +170,12 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.login.account', [
-  'ui.router',
-  sessionModule,
+    sessionModule,
   loginStateModule,
   apiModule,
   commonSettingsModule,
   communicatorModule,
+  uiRouter,
   topWaitingLoader,
   registerInvitationModule,
   topAlertModule,

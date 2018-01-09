@@ -1,4 +1,5 @@
 import {Tag, ExpertDetails, OrganizationDetails} from 'profitelo-api-ng/model/models'
+import {StateService} from '@uirouter/angularjs'
 
 export interface IServiceProviderDefaultModel {
   name: string
@@ -17,7 +18,7 @@ export interface IServiceProviderDefaultQueue {
 export class ServiceProviderService {
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService) {
+  constructor(private $state: StateService) {
   }
 
   public createDefaultModel = (cost: number): IServiceProviderDefaultModel =>

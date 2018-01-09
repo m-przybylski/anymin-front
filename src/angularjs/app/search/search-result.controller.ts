@@ -3,13 +3,14 @@ import {
 } from 'profitelo-api-ng/model/models'
 import {SearchService} from '../../common/services/search/search.service'
 import {SearchQueryParams} from '../../common/services/search/search-query-params'
-import {IStateParamsService} from 'angular-ui-router'
 import {PromiseService} from '../../common/services/promise/promise.service'
 import {ErrorHandlerService} from '../../common/services/error-handler/error-handler.service'
+import {StateService, StateParams} from '@uirouter/angularjs'
+
 export class SearchResultController {
 
   private static readonly minimalLoaderDelay: number = 500
-  public stateParams: IStateParamsService
+  public stateParams: StateParams
   public searchResults: GetSearchRequestResult[]
   public tags: string[]
   public isMoreResults: boolean = true
@@ -22,7 +23,7 @@ export class SearchResultController {
   constructor(private errorHandler: ErrorHandlerService,
               private searchService: SearchService,
               private promiseService: PromiseService,
-              $state: ng.ui.IStateService) {
+              $state: StateService) {
 
     this.searchQueryParams = new SearchQueryParams
     this.stateParams = $state.params

@@ -6,16 +6,16 @@ import {DashboardClientFavouritesController} from './favourites.controller'
 import filtersModule from '../../../../common/filters/filters'
 import 'angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts'
 import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider'
+import {StateProvider} from '@uirouter/angularjs'
 // tslint:disable-next-line: max-line-length
 import 'angularjs/common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
-
+import uiRouter from '@uirouter/angularjs'
 import {GetDashboardClientExperts} from 'profitelo-api-ng/model/models'
 
 angular.module('profitelo.controller.dashboard.client.favourites', [
-  'ui.router',
-
+  uiRouter,
   apiModule,
   sessionModule,
   filtersModule,
@@ -24,7 +24,7 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
   'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider',
   noResultsInformationModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.client.favourites', {
       url: '/favourites',
       template: require('./favourites.pug'),

@@ -1,8 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const appRoutes: Routes = [
-  {path: '', loadChildren: './features/angularjs/angularjs.module#AngularJSModule'}
+  {path: '', pathMatch: 'full', redirectTo: 'login/account'},
+  {path: 'confirm-email', loadChildren: './features/confirm-email/confirm-email.module#ConfirmEmailModule'},
+  // required by AngularJS
+  {path: 'login/account', loadChildren: './features/angularjs/angularjs.module#AngularJsModule'},
+  {path: '**', loadChildren: './features/angularjs/angularjs.module#AngularJsModule'}
 ];
 
 @NgModule({
@@ -13,4 +17,5 @@ const appRoutes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

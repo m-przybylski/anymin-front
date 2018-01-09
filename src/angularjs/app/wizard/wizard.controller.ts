@@ -1,11 +1,12 @@
 import {Config} from '../config';
+import {StateService} from '@uirouter/angularjs'
 
 export class WizardController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private previousState: string) {
+  constructor(private $state: StateService, private previousState: string) {
   }
 
   public onModalClose = (): void => {

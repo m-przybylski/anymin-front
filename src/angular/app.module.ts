@@ -9,7 +9,9 @@ import { AppRoutingModule } from './app.routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { HttpInterceptorModule } from 'ng-http-interceptor';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
+import { AngularJsBootstrapSingletonService } from './upgrade/angularjs-bootstrap-singleton.service';
+import { UpgradeModule } from '@angular/upgrade/static';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,11 @@ import { RouterModule } from '@angular/router'
     AppRoutingModule,
     HttpInterceptorModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    UpgradeModule
   ],
   providers: [
+    AngularJsBootstrapSingletonService,
     { provide: XSRFStrategy, useValue: new XSRFStrategyProvider() },
     { provide: BASE_PATH, useValue: CommonConfig.settings.urls.backend }
   ],

@@ -1,5 +1,6 @@
 import {SearchService} from '../../services/search/search.service'
 import {keyboardCodes} from '../../classes/keyboard'
+import {StateService} from '@uirouter/angularjs'
 
 export class SearchDropdownController {
 
@@ -13,7 +14,7 @@ export class SearchDropdownController {
   private selectedItemIndex: number = 0
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService,
+  constructor(private $state: StateService,
               private searchService: SearchService,
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,

@@ -1,5 +1,10 @@
 import {Component} from '@angular/core';
 
-@Component({template: ``})
-export class AngularJSComponent {
+@Component({
+  templateUrl: './angularjs.pug'
+})
+export class AngularJsComponent {
+
+  constructor() {
+  }
 }

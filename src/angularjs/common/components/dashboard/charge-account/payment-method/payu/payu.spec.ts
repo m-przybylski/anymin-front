@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-
+import {StateService} from '@uirouter/angularjs'
 import {SmoothScrollingService} from '../../../../../services/smooth-scrolling/smooth-scrolling.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from 'profitelo-api-ng/api/api'
@@ -18,7 +18,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let state: ng.ui.IStateService
+    let state: StateService
     let bindings: any
     let httpBackend: ng.IHttpBackendService
     let PaymentApiMock: PaymentsApiMock
@@ -51,7 +51,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
 
       inject(($rootScope: any, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, $httpBackend: ng.IHttpBackendService,
-              $window: IWindowService, _$state_: ng.ui.IStateService, _PaymentsApiMock_: PaymentsApiMock,
+              $window: IWindowService, _$state_: StateService, _PaymentsApiMock_: PaymentsApiMock,
               _topAlertService_: TopAlertService, _smoothScrollingService_: SmoothScrollingService,
               PaymentsApi: PaymentsApi, AccountApi: AccountApi, _AccountApiMock_: AccountApiMock, $q: ng.IQService) => {
 

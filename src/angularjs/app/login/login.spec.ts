@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import './login'
 import {IRootScopeService} from '../../common/services/root-scope/root-scope.service';
-
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit tests: login>', () => {
   describe('Testing Controller: LoginController', () => {
@@ -11,7 +11,7 @@ describe('Unit tests: login>', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.login')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $state: ng.ui.IStateService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $state: StateService) => {
         $scope = $rootScope.$new()
         LoginController = $controller('LoginController', {
           $scope: $scope,

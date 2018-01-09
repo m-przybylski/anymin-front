@@ -1,6 +1,6 @@
 import * as angular from 'angular'
-import 'angular-ui-router'
 import {IDirective} from 'angular'
+import uiRouter from '@uirouter/angularjs'
 
 function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 
@@ -38,7 +38,7 @@ function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 }
 
 angular.module('profitelo.directives.interface.pro-range-slider', [
-  'rzModule',
-  'ui.router'
+  uiRouter,
+  'rzModule'
 ])
   .directive('proRangeSlider', proRangeSlider)

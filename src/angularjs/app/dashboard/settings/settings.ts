@@ -9,6 +9,8 @@ import 'angular-touch'
 import dashboardSettingsNotificationsModule from './notifications/notifications';
 import settingsNavigation from '../../../common/components/dashboard/settings/navigation/navigation'
 import dashboardSettingsPayoutsModule from './payouts/payouts'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export class SettingsController implements ng.IController {
 
@@ -23,7 +25,7 @@ export class SettingsController implements ng.IController {
   public currentState: string = this.stateNames[0]
 
   /* @ngInject */
-  constructor($state: ng.ui.IStateService, $scope: ng.IScope) {
+  constructor($state: StateService, $scope: ng.IScope) {
 
     $scope.$watch(() => $state.current.name, (newVal, _oldVal) => {
       if (newVal) {
@@ -51,7 +53,7 @@ export class SettingsController implements ng.IController {
   }
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.dashboard.settings', {
     abstract: true,
     url: '/settings',
@@ -66,9 +68,8 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.dashboard.settings', [
-  'ui.router',
   'ngTouch',
-
+  uiRouter,
   settingsNavigation,
   'profitelo.controller.dashboard.settings.general',
   'profitelo.controller.dashboard.settings.security',

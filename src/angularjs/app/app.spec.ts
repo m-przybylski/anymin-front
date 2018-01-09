@@ -4,6 +4,7 @@ import {InterfaceLanguageService} from '../common/services/interface-language/in
 import {CommonConfig} from '../../../generated_modules/common-config/common-config'
 import {IRootScopeService} from '../common/services/root-scope/root-scope.service';
 import {angularjsModule} from './app.module';
+import {StateService} from '@uirouter/angularjs';
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -13,7 +14,7 @@ describe('Unit tests: app>', () => {
     let _InterfaceLanguageService: InterfaceLanguageService
 
     let _httpBackend: ng.IHttpBackendService
-    let _state: ng.ui.IStateService
+    let _state: StateService
     let _commonConfigData
     let _CommonConfig: CommonConfig
     let _RatelApiMock: RatelApiMock
@@ -44,7 +45,7 @@ describe('Unit tests: app>', () => {
 
         _CommonConfig = $injector.get<CommonConfig>('CommonConfig')
         _httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
-        _state = $injector.get<ng.ui.IStateService>('$state')
+        _state = $injector.get<StateService>('$state')
         _RatelApiMock = RatelApiMock
         _SessionApiMock = SessionApiMock
         _ServiceApiMock = ServiceApiMock

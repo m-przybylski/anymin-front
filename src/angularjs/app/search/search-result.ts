@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import 'angular-permission'
-import 'angular-ui-router'
 const ngInfiniteScroll = require('ng-infinite-scroll')
 import searchModule from '../../common/services/search/search'
 import 'angularjs/common/components/interface/go-to-top/go-to-top'
@@ -13,10 +12,10 @@ import 'angularjs/common/components/interface/preloader-container/preloader-cont
 import communicatorModule from '../../common/components/communicator/communicator'
 import navbarModule from '../../common/components/navbar/navbar'
 import {SearchResultController} from './search-result.controller'
+import {StateProvider} from '@uirouter/angularjs'
 
 const searchResultPageModule = angular.module('profitelo.controller.search-result', [
-  'ui.router',
-  'permission',
+    'permission',
   'permission.ui',
   ngInfiniteScroll,
   communicatorModule,
@@ -30,7 +29,7 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
   'profitelo.components.interface.preloader-container',
   searchModule,
 ])
-.config(($stateProvider: ng.ui.IStateProvider) => {
+.config(($stateProvider: StateProvider) => {
   $stateProvider.state('app.search-result', {
     url: '/search-result?q&tags&serviceType&onlyAvailable&sortBy&languages&minPrice&maxPrice',
     template: require('./search-result.pug'),

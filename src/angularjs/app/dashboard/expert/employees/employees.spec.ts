@@ -6,6 +6,7 @@ import {EmploymentApiMock, ServiceApiMock} from 'profitelo-api-ng/api/api';
 import {GetProfileDetailsWithEmployments, GetInvitation} from 'profitelo-api-ng/model/models';
 import {httpCodes} from '../../../../common/classes/http-codes'
 import {IRootScopeService} from '../../../../common/services/root-scope/root-scope.service';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit tests: dashboardExpertEmployeesController >', () => {
   describe('Testing Controller: dashboardExpertEmployeesController', () => {
@@ -35,7 +36,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
     beforeEach(() => {
       inject(($rootScope: IRootScopeService,
               $controller: ng.IControllerService,
-              _$state_: ng.ui.IStateService,
+              _$state_: StateService,
               _EmploymentApiMock_: EmploymentApiMock,
               _$httpBackend_: ng.IHttpBackendService,
               _ServiceApiMock_: ServiceApiMock,

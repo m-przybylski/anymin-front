@@ -2,11 +2,12 @@ import * as angular from 'angular'
 import {WizardController} from './wizard.controller'
 import wizardWizardModule from './wizard'
 import {Config} from '../config';
+import {StateService, TransitionPromise} from '@uirouter/angularjs'
 
 describe('Testing Controller: WizardController', () => {
 
   let WizardController: WizardController,
-      $state: ng.ui.IStateService
+      $state: StateService
 
   beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL/')
@@ -16,10 +17,10 @@ describe('Testing Controller: WizardController', () => {
   beforeEach(() => {
     angular.mock.module(wizardWizardModule)
 
-    inject(($controller: ng.IControllerService, $q: ng.IQService) => {
+    inject(($controller: ng.IControllerService) => {
 
-      $state = <ng.ui.IStateService>{
-        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+      $state = <StateService>{
+        go: (_to: string): TransitionPromise => <any>Promise.resolve(<any>{})
       }
 
       WizardController = $controller<WizardController>('wizardController', {

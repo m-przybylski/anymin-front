@@ -8,6 +8,7 @@ import loginStateModule from '../../services/login-state/login-state'
 import topAlertModule from '../../services/top-alert/top-alert'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
+import {StateService} from '@uirouter/angularjs'
 
 export interface ILoginForgotPassword {
   recoveryMethod: string
@@ -23,7 +24,7 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
   constructor(private $q: ng.IQService,
               private $timeout: ng.ITimeoutService,
               private translatorService: TranslatorService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private topAlertService: TopAlertService,
               private loginStateService: LoginStateService,
               private RecoverPasswordApi: RecoverPasswordApi) {

@@ -2,6 +2,7 @@ import {IProfileSingleConsultationComponentBindings} from './profile-single-cons
 import {Tag, GetService, GetProfile} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../services/user/user.service'
 import {PrecallService} from '../../communicator/precall-service/precall.service'
+import {StateService} from '@uirouter/angularjs'
 
 export class ProfileSingleConsultationComponentController implements IProfileSingleConsultationComponentBindings {
 
@@ -12,7 +13,7 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
 
   /* @ngInject */
   constructor(private precallService: PrecallService, private userService: UserService,
-              private $state: ng.ui.IStateService) {
+              private $state: StateService) {
   }
 
   public startCall = (): void => {

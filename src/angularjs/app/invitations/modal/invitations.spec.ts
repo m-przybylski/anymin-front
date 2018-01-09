@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-
 import {IInvitationsModalScope, InvitationsModalController} from './invitations.controller'
 import invitationsModalModule from './invitations'
 import {
@@ -16,7 +15,7 @@ describe('Testing Controller: InvitationsModal', () => {
   let controller: InvitationsModalController
   let scope: IInvitationsModalScope
   let $q: ng.IQService
-  const state = <ng.ui.IStateService>{
+  const state = <any>{
     go: (_to: string): ng.IPromise<{}> => $q.resolve({}),
     current: {
       name: 'app.invitations'

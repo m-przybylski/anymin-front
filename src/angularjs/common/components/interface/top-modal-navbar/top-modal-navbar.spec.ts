@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import {StateService} from '@uirouter/angularjs'
 
 import {IWindowService} from '../../../services/window/window.service'
   describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => {
@@ -26,7 +27,7 @@ import {IWindowService} from '../../../services/window/window.service'
     angular.mock.module('profitelo.components.interface.top-modal-navbar')
 
       inject(($rootScope: any, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService,
+              _$componentController_: ng.IComponentControllerService, _$state_: StateService,
               $window: IWindowService) => {
         componentController = _$componentController_
         rootScope = $rootScope

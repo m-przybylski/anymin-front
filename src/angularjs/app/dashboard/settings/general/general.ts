@@ -6,6 +6,7 @@ import {UserService} from '../../../../common/services/user/user.service'
 import {AccountDetails} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
 import {Config} from '../../../config';
+import {StateService, StateProvider} from '@uirouter/angularjs'
 
 export class DashboardSettingsGeneralController implements ng.IController {
 
@@ -18,7 +19,7 @@ export class DashboardSettingsGeneralController implements ng.IController {
   public showUnverifiedEmail: boolean
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
-  constructor(private modalsService: ModalsService, user: AccountDetails, private $state: ng.ui.IStateService) {
+  constructor(private modalsService: ModalsService, user: AccountDetails, private $state: StateService) {
     this.nickname = user.settings.nickname
     this.avatarImageSource = user.settings.avatar
     this.phoneNumber = user.msisdn
@@ -46,20 +47,19 @@ export class DashboardSettingsGeneralController implements ng.IController {
   }
 
   private onModalClose = (cb: () => void): void => {
-    this.$state.reload().finally(cb)
+    this.$state.reload().then(cb).catch(cb)
   }
 
 }
 
 angular.module('profitelo.controller.dashboard.settings.general', [
-  'ui.router',
-  'pascalprecht.translate',
+    'pascalprecht.translate',
   userModule,
 
   urlModule,
   modalsModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.settings.general', {
       url: '/general',
       template: require('./general.pug'),

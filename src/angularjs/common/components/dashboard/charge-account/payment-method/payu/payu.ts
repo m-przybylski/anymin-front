@@ -16,9 +16,11 @@ import {CommonConfig} from '../../../../../../../../generated_modules/common-con
 import checkboxModule from '../../../../interface/checkbox/checkbox'
 import inputModule from '../../../../interface/input/input'
 import chooseBankModule from '../../choose-bank/choose-bank'
+import {StateService} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 /* @ngInject */
-function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
+function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: StateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
                                    CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
@@ -228,12 +230,12 @@ const payuPaymentForm = {
 }
 
 angular.module('profitelo.components.dashboard.charge-account.payment-method.payu', [
-  'ui.router',
-  apiModule,
+    apiModule,
   topAlertModule,
   commonSettingsModule,
   smoothScrollingModule,
   userModule,
+  uiRouter,
   chooseBankModule,
   'profitelo.components.dashboard.charge-account.summary-charge-account',
   checkboxModule,

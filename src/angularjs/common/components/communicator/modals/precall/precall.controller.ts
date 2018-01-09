@@ -8,6 +8,7 @@ import {ModalsService} from '../../../../services/modals/modals.service'
 import {ClientCallService} from '../../call-services/client-call.service'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {TranslatorService} from '../../../../services/translator/translator.service'
+import {StateService} from '@uirouter/angularjs'
 
 export interface IPrecallModalControllerScope extends ng.IScope {
   service: GetService,
@@ -59,7 +60,7 @@ export class PrecallModalController implements ng.IController {
               private CommonConfig: CommonConfig,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private modalsService: ModalsService,
               private clientCallService: ClientCallService,
               private errorHandler: ErrorHandlerService,

@@ -6,6 +6,7 @@ import modalsModule from '../../../services/modals/modals'
 import apiModule from 'profitelo-api-ng/api.module'
 import {NavbarNotificationsService} from './navbar-notifications.service'
 import {GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
+import uiRouter from '@uirouter/angularjs';
 
 export interface INavbarNotificationsComponentBindings extends ng.IController {
   isNotificationsTab: boolean
@@ -17,8 +18,8 @@ export interface INavbarNotificationsComponentBindings extends ng.IController {
 const navbarNotificationsModule = angular.module('profitelo.components.navbar.navbar-notifications', [
   'pascalprecht.translate',
   userAvatarModule,
-  'ui.router',
-  noResultsInformationModule,
+    uiRouter,
+    noResultsInformationModule,
   modalsModule,
   apiModule
 ])

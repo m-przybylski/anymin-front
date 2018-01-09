@@ -3,6 +3,7 @@ import * as angular from 'angular'
 import {DashboardSettingsNotificationsController} from './notifications.controller'
 import dashboardSettingsNotificationsModule from './notifications'
 import {IRootScopeService} from '../../../../common/services/root-scope/root-scope.service';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit tests: dashboardSettingsNotifications >', () => {
   describe('Testing Controller: dashboardSettingsNotifications', () => {
@@ -12,7 +13,7 @@ describe('Unit tests: dashboardSettingsNotifications >', () => {
     beforeEach(() => {
       angular.mock.module(dashboardSettingsNotificationsModule)
 
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: StateService) => {
         dashboardSettingsNotificationsController =
           $controller(DashboardSettingsNotificationsController, {
             $state: _$state_,
