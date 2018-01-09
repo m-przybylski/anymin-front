@@ -8,6 +8,7 @@ import topAlertModule from '../../services/top-alert/top-alert'
 import loginStateModule from '../../services/login-state/login-state'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
+import {StateService} from '@uirouter/angularjs'
 
 export interface ILoginSetNewPassword {
   method: string
@@ -23,7 +24,7 @@ export interface ILoginSetNewPasswordService {
 
 class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
-  constructor(private $state: ng.ui.IStateService, private translatorService: TranslatorService,
+  constructor(private $state: StateService, private translatorService: TranslatorService,
               private $timeout: ng.ITimeoutService, private $q: ng.IQService,
               private loginStateService: LoginStateService, private topAlertService: TopAlertService,
               private RecoverPasswordApi: RecoverPasswordApi) {

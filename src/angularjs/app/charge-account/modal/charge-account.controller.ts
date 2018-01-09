@@ -18,6 +18,7 @@ import 'angularjs/common/components/dashboard/charge-account/payment-method/paym
 import * as _ from 'lodash'
 import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
 import {keyboardCodes} from '../../../common/classes/keyboard'
+import {StateService, TransitionPromise} from '@uirouter/angularjs'
 
 export interface IAmounts {
   paymentOptions: MoneyDto[]
@@ -122,7 +123,7 @@ export class ChargeAccountController implements ng.IController {
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
               private smoothScrollingService: SmoothScrollingService,
@@ -157,7 +158,7 @@ export class ChargeAccountController implements ng.IController {
     this.$state.go('app.dashboard.client.activities')
   }
 
-  public onClose = (): ng.IPromise<void> =>
+  public onClose = (): TransitionPromise =>
     this.$state.go('app.dashboard.client.favourites')
 
   public validAction = (): boolean => {

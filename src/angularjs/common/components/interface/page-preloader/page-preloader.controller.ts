@@ -1,4 +1,6 @@
 import {PromiseService} from '../../../services/promise/promise.service'
+import {StateService, StateObject} from '@uirouter/angularjs'
+
 export class PagePreloaderComponentController implements ng.IController {
 
   public isLoading: boolean = false
@@ -17,7 +19,7 @@ export class PagePreloaderComponentController implements ng.IController {
               private $timeout: ng.ITimeoutService,
               private promiseService: PromiseService,
               private $log: ng.ILogService,
-              private $state: ng.ui.IStateService) {
+              private $state: StateService) {
   }
 
   $onInit = (): void => {
@@ -71,9 +73,9 @@ export class PagePreloaderComponentController implements ng.IController {
       PagePreloaderComponentController.minimalPreloadingTime)
   }
 
-  private doesResolverExist = (toState: ng.ui.IState): boolean => typeof toState.resolve !== 'undefined'
+  private doesResolverExist = (toState: StateObject): boolean => typeof toState.resolve !== 'undefined'
 
-  private areStatesNamesEqual = (toState: ng.ui.IState, fromState: ng.ui.IState): boolean =>
+  private areStatesNamesEqual = (toState: StateObject, fromState: StateObject): boolean =>
     toState.name === fromState.name
 
 }

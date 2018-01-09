@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {INavbarLoggedInMenuComponentBindings} from './navbar-logged-in-menu'
 import {UserService} from '../../../services/user/user.service'
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
-import {IStateService} from 'angular-ui-router'
+import {StateService} from '@uirouter/angularjs'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {TranslatorService} from '../../../services/translator/translator.service'
 import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng/model/models'
@@ -30,7 +30,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   constructor(private userService: UserService,
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
-              private $state: IStateService,
+              private $state: StateService,
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private $window: ng.IWindowService,

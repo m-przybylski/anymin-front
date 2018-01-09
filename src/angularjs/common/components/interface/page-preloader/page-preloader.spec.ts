@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import pagePreloaderModule from './page-preloader'
 import {PagePreloaderComponentController} from './page-preloader.controller'
 import {PromiseService} from '../../../services/promise/promise.service'
+import {StateService, StateObject} from '@uirouter/angularjs'
 
 describe('Unit testing: profitelo.components.interface.page-preloader', () => {
   return describe('for page-preloader component >', () => {
@@ -10,7 +11,7 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
     let compile: ng.ICompileService
     let component: PagePreloaderComponentController
     let timeout: ng.ITimeoutService
-    let state: ng.ui.IStateService
+    let state: StateService
 
     const validHTML =
       '<page-preloader></page-preloader>'
@@ -30,7 +31,7 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
     beforeEach(() => {
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
               promiseService: PromiseService, $componentController: ng.IComponentControllerService,
-              _$state_: ng.ui.IStateService) => {
+              _$state_: StateService) => {
 
         rootScope = $rootScope
         compile = $compile
@@ -61,7 +62,7 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
     it('should start loading process when state changes', () => {
       component.isError = true
       component.$onInit()
-      const stateObject: ng.ui.IState = {
+      const stateObject: StateObject = <any>{
         name: 'dashboard',
         resolve: { getClients: () => true }
       }
@@ -73,7 +74,7 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
     it('should end loading process when state loaded', () => {
       component.isError = true
       component.$onInit()
-      const stateObject: ng.ui.IState = {
+      const stateObject: StateObject = <any>{
         name: 'dashboard',
         resolve: { getClients: () => true }
       }

@@ -23,10 +23,12 @@ import eventsModule from '../../../common/services/events/events'
 import inputModule from '../../../common/components/interface/input/input'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
 import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 function RegisterController($log: ng.ILogService,
                             $filter: IFilterService,
-                            $state: ng.ui.IStateService,
+                            $state: StateService,
                             topWaitingLoaderService: TopWaitingLoaderService,
                             eventsService: EventsService,
                             sessionServiceWrapper: SessionServiceWrapper,
@@ -144,7 +146,7 @@ function RegisterController($log: ng.ILogService,
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.login.register', {
     url: '/register',
     controllerAs: 'vm',
@@ -163,11 +165,11 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.login.register', [
-  'ui.router',
-  sessionModule,
+    sessionModule,
   loginStateModule,
   'profitelo.resolvers.login-register',
   apiModule,
+  uiRouter,
   communicatorModule,
   commonSettingsModule,
   topAlertModule,

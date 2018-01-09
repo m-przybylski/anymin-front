@@ -5,13 +5,13 @@ import {SummaryController} from './summary.controller'
 import summaryWizardModule from './summary'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
-
+import {StateService, TransitionPromise} from '@uirouter/angularjs'
 
 describe('Testing Controller: SummaryController', () => {
 
   let summaryController: SummaryController,
     httpBackend: ng.IHttpBackendService,
-    $state: ng.ui.IStateService,
+    $state: StateService,
     _WizardApiMock: WizardApiMock,
     errorHandler: ErrorHandlerService,
     controller: ng.IControllerService,
@@ -67,8 +67,8 @@ describe('Testing Controller: SummaryController', () => {
             WizardApiMock: WizardApiMock, $q: ng.IQService, _errorHandler_: ErrorHandlerService,
             _userService_: UserService) => {
 
-      $state = <ng.ui.IStateService>{
-        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+      $state = <StateService>{
+        go: (_to: string): TransitionPromise => <any>Promise.resolve(<any>{})
       }
 
       q = $q

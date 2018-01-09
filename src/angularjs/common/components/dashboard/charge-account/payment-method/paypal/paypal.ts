@@ -4,6 +4,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentLink} from 'profitelo-api-ng/model/models'
 import {PayPalPaymentFormComponent} from './paypal.component'
 import {PaypalFactory} from './paypal.service'
+import uiRouter from '@uirouter/angularjs'
 
 export interface IPayPalPaymentFormComponentBindings {
   paymentsLinks: PaymentLink[]
@@ -15,6 +16,7 @@ export interface IPayPalPaymentFormComponentBindings {
 const paypalModule = angular.module('profitelo.components.dashboard.charge-account.payment-method.paypal', [
   sessionModule,
   apiModule,
+  uiRouter,
   'profitelo.components.dashboard.charge-account.summary-charge-account'
 ])
 .component('paypalPaymentForm', new PayPalPaymentFormComponent())

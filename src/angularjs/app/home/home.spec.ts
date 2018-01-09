@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import './home'
 import {IRootScopeService} from '../../common/services/root-scope/root-scope.service';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit tests: Home section >', () => {
   describe('Testing Controller: HomeController', () => {
@@ -10,7 +11,7 @@ describe('Unit tests: Home section >', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.home')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $state: ng.ui.IStateService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $state: StateService) => {
         $scope = $rootScope.$new()
         HomeController = $controller('HomeController', {
           $scope: $scope,

@@ -7,13 +7,14 @@ import {UserService} from '../../../common/services/user/user.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
 import {IFilterService} from '../../../common/services/filter/filter.service'
+import {StateService} from '@uirouter/angularjs'
 
 describe('Testing Controller: ConsultationController', () => {
 
   let httpBackend: ng.IHttpBackendService
   let wizardApiMock: WizardApiMock
   let UserService: UserService
-  let state: ng.ui.IStateService
+  let state: StateService
   let wizardApi: WizardApi
   let stateParams: IConsultationStateParams
   let controller: ng.IControllerService
@@ -26,7 +27,7 @@ describe('Testing Controller: ConsultationController', () => {
     isSummary: true
   }
   const commonConfig: CommonConfig = <CommonConfig>{
-    getAllData: (): object => {
+    getAllData: (): any => {
       return {
         config: {
           moneyDivider: 100,
@@ -44,14 +45,14 @@ describe('Testing Controller: ConsultationController', () => {
       currency: 'PLN'
     },
     tags: [{
-        name: 'Tag-1'
-      },
+      name: 'Tag-1'
+    },
       {
         name: 'Tag-2'
       },
       {
         name: 'Tag-3'
-    }],
+      }],
     invitations: [{
       email: 'testowy@profitelo.pl'
     }],
@@ -81,7 +82,7 @@ describe('Testing Controller: ConsultationController', () => {
     })
   }
 
-  beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService) => {
+  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL/')
     $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
   }))
@@ -92,7 +93,7 @@ describe('Testing Controller: ConsultationController', () => {
 
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, userService: UserService,
             WizardApi: WizardApi, WizardApiMock: WizardApiMock, $stateParams: IConsultationStateParams,
-            $state: ng.ui.IStateService, $q: ng.IQService, $filter: IFilterService) => {
+            $state: StateService, $q: ng.IQService, $filter: IFilterService) => {
       q = $q
       controller = $controller
       wizardApi = WizardApi
@@ -102,7 +103,7 @@ describe('Testing Controller: ConsultationController', () => {
       state = $state
       stateParams = $stateParams
       filter = $filter,
-      consultationController = createController(stateParams, wizardProfile)
+        consultationController = createController(stateParams, wizardProfile)
     })
   })
 
@@ -111,7 +112,7 @@ describe('Testing Controller: ConsultationController', () => {
   })
 
   it('should create controller with stateParams without invitations', () => {
-    const stateParams: IConsultationStateParams = {
+    const stateParams: IConsultationStateParams = <any>{
       service: serviceMock
     }
     wizardProfile.services = [serviceMock]
@@ -124,7 +125,7 @@ describe('Testing Controller: ConsultationController', () => {
   })
 
   it('should create controller with stateParams', () => {
-    const stateParams: IConsultationStateParams = {
+    const stateParams: IConsultationStateParams = <any>{
       service: {
         name: 'Edit Consultation',
         price: {
@@ -150,7 +151,7 @@ describe('Testing Controller: ConsultationController', () => {
   it('should save consultation', () => {
     spyOn(state, 'go')
     spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
-    const stateParams: IConsultationStateParams = {
+    const stateParams: IConsultationStateParams = <any>{
       service: {
         name: 'Edit Consultation',
         price: {
@@ -182,7 +183,7 @@ describe('Testing Controller: ConsultationController', () => {
   it('should save consultation as expert', () => {
     spyOn(state, 'go')
     spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
-    const stateParams: IConsultationStateParams = {
+    const stateParams: IConsultationStateParams = <any>{
       service: {
         name: 'Edit Consultation',
         price: {
@@ -240,7 +241,7 @@ describe('Testing Controller: ConsultationController', () => {
   it('should save consultation on edit - with state-params', () => {
     spyOn(state, 'go')
     spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
-    const stateParams: IConsultationStateParams = {
+    const stateParams: IConsultationStateParams = <any>{
       service: serviceMock
     }
     wizardProfile.services = [serviceMock]

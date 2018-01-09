@@ -4,13 +4,15 @@ import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information';
 import dashboardExpertComplainsListModule
   from '../../../../common/components/dashboard/expert/complains/complains-list/complains-list'
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const dashboardExpertComplainsModule = angular.module('profitelo.controller.dashboard.expert.complains', [
-  'ui.router',
   noResultsInformationModule,
-  dashboardExpertComplainsListModule
+  dashboardExpertComplainsListModule,
+  uiRouter
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.expert.complains', {
       url: '/complains',
       template: require('./complains.pug'),

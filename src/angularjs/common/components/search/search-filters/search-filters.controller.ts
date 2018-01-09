@@ -2,6 +2,8 @@ import {ISearchFiltersComponentBindings} from './search-filters'
 import {IPrimaryDropdownListElement} from '../../interface/dropdown-primary/dropdown-primary'
 import {CommonConfig} from '../../../../../../generated_modules/common-config/common-config'
 import {TranslatorService} from '../../../services/translator/translator.service'
+import {StateService} from '@uirouter/angularjs'
+
 export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
 
   public languagesList: {}[]
@@ -42,7 +44,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   /* @ngInject */
   constructor(private translatorService: TranslatorService,
               private $window: ng.IWindowService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               CommonConfig: CommonConfig) {
 
     this.moneyDivider = CommonConfig.getAllData().config.moneyDivider

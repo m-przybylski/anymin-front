@@ -1,11 +1,12 @@
 import {PermissionService} from '../common/services/permission/permission.service'
-import {SessionServiceWrapper} from '../common/services/session/session.service'
 import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 import {ProfiteloWebsocketService} from '../common/services/profitelo-websocket/profitelo-websocket.service'
 import {Config} from './config';
 import {SessionDeletedService} from '../common/services/session-deleted/session-deleted.service'
 import {EventsService} from '../common/services/events/events.service'
 import {IRootScopeService} from '../common/services/root-scope/root-scope.service';
+import {SessionServiceWrapper} from '../common/services/session/session.service';
+import {StateService} from '@uirouter/angularjs'
 
 /* @ngInject */
 export function AppRunFunction($rootScope: IRootScopeService,
@@ -15,7 +16,7 @@ export function AppRunFunction($rootScope: IRootScopeService,
                                eventsService: EventsService,
                                sessionServiceWrapper: SessionServiceWrapper,
                                $urlRouter: ng.ui.IUrlRouterService,
-                               $state: ng.ui.IStateService,
+                               $state: StateService,
                                topAlertService: TopAlertService,
                                sessionDeletedService: SessionDeletedService,
                                profiteloWebsocket: ProfiteloWebsocketService): void {
@@ -58,6 +59,5 @@ export function AppRunFunction($rootScope: IRootScopeService,
   }, () => {
     $urlRouter.listen()
     $urlRouter.sync()
-
   })
 }

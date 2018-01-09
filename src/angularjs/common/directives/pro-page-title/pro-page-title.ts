@@ -2,6 +2,8 @@ import * as angular from 'angular'
 import {IFilterService} from '../../services/filter/filter.service'
 import {IDirective} from 'angular'
 import {IRootScopeService} from '../../services/root-scope/root-scope.service';
+import {StateObject} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService): IDirective<ng.IScope> {
 
@@ -41,8 +43,8 @@ function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterServi
       changePageTitle(pageTitle)
     }
 
-    $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: ng.ui.IState, _toParams: {},
-                                         _fromState: ng.ui.IState, _fromParams: {}, _error: any) => {
+    $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: StateObject, _toParams: {},
+                                         _fromState: StateObject, _fromParams: {}, _error: any) => {
       traverseDownStates(toState.data)
     })
 
@@ -55,7 +57,7 @@ function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterServi
 }
 
 angular.module('profitelo.directives.page-title', [
-  'ui.router',
+  uiRouter,
   'pascalprecht.translate'
 ])
   .directive('pageTitle', pageTitleDirective)

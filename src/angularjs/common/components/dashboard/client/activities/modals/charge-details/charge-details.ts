@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import {GetActivity,  MoneyDto} from 'profitelo-api-ng/model/models'
+import {StateService} from '@uirouter/angularjs'
 
 export interface IClientChargeDetailsParentControllerScope extends ng.IScope {
   financeActivityDetails: GetActivity
@@ -17,7 +18,7 @@ export interface IClientChargeDetailsControllerScope extends ng.IScope {
   onModalClose: () => void
 }
 
-function controller($scope: IClientChargeDetailsControllerScope, $state: ng.ui.IStateService,
+function controller($scope: IClientChargeDetailsControllerScope, $state: StateService,
                     $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {
   $scope.isNavbar = true
   $scope.isFullscreen = true

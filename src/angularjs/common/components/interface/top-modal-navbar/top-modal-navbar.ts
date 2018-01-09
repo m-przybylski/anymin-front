@@ -1,8 +1,9 @@
 import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
+import {StateService} from '@uirouter/angularjs'
 
 /* @ngInject */
-function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IStateService): void {
+function controller($window: IWindowService, $scope: ng.IScope, $state: StateService): void {
   this.isHidden = false
   let checkScrollWay: number = 0
 

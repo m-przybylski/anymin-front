@@ -3,6 +3,7 @@ import {
   GetServiceWithInvitation
 } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ServiceApi} from 'profitelo-api-ng/api/api'
+import {StateService} from '@uirouter/angularjs'
 export interface IInvitationsModalScope extends ng.IScope {
   profileWithServicesInvitations?: GetProfileWithServicesInvitations
 }
@@ -36,7 +37,7 @@ export class InvitationsModalController implements ng.IController {
   private acceptedServices: IGetServiceWithInvitationsAndTags[] = []
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService,
+  constructor(private $state: StateService,
               private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
               private InvitationApi: InvitationApi,
               private userService: UserService,

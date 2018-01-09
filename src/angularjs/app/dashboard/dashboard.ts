@@ -7,12 +7,15 @@ import './expert/expert'
 import './settings/settings'
 import navbarModule from '../../common/components/navbar/navbar'
 import expertDashboardModule from './expert/expert'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 class DashboardController {
 
   public isPayment: boolean = false
+
   /* @ngInject */
-  constructor($scope: ng.IScope, $state: ng.ui.IStateService) {
+  constructor($scope: ng.IScope, $state: StateService) {
     // TODO Remove after UX-TEST
     $scope.$watch(() => $state.current, (newValue, _oldValue) => {
       this.isPayment = newValue.name === 'app.dashboard.charge-account'
@@ -21,8 +24,8 @@ class DashboardController {
 }
 
 const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
-  'ui.router',
   'permission',
+  uiRouter,
   'permission.ui',
   'ngTouch',
   navbarModule,
@@ -31,23 +34,23 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   expertDashboardModule,
   'profitelo.controller.dashboard.settings'
 ])
-.config(($stateProvider: ng.ui.IStateProvider) => {
-  $stateProvider.state('app.dashboard', {
-    abstract: true,
-    url: '/dashboard',
-    template: require('./dashboard.pug'),
-    controller: 'DashboardController',
-    controllerAs: 'vm',
-    data: {
-      permissions: {
-        only: ['user'],
-        redirectTo: 'app.login'
-      },
-      pageTitle: 'PAGE_TITLE.DASHBOARD'
-    }
+  .config(($stateProvider: StateProvider) => {
+    $stateProvider.state('app.dashboard', {
+      abstract: true,
+      url: '/dashboard',
+      template: require('./dashboard.pug'),
+      controller: 'DashboardController',
+      controllerAs: 'vm',
+      data: {
+        permissions: {
+          only: ['user'],
+          redirectTo: 'app.login'
+        },
+        pageTitle: 'PAGE_TITLE.DASHBOARD'
+      }
+    })
   })
-})
-.controller('DashboardController', DashboardController)
+  .controller('DashboardController', DashboardController)
   .name
 
 export default dashboardPageModule

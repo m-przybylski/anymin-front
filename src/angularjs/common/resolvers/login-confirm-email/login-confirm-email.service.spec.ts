@@ -1,13 +1,13 @@
 import * as angular from 'angular'
-import {ILoginConfirmEmailService} from './login-confirm-email.service'
 import {AccountApiMock, SessionApiMock} from 'profitelo-api-ng/api/api'
 import {GetSession} from 'profitelo-api-ng/model/models'
 import sessionModule from '../../services/session/session'
+import {LoginConfirmEmailResolver} from './login-confirm-email.service';
 
 describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
   describe('for LoginConfirmEmailResolver service >', () => {
 
-    let AppLoginConfirmEmailResolverService: ILoginConfirmEmailService
+    let AppLoginConfirmEmailResolverService: LoginConfirmEmailResolver
     const url = 'awesomeURL'
     let _timeout: ng.ITimeoutService
     const mockState = {
@@ -43,7 +43,7 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
 
       inject(($injector: ng.auto.IInjectorService, $q: ng.IQService) => {
         spyOn(sessionServiceWrapper, 'getSession').and.callFake(() => $q.resolve({}))
-        AppLoginConfirmEmailResolverService = $injector.get<ILoginConfirmEmailService>('LoginConfirmEmailResolver')
+        AppLoginConfirmEmailResolverService = $injector.get<LoginConfirmEmailResolver>('LoginConfirmEmailResolver')
         _timeout = $injector.get('$timeout')
         _AccountApiMock = $injector.get<AccountApiMock>('AccountApiMock')
         _SessionApiMock = $injector.get<SessionApiMock>('SessionApiMock')
@@ -66,13 +66,8 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
 
       spyOn(spy, 'spy')
 
-      const stateParams = {
-        token: ''
-      }
-
-      AppLoginConfirmEmailResolverService.resolve(stateParams).then(
+      AppLoginConfirmEmailResolverService.resolve('').then(
         () => {
-
         }, () => {
           spy.spy()
         })
@@ -99,11 +94,7 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
 
       spyOn(spy, 'spy')
 
-      const stateParams = {
-        token: emailToken
-      }
-
-      AppLoginConfirmEmailResolverService.resolve(stateParams).then(
+      AppLoginConfirmEmailResolverService.resolve(emailToken).then(
         () => {
           spy.spy()
         }, () => {

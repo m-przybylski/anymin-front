@@ -9,6 +9,8 @@ import 'angularjs/common/components/expert-profile/similar-experts-slider/simila
 import 'angularjs/common/components/interface/slider/slider'
 import navbarModule from '../../common/components/navbar/navbar'
 import {Config} from '../config';
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 function HomeController(): void {
 
@@ -176,10 +178,10 @@ function HomeController(): void {
 }
 
 const homePageModule = angular.module('profitelo.controller.home', [
-  'ui.router',
   sessionModule,
   smoothScrollingModule,
   navbarModule,
+  uiRouter,
   'profitelo.directives.pro-expert-card',
   'profitelo.directives.pro-expert-see-more',
   'profitelo.directives.pro-advice-tile',
@@ -187,14 +189,14 @@ const homePageModule = angular.module('profitelo.controller.home', [
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.interface.slider'
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.home', {
       url: '/home',
       controllerAs: 'vm',
       controller: 'HomeController',
       template: require('./home.pug'),
       resolve: {
-        isPlatformForExpert: ($state: ng.ui.IStateService): void => {
+        isPlatformForExpert: ($state: StateService): void => {
           if (Config.isPlatformForExpert)
             $state.go('app.dashboard.expert.activities')
         }

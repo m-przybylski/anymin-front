@@ -20,13 +20,15 @@ import 'angularjs/common/directives/interface/pro-alert/pro-alert'
 import 'angularjs/common/directives/password-strength-bar/password-strength-bar'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export interface ISetNewPasswordStateParams {
   token: string
   method: string
 }
 
-function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterService,
+function SetNewPasswordController($state: StateService, $filter: IFilterService,
                                   tokenStatus: ILoginSetNewPassword, passwordStrengthService: PasswordStrengthService,
                                   topAlertService: TopAlertService, RecoverPasswordApi: RecoverPasswordApi,
                                   CommonSettingsService: CommonSettingsService, $log: ng.ILogService): void {
@@ -100,7 +102,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
 
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.login.set-new-password', {
     url: '/set-new-password/token/:token/{method:|sms}',
     controllerAs: 'vm',
@@ -119,12 +121,12 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.login.set-new-password', [
-  'ui.router',
-  loginStateModule,
+    loginStateModule,
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',
   passwordStrengthModule,
   'profitelo.resolvers.login-set-new-password',
+  uiRouter,
   commonSettingsModule,
   apiModule,
   'profitelo.directives.interface.pro-alert',

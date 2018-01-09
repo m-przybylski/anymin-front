@@ -18,10 +18,12 @@ import commonConfigModule from '../../../../../generated_modules/common-config/c
 import inputPriceModule from '../../../common/components/interface/input-price/input-price'
 import languagesModule from '../../../common/services/languages/languages'
 import translatorModule from '../../../common/services/translator/translator'
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const consultaionWizardModule = angular.module('profitelo.controller.wizard.consultation', [
-  'ui.router',
   'permission',
+  uiRouter,
   'permission.ui',
   'ngTouch',
   wizardHandlerModule,
@@ -37,32 +39,32 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
   languagesModule,
   translatorModule
 ])
-.config(($stateProvider: ng.ui.IStateProvider) => {
-  $stateProvider.state('app.wizard.consultation', {
-    url: '/consultation',
-    params: {
-      service: void 0
-    },
-    controllerAs: 'vm',
-    controller: ConsultationController,
-    template: require('./consultation.pug'),
-    resolve: {
-      /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
-        WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (error) => {
-            throw new Error('Can not get wizard profile ' + String(error))
-        })
-    },
-    data: {
-      permissions: {
-        only: ['user'],
-        redirectTo: 'app.login'
+  .config(($stateProvider: StateProvider) => {
+    $stateProvider.state('app.wizard.consultation', {
+      url: '/consultation',
+      params: {
+        service: void 0
       },
-      pageTitle: 'PAGE_TITLE.WIZARDS.CONSULTATION'
-    }
+      controllerAs: 'vm',
+      controller: ConsultationController,
+      template: require('./consultation.pug'),
+      resolve: {
+        /* istanbul ignore next */
+        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
+          WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (error) => {
+            throw new Error('Can not get wizard profile ' + String(error))
+          })
+      },
+      data: {
+        permissions: {
+          only: ['user'],
+          redirectTo: 'app.login'
+        },
+        pageTitle: 'PAGE_TITLE.WIZARDS.CONSULTATION'
+      }
+    })
   })
-})
-.controller('consultationController', ConsultationController)
+  .controller('consultationController', ConsultationController)
   .name
 
 export default consultaionWizardModule

@@ -8,6 +8,7 @@ import topAlertModule from '../../services/top-alert/top-alert'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
 import {httpCodes} from '../../classes/http-codes'
+import {StateService} from '@uirouter/angularjs'
 
 export interface ILoginRegister {
   sessionId: string
@@ -24,7 +25,7 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   /* @ngInject */
   constructor(private loginStateService: LoginStateService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private translatorService: TranslatorService,
               private $q: ng.IQService,
               private $timeout: ng.ITimeoutService,

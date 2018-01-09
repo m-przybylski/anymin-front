@@ -12,15 +12,17 @@ import profileSingleConsultationModule
   from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation'
 
 import {GetExpertProfile} from 'profitelo-api-ng/model/models'
+import {StateProvider, StateParams} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
-export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
+export interface IExpertProfileStateParams extends StateParams {
   primaryConsultationId: string
   profileId: string
 }
 
 const expertProfilePageModule = angular.module('profitelo.controller.expert-profile', [
-  'ui.router',
   apiModule,
+  uiRouter,
   sessionModule,
   profileSingleConsultationModule,
   navbarModule,
@@ -28,7 +30,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
   similarConsultationModule,
   'profitelo.directives.pro-footer',
 ])
-  .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
+  .config(($stateProvider: StateProvider, $qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',

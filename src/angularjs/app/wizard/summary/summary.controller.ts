@@ -14,6 +14,7 @@ import {IGetServiceWithInvitationsAndTags} from '../../invitations/modal/invitat
 import {
   NavbarNotificationsService
 }from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
+import {StateService} from '@uirouter/angularjs'
 
 export class SummaryController implements ng.IController {
 
@@ -29,7 +30,7 @@ export class SummaryController implements ng.IController {
   public acceptedServices: GetServiceWithInvitation[]
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService,
+  constructor(private $state: StateService,
               private errorHandler: ErrorHandlerService,
               private WizardApi: WizardApi,
               private wizardProfile: GetWizardProfile,

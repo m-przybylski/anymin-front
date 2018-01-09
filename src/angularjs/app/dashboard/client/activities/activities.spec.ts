@@ -4,8 +4,8 @@ import {DashboardClientActivitiesController} from './activities'
 import {DashboardActivitiesService} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
 import {PromiseService} from '../../../../common/services/promise/promise.service'
 import {GetActivity} from 'profitelo-api-ng/model/models';
-import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
 import {IRootScopeService} from '../../../../common/services/root-scope/root-scope.service';
+import {StateService, TransitionPromise} from '@uirouter/angularjs';
 
 describe('Unit tests: DashboardClientActivitiesController >', () => {
   describe('Testing Controller: DashboardClientActivitiesController', () => {
@@ -14,8 +14,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
 
     const clientActivitiesService: DashboardActivitiesService = {
     } as DashboardActivitiesService
-    let $state: ng.ui.IStateService
-    let errorHandler: ErrorHandlerService
+    let $state: StateService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
@@ -24,11 +23,10 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.controller.dashboard.client.activities')
 
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
-              $q: ng.IQService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        $state = <ng.ui.IStateService>{
-          go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+        $state = <StateService>{
+          go: (_to: string): TransitionPromise => <any>Promise.resolve({})
         }
 
         dashboardClientActivitiesController =
@@ -40,7 +38,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
             },
             clientActivitiesService: clientActivitiesService,
             filtersData: {},
-            errorHandler
+            errorHandler: {}
           })
       })
     })

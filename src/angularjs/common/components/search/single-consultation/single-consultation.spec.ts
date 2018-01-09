@@ -4,6 +4,7 @@ import './single-consultation'
 import communicatorModule from '../../communicator/communicator'
 import {ISingleConsultationScope} from './single-consultation'
 import {Tag} from 'profitelo-api-ng/model/models';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit testing:profitelo.components.search.single-consultation', () => {
   return describe('for single-consultation component >', () => {
@@ -16,7 +17,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     let _callService: any
     let validHTML =
       '<single-consultation data-consultation="consultation"></single-consultation>'
-    let state: ng.ui.IStateService
+    let state: StateService
 
     const consultation = {
       id: 1,
@@ -112,7 +113,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
         rootScope = $rootScope
         compile = $compile
         _callService = callService
-        state = <ng.ui.IStateService>{
+        state = <StateService>{
           go: (_x: any): {} => {
             return {}
           }

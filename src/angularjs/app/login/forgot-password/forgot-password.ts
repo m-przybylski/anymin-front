@@ -12,6 +12,8 @@ import sessionModule from '../../../common/services/session/session'
 import 'angularjs/common/resolvers/login-forgot-password/login-forgot-password.service'
 import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import inputModule from '../../../common/components/interface/input/input'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 type method = 'sms' | 'email'
 
@@ -19,7 +21,7 @@ export interface IForgotPasswordStateParams {
   method: method
 }
 
-function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginForgotPassword,
+function ForgotPasswordController($state: StateService, account: ILoginForgotPassword,
                                   RecoverPasswordApi: RecoverPasswordApi,
                                   topWaitingLoaderService: TopWaitingLoaderService,
                                   CommonSettingsService: CommonSettingsService): void {
@@ -70,7 +72,7 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
 
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.login.forgot-password', {
     url: '/forgot-password/{method:|sms}',
     controllerAs: 'vm',
@@ -89,11 +91,11 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.login.forgot-password', [
-  'ui.router',
-  'profitelo.resolvers.login-forgot-password',
+    'profitelo.resolvers.login-forgot-password',
   apiModule,
   'profitelo.services.pro-top-waiting-loader-service',
   commonSettingsModule,
+  uiRouter,
   sessionModule,
   inputModule
 ])

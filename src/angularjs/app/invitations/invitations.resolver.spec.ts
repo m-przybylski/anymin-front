@@ -5,12 +5,13 @@ import {IInvitationsStateParams} from './invitations'
 import {InvitationApi, InvitationApiMock, ProfileApiMock} from 'profitelo-api-ng/api/api';
 import {IHttpBackendService} from 'angular'
 import {UserService} from '../../common/services/user/user.service';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit testing: profitelo.controller.invitations', () => {
   describe('for invitations resolver >', () => {
 
     let InvitationsResolver: InvitationsResolver
-    let mockState: ng.ui.IStateService
+    let mockState: StateService
     let log: ng.ILogService
     let $httpBackend: ng.IHttpBackendService
 
@@ -48,7 +49,7 @@ describe('Unit testing: profitelo.controller.invitations', () => {
 
     it('should resolve', inject((InvitationApi: InvitationApi) => {
       spyOn(InvitationApi, 'getInvitationRoute').and.callThrough()
-      InvitationsResolver.resolve(<IInvitationsStateParams>{token: 'token', companyId: 'id'})
+      InvitationsResolver.resolve(<any>{token: 'token', companyId: 'id'})
       expect(InvitationApi.getInvitationRoute).toHaveBeenCalledWith('token')
     }))
 
@@ -56,7 +57,7 @@ describe('Unit testing: profitelo.controller.invitations', () => {
       inject((InvitationApiMock: InvitationApiMock) => {
       spyOn(mockState, 'go')
       InvitationApiMock.getInvitationRoute(404, 'token')
-      InvitationsResolver.resolve(<IInvitationsStateParams>{token: 'token', companyId: 'id'})
+      InvitationsResolver.resolve(<any>{token: 'token', companyId: 'id'})
       $httpBackend.flush()
       expect(mockState.go).toHaveBeenCalledWith('app.home')
     }))
@@ -65,7 +66,7 @@ describe('Unit testing: profitelo.controller.invitations', () => {
       inject((InvitationApiMock: InvitationApiMock) => {
         spyOn(log, 'error')
         InvitationApiMock.getInvitationRoute(500, 'token')
-        InvitationsResolver.resolve(<IInvitationsStateParams>{token: 'token', companyId: 'id'})
+        InvitationsResolver.resolve(<any>{token: 'token', companyId: 'id'})
         $httpBackend.flush()
         expect(log.error).toHaveBeenCalled()
       }))
@@ -78,7 +79,7 @@ describe('Unit testing: profitelo.controller.invitations', () => {
       spyOn(InvitationApi, 'getInvitationRoute').and.callFake(() => $q.resolve({}))
       spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))
       ProfileApiMock.getProfilesInvitationsRoute(404)
-      InvitationsResolver.resolve(<IInvitationsStateParams>{token: 'token', companyId: 'id'})
+      InvitationsResolver.resolve(<any>{token: 'token', companyId: 'id'})
       $httpBackend.flush()
       expect(log.error).toHaveBeenCalled()
     }))

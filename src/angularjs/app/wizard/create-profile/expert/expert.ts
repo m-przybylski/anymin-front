@@ -14,10 +14,12 @@ import inputLinksModule from '../../../../common/components/interface/input-link
 import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
 import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
 import {httpCodes} from '../../../../common/classes/http-codes'
+import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
-  'ui.router',
   'permission',
+  uiRouter,
   'permission.ui',
   'ngTouch',
   'profitelo.directives.interface.local-avatar-uploader',
@@ -32,7 +34,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   'profitelo.directives.interface.pro-alert',
   ValidationAlertModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+  .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.wizard.create-profile.expert', {
       url: '/expert',
       controllerAs: 'vm',

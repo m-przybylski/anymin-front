@@ -22,10 +22,12 @@ import errorHandlerModule from '../../../common/services/error-handler/error-han
 import {RegistrationInvitationService}
 from '../../../common/services/registration-invitation/registration-invitation.service'
 import registrationInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 function _controller($log: ng.ILogService,
                      $filter: ng.IFilterService,
-                     $state: ng.ui.IStateService,
+                     $state: StateService,
                      topWaitingLoaderService: TopWaitingLoaderService,
                      passwordStrengthService: PasswordStrengthService,
                      user: AccountDetails,
@@ -149,7 +151,7 @@ function _controller($log: ng.ILogService,
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.post-register.set-password', {
     url: '/set-password',
     controllerAs: 'vm',
@@ -165,12 +167,12 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.post-register.set-password', [
-  'ui.router',
-  userModule,
+    userModule,
   apiModule,
   commonSettingsModule,
   passwordStrengthModule,
   topAlertModule,
+  uiRouter,
   registrationInvitationModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',

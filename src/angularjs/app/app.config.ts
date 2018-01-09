@@ -1,12 +1,16 @@
 import {AppComponentController} from './app.controller'
+import {StateProvider} from '@uirouter/angularjs'
 import {Config} from './config';
 
 /* @ngInject */
 export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
-                        $stateProvider: ng.ui.IStateProvider,
-                        $translateProvider: ng.translate.ITranslateProvider, $locationProvider: ng.ILocationProvider,
-                        $animateProvider: ng.animate.IAnimateProvider,
-                        tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider): void {
+                                  $stateProvider: StateProvider,
+                                  $translateProvider: ng.translate.ITranslateProvider,
+                                  $locationProvider: ng.ILocationProvider,
+                                  $animateProvider: ng.animate.IAnimateProvider,
+                                  tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider): void {
+
+  $locationProvider.html5Mode(true)
 
   $urlRouterProvider.deferIntercept()
 
@@ -41,7 +45,10 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     }
   })
 
-  $locationProvider.html5Mode(true)
+  $stateProvider.state('sink', {
+    url: '/*path',
+    template: '<!-- AngularJS Empty State -->'
+  });
 
   /**
    * Translations (angular translate)

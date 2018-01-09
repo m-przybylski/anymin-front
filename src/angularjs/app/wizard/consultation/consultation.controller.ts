@@ -8,8 +8,9 @@ import {LanguagesService} from '../../../common/services/languages/languages.ser
 import {TranslatorService} from '../../../common/services/translator/translator.service'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {Config} from '../../config';
+import {StateService, StateParams} from '@uirouter/angularjs'
 
-export interface IConsultationStateParams extends ng.ui.IStateParamsService {
+export interface IConsultationStateParams extends StateParams {
   service: WizardService
 }
 
@@ -51,7 +52,7 @@ export class ConsultationController implements ng.IController {
   private consultationPriceMax: number
   /* @ngInject */
   constructor(private translatorService: TranslatorService,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private $stateParams: IConsultationStateParams,
               private WizardApi: WizardApi,
               private userService: UserService,

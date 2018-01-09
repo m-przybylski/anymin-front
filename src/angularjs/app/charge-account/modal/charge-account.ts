@@ -5,11 +5,13 @@ import topAlertModule from '../../../common/services/top-alert/top-alert'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
 import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling'
 import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal'
+import uiRouter from '@uirouter/angularjs'
+
 const chargeAccountModalModule = angular.module('profitelo.app.charge-account.modal', [
   'ui.bootstrap',
+  uiRouter,
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.scrollable',
-  'ui.router',
   sessionModule,
   topAlertModule,
   commonSettingsModule,
@@ -22,7 +24,7 @@ const chargeAccountModalModule = angular.module('profitelo.app.charge-account.mo
   'profitelo.components.interface.preloader',
   'profitelo.components.braintree-form'
 ])
-.controller('chargeAccountModal', ChargeAccountController)
+  .controller('chargeAccountModal', ChargeAccountController)
   .name
 
 export default chargeAccountModalModule

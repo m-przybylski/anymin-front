@@ -5,6 +5,7 @@ import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
 import {Config} from '../../../config';
+import {StateService} from '@uirouter/angularjs'
 
 export class ExpertController implements ng.IController {
   public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName
@@ -29,7 +30,7 @@ export class ExpertController implements ng.IController {
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi,
-              private $state: ng.ui.IStateService,
+              private $state: StateService,
               private CommonSettingsService: CommonSettingsService,
               private wizardProfile?: GetWizardProfile) {
     this.assignValidationValues()

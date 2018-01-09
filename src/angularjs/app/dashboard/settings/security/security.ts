@@ -11,7 +11,8 @@ import 'angularjs/common/resolvers/security-settings/security-settings.service'
 import 'angularjs/common/components/dashboard/settings/manage-devices/manage-devices'
 import {SessionServiceWrapper} from '../../../../common/services/session/session.service'
 import {UserService} from '../../../../common/services/user/user.service'
-import {IStateService} from 'angular-ui-router'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import topAlertModule from '../../../../common/services/top-alert/top-alert'
 import {TranslatorService} from '../../../../common/services/translator/translator.service'
@@ -34,7 +35,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
               private currentSession: GetSession,
               private SessionApi: SessionApi,
               private userService: UserService,
-              private $state: IStateService,
+              private $state: StateService,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
               sessionsData: GetSession[],
@@ -112,26 +113,26 @@ export class DashboardSettingsSecurityController implements ng.IController {
 }
 
 angular.module('profitelo.controller.dashboard.settings.security', [
-  'ui.router',
   userModule,
+  uiRouter,
   apiModule,
   topAlertModule,
   'profitelo.resolvers.security-settings',
   'profitelo.components.dashboard.settings.manage-devices',
   modalsModule
 ])
-.config(($stateProvider: ng.ui.IStateProvider) => {
-  $stateProvider.state('app.dashboard.settings.security', {
-    url: '/security',
-    template: require('./security.pug'),
-    controller: 'dashboardSettingsSecurityController',
-    controllerAs: 'vm',
-    resolve: {
-      currentSession: (sessionServiceWrapper: SessionServiceWrapper): ng.IPromise<GetSession> =>
-        sessionServiceWrapper.getSession(true),
-      sessionsData: (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>
-        securitySettingsResolver.resolve()
-    }
+  .config(($stateProvider: StateProvider) => {
+    $stateProvider.state('app.dashboard.settings.security', {
+      url: '/security',
+      template: require('./security.pug'),
+      controller: 'dashboardSettingsSecurityController',
+      controllerAs: 'vm',
+      resolve: {
+        currentSession: (sessionServiceWrapper: SessionServiceWrapper): ng.IPromise<GetSession> =>
+          sessionServiceWrapper.getSession(true),
+        sessionsData: (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>
+          securitySettingsResolver.resolve()
+      }
+    })
   })
-})
-.controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)
+  .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)

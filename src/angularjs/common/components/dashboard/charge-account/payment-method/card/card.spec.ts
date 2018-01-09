@@ -5,6 +5,7 @@ import {PaymentsApiMock} from 'profitelo-api-ng/api/api'
 import cardModule from './card';
 import {CardPaymentFormComponentController} from './card.controller';
 import {ICardPaymentFormComponentBindings} from './card.component';
+import {StateService} from '@uirouter/angularjs'
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.card', () => {
   return describe('for cardPaymentForm component >', () => {
@@ -13,7 +14,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: CardPaymentFormComponentController
-    let state: ng.ui.IStateService
+    let state: StateService
 
     const validHTML: string = '<card-payment-form amount-method-modal="amountMethodModal"' +
       'payments-links="paymentsLinks" payment-country-id="paymentCountryId"></card-payment-form>'
@@ -65,7 +66,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       angular.mock.module(cardModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService, $state: ng.ui.IStateService,
+              $componentController: ng.IComponentControllerService, $state: StateService,
               $httpBackend: ng.IHttpBackendService, PaymentsApiMock: PaymentsApiMock, $q: ng.IQService) => {
 
         spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))

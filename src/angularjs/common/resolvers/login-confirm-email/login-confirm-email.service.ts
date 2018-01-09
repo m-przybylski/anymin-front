@@ -3,28 +3,24 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
 import {SessionServiceWrapper} from '../../services/session/session.service'
-import {IConfirmEmailStateParams} from '../../../app/confirm-email/confirm-email'
 import topAlertModule from '../../services/top-alert/top-alert'
 import sessionModule from '../../services/session/session'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
 import {Config} from '../../../app/config';
 import {IRootScopeService} from '../../services/root-scope/root-scope.service';
+import {StateService} from '@uirouter/angularjs'
 
-export interface ILoginConfirmEmailService {
-  resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<void>
-}
-
-class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
+export class LoginConfirmEmailResolver {
 
   constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
-              private translatorService: TranslatorService, private $state: ng.ui.IStateService,
+              private translatorService: TranslatorService, private $state: StateService,
               private topAlertService: TopAlertService, private sessionServiceWrapper: SessionServiceWrapper,
               private AccountApi: AccountApi) {
 
   }
 
-  public resolve = (stateParams: IConfirmEmailStateParams): ng.IPromise<void> => {
+  public resolve = (token: string | null): ng.IPromise<undefined> => {
     const _deferred = this.$q.defer<undefined>()
 
     const handleBadToken = (): void => {
@@ -67,10 +63,10 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
     }
 
-    if (stateParams.token === '') {
-      handleBadToken()
+    if (token && token !== '') {
+      verifyEmailToken(token)
     } else {
-      verifyEmailToken(stateParams.token)
+      handleBadToken()
     }
 
     return _deferred.promise
@@ -78,7 +74,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
 }
 
-angular.module('profitelo.resolvers.login-confirm-email', [
+const loginConfirmEmailModule = angular.module('profitelo.resolvers.login-confirm-email', [
   apiModule,
   topAlertModule,
   sessionModule,
@@ -86,3 +82,6 @@ angular.module('profitelo.resolvers.login-confirm-email', [
   'profitelo.directives.interface.pro-alert'
 ])
   .service('LoginConfirmEmailResolver', LoginConfirmEmailResolver)
+  .name
+
+export default loginConfirmEmailModule

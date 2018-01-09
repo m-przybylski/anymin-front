@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import 'angular-mocks'
-
+import {StateService} from '@uirouter/angularjs'
 import {SearchService} from '../../common/services/search/search.service'
 import './search-result'
 import 'angularjs/common/services/search/search'
@@ -15,9 +15,9 @@ describe('Unit tests: search-result>', () => {
 
     let $scope: ng.IScope
     let SearchResultController: SearchResultController
-    let state: ng.ui.IStateService
+    let state: StateService
 
-    let promiseService: PromiseService = <PromiseService>{
+    const promiseService: PromiseService = <PromiseService>{
       setMinimalDelay: {}
     }
 
@@ -34,7 +34,7 @@ describe('Unit tests: search-result>', () => {
               searchService: SearchService) => {
         $scope = $rootScope.$new()
 
-        state = <ng.ui.IStateService>{
+        state = <any>{
           params: {},
           current: {
             name: 'app.search-result'

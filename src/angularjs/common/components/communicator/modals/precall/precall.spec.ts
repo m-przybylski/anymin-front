@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-
+import {StateService, TransitionPromise} from '@uirouter/angularjs'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
 import modalsModule from '../../../../services/modals/modals'
 import {ModalsService} from '../../../../services/modals/modals.service'
@@ -14,7 +14,7 @@ describe('Testing Controller: precallModalController', () => {
   let scope: IPrecallModalControllerScope
   let PaymentsApiMock: PaymentsApiMock
   let FinancesApiMock: FinancesApiMock
-  let $state: ng.ui.IStateService
+  let $state: StateService
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
@@ -39,7 +39,6 @@ describe('Testing Controller: precallModalController', () => {
             _$httpBackend_: ng.IHttpBackendService,
             _ViewsApi_: ViewsApi,
             _modalsService_: ModalsService,
-            $q: ng.IQService,
             _FinancesApiMock_: FinancesApiMock,
             _PaymentsApiMock_: PaymentsApiMock
             ) => {
@@ -47,8 +46,8 @@ describe('Testing Controller: precallModalController', () => {
       scope = <IPrecallModalControllerScope>$rootScope.$new()
       PaymentsApiMock = _PaymentsApiMock_
       FinancesApiMock = _FinancesApiMock_
-      $state = <ng.ui.IStateService>{
-        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+      $state = <StateService>{
+        go: (_to: string): TransitionPromise => <any>Promise.resolve(<any>{})
       }
 
       precallModalController = $controller<PrecallModalController>('precallModalController', {

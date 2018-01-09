@@ -10,7 +10,7 @@ import dashboardPageModule from './dashboard/dashboard'
 import wizardPageModule from './wizard/wizard'
 import invitationsPageModule from './invitations/invitations'
 import chargeAccountModule from './charge-account/charge-account'
-import confirmEmailModule from './confirm-email/confirm-email'
+import loginConfirmEmailModule from '../common/resolvers/login-confirm-email/login-confirm-email.service';
 
 const pagesModule = angular.module('profitelo.pages', [
   dashboardPageModule,
@@ -24,7 +24,7 @@ const pagesModule = angular.module('profitelo.pages', [
   invitationsPageModule,
   wizardPageModule,
   chargeAccountModule,
-  confirmEmailModule
+  loginConfirmEmailModule // because confirm-email feature was already moved to angular
 ])
   .name;
 

@@ -1,6 +1,8 @@
 import {IPayPalPaymentFormComponentBindings} from './paypal'
 import {PaymentsApi} from 'profitelo-api-ng/api/api'
 import {PostPayment, PaymentLink} from 'profitelo-api-ng/model/models'
+import {StateService} from '@uirouter/angularjs'
+
 export class PayPalPaymentFormComponentController implements ng.IController, IPayPalPaymentFormComponentBindings {
 
   paymentCountryId: string
@@ -20,7 +22,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
 
   /* @ngInject */
   constructor(private paypalFactory: any, private PaymentsApi: PaymentsApi,
-              $state: ng.ui.IStateService) {
+              $state: StateService) {
 
     this.paypalFactory.Button.render({
 

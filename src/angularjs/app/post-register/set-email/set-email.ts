@@ -15,11 +15,15 @@ import inputModule from '../../../common/components/interface/input/input'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {Config} from '../../config';
-import {RegistrationInvitationService}
-from '../../../common/services/registration-invitation/registration-invitation.service'
+import {
+  RegistrationInvitationService
+}
+  from '../../../common/services/registration-invitation/registration-invitation.service'
 import registrationInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
+import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
-function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
+function _controller($log: ng.ILogService, $filter: IFilterService, $state: StateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
                      CommonSettingsService: CommonSettingsService,
                      registrationInvitationService: RegistrationInvitationService,
@@ -91,7 +95,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider): void {
+function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.post-register.set-email', {
     url: '/set-email',
     controllerAs: 'vm',
@@ -108,9 +112,9 @@ function config($stateProvider: ng.ui.IStateProvider): void {
 }
 
 angular.module('profitelo.controller.post-register.set-email', [
-  'ui.router',
   userModule,
   loginStateModule,
+  uiRouter,
   'profitelo.resolvers.login-register',
   apiModule,
   registrationInvitationModule,
