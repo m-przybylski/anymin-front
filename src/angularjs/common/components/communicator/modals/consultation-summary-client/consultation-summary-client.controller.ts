@@ -159,7 +159,7 @@ export class ConsultationSummaryClientController implements ng.IController {
   }
 
   private loadFromExistingCallSummaries = (): void => {
-    const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
+    const callSummary = this.callSummaryService.getCallSummary(this.$scope.serviceId)
     if (callSummary) {
       this.onCallSummary(callSummary)
     }

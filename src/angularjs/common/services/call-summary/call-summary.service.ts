@@ -12,7 +12,7 @@ export class CallSummaryService {
 
   private readonly onCallSummarySubject = new Subject<CallSummary>();
 
-    constructor(profiteloWebsocket: ProfiteloWebsocketService) {
+  constructor(profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callSummaries = []
     profiteloWebsocket.onCallSummary(this.onNewCallSummary)
@@ -21,18 +21,18 @@ export class CallSummaryService {
   public onCallSummary = (callback: (callSummary: CallSummary) => void): Subscription =>
     this.onCallSummarySubject.subscribe(callback)
 
-  public takeCallSummary = (serviceId: string): CallSummary | undefined => {
-    const callSummary = _.find(this.callSummaries, callSummary => callSummary.service.id === serviceId)
-    if (callSummary) {
-      _.remove(this.callSummaries, callSummary)
-    }
+  public getCallSummary = (serviceId: string): CallSummary | undefined => {
+    this.callSummaries = this.callSummaries.filter(callSummary => callSummary.service.id !== serviceId)
+    return _.find(this.callSummaries, callSummary => callSummary.service.id === serviceId)
+  }
 
-    return callSummary
+  public removeCallSummary = (callSummary: CallSummary): void => {
+    this.callSummaries = this.callSummaries.filter(summary => summary !== callSummary)
   }
 
   public isExpertCallSummary =
     (callSummary: IExpertCallSummary | IClientCallSummary): callSummary is IExpertCallSummary =>
-    (<IExpertCallSummary>callSummary).profit !== undefined
+      (<IExpertCallSummary>callSummary).profit !== undefined
 
   private onNewCallSummary = (data: ICallSummaryWebsocketObject): void => {
     this.callSummaries.push(data.callSummary)
