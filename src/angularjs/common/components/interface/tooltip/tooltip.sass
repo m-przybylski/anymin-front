@@ -14,6 +14,7 @@
     .tooltip-content
       animation: tooltipFadeInY 0.3s
       animation-fill-mode: forwards
+      z-index: $z-index-900
 
   &.is-longtext
     .tooltip-content
@@ -42,8 +43,8 @@
     max-width: 280px
     text-align: center
     white-space: nowrap
-    z-index: $z-index-900
     min-width: 100%
+    z-index: -$z-index-100
 
     +xsm
       min-width: 280px
