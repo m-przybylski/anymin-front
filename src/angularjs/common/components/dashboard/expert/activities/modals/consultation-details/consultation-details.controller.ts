@@ -94,20 +94,24 @@ export class ExpertConsultationDetailsController implements ng.IController {
   }
 
   private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
-    this.isLoading = false
     this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
     this.recommendedTags = this.callDetails.recommendedTags
     this.serviceName = this.callDetails.service.name
     this.serviceId = this.callDetails.service.id
-    this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation
+
+    if (this.callDetails.serviceUsageDetails)
+      this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation
     this.startedAt = this.callDetails.serviceUsageDetails.startedAt
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
     this.isRecommended = this.callDetails.isRecommended
     this.isRecommendable = this.callDetails.isRecommendable
-    this.consultationComment = this.callDetails.comment!.content
+
+    if (this.callDetails.comment)
+      this.consultationComment = this.callDetails.comment.content
     this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId
     this.serviceTags = serviceTags
+    this.isLoading = false
   }
 
 }
