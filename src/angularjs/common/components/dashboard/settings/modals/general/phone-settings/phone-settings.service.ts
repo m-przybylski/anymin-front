@@ -54,6 +54,9 @@ export class PhoneSettingsService {
   public onNewPhoneNumberCreate = (cb: (value: boolean) => boolean): Subscription =>
     this.events.onNewPhoneNumberCreate.subscribe(cb)
 
+  public onSendSms = (phoneNumber: string): ng.IPromise<void> =>
+    this.setNewNumber(phoneNumber)
+
   private setNewNumber = (phoneNumber: string): ng.IPromise<void> =>
     this.AccountApi.newMsisdnVerificationRoute({unverifiedMsisdn: this.prefix + phoneNumber})
     .then(() => {

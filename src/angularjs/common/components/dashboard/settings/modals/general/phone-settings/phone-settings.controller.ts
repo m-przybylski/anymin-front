@@ -56,6 +56,9 @@ export class PhoneSettingsController implements ng.IController {
     this.phoneSettingsService.updatePrefix(prefix)
   }
 
+  public reSendSms = (): ng.IPromise<void> =>
+    this.phoneSettingsService.onSendSms(this.numberModel)
+
   public getPhoneNumber = (token: string, onError: () => void): ng.IPromise<void> =>
     this.userService.getUser().then(user => {
       this.AccountApi.confirmMsisdnVerificationRoute({
