@@ -7,7 +7,7 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public placeholder: string
   public alertText: string
   public maxLength: string = ''
-  public ngModel: boolean = false
+  public ngModel: string = ''
   public isFocus: boolean = false
   public isDirty: boolean = false
   public isValid: boolean
@@ -27,5 +27,4 @@ export class TextareaComponentController implements ITextareaComponentBindings {
 
   public onDescriptionChange = (textareaValue: string): void =>
     (this.onChange) ? this.onChange(textareaValue) : undefined
-
 }
