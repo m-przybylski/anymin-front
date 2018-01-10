@@ -54,7 +54,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
       data: {
         permissions: {
           only: ['user'],
-          redirectTo: 'app.login'
+          redirectTo: 'app.login.account'
         },
         pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE.EXPERT'
       }

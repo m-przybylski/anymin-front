@@ -23,7 +23,8 @@ import registrationInvitationModule from '../../../common/services/registration-
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 
-function _controller($log: ng.ILogService, $filter: IFilterService, $state: StateService,
+function _controller($log: ng.ILogService, $filter: IFilterService,
+                     userService: UserService, $state: StateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
                      CommonSettingsService: CommonSettingsService,
                      registrationInvitationService: RegistrationInvitationService,
@@ -79,8 +80,10 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: Stat
           $state.go('app.invitations', {token: invitationObject.token})
           LocalStorageWrapper.removeItem('invitation')
         } else {
-          Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
-            $state.go('app.dashboard.client.favourites')
+          userService.getUser(true).then(() => {
+            Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
+              $state.go('app.dashboard.client.favourites')
+          })
         }
       })
     })
@@ -103,7 +106,13 @@ function config($stateProvider: StateProvider): void {
     template: require('./set-email.html'),
     resolve: {
       /* istanbul ignore next */
-      user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser()
+      user: (userService: UserService, $state: ng.ui.IStateService): ng.IPromise<AccountDetails> => {
+        const userData = userService.getUser()
+        userData.then((user) => {
+          if (user.unverifiedEmail || user.email) $state.go('app.dashboard.expert.activities')
+        })
+        return userData
+      }
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'

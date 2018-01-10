@@ -34,7 +34,7 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
       data: {
         permissions: {
           only: ['user'],
-          redirectTo: 'app.login'
+          redirectTo: 'app.login.account'
         },
         pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE'
       }

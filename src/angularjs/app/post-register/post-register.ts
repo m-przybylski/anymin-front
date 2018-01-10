@@ -21,8 +21,8 @@ function config($stateProvider: StateProvider): void {
     abstract: true,
     data: {
       permissions: {
-        except: ['anon'],
-        redirectTo: 'app.login'
+        only: ['partially-registered'],
+        redirectTo: 'app.login.account'
       },
       pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
     }
