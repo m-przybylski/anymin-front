@@ -2,7 +2,6 @@ import {AccountApi} from 'profitelo-api-ng/api/api'
 import {httpCodes} from '../../../../../../classes/http-codes'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import * as _ from 'lodash'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
 
@@ -67,7 +66,7 @@ export class PhoneSettingsService {
         this.isButtonDisabled = true
       } else {
         this.errorHandler.handleServerError(err)
-        this.$log.error('Can not send new phone number: ' + err)
+        this.$log.error('Can not send new phone number: ', err)
       }
     })
 

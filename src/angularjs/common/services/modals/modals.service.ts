@@ -274,14 +274,9 @@ export class ModalsService {
     dialogScope.callback = onModalClose
 
     return this.dialogService.openDialog({
-<<<<<<< HEAD
-      windowClass: 'modal-open full-screen',
-      controller: 'generalPhoneSettingsController',
-=======
       controllerAs: 'vm',
-      openedClass: 'modal-open full-screen',
+      windowClass: 'modal-open full-screen',
       controller: 'phoneSettingsController',
->>>>>>> add unit tests
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.html'),
       scope: dialogScope
