@@ -9,8 +9,12 @@
           data-ng-enter="$ctrl.onAddLink()"
           data-ng-class="{'invalid': $ctrl.badUrl}"
         )
-        a.add-link(data-ng-click="$ctrl.onAddLink()")
+        a.btn.add-link(data-ng-click="$ctrl.onAddLink()")
           span.icon.icon-plus-24
+        a.btn.btn-default.btn-small(
+          data-ng-click="$ctrl.onAddLink()"
+          data-translate="INTERFACE.INPUT_LINKS.ADD_BUTTON"
+        )
 
       validation-alert(
         data-alert-text="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS"

@@ -1,17 +1,29 @@
 @import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
 
 .pro-service-external-links
-	.input-handler
-		display: flex
-		justify-content: space-between
-		align-items: flex-end
+  .input-handler
+    display: flex
+    justify-content: space-between
+    align-items: center
 
-		input-primary
-			margin: 0 8px 0 0
-			flex: 1
+    input-primary
+      margin: 0 8px 0 0
+      flex: 1
 
-	.add-link
-		margin: 0 0 8px
+    .add-link
+      width: 48px
+      padding: 0
 
-		span
-			color: $c-primary
+      +smm
+        display: none
+
+      span
+        margin: 0
+        color: $c-primary
+
+    .btn-default
+      display: none
+
+      +smm
+        display: inline-flex

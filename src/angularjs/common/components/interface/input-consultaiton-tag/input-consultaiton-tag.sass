@@ -27,3 +27,31 @@
       a
         span
           color: $c-primary
+
+  .input-handler
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    input
+      margin: 0 8px 0 0
+      flex: 1
+      width: 100%
+      height: $s-input-height
+
+    .add-link
+      width: 48px
+      padding: 0
+
+      +smm
+        display: none
+
+      span
+        margin: 0
+        color: $c-primary
+
+    .btn-default
+      display: none
+
+      +smm
+        display: inline-flex

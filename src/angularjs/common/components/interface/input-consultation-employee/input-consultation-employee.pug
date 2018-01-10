@@ -7,6 +7,12 @@
       data-ng-blur="$ctrl.onBlur()"
       data-ng-focus="$ctrl.onFocus()"
     )
+    a.btn.add-link(data-ng-click="$ctrl.onEnter($ctrl.inputValue)")
+      span.icon.icon-plus-24
+    a.btn.btn-default.btn-small(
+      data-ng-click="$ctrl.onEnter($ctrl.inputValue)"
+      data-translate="INTERFACE.INPUT_CONSULTATION_EMPLOYEE.ADD_BUTTON"
+    )
 
   validation-alert(
   data-alert-text="WIZARD.CONSULTATION.UPLOAD_FILE_IS_INVALID"
