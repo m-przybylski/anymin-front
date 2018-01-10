@@ -2,7 +2,7 @@
 
   const proLightboxContent = {
     transclude: true,
-    template: require('./pro-lightbox-content.pug'),
+    template: require('./pro-lightbox-content.html'),
     bindings: {
       slide: '<'
     }

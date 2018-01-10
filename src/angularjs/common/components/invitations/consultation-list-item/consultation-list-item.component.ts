@@ -2,7 +2,7 @@ import {ConsultationListItemComponentController} from './consultation-list-item.
 
 export class ConsultationListItemComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = ConsultationListItemComponentController
-  template = require('./consultation-list-item.pug')
+  template = require('./consultation-list-item.html')
   bindings: {[boundProperty: string]: string} = {
     onChange: '<',
     service: '<'

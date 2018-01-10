@@ -59,7 +59,7 @@ function config($stateProvider: StateProvider): void {
     url: '/settings',
     controllerAs: 'vm',
     controller: 'settingsController',
-    template: require('./settings.pug'),
+    template: require('./settings.html'),
     data: {
       pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
       showMenu: false

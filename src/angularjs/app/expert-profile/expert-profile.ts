@@ -35,7 +35,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
       url: '/expert-profile/{profileId}?primaryConsultationId',
-      template: require('./expert-profile.pug'),
+      template: require('./expert-profile.html'),
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */

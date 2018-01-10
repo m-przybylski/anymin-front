@@ -55,7 +55,7 @@ function controller(modalsService: ModalsService): void {
 }
 
 const component = {
-  template: require('./complain-reason.pug'),
+  template: require('./complain-reason.html'),
   controller,
   controllerAs: '$ctrl',
   bindings: {

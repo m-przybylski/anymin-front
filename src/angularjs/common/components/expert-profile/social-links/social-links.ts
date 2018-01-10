@@ -7,7 +7,7 @@
   }
 
   const socialLinks = {
-    template: require('./social-links.pug'),
+    template: require('./social-links.html'),
     restrict: 'E',
     replace: true,
     bindings: {

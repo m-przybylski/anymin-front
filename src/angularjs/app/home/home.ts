@@ -194,7 +194,7 @@ const homePageModule = angular.module('profitelo.controller.home', [
       url: '/home',
       controllerAs: 'vm',
       controller: 'HomeController',
-      template: require('./home.pug'),
+      template: require('./home.html'),
       resolve: {
         isPlatformForExpert: ($state: StateService): void => {
           if (Config.isPlatformForExpert)

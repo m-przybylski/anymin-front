@@ -100,7 +100,7 @@ function config($stateProvider: StateProvider): void {
     url: '/set-email',
     controllerAs: 'vm',
     controller: 'SetEmailController',
-    template: require('./set-email.pug'),
+    template: require('./set-email.html'),
     resolve: {
       /* istanbul ignore next */
       user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser()

@@ -156,7 +156,7 @@ function config($stateProvider: StateProvider): void {
     url: '/set-password',
     controllerAs: 'vm',
     controller: 'SetPasswordController',
-    template: require('./set-password.pug'),
+    template: require('./set-password.html'),
     resolve: {
       user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser()
     },

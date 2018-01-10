@@ -2,7 +2,7 @@ import {InputConsultationTagComponentController} from './input-consultaiton-tag.
 
 export class InputConsultationTagComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationTagComponentController
-  template = require('./input-consultaiton-tag.pug')
+  template = require('./input-consultaiton-tag.html')
   bindings: {[boundProperty: string]: string} = {
     serviceName: '<',
     serviceDescription: '<',

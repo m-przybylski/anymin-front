@@ -25,7 +25,7 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
       url: '/company',
       controllerAs: 'vm',
       controller: CompanyController,
-      template: require('./company.pug'),
+      template: require('./company.html'),
       resolve: {
         /* istanbul ignore next */
         wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>

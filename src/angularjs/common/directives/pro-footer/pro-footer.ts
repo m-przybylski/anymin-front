@@ -27,7 +27,7 @@ interface IProFooterScope extends ng.IScope {
     }
 
     return {
-      template: require('./pro-footer.pug'),
+      template: require('./pro-footer.html'),
       restrict: 'E',
       link: linkFunction,
       replace: true

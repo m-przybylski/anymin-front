@@ -62,7 +62,7 @@ angular.module('profitelo.controller.dashboard.settings.general', [
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.settings.general', {
       url: '/general',
-      template: require('./general.pug'),
+      template: require('./general.html'),
       controller: 'dashboardSettingsGeneralController',
       controllerAs: 'vm',
       resolve: {

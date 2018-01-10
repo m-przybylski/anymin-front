@@ -26,7 +26,7 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
 .config(function ($stateProvider: StateProvider): void {
   $stateProvider.state('app.dashboard.expert.activities', {
     url: '/activities',
-    template: require('./activities.pug'),
+    template: require('./activities.html'),
     controller: 'dashboardExpertActivitiesController',
     controllerAs: 'vm',
     resolve: {

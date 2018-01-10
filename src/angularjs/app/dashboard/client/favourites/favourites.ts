@@ -27,7 +27,7 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.client.favourites', {
       url: '/favourites',
-      template: require('./favourites.pug'),
+      template: require('./favourites.html'),
       controller: 'DashboardClientFavouritesController',
       controllerAs: 'vm',
       resolve: {

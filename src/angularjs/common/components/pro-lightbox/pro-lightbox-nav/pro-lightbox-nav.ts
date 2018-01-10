@@ -2,7 +2,7 @@
 
   const proLightboxNav = {
     transclude: true,
-    template: require('./pro-lightbox-nav.pug'),
+    template: require('./pro-lightbox-nav.html'),
     bindings: {
       navSettings: '=?'
     }

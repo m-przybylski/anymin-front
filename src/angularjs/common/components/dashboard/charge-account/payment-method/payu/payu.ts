@@ -217,7 +217,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 }
 
 const payuPaymentForm = {
-  template: require('./payu.pug'),
+  template: require('./payu.html'),
   transclude: true,
   bindings: {
     paymentsLinks: '=?',

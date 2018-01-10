@@ -98,7 +98,7 @@ function proCalendar(): IDirective<ng.IScope> {
   }
 
   return {
-    template: require('./pro-calendar.pug'),
+    template: require('./pro-calendar.html'),
     restrict: 'E',
     replace: true,
     link: linkFunction,

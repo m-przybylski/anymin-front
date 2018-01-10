@@ -62,7 +62,7 @@ function controller($element: ng.IRootElementService,
 }
 
 const collapseTab = {
-  template: require('./collapse-tab.pug'),
+  template: require('./collapse-tab.html'),
   controllerAs: '$ctrl',
   transclude: true,
   controller

@@ -13,7 +13,7 @@ const dashboardSettingsNotificationsModule = angular.module('profitelo.controlle
   .config(function ($stateProvider: StateProvider): void {
     $stateProvider.state('app.dashboard.settings.notifications', {
       url: '/notifications',
-      template: require('./notifications.pug'),
+      template: require('./notifications.html'),
       controller: 'dashboardSettingsNotifications',
       controllerAs: 'vm'
     })

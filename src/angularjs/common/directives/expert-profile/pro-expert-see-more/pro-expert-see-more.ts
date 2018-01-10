@@ -5,7 +5,7 @@ import {IDirective} from 'angular'
   function proExpertSeeMore(): IDirective<ng.IScope> {
 
     return {
-      template: require('./pro-expert-see-more.pug'),
+      template: require('./pro-expert-see-more.html'),
       restrict: 'E'
     }
   }

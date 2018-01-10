@@ -17,7 +17,7 @@ function config($stateProvider: StateProvider): void {
     url: '/post-register',
     controllerAs: 'vm',
     controller: 'PostRegisterController',
-    template: require('./post-register.pug'),
+    template: require('./post-register.html'),
     abstract: true,
     data: {
       permissions: {

@@ -2,7 +2,7 @@ import {InputPasswordComponentController} from './input-password.controller'
 
 export class InputPasswordComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = InputPasswordComponentController
-  template = require('./input-password.pug')
+  template = require('./input-password.html')
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',

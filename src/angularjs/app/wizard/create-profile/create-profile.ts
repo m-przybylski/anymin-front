@@ -27,7 +27,7 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
       url: '/create-profile',
       controllerAs: 'vm',
       controller: CreateProfileController,
-      template: require('./create-profile.pug'),
+      template: require('./create-profile.html'),
       resolve: {
         previousState: ($state: StateService): string | undefined => $state.current.name
       },

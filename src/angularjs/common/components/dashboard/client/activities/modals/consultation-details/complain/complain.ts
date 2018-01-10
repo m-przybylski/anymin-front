@@ -15,7 +15,7 @@ import './complain-status/complain-status'
   }
 
   const component = {
-    template: require('./complain.pug'),
+    template: require('./complain.html'),
     controller,
     controllerAs: '$ctrl',
     bindings: {

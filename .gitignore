@@ -4,9 +4,16 @@
 /dist
 /tmp
 /out-tsc
+/generated_modules
 
 # dependencies
 /node_modules
+
+# To support pug-cli
+/src/angularjs/app/**/*.html
+/src/angularjs/common/**/*.html
+/src/angular/**/*.html
+
 
 # IDEs and editors
 /.idea
@@ -56,7 +63,3 @@ npm-debug.log
 *.log
 dist/
 coverage/
-
-
-/swagger
-/generated_modules

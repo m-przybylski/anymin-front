@@ -151,7 +151,7 @@ function config($stateProvider: StateProvider): void {
     url: '/register',
     controllerAs: 'vm',
     controller: 'RegisterController',
-    template: require('./register.pug'),
+    template: require('./register.html'),
     resolve: {
       /* istanbul ignore next */
       smsSessionId: (LoginRegisterResolver: ILoginRegisterService): ng.IPromise<{} | ILoginRegister> =>

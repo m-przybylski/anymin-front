@@ -23,7 +23,7 @@ function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
   }
 
   return {
-    template: require('./pro-range-slider.pug'),
+    template: require('./pro-range-slider.html'),
     restrict: 'E',
     replace: true,
     link: linkFunction,

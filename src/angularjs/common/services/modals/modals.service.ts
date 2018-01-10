@@ -137,7 +137,7 @@ export class ModalsService {
       controller: ExpertIncomingCallController,
       windowClass: 'modal-open full-screen modal-dark',
       template: require(
-        'angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.pug'),
+        'angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.html'),
       scope: dialogScope
     })
   }
@@ -151,7 +151,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'noCreditsController',
-      template: require('angularjs/common/components/communicator/modals/no-credits/no-credits.pug'),
+      template: require('angularjs/common/components/communicator/modals/no-credits/no-credits.html'),
       scope: dialogScope
     })
   }
@@ -166,7 +166,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'unavailableServiceController',
-      template: require('angularjs/common/components/communicator/modals/service-unavailable/service-unavailable.pug'),
+      template: require('angularjs/common/components/communicator/modals/service-unavailable/service-unavailable.html'),
       scope: dialogScope
     })
   }
@@ -184,7 +184,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ConsultationSummaryClientController,
       template: require(
-        'angularjs/common/components/communicator/modals/consultation-summary-client/consultation-summary-client.pug'
+        'angularjs/common/components/communicator/modals/consultation-summary-client/consultation-summary-client.html'
       ),
       scope: dialogScope
     })
@@ -203,7 +203,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ConsultationSummaryExpertController,
       template: require(
-        'angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.pug'
+        'angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.html'
       ),
       scope: dialogScope
     })
@@ -220,7 +220,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ClientConsultationDetailsController,
       template: require(
-        'angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.pug'
+        'angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.html'
       ),
       scope: dialogScope
     })
@@ -232,7 +232,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: 'clientComplainReportController',
       template: require(
-        'angularjs/common/components/dashboard/client/activities/modals/complain-report/complain-report.pug'),
+        'angularjs/common/components/dashboard/client/activities/modals/complain-report/complain-report.html'),
       scope: dialogScope
     })
   }
@@ -250,7 +250,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: 'clientChargeDetailsController',
       template: require(
-        'angularjs/common/components/dashboard/client/activities/modals/charge-details/charge-details.pug'),
+        'angularjs/common/components/dashboard/client/activities/modals/charge-details/charge-details.html'),
       scope: dialogScope
     })
   }
@@ -264,7 +264,7 @@ export class ModalsService {
       controller: 'basicAccountSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/' +
-        'basic-account-settings/basic-account-settings.pug'),
+        'basic-account-settings/basic-account-settings.html'),
       scope: dialogScope
     })
   }
@@ -278,7 +278,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: 'generalPhoneSettingsController',
       template: require(
-        'angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.pug'),
+        'angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.html'),
       scope: dialogScope
     })
   }
@@ -293,7 +293,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: 'generalEmailSettingsController',
       template: require(
-        'angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.pug'),
+        'angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.html'),
       scope: dialogScope
     })
   }
@@ -307,7 +307,7 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: 'generalCountrySettingsController',
       template: require(
-        'angularjs/common/components/dashboard/settings/modals/general/country-settings/country-settings.pug'),
+        'angularjs/common/components/dashboard/settings/modals/general/country-settings/country-settings.html'),
       scope: dialogScope
     })
   }
@@ -321,7 +321,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: 'securityChangePasswordSettingsController',
       template: require(
-        'angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.pug'),
+        'angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.html'),
       scope: dialogScope
     })
   }
@@ -333,7 +333,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'securityPinNumberSettingsController',
-      template: require('angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.pug'),
+      template: require('angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.html'),
       scope: dialogScope
     })
   }
@@ -347,7 +347,7 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: 'addPaymentMethodController',
       template: require(
-        'angularjs/common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.pug'
+        'angularjs/common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.html'
       ),
       scope: dialogScope
     })
@@ -363,7 +363,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: 'editCompanyInvoiceController',
       template: require(
-        'angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.pug'
+        'angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.html'
       ),
       scope: dialogScope
     })
@@ -379,7 +379,7 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: 'payoutsModalController',
       windowClass: 'modal-open full-screen',
-      template: require('angularjs/common/components/dashboard/settings/modals/payouts/payouts/payouts.pug'),
+      template: require('angularjs/common/components/dashboard/settings/modals/payouts/payouts/payouts.html'),
       scope: dialogScope
     })
   }
@@ -393,7 +393,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: GalleryPreviewController,
-      template: require('angularjs/common/components/interface/profile-gallery/modals/preview.pug'),
+      template: require('angularjs/common/components/interface/profile-gallery/modals/preview.html'),
       scope: dialogScope
     })
   }
@@ -409,7 +409,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ExpertConsultationDetailsController,
       template: require(
-        'angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.pug'
+        'angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.html'
       ),
       scope: dialogScope
     })
@@ -425,7 +425,8 @@ export class ModalsService {
     dialogScope.sueId = sueId
     return this.dialogService.openDialog({
       controller: ExpertPayoutCivilModalConttroller,
-      template: require('angularjs/common/components/dashboard/expert/activities/modals/payout-civil/payout-civil.pug'),
+      template: require(
+        'angularjs/common/components/dashboard/expert/activities/modals/payout-civil/payout-civil.html'),
       scope: dialogScope
     })
   }
@@ -441,7 +442,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ExpertPayoutCompanyModalController,
       template: require('angularjs/common/components/dashboard/expert/activities/modals/' +
-        'payout-company/payout-company.pug'),
+        'payout-company/payout-company.html'),
       scope: dialogScope
     })
   }
@@ -457,7 +458,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ExpertEmployeeDetailsModalController,
       template: require('angularjs/common/components/dashboard/expert/employees/modals/' +
-        'employee-details/employee-details.pug'),
+        'employee-details/employee-details.html'),
       scope: dialogScope
     })
   }
@@ -472,7 +473,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: 'expertInviteEmployees',
       template: require('angularjs/common/components/dashboard/expert/employees/modals/' +
-        'invite-employees/invite-employees.pug'),
+        'invite-employees/invite-employees.html'),
       scope: dialogScope
     })
   }
@@ -485,7 +486,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: InvitationsModalController,
-      template: require('angularjs/app/invitations/modal/invitations.pug'),
+      template: require('angularjs/app/invitations/modal/invitations.html'),
       scope: dialogScope
     })
   }
@@ -505,7 +506,7 @@ export class ModalsService {
       controllerAs: 'vm',
       windowClass: 'modal-open full-screen',
       controller: ChargeAccountController,
-      template: require('angularjs/app/charge-account/modal/charge-account.pug'),
+      template: require('angularjs/app/charge-account/modal/charge-account.html'),
       scope: dialogScope
     })
   }
@@ -520,9 +521,8 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: EditExpertProfileController,
-      template: require(
-        'angularjs/common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug'
-      ),
+      template: require('angularjs/common/components/dashboard/expert/manage-profile/' +
+        'modals/edit-expert-profile/edit-expert-profile.html'),
       scope: dialogScope
     })
   }
@@ -538,7 +538,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: PrecallModalController,
-      template: require('angularjs/common/components/communicator/modals/precall/precall.pug'),
+      template: require('angularjs/common/components/communicator/modals/precall/precall.html'),
       scope: dialogScope
     })
   }
@@ -550,7 +550,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: RtcDetectorModalController,
-      template: require('angularjs/common/components/communicator/modals/rtc-detector/rtc-detector.pug'),
+      template: require('angularjs/common/components/communicator/modals/rtc-detector/rtc-detector.html'),
       scope: dialogScope
     })
   }
@@ -563,7 +563,7 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: RtcDetectorBlockedModalController,
       template: require('angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-blocked/' +
-        'rtc-detector-blocked.pug'),
+        'rtc-detector-blocked.html'),
       scope: dialogScope
     })
   }
@@ -577,7 +577,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: RtcDetectorNoBrowserSupportModalController,
       template: require('angularjs/common/components/communicator/modals/rtc-detector/' +
-        'rtc-detector-no-browser-support/rtc-detector-no-browser-support.pug'),
+        'rtc-detector-no-browser-support/rtc-detector-no-browser-support.html'),
       scope: dialogScope
     })
   }
@@ -590,7 +590,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ConsultationModalController,
       template: require(
-        'angularjs/common/components/search/modals/consultation/consultation.pug'
+        'angularjs/common/components/search/modals/consultation/consultation.html'
       ),
       scope: dialogScope
     })
@@ -609,7 +609,7 @@ export class ModalsService {
       windowClass: 'modal-open full-screen',
       controller: ServiceFormModalController,
       template: require(
-        'angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.pug'
+        'angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.html'
       ),
       scope: dialogScope
     })

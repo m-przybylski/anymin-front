@@ -12,7 +12,7 @@ export interface ICardPaymentFormComponentBindings {
 export class CardPaymentFormComponent implements ng.IComponentOptions {
   controllerAs: '$ctrl'
   controller: ng.Injectable<ng.IControllerConstructor> = CardPaymentFormComponentController
-  template = require('./card.pug')
+  template = require('./card.html')
   bindings: {[boundProperty: string]: string} = {
     paymentsLinks: '<',
     amountMethodModal: '<',

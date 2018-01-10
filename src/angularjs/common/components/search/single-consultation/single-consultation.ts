@@ -68,7 +68,7 @@ function singleConsultationController($state: StateService, clientCallService: C
 }
 
 const singleConsultation = {
-  template: require('./single-consultation.pug'),
+  template: require('./single-consultation.html'),
   bindings: {
     consultation: '<'
   },

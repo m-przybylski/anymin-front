@@ -8,7 +8,7 @@ function controller(): void {
 }
 
 const component = {
-  template: require('./favourite-experts.pug'),
+  template: require('./favourite-experts.html'),
   controller,
   controllerAs: '$ctrl',
   bindings: {

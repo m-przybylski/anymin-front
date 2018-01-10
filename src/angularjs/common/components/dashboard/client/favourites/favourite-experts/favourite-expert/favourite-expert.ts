@@ -28,7 +28,7 @@ function controller($state: StateService, urlService: UrlService): void {
 }
 
 const component = {
-  template: require('./favourite-expert.pug'),
+  template: require('./favourite-expert.html'),
   controller,
   controllerAs: '$ctrl',
   bindings: {

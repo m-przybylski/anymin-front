@@ -20,7 +20,7 @@ function proSocialIconGetter(urlService: UrlService): IDirective<ng.IScope> {
     restrict: 'EA',
     replace: true,
     transclude: true,
-    template: require('./pro-social-icon-getter.pug'),
+    template: require('./pro-social-icon-getter.html'),
     scope: {
       url: '='
     },

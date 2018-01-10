@@ -27,7 +27,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
       url: '/wizard',
       controllerAs: 'vm',
       controller: WizardController,
-      template: require('./wizard.pug'),
+      template: require('./wizard.html'),
       resolve: {
         previousState: (userService: UserService, $state: StateService): string | undefined => {
           userService.getUser(true).then((response) => {

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-  templateUrl: './confirm-email.pug'
+  templateUrl: './confirm-email.html'
 })
 export class ConfirmEmailComponent {
 

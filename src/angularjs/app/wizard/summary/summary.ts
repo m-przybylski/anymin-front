@@ -33,7 +33,7 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
       url: '/summary',
       controllerAs: 'vm',
       controller: SummaryController,
-      template: require('./summary.pug'),
+      template: require('./summary.html'),
       resolve: {
         /* istanbul ignore next */
         wizardProfile: (WizardApi: WizardApi, $state: StateService): ng.IPromise<GetWizardProfile> => {

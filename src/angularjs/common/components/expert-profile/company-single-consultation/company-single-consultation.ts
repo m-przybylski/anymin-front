@@ -31,7 +31,7 @@ function controller(clientCallService: ClientCallService, userService: UserServi
 }
 
 const companySingleConsultation = {
-  template: require('./company-single-consultation.pug'),
+  template: require('./company-single-consultation.html'),
   bindings: {
     serviceTagsEmployeesTuple: '<',
     title: '@'

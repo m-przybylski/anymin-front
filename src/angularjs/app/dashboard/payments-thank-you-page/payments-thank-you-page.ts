@@ -17,7 +17,7 @@ function config($stateProvider: StateProvider): void {
     url: '/payments-thank-you-page',
     controllerAs: 'vm',
     controller: 'paymentsThankYouPageController',
-    template: require('./payments-thank-you-page.pug'),
+    template: require('./payments-thank-you-page.html'),
     data: {
       pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
       showMenu: false

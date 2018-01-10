@@ -138,7 +138,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   .config(function ($stateProvider: StateProvider): void {
     $stateProvider.state('app.dashboard.client.activities', {
       url: '/activities',
-      template: require('./activities.pug'),
+      template: require('./activities.html'),
       controller: 'dashboardClientActivitiesController',
       controllerAs: 'vm',
       resolve: {

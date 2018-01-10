@@ -17,7 +17,7 @@ const dashboardExpertManageProfileModule = angular.module('profitelo.controller.
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.expert.manage-profile', {
       url: '/manage-profile',
-      template: require('./manage-profile.pug'),
+      template: require('./manage-profile.html'),
       controller: 'dashboardExpertManageProfile',
       controllerAs: 'vm'
     })

@@ -6,10 +6,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "webpack-dev-server --port=4200",
-    "build": "webpack",
-    "test": "karma start ./karma.conf.js",
-    "test-single": "karma start ./karma.conf.js --single-run",
+    "start": "npm run pug-watch | webpack-dev-server --port=4200",
+    "build": "npm run pug && webpack",
+    "test": "npm run pug-watch | karma start ./karma.conf.js",
+    "test-single": "npm run pug && karma start ./karma.conf.js --single-run",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
     "transaltions": "gulp download-translations",
@@ -19,7 +19,8 @@
     "ci-test": "npm run cc && npm run tr && npm run lint && npm run test-single",
     "ci-deploy": "npm run cc && npm run tr && npm run build",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
-    "postinstall": "node pug-rule-insert.js"
+    "pug": "pug src --doctype html",
+    "pug-watch": "pug src --doctype html --watch"
   },
   "private": true,
   "dependencies": {
@@ -165,8 +166,6 @@
     "protractor": "~5.1.2",
     "pug": "^2.0.0-rc.4",
     "pug-cli": "^1.0.0-alpha6",
-    "pug-html-loader": "^1.1.5",
-    "pug-loader": "^2.3.0",
     "raw-loader": "^0.5.1",
     "request-promise": "^4.1.1",
     "run-sequence": "^1.1.0",
