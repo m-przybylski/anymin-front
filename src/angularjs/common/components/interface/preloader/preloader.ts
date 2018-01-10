@@ -1,5 +1,5 @@
 (function(): void {
-  /* @ngInject */
+
   function controller(): void {
 
     return this
@@ -12,7 +12,7 @@
     },
     template: require('./preloader.html'),
     controllerAs: '$ctrl',
-    controller
+    controller: [controller]
   }
 
   angular.module('profitelo.components.interface.preloader', [

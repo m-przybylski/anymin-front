@@ -1,6 +1,5 @@
-(function(): void {
+(function (): void {
 
-  /* @ngInject */
   function noConsultationsController(): void {
 
     return this
@@ -13,7 +12,7 @@
     bindings: {
       query: '<'
     },
-    controller: noConsultationsController
+    controller: [noConsultationsController]
   }
 
   angular.module('profitelo.components.search.no-consultations', [

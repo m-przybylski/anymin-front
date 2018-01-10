@@ -41,8 +41,6 @@ export class GeneralCountrySettingsController implements ng.IController {
     })
   }
 
-  /* @ngInject */
-
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
   }
@@ -50,7 +48,7 @@ export class GeneralCountrySettingsController implements ng.IController {
   public updateCountry = (selectedCountry: ICountryElementObject): void => {
     this.selectedCountry = _.find(
       this.countryList, country =>
-      country.value.countryISO === selectedCountry.value.countryISO)
+        country.value.countryISO === selectedCountry.value.countryISO)
   }
 
   public setNewCountry = (): void => {
@@ -62,7 +60,8 @@ export class GeneralCountrySettingsController implements ng.IController {
         })
           .then(_res => {
             // FIXME
-            this.$scope.callback(() => {})
+            this.$scope.callback(() => {
+            })
             this.$uibModalInstance.dismiss('cancel')
           }, (err: any) => {
             throw new Error('Can not patch user account: ' + String(err))

@@ -2,8 +2,7 @@ import * as ng from 'angular'
 
 export class DialogService {
 
-  /* @ngInject */
-  constructor(private $uibModal: ng.ui.bootstrap.IModalService) {
+    constructor(private $uibModal: ng.ui.bootstrap.IModalService) {
   }
 
   /**

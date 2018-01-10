@@ -24,8 +24,7 @@ export class SettingsController implements ng.IController {
 
   public currentState: string = this.stateNames[0]
 
-  /* @ngInject */
-  constructor($state: StateService, $scope: ng.IScope) {
+    constructor($state: StateService, $scope: ng.IScope) {
 
     $scope.$watch(() => $state.current.name, (newVal, _oldVal) => {
       if (newVal) {
@@ -77,5 +76,5 @@ angular.module('profitelo.controller.dashboard.settings', [
   dashboardSettingsPayoutsModule,
   dashboardSettingsNotificationsModule
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('settingsController', SettingsController)

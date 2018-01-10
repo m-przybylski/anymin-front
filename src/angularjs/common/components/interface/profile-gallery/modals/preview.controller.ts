@@ -4,7 +4,6 @@ export interface IGalleryPreviewControllerScope extends ng.IScope {
 
 export class GalleryPreviewController implements ng.IController {
 
-  /* @ngInject */
   constructor() {
   }
 

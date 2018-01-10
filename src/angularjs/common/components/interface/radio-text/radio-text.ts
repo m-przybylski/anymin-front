@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import textareaModule from '../textarea/textarea'
 
 (function (): void {
-  /* @ngInject */
+
   function controller(): void {
     this.isCollapsed = false
 
@@ -30,7 +30,7 @@ import textareaModule from '../textarea/textarea'
     },
     template: require('./radio-text.html'),
     controllerAs: '$ctrl',
-    controller
+    controller: [controller]
   }
 
   angular.module('profitelo.components.interface.radio-text', [

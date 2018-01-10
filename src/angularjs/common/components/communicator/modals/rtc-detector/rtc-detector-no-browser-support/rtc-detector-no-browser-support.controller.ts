@@ -3,8 +3,7 @@ export interface IRtcDetectorNoBrowserSupportModalControllerScope extends ng.ISc
 
 export class RtcDetectorNoBrowserSupportModalController implements ng.IController {
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')

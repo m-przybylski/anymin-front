@@ -22,8 +22,7 @@ interface ICompanyResponse {
 
 export class CompanyProfileResolver {
 
-  /* @ngInject */
-  constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
+    constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 
   public resolve = (stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> => {

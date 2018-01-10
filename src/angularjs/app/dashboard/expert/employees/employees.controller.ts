@@ -21,8 +21,7 @@ export class DashboardExpertEmployeesController {
   private pendingInvitationsCount: number
   private emoloyeesCount: number
 
-  /* @ngInject */
-  constructor(private EmploymentApi: EmploymentApi,
+    constructor(private EmploymentApi: EmploymentApi,
               private userService: UserService,
               private modalsService: ModalsService,
               private $log: ng.ILogService,

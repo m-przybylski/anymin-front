@@ -22,8 +22,7 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   onDelete?: () => void
   onEdit?: () => void
 
-  /* @ngInject */
-  constructor(private translatorService: TranslatorService) {
+    constructor(private translatorService: TranslatorService) {
     this.editLink = 'app.wizard.create-profile.expert'
   }
 

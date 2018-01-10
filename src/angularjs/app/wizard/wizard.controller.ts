@@ -5,8 +5,7 @@ export class WizardController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
 
-  /* @ngInject */
-  constructor(private $state: StateService, private previousState: string) {
+    constructor(private $state: StateService, private previousState: string) {
   }
 
   public onModalClose = (): void => {

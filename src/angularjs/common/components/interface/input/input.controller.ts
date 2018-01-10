@@ -22,8 +22,7 @@ export class InputComponentController implements IInputComponentBindings {
   public isDirty: boolean = false
   public onChange: string = ''
 
-  /* @ngInject */
-  constructor(private $element: JQuery) {}
+    constructor(private $element: JQuery) {}
 
   $onInit(): void {
     if (this.type === this.telType) {

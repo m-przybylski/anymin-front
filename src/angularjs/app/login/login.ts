@@ -41,7 +41,7 @@ const loginPageModule = angular.module('profitelo.controller.login', [
   'profitelo.controller.login.forgot-password',
   'profitelo.controller.login.set-new-password'
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('LoginController', LoginController)
   .name
 

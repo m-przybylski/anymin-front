@@ -10,14 +10,13 @@ import promiseModule from '../../../../services/promise/promise'
 import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
 import profiteloWebsocketModule from '../../../../services/profitelo-websocket/profitelo-websocket'
 
-(function(): void {
-  /* @ngInject */
+(function (): void {
+
   function controller(PaymentsApi: PaymentsApi,
                       FinancesApi: FinancesApi,
                       errorHandler: ErrorHandlerService,
                       promiseService: PromiseService,
-                      profiteloWebsocket: ProfiteloWebsocketService
-                      ): void {
+                      profiteloWebsocket: ProfiteloWebsocketService): void {
 
     const loaderDelay = 500
     this.isCard = false
@@ -51,10 +50,9 @@ import profiteloWebsocketModule from '../../../../services/profitelo-websocket/p
 
   const component = {
     template: require('./navigation.html'),
-    controller,
+    controller: ['PaymentsApi', 'FinancesApi', 'errorHandler', 'promiseService', 'profiteloWebsocket', controller],
     controllerAs: '$ctrl',
-    bindings: {
-    }
+    bindings: {}
   }
 
   angular.module('profitelo.components.dashboard.client.navigation', [

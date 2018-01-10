@@ -13,8 +13,7 @@ export interface IUnavailableServiceControllerScope extends ng.IScope {
 
 export class UnavailableServiceController implements ng.IController {
 
-  /* @ngInject */
-  constructor($scope: IUnavailableServiceControllerScope,
+    constructor($scope: IUnavailableServiceControllerScope,
               $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
     $scope.reject = (): void => {

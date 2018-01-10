@@ -4,8 +4,7 @@ import {Config} from '../../../app/config';
 export class CookieNotificationService {
   private static readonly cookieKeyValue: string = 'true'
 
-  /* @ngInject */
-  constructor(private $cookies: ICookiesService) {
+    constructor(private $cookies: ICookiesService) {
   }
 
   public hideNotification = (): void =>

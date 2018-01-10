@@ -7,7 +7,6 @@ export class ChooseBankComponentController implements ng.IController {
   public paymentsLinks: PaymentLink[]
   public onBankSelect: () => void
 
-  /* @ngInject */
   constructor() {
   }
 

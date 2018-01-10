@@ -99,5 +99,5 @@ angular.module('profitelo.controller.login.forgot-password', [
   sessionModule,
   inputModule
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('ForgotPasswordController', ForgotPasswordController)

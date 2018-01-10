@@ -6,8 +6,7 @@ import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-const
 
 export class PrecallService {
 
-  /* @ngInject */
-  constructor(private rtcDetectorService: RtcDetectorService,
+    constructor(private rtcDetectorService: RtcDetectorService,
               private modalsService: ModalsService) {
   }
 

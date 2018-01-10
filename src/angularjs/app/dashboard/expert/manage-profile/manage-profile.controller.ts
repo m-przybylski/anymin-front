@@ -16,8 +16,7 @@ export class DashboardExpertManageProfileController {
 
   private expertProfile: GetExpertProfile
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService,
+    constructor(private modalsService: ModalsService,
               private ViewsApi: ViewsApi,
               private errorHandler: ErrorHandlerService,
               private userService: UserService) {

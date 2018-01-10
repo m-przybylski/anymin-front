@@ -4,7 +4,6 @@ import userModule from '../../../../services/user/user'
 import {Config} from '../../../../../app/config';
 import uiRouter from '@uirouter/angularjs'
 
-/* @ngInject */
 function controller(userService: UserService): void {
 
   this.isPlatformForExpert = Config.isPlatformForExpert
@@ -17,7 +16,7 @@ function controller(userService: UserService): void {
 
 const component = {
   template: require('./navigation.html'),
-  controller,
+  controller: ['userService', controller],
   controllerAs: '$ctrl',
   bindings: {
     stateNames: '<'

@@ -4,8 +4,7 @@ export class ActiveCallBarComponentController implements ng.IController {
 
   public isCallPendingOnOtherDevice: boolean = false
 
-  /* @ngInject */
-  constructor(private activeCallBarService: ActiveCallBarService) {
+    constructor(private activeCallBarService: ActiveCallBarService) {
     activeCallBarService.onHideCallBar(this.hideCallBar)
     activeCallBarService.onShowCallBar(this.showCallBar)
   }

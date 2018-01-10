@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
 
-/* @ngInject */
 function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService): void {
   this.stylesObject = {
     height: null
@@ -66,7 +65,7 @@ const component = {
   template: require('./collapse-btn.html'),
   controllerAs: '$ctrl',
   transclude: true,
-  controller,
+  controller: ['$log', '$element', '$window', controller],
   bindings: {
     title: '@',
     collapseIcon: '@'

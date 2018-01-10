@@ -12,7 +12,6 @@ export class SearchQueryParams {
   private offset: number = 0
   private count: number = 20
 
-  /* @ngInject */
   constructor() {
   }
 

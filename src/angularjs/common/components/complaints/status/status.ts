@@ -1,5 +1,5 @@
-(function(): void {
-  /* @ngInject */
+(function (): void {
+
   function controller(): void {
     this.isStatusAccepted = true
     this.isStatusInProgress = false
@@ -11,7 +11,7 @@
 
   const component = {
     template: require('./status.html'),
-    controller,
+    controller: [controller],
     controllerAs: '$ctrl'
   }
 

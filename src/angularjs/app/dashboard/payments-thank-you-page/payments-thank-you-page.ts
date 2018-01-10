@@ -11,7 +11,6 @@ function paymentsThankYouPageController($state: StateService): void {
   return this
 }
 
-/* @ngInject */
 function config($stateProvider: StateProvider): void {
   $stateProvider.state('app.dashboard.payments-thank-you-page', {
     url: '/payments-thank-you-page',
@@ -29,5 +28,5 @@ angular.module('profitelo.controller.dashboard.payments-thank-you-page', [
     'profitelo.components.interface.top-modal-navbar',
   'profitelo.components.dashboard.thank-you-page'
 ])
-  .config(config)
-  .controller('paymentsThankYouPageController', paymentsThankYouPageController)
+  .config(['$stateProvider', config])
+  .controller('paymentsThankYouPageController', ['$state', paymentsThankYouPageController])

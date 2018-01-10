@@ -14,7 +14,6 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public validationText: string
   public onChange?: (description: string) => void
 
-  /* @ngInject */
   constructor() {}
 
   public onFocus = (): void => {

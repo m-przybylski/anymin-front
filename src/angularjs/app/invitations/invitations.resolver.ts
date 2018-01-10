@@ -10,8 +10,7 @@ import {StateService} from '@uirouter/angularjs'
 
 export class InvitationsResolver {
 
-  /* @ngInject */
-  constructor(private InvitationApi: InvitationApi,
+    constructor(private InvitationApi: InvitationApi,
               private $state: StateService,
               private modalsService: ModalsService,
               private $log: ng.ILogService,

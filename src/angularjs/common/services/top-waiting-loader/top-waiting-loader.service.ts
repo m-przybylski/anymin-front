@@ -8,8 +8,7 @@ export class TopWaitingLoaderService {
   private immediateInterval: ng.IPromise<any>
   private maxProgressValue: number = 100
 
-  /* @ngInject */
-  constructor($rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
+    constructor($rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
               private $interval: ng.IIntervalService) {
 
     this.immediateInProgress = false

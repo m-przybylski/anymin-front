@@ -4,7 +4,6 @@ import '../../../../../../../../components/interface/radio-text/radio-text'
 import '../../../../../../../../components/interface/radio/radio'
 import '../../../../../../../../services/modals/modals'
 
-/* @ngInject */
 function controller(modalsService: ModalsService): void {
   this.isRadioActive = false
 
@@ -56,7 +55,7 @@ function controller(modalsService: ModalsService): void {
 
 const component = {
   template: require('./complain-reason.html'),
-  controller,
+  controller: ['modalsService', controller],
   controllerAs: '$ctrl',
   bindings: {
     onReasonChange: '<',

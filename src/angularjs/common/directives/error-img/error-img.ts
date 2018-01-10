@@ -4,7 +4,6 @@ import {IAttributes} from 'angular'
 class ErrorImageClass implements ng.IDirective<ng.IScope> {
   public restrict: string = 'A'
 
-  /* @ngInject */
   constructor() {
   }
 

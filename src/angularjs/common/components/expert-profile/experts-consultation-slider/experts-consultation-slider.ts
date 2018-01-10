@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {UrlService} from '../../../services/url/url.service'
 import urlModule from '../../../services/url/url'
 
-/* @ngInject */
 function controller($scope: any, urlService: UrlService): void {
   const minExpertsCount: number = 5
   this.areControllsVisible = false
@@ -39,7 +38,7 @@ const expertsConsultationSlider = {
     experts: '<',
     title: '@'
   },
-  controller,
+  controller: ['$scope', 'urlService', controller],
   controllerAs: '$ctrl'
 }
 

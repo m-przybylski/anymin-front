@@ -53,8 +53,7 @@ export class ServiceFormModalController implements ng.IController {
   private consultationPriceMin: number
   private consultationPriceMax: number
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private translatorService: TranslatorService,
               private CommonConfig: CommonConfig,
               private userService: UserService,

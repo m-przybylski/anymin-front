@@ -53,8 +53,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     })
   }
 
-  /* @ngInject */
-  constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
+    constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
               private $element: ng.IRootElementService, private $filter: ng.IFilterService) {
 
     this.dropdownScroll = this.$element.find('.dropdown-content')

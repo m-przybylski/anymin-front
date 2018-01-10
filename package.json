@@ -157,7 +157,6 @@
     "karma-source-map-support": "^1.2.0",
     "karma-webpack": "^2.0.3",
     "less-loader": "^4.0.5",
-    "ng-annotate-loader": "0.0.10",
     "node-libs-browser": "^0.5.0",
     "node-sass": "^3.13.0",
     "postcss-loader": "^2.0.8",

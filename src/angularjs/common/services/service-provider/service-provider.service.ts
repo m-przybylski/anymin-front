@@ -17,8 +17,7 @@ export interface IServiceProviderDefaultQueue {
 // TODO add types or remove this provider
 export class ServiceProviderService {
 
-  /* @ngInject */
-  constructor(private $state: StateService) {
+    constructor(private $state: StateService) {
   }
 
   public createDefaultModel = (cost: number): IServiceProviderDefaultModel =>

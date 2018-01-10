@@ -16,8 +16,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   public transaction: PostPayment
   public isSubmitted: boolean = false
 
-  /* @ngInject */
-  constructor(private PaymentsApi: PaymentsApi, private userService: UserService) {
+    constructor(private PaymentsApi: PaymentsApi, private userService: UserService) {
     this.PaymentsApi.getDefaultPaymentMethodRoute().then(this.createBrainTree, this.onGetTokenError)
   }
 

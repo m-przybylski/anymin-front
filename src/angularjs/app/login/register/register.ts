@@ -180,5 +180,5 @@ angular.module('profitelo.controller.login.register', [
   inputModule,
   checkboxModule
 ])
-.config(config)
+.config(['$stateProvider', config])
 .controller('RegisterController', RegisterController)

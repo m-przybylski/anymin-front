@@ -24,8 +24,7 @@ export class UploaderService {
   private fileObjectsToUpload: IFileObject[] = []
   private urls = CommonConfig.settings.urls
 
-  /* @ngInject */
-  constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
+    constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
               private FilesApi: FilesApi, private Upload: any, private simultaneousUploadCount: number) {
   }
 

@@ -121,8 +121,7 @@ export class ChargeAccountController implements ng.IController {
       }
   }
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
               private $state: StateService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,

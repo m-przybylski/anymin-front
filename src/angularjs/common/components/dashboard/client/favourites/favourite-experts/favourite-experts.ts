@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert'
-/* @ngInject */
+
 function controller(): void {
 
   return this
@@ -9,7 +9,7 @@ function controller(): void {
 
 const component = {
   template: require('./favourite-experts.html'),
-  controller,
+  controller: [controller],
   controllerAs: '$ctrl',
   bindings: {
     favouriteExperts: '<'

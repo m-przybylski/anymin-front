@@ -4,7 +4,6 @@ export class ValidationAlertComponentController implements IValidationAlertBindi
   alertText: string
   isVisible: boolean
   additionalText?: string
-  /* @ngInject */
   constructor() {
 
   }

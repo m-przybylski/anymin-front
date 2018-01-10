@@ -5,7 +5,6 @@ import {keyboardCodes} from '../../classes/keyboard'
   class NgEnter implements ng.IDirective<ng.IScope> {
     public restrict: string = 'A'
 
-    /* @ngInject */
     constructor() {
     }
 

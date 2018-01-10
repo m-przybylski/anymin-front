@@ -7,8 +7,7 @@ export class RtcDetectorService {
   private instanceModal: ng.ui.bootstrap.IModalInstanceService
   private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper()
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService,
+    constructor(private modalsService: ModalsService,
               private $q: ng.IQService,
               private $timeout: ng.ITimeoutService) {
   }

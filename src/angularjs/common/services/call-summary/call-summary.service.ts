@@ -12,8 +12,7 @@ export class CallSummaryService {
 
   private readonly onCallSummarySubject = new Subject<CallSummary>();
 
-  /* @ngInject */
-  constructor(profiteloWebsocket: ProfiteloWebsocketService) {
+    constructor(profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callSummaries = []
     profiteloWebsocket.onCallSummary(this.onNewCallSummary)

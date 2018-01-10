@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angularjs/common/components/interface/preloader/preloader'
 
-/* @ngInject */
 function preloaderContainerController(): void {
 
   this.errorFunction = (): void => {
@@ -21,7 +20,7 @@ const component = {
   template: require('./preloader-container.html'),
   transclude: true,
   controllerAs: '$ctrl',
-  controller: preloaderContainerController
+  controller: [preloaderContainerController]
 }
 
 angular.module('profitelo.components.interface.preloader-container', [

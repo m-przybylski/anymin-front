@@ -6,8 +6,7 @@ export class EventsService {
 
   private eventScope: ng.IScope
 
-  /* @ngInject */
-  constructor($rootScope: ng.IRootScopeService) {
+    constructor($rootScope: ng.IRootScopeService) {
     this.eventScope = $rootScope.$new()
   }
 

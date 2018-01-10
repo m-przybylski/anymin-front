@@ -6,8 +6,7 @@ import {GetSession} from 'profitelo-api-ng/model/GetSession';
 
 export class UserService {
 
-  /* @ngInject */
-  constructor(private sessionServiceWrapper: SessionServiceWrapper, private eventsService: EventsService) {
+    constructor(private sessionServiceWrapper: SessionServiceWrapper, private eventsService: EventsService) {
   }
 
   public getUser = (purgeCache = false): ng.IPromise<AccountDetails> =>

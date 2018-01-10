@@ -25,8 +25,7 @@ class ScrollableDirective implements ng.IDirective<ng.IScope> {
   private intervalDelay: number = 30
   private static readonly dividerOnHalf: number = 2
 
-  /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService) {
+    constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService) {
   }
 
   public link = (scope: IScrollableDirectiveScope, element: ng.IRootElementService, _attr: ng.IAttributes): void => {

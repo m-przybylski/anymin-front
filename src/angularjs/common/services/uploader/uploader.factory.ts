@@ -3,8 +3,7 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 
 export class UploaderFactory {
 
-  /* @ngInject */
-  constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
+    constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
               private FilesApi: FilesApi, private Upload: any) {
   }
 

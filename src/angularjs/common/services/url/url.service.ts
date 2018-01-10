@@ -11,8 +11,7 @@ export class UrlService {
 
   private commonConfig: Settings
 
-  /* @ngInject */
-  constructor(private CommonSettingsService: any, CommonConfig: CommonConfig) {
+    constructor(private CommonSettingsService: any, CommonConfig: CommonConfig) {
     this.commonConfig = CommonConfig.getAllData()
   }
 

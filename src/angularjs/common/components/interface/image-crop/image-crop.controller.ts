@@ -8,7 +8,6 @@ export class ImageCropComponentController implements IImageCropComponentBindings
 
   private element: any
 
-  /* @ngInject */
   constructor() {
     this.element = $('.cropper-container')
   }

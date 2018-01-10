@@ -13,7 +13,6 @@ export class RadioBtnTextareaComponentController implements IRadioBtnTextareaBin
   public isTextarea: boolean
   public onDescriptionCallback: (description: string) => string
 
-  /* @ngInject */
   constructor() {}
 
   $onInit(): void {

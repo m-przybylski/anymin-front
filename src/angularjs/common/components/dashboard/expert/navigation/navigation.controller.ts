@@ -15,8 +15,7 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isCompany: boolean = true
 
-  /* @ngInject */
-  constructor(FinancesApi: FinancesApi,
+    constructor(FinancesApi: FinancesApi,
               userService: UserService,
               errorHandler: ErrorHandlerService,
               promiseService: PromiseService,

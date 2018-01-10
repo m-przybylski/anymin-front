@@ -11,7 +11,6 @@ export class ActivitiesQueryParams {
   private limit: string | undefined
   private offset: string | undefined
 
-  /* @ngInject */
   constructor() {}
 
   public getActivityType = (): GetActivity.ActivityTypeEnum | undefined => this.activityType

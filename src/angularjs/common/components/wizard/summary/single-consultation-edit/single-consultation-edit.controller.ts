@@ -16,8 +16,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public language: string
   public description: string
 
-  /* @ngInject */
-  constructor(private translatorService: TranslatorService) {
+    constructor(private translatorService: TranslatorService) {
   }
 
   $onInit(): void {

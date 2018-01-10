@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 import '../../../../../../../../components/complaints/status/status'
 
-(function(): void {
-  /* @ngInject */
+(function (): void {
+
   function controller(): void {
 
     return this
@@ -10,7 +10,7 @@ import '../../../../../../../../components/complaints/status/status'
 
   const component = {
     template: require('./complain-status.html'),
-    controller,
+    controller: [controller],
     controllerAs: '$ctrl',
     bindings: {
       complainMessage: '@'
@@ -19,8 +19,8 @@ import '../../../../../../../../components/complaints/status/status'
 
   angular.module(
     'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status', [
-    'pascalprecht.translate',
-    'profitelo.components.complaints.status'
-  ])
+      'pascalprecht.translate',
+      'profitelo.components.complaints.status'
+    ])
     .component('clientComplainStatus', component)
 }())

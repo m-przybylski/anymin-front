@@ -3,7 +3,6 @@ interface IValidationAlertAnimation {
   leave: (element: JQuery) => ng.animate.IAnimateCssRunner
 }
 
-/* @ngInject */
 export function ValidationAlertAnimation($animateCss: ng.animate.IAnimateCssService): IValidationAlertAnimation {
 
   return {

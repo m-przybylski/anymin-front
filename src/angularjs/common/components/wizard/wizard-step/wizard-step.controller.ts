@@ -15,8 +15,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public required: boolean
   public isCompany: boolean = true
 
-  /* @ngInject */
-  constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
+    constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
   }
 
   public onClickNext = (): void => {

@@ -16,8 +16,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
   lastDocument: string
   readonly documentsLimit: number = 5
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService,
+    constructor(private modalsService: ModalsService,
               private FilesApi: FilesApi,
               private errorHandler: ErrorHandlerService) {
     this.idDocumentsContainerCollapsed = false

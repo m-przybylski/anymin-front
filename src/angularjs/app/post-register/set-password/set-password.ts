@@ -181,5 +181,5 @@ angular.module('profitelo.controller.post-register.set-password', [
   autoFocus,
   errorHandlerModule
 ])
-.config(config)
+.config(['$stateProvider', config])
 .controller('SetPasswordController', _controller)

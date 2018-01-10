@@ -8,8 +8,7 @@ export interface ILanguage {
 
 export class LanguagesService {
 
-  /* @ngInject */
-  constructor(private translatorService: TranslatorService,
+    constructor(private translatorService: TranslatorService,
               private CommonConfig: CommonConfig) {}
 
   private languages: {

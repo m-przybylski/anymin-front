@@ -26,7 +26,6 @@ export interface IProTagsDropdownScope extends ng.IScope {
   groupFind: (item: string) => string
 }
 
-/* @ngInject */
 function proTagsDropdown($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 
   function linkFunction(scope: IProTagsDropdownScope, element: ng.IRootElementService, attr: ng.IAttributes): void {
@@ -128,4 +127,4 @@ angular.module('profitelo.directives.interface.pro-tags-dropdown', [
   'ui.select',
   commonSettingsModule,
   'ngSanitize'])
-  .directive('proTagsDropdown', proTagsDropdown)
+  .directive('proTagsDropdown', ['$timeout', proTagsDropdown])

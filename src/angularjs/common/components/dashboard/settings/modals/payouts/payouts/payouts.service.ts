@@ -5,8 +5,7 @@ import {ErrorHandlerService} from '../../../../../../services/error-handler/erro
 
 export class PayoutsModalService {
 
-  /* @ngInject */
-  constructor(private PayoutsApi: PayoutsApi,
+    constructor(private PayoutsApi: PayoutsApi,
               private errorHandler: ErrorHandlerService) {}
 
   public putPayoutMethod = (payoutMethod: PutPayoutMethodDto): ng.IPromise<JValue> => {

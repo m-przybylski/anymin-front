@@ -42,8 +42,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   private static readonly minValidClientReportMessageLength: number = 3
   private sueId: string
 
-  /* @ngInject */
-  constructor(private $scope: IConsultationSummaryExpertControllerScope,
+    constructor(private $scope: IConsultationSummaryExpertControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
               private ServiceApi: ServiceApi,

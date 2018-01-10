@@ -8,8 +8,7 @@ export class ClientActivityComponentController implements ng.IController, IClien
   public isCallActivity: boolean
   public imageToken?: string
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService, private $log: ng.ILogService) {
+    constructor(private modalsService: ModalsService, private $log: ng.ILogService) {
   }
 
   $onInit(): void {

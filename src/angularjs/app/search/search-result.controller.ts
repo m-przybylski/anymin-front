@@ -19,8 +19,7 @@ export class SearchResultController {
   public isSearchLoading: boolean = true
   private searchQueryParams: SearchQueryParams
 
-  /* @ngInject */
-  constructor(private errorHandler: ErrorHandlerService,
+    constructor(private errorHandler: ErrorHandlerService,
               private searchService: SearchService,
               private promiseService: PromiseService,
               $state: StateService) {

@@ -11,8 +11,7 @@ class GetHeight implements ng.IDirective<ng.IScope> {
     getHeight: '=?'
   }
 
-  /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService) {
+    constructor(private $timeout: ng.ITimeoutService) {
   }
 
   public link = (scope: IGetHeightScope, elem: ng.IRootElementService): void => {

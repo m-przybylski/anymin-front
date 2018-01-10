@@ -16,8 +16,7 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
   public usageCounter: number
   public serviceName: string
 
-  /* @ngInject */
-  constructor(private precallService: PrecallService,
+    constructor(private precallService: PrecallService,
               private userService: UserService,
               private $state: StateService) {
   }

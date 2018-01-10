@@ -17,7 +17,6 @@ export class ConsultationListItemComponentController implements IConsultationLis
   public inviteTime: string
   public checkboxId: string
   public isChecked: boolean = false
-  /* @ngInject */
   constructor() {
   }
 

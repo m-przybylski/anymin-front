@@ -3,8 +3,7 @@ import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
 
 export class ChargeAccountResolver {
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService,
+    constructor(private modalsService: ModalsService,
               private $q: ng.IQService,
               private PaymentsApi: PaymentsApi,
               private FinancesApi: FinancesApi) {

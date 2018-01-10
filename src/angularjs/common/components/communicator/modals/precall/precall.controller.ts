@@ -52,8 +52,7 @@ export class PrecallModalController implements ng.IController {
   private readonly secondPerMinute: number = 60
   private readonly minPrepaidMinutesTimeLimitToCall: number = 2
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService,
+    constructor(private $log: ng.ILogService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private FinancesApi: FinancesApi,
               private PaymentsApi: PaymentsApi,

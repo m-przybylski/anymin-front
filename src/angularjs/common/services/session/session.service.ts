@@ -6,8 +6,7 @@ export class SessionServiceWrapper {
   private sessionCache?: ng.IPromise<GetSession>
   private apiKeyKey: string = 'X-Api-Key'
 
-  /* @ngInject */
-  constructor(private SessionApi: SessionApi,
+    constructor(private SessionApi: SessionApi,
               private $http: ng.IHttpService,
               private $q: ng.IQService,
               eventsService: EventsService) {

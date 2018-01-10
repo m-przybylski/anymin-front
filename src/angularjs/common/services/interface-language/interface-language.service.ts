@@ -23,8 +23,7 @@ export class InterfaceLanguageService {
     // { nativeName: 'Deutsch (Deutchland)', ietfCode: 'de-de' }
   ]
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService, private $http: ng.IHttpService,
+    constructor(private $log: ng.ILogService, private $http: ng.IHttpService,
               private $rootScope: IRootScopeService, private $translate: ng.translate.ITranslateService,
               private $locale: ng.ILocaleService, private $cookies: ng.cookies.ICookiesService,
               private $location: ng.ILocationService, private tmhDynamicLocale: any, private amMoment: any) {

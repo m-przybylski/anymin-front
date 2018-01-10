@@ -24,8 +24,7 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
   private clearFormAfterCropping: () => void
   private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize
 
-  /* @ngInject */
-  constructor(private $scope: ng.IScope,
+    constructor(private $scope: ng.IScope,
               private CommonSettingsService: CommonSettingsService,
               uploaderFactory: UploaderFactory) {
     this.uploader = uploaderFactory.getInstance()

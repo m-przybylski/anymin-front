@@ -3,7 +3,6 @@ import {UrlService} from '../../../../../../services/url/url.service'
 import {StateService} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 
-/* @ngInject */
 function controller($state: StateService, urlService: UrlService): void {
 
   const ORGANIZATION_SHORTCUT = 'ORG'
@@ -29,7 +28,7 @@ function controller($state: StateService, urlService: UrlService): void {
 
 const component = {
   template: require('./favourite-expert.html'),
-  controller,
+  controller: ['$state', 'urlService', controller],
   controllerAs: '$ctrl',
   bindings: {
     favouriteExpert: '<'

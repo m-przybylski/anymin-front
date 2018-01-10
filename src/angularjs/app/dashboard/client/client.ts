@@ -31,5 +31,5 @@ angular.module('profitelo.controller.dashboard.client', [
   'profitelo.controller.dashboard.client.favourites',
   DashboardClientInvoicesModule
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('clientController', clientController)

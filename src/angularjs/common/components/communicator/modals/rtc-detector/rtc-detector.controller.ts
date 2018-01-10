@@ -8,7 +8,6 @@ export class RtcDetectorModalController implements ng.IController {
   public isFirefox = false
   public isSafari = false
 
-  /* @ngInject */
   constructor() {
     if (DetectRTC.browser.isFirefox) {
       this.isFirefox = true

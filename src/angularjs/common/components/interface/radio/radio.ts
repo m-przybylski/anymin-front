@@ -1,5 +1,5 @@
-(function(): void {
-  /* @ngInject */
+(function (): void {
+
   function controller(): void {
 
     return this
@@ -15,7 +15,7 @@
     },
     template: require('./radio.html'),
     controllerAs: '$ctrl',
-    controller
+    controller: [controller]
   }
 
   angular.module('profitelo.components.interface.radio', [
