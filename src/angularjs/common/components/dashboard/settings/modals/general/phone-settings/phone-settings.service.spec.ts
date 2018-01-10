@@ -30,18 +30,18 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
     })
 
     it('should set new number and show pin form', () => {
-      phoneSettingsService.markNumberAsUsed(phoneNumber)
-      expect(phoneSettingsService.markNumberAsUsed).toBeTruthy();
+      phoneSettingsService.addNewNumber(phoneNumber)
+      expect(phoneSettingsService.addNewNumber).toBeTruthy();
     })
 
     it('should set status button as disabled', () => {
       const thirtySeconds: number = 40000
       jasmine.clock().install()
       jasmine.clock().mockDate(new Date())
-      phoneSettingsService.markNumberAsUsed(phoneNumber)
+      phoneSettingsService.addNewNumber(phoneNumber)
       expect(phoneSettingsService.setButtonDisabled(phoneNumber)).toBeTruthy()
       jasmine.clock().tick(thirtySeconds)
-      phoneSettingsService.markNumberAsUsed(phoneNumber)
+      phoneSettingsService.addNewNumber(phoneNumber)
       expect(phoneSettingsService.setButtonDisabled(phoneNumber)).toBeFalsy()
     })
 

@@ -33,7 +33,7 @@ export class PhoneSettingsController implements ng.IController {
     this.counter = time
 
   public onSubmit = (): void => {
-    this.phoneSettingsService.markNumberAsUsed(this.numberModel)
+    this.phoneSettingsService.addNewNumber(this.numberModel)
   }
 
   public onInputValueChange = (): void =>

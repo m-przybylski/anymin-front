@@ -72,12 +72,9 @@ export class PhoneSettingsService {
     })
 
   private startCountDown = (phoneNumber: string, time: number): void => {
-    this.counter = PhoneSettingsService.timeToResend
-    this.counter -= time
     this.isButtonDisabled = true
-
     this.interval = this.$interval(() => {
-      this.counter--
+      this.counter = PhoneSettingsService.timeToResend - this.timeElapse(time)
       this.events.onCountDownUpdate.next(this.counter)
       if (this.counter === 0) {
         this.isButtonDisabled = false
@@ -118,7 +115,7 @@ export class PhoneSettingsService {
     this.events.onNewPhoneNumberCreate.next(false)
   }
 
-  public markNumberAsUsed = (phoneNumber: string): void => {
+  public addNewNumber = (phoneNumber: string): void => {
     this.events.onNewPhoneNumberCreate.next(false)
     this.clearInterval()
 
@@ -126,27 +123,29 @@ export class PhoneSettingsService {
 
     if (phoneObject) {
       if (this.timeElapse(phoneObject.date) >= PhoneSettingsService.timeToResend) {
-        phoneObject.date = Date.now()
+        this.markNumberAsUnused(phoneNumber)
+        this.markNumberAsUsed(phoneNumber)
+      } else {
+        this.isButtonDisabled = true
+        this.startCountDown(phoneNumber, phoneObject.date)
       }
-      this.isButtonDisabled = true
-      this.startCountDown(phoneNumber, this.timeElapse(phoneObject.date))
     } else {
-      this.sendedSMSArray = [...this.sendedSMSArray, {phoneNumber, date: Date.now()}]
-      this.setNewNumber(phoneNumber)
+      this.markNumberAsUsed(phoneNumber)
     }
+  }
+
+  private markNumberAsUsed = (phoneNumber: string): void => {
+    this.sendedSMSArray = [...this.sendedSMSArray, {phoneNumber, date: Date.now()}]
+    this.setNewNumber(phoneNumber)
   }
 
   public getIsNumberExist = (): boolean => this.isNumberExist
 
   private markNumberAsUnused = (phoneNumber: string): void => {
-    const phoneIndex = _.findIndex(
-      this.sendedSMSArray, (el) =>
-        el.phoneNumber === phoneNumber
-    )
-    this.sendedSMSArray.splice(phoneIndex, 1)
+    this.sendedSMSArray = this.sendedSMSArray.filter( el => el.phoneNumber !== phoneNumber )
   }
 
-  private timeElapse = (newValue: number): number =>
-    Number(((Date.now() - newValue) / PhoneSettingsService.oneSecondInMillisecond)
+  private timeElapse = (date: number): number =>
+    Number(((Date.now() - date) / PhoneSettingsService.oneSecondInMillisecond)
     .toFixed(0))
 }
