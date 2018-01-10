@@ -194,10 +194,6 @@ describe('Unit testing: profitelo.services.interface-language >', function (): v
       realTranslate = $injector.get('$translate')
     }))
 
-    // afterEach(function(): void {
-    //   InterfaceLanguageService = null
-    // })
-
     it('this accually just inject $translate object before evaluate next test', function (): void {
     })
   })
@@ -222,10 +218,6 @@ describe('Unit testing: profitelo.services.interface-language >', function (): v
       beforeEach(inject(function ($injector: ng.auto.IInjectorService): void {
         InterfaceLanguageService = $injector.get<InterfaceLanguageService>('InterfaceLanguageService')
       }))
-
-      // it('should set translation language if any parameter, URL or cookie has not been provided and exists into `_interfaceLanguages` array', function(): void {
-      //   expect(InterfaceLanguageService.getStartupLanguage(): void).toEqual('en-us')
-      // })
 
     })
   })
@@ -253,10 +245,6 @@ describe('Unit testing: profitelo.services.interface-language >', function (): v
 
       afterEach(function (): void {
         InterfaceLanguageService = null
-      })
-
-      it('should set default translation language if any parameter, URL or cookie has not been provided and not exists into `_interfaceLanguages` array', function (): void {
-        expect(InterfaceLanguageService.getStartupLanguage()).toEqual('pl-pl')
       })
 
     })

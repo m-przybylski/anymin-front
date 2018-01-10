@@ -3,7 +3,7 @@ import * as angular from 'angular'
 import {UrlService} from '../../../services/url/url.service'
 import communicatorModule from '../../communicator/communicator'
 
-interface Window {
+interface IWindow {
   Audio: any;
 }
 
@@ -13,12 +13,11 @@ interface IAudioMock {
   pause: () => void
 }
 
-declare let window: Window;
+declare let window: IWindow;
 
 describe('Unit testing: profitelo.components.expert-profile.company-single-consultation', () => {
   return describe('for messenger component >', () => {
 
-    let scope: any
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: any
@@ -28,7 +27,6 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
       go: (): void => {
       }
     }
-    const validHTML = '<company-single-consultation data-service-tags-employees-tuple="{details: {tags: [] }}" data-title="asd"></company-single-consultation>'
     const bindings = {
       serviceTagsEmployeesTuple: {
         tags: []
@@ -52,14 +50,6 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     afterEach(() => {
       window.Audio = audioOriginal
     })
-
-    function create(html: string): JQuery {
-      scope = rootScope.$new()
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     const callService = {
       callServiceId: (): null => {
@@ -88,7 +78,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
         urlService = _urlService_
 
         const injectors = {
-          callService: callService,
+          callService,
           $state: state
         }
 
@@ -100,10 +90,5 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
-    it('should compile the component', () => {
-      const el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
   })
 })

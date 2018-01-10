@@ -52,6 +52,7 @@ import {UserService} from '../../../../services/user/user.service'
             profiteloWebsocket: profiteloWebsocket
           }
         })
+        FinancesApiMock.getProfileBalanceRoute(500)
         FinancesApiMock.getClientBalanceRoute(500)
         component = componentController<ExpertNavigationComponentController, {}>('expertNavigation', injectors, {})
       })

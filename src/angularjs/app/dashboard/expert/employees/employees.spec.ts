@@ -7,6 +7,7 @@ import {GetProfileDetailsWithEmployments, GetInvitation} from 'profitelo-api-ng/
 import {httpCodes} from '../../../../common/classes/http-codes'
 import {IRootScopeService} from '../../../../common/services/root-scope/root-scope.service';
 import {StateService} from '@uirouter/angularjs'
+import {UserService} from '../../../../common/services/user/user.service';
 
 describe('Unit tests: dashboardExpertEmployeesController >', () => {
   describe('Testing Controller: dashboardExpertEmployeesController', () => {
@@ -23,7 +24,8 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       employees: []
     }
 
-    const userService = jasmine.createSpyObj('userService', ['getUser'])
+    const userService = jasmine.createSpyObj<UserService>('userService', ['getUser'])
+    userService.getUser.and.returnValue(Promise.resolve({id: 'someId'}))
 
     beforeEach(() => {
       angular.mock.module(dashboardExpertEmployeesModule)
@@ -61,8 +63,6 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
             $log,
             userService
           })
-        dashboardExpertEmployeesController.$onInit()
-        $rootScope.$digest()
       })
     })
 
@@ -109,7 +109,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       expect(dashboardExpertEmployeesController.areEmployees).toBe(true)
     })
 
-    it('should be some pending invitations after delete one', () => {
+    it('should be some pending invitations after delete one', inject(($rootScope: IRootScopeService) => {
       const date = new Date
       serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
         id: 'someId',
@@ -167,11 +167,14 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           updatedAt: date
         }]
       }])
+      employmentApiMock.getEmployeesRoute(200)
+      dashboardExpertEmployeesController.$onInit()
+      $rootScope.$digest()
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       dashboardExpertEmployeesController.onDeleteInvitationsCallback()
       expect(dashboardExpertEmployeesController.arePendingInvitations).toBe(true)
-    })
+    }))
 
     it('should get get profiles with employments', () => {
       employmentApiMock.getEmployeesRoute(httpCodes.ok, <GetProfileDetailsWithEmployments[]>[{
@@ -200,15 +203,18 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       expect($log.error).toHaveBeenCalled()
     })
 
-    it('should log error when get profile services failed', () => {
+    it('should log error when get profile services failed', inject(($rootScope: IRootScopeService) => {
       spyOn($log, 'error')
       serviceApiMock.getProfileServicesRoute(httpCodes.notFound, 'someId', <any>{})
+      employmentApiMock.getEmployeesRoute(200)
+      dashboardExpertEmployeesController.$onInit()
+      $rootScope.$digest()
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       expect($log.error).toHaveBeenCalled()
-    })
+    }))
 
-    it('should log error when get service invitations failed', () => {
+    it('should log error when get service invitations failed', inject(($rootScope: IRootScopeService) => {
       spyOn($log, 'error')
       serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
         id: 'id',
@@ -226,13 +232,16 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
         isSuspended: false,
         createdAt: 123
       }])
+      employmentApiMock.getEmployeesRoute(200)
+      dashboardExpertEmployeesController.$onInit()
+      $rootScope.$digest()
       serviceApiMock.postServiceInvitationsRoute(httpCodes.notFound)
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       expect($log.error).toHaveBeenCalled()
-    })
+    }))
 
-    it('should group pending invitations', () => {
+    it('should group pending invitations', inject(($rootScope: IRootScopeService) => {
       const date = new Date
       serviceApiMock.getProfileServicesRoute(httpCodes.ok, 'someId', [{
         id: 'someId',
@@ -279,6 +288,9 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           updatedAt: date
         }]
       }])
+      employmentApiMock.getEmployeesRoute(200)
+      dashboardExpertEmployeesController.$onInit()
+      $rootScope.$digest()
       dashboardExpertEmployeesController.getServicesInvitations()
       $httpBackend.flush()
       expect(dashboardExpertEmployeesController.pendingInvitations).toEqual([[{
@@ -292,7 +304,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
         createdAt: date,
         updatedAt: date
       }]])
-    })
+    }))
 
   })
 })

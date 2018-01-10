@@ -6,6 +6,7 @@ import navbarExperetVisibilityModule from './navbar-expert-visibility'
 import profiteloWebsocketModule from '../../../services/profitelo-websocket/profitelo-websocket'
 import SpyObj = jasmine.SpyObj
 import {GetExpertVisibility} from 'profitelo-api-ng/model/models'
+import {PresenceApiMock} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 
 describe('Unit testing: navbar-expert-visibility', () => {
@@ -48,7 +49,10 @@ describe('Unit testing: navbar-expert-visibility', () => {
               $rootScope: ng.IRootScopeService,
               $timeout: ng.ITimeoutService,
               $componentController: ng.IComponentControllerService,
-              profiteloWebsocket: ProfiteloWebsocketService) => {
+              profiteloWebsocket: ProfiteloWebsocketService,
+              PresenceApiMock: PresenceApiMock) => {
+
+        PresenceApiMock.expertVisibilityRoute(200, undefined)
 
         rootScope = $rootScope
         compile = $compile
