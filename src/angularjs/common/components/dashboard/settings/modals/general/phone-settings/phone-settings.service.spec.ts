@@ -34,8 +34,8 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
       expect(phoneSettingsService.addNewNumber).toBeTruthy();
     })
 
-    it('should set status button as disabled', () => {
-      const thirtySeconds: number = 40000
+    it('should set status button as disabled when promise error', () => {
+      const thirtySeconds: number = 20000
       jasmine.clock().install()
       jasmine.clock().mockDate(new Date())
       phoneSettingsService.addNewNumber(phoneNumber)

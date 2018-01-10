@@ -71,7 +71,6 @@ export class PhoneSettingsService {
     })
 
   private startCountDown = (phoneNumber: string, time: number): void => {
-    this.isButtonDisabled = true
     this.interval = this.$interval(() => {
       this.counter = PhoneSettingsService.timeToResend - this.timeElapse(time)
       this.events.onCountDownUpdate.next(this.counter)
@@ -125,8 +124,8 @@ export class PhoneSettingsService {
         this.markNumberAsUnused(phoneNumber)
         this.markNumberAsUsed(phoneNumber)
       } else {
-        this.isButtonDisabled = true
         this.startCountDown(phoneNumber, phoneObject.date)
+        this.isButtonDisabled = true
       }
     } else {
       this.markNumberAsUsed(phoneNumber)
