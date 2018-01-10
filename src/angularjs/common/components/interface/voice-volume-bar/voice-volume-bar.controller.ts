@@ -14,8 +14,7 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
   private mediaStreamSource: MediaStreamAudioSourceNode
   public stream?: MediaStream
 
-  /* @ngInject */
-  constructor(private volumeMeter: VolumeMeterService,
+    constructor(private volumeMeter: VolumeMeterService,
               private $window: ng.IWindowService,
               private $element: JQuery) {
   }

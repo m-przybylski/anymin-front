@@ -5,8 +5,7 @@ export class HelpdeskService implements IHelpdesk {
 
   private static readonly baseZendeskUrl: string = 'https://anymind.zendesk.com/'
 
-  /* @ngInject */
-  constructor(private $http: ng.IHttpService) {
+    constructor(private $http: ng.IHttpService) {
   }
 
   public searchArticles = (query: string): ng.IPromise<ISearchArticleResults> => {

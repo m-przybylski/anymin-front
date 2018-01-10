@@ -2,8 +2,7 @@ import {TopAlertService} from '../top-alert/top-alert.service'
 import {TranslatorService} from '../translator/translator.service'
 export class ErrorHandlerService {
 
-  /* @ngInject */
-  constructor(private topAlertService: TopAlertService,
+    constructor(private topAlertService: TopAlertService,
               private $log: ng.ILogService,
               private translatorService: TranslatorService) {
   }

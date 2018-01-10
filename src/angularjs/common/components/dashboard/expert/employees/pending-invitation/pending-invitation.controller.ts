@@ -22,8 +22,7 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   private static readonly minRangeOfFewInvitations: number = 2
   private static readonly maxRangeOfFewInvitations: number = 4
 
-  /* @ngInject */
-  constructor(
+    constructor(
     private InvitationApi: InvitationApi,
               private errorHandler: ErrorHandlerService,
               private topAlertService: TopAlertService,

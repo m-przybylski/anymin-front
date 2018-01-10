@@ -14,7 +14,6 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   public isDirty: boolean = false
   public onChange: string = ''
 
-  /* @ngInject */
   constructor() {}
 
   public onFocus = (): void => {

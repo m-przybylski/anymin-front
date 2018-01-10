@@ -22,8 +22,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public onModalClose: () => void
   public isDeleted: boolean = false
 
-  /* @ngInject */
-  constructor(private userService: UserService,
+    constructor(private userService: UserService,
               private modalsService: ModalsService,
               private ServiceApi: ServiceApi,
               private EmploymentApi: EmploymentApi,

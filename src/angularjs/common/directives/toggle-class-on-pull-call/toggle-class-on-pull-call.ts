@@ -5,8 +5,7 @@ import {EventsService} from '../../services/events/events.service'
 class ToggleClassOnPullCall implements ng.IDirective<ng.IScope> {
   public restrict: string = 'A'
 
-  /* @ngInject */
-  constructor(private expertCallService: ExpertCallService,
+    constructor(private expertCallService: ExpertCallService,
               private eventsService: EventsService) {
   }
 

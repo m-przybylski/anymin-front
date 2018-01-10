@@ -22,8 +22,7 @@ export class ProfiteloWebsocketService {
     onSessionDeleted: new Subject<any>()
   }
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService,
+    constructor(private $log: ng.ILogService,
               private userService: UserService,
               private eventsService: EventsService,
               private $timeout: ng.ITimeoutService,

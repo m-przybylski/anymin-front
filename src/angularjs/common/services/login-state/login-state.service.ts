@@ -14,7 +14,6 @@ export class LoginStateService {
   private account: any = null
   private emptyAccount: any = null
 
-  /* @ngInject */
   constructor() {
     this.account = {
       phoneNumber: {

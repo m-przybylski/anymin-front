@@ -29,8 +29,7 @@ export class SoundsService {
   private callIncomingSoundCount = 0
   private isCallConnecting = false
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService, ) {
+    constructor(private $log: ng.ILogService, ) {
 
     this.soundPaths = _.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename)
     this.soundObjects = _.mapValues(this.soundPaths, path => new Audio(path))

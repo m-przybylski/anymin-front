@@ -21,8 +21,7 @@ export class ExpertInviteEmployeesController implements ng.IController {
   private invitations: PostInvitation[] = []
   private selectedServices: GetService[] = []
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private InvitationApi: InvitationApi,
               private $timeout: ng.ITimeoutService,
               private userService: UserService,

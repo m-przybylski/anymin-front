@@ -17,8 +17,7 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
   private static readonly messageShowTimeout = 5000
   private clientSession: RatelSdk.Session | undefined
 
-  /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService,
+    constructor(private $timeout: ng.ITimeoutService,
               private communicatorService: CommunicatorService,
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {

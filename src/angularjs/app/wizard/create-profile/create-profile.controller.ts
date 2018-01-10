@@ -7,8 +7,7 @@ export class CreateProfileController implements ng.IController {
   public isLoading: boolean = true
   public isSummary: boolean = false
 
-  /* @ngInject */
-  constructor(private $state: StateService, WizardApi: WizardApi, previousState: string) {
+    constructor(private $state: StateService, WizardApi: WizardApi, previousState: string) {
     WizardApi.getWizardProfileRoute().then((wizardProfile) => {
       this.isSummary = wizardProfile.isSummary
       this.isLoading = false

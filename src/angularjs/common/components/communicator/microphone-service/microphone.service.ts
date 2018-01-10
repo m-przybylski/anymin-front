@@ -9,7 +9,6 @@ export class MicrophoneService {
 
   private microphoneStatusEmitter: BehaviorSubject<MicrophoneStateEnum> = new BehaviorSubject(MicrophoneStateEnum.GOOD)
 
-  /* @ngInject */
   constructor() {
   }
 

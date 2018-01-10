@@ -10,8 +10,7 @@ interface IAppClientFavouritesResolverResponse {
 
 export class ClientFavouritesResolver {
 
-  /* @ngInject */
-  constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
+    constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 
   public resolve = (): ng.IPromise<GetDashboardClientExperts> =>

@@ -16,8 +16,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   amountModifier: number = 1
   userAmountOption: number = 3
 
-  /* @ngInject */
-  constructor(private $scope: ng.IScope, CommonSettingsService: CommonSettingsService) {
+    constructor(private $scope: ng.IScope, CommonSettingsService: CommonSettingsService) {
 
     this.amountModifier = CommonSettingsService.localSettings.amountMultiplier
 

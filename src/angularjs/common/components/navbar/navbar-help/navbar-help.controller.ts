@@ -16,8 +16,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   private static readonly searchDebounceDelay: number = 500
   private debouncedSearch: () => void
 
-  /* @ngInject */
-  constructor(private helpdeskService: HelpdeskService,
+    constructor(private helpdeskService: HelpdeskService,
               private $log: ng.ILogService,
               private CommonConfig: CommonConfig) {
 

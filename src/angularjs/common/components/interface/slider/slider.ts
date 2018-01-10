@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
 
-/* @ngInject */
 function defaultSliderFunction($window: IWindowService,
                                $timeout: ng.ITimeoutService,
                                $element: ng.IRootElementService): void {
@@ -66,7 +65,7 @@ const slider = {
     controlls: '='
   },
   controllerAs: 'vm',
-  controller: defaultSliderFunction
+  controller: ['$window', '$timeout', '$element', defaultSliderFunction]
 }
 
 angular.module('profitelo.components.interface.slider', [

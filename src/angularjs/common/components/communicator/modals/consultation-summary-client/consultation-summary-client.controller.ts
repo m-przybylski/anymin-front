@@ -51,8 +51,7 @@ export class ConsultationSummaryClientController implements ng.IController {
   private isSendButtonClicked: boolean = false
   private isTechnicalProblemsTab: boolean = true
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService,
+    constructor(private $log: ng.ILogService,
               private $scope: IConsultationSummaryClientControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,

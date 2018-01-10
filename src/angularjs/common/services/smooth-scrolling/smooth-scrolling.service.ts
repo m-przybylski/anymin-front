@@ -2,8 +2,7 @@ export class SmoothScrollingService {
 
   private static readonly dividerOnHalf: number = 2
 
-  /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService) {
+    constructor(private $timeout: ng.ITimeoutService) {
   }
 
   public scrollTo = (eID: string): void => {

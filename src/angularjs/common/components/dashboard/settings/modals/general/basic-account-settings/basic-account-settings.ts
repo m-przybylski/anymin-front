@@ -65,8 +65,7 @@ export class BasicAccountSettingsController implements ng.IController {
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
   private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize
 
-  /* @ngInject */
-  constructor(private $scope: IBasicAccountSettingsControllerScope,
+    constructor(private $scope: IBasicAccountSettingsControllerScope,
               private AccountApi: AccountApi,
               private CommonSettingsService: CommonSettingsService,
               private errorHandler: ErrorHandlerService,

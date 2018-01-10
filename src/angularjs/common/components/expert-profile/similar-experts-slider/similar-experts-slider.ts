@@ -3,7 +3,6 @@ import {UrlService} from '../../../services/url/url.service'
 import urlModule from '../../../services/url/url'
 import {StateService} from '@uirouter/angularjs'
 
-/* @ngInject */
 function controller($scope: any, $state: StateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {
@@ -36,7 +35,7 @@ const similarExpertsSlider = {
     consultations: '<',
     title: '@'
   },
-  controller,
+  controller: ['$scope', '$state', 'urlService', controller],
   controllerAs: '$ctrl'
 }
 

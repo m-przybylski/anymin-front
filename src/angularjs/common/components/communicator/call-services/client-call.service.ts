@@ -22,8 +22,7 @@ export class ClientCallService {
 
   private readonly onNewCallSubject = new Subject<CurrentClientCall>()
 
-  /* @ngInject */
-  constructor(private communicatorService: CommunicatorService,
+    constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
               private timerFactory: TimerFactory,
               private ServiceApi: ServiceApi,

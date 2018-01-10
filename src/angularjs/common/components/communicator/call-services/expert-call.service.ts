@@ -28,8 +28,7 @@ export class ExpertCallService {
     onCallEnd: new Subject<CurrentExpertCall>()
   };
 
-  /* @ngInject */
-  constructor(private ServiceApi: ServiceApi,
+    constructor(private ServiceApi: ServiceApi,
               private timerFactory: TimerFactory,
               private modalsService: ModalsService,
               private soundsService: SoundsService,

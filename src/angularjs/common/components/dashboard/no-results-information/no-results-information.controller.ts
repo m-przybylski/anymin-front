@@ -13,7 +13,6 @@ export class NoResultsInformationController implements INoResultsInformationComp
   buttonOnClick: () => void
   buttonCallback: () => void
 
-  /* @ngInject */
   constructor() {
 
     this.buttonCallback = (): void => {

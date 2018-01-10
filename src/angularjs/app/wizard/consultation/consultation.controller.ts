@@ -50,8 +50,7 @@ export class ConsultationController implements ng.IController {
   private consultationInvitationsMaxCount: number
   private consultationPriceMin: number
   private consultationPriceMax: number
-  /* @ngInject */
-  constructor(private translatorService: TranslatorService,
+    constructor(private translatorService: TranslatorService,
               private $state: StateService,
               private $stateParams: IConsultationStateParams,
               private WizardApi: WizardApi,

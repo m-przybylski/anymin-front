@@ -13,8 +13,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   private static readonly disableSendButtonInSeconds: number = 30
   private static readonly validPinLength: number = 4
 
-  /* @ngInject */
-  constructor(private $interval: ng.IIntervalService) {
+    constructor(private $interval: ng.IIntervalService) {
 
   }
 

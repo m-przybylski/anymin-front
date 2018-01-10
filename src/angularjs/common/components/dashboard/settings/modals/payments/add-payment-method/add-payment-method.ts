@@ -25,8 +25,7 @@ export class AddPaymentMethodController implements ng.IController {
     this.$scope.callback()
     this.$uibModalInstance.dismiss('cancel')
   }
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IAddPaymentMethodControllerScope) {
 
   }

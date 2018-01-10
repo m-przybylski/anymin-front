@@ -9,8 +9,7 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
   public showFilters: () => void
   public onModalCloseCallback: () => void
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService) {
+    constructor(private modalsService: ModalsService) {
 
     this.checkAllEmployees = false
     this.areEmployees = true

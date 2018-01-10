@@ -6,8 +6,7 @@ import {ErrorHandlerService} from '../../../../common/services/error-handler/err
 
 export class PayoutsService {
 
-  /* @ngInject */
-  constructor(private PayoutsApi: PayoutsApi,
+    constructor(private PayoutsApi: PayoutsApi,
               private $log: ng.ILogService,
               private errorHandler: ErrorHandlerService) {}
 

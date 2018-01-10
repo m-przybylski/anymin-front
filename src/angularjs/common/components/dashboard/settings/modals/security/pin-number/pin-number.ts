@@ -41,8 +41,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: AccountApi,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: AccountApi,
               private CommonSettingsService: CommonSettingsService) {
     AccountApi.getMobileProtectedViewsRoute().then(res => {
       res.protectedViews.forEach((view) => {

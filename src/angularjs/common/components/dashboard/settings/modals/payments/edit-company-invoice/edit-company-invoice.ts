@@ -57,8 +57,7 @@ export class EditCompanyInvoiceController implements ng.IController {
     })
   }
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IEditCompanyInvoiceControllerScope, private AccountApi: AccountApi) {
 
     AccountApi.getCompanyPayoutInvoiceDetailsRoute().then((response) => {

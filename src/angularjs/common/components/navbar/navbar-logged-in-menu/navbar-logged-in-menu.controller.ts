@@ -26,8 +26,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   invitations: GetProfileWithServicesInvitations[] = []
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
-  /* @ngInject */
-  constructor(private userService: UserService,
+    constructor(private userService: UserService,
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
               private $state: StateService,

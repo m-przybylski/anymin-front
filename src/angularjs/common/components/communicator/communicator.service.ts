@@ -64,8 +64,7 @@ export class CommunicatorService {
     chat.connect()
   }
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService,
+    constructor(private $log: ng.ILogService,
               private $q: ng.IQService,
               private RatelApi: RatelApi,
               userService: UserService,

@@ -3,8 +3,7 @@ import {IInvitationObject} from '../../../app/invitations/invitation.interface'
 
 export class RegistrationInvitationService {
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService) {
+    constructor(private $log: ng.ILogService) {
   }
 
   public getInvitationObject = (): IInvitationObject | undefined => {

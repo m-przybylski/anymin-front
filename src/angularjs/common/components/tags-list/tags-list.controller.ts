@@ -3,7 +3,6 @@ import { Tag } from 'profitelo-api-ng/model/models'
 export class TagsListComponentController implements ITagsListBindings {
 
   public tags: Tag[]
-  /* @ngInject */
   constructor() {
 
   }

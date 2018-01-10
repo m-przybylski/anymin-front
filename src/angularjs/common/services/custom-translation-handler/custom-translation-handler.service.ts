@@ -7,7 +7,6 @@ export class CustomTranslationHandlerService {
     '<i class="icon icon-home icon-sm"></i>'
   ]
 
-  /* @ngInject */
   constructor() {
   }
 

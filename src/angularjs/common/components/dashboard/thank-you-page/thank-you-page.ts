@@ -1,6 +1,5 @@
 (function (): void {
 
-  /* @ngInject */
   function thankYouPageController($location: ng.ILocationService): void {
 
     const validCurrencyLength: number = 3
@@ -22,7 +21,7 @@
   const thankYouPage = {
     template: require('./thank-you-page.html'),
     transclude: true,
-    controller: thankYouPageController,
+    controller: ['$location', thankYouPageController],
     controllerAs: '$ctrl'
   }
   angular.module('profitelo.components.dashboard.thank-you-page', [])

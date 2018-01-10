@@ -13,8 +13,7 @@ export class NavbarExpertVisibilityComponentController implements ng.IController
   public isVisibilityPending = false
   private visibilitySubscription: Subscription
 
-  /* @ngInject */
-  constructor(private $scope: ng.IScope,
+    constructor(private $scope: ng.IScope,
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private errorHandler: ErrorHandlerService,

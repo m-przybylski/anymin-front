@@ -22,8 +22,7 @@ export class PayoutsModalController implements ng.IController {
     payPalAccount: 'paypalAccount'
   }
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IPayoutsModalControllerScope,
               private CommonSettingsService: CommonSettingsService,
               private payoutsModalService: PayoutsModalService) {

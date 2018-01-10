@@ -17,8 +17,7 @@ export class TopAlertService {
   private defaultOptions = {}
   private alertsLimit = 2
 
-  /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService) {
+    constructor(private $timeout: ng.ITimeoutService) {
   }
 
   private setId = (): number => {

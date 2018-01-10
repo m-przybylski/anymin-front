@@ -366,9 +366,6 @@ module.exports = {
         "test": /\.ts$/,
         "use": [
           {
-            "loader": "ng-annotate-loader"
-          },
-          {
             "loader": "@ngtools/webpack"
           }
         ]

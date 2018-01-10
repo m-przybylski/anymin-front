@@ -20,8 +20,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
     }
   }
 
-  /* @ngInject */
-  constructor(private paypalFactory: any, private PaymentsApi: PaymentsApi,
+    constructor(private paypalFactory: any, private PaymentsApi: PaymentsApi,
               $state: StateService) {
 
     this.paypalFactory.Button.render({

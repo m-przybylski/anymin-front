@@ -14,8 +14,7 @@ export class PagePreloaderComponentController implements ng.IController {
   private toStateName: string
   private toStateParams: { [key: string]: string }
 
-  /* @ngInject */
-  constructor(private $rootScope: ng.IRootScopeService,
+    constructor(private $rootScope: ng.IRootScopeService,
               private $timeout: ng.ITimeoutService,
               private promiseService: PromiseService,
               private $log: ng.ILogService,

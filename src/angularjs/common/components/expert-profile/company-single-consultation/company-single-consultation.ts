@@ -9,7 +9,6 @@ import {
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 import {StateService} from '@uirouter/angularjs'
 
-/* @ngInject */
 function controller(clientCallService: ClientCallService, userService: UserService, $state: StateService): void {
 
   this.startCall = (): void => {
@@ -36,7 +35,7 @@ const companySingleConsultation = {
     serviceTagsEmployeesTuple: '<',
     title: '@'
   },
-  controller,
+  controller: ['clientCallService', 'userService', '$state', controller],
   controllerAs: '$ctrl'
 }
 

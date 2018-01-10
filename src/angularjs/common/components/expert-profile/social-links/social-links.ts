@@ -1,6 +1,5 @@
 (function(): void {
 
-  /* @ngInject */
   function controller(): void {
 
     return this
@@ -13,7 +12,7 @@
     bindings: {
       links: '<'
     },
-    controller,
+    controller: [controller],
     controllerAs: '$ctrl'
   }
 

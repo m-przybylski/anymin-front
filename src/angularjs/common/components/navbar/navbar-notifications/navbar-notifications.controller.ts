@@ -15,8 +15,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   invitations: GetProfileWithServicesInvitations[]
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService,
+    constructor(private modalsService: ModalsService,
               private $element: ng.IRootElementService) {
 
     this.buttonCallback = (): void => {

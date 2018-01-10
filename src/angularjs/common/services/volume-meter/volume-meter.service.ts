@@ -14,8 +14,7 @@ export class VolumeMeterService {
   private static readonly defaultClipLag = 750
   private static readonly bufferSize: number = 1024
 
-  /* @ngInject */
-  constructor(private $window: ng.IWindowService) {
+    constructor(private $window: ng.IWindowService) {
   }
 
   public createAudioMeter = (audioContext: AudioContext,

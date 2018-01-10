@@ -3,7 +3,6 @@ import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-
 import {IWindowService} from '../../../services/window/window.service'
 import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scrolling'
 
-/* @ngInject */
 function controller($element: ng.IRootElementService,
                     smoothScrollingService: SmoothScrollingService,
                     $window: IWindowService,
@@ -65,7 +64,7 @@ const collapseTab = {
   template: require('./collapse-tab.html'),
   controllerAs: '$ctrl',
   transclude: true,
-  controller
+  controller: ['$element', 'smoothScrollingService', '$window', '$log', '$scope', '$timeout', controller]
 }
 
 angular.module('profitelo.components.interface.collapse-tab', [

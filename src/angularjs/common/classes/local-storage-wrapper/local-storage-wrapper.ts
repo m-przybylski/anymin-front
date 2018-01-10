@@ -2,7 +2,6 @@ export type LocalStorageKeyName = 'invitation' | 'accepted-consultations'
 
 export class LocalStorageWrapper {
 
-  /* @ngInject */
   constructor() {}
 
   public static setItem = (key: LocalStorageKeyName, value: string): void => localStorage.setItem(key, value)

@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {IFilterService} from '../../../services/filter/filter.service'
 import {IWindowService} from '../../../services/window/window.service'
 
-/* @ngInject */
 function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $timeout: ng.ITimeoutService,
                                 $window: IWindowService, $scope: ng.IScope): void {
 
@@ -68,7 +67,7 @@ const showMoreText = {
   bindings: {
     text: '@'
   },
-  controller: showMoreTextController
+  controller: ['$filter', '$log', '$timeout', '$window', '$scope', showMoreTextController]
 }
 
 angular.module('profitelo.components.interface.show-more-text', [

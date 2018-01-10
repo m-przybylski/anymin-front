@@ -19,8 +19,7 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public isValidate: boolean
   public isDisabled: boolean = false
 
-  /* @ngInject */
-  constructor(private $element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
+    constructor(private $element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
     this.priceRegexp = CommonSettingsService.localSettings.pricePattern
   }
 

@@ -24,8 +24,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
   currentCall: CurrentCall
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
-  /* @ngInject */
-  constructor(clientCallService: ClientCallService,
+    constructor(clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
     clientCallService.onNewCall(this.clearButtonsState)
     expertCallService.onNewCall(this.clearButtonsState)

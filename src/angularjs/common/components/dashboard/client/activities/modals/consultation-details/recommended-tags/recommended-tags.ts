@@ -4,7 +4,6 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {Tag} from 'profitelo-api-ng/model/models'
 
-/* @ngInject */
 function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
 
   const updateBindings = (): void => {
@@ -56,7 +55,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
 
 const component = {
   template: require('./recommended-tags.html'),
-  controller,
+  controller: ['$log', 'ServiceApi', controller],
   controllerAs: '$ctrl',
   bindings: {
     selectedTags: '<',

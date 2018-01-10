@@ -19,7 +19,6 @@ import chooseBankModule from '../../choose-bank/choose-bank'
 import {StateService} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 
-/* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: StateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
@@ -65,8 +64,8 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         this.city = response.address.city
         this.isGetCompanyInfo = true
         this.selectedCountry = _.find(
-          this.countryList, (countryListElement: {value: string, name: string}) =>
-          countryListElement.value === response.address.countryISO)
+          this.countryList, (countryListElement: { value: string, name: string }) =>
+            countryListElement.value === response.address.countryISO)
         this.countryISO = this.selectedCountry.value
       }, (error) => {
         if (error.status === '404') {
@@ -151,11 +150,11 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         return false
       } else if (this.showInvoiceForm
         && (!this.selectedCountry
-        || !this.vatNumber
-        || !this.companyName
-        || !this.address
-        || !this.postalCode
-        || !this.city)) {
+          || !this.vatNumber
+          || !this.companyName
+          || !this.address
+          || !this.postalCode
+          || !this.city)) {
         return false
       } else {
         return true
@@ -225,12 +224,13 @@ const payuPaymentForm = {
     amountMethodModal: '=?',
     paymentCountryId: '=?'
   },
-  controller: payuPaymentFormController,
+  controller: ['$log', '$window', '$state', 'PaymentsApi', 'userService', 'topAlertService', 'smoothScrollingService',
+    'AccountApi', 'CommonSettingsService', '$scope', 'CommonConfig', '$element', payuPaymentFormController],
   controllerAs: '$ctrl'
 }
 
 angular.module('profitelo.components.dashboard.charge-account.payment-method.payu', [
-    apiModule,
+  apiModule,
   topAlertModule,
   commonSettingsModule,
   smoothScrollingModule,
@@ -241,4 +241,4 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   checkboxModule,
   inputModule
 ])
-.component('payuPaymentForm', payuPaymentForm)
+  .component('payuPaymentForm', payuPaymentForm)

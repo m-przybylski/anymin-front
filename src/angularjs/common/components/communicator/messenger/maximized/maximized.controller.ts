@@ -40,8 +40,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private messageRoom: MessageRoom
   public expertName: string = ''
 
-  /* @ngInject */
-  constructor(private $log: ng.ILogService,
+    constructor(private $log: ng.ILogService,
               private $timeout: ng.ITimeoutService,
               private $element: ng.IRootElementService,
               private clientCallService: ClientCallService,

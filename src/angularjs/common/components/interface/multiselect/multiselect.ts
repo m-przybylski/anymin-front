@@ -1,5 +1,5 @@
 (function (): void {
-  /* @ngInject */
+
   function controller(): void {
     const checkedItems: any[] = []
 
@@ -58,13 +58,13 @@
       field: '@',
       title: '@'
     },
-    controller,
+    controller: [controller],
     controllerAs: '$ctrl'
   }
 
   angular.module('profitelo.components.interface.multiselect', [
     'pascalprecht.translate'
   ])
-  .component('multiselect', component)
+    .component('multiselect', component)
 
 }())

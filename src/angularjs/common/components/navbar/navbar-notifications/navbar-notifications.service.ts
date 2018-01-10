@@ -4,7 +4,6 @@ export class NavbarNotificationsService {
 
   public readonly onInvitationsResolvedSubject = new Subject<void>();
 
-  /* @ngInject */
   constructor() {
   }
 

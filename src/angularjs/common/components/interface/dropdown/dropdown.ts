@@ -1,5 +1,5 @@
 (function (): void {
-  /* @ngInject */
+
   function controller($document: ng.IDocumentService, $scope: ng.IScope, $element: ng.IRootElementService): void {
 
     this.$onInit = (): void => {
@@ -67,7 +67,7 @@
     template: require('./dropdown.html'),
     controllerAs: '$ctrl',
     transclude: true,
-    controller,
+    controller: ['$document', '$scope', '$element', controller],
     bindings: {
       label: '@',
       inputPlaceholder: '@',

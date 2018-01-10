@@ -22,8 +22,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   private wizardStepPadding: number = 50
   private stepList: JQuery
 
-  /* @ngInject */
-  constructor(private $element: ng.IRootElementService,
+    constructor(private $element: ng.IRootElementService,
               private smoothScrollingService: SmoothScrollingService,
               private $window: ng.IWindowService,
               private $document: ng.IDocumentService,

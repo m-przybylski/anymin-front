@@ -14,8 +14,7 @@ class DashboardController {
 
   public isPayment: boolean = false
 
-  /* @ngInject */
-  constructor($scope: ng.IScope, $state: StateService) {
+    constructor($scope: ng.IScope, $state: StateService) {
     // TODO Remove after UX-TEST
     $scope.$watch(() => $state.current, (newValue, _oldValue) => {
       this.isPayment = newValue.name === 'app.dashboard.charge-account'

@@ -9,8 +9,7 @@ export class ActiveCallBarService {
     onHideCallBar: new Subject<void>()
   }
 
-  /* @ngInject */
-  constructor(private expertCallService: ExpertCallService,
+    constructor(private expertCallService: ExpertCallService,
               eventsService: EventsService) {
     expertCallService.onCallActive(this.notifyShowCallBar)
     expertCallService.onCallPull(this.notifyHideCallBar)

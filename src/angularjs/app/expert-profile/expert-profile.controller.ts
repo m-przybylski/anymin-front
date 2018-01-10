@@ -3,7 +3,6 @@ import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {GetExpertProfile, GetExpertDetails, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
 import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header.controller';
 
-/* @ngInject */
 export class ExpertProfileController {
 
   public profile: GetExpertDetails | undefined

@@ -29,8 +29,7 @@ export class SummaryController implements ng.IController {
   public isConsultationInvitationAccepted: boolean = false
   public acceptedServices: GetServiceWithInvitation[]
 
-  /* @ngInject */
-  constructor(private $state: StateService,
+    constructor(private $state: StateService,
               private errorHandler: ErrorHandlerService,
               private WizardApi: WizardApi,
               private wizardProfile: GetWizardProfile,

@@ -36,7 +36,7 @@ const postRegisterPageModule = angular.module('profitelo.controller.post-registe
   'profitelo.controller.post-register.set-password',
   'profitelo.controller.post-register.set-email'
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('PostRegisterController', controller)
   .name
 

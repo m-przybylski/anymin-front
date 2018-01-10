@@ -1,7 +1,6 @@
 export class PromiseService {
 
-  /* @ngInject */
-  constructor(private $q: ng.IQService,
+    constructor(private $q: ng.IQService,
               private $timeout: ng.ITimeoutService) {
   }
 

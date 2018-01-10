@@ -13,8 +13,7 @@ export class DashboardSettingsPayoutsController implements ng.IController {
   public bankAccountNumber?: string
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
-  /* @ngInject */
-  constructor(private modalsService: ModalsService,
+    constructor(private modalsService: ModalsService,
               private translatorService: TranslatorService,
               private payoutsService: PayoutsService,
               private topAlertService: TopAlertService) {}

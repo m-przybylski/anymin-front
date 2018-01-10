@@ -61,8 +61,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     })
   }
 
-  /* @ngInject */
-  constructor(private translatorService: TranslatorService,
+    constructor(private translatorService: TranslatorService,
               $scope: IDashboardFiltersComponentScope,
               userService: UserService) {
 

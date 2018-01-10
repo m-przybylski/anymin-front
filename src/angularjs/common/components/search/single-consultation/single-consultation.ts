@@ -13,7 +13,6 @@ export interface ISingleConsultationScope extends ng.IScope {
   consultation: GetSearchRequestResult
 }
 
-/* @ngInject */
 function singleConsultationController($state: StateService, clientCallService: ClientCallService,
                                       userService: UserService): void {
 
@@ -72,7 +71,7 @@ const singleConsultation = {
   bindings: {
     consultation: '<'
   },
-  controller: singleConsultationController
+  controller: ['$state', 'clientCallService', 'userService', singleConsultationController]
 }
 
 angular.module('profitelo.components.search.single-consultation', [

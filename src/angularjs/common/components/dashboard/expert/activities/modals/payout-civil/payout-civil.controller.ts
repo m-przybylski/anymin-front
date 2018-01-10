@@ -15,7 +15,6 @@ export class ExpertPayoutCivilModalConttroller implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
 
 }

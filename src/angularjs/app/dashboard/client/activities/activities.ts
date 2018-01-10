@@ -40,8 +40,7 @@ export class DashboardClientActivitiesController {
   private static readonly timeoutDelay: number = 400
   private static readonly promiseLoaderDelay = 500
 
-  /* @ngInject */
-  constructor(private dashboardActivitiesService: DashboardActivitiesService,
+    constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,
               private $state: StateService,
               private errorHandler: ErrorHandlerService,

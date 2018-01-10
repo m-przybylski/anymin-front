@@ -119,8 +119,7 @@ import {
 // TODO add types for dialogScope Scopes
 export class ModalsService {
 
-  /* @ngInject */
-  constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
+    constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
   public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () =>

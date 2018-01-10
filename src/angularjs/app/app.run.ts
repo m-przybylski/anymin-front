@@ -8,7 +8,6 @@ import {IRootScopeService} from '../common/services/root-scope/root-scope.servic
 import {SessionServiceWrapper} from '../common/services/session/session.service';
 import {StateService} from '@uirouter/angularjs'
 
-/* @ngInject */
 export function AppRunFunction($rootScope: IRootScopeService,
                                $log: ng.ILogService,
                                permissionService: PermissionService,

@@ -185,5 +185,5 @@ angular.module('profitelo.controller.login.account', [
   inputPasswordModule,
   autoFocus
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('AccountFormController', AccountFormController)

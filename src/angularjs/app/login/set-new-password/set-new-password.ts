@@ -135,5 +135,5 @@ angular.module('profitelo.controller.login.set-new-password', [
   inputPasswordModule,
   autoFocus
 ])
-  .config(config)
+  .config(['$stateProvider', config])
   .controller('SetNewPasswordController', SetNewPasswordController)

@@ -76,8 +76,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
 
   }
-  /* @ngInject */
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private CommonSettingsService: CommonSettingsService,
               private AccountApi: AccountApi, private $log: ng.ILogService,
               private userService: UserService,

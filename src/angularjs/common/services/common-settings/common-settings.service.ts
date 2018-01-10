@@ -149,7 +149,6 @@ export class CommonSettingsService {
     ]
   }
 
-  /* @ngInject */
   constructor() {
   }
 

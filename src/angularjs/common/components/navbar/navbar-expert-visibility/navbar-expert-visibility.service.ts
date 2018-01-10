@@ -13,8 +13,7 @@ export class NavbarExpertVisibilityService {
   private readonly requestDelay: number = 2000
   private readonly changeVisibilitySubject = new Subject<IExpertPresenceUpdate>()
 
-  /* @ngInject */
-  constructor(private PresenceApi: PresenceApi,
+    constructor(private PresenceApi: PresenceApi,
               private $q: ng.IQService,
               private $timeout: ng.ITimeoutService,
               $window: ng.IWindowService,

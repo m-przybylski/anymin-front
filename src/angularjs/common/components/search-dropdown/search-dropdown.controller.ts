@@ -13,8 +13,7 @@ export class SearchDropdownController {
   private dropdownSelectedItem: JQuery
   private selectedItemIndex: number = 0
 
-  /* @ngInject */
-  constructor(private $state: StateService,
+    constructor(private $state: StateService,
               private searchService: SearchService,
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,

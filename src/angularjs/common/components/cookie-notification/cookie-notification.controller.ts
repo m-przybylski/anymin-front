@@ -9,8 +9,7 @@ export class CookieNotificationComponentController implements ng.IController {
 
   public cookieTranslationHref: ICookieHref
 
-  /* @ngInject */
-  constructor(private cookieNotificationService: CookieNotificationService,
+    constructor(private cookieNotificationService: CookieNotificationService,
               CommonConfig: CommonConfig) {
 
     this.cookieTranslationHref = {

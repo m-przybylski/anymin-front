@@ -2,8 +2,8 @@ import * as angular from 'angular'
 import './complain-reason/complain-reason'
 import './complain-status/complain-status'
 
-(function(): void {
-  /* @ngInject */
+(function (): void {
+
   function controller(): void {
     this.isComplaint = false
 
@@ -16,7 +16,7 @@ import './complain-status/complain-status'
 
   const component = {
     template: require('./complain.html'),
-    controller,
+    controller: [controller],
     controllerAs: '$ctrl',
     bindings: {
       onComplainOpen: '<'

@@ -17,8 +17,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
   public onLogoLink: string = ''
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
-  /* @ngInject */
-  constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
+    constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
               private userService: UserService, private $document: ng.IDocumentService) {
 
     angular.element(this.$window).bind('scroll', () => {

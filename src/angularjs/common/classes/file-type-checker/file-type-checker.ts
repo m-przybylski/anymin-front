@@ -15,7 +15,6 @@ export class FileTypeChecker {
     [FileCategoryEnum.EXPERT_FILE]: ['application/pdf', 'image/png', 'image/jpeg']
   }
 
-  /* @ngInject */
   constructor() {}
 
   public static isFileFormatValid = (file: File, fileCategoryEnum: FileCategoryEnum): boolean =>

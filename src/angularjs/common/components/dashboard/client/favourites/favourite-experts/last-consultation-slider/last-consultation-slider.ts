@@ -3,7 +3,6 @@ import {UrlService} from '../../../../../../services/url/url.service'
 import {StateService} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 
-/* @ngInject */
 function controller($scope: any, $state: StateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {
@@ -38,7 +37,7 @@ const lastConsultationSlider = {
     consultations: '<',
     title: '@'
   },
-  controller,
+  controller: ['$scope', '$state', 'urlService', controller],
   controllerAs: '$ctrl'
 }
 

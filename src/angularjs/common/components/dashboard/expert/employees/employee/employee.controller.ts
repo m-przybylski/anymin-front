@@ -23,8 +23,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   private static readonly minRangeOfFewConsultations: number = 2
   private static readonly maxRangeOfFewConsultations: number = 4
 
-  /* @ngInject */
-  constructor(private EmploymentApi: EmploymentApi,
+    constructor(private EmploymentApi: EmploymentApi,
               private errorHandler: ErrorHandlerService,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService) {

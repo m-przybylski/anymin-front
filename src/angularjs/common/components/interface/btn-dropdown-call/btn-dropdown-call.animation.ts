@@ -1,7 +1,6 @@
 export class BtnDropdownCallAnimation {
 
-  /* @ngInject */
-  constructor(private $animateCss: ng.animate.IAnimateCssService) {}
+    constructor(private $animateCss: ng.animate.IAnimateCssService) {}
 
   private createAnimation = (): ng.animate.IAnimateCallbackObject => ({
     enter: (element: JQuery): ng.animate.IAnimateCssRunner => {
