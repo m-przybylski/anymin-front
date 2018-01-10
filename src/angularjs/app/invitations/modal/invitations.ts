@@ -6,6 +6,7 @@ import consultationListItemModule
 import noResultsInformationModule
   from '../../../common/components/dashboard/no-results-information/no-results-information'
 import userModule from '../../../common/services/user/user'
+import translatorModule from '../../../common/services/translator/translator'
 
 const invitationsModalModule = angular.module('profitelo.components.invitations.modals.invitations', [
   'ui.bootstrap',
@@ -14,7 +15,8 @@ const invitationsModalModule = angular.module('profitelo.components.invitations.
   userAvatarModule,
   userModule,
   consultationListItemModule,
-  noResultsInformationModule
+  noResultsInformationModule,
+  translatorModule
 ])
 .controller('invitationsModal', InvitationsModalController)
   .name
