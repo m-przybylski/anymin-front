@@ -27,7 +27,7 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
       controllerAs: 'vm',
       url: '/expert',
       abstract: true,
-      template: require('./expert.pug'),
+      template: require('./expert.html'),
       controller: 'expertDashboard',
       resolve: {
         isPlatformForExpert: (userService: UserService, $state: StateService): void => {

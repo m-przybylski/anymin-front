@@ -18,7 +18,7 @@ const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dash
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.settings.payouts', {
       url: '/payouts',
-      template: require('./payouts.pug'),
+      template: require('./payouts.html'),
       controller: 'dashboardSettingsPayoutsController',
       controllerAs: 'vm'
     })

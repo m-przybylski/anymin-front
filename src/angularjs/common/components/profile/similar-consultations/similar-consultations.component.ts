@@ -2,7 +2,7 @@ import {SimilarConsultationComponentController} from './similar-consultations.co
 export class SimilarConsultationComponent implements ng.IComponentOptions {
   controllerAs: '$ctrl'
   controller: ng.Injectable<ng.IControllerConstructor> = SimilarConsultationComponentController
-  template = require('./similar-consultations.pug')
+  template = require('./similar-consultations.html')
   bindings: {[boundProperty: string]: string} = {
   }
 }

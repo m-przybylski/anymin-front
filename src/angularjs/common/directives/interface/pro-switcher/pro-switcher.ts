@@ -33,7 +33,7 @@ export interface IProSwitcherScope extends ng.IScope {
     }
 
     return {
-      template: require('./pro-switcher.pug'),
+      template: require('./pro-switcher.html'),
       restrict: 'E',
       replace: true,
       link: linkFunction,

@@ -10,7 +10,7 @@
   }
 
   const component = {
-    template: require('./status.pug'),
+    template: require('./status.html'),
     controller,
     controllerAs: '$ctrl'
   }

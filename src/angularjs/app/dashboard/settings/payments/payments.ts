@@ -112,7 +112,7 @@ const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.se
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.settings.payments', {
       url: '/payments',
-      template: require('./payments.pug'),
+      template: require('./payments.html'),
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {

@@ -20,7 +20,7 @@
   }
 
   const thankYouPage = {
-    template: require('./thank-you-page.pug'),
+    template: require('./thank-you-page.html'),
     transclude: true,
     controller: thankYouPageController,
     controllerAs: '$ctrl'

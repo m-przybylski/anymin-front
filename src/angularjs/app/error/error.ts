@@ -12,7 +12,7 @@ const errorPageModule = angular.module('profitelo.controller.error', [
   ])
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.error', {
-      template: require('./error.pug'),
+      template: require('./error.html'),
       controller: 'ErrorController',
       controllerAs: 'vm',
       data: {},

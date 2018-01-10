@@ -77,7 +77,7 @@ function config($stateProvider: StateProvider): void {
     url: '/forgot-password/{method:|sms}',
     controllerAs: 'vm',
     controller: 'ForgotPasswordController',
-    template: require('./forgot-password.pug'),
+    template: require('./forgot-password.html'),
     resolve: {
       account: (
         LoginForgotPasswordResolver: ILoginForgotPasswordService,

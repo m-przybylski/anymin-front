@@ -50,7 +50,7 @@ import profiteloWebsocketModule from '../../../../services/profitelo-websocket/p
   }
 
   const component = {
-    template: require('./navigation.pug'),
+    template: require('./navigation.html'),
     controller,
     controllerAs: '$ctrl',
     bindings: {

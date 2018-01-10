@@ -64,7 +64,7 @@
   }
 
   const component = {
-    template: require('./dropdown.pug'),
+    template: require('./dropdown.html'),
     controllerAs: '$ctrl',
     transclude: true,
     controller,

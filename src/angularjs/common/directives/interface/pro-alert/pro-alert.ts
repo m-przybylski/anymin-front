@@ -25,7 +25,7 @@ function proAlert(topAlertService: TopAlertService): IDirective<ng.IScope> {
   }
 
   return {
-    template: require('./pro-alert.pug'),
+    template: require('./pro-alert.html'),
     restrict: 'E',
     replace: true,
     link: linkFunction,

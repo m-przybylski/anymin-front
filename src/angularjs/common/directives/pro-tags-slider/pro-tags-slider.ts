@@ -103,7 +103,7 @@ function proTagsSlider($window: IWindowService,
   }
 
   return {
-    template: require('./pro-tags-slider.pug'),
+    template: require('./pro-tags-slider.html'),
     restrict: 'E',
     replace: true,
     scope: {

@@ -36,7 +36,7 @@ export interface IPasswordStrengthScope extends ng.IScope {
 
     }
     return {
-      template: require('./password-strength-bar.pug'),
+      template: require('./password-strength-bar.html'),
       restrict: 'E',
       replace: true,
       link: linkFunction,

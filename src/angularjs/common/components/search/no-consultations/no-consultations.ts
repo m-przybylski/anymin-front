@@ -8,7 +8,7 @@
 
   const noConsultations = {
     transclude: true,
-    template: require('./no-consultations.pug'),
+    template: require('./no-consultations.html'),
     controllerAs: 'vm',
     bindings: {
       query: '<'

@@ -1,7 +1,7 @@
 import {SummaryChargeAccountComponentController} from './summary-charge-account.controller';
 
 export class SummaryChargeAccountComponent implements ng.IComponentOptions {
-  template = require('./summary-charge-account.pug')
+  template = require('./summary-charge-account.html')
   controller: ng.Injectable<ng.IControllerConstructor> = SummaryChargeAccountComponentController
   replace: true
   controllerAs: '$ctrl'

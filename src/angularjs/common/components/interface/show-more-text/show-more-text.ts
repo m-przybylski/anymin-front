@@ -64,7 +64,7 @@ function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $
 
 const showMoreText = {
   transclude: true,
-  template: require('./show-more-text.pug'),
+  template: require('./show-more-text.html'),
   bindings: {
     text: '@'
   },

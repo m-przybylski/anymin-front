@@ -39,7 +39,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
       url: '/expert',
       controllerAs: 'vm',
       controller: ExpertController,
-      template: require('./expert.pug'),
+      template: require('./expert.html'),
       resolve: {
         /* istanbul ignore next */
         wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>

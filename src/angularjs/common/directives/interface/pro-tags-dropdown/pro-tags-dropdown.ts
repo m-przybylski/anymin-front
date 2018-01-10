@@ -104,7 +104,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
   }
 
   return {
-    template: require('./pro-tags-dropdown.pug'),
+    template: require('./pro-tags-dropdown.html'),
     restrict: 'E',
     replace: true,
     link: linkFunction,

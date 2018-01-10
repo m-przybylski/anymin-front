@@ -28,7 +28,7 @@ import textareaModule from '../textarea/textarea'
       value: '@',
       isDescriptive: '<'
     },
-    template: require('./radio-text.pug'),
+    template: require('./radio-text.html'),
     controllerAs: '$ctrl',
     controller
   }

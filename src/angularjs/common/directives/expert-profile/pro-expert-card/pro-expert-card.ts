@@ -14,7 +14,7 @@ import {IDirective} from 'angular'
     }
 
     return {
-      template:  require('./pro-expert-card.pug'),
+      template:  require('./pro-expert-card.html'),
       restrict:     'E',
       replace:      true,
       link:         linkFunction,

@@ -124,7 +124,7 @@ angular.module('profitelo.controller.dashboard.settings.security', [
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.settings.security', {
       url: '/security',
-      template: require('./security.pug'),
+      template: require('./security.html'),
       controller: 'dashboardSettingsSecurityController',
       controllerAs: 'vm',
       resolve: {

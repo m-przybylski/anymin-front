@@ -31,7 +31,7 @@ function controller($window: IWindowService, $scope: ng.IScope, $state: StateSer
 }
 
 const component = {
-  template: require('./top-modal-navbar.pug'),
+  template: require('./top-modal-navbar.html'),
   controller,
   bindings: {
     onClose: '<'

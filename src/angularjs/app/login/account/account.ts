@@ -162,7 +162,7 @@ function config($stateProvider: StateProvider): void {
     url: '/account',
     controllerAs: 'vm',
     controller: 'AccountFormController',
-    template: require('./account.pug'),
+    template: require('./account.html'),
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
     }

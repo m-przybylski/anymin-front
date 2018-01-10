@@ -10,7 +10,7 @@
     bindings: {
       isLoading: '=?'
     },
-    template: require('./preloader.pug'),
+    template: require('./preloader.html'),
     controllerAs: '$ctrl',
     controller
   }

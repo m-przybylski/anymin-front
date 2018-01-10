@@ -63,7 +63,7 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
 }
 
 const component = {
-  template: require('./collapse-btn.pug'),
+  template: require('./collapse-btn.html'),
   controllerAs: '$ctrl',
   transclude: true,
   controller,

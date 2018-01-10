@@ -31,7 +31,7 @@ function controller($scope: any, $state: StateService, urlService: UrlService): 
 }
 
 const lastConsultationSlider = {
-  template: require('./last-consultation-slider.pug'),
+  template: require('./last-consultation-slider.html'),
   restrict: 'E',
   replace: true,
   bindings: {

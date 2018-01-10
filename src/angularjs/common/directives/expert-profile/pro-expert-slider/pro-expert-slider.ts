@@ -55,13 +55,13 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
                   'slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
         controllerAs: '$ctrl',
         controller: 'lightboxModelController',
-        windowTemplateUrl: require('../../../controllers/lightbox-modal/lightbox-modal.tpl.pug')
+        windowTemplateUrl: require('../../../controllers/lightbox-modal/lightbox-modal.tpl.html')
       })
     }
   }
 
   return {
-    template: require('./pro-expert-slider.pug'),
+    template: require('./pro-expert-slider.html'),
     restrict: 'E',
     replace: true,
     scope: {

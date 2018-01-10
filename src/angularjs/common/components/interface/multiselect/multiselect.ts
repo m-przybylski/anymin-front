@@ -49,7 +49,7 @@
   }
 
   const component = {
-    template: require('./multiselect.pug'),
+    template: require('./multiselect.html'),
     bindings: {
       isDisabled: '<',
       items: '<',

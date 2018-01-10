@@ -16,7 +16,7 @@ function controller(userService: UserService): void {
 }
 
 const component = {
-  template: require('./navigation.pug'),
+  template: require('./navigation.html'),
   controller,
   controllerAs: '$ctrl',
   bindings: {

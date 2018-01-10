@@ -55,7 +55,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
 }
 
 const component = {
-  template: require('./recommended-tags.pug'),
+  template: require('./recommended-tags.html'),
   controller,
   controllerAs: '$ctrl',
   bindings: {

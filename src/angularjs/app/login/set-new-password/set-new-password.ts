@@ -107,7 +107,7 @@ function config($stateProvider: StateProvider): void {
     url: '/set-new-password/token/:token/{method:|sms}',
     controllerAs: 'vm',
     controller: 'SetNewPasswordController',
-    template: require('./set-new-password.pug'),
+    template: require('./set-new-password.html'),
     resolve: {
       tokenStatus: ($stateParams: ISetNewPasswordStateParams,
                     LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> =>

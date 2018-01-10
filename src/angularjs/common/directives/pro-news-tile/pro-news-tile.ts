@@ -5,7 +5,7 @@ import {IDirective} from 'angular'
   function proNewsTile(): IDirective<ng.IScope> {
 
     return {
-      template:  require('./pro-news-tile.pug'),
+      template:  require('./pro-news-tile.html'),
       restrict:     'E',
       replace: true,
       scope: {

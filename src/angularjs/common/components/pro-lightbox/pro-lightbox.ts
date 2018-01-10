@@ -6,7 +6,7 @@ import 'angularjs/common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-n
 
   const proLightbox = {
     transclude: true,
-    template: require('./pro-lightbox.pug'),
+    template: require('./pro-lightbox.html'),
     bindings: {
       currentSlide: '<',
       actionsSettings: '=?',

@@ -109,10 +109,6 @@ module.exports = {
   "module": {
     "rules": [
       {
-        "test": /.(pug|jade)$/,
-        "loader": "apply-loader!pug-loader?self"
-      },
-      {
         "test": /\.html$/,
         "loader": "raw-loader"
       },

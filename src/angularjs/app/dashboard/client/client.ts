@@ -16,7 +16,7 @@ function config($stateProvider: StateProvider): void {
     url: '/client',
     controllerAs: 'vm',
     controller: 'clientController',
-    template: require('./client.pug'),
+    template: require('./client.html'),
     data: {
       pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
       showMenu: false

@@ -32,7 +32,7 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
 .config(($stateProvider: StateProvider) => {
   $stateProvider.state('app.search-result', {
     url: '/search-result?q&tags&serviceType&onlyAvailable&sortBy&languages&minPrice&maxPrice',
-    template: require('./search-result.pug'),
+    template: require('./search-result.html'),
     controller: 'searchResultController',
     controllerAs: 'vm',
     params: {

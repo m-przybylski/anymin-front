@@ -9,7 +9,7 @@ interface IScrollableDirectiveScope extends ng.IScope {
 }
 
 class ScrollableDirective implements ng.IDirective<ng.IScope> {
-  public template = require('./scrollable.pug')
+  public template = require('./scrollable.html')
   public restrict: string = 'E'
   public transclude: boolean = true
   public scope = {

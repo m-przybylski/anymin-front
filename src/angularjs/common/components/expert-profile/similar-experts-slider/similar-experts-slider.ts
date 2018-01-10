@@ -31,7 +31,7 @@ function controller($scope: any, $state: StateService, urlService: UrlService): 
 }
 
 const similarExpertsSlider = {
-  template: require('./similar-experts-slider.pug'),
+  template: require('./similar-experts-slider.html'),
   bindings: {
     consultations: '<',
     title: '@'

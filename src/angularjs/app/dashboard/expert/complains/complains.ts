@@ -15,7 +15,7 @@ const dashboardExpertComplainsModule = angular.module('profitelo.controller.dash
   .config(($stateProvider: StateProvider) => {
     $stateProvider.state('app.dashboard.expert.complains', {
       url: '/complains',
-      template: require('./complains.pug'),
+      template: require('./complains.html'),
       controller: 'dashboardExpertComplains',
       controllerAs: 'vm'
     })

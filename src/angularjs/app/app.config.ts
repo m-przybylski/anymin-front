@@ -31,7 +31,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     abstract: true,
     controller: AppComponentController,
     controllerAs: 'appController',
-    template: require('./app.pug'),
+    template: require('./app.html'),
     data: {
       pageTitle: 'PAGE_TITLE.BASE'
     },

@@ -47,7 +47,7 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
       },
       controllerAs: 'vm',
       controller: ConsultationController,
-      template: require('./consultation.pug'),
+      template: require('./consultation.html'),
       resolve: {
         /* istanbul ignore next */
         wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>

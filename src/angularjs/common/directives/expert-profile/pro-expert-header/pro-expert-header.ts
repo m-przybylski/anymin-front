@@ -18,7 +18,7 @@ function proExpertHeader(urlService: UrlService): IDirective<ng.IScope> {
   }
 
   return {
-    template: require('./pro-expert-header.pug'),
+    template: require('./pro-expert-header.html'),
     restrict: 'E',
     replace: true,
     link: linkFunction,

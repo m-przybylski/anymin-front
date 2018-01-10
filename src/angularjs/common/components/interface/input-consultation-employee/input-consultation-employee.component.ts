@@ -2,7 +2,7 @@ import {InputConsultationEmployeeComponentController} from './input-consultation
 
 export class InputConsultationEmployeeComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationEmployeeComponentController
-  template = require('./input-consultation-employee.pug')
+  template = require('./input-consultation-employee.html')
   bindings: {[boundProperty: string]: string} = {
     addedItemsList: '=?',
     isOwnerEmployee: '=?',

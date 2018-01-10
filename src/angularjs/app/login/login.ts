@@ -22,7 +22,7 @@ function config($stateProvider: StateProvider): void {
     url: '/login',
     controllerAs: 'vm',
     controller: 'LoginController',
-    template: require('./login.pug'),
+    template: require('./login.html'),
     data: {
       permissions: {
         only: ['anon'],

@@ -11,7 +11,7 @@ const dashboardExpertInvoicesModule = angular.module('profitelo.controller.dashb
   .config(function ($stateProvider: StateProvider): void {
     $stateProvider.state('app.dashboard.expert.invoices', {
       url: '/invoices',
-      template: require('./invoices.pug'),
+      template: require('./invoices.html'),
       controller: 'dashboardExpertInvoicesController',
       controllerAs: 'vm'
     })

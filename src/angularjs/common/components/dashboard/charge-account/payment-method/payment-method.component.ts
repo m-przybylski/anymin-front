@@ -9,7 +9,7 @@ export interface IPaymentMethodComponentBindings {
 }
 
 export class PaymentMethodComponent implements ng.IComponentOptions {
-  template = require('./payment-method.pug')
+  template = require('./payment-method.html')
   bindings = {
     title: '@',
     paymentSystems: '<',
