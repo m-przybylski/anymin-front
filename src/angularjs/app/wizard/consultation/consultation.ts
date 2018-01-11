@@ -58,7 +58,7 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
       data: {
         permissions: {
           only: ['user'],
-          redirectTo: 'app.login'
+          redirectTo: 'app.login.account'
         },
         pageTitle: 'PAGE_TITLE.WIZARDS.CONSULTATION'
       }

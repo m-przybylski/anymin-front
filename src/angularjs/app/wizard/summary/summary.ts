@@ -45,7 +45,7 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
       data: {
         permissions: {
           only: ['user'],
-          redirectTo: 'app.login'
+          redirectTo: 'app.login.account'
         },
         pageTitle: 'PAGE_TITLE.WIZARDS.SUMMARY'
       }

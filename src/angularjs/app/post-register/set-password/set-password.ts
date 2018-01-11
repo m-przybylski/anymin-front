@@ -37,6 +37,7 @@ function _controller($log: ng.ILogService,
                      CommonSettingsService: CommonSettingsService,
                      AccountApi: AccountApi): void {
 
+  if (user.hasPassword) $state.go('app.post-register.set-email')
   this.passwordStrength = 0
   this.password = ''
   this.enteredCurrentPassword = ''
@@ -158,8 +159,15 @@ function config($stateProvider: StateProvider): void {
     controller: 'SetPasswordController',
     template: require('./set-password.html'),
     resolve: {
-      user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser()
+      user: (userService: UserService, $state: ng.ui.IStateService): ng.IPromise<AccountDetails> => {
+        const userData = userService.getUser(true)
+        userData.then((user) => {
+          if (user.hasPassword) $state.go('app.post-register.set-email')
+        })
+        return userData
+      }
     },
+
     data: {
       pageTitle: 'PAGE_TITLE.POST_REGISTER.SET_PASSWORD'
     }

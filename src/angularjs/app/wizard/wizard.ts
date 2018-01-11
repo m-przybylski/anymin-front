@@ -31,7 +31,9 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
       resolve: {
         previousState: (userService: UserService, $state: StateService): string | undefined => {
           userService.getUser(true).then((response) => {
-            if ((response.isExpert || response.isCompany)) {
+            if (!response.hasPassword) $state.go('app.post-register.set-password')
+            else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
+            else if ((response.isExpert || response.isCompany)) {
               if (Config.isPlatformForExpert) $state.go('app.dashboard.settings.general')
               else $state.go('app.home')
             }
@@ -42,7 +44,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
       data: {
         permissions: {
           only: ['user'],
-          redirectTo: 'app.login'
+          redirectTo: 'app.login.account'
         },
         pageTitle: 'PAGE_TITLE.WIZARDS'
       }

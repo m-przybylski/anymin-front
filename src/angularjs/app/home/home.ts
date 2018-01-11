@@ -11,6 +11,7 @@ import navbarModule from '../../common/components/navbar/navbar'
 import {Config} from '../config';
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
+import {UserService} from '../../common/services/user/user.service'
 
 function HomeController(): void {
 
@@ -196,13 +197,21 @@ const homePageModule = angular.module('profitelo.controller.home', [
       controller: 'HomeController',
       template: require('./home.html'),
       resolve: {
-        isPlatformForExpert: ($state: StateService): void => {
+        isPlatformForExpert: (userService: UserService, $state: StateService): void => {
           if (Config.isPlatformForExpert)
-            $state.go('app.dashboard.expert.activities')
+            userService.getUser().then((response) => {
+              if (!response.hasPassword) $state.go('app.post-register.set-password')
+              else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
+              else $state.go('app.dashboard.expert.activities')
+            })
         }
       },
       data: {
-        pageTitle: 'PAGE_TITLE.HOME'
+        pageTitle: 'PAGE_TITLE.HOME',
+        permissions: {
+          except: ['partially-registered'],
+          redirectTo: 'app.post-register.set-password'
+        },
       }
     })
   })
