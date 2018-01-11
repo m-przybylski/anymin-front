@@ -35,7 +35,7 @@ describe('Testing Controller: consultationSummaryClientController', () => {
         $uibModalInstance: $uibModalInstance,
         callSummaryService: {
           onCallSummary: (attr: string): string => attr,
-          takeCallSummary: (serviceId: string): string => serviceId
+          getCallSummary: (serviceId: string): string => serviceId
         }
       }
 

@@ -10,6 +10,7 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
 import {
   ConsultationSummaryExpertService, IComplaintReason
 } from './consultation-summary-expert.service'
+import {Subscription} from 'rxjs/Subscription'
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   callSummary?: CallSummary
@@ -39,6 +40,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public radioModel: GetTechnicalProblem.ProblemTypeEnum
   public technicalProblemsDescription: string
 
+  private callSummarySubscription: Subscription
   private static readonly minValidClientReportMessageLength: number = 3
   private sueId: string
 
@@ -50,11 +52,9 @@ export class ConsultationSummaryExpertController implements ng.IController {
               private translatorService: TranslatorService,
               private errorHandler: ErrorHandlerService,
               private consultationSummaryExpertService: ConsultationSummaryExpertService) {
-
     this.isLoading = true
     this.complaintReasons = this.consultationSummaryExpertService.complaintReasons
-
-    this.callSummaryService.onCallSummary(this.onCallSummary)
+    this.callSummarySubscription = this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
   }
 
@@ -114,12 +114,18 @@ export class ConsultationSummaryExpertController implements ng.IController {
       this.profit = this.callSummary.profit
       this.callDuration = this.callSummary.callDuration
       this.sueId = this.callSummary.serviceUsageEventId
+      this.clearSummary(callSummary)
     }
   }
 
   private loadFromExistingCallSummaries = (): void => {
-    const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
+    const callSummary = this.callSummaryService.getCallSummary(this.$scope.serviceId)
     callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
       ? this.onCallSummary(callSummary) : undefined
+  }
+
+  private clearSummary = (callSummary: CallSummary): void => {
+    this.callSummarySubscription.unsubscribe()
+    this.callSummaryService.removeCallSummary(callSummary)
   }
 }
