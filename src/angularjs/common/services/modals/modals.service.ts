@@ -74,7 +74,7 @@ import {
   IConsultationSummaryExpertControllerScope
 } from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
 import {
-  IGeneralPhoneSettingsControllerScope
+  IPhoneSettingsControllerScope
 } from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
 import {IModalInstanceService} from 'angular-ui-bootstrap'
 import {IChargeAccountScope, ChargeAccountController} from '../../../app/charge-account/modal/charge-account.controller'
@@ -269,13 +269,14 @@ export class ModalsService {
   }
 
   public createGeneralPhoneSettingsModal = (onModalClose: (cb: () => void) => void): IModalInstanceService => {
-    const dialogScope: IGeneralPhoneSettingsControllerScope =
-      <IGeneralPhoneSettingsControllerScope>this.$rootScope.$new(true)
+    const dialogScope: IPhoneSettingsControllerScope =
+      <IPhoneSettingsControllerScope>this.$rootScope.$new(true)
     dialogScope.callback = onModalClose
 
     return this.dialogService.openDialog({
+      controllerAs: 'vm',
       windowClass: 'modal-open full-screen',
-      controller: 'generalPhoneSettingsController',
+      controller: 'phoneSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.html'),
       scope: dialogScope

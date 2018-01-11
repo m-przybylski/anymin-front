@@ -2,7 +2,7 @@
   h2(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.TITLE' | translate}}")
 
   .input-content
-    .input-handler.pin-inputs
+    .input-handler.pin-inputs(auto-focus)
       input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[0]"
       data-ng-change="$ctrl.onInputChange()" focus-next)
       input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[1]"
@@ -13,8 +13,8 @@
       data-ng-change="$ctrl.onInputChange()" focus-next)
 
     validation-alert(
-    data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.PIN_VALIDATION"
-    data-is-visible="!$ctrl.isPinInCorrect"
+      data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.PIN_VALIDATION"
+      data-is-visible="$ctrl.isPinInCorrect"
     )
 
   .pin-verification-send-again(data-ng-hide="$ctrl.pin" data-ng-click="$ctrl.sendPinAgain()")

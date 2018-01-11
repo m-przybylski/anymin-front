@@ -15,7 +15,7 @@ export interface IInputComponentBindings extends ng.IController {
   ngRequired: boolean
   ngModel: string
   isSubmitted?: boolean
-  onChange?: string
+  onChangeCallback?: (value: string) => void
 }
 
 const inputModule = angular.module('profitelo.components.interface.input', [

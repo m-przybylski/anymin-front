@@ -76,6 +76,7 @@ export class CommonSettingsService {
     commentPattern: new RegExp(this.validation.comment.regex.replace(/\\\\/g, '\\')),
     smsCodePattern: /^[0-9]{4}$/,
     phonePattern: /^\+?\d+(\s\d+)*$/,
+    phoneNumberPattern: /^[0-9]{9}$/,
     emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
     bankAccountNumberPattern: /^(PL)?[0-9]{26}$/,
     numberPattern: /^\+?\d+(\s\d+)*$/,

@@ -1,101 +1,80 @@
-import * as angular from 'angular'
-const phonenumbers = require('libphonenumber-js')
-import {UserService} from '../../../../../../services/user/user.service'
+import {PhoneSettingsService, IPrefixListElement} from './phone-settings.service'
 import {AccountApi} from 'profitelo-api-ng/api/api'
-import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {httpCodes} from '../../../../../../classes/http-codes'
+import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
+import {UserService} from '../../../../../../services/user/user.service'
 
-export interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
+export interface IPhoneSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void
 }
 
-interface IPrefixListElement {
-  value: string
-  name: string
-}
-
-export class GeneralPhoneSettingsController implements ng.IController {
-  public numberPattern = this.CommonSettingsService.localSettings.numberPattern
-  public isNewPhoneNumberCreate: boolean = false
+export class PhoneSettingsController implements ng.IController {
   public numberModel: string = ''
-  public isNumberExist: boolean = false
-  public isNavbar: boolean = true
-  public isFullscreen: boolean = true
-  public isPhoneNumberInvalid: boolean = false
-  public prefixList: IPrefixListElement[] = this.CommonSettingsService.localSettings.countryCodes
-    .map((countryCode: string) => ({
-      value: countryCode,
-      name: countryCode
-    }))
+  public prefixList: IPrefixListElement[] = []
+  public prefixPlaceholder: string
+  public counter: number
+  public showPinCodeForm: boolean
 
-  private newEnteredNumber: string
-  public prefix = this.prefixList[0].value
-  public updatePrefix = (prefix: IPrefixListElement): void => {
-    this.prefix = prefix.value
+  /* @ngInject */
+  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+              private phoneSettingsService: PhoneSettingsService,
+              private AccountApi: AccountApi,
+              private userService: UserService,
+              private errorHandler: ErrorHandlerService,
+              private $scope: IPhoneSettingsControllerScope) {}
+
+  $onInit(): void {
+    this.prefixList = this.phoneSettingsService.getPrefixList()
+    this.prefixPlaceholder = this.prefixList[0].value
+    this.phoneSettingsService.onCountDownUpdate(this.updateCountDown)
+    this.phoneSettingsService.onNewPhoneNumberCreate(this.udpatePinCodeFormVisibility)
   }
 
-  public setNewNumber = (): void => {
-    this.newEnteredNumber = this.numberModel
-    this.isNumberExist = false
+  public updateCountDown = (time: number): number =>
+    this.counter = time
 
-    if (this.checkIsFormValid(this.prefix, this.numberModel)) {
-      this.isPhoneNumberInvalid = false
-      this.AccountApi.newMsisdnVerificationRoute({unverifiedMsisdn: this.prefix + this.numberModel}).then(() => {
-        this.isNewPhoneNumberCreate = true
-        this.isNumberExist = false
-      }, (err: any) => {
-        if (err.status === httpCodes.conflict) {
-          this.isNumberExist = true
-        } else {
-          this.$log.error('Can not send new phone number: ' + String(err))
-          // TODO UI GLOBAL HANDLE FOR server errors
-        }
-      })
-    } else {
-      this.isPhoneNumberInvalid = true
-    }
+  public onSubmit = (): void => {
+    this.phoneSettingsService.addNewNumber(this.numberModel)
   }
 
-  public sendVerificationPin = (token: string, onError: () => void): void => {
+  public onInputValueChange = (): void =>
+    this.phoneSettingsService.onPhoneNumberChange()
+
+  public isNumberExist = (): boolean =>
+    this.phoneSettingsService.getIsNumberExist()
+
+  public isNumberValid = (): boolean =>
+    this.phoneSettingsService.setNumberValid(this.numberModel)
+
+  public isButtonDisabled = (): boolean =>
+    this.phoneSettingsService.setButtonDisabled(this.numberModel)
+
+  private udpatePinCodeFormVisibility = (formVisibility: boolean): boolean =>
+    this.showPinCodeForm = formVisibility
+
+  public setPrefix = (prefix: IPrefixListElement): void => {
+    this.prefixPlaceholder = prefix.value
+    this.phoneSettingsService.updatePrefix(prefix)
+  }
+
+  public reSendSms = (): ng.IPromise<void> =>
+    this.phoneSettingsService.onSendSms(this.numberModel)
+
+  public getPhoneNumber = (token: string, onError: () => void): ng.IPromise<void> =>
     this.userService.getUser().then(user => {
       this.AccountApi.confirmMsisdnVerificationRoute({
         token,
         accountId: user.id
       }).then(() => {
-        // FIXME
         this.$scope.callback(() => {})
         this.$uibModalInstance.dismiss('cancel')
       }, (err) => {
-        onError();
-        this.$log.error('Can not verify number: ' + String(err));
+        this.errorHandler.handleServerError(err)
+        onError()
       })
     })
-  }
 
   public onModalClose = (): void => {
+    this.phoneSettingsService.clearInterval()
     this.$uibModalInstance.dismiss('cancel')
-
   }
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private CommonSettingsService: CommonSettingsService,
-              private AccountApi: AccountApi, private $log: ng.ILogService,
-              private userService: UserService,
-              private $scope: IGeneralPhoneSettingsControllerScope) {
-  }
-
-  private checkIsFormValid = (prefix: string, phoneNumber: string): boolean => {
-    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) &&
-        prefix && phoneNumber && phoneNumber.length > 1) {
-      const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
-      return phonenumbers.isValidNumber(fullPhoneNumber)
-    } else {
-      return false
-    }
-  }
-
-  public checkIfNewEnteredNumberExists = (): boolean =>
-    this.newEnteredNumber !== this.numberModel
-
-  public checkIsButtonDisabled = (): boolean =>
-    this.numberPattern.test(this.numberModel)
 }
