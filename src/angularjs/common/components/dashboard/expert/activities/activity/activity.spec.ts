@@ -1,6 +1,4 @@
-import * as angular from 'angular'
-;
-import IScope = angular.IScope;
+import * as angular from 'angular';
 import expertActivityModule, {IExpertActivityComponentBindings} from './activity'
 import {ModalsService} from '../../../../../services/modals/modals.service'
 import {ExpertActivityComponentController} from './activity.controller'
@@ -9,20 +7,11 @@ import {GetActivity} from 'profitelo-api-ng/model/models';
 describe('Unit testing: profitelo.components.dashboard.expert.activities.activity', () => {
   return describe('for exertLastActivitiesList >', () => {
 
-    let scope: IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: ExpertActivityComponentController
-    const validHTML = '<expert-activity activity="{}"></expert-activity>'
-    let $log: ng.ILogService
 
-    function create(html: string): JQuery {
-      scope = rootScope.$new()
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
+    let $log: ng.ILogService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/')
@@ -47,11 +36,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
-    it('should compile the directive', () => {
-      const el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
 
     it('should open createExpertSUEActivityDetailsModal', inject((modalsService: ModalsService) => {
       component.isCallActivity = true

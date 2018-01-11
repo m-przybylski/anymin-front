@@ -22,7 +22,7 @@ export class ClientCallService {
 
   private readonly onNewCallSubject = new Subject<CurrentClientCall>()
 
-    constructor(private communicatorService: CommunicatorService,
+  constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
               private timerFactory: TimerFactory,
               private ServiceApi: ServiceApi,
@@ -45,9 +45,9 @@ export class ClientCallService {
     if (!this.communicatorService.getClientSession()) return this.$q.reject('There is no client session');
 
     this.call = this.createCall(serviceId, expertId)
-    .then(this.onCreateCallSuccess)
-    .then(this.startCall)
-    .catch(this.onStartCallError)
+      .then(this.onCreateCallSuccess)
+      .then(this.startCall)
+      .catch(this.onStartCallError)
 
     return this.call;
   }
@@ -99,20 +99,19 @@ export class ClientCallService {
 
   private createCall = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
     this.ServiceApi.postServiceUsageRequestRoute(serviceId, {expertId})
-    .then((sur) =>
-      this.getUserMediaStream()
-      .then((stream) =>
-        this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
-          this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
-            new CurrentClientCall(this.timerFactory, ratelCall, stream,
-              sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi,
-              this.communicatorService, this.microphoneService, sur.expert)))
+      .then((sur) =>
+        this.getUserMediaStream()
+          .then((stream) =>
+            this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
+              this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
+                new CurrentClientCall(this.timerFactory, ratelCall, stream,
+                  sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi,
+                  this.communicatorService, this.microphoneService, sur.expert)))
+          )
       )
-    )
 
   private createRatelCall = (expertId: string,
                              serviceId: string): ng.IPromise<GetSUERatelCall> => {
-
     const deviceId = this.communicatorService.getClientDeviceId();
     if (!deviceId) throw new Error('There is no ratel deviceId');
 
@@ -152,15 +151,15 @@ export class ClientCallService {
   private onCallEnd = (serviceId: string): void => {
     if (this.call)
       this.call
-      .then((call) => {
-        if (call && call.getState() !== CallState.CANCELLED)
-          this.modalsService.createClientConsultationSummaryModal(serviceId)
-      })
-      .finally(() => {
-        this.call = undefined
-        this.soundsService.callConnectingSound().stop()
-        this.soundsService.playCallEnded()
-      })
+        .then((call) => {
+          if (call && call.getState() !== CallState.CANCELLED)
+            this.modalsService.createClientConsultationSummaryModal(serviceId)
+        })
+        .finally(() => {
+          this.call = undefined
+          this.soundsService.callConnectingSound().stop()
+          this.soundsService.playCallEnded()
+        })
     else
       this.$log.error('Call does not exist')
   }

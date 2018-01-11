@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import * as RatelSdk from 'ratel-sdk-js'
 import {GetServiceUsageRequest} from 'profitelo-api-ng/model/models'
-import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api'
+import {ServiceApi, RatelApi, ServiceApiMock} from 'profitelo-api-ng/api/api'
 import userModule from '../../../services/user/user'
 import communicatorModule from '../communicator'
 
@@ -11,6 +11,7 @@ import {ClientCallService} from './client-call.service'
 import {Session} from 'ratel-sdk-js'
 import RtcDetectorModule from '../../../services/rtc-detector/rtc-detector'
 import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
+import {IRootScopeService} from '../../../services/root-scope/root-scope.service';
 
 interface ICallSound {
   play: () => void,
@@ -99,8 +100,8 @@ describe('Unit testing: profitelo.services.call >', () => {
     }
 
     const userService = {
-      getUser: (): void => {
-      }
+      getUser: (): Promise<{}> =>
+        Promise.resolve({id: '123'})
     }
 
     beforeEach(() => {
@@ -156,12 +157,15 @@ describe('Unit testing: profitelo.services.call >', () => {
       }))
 
     it('should startCall with error and show service unavailable', inject(
-      ($q: ng.IQService, $rootScope: any, communicatorService: CommunicatorService, RatelApi: RatelApi,
-        rtcDetectorService: RtcDetectorService) => {
+      ($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: CommunicatorService, RatelApi: RatelApi,
+        rtcDetectorService: RtcDetectorService, ServiceApiMock: ServiceApiMock,
+       $httpBackend: ng.IHttpBackendService) => {
         const serviceId = '1'
         const err = 'error'
 
         spyOn(modalsService, 'createServiceUnavailableModal')
+
+        ServiceApiMock.postServiceUsageRequestRoute(500, serviceId)
 
         communicatorService.getClientSession = (): Session => {
           return {} as RatelSdk.Session
@@ -177,6 +181,7 @@ describe('Unit testing: profitelo.services.call >', () => {
             expect(res).toEqual(<any>err)
         })
 
+        $httpBackend.flush()
         $rootScope.$digest()
 
         expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()

@@ -58,6 +58,10 @@ describe('Unit testing: profitelo.components.interface.profile-gallery', (): voi
           documents: ['doc-1']
         }
 
+        bindings.documents.map((token) => {
+          FilesApiMock.fileInfoPath(200, token)
+        })
+
         const injectors = {
           $element: create(validHTML),
           $scope: rootScope,

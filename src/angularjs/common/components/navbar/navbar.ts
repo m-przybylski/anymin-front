@@ -12,13 +12,13 @@ export interface INavbarComponentBindings extends ng.IController {
 
 const navbarModule = angular.module('profitelo.components.navbar', [
   'pascalprecht.translate',
-    userModule,
+  userModule,
   uiRouter,
   searchDropdownModule,
   navbarLoggedInMenuModule,
   navbarLoggedOutMenuModule
 ])
-.component('navbar', new NavbarComponent)
+  .component('navbar', new NavbarComponent)
   .name
 
 export default navbarModule

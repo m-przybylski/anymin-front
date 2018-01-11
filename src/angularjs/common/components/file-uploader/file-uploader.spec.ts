@@ -3,7 +3,7 @@ import * as angular from 'angular'
 import {IDocumentFile, FileUploaderComponentController, IFileUploaderComponentScope} from './file-uploader.controller'
 import {IFileUploaderModuleComponentBindings} from './file-uploader'
 import fileUploaderModule from './file-uploader'
-import {FilesApi} from 'profitelo-api-ng/api/api'
+import {FilesApi, FilesApiMock} from 'profitelo-api-ng/api/api'
 import {FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
 import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 
@@ -48,7 +48,7 @@ describe('Unit testing: profitelo.components.file-uploader', () =>
 
       inject(($rootScope: any, $compile: ng.ICompileService, $httpBackend: ng.IHttpBackendService,
               $componentController: ng.IComponentControllerService, _$log_: ng.ILogService,
-              _CommonSettingsService_: CommonSettingsService) => {
+              _CommonSettingsService_: CommonSettingsService, FilesApiMock: FilesApiMock) => {
         CommonSettingsService = _CommonSettingsService_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -59,6 +59,10 @@ describe('Unit testing: profitelo.components.file-uploader', () =>
           tokenList: ['file-token-1'],
           isValidCallback: (): boolean => true
         }
+
+        bindings.tokenList.map((token) => {
+          FilesApiMock.fileInfoPath(200, token)
+        })
 
         const injectors = {
           $element: create(validHTML),

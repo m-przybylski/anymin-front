@@ -13,8 +13,6 @@ describe('Unit testing: navbar', () => {
     let component: NavbarComponentController
     let q: ng.IQService
     let bindings: INavbarComponentBindings
-    const validHTML: string =
-      '<navbar data-search-value="assa"></navbar>'
 
     const searchInputQueryValue = 'searchInputQueryValue'
     let navbarExpertVisibilityService: NavbarExpertVisibilityService
@@ -31,14 +29,6 @@ describe('Unit testing: navbar', () => {
       bind: (_name: string, callback: (event: any) => void): void => {
         callback({target: 'asdasd'})
       }
-    }
-
-    function create(html: string) {
-      const parentScope: ng.IScope = rootScope.$new()
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(parentScope)
-      parentScope.$digest()
-      return compiledElement
     }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService): void => {
@@ -66,11 +56,13 @@ describe('Unit testing: navbar', () => {
         }
 
         const injectors = {
-          userService,
-          $element: create(validHTML),
-          $document: document,
+          $scope: $rootScope,
           $window: window,
-          navbarExpertVisibilityService
+          $element: {
+            find: () => ({find: () => []})
+          },
+          userService,
+          $document: document
         }
 
         component = $componentController<NavbarComponentController, INavbarComponentBindings>(
@@ -81,11 +73,6 @@ describe('Unit testing: navbar', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
-    it('should compile the component', () => {
-      const el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
 
     it('should collapsed search', inject(() => {
       component.onSearchCollapsed()

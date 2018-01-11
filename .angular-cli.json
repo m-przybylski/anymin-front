@@ -1,8 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "any-mind-platform",
-    "ejected": true
+    "name": "anymind-platform"
   },
   "apps": [
     {
@@ -10,7 +9,11 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        {
+          "glob": "*.js",
+          "input": "../node_modules/angular-i18n",
+          "output": "./assets/angular-i18n"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",

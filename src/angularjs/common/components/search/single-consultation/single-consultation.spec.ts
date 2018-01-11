@@ -4,7 +4,9 @@ import './single-consultation'
 import communicatorModule from '../../communicator/communicator'
 import {ISingleConsultationScope} from './single-consultation'
 import {Tag} from 'profitelo-api-ng/model/models';
+import {RatelApiMock} from 'profitelo-api-ng/api/api';
 import {StateService} from '@uirouter/angularjs'
+import {IRootScopeService} from '../../../services/root-scope/root-scope.service';
 
 describe('Unit testing:profitelo.components.search.single-consultation', () => {
   return describe('for single-consultation component >', () => {
@@ -100,15 +102,14 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     }))
 
     beforeEach(() => {
-
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.components.search.single-consultation')
     })
 
     beforeEach(() => {
 
-      inject(($rootScope: any, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService, $q: ng.IQService) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, $q: ng.IQService, RatelApiMock: RatelApiMock) => {
         componentController = _$componentController_
         rootScope = $rootScope
         compile = $compile
@@ -118,6 +119,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
             return {}
           }
         }
+        RatelApiMock.getRatelAuthConfigRoute(200, undefined)
 
         spyOn(userService, 'getUser').and.callFake(() => $q.resolve({id: 'asdasdasd'}))
 

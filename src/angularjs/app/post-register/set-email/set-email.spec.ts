@@ -45,6 +45,8 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
 
         scope = $rootScope.$new()
 
+        AccountApiMock.getAccountEmailExistsRoute(200, '')
+
         SetEmailController = $controller('SetEmailController', {
           $filter,
           $state,

@@ -15,8 +15,6 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     let compile: ng.ICompileService
     let component: MessengerMinimizedComponentController
 
-    const validHTML = '<minimized></minimized>'
-
     const bindings: IMessengerMinimizedComponentBindings = {
       onMessageClick: (): void => {
       }
@@ -47,15 +45,6 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
       $provide.value('expertCallService', expertCallService)
     }))
 
-    function create(html: string, bindings: IMessengerMinimizedComponentBindings): JQuery {
-      const parentScope: ng.IScope = rootScope.$new()
-      const parentBoundScope = angular.extend(parentScope, bindings)
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(parentBoundScope)
-      parentBoundScope.$digest()
-      return compiledElement
-    }
-
     beforeEach(() => {
 
       angular.mock.module('profitelo.components.communicator.messenger.minimized')
@@ -68,8 +57,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
 
         const injectors = {
           $$timeout: $timeout,
-          expertCallService: expertCallService,
-          clientCallService: clientCallService
+          expertCallService,
+          clientCallService
         }
 
         component = $componentController<MessengerMinimizedComponentController, IMessengerMinimizedComponentBindings>(
@@ -80,11 +69,6 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     it('should have a dummy test', inject(() => {
       expect(component).toBeTruthy()
     }))
-
-    it('should compile the component', () => {
-      const el = create(validHTML, bindings)
-      expect(el.html()).toBeDefined(true)
-    })
 
   })
 })
