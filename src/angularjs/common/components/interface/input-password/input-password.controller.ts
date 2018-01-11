@@ -13,6 +13,7 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   public isFocus: boolean = false
   public isDirty: boolean = false
   public onChange: string = ''
+  public readonly maxLength: number = 64
 
   constructor() {}
 
