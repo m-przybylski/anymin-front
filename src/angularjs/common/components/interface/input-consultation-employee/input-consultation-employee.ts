@@ -4,6 +4,7 @@ import inputModule from '../../interface/input/input'
 import checkboxModule from '../../interface/checkbox/checkbox'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
 import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
+import ngEnter from '../../../directives/ng-enter/ng-enter'
 
 export interface IInputConsultationEmployeeBindings extends ng.IController {
   isOwnerEmployee: boolean
@@ -19,7 +20,8 @@ const inputConsultationEmployeeModule = angular.module('profitelo.components.int
   inputModule,
   checkboxModule,
   commonSettingsModule,
-  ValidationAlertModule
+  ValidationAlertModule,
+  ngEnter
 ])
 .component('inputConsultationEmployee', new InputConsultationEmployeeComponent)
   .name

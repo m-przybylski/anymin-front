@@ -1,11 +1,11 @@
 .input-consultation-employee
   .input-handler
     input(
+      autocomplete="off"
       data-ng-model="$ctrl.inputValue"
       data-ng-enter="$ctrl.onEnter($ctrl.inputValue)"
       data-ng-blur="$ctrl.onBlur()"
       data-ng-focus="$ctrl.onFocus()"
-
     )
 
   validation-alert(

@@ -20,7 +20,7 @@ export class InputComponentController implements IInputComponentBindings {
   public ngModel: string
   public isFocus: boolean = false
   public isDirty: boolean = false
-  public onChangeCallback: (value: string) => void
+  public onChangeCallback?: (value: string) => void
 
     constructor(private $element: JQuery) {}
 
@@ -50,7 +50,8 @@ export class InputComponentController implements IInputComponentBindings {
   }
 
   public onInputChange = (value: string): void => {
-    this.onChangeCallback(value)
+    if (this.onChangeCallback)
+      this.onChangeCallback(value)
   }
 
   private isCtrlKeyAllowed = (event: JQueryKeyEventObject): boolean => !(event.ctrlKey || event.metaKey)
