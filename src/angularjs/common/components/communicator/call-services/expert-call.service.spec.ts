@@ -108,5 +108,6 @@ describe('Unit testing: profitelo.services.call >', () => {
 
       expect(ServiceApi.getIncomingCallDetailsRoute).toHaveBeenCalled()
     }))
+
   })
 })

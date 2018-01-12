@@ -1,8 +1,12 @@
 import * as _ from 'lodash'
+import { NavigatorWrapper } from './navigator-wrapper';
 
 export class MediaStreamConstraintsWrapper {
 
   private actualConstraints: MediaStreamConstraints
+  private navigatorWrapper: NavigatorWrapper;
+  private currentCamera: string = NavigatorWrapper.frontCamera
+  private currentCameraIndex: number = 0
 
   private static readonly videoConstraints: MediaStreamConstraints = {
     video: {
@@ -20,6 +24,7 @@ export class MediaStreamConstraintsWrapper {
 
   constructor() {
     this.actualConstraints = _.cloneDeep(MediaStreamConstraintsWrapper.getDefault())
+    this.navigatorWrapper = new NavigatorWrapper()
   }
 
   public static getDefault = (): MediaStreamConstraints =>
@@ -44,4 +49,14 @@ export class MediaStreamConstraintsWrapper {
   }
 
   public getConstraints = (): MediaStreamConstraints => this.actualConstraints
+
+  public toggleCamera = (): void => {
+    this.currentCameraIndex = this.currentCameraIndex === 0 ? 1 : 0;
+    this.currentCamera =
+      this.currentCamera === NavigatorWrapper.frontCamera ? NavigatorWrapper.backCamera : NavigatorWrapper.frontCamera;
+
+    this.actualConstraints.video =
+      _.cloneDeep(this.navigatorWrapper.getAllConstraintsWithToggledCamera(this.currentCamera
+        , this.currentCameraIndex).video);
+  }
 }

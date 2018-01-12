@@ -37,7 +37,7 @@ export class CurrentCall {
 
   private isRemoteVideo = false;
 
-  private streamManager?: StreamManager;
+  private streamManager?: StreamManager
 
   private serviceFreeMinutesCount: number = 0
 
@@ -110,6 +110,19 @@ export class CurrentCall {
 
   public hangup = (): ng.IPromise<RatelCallDetails> =>
     this.RatelApi.postRatelStopCallRoute(this.sue.id)
+
+  public changeCamera = (): Promise<void> =>
+    this.startEnvironmentVideo()
+
+  public startEnvironmentVideo = (): Promise<void> => {
+    if (this.streamManager) {
+      return this.streamManager.changeCamera().then(stream =>
+        this.updateLocalStream(stream, this.stopLocalStream));
+    }
+    else {
+      return Promise.reject('No streamManager');
+    }
+  }
 
   public startAudio = (): Promise<void> => {
     if (this.streamManager) {

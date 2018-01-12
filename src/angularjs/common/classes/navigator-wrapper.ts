@@ -1,5 +1,9 @@
+import * as _ from 'lodash'
+
 export class NavigatorWrapper {
 
+  public static readonly frontCamera: string = 'user'
+  public static readonly backCamera: string = 'environment'
   private navigator: any
 
   private static videoConstraints: MediaStreamConstraints = {
@@ -15,6 +19,7 @@ export class NavigatorWrapper {
       echoCancelation: true
     }
   }
+  private videoInputIdArray: string[] = []
 
   constructor() {
     this.navigator = window['navigator']
@@ -29,6 +34,17 @@ export class NavigatorWrapper {
       this.navigator.getUserMedia = (arg: MediaStreamConstraints, t: any, c: any): Promise<MediaStream> =>
         this.navigator.mediaDevices.getUserMedia(arg).then(t).catch(c)
     }
+
+    if (typeof this.navigator.mediaDevices.enumerateDevices !== 'undefined') {
+      this.navigator.mediaDevices.enumerateDevices().then(this.recognizeDevices);
+    }
+  }
+
+  private recognizeDevices = (deviceInfos: MediaDeviceInfo[]): void => {
+    this.videoInputIdArray =
+      deviceInfos
+        .filter(deviceInfo => deviceInfo.kind === 'videoinput')
+        .map(deviceInfo => deviceInfo.deviceId);
   }
 
   public getUserMediaStream = (config: MediaStreamConstraints): Promise<MediaStream> =>
@@ -42,4 +58,14 @@ export class NavigatorWrapper {
 
   public static getAllConstraints = (): MediaStreamConstraints =>
     Object.assign(NavigatorWrapper.audioConstraints, NavigatorWrapper.videoConstraints)
+
+  public getAllConstraintsWithToggledCamera = (facingMode: string, cameraIndex: number): MediaStreamConstraints => {
+    const defaultVideoConstraints: MediaStreamConstraints = _.cloneDeep(NavigatorWrapper.videoConstraints);
+
+    if (typeof defaultVideoConstraints.video === 'object') {
+      defaultVideoConstraints.video.facingMode = facingMode;
+      defaultVideoConstraints.video.deviceId = this.videoInputIdArray[cameraIndex];
+    }
+    return _.merge({}, _.cloneDeep(NavigatorWrapper.audioConstraints), defaultVideoConstraints);
+  }
 }

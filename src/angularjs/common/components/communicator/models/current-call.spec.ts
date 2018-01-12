@@ -44,9 +44,15 @@ describe('Unit tests: CurrentCall', () => {
     onInvited: (): void => {},
     join: (): void => {}
   }
-  const timerFactory: TimerFactory = <any>{
-    getInstance: (): void => {}
+
+  const timerInstance = {
+    pause: () => {}
   }
+
+  const timerFactory: TimerFactory = <any>{
+    getInstance: () => timerInstance
+  }
+
   const sue: ServiceUsageEvent = <any>{
     id: '12'
   }
@@ -65,6 +71,35 @@ describe('Unit tests: CurrentCall', () => {
     currentCall = new CurrentCall(soundsService, ratelCall, timerFactory, service, sue, communicatorService,
       RatelApi, microphoneService)
   })))
+
+  it('should reject promise while starting environment video', (done) => {
+    currentCall.pauseTimer();
+    currentCall.startEnvironmentVideo()
+      .then()
+      .catch( (err) => expect(err).toBe('No streamManager'))
+      .then(done)
+  })
+
+  it('should reject promise while starting video', (done) => {
+    currentCall.startVideo()
+      .then()
+      .catch( (err) => expect(err).toBe('No streamManager'))
+      .then(done)
+  })
+
+  it('should reject promise while starting audio', (done) => {
+    currentCall.startAudio()
+      .then()
+      .catch( (err) => expect(err).toBe('No streamManager'))
+      .then(done)
+  })
+
+  it('should reject promise while stoping video', (done) => {
+    currentCall.stopVideo()
+      .then()
+      .catch( (err) => expect(err).toBe('No streamManager'))
+      .then(done)
+  })
 
   it('should currentCall exist', () => {
     expect(currentCall).toBeTruthy()

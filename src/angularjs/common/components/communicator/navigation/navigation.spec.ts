@@ -23,7 +23,8 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
       stopAudio: (): void => {},
       startAudio: (): void => {},
       startVideo: (): void => {},
-      stopVideo: (): void => {}
+      stopVideo: (): void => {},
+      changeCamera: (): void => {}
     } as CurrentCall
 
     const bindings: INavigationComponentBindings = {
@@ -150,6 +151,12 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
       component.startVideo({} as Element)
       expect(component.animateButtons).toHaveBeenCalled()
       expect(currentCall.startVideo).toHaveBeenCalled()
+    }))
+
+    it('should changeCamera', inject(($q: ng.IQService) => {
+      spyOn(currentCall, 'changeCamera').and.returnValue($q.resolve())
+      component.changeCamera()
+      expect(currentCall.changeCamera).toHaveBeenCalled()
     }))
 
     it('should stopVideo', inject(($q: ng.IQService) => {
