@@ -37,7 +37,7 @@ const postRegisterPageModule = angular.module('profitelo.controller.post-registe
   'profitelo.controller.post-register.set-email'
 ])
   .config(['$stateProvider', config])
-  .controller('PostRegisterController', controller)
+  .controller('PostRegisterController', [controller])
   .name
 
 export default postRegisterPageModule

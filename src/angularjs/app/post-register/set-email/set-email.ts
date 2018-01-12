@@ -136,4 +136,6 @@ angular.module('profitelo.controller.post-register.set-email', [
   ValidationAlertModule
 ])
   .config(['$stateProvider', config])
-  .controller('SetEmailController', _controller)
+  .controller('SetEmailController', [
+    '$log', '$filter', 'userService', '$state', 'topWaitingLoaderService', 'user', 'CommonSettingsService',
+    'registrationInvitationService', 'topAlertService', 'AccountApi', _controller])

@@ -131,4 +131,5 @@ angular.module('profitelo.common.controller.lightbox-model', [
   imageZoomModule,
 
 ])
-  .controller('lightboxModelController', lightboxModelController)
+  .controller('lightboxModelController', ['$scope', '$window', '$timeout', 'FilesApi',
+    'imageZoomService', '$uibModalInstance', lightboxModelController])
