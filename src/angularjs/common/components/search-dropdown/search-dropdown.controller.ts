@@ -13,6 +13,8 @@ export class SearchDropdownController {
   private dropdownSelectedItem: JQuery
   private selectedItemIndex: number = 0
 
+  static $inject = ['$state', 'searchService', '$element', '$document', '$scope', '$log'];
+
     constructor(private $state: StateService,
               private searchService: SearchService,
               private $element: ng.IRootElementService,

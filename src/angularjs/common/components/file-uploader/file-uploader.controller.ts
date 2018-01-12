@@ -37,6 +37,8 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
   private errorDisplayTime: number = 5000
   private maxDocumentsCount: number
 
+  static $inject = ['$log', 'FilesApi', 'translatorService', '$timeout', 'CommonSettingsService', 'uploaderFactory'];
+
     constructor(private $log: ng.ILogService,
               private FilesApi: FilesApi,
               private translatorService: TranslatorService,

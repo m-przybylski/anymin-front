@@ -21,6 +21,8 @@ export class DashboardExpertEmployeesController {
   private pendingInvitationsCount: number
   private emoloyeesCount: number
 
+  static $inject = ['EmploymentApi', 'userService', 'modalsService', '$log', 'ServiceApi'];
+
     constructor(private EmploymentApi: EmploymentApi,
               private userService: UserService,
               private modalsService: ModalsService,

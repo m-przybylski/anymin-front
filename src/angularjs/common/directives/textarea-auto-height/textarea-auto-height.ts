@@ -4,6 +4,8 @@ class TextareaAutoHeightClass implements ng.IDirective {
   public restrict: string = 'A'
   private static readonly elementMaxHeight: number = 300
 
+  static $inject = [];
+
   constructor() {
   }
 

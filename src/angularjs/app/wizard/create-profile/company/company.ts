@@ -20,22 +20,21 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
   ValidationAlertModule,
   commonSettingsModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard.create-profile.company', {
       url: '/company',
       controllerAs: 'vm',
       controller: CompanyController,
       template: require('./company.html'),
       resolve: {
-        /* istanbul ignore next */
-        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>
+        wizardProfile: ['WizardApi', (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>
           WizardApi.getWizardProfileRoute().catch((error) => {
             if (error.status === httpCodes.notFound) {
               return void 0
             } else {
               throw new Error('Can not get wizard profile ' + String(error))
             }
-          })
+          })]
       },
       data: {
         permissions: {
@@ -45,7 +44,7 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
         pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE.COMPANY'
       }
     })
-  })
+  }])
   .controller('companyController', CompanyController)
   .name
 

@@ -2,8 +2,10 @@ import {CommonConfig} from '../../../../../../../../../generated_modules/common-
 import {UserService} from '../../../../../../services/user/user.service'
 import * as _ from 'lodash'
 import {IServiceInvitation} from '../../../../../../models/ServiceInvitation'
-import {MoneyDto, PostService, PostServiceTag, GetExpertServiceDetails, GetInvitation,
-  GetProfileDetailsWithEmployments, GetServiceWithInvitations}
+import {
+  MoneyDto, PostService, PostServiceTag, GetExpertServiceDetails, GetInvitation,
+  GetProfileDetailsWithEmployments, GetServiceWithInvitations
+}
   from 'profitelo-api-ng/model/models'
 import {ServiceApi, EmploymentApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
@@ -53,7 +55,10 @@ export class ServiceFormModalController implements ng.IController {
   private consultationPriceMin: number
   private consultationPriceMax: number
 
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+  static $inject = ['$uibModalInstance', 'translatorService', 'CommonConfig', 'userService', 'ServiceApi', '$scope',
+    'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService'];
+
+  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private translatorService: TranslatorService,
               private CommonConfig: CommonConfig,
               private userService: UserService,
@@ -114,22 +119,22 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   public saveConsultation = (): void => {
-   if (this.isFormValid()) {
-     this.isLoading = true
-     if (this.serviceDetails) {
-       this.ServiceApi.putServiceRoute(this.serviceDetails.service.id, this.createServiceModel()).then(() => {
-         this.onModalCloseCallback()
-         this.onModalClose()
-       }, this.onReject)
-     } else {
-       this.ServiceApi.postServiceRoute(this.createServiceModel()).then(() => {
-         this.onModalCloseCallback()
-         this.onModalClose()
-       }, this.onReject)
-     }
-   } else {
-     this.isSubmitted = true
-   }
+    if (this.isFormValid()) {
+      this.isLoading = true
+      if (this.serviceDetails) {
+        this.ServiceApi.putServiceRoute(this.serviceDetails.service.id, this.createServiceModel()).then(() => {
+          this.onModalCloseCallback()
+          this.onModalClose()
+        }, this.onReject)
+      } else {
+        this.ServiceApi.postServiceRoute(this.createServiceModel()).then(() => {
+          this.onModalCloseCallback()
+          this.onModalClose()
+        }, this.onReject)
+      }
+    } else {
+      this.isSubmitted = true
+    }
   }
 
   public isRegExpPriceValid = (isRegExpPriceValid: boolean): void => {
@@ -224,7 +229,7 @@ export class ServiceFormModalController implements ng.IController {
   private onGetEmployments = (employments: GetProfileDetailsWithEmployments[]): void => {
     const serviceOwnerEmployments: GetProfileDetailsWithEmployments | undefined =
       _.find<GetProfileDetailsWithEmployments>(employments, (employment) =>
-      this.serviceDetails && employment.expertProfile.id === this.serviceDetails.ownerProfile.id)
+        this.serviceDetails && employment.expertProfile.id === this.serviceDetails.ownerProfile.id)
 
     if (serviceOwnerEmployments)
       this.isOwnerEmployee = _.find(serviceOwnerEmployments.employments || [], (employment) =>

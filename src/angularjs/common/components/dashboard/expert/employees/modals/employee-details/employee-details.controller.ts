@@ -35,6 +35,8 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
 
   public invitePendingTime: string = '4 days ago'
 
+  static $inject = ['$uibModalInstance'];
+
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
 
 }

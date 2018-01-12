@@ -22,14 +22,14 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
   tooltipModule,
   'profitelo.components.interface.preloader'
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard.create-profile', {
       url: '/create-profile',
       controllerAs: 'vm',
       controller: CreateProfileController,
       template: require('./create-profile.html'),
       resolve: {
-        previousState: ($state: StateService): string | undefined => $state.current.name
+        previousState: ['$state', ($state: StateService): string | undefined => $state.current.name]
       },
       data: {
         permissions: {
@@ -39,7 +39,7 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
         pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE'
       }
     })
-  })
+  }])
   .controller('createProfileController', CreateProfileController)
   .name
 

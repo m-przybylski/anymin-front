@@ -31,4 +31,4 @@ function proSocialIconGetter(urlService: UrlService): IDirective<ng.IScope> {
 angular.module('profitelo.directives.pro-social-icon-getter', [
   'profitelo.services.url'
 ])
-  .directive('proSocialIconGetter', proSocialIconGetter)
+  .directive('proSocialIconGetter', ['urlService', proSocialIconGetter])

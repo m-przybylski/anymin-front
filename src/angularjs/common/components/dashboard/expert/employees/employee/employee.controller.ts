@@ -23,6 +23,8 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   private static readonly minRangeOfFewConsultations: number = 2
   private static readonly maxRangeOfFewConsultations: number = 4
 
+  static $inject = ['EmploymentApi', 'errorHandler', 'topAlertService', 'translatorService'];
+
     constructor(private EmploymentApi: EmploymentApi,
               private errorHandler: ErrorHandlerService,
               private topAlertService: TopAlertService,

@@ -17,6 +17,8 @@ export class ExpertIncomingCallController implements ng.IController {
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
+  static $inject = ['$scope', '$uibModalInstance'];
+
     constructor($scope: IExpertIncomingCallControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 

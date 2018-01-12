@@ -22,6 +22,8 @@ interface ICompanyResponse {
 
 export class CompanyProfileResolver {
 
+  static $inject = ['$q', 'ViewsApi'];
+
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 

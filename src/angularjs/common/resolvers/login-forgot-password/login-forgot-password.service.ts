@@ -21,6 +21,9 @@ export interface ILoginForgotPasswordService {
 
 class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
+  static $inject = ['$q', '$timeout', 'translatorService', '$state', 'topAlertService', 'loginStateService',
+    'RecoverPasswordApi'];
+
   constructor(private $q: ng.IQService,
               private $timeout: ng.ITimeoutService,
               private translatorService: TranslatorService,

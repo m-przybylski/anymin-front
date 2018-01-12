@@ -16,6 +16,8 @@ export class TooltioComponentController implements ITooltipComponentBindings {
   private static readonly dividerOnHalf: number = 2
   private static readonly maxMobilePhoneWidth: number = 480
 
+  static $inject = ['$element', '$timeout', '$window'];
+
     constructor(private $element: IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService) {

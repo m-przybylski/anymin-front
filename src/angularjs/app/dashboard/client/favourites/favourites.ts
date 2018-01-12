@@ -24,7 +24,7 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
   'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider',
   noResultsInformationModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.client.favourites', {
       url: '/favourites',
       template: require('./favourites.html'),
@@ -33,10 +33,12 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
       resolve: {
         /* istanbul ignore next */
         clientFavouritesConsultations:
-          (ClientFavouritesResolver: ClientFavouritesResolver): ng.IPromise<GetDashboardClientExperts> =>
-            ClientFavouritesResolver.resolve()
+          ['ClientFavouritesResolver',
+            (ClientFavouritesResolver: ClientFavouritesResolver): ng.IPromise<GetDashboardClientExperts> =>
+              ClientFavouritesResolver.resolve()]
       }
     })
-  })
+  }])
   .service('ClientFavouritesResolver', ClientFavouritesResolver)
-  .controller('DashboardClientFavouritesController', DashboardClientFavouritesController)
+  .controller('DashboardClientFavouritesController',
+    ['clientFavouritesConsultations', '$state', DashboardClientFavouritesController])

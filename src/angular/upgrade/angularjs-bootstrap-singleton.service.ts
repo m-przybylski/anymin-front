@@ -17,7 +17,7 @@ export class AngularJsBootstrapSingletonService {
       return this.angularjsRootModule
     }
     else {
-      this.upgrade.bootstrap(document.body, [angularjsModule.name]);
+      this.upgrade.bootstrap(document.body, [angularjsModule.name], {strictDi: true});
       setUpLocationSync(this.upgrade);
       this.angularjsRootModule = angularjsModule;
       return this.angularjsRootModule

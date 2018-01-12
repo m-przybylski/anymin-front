@@ -12,7 +12,7 @@ const ValidationAlertModule = angular.module('profitelo.components.alert.validat
   'pascalprecht.translate'
 ])
 .component('validationAlert', new ValidationAlertComponent)
-.animation('.collapse-height', ValidationAlertAnimation)
+.animation('.collapse-height', ['$animateCss', ValidationAlertAnimation])
   .name
 
 export default ValidationAlertModule

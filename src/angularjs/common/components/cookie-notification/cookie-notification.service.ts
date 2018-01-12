@@ -4,6 +4,8 @@ import {Config} from '../../../app/config';
 export class CookieNotificationService {
   private static readonly cookieKeyValue: string = 'true'
 
+  static $inject = ['$cookies'];
+
     constructor(private $cookies: ICookiesService) {
   }
 

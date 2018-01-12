@@ -47,6 +47,6 @@ export interface IPasswordStrengthScope extends ng.IScope {
   }
 
   angular.module('profitelo.directives.password-strength-bar', [])
-  .directive('passwordStrengthBar', passwordStrengthBar)
+  .directive('passwordStrengthBar', [passwordStrengthBar])
 
 }())

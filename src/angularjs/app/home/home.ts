@@ -190,21 +190,21 @@ const homePageModule = angular.module('profitelo.controller.home', [
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.interface.slider'
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.home', {
       url: '/home',
       controllerAs: 'vm',
       controller: 'HomeController',
       template: require('./home.html'),
       resolve: {
-        isPlatformForExpert: (userService: UserService, $state: StateService): void => {
+        isPlatformForExpert: ['userService', '$state', (userService: UserService, $state: StateService): void => {
           if (Config.isPlatformForExpert)
             userService.getUser().then((response) => {
               if (!response.hasPassword) $state.go('app.post-register.set-password')
               else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
               else $state.go('app.dashboard.expert.activities')
             })
-        }
+        }]
       },
       data: {
         pageTitle: 'PAGE_TITLE.HOME',
@@ -214,7 +214,7 @@ const homePageModule = angular.module('profitelo.controller.home', [
         },
       }
     })
-  })
+  }])
   .controller('HomeController', HomeController)
   .name
 

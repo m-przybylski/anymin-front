@@ -119,6 +119,8 @@ import {
 // TODO add types for dialogScope Scopes
 export class ModalsService {
 
+  static $inject = ['$rootScope', 'dialogService'];
+
     constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 

@@ -7,6 +7,8 @@ export class CustomTranslationHandlerService {
     '<i class="icon icon-home icon-sm"></i>'
   ]
 
+  static $inject = [];
+
   constructor() {
   }
 

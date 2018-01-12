@@ -13,7 +13,7 @@ import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper
 import {IGetServiceWithInvitationsAndTags} from '../../invitations/modal/invitations.controller'
 import {
   NavbarNotificationsService
-}from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
+} from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
 import {StateService} from '@uirouter/angularjs'
 
 export class SummaryController implements ng.IController {
@@ -29,7 +29,10 @@ export class SummaryController implements ng.IController {
   public isConsultationInvitationAccepted: boolean = false
   public acceptedServices: GetServiceWithInvitation[]
 
-    constructor(private $state: StateService,
+  static $inject = ['$state', 'errorHandler', 'WizardApi', 'wizardProfile', 'userService', 'InvitationApi', '$q',
+    'navbarNotificationsService', '$log'];
+
+  constructor(private $state: StateService,
               private errorHandler: ErrorHandlerService,
               private WizardApi: WizardApi,
               private wizardProfile: GetWizardProfile,
@@ -122,8 +125,8 @@ export class SummaryController implements ng.IController {
         this.userService.getUser(true).then(() => {
           if (this.checkIsWizardHasInvitationServices()) {
             this.acceptInvitations()
-            .then(this.clearInvitationFromLocalStorage)
-            .finally(this.redirectToDashboardActivities)
+              .then(this.clearInvitationFromLocalStorage)
+              .finally(this.redirectToDashboardActivities)
           } else {
             this.redirectToDashboardActivities()
           }
@@ -149,7 +152,7 @@ export class SummaryController implements ng.IController {
     if (acceptedConsultationsObject) {
       this.InvitationApi.getInvitationsRoute().then((invitations) => {
         const differenceArray = _.difference(JSON.parse(acceptedConsultationsObject)
-          .map((accpetedConsultation: IGetServiceWithInvitationsAndTags) => accpetedConsultation.invitation.id),
+            .map((accpetedConsultation: IGetServiceWithInvitationsAndTags) => accpetedConsultation.invitation.id),
           invitations.map((invitation) => invitation.id))
         if (differenceArray && differenceArray.length === 0) {
           this.isConsultationInvitationAccepted = true
@@ -209,7 +212,7 @@ export class SummaryController implements ng.IController {
   private acceptInvitations = (): ng.IPromise<void> =>
     this.$q.all(this.acceptedServices.map(
       (acceptedService) => this.InvitationApi.postInvitationAcceptRoute(acceptedService.invitation.id)))
-    .then(() => this.navbarNotificationsService.resolveInvitations())
-    .catch((error) => this.errorHandler.handleServerError(error))
+      .then(() => this.navbarNotificationsService.resolveInvitations())
+      .catch((error) => this.errorHandler.handleServerError(error))
 
 }

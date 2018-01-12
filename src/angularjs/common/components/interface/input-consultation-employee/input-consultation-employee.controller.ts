@@ -27,6 +27,8 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   private static readonly defaultCountryPrefix = '+48'
   private consultationInvitationsMaxCount: number
 
+  static $inject = ['CommonSettingsService', '$timeout'];
+
     constructor(private CommonSettingsService: CommonSettingsService,
               private $timeout: ng.ITimeoutService) {
     this.CSVFileReader = new CSVFileReader

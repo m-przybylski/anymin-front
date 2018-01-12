@@ -26,6 +26,9 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   invitations: GetProfileWithServicesInvitations[] = []
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
+  static $inject = ['userService', 'translatorService', 'topAlertService', '$state', '$element', '$document',
+    '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService'];
+
     constructor(private userService: UserService,
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,

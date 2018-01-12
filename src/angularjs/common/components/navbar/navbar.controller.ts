@@ -17,6 +17,8 @@ export class NavbarComponentController implements INavbarComponentBindings {
   public onLogoLink: string = ''
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
+  static $inject = ['$scope', '$window', '$element', 'userService', '$document'];
+
     constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
               private userService: UserService, private $document: ng.IDocumentService) {
 

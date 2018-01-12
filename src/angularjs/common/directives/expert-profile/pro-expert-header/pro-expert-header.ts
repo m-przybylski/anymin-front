@@ -33,4 +33,4 @@ angular.module('profitelo.directives.expert-profile.pro-expert-header', [
   'profitelo.components.interface.show-more-text',
   urlModule
 ])
-  .directive('proExpertHeader', proExpertHeader)
+  .directive('proExpertHeader', ['urlService', proExpertHeader])

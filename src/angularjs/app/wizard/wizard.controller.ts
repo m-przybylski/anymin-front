@@ -5,6 +5,8 @@ export class WizardController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
 
+  static $inject = ['$state', 'previousState'];
+
     constructor(private $state: StateService, private previousState: string) {
   }
 

@@ -21,7 +21,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
   summaryWizardModule,
   consultaionWizardModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard', {
       abstract: true,
       url: '/wizard',
@@ -29,7 +29,8 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
       controller: WizardController,
       template: require('./wizard.html'),
       resolve: {
-        previousState: (userService: UserService, $state: StateService): string | undefined => {
+        previousState: ['userService', '$state',
+          (userService: UserService, $state: StateService): string | undefined => {
           userService.getUser(true).then((response) => {
             if (!response.hasPassword) $state.go('app.post-register.set-password')
             else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
@@ -39,7 +40,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
             }
           })
           return $state.current.name
-        }
+        }]
       },
       data: {
         permissions: {
@@ -49,7 +50,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
         pageTitle: 'PAGE_TITLE.WIZARDS'
       }
     })
-  })
+  }])
   .controller('wizardController', WizardController)
   .name
 

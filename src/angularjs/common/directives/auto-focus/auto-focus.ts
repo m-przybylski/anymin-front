@@ -3,6 +3,8 @@ import * as angular from 'angular'
   class AutoFocus implements ng.IDirective<ng.IScope> {
     public restrict: string = 'A'
 
+  static $inject = [];
+
     constructor() {
     }
 

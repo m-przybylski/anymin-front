@@ -20,7 +20,7 @@ const paypalModule = angular.module('profitelo.components.dashboard.charge-accou
   'profitelo.components.dashboard.charge-account.summary-charge-account'
 ])
 .component('paypalPaymentForm', new PayPalPaymentFormComponent())
-.factory('paypalFactory', PaypalFactory)
+.factory('paypalFactory', ['$window', PaypalFactory])
   .name
 
 export default paypalModule

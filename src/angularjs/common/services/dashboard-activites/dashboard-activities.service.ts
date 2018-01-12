@@ -6,6 +6,8 @@ import {PayoutsApi} from 'profitelo-api-ng/api/api';
 
 export class DashboardActivitiesService {
 
+  static $inject = ['ViewsApi', 'PayoutsApi'];
+
     constructor(private ViewsApi: ViewsApi,
               private PayoutsApi: PayoutsApi) {
   }

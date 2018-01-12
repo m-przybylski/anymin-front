@@ -51,7 +51,10 @@ export class ConsultationSummaryClientController implements ng.IController {
   private isSendButtonClicked: boolean = false
   private isTechnicalProblemsTab: boolean = true
 
-    constructor(private $log: ng.ILogService,
+  static $inject = ['$log', '$scope', '$uibModalInstance', 'callSummaryService', 'translatorService',
+    'ServiceApi', 'errorHandler'];
+
+  constructor(private $log: ng.ILogService,
               private $scope: IConsultationSummaryClientControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
@@ -115,7 +118,7 @@ export class ConsultationSummaryClientController implements ng.IController {
   }
 
   public isCommentValid = (): boolean => typeof this.clientCommentInputValue === 'string'
-  && this.clientCommentInputValue.length >= ConsultationSummaryClientController.minValidCommentLength
+    && this.clientCommentInputValue.length >= ConsultationSummaryClientController.minValidCommentLength
 
   private onReject = (error: any): void => {
     this.errorHandler.handleServerError(error, 'Can not save service comment')

@@ -14,6 +14,8 @@ export class LoginStateService {
   private account: any = null
   private emptyAccount: any = null
 
+  static $inject = [];
+
   constructor() {
     this.account = {
       phoneNumber: {

@@ -26,6 +26,8 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
       paymentSystemId: this.amountMethodModal.paymentSystemModel.id
     }
   }
+  static $inject = ['$state'];
+
     constructor(private $state: StateService) {
     this.isInvoice = false
     this.onBraintreeFormLoad = false

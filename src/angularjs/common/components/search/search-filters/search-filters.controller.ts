@@ -41,6 +41,8 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.maxPrice = this.$state.params.maxPrice ? this.$state.params.maxPrice / this.moneyDivider : this.maxPrice
   }
 
+  static $inject = ['translatorService', '$window', '$state', 'CommonConfig'];
+
     constructor(private translatorService: TranslatorService,
               private $window: ng.IWindowService,
               private $state: StateService,

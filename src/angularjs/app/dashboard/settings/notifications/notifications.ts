@@ -10,14 +10,14 @@ const dashboardSettingsNotificationsModule = angular.module('profitelo.controlle
   uiRouter,
   'profitelo.components.interface.radio'
 ])
-  .config(function ($stateProvider: StateProvider): void {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.settings.notifications', {
       url: '/notifications',
       template: require('./notifications.html'),
       controller: 'dashboardSettingsNotifications',
       controllerAs: 'vm'
     })
-  })
+  }])
   .controller('dashboardSettingsNotifications', DashboardSettingsNotificationsController)
   .name
 

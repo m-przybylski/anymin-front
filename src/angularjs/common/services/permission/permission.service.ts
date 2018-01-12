@@ -3,7 +3,9 @@ import {AccountDetails} from 'profitelo-api-ng/model/models';
 
 export class PermissionService {
 
-    constructor(private PermRoleStore: ng.permission.RoleStore,
+  static $inject = ['PermRoleStore', 'PermPermissionStore', '$q', 'userService']
+
+  constructor(private PermRoleStore: ng.permission.RoleStore,
               private PermPermissionStore: ng.permission.PermissionStore,
               private $q: ng.IQService, private userService: UserService) {
   }
@@ -21,7 +23,7 @@ export class PermissionService {
       this.userService.getUser().then(() => this.$q.reject(), () => this.$q.resolve())))
 
     this.PermRoleStore.defineRole('partially-registered', <any>((): ng.IPromise<void> =>
-      this.userService.getUser().then(user => (user.email && user.hasPassword) ? this.$q.reject() : this.$q.resolve())
+        this.userService.getUser().then(user => (user.email && user.hasPassword) ? this.$q.reject() : this.$q.resolve())
     ))
   }
 

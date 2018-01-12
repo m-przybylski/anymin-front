@@ -1,5 +1,7 @@
 export class CSVFileReader {
 
+  static $inject = [];
+
   constructor() {
   }
 

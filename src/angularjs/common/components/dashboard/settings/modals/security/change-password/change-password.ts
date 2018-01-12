@@ -62,6 +62,8 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
   public checkIsNewEnteredPasswordCorrect = (): boolean =>
     this.enteredPassword !== this.newPassword && this.patternPassword.test(this.newPassword)
 
+  static $inject = ['$uibModalInstance', 'CommonSettingsService', 'AccountApi', 'passwordStrengthService'];
+
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private CommonSettingsService: CommonSettingsService,
               private AccountApi: AccountApi, private passwordStrengthService: PasswordStrengthService) {

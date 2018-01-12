@@ -42,6 +42,8 @@ export class ConsultationSummaryExpertService implements ng.IController {
     }
   ]
 
+  static $inject = ['translatorService', 'ServiceApi'];
+
     constructor(private translatorService: TranslatorService,
               private ServiceApi: ServiceApi) {
   }

@@ -12,9 +12,11 @@ import errorHandlerModule from '../../../../common/services/error-handler/error-
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
 import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
-    'profitelo.components.interface.preloader-container',
+  'profitelo.components.interface.preloader-container',
+  uiRouter,
   expertNoActivitiesModule,
   dashboardFiltersModule,
   expertActivitiesModule,
@@ -23,20 +25,20 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
   errorHandlerModule,
   noResultsInformationModule
 ])
-.config(function ($stateProvider: StateProvider): void {
-  $stateProvider.state('app.dashboard.expert.activities', {
-    url: '/activities',
-    template: require('./activities.html'),
-    controller: 'dashboardExpertActivitiesController',
-    controllerAs: 'vm',
-    resolve: {
-      /* istanbul ignore next */
-      filtersData: (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
-        dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)
-    }
-  })
-})
-.controller('dashboardExpertActivitiesController', DashboardExpertActivitiesController)
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
+    $stateProvider.state('app.dashboard.expert.activities', {
+      url: '/activities',
+      template: require('./activities.html'),
+      controller: 'dashboardExpertActivitiesController',
+      controllerAs: 'vm',
+      resolve: {
+        filtersData: ['dashboardActivitiesService', (dashboardActivitiesService: DashboardActivitiesService):
+          ng.IPromise<GetActivityFilters> =>
+          dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)]
+      }
+    })
+  }])
+  .controller('dashboardExpertActivitiesController', DashboardExpertActivitiesController)
   .name
 
 export default dashboardExpertActivitiesModule

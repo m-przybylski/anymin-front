@@ -6,6 +6,8 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
 
   isHelpMenuShow: boolean = false
 
+  static $inject = ['$document', '$element', '$scope', '$window'];
+
     constructor(private $document: ng.IDocumentService, private $element: ng.IRootElementService,
               private $scope: ng.IScope, private $window: ng.IWindowService) {
 

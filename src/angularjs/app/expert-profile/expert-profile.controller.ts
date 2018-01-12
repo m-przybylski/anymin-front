@@ -11,6 +11,8 @@ export class ExpertProfileController {
   public profileType: ProfileTypes
   public profileId: string
 
+  static $inject = ['$stateParams', '$log', 'expertProfile', 'ProfileApi'];
+
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
               expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
 

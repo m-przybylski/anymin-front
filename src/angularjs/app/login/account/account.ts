@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+
 const phonenumbers = require('libphonenumber-js')
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
@@ -23,8 +24,10 @@ import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
 import {Config} from '../../config';
 import {IInvitationObject} from '../../invitations/invitation.interface'
-import {RegistrationInvitationService} from
-  '../../../common/services/registration-invitation/registration-invitation.service'
+import {
+  RegistrationInvitationService
+} from
+    '../../../common/services/registration-invitation/registration-invitation.service'
 import registerInvitationModule from '../../../common/services/registration-invitation/registration-invitation'
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
@@ -49,7 +52,7 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
 
   this.isValidPhoneNumber = (prefix: string, phoneNumber: string): boolean => {
     if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix &&
-        phoneNumber && phoneNumber.length > 1) {
+      phoneNumber && phoneNumber.length > 1) {
       const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
     }
@@ -170,7 +173,7 @@ function config($stateProvider: StateProvider): void {
 }
 
 angular.module('profitelo.controller.login.account', [
-    sessionModule,
+  sessionModule,
   loginStateModule,
   apiModule,
   commonSettingsModule,
@@ -186,4 +189,6 @@ angular.module('profitelo.controller.login.account', [
   autoFocus
 ])
   .config(['$stateProvider', config])
-  .controller('AccountFormController', AccountFormController)
+  .controller('AccountFormController', ['$log', '$state', '$filter', 'RegistrationApi',
+    'userService', 'topWaitingLoaderService', 'topAlertService', 'loginStateService', 'CommonSettingsService',
+    'registrationInvitationService', AccountFormController])

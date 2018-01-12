@@ -22,13 +22,17 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public onModalClose: () => void
   public isDeleted: boolean = false
 
-    constructor(private userService: UserService,
+  static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
+    'topAlertService', 'errorHandler'];
+
+  constructor(private userService: UserService,
               private modalsService: ModalsService,
               private ServiceApi: ServiceApi,
               private EmploymentApi: EmploymentApi,
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
-              private errorHandler: ErrorHandlerService) {}
+              private errorHandler: ErrorHandlerService) {
+  }
 
   $onInit = (): void => {
     this.serviceName = this.serviceDetails.service.name
@@ -57,7 +61,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
     const confirmWindowMessage: string =
       this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT')
     if (confirm(confirmWindowMessage)) {
-      this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then( () => {
+      this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then(() => {
         this.topAlertService.success({
           message: this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
           timeout: 2
@@ -71,14 +75,14 @@ export class SingleServiceComponentController implements ng.IController, ISingle
     const confirmWindowMessage: string =
       this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT')
     if (confirm(confirmWindowMessage)) {
-        this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.service.id).then(() => {
-          this.topAlertService.success({
-            message:
-              this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
-            timeout: 2
-          })
-          this.isDeleted = true
-        }, this.onReject)
+      this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.service.id).then(() => {
+        this.topAlertService.success({
+          message:
+            this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
+          timeout: 2
+        })
+        this.isDeleted = true
+      }, this.onReject)
     }
   }
 

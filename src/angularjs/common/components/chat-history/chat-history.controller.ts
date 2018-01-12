@@ -16,6 +16,8 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   private session?: RatelSdk.Session
   private static readonly chatHistoryLimit: number = 500
 
+  static $inject = ['communicatorService', '$log', '$scope'];
+
     constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
               private $scope: ng.IScope) {

@@ -9,6 +9,8 @@ export interface ISecuritySettingsService {
 
 export class SecuritySettingsResolver implements ISecuritySettingsService {
 
+  static $inject = ['SessionApi', '$log'];
+
   constructor(private SessionApi: SessionApi, private $log: ng.ILogService) {
 
   }

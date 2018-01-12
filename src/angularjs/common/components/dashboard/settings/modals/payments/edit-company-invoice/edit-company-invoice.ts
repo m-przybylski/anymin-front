@@ -57,6 +57,8 @@ export class EditCompanyInvoiceController implements ng.IController {
     })
   }
 
+  static $inject = ['$uibModalInstance', '$scope', 'AccountApi'];
+
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IEditCompanyInvoiceControllerScope, private AccountApi: AccountApi) {
 

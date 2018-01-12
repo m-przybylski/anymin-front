@@ -61,6 +61,9 @@ export class CurrentCall {
     onSuspendedCallEnd: new Subject<void>(),
   }
 
+  static $inject = ['soundsService', 'ratelCall', 'timerFactory', 'service', 'sue', 'communicatorService',
+    'RatelApi', 'microphoneService'];
+
   constructor(soundsService: SoundsService,
               protected ratelCall: RatelSdk.BusinessCall,
               private timerFactory: TimerFactory,

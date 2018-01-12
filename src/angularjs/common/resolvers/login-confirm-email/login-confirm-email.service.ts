@@ -13,6 +13,9 @@ import {StateService} from '@uirouter/angularjs'
 
 export class LoginConfirmEmailResolver {
 
+  static $inject = ['$q', '$rootScope', '$timeout', 'translatorService', '$state', 'topAlertService',
+    'sessionServiceWrapper', 'AccountApi'];
+
   constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
               private translatorService: TranslatorService, private $state: StateService,
               private topAlertService: TopAlertService, private sessionServiceWrapper: SessionServiceWrapper,

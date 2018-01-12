@@ -22,6 +22,8 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   private static readonly minRangeOfFewInvitations: number = 2
   private static readonly maxRangeOfFewInvitations: number = 4
 
+  static $inject = ['InvitationApi', 'errorHandler', 'topAlertService', 'translatorService'];
+
     constructor(
     private InvitationApi: InvitationApi,
               private errorHandler: ErrorHandlerService,

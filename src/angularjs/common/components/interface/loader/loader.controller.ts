@@ -23,6 +23,8 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
   private static readonly multiplierByTwo: number = 2
   private static readonly loadingProgressMultiplier: number = 100
 
+  static $inject = [];
+
   constructor() {
   }
 

@@ -64,6 +64,8 @@ export class CommunicatorService {
     chat.connect()
   }
 
+  static $inject = ['$log', '$q', 'RatelApi', 'userService', 'CommonConfig', 'eventsService', '$window'];
+
     constructor(private $log: ng.ILogService,
               private $q: ng.IQService,
               private RatelApi: RatelApi,

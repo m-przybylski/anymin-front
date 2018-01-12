@@ -21,6 +21,8 @@ export class NavigatorWrapper {
   }
   private videoInputIdArray: string[] = []
 
+  static $inject = [];
+
   constructor() {
     this.navigator = window['navigator']
     this.navigator.getUserMedia =

@@ -44,7 +44,10 @@ export class ConsultationSummaryExpertController implements ng.IController {
   private static readonly minValidClientReportMessageLength: number = 3
   private sueId: string
 
-    constructor(private $scope: IConsultationSummaryExpertControllerScope,
+  static $inject = ['$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi', 'topAlertService',
+    'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
+
+  constructor(private $scope: IConsultationSummaryExpertControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
               private ServiceApi: ServiceApi,
@@ -61,7 +64,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public onSendTechnicalProblems = (): void => {
     this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
       this.technicalProblemsDescription).then(() => {
-        this.onModalClose()
+      this.onModalClose()
     }).catch((error) => {
       this.errorHandler.handleServerError(error)
     })

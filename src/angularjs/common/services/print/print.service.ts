@@ -3,6 +3,8 @@ export class PrintService {
   private __container__: any
   private contentWindow: any
 
+  static $inject = [];
+
   constructor() {
   }
 

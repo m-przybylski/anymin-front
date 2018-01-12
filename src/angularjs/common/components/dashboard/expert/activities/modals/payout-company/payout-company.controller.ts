@@ -11,6 +11,8 @@ export class ExpertPayoutCompanyModalController implements ng.IController {
     {name: 'tagtetst2'}
   ]
 
+  static $inject = ['$scope', '$uibModalInstance'];
+
     constructor($scope: IExpertPayoutCompanyModalScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance ) {
     $scope.isNavbar = true

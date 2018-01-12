@@ -11,19 +11,20 @@ const DashboardClientInvoicesModule = angular.module('profitelo.controller.dashb
   expertInvoiceModule,
   uiRouter
 ])
-  .config(function ($stateProvider: StateProvider): void {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.client.invoices', {
       url: '/invoices',
       template: require('./invoices.html'),
       controller: 'dashboardClientInvoicesController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetCompanyInvoiceDetails> =>
-          invoiceDataResolver.resolveCompanyInfo(),
-        user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
+        getInvoiceData: ['invoiceDataResolver',
+          (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetCompanyInvoiceDetails> =>
+            invoiceDataResolver.resolveCompanyInfo()],
+        user: ['userService', (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)]
       }
     })
-  })
+  }])
   .controller('dashboardClientInvoicesController', DashboardClientInvoicesController)
   .name
 

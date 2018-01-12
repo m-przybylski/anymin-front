@@ -11,6 +11,8 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
   public noUrl: boolean = false
   public label?: string
 
+  static $inject = ['CommonSettingsService'];
+
     constructor(CommonSettingsService: CommonSettingsService) {
     this.urlPattern = CommonSettingsService.localSettings.urlPattern
   }

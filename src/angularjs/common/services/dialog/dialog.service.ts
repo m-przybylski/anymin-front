@@ -2,6 +2,8 @@ import * as ng from 'angular'
 
 export class DialogService {
 
+  static $inject = ['$uibModal'];
+
     constructor(private $uibModal: ng.ui.bootstrap.IModalService) {
   }
 

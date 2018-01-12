@@ -4,6 +4,8 @@ export class NavbarNotificationsService {
 
   public readonly onInvitationsResolvedSubject = new Subject<void>();
 
+  static $inject = [];
+
   constructor() {
   }
 

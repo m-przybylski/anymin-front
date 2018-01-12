@@ -14,14 +14,14 @@ const dashboardExpertManageProfileModule = angular.module('profitelo.controller.
   singleServiceModule,
   consultationFormModalModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.expert.manage-profile', {
       url: '/manage-profile',
       template: require('./manage-profile.html'),
       controller: 'dashboardExpertManageProfile',
       controllerAs: 'vm'
     })
-  })
+  }])
   .controller('dashboardExpertManageProfile', DashboardExpertManageProfileController)
   .name
 

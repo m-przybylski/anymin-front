@@ -8,6 +8,8 @@ export class GroupedMessagesComponentController implements ng.IController, IGrou
   public participantAvatar: string = ''
   public isMine: boolean = false
 
+  static $inject = ['communicatorService'];
+
     constructor(private communicatorService: CommunicatorService) {
   }
 

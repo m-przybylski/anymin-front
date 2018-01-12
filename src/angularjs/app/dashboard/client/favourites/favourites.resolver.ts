@@ -10,6 +10,8 @@ interface IAppClientFavouritesResolverResponse {
 
 export class ClientFavouritesResolver {
 
+  static $inject = ['$q', 'ViewsApi'];
+
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 

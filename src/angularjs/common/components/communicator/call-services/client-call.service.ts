@@ -22,6 +22,9 @@ export class ClientCallService {
 
   private readonly onNewCallSubject = new Subject<CurrentClientCall>()
 
+  static $inject = ['communicatorService', '$log', 'timerFactory', 'ServiceApi', 'RatelApi', 'soundsService',
+    'modalsService', '$q', 'profiteloWebsocket', 'microphoneService'];
+
   constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
               private timerFactory: TimerFactory,

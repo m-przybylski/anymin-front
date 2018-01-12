@@ -13,6 +13,8 @@ export interface INoCreditsControllerScope extends ng.IScope {
 
 export class NoCreditsController implements ng.IController {
 
+  static $inject = ['$scope', '$uibModalInstance'];
+
     constructor($scope: INoCreditsControllerScope,
               $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 

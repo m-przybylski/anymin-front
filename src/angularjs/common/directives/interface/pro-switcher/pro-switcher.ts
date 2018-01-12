@@ -48,6 +48,6 @@ export interface IProSwitcherScope extends ng.IScope {
   }
 
   angular.module('profitelo.directives.interface.pro-switcher', [])
-    .directive('proSwitcher', proSwitcher)
+    .directive('proSwitcher', [proSwitcher])
 
 }())

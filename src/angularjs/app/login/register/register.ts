@@ -153,10 +153,9 @@ function config($stateProvider: StateProvider): void {
     controller: 'RegisterController',
     template: require('./register.html'),
     resolve: {
-      /* istanbul ignore next */
-      smsSessionId: (LoginRegisterResolver: ILoginRegisterService): ng.IPromise<{} | ILoginRegister> =>
-        /* istanbul ignore next */
-        LoginRegisterResolver.resolve()
+      smsSessionId: ['LoginRegisterResolver',
+        (LoginRegisterResolver: ILoginRegisterService): ng.IPromise<{} | ILoginRegister> =>
+          LoginRegisterResolver.resolve()]
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
@@ -165,7 +164,7 @@ function config($stateProvider: StateProvider): void {
 }
 
 angular.module('profitelo.controller.login.register', [
-    sessionModule,
+  sessionModule,
   loginStateModule,
   'profitelo.resolvers.login-register',
   apiModule,
@@ -180,5 +179,7 @@ angular.module('profitelo.controller.login.register', [
   inputModule,
   checkboxModule
 ])
-.config(['$stateProvider', config])
-.controller('RegisterController', RegisterController)
+  .config(['$stateProvider', config])
+  .controller('RegisterController', ['$log', '$filter', '$state', 'topWaitingLoaderService',
+    'eventsService', 'sessionServiceWrapper', 'topAlertService', 'smsSessionId', 'CommonSettingsService',
+    'RegistrationApi', 'AccountApi', 'loginStateService', 'CommonConfig', RegisterController])

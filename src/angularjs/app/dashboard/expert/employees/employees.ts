@@ -16,14 +16,14 @@ const dashboardExpertEmployeesModule = angular.module('profitelo.controller.dash
   apiModule,
   pendingInvitationModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.expert.employees', {
       url: '/employees',
       template: require('./employees.html'),
       controller: 'dashboardExpertEmployeesController',
       controllerAs: 'vm'
     })
-  })
+  }])
   .controller('dashboardExpertEmployeesController', DashboardExpertEmployeesController)
   .name
 

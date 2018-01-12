@@ -10,6 +10,8 @@ export class PaymentMethodComponentController implements IPaymentMethodComponent
   activeOption: number | null = null
   firstSelect = false
   lastPayment: GetLastPayment
+  static $inject = [];
+
   constructor() {
   }
 

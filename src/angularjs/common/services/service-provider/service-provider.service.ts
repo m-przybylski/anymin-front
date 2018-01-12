@@ -17,6 +17,8 @@ export interface IServiceProviderDefaultQueue {
 // TODO add types or remove this provider
 export class ServiceProviderService {
 
+  static $inject = ['$state'];
+
     constructor(private $state: StateService) {
   }
 

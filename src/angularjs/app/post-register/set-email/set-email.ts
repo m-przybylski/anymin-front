@@ -105,14 +105,14 @@ function config($stateProvider: StateProvider): void {
     controller: 'SetEmailController',
     template: require('./set-email.html'),
     resolve: {
-      /* istanbul ignore next */
-      user: (userService: UserService, $state: ng.ui.IStateService): ng.IPromise<AccountDetails> => {
-        const userData = userService.getUser()
-        userData.then((user) => {
-          if (user.unverifiedEmail || user.email) $state.go('app.dashboard.expert.activities')
-        })
-        return userData
-      }
+      user: ['userService', '$state',
+        (userService: UserService, $state: ng.ui.IStateService): ng.IPromise<AccountDetails> => {
+          const userData = userService.getUser()
+          userData.then((user) => {
+            if (user.unverifiedEmail || user.email) $state.go('app.dashboard.expert.activities')
+          })
+          return userData
+      }]
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'

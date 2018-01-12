@@ -15,6 +15,8 @@ export class FileTypeChecker {
     [FileCategoryEnum.EXPERT_FILE]: ['application/pdf', 'image/png', 'image/jpeg']
   }
 
+  static $inject = [];
+
   constructor() {}
 
   public static isFileFormatValid = (file: File, fileCategoryEnum: FileCategoryEnum): boolean =>

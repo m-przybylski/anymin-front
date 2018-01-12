@@ -6,6 +6,8 @@ export class StreamManager {
   private isAudio: boolean
   private navigator: NavigatorWrapper
 
+  static $inject = ['stream', 'constraints'];
+
   constructor(private stream: MediaStream, private constraints: MediaStreamConstraintsWrapper) {
     this.navigator = new NavigatorWrapper();
     this.isAudio = true;

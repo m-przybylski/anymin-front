@@ -8,6 +8,8 @@ export class ImageCropComponentController implements IImageCropComponentBindings
 
   private element: any
 
+  static $inject = [];
+
   constructor() {
     this.element = $('.cropper-container')
   }

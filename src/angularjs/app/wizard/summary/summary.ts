@@ -28,19 +28,19 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
   navbarNotificationsModule,
   userModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard.summary', {
       url: '/summary',
       controllerAs: 'vm',
       controller: SummaryController,
       template: require('./summary.html'),
       resolve: {
-        /* istanbul ignore next */
-        wizardProfile: (WizardApi: WizardApi, $state: StateService): ng.IPromise<GetWizardProfile> => {
-          const promise = WizardApi.getWizardProfileRoute()
-          promise.catch(() => $state.go('app.wizard.create-profile'))
-          return promise
-        }
+        wizardProfile: ['WizardApi', '$state',
+          (WizardApi: WizardApi, $state: StateService): ng.IPromise<GetWizardProfile> => {
+            const promise = WizardApi.getWizardProfileRoute()
+            promise.catch(() => $state.go('app.wizard.create-profile'))
+            return promise
+        }]
       },
       data: {
         permissions: {
@@ -50,7 +50,7 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
         pageTitle: 'PAGE_TITLE.WIZARDS.SUMMARY'
       }
     })
-  })
+  }])
   .controller('summaryController', SummaryController)
   .name
 

@@ -8,6 +8,8 @@ export class BtnDropdownCallComponentController implements ng.IController, IBtnD
   public buttonClass: string
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
+  static $inject = ['$scope', '$document', '$element'];
+
     constructor(private $scope: ng.IScope,
               private $document: ng.IDocumentService,
               private $element: ng.IRootElementService) {}

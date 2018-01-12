@@ -79,10 +79,10 @@ function config($stateProvider: StateProvider): void {
     controller: 'ForgotPasswordController',
     template: require('./forgot-password.html'),
     resolve: {
-      account: (
-        LoginForgotPasswordResolver: ILoginForgotPasswordService,
-        $stateParams: IForgotPasswordStateParams
-      ): ng.IPromise<ILoginForgotPassword> => LoginForgotPasswordResolver.resolve($stateParams)
+      account: ['LoginForgotPasswordResolver', '$stateParams',
+        (LoginForgotPasswordResolver: ILoginForgotPasswordService,
+         $stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword> =>
+          LoginForgotPasswordResolver.resolve($stateParams)]
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.FORGOT_PASSWORD'
@@ -91,7 +91,7 @@ function config($stateProvider: StateProvider): void {
 }
 
 angular.module('profitelo.controller.login.forgot-password', [
-    'profitelo.resolvers.login-forgot-password',
+  'profitelo.resolvers.login-forgot-password',
   apiModule,
   'profitelo.services.pro-top-waiting-loader-service',
   commonSettingsModule,
@@ -100,4 +100,5 @@ angular.module('profitelo.controller.login.forgot-password', [
   inputModule
 ])
   .config(['$stateProvider', config])
-  .controller('ForgotPasswordController', ForgotPasswordController)
+  .controller('ForgotPasswordController', ['$state', 'account', 'RecoverPasswordApi',
+    'topWaitingLoaderService', 'CommonSettingsService', ForgotPasswordController])

@@ -27,6 +27,8 @@ export class InputConsultationTagComponentController implements IInputConsultati
   private static readonly suggestedTagsLoaderDelay = 500
   private static readonly postTagsSuggestionsDelay = 500
 
+  static $inject = ['SearchApi', 'promiseService', '$log', 'CommonSettingsService'];
+
     constructor(private SearchApi: SearchApi,
               private promiseService: PromiseService,
               private $log: ng.ILogService,

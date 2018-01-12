@@ -5,6 +5,8 @@ export class DashboardClientInvoicesController {
   public isAnyPaymentMethod = false
   public areInvoices: boolean
 
+  static $inject = ['getInvoiceData'];
+
     constructor(getInvoiceData: void | GetCompanyInvoiceDetails) {
 
     if (getInvoiceData) {

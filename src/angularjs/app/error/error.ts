@@ -9,8 +9,8 @@ function ErrorController(): void {
 
 const errorPageModule = angular.module('profitelo.controller.error', [
   uiRouter
-  ])
-  .config(($stateProvider: StateProvider) => {
+])
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.error', {
       template: require('./error.html'),
       controller: 'ErrorController',
@@ -22,7 +22,7 @@ const errorPageModule = angular.module('profitelo.controller.error', [
         }]
       }
     })
-  })
+  }])
   .controller('ErrorController', ErrorController)
   .name
 

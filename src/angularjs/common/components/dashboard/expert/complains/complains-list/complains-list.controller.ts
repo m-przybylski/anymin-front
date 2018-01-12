@@ -6,6 +6,8 @@ export class DashboardExpertComplainsListComponentController implements IDashboa
   isInProgress: boolean = false
   headerTitle: string
 
+  static $inject = [];
+
   constructor() {
 
   }

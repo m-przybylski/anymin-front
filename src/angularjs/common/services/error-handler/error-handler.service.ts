@@ -2,6 +2,8 @@ import {TopAlertService} from '../top-alert/top-alert.service'
 import {TranslatorService} from '../translator/translator.service'
 export class ErrorHandlerService {
 
+  static $inject = ['topAlertService', '$log', 'translatorService'];
+
     constructor(private topAlertService: TopAlertService,
               private $log: ng.ILogService,
               private translatorService: TranslatorService) {

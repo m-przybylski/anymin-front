@@ -13,6 +13,8 @@ export class NoResultsInformationController implements INoResultsInformationComp
   buttonOnClick: () => void
   buttonCallback: () => void
 
+  static $inject = [];
+
   constructor() {
 
     this.buttonCallback = (): void => {

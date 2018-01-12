@@ -10,6 +10,8 @@ export interface IInvoiceDataResolver {
 }
 
 export class InvoiceDataResolver implements IInvoiceDataResolver {
+  static $inject = ['AccountApi', '$log'];
+
   constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }
 

@@ -40,6 +40,8 @@ export class PhoneSettingsService {
   private static readonly timeToResend: number = 30
 
   /* @ngInject */
+  static $inject = ['AccountApi', 'errorHandler', 'CommonSettingsService', '$interval', '$log'];
+
   constructor(private AccountApi: AccountApi,
               private errorHandler: ErrorHandlerService,
               private CommonSettingsService: CommonSettingsService,

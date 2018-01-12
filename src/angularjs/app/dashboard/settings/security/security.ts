@@ -31,6 +31,9 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean
   public sessions: ISession[]
 
+  static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', '$state', 'topAlertService',
+    'translatorService', 'sessionsData', 'profiteloWebsocket'];
+
   constructor(private modalsService: ModalsService,
               private currentSession: GetSession,
               private SessionApi: SessionApi,
@@ -121,18 +124,20 @@ angular.module('profitelo.controller.dashboard.settings.security', [
   'profitelo.components.dashboard.settings.manage-devices',
   modalsModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.settings.security', {
       url: '/security',
       template: require('./security.html'),
       controller: 'dashboardSettingsSecurityController',
       controllerAs: 'vm',
       resolve: {
-        currentSession: (sessionServiceWrapper: SessionServiceWrapper): ng.IPromise<GetSession> =>
-          sessionServiceWrapper.getSession(true),
-        sessionsData: (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>
-          securitySettingsResolver.resolve()
+        currentSession: ['sessionServiceWrapper',
+          (sessionServiceWrapper: SessionServiceWrapper): ng.IPromise<GetSession> =>
+            sessionServiceWrapper.getSession(true)],
+        sessionsData: ['securitySettingsResolver',
+          (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>
+            securitySettingsResolver.resolve()]
       }
     })
-  })
+  }])
   .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)

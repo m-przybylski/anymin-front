@@ -15,14 +15,14 @@ const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dash
   uiRouter,
   topAlertModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.settings.payouts', {
       url: '/payouts',
       template: require('./payouts.html'),
       controller: 'dashboardSettingsPayoutsController',
       controllerAs: 'vm'
     })
-  })
+  }])
   .controller('dashboardSettingsPayoutsController', DashboardSettingsPayoutsController)
   .service('payoutsService', PayoutsService)
   .name

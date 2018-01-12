@@ -7,6 +7,7 @@ import {AccountDetails} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
 import {Config} from '../../../config';
 import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export class DashboardSettingsGeneralController implements ng.IController {
 
@@ -18,6 +19,8 @@ export class DashboardSettingsGeneralController implements ng.IController {
   public unverifiedEmail?: string
   public showUnverifiedEmail: boolean
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
+
+  static $inject = ['modalsService', 'user', '$state'];
 
   constructor(private modalsService: ModalsService, user: AccountDetails, private $state: StateService) {
     this.nickname = user.settings.nickname
@@ -53,22 +56,22 @@ export class DashboardSettingsGeneralController implements ng.IController {
 }
 
 angular.module('profitelo.controller.dashboard.settings.general', [
-    'pascalprecht.translate',
+  'pascalprecht.translate',
   userModule,
-
+  uiRouter,
   urlModule,
   modalsModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.settings.general', {
       url: '/general',
       template: require('./general.html'),
       controller: 'dashboardSettingsGeneralController',
       controllerAs: 'vm',
       resolve: {
-        user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
+        user: ['userService', (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)]
       },
       data: {}
     })
-  })
+  }])
   .controller('dashboardSettingsGeneralController', DashboardSettingsGeneralController)

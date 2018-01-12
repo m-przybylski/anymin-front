@@ -10,6 +10,8 @@ export class SearchService {
   private static readonly suggestedTagsCounter: number = 20
   private static readonly suggestedQueriesCounter: number = 5
 
+  static $inject = ['SearchApi', 'errorHandler'];
+
     constructor(private SearchApi: SearchApi, private errorHandler: ErrorHandlerService) {
   }
 

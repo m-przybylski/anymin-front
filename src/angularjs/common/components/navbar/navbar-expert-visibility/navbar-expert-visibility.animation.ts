@@ -1,5 +1,7 @@
 export class NavbarExpertVisibilitAnimation {
 
+  static $inject = ['$animateCss'];
+
     constructor(private $animateCss: ng.animate.IAnimateCssService) {}
 
   private createAnimation = (): ng.animate.IAnimateCallbackObject => ({

@@ -9,6 +9,8 @@ export class ExpertActivityComponentController implements ng.IController, IExper
   public activity: GetActivity
   public imageUrl: string | null
   public isCompany: boolean
+  static $inject = ['modalsService', '$log', 'userService'];
+
     constructor(private modalsService: ModalsService, private $log: ng.ILogService, private userService: UserService) {
 
     this.userService.getUser().then((response) => {
