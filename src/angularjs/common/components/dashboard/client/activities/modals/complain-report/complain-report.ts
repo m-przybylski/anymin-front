@@ -14,6 +14,6 @@
     'ui.bootstrap',
     'profitelo.directives.interface.scrollable'
   ])
-    .controller('clientComplainReportController', controller)
+    .controller('clientComplainReportController', ['$scope', '$uibModalInstance', controller])
 
 }())

@@ -191,4 +191,6 @@ angular.module('profitelo.controller.post-register.set-password', [
   errorHandlerModule
 ])
 .config(['$stateProvider', config])
-.controller('SetPasswordController', _controller)
+.controller('SetPasswordController', ['$log', '$filter', '$state', 'topWaitingLoaderService',
+  'passwordStrengthService', 'user', 'registrationInvitationService', 'topAlertService', 'errorHandler',
+  'CommonSettingsService', 'AccountApi', _controller])

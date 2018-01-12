@@ -32,4 +32,4 @@ angular.module('profitelo.controller.dashboard.client', [
   DashboardClientInvoicesModule
 ])
   .config(['$stateProvider', config])
-  .controller('clientController', clientController)
+  .controller('clientController', [clientController])

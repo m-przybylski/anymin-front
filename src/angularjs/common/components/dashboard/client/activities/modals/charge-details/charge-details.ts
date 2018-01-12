@@ -48,4 +48,5 @@ angular.module('profitelo.components.dashboard.client.activities.modals.charge-d
   'ui.bootstrap',
   'profitelo.directives.interface.scrollable'
 ])
-  .controller('clientChargeDetailsController', controller)
+  .controller('clientChargeDetailsController', [
+    '$scope', '$state', '$uibModalInstance', controller])
