@@ -31,6 +31,8 @@ describe('Unit testing: profitelo.services.call >', () => {
       onCallInvitation: (cb: any): void => onCallInvitation = cb,
       onSuspendedCallEnd: (cb: () => void): void => cb(),
       onActiveCall: (cb: (activeCalls: Calls[]) => void): void => cb([]),
+      onReconnect: (cb: () => void): void => cb(),
+      onDisconnectCall: (cb: () => void): void => cb(),
     }
 
     const soundsService = {

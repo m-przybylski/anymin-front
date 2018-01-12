@@ -37,14 +37,6 @@ export class MessageRoom {
     }
   }
 
-  public getMark = (): Promise<number> => {
-    if (this.room) {
-      return this.room.getMark()
-    } else {
-      return Promise.reject('No room')
-    }
-  }
-
   public indicateTyping = (): Promise<void> => {
     if (this.room) {
       return this.room.indicateTyping()
@@ -95,7 +87,7 @@ export class MessageRoom {
 
   private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
     room.onTyping(() => this.events.onTyping.next())
-    room.onMark((roomMark) => this.events.onMark.next(roomMark))
+    room.onMarked((roomMark) => this.events.onMark.next(roomMark))
     room.onCustom('MESSAGE', (roomMessage) => {
       this.events.onMessage.next(roomMessage)
       this.soundsService.playMessageNew()

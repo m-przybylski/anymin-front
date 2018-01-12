@@ -12,7 +12,7 @@ describe('Unit tests: MessageRoom', () => {
   const businessRoom: RatelSdk.BusinessRoom = <any>{
     roomType: roomType.RoomType.BUSINESS,
     onTyping: () => {},
-    onMark: () => {},
+    onMarked: () => {},
     onCustom: () => {},
     onInvited: () => {},
     join: () => {},
