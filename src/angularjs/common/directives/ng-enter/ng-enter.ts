@@ -12,6 +12,11 @@ import {keyboardCodes} from '../../classes/keyboard'
       const enterKeyCode: number = keyboardCodes.enter
       elem.bind('keydown keypress', function(event): void {
         if (event.which === enterKeyCode) {
+          if (elem[0].tagName === 'INPUT') {
+            elem[0].blur()
+            elem[0].focus()
+          }
+
           scope.$apply(function(): void {
             scope.$eval(attrs.ngEnter)
           })
