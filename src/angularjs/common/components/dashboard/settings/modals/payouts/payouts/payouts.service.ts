@@ -5,6 +5,8 @@ import {ErrorHandlerService} from '../../../../../../services/error-handler/erro
 
 export class PayoutsModalService {
 
+  static $inject = ['PayoutsApi', 'errorHandler'];
+
     constructor(private PayoutsApi: PayoutsApi,
               private errorHandler: ErrorHandlerService) {}
 

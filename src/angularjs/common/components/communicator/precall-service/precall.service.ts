@@ -6,6 +6,8 @@ import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-const
 
 export class PrecallService {
 
+  static $inject = ['rtcDetectorService', 'modalsService'];
+
     constructor(private rtcDetectorService: RtcDetectorService,
               private modalsService: ModalsService) {
   }

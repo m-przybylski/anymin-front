@@ -3,6 +3,8 @@ import {IMessengerComponentBindings} from './messenger'
 export class MessengerComponentController implements ng.IController, IMessengerComponentBindings {
   isMessenger: boolean
 
+  static $inject = [];
+
   constructor() {
   }
 

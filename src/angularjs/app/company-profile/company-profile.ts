@@ -18,6 +18,7 @@ import similarConsultationModule from '../../common/components/profile/similar-c
 import profileCompanyConsultationModule
   from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
 import {StateProvider, StateParams} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export interface ICompanyProfileStateParams extends StateParams {
   primaryConsultationId: string
@@ -25,7 +26,8 @@ export interface ICompanyProfileStateParams extends StateParams {
 }
 
 const companyProfilePageModule = angular.module('profitelo.controller.company-profile', [
-    apiModule,
+  apiModule,
+  uiRouter,
   sessionModule,
   smoothScrollingModule,
   topAlertModule,
@@ -43,23 +45,24 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'commonConfig'
 
 ])
-.config(($stateProvider: StateProvider, $qProvider: ng.IQProvider) => {
-  $qProvider.errorOnUnhandledRejections(false)
-  $stateProvider.state('app.company-profile', {
-    controllerAs: 'vm',
-    url: '/company-profile/{profileId}?primaryConsultationId',
-    template: require('./company-profile.html'),
-    controller: 'CompanyProfileController',
-    resolve: {
-      /* istanbul ignore next */
-      companyProfile: (CompanyProfileResolver: CompanyProfileResolver,
-                       $stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> =>
-        CompanyProfileResolver.resolve($stateParams)
-    }
-  })
-})
-.service('CompanyProfileResolver', CompanyProfileResolver)
-.controller('CompanyProfileController', CompanyProfileController)
+  .config(['$stateProvider', '$qProvider',
+    ($stateProvider: StateProvider, $qProvider: ng.IQProvider): void => {
+      $qProvider.errorOnUnhandledRejections(false)
+      $stateProvider.state('app.company-profile', {
+        controllerAs: 'vm',
+        url: '/company-profile/{profileId}?primaryConsultationId',
+        template: require('./company-profile.html'),
+        controller: 'CompanyProfileController',
+        resolve: {
+          /* istanbul ignore next */
+          companyProfile: ['CompanyProfileResolver', '$stateParams', (CompanyProfileResolver: CompanyProfileResolver,
+                           $stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> =>
+            CompanyProfileResolver.resolve($stateParams)]
+        }
+      })
+    }])
+  .service('CompanyProfileResolver', CompanyProfileResolver)
+  .controller('CompanyProfileController', CompanyProfileController)
   .name
 
 export default companyProfilePageModule

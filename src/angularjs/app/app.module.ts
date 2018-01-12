@@ -90,7 +90,11 @@ export const angularjsModule = angular.module('profitelo', [
   'profitelo.translations.pl-pl'
 
 ])
-  .run(AppRunFunction)
-  .config(AppConfigFunction)
-  .controller('AppComponentController', AppComponentController)
-  .factory('apiUrl', (CommonConfig: CommonConfig) => CommonConfig.getAllData().urls.backend)
+  .run(['$rootScope', '$log', 'permissionService', '$anchorScroll', 'eventsService',
+    'sessionServiceWrapper', '$urlRouter', '$state', 'topAlertService', 'sessionDeletedService',
+    'profiteloWebsocket', AppRunFunction])
+  .config(['$urlRouterProvider', '$httpProvider', '$stateProvider', '$translateProvider',
+    '$locationProvider', '$animateProvider', 'tmhDynamicLocaleProvider', AppConfigFunction])
+  .controller('AppComponentController', ['InterfaceLanguageService', AppComponentController])
+  .factory('apiUrl',
+    ['CommonConfig', (CommonConfig: CommonConfig): string => CommonConfig.getAllData().urls.backend])

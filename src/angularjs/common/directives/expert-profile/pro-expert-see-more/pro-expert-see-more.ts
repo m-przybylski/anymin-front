@@ -11,6 +11,6 @@ import {IDirective} from 'angular'
   }
 
   angular.module('profitelo.directives.pro-expert-see-more', [])
-    .directive('proExpertSeeMore', proExpertSeeMore)
+    .directive('proExpertSeeMore', [proExpertSeeMore])
 
 }())

@@ -6,6 +6,8 @@ import {GetSession} from 'profitelo-api-ng/model/GetSession';
 
 export class UserService {
 
+  static $inject = ['sessionServiceWrapper', 'eventsService'];
+
     constructor(private sessionServiceWrapper: SessionServiceWrapper, private eventsService: EventsService) {
   }
 

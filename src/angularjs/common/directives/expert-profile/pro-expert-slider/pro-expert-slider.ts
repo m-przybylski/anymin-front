@@ -78,4 +78,4 @@ angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
   'profitelo.components.pro-lightbox'
 ])
   .directive(
-    'proExpertSlider', proExpertSlider)
+    'proExpertSlider', ['dialogService', '$timeout', proExpertSlider])

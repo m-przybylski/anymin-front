@@ -7,6 +7,8 @@ interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
 class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
   public restrict: string = 'A'
 
+  static $inject = [];
+
   constructor() {
   }
 

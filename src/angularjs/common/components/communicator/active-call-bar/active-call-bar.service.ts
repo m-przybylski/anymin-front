@@ -9,6 +9,8 @@ export class ActiveCallBarService {
     onHideCallBar: new Subject<void>()
   }
 
+  static $inject = ['expertCallService', 'eventsService'];
+
     constructor(private expertCallService: ExpertCallService,
               eventsService: EventsService) {
     expertCallService.onCallActive(this.notifyShowCallBar)

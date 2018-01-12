@@ -14,6 +14,8 @@ export class VolumeMeterService {
   private static readonly defaultClipLag = 750
   private static readonly bufferSize: number = 1024
 
+  static $inject = ['$window'];
+
     constructor(private $window: ng.IWindowService) {
   }
 

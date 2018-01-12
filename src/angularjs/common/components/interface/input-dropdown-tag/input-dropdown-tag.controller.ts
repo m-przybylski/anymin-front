@@ -53,6 +53,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     })
   }
 
+  static $inject = ['$document', '$scope', '$element', '$filter'];
+
     constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
               private $element: ng.IRootElementService, private $filter: ng.IFilterService) {
 

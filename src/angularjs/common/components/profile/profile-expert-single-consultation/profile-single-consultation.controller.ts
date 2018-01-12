@@ -11,6 +11,8 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
   ownerCompany: GetProfile
   profileId: string
 
+  static $inject = ['precallService', 'userService', '$state'];
+
     constructor(private precallService: PrecallService, private userService: UserService,
               private $state: StateService) {
   }

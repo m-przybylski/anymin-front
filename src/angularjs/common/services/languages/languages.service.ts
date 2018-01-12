@@ -8,6 +8,8 @@ export interface ILanguage {
 
 export class LanguagesService {
 
+  static $inject = ['translatorService', 'CommonConfig'];
+
     constructor(private translatorService: TranslatorService,
               private CommonConfig: CommonConfig) {}
 

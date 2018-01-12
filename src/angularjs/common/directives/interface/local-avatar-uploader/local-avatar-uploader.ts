@@ -13,6 +13,8 @@ class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
     onFileUpload: '=?'
   }
 
+  static $inject = [];
+
   constructor() {
   }
 

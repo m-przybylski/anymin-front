@@ -61,6 +61,8 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     })
   }
 
+  static $inject = ['translatorService', '$scope', 'userService'];
+
     constructor(private translatorService: TranslatorService,
               $scope: IDashboardFiltersComponentScope,
               userService: UserService) {

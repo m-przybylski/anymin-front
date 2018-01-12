@@ -16,6 +16,8 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
   lastDocument: string
   readonly documentsLimit: number = 5
 
+  static $inject = ['modalsService', 'FilesApi', 'errorHandler'];
+
     constructor(private modalsService: ModalsService,
               private FilesApi: FilesApi,
               private errorHandler: ErrorHandlerService) {

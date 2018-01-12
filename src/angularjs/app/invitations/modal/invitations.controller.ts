@@ -36,6 +36,9 @@ export class InvitationsModalController implements ng.IController {
   }
   private acceptedServices: IGetServiceWithInvitationsAndTags[] = []
 
+  static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi', '$q', '$log',
+    'navbarNotificationsService', '$scope'];
+
     constructor(private $state: StateService,
               private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
               private InvitationApi: InvitationApi,

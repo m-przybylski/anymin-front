@@ -28,7 +28,10 @@ export class ExpertCallService {
     onCallEnd: new Subject<CurrentExpertCall>()
   };
 
-    constructor(private ServiceApi: ServiceApi,
+  static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
+    'RatelApi', 'communicatorService', 'microphoneService'];
+
+  constructor(private ServiceApi: ServiceApi,
               private timerFactory: TimerFactory,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
@@ -48,7 +51,7 @@ export class ExpertCallService {
     this.events.onCallPull.subscribe(cb);
 
   public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
-      this.events.onCallTaken.subscribe(cb)
+    this.events.onCallTaken.subscribe(cb)
 
   public onCallActive = (cb: (activeCalls: Call[]) => void): Subscription => this.events.onCallActive.subscribe(cb)
 
@@ -99,15 +102,15 @@ export class ExpertCallService {
 
   public pullCall = (): void => {
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
-    .then(localStream => {
-      if (this.currentExpertCall) {
-        this.currentExpertCall.pull(localStream)
-        this.onCallPulled(this.currentExpertCall)
-      } else throw new Error('Call does not exist')
-    }, this.onGetUserMediaStreamFailure)
-    .catch((error) => {
-      this.$log.error(error);
-    })
+      .then(localStream => {
+        if (this.currentExpertCall) {
+          this.currentExpertCall.pull(localStream)
+          this.onCallPulled(this.currentExpertCall)
+        } else throw new Error('Call does not exist')
+      }, this.onGetUserMediaStreamFailure)
+      .catch((error) => {
+        this.$log.error(error);
+      })
   }
 
   private onCurrentExpertCallTaken = (activeDevice: CallActiveDevice): void => {
@@ -140,16 +143,16 @@ export class ExpertCallService {
 
   private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
-    .then(localStream => {
-      if (this.currentExpertCall) {
-        this.events.onNewCall.next(currentExpertCall)
-        currentExpertCall.answer(localStream)
-        this.onCallAnswered(currentExpertCall)
-      } else {
-        localStream.getTracks().forEach(t => t.stop());
-      }
-    }, this.onGetUserMediaStreamFailure)
-    .catch(this.onAnswerCallError);
+      .then(localStream => {
+        if (this.currentExpertCall) {
+          this.events.onNewCall.next(currentExpertCall)
+          currentExpertCall.answer(localStream)
+          this.onCallAnswered(currentExpertCall)
+        } else {
+          localStream.getTracks().forEach(t => t.stop());
+        }
+      }, this.onGetUserMediaStreamFailure)
+      .catch(this.onAnswerCallError);
 
   private onGetUserMediaStreamFailure = (err: any): void => {
     this.$log.debug(err);
@@ -158,17 +161,17 @@ export class ExpertCallService {
   private onCallPulled = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
     this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId())
-    .then((incomingCallDetails) => {
-      currentExpertCall.startTimer()
-      currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
-      const session = this.communicatorService.getClientSession()
-      if (!session) throw new Error('Session not available')
-      if (incomingCallDetails.sue.ratelRoomId)
-        session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
-          currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
-          this.events.onCallPull.next(currentExpertCall)
-        })
-    })
+      .then((incomingCallDetails) => {
+        currentExpertCall.startTimer()
+        currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
+        const session = this.communicatorService.getClientSession()
+        if (!session) throw new Error('Session not available')
+        if (incomingCallDetails.sue.ratelRoomId)
+          session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
+            currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
+            this.events.onCallPull.next(currentExpertCall)
+          })
+      })
   }
 
   private onCallAnswered = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {

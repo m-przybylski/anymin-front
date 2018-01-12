@@ -22,6 +22,8 @@ export class MediaStreamConstraintsWrapper {
     }
   }
 
+  static $inject = [];
+
   constructor() {
     this.actualConstraints = _.cloneDeep(MediaStreamConstraintsWrapper.getDefault())
     this.navigatorWrapper = new NavigatorWrapper()

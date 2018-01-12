@@ -23,7 +23,10 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   private cacheSessionId?: string
 
-    constructor(private loginStateService: LoginStateService,
+  static $inject = ['loginStateService', '$state', 'translatorService', '$q', '$timeout', 'topAlertService',
+    'RegistrationApi', '$log'];
+
+  constructor(private loginStateService: LoginStateService,
               private $state: StateService,
               private translatorService: TranslatorService,
               private $q: ng.IQService,

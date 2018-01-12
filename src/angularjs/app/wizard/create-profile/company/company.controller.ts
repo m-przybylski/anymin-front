@@ -30,6 +30,8 @@ export class CompanyController implements ng.IController {
   private companyNamePattern: RegExp
   private companyDescriptionPattern: RegExp
 
+  static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
+
     constructor(private WizardApi: WizardApi,
               private $state: StateService,
               private CommonSettingsService: CommonSettingsService,

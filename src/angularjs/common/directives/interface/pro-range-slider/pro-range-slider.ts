@@ -41,4 +41,4 @@ angular.module('profitelo.directives.interface.pro-range-slider', [
   uiRouter,
   'rzModule'
 ])
-  .directive('proRangeSlider', proRangeSlider)
+  .directive('proRangeSlider', ['$timeout', proRangeSlider])

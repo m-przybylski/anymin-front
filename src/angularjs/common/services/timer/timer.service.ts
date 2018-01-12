@@ -9,6 +9,8 @@ export class TimerService {
   private isPaused: boolean = false
   private pausedTime: number
 
+  static $inject = ['$interval', 'money', 'freeMinutesCount', 'interval'];
+
   constructor(private $interval: ng.IIntervalService, private money: MoneyDto, private freeMinutesCount: number,
               private interval: number) {
   }

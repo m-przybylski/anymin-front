@@ -8,6 +8,8 @@ export class MessengerInputComponentController implements IMessengerInputBinding
   public isFileUploading: boolean
   public inputModel: string = ''
 
+  static $inject = [];
+
   constructor() {
   }
 

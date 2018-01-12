@@ -1,6 +1,8 @@
 import {IFilterService} from '../filter/filter.service'
 export class TranslatorService {
 
+  static $inject = ['$filter'];
+
     constructor(private $filter: IFilterService) {
   }
 

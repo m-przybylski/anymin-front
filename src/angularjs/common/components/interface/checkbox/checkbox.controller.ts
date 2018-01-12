@@ -11,6 +11,8 @@ export class CheckboxComponentController implements ICheckboxComponentBindings {
   public ngRequired: boolean = false
   public onChange?: () => void
 
+  static $inject = [];
+
   constructor() {}
 
   public onClick = (): void => {

@@ -26,6 +26,8 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public isCreditCardsLoaded: boolean = false
   private static readonly maxShortAddressLength: number = 10
 
+  static $inject = ['getInvoiceData', 'FinancesApi', '$log', 'PaymentsApi', 'modalsService', '$state'];
+
   constructor(getInvoiceData: void | GetCompanyInvoiceDetails,
               FinancesApi: FinancesApi,
               $log: ng.ILogService,
@@ -109,19 +111,20 @@ const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.se
   'profitelo.resolvers.invoice-data',
   noResultsInformationModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.settings.payments', {
       url: '/payments',
       template: require('./payments.html'),
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetCompanyInvoiceDetails> =>
-          invoiceDataResolver.resolveCompanyInfo(),
-        user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
+        getInvoiceData: ['invoiceDataResolver',
+          (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<void | GetCompanyInvoiceDetails> =>
+            invoiceDataResolver.resolveCompanyInfo()],
+        user: ['userService', (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)]
       }
     })
-  })
+  }])
   .controller('dashboardSettingsPaymentsController', DashboardSettingsPaymentsController)
   .name
 

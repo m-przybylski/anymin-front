@@ -15,6 +15,6 @@ import {IDirective} from 'angular'
   }
 
   angular.module('profitelo.directives.pro-advice-tile', [])
-  .directive('proAdviceTile', proAdviceTile)
+  .directive('proAdviceTile', [proAdviceTile])
 
 }())

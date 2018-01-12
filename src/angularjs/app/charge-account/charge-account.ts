@@ -19,7 +19,7 @@ const chargeAccountModule = angular.module('profitelo.controller.charge-account'
   'ngTouch',
   modalsModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.charge-account', {
       url: '/charge-account',
       onEnter: (chargeAccountResolver: ChargeAccountResolver, $state: StateService): void => {
@@ -29,7 +29,7 @@ const chargeAccountModule = angular.module('profitelo.controller.charge-account'
         pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT'
       }
     })
-  })
+  }])
   .service('chargeAccountResolver', ChargeAccountResolver)
   .name
 

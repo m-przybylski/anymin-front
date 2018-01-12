@@ -16,6 +16,8 @@ export class MessageRoom {
     onMessage: new Subject<RatelSdk.Message>()
   }
 
+  static $inject = ['soundsService'];
+
   constructor(private soundsService: SoundsService) {
   }
 

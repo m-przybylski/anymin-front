@@ -51,6 +51,8 @@ export class ConsultationModalController implements ng.IController {
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
+  static $inject = ['$uibModalInstance'];
+
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
 
 }

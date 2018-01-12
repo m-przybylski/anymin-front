@@ -44,6 +44,9 @@ export class EditExpertProfileController implements ng.IController {
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern
   private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern
 
+  static $inject = ['$uibModalInstance', 'ProfileApi', '$log', 'topAlertService', 'translatorService',
+    '$scope', 'CommonSettingsService'];
+
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private ProfileApi: ProfileApi,
               private $log: ng.ILogService,

@@ -24,6 +24,8 @@ export class SettingsController implements ng.IController {
 
   public currentState: string = this.stateNames[0]
 
+  static $inject = ['$state', '$scope'];
+
     constructor($state: StateService, $scope: ng.IScope) {
 
     $scope.$watch(() => $state.current.name, (newVal, _oldVal) => {

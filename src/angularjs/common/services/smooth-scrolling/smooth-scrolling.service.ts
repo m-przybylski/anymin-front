@@ -2,6 +2,8 @@ export class SmoothScrollingService {
 
   private static readonly dividerOnHalf: number = 2
 
+  static $inject = ['$timeout'];
+
     constructor(private $timeout: ng.ITimeoutService) {
   }
 

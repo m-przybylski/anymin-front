@@ -19,6 +19,8 @@ export class SearchResultController {
   public isSearchLoading: boolean = true
   private searchQueryParams: SearchQueryParams
 
+  static $inject = ['errorHandler', 'searchService', 'promiseService', '$state'];
+
     constructor(private errorHandler: ErrorHandlerService,
               private searchService: SearchService,
               private promiseService: PromiseService,

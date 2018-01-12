@@ -15,6 +15,6 @@ import {IDirective} from 'angular'
   }
 
   angular.module('profitelo.directives.pro-news-tile', [])
-  .directive('proNewsTile', proNewsTile)
+  .directive('proNewsTile', [proNewsTile])
 
 }())

@@ -22,6 +22,8 @@ export class ProfiteloWebsocketService {
     onSessionDeleted: new Subject<any>()
   }
 
+  static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
+
     constructor(private $log: ng.ILogService,
               private userService: UserService,
               private eventsService: EventsService,

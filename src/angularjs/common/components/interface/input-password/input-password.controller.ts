@@ -15,6 +15,8 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   public onChange: string = ''
   public readonly maxLength: number = 64
 
+  static $inject = [];
+
   constructor() {}
 
   public onFocus = (): void => {

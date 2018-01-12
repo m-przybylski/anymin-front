@@ -28,6 +28,8 @@ export class ExpertController implements ng.IController {
   private profileNamePattern: RegExp
   private profileDescriptionPattern: RegExp
 
+  static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
+
     constructor(private WizardApi: WizardApi,
               private $state: StateService,
               private CommonSettingsService: CommonSettingsService,

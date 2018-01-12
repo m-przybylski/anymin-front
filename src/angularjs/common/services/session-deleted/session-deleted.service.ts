@@ -8,6 +8,8 @@ export interface ISessionDeleted {
 
 export class SessionDeletedService {
 
+  static $inject = ['sessionServiceWrapper', '$log', 'eventsService', 'profiteloWebsocket'];
+
     constructor(private sessionServiceWrapper: SessionServiceWrapper,
               private $log: ng.ILogService,
               private eventsService: EventsService,

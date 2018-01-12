@@ -16,6 +16,8 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public language: string
   public description: string
 
+  static $inject = ['translatorService'];
+
     constructor(private translatorService: TranslatorService) {
   }
 

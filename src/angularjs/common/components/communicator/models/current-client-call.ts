@@ -10,6 +10,9 @@ import {MicrophoneService} from '../microphone-service/microphone.service'
 
 export class CurrentClientCall extends CurrentCall {
 
+  static $inject = ['timerFactory', 'call', 'localStream', 'service', 'sue', 'soundsService', 'RatelApi',
+    'communicatorService', 'microphoneService', 'expert'];
+
   constructor(timerFactory: TimerFactory,
               call: RatelSdk.BusinessCall,
               localStream: MediaStream,

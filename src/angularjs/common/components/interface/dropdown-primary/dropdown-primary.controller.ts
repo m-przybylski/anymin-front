@@ -81,6 +81,8 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
     this.$element.unbind('keydown keypress')
   }
 
+  static $inject = ['$document', '$scope', '$element'];
+
     constructor(private $document: ng.IDocumentService,
               private $scope: ng.IScope,
               private $element: ng.IRootElementService) {

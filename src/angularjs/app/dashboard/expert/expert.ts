@@ -22,7 +22,7 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
   dashboardExpertManageProfileModule,
   AvatarUploaderModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.expert', {
       controllerAs: 'vm',
       url: '/expert',
@@ -30,7 +30,7 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
       template: require('./expert.html'),
       controller: 'expertDashboard',
       resolve: {
-        isPlatformForExpert: (userService: UserService, $state: StateService): void => {
+        isPlatformForExpert: ['userService', '$state', (userService: UserService, $state: StateService): void => {
           userService.getUser().then((user) => {
             if ((user.isExpert || user.isCompany)) {
               return true
@@ -39,13 +39,13 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
               return
             }
           })
-        }
+        }]
       },
       data: {
         pageTitle: 'PAGE_TITLE.EXPERT_DASHBOARD',
       }
     })
-  })
+  }])
   .controller('expertDashboard', ExpertController)
   .name
 

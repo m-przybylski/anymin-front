@@ -19,6 +19,8 @@ export class GeneralEmailSettingsController implements ng.IController {
   public newEmail: string
   private newEnteredEmail: string
 
+  static $inject = ['$uibModalInstance', 'AccountApi', '$log', 'userService', 'CommonSettingsService', '$scope'];
+
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private AccountApi: AccountApi,
               private $log: ng.ILogService,

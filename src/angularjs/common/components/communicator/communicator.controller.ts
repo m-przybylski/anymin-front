@@ -38,7 +38,10 @@ export class CommunicatorComponentController implements ng.IController {
 
   public isMicrophoneMuted: boolean = false
 
-    constructor(private $element: ng.IRootElementService,
+  static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService', 'microphoneService',
+    'clientCallService', 'expertCallService'];
+
+  constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
               private translatorService: TranslatorService,

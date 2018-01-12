@@ -25,4 +25,4 @@ angular.module('profitelo.directives.pro-top-waiting-loader', [
   'pascalprecht.translate',
   topWaitingLoader
 ])
-  .directive('proTopWaitingLoader', proTopWaitingLoader)
+  .directive('proTopWaitingLoader', ['topWaitingLoaderService', proTopWaitingLoader])

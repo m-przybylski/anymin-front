@@ -22,6 +22,8 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   onDelete?: () => void
   onEdit?: () => void
 
+  static $inject = ['translatorService'];
+
     constructor(private translatorService: TranslatorService) {
     this.editLink = 'app.wizard.create-profile.expert'
   }

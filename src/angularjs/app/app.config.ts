@@ -28,7 +28,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
   $stateProvider.state('app', {
     url: '',
     abstract: true,
-    controller: AppComponentController,
+    controller: ['InterfaceLanguageService', AppComponentController],
     controllerAs: 'appController',
     template: require('./app.html'),
     data: {

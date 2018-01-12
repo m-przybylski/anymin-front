@@ -39,7 +39,7 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
   languagesModule,
   translatorModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard.consultation', {
       url: '/consultation',
       params: {
@@ -49,11 +49,10 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
       controller: ConsultationController,
       template: require('./consultation.html'),
       resolve: {
-        /* istanbul ignore next */
-        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
+        wizardProfile: ['WizardApi', (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
           WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (error) => {
             throw new Error('Can not get wizard profile ' + String(error))
-          })
+          })]
       },
       data: {
         permissions: {
@@ -63,7 +62,7 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
         pageTitle: 'PAGE_TITLE.WIZARDS.CONSULTATION'
       }
     })
-  })
+  }])
   .controller('consultationController', ConsultationController)
   .name
 

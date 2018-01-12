@@ -17,19 +17,19 @@ const invitationsPageModule = angular.module('profitelo.controller.invitations',
   'ngTouch',
   modalsModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.invitations', {
       url: '/invitations/{token}',
       resolve: {
-        /* istanbul ignore next */
-        invitations: (invitationsResolver: InvitationsResolver, $stateParams: IInvitationsStateParams): void =>
-          invitationsResolver.resolve($stateParams)
+        invitations: ['invitationsResolver', '$stateParams',
+          (invitationsResolver: InvitationsResolver, $stateParams: IInvitationsStateParams): void =>
+            invitationsResolver.resolve($stateParams)]
       },
       data: {
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       }
     })
-  })
+  }])
   .service('invitationsResolver', InvitationsResolver)
   .name
 

@@ -4,6 +4,8 @@ export class ValidationAlertComponentController implements IValidationAlertBindi
   alertText: string
   isVisible: boolean
   additionalText?: string
+  static $inject = [];
+
   constructor() {
 
   }

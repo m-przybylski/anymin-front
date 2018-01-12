@@ -12,14 +12,14 @@ const dashboardExpertComplainsModule = angular.module('profitelo.controller.dash
   dashboardExpertComplainsListModule,
   uiRouter
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.expert.complains', {
       url: '/complains',
       template: require('./complains.html'),
       controller: 'dashboardExpertComplains',
       controllerAs: 'vm'
     })
-  })
+  }])
   .controller('dashboardExpertComplains', DashboardExpertComplainsController)
   .name
 

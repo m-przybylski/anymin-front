@@ -109,10 +109,9 @@ function config($stateProvider: StateProvider): void {
     controller: 'SetNewPasswordController',
     template: require('./set-new-password.html'),
     resolve: {
-      tokenStatus: ($stateParams: ISetNewPasswordStateParams,
+      tokenStatus: ['$stateParams', 'LoginSetNewPasswordResolver', ($stateParams: ISetNewPasswordStateParams,
                     LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> =>
-        /* istanbul ignore next */
-         LoginSetNewPasswordResolver.resolve($stateParams)
+         LoginSetNewPasswordResolver.resolve($stateParams)]
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.SET_NEW_PASSWORD'
@@ -136,4 +135,6 @@ angular.module('profitelo.controller.login.set-new-password', [
   autoFocus
 ])
   .config(['$stateProvider', config])
-  .controller('SetNewPasswordController', SetNewPasswordController)
+  .controller('SetNewPasswordController', ['$state', '$filter', 'tokenStatus',
+    'passwordStrengthService', 'topAlertService', 'RecoverPasswordApi', 'CommonSettingsService',
+    '$log', SetNewPasswordController])

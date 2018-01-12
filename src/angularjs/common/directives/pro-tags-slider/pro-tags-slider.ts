@@ -116,4 +116,4 @@ function proTagsSlider($window: IWindowService,
 angular.module('profitelo.directives.pro-tags-slider', [
   uiRouter
   ])
-.directive('proTagsSlider', proTagsSlider)
+.directive('proTagsSlider', ['$window', '$state', '$location', '$timeout', proTagsSlider])

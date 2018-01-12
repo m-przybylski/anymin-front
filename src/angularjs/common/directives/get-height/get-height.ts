@@ -11,6 +11,8 @@ class GetHeight implements ng.IDirective<ng.IScope> {
     getHeight: '=?'
   }
 
+  static $inject = ['$timeout'];
+
     constructor(private $timeout: ng.ITimeoutService) {
   }
 

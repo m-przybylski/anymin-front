@@ -11,6 +11,8 @@ export class CompanyProfileController {
   isFavourite: boolean
   profileType: ProfileTypes
 
+  static $inject = ['$stateParams', '$log', 'ProfileApi', 'companyProfile'];
+
   constructor(private $stateParams: ICompanyProfileStateParams, private $log: ng.ILogService,
               private ProfileApi: ProfileApi, companyProfile: ICompanyProfile) {
 

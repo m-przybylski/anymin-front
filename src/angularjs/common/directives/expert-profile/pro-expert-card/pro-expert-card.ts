@@ -25,6 +25,6 @@ import {IDirective} from 'angular'
   }
 
   angular.module('profitelo.directives.pro-expert-card', [])
-  .directive('proExpertCard', proExpertCard)
+  .directive('proExpertCard', [proExpertCard])
 
 }())

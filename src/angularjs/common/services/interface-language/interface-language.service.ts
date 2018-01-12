@@ -23,6 +23,9 @@ export class InterfaceLanguageService {
     // { nativeName: 'Deutsch (Deutchland)', ietfCode: 'de-de' }
   ]
 
+  static $inject = ['$log', '$http', '$rootScope', '$translate', '$locale', '$cookies', '$location',
+    'tmhDynamicLocale', 'amMoment'];
+
     constructor(private $log: ng.ILogService, private $http: ng.IHttpService,
               private $rootScope: IRootScopeService, private $translate: ng.translate.ITranslateService,
               private $locale: ng.ILocaleService, private $cookies: ng.cookies.ICookiesService,

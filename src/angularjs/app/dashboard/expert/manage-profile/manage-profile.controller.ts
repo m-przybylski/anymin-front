@@ -16,6 +16,8 @@ export class DashboardExpertManageProfileController {
 
   private expertProfile: GetExpertProfile
 
+  static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService'];
+
     constructor(private modalsService: ModalsService,
               private ViewsApi: ViewsApi,
               private errorHandler: ErrorHandlerService,

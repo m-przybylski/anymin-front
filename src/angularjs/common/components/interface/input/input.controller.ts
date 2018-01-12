@@ -22,6 +22,8 @@ export class InputComponentController implements IInputComponentBindings {
   public isDirty: boolean = false
   public onChangeCallback?: (value: string) => void
 
+  static $inject = ['$element'];
+
     constructor(private $element: JQuery) {}
 
   $onInit(): void {

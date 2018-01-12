@@ -3,6 +3,8 @@ import {IInvitationObject} from '../../../app/invitations/invitation.interface'
 
 export class RegistrationInvitationService {
 
+  static $inject = ['$log'];
+
     constructor(private $log: ng.ILogService) {
   }
 

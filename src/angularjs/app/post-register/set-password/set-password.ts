@@ -159,13 +159,14 @@ function config($stateProvider: StateProvider): void {
     controller: 'SetPasswordController',
     template: require('./set-password.html'),
     resolve: {
-      user: (userService: UserService, $state: ng.ui.IStateService): ng.IPromise<AccountDetails> => {
+      user: ['userService', '$state', (userService: UserService, $state: ng.ui.IStateService):
+        ng.IPromise<AccountDetails> => {
         const userData = userService.getUser(true)
         userData.then((user) => {
           if (user.hasPassword) $state.go('app.post-register.set-email')
         })
         return userData
-      }
+      }]
     },
 
     data: {

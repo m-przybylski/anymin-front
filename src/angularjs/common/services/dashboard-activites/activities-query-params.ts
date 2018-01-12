@@ -11,6 +11,8 @@ export class ActivitiesQueryParams {
   private limit: string | undefined
   private offset: string | undefined
 
+  static $inject = [];
+
   constructor() {}
 
   public getActivityType = (): GetActivity.ActivityTypeEnum | undefined => this.activityType

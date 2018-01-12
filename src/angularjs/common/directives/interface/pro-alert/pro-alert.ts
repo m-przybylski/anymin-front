@@ -36,4 +36,4 @@ function proAlert(topAlertService: TopAlertService): IDirective<ng.IScope> {
 angular.module('profitelo.directives.interface.pro-alert', [
   topAlertModule
 ])
-  .directive('proAlert', proAlert)
+  .directive('proAlert', ['topAlertService', proAlert])

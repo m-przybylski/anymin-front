@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import 'angular-permission'
+
 const ngInfiniteScroll = require('ng-infinite-scroll')
 import searchModule from '../../common/services/search/search'
 import 'angularjs/common/components/interface/go-to-top/go-to-top'
@@ -13,10 +14,12 @@ import communicatorModule from '../../common/components/communicator/communicato
 import navbarModule from '../../common/components/navbar/navbar'
 import {SearchResultController} from './search-result.controller'
 import {StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 const searchResultPageModule = angular.module('profitelo.controller.search-result', [
-    'permission',
+  'permission',
   'permission.ui',
+  uiRouter,
   ngInfiniteScroll,
   communicatorModule,
   navbarModule,
@@ -29,26 +32,26 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
   'profitelo.components.interface.preloader-container',
   searchModule,
 ])
-.config(($stateProvider: StateProvider) => {
-  $stateProvider.state('app.search-result', {
-    url: '/search-result?q&tags&serviceType&onlyAvailable&sortBy&languages&minPrice&maxPrice',
-    template: require('./search-result.html'),
-    controller: 'searchResultController',
-    controllerAs: 'vm',
-    params: {
-      tags: {
-        array: true
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
+    $stateProvider.state('app.search-result', {
+      url: '/search-result?q&tags&serviceType&onlyAvailable&sortBy&languages&minPrice&maxPrice',
+      template: require('./search-result.html'),
+      controller: 'searchResultController',
+      controllerAs: 'vm',
+      params: {
+        tags: {
+          array: true
+        },
+        languages: {
+          array: true
+        }
       },
-      languages: {
-        array: true
+      data: {
+        pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
       }
-    },
-    data: {
-      pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
-    }
-  })
-})
-.controller('searchResultController', SearchResultController)
+    })
+  }])
+  .controller('searchResultController', SearchResultController)
   .name
 
 export default searchResultPageModule

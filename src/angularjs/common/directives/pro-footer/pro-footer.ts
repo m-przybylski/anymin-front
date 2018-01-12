@@ -38,6 +38,6 @@ interface IProFooterScope extends ng.IScope {
     'pascalprecht.translate',
     'commonConfig'
   ])
-  .directive('proFooter', proFooter)
+  .directive('proFooter', ['CommonConfig', proFooter])
 
 }())

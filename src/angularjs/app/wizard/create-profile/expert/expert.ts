@@ -34,22 +34,21 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   'profitelo.directives.interface.pro-alert',
   ValidationAlertModule
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard.create-profile.expert', {
       url: '/expert',
       controllerAs: 'vm',
       controller: ExpertController,
       template: require('./expert.html'),
       resolve: {
-        /* istanbul ignore next */
-        wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>
+        wizardProfile: ['WizardApi', (WizardApi: WizardApi): ng.IPromise<GetWizardProfile | void> =>
           WizardApi.getWizardProfileRoute().catch((error) => {
             if (error.status === httpCodes.notFound) {
               return void 0
             } else {
               throw new Error('Can not get wizard profile ' + String(error))
             }
-          })
+          })]
       },
       data: {
         permissions: {
@@ -59,7 +58,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
         pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE.EXPERT'
       }
     })
-  })
+  }])
   .controller('expertController', ExpertController)
   .name
 

@@ -15,6 +15,8 @@ export class ManageDevicesComponentController implements ng.IController, IManage
   }
   currentDevice: string
 
+  static $inject = [];
+
   constructor() {
     this.deviceInUseStatus = false
   }

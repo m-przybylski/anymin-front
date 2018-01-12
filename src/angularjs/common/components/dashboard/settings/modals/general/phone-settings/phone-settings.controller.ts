@@ -15,6 +15,8 @@ export class PhoneSettingsController implements ng.IController {
   public showPinCodeForm: boolean
 
   /* @ngInject */
+  static $inject = ['$uibModalInstance', 'phoneSettingsService', 'AccountApi', 'userService', 'errorHandler', '$scope'];
+
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private phoneSettingsService: PhoneSettingsService,
               private AccountApi: AccountApi,

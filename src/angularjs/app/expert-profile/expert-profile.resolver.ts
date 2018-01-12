@@ -6,6 +6,8 @@ import {GetExpertProfile, GetExpertServiceDetails} from 'profitelo-api-ng/model/
 
 export class ExpertProfileResolver {
 
+  static $inject = ['$q', 'ViewsApi'];
+
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 

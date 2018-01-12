@@ -11,6 +11,8 @@ export class UrlService {
 
   private commonConfig: Settings
 
+  static $inject = ['CommonSettingsService', 'CommonConfig'];
+
     constructor(private CommonSettingsService: any, CommonConfig: CommonConfig) {
     this.commonConfig = CommonConfig.getAllData()
   }

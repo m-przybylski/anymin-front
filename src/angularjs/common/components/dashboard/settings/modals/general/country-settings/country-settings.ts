@@ -29,6 +29,8 @@ export class GeneralCountrySettingsController implements ng.IController {
   public isFullscreen = true
   public countryList: ICountryElementObject[] = []
 
+  static $inject = ['$scope', 'translatorService', '$uibModalInstance', 'AccountApi', 'userService'];
+
   constructor(private $scope: IGeneralCountrySettingsControllerScope, private translatorService: TranslatorService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private AccountApi: AccountApi, private userService: UserService) {

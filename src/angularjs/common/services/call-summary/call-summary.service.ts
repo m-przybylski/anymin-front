@@ -12,6 +12,8 @@ export class CallSummaryService {
 
   private readonly onCallSummarySubject = new Subject<CallSummary>();
 
+  static $inject = ['profiteloWebsocket'];
+
   constructor(profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callSummaries = []

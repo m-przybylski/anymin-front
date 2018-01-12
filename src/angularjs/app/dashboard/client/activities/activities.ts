@@ -18,6 +18,7 @@ import {PromiseService} from '../../../../common/services/promise/promise.servic
 import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
 import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
 import {StateService, StateProvider} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 
 export class DashboardClientActivitiesController {
 
@@ -40,7 +41,10 @@ export class DashboardClientActivitiesController {
   private static readonly timeoutDelay: number = 400
   private static readonly promiseLoaderDelay = 500
 
-    constructor(private dashboardActivitiesService: DashboardActivitiesService,
+  static $inject = ['dashboardActivitiesService', 'promiseService', '$state', 'errorHandler', 'filtersData',
+    '$timeout'];
+
+  constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,
               private $state: StateService,
               private errorHandler: ErrorHandlerService,
@@ -125,7 +129,8 @@ export class DashboardClientActivitiesController {
 }
 
 angular.module('profitelo.controller.dashboard.client.activities', [
-    dashboardFiltersModule,
+  dashboardFiltersModule,
+  uiRouter,
   dashboardActivitiesModule,
   'profitelo.components.dashboard.client.activities.client-activity',
   'profitelo.components.interface.preloader-container',
@@ -134,17 +139,17 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   promiseModule,
   errorHandlerModule
 ])
-  .config(function ($stateProvider: StateProvider): void {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard.client.activities', {
       url: '/activities',
       template: require('./activities.html'),
       controller: 'dashboardClientActivitiesController',
       controllerAs: 'vm',
       resolve: {
-        /* istanbul ignore next */
-        filtersData: (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
-          dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)
+        filtersData: ['dashboardActivitiesService',
+          (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
+            dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)]
       }
     })
-  })
+  }])
   .controller('dashboardClientActivitiesController', DashboardClientActivitiesController)

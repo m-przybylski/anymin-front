@@ -22,6 +22,8 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
   documents: ProfileDocument[]
   isSession: boolean = false
 
+  static $inject = ['userService'];
+
     constructor(userService: UserService) {
     userService.getUser().then(() => {
       this.isSession = true

@@ -60,4 +60,4 @@ angular.module('profitelo.directives.page-title', [
   uiRouter,
   'pascalprecht.translate'
 ])
-  .directive('pageTitle', pageTitleDirective)
+  .directive('pageTitle', ['$rootScope', '$filter', pageTitleDirective])

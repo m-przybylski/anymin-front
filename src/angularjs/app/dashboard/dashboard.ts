@@ -16,6 +16,8 @@ class DashboardController {
 
   public isPayment: boolean = false
 
+  static $inject = ['$scope', '$state'];
+
     constructor($scope: ng.IScope, $state: StateService) {
     // TODO Remove after UX-TEST
     $scope.$watch(() => $state.current, (newValue, _oldValue) => {
@@ -35,7 +37,7 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   expertDashboardModule,
   'profitelo.controller.dashboard.settings'
 ])
-  .config(($stateProvider: StateProvider) => {
+  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.dashboard', {
       abstract: true,
       url: '/dashboard',
@@ -43,13 +45,13 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
       controller: 'DashboardController',
       controllerAs: 'vm',
       resolve: {
-        isPlatformForExpert: (userService: UserService, $state: StateService): void => {
+        isPlatformForExpert: ['userService', '$state', (userService: UserService, $state: StateService): void => {
           if (Config.isPlatformForExpert)
             userService.getUser(true).then((response) => {
               if (!response.hasPassword) $state.go('app.post-register.set-password')
               else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
             })
-        }
+        }]
       },
       data: {
         permissions: {
@@ -59,7 +61,7 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
         pageTitle: 'PAGE_TITLE.DASHBOARD'
       }
     })
-  })
+  }])
   .controller('DashboardController', DashboardController)
   .name
 

@@ -50,7 +50,11 @@ export class ConsultationController implements ng.IController {
   private consultationInvitationsMaxCount: number
   private consultationPriceMin: number
   private consultationPriceMax: number
-    constructor(private translatorService: TranslatorService,
+
+  static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService', 'CommonConfig',
+    'wizardProfile', 'languagesService', 'CommonSettingsService'];
+
+  constructor(private translatorService: TranslatorService,
               private $state: StateService,
               private $stateParams: IConsultationStateParams,
               private WizardApi: WizardApi,
@@ -82,11 +86,11 @@ export class ConsultationController implements ng.IController {
       this.currency = response.currency
       this.defaultLanguageISO = response.countryISO
 
-        const language = _.find(this.languagesList, (languageItem) =>
-          languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase())
+      const language = _.find(this.languagesList, (languageItem) =>
+        languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase())
 
-        if (language)
-          this.languageInputValue = language
+      if (language)
+        this.languageInputValue = language
     })
 
     if (this.$stateParams.service) {
@@ -196,7 +200,7 @@ export class ConsultationController implements ng.IController {
   public checkIsEmployeesInputValid = (): boolean =>
     this.isOwnerEmployee && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
     || this.invitationsInputValue.length >= this.consultationInvitationsMinCount
-        && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
+    && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
 
   public checkIsFormValid = (): boolean =>
     this.checkIsNameInputValid()

@@ -10,6 +10,8 @@ import {StateService} from '@uirouter/angularjs'
 
 export class InvitationsResolver {
 
+  static $inject = ['InvitationApi', '$state', 'modalsService', '$log', 'userService', 'ProfileApi'];
+
     constructor(private InvitationApi: InvitationApi,
               private $state: StateService,
               private modalsService: ModalsService,

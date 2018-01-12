@@ -6,6 +6,8 @@ import {httpCodes} from '../../classes/http-codes'
 import {IRootScopeService} from '../root-scope/root-scope.service';
 
 class File {
+  static $inject = [];
+
   constructor() {
   }
 }

@@ -10,6 +10,8 @@ export class ExpertNoActivitiesComponentController implements IExpertNoActivitie
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isPayoutMethod: boolean
 
+  static $inject = [];
+
   constructor() {
     this.translationPayoutsHref = {
       hrefUrl: '/dashboard/settings/payouts'

@@ -21,6 +21,8 @@ export class ImageZoomService {
 
   private resizeZoom: number
 
+  static $inject = [];
+
   constructor() {
     this.settings = {
       zoomScale: 0.2,

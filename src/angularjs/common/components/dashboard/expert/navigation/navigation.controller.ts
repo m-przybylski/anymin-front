@@ -15,6 +15,8 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isCompany: boolean = true
 
+  static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'profiteloWebsocket'];
+
     constructor(FinancesApi: FinancesApi,
               userService: UserService,
               errorHandler: ErrorHandlerService,

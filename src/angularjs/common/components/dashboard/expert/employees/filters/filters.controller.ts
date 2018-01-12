@@ -9,6 +9,8 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
   public showFilters: () => void
   public onModalCloseCallback: () => void
 
+  static $inject = ['modalsService'];
+
     constructor(private modalsService: ModalsService) {
 
     this.checkAllEmployees = false

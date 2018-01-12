@@ -14,6 +14,8 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public validationText: string
   public onChange?: (description: string) => void
 
+  static $inject = [];
+
   constructor() {}
 
   public onFocus = (): void => {

@@ -22,6 +22,8 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     }
   }
 
+  static $inject = ['urlService'];
+
     constructor(private urlService: UrlService) {
   }
 }
