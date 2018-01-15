@@ -2,128 +2,134 @@
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
 
 navbar-visibility
-	display: flex
-	align-items: center
+  display: flex
+  align-items: center
 
 .navbar-visibility
-	+lgm
-		border: 0
+  +lgm
+    border: 0
 
-	.btn
-		&.btn-preloader
-			margin: 0
+  .status-title
+    margin: 8px 0 0
 
-		&.btn-not-availbility
-			background: $c-error
-			border: 3px solid $c-error
-			width: 24px
-			height: 24px
-			border-radius: 50%
-			padding: 0 !important
-			display: flex
-			align-content: center
-			justify-content: center
+    +lgm
+      display: none
 
-			&::after
-				content: ""
-				width: 12px
-				height: 4px
-				background: $c-white
-				position: absolute
-				right: 0
-				left: 0
-				top: 0
-				bottom: 0
-				margin: auto
+  .btn
+    &.btn-preloader
+      margin: 0
 
-			span
-				padding: 0 !important
-				color: $c-white
+    &.btn-not-availbility
+      background: $c-error
+      border: 3px solid $c-error
+      width: 24px
+      height: 24px
+      border-radius: 50%
+      padding: 0 !important
+      display: flex
+      align-content: center
+      justify-content: center
 
-		&.btn-availbility
-			background: $c-success
-			border: 0
-			width: 24px
-			height: 24px
-			border-radius: 50%
-			padding: 0 !important
+      &::after
+        content: ""
+        width: 12px
+        height: 4px
+        background: $c-white
+        position: absolute
+        right: 0
+        left: 0
+        top: 0
+        bottom: 0
+        margin: auto
 
-			&:hover
-				span
-					color: $c-white
+      span
+        padding: 0 !important
+        color: $c-white
 
-			span
-				padding: 0 !important
-				color: $c-white
-				max-width: 100%
+    &.btn-availbility
+      background: $c-success
+      border: 0
+      width: 24px
+      height: 24px
+      border-radius: 50%
+      padding: 0 !important
 
-				&.icon
-					font-size: $f-icon-32 - 4px
+      &:hover
+        span
+          color: $c-white
 
-	.btn-dropdown
-		position: static
+      span
+        padding: 0 !important
+        color: $c-white
+        max-width: 100%
 
-		.btn-dropdown-header
-			display: none
+        &.icon
+          font-size: $f-icon-32 - 4px
 
-			+lgm
-				display: flex
+  .btn-dropdown
+    position: static
 
-		ul
-			&.btn-dropdown-list
-				position: static
-				width: 100%
+    .btn-dropdown-header
+      display: none
 
-				+lgm
-					z-index: $z-index-100
-					background: $c-white
-					border-radius: $s-border-radius
-					box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
-					width: $s-btn-dropdown-navbar-availbility
-					margin: 0 0 0 (-#{$s-btn-dropdown-navbar-availbility/2 + 24px})
-					padding: 8px 0
-					position: absolute
-					top: 100%
-					left: auto
+      +lgm
+        display: flex
 
-				&.is-pending
-					pointer-events: none
-					cursor: not-allowed
+    ul
+      &.btn-dropdown-list
+        position: static
+        width: 100%
 
-				&::before, &::after
-					+lgm
+        +lgm
+          z-index: $z-index-100
+          background: $c-white
+          border-radius: $s-border-radius
+          box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+          width: $s-btn-dropdown-navbar-availbility
+          margin: 0 0 0 (-#{$s-btn-dropdown-navbar-availbility/2 + 24px})
+          padding: 8px 0
+          position: absolute
+          top: 100%
+          left: auto
+
+        &.is-pending
+          pointer-events: none
+          cursor: not-allowed
+
+        &::before, &::after
+          +lgm
             content: none
 
-			&.collapse-height
-				overflow: hidden
+      &.collapse-height
+        overflow: hidden
 
-				&.animation-in
-					animation: none
+        &.animation-in
+          animation: none
 
-					+lgm
-						animation: fadeInYInverse 0.3s
-						animation-fill-mode: forwards
-						transition: height 0.3s
+          +lgm
+            animation: fadeInYInverse 0.3s
+            animation-fill-mode: forwards
+            transition: height 0.3s
 
-				&.animation-out
-					animation: none
+        &.animation-out
+          animation: none
 
-					+lgm
-						animation: fadeOutYInverse 0.3s
-						animation-fill-mode: forwards
-						transition: height 0.3s
+          +lgm
+            animation: fadeOutYInverse 0.3s
+            animation-fill-mode: forwards
+            transition: height 0.3s
 
-			li
-				text-transform: uppercase
-				padding: 12px 0 !important
-				font-size: $f-paragraph-title
+      li
+        text-transform: uppercase
+        padding: 12px 0 !important
+        font-size: $f-paragraph-title
 
-				+lgm
-					text-transform: none
-					padding: 12px 32px !important
+        +lgm
+          text-transform: none
+          padding: 12px 32px !important
 
-					&.is-pending
-						pointer-events: none
-						cursor: not-allowed
+          &.is-pending
+            pointer-events: none
+            cursor: not-allowed
 
 
