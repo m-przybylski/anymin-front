@@ -1,4 +1,4 @@
-import {NavigatorWrapper} from '../../classes/navigator-wrapper'
+import {NavigatorWrapper} from '../../classes/navigator-wrapper/navigator-wrapper'
 const DetectRTC = require('detectrtc')
 import {ModalsService} from '../modals/modals.service'
 import {MediaStreamConstraintsWrapper} from '../../classes/media-stream-constraints-wrapper'

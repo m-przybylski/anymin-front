@@ -4,7 +4,7 @@ import {CommunicatorService} from '../communicator.service';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CurrentClientCall} from '../models/current-client-call';
 import {SoundsService} from '../../../services/sounds/sounds.service';
-import {NavigatorWrapper} from '../../../classes/navigator-wrapper';
+import {NavigatorWrapper} from '../../../classes/navigator-wrapper/navigator-wrapper';
 import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';

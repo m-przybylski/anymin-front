@@ -1,5 +1,5 @@
 import {MediaStreamConstraintsWrapper} from './media-stream-constraints-wrapper';
-import {NavigatorWrapper} from './navigator-wrapper';
+import {NavigatorWrapper} from './navigator-wrapper/navigator-wrapper';
 
 export class StreamManager {
 

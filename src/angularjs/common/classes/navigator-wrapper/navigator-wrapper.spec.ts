@@ -1,4 +1,4 @@
-import { NavigatorWrapper } from '../../angularjs/common/classes/navigator-wrapper';
+import { NavigatorWrapper } from './navigator-wrapper';
 
 describe('Unit tests: NavigatorWrapper', () => {
 
