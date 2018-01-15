@@ -8,5 +8,5 @@ namespace profitelo.filters.objectSizeFilter {
   }
 
   angular.module('profitelo.filters.object-size-filter', [])
-    .filter('objSize', objectSizeFilter)
+    .filter('objSize', [objectSizeFilter])
 }

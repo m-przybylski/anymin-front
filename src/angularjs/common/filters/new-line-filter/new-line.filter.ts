@@ -12,4 +12,4 @@ function filter($sce: ng.ISCEService): (content: string) => string {
 angular.module('profitelo.filters.new-line', [
   'ngSanitize'
 ])
-  .filter('newLineFilter', filter)
+  .filter('newLineFilter', ['$sce', filter])

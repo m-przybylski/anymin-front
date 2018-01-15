@@ -22,5 +22,5 @@ namespace profitelo.filters.rankSearch {
   }
 
   angular.module('profitelo.filters.rankSearch', [])
-    .filter('rankSearch', filter)
+    .filter('rankSearch', [filter])
 }

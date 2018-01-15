@@ -9,5 +9,5 @@ namespace profitelo.filters.secondsToDatetime {
   }
 
   angular.module('profitelo.filters.seconds-to-datetime', [])
-    .filter('secondsToDateTime', filter)
+    .filter('secondsToDateTime', [filter])
 }
