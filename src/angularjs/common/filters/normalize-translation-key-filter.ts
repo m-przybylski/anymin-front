@@ -7,5 +7,5 @@ namespace profitelo.filters.normalizeTranslationKey {
   }
 
   angular.module('profitelo.filters.normalize-translation-key-filter', [])
-    .filter('normalizeTranslationKey', normalizeTranslationKeyFilter)
+    .filter('normalizeTranslationKey', [normalizeTranslationKeyFilter])
 }

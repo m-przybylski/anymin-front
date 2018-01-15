@@ -66,4 +66,4 @@ import {UrlService} from '../../services/url/url.service'
   }
   angular.module('profitelo.filters.message-filter', [
   ])
-    .filter('message', messageFilter)
+    .filter('message', ['$log', 'urlService', messageFilter])

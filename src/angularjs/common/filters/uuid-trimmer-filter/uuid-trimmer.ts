@@ -23,4 +23,4 @@ function filter($log: ng.ILogService): (uuid: string) => string {
 }
 
 angular.module('profitelo.filters.uuid-trimmer-filter.uuid-trimmer', [])
-  .filter('uuidTrimmer', filter)
+  .filter('uuidTrimmer', ['$log', filter])

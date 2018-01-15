@@ -9,5 +9,5 @@ namespace profitelo.filters.msToDate {
   }
 
   angular.module('profitelo.filters.milliseconds-to-datetime', [])
-    .filter('millisecondsToDatetime', filter)
+    .filter('millisecondsToDatetime', [filter])
 }

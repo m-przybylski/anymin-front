@@ -8,5 +8,5 @@ namespace profitelo.filters.semicolonToCommaInput {
   }
 
   angular.module('profitelo.filters.input-filter.semicolon-to-comma-input-filter', [])
-    .filter('semicolonToCommaInputFilter', semicolonToCommaInputFilter)
+    .filter('semicolonToCommaInputFilter', [semicolonToCommaInputFilter])
 }

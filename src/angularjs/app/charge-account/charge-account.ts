@@ -22,9 +22,9 @@ const chargeAccountModule = angular.module('profitelo.controller.charge-account'
   .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.charge-account', {
       url: '/charge-account',
-      onEnter: (chargeAccountResolver: ChargeAccountResolver, $state: StateService): void => {
+      onEnter: ['chargeAccountResolver', (chargeAccountResolver: ChargeAccountResolver, $state: StateService): void => {
         chargeAccountResolver.resolve($state.current.name)
-      },
+      }],
       data: {
         pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT'
       }

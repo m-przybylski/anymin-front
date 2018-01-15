@@ -35,4 +35,4 @@ function filter(): (money: MoneyDto) => string {
 }
 
 angular.module('profitelo.filters.money', [])
-  .filter('money', filter)
+  .filter('money', [filter])
