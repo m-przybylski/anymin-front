@@ -1,58 +1,59 @@
-.payout-method
-  top-modal-navbar(data-on-close="vm.onModalClose")
-  preloader(data-is-loading="vm.isLoading")
-    .modal-settings
-      header.entry-title
-        span(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.TITLE")
+.modal-primary.payout-method
+  .container-big
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
+      .modal-settings
+        header.entry-title
+          span(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.TITLE")
 
-      .btn-handler
-        a.btn.btn-select(data-ng-click="vm.choosePayoutBankMethod()"
-        data-ng-class="{'is-active': vm.isPayoutBankMethod}")
-          | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK' | translate }}
-          span.icon.icon-success-12
+        .btn-handler
+          a.btn.btn-select(data-ng-click="vm.choosePayoutBankMethod()"
+          data-ng-class="{'is-active': vm.isPayoutBankMethod}")
+            | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK' | translate }}
+            span.icon.icon-success-12
 
-        a.btn.btn-select(data-ng-click="vm.choosePayoutPaypalMethod()"
-        data-ng-class="{'is-active': vm.isPayoutPaypalMethod}")
-          | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL' | translate }}
-          span.icon.icon-success-12
+          a.btn.btn-select(data-ng-click="vm.choosePayoutPaypalMethod()"
+          data-ng-class="{'is-active': vm.isPayoutPaypalMethod}")
+            | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL' | translate }}
+            span.icon.icon-success-12
 
-      .add-payout-method(data-ng-switch="vm.payoutMethod")
-        .modal-form.container-medium(data-ng-switch-when="paypalAccount" id="paypalAccount")
-          .modal-container
-            .paypal-method
-              form.form(data-ng-submit="payPalForm.$valid && vm.addPayPalAccount()" name="payPalForm")
-                input-primary(
-                  data-id="payPalEmails"
-                  data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.PLACEHOLDER"
-                  data-ng-model="vm.payPalEmail"
-                  data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.LABEL"
-                  data-ng-pattern="vm.emailPattern"
-                  data-is-valid="vm.isPayPalEmailValid()"
-                  data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
-                )
+        .add-payout-method(data-ng-switch="vm.payoutMethod")
+          .modal-form(data-ng-switch-when="paypalAccount" id="paypalAccount")
+            .modal-container
+              .paypal-method
+                form.form(data-ng-submit="payPalForm.$valid && vm.addPayPalAccount()" name="payPalForm")
+                  input-primary(
+                    data-id="payPalEmails"
+                    data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.PLACEHOLDER"
+                    data-ng-model="vm.payPalEmail"
+                    data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.LABEL"
+                    data-ng-pattern="vm.emailPattern"
+                    data-is-valid="vm.isPayPalEmailValid()"
+                    data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+                  )
 
-                button.btn.btn-default(
+                  button.btn.btn-default(
+                    data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON"
+                    type="submit"
+                    data-ng-disabled="!vm.isPayPalEmailValid()"
+                  )
+
+          .modal-form(data-ng-switch-when="bankAccount" id="bankAccount")
+            .modal-container
+              .paypal-method
+                form.form(data-ng-submit="bankForm.$valid && vm.addBankAccount()" name="bankForm")
+                  input-primary(
+                  data-id="bankAccountNumber"
+                  data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK_ACCOUNT.PLACEHOLDER"
+                  data-ng-model="vm.bankAccountNumber"
+                  data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK_ACCOUNT.LABEL"
+                  data-ng-pattern="vm.bankAccountNumberPattern"
+                  data-is-valid="vm.isBankAccountNumberValid()"
+                  data-validation-text="DASHBOARD.CHARGE_ACCOUNT.BANK_ACCOUNT_ERROR"
+                  )
+
+                  button.btn.btn-default(
                   data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON"
                   type="submit"
-                  data-ng-disabled="!vm.isPayPalEmailValid()"
-                )
-
-        .modal-form.container-medium(data-ng-switch-when="bankAccount" id="bankAccount")
-          .modal-container
-            .paypal-method
-              form.form(data-ng-submit="bankForm.$valid && vm.addBankAccount()" name="bankForm")
-                input-primary(
-                data-id="bankAccountNumber"
-                data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK_ACCOUNT.PLACEHOLDER"
-                data-ng-model="vm.bankAccountNumber"
-                data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK_ACCOUNT.LABEL"
-                data-ng-pattern="vm.bankAccountNumberPattern"
-                data-is-valid="vm.isBankAccountNumberValid()"
-                data-validation-text="DASHBOARD.CHARGE_ACCOUNT.BANK_ACCOUNT_ERROR"
-                )
-
-                button.btn.btn-default(
-                data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON"
-                type="submit"
-                data-ng-disabled="!vm.isBankAccountNumberValid()"
-                )
+                  data-ng-disabled="!vm.isBankAccountNumberValid()"
+                  )

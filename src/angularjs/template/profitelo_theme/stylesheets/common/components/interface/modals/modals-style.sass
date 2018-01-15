@@ -3,15 +3,15 @@
 
 .modal-open
   display: block
-  
+
   &.full-screen
     .modal-dialog
       .modal-content
         background: $c-white
-    
+
     .modal-summary
       box-shadow: none
-    
+
     &.modal-dark
       .modal-dialog
         .modal-content
@@ -40,9 +40,12 @@
 			min-height: 100vh
 			padding: 0
 			border-radius: 0
+			background: $c-white
 
-			+smm
+			+xsm
+				background: none
 				padding: 32px 0
+
 
 .modal-action
 	margin: 48px 0 0
@@ -136,7 +139,10 @@
 .modal-primary
 	text-align: left
 	background: $c-white
-	padding: 48px 24px
+	padding: 48px 0
+
+	+xsm
+		position: relative
 
 	.modal-section
 		margin: 0 0 96px
@@ -144,26 +150,20 @@
 // Summary modal with white background
 .modal-summary
 	animation: fadeInY 0.6s
-	box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
 	border-radius: $s-border-radius
 	overflow: hidden
 
-	.top-modal-navbar
-		position: absolute
-		padding: 0
-
-		.btn-close
-			border: 0
-
-			span
-				color: $c-tertiary-txt
-				font-size: $f-icon-22
+	+xsm
+		position: relative
+		box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
 
 	.modal-main
 		background: $c-white
-		position: relative
 		border-radius: $s-border-radius
 		padding: 0
+
+		+smm
+			position: relative
 
 		.modal-header
 			padding: 32px

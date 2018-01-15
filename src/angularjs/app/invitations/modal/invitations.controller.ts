@@ -21,8 +21,6 @@ export interface IInvitationsModalScope extends ng.IScope {
 }
 
 export class InvitationsModalController implements ng.IController {
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
   public areInvitations: boolean = false
   public isServiceSelected: boolean = true
   public companyName?: string
@@ -62,7 +60,6 @@ export class InvitationsModalController implements ng.IController {
     if (this.services && this.services.length > 0) {
       this.areInvitations = true
     }
-
   }
 
   private setInvitationData = (profileWithServicesInvitations?: GetProfileWithServicesInvitations): void => {

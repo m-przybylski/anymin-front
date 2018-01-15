@@ -277,7 +277,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       controller: 'phoneSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.html'),
@@ -292,7 +292,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       controller: 'generalEmailSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.html'),
@@ -320,7 +320,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       controller: 'securityChangePasswordSettingsController',
       template: require(
         'angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.html'),
@@ -380,7 +380,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'payoutsModalController',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       template: require('angularjs/common/components/dashboard/settings/modals/payouts/payouts/payouts.html'),
       scope: dialogScope
     })
@@ -472,7 +472,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       controller: 'expertInviteEmployees',
       template: require('angularjs/common/components/dashboard/expert/employees/modals/' +
         'invite-employees/invite-employees.html'),
@@ -506,7 +506,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       controller: ChargeAccountController,
       template: require('angularjs/app/charge-account/modal/charge-account.html'),
       scope: dialogScope
@@ -608,7 +608,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
+      windowClass: 'modal-open',
       controller: ServiceFormModalController,
       template: require(
         'angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.html'

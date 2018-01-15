@@ -1,6 +1,6 @@
-scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
-  top-modal-navbar(data-on-close="vm.onModalClose")
-  .modal-primary.container-big
+.modal-primary
+  .container-big
+    top-modal-navbar(data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
       .invitations-modal(data-ng-if="vm.areInvitations")
         .modal-section

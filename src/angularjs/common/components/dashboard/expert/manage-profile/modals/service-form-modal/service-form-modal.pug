@@ -1,95 +1,96 @@
-.consultation-form
-  top-modal-navbar(data-on-close="vm.onModalClose")
-  preloader(data-is-loading="vm.isLoading")
-    form(name="editProfileForm" novalidate)
-      .modal-section
-        dropdown-primary(
-        data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE_TITLE"
-        data-main-list="vm.languagesList"
-        data-on-select-main="vm.isLanguageValid()"
-        data-placeholder="{{ 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE_PLACEHOLDER' | translate }}"
-        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE.VALIDATION_TEXT"
-        data-selected-item="vm.consultationLanguage"
-        data-is-submitted="vm.isSubmitted"
-        data-is-valid="vm.isLanguageValid()"
-        )
+.modal-primary.consultation-form
+  .container-big
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
+      form(name="editProfileForm" novalidate)
+        .modal-section
+          dropdown-primary(
+          data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE_TITLE"
+          data-main-list="vm.languagesList"
+          data-on-select-main="vm.isLanguageValid()"
+          data-placeholder="{{ 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE_PLACEHOLDER' | translate }}"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE.VALIDATION_TEXT"
+          data-selected-item="vm.consultationLanguage"
+          data-is-submitted="vm.isSubmitted"
+          data-is-valid="vm.isLanguageValid()"
+          )
 
-      .modal-section
-        input-primary(
-        data-type="text"
-        data-id="inputText"
-        data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_NAME.PLACEHOLDER"
-        data-ng-model="vm.consultationName"
-        data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_NAME.TITLE"
-        data-max-length="{{ vm.consultationNameMaxLength }}"
-        data-is-valid="vm.isNameValid()"
-        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_NAME.VALIDATION_TEXT"
-        data-is-submitted="vm.isSubmitted"
-        )
+        .modal-section
+          input-primary(
+          data-type="text"
+          data-id="inputText"
+          data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_NAME.PLACEHOLDER"
+          data-ng-model="vm.consultationName"
+          data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_NAME.TITLE"
+          data-max-length="{{ vm.consultationNameMaxLength }}"
+          data-is-valid="vm.isNameValid()"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_NAME.VALIDATION_TEXT"
+          data-is-submitted="vm.isSubmitted"
+          )
 
-      .modal-section
-        header.section-title
-          p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.TITLE")
-        textarea-primary(
-        data-ng-model="vm.consultationDescription"
-        data-id="consultationDescription"
-        data-is-valid="vm.isDescriptionValid()"
-        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.VALIDATION_TEXT"
-        data-max-length="{{ vm.consultationDescriptionMaxLength }}"
-        data-is-submitted="vm.isSubmitted"
-        )
+        .modal-section
+          header.section-title
+            p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.TITLE")
+          textarea-primary(
+          data-ng-model="vm.consultationDescription"
+          data-id="consultationDescription"
+          data-is-valid="vm.isDescriptionValid()"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.VALIDATION_TEXT"
+          data-max-length="{{ vm.consultationDescriptionMaxLength }}"
+          data-is-submitted="vm.isSubmitted"
+          )
 
-      .modal-section
-        header.section-title
-          p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.TITLE")
-          p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.SUBTITLE")
-        input-consultation-tag(
-        data-service-name="vm.consultationName"
-        data-service-description="vm.consultationDescription"
-        data-selected-tags="vm.consultationTags"
-        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.VALIDATION_TEXT"
-        data-is-submitted="vm.isSubmitted"
-        data-is-valid="vm.areTagsValid()"
-        )
+        .modal-section
+          header.section-title
+            p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.TITLE")
+            p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.SUBTITLE")
+          input-consultation-tag(
+          data-service-name="vm.consultationName"
+          data-service-description="vm.consultationDescription"
+          data-selected-tags="vm.consultationTags"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_TAGS.VALIDATION_TEXT"
+          data-is-submitted="vm.isSubmitted"
+          data-is-valid="vm.areTagsValid()"
+          )
 
-      .modal-section
-        header.section-title
-          p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.TITLE")
-        input-price(
-        data-ng-model="vm.consultationPrice"
-        data-id="priceModel"
-        data-is-submitted="vm.isSubmitted"
-        data-is-valid="vm.isRegExpPriceValid"
-        data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
-        data-input-value-callback="vm.onPriceChange"
-        )
-        .hint(data-ng-if="!vm.isPlatformForExpert")
-          p(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.SUGGESTED_PRICE")
-          tooltip(data-tooltip-text="WIZARD.CONSULTATION.PRICE.TOOLTIP")
+        .modal-section
+          header.section-title
+            p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.TITLE")
+          input-price(
+          data-ng-model="vm.consultationPrice"
+          data-id="priceModel"
+          data-is-submitted="vm.isSubmitted"
+          data-is-valid="vm.isRegExpPriceValid"
+          data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
+          data-input-value-callback="vm.onPriceChange"
+          )
+          .hint(data-ng-if="!vm.isPlatformForExpert")
+            p(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.SUGGESTED_PRICE")
+            tooltip(data-tooltip-text="WIZARD.CONSULTATION.PRICE.TOOLTIP")
 
-        validation-alert(
-        data-alert-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.PRICE_VALIDATION_ERROR"
-        data-is-visible="!vm.isPriceAmountValid"
-        )
+          validation-alert(
+          data-alert-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.PRICE_VALIDATION_ERROR"
+          data-is-visible="!vm.isPriceAmountValid"
+          )
 
-      .modal-section(data-ng-if="vm.isCompany")
-        header.section-title
-          p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.TITLE")
-          p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.SUBTITLE")
-        input-consultation-employee(
-        data-is-checkbox-visible="vm.isExpert"
-        data-added-items-list = "vm.consultationNewInvitations"
-        data-is-owner-employee = "vm.isOwnerEmployee"
-        data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.VALIDATION_TEXT"
-        data-is-submitted="vm.isSubmitted"
-        data-is-valid="vm.areInvitationsValid()"
-        )
+        .modal-section(data-ng-if="vm.isCompany")
+          header.section-title
+            p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.TITLE")
+            p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.SUBTITLE")
+          input-consultation-employee(
+          data-is-checkbox-visible="vm.isExpert"
+          data-added-items-list = "vm.consultationNewInvitations"
+          data-is-owner-employee = "vm.isOwnerEmployee"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.VALIDATION_TEXT"
+          data-is-submitted="vm.isSubmitted"
+          data-is-valid="vm.areInvitationsValid()"
+          )
 
-    .modal-action
-      a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.SAVE_BUTTON"
-      data-ng-click="vm.saveConsultation()")
-      .validation-alert
-        validation-alert(
-        data-alert-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.SAVE.VALIDATION_TEXT"
-        data-is-visible="!vm.isFormValid() && vm.isSubmitted"
-        )
+      .modal-action
+        a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.SAVE_BUTTON"
+        data-ng-click="vm.saveConsultation()")
+        .validation-alert
+          validation-alert(
+          data-alert-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.SAVE.VALIDATION_TEXT"
+          data-is-visible="!vm.isFormValid() && vm.isSubmitted"
+          )

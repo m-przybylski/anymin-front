@@ -1,7 +1,11 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .pin-verification
   background: $c-background
   padding: 32px 0
   margin: 0 auto
+  text-align: center
 
   h2
     margin: 0 0 32px
@@ -29,8 +33,14 @@
   .pin-verification-counter
     p
       font-size: $f-paragraph-title
-      color: $c-tertiary-txt
-      margin: 16px 0
-
-    +xsm
-      margin: 0 12px
+      color: $c-primary-txt
+      position: absolute
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
+      background: rgba($c-black, 0.3)
+      display: flex
+      align-items: center
+      justify-content: center
+      z-index: $z-index-100
