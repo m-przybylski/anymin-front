@@ -5,6 +5,7 @@ export class ConsultationListItemComponent implements ng.IComponentOptions {
   template = require('./consultation-list-item.html')
   bindings: {[boundProperty: string]: string} = {
     onChange: '<',
-    service: '<'
+    service: '<',
+    isChecked: '<'
   }
 }

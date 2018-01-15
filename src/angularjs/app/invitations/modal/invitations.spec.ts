@@ -1,14 +1,19 @@
 import * as angular from 'angular'
-import {IInvitationsModalScope, InvitationsModalController} from './invitations.controller'
+import {
+  IGetServiceWithInvitationsAndTags, IInvitationsModalScope, InvitationsModalController
+} from './invitations.controller'
 import invitationsModalModule from './invitations'
 import {
-  GetProfileWithServicesInvitations
+  GetProfileWithServicesInvitations, GetServiceTags
 } from 'profitelo-api-ng/model/models'
 import {InvitationApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import IQService = angular.IQService
-import {NavbarNotificationsService} from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
+import {NavbarNotificationsService} from
+    '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
 import navbarNotificationsModule from '../../../common/components/navbar/navbar-notifications/navbar-notifications'
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
+import {GetInvitation} from 'profitelo-api-ng/model/GetInvitation'
+import {Tag} from 'profitelo-api-ng/model/Tag'
 
 describe('Testing Controller: InvitationsModal', () => {
 
@@ -50,12 +55,12 @@ describe('Testing Controller: InvitationsModal', () => {
       }
       $q = _$q_
       controller = $controller<InvitationsModalController>('invitationsModal', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance,
-        'httpBackend': _$httpBackend_,
-        '$state' : state,
-        'InvitationApi': InvitationApi,
-        'ProfileApi': ProfileApi
+        $scope: scope,
+        $uibModalInstance: uibModalInstance,
+        httpBackend: _$httpBackend_,
+        $state : state,
+        InvitationApi,
+        ProfileApi
       })
     })
   })
@@ -70,6 +75,70 @@ describe('Testing Controller: InvitationsModal', () => {
     controller.onModalClose()
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
     expect(state.go).toHaveBeenCalledWith('app.home')
+  })
+
+  it('should get services tags', () => {
+    const date = new Date()
+    const services: IGetServiceWithInvitationsAndTags[] = [{
+      id: 'serviceId123',
+      ownerId: 'ownerId',
+      name: 'name',
+      description: 'descc',
+      price: {
+        amount: 123,
+        currency: 'PLN'
+      },
+      isSuspended: false,
+      language: 'PL',
+      createdAt: date,
+      tags: [],
+      invitation: {
+        id: 'id',
+        serviceId: 'serviceId',
+        serviceName: 'name',
+        serviceOwnerId: 'ownerId',
+        status: GetInvitation.StatusEnum.NEW,
+        createdAt: date,
+        updatedAt: date
+      }
+    }]
+    const servicesTags: GetServiceTags[] = [{
+      serviceId: 'serviceId123',
+      tags: [{
+          id: 'tagId',
+          name: 'name',
+          status: Tag.StatusEnum.ACCEPTED,
+          persisted: false,
+        }]
+    }]
+    expect(controller.getServicesTags(services, servicesTags)).toEqual([{
+      id: 'serviceId123',
+      ownerId: 'ownerId',
+      name: 'name',
+      description: 'descc',
+      price: {
+        amount: 123,
+        currency: 'PLN'
+      },
+      isSuspended: false,
+      language: 'PL',
+      createdAt: date,
+      tags: [{
+        id: 'tagId',
+        name: 'name',
+        status: Tag.StatusEnum.ACCEPTED,
+        persisted: false,
+      }],
+      invitation: {
+        id: 'id',
+        serviceId: 'serviceId',
+        serviceName: 'name',
+        serviceOwnerId: 'ownerId',
+        status: GetInvitation.StatusEnum.NEW,
+        createdAt: date,
+        updatedAt: date
+      }
+    }])
   })
 
 })
