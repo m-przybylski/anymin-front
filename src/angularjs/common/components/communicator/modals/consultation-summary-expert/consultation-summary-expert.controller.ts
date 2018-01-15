@@ -65,6 +65,10 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
       this.technicalProblemsDescription).then(() => {
       this.onModalClose()
+      this.topAlertService.success({
+        message: this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
+        timeout: 2
+      })
     }).catch((error) => {
       this.errorHandler.handleServerError(error)
     })
@@ -88,8 +92,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.ServiceApi.postExpertComplaintRoute(sueId, {message}).then(() => {
       this.topAlertService.success({
         message:
-          this.translatorService.translate(
-            'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.REPORT_CLIENT.CONFIRM_MESSAGE'),
+          this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
         timeout: 2
       })
       this.isClientReportSent = true

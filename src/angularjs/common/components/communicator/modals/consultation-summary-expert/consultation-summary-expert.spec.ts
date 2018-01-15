@@ -101,4 +101,35 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
     expect(consultationSummaryExpertController.sendClientReport).toHaveBeenCalled()
   })
 
+  it('should show success alert when send technical problems',
+    inject(($q: ng.IQService, $controller: ng.IControllerService) => {
+    spyOn(topAlertService, 'success')
+    serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', {})
+    consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.resolve({}))
+    consultationSummaryExpertController =
+      $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
+        $scope: scope,
+        $uibModalInstance,
+        consultationSummaryExpertService
+      })
+    consultationSummaryExpertController.onSendTechnicalProblems()
+    scope.$apply()
+    expect(topAlertService.success).toHaveBeenCalled()
+  }))
+
+  it('should show error when send technical problems fails', inject(($q: ng.IQService, $controller: ng.IControllerService) => {
+    spyOn(errorHandler, 'handleServerError')
+    serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', {})
+    consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.reject({}))
+    consultationSummaryExpertController =
+      $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
+        $scope: scope,
+        $uibModalInstance,
+        consultationSummaryExpertService
+      })
+    consultationSummaryExpertController.onSendTechnicalProblems()
+    scope.$apply()
+    expect(errorHandler.handleServerError).toHaveBeenCalled()
+  }))
+
 })
