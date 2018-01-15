@@ -14,6 +14,7 @@ export class CommunicatorService {
   private chatConfig: RatelSdk.Config
   private ratelSession?: RatelSdk.Session
   private ratelDeviceId?: string
+  private static readonly ratelReconnectInterval = 5000
 
   private readonly events = {
     onCallInvitation: new Subject<RatelSdk.events.CallInvitation>(),
@@ -21,6 +22,8 @@ export class CommunicatorService {
     onRoomInvitation: new Subject<RatelSdk.events.RoomInvitation>(),
     onRoomCreated: new Subject<RatelSdk.events.RoomCreated>(),
     onActiveCall: new Subject<Call[]>(),
+    onDisconnectCall: new Subject<void>(),
+    onReconnect: new Subject<void>()
   }
 
   private createRatelConnection = (session: RatelSdk.Session): void => {
@@ -40,7 +43,7 @@ export class CommunicatorService {
       .then((res) => {
         this.events.onActiveCall.next(res)
       }, (err) => {
-          this.$log.error('Artichoke: getActiveCalls', err)
+        this.$log.error('Artichoke: getActiveCalls', err)
       })
       this.$log.debug('Artichoke: onConnect', session.id, hello)
     })
@@ -50,6 +53,14 @@ export class CommunicatorService {
 
     chat.onError((res: RatelSdk.events.Error) => {
       this.$log.error('Artichoke: onError', res)
+    })
+
+    chat.onServerUnreachable(() => {
+      this.events.onDisconnectCall.next()
+      const reconnectInterval = this.$interval(() => {
+        this.reconnectRatelConnection().then(() => this.$interval.cancel(reconnectInterval))
+      }, CommunicatorService.ratelReconnectInterval)
+
     })
 
     chat.onHeartbeat((res: RatelSdk.events.Heartbeat) =>
@@ -64,15 +75,15 @@ export class CommunicatorService {
     chat.connect()
   }
 
-  static $inject = ['$log', '$q', 'RatelApi', 'userService', 'CommonConfig', 'eventsService', '$window'];
+  static $inject = ['$log', '$q', 'RatelApi', '$interval', 'userService', 'CommonConfig', 'eventsService'];
 
     constructor(private $log: ng.ILogService,
               private $q: ng.IQService,
               private RatelApi: RatelApi,
+              private $interval: ng.IIntervalService,
               userService: UserService,
               CommonConfig: CommonConfig,
-              eventsService: EventsService,
-              $window: ng.IWindowService) {
+              eventsService: EventsService) {
 
     this.commonConfig = CommonConfig.getAllData()
     this.setChatConfig()
@@ -84,19 +95,21 @@ export class CommunicatorService {
     eventsService.on('logout', () => {
       if (this.ratelSession) this.ratelSession.chat.disconnect()
     })
+  }
 
-    $window.addEventListener('online', () => {
+  private reconnectRatelConnection = (): ng.IPromise<void> =>
+    this.authenticate()
+    .then(() => {
+      this.events.onReconnect.next()
       if (this.ratelSession) {
-        this.ratelSession.chat.connect()
         this.ratelSession.chat.getActiveCalls()
         .then((response) => {
-            this.events.onActiveCall.next(response)
+          this.events.onActiveCall.next(response)
         }, (error) => {
           this.$log.error(error)
         })
       }
     })
-  }
 
   private setChatConfig = (): void => {
     const ratelUrl = new URL(this.commonConfig.urls.communicator.briefcase)
@@ -138,7 +151,7 @@ export class CommunicatorService {
     const defer = this.$q.defer<void>()
 
     RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
-      .then((res) => defer.resolve(this.onCreateClientSession(res)), defer.reject)
+    .then((res) => defer.resolve(this.onCreateClientSession(res)), defer.reject)
 
     return defer.promise
   }
@@ -168,4 +181,9 @@ export class CommunicatorService {
   public onActiveCall = (callback: (activeCalls: Call[]) => void): Subscription =>
     this.events.onActiveCall.subscribe(callback)
 
+  public onDisconnectCall = (callback: () => void): Subscription =>
+    this.events.onDisconnectCall.subscribe(callback)
+
+  public onReconnect = (callback: () => void): Subscription =>
+    this.events.onReconnect.subscribe(callback)
 }

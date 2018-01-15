@@ -39,7 +39,7 @@ describe('Unit tests: CurrentCall', () => {
   const businessRoom: RatelSdk.BusinessRoom = <any>{
     roomType: roomType.RoomType.BUSINESS,
     onTyping: (): void => {},
-    onMark: (): void => {},
+    onMarked: (): void => {},
     onCustom: (): void => {},
     onInvited: (): void => {},
     join: (): void => {}

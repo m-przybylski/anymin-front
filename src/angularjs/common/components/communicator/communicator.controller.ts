@@ -50,13 +50,15 @@ export class CommunicatorComponentController implements ng.IController {
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
 
-    clientCallService.onNewCall(this.registerClientCall)
-    clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
-    clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
+      clientCallService.onNewCall(this.registerClientCall)
+      clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
+      clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
 
-    expertCallService.onNewCall(this.registerExpertCall)
-    expertCallService.onCallPull(this.onCallPull)
-    expertCallService.onCallTaken(this.closeCommunicator)
+      expertCallService.onNewCall(this.registerExpertCall)
+      expertCallService.onCallPull(this.onCallPull)
+      expertCallService.onCallTaken(this.closeCommunicator)
+      expertCallService.onReconnect(this.onOnline)
+      expertCallService.onDisconnectCall(this.onOffline)
   }
 
   $onInit = (): void => {
@@ -128,8 +130,6 @@ export class CommunicatorComponentController implements ng.IController {
     if (localStream) this.onLocalStream(localStream);
     this.messageRoom = call.getMessageRoom();
 
-    this.$window.addEventListener('online', this.onOnline)
-    this.$window.addEventListener('offline', this.onOffline)
     call.onLocalStream(this.onLocalStream)
     call.onRemoteStream(this.onRemoteStream)
     call.onEnd(this.onCallEnd)

@@ -25,7 +25,9 @@ export class ExpertCallService {
     onCallPull: new Subject<CurrentExpertCall>(),
     onCallTaken: new Subject<CallActiveDevice>(),
     onCallActive: new Subject<Call[]>(),
-    onCallEnd: new Subject<CurrentExpertCall>()
+    onCallEnd: new Subject<CurrentExpertCall>(),
+    onDisconnectCall: new Subject<void>(),
+    onReconnect: new Subject<void>()
   };
 
   static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
@@ -40,9 +42,23 @@ export class ExpertCallService {
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private microphoneService: MicrophoneService) {
-    communicatorService.onCallInvitation(this.onExpertCallIncoming)
-    communicatorService.onActiveCall(this.onActiveCall)
+      communicatorService.onCallInvitation(this.onExpertCallIncoming)
+      communicatorService.onActiveCall(this.onActiveCall)
+      communicatorService.onReconnect(this.notifyOnReconnect)
+      communicatorService.onDisconnectCall(this.notifyOnDisconnectCall)
   }
+
+  private notifyOnReconnect = (): void =>
+    this.events.onReconnect.next()
+
+  private notifyOnDisconnectCall = (): void =>
+    this.events.onDisconnectCall.next()
+
+  public onReconnect = (cb: () => void): Subscription =>
+    this.events.onReconnect.subscribe(cb)
+
+  public onDisconnectCall = (cb: () => void): Subscription =>
+    this.events.onDisconnectCall.subscribe(cb)
 
   public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
     this.events.onNewCall.subscribe(cb);
