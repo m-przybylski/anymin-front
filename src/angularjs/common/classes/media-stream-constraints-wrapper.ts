@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { NavigatorWrapper } from './navigator-wrapper';
+import { NavigatorWrapper } from './navigator-wrapper/navigator-wrapper';
 
 export class MediaStreamConstraintsWrapper {
 
