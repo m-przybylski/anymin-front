@@ -18,7 +18,6 @@ function controller($window: IWindowService, $scope: ng.IScope, $state: StateSer
     onClose()
   }
 
-  /* istanbul ignore next function*/
   angular.element($window).bind('scroll', () => {
     this.isHidden = ($window.pageYOffset > checkScrollWay)
 

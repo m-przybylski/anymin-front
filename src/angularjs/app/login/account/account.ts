@@ -22,7 +22,7 @@ import inputModule from '../../../common/components/interface/input/input'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
-import {Config} from '../../config';
+import {Config} from '../../../../config';
 import {IInvitationObject} from '../../invitations/invitation.interface'
 import {
   RegistrationInvitationService

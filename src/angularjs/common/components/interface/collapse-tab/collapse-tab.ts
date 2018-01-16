@@ -27,8 +27,7 @@ function controller($element: ng.IRootElementService,
 
   const getCollapseWrapperHeight = (): number => $element.find('.collapse-content').height()
 
-  /* istanbul ignore next */
-  const onWindowResize = (): void => {
+    const onWindowResize = (): void => {
     if (this.isCollapsed) {
       this.stylesObject.height = getCollapseWrapperHeight()
     } else {
@@ -41,8 +40,7 @@ function controller($element: ng.IRootElementService,
     this.stylesObject.height = getFirstCollapseElementHeight()
   })
 
-  /* istanbul ignore next */
-  angular.element($window).on('resize', onWindowResize)
+    angular.element($window).on('resize', onWindowResize)
 
   this.toggleCollapse = (): void => {
     const scrollAnimationTime: number = 1000

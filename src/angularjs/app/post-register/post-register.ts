@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import 'angular-permission'
 import './set-email/set-email'
 import './set-password/set-password'
-import {Config} from '../config';
+import {Config} from '../../../config';
 import {StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 

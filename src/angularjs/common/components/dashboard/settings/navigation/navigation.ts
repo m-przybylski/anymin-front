@@ -1,7 +1,7 @@
 import {UserService} from '../../../../services/user/user.service'
 import * as angular from 'angular'
 import userModule from '../../../../services/user/user'
-import {Config} from '../../../../../app/config';
+import {Config} from '../../../../../../config';
 import uiRouter from '@uirouter/angularjs'
 
 function controller(userService: UserService): void {

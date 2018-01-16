@@ -10,7 +10,7 @@ import expertDashboardModule from './expert/expert'
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 import {UserService} from '../../common/services/user/user.service'
-import {Config} from '../config'
+import {Config} from '../../../config'
 
 class DashboardController {
 

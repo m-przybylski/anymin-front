@@ -1,6 +1,6 @@
 import {IGroupedMessagesComponentBindings} from './grouped-messages';
 import {Message} from 'ratel-sdk-js'
-import {CommunicatorService} from '../../../communicator.service'
+import {CommunicatorService} from '../../../../../../../angular/shared/services/communicator/communicator.service';
 
 export class GroupedMessagesComponentController implements ng.IController, IGroupedMessagesComponentBindings {
 

@@ -1,20 +1,27 @@
-import {RatelApi} from 'profitelo-api-ng/api/api'
-import {SignedAgent} from 'profitelo-api-ng/model/models'
+import {Injectable} from '@angular/core';
+import {RatelApi} from 'profitelo-api-ng4/api/api'
+import {SignedAgent} from 'profitelo-api-ng4/model/models'
 import * as RatelSdk from 'ratel-sdk-js'
-import {UserService} from '../../services/user/user.service'
 import {CommonConfig, Settings} from '../../../../../generated_modules/common-config/common-config'
-import {EventsService} from '../../services/events/events.service'
 import {Call} from 'ratel-sdk-js/dist/call'
 import {Subject} from 'rxjs/Subject'
+import {Observable} from 'rxjs'
+import {catchError} from 'rxjs/operators'
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable'
 import {Subscription} from 'rxjs/Subscription'
+import {Logger} from '../../static/logger/logger';
+import {EventsService} from '../../../../angularjs/common/services/events/events.service';
+import {SessionService} from '../../../core/services/session/session.service';
+import {Config} from '../../../../config';
 
+@Injectable()
 export class CommunicatorService {
 
   private commonConfig: Settings
   private chatConfig: RatelSdk.Config
   private ratelSession?: RatelSdk.Session
   private ratelDeviceId?: string
-  private static readonly ratelReconnectInterval = 5000
+  private reconnectInterval?: number
 
   private readonly events = {
     onCallInvitation: new Subject<RatelSdk.events.CallInvitation>(),
@@ -40,31 +47,31 @@ export class CommunicatorService {
       this.ratelDeviceId = hello.deviceId
 
       chat.getActiveCalls()
-      .then((res) => {
-        this.events.onActiveCall.next(res)
-      }, (err) => {
-        this.$log.error('Artichoke: getActiveCalls', err)
-      })
-      this.$log.debug('Artichoke: onConnect', session.id, hello)
+        .then((res) => {
+          this.events.onActiveCall.next(res)
+        }, (err) => {
+          Logger.error('Artichoke: getActiveCalls', err)
+        })
+      Logger.debug('Artichoke: onConnect', session.id, hello)
     })
 
     chat.onDisconnect((res: RatelSdk.events.Disconnect) =>
-      this.$log.debug('Artichoke: onDisconnect', res))
+      Logger.debug('Artichoke: onDisconnect', res))
 
     chat.onError((res: RatelSdk.events.Error) => {
-      this.$log.error('Artichoke: onError', res)
+      Logger.error('Artichoke: onError', res)
     })
 
     chat.onServerUnreachable(() => {
       this.events.onDisconnectCall.next()
-      const reconnectInterval = this.$interval(() => {
-        this.reconnectRatelConnection().then(() => this.$interval.cancel(reconnectInterval))
-      }, CommunicatorService.ratelReconnectInterval)
+      this.reconnectInterval = window.setInterval(() => {
+        this.reconnectRatelConnection()
+      }, Config.ratel.reconnectInterval)
 
     })
 
     chat.onHeartbeat((res: RatelSdk.events.Heartbeat) =>
-      this.$log.debug('Artichoke: onHeartBeat', res))
+      Logger.debug('Artichoke: onHeartBeat', res))
 
     chat.onRoomCreated((roomCreated: RatelSdk.events.RoomCreated) =>
       this.events.onRoomCreated.next(roomCreated))
@@ -75,41 +82,34 @@ export class CommunicatorService {
     chat.connect()
   }
 
-  static $inject = ['$log', '$q', 'RatelApi', '$interval', 'userService', 'CommonConfig', 'eventsService'];
-
-    constructor(private $log: ng.ILogService,
-              private $q: ng.IQService,
-              private RatelApi: RatelApi,
-              private $interval: ng.IIntervalService,
-              userService: UserService,
-              CommonConfig: CommonConfig,
+  constructor(private ratelApi: RatelApi,
+              sessionService: SessionService,
               eventsService: EventsService) {
 
-    this.commonConfig = CommonConfig.getAllData()
+    this.commonConfig = CommonConfig.settings;
     this.setChatConfig()
 
-    userService.getUser().then(this.authenticate)
+    sessionService.getSession().then(() => this.authenticate().subscribe())
     eventsService.on('login', () => {
-      this.authenticate()
+      this.authenticate().subscribe()
     })
     eventsService.on('logout', () => {
       if (this.ratelSession) this.ratelSession.chat.disconnect()
     })
   }
 
-  private reconnectRatelConnection = (): ng.IPromise<void> =>
+  private reconnectRatelConnection = (): Subscription =>
     this.authenticate()
-    .then(() => {
-      this.events.onReconnect.next()
-      if (this.ratelSession) {
-        this.ratelSession.chat.getActiveCalls()
-        .then((response) => {
-          this.events.onActiveCall.next(response)
-        }, (error) => {
-          this.$log.error(error)
-        })
-      }
-    })
+      .subscribe(() => {
+        this.events.onReconnect.next()
+        if (this.ratelSession) {
+          this.ratelSession.chat.getActiveCalls()
+            .then((response) => {
+              this.reconnectInterval && window.clearInterval(this.reconnectInterval);
+              this.events.onActiveCall.next(response)
+            }, Logger.error)
+        }
+      })
 
   private setChatConfig = (): void => {
     const ratelUrl = new URL(this.commonConfig.urls.communicator.briefcase)
@@ -139,32 +139,30 @@ export class CommunicatorService {
     }
   }
 
-  private onCreateClientSession = (session: RatelSdk.Session): ng.IPromise<void> => {
+  private onCreateClientSession = (session: RatelSdk.Session): void => {
     this.ratelSession = session;
 
     this.createRatelConnection(session)
-    return this.RatelApi.postBriefcaseUserConfigRoute({id: session.id})
-    .then(() => this.$log.debug('Client session created', session))
+    this.ratelApi.postBriefcaseUserConfigRoute({id: session.id})
+      .subscribe(
+        () => Logger.debug('Client session created', session),
+        () => Logger.error('Post Briefcase User Config failed')
+      )
   }
 
-  private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): ng.IPromise<void> => {
-    const defer = this.$q.defer<void>()
+  private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): Promise<void> =>
+    RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig).then(this.onCreateClientSession)
 
-    RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
-    .then((res) => defer.resolve(this.onCreateClientSession(res)), defer.reject)
+  private authenticateClient = (): Observable<void> =>
+    this.ratelApi.getRatelAuthConfigRoute().flatMap(this.onGetRatelClientAuthConfig)
 
-    return defer.promise
+  private onAuthenticateError = (err: any): ErrorObservable => {
+    Logger.error(err)
+    return Observable.throw(err);
   }
 
-  private authenticateClient = (): ng.IPromise<void> =>
-    this.RatelApi.getRatelAuthConfigRoute().then(this.onGetRatelClientAuthConfig)
-
-  private onAuthenticateError = (err: any): void => {
-    this.$log.error(err)
-    throw new Error(err)
-  }
-
-  public authenticate = (): ng.IPromise<void> => this.authenticateClient().catch(this.onAuthenticateError)
+  public authenticate = (): Observable<void | {}> =>
+    this.authenticateClient().pipe(catchError(this.onAuthenticateError))
 
   public getClientSession = (): RatelSdk.Session | undefined =>
     this.ratelSession;

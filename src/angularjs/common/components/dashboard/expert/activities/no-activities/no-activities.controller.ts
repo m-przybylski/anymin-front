@@ -1,5 +1,5 @@
 import {IExpertNoActivitiesComponentBindings} from './no-activities'
-import {Config} from '../../../../../../app/config';
+import {Config} from '../../../../../../../config';
 
 export class ExpertNoActivitiesComponentController implements IExpertNoActivitiesComponentBindings {
 

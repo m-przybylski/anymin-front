@@ -1,8 +1,8 @@
+import {downgradeInjectable} from '@angular/upgrade/static'
 import * as angular from 'angular'
 import 'angular-translate'
 import 'angular-sanitize'
 import {CommunicatorComponent} from './communicator.component'
-import {CommunicatorService} from './communicator.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import userModule from '../../services/user/user'
 import urlModule from '../../services/url/url'
@@ -22,6 +22,7 @@ import RtcDetectorModule from '../../services/rtc-detector/rtc-detector'
 import {PrecallService} from './precall-service/precall.service'
 import translatorModule from '../../services/translator/translator'
 import {MicrophoneService} from './microphone-service/microphone.service'
+import {CommunicatorService} from '../../../../angular/shared/services/communicator/communicator.service';
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',
@@ -45,11 +46,11 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   'profitelo.components.communicator.navigation',
   'profitelo.components.communicator.messenger'
 ])
-  .config(['$qProvider', ($qProvider: ng.IQProvider): any => {
+  .config(['$qProvider', ($qProvider: ng.IQProvider): void => {
     $qProvider.errorOnUnhandledRejections(false)
   }])
   .component('communicator', new CommunicatorComponent)
-  .service('communicatorService', CommunicatorService)
+  .factory('communicatorService', downgradeInjectable(CommunicatorService))
   .service('precallService', PrecallService)
   .service('clientCallService', ClientCallService)
   .service('expertCallService', ExpertCallService)

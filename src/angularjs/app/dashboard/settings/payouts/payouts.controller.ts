@@ -1,5 +1,5 @@
 import {ModalsService} from '../../../../common/services/modals/modals.service'
-import {Config} from '../../../config'
+import {Config} from '../../../../../config'
 import {TranslatorService} from '../../../../common/services/translator/translator.service'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import {GetPayoutMethodDto} from 'profitelo-api-ng/model/models';

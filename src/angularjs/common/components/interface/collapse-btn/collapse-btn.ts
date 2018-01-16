@@ -45,8 +45,7 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
     }
   }
 
-  /* istanbul ignore next */
-  this.onWindowResize = (): void => {
+    this.onWindowResize = (): void => {
     if (!this.isCollapsed) {
       this.stylesObject.height = getCollapseBtnContentHeight()
     }
@@ -55,8 +54,7 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
     }
   }
 
-  /* istanbul ignore next */
-  angular.element($window).on('resize', this.onWindowResize)
+    angular.element($window).on('resize', this.onWindowResize)
 
   return this
 }

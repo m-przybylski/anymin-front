@@ -2,7 +2,7 @@ import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
 import {GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
-import {Config} from '../../../../app/config';
+import {Config} from '../../../../../config';
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
 

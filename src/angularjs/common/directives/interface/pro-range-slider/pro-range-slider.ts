@@ -5,8 +5,7 @@ import uiRouter from '@uirouter/angularjs'
 function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 
   function linkFunction(scope: any, _elem: ng.IRootElementService, _attrs: ng.IAttributes): void {
-    /* istanbul ignore next */
-    scope.refreshSlider = (): void => {
+        scope.refreshSlider = (): void => {
       $timeout(() => {
         scope.$broadcast('rzSliderForceRender')
       })

@@ -5,7 +5,7 @@ import {StateService} from '@uirouter/angularjs'
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
-import {Config} from '../../../config';
+import {Config} from '../../../../../config';
 
 export class CompanyController implements ng.IController {
   public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription

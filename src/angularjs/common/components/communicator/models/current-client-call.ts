@@ -4,9 +4,9 @@ import {ServiceUsageEvent, GetProfile, GetService} from 'profitelo-api-ng/model/
 import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
-import {CommunicatorService} from '../communicator.service'
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
+import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
 
 export class CurrentClientCall extends CurrentCall {
 

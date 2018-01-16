@@ -1,5 +1,5 @@
 import {IBtnDropdownCallComponentBindings} from './btn-dropdown-call'
-import {Config} from '../../../../app/config';
+import {Config} from '../../../../../config';
 
 export class BtnDropdownCallComponentController implements ng.IController, IBtnDropdownCallComponentBindings {
   public callback: () => void

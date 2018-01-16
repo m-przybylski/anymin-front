@@ -85,8 +85,7 @@ function RegisterController($log: ng.ILogService,
   this.getSmsCodeStatus = (): void => {
     this.newCurrentSmsCode = this.registrationSteps.smsCode
     this.serverError = false
-    /* istanbul ignore next if */
-    if (!this.isPending) {
+        if (!this.isPending) {
       this.isPending = true
       topWaitingLoaderService.immediate()
       RegistrationApi.confirmVerificationRoute({
@@ -111,8 +110,7 @@ function RegisterController($log: ng.ILogService,
   }
 
   const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
-    /* istanbul ignore next if */
-    if (!this.isPending) {
+        if (!this.isPending) {
       this.isPending = true
       topWaitingLoaderService.immediate()
 

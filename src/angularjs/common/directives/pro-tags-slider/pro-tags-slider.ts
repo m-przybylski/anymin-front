@@ -56,8 +56,7 @@ function proTagsSlider($window: IWindowService,
       return offset
     }
 
-    /* istanbul ignore next */
-    angular.element($window).on('resize', () => {
+        angular.element($window).on('resize', () => {
       _clearSlider()
     })
 

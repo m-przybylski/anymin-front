@@ -1,5 +1,9 @@
 export class Config {
 
+  public static readonly ratel = {
+    reconnectInterval: 5000
+  }
+
   public static readonly cookies = {
     cookieNotification: {
       key: 'cookie-notification',

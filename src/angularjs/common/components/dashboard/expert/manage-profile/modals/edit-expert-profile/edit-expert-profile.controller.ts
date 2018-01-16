@@ -4,7 +4,7 @@ import {GetOrganizationDetails, GetExpertDetails, UpdateProfile}
   from 'profitelo-api-ng/model/models';
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {Config} from '../../../../../../../app/config';
+import {Config} from '../../../../../../../../config';
 
 export interface IEditExpertProfileScope extends ng.IScope {
   profile: GetOrganizationDetails | GetExpertDetails

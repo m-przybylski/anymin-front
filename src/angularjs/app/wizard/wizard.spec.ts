@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {WizardController} from './wizard.controller'
 import wizardWizardModule from './wizard'
-import {Config} from '../config';
+import {Config} from '../../../config';
 import {StateService, TransitionPromise} from '@uirouter/angularjs'
 
 describe('Testing Controller: WizardController', () => {

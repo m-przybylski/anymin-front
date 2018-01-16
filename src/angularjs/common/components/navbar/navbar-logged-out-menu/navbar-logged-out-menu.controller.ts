@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import {INavbarLoggedOutMenuComponentBindings} from './navbar-logged-out-menu'
-import {Config} from '../../../../app/config';
+import {Config} from '../../../../../config';
 
 export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutMenuComponentBindings {
 

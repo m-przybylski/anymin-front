@@ -8,7 +8,7 @@ import 'angularjs/common/directives/pro-news-tile/pro-news-tile'
 import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'angularjs/common/components/interface/slider/slider'
 import navbarModule from '../../common/components/navbar/navbar'
-import {Config} from '../config';
+import {Config} from '../../../config';
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 import {UserService} from '../../common/services/user/user.service'

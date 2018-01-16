@@ -1,6 +1,5 @@
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
 import {GetSUERatelCall} from 'profitelo-api-ng/model/models';
-import {CommunicatorService} from '../communicator.service';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CurrentClientCall} from '../models/current-client-call';
 import {SoundsService} from '../../../services/sounds/sounds.service';
@@ -13,6 +12,7 @@ import {CallState} from '../models/current-call'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
+import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
 
 export class ClientCallService {
 

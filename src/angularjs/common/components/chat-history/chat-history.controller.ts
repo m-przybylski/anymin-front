@@ -1,9 +1,9 @@
 import {IChatHistoryBindings} from './chat-history'
 import * as RatelSdk from 'ratel-sdk-js';
-import {CommunicatorService} from '../communicator/communicator.service'
 import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 import {Message} from 'ratel-sdk-js'
 import * as _ from 'lodash'
+import {CommunicatorService} from '../../../../angular/shared/services/communicator/communicator.service';
 
 export class ChatHistoryComponentController implements IChatHistoryBindings {
 
