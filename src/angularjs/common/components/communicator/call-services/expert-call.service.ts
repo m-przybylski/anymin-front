@@ -12,6 +12,7 @@ import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 import {MicrophoneService} from '../microphone-service/microphone.service'
+import {TranslatorService} from '../../../services/translator/translator.service'
 
 export class ExpertCallService {
 
@@ -19,6 +20,8 @@ export class ExpertCallService {
 
   private callingModal: ng.ui.bootstrap.IModalInstanceService;
   private onEndSubscription?: Subscription
+
+  private missedCallAlertMessage: string = this.translatorService.translate('COMMUNICATOR.MISSED_CALL_ALERT_MESSAGE')
 
   private readonly events = {
     onNewCall: new Subject<CurrentExpertCall>(),
@@ -31,7 +34,7 @@ export class ExpertCallService {
   };
 
   static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService'];
+    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService'];
 
   constructor(private ServiceApi: ServiceApi,
               private timerFactory: TimerFactory,
@@ -41,7 +44,8 @@ export class ExpertCallService {
               private rtcDetectorService: RtcDetectorService,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
-              private microphoneService: MicrophoneService) {
+              private microphoneService: MicrophoneService,
+              private translatorService: TranslatorService) {
       communicatorService.onCallInvitation(this.onExpertCallIncoming)
       communicatorService.onActiveCall(this.onActiveCall)
       communicatorService.onReconnect(this.notifyOnReconnect)
@@ -98,7 +102,7 @@ export class ExpertCallService {
 
         this.currentExpertCall = currentExpertCall;
 
-        this.currentExpertCall.onEnd(this.onExpertCallDisappearBeforeAnswering);
+        this.onEndSubscription = this.currentExpertCall.onEnd(this.onExpertCallDisappearBeforeAnswering)
         this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd)
 
         this.soundsService.callIncomingSound().play()
@@ -155,6 +159,7 @@ export class ExpertCallService {
     this.events.onCallEnd.next()
     this.soundsService.callIncomingSound().stop()
     this.soundsService.playCallRejected();
+    this.callingModal.closed.then(this.showMissedCallAlert)
   }
 
   private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
@@ -191,6 +196,7 @@ export class ExpertCallService {
   }
 
   private onCallAnswered = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
+    if (this.onEndSubscription) this.onEndSubscription.unsubscribe()
     this.soundsService.callIncomingSound().stop();
     this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
@@ -215,11 +221,17 @@ export class ExpertCallService {
   private onExpertCallEnd = (currentExpertCall?: CurrentExpertCall): void => {
     this.soundsService.playCallEnded();
     this.events.onCallEnd.next()
+    this.dismissCallingModal();
     if (currentExpertCall) this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getService().id);
     this.currentExpertCall = undefined;
   }
 
   private dismissCallingModal = (): void => {
-    if (this.callingModal) this.callingModal.dismiss();
+    if (this.callingModal) this.callingModal.close()
   }
+
+  private showMissedCallAlert = (): void => {
+    alert(this.missedCallAlertMessage)
+  }
+
 }
