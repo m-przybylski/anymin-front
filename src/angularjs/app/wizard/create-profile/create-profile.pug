@@ -1,6 +1,7 @@
 section.create-profile
   .container-big
     preloader(data-is-loading="vm.isLoading")
+      p.information-text(data-translate="WIZARD.STEP.DIRECTORY.INFORMATION")
       header.entry-title.choose-path(data-ng-if="!vm.isSummary")
         span {{:: 'WIZARD.STEP.TITLE' | translate }}
         tooltip(data-tooltip-text="WIZARD.STEP.DIRECTORY.TITLE")
