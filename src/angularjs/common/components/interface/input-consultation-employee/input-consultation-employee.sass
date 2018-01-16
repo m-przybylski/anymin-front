@@ -5,10 +5,33 @@
   position: relative
 
   .input-handler
+    display: flex
+    justify-content: space-between
+    align-items: center
     margin: 0 0 16px
 
     input
+      margin: 0 8px 0 0
+      flex: 1
       width: 100%
+      height: $s-input-height
+
+    .add-link
+      width: 48px
+      padding: 0
+
+      +smm
+        display: none
+
+      span
+        margin: 0
+        color: $c-primary
+
+    .btn-default
+      display: none
+
+      +smm
+        display: inline-flex
 
   .checked-list
     margin: 0 0 32px

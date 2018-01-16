@@ -1,11 +1,19 @@
 .input-consultation-tag
-  input(
-    autocomplete="off"
-    data-ng-enter="$ctrl.onEnter()"
-    data-ng-model="$ctrl.tagModel"
-    data-ng-blur="$ctrl.onBlur()"
-    data-ng-focus="$ctrl.onFocus()"
-  )
+
+  .input-handler
+    input(
+      autocomplete="off"
+      data-ng-model="$ctrl.tagModel"
+      data-ng-enter="$ctrl.onEnter()"
+      data-ng-blur="$ctrl.onBlur()"
+      data-ng-focus="$ctrl.onFocus()"
+    )
+    a.btn.add-link(data-ng-click="$ctrl.onEnter()")
+      span.icon.icon-plus-24
+    a.btn.btn-default.btn-small(
+      data-ng-click="$ctrl.onEnter()"
+      data-translate="INTERFACE.INPUT_CONSULTATION_TAG.ADD_BUTTON"
+    )
 
   validation-alert(
   data-alert-text="WIZARD.CONSULTATION.INVALID_TAG"
