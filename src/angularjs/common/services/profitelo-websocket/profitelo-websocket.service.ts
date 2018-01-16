@@ -19,7 +19,8 @@ export class ProfiteloWebsocketService {
     onClientCallCost: new Subject<any>(),
     onProfileCallProfit: new Subject<any>(),
     onExpertVisibilityUpdate: new Subject<any>(),
-    onSessionDeleted: new Subject<any>()
+    onSessionDeleted: new Subject<any>(),
+    onNewInvitation: new Subject<any>()
   }
 
   static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
@@ -74,6 +75,9 @@ export class ProfiteloWebsocketService {
   public onExpertVisibilityUpdate = (callback: (data: IExpertPresenceUpdate) => void): Subscription =>
     this.events.onExpertVisibilityUpdate.subscribe(callback)
 
+  public onNewInvitation = (callback: () => void): Subscription =>
+    this.events.onNewInvitation.subscribe(callback)
+
   public onSessionDeleted = (callback: (data: any) => void): Subscription =>
     this.events.onSessionDeleted.subscribe(callback)
 
@@ -106,6 +110,9 @@ export class ProfiteloWebsocketService {
         break
       case 'SESSION_DELETED':
         this.events.onSessionDeleted.next(value)
+        break
+      case 'NEW_INVITATION':
+        this.events.onNewInvitation.next(value)
         break
       default:
         this.$log.info('Unknown messageType ' + String(type))
