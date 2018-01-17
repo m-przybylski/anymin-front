@@ -9,6 +9,7 @@ import {GetProfileWithServicesInvitations, GetInvitation} from 'profitelo-api-ng
 import * as _ from 'lodash'
 import {NavbarNotificationsService} from '../navbar-notifications/navbar-notifications.service'
 import {Config} from '../../../../app/config';
+import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
@@ -27,7 +28,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   public isPlatformForExpert: boolean = Config.isPlatformForExpert
 
   static $inject = ['userService', 'translatorService', 'topAlertService', '$state', '$element', '$document',
-    '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService'];
+    '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService', 'profiteloWebsocket'];
 
     constructor(private userService: UserService,
               private translatorService: TranslatorService,
@@ -39,15 +40,17 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
               private $scope: ng.IScope,
               private $log: ng.ILogService,
               private ProfileApi: ProfileApi,
-              navbarNotificationsService: NavbarNotificationsService) {
-    navbarNotificationsService.onInvitationsResolved(this.fetchInvitations)
+              navbarNotificationsService: NavbarNotificationsService,
+              profiteloWebsocket: ProfiteloWebsocketService) {
+
+      navbarNotificationsService.onInvitationsResolved(this.fetchInvitations)
+      profiteloWebsocket.onNewInvitation(this.fetchInvitations)
   }
 
   $onInit(): void {
     this.setIsExpert()
 
     this.$document.bind('click', (event: Event) => {
-
       const ifTargetClicked = this.$element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isNotificationsMenuShow = false
