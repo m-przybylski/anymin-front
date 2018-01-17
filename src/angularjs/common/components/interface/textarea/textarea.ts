@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {InputComponent} from './textarea.component'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 import textareaAutoHeight from '../../../directives/textarea-auto-height/textarea-auto-height'
+import valueLength from '../../../directives/value-length/value-length'
 
 export interface ITextareaComponentBindings extends ng.IController {
   id: string
@@ -19,7 +20,8 @@ export interface ITextareaComponentBindings extends ng.IController {
 const textareaModule = angular.module('profitelo.components.interface.textarea', [
   'pascalprecht.translate',
   ValidationAlertModule,
-  textareaAutoHeight
+  textareaAutoHeight,
+  valueLength
 ])
 .component('textareaPrimary', new InputComponent)
   .name

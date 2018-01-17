@@ -13,6 +13,7 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public isValid: boolean
   public validationText: string
   public onChange?: (description: string) => void
+  public textareaValueLength: number = 0
 
   static $inject = [];
 
@@ -28,4 +29,8 @@ export class TextareaComponentController implements ITextareaComponentBindings {
 
   public onDescriptionChange = (textareaValue: string): void =>
     (this.onChange) ? this.onChange(textareaValue) : undefined
+
+  public setTextareaValueLength = (textareaValueLength: number): void => {
+   this.textareaValueLength = textareaValueLength
+  }
 }
