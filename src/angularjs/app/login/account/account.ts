@@ -81,7 +81,7 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
         this.current = registerStep
         break
       case 'NO_PASSWORD':
-        $state.go('app.login.forgot-password')
+        $state.go('app.login.forgot-password', {method: 'sms'})
         break
       case 'UNREGISTERED':
       default:

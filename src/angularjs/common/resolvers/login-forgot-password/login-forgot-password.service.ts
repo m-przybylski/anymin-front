@@ -9,6 +9,7 @@ import topAlertModule from '../../services/top-alert/top-alert'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
 import {StateService} from '@uirouter/angularjs'
+import {httpCodes} from '../../classes/http-codes'
 
 export interface ILoginForgotPassword {
   recoveryMethod: string
@@ -33,20 +34,25 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
               private RecoverPasswordApi: RecoverPasswordApi) {
 
   }
+  private cacheResolvedObject: ILoginForgotPassword
 
   public resolve = (stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword> => {
     const _deferred = this.$q.defer<ILoginForgotPassword>()
 
     const account = this.loginStateService.getAccountObject()
 
-    const handleError = (): void => {
-      _deferred.reject()
-      this.topAlertService.error({
-        message: this.translatorService.translate('LOGIN.PASSWORD_RECOVERY.ERROR')
-      })
-      this.$timeout(() => {
-        this.$state.go('app.login.account')
-      })
+    const handleError = (error?: any): void => {
+      if (error && error.status === httpCodes.badRequest) {
+        _deferred.resolve(this.cacheResolvedObject)
+      } else {
+        _deferred.reject()
+        this.topAlertService.error({
+          message: this.translatorService.translate('LOGIN.PASSWORD_RECOVERY.ERROR')
+        })
+        this.$timeout(() => {
+          this.$state.go('app.login.account')
+        })
+      }
     }
 
     const requestPasswordRecovery = (method: any): ng.IPromise<{}> =>
@@ -57,10 +63,12 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
     const noEmailRecoveryPath = (): void => {
       requestPasswordRecovery('SMS').then(() => {
-        _deferred.resolve({
+        const resolvedObject = {
           accountObject: account,
           recoveryMethod: 'SMS'
-        })
+        }
+        this.setCacheAccountObject(resolvedObject)
+        _deferred.resolve(resolvedObject)
       }, handleError)
     }
 
@@ -71,15 +79,21 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
         noEmailRecoveryPath()
       } else {
         requestPasswordRecovery('EMAIL').then(() => {
-          _deferred.resolve({
+          const resolvedObject = {
             accountObject: account,
             recoveryMethod: 'EMAIL'
-          })
+          }
+          this.setCacheAccountObject(resolvedObject)
+          _deferred.resolve(resolvedObject)
         }, noEmailRecoveryPath)
       }
     }
 
     return _deferred.promise
+  }
+
+  private setCacheAccountObject = (resolvedObject: ILoginForgotPassword): void => {
+    this.cacheResolvedObject = resolvedObject
   }
 }
 

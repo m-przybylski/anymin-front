@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 // TODO add account type
 
-interface IAccount {
+export interface IAccount {
   phoneNumber: {
     prefix: string,
     number: string
