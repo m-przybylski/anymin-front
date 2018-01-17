@@ -33,7 +33,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
         usageDurationInSeconds: 123,
         isSuspended: false,
         languages: [],
-        createdAt: 123
+        createdAt: new Date(123)
       },
       ownerProfile: {
         id: 'id',

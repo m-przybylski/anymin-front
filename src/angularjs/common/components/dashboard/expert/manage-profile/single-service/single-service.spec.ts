@@ -42,7 +42,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
         usageDurationInSeconds: 123,
         isSuspended: false,
         language: 'pl',
-        createdAt: 123
+        createdAt: new Date(123)
       },
       ownerProfile: {
         id: 'id',

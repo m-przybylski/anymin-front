@@ -1,8 +1,9 @@
 import {MoneyDto, GetService} from 'profitelo-api-ng/model/models'
 
 interface IAccountSettings {
-  nickname: string
-  avatar: string
+  nickname?: string
+  avatar?: string
+  clientId: string
 }
 
 export interface IExpertCallSummary {
@@ -10,5 +11,5 @@ export interface IExpertCallSummary {
   profit: MoneyDto
   callDuration: number
   service: GetService
-  clientAccountSettings?: IAccountSettings
+  clientAccountDetails?: IAccountSettings
 }

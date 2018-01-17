@@ -44,7 +44,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         usageCounter: 0,
         ownerId: '',
         usageDurationInSeconds: 0,
-        createdAt: 0,
+        createdAt: new Date(0),
         rating: 0,
         isSuspended: false,
         name: '',

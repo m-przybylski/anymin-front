@@ -3,8 +3,8 @@ import {
   MoneyDto,
   PaymentLink,
   PaymentSystem,
-  GetLastPayment,
   GetCreditCard,
+  PostOrder,
   GetPaymentOptions
 } from 'profitelo-api-ng/model/models'
 
@@ -38,6 +38,12 @@ export interface IChargeAccountScope extends ng.IScope {
   financeBalance?: MoneyDto
 }
 
+export interface IGetLastPayment {
+  payload: PostOrder,
+  amount: MoneyDto;
+  paymentSystemId: string;
+}
+
 export class ChargeAccountController implements ng.IController {
 
   isNavbar = true
@@ -55,7 +61,7 @@ export class ChargeAccountController implements ng.IController {
   amounts: IAmounts
   currentSection: number
   clientBalance?: MoneyDto
-  lastPayment?: GetLastPayment
+  lastPayment?: IGetLastPayment
   paymentSystems: PaymentSystem[]
   paymentsLinks?: PaymentLink[]
   amountMethodModal: {
@@ -87,7 +93,7 @@ export class ChargeAccountController implements ng.IController {
           paymentOptions: paymentsOptions.paymentOptions,
           minimalAmounts: paymentsOptions.minimalPayment
         }
-        this.lastPayment = paymentsOptions.lastPayment
+        this.lastPayment = <any>paymentsOptions.lastPayment
         this.paymentSystems = paymentsOptions.paymentSystems
       }
 

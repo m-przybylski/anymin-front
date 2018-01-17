@@ -27,11 +27,11 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public callSummary?: IExpertCallSummary
   public isLoading: boolean
 
-  public clientName: string
+  public clientId: string
   public serviceName: string
   public callDuration: number
   public profit: MoneyDto
-  public clientAvatar: string
+  public clientAvatar?: string
   public clientReportMessage: string = ''
   public isSendingClientReport: boolean = false
   public isClientReportSent: boolean = false
@@ -112,9 +112,9 @@ export class ConsultationSummaryExpertController implements ng.IController {
     if (callSummary.service.id === this.$scope.serviceId) {
       this.callSummary = callSummary
       this.isLoading = false
-      if (this.callSummary.clientAccountSettings) {
-        this.clientName = this.callSummary.clientAccountSettings.nickname
-        this.clientAvatar = this.callSummary.clientAccountSettings.avatar
+      if (this.callSummary.clientAccountDetails) {
+        this.clientId = this.callSummary.clientAccountDetails.clientId
+        this.clientAvatar = this.callSummary.clientAccountDetails.avatar
       }
       this.serviceName = this.callSummary.service.name
       this.profit = this.callSummary.profit
