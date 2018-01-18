@@ -148,7 +148,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'NO_PASSWORD'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
-      expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
+      expect($state.go).toHaveBeenCalledWith('app.login.forgot-password', {method: 'sms'})
     })
 
     if (!Config.isPlatformForExpert)
