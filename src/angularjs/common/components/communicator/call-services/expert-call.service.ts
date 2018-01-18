@@ -80,8 +80,8 @@ export class ExpertCallService {
   private onActiveCall = (activeCalls: Call[]): void => {
     if (activeCalls[0]) {
       this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
-        this.currentExpertCall = new CurrentExpertCall(this.timerFactory, activeCalls[0],
-          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
+        this.currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, activeCalls[0],
+          this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
         this.currentExpertCall.onEnd(() => {
           this.events.onCallEnd.next()
           this.currentExpertCall = undefined;
@@ -97,8 +97,8 @@ export class ExpertCallService {
     if (!this.currentExpertCall) {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
-        const currentExpertCall = new CurrentExpertCall(this.timerFactory, callInvitation.call,
-          incomingCallDetails, this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
+        const currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, callInvitation.call,
+          this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
 
         this.currentExpertCall = currentExpertCall;
 
@@ -183,7 +183,7 @@ export class ExpertCallService {
     this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId())
       .then((incomingCallDetails) => {
-        currentExpertCall.startTimer()
+        currentExpertCall.startTimer(incomingCallDetails.sue.freeSeconds)
         currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
         const session = this.communicatorService.getClientSession()
         if (!session) throw new Error('Session not available')

@@ -11,11 +11,11 @@ export class TimerService {
 
   static $inject = ['$interval', 'money', 'freeMinutesCount', 'interval'];
 
-  constructor(private $interval: ng.IIntervalService, private money: MoneyDto, private freeMinutesCount: number,
+  constructor(private $interval: ng.IIntervalService, private money: MoneyDto,
               private interval: number) {
   }
 
-  public start = (cb: (obj: {time: number, money: MoneyDto}) => void): void => {
+  public start = (cb: (obj: {time: number, money: MoneyDto}) => void, freeSeconds: number = 0): void => {
     this.startTime = Date.now()
     this.timer = this.$interval(() => {
       if (!this.isPaused) {
@@ -23,8 +23,7 @@ export class TimerService {
         cb({
           time: _time,
           money: {
-            amount: (this.money.amount * Math.max(
-              0, _time - (TimerService.secondsInMinute * this.freeMinutesCount)) / TimerService.secondsInMinute),
+            amount: this.setAmountValue(_time, freeSeconds),
             currency: this.money.currency
           }
         })
@@ -48,5 +47,11 @@ export class TimerService {
 
   public setStartTime = (time: number): void => {
     this.startTime = time
+  }
+
+  private setAmountValue = (time: number, freeSeconds: number): number => {
+    const paidCallTime: number = time - freeSeconds
+    return paidCallTime > 0 ? (this.money.amount * Math.max(
+      0, paidCallTime) / TimerService.secondsInMinute) : 0
   }
 }

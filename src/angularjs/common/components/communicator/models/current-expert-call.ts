@@ -13,9 +13,9 @@ export class CurrentExpertCall extends CurrentCall {
   static $inject = ['timerFactory', 'call', 'incomingCallDetails', 'soundsService', 'communicatorService',
     'RatelApi', 'microphoneService'];
 
-  constructor(timerFactory: TimerFactory,
+  constructor(private incomingCallDetails: GetIncomingCallDetails,
+              timerFactory: TimerFactory,
               call: Call,
-              incomingCallDetails: GetIncomingCallDetails,
               soundsService: SoundsService,
               communicatorService: CommunicatorService,
               RatelApi: RatelApi,
@@ -46,7 +46,7 @@ export class CurrentExpertCall extends CurrentCall {
   private onAnswer = (): void => {
     this.events.onAnswered.next();
     this.setState(CallState.PENDING);
-    this.startTimer();
+    this.startTimer(this.incomingCallDetails.sue.freeSeconds);
   }
 
   private onReject = (): void => {

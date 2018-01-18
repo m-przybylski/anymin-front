@@ -39,8 +39,6 @@ export class CurrentCall {
 
   private streamManager?: StreamManager
 
-  private serviceFreeMinutesCount: number = 0
-
   private static readonly moneyChangeNotificationInterval: number = 1000
 
   protected readonly events = {
@@ -73,7 +71,7 @@ export class CurrentCall {
               private RatelApi: RatelApi,
               private microphoneService: MicrophoneService) {
     this.registerCallbacks();
-    this.createTimer(service.price, this.serviceFreeMinutesCount)
+    this.createTimer(service.price)
     this.messageRoom = new MessageRoom(soundsService);
   }
 
@@ -182,8 +180,8 @@ export class CurrentCall {
   public onAnswered = (cb: () => void): Subscription =>
     this.events.onAnswered.subscribe(cb);
 
-  public startTimer = (): void => {
-    if (this.timer) this.timer.start(this.emitTimeMoneyChange)
+  public startTimer = (freeSeconds: number = 0): void => {
+    if (this.timer) this.timer.start(this.emitTimeMoneyChange, freeSeconds)
   }
 
   protected stopTimer = (): void => {
@@ -294,9 +292,9 @@ export class CurrentCall {
     this.events.onCallTaken.next(activeDevice)
   }
 
-  private createTimer = (price: MoneyDto, freeMinutesCount: number): TimerService =>
+  private createTimer = (price: MoneyDto): TimerService =>
     this.timer = this.timerFactory.getInstance(
-      price, freeMinutesCount, CurrentCall.moneyChangeNotificationInterval)
+      price, CurrentCall.moneyChangeNotificationInterval)
 
   private emitTimeMoneyChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void =>
     this.events.onTimeCostChange.next(timeMoneyTuple)
