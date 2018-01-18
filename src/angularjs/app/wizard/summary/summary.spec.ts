@@ -6,6 +6,7 @@ import summaryWizardModule from './summary'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
 import {StateService, TransitionPromise} from '@uirouter/angularjs'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 
 describe('Testing Controller: SummaryController', () => {
 
@@ -17,7 +18,10 @@ describe('Testing Controller: SummaryController', () => {
     controller: ng.IControllerService,
     wizardApi: WizardApi,
     q: ng.IQService,
-    userService: UserService
+    userService: UserService,
+    filter: ng.IFilterService
+
+  const  topAlertService: TopAlertService = <any>{}
 
   const wizardProfile: GetWizardProfile = {
     isExpert: true,
@@ -50,7 +54,9 @@ describe('Testing Controller: SummaryController', () => {
       $state: $state,
       wizardProfile: wizardProfile,
       WizardApi: wizardApi,
-      errorHandler: errorHandler
+      errorHandler: errorHandler,
+      topAlertService: topAlertService,
+      $filter: filter
     })
   }
 
@@ -58,6 +64,7 @@ describe('Testing Controller: SummaryController', () => {
     $provide.value('apiUrl', 'awesomeURL/')
     $provide.value('WizardApi', WizardApi)
     $provide.value('WizardApiMock', WizardApiMock)
+    $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
   }))
 
   beforeEach(() => {
@@ -78,7 +85,6 @@ describe('Testing Controller: SummaryController', () => {
       errorHandler = _errorHandler_
       wizardApi = WizardApi
       userService = _userService_
-
       summaryController = createController(wizardProfile)
     })
   })

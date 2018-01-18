@@ -14,6 +14,7 @@ import userModule from '../../../common/services/user/user'
 import navbarNotificationsModule from '../../../common/components/navbar/navbar-notifications/navbar-notifications'
 import {StateProvider, StateService} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
 
 const summaryWizardModule = angular.module('profitelo.controller.wizard.summary', [
   'permission',
@@ -26,7 +27,8 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
   apiModule,
   errorHandlerModule,
   navbarNotificationsModule,
-  userModule
+  userModule,
+  topAlertModule
 ])
   .config(['$stateProvider', ($stateProvider: StateProvider): void => {
     $stateProvider.state('app.wizard.summary', {

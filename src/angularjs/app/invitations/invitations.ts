@@ -5,6 +5,7 @@ import modalsModule from '../../common/services/modals/modals'
 import {InvitationsResolver} from './invitations.resolver'
 import {StateProvider, StateParams} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
+import topAlertModule from '../../common/services/top-alert/top-alert'
 
 export interface IInvitationsStateParams extends StateParams {
   companyId: string
@@ -15,6 +16,7 @@ const invitationsPageModule = angular.module('profitelo.controller.invitations',
   uiRouter,
   'permission.ui',
   'ngTouch',
+  topAlertModule,
   modalsModule
 ])
   .config(['$stateProvider', ($stateProvider: StateProvider): void => {

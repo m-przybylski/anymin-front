@@ -11,6 +11,7 @@ import {
   NavbarNotificationsService
 } from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
 import {TranslatorService} from '../../../common/services/translator/translator.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 
 export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitation {
   tags?: Tag[]
@@ -39,14 +40,15 @@ export class InvitationsModalController implements ng.IController {
     if (this.$state.current.name === 'app.invitations') this.$state.go('app.home')
   }
 
-  static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi', '$q', '$log',
-    'navbarNotificationsService', 'translatorService', '$scope'];
+  static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi',
+    'topAlertService', '$q', '$log', 'navbarNotificationsService', 'translatorService', '$scope'];
 
     constructor(private $state: StateService,
               private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
               private InvitationApi: InvitationApi,
               private userService: UserService,
               private ServiceApi: ServiceApi,
+              private topAlertService: TopAlertService,
               private $q: ng.IQService,
               private $log: ng.ILogService,
               private navbarNotificationsService: NavbarNotificationsService,
@@ -166,6 +168,11 @@ export class InvitationsModalController implements ng.IController {
   private onEmploymentUpdateDone = (service: GetServiceWithInvitation): void => {
     if (_.last(this.services) === service) {
       this.navbarNotificationsService.resolveInvitations()
+      if (this.acceptedServices && this.acceptedServices.length > 0)
+        this.topAlertService.success({
+          message: this.translatorService.translate('INVITATIONS.ACCEPTED'),
+          timeout: 4
+        })
       this.onModalClose()
     }
   }
