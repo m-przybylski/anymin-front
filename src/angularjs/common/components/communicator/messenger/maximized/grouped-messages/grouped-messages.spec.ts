@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {IGroupedMessagesComponentBindings} from './grouped-messages'
 import groupedMessagesModule from './grouped-messages';
 import {GroupedMessagesComponentController} from './grouped-messages.controller';
-import {CommunicatorService} from '../../../communicator.service'
+import {CommunicatorService} from '../../../../../../../angular/shared/services/communicator/communicator.service';
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized.grouped-messages', () => {
   return describe('for groupedMessages component >', () => {

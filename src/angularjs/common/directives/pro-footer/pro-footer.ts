@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {IDirective} from 'angular'
 import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
-import {Config} from '../../../app/config';
+import {Config} from '../../../../config';
 
 interface IProFooterScope extends ng.IScope {
   isPlatformForExpert: boolean

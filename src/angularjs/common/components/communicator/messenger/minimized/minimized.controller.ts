@@ -5,7 +5,7 @@ import {ClientCallService} from '../../call-services/client-call.service';
 import {ExpertCallService} from '../../call-services/expert-call.service';
 import {CurrentCall} from '../../models/current-call';
 import {Message} from 'ratel-sdk-js/dist/protocol/wire-entities'
-import {CommunicatorService} from '../../communicator.service'
+import {CommunicatorService} from '../../../../../../angular/shared/services/communicator/communicator.service';
 
 export class MessengerMinimizedComponentController implements ng.IController, IMessengerMinimizedComponentBindings {
 

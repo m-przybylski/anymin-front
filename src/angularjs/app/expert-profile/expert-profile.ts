@@ -39,10 +39,10 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
         template: require('./expert-profile.html'),
         controller: 'ExpertProfileController',
         resolve: {
-          /* istanbul ignore next */
-          expertProfile: ['ExpertProfileResolver', '$stateParams', (ExpertProfileResolver: ExpertProfileResolver,
-                          $stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> =>
-            ExpertProfileResolver.resolve($stateParams)]
+          expertProfile: ['ExpertProfileResolver', '$stateParams',
+            (ExpertProfileResolver: ExpertProfileResolver, $stateParams: IExpertProfileStateParams
+            ): ng.IPromise<GetExpertProfile> =>
+              ExpertProfileResolver.resolve($stateParams)]
         }
       })
     }])

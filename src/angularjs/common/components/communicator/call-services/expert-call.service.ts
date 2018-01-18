@@ -1,4 +1,3 @@
-import {CommunicatorService} from '../communicator.service';
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
 import * as RatelSdk from 'ratel-sdk-js';
 import {ModalsService} from '../../../services/modals/modals.service';
@@ -13,6 +12,7 @@ import {Subscription} from 'rxjs/Subscription'
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {TranslatorService} from '../../../services/translator/translator.service'
+import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
 
 export class ExpertCallService {
 

@@ -6,8 +6,8 @@ import {RatelApi} from 'profitelo-api-ng/api/api';
 import {ServiceUsageEvent} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {roomType} from 'ratel-sdk-js'
-import {CommunicatorService} from '../communicator.service'
 import {MicrophoneService} from '../microphone-service/microphone.service'
+import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
 
 describe('Unit tests: CurrentCall', () => {
 

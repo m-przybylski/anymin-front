@@ -5,6 +5,7 @@ import urlModule from '../../../services/url/url'
 import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 import {GetSearchRequestResult} from 'profitelo-api-ng/model/models';
+import apiModule from 'profitelo-api-ng/api.module';
 import {StateService} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 
@@ -77,6 +78,7 @@ const singleConsultation = {
 angular.module('profitelo.components.search.single-consultation', [
   'pascalprecht.translate',
   uiRouter,
+  apiModule,
   communicatorModule,
   filtersModule,
   urlModule

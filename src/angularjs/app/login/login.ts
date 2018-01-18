@@ -4,7 +4,7 @@ import './account/account'
 import './register/register'
 import './forgot-password/forgot-password'
 import './set-new-password/set-new-password'
-import {Config} from '../config';
+import {Config} from '../../../config';
 import {StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 

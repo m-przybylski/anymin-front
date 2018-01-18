@@ -1,5 +1,5 @@
 import {ICookiesService, CookiesKeyName} from '../../services/cookie/cookie.service'
-import {Config} from '../../../app/config';
+import {Config} from '../../../../config';
 
 export class CookieNotificationService {
   private static readonly cookieKeyValue: string = 'true'

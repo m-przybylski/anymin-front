@@ -12,7 +12,7 @@ import {ErrorHandlerService} from '../../../../../../services/error-handler/erro
 import {ILanguage, LanguagesService} from '../../../../../../services/languages/languages.service'
 import {TranslatorService} from '../../../../../../services/translator/translator.service'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {Config} from '../../../../../../../app/config';
+import {Config} from '../../../../../../../../config';
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void

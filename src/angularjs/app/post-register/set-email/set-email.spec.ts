@@ -7,7 +7,7 @@ import {IFilterService} from '../../../common/services/filter/filter.service'
 import './set-email'
 import {httpCodes} from '../../../common/classes/http-codes'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
-import {Config} from '../../config';
+import {Config} from '../../../../config';
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
 
 describe('Unit tests: profitelo.controller.post-register.set-email>', () => {

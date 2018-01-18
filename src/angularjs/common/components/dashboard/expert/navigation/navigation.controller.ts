@@ -5,7 +5,7 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
 import {PromiseService} from '../../../../services/promise/promise.service'
 import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
 import {UserService} from '../../../../services/user/user.service'
-import {Config} from '../../../../../app/config';
+import {Config} from '../../../../../../config';
 
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 

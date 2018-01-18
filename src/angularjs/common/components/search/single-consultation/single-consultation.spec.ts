@@ -1,24 +1,21 @@
 import * as angular from 'angular'
 import './single-consultation'
 
-import communicatorModule from '../../communicator/communicator'
-import {ISingleConsultationScope} from './single-consultation'
 import {Tag} from 'profitelo-api-ng/model/models';
 import {RatelApiMock} from 'profitelo-api-ng/api/api';
 import {StateService} from '@uirouter/angularjs'
+import uiRouter from '@uirouter/angularjs'
 import {IRootScopeService} from '../../../services/root-scope/root-scope.service';
+import communicatorMockModule from '../../communicator/communicator.mock';
+const {inject, module} = angular.mock;
 
 describe('Unit testing:profitelo.components.search.single-consultation', () => {
   return describe('for single-consultation component >', () => {
 
-    let scope: ISingleConsultationScope
     let rootScope: ng.IRootScopeService
-    let compile: ng.ICompileService
     let componentController: any
     let component: any
     let _callService: any
-    let validHTML =
-      '<single-consultation data-consultation="consultation"></single-consultation>'
     let state: StateService
 
     const consultation = {
@@ -68,17 +65,8 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
       }]
     }
 
-    function create(html: string): JQuery {
-      scope = <ISingleConsultationScope>rootScope.$new()
-      scope.consultation = consultation
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
-
     const bindings = {
-      consultation: consultation
+      consultation
     }
 
     const userService = {
@@ -91,28 +79,23 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     }
 
     beforeEach(() => {
-      angular.mock.module(communicatorModule)
+      module(communicatorMockModule)
+      module(uiRouter)
+      module('profitelo.components.search.single-consultation')
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
       $provide.value('callService', callService)
       $provide.value('userService', userService)
-
     }))
 
     beforeEach(() => {
-      angular.mock.module('ui.router')
-      angular.mock.module('profitelo.components.search.single-consultation')
-    })
 
-    beforeEach(() => {
-
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+      inject(($rootScope: IRootScopeService,
               _$componentController_: ng.IComponentControllerService, $q: ng.IQService, RatelApiMock: RatelApiMock) => {
         componentController = _$componentController_
         rootScope = $rootScope
-        compile = $compile
         _callService = callService
         state = <StateService>{
           go: (_x: any): {} => {
@@ -124,10 +107,11 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
         spyOn(userService, 'getUser').and.callFake(() => $q.resolve({id: 'asdasdasd'}))
 
         component = componentController('singleConsultation', {
-          $element: validHTML, $scope: scope,
+          $element: {},
+          $scope: {},
           callService: _callService,
           $state: state,
-          userService: userService
+          userService
         }, bindings)
       })
     })
@@ -135,26 +119,6 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
-    it('should compile the directive', () => {
-      const el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
-
-    it('should set isLinkActive to true', () => {
-      const el = create(validHTML)
-      const controller = el.controller('single-consultation')
-      el.find('.btn.btn-success').triggerHandler('mouseover')
-      expect(controller.isLinkActive).toBe(true)
-    })
-
-    it('should set isLinkActive to false', () => {
-      const el = create(validHTML)
-      const controller = el.controller('single-consultation')
-      el.find('.btn.btn-success').triggerHandler('mouseover')
-      el.find('.btn.btn-success').triggerHandler('mouseout')
-      expect(controller.isLinkActive).toBe(false)
-    })
 
     it('should call state go', () => {
       spyOn(state, 'go')

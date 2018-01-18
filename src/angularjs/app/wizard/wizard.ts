@@ -7,7 +7,7 @@ import createProfilePageModule from './create-profile/create-profile'
 import consultaionWizardModule from './consultation/consultation'
 import summaryWizardModule from './summary/summary'
 import {UserService} from '../../common/services/user/user.service'
-import {Config} from '../config'
+import {Config} from '../../../config'
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
 

@@ -1,10 +1,9 @@
 import * as angular from 'angular'
 import * as RatelSdk from 'ratel-sdk-js'
 import userModule from '../../../services/user/user'
-import communicatorModule from '../communicator'
 import {ExpertCallService} from './expert-call.service'
-import {ServiceApi} from 'profitelo-api-ng/api/api'
 import Calls = jasmine.Calls
+import communicatorMockModule from '../communicator.mock';
 
 interface ICallSound {
   play: () => void,
@@ -70,9 +69,13 @@ describe('Unit testing: profitelo.services.call >', () => {
       }
     }
 
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('communicatorService', communicatorServiceMock)
+    }))
+
     beforeEach(() => {
       angular.mock.module(userModule)
-      angular.mock.module(communicatorModule)
+      angular.mock.module(communicatorMockModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -92,24 +95,6 @@ describe('Unit testing: profitelo.services.call >', () => {
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
-
-    it('should get call details on incoming call', inject((
-      $rootScope: ng.IRootScopeService, ServiceApi: ServiceApi, $q: ng.IQService) => {
-
-      const callInvitation: RatelSdk.events.CallInvitation = {
-        call: {
-          id: '123'
-        }
-      } as RatelSdk.events.CallInvitation
-
-      spyOn(ServiceApi, 'getIncomingCallDetailsRoute').and.returnValue($q.resolve({}))
-
-      onCallInvitation(callInvitation)
-
-      $rootScope.$digest()
-
-      expect(ServiceApi.getIncomingCallDetailsRoute).toHaveBeenCalled()
-    }))
 
   })
 })

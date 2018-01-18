@@ -14,7 +14,7 @@ import ValidationAlertModule from '../../../common/components/interface/alert/va
 import inputModule from '../../../common/components/interface/input/input'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/local-storage-wrapper'
-import {Config} from '../../config';
+import {Config} from '../../../../config';
 import {
   RegistrationInvitationService
 }
@@ -40,8 +40,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService,
   this.mailPattern = CommonSettingsService.localSettings.emailPattern
 
   const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
-    /* istanbul ignore next if */
-    if (!this.isPending) {
+        if (!this.isPending) {
       this.isPending = true
       topWaitingLoaderService.immediate()
 

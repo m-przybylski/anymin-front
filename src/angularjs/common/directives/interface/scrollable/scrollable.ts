@@ -1,4 +1,4 @@
-import {Config} from '../../../../app/config';
+import {Config} from '../../../../../config';
 import * as angular from 'angular';
 
 import IRootElementService = angular.IRootElementService

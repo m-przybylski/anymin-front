@@ -8,11 +8,11 @@ import {StreamManager} from '../../../classes/stream-manager';
 import {MessageRoom} from './message-room';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
-import {CommunicatorService} from '../communicator.service'
 import * as _ from 'lodash'
 import {Subject} from 'rxjs'
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
+import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
 
 export enum CallState {
   NEW,

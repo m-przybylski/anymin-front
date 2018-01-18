@@ -1,6 +1,6 @@
 import {AppComponentController} from './app.controller'
 import {StateProvider} from '@uirouter/angularjs'
-import {Config} from './config';
+import {Config} from '../../config';
 
 export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
                                   $stateProvider: StateProvider,

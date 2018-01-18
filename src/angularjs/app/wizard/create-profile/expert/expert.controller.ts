@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
 import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
-import {Config} from '../../../config';
+import {Config} from '../../../../../config';
 import {StateService} from '@uirouter/angularjs'
 
 export class ExpertController implements ng.IController {

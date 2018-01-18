@@ -7,7 +7,7 @@ import {CommonConfig} from '../../../../../generated_modules/common-config/commo
 import {LanguagesService} from '../../../common/services/languages/languages.service'
 import {TranslatorService} from '../../../common/services/translator/translator.service'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
-import {Config} from '../../config';
+import {Config} from '../../../../config';
 import {StateService, StateParams} from '@uirouter/angularjs'
 
 export interface IConsultationStateParams extends StateParams {

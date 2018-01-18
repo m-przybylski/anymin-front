@@ -2,7 +2,7 @@ import {RatelCallDetails} from 'profitelo-api-ng/model/models'
 import {CurrentCall} from '../models/current-call';
 import {ClientCallService} from '../call-services/client-call.service'
 import {ExpertCallService} from '../call-services/expert-call.service'
-import {Config} from '../../../../app/config';
+import {Config} from '../../../../../config';
 import { IFilterService } from '../../../services/filter/filter.service';
 
 export interface INavigationComponentBindings {

@@ -4,7 +4,6 @@ import {PaymentsApi} from 'profitelo-api-ng/api/api'
 import {JValue, DefaultCreditCard, PostPayment} from 'profitelo-api-ng/model/models'
 import * as braintree from 'braintree-web'
 import {IBraintreeFormComponentBindings} from './braintree-form';
-/* istanbul ignore next */
 export class BraintreeFormComponentController implements ng.IController, IBraintreeFormComponentBindings {
 
   public onBraintreeFormLoad: () => void

@@ -7,7 +7,7 @@ import topAlertModule from '../../services/top-alert/top-alert'
 import sessionModule from '../../services/session/session'
 import {TranslatorService} from '../../services/translator/translator.service'
 import translatorModule from '../../services/translator/translator'
-import {Config} from '../../../app/config';
+import {Config} from '../../../../config';
 import {IRootScopeService} from '../../services/root-scope/root-scope.service';
 import {StateService} from '@uirouter/angularjs'
 

@@ -1,7 +1,8 @@
 import * as angular from 'angular'
 
 import {UrlService} from '../../../services/url/url.service'
-import communicatorModule from '../../communicator/communicator'
+import communicatorMockModule from '../../communicator/communicator.mock';
+import userModule from '../../../services/user/user';
 
 interface IWindow {
   Audio: any;
@@ -58,7 +59,8 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     }
 
     beforeEach(() => {
-      angular.mock.module(communicatorModule)
+      angular.mock.module(communicatorMockModule)
+      angular.mock.module(userModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {

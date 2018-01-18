@@ -1,17 +1,15 @@
 import * as angular from 'angular'
 import * as RatelSdk from 'ratel-sdk-js'
 import {GetServiceUsageRequest} from 'profitelo-api-ng/model/models'
-import {ServiceApi, RatelApi, ServiceApiMock} from 'profitelo-api-ng/api/api'
+import {ServiceApi} from 'profitelo-api-ng/api/api'
 import userModule from '../../../services/user/user'
 import communicatorModule from '../communicator'
 
-import {CommunicatorService} from '../communicator.service'
 import {ClientCallService} from './client-call.service'
 
 import {Session} from 'ratel-sdk-js'
 import RtcDetectorModule from '../../../services/rtc-detector/rtc-detector'
-import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
-import {IRootScopeService} from '../../../services/root-scope/root-scope.service';
+import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
 
 interface ICallSound {
   play: () => void,
@@ -156,73 +154,12 @@ describe('Unit testing: profitelo.services.call >', () => {
         $rootScope.$digest()
       }))
 
-    it('should startCall with error and show service unavailable', inject(
-      ($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: CommunicatorService, RatelApi: RatelApi,
-        rtcDetectorService: RtcDetectorService, ServiceApiMock: ServiceApiMock,
-       $httpBackend: ng.IHttpBackendService) => {
-        const serviceId = '1'
-        const err = 'error'
-
-        spyOn(modalsService, 'createServiceUnavailableModal')
-
-        ServiceApiMock.postServiceUsageRequestRoute(500, serviceId)
-
-        communicatorService.getClientSession = (): Session => {
-          return {} as RatelSdk.Session
-        }
-
-        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> =>
-          $q.reject(err)
-
-        rtcDetectorService.getMedia = (): ng.IPromise<MediaStream> =>
-          $q.resolve(<MediaStream>{})
-
-        clientCallService.callServiceId(serviceId).then((res) => {
-            expect(res).toEqual(<any>err)
-        })
-
-        $httpBackend.flush()
-        $rootScope.$digest()
-
-        expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()
-      }))
-
-    it('should create direct call with error and log it', inject(
-      ($q: ng.IQService, $log: ng.ILogService, $rootScope: any,
-       communicatorService: CommunicatorService, ServiceApi: ServiceApi, rtcDetectorService: RtcDetectorService) => {
-        const serviceId = '1'
-        const session = {
-          chat: {
-          }
-        } as RatelSdk.Session
-
-        communicatorService.getClientSession = (): Session => session
-        communicatorService.getClientDeviceId = (): undefined => undefined
-
-        ServiceApi.postServiceUsageRequestRoute = (): ng.IPromise<never> => {
-          return $q.reject(testSUR)
-        }
-
-        rtcDetectorService.getMedia = (): ng.IPromise<MediaStream> => {
-          return $q.resolve(<MediaStream>{})
-        }
-
-        spyOn($log, 'error')
-
-        clientCallService.callServiceId(serviceId)
-
-        $rootScope.$digest()
-
-        expect($log.error).toHaveBeenCalled()
-      }))
-
     it('should startCall', inject(($q: ng.IQService, $rootScope: any,
                                    communicatorService: CommunicatorService, ServiceApi: ServiceApi) => {
       const serviceId = '1'
 
       const session = {
-        chat: {
-        }
+        chat: {}
       } as RatelSdk.Session
 
       communicatorService.getClientSession = (): Session => {

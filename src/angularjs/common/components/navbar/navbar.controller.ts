@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
-import {Config} from '../../../app/config';
+import {Config} from '../../../../config';
 
 export class NavbarComponentController implements INavbarComponentBindings {
   isWindowScrollBottom: boolean = false

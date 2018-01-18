@@ -31,8 +31,7 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
       controller: 'DashboardClientFavouritesController',
       controllerAs: 'vm',
       resolve: {
-        /* istanbul ignore next */
-        clientFavouritesConsultations:
+                clientFavouritesConsultations:
           ['ClientFavouritesResolver',
             (ClientFavouritesResolver: ClientFavouritesResolver): ng.IPromise<GetDashboardClientExperts> =>
               ClientFavouritesResolver.resolve()]

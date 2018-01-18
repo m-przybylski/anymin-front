@@ -43,7 +43,6 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.expert-profile.social-links',
   'commonConfig'
-
 ])
   .config(['$stateProvider', '$qProvider',
     ($stateProvider: StateProvider, $qProvider: ng.IQProvider): void => {
@@ -54,10 +53,10 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
         template: require('./company-profile.html'),
         controller: 'CompanyProfileController',
         resolve: {
-          /* istanbul ignore next */
-          companyProfile: ['CompanyProfileResolver', '$stateParams', (CompanyProfileResolver: CompanyProfileResolver,
-                           $stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> =>
-            CompanyProfileResolver.resolve($stateParams)]
+          companyProfile: ['CompanyProfileResolver', '$stateParams',
+            (CompanyProfileResolver: CompanyProfileResolver,
+             $stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> =>
+              CompanyProfileResolver.resolve($stateParams)]
         }
       })
     }])

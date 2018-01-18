@@ -56,8 +56,7 @@ function _controller($log: ng.ILogService,
   }
 
   const _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void): void => {
-    /* istanbul ignore next if */
-    if (!this.isPending) {
+        if (!this.isPending) {
       this.isPending = true
       this.isServerError = false
       topWaitingLoaderService.immediate()
