@@ -1,13 +1,18 @@
 .input-consultation-tag
 
   .input-handler
-    input(
-      autocomplete="off"
-      data-ng-model="$ctrl.tagModel"
-      data-ng-enter="$ctrl.onEnter()"
-      data-ng-blur="$ctrl.onBlur()"
-      data-ng-focus="$ctrl.onFocus()"
+    .input(
+    data-ng-class="{'is-invalid': !$ctrl.isValid " +
+    "&& !$ctrl.isFocus && $ctrl.validationText && $ctrl.isDirty || !$ctrl.isValid && $ctrl.isSubmitted," +
+    " 'is-focused': $ctrl.isFocus}"
     )
+      input(
+        autocomplete="off"
+        data-ng-model="$ctrl.tagModel"
+        data-ng-enter="$ctrl.onEnter()"
+        data-ng-blur="$ctrl.onBlur()"
+        data-ng-focus="$ctrl.onFocus()"
+      )
     a.btn.add-link(data-ng-click="$ctrl.onEnter()")
       span.icon.icon-plus-24
     a.btn.btn-default.btn-small(
