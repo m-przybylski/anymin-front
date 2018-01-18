@@ -12,10 +12,12 @@
     data-ng-focus="$ctrl.onFocus()"
     data-ng-blur="$ctrl.onBlur()"
     data-ng-change="$ctrl.onDescriptionChange($ctrl.ngModel)"
+    data-value-length="$ctrl.setTextareaValueLength"
+    data-input-value="$ctrl.ngModel"
   )
 
 .input-sign-counter(data-ng-show="$ctrl.maxLength")
-  span.label {{ $ctrl.ngModel.length || 0 }}
+  span.label {{ $ctrl.textareaValueLength || 0 }}
   span.label  / {{ $ctrl.maxLength }} {{:: 'INPUT.CHARACTERS.TITLE'	 | translate }}
 
 validation-alert(

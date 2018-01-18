@@ -21,6 +21,7 @@ export class InputComponentController implements IInputComponentBindings {
   public isFocus: boolean = false
   public isDirty: boolean = false
   public onChangeCallback?: (value: string) => void
+  public inputValueLength: number = 0
 
   static $inject = ['$element'];
 
@@ -54,6 +55,10 @@ export class InputComponentController implements IInputComponentBindings {
   public onInputChange = (value: string): void => {
     if (this.onChangeCallback)
       this.onChangeCallback(value)
+  }
+
+  public setInputValueLength = (inputValueLength: number): void => {
+    this.inputValueLength = inputValueLength
   }
 
   private isCtrlKeyAllowed = (event: JQueryKeyEventObject): boolean => !(event.ctrlKey || event.metaKey)
