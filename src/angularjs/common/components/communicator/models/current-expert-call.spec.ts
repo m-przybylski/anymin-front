@@ -59,7 +59,7 @@ describe('Unit tests: current expert call', () => {
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_
     q = $q
-    currentExpertCall = new CurrentExpertCall(timerFactory, callInvitation.call, incomingCallDetails,
+    currentExpertCall = new CurrentExpertCall(incomingCallDetails, timerFactory, callInvitation.call,
        soundsService, communicatorService, RatelApi, microphoneService)
   })))
 
