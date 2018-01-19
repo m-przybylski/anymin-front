@@ -4,6 +4,7 @@ import { GetSession, AccountLogin } from 'profitelo-api-ng4/model/models';
 import { DefaultQueryEncoder } from '../../../shared/providers/default-query-encoder/default-query-encoder.provider';
 import { getHttpHeadersOrInit, HttpInterceptorService, RequestInterceptor } from 'ng-http-interceptor';
 import { Interceptable } from 'ng-http-interceptor';
+import {EventsService} from '../../../../angularjs/common/services/events/events.service';
 
 @Injectable()
 export class SessionService {
@@ -14,7 +15,15 @@ export class SessionService {
   private readonly unauthorizedCode: number = 401;
 
   constructor(private sessionApi: SessionApi,
+              eventsService: EventsService,
               private httpInterceptor: HttpInterceptorService) {
+    // Fix angularjs login/logout
+    eventsService.on('logout', () => {
+      this.sessionCache = undefined
+    })
+    eventsService.on('remote-session-deleted', () => {
+      this.sessionCache = undefined
+    })
   }
 
   public logout = (): Promise<any> =>

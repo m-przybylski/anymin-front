@@ -91,7 +91,9 @@ export class CommunicatorService {
 
     sessionService.getSession().then(() => this.authenticate().subscribe())
     eventsService.on('login', () => {
-      this.authenticate().subscribe()
+      sessionService.getSession(true).then(() => {
+        this.authenticate().subscribe()
+      })
     })
     eventsService.on('logout', () => {
       if (this.ratelSession) this.ratelSession.chat.disconnect()
