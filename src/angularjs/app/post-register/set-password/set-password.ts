@@ -44,6 +44,7 @@ function _controller($log: ng.ILogService,
   this.isPending = false
   this.alreadyCheck = false
   this.isServerError = false
+  this.phoneNumber = user.msisdn
 
   this.msisdn = {
     number: user.msisdn

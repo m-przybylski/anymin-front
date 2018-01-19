@@ -14,6 +14,7 @@ import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loade
 import inputModule from '../../../common/components/interface/input/input'
 import {StateService, StateProvider} from '@uirouter/angularjs'
 import uiRouter from '@uirouter/angularjs'
+import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 
 type method = 'sms' | 'email'
 
@@ -24,7 +25,8 @@ export interface IForgotPasswordStateParams {
 function ForgotPasswordController($state: StateService, account: ILoginForgotPassword,
                                   RecoverPasswordApi: RecoverPasswordApi,
                                   topWaitingLoaderService: TopWaitingLoaderService,
-                                  CommonSettingsService: CommonSettingsService): void {
+                                  CommonSettingsService: CommonSettingsService,
+                                  loginStateService: LoginStateService): void {
 
   const maxSmsCodeLength: number = 4
   this.isNewCurrentPasswordChange = ''
@@ -32,6 +34,8 @@ function ForgotPasswordController($state: StateService, account: ILoginForgotPas
   this.account = account
   this.smsCode = ''
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
+  this.phoneNumber = loginStateService.getAccountObject().phoneNumber.prefix +
+    loginStateService.getAccountObject().phoneNumber.number
 
   this.forceSmsRecovery = (): void => {
     $state.go('app.login.forgot-password', {method: 'sms'}, {reload: true})
@@ -101,4 +105,4 @@ angular.module('profitelo.controller.login.forgot-password', [
 ])
   .config(['$stateProvider', config])
   .controller('ForgotPasswordController', ['$state', 'account', 'RecoverPasswordApi',
-    'topWaitingLoaderService', 'CommonSettingsService', ForgotPasswordController])
+    'topWaitingLoaderService', 'CommonSettingsService', 'loginStateService', ForgotPasswordController])

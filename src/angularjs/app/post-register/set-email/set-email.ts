@@ -38,6 +38,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService,
   this.email = ''
   this.emailExist = false
   this.mailPattern = CommonSettingsService.localSettings.emailPattern
+  this.phoneNumber = user.msisdn
 
   const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
         if (!this.isPending) {

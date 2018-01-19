@@ -102,6 +102,8 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
       this.isPending = true
       topWaitingLoaderService.immediate()
       loginStateService.setAccountObject(this.account)
+      this.phoneNumber = loginStateService.getAccountObject().phoneNumber.prefix +
+        loginStateService.getAccountObject().phoneNumber.number
       RegistrationApi.checkRegistrationStatusRoute(
         <string>this.account.phoneNumber.prefix + <string>this.account.phoneNumber.number
       ).then((response) => {

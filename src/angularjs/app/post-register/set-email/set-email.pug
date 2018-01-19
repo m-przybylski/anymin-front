@@ -1,3 +1,7 @@
+.phone-number-container
+  span(data-translate="REGISTER.USER_PHONE")
+  span.number {{ vm.phoneNumber }}
+
 form.input-form.set-email(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail()" novalidate)
   input-primary(
   data-type="text"
