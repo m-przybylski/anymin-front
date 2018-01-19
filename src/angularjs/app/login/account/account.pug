@@ -30,6 +30,11 @@
   name="passwordForm"
   data-ng-submit="passwordForm.$valid && vm.login()"
   novalidate)
+
+    .phone-number-container
+      span(data-translate="REGISTER.USER_PHONE")
+      span.number {{ vm.phoneNumber }}
+
     input.hidden-input(data-ng-model="vm.account.phoneNumber.number" type="text" name="phone-number" tabindex="-1")
     input-password(
     data-id="password"
@@ -45,6 +50,6 @@
     .btn-handler.flex-row.login-handler
       button.btn.btn-default(type="submit" data-translate="LOGIN.NEXT")
       button.btn.btn-primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
-      
+
   .forgot-password
-    a(data-ui-sref="app.login.forgot-password" data-translate="LOGIN.FORGOT_PASSWORD")
+    a(data-ui-sref="app.login.forgot-password({method: 'sms'})" data-translate="LOGIN.FORGOT_PASSWORD")

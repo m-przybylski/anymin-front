@@ -2,6 +2,11 @@
   form.input-form(name="smsCodeForm"
   data-ng-submit="smsCodeForm.$valid && vm.getSmsCodeStatus() && vm.areRulesAccepted"
   novalidate)
+
+    .phone-number-container
+      span(data-translate="REGISTER.USER_PHONE")
+      span.number {{ vm.phoneNumber }}
+
     input-primary(
     data-type="tel"
     data-id="smsCode"

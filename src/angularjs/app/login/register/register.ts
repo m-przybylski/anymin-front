@@ -48,6 +48,8 @@ function RegisterController($log: ng.ILogService,
   this.correctCode = false
   this.areRulesAccepted = false
   this.isRequired = true
+  this.phoneNumber = loginStateService.getAccountObject().phoneNumber.prefix +
+    loginStateService.getAccountObject().phoneNumber.number
   let userid = ''
 
   this.registrationSteps = {
