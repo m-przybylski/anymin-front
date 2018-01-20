@@ -1,5 +1,9 @@
 export class Config {
 
+  public static readonly http = {
+    apiHeader: 'X-Api-Key'
+  }
+
   public static readonly ratel = {
     reconnectInterval: 5000
   }
