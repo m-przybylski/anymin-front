@@ -12,6 +12,7 @@ const invitationsModalModule = angular.module('profitelo.components.invitations.
   'ui.bootstrap',
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.scrollable',
+  'pascalprecht.translate',
   userAvatarModule,
   userModule,
   consultationListItemModule,

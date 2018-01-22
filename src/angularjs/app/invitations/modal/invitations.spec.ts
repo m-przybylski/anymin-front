@@ -14,6 +14,8 @@ import navbarNotificationsModule from '../../../common/components/navbar/navbar-
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
 import {GetInvitation} from 'profitelo-api-ng/model/GetInvitation'
 import {Tag} from 'profitelo-api-ng/model/Tag'
+import {TranslatorService} from "../../../common/services/translator/translator.service";
+
 
 describe('Testing Controller: InvitationsModal', () => {
 
@@ -35,19 +37,25 @@ describe('Testing Controller: InvitationsModal', () => {
     }
   }
 
+  beforeEach(() => {
+    angular.mock.module(invitationsModalModule)
+    angular.mock.module(navbarNotificationsModule)
+    angular.mock.module('pascalprecht.translate')
+  })
+
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
     $provide.value('InvitationApi', InvitationApi)
     $provide.value('ProfileApi', ProfileApi)
     $provide.value('navbarNotificationsServiceProvider', NavbarNotificationsService)
-
+    $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
+    $provide.value('translateFilter', (x: string) => x)
   }))
 
   beforeEach(() => {
-    angular.mock.module(invitationsModalModule)
-    angular.mock.module(navbarNotificationsModule)
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
-            InvitationApi: InvitationApi, _$q_: IQService, ProfileApi: ProfileApi) => {
+            InvitationApi: InvitationApi, _$q_: IQService, ProfileApi: ProfileApi,
+            translatorService: TranslatorService) => {
 
       scope = <IInvitationsModalScope>$rootScope.$new()
       scope.profileWithServicesInvitations = <GetProfileWithServicesInvitations>{
@@ -60,7 +68,9 @@ describe('Testing Controller: InvitationsModal', () => {
         httpBackend: _$httpBackend_,
         $state : state,
         InvitationApi,
-        ProfileApi
+        ProfileApi,
+        translatorService,
+        topAlertService: {}
       })
     })
   })

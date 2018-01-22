@@ -15,6 +15,8 @@ import {
   NavbarNotificationsService
 } from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service'
 import {StateService} from '@uirouter/angularjs'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {TranslatorService} from '../../../common/services/translator/translator.service'
 
 export class SummaryController implements ng.IController {
 
@@ -29,15 +31,17 @@ export class SummaryController implements ng.IController {
   public isConsultationInvitationAccepted: boolean = false
   public acceptedServices: GetServiceWithInvitation[]
 
-  static $inject = ['$state', 'errorHandler', 'WizardApi', 'wizardProfile', 'userService', 'InvitationApi', '$q',
-    'navbarNotificationsService', '$log'];
+  static $inject = ['$state', 'errorHandler', 'WizardApi', 'topAlertService', 'wizardProfile', 'userService',
+    'InvitationApi', '$filter', '$q', 'navbarNotificationsService', '$log'];
 
   constructor(private $state: StateService,
               private errorHandler: ErrorHandlerService,
               private WizardApi: WizardApi,
+              private topAlertService: TopAlertService,
               private wizardProfile: GetWizardProfile,
               private userService: UserService,
               private InvitationApi: InvitationApi,
+              private translatorService: TranslatorService,
               private $q: ng.IQService,
               private navbarNotificationsService: NavbarNotificationsService,
               private $log: ng.ILogService) {
@@ -145,6 +149,10 @@ export class SummaryController implements ng.IController {
 
   private clearInvitationFromLocalStorage = (): void => {
     LocalStorageWrapper.removeItem('accepted-consultations')
+    this.topAlertService.success({
+      message: this.translatorService.translate('INVITATIONS.ACCEPTED'),
+      timeout: 4
+    })
   }
 
   private setInvitationsServices = (): void => {
