@@ -21,7 +21,7 @@ class ValueLength implements ng.IDirective<ng.IScope> {
   public link = (scope: IValueLengthScope,
                  element: ng.IRootElementService): void => {
 
-    if (typeof scope.inputValue !== 'undefined')
+    if (scope.inputValue)
       scope.valueLength(scope.inputValue.length)
 
     element.bind('input', () => {
