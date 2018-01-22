@@ -103,11 +103,11 @@ export class CommunicatorService {
   private reconnectRatelConnection = (): Subscription =>
     this.authenticate()
       .subscribe(() => {
+        this.reconnectInterval && window.clearInterval(this.reconnectInterval);
         this.events.onReconnect.next()
         if (this.ratelSession) {
           this.ratelSession.chat.getActiveCalls()
             .then((response) => {
-              this.reconnectInterval && window.clearInterval(this.reconnectInterval);
               this.events.onActiveCall.next(response)
             }, Logger.error)
         }
