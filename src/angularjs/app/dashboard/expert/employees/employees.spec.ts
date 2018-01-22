@@ -125,7 +125,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
         usageDurationInSeconds: 123,
         language: 'pl',
         isSuspended: false,
-        createdAt: 123
+        createdAt: new Date(123)
       }])
       serviceApiMock.postServiceInvitationsRoute(httpCodes.ok, [{
         service: {
@@ -142,7 +142,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           usageDurationInSeconds: 123,
           language: 'pl',
           isSuspended: false,
-          createdAt: 123
+          createdAt: new Date(123)
         },
         invitations: [{
           id: 'invitationId',
@@ -230,7 +230,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
         usageDurationInSeconds: 123,
         language: 'pl',
         isSuspended: false,
-        createdAt: 123
+        createdAt: new Date(123)
       }])
       employmentApiMock.getEmployeesRoute(200)
       dashboardExpertEmployeesController.$onInit()
@@ -257,7 +257,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
         usageDurationInSeconds: 123,
         language: 'pl',
         isSuspended: false,
-        createdAt: 123
+        createdAt: new Date(123)
       }])
       serviceApiMock.postServiceInvitationsRoute(httpCodes.ok, [{
         service: {
@@ -274,7 +274,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           usageDurationInSeconds: 123,
           language: 'pl',
           isSuspended: false,
-          createdAt: 123
+          createdAt: new Date(123)
         },
         invitations: [{
           id: 'invitationId',

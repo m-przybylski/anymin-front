@@ -72,7 +72,7 @@ describe('Testing Controller: expertInviteEmployeesController', () => {
       usageDurationInSeconds: 123,
       language: 'pl',
       isSuspended: false,
-      createdAt: 123,
+      createdAt: new Date(123),
     }
     expertInviteEmployeesController.onSelectedServices(service, false)
     expertInviteEmployeesController.onSelectedServices(service, true)

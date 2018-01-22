@@ -142,7 +142,7 @@ describe('Testing Controller: SummaryController', () => {
         usageCounter: 123,
         usageDurationInSeconds: 123,
         isSuspended: false,
-        createdAt: 123
+        createdAt: new Date(123)
       }]
     }
     spyOn(userService, 'getUser').and.callFake(() => q.resolve({}))

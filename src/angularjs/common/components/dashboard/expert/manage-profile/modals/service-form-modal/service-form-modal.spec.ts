@@ -98,7 +98,7 @@ describe('Testing Controller: ServiceFormModalController', () => {
         usageDurationInSeconds: 123,
         language: 'pl',
         isSuspended: false,
-        createdAt: 123
+        createdAt: new Date(123)
       },
       ownerProfile: {
         id: 'id',

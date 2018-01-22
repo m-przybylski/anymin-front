@@ -5,7 +5,7 @@ function filter($log: ng.ILogService): (uuid: string) => string {
     if (uuid) {
       return trimUUID(uuid)
     } else {
-      $log.error('Provided UUID is undefined')
+      $log.debug('Provided UUID is undefined')
       return ''
     }
   }
