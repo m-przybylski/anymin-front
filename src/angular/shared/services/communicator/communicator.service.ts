@@ -1,18 +1,17 @@
 import {Injectable} from '@angular/core';
-import {RatelApi} from 'profitelo-api-ng4/api/api'
-import {SignedAgent} from 'profitelo-api-ng4/model/models'
+import {RatelService, SignedAgent} from '@anymind-ng/api';
 import * as RatelSdk from 'ratel-sdk-js'
 import {CommonConfig, Settings} from '../../../../../generated_modules/common-config/common-config'
 import {Call} from 'ratel-sdk-js/dist/call'
 import {Subject} from 'rxjs/Subject'
 import {Observable} from 'rxjs'
-import {catchError} from 'rxjs/operators'
+import {catchError, mergeMap} from 'rxjs/operators'
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable'
 import {Subscription} from 'rxjs/Subscription'
 import {Logger} from '../../static/logger/logger';
 import {EventsService} from '../../../../angularjs/common/services/events/events.service';
-import {SessionService} from '../../../core/services/session/session.service';
 import {Config} from '../../../../config';
+import {UserSessionService} from '../../../core/services/user-session/user-session.service';
 
 @Injectable()
 export class CommunicatorService {
@@ -82,16 +81,16 @@ export class CommunicatorService {
     chat.connect()
   }
 
-  constructor(private ratelApi: RatelApi,
-              sessionService: SessionService,
+  constructor(private ratelService: RatelService,
+              userSessionService: UserSessionService,
               eventsService: EventsService) {
 
     this.commonConfig = CommonConfig.settings;
     this.setChatConfig()
 
-    sessionService.getSession().then(() => this.authenticate().subscribe())
+    userSessionService.getSession().then(() => this.authenticate().subscribe())
     eventsService.on('login', () => {
-      sessionService.getSession(true).then(() => {
+      userSessionService.getSession(true).then(() => {
         this.authenticate().subscribe()
       })
     })
@@ -145,7 +144,7 @@ export class CommunicatorService {
     this.ratelSession = session;
 
     this.createRatelConnection(session)
-    this.ratelApi.postBriefcaseUserConfigRoute({id: session.id})
+    this.ratelService.postBriefcaseUserConfigRoute({id: session.id})
       .subscribe(
         () => Logger.debug('Client session created', session),
         () => Logger.error('Post Briefcase User Config failed')
@@ -156,7 +155,7 @@ export class CommunicatorService {
     RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig).then(this.onCreateClientSession)
 
   private authenticateClient = (): Observable<void> =>
-    this.ratelApi.getRatelAuthConfigRoute().flatMap(this.onGetRatelClientAuthConfig)
+    this.ratelService.getRatelAuthConfigRoute().pipe(mergeMap(this.onGetRatelClientAuthConfig))
 
   private onAuthenticateError = (err: any): ErrorObservable => {
     Logger.error(err)

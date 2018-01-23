@@ -19,9 +19,7 @@
     "polyfills.ts",
     "main.ts",
     "../node_modules/profitelo-api-ng/api.module.ts",
-    "../node_modules/profitelo-api-ng/api/api.ts",
-    "../node_modules/profitelo-api-ng4/variables.ts",
-    "../node_modules/profitelo-api-ng4/api/api.ts"
+    "../node_modules/profitelo-api-ng/api/api.ts"
   ],
   "exclude": [
     "test.ts",
