@@ -42,6 +42,7 @@
 
   label
     +inputLabel
+    z-index: $z-index-200
 
   &.is-focused
     &::after
@@ -53,7 +54,7 @@
       animation: inputBorderLineAnimationError 0.3s
       animation-fill-mode: forwards
 
-    input
+    textarea
       color: $c-error
 
 .input-sign-counter

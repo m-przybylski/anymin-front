@@ -29,8 +29,6 @@
           )
 
         .modal-section
-          header.section-title
-            p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.TITLE")
           textarea-primary(
           data-ng-model="vm.consultationDescription"
           data-id="consultationDescription"
@@ -38,6 +36,7 @@
           data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.VALIDATION_TEXT"
           data-max-length="{{ vm.consultationDescriptionMaxLength }}"
           data-is-submitted="vm.isSubmitted"
+          data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_DESCRIPTION.TITLE"
           )
 
         .modal-section

@@ -2,69 +2,73 @@
 @import "../../../template/profitelo_theme/stylesheets/core/core"
 
 .consultation
-	min-height: 100vh
-	padding: calc(50vh - 148px) 0 50vh 0
-	text-align: left
+  min-height: 100vh
+  padding: calc(50vh - 148px) 0 50vh 0
+  text-align: left
 
-	.dropdown-input
-		.dropdown-content
-			z-index: $z-index-1000
-			max-height: 164px
-			animation: dropdown-collapsing-wizard 0.3s
+  .dropdown-input
+    .dropdown-content
+      z-index: $z-index-1000
+      max-height: 164px
+      animation: dropdown-collapsing-wizard 0.3s
 
-	.hint
-		display: flex
-		align-items: center
+  .hint
+    display: flex
+    align-items: center
 
-		> p
-			+paragraphTitle
+    > p
+      +paragraphTitle
 
-	.input-price
-		position: relative
-		background: none
+  .input-price
+    position: relative
+    background: none
 
-		&::before, &::after
-			content: none
+    &::before, &::after
+      content: none
 
-		input
-			&::placeholder
-				font-size: $f-input-big
+    input
+      &::placeholder
+        font-size: $f-input-big
 
-		.price-mock
-			display: flex
-			align-items: flex-end
-			height: $s-input-height-container
-			position: absolute
-			left: 0
-			top: 0
+    .price-mock
+      display: flex
+      align-items: flex-end
+      height: $s-input-height-container
+      position: absolute
+      left: 0
+      top: 0
 
-		input
-			height: $s-input-height-container
-			background: none
+    input
+      height: $s-input-height-container
+      background: none
 
-			&::-webkit-input-placeholder
-				line-height: normal
+      &::-webkit-input-placeholder
+        line-height: normal
 
-			&::-moz-placeholder
-				line-height: $s-input-height-container
+      &::-moz-placeholder
+        line-height: $s-input-height-container
 
-			&:-ms-input-placeholder
-				line-height: $s-input-height-container
+      &:-ms-input-placeholder
+        line-height: $s-input-height-container
 
-			&:-moz-placeholder
-				line-height: $s-input-height-container
+      &:-moz-placeholder
+        line-height: $s-input-height-container
 
-		p
-			line-height: 48px
-			color: $c-white
+    p
+      line-height: 48px
+      color: $c-white
 
-			&.price-placeholder
-				font-size: $f-input-big
+      &.price-placeholder
+        font-size: $f-input-big
 
-				span
-					line-height: 48px
+        span
+          line-height: 48px
 
-					&.currency
-						margin: 0 0 0 4px
-						color: $c-secondary-txt
+          &.currency
+            margin: 0 0 0 4px
+            color: $c-secondary-txt
 
+  .input-consultation-tag
+    .input-wrapper
+      &::after, &::before
+        content: none
