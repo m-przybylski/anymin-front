@@ -111,5 +111,7 @@ function proCalendar(): IDirective<ng.IScope> {
   }
 }
 
-angular.module('profitelo.directives.interface.pro-calendar', [])
+angular.module('profitelo.directives.interface.pro-calendar', [
+  'ui.bootstrap'
+])
   .directive('proCalendar', [proCalendar])

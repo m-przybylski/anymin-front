@@ -9,6 +9,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
   public activity: GetActivity
   public imageUrl: string | null
   public isCompany: boolean
+  public activityDate: Date
   static $inject = ['modalsService', '$log', 'userService'];
 
     constructor(private modalsService: ModalsService, private $log: ng.ILogService, private userService: UserService) {
@@ -21,6 +22,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
   }
 
   $onInit(): void {
+    this.activityDate = this.activity.initializedAt
     this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION
   }
 

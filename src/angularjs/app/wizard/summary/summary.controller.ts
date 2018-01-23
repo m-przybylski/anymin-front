@@ -1,7 +1,7 @@
 import {
   GetWizardProfile,
   PartialExpertDetails,
-  WizardService,
+  GetWizardService,
   GetServiceWithInvitation,
   PartialOrganizationDetails
 } from 'profitelo-api-ng/model/models'
@@ -23,7 +23,7 @@ export class SummaryController implements ng.IController {
   public isExpertWizardPath: boolean
   public wizardProfileData?: PartialExpertDetails | PartialOrganizationDetails
   public isConsultation: boolean = false
-  public services?: WizardService[]
+  public services?: GetWizardService[]
   public isUserShouldCreateExpert: boolean = false
   public isCompanyWithExpert: boolean = false
   public wizardExpertProfileData?: PartialExpertDetails
@@ -106,7 +106,7 @@ export class SummaryController implements ng.IController {
     this.$state.go('app.wizard.create-profile.expert')
   }
 
-  public removeConsultation = (serviceToDelete: WizardService): void => {
+  public removeConsultation = (serviceToDelete: GetWizardService): void => {
     if (this.wizardProfile && this.services) {
       _.remove(this.services, (service) => serviceToDelete === service)
       this.wizardProfile.services = this.services
@@ -117,7 +117,7 @@ export class SummaryController implements ng.IController {
     }
   }
 
-  public editConsultation = (service: WizardService): void => {
+  public editConsultation = (service: GetWizardService): void => {
     this.$state.go('app.wizard.consultation', {
       service
     })
