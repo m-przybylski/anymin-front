@@ -103,7 +103,7 @@ export class DashboardExpertActivitiesController {
         }
         this.areFilteredResults = getActivities.count > 0
         this.areMoreResults = getActivities.count > getActivities.activities.length
-      })
+    })
   }
 
   private getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => {

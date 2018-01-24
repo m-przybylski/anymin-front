@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.directives.interface.pro-calendar', () => {
     const validHTML = '<pro-calendar></pro-calendar>'
 
     beforeEach(() => {
-
+      angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.directives.interface.pro-calendar')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
@@ -19,6 +19,10 @@ describe('Unit testing: profitelo.directives.interface.pro-calendar', () => {
         compile = $compile
       })
     })
+
+    beforeEach(inject(($httpBackend: ng.IHttpBackendService) => {
+      $httpBackend.when('GET', '/assets/html/calendar/popup.html').respond(false);
+    }))
 
     function create(html: string): JQuery {
       scope = rootScope.$new()

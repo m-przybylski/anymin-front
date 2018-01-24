@@ -59,7 +59,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
           accountId: 'id',
           activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
           accountType: GetActivity.AccountTypeEnum.CLIENT,
-          createdAt: new Date()
+          initializedAt: new Date()
       }]
       spyOn(promiseService, 'setMinimalDelay').and.callThrough()
       spyOn(dashboardActivitiesService, 'getDashboardActivities').and.returnValue({
@@ -67,7 +67,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
           accountId: 'id',
           activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
           accountType: GetActivity.AccountTypeEnum.CLIENT,
-          createdAt: new Date()
+          initializedAt: new Date()
         }],
         count: 1
       })

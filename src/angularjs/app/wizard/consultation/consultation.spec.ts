@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {GetWizardProfile, WizardService} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, GetWizardService} from 'profitelo-api-ng/model/models'
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import {ConsultationController, IConsultationStateParams} from './consultation.controller'
 import consultaionWizardModule from './consultation'
@@ -38,7 +38,7 @@ describe('Testing Controller: ConsultationController', () => {
       }
     }
   }
-  const serviceMock: WizardService = {
+  const serviceMock: GetWizardService = {
     name: 'Edit Consultation',
     price: {
       amount: 2423,

@@ -7,8 +7,8 @@
 
         .last-activity-about
           .last-activity-date
-            span  {{:: $ctrl.activity.serviceUsageDetails.createdAt | date : 'EEE d.MM.y'}}
-          status(data-complaint=":: $ctrl.activity.complaint" data-ng-show="::$ctrl.activity.complaint")
+            span  {{:: $ctrl.activity.initializedAt | date : 'EEE d.MM.y'}}
+          status(data-complaint=":: $ctrl.activityDate" data-ng-show="::$ctrl.activity.complaint")
 
       .last-activity-description
         h3 {{:: $ctrl.activity.serviceName }}

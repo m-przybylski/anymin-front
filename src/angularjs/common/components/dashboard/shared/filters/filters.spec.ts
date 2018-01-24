@@ -54,6 +54,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       angular.mock.module(dashboardFiltersModule)
       angular.mock.module(userService)
       angular.mock.module(dashboardActivitiesModule)
+      angular.mock.module( 'profitelo.directives.interface.pro-calendar')
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -61,7 +62,8 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 
-    beforeEach(inject(($q: ng.IQService) => {
+    beforeEach(inject(($q: ng.IQService, $httpBackend: ng.IHttpBackendService) => {
+      $httpBackend.when('GET', '/assets/html/calendar/popup.html').respond(false);
       spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))
     }))
 
@@ -78,8 +80,8 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
 
       injectors = {
         $element: create(validHTML),
-        userService: userService,
-        dashboardActivitiesService: dashboardActivitiesService
+        userService,
+        dashboardActivitiesService
       }
       const bindings = {
         filters: filtersMock,

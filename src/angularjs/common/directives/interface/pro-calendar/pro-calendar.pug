@@ -1,12 +1,22 @@
 .calendar-container.input
   .input-group(data-ng-click='open1()')
     label.label-text {{label}}
-    input(type='text' uib-datepicker-popup='{{format}}'
-    data-ng-model='ngModel')
+    input(
+    type='text'
+    data-uib-datepicker-popup='{{format}}'
+    data-ng-model='ngModel'
+    )
 
-  input(type='text' uib-datepicker-popup='{{format}}'
-  data-ng-model='ngModel' is-open='popup1.opened' datepicker-options='dateOptions'
-  datepicker-popup-template-url="/assets/html/calendar/popup.html"
-  datepicker-template-url="/assets/html/calendar/datepicker.html"
-  data-ng-required='true' close-text='Close' alt-input-formats='altInputFormats'
-  popup-placement="" class="calendar-input")
+  input.calendar-input(
+    type='text'
+    data-ng-model='ngModel'
+    data-uib-datepicker-options='dateOptions'
+    data-is-open='popup1.opened'
+    data-close-text='Close'
+    data-uib-datepicker-popup='{{format}}'
+    data-ng-required='true'
+    data-on-open-focus='false'
+    data-alt-input-formats='altInputFormats'
+    data-datepicker-popup-template-url="/assets/html/calendar/popup.html"
+    data-datepicker-template-url="/assets/html/calendar/datepicker.html"
+  )

@@ -46,7 +46,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           expertAvatar: 'expertAvatar',
           expertName: 'expertName',
           serviceUsageEventId: 'serviceUsageEventId',
-          createdAt: new Date()
         },
         financialOperation: {
           id: 'id',
@@ -57,7 +56,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           type: 'type'
         },
           accountType: GetActivity.AccountTypeEnum.CLIENT,
-          createdAt: new Date()
+          initializedAt: new Date()
       }
       spyOn(modalsService, 'createExpertSUEActivityDetailsModal')
       component.openActivityDescription()
@@ -79,7 +78,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           expertAvatar: 'expertAvatar',
           expertName: 'expertName',
           serviceUsageEventId: '',
-          createdAt: new Date()
         },
         financialOperation: {
           id: 'id',
@@ -90,7 +88,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           type: 'type'
         },
         accountType: GetActivity.AccountTypeEnum.CLIENT,
-        createdAt: new Date()
+        initializedAt: new Date()
       }
       spyOn($log, 'error')
       component.openActivityDescription()

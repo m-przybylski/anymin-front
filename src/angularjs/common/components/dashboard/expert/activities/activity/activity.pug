@@ -7,7 +7,7 @@
 
         .last-activity-about
           .last-activity-date
-            span  {{:: $ctrl.activity.serviceUsageDetails.createdAt| date : 'EEE d.MM.y'}}
+            span  {{:: $ctrl.activityDate | date : 'EEE d.MM.y'}}
 
       .last-activity-description
         span {{:: $ctrl.activity.serviceName }}

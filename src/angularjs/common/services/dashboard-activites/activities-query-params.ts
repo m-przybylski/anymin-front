@@ -20,7 +20,7 @@ export class ActivitiesQueryParams {
   public getServiceId = (): string | undefined => this.serviceId
   public getAccountType = (): FinancialOperation.AccountTypeEnum => this.accountType
   public getDateFrom = (): string | undefined => this.dateFrom
-  public getDateTo= (): string | undefined => this.dateTo
+  public getDateTo = (): string | undefined => this.dateTo
   public getLimit = (): string | undefined => this.limit
   public getOffset = (): string | undefined => this.offset
 
@@ -51,8 +51,13 @@ export class ActivitiesQueryParams {
   }
 
   public setDateFrom = (value?: string): void => {
-    if (value !== this.dateFrom) {
-      this.dateFrom = value
+    const hour: number = 0
+    const minutes: number = 0
+    const seconds: number = 0
+
+    if (value) {
+      const timestamp = new Date(value).setHours(hour, minutes, seconds)
+      this.dateFrom = timestamp.toString()
     }
   }
 
@@ -60,14 +65,10 @@ export class ActivitiesQueryParams {
     const hour: number = 23
     const minutes: number = 59
     const seconds: number = 59
-    const miliseconds: number = 999
-    if (value !== this.dateTo) {
-      if (value) {
-        // TODO It will not working with time zones
-        this.dateTo = String(new Date(value).setHours(hour, minutes, seconds, miliseconds))
-      } else {
-        this.dateTo = value
-      }
+
+    if (value) {
+      const timestamp = new Date(value).setHours(hour, minutes, seconds)
+      this.dateTo = timestamp.toString()
     }
   }
 

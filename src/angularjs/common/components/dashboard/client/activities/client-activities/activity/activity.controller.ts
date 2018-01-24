@@ -7,13 +7,14 @@ export class ClientActivityComponentController implements ng.IController, IClien
   public activity: GetActivity
   public isCallActivity: boolean
   public imageToken?: string
-
+  public activityDate: Date
   static $inject = ['modalsService', '$log'];
 
     constructor(private modalsService: ModalsService, private $log: ng.ILogService) {
   }
 
   $onInit(): void {
+    this.activityDate = this.activity.initializedAt
     if (this.activity.serviceUsageDetails) this.imageToken = this.activity.serviceUsageDetails.expertAvatar
   }
 

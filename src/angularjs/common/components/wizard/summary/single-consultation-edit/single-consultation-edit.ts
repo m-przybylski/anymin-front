@@ -1,13 +1,13 @@
 import * as angular from 'angular'
 import {SingleConsultationEditComponent} from './single-consultation-edit.component'
 import tagsListModule from '../../../tags-list/tags-list'
-import {WizardService} from 'profitelo-api-ng/model/models'
+import {GetWizardService} from 'profitelo-api-ng/model/models'
 import translatorWrapperModule, {default as translatorModule} from '../../../../services/translator/translator'
 
 export interface ISingleConsultationEditComponentBindings extends ng.IController {
-  service: WizardService
-  onEdit: (service: WizardService) => void
-  onRemove: (service: WizardService) => void
+  service: GetWizardService
+  onEdit: (service: GetWizardService) => void
+  onRemove: (service: GetWizardService) => void
   isCompany: boolean
 }
 

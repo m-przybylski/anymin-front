@@ -25,7 +25,7 @@ function controller($scope: IClientChargeDetailsControllerScope, $state: StateSe
 
   if ($scope.$parent.financeActivityDetails.financialOperation) {
     $scope.operation = $scope.$parent.financeActivityDetails.financialOperation.operation
-    $scope.createdAt = $scope.$parent.financeActivityDetails.createdAt
+    $scope.createdAt = $scope.$parent.financeActivityDetails.initializedAt
     $scope.financialOperationId = $scope.$parent.financeActivityDetails.financialOperation.id
     // TODO Wait for backend: https://git.contactis.pl/itelo/profitelo/issues/993
     // $scope.paymentSystemName = $scope.$parent.financeActivityDetails.financialOperation.paymentSystemName

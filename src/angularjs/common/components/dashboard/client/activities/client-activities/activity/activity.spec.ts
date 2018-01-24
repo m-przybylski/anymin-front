@@ -76,7 +76,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
           expertAvatar: 'avatar',
           expertName: 'name',
           serviceUsageEventId: '',
-          createdAt: Date
+          initializedAt: Date
         }
       }
       component.openActivityDescription()
@@ -91,8 +91,8 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
           expertAvatar: 'avatar',
           expertName: 'name',
           serviceUsageEventId: 'sueId',
-          createdAt: Date
-        }
+        },
+        initializedAt: Date
       }
       component.openActivityDescription()
       expect(modalsService.createClientSUEActivityDetailsModal).toHaveBeenCalledWith('sueId')

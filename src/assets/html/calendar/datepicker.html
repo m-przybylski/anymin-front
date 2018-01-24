@@ -1,5 +1,5 @@
-<div class="uib-datepicker" ng-switch="datepickerMode" role="application" ng-keydown="keydown($event)">
-  <uib-daypicker ng-switch-when="day" tabindex="0" template-url="/assets/html/calendar/day.html"></uib-daypicker>
-  <uib-monthpicker ng-switch-when="month" tabindex="0" template-url="/assets/html/calendar/month.html"></uib-monthpicker>
-  <uib-yearpicker ng-switch-when="year" tabindex="0" template-url="/assets/html/calendar/year.html"></uib-yearpicker>
+<div ng-switch="datepickerMode">
+  <div uib-daypicker template-url="/assets/html/calendar/day.html" ng-switch-when="day"  tabindex="0" class="uib-daypicker"></div>
+  <div uib-monthpicker template-url="/assets/html/calendar/month.html" ng-switch-when="month" tabindex="0" class="uib-monthpicker"></div>
+  <div uib-yearpicker template-url="/assets/html/calendar/year.html" ng-switch-when="year" tabindex="0" class="uib-yearpicker"></div>
 </div>

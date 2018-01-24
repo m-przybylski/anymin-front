@@ -24,7 +24,8 @@ const dashboardFiltersModule = angular.module('profitelo.components.dashboard.ex
   dashboardActivitiesModule,
   userModule,
   apiModule,
-  translatorModule
+  translatorModule,
+  'profitelo.directives.interface.pro-calendar'
 ])
   .component('dashboardFilters', new DashboardFiltersComponent())
   .name

@@ -1,5 +1,5 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
-import {GetWizardProfile, MoneyDto, WizardService, WizardTag} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, MoneyDto, GetWizardService, WizardTag} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../common/services/user/user.service'
 import {IServiceInvitation} from '../../../common/models/ServiceInvitation'
 import * as _ from 'lodash'
@@ -11,7 +11,7 @@ import {Config} from '../../../../config';
 import {StateService, StateParams} from '@uirouter/angularjs'
 
 export interface IConsultationStateParams extends StateParams {
-  service: WizardService
+  service: GetWizardService
 }
 
 interface ILanguagesList {
@@ -151,7 +151,7 @@ export class ConsultationController implements ng.IController {
           })
         }
       })
-      const serviceModel: WizardService = {
+      const serviceModel: GetWizardService = {
         tags,
         invitations,
         language: this.languageInputValue.value,
