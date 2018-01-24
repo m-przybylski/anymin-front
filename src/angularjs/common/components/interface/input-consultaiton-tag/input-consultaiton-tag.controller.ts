@@ -90,6 +90,10 @@ export class InputConsultationTagComponentController implements IInputConsultati
     })
   }
 
+  public onChange = (): void => {
+      this.isInputValueInvalid = false
+  }
+
   private updateSuggestedTags = (): void => {
     const tagsQuery = {
       description: this.serviceDescription,

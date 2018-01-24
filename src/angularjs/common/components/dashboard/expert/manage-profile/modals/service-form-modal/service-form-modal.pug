@@ -59,9 +59,10 @@
           data-ng-model="vm.consultationPrice"
           data-id="priceModel"
           data-is-submitted="vm.isSubmitted"
-          data-is-valid="vm.isRegExpPriceValid"
+          data-on-pattern-validation="vm.isRegExpPriceValid"
           data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
           data-input-value-callback="vm.onPriceChange"
+          data-is-valid="vm.isPriceValid()"
           )
           .hint(data-ng-if="!vm.isPlatformForExpert")
             p(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.SUGGESTED_PRICE")

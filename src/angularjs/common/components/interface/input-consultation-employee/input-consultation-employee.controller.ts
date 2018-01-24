@@ -35,6 +35,11 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     this.assignValidationValues()
   }
 
+  public onChange = (): void => {
+    this.isValidEmployee = false
+    this.isInputValueInvalid = false
+  }
+
   private getPrefixPhoneNumber = (phoneNumber: string): string => {
     if (phoneNumber.indexOf(InputConsultationEmployeeComponentController.defaultCountryPrefix) !== -1) {
       return phoneNumber.replace(InputConsultationEmployeeComponentController.defaultCountryPrefix,

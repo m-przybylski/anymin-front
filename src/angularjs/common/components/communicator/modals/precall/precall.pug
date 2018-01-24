@@ -21,7 +21,7 @@ x.modal-summary.precall
             span(data-translate="COMMUNICATOR.MODALS.PRECALL.COST_PER_MIN")
             span(data-ng-bind-html="vm.servicePrice | money")
 
-      .modal-container
+      form.modal-container
         .precall-input-handler.input-handler
           .icon-section
             .icon.icon-payment-card
@@ -59,8 +59,10 @@ x.modal-summary.precall
                 data-placeholder="{{ 'COMMUNICATOR.MODALS.PRECALL.PRICE.PLACEHOLDER' | translate }}"
                 data-input-text="COMMUNICATOR.MODALS.PRECALL.INPUT_PRICE.LABEL"
                 data-input-value-callback="vm.onPriceChange"
-                data-is-valid="vm.isRegexpPriceValid"
+                data-on-pattern-validation="vm.isRegexpPriceValid"
                 data-is-disabled="vm.prepaidCallLimitModel === 0 && vm.isPrepaid"
+                data-is-valid="vm.isRegExpPriceInputValid && vm.isPriceInputValid && " +
+                "(vm.isPrepaid && vm.isInputValueGreaterThanAccountBalance)"
               )
 
               validation-alert(
@@ -89,10 +91,12 @@ x.modal-summary.precall
             voice-volume-bar(data-stream="vm.mediaStream")
 
         .modal-action
-          a.btn.btn-progress.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isRegExpPriceInputValid || " +
+          button.btn.btn-progress.btn-success.icon-left(data-ng-disabled="!vm.isRegExpPriceInputValid || " +
             "!vm.isPriceInputValid || !vm.isInputValueGreaterThanAccountBalance ||" +
-            "vm.isPrepaid && !vm.isBalanceEnoughForMinimalCallTime, 'to-circle': vm.isButtonProgress }"
-            data-ng-click="vm.startCall()")
+            "vm.isPrepaid && !vm.isBalanceEnoughForMinimalCallTime"
+            data-ng-click="vm.startCall()"
+            data-ng-class="{'to-circle': vm.isButtonProgress }"
+          )
 
             span.btn-title
               span.icon.icon-call-24
