@@ -36,8 +36,10 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   public accountType: FinancialOperation.AccountTypeEnum
   public isCompany: boolean = false
   private watchGroup: string[] = ['dateFrom', 'dateTo']
-  private dateTo?: string
-  private dateFrom?: string
+  public activitiesFilters = {
+    dateTo: '',
+    dateFrom: ''
+  }
 
   $onInit = (): void => {
     this.activityTypesList = this.filters.activityTypes.map((type: string) =>
@@ -78,10 +80,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       this.isCompany = session.isCompany
     })
 
-    $scope.$watchGroup(this.watchGroup.map((value) => '$ctrl.activitiesFilters.' + value), (newValues) => {
-      this.dateFrom = newValues[0]
-      this.dateTo = newValues[1]
-
+    $scope.$watchGroup(this.watchGroup.map((value) => '$ctrl.activitiesFilters.' + value), () => {
       const queryParams = new ActivitiesQueryParams
       if (this.selectedType)
         queryParams.setActivityType(this.selectedType.value)
@@ -90,8 +89,8 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       else if (this.selectedExpert)
         queryParams.setProfileId(this.selectedExpert.value)
 
-      queryParams.setDateFrom(this.dateFrom)
-      queryParams.setDateTo(this.dateTo)
+      queryParams.setDateFrom(this.activitiesFilters.dateFrom)
+      queryParams.setDateTo(this.activitiesFilters.dateTo)
 
       this.onSetSearchParams(queryParams)
     })
@@ -110,8 +109,8 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     queryParams.setActivityType(item.value)
     queryParams.setServiceId(undefined)
     queryParams.setProfileId(undefined)
-    queryParams.setDateFrom(this.dateFrom)
-    queryParams.setDateTo(this.dateTo)
+    queryParams.setDateFrom(this.activitiesFilters.dateFrom)
+    queryParams.setDateTo(this.activitiesFilters.dateTo)
 
     this.onSetSearchParams(queryParams)
     this.setupServicesList()
@@ -123,8 +122,8 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     queryParams.setAccountType(this.accountType)
     queryParams.setProfileId(item.value)
     queryParams.setServiceId(undefined)
-    queryParams.setDateFrom(this.dateFrom)
-    queryParams.setDateTo(this.dateTo)
+    queryParams.setDateFrom(this.activitiesFilters.dateFrom)
+    queryParams.setDateTo(this.activitiesFilters.dateTo)
 
     this.onSetSearchParams(queryParams)
     if (item.value && this.filters.services) {
@@ -150,8 +149,8 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     if (this.selectedExpert) {
       queryParams.setProfileId(this.selectedExpert.value)
     }
-    queryParams.setDateFrom(this.dateFrom)
-    queryParams.setDateTo(this.dateTo)
+    queryParams.setDateFrom(this.activitiesFilters.dateFrom)
+    queryParams.setDateTo(this.activitiesFilters.dateTo)
     this.onSetSearchParams(queryParams)
     this.setSelectedFilters(queryParams)
   }
@@ -161,8 +160,8 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)
     queryParams.setProfileId(undefined)
-    queryParams.setDateFrom(this.dateFrom)
-    queryParams.setDateTo(this.dateTo)
+    queryParams.setDateFrom(this.activitiesFilters.dateFrom)
+    queryParams.setDateTo(this.activitiesFilters.dateTo)
     this.onSetSearchParams(queryParams)
     this.setupServicesList()
     this.setSelectedFilters(queryParams)
