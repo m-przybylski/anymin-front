@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { GetSession, AccountLogin, SessionService } from '@anymind-ng/api';
-import { EventsService } from '../../../../angularjs/common/services/events/events.service';
 import { ApiKeyService } from '../api-key/api-key.service';
 
 @Injectable()
@@ -10,18 +9,8 @@ export class UserSessionService {
 
   private readonly unauthorizedCode: number = 401;
 
-  constructor(eventsService: EventsService,
-              private authService: ApiKeyService,
+  constructor(private authService: ApiKeyService,
               private sessionService: SessionService) {
-    // Fix angularjs login/logout
-    eventsService.on('logout', () => {
-      this.sessionCache = undefined
-      this.authService.unsetApiKey()
-    })
-    eventsService.on('remote-session-deleted', () => {
-      this.sessionCache = undefined
-      this.authService.unsetApiKey()
-    })
   }
 
   public logout = (): Promise<any> =>

@@ -22,7 +22,7 @@ import RtcDetectorModule from '../../services/rtc-detector/rtc-detector'
 import {PrecallService} from './precall-service/precall.service'
 import translatorModule from '../../services/translator/translator'
 import {MicrophoneService} from './microphone-service/microphone.service'
-import {CommunicatorService} from '../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',

@@ -2,12 +2,15 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {EventsServiceProvider} from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
-import {CommunicatorService} from './services/communicator/communicator.service';
+import {CommunicatorModule, CommunicatorService} from '@anymind-ng/core';
+import {CommunicatorConfigFactory} from './factories/communicator-config/communicator-config.factory';
+import {Config} from '../../config';
 
 @NgModule({
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.ratel.reconnectInterval)
   ],
   declarations: [],
   exports: [],

@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {UserService} from './user.service'
 import userModule from './user'
 import {AccountDetails, AccountLogin} from 'profitelo-api-ng/model/models'
+import sessionMockModule from '../session/session.mock';
 
 describe('Unit testing: profitelo.services.userService >', () => {
   describe('for profitelo.services.userService >', () => {
@@ -10,12 +11,6 @@ describe('Unit testing: profitelo.services.userService >', () => {
     let rootScope: ng.IRootScopeService
     let q: ng.IQService
     let resolverParam: ng.IPromise<{account: AccountDetails}>
-
-    /*const sessionServiceNg2Mock: SessionServiceNg2 = <any>{
-      getSession: (): ng.IPromise<{account: AccountDetails}> => resolverParam,
-      logout: (): ng.IPromise<void> => q.resolve(),
-      login: (): ng.IPromise<void> => q.resolve()
-    }*/
 
     const accountDetails: AccountDetails = {
     } as AccountDetails
@@ -31,6 +26,7 @@ describe('Unit testing: profitelo.services.userService >', () => {
     }
 
     beforeEach(() => {
+      angular.mock.module(sessionMockModule);
     })
 
     beforeEach(() => {
@@ -39,8 +35,6 @@ describe('Unit testing: profitelo.services.userService >', () => {
 
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesome')
-      // angular.mock.module(userModule)
-      sessionServiceWrapper
     }))
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -68,14 +62,6 @@ describe('Unit testing: profitelo.services.userService >', () => {
         expect(res).toEqual(accountDetails)
       })
       rootScope.$digest()
-    })
-
-    it('should throw error', () => {
-      resolverParam = <any>q.resolve({})
-      expect(() => {
-        userServiceT.getUser(false)
-        rootScope.$digest()
-      }).toThrowError()
     })
 
     it('should logout user', () => {

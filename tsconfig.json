@@ -41,7 +41,6 @@
       "jasmine",
       "jquery",
       "lodash",
-      "masonry-layout",
       "perfect-scrollbar",
       "ng-file-upload",
       "raven-js"

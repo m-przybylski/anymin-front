@@ -6,7 +6,7 @@ import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 export class CurrentExpertCall extends CurrentCall {
 

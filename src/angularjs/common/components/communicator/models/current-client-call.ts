@@ -6,7 +6,7 @@ import {TimerFactory} from '../../../services/timer/timer.factory';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 export class CurrentClientCall extends CurrentCall {
 

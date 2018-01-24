@@ -33,6 +33,7 @@ import activeCallBarModule from '../common/components/communicator/active-call-b
 import toggleClassOnPullCall from '../common/directives/toggle-class-on-pull-call/toggle-class-on-pull-call'
 import cookieNotificationModule from '../common/components/cookie-notification/cookie-notification'
 import sessionDeletedModule from '../common/services/session-deleted/session-deleted'
+import {UpgradeService} from '../common/services/upgrade/upgrade.service';
 
 declare const Raven: any
 
@@ -98,3 +99,4 @@ export const angularjsModule = angular.module('profitelo', [
   .controller('AppComponentController', ['InterfaceLanguageService', AppComponentController])
   .factory('apiUrl',
     ['CommonConfig', (CommonConfig: CommonConfig): string => CommonConfig.getAllData().urls.backend])
+  .service('upgradeService', UpgradeService)
