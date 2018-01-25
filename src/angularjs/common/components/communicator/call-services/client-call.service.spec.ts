@@ -9,7 +9,7 @@ import {ClientCallService} from './client-call.service'
 
 import {Session} from 'ratel-sdk-js'
 import RtcDetectorModule from '../../../services/rtc-detector/rtc-detector'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 interface ICallSound {
   play: () => void,
@@ -130,7 +130,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       ($rootScope: any, communicatorService: CommunicatorService) => {
         const serviceId: string = '1'
 
-        communicatorService.getClientSession = (): undefined => undefined
+        communicatorService.getClientSession = (): Session => <any>{}
 
         clientCallService.callServiceId(serviceId).then((res) => {
           expect(res).toEqual(<any>null)

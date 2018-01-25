@@ -6,7 +6,7 @@ import {GetIncomingCallDetails} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CurrentExpertCall} from './current-expert-call'
 import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 describe('Unit tests: current expert call', () => {
 

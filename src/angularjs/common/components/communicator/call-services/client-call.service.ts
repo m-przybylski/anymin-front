@@ -12,7 +12,7 @@ import {CallState} from '../models/current-call'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 export class ClientCallService {
 

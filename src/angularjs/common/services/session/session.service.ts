@@ -1,64 +1,43 @@
-import {SessionApi} from 'profitelo-api-ng/api/api'
+import {UserSessionService} from '../../../../angular/core/services/user-session/user-session.service';
+import {Config} from '../../../../config';
 import {GetSession, AccountLogin} from 'profitelo-api-ng/model/models'
 import {EventsService} from '../events/events.service'
+import {UpgradeService} from '../upgrade/upgrade.service';
 
 export class SessionServiceWrapper {
-  private sessionCache?: ng.IPromise<GetSession>
-  private apiKeyKey: string = 'X-Api-Key'
 
-  static $inject = ['SessionApi', '$http', '$q', 'eventsService'];
+  static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService'];
 
-    constructor(private SessionApi: SessionApi,
+  constructor(private userSessionService: UserSessionService,
               private $http: ng.IHttpService,
-              private $q: ng.IQService,
+              private upgradeService: UpgradeService,
               eventsService: EventsService) {
     eventsService.on('remote-session-deleted', () => {
+      this.userSessionService.logout()
       this.onSuccessLogout()
       eventsService.emit('logout')
     })
   }
 
-  public logout = (): ng.IPromise<void> => this.SessionApi.logoutCurrentRoute().then(this.onSuccessLogout)
+  public logout = (): ng.IPromise<void> =>
+    this.upgradeService.toIPromise(this.userSessionService.logout()).then(this.onSuccessLogout)
 
   public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> =>
-    this.SessionApi.login(loginDetails).then(this.onSuccessLogin)
+    this.upgradeService.toIPromise(this.userSessionService.login(loginDetails)).then(this.onSuccessLogin)
 
-  private getSessionFromBackend = (): ng.IPromise<GetSession> => {
-    this.sessionCache = this.SessionApi.checkRoute().then(this.onSuccessLogin)
-    return this.sessionCache
-  }
-
-  public getSession = (force: boolean = false): ng.IPromise<GetSession> => {
-    if (force) {
-      this.sessionCache = this.getSessionFromBackend()
-      return this.sessionCache
-    } else {
-      if (typeof this.sessionCache !== 'undefined') {
-        return this.sessionCache
-      } else {
-        return this.getSessionFromBackend()
-      }
-    }
-  }
+  public getSession = (force: boolean = false): ng.IPromise<GetSession> =>
+    this.upgradeService.toIPromise(this.userSessionService.getSession(force)).then(this.onSuccessLogin)
 
   private onSuccessLogin = (session: GetSession): GetSession => {
-    this.sessionCache = this.$q.resolve(session)
     this.setApiKeyHeader(session.apiKey)
-
     return session
   }
 
   private onSuccessLogout = (): void => {
-    this.sessionCache = undefined
-    delete this.$http.defaults.headers!.common[this.apiKeyKey]
+    delete this.$http.defaults.headers!.common[Config.http.apiHeader]
   }
 
   private setApiKeyHeader = (apiKey: string): void => {
-    this.$http.defaults.headers!.common[this.apiKeyKey] = apiKey
-  }
-
-  public static $get(SessionApi: SessionApi, $http: ng.IHttpService, $q: ng.IQService,
-                      eventsService: EventsService): SessionServiceWrapper {
-    return new SessionServiceWrapper(SessionApi, $http, $q, eventsService)
+    this.$http.defaults.headers!.common[Config.http.apiHeader] = apiKey
   }
 }

@@ -12,7 +12,7 @@ import * as _ from 'lodash'
 import {Subject} from 'rxjs'
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
 
 export enum CallState {
   NEW,

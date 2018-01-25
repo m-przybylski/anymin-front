@@ -4,6 +4,7 @@ import navbarModule from './navbar'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
 import {NavbarExpertVisibilityService} from './navbar-expert-visibility/navbar-expert-visibility.service'
+import userMockModule from '../../services/user/user.mock';
 
 describe('Unit testing: navbar', () => {
   return describe('for navbar component >', () => {
@@ -37,6 +38,7 @@ describe('Unit testing: navbar', () => {
 
     beforeEach(() => {
 
+      angular.mock.module(userMockModule)
       angular.mock.module(navbarModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

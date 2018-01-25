@@ -12,7 +12,9 @@ import {Subscription} from 'rxjs/Subscription'
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {TranslatorService} from '../../../services/translator/translator.service'
-import {CommunicatorService} from '../../../../../angular/shared/services/communicator/communicator.service';
+import {CommunicatorService} from '@anymind-ng/core';
+import {EventsService} from '../../../services/events/events.service';
+import {SessionServiceWrapper} from '../../../services/session/session.service';
 
 export class ExpertCallService {
 
@@ -34,7 +36,8 @@ export class ExpertCallService {
   };
 
   static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService'];
+    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService', 'eventsService',
+    'sessionServiceWrapper'];
 
   constructor(private ServiceApi: ServiceApi,
               private timerFactory: TimerFactory,
@@ -45,11 +48,23 @@ export class ExpertCallService {
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private microphoneService: MicrophoneService,
-              private translatorService: TranslatorService) {
+              private translatorService: TranslatorService,
+              eventsService: EventsService,
+              sessionServiceWrapper: SessionServiceWrapper) {
       communicatorService.onCallInvitation(this.onExpertCallIncoming)
       communicatorService.onActiveCall(this.onActiveCall)
       communicatorService.onReconnect(this.notifyOnReconnect)
       communicatorService.onDisconnectCall(this.notifyOnDisconnectCall)
+
+    sessionServiceWrapper.getSession().then(() => communicatorService.authenticate().subscribe())
+    eventsService.on('login', () => {
+      sessionServiceWrapper.getSession(true).then(() => {
+        communicatorService.authenticate().subscribe()
+      })
+    })
+    eventsService.on('logout', () => {
+      communicatorService.disconnect()
+    })
   }
 
   private notifyOnReconnect = (): void =>
@@ -188,7 +203,7 @@ export class ExpertCallService {
         const session = this.communicatorService.getClientSession()
         if (!session) throw new Error('Session not available')
         if (incomingCallDetails.sue.ratelRoomId)
-          session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then((businessRoom) => {
+          session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then(businessRoom => {
             currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom)
             this.events.onCallPull.next(currentExpertCall)
           })
@@ -202,7 +217,7 @@ export class ExpertCallService {
     return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
       const session = this.communicatorService.getClientSession()
       if (!session) throw new Error('Session not available');
-      session.chat.getRoom(room.id).then((businessRoom) =>
+      session.chat.getRoom(room.id).then(businessRoom =>
         currentExpertCall.setBusinessRoom(businessRoom as RatelSdk.BusinessRoom));
     });
   }
