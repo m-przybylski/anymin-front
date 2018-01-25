@@ -2,7 +2,7 @@
   .chat
     .messenger-scroll
       preloader(data-is-loading="$ctrl.isLoading")
-        a.btn.btn-primary(data-ng-if="$ctrl.isError" data-ng-click="$ctrl.getRoomHistory()"
+        a.btn.btn-primary(data-ng-if="$ctrl.isError" data-ng-click="$ctrl.getMessages()"
           data-translate="CHAT_HISTORY.ERROR_BUTTON")
 
         .messenger-messages

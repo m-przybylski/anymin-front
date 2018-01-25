@@ -18,7 +18,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
 
   static $inject = ['communicatorService', '$log', '$scope'];
 
-    constructor(private communicatorService: CommunicatorService,
+  constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
               private $scope: ng.IScope) {
   }
@@ -32,15 +32,18 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.isLoading = true
     if (this.session && this.roomId) {
       this.session.chat.getRoom(this.roomId)
-      .then((room) => room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit)
-      .then(this.onGetMessages, this.onReject))
+        .then(room => room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit)
+          .then(this.onGetMessages, this.onReject))
+        .catch(this.onReject)
+        .then(() => {
+          this.isLoading = false
+        })
     } else {
       this.onReject('Session or roomId not found')
     }
   }
 
   private onReject = (err: any): void => {
-    this.isLoading = false
     this.isError = true
     this.$log.error(err)
   }
@@ -48,7 +51,6 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   private onGetMessages = (messages: Paginated<Message>): void => {
     this.chatMessages = messages.items.filter(message => message.tag === 'MESSAGE')
     this.isChatHistory = this.chatMessages.length > 0
-    this.isLoading = false
     this.isError = false
     this.chatMessages.forEach((message) => {
       this.addGroupedMessage(message)
