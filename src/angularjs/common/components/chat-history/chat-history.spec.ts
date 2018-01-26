@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.components.chat-history', () => {
     let log: ng.ILogService
 
     let communicatorService = {
-      getClientSession: (): any => ({
+      getSession: (): any => ({
         chat: {
           getRoom: () => q.resolve({})
         }

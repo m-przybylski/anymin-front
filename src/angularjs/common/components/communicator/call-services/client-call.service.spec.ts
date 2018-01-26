@@ -130,7 +130,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       ($rootScope: any, communicatorService: CommunicatorService) => {
         const serviceId: string = '1'
 
-        communicatorService.getClientSession = (): Session => <any>{}
+        communicatorService.getSession = (): Session => <any>{}
 
         clientCallService.callServiceId(serviceId).then((res) => {
           expect(res).toEqual(<any>null)
@@ -143,7 +143,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       ($rootScope: any, communicatorService: CommunicatorService) => {
         const serviceId = null
 
-        communicatorService.getClientSession = (): Session => {
+        communicatorService.getSession = (): Session => {
           return {} as RatelSdk.Session
         }
 
@@ -162,7 +162,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         chat: {}
       } as RatelSdk.Session
 
-      communicatorService.getClientSession = (): Session => {
+      communicatorService.getSession = (): Session => {
         return session
       }
 

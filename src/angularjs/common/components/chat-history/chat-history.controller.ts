@@ -24,7 +24,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   }
 
   $onInit(): void {
-    this.session = this.communicatorService.getClientSession()
+    this.session = this.communicatorService.getSession()
     this.getMessages()
   }
 

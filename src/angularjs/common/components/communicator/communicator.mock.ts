@@ -1,8 +1,11 @@
-import * as angular from 'angular'
+import * as angular from 'angular';
+import { empty } from 'rxjs/observable/empty';
 
 const communicatorServiceMock = (): any => ({
-  getClientSession: (): any => ({}),
-  onCallInvitation: (cb: any): void => cb()
+  getSession: (): any => ({}),
+  onCallInvitation: (cb: any): void => cb(),
+  connectionEstablishedEvent$: empty(),
+  connectionLostEvent$: empty()
 })
 
 const clientCallServiceMock = (): any => ({

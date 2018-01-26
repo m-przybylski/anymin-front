@@ -7,6 +7,7 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CurrentExpertCall} from './current-expert-call'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {CommunicatorService} from '@anymind-ng/core';
+import { empty } from 'rxjs/observable/empty';
 
 describe('Unit tests: current expert call', () => {
 
@@ -16,7 +17,8 @@ describe('Unit tests: current expert call', () => {
   const microphoneService: MicrophoneService = jasmine.createSpyObj('microphoneService', [''])
 
   const communicatorService: CommunicatorService = <any>{
-    onActiveCall: (): void => {}
+    onActiveCall: (): void => {},
+    connectionEstablishedEvent$: empty()
   }
 
   const timerFactory: TimerFactory = <any>{
