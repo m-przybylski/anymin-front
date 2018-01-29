@@ -28,7 +28,7 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
   }
 
   private onInit = (currentCall: CurrentCall): void => {
-    this.clientSession = this.communicatorService.getClientSession()
+    this.clientSession = this.communicatorService.getSession()
     this.messages = []
     currentCall.getMessageRoom().onMessage(this.showMessage)
   }

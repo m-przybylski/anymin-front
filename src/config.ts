@@ -4,8 +4,12 @@ export class Config {
     apiHeader: 'X-Api-Key'
   }
 
-  public static readonly ratel = {
-    reconnectInterval: 5000
+  public static readonly communicator = {
+    reconnectTimeout: 8000
+  }
+
+  public static readonly backend = {
+    websocketReconnectTimeout: 1000
   }
 
   public static readonly cookies = {

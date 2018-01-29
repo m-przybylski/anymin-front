@@ -8,6 +8,7 @@ import {MessageRoom} from './models/message-room';
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
 import {TranslatorService} from '../../services/translator/translator.service'
 import {MicrophoneService, MicrophoneStateEnum} from './microphone-service/microphone.service'
+import {CommunicatorService} from '@anymind-ng/core'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -39,7 +40,7 @@ export class CommunicatorComponentController implements ng.IController {
   public isMicrophoneMuted: boolean = false
 
   static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService', 'microphoneService',
-    'clientCallService', 'expertCallService'];
+    'clientCallService', 'expertCallService', 'communicatorService'];
 
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
@@ -48,17 +49,19 @@ export class CommunicatorComponentController implements ng.IController {
               private topAlertService: TopAlertService,
               private microphoneService: MicrophoneService,
               clientCallService: ClientCallService,
-              expertCallService: ExpertCallService) {
+              expertCallService: ExpertCallService,
+              communicatorService: CommunicatorService) {
 
-      clientCallService.onNewCall(this.registerClientCall)
-      clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
-      clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
+    clientCallService.onNewCall(this.registerClientCall)
+    clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
+    clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
 
-      expertCallService.onNewCall(this.registerExpertCall)
-      expertCallService.onCallPull(this.onCallPull)
-      expertCallService.onCallTaken(this.closeCommunicator)
-      expertCallService.onReconnect(this.onOnline)
-      expertCallService.onDisconnectCall(this.onOffline)
+    expertCallService.onNewCall(this.registerExpertCall)
+    expertCallService.onCallPull(this.onCallPull)
+    expertCallService.onCallTaken(this.closeCommunicator)
+
+    communicatorService.connectionEstablishedEvent$.subscribe(this.connectionEstablished)
+    communicatorService.connectionLostEvent$.subscribe(this.connectionLost)
   }
 
   $onInit = (): void => {
@@ -74,19 +77,23 @@ export class CommunicatorComponentController implements ng.IController {
       this.isMicrophoneMuted = state === MicrophoneStateEnum.MUTED)
   }
 
-  private onOnline = (): void => {
-    this.isOffline = false
-    if (this.currentCall) this.currentCall.resumeTimer()
+  private connectionEstablished = (): void => {
+    // If established for the first time, do nothing
+    if (this.isOffline) {
+      this.isOffline = false
+      if (this.currentCall) this.currentCall.resumeTimer()
 
-    this.topAlertService.success({
-      message: this.translatorService.translate('COMMUNICATOR.NETWORK_RECONNECTED'),
-      timeout: 2
-    })
+      this.topAlertService.success({
+        message: this.translatorService.translate('COMMUNICATOR.NETWORK_RECONNECTED'),
+        timeout: 3
+      })
+    }
   }
 
-  private onOffline = (): void => {
+  private connectionLost = (): void => {
     this.isOffline = true
     if (this.currentCall) this.currentCall.pauseTimer()
+
     this.topAlertService.error({
       message: this.translatorService.translate('COMMUNICATOR.NETWORK_INTERRUPT'),
       timeout: 2
@@ -199,8 +206,6 @@ export class CommunicatorComponentController implements ng.IController {
 
   private onCallEnd = (): void => {
     this.closeCommunicator()
-    this.$window.removeEventListener('online', this.onOnline)
-    this.$window.removeEventListener('offline', this.onOffline)
   }
 
   /* Other events */

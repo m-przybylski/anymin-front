@@ -12,7 +12,7 @@ import * as _ from 'lodash'
 import {Subject} from 'rxjs'
 import {Subscription} from 'rxjs/Subscription'
 import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '@anymind-ng/core';
+import {CommunicatorService, Connected} from '@anymind-ng/core';
 
 export enum CallState {
   NEW,
@@ -276,13 +276,15 @@ export class CurrentCall {
       this.events.onParticipantOnline.next()
     })
 
-    this.communicatorService.onActiveCall((activeCalls) => {
-      if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
-        this.stopLocalStream()
-        this.stopTimer()
-        this.setState(CallState.ENDED)
-        this.events.onSuspendedCallEnd.next()
-      }
+    this.communicatorService.connectionEstablishedEvent$.subscribe((connected: Connected) => {
+      connected.session.chat.getActiveCalls().then((activeCalls) => {
+        if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
+          this.stopLocalStream()
+          this.stopTimer()
+          this.setState(CallState.ENDED)
+          this.events.onSuspendedCallEnd.next()
+        }
+      })
     })
   }
 

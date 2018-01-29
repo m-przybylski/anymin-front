@@ -5,12 +5,12 @@ import {ICallSummaryWebsocketObject} from '../../models/CallSummary'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
 import {IExpertPresenceUpdate} from '../../components/navbar/navbar-expert-visibility/navbar-expert-visibility.service'
+import {Config} from '../../../../config';
 
 export class ProfiteloWebsocketService {
   private websocket: WebSocket
   private wsEndpoint: string
 
-  private static reconnectTimeout = 1000
   private readonly events = {
     onInit: new Subject<void>(),
     onCallSummary: new Subject<ICallSummaryWebsocketObject>(),
@@ -25,7 +25,7 @@ export class ProfiteloWebsocketService {
 
   static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
 
-    constructor(private $log: ng.ILogService,
+  constructor(private $log: ng.ILogService,
               private userService: UserService,
               private eventsService: EventsService,
               private $timeout: ng.ITimeoutService,
@@ -137,7 +137,7 @@ export class ProfiteloWebsocketService {
   private onSocketClose = (event: any): void => {
     this.$log.info('Profitelo websocket closed', event)
     this.userService.getUser().then(() => {
-      this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
+      this.$timeout(this.connectWebsocket, Config.backend.websocketReconnectTimeout)
     })
   }
 

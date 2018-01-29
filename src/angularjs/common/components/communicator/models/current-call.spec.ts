@@ -8,6 +8,7 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {roomType} from 'ratel-sdk-js'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {CommunicatorService} from '@anymind-ng/core';
+import {empty} from 'rxjs/observable/empty';
 
 describe('Unit tests: CurrentCall', () => {
 
@@ -33,7 +34,8 @@ describe('Unit tests: CurrentCall', () => {
   }
 
   const communicatorService: CommunicatorService = <any>{
-    onActiveCall: (): void => {}
+    onActiveCall: (): void => {},
+    connectionEstablishedEvent$: empty()
   }
 
   const businessRoom: RatelSdk.BusinessRoom = <any>{

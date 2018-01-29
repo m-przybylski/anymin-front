@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs/Subscription'
 import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {TranslatorService} from '../../../services/translator/translator.service'
-import {CommunicatorService} from '@anymind-ng/core';
+import {CommunicatorService, Connected} from '@anymind-ng/core';
 import {EventsService} from '../../../services/events/events.service';
 import {SessionServiceWrapper} from '../../../services/session/session.service';
 
@@ -31,8 +31,7 @@ export class ExpertCallService {
     onCallTaken: new Subject<CallActiveDevice>(),
     onCallActive: new Subject<Call[]>(),
     onCallEnd: new Subject<CurrentExpertCall>(),
-    onDisconnectCall: new Subject<void>(),
-    onReconnect: new Subject<void>()
+    onDisconnectCall: new Subject<void>()
   };
 
   static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
@@ -51,10 +50,9 @@ export class ExpertCallService {
               private translatorService: TranslatorService,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
-      communicatorService.onCallInvitation(this.onExpertCallIncoming)
-      communicatorService.onActiveCall(this.onActiveCall)
-      communicatorService.onReconnect(this.notifyOnReconnect)
-      communicatorService.onDisconnectCall(this.notifyOnDisconnectCall)
+    communicatorService.callInvitationEvent$.subscribe(this.onExpertCallIncoming)
+    communicatorService.connectionEstablishedEvent$.subscribe(this.updateActiveCallStatus)
+    communicatorService.connectionLostEvent$.subscribe(this.notifyOnDisconnectCall)
 
     sessionServiceWrapper.getSession().then(() => communicatorService.authenticate().subscribe())
     eventsService.on('login', () => {
@@ -67,14 +65,26 @@ export class ExpertCallService {
     })
   }
 
-  private notifyOnReconnect = (): void =>
-    this.events.onReconnect.next()
+  private updateActiveCallStatus = (connected: Connected): void => {
+    connected.session.chat.getActiveCalls().then((activeCalls) => {
+      if (activeCalls[0]) {
+        this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
+          this.currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, activeCalls[0],
+            this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
+          this.currentExpertCall.onEnd(() => {
+            this.events.onCallEnd.next()
+            this.currentExpertCall = undefined;
+          })
+          this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd);
+          this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
+          this.events.onCallActive.next(activeCalls)
+        })
+      } else this.$log.debug('No active call exists')
+    })
+  }
 
   private notifyOnDisconnectCall = (): void =>
     this.events.onDisconnectCall.next()
-
-  public onReconnect = (cb: () => void): Subscription =>
-    this.events.onReconnect.subscribe(cb)
 
   public onDisconnectCall = (cb: () => void): Subscription =>
     this.events.onDisconnectCall.subscribe(cb)
@@ -91,22 +101,6 @@ export class ExpertCallService {
   public onCallActive = (cb: (activeCalls: Call[]) => void): Subscription => this.events.onCallActive.subscribe(cb)
 
   public onCallEnd = (cb: () => void): Subscription => this.events.onCallEnd.subscribe(cb)
-
-  private onActiveCall = (activeCalls: Call[]): void => {
-    if (activeCalls[0]) {
-      this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
-        this.currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, activeCalls[0],
-          this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
-        this.currentExpertCall.onEnd(() => {
-          this.events.onCallEnd.next()
-          this.currentExpertCall = undefined;
-        })
-        this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd);
-        this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
-        this.events.onCallActive.next(activeCalls)
-      })
-    } else this.$log.debug('No active call exists')
-  }
 
   private onExpertCallIncoming = (callInvitation: RatelSdk.events.CallInvitation): void => {
     if (!this.currentExpertCall) {
@@ -149,7 +143,7 @@ export class ExpertCallService {
   }
 
   private onCurrentExpertCallTaken = (activeDevice: CallActiveDevice): void => {
-    if (activeDevice.device !== this.communicatorService.getClientDeviceId()) {
+    if (activeDevice.device !== this.communicatorService.getDeviceId()) {
       this.soundsService.callIncomingSound().stop()
       this.dismissCallingModal()
       this.events.onCallTaken.next(activeDevice)
@@ -203,7 +197,7 @@ export class ExpertCallService {
       .then((incomingCallDetails) => {
         currentExpertCall.startTimer(incomingCallDetails.sue.freeSeconds)
         currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)))
-        const session = this.communicatorService.getClientSession()
+        const session = this.communicatorService.getSession()
         if (!session) throw new Error('Session not available')
         if (incomingCallDetails.sue.ratelRoomId)
           session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then(businessRoom => {
@@ -218,7 +212,7 @@ export class ExpertCallService {
     this.soundsService.callIncomingSound().stop();
     this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
     return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
-      const session = this.communicatorService.getClientSession()
+      const session = this.communicatorService.getSession()
       if (!session) throw new Error('Session not available');
       session.chat.getRoom(room.id).then(businessRoom =>
         currentExpertCall.setBusinessRoom(businessRoom as RatelSdk.BusinessRoom));

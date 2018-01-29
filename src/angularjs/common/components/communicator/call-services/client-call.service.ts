@@ -11,6 +11,7 @@ import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/p
 import {CallState} from '../models/current-call'
 import {Subject} from 'rxjs/Subject'
 import {Subscription} from 'rxjs/Subscription'
+import {first} from 'rxjs/operators'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {CommunicatorService} from '@anymind-ng/core';
 
@@ -45,7 +46,7 @@ export class ClientCallService {
 
     if (!serviceId) return this.$q.reject('serviceId must be defined');
 
-    if (!this.communicatorService.getClientSession()) return this.$q.reject('There is no client session');
+    if (!this.communicatorService.getSession()) return this.$q.reject('There is no client session');
 
     this.call = this.createCall(serviceId, expertId)
       .then(this.onCreateCallSuccess)
@@ -76,7 +77,7 @@ export class ClientCallService {
   }
 
   private startCall = (call: CurrentClientCall): ng.IPromise<CurrentClientCall> => {
-    const deviceId = this.communicatorService.getClientDeviceId();
+    const deviceId = this.communicatorService.getDeviceId();
     if (!deviceId) throw new Error('There is no ratel deviceId');
     return this.RatelApi.postStartCallRoute(call.getSueId(), deviceId).then(() => call);
   }
@@ -90,7 +91,7 @@ export class ClientCallService {
     call.onSuspendedCallEnd(() => {
       this.onSuspendedCallEnd(call.getService().id)
     })
-    this.communicatorService.onRoomInvitation((roomInvitation) => {
+    this.communicatorService.roomInvitationEvent$.pipe(first()).subscribe((roomInvitation) => {
       if (roomInvitation.room.name === call.getRatelCallId() && !call.getMessageRoom().room) {
         call.setBusinessRoom(roomInvitation.room as RatelSdk.BusinessRoom).catch(this.$log.error)
       } else {
@@ -115,7 +116,7 @@ export class ClientCallService {
 
   private createRatelCall = (expertId: string,
                              serviceId: string): ng.IPromise<GetSUERatelCall> => {
-    const deviceId = this.communicatorService.getClientDeviceId();
+    const deviceId = this.communicatorService.getDeviceId();
     if (!deviceId) throw new Error('There is no ratel deviceId');
 
     return this.RatelApi.postCreateCallRoute({
@@ -132,7 +133,7 @@ export class ClientCallService {
   }
 
   private getRatelCallById = (ratelCallId: string): ng.IPromise<RatelSdk.BusinessCall> => {
-    const session = this.communicatorService.getClientSession();
+    const session = this.communicatorService.getSession();
     if (!session) throw new Error('There is no ratel session');
     const defer = this.$q.defer<RatelSdk.BusinessCall>();
     session.chat.getCall(ratelCallId).then(call => defer.resolve(<RatelSdk.BusinessCall>call), defer.reject)

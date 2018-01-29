@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.gr
     }
 
     const communicatorService: CommunicatorService = <CommunicatorService>{
-      getClientSession: () => {}
+      getSession: () => {}
     }
 
     function create(html: string, bindings: IGroupedMessagesComponentBindings): JQuery {
