@@ -51,7 +51,8 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
         ngModel: 0,
         currency: 'PLN',
         inputValueCallback: (): void => {},
-        isValid: (): void => {},
+        onPatternValidation: (): void => {},
+        isValid: true,
         isDisabled: false
       }
 

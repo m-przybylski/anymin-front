@@ -1,6 +1,5 @@
-.input-price(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': !$ctrl.isValidate " +
-"&& !$ctrl.isFocus && $ctrl.validationText && $ctrl.isDirty," +
-" 'is-focused': $ctrl.isFocus, 'is-disabled': $ctrl.isDisabled}")
+.input-price.input(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': !$ctrl.isValid " +
+"&& $ctrl.isDirty,'is-focused': $ctrl.isFocus, 'is-disabled': $ctrl.isDisabled}")
   label.label-text(data-ng-if="$ctrl.inputText") {{:: $ctrl.inputText | translate }}
 
   .price-mock

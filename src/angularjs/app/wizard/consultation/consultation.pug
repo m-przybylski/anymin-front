@@ -74,9 +74,10 @@ section.consultation
           data-ng-model="vm.priceAmountInputValue"
           data-id="priceModel"
           data-is-submitted="vm.isSubmitted"
-          data-is-valid="vm.isRegExpPriceValid"
+          data-on-pattern-validation="vm.isRegExpPriceValid"
           data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
           data-input-value-callback="vm.onPriceChange"
+          data-is-valid="vm.checkIsPriceInputValid()"
         )
 
         validation-alert(

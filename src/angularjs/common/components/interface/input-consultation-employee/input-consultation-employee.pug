@@ -1,12 +1,18 @@
 .input-consultation-employee
   .input-handler
-    input(
-      autocomplete="off"
-      data-ng-model="$ctrl.inputValue"
-      data-ng-enter="$ctrl.onEnter($ctrl.inputValue)"
-      data-ng-blur="$ctrl.onBlur()"
-      data-ng-focus="$ctrl.onFocus()"
+    .input(
+    data-ng-class="{'is-invalid': !$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus || $ctrl.isInputValueInvalid" +
+    "|| $ctrl.isValidEmployee || $ctrl.isMaxConsultationCountError," +
+    " 'is-focused': $ctrl.isFocus}"
     )
+      input(
+        autocomplete="off"
+        data-ng-model="$ctrl.inputValue"
+        data-ng-enter="$ctrl.onEnter($ctrl.inputValue)"
+        data-ng-blur="$ctrl.onBlur()"
+        data-ng-focus="$ctrl.onFocus()"
+        data-ng-change="$ctrl.onChange()"
+      )
     a.btn.add-link(data-ng-click="$ctrl.onEnter($ctrl.inputValue)")
       span.icon.icon-plus-24
     a.btn.btn-default.btn-small(

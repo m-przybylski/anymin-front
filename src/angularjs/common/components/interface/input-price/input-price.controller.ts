@@ -15,8 +15,8 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public currency: string
   private priceRegexp: RegExp
   public inputValueCallback: (num: number) => void
-  public isValid: (isValid: boolean) => void
-  public isValidate: boolean
+  public onPatternValidation: (isRegExpPriceValid: boolean) => void
+  public isValid: boolean
   public isDisabled: boolean = false
 
   static $inject = ['$element', 'CommonSettingsService'];
@@ -84,8 +84,8 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
       this.inputValueCallback(this.ngModel)
     }
 
-    if (this.isValid)
-      this.isValid(this.isRegExpPriceValid())
+    if (this.onPatternValidation)
+      this.onPatternValidation(this.isRegExpPriceValid())
   }
 
   public onFocus = (): void => {

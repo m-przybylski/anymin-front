@@ -2,8 +2,7 @@
 
   .input-handler
     .input(
-    data-ng-class="{'is-invalid': !$ctrl.isValid " +
-    "&& !$ctrl.isFocus && $ctrl.validationText && $ctrl.isDirty || !$ctrl.isValid && $ctrl.isSubmitted," +
+    data-ng-class="{'is-invalid': !$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus || $ctrl.isInputValueInvalid," +
     " 'is-focused': $ctrl.isFocus}"
     )
       input(
@@ -12,6 +11,7 @@
         data-ng-enter="$ctrl.onEnter()"
         data-ng-blur="$ctrl.onBlur()"
         data-ng-focus="$ctrl.onFocus()"
+        data-ng-change="$ctrl.onChange()"
       )
     a.btn.add-link(data-ng-click="$ctrl.onEnter()")
       span.icon.icon-plus-24
