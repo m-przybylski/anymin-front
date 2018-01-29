@@ -2,6 +2,10 @@
 data-ng-class="{'is-disconnected': $ctrl.isDisconnectedAnimation, 'is-closed': $ctrl.isClosed}"
 data-ng-hide="$ctrl.isClosed")
   .communicator-maximized
+    .top-alert(data-ng-show="$ctrl.isMicrophoneMuted || $ctrl.isOffline || $ctrl.isParticipantOffline")
+      p(data-translate="COMMUNICATOR.MICROPHONE_PROBLEM" data-ng-show="$ctrl.isMicrophoneMuted")
+      p(data-translate="COMMUNICATOR.RECONNECTING" data-ng-show="$ctrl.isOffline")
+      p(data-translate="COMMUNICATOR.NETWORK_PROBLEM" data-ng-show="$ctrl.isParticipantOffline")
     .communicator-conversation-header-details
       .consultation-actions
         .consultation-profile
@@ -27,11 +31,7 @@ data-ng-hide="$ctrl.isClosed")
           .user-avatar.communicator-avatar
             user-avatar.thumb.x192(data-image-token="$ctrl.expertAvatar")
 
-      p.call.connecting-with(data-translate="COMMUNICATOR.MICROPHONE_PROBLEM"
-      data-ng-show="$ctrl.isMicrophoneMuted")
       p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
-      p.call.connecting-with(data-translate="COMMUNICATOR.RECONNECTING" data-ng-show="$ctrl.isOffline")
-      p.call.connecting-with(data-translate="COMMUNICATOR.NETWORK_PROBLEM" data-ng-show="$ctrl.isParticipantOffline")
 
     .video-player-local(data-ng-show="$ctrl.isLocalVideo")
       video(autoplay="true" muted="true")

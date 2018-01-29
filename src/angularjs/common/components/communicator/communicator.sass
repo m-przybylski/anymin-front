@@ -27,6 +27,23 @@
   opacity: 1
   animation: animation-opacity 0.3s
 
+  .top-alert
+    background-color: $c-error
+    width: 100%
+    top: 0
+    height: auto
+    display: flex
+    align-items: center
+    justify-content: center
+    position: absolute
+    z-index: $z-index-900
+
+    +smm
+      height: 32px
+
+    p
+      color: $c-white
+
   &.is-minimized
     transition: width 0.3s 0.4s, height 0.3s 0.4s, right 0.3s 0.4s, bottom 0.3s 0.4s, z-index 0s 0.4s
     bottom: 0
