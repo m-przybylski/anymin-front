@@ -89,7 +89,7 @@ export class CommunicatorComponentController implements ng.IController {
     if (this.currentCall) this.currentCall.pauseTimer()
     this.topAlertService.error({
       message: this.translatorService.translate('COMMUNICATOR.NETWORK_INTERRUPT'),
-      timeout: 5
+      timeout: 2
     })
   }
 
