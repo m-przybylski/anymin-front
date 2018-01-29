@@ -1,9 +1,10 @@
 import {IAvatarUploaderComponentBindings} from './avatar-uploader'
 import {UploaderFactory} from '../../services/uploader/uploader.factory'
 import {UploaderService} from '../../services/uploader/uploader.service'
-import {PostProcessOption} from 'profitelo-api-ng/model/models'
+import {PostFileDetails} from 'profitelo-api-ng/model/models'
 import {FileTypeChecker, FileCategoryEnum} from '../../classes/file-type-checker/file-type-checker'
 import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
+import FileTypeEnum = PostFileDetails.FileTypeEnum
 
 export class AvatarUploaderComponentController implements IAvatarUploaderComponentBindings, ng.IController {
 
@@ -66,17 +67,18 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
   public saveCrop = (data: any): void => {
     const indexOfSecondXPoint: number = 2
     const squareSideLength: number = data.points[indexOfSecondXPoint] - data.points[0] - 1
-    const postProcessOptions: PostProcessOption = {
+    const postFileDetails: PostFileDetails = {
       croppingDetails: {
         x: Number(data.points[0]),
         y: Number(data.points[1]),
         width: squareSideLength,
         height: squareSideLength
-      }
+      },
+      fileType: FileTypeEnum.PROFILE
     }
     this.isLoading = true
     this.isUploadInProgress = true
-    this.uploader.uploadFile(this.uploadedFile, postProcessOptions, () => {})
+    this.uploader.uploadFile(this.uploadedFile, postFileDetails, () => {})
     .then(this.onFileUpload, this.onFileUploadError)
 
     this.isUserUploadImage = false

@@ -4,6 +4,8 @@ import {UploaderFactory} from './uploader.factory'
 import uploaderModule from './uploader'
 import {httpCodes} from '../../classes/http-codes'
 import {IRootScopeService} from '../root-scope/root-scope.service';
+import {PostFileDetails} from 'profitelo-api-ng/model/models'
+import FileTypeEnum = PostFileDetails.FileTypeEnum
 
 class File {
   static $inject = [];
@@ -68,9 +70,9 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       spyOn(UploadMock, 'upload').and.returnValue($q.resolve('result'))
 
-      instance.uploadFile(<any>new File(), {}, () => {
+      instance.uploadFile(<any>new File(), {fileType: FileTypeEnum.PROFILE}, () => {
       })
-      instance.uploadFile(<any>new File(), {}, () => {
+      instance.uploadFile(<any>new File(), {fileType: FileTypeEnum.PROFILE}, () => {
       })
 
       $timeout.flush()
@@ -84,7 +86,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
       const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       let promiseValue = ''
-      instance.uploadFile(<any>null, {}, () => {
+      instance.uploadFile(<any>null, {fileType: FileTypeEnum.PROFILE}, () => {
       }).then(() => {
       }, val => promiseValue = val)
 
@@ -101,7 +103,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
       const instance = uploaderFactory.getInstance(simultaneousUploadCount)
 
       let returnValue: any = {}
-      instance.uploadFile(<any>new File, {}, () => {
+      instance.uploadFile(<any>new File, {fileType: FileTypeEnum.PROFILE}, () => {
       })
         .then(() => {
         }, (val: any) => returnValue = val)
@@ -126,7 +128,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       let returnValue = ''
 
-      instance.uploadFile(<any>new File(), {}, () => {
+      instance.uploadFile(<any>new File(), {fileType: FileTypeEnum.PROFILE}, () => {
       })
         .then(() => {
         }, (val: any) => returnValue = val)
@@ -158,7 +160,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
         return deferred.promise
       })
 
-      instance.uploadFile(<any>new File(), {}, obj.callback)
+      instance.uploadFile(<any>new File(), {fileType: FileTypeEnum.PROFILE}, obj.callback)
 
       $timeout.flush()
 
@@ -176,7 +178,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       spyOn(UploadMock, 'upload').and.returnValue($q.resolve(''))
 
-      instance.uploadFile(<any>new File(), {}, () => {
+      instance.uploadFile(<any>new File(), {fileType: FileTypeEnum.PROFILE}, () => {
       })
 
       $timeout.flush()
