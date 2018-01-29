@@ -2,11 +2,12 @@ import {IFileUploaderModuleComponentBindings} from './file-uploader'
 import {UploaderFactory} from '../../services/uploader/uploader.factory'
 import {UploaderService} from '../../services/uploader/uploader.service'
 import {FilesApi} from 'profitelo-api-ng/api/api'
-import {PostProcessOption, FileInfo} from 'profitelo-api-ng/model/models'
+import {PostFileDetails, FileInfo} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {FileCategoryEnum, FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
 import {TranslatorService} from '../../services/translator/translator.service'
 import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
+import FileTypeEnum = PostFileDetails.FileTypeEnum
 
 export interface IFileUploaderComponentScope extends ng.IScope {
   tokenList: string[]
@@ -67,8 +68,9 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
     })
   }
 
-  private postProcessOptions: PostProcessOption = {
-    croppingDetails: undefined
+  private postProcessOptions: PostFileDetails = {
+    croppingDetails: undefined,
+    fileType: FileTypeEnum.PROFILE
   }
 
   private onFileUploadError = (error: any, currentFile: IDocumentFile): void => {

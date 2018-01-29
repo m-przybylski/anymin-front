@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import * as _ from 'lodash'
 import {IMessengerMaximizedComponentBindings} from './maximized'
-import {PostProcessOption, MoneyDto} from 'profitelo-api-ng/model/models'
+import {PostFileDetails, MoneyDto} from 'profitelo-api-ng/model/models'
 import {UploaderService} from '../../../../services/uploader/uploader.service'
 import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
 import {MessageRoom} from '../../models/message-room';
@@ -13,6 +13,7 @@ import {CurrentExpertCall} from '../../models/current-expert-call';
 import {Message} from 'ratel-sdk-js'
 import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 import {IMessageContext} from '../message-context'
+import FileTypeEnum = PostFileDetails.FileTypeEnum
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
@@ -189,8 +190,9 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
 
-  private postProcessOptions: PostProcessOption = {
-    croppingDetails: undefined
+  private postProcessOptions: PostFileDetails = {
+    croppingDetails: undefined,
+    fileType: FileTypeEnum.CHAT
   }
 
   private onFileUpload = (res: any): void => {

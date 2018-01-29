@@ -3,7 +3,7 @@ import userModule from '../../../../../../services/user/user'
 import {UploaderService} from '../../../../../../services/uploader/uploader.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
-import {PostProcessOption} from 'profitelo-api-ng/model/models'
+import {PostFileDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../../../services/user/user.service'
 import {UploaderFactory} from '../../../../../../services/uploader/uploader.factory'
 import {UrlService} from '../../../../../../services/url/url.service'
@@ -20,6 +20,7 @@ import inputModule from '../../../../../interface/input/input'
 import {FileCategoryEnum, FileTypeChecker} from '../../../../../../classes/file-type-checker/file-type-checker'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
+import FileTypeEnum = PostFileDetails.FileTypeEnum
 
 export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
   callback: (cb: () => void) => void
@@ -137,13 +138,14 @@ export class BasicAccountSettingsController implements ng.IController {
     $scope.saveCrop = (data: ISaveCrop): void => {
       const indexOfSecondXpoint: number = 2
       const squareSideLength: number = data.points[indexOfSecondXpoint] - data.points[0] - 1
-      const postProcessOptions: PostProcessOption = {
+      const postProcessOptions: PostFileDetails = {
         croppingDetails: {
           x: Number(data.points[0]),
           y: Number(data.points[1]),
           width: squareSideLength,
           height: squareSideLength
-        }
+        },
+        fileType: FileTypeEnum.PROFILE
       }
       this.$scope.isUploadInProgress = true
       this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
