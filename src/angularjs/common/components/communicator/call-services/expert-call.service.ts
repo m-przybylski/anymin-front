@@ -155,6 +155,9 @@ export class ExpertCallService {
       this.events.onCallTaken.next(activeDevice)
       if (this.currentExpertCall && this.onEndSubscription) {
         this.onEndSubscription.unsubscribe()
+        this.onEndSubscription  = this.currentExpertCall.onEnd(() => {
+          this.events.onCallEnd.next()
+        })
       }
     }
   }
