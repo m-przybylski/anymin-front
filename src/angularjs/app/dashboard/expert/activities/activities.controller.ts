@@ -1,13 +1,14 @@
-import {GetActivity, FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/models'
+import { GetActivity, FinancialOperation, GetActivityFilters } from 'profitelo-api-ng/model/models'
 import {
   DashboardActivitiesService
 } from '../../../../common/services/dashboard-activites/dashboard-activities.service'
-import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
+import { ActivitiesQueryParams } from '../../../../common/services/dashboard-activites/activities-query-params'
 
-import {GetActivities, GetPayoutMethodDto} from 'profitelo-api-ng/model/models'
-import {PromiseService} from '../../../../common/services/promise/promise.service'
-import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
-import {httpCodes} from '../../../../common/classes/http-codes'
+import { GetActivities, GetPayoutMethodDto } from 'profitelo-api-ng/model/models'
+import { PromiseService } from '../../../../common/services/promise/promise.service'
+import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service'
+import { httpCodes } from '../../../../common/classes/http-codes'
+import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
 
 export class DashboardExpertActivitiesController {
 
@@ -32,22 +33,33 @@ export class DashboardExpertActivitiesController {
   private timeoutDelay: number = 400
   private static readonly promiseLoaderDelay = 500
 
-  static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log', 'filtersData', '$timeout'];
+  static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log', 'filtersData', '$timeout',
+    'profiteloWebsocket'];
 
-    constructor(private dashboardActivitiesService: DashboardActivitiesService,
+  constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,
               private errorHandler: ErrorHandlerService,
               private $log: ng.ILogService,
               filtersData: GetActivityFilters,
-              $timeout: ng.ITimeoutService) {
-
+              private $timeout: ng.ITimeoutService,
+              profiteloWebsocket: ProfiteloWebsocketService) {
     this.activitiesQueryParam = new ActivitiesQueryParams
     this.setBasicQueryParam(this.activitiesQueryParam)
-      this.getDashboardActivities(this.activitiesQueryParam)
+    this.setDashboardActivitiesData();
+    this.filters = filtersData
+    this.getPayoutMethods().then(() => this.isAnyPayoutMethodSet = true)
+    profiteloWebsocket.onCallSummary(() => {
+      this.onSetFiltersParams(this.activitiesQueryParam)
+    })
+
+  }
+
+  private setDashboardActivitiesData = (): void => {
+    this.getDashboardActivities(this.activitiesQueryParam)
       .then((responses) => {
         this.activities = responses.activities
         this.areActivities = responses.activities.length > 0
-        $timeout(() => {
+        this.$timeout(() => {
           this.isSearchLoading = false
           this.isError = false
         }, this.timeoutDelay)
@@ -58,9 +70,6 @@ export class DashboardExpertActivitiesController {
         this.areFilteredResults = this.activities.length > 0
         this.areMoreResults = responses.count > this.activities.length
       })
-
-    this.filters = filtersData
-    this.getPayoutMethods().then(() => this.isAnyPayoutMethodSet = true)
   }
 
   public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams): void => {
@@ -103,7 +112,7 @@ export class DashboardExpertActivitiesController {
         }
         this.areFilteredResults = getActivities.count > 0
         this.areMoreResults = getActivities.count > getActivities.activities.length
-    })
+      })
   }
 
   private getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => {
