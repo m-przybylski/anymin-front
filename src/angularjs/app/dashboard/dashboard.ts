@@ -50,14 +50,10 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
             userService.getUser(true).then((response) => {
               if (!response.hasPassword) $state.go('app.post-register.set-password')
               else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
-            })
+            }, () => $state.go('app.login.account'))
         }]
       },
       data: {
-        permissions: {
-          only: ['user'],
-          redirectTo: 'app.login.account'
-        },
         pageTitle: 'PAGE_TITLE.DASHBOARD'
       }
     })
