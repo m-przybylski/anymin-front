@@ -4,7 +4,6 @@ section.create-profile
       p.information-text(data-translate="WIZARD.STEP.DIRECTORY.INFORMATION")
       header.entry-title.choose-path(data-ng-if="!vm.isSummary")
         span {{:: 'WIZARD.STEP.TITLE' | translate }}
-        tooltip(data-tooltip-text="WIZARD.STEP.DIRECTORY.TITLE")
 
       .create-profile-directory.step(data-ng-if="!vm.isSummary")
         .expert-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.expert'}"
