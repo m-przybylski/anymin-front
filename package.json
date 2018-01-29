@@ -37,7 +37,7 @@
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
     "@anymind-ng/api": "0.0.15",
-    "@anymind-ng/core": "0.0.18",
+    "@anymind-ng/core": "0.0.19",
     "@uirouter/angularjs": "^1.0.12",
     "angular": "^1.6.8",
     "angular-animate": "^1.6.2",
