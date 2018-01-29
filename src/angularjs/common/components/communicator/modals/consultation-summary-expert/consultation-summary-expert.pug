@@ -28,6 +28,7 @@
 
       collapse-btn.technical-problems(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
+      data-collapse-stream="vm.hideTechnicalProblems$"
       )
         form(novalidate)
           radio-btn-textarea(
@@ -44,7 +45,7 @@
 
           .btn-group
             button.btn.btn-primary(
-            data-ng-click="vm.onModalClose()"
+            data-ng-click="vm.onTechnicalProblemsCancel()"
             data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
 
             button.btn.btn-default(
@@ -55,6 +56,7 @@
       collapse-btn.report-client(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
       data-ng-hide="vm.isClientReportSent"
+      data-collapse-stream="vm.hideReportClient$"
       )
         preloader-container(
         data-is-loading="vm.isSendingClientReport"
@@ -69,6 +71,7 @@
 
           .btn-group
             button.btn.btn-primary(
+            data-ng-click="vm.onReportClientCancel()"
             data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
 
             button.btn.btn-default(

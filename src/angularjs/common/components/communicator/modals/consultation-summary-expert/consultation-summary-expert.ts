@@ -21,7 +21,8 @@ const consultationSummaryExpertControllerModule = angular.module(
     topAlertModule,
     translatorModule,
     errorHandlerModule,
-    radioBtnTextarea
+    radioBtnTextarea,
+    'profitelo.components.interface.collapse-btn'
   ])
   .controller('consultationSummaryExpertController', ConsultationSummaryExpertController)
   .service('consultationSummaryExpertService', ConsultationSummaryExpertService)

@@ -8,6 +8,11 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
 
   this.isCollapsed = true
 
+  this.$onInit = (): void => {
+    if (this.collapseStream)
+      this.collapseStream.subscribe(this.collapseToggle)
+  }
+
   const updateStylesObject = (): void => {
     if (!this.isCollapsed) {
       this.stylesObject.height = getCollapseBtnContentHeight()
@@ -66,7 +71,8 @@ const component = {
   controller: ['$log', '$element', '$window', controller],
   bindings: {
     title: '@',
-    collapseIcon: '@'
+    collapseIcon: '@',
+    collapseStream: '<'
   }
 }
 
