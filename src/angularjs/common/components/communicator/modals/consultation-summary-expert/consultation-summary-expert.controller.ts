@@ -11,6 +11,8 @@ import {
   ConsultationSummaryExpertService, IComplaintReason
 } from './consultation-summary-expert.service'
 import {Subscription} from 'rxjs/Subscription'
+import {Subject} from 'rxjs/Subject'
+import {Observable} from 'rxjs/Observable'
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   callSummary?: CallSummary
@@ -44,6 +46,9 @@ export class ConsultationSummaryExpertController implements ng.IController {
   private static readonly minValidClientReportMessageLength: number = 3
   private sueId: string
 
+  private hideTechnicalProblemsEvent = new Subject<void>();
+  private hideReportClientEvent = new Subject<void>();
+
   static $inject = ['$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi', 'topAlertService',
     'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
 
@@ -59,6 +64,22 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.complaintReasons = this.consultationSummaryExpertService.complaintReasons
     this.callSummarySubscription = this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
+  }
+
+  public get hideTechnicalProblems$(): Observable<void> {
+    return this.hideTechnicalProblemsEvent;
+  }
+
+  public get hideReportClient$(): Observable<void> {
+    return this.hideReportClientEvent;
+  }
+
+  public onTechnicalProblemsCancel = (): void => {
+    this.hideTechnicalProblemsEvent.next()
+  }
+
+  public onReportClientCancel = (): void => {
+    this.hideReportClientEvent.next()
   }
 
   public onSendTechnicalProblems = (): void => {
