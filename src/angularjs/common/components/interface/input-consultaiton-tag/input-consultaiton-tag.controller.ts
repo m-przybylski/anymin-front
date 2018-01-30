@@ -32,7 +32,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
 
   public static $inject = ['SearchApi', 'promiseService', '$log', 'CommonSettingsService'];
 
-    constructor(private SearchApi: SearchApi,
+  constructor(private SearchApi: SearchApi,
               private promiseService: PromiseService,
               private $log: ng.ILogService,
               private CommonSettingsService: CommonSettingsService) {
@@ -94,7 +94,20 @@ export class InputConsultationTagComponentController implements IInputConsultati
   }
 
   public onChange = (): void => {
-      this.isInputValueInvalid = false;
+    this.isInputValueInvalid = false;
+    this.handleTagEnd();
+  }
+
+  public onPaste = (event: Event): void => {
+    event.preventDefault();
+  }
+
+  private handleTagEnd = (): void => {
+    if (this.tagModel.indexOf(';') !== -1 || this.tagModel.indexOf(',') !== -1) {
+      this.tagModel = this.tagModel.slice(0, -1);
+      this.onEnter();
+      if (!this.isInputValueInvalid) this.tagModel = '';
+    }
   }
 
   private updateSuggestedTags = (): void => {
@@ -116,8 +129,8 @@ export class InputConsultationTagComponentController implements IInputConsultati
   private checkIsQueryForTagsChange = (tagsQuery: PostSuggestTags): boolean =>
     this.cacheSuggestedTags !== undefined &&
     (tagsQuery.description !== this.cacheSuggestedTags.description
-    || tagsQuery.query !== this.cacheSuggestedTags.query
-    || this.cacheSuggestedTags.tags && this.cacheSuggestedTags.tags.length !== tagsQuery.tags.length)
+      || tagsQuery.query !== this.cacheSuggestedTags.query
+      || this.cacheSuggestedTags.tags && this.cacheSuggestedTags.tags.length !== tagsQuery.tags.length)
 
   private checkIsDataForQueryTagsExist = (): boolean =>
     this.serviceName !== undefined || this.selectedTags && this.selectedTags.length > 0
