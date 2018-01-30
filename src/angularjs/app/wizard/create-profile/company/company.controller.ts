@@ -24,12 +24,12 @@ export class CompanyController implements ng.IController {
   public dictionary: {
     [key: string]: string
   }
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
   private companyNamePattern: RegExp
   private companyDescriptionPattern: RegExp
-
   static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
 
     constructor(private WizardApi: WizardApi,
