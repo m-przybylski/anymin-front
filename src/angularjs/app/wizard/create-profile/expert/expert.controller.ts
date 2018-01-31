@@ -24,6 +24,7 @@ export class ExpertController implements ng.IController {
   public progressBarTittle: string = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE'
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert
   private isUploading: boolean = true
   private profileNamePattern: RegExp
   private profileDescriptionPattern: RegExp

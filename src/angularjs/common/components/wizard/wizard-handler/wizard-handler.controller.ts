@@ -40,7 +40,6 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         width: String(this.progressWidth) + '%'
       }
       this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
-
       if (this.findInput) {
         this.findInput.focus()
       }

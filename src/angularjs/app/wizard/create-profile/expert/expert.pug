@@ -33,6 +33,7 @@
       data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
       data-check-is-step-valid="vm.checkIsProfileDescriptionValid"
       data-required="vm.isStepRequired"
+      data-on-go-to-next="vm.goToSummary"
     )
       textarea-primary(
         data-ng-model="vm.descriptionModel"
@@ -44,6 +45,7 @@
       )
 
     wizard-step.step(
+      data-ng-if="!vm.isPlatformForExpert",
       data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
       data-tooltip-text="WIZARD.STEP.EXPERT.FILES.TOOLTIP"
       data-check-is-step-valid="vm.checkIsFileUploadValid"
@@ -54,6 +56,7 @@
       )
 
     wizard-step.step.last-step(
+      data-ng-if="!vm.isPlatformForExpert",
       data-additional-text="WIZARD.STEP.EXPERT.LINKS.HINT"
       data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
       data-tooltip-text="WIZARD.STEP.EXPERT.LINKS.TOOLTIP"

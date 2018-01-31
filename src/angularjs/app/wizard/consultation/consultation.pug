@@ -2,6 +2,7 @@ section.consultation
   .container-big
     wizard-handler(data-progress-bar-text="WIZARD.STEP.CONSULTATION.PROGRESSBAR.TITLE")
       wizard-step.step(
+      data-ng-if="!vm.isPlatformForExpert"
       data-title="WIZARD.CONSULTATION.LANGUAGE.TITLE"
       data-on-go-back="vm.onGoBack"
       data-check-is-step-valid="vm.checkIsLanguageInputValid"
