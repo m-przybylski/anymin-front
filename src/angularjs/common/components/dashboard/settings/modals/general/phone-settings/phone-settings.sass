@@ -2,69 +2,75 @@
 @import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
 
 .phone-settings
-	.container-medium
-		+xsm
-			max-width: 484px
-			min-width: 484px
+  .container-medium
+    +xsm
+      max-width: 484px
+      min-width: 484px
 
-	form
-		&.input-form
-			margin: 0
+  form
+    &.input-form
+      margin: 0
 
-			+smm
-				margin: 0
+      +smm
+        margin: 0
 
-				dropdown-primary
-					min-width: 120px
+        dropdown-primary
+          min-width: 120px
 
-	.input-handler
-		margin: 0 0 32px
+  .input-handler
+    margin: 0 0 48px
 
-		+smm
-			margin: 0 0 64px
+    > div
+      .alert-cloud
+        max-width: 220px
 
-		> div
-			.alert-cloud
-				max-width: 220px
+  .input-content
+    position: relative
 
+    .prefix-phone
+      display: block
+      margin: 0 0 16px
 
-	.input-content
-		.prefix-phone
-			display: block
-			margin: 0 0 16px
+      +xsm
+        margin: 0
+        padding: 0 16px 0 0
 
-			+xsm
-				margin: 0
-				padding: 0 16px 0 0
+    .input-group
+      +xsm
+        margin: 0 0 0 16px
 
-		.input-group
-			+xsm
-				margin: 0 0 0 16px
+    validation-alert
+      position: absolute
+      top: 55px
+      width: 100%
+      display: flex
+      align-items: center
+      justify-content: center
 
-	.collapse-height
-		overflow: hidden
+  .collapse-height
+    overflow: hidden
 
-		&.pin-verification-counter
-			&.animation-in
-				animation: fadeInYInverse 0.3s
-				animation-fill-mode: forwards
-				transition: height 0.3s
+    &.pin-verification-counter
+      &.animation-in
+        animation: fadeInYInverse 0.3s
+        animation-fill-mode: forwards
+        transition: height 0.3s
 
-			&.animation-out
-				animation: fadeOutYInverse 0.3s
-				animation-fill-mode: forwards
-				transition: height 0.3s
+      &.animation-out
+        animation: fadeOutYInverse 0.3s
+        animation-fill-mode: forwards
+        transition: height 0.3s
 
-		&.pin
-			&.animation-in
-				animation: fadeInYInverse 0.3s 0.3s
-				animation-fill-mode: forwards
-				transition: height 0.3s 0.3s
+    &.pin
+      &.animation-in
+        animation: fadeInYInverse 0.3s 0.3s
+        animation-fill-mode: forwards
+        transition: height 0.3s 0.3s
 
-			&.animation-out
-				animation: fadeOutYInverse 0.3s
-				animation-fill-mode: forwards
-				transition: height 0.3s
+      &.animation-out
+        animation: fadeOutYInverse 0.3s
+        animation-fill-mode: forwards
+        transition: height 0.3s
 
-	pin-verification
-		display: block
+  pin-verification
+    display: block
