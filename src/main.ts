@@ -9,6 +9,9 @@ import * as angular from 'angular';
 if (environment.production) {
   enableProdMode();
 }
+
 setAngularJSGlobal(angular);
+
+// tslint:disable:no-console
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));

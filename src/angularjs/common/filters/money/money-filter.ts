@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 
+// tslint:disable:no-bitwise
 const handleAmount = (_amount: number): string => {
   let sign = '';
   const numeralSystem: number = 10;

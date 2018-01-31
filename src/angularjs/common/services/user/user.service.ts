@@ -29,6 +29,7 @@ export class UserService {
   public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> =>
     this.sessionServiceWrapper.login(loginDetails).then((session) => {
       this.eventsService.emit('login');
+
       return session;
     })
 }
