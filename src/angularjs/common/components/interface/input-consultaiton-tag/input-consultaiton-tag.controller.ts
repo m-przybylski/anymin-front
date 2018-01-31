@@ -29,6 +29,10 @@ export class InputConsultationTagComponentController implements IInputConsultati
   private static readonly suggestedTagsLimit = 7;
   private static readonly suggestedTagsLoaderDelay = 500;
   private static readonly postTagsSuggestionsDelay = 500;
+  private tagPattern = this.CommonSettingsService.localSettings.tagPattern;
+  private maxTagWordsCount = this.CommonSettingsService.localSettings.consultationMaxTagWords;
+  private minTagLength = this.CommonSettingsService.localSettings.consultationMinTagLength;
+  private maxTagLength = this.CommonSettingsService.localSettings.consultationMaxTagLength;
 
   public static $inject = ['SearchApi', 'promiseService', '$log', 'CommonSettingsService'];
 
@@ -39,9 +43,11 @@ export class InputConsultationTagComponentController implements IInputConsultati
   }
 
   public onEnter = (): void => {
-    if (this.tagModel.length > 0
+    if (this.isTagLengthValid()
       && !(this.selectedTags.indexOf(this.tagModel) !== -1)
-      && this.isTagsCountValid()) {
+      && this.isTagsCountValid()
+      && this.isTagPatternValid()
+      && this.isMaxTagWordsValid()) {
       this.selectedTags.push(this.tagModel);
       this.isInputValueInvalid = false;
       this.tagModel = '';
@@ -145,6 +151,15 @@ export class InputConsultationTagComponentController implements IInputConsultati
     this.cacheSuggestedTags = angular.copy(tagsQuery);
     this.isError = true;
   }
+
+  private isTagPatternValid = (): boolean => this.tagPattern.test(this.tagModel);
+
+  private isTagLengthValid = (): boolean =>
+    this.minTagLength <= this.tagModel.length
+    && this.tagModel.length <= this.maxTagLength
+
+  private isMaxTagWordsValid = (): boolean =>
+    this.tagModel.split(' ').length <= this.maxTagWordsCount
 
   private throttlePostTagsSuggestions = (tagsQuery: PostSuggestTags): void =>
     _.throttle(() => this.postTagsSuggestions(tagsQuery),
