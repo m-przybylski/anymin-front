@@ -148,7 +148,7 @@ describe('Unit testing: profitelo.components.file-uploader', () =>
     it('should show file count error', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const file: File = new File([], 'someFile')
-      const invalidFilesCount: number = 22
+      const invalidFilesCount = 22
       const files: File[] = new Array(invalidFilesCount).fill(file, 0, invalidFilesCount)
       const invalidFiles: File[] = []
       component.uploadFiles(files, file, files, files, invalidFiles)

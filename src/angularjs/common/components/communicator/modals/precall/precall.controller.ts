@@ -18,28 +18,28 @@ export interface IPrecallModalControllerScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class PrecallModalController implements ng.IController {
-  public isLoading: boolean = true;
-  public callLimitModel: string = '0';
+  public isLoading = true;
+  public callLimitModel = '0';
   public paymentMethods: IPrimaryDropdownListElement[] = [];
   public clientBalance: IPrimaryDropdownListElement;
   public onSelectMain: IPrimaryDropdownListElement;
-  public isPrepaid: boolean = true;
+  public isPrepaid = true;
   public expertAvatar: string;
   public prepaidTranslation: string;
   public dateTimeLimit: string;
-  public isRegExpPriceInputValid: boolean = true;
-  public isPriceInputValid: boolean = true;
-  public isInputValueGreaterThanAccountBalance: boolean = true;
-  public serviceName: string = '';
+  public isRegExpPriceInputValid = true;
+  public isPriceInputValid = true;
+  public isInputValueGreaterThanAccountBalance = true;
+  public serviceName = '';
   public servicePrice: MoneyDto;
-  public serviceOwnerName: string = '';
-  public isUnlimitedPrepaid: boolean = true;
-  public isButtonProgress: boolean = false;
-  public isBalanceEnoughForMinimalCallTime: boolean = false;
+  public serviceOwnerName = '';
+  public isUnlimitedPrepaid = true;
+  public isButtonProgress = false;
+  public isBalanceEnoughForMinimalCallTime = false;
   public mediaStream?: MediaStream;
   private prepaidCallLimitModel: number;
   private prepaidValue: string;
-  private moneyDivider: number = this.CommonConfig.getAllData().config.moneyDivider;
+  private moneyDivider = this.CommonConfig.getAllData().config.moneyDivider;
   private consultationPrice: number;
 
   public onModalClose = (): void => {
@@ -49,9 +49,9 @@ export class PrecallModalController implements ng.IController {
 
   private service: GetService;
   private serviceOwner: GetProfile;
-  private readonly moneyNumberOfDecimalPlaces: number = 2;
-  private readonly secondPerMinute: number = 60;
-  private readonly minPrepaidMinutesTimeLimitToCall: number = 2;
+  private readonly moneyNumberOfDecimalPlaces = 2;
+  private readonly secondPerMinute = 60;
+  private readonly minPrepaidMinutesTimeLimitToCall = 2;
 
   public static $inject = ['$log', '$uibModalInstance', 'FinancesApi', 'PaymentsApi', 'CommonConfig', 'topAlertService',
     'translatorService', '$state', 'modalsService', 'clientCallService', 'errorHandler', '$scope'];

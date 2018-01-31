@@ -30,7 +30,7 @@ export class SessionServiceWrapper {
   public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> =>
     this.upgradeService.toIPromise(this.userSessionService.login(loginDetails)).then(this.onSuccessLogin)
 
-  public getSession = (force: boolean = false): ng.IPromise<GetSession> =>
+  public getSession = (force = false): ng.IPromise<GetSession> =>
     this.upgradeService.toIPromise(this.userSessionService.getSession(force)).then(this.onSuccessLogin)
 
   private onSuccessLogin = (session: GetSession): GetSession => {
@@ -39,10 +39,12 @@ export class SessionServiceWrapper {
   }
 
   private onSuccessLogout = (): void => {
+    // tslint:disable-next-line:no-non-null-assertion
     delete this.$http.defaults.headers!.common[Config.http.apiHeader];
   }
 
   private setApiKeyHeader = (apiKey: string): void => {
+    // tslint:disable-next-line:no-non-null-assertion
     this.$http.defaults.headers!.common[Config.http.apiHeader] = apiKey;
   }
 }

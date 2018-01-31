@@ -22,6 +22,7 @@ export class UrlService {
   public resolveSocialUrl = (remoteUrl: string): ISocialUrl | undefined => {
     const _socialNetworks: ISocialUrl[] = this.CommonSettingsService.localSettings.socialNetworks;
 
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < _socialNetworks.length; i++) {
       const social = _socialNetworks[i];
       if (remoteUrl.match(social.pattern)) {

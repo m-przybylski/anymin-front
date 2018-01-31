@@ -22,28 +22,28 @@ interface ILanguagesList {
 
 // tslint:disable:member-ordering
 export class ConsultationController implements ng.IController {
-  public readonly inputNameMaxLength: string = Config.inputsMaxLength.consultationName;
-  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.consultationDescription;
-  public isStepRequired: boolean = true;
+  public readonly inputNameMaxLength = Config.inputsMaxLength.consultationName;
+  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.consultationDescription;
+  public isStepRequired = true;
   public currency: string;
-  public nameInputValue: string = '';
+  public nameInputValue = '';
   public tagsInputValue: string[] = [];
-  public priceAmountInputValue: string = '1,00';
+  public priceAmountInputValue = '1,00';
   public invitationsInputValue: string[] = [];
-  public isOwnerEmployee: boolean = false;
+  public isOwnerEmployee = false;
   public languagesList: ILanguagesList[];
   public languageInputValue: ILanguagesList;
   public descriptionInputValue: string;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
-  public isRegExpPriceInputValid: boolean = true;
+  public isPlatformForExpert = Config.isPlatformForExpert;
+  public isRegExpPriceInputValid = true;
   public isCompany: boolean;
-  public isSubmitted: boolean = false;
-  public isPriceAmountValid: boolean = true;
+  public isSubmitted = false;
+  public isPriceAmountValid = true;
 
   private isExpert: boolean;
-  private currentEditServiceIndex: number = -1;
+  private currentEditServiceIndex = -1;
   private moneyDivider: number;
-  private defaultLanguageISO: string = '';
+  private defaultLanguageISO = '';
   private consultationNamePattern: RegExp;
   private consultationDescriptionPattern: RegExp;
   private consultationTagsMinCount: number;

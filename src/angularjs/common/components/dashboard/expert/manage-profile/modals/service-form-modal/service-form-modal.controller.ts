@@ -25,29 +25,29 @@ export interface IServiceFormModalScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ServiceFormModalController implements ng.IController {
 
-  public readonly consultationNameMaxLength: string = Config.inputsMaxLength.consultationName;
-  public readonly consultationDescriptionMaxLength: string = Config.inputsMaxLength.consultationDescription;
-  public isLoading: boolean = true;
-  public isError: boolean = false;
-  public consultationName: string = '';
+  public readonly consultationNameMaxLength = Config.inputsMaxLength.consultationName;
+  public readonly consultationDescriptionMaxLength = Config.inputsMaxLength.consultationDescription;
+  public isLoading = true;
+  public isError = false;
+  public consultationName = '';
   public languagesList: ILanguage[] = [];
   public consultationLanguage?: ILanguage;
   public consultationTags: string[] = [];
-  public consultationDescription: string = '';
+  public consultationDescription = '';
   public recommendedTags: string[] = [];
   public consultationNewInvitations: string[] = [];
-  public isOwnerEmployee: boolean = false;
-  public consultationPrice: string = '1.00';
-  public isSubmitted: boolean = false;
-  public isRegExpPriceInputValid: boolean = true;
-  public isCompany: boolean = false;
-  public isExpert: boolean = false;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
-  public isPriceAmountValid: boolean = true;
+  public isOwnerEmployee = false;
+  public consultationPrice = '1.00';
+  public isSubmitted = false;
+  public isRegExpPriceInputValid = true;
+  public isCompany = false;
+  public isExpert = false;
+  public isPlatformForExpert = Config.isPlatformForExpert;
+  public isPriceAmountValid = true;
 
   private moneyDivider: number;
   private currency: string;
-  private defaultLanguageISO: string = '';
+  private defaultLanguageISO = '';
   private onModalCloseCallback: () => void;
   private serviceDetails?: GetExpertServiceDetails;
   private consultationNamePattern: RegExp;
@@ -202,7 +202,7 @@ export class ServiceFormModalController implements ng.IController {
       });
     const invitations: IServiceInvitation[] = emails.concat(msisdns);
     const language = this.consultationLanguage ? this.consultationLanguage.value : '';
-    const isOwnerEmployee: boolean = this.isExpert && !this.isCompany ? true : this.isOwnerEmployee;
+    const isOwnerEmployee = this.isExpert && !this.isCompany ? true : this.isOwnerEmployee;
     return {
       tags,
       invitations,
@@ -219,12 +219,14 @@ export class ServiceFormModalController implements ng.IController {
       singleService.invitations
         .filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW)
         .filter(invitation => invitation.email)
+        // tslint:disable-next-line:no-non-null-assertion
         .map(emailInvitation => emailInvitation.email!)
     );
     const msisdnInvitation: string[] = _.flatMap(servicesWithInvitations, singleService =>
       singleService.invitations
         .filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW)
         .filter(invitation => invitation.msisdn)
+        // tslint:disable-next-line:no-non-null-assertion
         .map(msisndInvitation => msisndInvitation.msisdn!)
     );
     this.consultationNewInvitations = emailInvitation.concat(msisdnInvitation);

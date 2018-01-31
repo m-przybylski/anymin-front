@@ -23,12 +23,12 @@ interface IProtectedViewsStatus {
 // tslint:disable:member-ordering
 export class SecurityPinNumberSettingsController implements ng.IController {
 
-  private readonly pinLength: number = 4;
-  public isPasswordIncorrect: boolean = false;
-  public isNavbar: boolean = true;
-  public isFullscreen: boolean = true;
-  public isNewPinTyped: boolean = false;
-  public confirmPassword: string = '';
+  private readonly pinLength = 4;
+  public isPasswordIncorrect = false;
+  public isNavbar = true;
+  public isFullscreen = true;
+  public isNewPinTyped = false;
+  public confirmPassword = '';
   public pinInput: string[] = new Array(this.pinLength);
   public patternPassword: RegExp = this.CommonSettingsService.localSettings.passwordPattern;
   public protectedViewsStatus: IProtectedViewsStatus = {
@@ -36,8 +36,8 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     PAY_OUT_VIEW: false,
     MAKE_DEPOSIT_VIEW: false
   };
-  private newEnteredCurrentPassword: string = '';
-  public isError: boolean = false;
+  private newEnteredCurrentPassword = '';
+  public isError = false;
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');

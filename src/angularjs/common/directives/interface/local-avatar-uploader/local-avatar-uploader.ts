@@ -8,8 +8,8 @@ interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
 // tslint:disable:member-ordering
 class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
   public template = require('./local-avatar-uploader.html');
-  public restrict: string = 'E';
-  public transclude: boolean = false;
+  public restrict = 'E';
+  public transclude = false;
   public scope = {
     onFileUpload: '=?'
   };

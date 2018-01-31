@@ -11,8 +11,8 @@ interface IScrollableDirectiveScope extends ng.IScope {
 // tslint:disable:member-ordering
 class ScrollableDirective implements ng.IDirective<ng.IScope> {
   public template = require('./scrollable.html');
-  public restrict: string = 'E';
-  public transclude: boolean = true;
+  public restrict = 'E';
+  public transclude = true;
   public scope = {
     isFullscreen: '<',
     isNavbar: '<'
@@ -23,8 +23,8 @@ class ScrollableDirective implements ng.IDirective<ng.IScope> {
   private scrollableContent: JQuery;
   private previousScrollableContentHeight: number;
   private navbarHeight: number;
-  private intervalDelay: number = 30;
-  private static readonly dividerOnHalf: number = 2;
+  private intervalDelay = 30;
+  private static readonly dividerOnHalf = 2;
 
   public static $inject = ['$timeout', '$interval'];
 

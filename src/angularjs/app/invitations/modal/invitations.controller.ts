@@ -24,15 +24,15 @@ export interface IInvitationsModalScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class InvitationsModalController implements ng.IController {
-  public areInvitations: boolean = false;
-  public isServiceSelected: boolean = true;
+  public areInvitations = false;
+  public isServiceSelected = true;
   public companyName?: string;
   public logo?: string;
   public description?: string;
-  public isLoading: boolean = true;
-  public isSubmitButtonDisabled: boolean = false;
+  public isLoading = true;
+  public isSubmitButtonDisabled = false;
 
-  private confirmWindowMessage: string =
+  private confirmWindowMessage =
     this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.CONFIRM_MESSAGE');
   private services: IGetServiceWithInvitationsAndTags[] = [];
   private acceptedServices: IGetServiceWithInvitationsAndTags[] = [];

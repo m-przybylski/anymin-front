@@ -4,10 +4,10 @@ import { VolumeMeterService, IProcessor } from '../../../services/volume-meter/v
 // tslint:disable:member-ordering
 export class VoiceVolumeBarComponentController implements IVoiceVolumeBarComponentBindings {
 
-  private static readonly width: number = 1000;
-  private static readonly height: number = 200;
-  private static readonly fillBarColor: string = '#1DCE6C';
-  private static readonly fillBarMultiplier: number = 1.4;
+  private static readonly width = 1000;
+  private static readonly height = 200;
+  private static readonly fillBarColor = '#1DCE6C';
+  private static readonly fillBarMultiplier = 1.4;
   private audioContext: AudioContext;
   private meter: IProcessor;
   private canvasContext: CanvasRenderingContext2D | null = null;

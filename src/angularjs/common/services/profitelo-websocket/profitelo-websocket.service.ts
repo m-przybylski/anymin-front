@@ -119,7 +119,6 @@ export class ProfiteloWebsocketService {
         break;
       default:
         this.$log.info('Unknown messageType ' + String(type));
-        break;
     }
   }
 

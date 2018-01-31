@@ -7,7 +7,7 @@ export class TopWaitingLoaderService {
   private immediateInProgress: boolean;
   private currentProgress: number;
   private immediateInterval: ng.IPromise<any>;
-  private maxProgressValue: number = 100;
+  private maxProgressValue = 100;
 
   public static $inject = ['$rootScope', '$timeout', '$interval'];
 
@@ -46,8 +46,8 @@ export class TopWaitingLoaderService {
   }
 
   private startImmediateLoading = (): void => {
-    const intervalDelay: number = 500;
-    const minRandomValue: number = 20;
+    const intervalDelay = 500;
+    const minRandomValue = 20;
     if (!this.immediateInProgress) {
       this.immediateInProgress = true;
       this.immediateInterval = this.$interval(() => {

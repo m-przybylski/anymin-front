@@ -13,16 +13,16 @@ interface ICircleBackgroundStyle {
 
 // tslint:disable:member-ordering
 export class LoaderComponentController implements ng.IController, ILoaderComponentBindings {
-  public loadingProgress: number = 0;
+  public loadingProgress = 0;
   public fileUploadInfo: any;
 
   public circleStyle: ICircleBackgroundStyle;
   public circleStyleBackground: ICircleBackgroundStyle;
   public circleProgressStyle: ICircleStyle;
-  public fileUploadError: boolean = false;
+  public fileUploadError = false;
 
-  private static readonly multiplierByTwo: number = 2;
-  private static readonly loadingProgressMultiplier: number = 100;
+  private static readonly multiplierByTwo = 2;
+  private static readonly loadingProgressMultiplier = 100;
 
   public static $inject = [];
 

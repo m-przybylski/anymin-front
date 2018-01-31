@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.components.interface.tiles', () => {
     let compile: ng.ICompileService
     let component: SimilarConsultationComponentController
 
-    const validHTML: string = '<similar-consultation data-title="Tekst" data-consultations="{}"></similar-consultation>'
+    const validHTML = '<similar-consultation data-title="Tekst" data-consultations="{}"></similar-consultation>'
 
     function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()

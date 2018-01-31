@@ -13,7 +13,7 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ExpertConsultationDetailsController implements ng.IController {
   public roomId?: string;
-  public isLoading: boolean = true;
+  public isLoading = true;
   public serviceTags: Tag[] = [];
   public expertAvatar?: string;
   public expertName?: string;
@@ -92,11 +92,13 @@ export class ExpertConsultationDetailsController implements ng.IController {
   }
 
   private onServiceTags = (res: GetServiceTags[]): void => {
-    this.openExpertActivityModal(res[0]!.tags);
+    this.openExpertActivityModal(res[0].tags);
   }
 
   private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
+    // tslint:disable-next-line:no-non-null-assertion
     this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar;
+    // tslint:disable-next-line:no-non-null-assertion
     this.expertName = this.callDetails.expertProfile.expertDetails!.name;
     this.recommendedTags = this.callDetails.recommendedTags;
     this.serviceName = this.callDetails.service.name;

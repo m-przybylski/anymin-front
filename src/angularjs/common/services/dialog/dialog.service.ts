@@ -13,9 +13,9 @@ export class DialogService {
    * Full options list can be found in the angular bootstrap docs
    * @link https://angular-ui.github.io/bootstrap/#/modal
    *
-   * @param {Object} options - uibModal's options object
+   * @param options - uibModal's options object
    *
-   * @returns {Object} uibModal
+   * @returns uibModal
    */
   public openDialog = (options: ng.ui.bootstrap.IModalSettings = {}): ng.ui.bootstrap.IModalInstanceService => {
 

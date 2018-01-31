@@ -4,7 +4,7 @@ import { ClientActivityComponentController } from './activity.controller';
 export class ClientActivityComponent implements ng.IComponentOptions {
   public template = require('./activity.html');
   public controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController;
-  public controllerAs: string = '$ctrl';
+  public controllerAs = '$ctrl';
   public bindings: {[boundProperty: string]: string} = {
     activity: '<'
   };

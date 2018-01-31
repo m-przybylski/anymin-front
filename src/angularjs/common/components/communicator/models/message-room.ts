@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 // tslint:disable:member-ordering
 export class MessageRoom {
 
-  private static readonly chatHistoryLimit: number = 200;
+  private static readonly chatHistoryLimit = 200;
   public room?: RatelSdk.BusinessRoom;
 
   private readonly events = {

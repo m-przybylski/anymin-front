@@ -28,7 +28,7 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
   function linkFunction(scope: IProExpertSlideScope): void {
 
     scope.areControllsVisible = true;
-    const maxSlidersWithoutConstrollers: number = 3;
+    const maxSlidersWithoutConstrollers = 3;
 
     $timeout(() => {
       if (scope.sliders.length <= maxSlidersWithoutConstrollers) {

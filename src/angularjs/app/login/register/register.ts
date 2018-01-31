@@ -130,7 +130,7 @@ function RegisterController($log: ng.ILogService,
   };
 
   this.completeRegistration = (): void => {
-    const lastRegistrationStep: number = 3;
+    const lastRegistrationStep = 3;
     _updateNewUserObject({
       password: this.registrationSteps.password
     }, () => {

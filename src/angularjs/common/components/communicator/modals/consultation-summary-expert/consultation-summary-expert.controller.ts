@@ -25,8 +25,8 @@ export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ConsultationSummaryExpertController implements ng.IController {
   public complaintReasons: IComplaintReason[];
-  public isFullscreen: boolean = true;
-  public isNavbar: boolean = true;
+  public isFullscreen = true;
+  public isNavbar = true;
   public callSummary?: IExpertCallSummary;
   public isLoading: boolean;
 
@@ -35,16 +35,16 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public callDuration: number;
   public profit: MoneyDto;
   public clientAvatar?: string;
-  public clientReportMessage: string = '';
-  public isSendingClientReport: boolean = false;
-  public isClientReportSent: boolean = false;
-  public isSubmitted: boolean = false;
+  public clientReportMessage = '';
+  public isSendingClientReport = false;
+  public isClientReportSent = false;
+  public isSubmitted = false;
 
   public radioModel: GetTechnicalProblem.ProblemTypeEnum;
   public technicalProblemsDescription: string;
 
   private callSummarySubscription: Subscription;
-  private static readonly minValidClientReportMessageLength: number = 3;
+  private static readonly minValidClientReportMessageLength = 3;
   private sueId: string;
 
   private hideTechnicalProblemsEvent = new Subject<void>();
@@ -148,8 +148,8 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   private loadFromExistingCallSummaries = (): void => {
     const callSummary = this.callSummaryService.getCallSummary(this.$scope.serviceId);
-    callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
-      ? this.onCallSummary(callSummary) : undefined;
+    if (callSummary && this.callSummaryService.isExpertCallSummary(callSummary))
+      this.onCallSummary(callSummary);
   }
 
   private clearSummary = (callSummary: CallSummary): void => {

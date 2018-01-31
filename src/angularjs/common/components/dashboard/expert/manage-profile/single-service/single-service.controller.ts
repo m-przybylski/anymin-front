@@ -21,7 +21,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public serviceOwnerName: string;
   public serviceOwnerLogo: string;
   public onModalClose: () => void;
-  public isDeleted: boolean = false;
+  public isDeleted = false;
 
   public static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
     'topAlertService', 'errorHandler'];
@@ -59,7 +59,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   }
 
   private deleteService = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT');
     if (confirm(confirmWindowMessage)) {
       this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then(() => {
@@ -73,7 +73,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   }
 
   private deleteEmployment = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT');
     if (confirm(confirmWindowMessage)) {
       this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.service.id).then(() => {

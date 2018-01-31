@@ -4,7 +4,7 @@ import { InvoiceCompanyFormComponent } from './invoice-company.component';
 import inputModule from '../interface/input/input';
 import ValidationAlertModule from '../interface/alert/validation-alert/validation-alert';
 
-const invoiceCompanyFormComponentModule: string = angular.module('profitelo.components.dashboard.invoice', [
+const invoiceCompanyFormComponentModule = angular.module('profitelo.components.dashboard.invoice', [
   sessionModule,
   inputModule,
   ValidationAlertModule

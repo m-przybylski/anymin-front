@@ -16,14 +16,14 @@ export class DashboardExpertActivitiesController {
   public static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log', 'filtersData',
     '$timeout', 'profiteloWebsocket'];
 
-  private static readonly queryLimit: number = 10;
+  private static readonly queryLimit = 10;
   private static readonly promiseLoaderDelay = 500;
 
   public areActivities: boolean;
   public activities: GetActivity[] = [];
 
-  public isSearchLoading: boolean = true;
-  public isError: boolean = false;
+  public isSearchLoading = true;
+  public isError = false;
   public areMoreResults: boolean;
   public filters: GetActivityFilters;
   public translationCounter: {
@@ -32,11 +32,11 @@ export class DashboardExpertActivitiesController {
   };
   public accountType = FinancialOperation.AccountTypeEnum.PROFILE;
   public isActivitiesLoading = false;
-  public areFilteredResults: boolean = false;
-  public isAnyPayoutMethodSet: boolean = false;
+  public areFilteredResults = false;
+  public isAnyPayoutMethodSet = false;
 
   private activitiesQueryParam: ActivitiesQueryParams;
-  private timeoutDelay: number = 400;
+  private timeoutDelay = 400;
 
   constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,

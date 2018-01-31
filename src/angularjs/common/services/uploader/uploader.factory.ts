@@ -10,6 +10,6 @@ export class UploaderFactory {
               private FilesApi: FilesApi, private Upload: any) {
   }
 
-  public getInstance = (simultaneousUploadCount: number = 1): UploaderService =>
+  public getInstance = (simultaneousUploadCount = 1): UploaderService =>
     new UploaderService(this.$q, this.$timeout, this.FilesApi, this.Upload, simultaneousUploadCount)
 }

@@ -15,7 +15,7 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
     const bindings: ISearchFiltersComponentBindings = {
       tags: ['tag-1']
     }
-    const validHTML: string =
+    const validHTML =
       '<search-filters></search-filters>'
 
     const commonConfig = {

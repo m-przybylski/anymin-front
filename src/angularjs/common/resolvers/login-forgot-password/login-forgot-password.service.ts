@@ -20,6 +20,7 @@ export interface ILoginForgotPasswordService {
   resolve(stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword>;
 }
 
+// tslint:disable:strict-type-predicates
 class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
   public static $inject = ['$q', '$timeout', 'translatorService', '$state', 'topAlertService', 'loginStateService',

@@ -7,12 +7,12 @@ import { PayoutsService } from './payouts.service';
 
 // tslint:disable:member-ordering
 export class DashboardSettingsPayoutsController implements ng.IController {
-  public isAnyPayoutMethod: boolean = false;
+  public isAnyPayoutMethod = false;
   public isLoading: boolean;
-  public isLoadingError: boolean = false;
+  public isLoadingError = false;
   public payPalAccountEmail?: string;
   public bankAccountNumber?: string;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['modalsService', 'translatorService', 'payoutsService', 'topAlertService'];
 
@@ -36,7 +36,7 @@ export class DashboardSettingsPayoutsController implements ng.IController {
   }
 
   public deletePaymentMethod = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('SETTINGS.PAYMENTS.DELETE_METHOD.CONFIRM_MESSAGE');
     if (confirm(confirmWindowMessage)) {
       this.payoutsService.putPayoutMethod().then(() => {

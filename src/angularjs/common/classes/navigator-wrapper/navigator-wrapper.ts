@@ -5,8 +5,8 @@ import * as _ from 'lodash';
 // tslint:disable:member-ordering
 export class NavigatorWrapper {
 
-  public static readonly frontCamera: string = 'user';
-  public static readonly backCamera: string = 'environment';
+  public static readonly frontCamera = 'user';
+  public static readonly backCamera = 'environment';
   private navigator: any;
 
   private static videoConstraints: MediaStreamConstraints = {
@@ -27,7 +27,7 @@ export class NavigatorWrapper {
   public static $inject = [];
 
   constructor() {
-    this.navigator = window['navigator'];
+    this.navigator = window.navigator;
     this.navigator.getUserMedia =
       this.navigator.getUserMedia || this.navigator.mozGetUserMedia || this.navigator.webkitGetUserMedia;
 
@@ -54,14 +54,11 @@ export class NavigatorWrapper {
 
   public getUserMediaStream = (config: MediaStreamConstraints): Promise<MediaStream> =>
     new Promise((resolve, reject): void => {
-      this.navigator.getUserMedia(
-        config,
-        (stream: MediaStream) => resolve(stream),
-        (err: any) => reject(err)
-      );
+      this.navigator.getUserMedia(config, resolve, reject);
     })
 
   public static getAllConstraints = (): MediaStreamConstraints =>
+    // tslint:disable-next-line:prefer-object-spread
     Object.assign(NavigatorWrapper.audioConstraints, NavigatorWrapper.videoConstraints)
 
   public getAllConstraintsWithToggledCamera = (facingMode: string, cameraIndex: number): MediaStreamConstraints => {

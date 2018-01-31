@@ -29,7 +29,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
 
   public openActivityDescription = (): void => {
     if (this.isCallActivity && this.activity.serviceUsageDetails) {
-      const sueId: string = this.activity.serviceUsageDetails.serviceUsageEventId;
+      const sueId = this.activity.serviceUsageDetails.serviceUsageEventId;
       if (sueId) {
         this.modalsService.createExpertSUEActivityDetailsModal(sueId);
       } else {

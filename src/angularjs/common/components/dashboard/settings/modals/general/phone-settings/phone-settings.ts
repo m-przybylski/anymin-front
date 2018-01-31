@@ -10,7 +10,7 @@ import inputModule from '../../../../../interface/input/input';
 import { PhoneSettingsService } from './phone-settings.service';
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler';
 
-const phoneSettingsModule: string = angular.module(
+const phoneSettingsModule = angular.module(
   'profitelo.components.dashboard.settings.modals.general.phone-settings', [
   'ui.bootstrap',
   apiModule,

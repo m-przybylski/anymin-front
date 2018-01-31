@@ -7,7 +7,7 @@ function defaultSliderFunction($window: IWindowService,
   let elementsMap: number[] = [];
   let currentElement = 0;
   let parentWidth = $element[0].offsetWidth;
-  let visibleItem: number = 0;
+  let visibleItem = 0;
 
   function _elementsWidth(): void {
     elementsMap = $.map($($element).find('>div'), (div) => div.offsetWidth);

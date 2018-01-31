@@ -7,12 +7,12 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   public onSendPinAgain: () => void;
   public onCompletePinInputs: (token: string, callback: () => void) => void;
   public isButtonDisable = false;
-  public counter: number = 0;
+  public counter = 0;
   public pinInputModels: string[] = [];
   public isPinInCorrect = false;
 
-  private static readonly disableSendButtonInSeconds: number = 30;
-  private static readonly validPinLength: number = 4;
+  private static readonly disableSendButtonInSeconds = 30;
+  private static readonly validPinLength = 4;
 
   public static $inject = ['$interval'];
 

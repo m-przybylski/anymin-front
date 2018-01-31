@@ -16,8 +16,8 @@ export interface IEditCompanyInvoiceControllerScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class EditCompanyInvoiceController implements ng.IController {
 
-  public isNavbar: boolean = true;
-  public isFullscreen: boolean = true;
+  public isNavbar = true;
+  public isFullscreen = true;
   public companyName: string;
   public address: string;
   public postalCode: string;

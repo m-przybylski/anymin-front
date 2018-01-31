@@ -3,8 +3,8 @@ import { StateService } from '@uirouter/angularjs';
 
 // tslint:disable:member-ordering
 export class WizardController implements ng.IController {
-  public isFullscreen: boolean = true;
-  public isNavbar: boolean = true;
+  public isFullscreen = true;
+  public isNavbar = true;
 
   public static $inject = ['$state', 'previousState'];
 

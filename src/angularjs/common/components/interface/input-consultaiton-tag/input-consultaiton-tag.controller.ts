@@ -7,6 +7,7 @@ import { CommonSettingsService } from '../../../services/common-settings/common-
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class InputConsultationTagComponentController implements IInputConsultationTagBindings {
   public selectedTags: string[] = [];
@@ -21,9 +22,9 @@ export class InputConsultationTagComponentController implements IInputConsultati
   public areSuggestedTagsLoading: boolean;
   public serviceName: string;
   public serviceDescription: string;
-  public maxTagsCount: number = this.CommonSettingsService.localSettings.consultationTagsMaxCount;
+  public maxTagsCount = this.CommonSettingsService.localSettings.consultationTagsMaxCount;
   public cacheSuggestedTags?: PostSuggestTags;
-  public isError: boolean = false;
+  public isError = false;
 
   private static readonly suggestedTagsLimit = 7;
   private static readonly suggestedTagsLoaderDelay = 500;

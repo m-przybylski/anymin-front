@@ -3,6 +3,7 @@ import { PaymentsApi } from 'profitelo-api-ng/api/api';
 import { PostPayment, PaymentLink } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class PayPalPaymentFormComponentController implements ng.IController, IPayPalPaymentFormComponentBindings {
 

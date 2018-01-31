@@ -8,7 +8,7 @@ interface IValueLengthScope extends ng.IScope {
 // tslint:disable:member-ordering
 class ValueLength implements ng.IDirective<ng.IScope> {
 
-  public restrict: string = 'A';
+  public restrict = 'A';
   public scope = {
     valueLength: '=?',
     inputValue: '=?'

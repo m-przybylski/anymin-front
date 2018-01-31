@@ -19,6 +19,7 @@ interface IFileObject {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class UploaderService {
 
   private uploadingCount = 0;

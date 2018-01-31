@@ -4,7 +4,7 @@ import { keyboardCodes } from '../../classes/keyboard';
 
 // tslint:disable:member-ordering
 class NgEnter implements ng.IDirective<ng.IScope> {
-  public restrict: string = 'A';
+  public restrict = 'A';
 
   public static $inject = [];
 
@@ -12,7 +12,7 @@ class NgEnter implements ng.IDirective<ng.IScope> {
   }
 
   public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes): void => {
-    const enterKeyCode: number = keyboardCodes.enter;
+    const enterKeyCode = keyboardCodes.enter;
     elem.bind('keydown keypress', function (event): void {
       if (event.which === enterKeyCode) {
         if (elem[0].tagName === 'INPUT') {

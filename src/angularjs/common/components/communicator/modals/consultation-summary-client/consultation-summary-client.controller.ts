@@ -34,6 +34,7 @@ interface ITechnicalProblem {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class ConsultationSummaryClientController implements ng.IController {
   public tags: Tag[];
   public technicalProblems: ITechnicalProblem[];
@@ -41,16 +42,16 @@ export class ConsultationSummaryClientController implements ng.IController {
   public tabsContainerStyles = {
     height: this.currentSize
   };
-  public clientCommentInputValue: string = '';
-  public currentTab: string = ConsultationSummaryClientController.tabId.askTab;
+  public clientCommentInputValue = '';
+  public currentTab = ConsultationSummaryClientController.tabId.askTab;
   private static readonly minValidCommentLength = 3;
   private static readonly tabId = {
     askTab: 'ask',
     tagsTab: 'tag',
     commentTab: 'comment'
   };
-  private isSendButtonClicked: boolean = false;
-  private isTechnicalProblemsTab: boolean = true;
+  private isSendButtonClicked = false;
+  private isTechnicalProblemsTab = true;
 
   public static $inject = ['$log', '$scope', '$uibModalInstance', 'callSummaryService', 'translatorService',
     'ServiceApi', 'errorHandler'];
@@ -128,7 +129,7 @@ export class ConsultationSummaryClientController implements ng.IController {
   private addCloseModalListener = (): void => {
     this.$scope.$on('modal.closing', (event: IAngularEvent) => {
       if (this.isCommentValid() && !this.isSendButtonClicked) {
-        const confirmWindowMessage: string =
+        const confirmWindowMessage =
           this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.CONFIRM_WINDOW_MESSAGE');
         if (!confirm(confirmWindowMessage)) {
           event.preventDefault();

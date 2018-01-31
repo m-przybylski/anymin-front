@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.summary-ch
     let compile: ng.ICompileService
     let component: SummaryChargeAccountComponentController
 
-    const validHTML: string = '<summary-charge-account></summary-charge-account>'
+    const validHTML = '<summary-charge-account></summary-charge-account>'
 
     function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()

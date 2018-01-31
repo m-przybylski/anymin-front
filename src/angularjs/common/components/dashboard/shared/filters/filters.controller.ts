@@ -37,7 +37,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   public selectedExpert?: IPrimaryDropdownListElement;
   public secondaryServicesDropdownList: IPrimaryDropdownListElement[];
   public accountType: FinancialOperation.AccountTypeEnum;
-  public isCompany: boolean = false;
+  public isCompany = false;
   private watchGroup: string[] = ['dateFrom', 'dateTo'];
   public activitiesFilters = {
     dateTo: '',

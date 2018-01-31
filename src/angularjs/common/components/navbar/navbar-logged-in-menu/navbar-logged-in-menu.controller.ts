@@ -15,19 +15,19 @@ import { ProfiteloWebsocketService } from '../../../services/profitelo-websocket
 // tslint:disable:member-ordering
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
-  public isExpert: boolean = false;
+  public isExpert = false;
   public isExpertOrOrganization: boolean;
-  public isNotificationsMenuShow: boolean = false;
-  public areNotificationsDisplayed: boolean = false;
-  public areInvitationsDisplayed: boolean = false;
-  public isNotificationsTab: boolean = true;
-  public isInvitationsTab: boolean = false;
-  public isHelpMenuShow: boolean = false;
-  public isAvailbilityMenuShow: boolean = false;
-  public isAnyMenuShow: boolean = false;
+  public isNotificationsMenuShow = false;
+  public areNotificationsDisplayed = false;
+  public areInvitationsDisplayed = false;
+  public isNotificationsTab = true;
+  public isInvitationsTab = false;
+  public isHelpMenuShow = false;
+  public isAvailbilityMenuShow = false;
+  public isAnyMenuShow = false;
   public notificationCounter?: number;
   public invitations: GetProfileWithServicesInvitations[] = [];
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['userService', 'translatorService', 'topAlertService', '$state', '$element', '$document',
     '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService', 'profiteloWebsocket'];

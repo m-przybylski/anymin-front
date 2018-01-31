@@ -10,14 +10,14 @@ import { StateService, StateParams } from '@uirouter/angularjs';
 // tslint:disable:member-ordering
 export class SearchResultController {
 
-  private static readonly minimalLoaderDelay: number = 500;
+  private static readonly minimalLoaderDelay = 500;
   public stateParams: StateParams;
   public searchResults: GetSearchRequestResult[];
   public tags: string[];
-  public isMoreResults: boolean = true;
-  public isMoreResultsLoading: boolean = false;
-  public isLoadMoreError: boolean = false;
-  public isSearchLoading: boolean = true;
+  public isMoreResults = true;
+  public isMoreResultsLoading = false;
+  public isLoadMoreError = false;
+  public isSearchLoading = true;
   private searchQueryParams: SearchQueryParams;
 
   public static $inject = ['errorHandler', 'searchService', 'promiseService', '$state'];

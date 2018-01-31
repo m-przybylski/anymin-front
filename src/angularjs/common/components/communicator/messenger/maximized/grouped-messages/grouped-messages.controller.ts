@@ -6,8 +6,8 @@ import { CommunicatorService } from '@anymind-ng/core';
 export class GroupedMessagesComponentController implements ng.IController, IGroupedMessagesComponentBindings {
 
   public messages: Message[] = [];
-  public participantAvatar: string = '';
-  public isMine: boolean = false;
+  public participantAvatar = '';
+  public isMine = false;
 
   public static $inject = ['communicatorService'];
 

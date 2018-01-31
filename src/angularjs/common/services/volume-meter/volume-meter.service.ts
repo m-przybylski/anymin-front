@@ -14,7 +14,7 @@ export class VolumeMeterService {
   private static readonly defaultClipLevel = 0.98;
   private static readonly defaultAveraging = 0.95;
   private static readonly defaultClipLag = 750;
-  private static readonly bufferSize: number = 1024;
+  private static readonly bufferSize = 1024;
 
   public constructor(private $window: ng.IWindowService) {
   }
@@ -36,8 +36,8 @@ export class VolumeMeterService {
 
   private volumeAudioProcess = (processor: IProcessor, event: AudioProcessingEvent): void => {
     const buffer: Float32Array = event.inputBuffer.getChannelData(0);
-    const bufferLength: number = buffer.length;
-    let sum: number = 0;
+    const bufferLength = buffer.length;
+    let sum = 0;
     buffer.forEach((singleRecord: number) => {
       if (processor.clipLevel && Math.abs(singleRecord) >= processor.clipLevel) {
         processor.clipping = true;
@@ -46,7 +46,7 @@ export class VolumeMeterService {
       sum += singleRecord * singleRecord;
     });
     if (typeof processor.volume !== 'undefined' && processor.averaging) {
-      const squareRootOfSum: number = Math.sqrt(sum / bufferLength);
+      const squareRootOfSum = Math.sqrt(sum / bufferLength);
       processor.volume = Math.max(squareRootOfSum, processor.volume * processor.averaging);
     }
   }

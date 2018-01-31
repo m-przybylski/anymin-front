@@ -3,10 +3,11 @@ import { UrlService } from '../../../services/url/url.service';
 import urlModule from '../../../services/url/url';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:strict-type-predicates
 function controller($scope: any, $state: StateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {
-    const minConsultationsLength: number = 4;
+    const minConsultationsLength = 4;
     this.areControllsVisible = this.consultations.length >= minConsultationsLength;
   };
 

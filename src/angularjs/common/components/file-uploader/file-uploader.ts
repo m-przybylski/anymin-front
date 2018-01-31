@@ -7,7 +7,7 @@ import commonSettingsModule from '../../services/common-settings/common-settings
 
 export interface IFileUploaderModuleComponentBindings extends ng.IController {
   tokenList: string[];
-  isValidCallback: (status: boolean) => {};
+  isValidCallback: (status: boolean) => void;
 }
 
 const fileUploaderModule = angular.module('profitelo.components.file-uploader', [

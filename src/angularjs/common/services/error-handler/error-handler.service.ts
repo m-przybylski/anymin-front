@@ -12,7 +12,7 @@ export class ErrorHandlerService {
 
   public handleServerError = (error: any,
                               logMessage?: string,
-                              errorMessageTranslationKey: string = 'INTERFACE.API_ERROR'): void => {
+                              errorMessageTranslationKey = 'INTERFACE.API_ERROR'): void => {
     this.topAlertService.error({
       message: this.translatorService.translate(errorMessageTranslationKey),
       timeout: 2

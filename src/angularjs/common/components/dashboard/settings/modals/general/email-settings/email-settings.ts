@@ -14,9 +14,9 @@ export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class GeneralEmailSettingsController implements ng.IController {
   public mailPattern = this.CommonSettingsService.localSettings.emailPattern;
-  public isNavbar: boolean = true;
-  public isFullscreen: boolean = true;
-  public isEmailExist: boolean = false;
+  public isNavbar = true;
+  public isFullscreen = true;
+  public isEmailExist = false;
   public newEmail: string;
   private newEnteredEmail: string;
 

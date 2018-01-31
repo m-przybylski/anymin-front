@@ -37,6 +37,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     resolve: {
       browserType: (): boolean => {
         if (navigator.userAgent.indexOf('MSIE') !== -1) {
+          // tslint:disable-next-line:no-non-null-assertion
           document.querySelector('body')!.classList.add('is-ie');
         }
         return true;

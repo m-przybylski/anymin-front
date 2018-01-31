@@ -21,7 +21,8 @@ export class ClientActivityComponentController implements ng.IController, IClien
 
   public openActivityDescription = (): void => {
     if (this.isCallActivity) {
-      const sueId: string = this.activity.serviceUsageDetails!.serviceUsageEventId;
+      // tslint:disable-next-line:no-non-null-assertion
+      const sueId = this.activity.serviceUsageDetails!.serviceUsageEventId;
       if (sueId) {
         this.modalsService.createClientSUEActivityDetailsModal(sueId);
       } else {

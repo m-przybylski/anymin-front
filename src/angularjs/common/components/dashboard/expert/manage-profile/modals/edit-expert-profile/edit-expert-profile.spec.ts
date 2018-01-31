@@ -83,7 +83,7 @@ describe('Testing Controller: editExpertProfileController', () => {
         links: []
       }
     }
-    const status: boolean = true
+    const status = true
     editExpertProfileController.onFileUploadEnd(status)
     editExpertProfileController.saveChanges()
     expect(editExpertProfileController.isSubmitted).toBe(false)
@@ -114,7 +114,7 @@ describe('Testing Controller: editExpertProfileController', () => {
         links: []
       }
     }
-    const status: boolean = true
+    const status = true
     editExpertProfileController.onFileUploadEnd(status)
     editExpertProfileController.saveChanges()
     expect(editExpertProfileController.isSubmitted).toBe(false)

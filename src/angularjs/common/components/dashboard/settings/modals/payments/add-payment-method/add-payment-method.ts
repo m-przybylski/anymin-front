@@ -10,9 +10,9 @@ export interface IAddPaymentMethodControllerScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class AddPaymentMethodController implements ng.IController {
 
-  public isNavbar: boolean = true;
-  public isFullscreen: boolean = true;
-  public onBraintreeFormLoad: boolean = false;
+  public isNavbar = true;
+  public isFullscreen = true;
+  public onBraintreeFormLoad = false;
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');

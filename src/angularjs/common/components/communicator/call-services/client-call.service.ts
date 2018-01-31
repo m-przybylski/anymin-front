@@ -129,6 +129,7 @@ export class ClientCallService {
   private getUserMediaStream = (): ng.IPromise<MediaStream> => {
     const defer = this.$q.defer<MediaStream>();
     this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
+    // tslint:disable-next-line:no-unbound-method
       .then(defer.resolve, defer.reject);
     return defer.promise;
   }
@@ -137,6 +138,7 @@ export class ClientCallService {
     const session = this.communicatorService.getSession();
     if (!session) throw new Error('There is no ratel session');
     const defer = this.$q.defer<RatelSdk.BusinessCall>();
+    // tslint:disable-next-line:no-unbound-method
     session.chat.getCall(ratelCallId).then(call => defer.resolve(<RatelSdk.BusinessCall>call), defer.reject);
     return defer.promise;
   }

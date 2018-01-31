@@ -16,7 +16,7 @@ class DashboardController {
 
   public static $inject = ['$scope', '$state'];
 
-  public isPayment: boolean = false;
+  public isPayment = false;
 
   constructor($scope: ng.IScope, $state: StateService) {
     // TODO Remove after UX-TEST

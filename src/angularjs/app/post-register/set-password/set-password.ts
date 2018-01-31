@@ -110,6 +110,7 @@ function _controller($log: ng.ILogService,
       checkIsEmailExists(invitationObject.email).then(() => {
         setPassword();
       }, () => {
+        // tslint:disable:no-use-before-declare
         putNewUserObject({
           password: this.password,
           unverifiedEmail: invitationObject.email,

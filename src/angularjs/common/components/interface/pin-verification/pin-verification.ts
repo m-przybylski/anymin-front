@@ -10,7 +10,7 @@ export interface IPinVerificationComponentBindings {
   onCompletePinInputs: (token: string, callback: () => void) => void;
 }
 
-const pinVerificationModule: string = angular.module('profitelo.components.interface.pin-verification', [
+const pinVerificationModule = angular.module('profitelo.components.interface.pin-verification', [
   'pascalprecht.translate',
   'profitelo.directives.interface.focus-next',
   commonSettingsModule,

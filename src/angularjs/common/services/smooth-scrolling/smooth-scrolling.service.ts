@@ -1,8 +1,9 @@
 // tslint:disable:member-ordering
+// tslint:disable:no-use-before-declare
 export class SmoothScrollingService {
 
   public static $inject = ['$timeout'];
-  private static readonly dividerOnHalf: number = 2;
+  private static readonly dividerOnHalf = 2;
 
   constructor(private $timeout: ng.ITimeoutService) {
   }
@@ -33,7 +34,7 @@ export class SmoothScrollingService {
         throw new Error(`Elem ${id} not found`);
       }
 
-      let y: number = elm.offsetTop;
+      let y = elm.offsetTop;
       let node: HTMLElement = elm;
       while (node.offsetParent && node.offsetParent !== document.body) {
         node = <HTMLElement>node.offsetParent;
@@ -42,22 +43,22 @@ export class SmoothScrollingService {
       return y;
     };
 
-    const startY: number = currentYPosition();
-    const stopY: number = elmYPosition(eID);
-    const distance: number = stopY > startY ? stopY - startY : startY - stopY;
-    const minimumDistanceToScroll: number = 100;
+    const startY = currentYPosition();
+    const stopY = elmYPosition(eID);
+    const distance = stopY > startY ? stopY - startY : startY - stopY;
+    const minimumDistanceToScroll = 100;
     if (distance < minimumDistanceToScroll) {
       scrollTo(0, stopY);
       return;
     }
-    const speed: number = 3;
-    const distanceDivider: number = 25;
-    const step: number = Math.round(distance / distanceDivider);
-    let leapY: number = stopY > startY ? startY + step : startY - step;
-    let timer: number = 0;
+    const speed = 3;
+    const distanceDivider = 25;
+    const step = Math.round(distance / distanceDivider);
+    let leapY = stopY > startY ? startY + step : startY - step;
+    let timer = 0;
 
     const increaseTimer = (): void => {
-      const maxSpeed: number = 30;
+      const maxSpeed = 30;
       if (timer * speed < maxSpeed) {
         timer += 1;
       }
@@ -92,9 +93,9 @@ export class SmoothScrollingService {
   }
 
   public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000): void => {
-    const navbarHeight: number = 80;
-    const topPaddingHeight: number = 32;
-    let scrollTop: number = $(element).offset().top;
+    const navbarHeight = 80;
+    const topPaddingHeight = 32;
+    let scrollTop = $(element).offset().top;
     if (isNavbar) {
       scrollTop -= navbarHeight + topPaddingHeight;
     }
@@ -109,13 +110,13 @@ export class SmoothScrollingService {
   }
 
   public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number): void => {
-    const scrollAnimationTime: number = 1000;
+    const scrollAnimationTime = 1000;
     let scrollTop: number;
     if (wrapperHeight < windowHeight) {
-      scrollTop = ( $(element).offset().top - windowHeight / SmoothScrollingService.dividerOnHalf +
+      scrollTop = ($(element).offset().top - windowHeight / SmoothScrollingService.dividerOnHalf +
         wrapperHeight / SmoothScrollingService.dividerOnHalf);
     } else {
-      scrollTop = ( $(element).offset().top );
+      scrollTop = ($(element).offset().top);
     }
 
     $('html, body').animate({

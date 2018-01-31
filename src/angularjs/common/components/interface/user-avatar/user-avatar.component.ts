@@ -3,7 +3,7 @@ import { UserAvatarComponentController } from './user-avatar.controller';
 export class UserAvatarComponent implements ng.IComponentOptions {
   public controller: ng.Injectable<ng.IControllerConstructor> = UserAvatarComponentController;
   public template = require('./user-avatar.html');
-  public transclude: boolean = true;
+  public transclude = true;
   public bindings: {[boundProperty: string]: string} = {
     imageToken: '<'
   };

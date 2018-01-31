@@ -15,7 +15,7 @@ export class ExpertPayoutCompanyModalController implements ng.IController {
   public static $inject = ['$scope', '$uibModalInstance'];
 
     constructor($scope: IExpertPayoutCompanyModalScope,
-              private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance ) {
+              private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
     $scope.isNavbar = true;
     $scope.isFullscreen = true;
   }

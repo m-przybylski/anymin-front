@@ -3,6 +3,7 @@ import { PaymentSystem, GetLastPayment } from 'profitelo-api-ng/model/models';
 import * as _ from 'lodash';
 import { IPaymentMethodComponentBindings } from './payment-method.component';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class PaymentMethodComponentController implements IPaymentMethodComponentBindings, ng.IController {
   public title: string;

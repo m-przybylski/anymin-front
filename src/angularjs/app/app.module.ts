@@ -38,6 +38,7 @@ import { UpgradeService } from '../common/services/upgrade/upgrade.service';
 declare const Raven: any;
 
 // TODO: replace it with custom logging
+// tslint:disable:no-console
 try {
   if (window.location.host.includes('stage')) {
     Raven

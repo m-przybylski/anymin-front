@@ -13,7 +13,7 @@ export interface IPendingInvitationComponentBindings extends ng.IController {
   onDeleteCallback: () => void;
 }
 
-const pendingInvitationModule: string =
+const pendingInvitationModule =
   angular.module('profitelo.components.dashboard.expert.employees.pending-invitation', [
   'pascalprecht.translate',
   userAvatarModule,

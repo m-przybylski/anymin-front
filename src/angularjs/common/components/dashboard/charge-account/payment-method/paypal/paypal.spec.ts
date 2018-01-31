@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     let compile: ng.ICompileService
     let component: PayPalPaymentFormComponentController
 
-    const validHTML: string = '<payment-formpal-pay></payment-formpal-pay>'
+    const validHTML = '<payment-formpal-pay></payment-formpal-pay>'
 
     function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()

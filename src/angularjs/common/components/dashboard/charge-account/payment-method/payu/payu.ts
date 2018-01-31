@@ -19,7 +19,8 @@ import inputModule from '../../../../interface/input/input';
 import chooseBankModule from '../../choose-bank/choose-bank';
 import { StateService } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
-
+// tslint:disable:no-use-before-declare
+// tslint:disable:strict-type-predicates
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: StateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
@@ -38,7 +39,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     value: 'PL'
   }];
   this.onEnter = (option: number): void => {
-    const lastOption: number = 3;
+    const lastOption = 3;
     if (option < lastOption) {
       $('[data-index="' + (option + 1).toString() + '"] input').focus();
     }

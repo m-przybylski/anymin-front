@@ -4,8 +4,8 @@ export interface IExpertPayoutCivilModalScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class ExpertPayoutCivilModalConttroller implements ng.IController {
-  public isFullscreen: boolean = true;
-  public isNavbar: boolean = true;
+  public isFullscreen = true;
+  public isNavbar = true;
 
   public recommendedTag = [
     {name: 'tagtest'},

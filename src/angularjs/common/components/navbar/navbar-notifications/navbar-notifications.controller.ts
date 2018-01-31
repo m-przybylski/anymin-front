@@ -7,14 +7,14 @@ import { Config } from '../../../../../config';
 // tslint:disable:member-ordering
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
 
-  public isNotificationsTab: boolean = true;
-  public isInvitationsTab: boolean = false;
-  public areInvitationsDisplayed: boolean = false;
-  public areInvitations: boolean = true;
+  public isNotificationsTab = true;
+  public isInvitationsTab = false;
+  public areInvitationsDisplayed = false;
+  public areInvitations = true;
   public onClick: () => void;
   public buttonCallback: () => void;
   public invitations: GetProfileWithServicesInvitations[];
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['modalsService', '$element'];
 

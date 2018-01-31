@@ -13,13 +13,14 @@ export enum  ProfileTypes {
   'expert'
 }
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class ProfileHeaderEditComponentController implements IProfileHeaderEditComponentBindings {
 
   public profileDetails?: GetExpertDetails;
   public profileType: ProfileTypes;
   public documents: ProfileDocument[];
-  public editLink: string = '';
+  public editLink = '';
   public onDelete?: () => void;
   public onEdit?: () => void;
 
@@ -39,7 +40,7 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
     this.profileType === ProfileTypes.expert
 
   public deleteProfile = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('WIZARD.SUMMARY.DELETE_PROFILE.BUTTON.CONFIRMATION_MESSAGE');
     if (this.onDelete && typeof this.onDelete === 'function' && confirm(confirmWindowMessage)) {
       this.onDelete();

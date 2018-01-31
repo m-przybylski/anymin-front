@@ -24,7 +24,7 @@ export class ExpertCallService {
   private callingModal: ng.ui.bootstrap.IModalInstanceService;
   private onEndSubscription?: Subscription;
 
-  private missedCallAlertMessage: string = this.translatorService.translate('COMMUNICATOR.MISSED_CALL_ALERT_MESSAGE');
+  private missedCallAlertMessage = this.translatorService.translate('COMMUNICATOR.MISSED_CALL_ALERT_MESSAGE');
 
   private readonly events = {
     onNewCall: new Subject<CurrentExpertCall>(),

@@ -76,7 +76,6 @@ function lightboxModelController($scope: any, $window: IWindowService,
         break;
 
       default:
-        break;
     }
   });
 

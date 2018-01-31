@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
     let phoneSettingsService: PhoneSettingsService
     let rootScope: angular.IRootScopeService
 
-    const phoneNumber: string = '500490423'
+    const phoneNumber = '500490423'
 
     beforeEach(() => {
       angular.mock.module(phoneSettingsModule)
@@ -35,7 +35,7 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
     })
 
     it('should set status button as disabled when promise error', () => {
-      const thirtySeconds: number = 20000
+      const thirtySeconds = 20000
       jasmine.clock().install()
       jasmine.clock().mockDate(new Date())
       phoneSettingsService.addNewNumber(phoneNumber)

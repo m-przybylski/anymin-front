@@ -8,11 +8,11 @@ export class SearchDropdownController {
   public suggestions: string[] = [];
   public searchValue?: string;
 
-  private static readonly minimumValidInputValueLength: number = 3;
-  private isFocus: boolean = false;
+  private static readonly minimumValidInputValueLength = 3;
+  private isFocus = false;
   private dropdown: JQuery;
   private dropdownSelectedItem: JQuery;
-  private selectedItemIndex: number = 0;
+  private selectedItemIndex = 0;
 
   public static $inject = ['$state', 'searchService', '$element', '$document', '$scope', '$log'];
 
@@ -56,7 +56,6 @@ export class SearchDropdownController {
           break;
 
         default:
-          break;
       }
     });
 
@@ -89,6 +88,7 @@ export class SearchDropdownController {
   public onChange = (): void => {
     this.resetDropdown();
     if (this.searchValue && this.searchValue.length >= SearchDropdownController.minimumValidInputValueLength) {
+      // tslint:disable-next-line:no-non-null-assertion
       this.searchService.querySuggestions(this.searchValue).then((response) => this.suggestions = response!.suggestions,
         (error) => {this.$log.error(error); });
     }

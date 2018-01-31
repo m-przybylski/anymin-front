@@ -5,18 +5,18 @@ import { Config } from '../../../../config';
 
 // tslint:disable:member-ordering
 export class NavbarComponentController implements INavbarComponentBindings {
-  public isWindowScrollBottom: boolean = false;
-  public isCollapsed: boolean = false;
-  public isSearchVisible: boolean = false;
-  public elementOffsetHeight: number = 0;
-  public isNavigationCollapsed: boolean = false;
+  public isWindowScrollBottom = false;
+  public isCollapsed = false;
+  public isSearchVisible = false;
+  public elementOffsetHeight = 0;
+  public isNavigationCollapsed = false;
   public isLoggedIn: boolean;
   public searchInputQueryValue: string;
   public navbarStyle: {
     transform: string
   };
-  public onLogoLink: string = '';
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public onLogoLink = '';
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['$scope', '$window', '$element', 'userService', '$document'];
 

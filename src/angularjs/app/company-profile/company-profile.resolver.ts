@@ -63,7 +63,7 @@ export class CompanyProfileResolver {
 
     const resolveCompanyProfile = (): ng.IPromise<GetOrganizationProfile> => {
       const promise = this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
-        .then((res) => handleCompanyResponse(res));
+        .then(handleCompanyResponse);
 
       promise.catch(handleCompanyResponseError);
 

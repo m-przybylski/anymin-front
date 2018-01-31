@@ -11,18 +11,18 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   public sortList: {}[];
   public showMobileFilters: boolean;
   public profileTypeList: {}[];
-  public onlyAvailable: boolean = false;
+  public onlyAvailable = false;
 
   public tags: string[];
 
   public sortBy: IPrimaryDropdownListElement;
   public language: IPrimaryDropdownListElement;
   public profileType: IPrimaryDropdownListElement;
-  public minPrice: number = 0;
+  public minPrice = 0;
 
-  public maxPrice: number = 20;
+  public maxPrice = 20;
   private moneyDivider: number;
-  private static readonly mobileWidth: number = 768;
+  private static readonly mobileWidth = 768;
 
   public $onInit = (): void => {
     this.sortBy = {

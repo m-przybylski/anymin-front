@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     let consultationSummaryExpertService: ConsultationSummaryExpertService
     let rootScope: angular.IRootScopeService
-    const sueId: string = '194b2e05-dca5-400e-b292-75a7ffbcefac'
+    const sueId = '194b2e05-dca5-400e-b292-75a7ffbcefac'
 
     beforeEach(() => {
       angular.mock.module(consultationSummaryExpertControllerModule)

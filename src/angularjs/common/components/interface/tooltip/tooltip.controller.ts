@@ -10,12 +10,12 @@ export interface ITooltipStyles {
 export class TooltioComponentController implements ITooltipComponentBindings {
   public tooltipText: string;
   public tooltipStyles: ITooltipStyles;
-  public isHover: boolean = false;
-  public isBigText: boolean = false;
+  public isHover = false;
+  public isBigText = false;
   private tooltipContentWidth: number;
-  private maxTooltipWidth: number = 280;
-  private static readonly dividerOnHalf: number = 2;
-  private static readonly maxMobilePhoneWidth: number = 480;
+  private maxTooltipWidth = 280;
+  private static readonly dividerOnHalf = 2;
+  private static readonly maxMobilePhoneWidth = 480;
 
   public static $inject = ['$element', '$timeout', '$window'];
 

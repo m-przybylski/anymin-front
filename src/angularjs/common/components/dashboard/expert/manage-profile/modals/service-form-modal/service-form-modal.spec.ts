@@ -117,13 +117,13 @@ describe('Testing Controller: ServiceFormModalController', () => {
   }))
 
   it('should consultation price be invalid', () => {
-    const price: number = 133
+    const price = 133
     serviceFormModalController.onPriceChange(price)
     expect(serviceFormModalController.isPriceValid()).toBe(false)
   })
 
   it('should consultation price be valid', () => {
-    const price: number = 13
+    const price = 13
     serviceFormModalController.onPriceChange(price)
     expect(serviceFormModalController.isPriceValid()).toBe(true)
   })

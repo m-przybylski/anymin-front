@@ -5,8 +5,8 @@ import { StateService } from '@uirouter/angularjs';
 // tslint:disable:member-ordering
 export class CreateProfileController implements ng.IController {
 
-  public isLoading: boolean = true;
-  public isSummary: boolean = false;
+  public isLoading = true;
+  public isSummary = false;
 
   public static $inject = ['$state', 'WizardApi', 'previousState'];
 

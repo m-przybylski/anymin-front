@@ -17,20 +17,20 @@ export class CommunicatorComponentController implements ng.IController {
 
   public currentCall?: CurrentCall;
 
-  public isClosed: boolean = true;
-  public isDisconnectedAnimation: boolean = false;
-  public isConnecting: boolean = false;
+  public isClosed = true;
+  public isDisconnectedAnimation = false;
+  public isConnecting = false;
   public service?: GetService;
   public expert?: GetProfile;
   public expertAvatar?: string;
 
-  public isOffline: boolean = false;
-  public isParticipantOffline: boolean = false;
-  public isRemoteVideo: boolean = false;
-  public isLocalVideo: boolean = false;
-  public isMessenger: boolean = false;
-  public isOneMinuteLeftWarning: boolean = false;
-  public callLengthInSeconds: number = 0;
+  public isOffline = false;
+  public isParticipantOffline = false;
+  public isRemoteVideo = false;
+  public isLocalVideo = false;
+  public isMessenger = false;
+  public isOneMinuteLeftWarning = false;
+  public callLengthInSeconds = 0;
   public callCost?: MoneyDto;
 
   public localStreamElement: ng.IAugmentedJQuery;
@@ -38,7 +38,7 @@ export class CommunicatorComponentController implements ng.IController {
 
   public messageRoom?: MessageRoom;
 
-  public isMicrophoneMuted: boolean = false;
+  public isMicrophoneMuted = false;
 
   public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
     'microphoneService', 'clientCallService', 'expertCallService', 'communicatorService'];

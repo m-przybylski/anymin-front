@@ -2,9 +2,10 @@ import { IHelpdesk } from './helpdesk.interface';
 import { ISearchArticleResults } from './search-article-results.interface';
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class HelpdeskService implements IHelpdesk {
 
-  private static readonly baseZendeskUrl: string = 'https://anymind.zendesk.com/';
+  private static readonly baseZendeskUrl = 'https://anymind.zendesk.com/';
 
   public static $inject = ['$http'];
 
@@ -12,7 +13,7 @@ export class HelpdeskService implements IHelpdesk {
   }
 
   public searchArticles = (query: string): ng.IPromise<ISearchArticleResults> => {
-    const searchArticlesUrlPath: string = HelpdeskService.baseZendeskUrl + 'api/v2/help_center/articles/search.json';
+    const searchArticlesUrlPath = HelpdeskService.baseZendeskUrl + 'api/v2/help_center/articles/search.json';
 
     if (!query) {
       throw new Error('Required parameter query was not defined when calling addAccountRoute.');

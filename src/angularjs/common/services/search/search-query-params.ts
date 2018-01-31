@@ -6,13 +6,13 @@ export type ServiceType =  'ORG' | 'EXP';
 export class SearchQueryParams {
   public static $inject = [];
 
-  private query: string = '';
+  private query = '';
   private price: PriceSearchParam[] = [];
   private languages: string[] = [];
   private serviceType?: ServiceType;
   private tags: string[] = [];
-  private offset: number = 0;
-  private count: number = 20;
+  private offset = 0;
+  private count = 20;
 
   constructor() {
   }

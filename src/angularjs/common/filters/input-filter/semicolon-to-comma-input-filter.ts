@@ -1,12 +1,11 @@
-namespace profitelo.filters.semicolonToCommaInput {
+import * as angular from 'angular';
 
-  function semicolonToCommaInputFilter(): (input: string) => string {
-    return function(input: string): string {
+function semicolonToCommaInputFilter(): (input: string) => string {
+  return function (input: string): string {
 
-      return input.replace(',', '.');
-    };
-  }
-
-  angular.module('profitelo.filters.input-filter.semicolon-to-comma-input-filter', [])
-    .filter('semicolonToCommaInputFilter', [semicolonToCommaInputFilter]);
+    return input.replace(',', '.');
+  };
 }
+
+angular.module('profitelo.filters.input-filter.semicolon-to-comma-input-filter', [])
+  .filter('semicolonToCommaInputFilter', [semicolonToCommaInputFilter]);

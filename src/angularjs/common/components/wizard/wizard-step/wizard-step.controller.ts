@@ -1,6 +1,7 @@
 import { IWizardStepModuleComponentBindings } from './wizard-step';
 import { WizardHandlerComponentController } from '../wizard-handler/wizard-handler.controller';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class WizardStepComponentController implements IWizardStepModuleComponentBindings {
   public title: string;
@@ -9,12 +10,12 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public buttonTitle: string;
   public wizardHandler: WizardHandlerComponentController;
   public checkIsStepValid: () => boolean;
-  public isActive: boolean = false;
-  public isShowed: boolean = false;
+  public isActive = false;
+  public isShowed = false;
   public onGoToNext: () => void;
   public onGoBack: () => void;
   public required: boolean;
-  public isCompany: boolean = true;
+  public isCompany = true;
 
   public static $inject = ['$element', '$timeout'];
 

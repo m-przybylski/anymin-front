@@ -10,6 +10,7 @@ export interface ITransaction {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class CardPaymentFormComponentController implements ng.IController, ICardPaymentFormComponentBindings {
   public isInvoice: boolean;
   public onBraintreeFormLoad: boolean;

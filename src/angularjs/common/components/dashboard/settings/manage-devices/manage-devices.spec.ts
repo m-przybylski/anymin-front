@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.dashboard.settings.manageDevices', 
     let compile: ng.ICompileService
     let component: ManageDevicesComponentController
 
-    const validHTML: string = '<manage-devices></manage-devices>'
+    const validHTML = '<manage-devices></manage-devices>'
 
     function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()

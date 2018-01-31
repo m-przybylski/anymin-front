@@ -9,20 +9,20 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public addedItemsList: string[] = [];
   public inputValue: string;
   public isOwnerEmployee: boolean;
-  public isDirty: boolean = false;
-  public isInputValueInvalid: boolean = false;
-  public isUploadFileIsInvalid: boolean = false;
-  public areUploadedFilesInvalid: boolean = false;
+  public isDirty = false;
+  public isInputValueInvalid = false;
+  public isUploadFileIsInvalid = false;
+  public areUploadedFilesInvalid = false;
   public wrongValuesCounter: number;
   private mailRegexp: RegExp;
   private phonePattern: RegExp;
-  public isFocus: boolean = false;
-  public isValidEmployee: boolean = false;
-  public isSubmitted: boolean = false;
-  public isCheckboxVisible: boolean = true;
-  public isMaxConsultationCountError: boolean = false;
+  public isFocus = false;
+  public isValidEmployee = false;
+  public isSubmitted = false;
+  public isCheckboxVisible = true;
+  public isMaxConsultationCountError = false;
 
-  private readonly validationTime: number = 3000;
+  private readonly validationTime = 3000;
   private CSVFileReader: CSVFileReader;
 
   private static readonly defaultCountryPrefix = '+48';

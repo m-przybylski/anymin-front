@@ -3,10 +3,10 @@ import { IDirective } from 'angular';
 
 function proCalendar(): IDirective<ng.IScope> {
 
-  const maxDateYear: number = new Date().getFullYear() + 1;
-  const maxDateMonth: number = 5;
-  const maxDateDay: number = 22;
-  const dateFormatIndex: number = 2;
+  const maxDateYear = new Date().getFullYear() + 1;
+  const maxDateMonth = 5;
+  const maxDateDay = 22;
+  const dateFormatIndex = 2;
 
   function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
     scope.today = function (): void {
@@ -19,11 +19,12 @@ function proCalendar(): IDirective<ng.IScope> {
     };
 
     function getDayClass(data: any): string {
-      const date = data.date,
-        mode = data.mode;
+      const date = data.date;
+      const mode = data.mode;
       if (mode === 'day') {
         const dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < scope.events.length; i++) {
           const currentDay = new Date(scope.events[i].date).setHours(0, 0, 0, 0);
 

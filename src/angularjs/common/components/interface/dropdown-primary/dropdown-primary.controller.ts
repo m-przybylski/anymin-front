@@ -5,11 +5,12 @@ import {
 import { keyboardCodes } from '../../../classes/keyboard';
 import * as angular from 'angular';
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
 
-  public isOpen: boolean = false;
-  public isClosed: boolean = false;
-  public isActive: boolean = false;
+  public isOpen = false;
+  public isClosed = false;
+  public isActive = false;
   public activeItem: IDropdownItem;
   public label: string;
   public inputPlaceholder: string;
@@ -28,9 +29,9 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   public isSubmitted: boolean;
   private dropdown: JQuery = this.$element.find('.dropdown-list');
   private dropdownSelectedItem: JQuery;
-  public selectedItemNumber: number = 0;
+  public selectedItemNumber = 0;
   private dropdownScrollContainerElement: JQuery;
-  private static readonly dividerOnHalf: number = 2;
+  private static readonly dividerOnHalf = 2;
 
   public $onInit = (): void => {
     this.mainPlaceholder = {
@@ -74,7 +75,6 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
           break;
 
         default:
-          break;
       }
     });
   }

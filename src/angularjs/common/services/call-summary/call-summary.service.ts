@@ -7,6 +7,7 @@ import { IClientCallSummary } from '../../models/ClientCallSummary';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class CallSummaryService {
 
