@@ -2,7 +2,14 @@
   header.entry-title(data-ng-if="$ctrl.title")
     span.icon.icon-recomended-tags-24
     span {{ $ctrl.title | translate }}
+  ul.tag-list.slide-page
+    li.desktop-hidden(data-ng-repeat="tag in $ctrl.tags | limitTo: $ctrl.tagsLimit")
+      span.slide-btn-tag {{ tag.name }}
+    li.desktop-hidden(data-ng-if="$ctrl.defaultMobileTagsLimit === $ctrl.tagsLimit" data-ng-click="$ctrl.showMoreTags()")
+      span.slide-btn-tag(data-translate="COMMON.COMPONENTS.TAGS_LIST.MORE")
+    li.desktop-hidden(data-ng-if="$ctrl.defaultMobileTagsLimit !== $ctrl.tagsLimit" data-ng-click="$ctrl.hideTags()")
+      span.slide-btn-tag(data-translate="COMMON.COMPONENTS.TAGS_LIST.LESS")
 
   ul.tag-list.slide-page
-    li(ng-repeat="tag in $ctrl.tags | limitTo: 7")
+    li.mobile-hidden(data-ng-repeat="tag in $ctrl.tags")
       span.slide-btn-tag {{ tag.name }}
