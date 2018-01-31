@@ -44,16 +44,18 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
       template: require('./dashboard.html'),
       controller: 'DashboardController',
       controllerAs: 'vm',
-      resolve: {
-        isPlatformForExpert: ['userService', '$state', (userService: UserService, $state: StateService): void => {
+      onEnter: ['userService', '$state', (userService: UserService, $state: StateService): void => {
           if (Config.isPlatformForExpert)
-            userService.getUser(true).then((response) => {
+            userService.getUser().then((response) => {
               if (!response.hasPassword) $state.go('app.post-register.set-password')
               else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
-            }, () => $state.go('app.login.account'))
-        }]
-      },
+            })
+        }],
       data: {
+        permissions: {
+          only: ['user'],
+          redirectTo: 'app.login.account'
+        },
         pageTitle: 'PAGE_TITLE.DASHBOARD'
       }
     })

@@ -3,7 +3,6 @@ import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 import {ProfiteloWebsocketService} from '../common/services/profitelo-websocket/profitelo-websocket.service'
 import {Config} from '../../config';
 import {SessionDeletedService} from '../common/services/session-deleted/session-deleted.service'
-import {EventsService} from '../common/services/events/events.service'
 import {IRootScopeService} from '../common/services/root-scope/root-scope.service';
 import {SessionServiceWrapper} from '../common/services/session/session.service';
 import {StateService} from '@uirouter/angularjs'
@@ -12,7 +11,6 @@ export function AppRunFunction($rootScope: IRootScopeService,
                                $log: ng.ILogService,
                                permissionService: PermissionService,
                                $anchorScroll: ng.IAnchorScrollService,
-                               eventsService: EventsService,
                                sessionServiceWrapper: SessionServiceWrapper,
                                $urlRouter: ng.ui.IUrlRouterService,
                                $state: StateService,
@@ -25,8 +23,6 @@ export function AppRunFunction($rootScope: IRootScopeService,
   // initialize websocket service
   profiteloWebsocket.initializeWebsocket()
   sessionDeletedService.init()
-
-  eventsService.on('logout', () => $state.go('app.login.account'))
 
   // scrollup after every state change
   $rootScope.$on('$locationChangeSuccess', () => {

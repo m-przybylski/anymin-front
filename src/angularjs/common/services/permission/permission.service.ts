@@ -1,5 +1,5 @@
 import {UserService} from '../user/user.service'
-import {AccountDetails} from 'profitelo-api-ng/model/models';
+import {AccountDetails} from '@anymind-ng/api'
 
 export class PermissionService {
 
@@ -7,7 +7,9 @@ export class PermissionService {
 
   constructor(private PermRoleStore: ng.permission.RoleStore,
               private PermPermissionStore: ng.permission.PermissionStore,
-              private $q: ng.IQService, private userService: UserService) {
+              private $q: ng.IQService,
+              private userService: UserService) {
+
   }
 
   public initializeAll = (): void => {
