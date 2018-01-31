@@ -26,18 +26,18 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
 
   public documentFiles: IDocumentFile[] = [];
   public tokenList: string[];
-  public isValidCallback: (status: boolean) => {};
-  public isFileTypeError: boolean = false;
-  public fileTypeErrorMessage: string = '';
-  public fileSizeErrorMessage: string = '';
-  public isMaxFilesCountError: boolean = false;
-  public isFileSizeError: boolean = false;
+  public isValidCallback: (status: boolean) => void;
+  public isFileTypeError = false;
+  public fileTypeErrorMessage = '';
+  public fileSizeErrorMessage = '';
+  public isMaxFilesCountError = false;
+  public isFileSizeError = false;
   public maxDocumentSize: number;
 
   private uploader: UploaderService;
-  private countChoosedFiles: number = 0;
+  private countChoosedFiles = 0;
   private invalidTypeFilesNamesList: string[] = [];
-  private errorDisplayTime: number = 5000;
+  private errorDisplayTime = 5000;
   private maxDocumentsCount: number;
 
   public static $inject = ['$log', 'FilesApi', 'translatorService', '$timeout', 'CommonSettingsService',
@@ -148,7 +148,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
 
   private showFileTypeError = (): void => {
     this.isFileTypeError = true;
-    const invalidTypeFilesNames: string = this.invalidTypeFilesNamesList.join(', ');
+    const invalidTypeFilesNames = this.invalidTypeFilesNamesList.join(', ');
     this.fileTypeErrorMessage =
       this.translatorService.translate('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.FILE') + ' ' +
       invalidTypeFilesNames + ' ' + this.translatorService.translate('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.MESSAGE');
@@ -174,7 +174,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
     this.documentFiles.length + files.length <= this.maxDocumentsCount
 
   private showFileSizeError = (invalidFiles: File[]): void => {
-    const invalidFilesNames: string = invalidFiles.map(invalidFile => invalidFile.name).join(', ');
+    const invalidFilesNames = invalidFiles.map(invalidFile => invalidFile.name).join(', ');
     this.isFileSizeError = true;
     this.fileSizeErrorMessage =
       this.translatorService.translate('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.FILE') + ' ' + invalidFilesNames

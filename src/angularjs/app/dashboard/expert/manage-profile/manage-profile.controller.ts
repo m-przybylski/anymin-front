@@ -7,8 +7,8 @@ import { UserService } from '../../../../common/services/user/user.service';
 // tslint:disable:member-ordering
 export class DashboardExpertManageProfileController {
 
-  public isLoading: boolean = true;
-  public isError: boolean = false;
+  public isLoading = true;
+  public isError = false;
   public expertName: string;
   public expertAvatar: string;
   public organizationName: string;

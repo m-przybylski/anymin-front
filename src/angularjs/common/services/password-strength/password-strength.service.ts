@@ -29,7 +29,6 @@ export class PasswordStrengthService {
     if (typeof str === 'string') {
       out = '';
       for (let i = str.length - 1; i >= 0; out += str[i--]) {
-        i;
       }
     }
     return out;

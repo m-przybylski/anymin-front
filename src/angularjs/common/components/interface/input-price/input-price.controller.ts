@@ -6,19 +6,19 @@ import { keyboardCodes } from '../../../classes/keyboard';
 export class InputPriceComponentController implements IInputPriceComponentBindings {
   public id: string;
   public name: string;
-  public ngModel: number = 0;
+  public ngModel = 0;
   public inputText: string;
-  public placeholder: string = '0.00';
-  public isUsignPunctuationMarks: boolean = false;
+  public placeholder = '0.00';
+  public isUsignPunctuationMarks = false;
   public digitsCodesBlocked: number[] = [];
-  public isFocus: boolean = false;
-  public isDirty: boolean = false;
+  public isFocus = false;
+  public isDirty = false;
   public currency: string;
   private priceRegexp: RegExp;
   public inputValueCallback: (num: number) => void;
   public onPatternValidation: (isRegExpPriceValid: boolean) => void;
   public isValid: boolean;
-  public isDisabled: boolean = false;
+  public isDisabled = false;
 
   public static $inject = ['$element', 'CommonSettingsService'];
 

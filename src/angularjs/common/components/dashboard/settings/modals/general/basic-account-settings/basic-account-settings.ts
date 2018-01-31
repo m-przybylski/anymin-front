@@ -59,14 +59,14 @@ interface ISaveCrop {
 // tslint:disable:member-ordering
 export class BasicAccountSettingsController implements ng.IController {
 
-  public isFileFormatValidError: boolean = false;
-  public isFileSizeError: boolean = false;
+  public isFileFormatValidError = false;
+  public isFileSizeError = false;
 
   private uploadedFile: File;
   private uploader: UploaderService;
   private clearFormAfterCropping: () => void;
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
-  private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize;
+  private maxValidAvatarSize = this.CommonSettingsService.localSettings.profileAvatarSize;
 
   public static $inject = ['$scope', 'AccountApi', 'CommonSettingsService', 'errorHandler', '$uibModalInstance',
     'userService', 'uploaderFactory', 'urlService'];
@@ -138,8 +138,8 @@ export class BasicAccountSettingsController implements ng.IController {
     };
 
     $scope.saveCrop = (data: ISaveCrop): void => {
-      const indexOfSecondXpoint: number = 2;
-      const squareSideLength: number = data.points[indexOfSecondXpoint] - data.points[0] - 1;
+      const indexOfSecondXpoint = 2;
+      const squareSideLength = data.points[indexOfSecondXpoint] - data.points[0] - 1;
       const postProcessOptions: PostFileDetails = {
         croppingDetails: {
           x: Number(data.points[0]),

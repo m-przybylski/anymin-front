@@ -4,7 +4,7 @@ import { IAttributes } from 'angular';
 // tslint:disable:member-ordering
 class ErrorImageClass implements ng.IDirective<ng.IScope> {
   public static $inject = [];
-  public restrict: string = 'A';
+  public restrict = 'A';
 
   constructor() {
   }

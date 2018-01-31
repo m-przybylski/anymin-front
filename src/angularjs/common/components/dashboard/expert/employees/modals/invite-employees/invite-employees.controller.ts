@@ -10,14 +10,14 @@ export interface IExpertInviteEmployeesControllerScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ExpertInviteEmployeesController implements ng.IController {
 
-  public static readonly loaderDelay: number = 500;
+  public static readonly loaderDelay = 500;
   public services: GetService[] = [];
   public invitationsInputValue: string[] = [];
-  public isSubmitted: boolean = false;
-  public isSendingRequest: boolean = false;
-  public isLoading: boolean = true;
-  public isError: boolean = false;
-  public isCheckboxVisible: boolean = false;
+  public isSubmitted = false;
+  public isSendingRequest = false;
+  public isLoading = true;
+  public isError = false;
+  public isCheckboxVisible = false;
 
   private invitations: PostInvitation[] = [];
   private selectedServices: GetService[] = [];

@@ -7,7 +7,7 @@ export interface ISummaryChargeAccountComponentBindings {
   amount: MoneyDto;
 }
 
-const summaryChargeAccountModule: string = angular.module(
+const summaryChargeAccountModule = angular.module(
   'profitelo.components.dashboard.charge-account.summary-charge-account', [
   'pascalprecht.translate',
   filtersModule

@@ -7,7 +7,7 @@ export class UserSessionService {
 
   private sessionCache?: Promise<GetSession>;
 
-  private readonly unauthorizedCode: number = 401;
+  private readonly unauthorizedCode = 401;
 
   constructor(private authService: ApiKeyService,
               private sessionService: SessionService) {
@@ -23,7 +23,7 @@ export class UserSessionService {
   public isLoggedIn = (): boolean =>
     typeof this.sessionCache !== 'undefined'
 
-  public getSession = (force: boolean = false): Promise<GetSession> => {
+  public getSession = (force = false): Promise<GetSession> => {
     if (force) {
       this.sessionCache = this.getSessionFromBackend();
       return this.sessionCache;

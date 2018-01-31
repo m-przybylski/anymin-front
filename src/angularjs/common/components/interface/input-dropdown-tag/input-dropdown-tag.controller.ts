@@ -15,26 +15,26 @@ export interface IDropdownInputDictionary {
 
 // tslint:disable:member-ordering
 export class InputDropdownTagComponentController implements InputDropdownTagComponentBindings {
-  public isOpen: boolean = false;
-  public isActive: boolean = false;
+  public isOpen = false;
+  public isActive = false;
   public label: string;
   public placeholder: string;
   public dictionary: IDropdownInputDictionary;
   public dropdownList: IDropdownItem[] = [];
-  public hintLabel: string = '';
+  public hintLabel = '';
   public selectedItems: IDropdownItem[] = [];
   public selectedItemsValue: string[] = [];
   public filteredItems: IDropdownItem[] = [];
-  public selectedItemNumber: number = 0;
+  public selectedItemNumber = 0;
   public dropdownScroll: JQuery;
 
-  public filterInputText: string = '';
-  public isFocus: boolean = false;
-  public isDirty: boolean = false;
+  public filterInputText = '';
+  public isFocus = false;
+  public isDirty = false;
 
   private dropdownSelectedItem: JQuery;
   private dropdown: JQuery = this.$element.find('.dropdown-list');
-  private static readonly dividerOnHalf: number = 2;
+  private static readonly dividerOnHalf = 2;
 
   public $onInit = (): void => {
     for (const key in this.dictionary) {
@@ -120,7 +120,6 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           break;
 
         default:
-          break;
       }
     });
   }

@@ -8,7 +8,7 @@ export class TimerFactory {
 
     constructor(private $interval: ng.IIntervalService) {}
 
-  public getInstance(money: MoneyDto, interval: number = 200): TimerService {
+  public getInstance(money: MoneyDto, interval = 200): TimerService {
     return new TimerService(this.$interval, money, interval);
   }
 }

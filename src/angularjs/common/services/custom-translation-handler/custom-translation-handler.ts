@@ -5,6 +5,7 @@ const customTranslationHandlerModule = angular.module('profitelo.services.custom
   'pascalprecht.translate',
 
 ])
+// tslint:disable-next-line:no-unbound-method
   .service('CustomTranslationHandlerService', CustomTranslationHandlerService.getInstance)
   .name;
 

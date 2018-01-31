@@ -19,6 +19,8 @@ export interface ILoginRegisterService {
   resolve(): ng.IPromise<{} | ILoginRegister>;
 }
 
+// tslint:disable:strict-type-predicates
+// tslint:disable:no-use-before-declare
 class LoginRegisterResolver implements ILoginRegisterService {
 
   public static $inject = ['loginStateService', '$state', 'translatorService', '$q', '$timeout', 'topAlertService',

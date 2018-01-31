@@ -10,21 +10,21 @@ import FileTypeEnum = PostFileDetails.FileTypeEnum;
 export class AvatarUploaderComponentController implements IAvatarUploaderComponentBindings, ng.IController {
 
   public uploadedFile: File;
-  public isUserUploadImage: boolean = false;
+  public isUserUploadImage = false;
   public imageSource: string;
-  public isLoading: boolean = false;
+  public isLoading = false;
   public avatarToken?: string;
   public isValid?: boolean;
   public isSubmitted?: boolean;
-  public isFocus: boolean = true;
-  public isFileUploadError: boolean = false;
-  public isFileFormatError: boolean = false;
-  public isFileSizeError: boolean = false;
+  public isFocus = true;
+  public isFileUploadError = false;
+  public isFileFormatError = false;
+  public isFileSizeError = false;
 
-  private isUploadInProgress: boolean = false;
+  private isUploadInProgress = false;
   private uploader: UploaderService;
   private clearFormAfterCropping: () => void;
-  private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize;
+  private maxValidAvatarSize = this.CommonSettingsService.localSettings.profileAvatarSize;
 
   public static $inject = ['$scope', 'CommonSettingsService', 'uploaderFactory'];
 
@@ -66,8 +66,8 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
   }
 
   public saveCrop = (data: any): void => {
-    const indexOfSecondXPoint: number = 2;
-    const squareSideLength: number = data.points[indexOfSecondXPoint] - data.points[0] - 1;
+    const indexOfSecondXPoint = 2;
+    const squareSideLength = data.points[indexOfSecondXPoint] - data.points[0] - 1;
     const postFileDetails: PostFileDetails = {
       croppingDetails: {
         x: Number(data.points[0]),

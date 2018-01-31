@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
     })
 
     it('should use timer factory', inject(($interval: ng.IIntervalService) => {
-      let functionCalled: boolean = false
+      let functionCalled = false
 
       const money = {
         amount: 100,

@@ -10,24 +10,24 @@ import { StateService } from '@uirouter/angularjs';
 
 // tslint:disable:member-ordering
 export class ExpertController implements ng.IController {
-  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName;
-  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription;
+  public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
+  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
     isSummary: false
   };
-  public nameModel?: string = '';
+  public nameModel: string | undefined = '';
   public avatarModel?: string;
-  public descriptionModel?: string = '';
+  public descriptionModel: string | undefined = '';
   public filesModel?: string[] = [];
   public linksModel?: string[] = [];
   public progressStyle: IProgressStyle;
-  public progressBarTittle: string = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
-  public isSubmitted: boolean = false;
-  public isStepRequired: boolean = true;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
-  private isUploading: boolean = true;
+  public progressBarTittle = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
+  public isSubmitted = false;
+  public isStepRequired = true;
+  public isPlatformForExpert = Config.isPlatformForExpert;
+  private isUploading = true;
   private profileNamePattern: RegExp;
   private profileDescriptionPattern: RegExp;
 
@@ -91,6 +91,7 @@ export class ExpertController implements ng.IController {
 
   public goToSummary = (): void => {
     if (this.checkIsFormValid()) {
+      // tslint:disable-next-line:no-non-null-assertion
       this.currentWizardState.expertDetailsOption!.links = this.linksModel;
       this.currentWizardState.isSummary = true;
       this.saveWizardState(this.currentWizardState).then(() => {

@@ -16,7 +16,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     let component: CardPaymentFormComponentController
     let state: StateService
 
-    const validHTML: string = '<card-payment-form amount-method-modal="amountMethodModal"' +
+    const validHTML = '<card-payment-form amount-method-modal="amountMethodModal"' +
       'payments-links="paymentsLinks" payment-country-id="paymentCountryId"></card-payment-form>'
 
     function create(html: string, bindings: ICardPaymentFormComponentBindings): JQuery {

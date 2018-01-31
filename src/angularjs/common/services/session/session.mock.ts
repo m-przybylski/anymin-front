@@ -18,7 +18,7 @@ class UserSessionServiceMock {
     return true;
   }
 
-  public getSession = (_force: boolean = false): Promise<GetSession> =>
+  public getSession = (_force = false): Promise<GetSession> =>
     Promise.reject('mock')
 }
 

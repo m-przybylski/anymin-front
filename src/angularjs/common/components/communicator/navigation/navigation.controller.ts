@@ -24,7 +24,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public isVideo: boolean;
   public isMessenger: boolean;
   public currentCall: CurrentCall;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['clientCallService', 'expertCallService'];
 

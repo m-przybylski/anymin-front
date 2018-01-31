@@ -20,17 +20,18 @@ import { TopAlertService } from '../../../common/services/top-alert/top-alert.se
 import { TranslatorService } from '../../../common/services/translator/translator.service';
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class SummaryController implements ng.IController {
 
   public isExpertWizardPath: boolean;
   public wizardProfileData?: PartialExpertDetails | PartialOrganizationDetails;
-  public isConsultation: boolean = false;
+  public isConsultation = false;
   public services?: GetWizardService[];
-  public isUserShouldCreateExpert: boolean = false;
-  public isCompanyWithExpert: boolean = false;
+  public isUserShouldCreateExpert = false;
+  public isCompanyWithExpert = false;
   public wizardExpertProfileData?: PartialExpertDetails;
-  public isWizardInvalid: boolean = false;
-  public isConsultationInvitationAccepted: boolean = false;
+  public isWizardInvalid = false;
+  public isConsultationInvitationAccepted = false;
   public acceptedServices: GetServiceWithInvitation[];
 
   public static $inject = ['$state', 'errorHandler', 'WizardApi', 'topAlertService', 'wizardProfile', 'userService',
@@ -203,7 +204,7 @@ export class SummaryController implements ng.IController {
 
   private checkIsWizardHasInvitationServices = (): boolean =>
     this.isConsultationInvitationAccepted
-    && typeof this.acceptedServices !== undefined
+    && typeof this.acceptedServices !== 'undefined'
     && this.acceptedServices.length > 0
 
   private checkIsCompanyProfileValid = (): string | boolean | undefined =>

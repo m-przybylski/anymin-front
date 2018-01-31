@@ -4,7 +4,7 @@ import { EventsService } from '../../services/events/events.service';
 
 // tslint:disable:member-ordering
 class ToggleClassOnPullCall implements ng.IDirective<ng.IScope> {
-  public restrict: string = 'A';
+  public restrict = 'A';
 
   public static $inject = ['expertCallService', 'eventsService'];
 

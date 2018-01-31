@@ -36,7 +36,7 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
               return true;
             } else {
               $state.go('app.wizard.create-profile');
-              return;
+              return undefined;
             }
           });
         }]

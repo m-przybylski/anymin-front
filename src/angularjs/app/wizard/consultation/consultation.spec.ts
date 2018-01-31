@@ -295,7 +295,7 @@ describe('Testing Controller: ConsultationController', () => {
   })
 
   it('should consultation price be valid', () => {
-    const price: number = 13
+    const price = 13
     consultationController.onPriceChange(price)
     expect(consultationController.checkIsPriceInputValid()).toBe(true)
   })

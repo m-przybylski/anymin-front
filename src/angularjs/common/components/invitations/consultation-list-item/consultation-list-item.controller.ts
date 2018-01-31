@@ -17,7 +17,7 @@ export class ConsultationListItemComponentController implements IConsultationLis
   public tags?: Tag[];
   public inviteTime: string;
   public checkboxId: string;
-  public isChecked: boolean = false;
+  public isChecked = false;
   public static $inject = [];
 
   constructor() {

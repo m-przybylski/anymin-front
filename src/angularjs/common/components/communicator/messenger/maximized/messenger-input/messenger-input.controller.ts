@@ -7,7 +7,7 @@ export class MessengerInputComponentController implements IMessengerInputBinding
   public onUploadFiles: (files: File[]) => void;
   public onTyping: () => void;
   public isFileUploading: boolean;
-  public inputModel: string = '';
+  public inputModel = '';
 
   public static $inject = [];
 

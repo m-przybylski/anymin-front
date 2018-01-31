@@ -46,6 +46,7 @@ export interface IGetLastPayment {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class ChargeAccountController implements ng.IController {
 
   public static $inject = ['$uibModalInstance', '$state', '$timeout', '$window', 'smoothScrollingService', '$scope'];
@@ -79,7 +80,7 @@ export class ChargeAccountController implements ng.IController {
     email?: string,
     payMethodValue?: string
   };
-  public lastChargeAccountSectionID: number = 3;
+  public lastChargeAccountSectionID = 3;
 
   public currentState?: string;
 
@@ -127,6 +128,7 @@ export class ChargeAccountController implements ng.IController {
         minimalAmount: this.amounts.minimalAmounts
       };
 
+      // tslint:disable-next-line:strict-type-predicates
       if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
         this.isChargeProfiteloAccount = true;
         this.currentSection = this.lastChargeAccountSectionID;

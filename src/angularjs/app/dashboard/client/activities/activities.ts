@@ -26,16 +26,16 @@ export class DashboardClientActivitiesController {
   public static $inject = ['dashboardActivitiesService', 'promiseService', '$state', 'errorHandler', 'filtersData',
     '$timeout'];
 
-  private static readonly queryLimit: number = 10;
-  private static readonly timeoutDelay: number = 400;
+  private static readonly queryLimit = 10;
+  private static readonly timeoutDelay = 400;
   private static readonly promiseLoaderDelay = 500;
 
   public balance: MoneyDto;
   public activities: GetActivity[];
-  public isSearchLoading: boolean = true;
-  public isActivitiesHistory: boolean = false;
+  public isSearchLoading = true;
+  public isActivitiesHistory = false;
   public isMoreResults: boolean;
-  public isError: boolean = false;
+  public isError = false;
   public filters: GetActivityFilters;
   public accountType = FinancialOperation.AccountTypeEnum.CLIENT;
   public isActivitiesLoading = false;

@@ -13,7 +13,7 @@ export interface IExpertEmployeeComponentBindings extends ng.IController {
   onDeleteCallback: () => void;
 }
 
-const expertEmployeeModule: string = angular.module('profitelo.components.dashboard.expert.employees.employee', [
+const expertEmployeeModule = angular.module('profitelo.components.dashboard.expert.employees.employee', [
   'pascalprecht.translate',
   userAvatarModule,
   apiModule,

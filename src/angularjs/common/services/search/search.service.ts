@@ -8,8 +8,8 @@ import { ErrorHandlerService } from '../error-handler/error-handler.service';
 // tslint:disable:member-ordering
 export class SearchService {
 
-  private static readonly suggestedTagsCounter: number = 20;
-  private static readonly suggestedQueriesCounter: number = 5;
+  private static readonly suggestedTagsCounter = 20;
+  private static readonly suggestedQueriesCounter = 5;
 
   public static $inject = ['SearchApi', 'errorHandler'];
 
@@ -34,7 +34,7 @@ export class SearchService {
   public querySuggestedTags = (
     query: string,
     tags: string[] = [],
-    count: number = SearchService.suggestedTagsCounter): ng.IPromise<GetSuggestedTags> => {
+    count = SearchService.suggestedTagsCounter): ng.IPromise<GetSuggestedTags> => {
 
       const params: PostSuggestTags = {
       query,

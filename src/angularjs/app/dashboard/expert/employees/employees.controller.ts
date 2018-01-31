@@ -10,12 +10,12 @@ import * as _ from 'lodash';
 export class DashboardExpertEmployeesController {
 
   public profilesWithEmployments: GetProfileDetailsWithEmployments[];
-  public areEmployeesLoading: boolean = true;
-  public isGetEmployeesError: boolean = false;
-  public arePendingInvitationsLoading: boolean = true;
-  public isPendingInvitationsError: boolean = false;
-  public areEmployees: boolean = false;
-  public arePendingInvitations: boolean = false;
+  public areEmployeesLoading = true;
+  public isGetEmployeesError = false;
+  public arePendingInvitationsLoading = true;
+  public isPendingInvitationsError = false;
+  public areEmployees = false;
+  public arePendingInvitations = false;
   public pendingInvitations: GetInvitation[][];
 
   private userId: string;

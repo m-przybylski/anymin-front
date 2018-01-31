@@ -17,11 +17,11 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   public onDeleteCallback: () => void;
   public emailOrMsisdn?: string;
   public invitationsCount: number;
-  public areInvitationsDeleted: boolean = false;
-  public invitationText: string = '';
+  public areInvitationsDeleted = false;
+  public invitationText = '';
 
-  private static readonly minRangeOfFewInvitations: number = 2;
-  private static readonly maxRangeOfFewInvitations: number = 4;
+  private static readonly minRangeOfFewInvitations = 2;
+  private static readonly maxRangeOfFewInvitations = 4;
 
   public static $inject = ['InvitationApi', 'errorHandler', 'topAlertService', 'translatorService'];
 
@@ -43,7 +43,7 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   }
 
   public deleteInvitations = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_INVITATION.CONFIRMATION_MESSAGE');
     if (confirm(confirmWindowMessage)) {
       const invitationsToDelete = this.invitations.map(invitation => invitation.id);

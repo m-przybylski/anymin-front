@@ -11,18 +11,18 @@ export class InputComponentController implements IInputComponentBindings {
 
   public id: string;
   public name: string;
-  public type: string = this.textType;
-  public inputText: string = '';
+  public type = this.textType;
+  public inputText = '';
   public placeholder: string;
   public validationText: string;
-  public maxLength: string = '';
+  public maxLength = '';
   public isValid: boolean;
-  public ngRequired: boolean = false;
+  public ngRequired = false;
   public ngModel: string;
-  public isFocus: boolean = false;
-  public isDirty: boolean = false;
+  public isFocus = false;
+  public isDirty = false;
   public onChangeCallback?: (value: string) => void;
-  public inputValueLength: number = 0;
+  public inputValueLength = 0;
 
   public static $inject = ['$element'];
 

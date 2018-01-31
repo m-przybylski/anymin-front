@@ -15,7 +15,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
   public idDocumentsContainerCollapsed: boolean;
   public documentsCollapsedLength: number;
   public lastDocument: string;
-  public readonly documentsLimit: number = 5;
+  public readonly documentsLimit = 5;
 
   public static $inject = ['modalsService', 'FilesApi', 'errorHandler'];
 

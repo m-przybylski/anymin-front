@@ -7,7 +7,7 @@ export class BtnDropdownCallAnimation {
 
   private createAnimation = (): ng.animate.IAnimateCallbackObject => ({
     enter: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height: string = String((element.length !== 0) ? element[0].offsetHeight : 0);
+      const height = String((element.length !== 0) ? element[0].offsetHeight : 0);
 
       return this.$animateCss(element, {
         addClass: 'animation-in',
@@ -16,7 +16,7 @@ export class BtnDropdownCallAnimation {
       });
     },
     leave: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height: string = String((element.length !== 0) ? element[0].offsetHeight : 0);
+      const height = String((element.length !== 0) ? element[0].offsetHeight : 0);
 
       return this.$animateCss(element, {
         addClass: 'animation-out',

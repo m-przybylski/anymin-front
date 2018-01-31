@@ -67,8 +67,8 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
     })
 
     it('should add selected number', () => {
-      const item: string = 'item'
-      const index: number = 1
+      const item = 'item'
+      const index = 1
       component.suggestedTags = ['asd', 'dsa']
       component.addSelectedItem(item, index)
       expect(component.selectedTags.length).toBe(1)
@@ -89,7 +89,7 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
     })
 
     it('should delete selected item', () => {
-      const index: number = 0
+      const index = 0
       component.selectedTags = ['selectedTag']
       component.deleteSelectedItem(index)
       expect(component.selectedTags.length).toBe(0)

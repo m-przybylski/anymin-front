@@ -2,8 +2,9 @@ import * as angular from 'angular';
 import { UrlService } from '../../../services/url/url.service';
 import urlModule from '../../../services/url/url';
 
+// tslint:disable:strict-type-predicates
 function controller($scope: any, urlService: UrlService): void {
-  const minExpertsCount: number = 5;
+  const minExpertsCount = 5;
   this.areControllsVisible = false;
   this.expertsArray = [];
   this.expertsArray = this.expertsArray.concat(this.experts);

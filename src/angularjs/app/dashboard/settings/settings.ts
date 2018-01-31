@@ -24,7 +24,7 @@ export class SettingsController implements ng.IController {
     'notifications'
   ];
 
-  public currentState: string = this.stateNames[0];
+  public currentState = this.stateNames[0];
 
   public static $inject = ['$state', '$scope'];
 
@@ -51,7 +51,7 @@ export class SettingsController implements ng.IController {
 
   private getRealStateName = (stateName: string): string => {
     const stringsArray = stateName.split('.');
-    const stateNameIndex: number = 3;
+    const stateNameIndex = 3;
     return stringsArray[stateNameIndex];
   }
 }

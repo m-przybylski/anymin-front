@@ -43,7 +43,7 @@ export class CurrentCall {
 
   private streamManager?: StreamManager;
 
-  private static readonly moneyChangeNotificationInterval: number = 1000;
+  private static readonly moneyChangeNotificationInterval = 1000;
 
   protected readonly events = {
     onAnswered: new Subject<void>(),
@@ -94,6 +94,7 @@ export class CurrentCall {
     this.sue.id
 
   protected setLocalStream = (localStream: MediaStream): void => {
+    // tslint:disable-next-line:strict-type-predicates
     if (typeof localStream.getAudioTracks()[0] !== 'undefined') {
       this.microphoneService.startAudioStreamListening(localStream.getAudioTracks()[0]);
     }
@@ -184,7 +185,7 @@ export class CurrentCall {
   public onAnswered = (cb: () => void): Subscription =>
     this.events.onAnswered.subscribe(cb)
 
-  public startTimer = (freeSeconds: number = 0): void => {
+  public startTimer = (freeSeconds = 0): void => {
     if (this.timer) this.timer.start(this.emitTimeMoneyChange, freeSeconds);
   }
 

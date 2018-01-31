@@ -20,7 +20,9 @@ export class MicrophoneService {
   }
 
   public startAudioStreamListening = (track: MediaStreamTrack): void => {
-    track.muted && this.microphoneStatusEmitter.next(MicrophoneStateEnum.MUTED);
+    if (track.muted) {
+      this.microphoneStatusEmitter.next(MicrophoneStateEnum.MUTED);
+    }
     track.onmute = (): void => this.microphoneStatusEmitter.next(MicrophoneStateEnum.MUTED);
     track.onunmute = (): void => this.microphoneStatusEmitter.next(MicrophoneStateEnum.GOOD);
   }

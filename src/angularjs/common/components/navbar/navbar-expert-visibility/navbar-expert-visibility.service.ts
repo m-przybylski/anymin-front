@@ -11,7 +11,7 @@ export interface IExpertPresenceUpdate {
 // tslint:disable:member-ordering
 export class NavbarExpertVisibilityService {
 
-  private readonly requestDelay: number = 2000;
+  private readonly requestDelay = 2000;
   private readonly changeVisibilitySubject = new Subject<IExpertPresenceUpdate>();
 
   public static $inject = ['PresenceApi', '$q', '$timeout', '$window', 'profiteloWebsocket'];
@@ -29,7 +29,7 @@ export class NavbarExpertVisibilityService {
     });
   }
 
- private getExpertVisibilityReconnect = (fn: (res: GetExpertVisibility) => void, delay: number = 0): void => {
+ private getExpertVisibilityReconnect = (fn: (res: GetExpertVisibility) => void, delay = 0): void => {
     this.$timeout(() => {
       this.PresenceApi.expertVisibilityRoute().then(fn,
         () => this.getExpertVisibilityReconnect(fn, delay + this.requestDelay));
@@ -40,7 +40,9 @@ export class NavbarExpertVisibilityService {
     const defer = this.$q.defer<GetExpertVisibility>();
 
     this.PresenceApi.expertVisibilityRoute().then(
+      // tslint:disable-next-line:no-unbound-method
       defer.resolve,
+      // tslint:disable-next-line:no-unbound-method
       () => this.getExpertVisibilityReconnect(defer.resolve));
 
     return defer.promise;

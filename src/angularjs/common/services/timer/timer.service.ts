@@ -4,18 +4,18 @@ import { MoneyDto } from 'profitelo-api-ng/model/models';
 export class TimerService {
 
   public static $inject = ['$interval', 'money', 'freeMinutesCount', 'interval'];
-  private static readonly milisecondsInSecond: number = 1000;
-  private static readonly secondsInMinute: number = 60;
+  private static readonly milisecondsInSecond = 1000;
+  private static readonly secondsInMinute = 60;
   private timer: ng.IPromise<any>;
   private startTime: number;
-  private isPaused: boolean = false;
+  private isPaused = false;
   private pausedTime: number;
 
   constructor(private $interval: ng.IIntervalService, private money: MoneyDto,
               private interval: number) {
   }
 
-  public start = (cb: (obj: {time: number, money: MoneyDto}) => void, freeSeconds: number = 0): void => {
+  public start = (cb: (obj: {time: number, money: MoneyDto}) => void, freeSeconds = 0): void => {
     this.startTime = Date.now();
     this.timer = this.$interval(() => {
       if (!this.isPaused) {
@@ -50,7 +50,7 @@ export class TimerService {
   }
 
   private setAmountValue = (time: number, freeSeconds: number): number => {
-    const paidCallTime: number = time - freeSeconds;
+    const paidCallTime = time - freeSeconds;
     return paidCallTime > 0 ? (this.money.amount * Math.max(
       0, paidCallTime) / TimerService.secondsInMinute) : 0;
   }

@@ -17,11 +17,11 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   public indexOfCurrentStep: number;
   public progressBarText: string;
 
-  private static readonly dividerOnHalf: number = 2;
+  private static readonly dividerOnHalf = 2;
   private findInput: HTMLInputElement;
   private findTextarea: HTMLElement;
-  private progressWidthMax: number = 100;
-  private wizardStepPadding: number = 50;
+  private progressWidthMax = 100;
+  private wizardStepPadding = 50;
   private stepList: JQuery;
 
   public static $inject = ['$element', 'smoothScrollingService', '$window', '$document', '$timeout'];

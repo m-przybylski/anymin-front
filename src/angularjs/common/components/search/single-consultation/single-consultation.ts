@@ -18,8 +18,8 @@ function singleConsultationController($state: StateService, clientCallService: C
                                       userService: UserService): void {
 
   this.isLinkActive = false;
-  const percentage: number = 100;
-  const usageCounter: number = 500;
+  const percentage = 100;
+  const usageCounter = 500;
 
   // TODO Replace mocks by correct values: https://git.contactis.pl/itelo/profitelo/issues/996
   this.rating = percentage;

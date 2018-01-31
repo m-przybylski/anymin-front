@@ -34,7 +34,7 @@ export class SoundsService {
 
   public static $inject = ['$log'];
 
-    constructor(private $log: ng.ILogService, ) {
+    constructor(private $log: ng.ILogService) {
 
     this.soundPaths = _.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename);
     this.soundObjects = _.mapValues(this.soundPaths, path => new Audio(path));

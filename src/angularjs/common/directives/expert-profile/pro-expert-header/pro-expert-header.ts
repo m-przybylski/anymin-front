@@ -4,6 +4,7 @@ import urlModule from '../../../services/url/url';
 import 'angularjs/common/components/interface/show-more-text/show-more-text';
 import { IDirective } from 'angular';
 
+// tslint:disable:strict-type-predicates
 function proExpertHeader(urlService: UrlService): IDirective<ng.IScope> {
 
   function linkFunction(scope: any, _element: ng.IRootElementService): void {

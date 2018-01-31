@@ -28,7 +28,7 @@ function ForgotPasswordController($state: StateService, account: ILoginForgotPas
                                   CommonSettingsService: CommonSettingsService,
                                   loginStateService: LoginStateService): void {
 
-  const maxSmsCodeLength: number = 4;
+  const maxSmsCodeLength = 4;
   this.isNewCurrentPasswordChange = '';
   this.isPending = false;
   this.account = account;

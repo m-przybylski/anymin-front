@@ -13,6 +13,7 @@ export interface ITopAlertSettings {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class TopAlertService {
 
   private alertArray: ITopAlertSettings[] = [];
@@ -26,7 +27,7 @@ export class TopAlertService {
 
   private setId = (): number => {
     const d = new Date();
-    const randomNumberMultiplier: number = 1000;
+    const randomNumberMultiplier = 1000;
     const n = d.getMilliseconds() + Math.floor(Math.random() * randomNumberMultiplier);
     return n;
   }
@@ -40,7 +41,7 @@ export class TopAlertService {
   }
 
   private timeoutDestroy = (timeout: number, id: number): void => {
-    const timeoutMultiplier: number = 3000;
+    const timeoutMultiplier = 3000;
     if (typeof timeout !== 'undefined' && timeout !== null) {
       const realTimeout = timeout * timeoutMultiplier;
       this.$timeout(() => {

@@ -3,6 +3,7 @@ import { UrlService } from '../../../../../../services/url/url.service';
 import { StateService } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 
+// tslint:disable:strict-type-predicates
 function controller($scope: any, $state: StateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {

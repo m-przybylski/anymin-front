@@ -19,7 +19,7 @@ export class DashboardSettingsGeneralController implements ng.IController {
   public country: string;
   public unverifiedEmail?: string;
   public showUnverifiedEmail: boolean;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['modalsService', 'user', '$state'];
 

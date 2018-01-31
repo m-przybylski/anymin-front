@@ -23,9 +23,9 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public paymentMethods: GetCreditCard[];
   public checkedPaymentMethod?: string;
   public isLongAddress?: boolean;
-  public isClientBalanceLoaded: boolean = false;
-  public isCreditCardsLoaded: boolean = false;
-  private static readonly maxShortAddressLength: number = 10;
+  public isClientBalanceLoaded = false;
+  public isCreditCardsLoaded = false;
+  private static readonly maxShortAddressLength = 10;
 
   public static $inject = ['getInvoiceData', 'FinancesApi', '$log', 'PaymentsApi', 'modalsService', '$state'];
 

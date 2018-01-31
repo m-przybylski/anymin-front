@@ -21,7 +21,7 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
   public onLike: () => void;
   public profileType: ProfileTypes;
   public documents: ProfileDocument[];
-  public isSession: boolean = false;
+  public isSession = false;
 
   public static $inject = ['userService'];
 

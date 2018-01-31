@@ -10,26 +10,26 @@ import { Config } from '../../../../../config';
 
 // tslint:disable:member-ordering
 export class CompanyController implements ng.IController {
-  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription;
-  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName;
+  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
+  public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
     isSummary: false
   };
 
-  public nameModel?: string = '';
+  public nameModel: string | undefined = '';
   public logoModel?: string;
-  public descriptionModel?: string = '';
+  public descriptionModel: string | undefined = '';
   public filesModel?: string[] = [];
   public linksModel?: string[] = [];
   public dictionary: {
     [key: string]: string
   };
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
-  public isSubmitted: boolean = false;
-  public isStepRequired: boolean = true;
-  private isUploading: boolean = true;
+  public isPlatformForExpert = Config.isPlatformForExpert;
+  public isSubmitted = false;
+  public isStepRequired = true;
+  private isUploading = true;
   private companyNamePattern: RegExp;
   private companyDescriptionPattern: RegExp;
   public static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
@@ -88,6 +88,7 @@ export class CompanyController implements ng.IController {
 
   public goToSummary = (): void => {
     if (this.checkIsFormValid()) {
+      // tslint:disable-next-line:no-non-null-assertion
       this.currentWizardState.organizationDetailsOption!.links = this.linksModel;
       this.currentWizardState.isSummary = true;
       this.saveWizardState(this.currentWizardState).then(() => {

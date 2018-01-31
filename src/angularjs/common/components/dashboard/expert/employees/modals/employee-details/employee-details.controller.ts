@@ -7,8 +7,8 @@ export interface IExpertEmployeeDetailsModalScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class ExpertEmployeeDetailsModalController implements ng.IController {
-  public isFullscreen: boolean = true;
-  public isNavbar: boolean = true;
+  public isFullscreen = true;
+  public isNavbar = true;
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');
@@ -34,7 +34,7 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
     currency: 'PLN'
   };
 
-  public invitePendingTime: string = '4 days ago';
+  public invitePendingTime = '4 days ago';
 
   public static $inject = ['$uibModalInstance'];
 

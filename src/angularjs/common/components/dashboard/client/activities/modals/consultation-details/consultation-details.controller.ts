@@ -8,9 +8,9 @@ export interface IClientConsultationDetailsScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ClientConsultationDetailsController implements ng.IController {
   public roomId?: string;
-  public isLoading: boolean = true;
-  public isFullscreen: boolean = true;
-  public isNavbar: boolean = true;
+  public isLoading = true;
+  public isFullscreen = true;
+  public isNavbar = true;
   public recommendedTags: any[] = [];
   public serviceTags: any[] = [];
   public expertAvatar?: string;
@@ -62,7 +62,7 @@ export class ClientConsultationDetailsController implements ng.IController {
   }
 
   private onServiceTags = (res: any): void => {
-    this.openClientActivityModal(res[0]!.tags);
+    this.openClientActivityModal(res[0].tags);
   }
 
   private openClientActivityModal = (serviceTags: Tag[] = []): void => {

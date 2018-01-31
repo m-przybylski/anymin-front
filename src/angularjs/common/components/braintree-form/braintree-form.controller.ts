@@ -8,13 +8,13 @@ import { IBraintreeFormComponentBindings } from './braintree-form';
 export class BraintreeFormComponentController implements ng.IController, IBraintreeFormComponentBindings {
 
   public onBraintreeFormLoad: () => void;
-  public isInvalid: boolean = false;
+  public isInvalid = false;
   public submitButtonTranslate: string;
   public onFormSucceed: (response: ng.IPromise<JValue>) => void;
-  public showCardLimitForm: boolean = false;
-  public defaultCardLimit: string = '';
+  public showCardLimitForm = false;
+  public defaultCardLimit = '';
   public transaction: PostPayment;
-  public isSubmitted: boolean = false;
+  public isSubmitted = false;
 
   public static $inject = ['PaymentsApi', 'userService'];
 
@@ -99,6 +99,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
             const field = event.fields[event.emittedBy];
 
             if (field.isValid) {
+              // tslint:disable-next-line:prefer-switch
               if (event.emittedBy === 'expirationDate' || event.emittedBy === 'cvv' || event.emittedBy === 'number') {
                 if (event.fields.number.isValid && event.fields.cvv.isValid && event.fields.expirationDate.isValid) {
                   angular.element('#submit-braintree-form').removeAttr('disabled');

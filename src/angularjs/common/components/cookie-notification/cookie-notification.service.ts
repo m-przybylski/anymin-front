@@ -2,8 +2,9 @@ import { ICookiesService, CookiesKeyName } from '../../services/cookie/cookie.se
 import { Config } from '../../../../config';
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class CookieNotificationService {
-  private static readonly cookieKeyValue: string = 'true';
+  private static readonly cookieKeyValue = 'true';
 
   public static $inject = ['$cookies'];
 

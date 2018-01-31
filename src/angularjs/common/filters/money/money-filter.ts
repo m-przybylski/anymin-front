@@ -1,12 +1,13 @@
 import * as angular from 'angular';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:no-bitwise
 const handleAmount = (_amount: number): string => {
   let sign = '';
-  const numeralSystem: number = 10;
-  const dividerByHundred: number = 100;
-  const dividerByTen: number = 10;
+  const numeralSystem = 10;
+  const dividerByHundred = 100;
+  const dividerByTen = 10;
   const amount = parseInt(<any>_amount, numeralSystem);
   const major = (amount) ? amount / dividerByHundred | 0 : 0;
   const minor = (amount) ? amount % dividerByHundred : 0;

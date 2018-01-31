@@ -4,10 +4,10 @@ import { Config } from '../../../../../config';
 // tslint:disable:member-ordering
 export class BtnDropdownCallComponentController implements ng.IController, IBtnDropdownCallComponentBindings {
   public callback: () => void;
-  public isOpen: boolean = false;
-  public buttonText: string = '';
+  public isOpen = false;
+  public buttonText = '';
   public buttonClass: string;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['$scope', '$document', '$element'];
 

@@ -8,7 +8,7 @@ export class RadioBtnTextareaAnimation {
 
   private createAnimation = (): ng.animate.IAnimateCallbackObject => ({
     enter: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height: string = String((element[0]) ? element[0].offsetHeight : 0);
+      const height = String((element[0]) ? element[0].offsetHeight : 0);
 
       return this.$animateCss(element, {
         addClass: 'animation-in',
@@ -17,7 +17,7 @@ export class RadioBtnTextareaAnimation {
       });
     },
     leave: (element: JQuery): ng.animate.IAnimateCssRunner => {
-      const height: string = String((element[0]) ? element[0].offsetHeight : 0);
+      const height = String((element[0]) ? element[0].offsetHeight : 0);
 
       return this.$animateCss(element, {
         addClass: 'animation-out',

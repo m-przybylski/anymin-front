@@ -17,14 +17,14 @@ describe('Unit testing: profitelo.filters.uuid-trimmer-filter.uuid-trimmer >', (
     }))
 
     it('should trim defined uuid', () => {
-      const testUUID: string = 'bc056578-2a53-473c-bd74-afa8af5e146d'
-      const trimmedUUID: string = 'afa8af5e146d'
+      const testUUID = 'bc056578-2a53-473c-bd74-afa8af5e146d'
+      const trimmedUUID = 'afa8af5e146d'
 
       expect($filter(filterName)(testUUID)).toEqual(trimmedUUID)
     })
 
     it('should not trim string that is not uuid', () => {
-      const fakeString: string = "notValidUUID"
+      const fakeString = "notValidUUID"
 
       expect($filter(filterName)(fakeString)).toEqual(fakeString)
     })

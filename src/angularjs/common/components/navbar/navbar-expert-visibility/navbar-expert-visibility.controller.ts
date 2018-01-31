@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class NavbarExpertVisibilityComponentController implements ng.IController {
 
   public callback: () => void;
-  public isOpen: boolean = false;
+  public isOpen = false;
   public isVisible?: boolean;
   public radioModel: GetExpertVisibility.VisibilityEnum;
   public isLoading: boolean;

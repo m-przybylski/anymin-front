@@ -6,7 +6,7 @@ import { PayoutsModalController } from './payouts.controller';
 import { PayoutsModalService } from './payouts.service';
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler';
 
-const payoutsModalModule: string = angular.module('profitelo.components.dashboard.settings.modals.payouts.payouts', [
+const payoutsModalModule = angular.module('profitelo.components.dashboard.settings.modals.payouts.payouts', [
   'ui.bootstrap',
   apiModule,
   commonSettingsModule,

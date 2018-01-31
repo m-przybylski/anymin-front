@@ -2,6 +2,7 @@ import { ISingleConsultationEditComponentBindings } from './single-consultation-
 import { GetWizardService, WizardTag, MoneyDto } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class SingleConsultationEditComponentController implements ISingleConsultationEditComponentBindings {
 
@@ -12,7 +13,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public price: MoneyDto;
   public onRemove: (service: GetWizardService) => void;
   public onEdit: (service: GetWizardService) => void;
-  public isOwnerEmployee: boolean = false;
+  public isOwnerEmployee = false;
   public isCompany: boolean;
   public language: string;
   public description: string;
@@ -42,7 +43,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   }
 
   public removeConsultation = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('WIZARD.SUMMARY.DELETE_SERVICE.BUTTON.CONFIRMATION_MESSAGE');
     if (this.checkIsOnRemoveExist() && confirm(confirmWindowMessage)) {
       this.onRemove(this.service);

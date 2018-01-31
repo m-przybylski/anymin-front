@@ -128,7 +128,7 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should not start call if there is no clientSession', inject(
       ($rootScope: any, communicatorService: CommunicatorService) => {
-        const serviceId: string = '1'
+        const serviceId = '1'
 
         communicatorService.getSession = (): Session => <any>{}
 

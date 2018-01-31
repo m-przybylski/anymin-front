@@ -18,9 +18,10 @@ interface ISendedSMS {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class PhoneSettingsService {
-  private isNumberExist: boolean = false;
-  private isButtonDisabled: boolean = false;
+  private isNumberExist = false;
+  private isButtonDisabled = false;
 
   private counter: number;
   private numberPattern = this.CommonSettingsService.localSettings.phoneNumberPattern;
@@ -29,7 +30,7 @@ export class PhoneSettingsService {
     value: countryCode,
     name: countryCode
   }));
-  private prefix: string = this.prefixList[0].value;
+  private prefix = this.prefixList[0].value;
   private sendedSMSArray: ISendedSMS[] = [];
 
   private interval: ng.IPromise<ng.IIntervalService>;
@@ -37,8 +38,8 @@ export class PhoneSettingsService {
     onCountDownUpdate: new Subject<number>(),
     onNewPhoneNumberCreate: new Subject<boolean>()
   };
-  private static readonly oneSecondInMillisecond: number = 1000;
-  private static readonly timeToResend: number = 30;
+  private static readonly oneSecondInMillisecond = 1000;
+  private static readonly timeToResend = 30;
 
   public static $inject = ['AccountApi', 'errorHandler', 'CommonSettingsService', '$interval', '$log'];
 
@@ -142,7 +143,7 @@ export class PhoneSettingsService {
   public getIsNumberExist = (): boolean => this.isNumberExist;
 
   private markNumberAsUnused = (phoneNumber: string): void => {
-    this.sendedSMSArray = this.sendedSMSArray.filter( el => el.phoneNumber !== phoneNumber );
+    this.sendedSMSArray = this.sendedSMSArray.filter(el => el.phoneNumber !== phoneNumber);
   }
 
   private timeElapse = (date: number): number =>

@@ -5,7 +5,7 @@ import { Config } from '../../../../../config';
 // tslint:disable:member-ordering
 export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutMenuComponentBindings {
 
-  public isHelpMenuShow: boolean = false;
+  public isHelpMenuShow = false;
 
   public static $inject = ['$document', '$element', '$scope', '$window'];
 

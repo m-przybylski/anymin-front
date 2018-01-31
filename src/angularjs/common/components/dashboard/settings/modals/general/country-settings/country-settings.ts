@@ -76,6 +76,7 @@ export class GeneralCountrySettingsController implements ng.IController {
 
   private getCountriesList = (callback: () => void): void => {
     this.AccountApi.getSupportedCountriesRoute().then(res => {
+      // tslint:disable-next-line:no-object-literal-type-assertion
       this.countryList = res.map((country) => <ICountryElementObject>({
         name: this.translatorService.translate('COUNTRIES.' + String(country.iso)),
         value: {

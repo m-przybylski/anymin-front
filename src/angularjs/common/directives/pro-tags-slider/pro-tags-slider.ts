@@ -23,6 +23,7 @@ export interface IProTagsSliderScope extends ng.IScope {
   addTagToQueryAndSearch: (tag: string) => void;
 }
 
+// tslint:disable:strict-type-predicates
 function proTagsSlider($window: IWindowService,
                        $state: StateService,
                        $location: ng.ILocationService,
@@ -49,7 +50,7 @@ function proTagsSlider($window: IWindowService,
 
     const _calculateOffset = (elem: number): number => {
       let offset = 0;
-      const margin: number = 8;
+      const margin = 8;
       for (let i = 0; i < elem; i++) {
         offset = offset + elementsMap[i] + margin;
       }

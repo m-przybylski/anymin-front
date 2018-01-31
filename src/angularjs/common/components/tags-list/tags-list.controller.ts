@@ -4,11 +4,11 @@ import { Tag } from 'profitelo-api-ng/model/models';
 // tslint:disable:member-ordering
 export class TagsListComponentController implements ITagsListBindings {
 
-  public readonly defaultMobileTagsLimit: number = 7;
-  private static readonly maxVisibleTags: number = 30;
+  public readonly defaultMobileTagsLimit = 7;
+  private static readonly maxVisibleTags = 30;
 
   public tags: Tag[];
-  public tagsLimit: number = this.defaultMobileTagsLimit;
+  public tagsLimit = this.defaultMobileTagsLimit;
   public static $inject = [];
 
   constructor() {

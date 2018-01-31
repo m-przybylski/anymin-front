@@ -7,9 +7,9 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
   public selectedLinks: string[] = [];
   public linkModel: string;
   public urlPattern: any;
-  public badUrl: boolean = false;
-  public urlExist: boolean = false;
-  public noUrl: boolean = false;
+  public badUrl = false;
+  public urlExist = false;
+  public noUrl = false;
   public label?: string;
 
   public static $inject = ['CommonSettingsService'];

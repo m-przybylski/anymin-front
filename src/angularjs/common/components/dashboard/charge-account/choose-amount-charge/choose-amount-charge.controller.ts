@@ -5,6 +5,7 @@ import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class ChooseAmountChargeComponentController implements IChooseAmountChargeComponentBindings, ng.IController {
   public title: string;
   public amounts: IAmounts;
@@ -15,8 +16,8 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   public firstSelect: boolean;
   public cashAmountModel: number | null;
   public minimalPaymentAmount: number;
-  public amountModifier: number = 1;
-  public userAmountOption: number = 3;
+  public amountModifier = 1;
+  public userAmountOption = 3;
 
   public static $inject = ['$scope', 'CommonSettingsService'];
 
@@ -60,7 +61,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   }
 
   public onEnter = (): void => {
-    const sectionToScroll: number = 2;
+    const sectionToScroll = 2;
     if (this.amounts && this.amounts.minimalAmounts && this.cashAmountModel &&
       this.cashAmountModel > this.amounts.minimalAmounts.amount / this.amountModifier) {
       this.scrollHandler(sectionToScroll);

@@ -4,11 +4,11 @@ import { StateService, StateObject } from '@uirouter/angularjs';
 // tslint:disable:member-ordering
 export class PagePreloaderComponentController implements ng.IController {
 
-  public isLoading: boolean = false;
-  public isError: boolean = false;
-  private static readonly minimalPreloadingTime: number = 500;
-  private static readonly minimalTimeToStartPreloading: number = 500;
-  private isStateLoaded: boolean = false;
+  public isLoading = false;
+  public isError = false;
+  private static readonly minimalPreloadingTime = 500;
+  private static readonly minimalTimeToStartPreloading = 500;
+  private isStateLoaded = false;
   private stateChangeStart: () => void;
   private stateChangeSuccess: () => void;
   private stateChangeError: () => void;

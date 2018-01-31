@@ -18,6 +18,7 @@ interface ILabels {
   organizationDescription: string;
 }
 
+// tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class EditExpertProfileController implements ng.IController {
 
@@ -26,14 +27,14 @@ export class EditExpertProfileController implements ng.IController {
   public profileName: string;
   public profileDescription: string;
   public profileLinks: string[] = [];
-  public isLoading: boolean = false;
-  public isFullscreen: boolean = true;
-  public isNavbar: boolean = true;
-  public isSubmitted: boolean = false;
+  public isLoading = false;
+  public isFullscreen = true;
+  public isNavbar = true;
+  public isSubmitted = false;
   public profileNameLabel: string;
   public profileDescriptionLabel: string;
-  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription;
-  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName;
+  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
+  public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
 
   private static readonly labels: ILabels = {
     expertName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE',
@@ -41,7 +42,7 @@ export class EditExpertProfileController implements ng.IController {
     organizationName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.TITLE',
     organizationDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE'
   };
-  private isUploaded: boolean = true;
+  private isUploaded = true;
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
   private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern;
 

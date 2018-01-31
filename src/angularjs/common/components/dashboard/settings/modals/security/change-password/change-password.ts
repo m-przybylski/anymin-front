@@ -18,15 +18,15 @@ export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScop
 export class SecurityChangePasswordSettingsController implements ng.IController {
 
   public patternPassword = this.CommonSettingsService.localSettings.passwordPattern;
-  public newPassword: string = '';
-  public currentPassword: string = '';
+  public newPassword = '';
+  public currentPassword = '';
   public passwordStrength: number;
-  public isCurrentPasswordCorrect: boolean = true;
-  public arePasswordsDifferent: boolean = true;
+  public isCurrentPasswordCorrect = true;
+  public arePasswordsDifferent = true;
   public isError = false;
 
-  private enteredPassword: string = '';
-  private enteredCurrentPassword: string = '';
+  private enteredPassword = '';
+  private enteredCurrentPassword = '';
 
   public setNewPassword = (): void => {
     this.isError = false;

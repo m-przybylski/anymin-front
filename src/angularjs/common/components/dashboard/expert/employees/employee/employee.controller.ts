@@ -18,11 +18,11 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   public employeeName: string;
   public employmentsCount: number;
   public employeeAvatar: string;
-  public isEmploeeDeleted: boolean = false;
-  public consultationText: string = '';
+  public isEmploeeDeleted = false;
+  public consultationText = '';
 
-  private static readonly minRangeOfFewConsultations: number = 2;
-  private static readonly maxRangeOfFewConsultations: number = 4;
+  private static readonly minRangeOfFewConsultations = 2;
+  private static readonly maxRangeOfFewConsultations = 4;
 
   public static $inject = ['EmploymentApi', 'errorHandler', 'topAlertService', 'translatorService'];
 
@@ -48,12 +48,11 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
       default:
         this.consultationText =
           this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.MANY_CONSULTATIONS');
-        break;
     }
   }
 
   public deleteEmployee = (): void => {
-    const confirmWindowMessage: string =
+    const confirmWindowMessage =
       this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_EMPLOYEE.CONFIRM_TEXT');
     if (confirm(confirmWindowMessage)) {
       const employmentsToDelete = this.profileWithEmployments.employments.map(employment =>

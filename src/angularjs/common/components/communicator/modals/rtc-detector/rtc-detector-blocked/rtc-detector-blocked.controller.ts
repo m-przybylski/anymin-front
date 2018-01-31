@@ -9,7 +9,7 @@ interface ITranslateHref {
 
 // tslint:disable:member-ordering
 export class RtcDetectorBlockedModalController implements ng.IController {
-  public rtcBlockedTranslation: string = 'COMMUNICATOR.MODALS.RTC.BLOCKED.DESCRIPTION';
+  public rtcBlockedTranslation = 'COMMUNICATOR.MODALS.RTC.BLOCKED.DESCRIPTION';
   public rtcBlockedTranslationHref: ITranslateHref;
 
   public static $inject = ['$uibModalInstance', 'CommonSettingsService'];

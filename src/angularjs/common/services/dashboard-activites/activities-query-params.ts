@@ -52,9 +52,9 @@ export class ActivitiesQueryParams {
   }
 
   public setDateFrom = (value?: string): void => {
-    const hour: number = 0;
-    const minutes: number = 0;
-    const seconds: number = 0;
+    const hour = 0;
+    const minutes = 0;
+    const seconds = 0;
 
     if (value) {
       const timestamp = new Date(value).setHours(hour, minutes, seconds);
@@ -63,9 +63,9 @@ export class ActivitiesQueryParams {
   }
 
   public setDateTo = (value?: string): void => {
-    const hour: number = 23;
-    const minutes: number = 59;
-    const seconds: number = 59;
+    const hour = 23;
+    const minutes = 59;
+    const seconds = 59;
 
     if (value) {
       const timestamp = new Date(value).setHours(hour, minutes, seconds);

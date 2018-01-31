@@ -7,8 +7,8 @@ export class MediaStreamConstraintsWrapper {
 
   private actualConstraints: MediaStreamConstraints;
   private navigatorWrapper: NavigatorWrapper;
-  private currentCamera: string = NavigatorWrapper.frontCamera;
-  private currentCameraIndex: number = 0;
+  private currentCamera = NavigatorWrapper.frontCamera;
+  private currentCameraIndex = 0;
 
   private static readonly videoConstraints: MediaStreamConstraints = {
     video: {

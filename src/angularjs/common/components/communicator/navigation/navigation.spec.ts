@@ -17,7 +17,7 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
     let compile: ng.ICompileService
     let component: NavigationComponentController
 
-    const validHTML: string = '<communicator-nav is-video="isVideo" is-messenger="isMessenger"></communicator-nav>'
+    const validHTML = '<communicator-nav is-video="isVideo" is-messenger="isMessenger"></communicator-nav>'
 
     const currentCall: CurrentCall = {
       stopAudio: (): void => {},

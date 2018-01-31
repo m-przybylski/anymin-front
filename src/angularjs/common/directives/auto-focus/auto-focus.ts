@@ -2,7 +2,7 @@ import * as angular from 'angular';
 
 // tslint:disable:member-ordering
 class AutoFocus implements ng.IDirective<ng.IScope> {
-  public restrict: string = 'A';
+  public restrict = 'A';
 
   public static $inject = [];
 

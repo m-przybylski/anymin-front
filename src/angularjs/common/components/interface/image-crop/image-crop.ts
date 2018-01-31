@@ -6,7 +6,7 @@ export interface IImageCropComponentBindings extends ng.IController {
   saveCropAvatar: (element: any) => void;
 }
 
-const imageCropModule: string = angular.module('profitelo.components.interface.image-crop', [
+const imageCropModule = angular.module('profitelo.components.interface.image-crop', [
   'pascalprecht.translate'
 ])
   .component('imageCropComponent', new ImageCropComponent())

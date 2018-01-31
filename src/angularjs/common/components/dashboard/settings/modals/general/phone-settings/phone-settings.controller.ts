@@ -9,7 +9,7 @@ export interface IPhoneSettingsControllerScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class PhoneSettingsController implements ng.IController {
-  public numberModel: string = '';
+  public numberModel = '';
   public prefixList: IPrefixListElement[] = [];
   public prefixPlaceholder: string;
   public counter: number;

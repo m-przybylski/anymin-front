@@ -1,3 +1,4 @@
+import * as angular from 'angular';
 const uuidSeparator = '-';
 
 function filter($log: ng.ILogService): (uuid: string) => string {

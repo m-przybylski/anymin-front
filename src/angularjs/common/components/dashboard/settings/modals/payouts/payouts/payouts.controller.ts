@@ -8,14 +8,14 @@ export interface IPayoutsModalControllerScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class PayoutsModalController implements ng.IController {
-  public isPayoutBankMethod: boolean = false;
-  public isPayoutPaypalMethod: boolean = false;
-  public isLoading: boolean = false;
-  public payPalEmail: string = '';
-  public bankAccountNumber: string = '';
+  public isPayoutBankMethod = false;
+  public isPayoutPaypalMethod = false;
+  public isLoading = false;
+  public payPalEmail = '';
+  public bankAccountNumber = '';
   public emailPattern = this.CommonSettingsService.localSettings.emailPattern;
   public bankAccountNumberPattern = this.CommonSettingsService.localSettings.bankAccountNumberPattern;
-  public payoutMethod: string = '';
+  public payoutMethod = '';
 
   private onModalCloseCallback: () => void;
   private static readonly payoutMethodId = {

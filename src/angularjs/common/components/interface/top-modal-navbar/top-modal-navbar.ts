@@ -4,7 +4,7 @@ import { StateService } from '@uirouter/angularjs';
 
 function controller($window: IWindowService, $scope: ng.IScope, $state: StateService): void {
   this.isHidden = false;
-  let checkScrollWay: number = 0;
+  let checkScrollWay = 0;
 
   const onClose = (): void => {
     if (angular.isFunction(this.onClose)) {

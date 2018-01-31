@@ -41,7 +41,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private uploader: UploaderService;
 
   private messageRoom?: MessageRoom;
-  public expertName: string = '';
+  public expertName = '';
 
   public static $inject = ['$log', '$timeout', '$element', 'clientCallService', 'expertCallService', 'uploaderFactory'];
 

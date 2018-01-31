@@ -11,6 +11,7 @@ export interface IInterfaceLanguage {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:strict-type-predicates
 export class InterfaceLanguageService {
 
   private static selectedInterfaceLanguageCookie = 'selectedInterfaceLanguage';
@@ -73,8 +74,9 @@ export class InterfaceLanguageService {
       const previousLanguage = this.unifyToIetfCode(this.$translate.use());
       const msg = 'Your language `' + previousLanguage + '`' +
         ' was not found, so used our default language `' + InterfaceLanguageService.defaultTranslation + '`, ' +
+        // tslint:disable-next-line:no-non-null-assertion
         _.find(InterfaceLanguageService.interfaceLanguages,
-          {ietfCode: InterfaceLanguageService.defaultTranslation})!['nativeName'] + '.';
+          {ietfCode: InterfaceLanguageService.defaultTranslation})!.nativeName + '.';
 
       this.$log.info(msg);
 

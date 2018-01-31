@@ -2,7 +2,7 @@
 
   function thankYouPageController($location: ng.ILocationService): void {
 
-    const validCurrencyLength: number = 3;
+    const validCurrencyLength = 3;
     this.showRecharge = false;
     this.price = null;
 

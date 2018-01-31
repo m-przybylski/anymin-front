@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import { IWindowService } from '../../../services/window/window.service';
 
+// tslint:disable:no-use-before-declare
 function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService): void {
   this.stylesObject = {
     height: null

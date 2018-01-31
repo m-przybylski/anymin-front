@@ -18,7 +18,8 @@ export class ClientFavouritesResolver {
 
   public resolve = (): ng.IPromise<GetDashboardClientExperts> =>
     this.ViewsApi.getDashboardClientExpertsRoute()
-      .then((res) => this.handleAppClientFavouritesResolverResponse(res), this.$q.reject)
+    // tslint:disable-next-line:no-unbound-method
+      .then(this.handleAppClientFavouritesResolverResponse, this.$q.reject)
 
   private handleAppClientFavouritesResolverResponse =
     (response: GetDashboardClientExperts): IAppClientFavouritesResolverResponse => ({

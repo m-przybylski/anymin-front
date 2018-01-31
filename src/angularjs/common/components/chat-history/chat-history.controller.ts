@@ -11,12 +11,12 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
 
   public chatMessages: Message[];
   public roomId?: string;
-  public isLoading: boolean = true;
-  public isChatHistory: boolean = true;
-  public isError: boolean = false;
+  public isLoading = true;
+  public isChatHistory = true;
+  public isError = false;
   public groupedMessages: Message[][] = [];
   private session?: RatelSdk.Session;
-  private static readonly chatHistoryLimit: number = 500;
+  private static readonly chatHistoryLimit = 500;
 
   public static $inject = ['communicatorService', '$log', '$scope'];
 

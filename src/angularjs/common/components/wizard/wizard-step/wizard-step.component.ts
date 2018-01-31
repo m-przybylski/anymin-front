@@ -2,7 +2,7 @@ import { WizardStepComponentController } from './wizard-step.controller';
 
 // tslint:disable:member-ordering
 export class WizardStepModuleComponent implements ng.IComponentOptions {
-  public transclude: boolean = true;
+  public transclude = true;
   public controller: ng.Injectable<ng.IControllerConstructor> = WizardStepComponentController;
   public template = require('./wizard-step.html');
   public require = {

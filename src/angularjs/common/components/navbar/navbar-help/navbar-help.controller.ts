@@ -13,9 +13,9 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   public helpSearchQuery: string;
   public onClick: () => void;
   public buttonCallback: () => void;
-  public resultCount: number = 4;
-  private static readonly minimalQueryLength: number = 3;
-  private static readonly searchDebounceDelay: number = 500;
+  public resultCount = 4;
+  private static readonly minimalQueryLength = 3;
+  private static readonly searchDebounceDelay = 500;
   private debouncedSearch: () => void;
 
   public static $inject = ['helpdeskService', '$log', 'CommonConfig'];

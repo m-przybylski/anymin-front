@@ -10,11 +10,11 @@ import { Config } from '../../../../../../config';
 // tslint:disable:member-ordering
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
-  private static readonly loaderDelay: number = 500;
+  private static readonly loaderDelay = 500;
   public expertBalance: MoneyDto;
-  public isLoading: boolean = true;
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
-  public isCompany: boolean = true;
+  public isLoading = true;
+  public isPlatformForExpert = Config.isPlatformForExpert;
+  public isCompany = true;
 
   public static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'profiteloWebsocket'];
 

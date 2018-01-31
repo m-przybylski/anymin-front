@@ -9,7 +9,7 @@ class GetHeight implements ng.IDirective<ng.IScope> {
 
   public static $inject = ['$timeout'];
 
-  public restrict: string = 'A';
+  public restrict = 'A';
   public scope = {
     getHeight: '=?'
   };

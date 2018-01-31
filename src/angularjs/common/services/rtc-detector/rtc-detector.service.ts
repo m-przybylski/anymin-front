@@ -64,8 +64,11 @@ export class RtcDetectorService {
   }
 
   private displayMediaPopup = (mediaDisplayObject: {shouldDisplayMedia: boolean}): () => void =>
-    (): void => {mediaDisplayObject.shouldDisplayMedia &&
-      (this.instanceModal = this.modalsService.createRtcDetectorModal()); }
+    (): void => {
+    if (mediaDisplayObject.shouldDisplayMedia) {
+      this.instanceModal = this.modalsService.createRtcDetectorModal();
+    }
+  }
 
   // gives us certainty that webrtc tools are loaded
   private webRtcLoadWrapper = (fn: () => boolean): ng.IPromise<boolean> =>
