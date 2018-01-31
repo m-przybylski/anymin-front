@@ -1,44 +1,44 @@
-import * as angular from 'angular'
-import * as _ from 'lodash'
-import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import apiModule from 'profitelo-api-ng/api.module'
-import {AccountApi} from 'profitelo-api-ng/api/api'
-import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
-import checkboxModule from '../../../../../interface/checkbox/checkbox'
-import inputPasswordModule from '../../../../../interface/input-password/input-password'
-import autoFocus from '../../../../../../directives/auto-focus/auto-focus'
-import {httpCodes} from '../../../../../../classes/http-codes'
+import * as angular from 'angular';
+import * as _ from 'lodash';
+import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
+import apiModule from 'profitelo-api-ng/api.module';
+import { AccountApi } from 'profitelo-api-ng/api/api';
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings';
+import checkboxModule from '../../../../../interface/checkbox/checkbox';
+import inputPasswordModule from '../../../../../interface/input-password/input-password';
+import autoFocus from '../../../../../../directives/auto-focus/auto-focus';
+import { httpCodes } from '../../../../../../classes/http-codes';
 
 export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
 
 interface IProtectedViewsStatus {
-  CALL_VIEW?: boolean,
-  PAY_OUT_VIEW?: boolean,
-  MAKE_DEPOSIT_VIEW?: boolean
-  [key: string]: boolean | undefined
+  CALL_VIEW?: boolean;
+  PAY_OUT_VIEW?: boolean;
+  MAKE_DEPOSIT_VIEW?: boolean;
+  [key: string]: boolean | undefined;
 }
 
 export class SecurityPinNumberSettingsController implements ng.IController {
 
-  private readonly pinLength: number = 4
-  public isPasswordIncorrect: boolean = false
-  public isNavbar: boolean = true
-  public isFullscreen: boolean = true
-  public isNewPinTyped: boolean = false
-  public confirmPassword: string = ''
-  public pinInput: string[] = new Array(this.pinLength)
-  public patternPassword: RegExp = this.CommonSettingsService.localSettings.passwordPattern
+  private readonly pinLength: number = 4;
+  public isPasswordIncorrect: boolean = false;
+  public isNavbar: boolean = true;
+  public isFullscreen: boolean = true;
+  public isNewPinTyped: boolean = false;
+  public confirmPassword: string = '';
+  public pinInput: string[] = new Array(this.pinLength);
+  public patternPassword: RegExp = this.CommonSettingsService.localSettings.passwordPattern;
   public protectedViewsStatus: IProtectedViewsStatus = {
     CALL_VIEW: false,
     PAY_OUT_VIEW: false,
     MAKE_DEPOSIT_VIEW: false
-  }
-  private newEnteredCurrentPassword: string = ''
-  public isError: boolean = false
+  };
+  private newEnteredCurrentPassword: string = '';
+  public isError: boolean = false;
 
   public onModalClose = (): void => {
-    this.$uibModalInstance.dismiss('cancel')
+    this.$uibModalInstance.dismiss('cancel');
   }
 
   static $inject = ['$uibModalInstance', 'AccountApi', 'CommonSettingsService'];
@@ -47,43 +47,43 @@ export class SecurityPinNumberSettingsController implements ng.IController {
               private CommonSettingsService: CommonSettingsService) {
     AccountApi.getMobileProtectedViewsRoute().then(res => {
       res.protectedViews.forEach((view) => {
-        this.protectedViewsStatus[view] = true
-      })
+        this.protectedViewsStatus[view] = true;
+      });
     }, (err) => {
-      this.$uibModalInstance.dismiss('cancel')
-      throw new Error('Can not get mobile protected views: ' + String(err))
-    })
+      this.$uibModalInstance.dismiss('cancel');
+      throw new Error('Can not get mobile protected views: ' + String(err));
+    });
   }
 
   public sendPin = (): void => {
-    this.newEnteredCurrentPassword = this.confirmPassword
-    this.isNewPinTyped = true
+    this.newEnteredCurrentPassword = this.confirmPassword;
+    this.isNewPinTyped = true;
   }
 
   public changeViewsAndPin = (): void => {
-    const protectedViews: string[] = []
-    this.isPasswordIncorrect = false
+    const protectedViews: string[] = [];
+    this.isPasswordIncorrect = false;
     _.each(this.protectedViewsStatus, (val: boolean, key: string) => {
       if (val) {
-        protectedViews.push(key)
+        protectedViews.push(key);
       }
-    })
-    this.isError = false
+    });
+    this.isError = false;
     this.AccountApi.patchMobileViewsPermissionsRoute({
       protectedViews,
       password: this.confirmPassword,
       mobilePin: this.pinInput.join('')
     }).then(_res => {
-      this.$uibModalInstance.dismiss('cancel')
+      this.$uibModalInstance.dismiss('cancel');
     }, (err) => {
-      this.isError = true
+      this.isError = true;
       if (err.status === httpCodes.unauthorized) {
-        this.isPasswordIncorrect = true
+        this.isPasswordIncorrect = true;
       } else {
-        this.$uibModalInstance.dismiss('cancel')
-        throw new Error('Can not patch mobile protected views: ' + String(err))
+        this.$uibModalInstance.dismiss('cancel');
+        throw new Error('Can not patch mobile protected views: ' + String(err));
       }
-    })
+    });
   }
 
   public checkIsButtonDisabled = (): boolean =>
@@ -104,4 +104,4 @@ angular.module('profitelo.components.dashboard.settings.security.modals.pin-numb
   inputPasswordModule,
   autoFocus
 ])
-  .controller('securityPinNumberSettingsController', SecurityPinNumberSettingsController)
+  .controller('securityPinNumberSettingsController', SecurityPinNumberSettingsController);

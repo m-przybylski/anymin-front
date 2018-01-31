@@ -1,13 +1,13 @@
-import * as angular from 'angular'
-import '../../../directives/interface/focus-next/focus-next'
-import {PinVerificationComponent} from './pin-verification.component'
-import commonSettingsModule from '../../../services/common-settings/common-settings'
-import ValidationAlertModule from '../alert/validation-alert/validation-alert'
-import autoFocus from '../../../directives/auto-focus/auto-focus'
+import * as angular from 'angular';
+import '../../../directives/interface/focus-next/focus-next';
+import { PinVerificationComponent } from './pin-verification.component';
+import commonSettingsModule from '../../../services/common-settings/common-settings';
+import ValidationAlertModule from '../alert/validation-alert/validation-alert';
+import autoFocus from '../../../directives/auto-focus/auto-focus';
 
 export interface IPinVerificationComponentBindings {
-  onSendPinAgain: () => void
-  onCompletePinInputs: (token: string, callback: () => void) => void
+  onSendPinAgain: () => void;
+  onCompletePinInputs: (token: string, callback: () => void) => void;
 }
 
 const pinVerificationModule: string = angular.module('profitelo.components.interface.pin-verification', [
@@ -18,6 +18,6 @@ const pinVerificationModule: string = angular.module('profitelo.components.inter
   autoFocus
 ])
   .component('pinVerification', new PinVerificationComponent())
-  .name
+  .name;
 
-export default pinVerificationModule
+export default pinVerificationModule;

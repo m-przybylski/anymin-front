@@ -1,9 +1,9 @@
-import * as angular from 'angular'
-import 'angular-translate'
-import {DashboardSettingsNotificationsController} from './notifications.controller'
-import '../../../../common/components/interface/radio/radio'
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angular-translate';
+import { DashboardSettingsNotificationsController } from './notifications.controller';
+import '../../../../common/components/interface/radio/radio';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const dashboardSettingsNotificationsModule = angular.module('profitelo.controller.dashboard.settings.notifications', [
   'pascalprecht.translate',
@@ -16,9 +16,9 @@ const dashboardSettingsNotificationsModule = angular.module('profitelo.controlle
       template: require('./notifications.html'),
       controller: 'dashboardSettingsNotifications',
       controllerAs: 'vm'
-    })
+    });
   }])
   .controller('dashboardSettingsNotifications', DashboardSettingsNotificationsController)
-  .name
+  .name;
 
-export default dashboardSettingsNotificationsModule
+export default dashboardSettingsNotificationsModule;

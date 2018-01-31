@@ -1,29 +1,29 @@
-import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, Tag, GetCallDetails} from 'profitelo-api-ng/model/models'
+import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { MoneyDto, Tag, GetCallDetails } from 'profitelo-api-ng/model/models';
 
 export interface IClientConsultationDetailsScope extends ng.IScope {
-  sueId: string
+  sueId: string;
 }
 
 export class ClientConsultationDetailsController implements ng.IController {
-  public roomId?: string
-  public isLoading: boolean = true
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
-  public recommendedTags: any[] = []
-  public serviceTags: any[] = []
-  public expertAvatar?: string
-  public expertName?: string
-  public serviceName: string
-  public serviceId: string
-  public financialOperation?: MoneyDto
-  public startedAt: Date
-  public callDuration: number
-  public callCostPerMinute?: MoneyDto
-  public isRecommended: boolean
-  public isRecommendable: boolean
-  private callDetails: GetCallDetails
-  public sueId: string
+  public roomId?: string;
+  public isLoading: boolean = true;
+  public isFullscreen: boolean = true;
+  public isNavbar: boolean = true;
+  public recommendedTags: any[] = [];
+  public serviceTags: any[] = [];
+  public expertAvatar?: string;
+  public expertName?: string;
+  public serviceName: string;
+  public serviceId: string;
+  public financialOperation?: MoneyDto;
+  public startedAt: Date;
+  public callDuration: number;
+  public callCostPerMinute?: MoneyDto;
+  public isRecommended: boolean;
+  public isRecommendable: boolean;
+  private callDetails: GetCallDetails;
+  public sueId: string;
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -34,53 +34,53 @@ export class ClientConsultationDetailsController implements ng.IController {
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,
               ViewsApi: ViewsApi) {
 
-    this.sueId = $scope.sueId
+    this.sueId = $scope.sueId;
 
     ViewsApi.getDashboardCallDetailsRoute(this.sueId)
-    .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
+    .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError);
   }
 
   private onGetCallDetailsError = (err: any): void => {
-    this.isLoading = false
-    this.$log.error(err)
+    this.isLoading = false;
+    this.$log.error(err);
   }
 
   private onGetCallDetails = (response: GetCallDetails): void => {
-    this.callDetails = response
+    this.callDetails = response;
     if (response.isRecommendable) {
       this.ServiceApi.postServicesTagsRoute({
         serviceIds: [response.service.id]
-      }).then(this.onServiceTags, this.onServiceTagsError)
+      }).then(this.onServiceTags, this.onServiceTagsError);
     } else {
-      this.openClientActivityModal()
+      this.openClientActivityModal();
     }
   }
 
   private onServiceTagsError = (err: any): void => {
-    this.$log.error(err)
+    this.$log.error(err);
   }
 
   private onServiceTags = (res: any): void => {
-    this.openClientActivityModal(res[0]!.tags)
+    this.openClientActivityModal(res[0]!.tags);
   }
 
   private openClientActivityModal = (serviceTags: Tag[] = []): void => {
     if (this.callDetails.expertProfile.expertDetails) {
-      this.expertAvatar = this.callDetails.expertProfile.expertDetails.avatar
-      this.expertName = this.callDetails.expertProfile.expertDetails.name
+      this.expertAvatar = this.callDetails.expertProfile.expertDetails.avatar;
+      this.expertName = this.callDetails.expertProfile.expertDetails.name;
     }
-    this.recommendedTags = this.callDetails.recommendedTags
-    this.serviceName = this.callDetails.service.name
-    this.serviceId = this.callDetails.service.id
-    this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation
-    this.startedAt = this.callDetails.serviceUsageDetails.startedAt
-    this.callDuration = this.callDetails.serviceUsageDetails.callDuration
-    this.callCostPerMinute = this.callDetails.service.price
-    this.isRecommended = this.callDetails.isRecommended
-    this.isRecommendable = this.callDetails.isRecommendable
-    this.serviceTags = serviceTags
-    this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId
-    this.isLoading = false
+    this.recommendedTags = this.callDetails.recommendedTags;
+    this.serviceName = this.callDetails.service.name;
+    this.serviceId = this.callDetails.service.id;
+    this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation;
+    this.startedAt = this.callDetails.serviceUsageDetails.startedAt;
+    this.callDuration = this.callDetails.serviceUsageDetails.callDuration;
+    this.callCostPerMinute = this.callDetails.service.price;
+    this.isRecommended = this.callDetails.isRecommended;
+    this.isRecommendable = this.callDetails.isRecommendable;
+    this.serviceTags = serviceTags;
+    this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId;
+    this.isLoading = false;
   }
 
 }

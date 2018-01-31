@@ -1,18 +1,18 @@
-import {PhoneSettingsService, IPrefixListElement} from './phone-settings.service'
-import {AccountApi} from 'profitelo-api-ng/api/api'
-import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
-import {UserService} from '../../../../../../services/user/user.service'
+import { PhoneSettingsService, IPrefixListElement } from './phone-settings.service';
+import { AccountApi } from 'profitelo-api-ng/api/api';
+import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';
+import { UserService } from '../../../../../../services/user/user.service';
 
 export interface IPhoneSettingsControllerScope extends ng.IScope {
-  callback: (cb: () => void) => void
+  callback: (cb: () => void) => void;
 }
 
 export class PhoneSettingsController implements ng.IController {
-  public numberModel: string = ''
-  public prefixList: IPrefixListElement[] = []
-  public prefixPlaceholder: string
-  public counter: number
-  public showPinCodeForm: boolean
+  public numberModel: string = '';
+  public prefixList: IPrefixListElement[] = [];
+  public prefixPlaceholder: string;
+  public counter: number;
+  public showPinCodeForm: boolean;
 
   /* @ngInject */
   static $inject = ['$uibModalInstance', 'phoneSettingsService', 'AccountApi', 'userService', 'errorHandler', '$scope'];
@@ -25,17 +25,17 @@ export class PhoneSettingsController implements ng.IController {
               private $scope: IPhoneSettingsControllerScope) {}
 
   $onInit(): void {
-    this.prefixList = this.phoneSettingsService.getPrefixList()
-    this.prefixPlaceholder = this.prefixList[0].value
-    this.phoneSettingsService.onCountDownUpdate(this.updateCountDown)
-    this.phoneSettingsService.onNewPhoneNumberCreate(this.udpatePinCodeFormVisibility)
+    this.prefixList = this.phoneSettingsService.getPrefixList();
+    this.prefixPlaceholder = this.prefixList[0].value;
+    this.phoneSettingsService.onCountDownUpdate(this.updateCountDown);
+    this.phoneSettingsService.onNewPhoneNumberCreate(this.udpatePinCodeFormVisibility);
   }
 
   public updateCountDown = (time: number): number =>
     this.counter = time
 
   public onSubmit = (): void => {
-    this.phoneSettingsService.addNewNumber(this.numberModel)
+    this.phoneSettingsService.addNewNumber(this.numberModel);
   }
 
   public onInputValueChange = (): void =>
@@ -54,8 +54,8 @@ export class PhoneSettingsController implements ng.IController {
     this.showPinCodeForm = formVisibility
 
   public setPrefix = (prefix: IPrefixListElement): void => {
-    this.prefixPlaceholder = prefix.value
-    this.phoneSettingsService.updatePrefix(prefix)
+    this.prefixPlaceholder = prefix.value;
+    this.phoneSettingsService.updatePrefix(prefix);
   }
 
   public reSendSms = (): ng.IPromise<void> =>
@@ -67,16 +67,16 @@ export class PhoneSettingsController implements ng.IController {
         token,
         accountId: user.id
       }).then(() => {
-        this.$scope.callback(() => {})
-        this.$uibModalInstance.dismiss('cancel')
+        this.$scope.callback(() => {});
+        this.$uibModalInstance.dismiss('cancel');
       }, (err) => {
-        this.errorHandler.handleServerError(err)
-        onError()
-      })
+        this.errorHandler.handleServerError(err);
+        onError();
+      });
     })
 
   public onModalClose = (): void => {
-    this.phoneSettingsService.clearInterval()
-    this.$uibModalInstance.dismiss('cancel')
+    this.phoneSettingsService.clearInterval();
+    this.$uibModalInstance.dismiss('cancel');
   }
 }

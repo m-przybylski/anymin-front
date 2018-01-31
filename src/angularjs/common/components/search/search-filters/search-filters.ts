@@ -1,17 +1,17 @@
-import * as angular from 'angular'
-import 'angularjs-slider'
-import filtersModule from '../../../filters/filters'
-import searchModule from '../../../services/search/search'
-import 'angularjs/common/directives/interface/pro-range-slider/pro-range-slider'
-import 'angularjs/common/directives/pro-tags-slider/pro-tags-slider'
-import 'angularjs/common/directives/interface/pro-switcher/pro-switcher'
-import {default as commonConfigModule} from '../../../../../../generated_modules/common-config/common-config'
-import {SearchFiltersComponent} from './search-filter.component'
-import translatorModule from '../../../services/translator/translator'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angularjs-slider';
+import filtersModule from '../../../filters/filters';
+import searchModule from '../../../services/search/search';
+import 'angularjs/common/directives/interface/pro-range-slider/pro-range-slider';
+import 'angularjs/common/directives/pro-tags-slider/pro-tags-slider';
+import 'angularjs/common/directives/interface/pro-switcher/pro-switcher';
+import {default as commonConfigModule } from '../../../../../../generated_modules/common-config/common-config';
+import { SearchFiltersComponent } from './search-filter.component';
+import translatorModule from '../../../services/translator/translator';
+import uiRouter from '@uirouter/angularjs';
 
 export interface ISearchFiltersComponentBindings {
-  tags: string[]
+  tags: string[];
 }
 
 angular.module('profitelo.components.search.searchFilters', [
@@ -26,4 +26,4 @@ angular.module('profitelo.components.search.searchFilters', [
   commonConfigModule,
   filtersModule
 ])
-  .component('searchFilters', new SearchFiltersComponent())
+  .component('searchFilters', new SearchFiltersComponent());

@@ -1,4 +1,4 @@
-import {IFilterService} from '../filter/filter.service'
+import { IFilterService } from '../filter/filter.service';
 export class TranslatorService {
 
   static $inject = ['$filter'];

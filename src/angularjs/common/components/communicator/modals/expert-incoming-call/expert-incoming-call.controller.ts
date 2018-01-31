@@ -1,15 +1,15 @@
-import {GetService} from 'profitelo-api-ng/model/models'
+import { GetService } from 'profitelo-api-ng/model/models';
 
 export interface IExpertIncomingCallParentControllerScope extends ng.IScope {
-  rejectCall: () => void
-  answerCall: () => void
-  service: GetService
+  rejectCall: () => void;
+  answerCall: () => void;
+  service: GetService;
 }
 
 export interface IExpertIncomingCallControllerScope extends ng.IScope {
-  rejectCall: () => void
-  answerCall: () => void
-  $parent: IExpertIncomingCallParentControllerScope
+  rejectCall: () => void;
+  answerCall: () => void;
+  $parent: IExpertIncomingCallParentControllerScope;
 }
 
 export class ExpertIncomingCallController implements ng.IController {
@@ -23,12 +23,12 @@ export class ExpertIncomingCallController implements ng.IController {
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
     $scope.rejectCall = (): void => {
-      $uibModalInstance.dismiss('reject')
-      $scope.$parent.rejectCall()
-    }
+      $uibModalInstance.dismiss('reject');
+      $scope.$parent.rejectCall();
+    };
 
     $scope.answerCall = (): void => {
-      $scope.$parent.answerCall()
-    }
+      $scope.$parent.answerCall();
+    };
   }
 }

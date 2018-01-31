@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {GetSession, AccountLogin} from '@anymind-ng/api'
+import * as angular from 'angular';
+import { GetSession, AccountLogin } from '@anymind-ng/api';
 
 class UserSessionServiceMock {
 
@@ -15,7 +15,7 @@ class UserSessionServiceMock {
     Promise.reject('mock')
 
   public isLoggedIn(): boolean {
-    return true
+    return true;
   }
 
   public getSession = (_force: boolean = false): Promise<GetSession> =>

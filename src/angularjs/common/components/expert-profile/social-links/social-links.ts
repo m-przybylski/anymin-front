@@ -2,7 +2,7 @@
 
   function controller(): void {
 
-    return this
+    return this;
   }
 
   const socialLinks = {
@@ -14,10 +14,10 @@
     },
     controller: [controller],
     controllerAs: '$ctrl'
-  }
+  };
 
   angular.module('profitelo.components.expert-profile.social-links', [
   ])
-    .component('socialLinks', socialLinks)
+    .component('socialLinks', socialLinks);
 
-}())
+}());

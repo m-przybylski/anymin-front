@@ -1,17 +1,17 @@
-import * as angular from 'angular'
-import {IPinVerificationComponentBindings} from './pin-verification';
+import * as angular from 'angular';
+import { IPinVerificationComponentBindings } from './pin-verification';
 
 export class PinVerificationComponentController implements ng.IController, IPinVerificationComponentBindings {
 
-  public onSendPinAgain: () => void
-  public onCompletePinInputs: (token: string, callback: () => void) => void
-  public isButtonDisable = false
-  public counter: number = 0
-  public pinInputModels: string[] = []
-  public isPinInCorrect = false
+  public onSendPinAgain: () => void;
+  public onCompletePinInputs: (token: string, callback: () => void) => void;
+  public isButtonDisable = false;
+  public counter: number = 0;
+  public pinInputModels: string[] = [];
+  public isPinInCorrect = false;
 
-  private static readonly disableSendButtonInSeconds: number = 30
-  private static readonly validPinLength: number = 4
+  private static readonly disableSendButtonInSeconds: number = 30;
+  private static readonly validPinLength: number = 4;
 
   static $inject = ['$interval'];
 
@@ -20,35 +20,35 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   }
 
   public sendPinAgain = (): void => {
-    this.isButtonDisable = true
-    this.blockSendButtonForTime(PinVerificationComponentController.disableSendButtonInSeconds)
-    this.onSendPinAgain()
+    this.isButtonDisable = true;
+    this.blockSendButtonForTime(PinVerificationComponentController.disableSendButtonInSeconds);
+    this.onSendPinAgain();
   }
 
   public onInputChange = (): void => {
     if (this.checkAreInputsFilled(this.pinInputModels)) {
-      this.isPinInCorrect = false
-      this.onCompletePinInputs(this.pinInputModels.join(''), this.onWrongPrefix)
+      this.isPinInCorrect = false;
+      this.onCompletePinInputs(this.pinInputModels.join(''), this.onWrongPrefix);
     } else {
       if (this.pinInputModels.length === PinVerificationComponentController.validPinLength) {
-        this.isPinInCorrect = true
+        this.isPinInCorrect = true;
       }
     }
   }
 
   private blockSendButtonForTime = (seconds: number): void => {
-    const intervalTime = 1000
-    this.counter = seconds
+    const intervalTime = 1000;
+    this.counter = seconds;
     this.$interval(() => {
-      this.counter--
+      this.counter--;
       if (this.counter === 0) {
-        this.isButtonDisable = false
+        this.isButtonDisable = false;
       }
-    }, intervalTime, seconds)
+    }, intervalTime, seconds);
   }
 
   private onWrongPrefix = (): void => {
-    this.isPinInCorrect = true
+    this.isPinInCorrect = true;
   }
 
   private checkAreInputsFilled = (arrayOfInputs: string[]): boolean =>

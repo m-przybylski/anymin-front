@@ -1,12 +1,12 @@
-import * as angular from 'angular'
-import {DashboardExpertManageProfileController} from './manage-profile.controller'
-import modalsModule from '../../../../common/services/modals/modals'
+import * as angular from 'angular';
+import { DashboardExpertManageProfileController } from './manage-profile.controller';
+import modalsModule from '../../../../common/services/modals/modals';
 import singleServiceModule
-  from '../../../../common/components/dashboard/expert/manage-profile/single-service/single-service'
+  from '../../../../common/components/dashboard/expert/manage-profile/single-service/single-service';
 import consultationFormModalModule from
-    '../../../../common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal'
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+    '../../../../common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const dashboardExpertManageProfileModule = angular.module('profitelo.controller.dashboard.expert.manage-profile', [
   modalsModule,
@@ -20,9 +20,9 @@ const dashboardExpertManageProfileModule = angular.module('profitelo.controller.
       template: require('./manage-profile.html'),
       controller: 'dashboardExpertManageProfile',
       controllerAs: 'vm'
-    })
+    });
   }])
   .controller('dashboardExpertManageProfile', DashboardExpertManageProfileController)
-  .name
+  .name;
 
-export default dashboardExpertManageProfileModule
+export default dashboardExpertManageProfileModule;

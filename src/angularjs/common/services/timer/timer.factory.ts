@@ -1,5 +1,5 @@
-import {MoneyDto} from 'profitelo-api-ng/model/models'
-import {TimerService} from './timer.service'
+import { MoneyDto } from 'profitelo-api-ng/model/models';
+import { TimerService } from './timer.service';
 
 export class TimerFactory {
 
@@ -8,6 +8,6 @@ export class TimerFactory {
     constructor(private $interval: ng.IIntervalService) {}
 
   public getInstance(money: MoneyDto, interval: number = 200): TimerService {
-    return new TimerService(this.$interval, money, interval)
+    return new TimerService(this.$interval, money, interval);
   }
 }

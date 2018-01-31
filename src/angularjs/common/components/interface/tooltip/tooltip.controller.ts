@@ -1,20 +1,20 @@
-import * as angular from 'angular'
-import {ITooltipComponentBindings} from './tooltip'
-import IRootElementService = angular.IRootElementService
+import * as angular from 'angular';
+import { ITooltipComponentBindings } from './tooltip';
+import IRootElementService = angular.IRootElementService;
 
 export interface ITooltipStyles {
-  left: number
+  left: number;
 }
 
 export class TooltioComponentController implements ITooltipComponentBindings {
-  public tooltipText: string
-  public tooltipStyles: ITooltipStyles
-  public isHover: boolean = false
-  public isBigText: boolean = false
-  private tooltipContentWidth: number
-  private maxTooltipWidth: number = 280
-  private static readonly dividerOnHalf: number = 2
-  private static readonly maxMobilePhoneWidth: number = 480
+  public tooltipText: string;
+  public tooltipStyles: ITooltipStyles;
+  public isHover: boolean = false;
+  public isBigText: boolean = false;
+  private tooltipContentWidth: number;
+  private maxTooltipWidth: number = 280;
+  private static readonly dividerOnHalf: number = 2;
+  private static readonly maxMobilePhoneWidth: number = 480;
 
   static $inject = ['$element', '$timeout', '$window'];
 
@@ -25,36 +25,36 @@ export class TooltioComponentController implements ITooltipComponentBindings {
 
   $onInit = (): void => {
     this.$timeout(() => {
-      this.adjustTooltipPosition()
+      this.adjustTooltipPosition();
 
       if (this.tooltipContentWidth >= this.maxTooltipWidth) {
-        this.isBigText = true
+        this.isBigText = true;
       }
-    })
+    });
 
     angular.element(this.$window).on('resize', () => {
-      this.adjustTooltipPosition()
-    })
+      this.adjustTooltipPosition();
+    });
   }
 
   public onEnter = (): void => {
-    this.isHover = true
+    this.isHover = true;
   }
 
   public onLeave = (): void => {
-    this.isHover = false
+    this.isHover = false;
   }
 
   private adjustTooltipPosition = (): void => {
-    this.tooltipContentWidth = this.$element.find('.tooltip-content')[0].clientWidth
+    this.tooltipContentWidth = this.$element.find('.tooltip-content')[0].clientWidth;
     if (this.$window.innerWidth < TooltioComponentController.maxMobilePhoneWidth) {
       this.tooltipStyles = {
         left: 0
-      }
+      };
     } else {
       this.tooltipStyles = {
         left: -(this.tooltipContentWidth / TooltioComponentController.dividerOnHalf)
-      }
+      };
     }
   }
 }

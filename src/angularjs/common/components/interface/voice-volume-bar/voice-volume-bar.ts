@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import urlModule from '../../../services/url/url'
-import {VoiceVolumeBarComponent} from './voice-volume-bar.component'
-import volumeMeterModule from '../../../services/volume-meter/volume-meter'
+import * as angular from 'angular';
+import urlModule from '../../../services/url/url';
+import { VoiceVolumeBarComponent } from './voice-volume-bar.component';
+import volumeMeterModule from '../../../services/volume-meter/volume-meter';
 
 export interface IVoiceVolumeBarComponentBindings extends ng.IController {
-  stream?: MediaStream
+  stream?: MediaStream;
 }
 
 const voiceVolumeBarModule = angular.module('profitelo.components.interface.voice-volume-bar', [
@@ -12,6 +12,6 @@ const voiceVolumeBarModule = angular.module('profitelo.components.interface.voic
   volumeMeterModule
 ])
 .component('voiceVolumeBar', new VoiceVolumeBarComponent())
-  .name
+  .name;
 
-export default voiceVolumeBarModule
+export default voiceVolumeBarModule;

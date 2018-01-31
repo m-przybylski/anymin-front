@@ -1,14 +1,14 @@
-import * as angular from 'angular'
-import {LoaderComponent} from './loader.component'
+import * as angular from 'angular';
+import { LoaderComponent } from './loader.component';
 
 export interface ILoaderComponentBindings  extends ng.IController {
-  fileUploadInfo: any
-  fileUploadError: boolean
+  fileUploadInfo: any;
+  fileUploadError: boolean;
 }
 
 const loaderModule = angular.module('profitelo.components.interface.loader', [
 ])
 .component('loader', new LoaderComponent)
-  .name
+  .name;
 
-export default loaderModule
+export default loaderModule;

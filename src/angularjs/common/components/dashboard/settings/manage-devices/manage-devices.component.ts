@@ -1,9 +1,9 @@
-import {ManageDevicesComponentController} from './manage-devices.controller';
+import { ManageDevicesComponentController } from './manage-devices.controller';
 
 export class ManageDevicesComponent implements ng.IComponentOptions {
-  controllerAs: '$ctrl'
-  controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController
-  template = require('./manage-devices.html')
+  controllerAs: '$ctrl';
+  controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController;
+  template = require('./manage-devices.html');
   bindings: {[boundProperty: string]: string} = {
     device: '@',
     apiKey: '<',
@@ -11,5 +11,5 @@ export class ManageDevicesComponent implements ng.IComponentOptions {
     deviceInUseStatus: '<',
     deviceLocalization: '@',
     deviceSystem: '@'
-  }
+  };
 }

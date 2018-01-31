@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {EventsServiceProvider} from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
-import {CommunicatorModule, CommunicatorService, CommunicatorSessionService} from '@anymind-ng/core';
-import {CommunicatorConfigFactory} from './factories/communicator-config/communicator-config.factory';
-import {Config} from '../../config';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
+import { CommunicatorModule, CommunicatorService, CommunicatorSessionService } from '@anymind-ng/core';
+import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
+import { Config } from '../../config';
 
 @NgModule({
   imports: [

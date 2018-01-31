@@ -1,15 +1,15 @@
-import * as angular from 'angular'
-import {ExpertController} from './expert.controller'
-import dashboardExpertActivitiesModule from './activities/activities'
-import dashboardExpertEmployeesModule from './employees/employees'
-import dashboardExpertComplainsModule from './complains/complains'
-import expertNavigationModule from '../../../common/components/dashboard/expert/navigation/navigation'
-import dashboardExpertInvoicesModule from './invoices/invoices'
-import dashboardExpertManageProfileModule from './manage-profile/manage-profile'
-import AvatarUploaderModule from '../../../common/components/avatar-uploader/avatar-uploader'
-import {UserService} from '../../../common/services/user/user.service'
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { ExpertController } from './expert.controller';
+import dashboardExpertActivitiesModule from './activities/activities';
+import dashboardExpertEmployeesModule from './employees/employees';
+import dashboardExpertComplainsModule from './complains/complains';
+import expertNavigationModule from '../../../common/components/dashboard/expert/navigation/navigation';
+import dashboardExpertInvoicesModule from './invoices/invoices';
+import dashboardExpertManageProfileModule from './manage-profile/manage-profile';
+import AvatarUploaderModule from '../../../common/components/avatar-uploader/avatar-uploader';
+import { UserService } from '../../../common/services/user/user.service';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
   'ngTouch',
@@ -33,20 +33,20 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
         isPlatformForExpert: ['userService', '$state', (userService: UserService, $state: StateService): void => {
           userService.getUser().then((user) => {
             if ((user.isExpert || user.isCompany)) {
-              return true
+              return true;
             } else {
-              $state.go('app.wizard.create-profile')
-              return
+              $state.go('app.wizard.create-profile');
+              return;
             }
-          })
+          });
         }]
       },
       data: {
         pageTitle: 'PAGE_TITLE.EXPERT_DASHBOARD',
       }
-    })
+    });
   }])
   .controller('expertDashboard', ExpertController)
-  .name
+  .name;
 
-export default expertDashboardModule
+export default expertDashboardModule;

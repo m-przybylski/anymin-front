@@ -1,7 +1,7 @@
-import {DropdownPrimaryComponentController} from './dropdown-primary.controller'
+import { DropdownPrimaryComponentController } from './dropdown-primary.controller';
 export class DropdownPrimaryComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController
-  template = require('./dropdown-primary.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController;
+  template = require('./dropdown-primary.html');
   bindings: {[boundProperty: string]: string} = {
     label: '@',
     inputPlaceholder: '@',
@@ -13,5 +13,5 @@ export class DropdownPrimaryComponent implements ng.IComponentOptions {
     isSubmitted: '<?',
     validationText: '@',
     isValid: '<'
-  }
+  };
 }

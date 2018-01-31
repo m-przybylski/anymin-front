@@ -1,25 +1,25 @@
-import * as angular from 'angular'
-import 'angular-touch'
-import 'angular-permission'
-import {ConsultationController} from './consultation.controller'
-import wizardStepModule from '../../../common/components/wizard/wizard-step/wizard-step'
-import wizardHandlerModule from '../../../common/components/wizard/wizard-handler/wizard-handler'
-import inputModule from '../../../common/components/interface/input/input'
-import tooltipModule from '../../../common/components/interface/tooltip/tooltip'
+import * as angular from 'angular';
+import 'angular-touch';
+import 'angular-permission';
+import { ConsultationController } from './consultation.controller';
+import wizardStepModule from '../../../common/components/wizard/wizard-step/wizard-step';
+import wizardHandlerModule from '../../../common/components/wizard/wizard-handler/wizard-handler';
+import inputModule from '../../../common/components/interface/input/input';
+import tooltipModule from '../../../common/components/interface/tooltip/tooltip';
 import consultationEmployeeInputModule
-  from '../../../common/components/interface/input-consultation-employee/input-consultation-employee'
+  from '../../../common/components/interface/input-consultation-employee/input-consultation-employee';
 import consultationTagInputModule
-  from '../../../common/components/interface/input-consultaiton-tag/input-consultaiton-tag'
-import {WizardApi} from 'profitelo-api-ng/api/api'
-import {GetWizardProfile} from 'profitelo-api-ng/model/models'
-import userModule from '../../../common/services/user/user'
-import apiModule from 'profitelo-api-ng/api.module'
-import commonConfigModule from '../../../../../generated_modules/common-config/common-config'
-import inputPriceModule from '../../../common/components/interface/input-price/input-price'
-import languagesModule from '../../../common/services/languages/languages'
-import translatorModule from '../../../common/services/translator/translator'
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+  from '../../../common/components/interface/input-consultaiton-tag/input-consultaiton-tag';
+import { WizardApi } from 'profitelo-api-ng/api/api';
+import { GetWizardProfile } from 'profitelo-api-ng/model/models';
+import userModule from '../../../common/services/user/user';
+import apiModule from 'profitelo-api-ng/api.module';
+import commonConfigModule from '../../../../../generated_modules/common-config/common-config';
+import inputPriceModule from '../../../common/components/interface/input-price/input-price';
+import languagesModule from '../../../common/services/languages/languages';
+import translatorModule from '../../../common/services/translator/translator';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const consultaionWizardModule = angular.module('profitelo.controller.wizard.consultation', [
   'permission',
@@ -51,7 +51,7 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
       resolve: {
         wizardProfile: ['WizardApi', (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
           WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (error) => {
-            throw new Error('Can not get wizard profile ' + String(error))
+            throw new Error('Can not get wizard profile ' + String(error));
           })]
       },
       data: {
@@ -61,9 +61,9 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
         },
         pageTitle: 'PAGE_TITLE.WIZARDS.CONSULTATION'
       }
-    })
+    });
   }])
   .controller('consultationController', ConsultationController)
-  .name
+  .name;
 
-export default consultaionWizardModule
+export default consultaionWizardModule;

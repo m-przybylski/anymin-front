@@ -1,31 +1,31 @@
-import * as angular from 'angular'
-import {IFilterService} from '../../../common/services/filter/filter.service'
-import {PasswordStrengthService} from '../../../common/services/password-strength/password-strength.service'
-import apiModule from 'profitelo-api-ng/api.module'
-import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
-import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
-import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import * as angular from 'angular';
+import { IFilterService } from '../../../common/services/filter/filter.service';
+import { PasswordStrengthService } from '../../../common/services/password-strength/password-strength.service';
+import apiModule from 'profitelo-api-ng/api.module';
+import { RecoverPasswordApi } from 'profitelo-api-ng/api/api';
+import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
+import { TopAlertService } from '../../../common/services/top-alert/top-alert.service';
 import {
   ILoginSetNewPassword,
   ILoginSetNewPasswordService
-} from '../../../common/resolvers/login-set-new-password/login-set-new-password.service'
-import commonSettingsModule from '../../../common/services/common-settings/common-settings'
-import sessionModule from '../../../common/services/session/session'
-import loginStateModule from '../../../common/services/login-state/login-state'
-import topAlertModule from '../../../common/services/top-alert/top-alert'
-import passwordStrengthModule from '../../../common/services/password-strength/password-strength'
-import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
-import 'angularjs/common/resolvers/login-set-new-password/login-set-new-password.service'
-import 'angularjs/common/directives/interface/pro-alert/pro-alert'
-import 'angularjs/common/directives/password-strength-bar/password-strength-bar'
-import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
-import autoFocus from '../../../common/directives/auto-focus/auto-focus'
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+} from '../../../common/resolvers/login-set-new-password/login-set-new-password.service';
+import commonSettingsModule from '../../../common/services/common-settings/common-settings';
+import sessionModule from '../../../common/services/session/session';
+import loginStateModule from '../../../common/services/login-state/login-state';
+import topAlertModule from '../../../common/services/top-alert/top-alert';
+import passwordStrengthModule from '../../../common/services/password-strength/password-strength';
+import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader';
+import 'angularjs/common/resolvers/login-set-new-password/login-set-new-password.service';
+import 'angularjs/common/directives/interface/pro-alert/pro-alert';
+import 'angularjs/common/directives/password-strength-bar/password-strength-bar';
+import inputPasswordModule from '../../../common/components/interface/input-password/input-password';
+import autoFocus from '../../../common/directives/auto-focus/auto-focus';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 export interface ISetNewPasswordStateParams {
-  token: string
-  method: string
+  token: string;
+  method: string;
 }
 
 function SetNewPasswordController($state: StateService, $filter: IFilterService,
@@ -33,72 +33,72 @@ function SetNewPasswordController($state: StateService, $filter: IFilterService,
                                   topAlertService: TopAlertService, RecoverPasswordApi: RecoverPasswordApi,
                                   CommonSettingsService: CommonSettingsService, $log: ng.ILogService): void {
 
-  this.newPassword = ''
-  this.enteredCurrentPassword = ''
-  this.patternPassword = CommonSettingsService.localSettings.passwordPattern
+  this.newPassword = '';
+  this.enteredCurrentPassword = '';
+  this.patternPassword = CommonSettingsService.localSettings.passwordPattern;
 
   const _passwordChangeError = (): void => {
-    $state.go('app.login.account')
+    $state.go('app.login.account');
     topAlertService.error({
       message: $filter('translate')('INTERFACE.API_ERROR'),
       timeout: 2
-    })
-  }
+    });
+  };
 
   const _passwordChangeSuccess = (): void => {
-    $state.go('app.login.account')
+    $state.go('app.login.account');
     topAlertService.success({
       message: $filter('translate')('LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED'),
       timeout: 3
-    })
-  }
+    });
+  };
 
   const _submitPasswordChangeBySms = (): void => {
-    (<any>tokenStatus.payload).password = this.newPassword
+    (<any>tokenStatus.payload).password = this.newPassword;
 
     if (tokenStatus.payload.msisdn) {
       const putRecoverPassword = {
         password: this.newPassword.toString(),
         token: tokenStatus.payload.token,
         msisdn: tokenStatus.payload.msisdn
-      }
+      };
 
       RecoverPasswordApi.putRecoverPasswordMsisdnRoute(putRecoverPassword)
-        .then(_passwordChangeSuccess, _passwordChangeError)
+        .then(_passwordChangeSuccess, _passwordChangeError);
     }
     else {
-      $log.error('Msisdn is missing')
+      $log.error('Msisdn is missing');
     }
-  }
+  };
 
   const _submitPasswordChangeByEmail = (): void => {
-    (<any>tokenStatus).payload.password = this.newPassword
+    (<any>tokenStatus).payload.password = this.newPassword;
 
     const putRecoverPassword = {
       password: this.newPassword.toString(),
       token: tokenStatus.payload.token
-    }
+    };
 
     RecoverPasswordApi.putRecoverPasswordEmailRoute(putRecoverPassword)
-      .then(_passwordChangeSuccess, _passwordChangeError)
-  }
+      .then(_passwordChangeSuccess, _passwordChangeError);
+  };
 
   this.onPasswordChange = (password: string): void => {
-    this.passwordStrength = passwordStrengthService.getStrength(password)
-  }
+    this.passwordStrength = passwordStrengthService.getStrength(password);
+  };
 
   this.submitPasswordChange = (): void => {
     if (tokenStatus.method === 'SMS') {
-      _submitPasswordChangeBySms()
+      _submitPasswordChangeBySms();
     } else {
-      _submitPasswordChangeByEmail()
+      _submitPasswordChangeByEmail();
     }
-  }
+  };
 
   this.checkIsPasswordCorrect = (): boolean =>
-    this.patternPassword.test(this.newPassword)
+    this.patternPassword.test(this.newPassword);
 
-  return this
+  return this;
 
 }
 
@@ -116,7 +116,7 @@ function config($stateProvider: StateProvider): void {
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.SET_NEW_PASSWORD'
     }
-  })
+  });
 }
 
 angular.module('profitelo.controller.login.set-new-password', [
@@ -137,4 +137,4 @@ angular.module('profitelo.controller.login.set-new-password', [
   .config(['$stateProvider', config])
   .controller('SetNewPasswordController', ['$state', '$filter', 'tokenStatus',
     'passwordStrengthService', 'topAlertService', 'RecoverPasswordApi', 'CommonSettingsService',
-    '$log', SetNewPasswordController])
+    '$log', SetNewPasswordController]);

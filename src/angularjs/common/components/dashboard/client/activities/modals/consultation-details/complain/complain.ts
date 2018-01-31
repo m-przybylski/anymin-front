@@ -1,17 +1,17 @@
-import * as angular from 'angular'
-import './complain-reason/complain-reason'
-import './complain-status/complain-status'
+import * as angular from 'angular';
+import './complain-reason/complain-reason';
+import './complain-status/complain-status';
 
 (function (): void {
 
   function controller(): void {
-    this.isComplaint = false
+    this.isComplaint = false;
 
     this.$onInit = (): void => {
-      this.onReasonChange = this.collapseBtn.onWindowResize
-    }
+      this.onReasonChange = this.collapseBtn.onWindowResize;
+    };
 
-    return this
+    return this;
   }
 
   const component = {
@@ -24,12 +24,12 @@ import './complain-status/complain-status'
     require: {
       collapseBtn: '^collapseBtn'
     }
-  }
+  };
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain', [
     'pascalprecht.translate',
     'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status',
     'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason'
   ])
-    .component('clientComplain', component)
-}())
+    .component('clientComplain', component);
+}());

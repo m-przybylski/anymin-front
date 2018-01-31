@@ -1,8 +1,8 @@
-import {InputDropdownTagComponentController} from './input-dropdown-tag.controller'
+import { InputDropdownTagComponentController } from './input-dropdown-tag.controller';
 
 export class InputDropdownTagComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputDropdownTagComponentController
-  template = require('./input-dropdown-tag.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = InputDropdownTagComponentController;
+  template = require('./input-dropdown-tag.html');
   bindings: {[boundProperty: string]: string} = {
     label: '@',
     placeholder: '@',
@@ -12,5 +12,5 @@ export class InputDropdownTagComponent implements ng.IComponentOptions {
     isValid: '<',
     isSubmitted: '<',
     validationText: '@'
-  }
+  };
 }

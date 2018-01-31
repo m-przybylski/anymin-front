@@ -1,35 +1,35 @@
-import {CommonConfig, Settings} from '../../../../../generated_modules/common-config/common-config'
-import * as _ from 'lodash'
+import { CommonConfig, Settings } from '../../../../../generated_modules/common-config/common-config';
+import * as _ from 'lodash';
 
 export interface ISocialUrl {
-  iconClass: string,
-  name: string,
-  pattern: RegExp
+  iconClass: string;
+  name: string;
+  pattern: RegExp;
 }
 
 export class UrlService {
 
-  private commonConfig: Settings
+  private commonConfig: Settings;
 
   static $inject = ['CommonSettingsService', 'CommonConfig'];
 
     constructor(private CommonSettingsService: any, CommonConfig: CommonConfig) {
-    this.commonConfig = CommonConfig.getAllData()
+    this.commonConfig = CommonConfig.getAllData();
   }
 
   public resolveSocialUrl = (remoteUrl: string): ISocialUrl | undefined => {
-    const _socialNetworks: ISocialUrl[] = this.CommonSettingsService.localSettings.socialNetworks
+    const _socialNetworks: ISocialUrl[] = this.CommonSettingsService.localSettings.socialNetworks;
 
     for (let i = 0; i < _socialNetworks.length; i++) {
-      const social = _socialNetworks[i]
+      const social = _socialNetworks[i];
       if (remoteUrl.match(social.pattern)) {
-        return social
+        return social;
       }
     }
 
     return _.find(_socialNetworks, {
       name: 'Website'
-    })
+    });
   }
 
   public resolveFileUrl = (fileId: string): string =>

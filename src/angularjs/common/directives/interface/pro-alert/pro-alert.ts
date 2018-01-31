@@ -1,26 +1,26 @@
-import * as angular from 'angular'
-import {TopAlertService} from '../../../services/top-alert/top-alert.service'
-import topAlertModule from '../../../services/top-alert/top-alert'
-import {IDirective} from 'angular'
+import * as angular from 'angular';
+import { TopAlertService } from '../../../services/top-alert/top-alert.service';
+import topAlertModule from '../../../services/top-alert/top-alert';
+import { IDirective } from 'angular';
 
 export interface IProAlertScope extends ng.IScope {
-  alerts: any[],
-  destroyAlert: (id: number) => void
+  alerts: any[];
+  destroyAlert: (id: number) => void;
 }
 
 function proAlert(topAlertService: TopAlertService): IDirective<ng.IScope> {
 
   function linkFunction(scope: IProAlertScope, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
-    scope.alerts = []
+    scope.alerts = [];
     const addAlert = (alerts: any[]): void => {
-      scope.alerts = alerts
-    }
+      scope.alerts = alerts;
+    };
 
     scope.destroyAlert = (alertId: number): void => {
-      topAlertService.destroyAlert(alertId)
-    }
+      topAlertService.destroyAlert(alertId);
+    };
 
-    topAlertService.bindAlert(addAlert)
+    topAlertService.bindAlert(addAlert);
 
   }
 
@@ -30,10 +30,10 @@ function proAlert(topAlertService: TopAlertService): IDirective<ng.IScope> {
     replace: true,
     link: linkFunction,
     scope: {}
-  }
+  };
 }
 
 angular.module('profitelo.directives.interface.pro-alert', [
   topAlertModule
 ])
-  .directive('proAlert', ['topAlertService', proAlert])
+  .directive('proAlert', ['topAlertService', proAlert]);

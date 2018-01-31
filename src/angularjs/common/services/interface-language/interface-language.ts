@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {InterfaceLanguageService} from './interface-language.service'
+import * as angular from 'angular';
+import { InterfaceLanguageService } from './interface-language.service';
 
 const interfaceLanguageModule = angular.module('profitelo.services.interface-language', [
   'pascalprecht.translate',
@@ -9,6 +9,6 @@ const interfaceLanguageModule = angular.module('profitelo.services.interface-lan
 
 ])
   .service('InterfaceLanguageService', InterfaceLanguageService)
-  .name
+  .name;
 
 export default interfaceLanguageModule;

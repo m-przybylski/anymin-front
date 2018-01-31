@@ -1,13 +1,13 @@
-import * as angular from 'angular'
-import 'angularjs/common/components/interface/preloader/preloader'
+import * as angular from 'angular';
+import 'angularjs/common/components/interface/preloader/preloader';
 
 function preloaderContainerController(): void {
 
   this.errorFunction = (): void => {
-    this.errorFn()
-  }
+    this.errorFn();
+  };
 
-  return this
+  return this;
 }
 
 const component = {
@@ -21,10 +21,10 @@ const component = {
   transclude: true,
   controllerAs: '$ctrl',
   controller: [preloaderContainerController]
-}
+};
 
 angular.module('profitelo.components.interface.preloader-container', [
   'pascalprecht.translate',
   'profitelo.components.interface.preloader'
 ])
-  .component('preloaderContainer', component)
+  .component('preloaderContainer', component);

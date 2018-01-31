@@ -1,8 +1,8 @@
-import * as angular from 'angular'
-import {IAttributes} from 'angular'
+import * as angular from 'angular';
+import { IAttributes } from 'angular';
 
 class ErrorImageClass implements ng.IDirective<ng.IScope> {
-  public restrict: string = 'A'
+  public restrict: string = 'A';
 
   static $inject = [];
 
@@ -14,21 +14,21 @@ class ErrorImageClass implements ng.IDirective<ng.IScope> {
                  attrs: IAttributes): void => {
     element.bind('error', () => {
       if (attrs.src !== attrs.errorImage) {
-        attrs.$set('src', attrs.errorImage)
+        attrs.$set('src', attrs.errorImage);
       }
-    })
+    });
   }
 
   public static getInstance = (): () => ErrorImageClass => {
     const instance = (): ErrorImageClass =>
-      new ErrorImageClass()
-    instance.$inject = []
-    return instance
+      new ErrorImageClass();
+    instance.$inject = [];
+    return instance;
   }
 }
 
 const errorImage =  angular.module('profitelo.directives.error-image', [])
 .directive('errorImage', ErrorImageClass.getInstance())
-  .name
+  .name;
 
-export default errorImage
+export default errorImage;

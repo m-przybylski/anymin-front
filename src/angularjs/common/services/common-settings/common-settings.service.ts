@@ -1,16 +1,16 @@
-import {CommonConfig, Settings} from '../../../../../generated_modules/common-config/common-config'
+import { CommonConfig, Settings } from '../../../../../generated_modules/common-config/common-config';
 
 export class CommonSettingsService {
 
-  private readonly commonConfigData: Settings = CommonConfig.settings
-  private readonly validation = this.commonConfigData.validation
-  private readonly urls = this.commonConfigData.urls
+  private readonly commonConfigData: Settings = CommonConfig.settings;
+  private readonly validation = this.commonConfigData.validation;
+  private readonly urls = this.commonConfigData.urls;
   public readonly links = {
     imageUrl: this.urls.files + this.urls['file-download'],
     zendeskAllowMediaUrl: this.urls.zendesk + 'hc/pl/articles/115002692852-' +
     '-Moja-przegl%C4%85darka-nie-ma-dost%C4%99pu-do-kamery-i-mikrofonu-jak-to-naprawi%C4%87-'
-  }
-  public readonly languages = this.commonConfigData.config['supported-languages']
+  };
+  public readonly languages = this.commonConfigData.config['supported-languages'];
   public readonly localSettings = {
     amountMultiplier: 100,
     alphabetPattern: '^[A-Za-z\\u00AA\\u00B5\\u00BA\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02C1\\u02C6-\\' +
@@ -148,7 +148,7 @@ export class CommonSettingsService {
         name: 'Website'
       }
     ]
-  }
+  };
 
   static $inject = [];
 

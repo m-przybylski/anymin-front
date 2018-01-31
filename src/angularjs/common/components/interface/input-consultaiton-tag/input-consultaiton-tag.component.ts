@@ -1,8 +1,8 @@
-import {InputConsultationTagComponentController} from './input-consultaiton-tag.controller'
+import { InputConsultationTagComponentController } from './input-consultaiton-tag.controller';
 
 export class InputConsultationTagComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationTagComponentController
-  template = require('./input-consultaiton-tag.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationTagComponentController;
+  template = require('./input-consultaiton-tag.html');
   bindings: {[boundProperty: string]: string} = {
     serviceName: '<',
     serviceDescription: '<',
@@ -10,5 +10,5 @@ export class InputConsultationTagComponent implements ng.IComponentOptions {
     isValid: '<',
     validationText: '@',
     isSubmitted: '<'
-  }
+  };
 }

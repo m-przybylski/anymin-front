@@ -1,32 +1,32 @@
-import * as angular from 'angular'
-import {UrlService} from '../../../../../../services/url/url.service'
-import {StateService} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { UrlService } from '../../../../../../services/url/url.service';
+import { StateService } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 function controller($scope: any, $state: StateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {
-  }
+  };
 
   this.nextSlide = (): void => {
-    $scope.controlls.nextSlide()
-  }
+    $scope.controlls.nextSlide();
+  };
 
   this.prevSlide = (): void => {
-    $scope.controlls.prevSlide()
-  }
+    $scope.controlls.prevSlide();
+  };
 
   this.consultationOwnerImage = (imgToken: string): string | boolean =>
-    imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
+    imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false;
 
   this.goToProfile = (consultation: any): void => {
     $state.go('app.expert-profile', {
       profileId: consultation.profile.id,
       primaryConsultationId: consultation.service.id
-    })
-  }
+    });
+  };
 
-  return this
+  return this;
 }
 
 const lastConsultationSlider = {
@@ -39,7 +39,7 @@ const lastConsultationSlider = {
   },
   controller: ['$scope', '$state', 'urlService', controller],
   controllerAs: '$ctrl'
-}
+};
 
 angular.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', [
   uiRouter,
@@ -48,4 +48,4 @@ angular.module('profitelo.components.dashboard.client.favourites.favourite-exper
   'profitelo.filters.money',
   'pascalprecht.translate'
 ])
-  .component('lastConsultationSlider', lastConsultationSlider)
+  .component('lastConsultationSlider', lastConsultationSlider);

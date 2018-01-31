@@ -1,12 +1,12 @@
 import {
   IExpertCallSummary
-} from './ExpertCallSummary'
+} from './ExpertCallSummary';
 import {
   IClientCallSummary
-} from './ClientCallSummary'
+} from './ClientCallSummary';
 
-export type CallSummary = IExpertCallSummary | IClientCallSummary
+export type CallSummary = IExpertCallSummary | IClientCallSummary;
 
 export interface ICallSummaryWebsocketObject {
-  callSummary: CallSummary
+  callSummary: CallSummary;
 }

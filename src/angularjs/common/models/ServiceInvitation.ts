@@ -1,4 +1,4 @@
 export interface IServiceInvitation {
-  email?: string
-  msisdn?: string
+  email?: string;
+  msisdn?: string;
 }

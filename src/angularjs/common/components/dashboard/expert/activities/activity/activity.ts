@@ -1,8 +1,8 @@
-import * as angular from 'angular'
-import {ExpertActivityComponent} from './activity.component';
-import userAvatarModule from '../../../../interface/user-avatar/user-avatar'
-import modalsModule from '../../../../../services/modals/modals'
-import userModule from '../../../../../services/user/user'
+import * as angular from 'angular';
+import { ExpertActivityComponent } from './activity.component';
+import userAvatarModule from '../../../../interface/user-avatar/user-avatar';
+import modalsModule from '../../../../../services/modals/modals';
+import userModule from '../../../../../services/user/user';
 
 export interface IExpertActivityComponentBindings {}
 
@@ -13,6 +13,6 @@ const expertActivityModule = angular.module('profitelo.components.dashboard.expe
   userModule
 ])
   .component('expertActivity', new ExpertActivityComponent())
-  .name
+  .name;
 
-export default expertActivityModule
+export default expertActivityModule;

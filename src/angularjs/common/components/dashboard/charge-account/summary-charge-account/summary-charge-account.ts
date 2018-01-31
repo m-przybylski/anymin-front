@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import {MoneyDto} from 'profitelo-api-ng/model/models'
-import filtersModule from '../../../../filters/filters'
-import {SummaryChargeAccountComponent} from './summary-charge-account.component';
+import * as angular from 'angular';
+import { MoneyDto } from 'profitelo-api-ng/model/models';
+import filtersModule from '../../../../filters/filters';
+import { SummaryChargeAccountComponent } from './summary-charge-account.component';
 
 export interface ISummaryChargeAccountComponentBindings {
-  amount: MoneyDto
+  amount: MoneyDto;
 }
 
 const summaryChargeAccountModule: string = angular.module(
@@ -13,6 +13,6 @@ const summaryChargeAccountModule: string = angular.module(
   filtersModule
 ])
   .component('summaryChargeAccount', new SummaryChargeAccountComponent())
-  .name
+  .name;
 
-export default summaryChargeAccountModule
+export default summaryChargeAccountModule;

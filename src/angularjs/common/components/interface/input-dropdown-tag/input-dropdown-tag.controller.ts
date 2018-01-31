@@ -1,38 +1,38 @@
-import * as angular from 'angular'
-import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
-import * as _ from 'lodash'
-import {keyboardCodes} from '../../../classes/keyboard'
+import * as angular from 'angular';
+import { InputDropdownTagComponentBindings } from './input-dropdown-tag';
+import * as _ from 'lodash';
+import { keyboardCodes } from '../../../classes/keyboard';
 
 export interface IDropdownItem {
-  name: string
-  value: string
+  name: string;
+  value: string;
 }
 
 export interface IDropdownInputDictionary {
-  [key: string]: string
+  [key: string]: string;
 }
 
 export class InputDropdownTagComponentController implements InputDropdownTagComponentBindings {
-  public isOpen: boolean = false
-  public isActive: boolean = false
-  public label: string
-  public placeholder: string
-  public dictionary: IDropdownInputDictionary
-  public dropdownList: IDropdownItem[] = []
-  public hintLabel: string = ''
-  public selectedItems: IDropdownItem[] = []
-  public selectedItemsValue: string[] = []
-  public filteredItems: IDropdownItem[] = []
-  public selectedItemNumber: number = 0
-  public dropdownScroll: JQuery
+  public isOpen: boolean = false;
+  public isActive: boolean = false;
+  public label: string;
+  public placeholder: string;
+  public dictionary: IDropdownInputDictionary;
+  public dropdownList: IDropdownItem[] = [];
+  public hintLabel: string = '';
+  public selectedItems: IDropdownItem[] = [];
+  public selectedItemsValue: string[] = [];
+  public filteredItems: IDropdownItem[] = [];
+  public selectedItemNumber: number = 0;
+  public dropdownScroll: JQuery;
 
-  public filterInputText: string = ''
-  public isFocus: boolean = false
-  public isDirty: boolean = false
+  public filterInputText: string = '';
+  public isFocus: boolean = false;
+  public isDirty: boolean = false;
 
-  private dropdownSelectedItem: JQuery
-  private dropdown: JQuery = this.$element.find('.dropdown-list')
-  private static readonly dividerOnHalf: number = 2
+  private dropdownSelectedItem: JQuery;
+  private dropdown: JQuery = this.$element.find('.dropdown-list');
+  private static readonly dividerOnHalf: number = 2;
 
   $onInit = (): void => {
     for (const key in this.dictionary) {
@@ -40,17 +40,17 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
         this.dropdownList.push({
           name: this.dictionary[key],
           value: key
-        })
+        });
       }
     }
 
     this.selectedItemsValue.forEach((selectItemValue) => {
-      _.remove(this.dropdownList, (object) => object.value === selectItemValue)
+      _.remove(this.dropdownList, (object) => object.value === selectItemValue);
       this.selectedItems.push({
         name: this.dictionary[selectItemValue],
         value: selectItemValue
-      })
-    })
+      });
+    });
   }
 
   static $inject = ['$document', '$scope', '$element', '$filter'];
@@ -58,136 +58,136 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
               private $element: ng.IRootElementService, private $filter: ng.IFilterService) {
 
-    this.dropdownScroll = this.$element.find('.dropdown-content')
+    this.dropdownScroll = this.$element.find('.dropdown-content');
 
     this.$document.bind('click', (event) => {
-      const ifTargetClicked = this.$element.find(event.target).length > 0
+      const ifTargetClicked = this.$element.find(event.target).length > 0;
       if (!ifTargetClicked) {
-        this.isOpen = false
+        this.isOpen = false;
       }
-      $scope.$digest()
-    })
+      $scope.$digest();
+    });
 
     this.$scope.$watch(() => this.filterInputText, () => {
       if (this.filterInputText.length > 0) {
-        this.isOpen = true
+        this.isOpen = true;
       } else {
-        this.isOpen = false
+        this.isOpen = false;
       }
-      this.filterItems()
-      this.dropdownScroll.scrollTop(0)
-    })
+      this.filterItems();
+      this.dropdownScroll.scrollTop(0);
+    });
 
-    this.dropdownScroll.perfectScrollbar()
+    this.dropdownScroll.perfectScrollbar();
 
     $element.bind('keydown keypress', (event) => {
-      const keyCode = event.which || event.keyCode
+      const keyCode = event.which || event.keyCode;
 
       switch (keyCode) {
         case keyboardCodes.arrowDown:
-          event.preventDefault()
-          this.filterItems()
+          event.preventDefault();
+          this.filterItems();
 
           if (this.filteredItems && this.selectedItemNumber < this.filteredItems.length && this.isOpen)
-            this.selectedItemNumber++
+            this.selectedItemNumber++;
 
           if (this.isOpen) {
-            this.onArrowItemSelect()
+            this.onArrowItemSelect();
             this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
                 .offsetTop - (this.dropdown.height() / InputDropdownTagComponentController.dividerOnHalf -
-                  this.dropdownSelectedItem[0].clientHeight))
+                  this.dropdownSelectedItem[0].clientHeight));
           }
 
-          break
+          break;
 
         case keyboardCodes.arrowUp:
-          event.preventDefault()
-          this.filterItems()
+          event.preventDefault();
+          this.filterItems();
 
           if (this.selectedItemNumber > 1 && this.isOpen)
-            this.selectedItemNumber--
+            this.selectedItemNumber--;
 
           if (this.isOpen) {
-            this.onArrowItemSelect()
+            this.onArrowItemSelect();
             this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
                 .offsetTop - (this.dropdown.height() / InputDropdownTagComponentController.dividerOnHalf -
-                  this.dropdownSelectedItem[0].clientHeight))
+                  this.dropdownSelectedItem[0].clientHeight));
           }
 
-          break
+          break;
 
         default:
-          break
+          break;
       }
-    })
+    });
   }
 
   public mainListExist = (): boolean =>
   angular.isDefined(this.dropdownList) && this.dropdownList.length > 0
 
   public inputClick = (): void => {
-    this.isOpen = false
-    this.dropdownScroll.scrollTop(0)
+    this.isOpen = false;
+    this.dropdownScroll.scrollTop(0);
   }
 
   public deleteSelectedItem = (item: IDropdownItem, index: number): void => {
-    this.selectedItems.splice(index, 1)
-    this.selectedItemsValue.splice(index, 1)
-    this.dropdownList.push(item)
-    this.filterItems()
-    this.isDirty = true
+    this.selectedItems.splice(index, 1);
+    this.selectedItemsValue.splice(index, 1);
+    this.dropdownList.push(item);
+    this.filterItems();
+    this.isDirty = true;
   }
 
   public onMainItemSelect = (item: IDropdownItem, index: number): void => {
-    this.selectedItems.push(item)
-    this.isOpen = false
-    this.selectedItemsValue.push(item.value)
-    this.dropdownList.splice(index, 1)
-    this.isFocus = false
-    this.clearInput()
+    this.selectedItems.push(item);
+    this.isOpen = false;
+    this.selectedItemsValue.push(item.value);
+    this.dropdownList.splice(index, 1);
+    this.isFocus = false;
+    this.clearInput();
   }
 
   public onFocus = (): void => {
-    this.isFocus = true
-    this.isDirty = true
+    this.isFocus = true;
+    this.isDirty = true;
   }
   public onBlur = (): void => {
-    this.isFocus = false
-    this.isDirty = true
+    this.isFocus = false;
+    this.isDirty = true;
   }
 
   public onArrowItemSelect = (): IDropdownItem => {
-    this.dropdown.find('li').removeClass('is-focused')
-    this.dropdownSelectedItem = this.dropdown.find(`li:nth-child(${this.selectedItemNumber})`)
-    this.dropdownSelectedItem.addClass('is-focused')
-    this.isFocus = false
-    return this.filteredItems[this.selectedItemNumber - 1]
+    this.dropdown.find('li').removeClass('is-focused');
+    this.dropdownSelectedItem = this.dropdown.find(`li:nth-child(${this.selectedItemNumber})`);
+    this.dropdownSelectedItem.addClass('is-focused');
+    this.isFocus = false;
+    return this.filteredItems[this.selectedItemNumber - 1];
   }
 
   public onClickEnter = (): void => {
     if (this.filteredItems && this.filteredItems.length > 0 && this.selectedItemNumber !== 0) {
-      this.selectedItems.push(this.onArrowItemSelect())
-      this.selectedItemsValue.push(this.onArrowItemSelect().value)
+      this.selectedItems.push(this.onArrowItemSelect());
+      this.selectedItemsValue.push(this.onArrowItemSelect().value);
 
-      _.remove(this.dropdownList, (object) => object === this.onArrowItemSelect())
+      _.remove(this.dropdownList, (object) => object === this.onArrowItemSelect());
 
-      this.filterItems()
-      this.onArrowItemSelect()
-      this.isOpen = false
-      this.clearInput()
+      this.filterItems();
+      this.onArrowItemSelect();
+      this.isOpen = false;
+      this.clearInput();
     }
 
-    this.selectedItemNumber = 0
+    this.selectedItemNumber = 0;
   }
 
   private clearInput = (): void => {
-    this.filterInputText = ''
+    this.filterInputText = '';
   }
 
   private filterItems = (): void => {
-    this.filteredItems = this.$filter('filter')(this.dropdownList, this.filterInputText)
+    this.filteredItems = this.$filter('filter')(this.dropdownList, this.filterInputText);
 
     if (this.filteredItems && this.selectedItemNumber > this.filteredItems.length)
-      this.selectedItemNumber = this.filteredItems.length
+      this.selectedItemNumber = this.filteredItems.length;
   }
 }

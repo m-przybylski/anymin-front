@@ -1,11 +1,11 @@
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 export class CustomTranslationHandlerService {
 
   private static _exceptionsStrings = [
     'Do not report this dummy translate string, for ex like icon below',
     '<i class="icon icon-home icon-sm"></i>'
-  ]
+  ];
 
   static $inject = [];
 
@@ -21,6 +21,6 @@ export class CustomTranslationHandlerService {
   }
 
   public static getInstance(): (translationId: string, _uses: string) => void {
-    return (new CustomTranslationHandlerService()).handler
+    return (new CustomTranslationHandlerService()).handler;
   }
 }

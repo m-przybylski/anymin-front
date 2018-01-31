@@ -1,11 +1,11 @@
-import * as angular from 'angular'
-import {ValidationAlertComponent} from './validation-alert.component'
-import {ValidationAlertAnimation} from './validation-alert.animation'
+import * as angular from 'angular';
+import { ValidationAlertComponent } from './validation-alert.component';
+import { ValidationAlertAnimation } from './validation-alert.animation';
 
 export interface IValidationAlertBindings extends ng.IController {
-  alertText: string
-  additionalText?: string
-  isVisible: boolean
+  alertText: string;
+  additionalText?: string;
+  isVisible: boolean;
 }
 
 const ValidationAlertModule = angular.module('profitelo.components.alert.validation-alert', [
@@ -13,6 +13,6 @@ const ValidationAlertModule = angular.module('profitelo.components.alert.validat
 ])
 .component('validationAlert', new ValidationAlertComponent)
 .animation('.collapse-height', ['$animateCss', ValidationAlertAnimation])
-  .name
+  .name;
 
-export default ValidationAlertModule
+export default ValidationAlertModule;

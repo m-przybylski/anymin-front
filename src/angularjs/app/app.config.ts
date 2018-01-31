@@ -1,6 +1,6 @@
-import {AppComponentController} from './app.controller'
-import {StateProvider} from '@uirouter/angularjs'
-import {Config} from '../../config';
+import { AppComponentController } from './app.controller';
+import { StateProvider } from '@uirouter/angularjs';
+import { Config } from '../../config';
 
 export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
                                   $stateProvider: StateProvider,
@@ -9,21 +9,21 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
                                   $animateProvider: ng.animate.IAnimateProvider,
                                   tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider): void {
 
-  $locationProvider.html5Mode(true)
+  $locationProvider.html5Mode(true);
 
-  $urlRouterProvider.deferIntercept()
+  $urlRouterProvider.deferIntercept();
 
   if (Config.isPlatformForExpert) {
     $urlRouterProvider
-      .otherwise('/dashboard/settings/general')
+      .otherwise('/dashboard/settings/general');
   } else {
     $urlRouterProvider
-      .otherwise('/home')
+      .otherwise('/home');
   }
 
-  $httpProvider.defaults.withCredentials = true
+  $httpProvider.defaults.withCredentials = true;
 
-  $animateProvider.classNameFilter(/animation/)
+  $animateProvider.classNameFilter(/animation/);
 
   $stateProvider.state('app', {
     url: '',
@@ -37,12 +37,12 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     resolve: {
       browserType: (): boolean => {
         if (navigator.userAgent.indexOf('MSIE') !== -1) {
-          document.querySelector('body')!.classList.add('is-ie')
+          document.querySelector('body')!.classList.add('is-ie');
         }
-        return true
+        return true;
       }
     }
-  })
+  });
 
   $stateProvider.state('sink', {
     url: '/*path',
@@ -57,10 +57,10 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
   // $translateProvider.addInterpolation('$translateMessageFormatInterpolation')
 
   // Warnings, regarding forgotten IDs in translations
-  $translateProvider.useMissingTranslationHandler('CustomTranslationHandlerService')
+  $translateProvider.useMissingTranslationHandler('CustomTranslationHandlerService');
 
   // Set a fallback language in case there find no other
-  $translateProvider.fallbackLanguage('pl-pl')
+  $translateProvider.fallbackLanguage('pl-pl');
 
   /**
    *  Set default language**
@@ -74,10 +74,10 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     en: 'en-us', // NOTE: change/remove if international version will be added
     pl_PL: 'pl-pl',
     pl: 'pl-pl'
-  }).determinePreferredLanguage()
+  }).determinePreferredLanguage();
 
-  $translateProvider.useSanitizeValueStrategy('')
+  $translateProvider.useSanitizeValueStrategy('');
 
   // configure loading angular locales
-  tmhDynamicLocaleProvider.localeLocationPattern('assets/angular-i18n/angular-locale_{{locale}}.js')
+  tmhDynamicLocaleProvider.localeLocationPattern('assets/angular-i18n/angular-locale_{{locale}}.js');
 }

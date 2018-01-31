@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import {SimilarConsultationComponent} from './similar-consultations.component'
-import tilesModule from '../../interface/tiles/tiles'
+import * as angular from 'angular';
+import { SimilarConsultationComponent } from './similar-consultations.component';
+import tilesModule from '../../interface/tiles/tiles';
 
 export interface ISimilarConsultationComponentBindings extends ng.IController {
 }
@@ -9,6 +9,6 @@ const similarConsultationModule = angular.module('profitelo.components.profile.s
   tilesModule
 ])
 .component('similarConsultation', new SimilarConsultationComponent())
-  .name
+  .name;
 
-export default similarConsultationModule
+export default similarConsultationModule;

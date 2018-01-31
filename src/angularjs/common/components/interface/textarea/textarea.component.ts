@@ -1,8 +1,8 @@
-import {TextareaComponentController} from './textarea.controller'
+import { TextareaComponentController } from './textarea.controller';
 
 export class InputComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = TextareaComponentController
-  template = require('./textarea.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = TextareaComponentController;
+  template = require('./textarea.html');
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
@@ -14,5 +14,5 @@ export class InputComponent implements ng.IComponentOptions {
     ngModel: '=',
     isSubmitted: '<',
     onChange: '<'
-  }
+  };
 }

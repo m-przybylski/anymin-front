@@ -2,7 +2,7 @@
 
   function noConsultationsController(): void {
 
-    return this
+    return this;
   }
 
   const noConsultations = {
@@ -13,10 +13,10 @@
       query: '<'
     },
     controller: [noConsultationsController]
-  }
+  };
 
   angular.module('profitelo.components.search.no-consultations', [
     'pascalprecht.translate'
   ])
-    .component('noConsultations', noConsultations)
-}())
+    .component('noConsultations', noConsultations);
+}());

@@ -1,4 +1,4 @@
-import * as ng from 'angular'
+import * as ng from 'angular';
 
 export class DialogService {
 
@@ -24,10 +24,10 @@ export class DialogService {
       animation: true,
       size: '300',
       controllerAs: 'vm'
-    }
+    };
 
-    _options = ng.extend({}, _options, options)
+    _options = ng.extend({}, _options, options);
 
-    return this.$uibModal.open(_options)
+    return this.$uibModal.open(_options);
   }
 }

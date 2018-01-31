@@ -1,35 +1,35 @@
-import * as _ from 'lodash'
-import apiModule from 'profitelo-api-ng/api.module'
-import {SessionApi} from 'profitelo-api-ng/api/api'
-import {GetSession} from 'profitelo-api-ng/model/models'
-import {ModalsService} from '../../../../common/services/modals/modals.service'
-import * as angular from 'angular'
-import userModule from '../../../../common/services/user/user'
-import modalsModule from '../../../../common/services/modals/modals'
-import {ISecuritySettingsService} from '../../../../common/resolvers/security-settings/security-settings.service'
-import 'angularjs/common/resolvers/security-settings/security-settings.service'
-import 'angularjs/common/components/dashboard/settings/manage-devices/manage-devices'
-import {SessionServiceWrapper} from '../../../../common/services/session/session.service'
-import {UserService} from '../../../../common/services/user/user.service'
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
-import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
-import topAlertModule from '../../../../common/services/top-alert/top-alert'
-import {TranslatorService} from '../../../../common/services/translator/translator.service'
-import {ProfiteloWebsocketService} from '../../../../common/services/profitelo-websocket/profitelo-websocket.service'
-import {ISessionDeleted} from '../../../../common/services/session-deleted/session-deleted.service'
+import * as _ from 'lodash';
+import apiModule from 'profitelo-api-ng/api.module';
+import { SessionApi } from 'profitelo-api-ng/api/api';
+import { GetSession } from 'profitelo-api-ng/model/models';
+import { ModalsService } from '../../../../common/services/modals/modals.service';
+import * as angular from 'angular';
+import userModule from '../../../../common/services/user/user';
+import modalsModule from '../../../../common/services/modals/modals';
+import { ISecuritySettingsService } from '../../../../common/resolvers/security-settings/security-settings.service';
+import 'angularjs/common/resolvers/security-settings/security-settings.service';
+import 'angularjs/common/components/dashboard/settings/manage-devices/manage-devices';
+import { SessionServiceWrapper } from '../../../../common/services/session/session.service';
+import { UserService } from '../../../../common/services/user/user.service';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
+import { TopAlertService } from '../../../../common/services/top-alert/top-alert.service';
+import topAlertModule from '../../../../common/services/top-alert/top-alert';
+import { TranslatorService } from '../../../../common/services/translator/translator.service';
+import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
+import { ISessionDeleted } from '../../../../common/services/session-deleted/session-deleted.service';
 
 interface ISession {
-  device: string
-  status: boolean
-  city?: string
-  system: string,
-  apiKey: string
+  device: string;
+  status: boolean;
+  city?: string;
+  system: string;
+  apiKey: string;
 }
 
 export class DashboardSettingsSecurityController implements ng.IController {
-  public hasMobilePin: boolean
-  public sessions: ISession[]
+  public hasMobilePin: boolean;
+  public sessions: ISession[];
 
   static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', '$state', 'topAlertService',
     'translatorService', 'sessionsData', 'profiteloWebsocket'];
@@ -45,7 +45,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
               profiteloWebsocket: ProfiteloWebsocketService) {
 
     if (currentSession.account) {
-      this.hasMobilePin = currentSession.account.hasMobilePin
+      this.hasMobilePin = currentSession.account.hasMobilePin;
     }
 
     this.sessions = sessionsData.map((session) => {
@@ -56,18 +56,18 @@ export class DashboardSettingsSecurityController implements ng.IController {
             session.userAgent.includes('Mac') ||
             session.userAgent.includes('Linux'))
         ) {
-          return 'desktop'
+          return 'desktop';
         } else if (
           session.userAgent && (session.userAgent.includes('Android') ||
             session.userAgent.includes('Mobile') ||
             session.userAgent.includes('iOS') ||
             session.userAgent.includes('Windows Phone'))
         ) {
-          return 'mobile'
+          return 'mobile';
         } else {
-          return 'unknown'
+          return 'unknown';
         }
-      }
+      };
 
       return {
         device: deviceType(),
@@ -75,43 +75,43 @@ export class DashboardSettingsSecurityController implements ng.IController {
         city: session.city,
         system: String(session.userAgent),
         apiKey: session.apiKey
-      }
-    })
+      };
+    });
 
-    profiteloWebsocket.onSessionDeleted(this.onSessionDeleted)
+    profiteloWebsocket.onSessionDeleted(this.onSessionDeleted);
 
   }
 
   public removeSession = (apiKey: string): void => {
     if (this.currentSession.apiKey !== apiKey) {
       this.SessionApi.logoutRoute(apiKey).then(() => {
-        _.remove(this.sessions, session => session.apiKey === apiKey)
+        _.remove(this.sessions, session => session.apiKey === apiKey);
       }, (error) => {
-        throw new Error('Can not delete this session ' + String(error))
-      })
+        throw new Error('Can not delete this session ' + String(error));
+      });
     } else {
       this.userService.logout().then(() => {
-        this.$state.reload()
+        this.$state.reload();
         this.topAlertService.success({
           message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
-        })
-      })
+        });
+      });
     }
   }
 
-  public checkIsCurrentSession = (apiKey: string): boolean => apiKey === this.currentSession.apiKey
+  public checkIsCurrentSession = (apiKey: string): boolean => apiKey === this.currentSession.apiKey;
 
   public openSecurityChangePasswordSettingsModal = (): void => {
-    this.modalsService.createSecurityChangePasswordSettingsModal()
+    this.modalsService.createSecurityChangePasswordSettingsModal();
   }
 
   public openSecurityPinSecuritySettingsModal = (): void => {
-    this.modalsService.createSecurityPinSecuritySettingsModal()
+    this.modalsService.createSecurityPinSecuritySettingsModal();
   }
 
   private onSessionDeleted = (deletedSession: ISessionDeleted): void => {
-    _.remove(this.sessions, session => session.apiKey === deletedSession.removedSessionApiKey)
+    _.remove(this.sessions, session => session.apiKey === deletedSession.removedSessionApiKey);
   }
 }
 
@@ -138,6 +138,6 @@ angular.module('profitelo.controller.dashboard.settings.security', [
           (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>
             securitySettingsResolver.resolve()]
       }
-    })
+    });
   }])
-  .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)
+  .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController);

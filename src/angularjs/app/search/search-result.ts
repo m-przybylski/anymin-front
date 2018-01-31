@@ -1,20 +1,20 @@
-import * as angular from 'angular'
-import 'angular-permission'
+import * as angular from 'angular';
+import 'angular-permission';
 
-const ngInfiniteScroll = require('ng-infinite-scroll')
-import searchModule from '../../common/services/search/search'
-import 'angularjs/common/components/interface/go-to-top/go-to-top'
-import 'angularjs/common/components/search/single-consultation/single-consultation'
-import 'angularjs/common/components/search/no-consultations/no-consultations'
-import 'angularjs/common/components/search/search-filters/search-filters'
-import 'angularjs/common/directives/pro-footer/pro-footer'
-import 'angularjs/common/components/interface/preloader/preloader'
-import 'angularjs/common/components/interface/preloader-container/preloader-container'
-import communicatorModule from '../../common/components/communicator/communicator'
-import navbarModule from '../../common/components/navbar/navbar'
-import {SearchResultController} from './search-result.controller'
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+const ngInfiniteScroll = require('ng-infinite-scroll');
+import searchModule from '../../common/services/search/search';
+import 'angularjs/common/components/interface/go-to-top/go-to-top';
+import 'angularjs/common/components/search/single-consultation/single-consultation';
+import 'angularjs/common/components/search/no-consultations/no-consultations';
+import 'angularjs/common/components/search/search-filters/search-filters';
+import 'angularjs/common/directives/pro-footer/pro-footer';
+import 'angularjs/common/components/interface/preloader/preloader';
+import 'angularjs/common/components/interface/preloader-container/preloader-container';
+import communicatorModule from '../../common/components/communicator/communicator';
+import navbarModule from '../../common/components/navbar/navbar';
+import { SearchResultController } from './search-result.controller';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const searchResultPageModule = angular.module('profitelo.controller.search-result', [
   'permission',
@@ -49,9 +49,9 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
       data: {
         pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
       }
-    })
+    });
   }])
   .controller('searchResultController', SearchResultController)
-  .name
+  .name;
 
-export default searchResultPageModule
+export default searchResultPageModule;

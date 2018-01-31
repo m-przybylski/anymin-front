@@ -2,7 +2,7 @@
 
   function controller(): void {
 
-    return this
+    return this;
   }
 
   const component = {
@@ -13,10 +13,10 @@
     template: require('./preloader.html'),
     controllerAs: '$ctrl',
     controller: [controller]
-  }
+  };
 
   angular.module('profitelo.components.interface.preloader', [
     'pascalprecht.translate'
   ])
-    .component('preloader', component)
-}())
+    .component('preloader', component);
+}());

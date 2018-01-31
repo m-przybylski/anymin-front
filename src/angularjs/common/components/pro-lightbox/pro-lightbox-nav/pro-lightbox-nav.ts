@@ -6,11 +6,11 @@
     bindings: {
       navSettings: '=?'
     }
-  }
+  };
 
   angular.module('profitelo.components.pro-lightbox-nav', [
 
   ])
-    .component('proLightboxNav', proLightboxNav)
+    .component('proLightboxNav', proLightboxNav);
 
-}())
+}());

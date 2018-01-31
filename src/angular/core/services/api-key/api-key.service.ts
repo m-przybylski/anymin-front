@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiKeyService {
 
-  private apiKeyValue?: string
+  private apiKeyValue?: string;
 
   constructor() {
   }

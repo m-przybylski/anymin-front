@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {IDirective} from 'angular'
+import * as angular from 'angular';
+import { IDirective } from 'angular';
 
 (function (): void {
   function proExpertSeeMore(): IDirective<ng.IScope> {
@@ -7,10 +7,10 @@ import {IDirective} from 'angular'
     return {
       template: require('./pro-expert-see-more.html'),
       restrict: 'E'
-    }
+    };
   }
 
   angular.module('profitelo.directives.pro-expert-see-more', [])
-    .directive('proExpertSeeMore', [proExpertSeeMore])
+    .directive('proExpertSeeMore', [proExpertSeeMore]);
 
-}())
+}());

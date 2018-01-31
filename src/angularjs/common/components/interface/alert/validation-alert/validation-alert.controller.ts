@@ -1,9 +1,9 @@
-import {IValidationAlertBindings} from './validation-alert'
+import { IValidationAlertBindings } from './validation-alert';
 
 export class ValidationAlertComponentController implements IValidationAlertBindings {
-  alertText: string
-  isVisible: boolean
-  additionalText?: string
+  alertText: string;
+  isVisible: boolean;
+  additionalText?: string;
   static $inject = [];
 
   constructor() {

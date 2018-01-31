@@ -1,11 +1,11 @@
-import * as angular from 'angular'
-import {BtnDropdownCallComponent} from './btn-dropdown-call.component'
-import {BtnDropdownCallAnimation} from './btn-dropdown-call.animation'
+import * as angular from 'angular';
+import { BtnDropdownCallComponent } from './btn-dropdown-call.component';
+import { BtnDropdownCallAnimation } from './btn-dropdown-call.animation';
 
 export interface IBtnDropdownCallComponentBindings extends ng.IController {
-  callback: () => void
-  buttonText: string
-  buttonClass: string
+  callback: () => void;
+  buttonText: string;
+  buttonClass: string;
 }
 
 const btnDropdownCallModule = angular.module('profitelo.components.interface.btn-dropdown-call', [
@@ -13,6 +13,6 @@ const btnDropdownCallModule = angular.module('profitelo.components.interface.btn
 ])
 .component('btnDropdownCall', new BtnDropdownCallComponent)
 .animation('.collapse-height', BtnDropdownCallAnimation.getInstance())
-  .name
+  .name;
 
-export default btnDropdownCallModule
+export default btnDropdownCallModule;

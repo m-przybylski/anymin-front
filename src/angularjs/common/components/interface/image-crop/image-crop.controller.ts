@@ -1,17 +1,17 @@
-import * as angular from 'angular'
-import {IImageCropComponentBindings} from './image-crop';
+import * as angular from 'angular';
+import { IImageCropComponentBindings } from './image-crop';
 
 export class ImageCropComponentController implements IImageCropComponentBindings {
 
-  public imageSrc: string
-  public saveCropAvatar: (element: any) => void
+  public imageSrc: string;
+  public saveCropAvatar: (element: any) => void;
 
-  private element: any
+  private element: any;
 
   static $inject = [];
 
   constructor() {
-    this.element = $('.cropper-container')
+    this.element = $('.cropper-container');
   }
 
   $onChanges = (): void => {
@@ -23,13 +23,13 @@ export class ImageCropComponentController implements IImageCropComponentBindings
           height: 200,
           type: 'circle'
         }
-      })
+      });
     }
   }
 
   public cropImage = (): void => {
-    this.saveCropAvatar(this.element.croppie('get'))
-    this.element.croppie('destroy')
+    this.saveCropAvatar(this.element.croppie('get'));
+    this.element.croppie('destroy');
   }
 
 }

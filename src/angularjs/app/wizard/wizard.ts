@@ -1,15 +1,15 @@
-import * as angular from 'angular'
-import 'angular-touch'
-import 'angular-permission'
-import modalsModule from '../../common/services/modals/modals'
-import {WizardController} from './wizard.controller'
-import createProfilePageModule from './create-profile/create-profile'
-import consultaionWizardModule from './consultation/consultation'
-import summaryWizardModule from './summary/summary'
-import {UserService} from '../../common/services/user/user.service'
-import {Config} from '../../../config'
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angular-touch';
+import 'angular-permission';
+import modalsModule from '../../common/services/modals/modals';
+import { WizardController } from './wizard.controller';
+import createProfilePageModule from './create-profile/create-profile';
+import consultaionWizardModule from './consultation/consultation';
+import summaryWizardModule from './summary/summary';
+import { UserService } from '../../common/services/user/user.service';
+import { Config } from '../../../config';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const wizardPageModule = angular.module('profitelo.controller.wizard', [
   'permission',
@@ -32,14 +32,14 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
         previousState: ['userService', '$state',
           (userService: UserService, $state: StateService): string | undefined => {
           userService.getUser(true).then((response) => {
-            if (!response.hasPassword) $state.go('app.post-register.set-password')
-            else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
+            if (!response.hasPassword) $state.go('app.post-register.set-password');
+            else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email');
             else if ((response.isExpert || response.isCompany)) {
-              if (Config.isPlatformForExpert) $state.go('app.dashboard.settings.general')
-              else $state.go('app.home')
+              if (Config.isPlatformForExpert) $state.go('app.dashboard.settings.general');
+              else $state.go('app.home');
             }
-          })
-          return $state.current.name
+          });
+          return $state.current.name;
         }]
       },
       data: {
@@ -49,9 +49,9 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
         },
         pageTitle: 'PAGE_TITLE.WIZARDS'
       }
-    })
+    });
   }])
   .controller('wizardController', WizardController)
-  .name
+  .name;
 
-export default wizardPageModule
+export default wizardPageModule;

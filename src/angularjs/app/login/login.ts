@@ -1,19 +1,19 @@
-import * as angular from 'angular'
-import 'angular-permission'
-import './account/account'
-import './register/register'
-import './forgot-password/forgot-password'
-import './set-new-password/set-new-password'
-import {Config} from '../../../config';
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angular-permission';
+import './account/account';
+import './register/register';
+import './forgot-password/forgot-password';
+import './set-new-password/set-new-password';
+import { Config } from '../../../config';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 function LoginController(): void {
-  this.isPlatformForExpert = Config.isPlatformForExpert
+  this.isPlatformForExpert = Config.isPlatformForExpert;
 
-  this.isPlatformForExpert ? this.onLogoLink = 'app.login.account' : this.onLogoLink = 'app.home'
+  this.isPlatformForExpert ? this.onLogoLink = 'app.login.account' : this.onLogoLink = 'app.home';
 
-  return this
+  return this;
 }
 
 function config($stateProvider: StateProvider): void {
@@ -29,7 +29,7 @@ function config($stateProvider: StateProvider): void {
         redirectTo: 'app.dashboard.expert.activities'
       }
     }
-  })
+  });
 }
 
 const loginPageModule = angular.module('profitelo.controller.login', [
@@ -43,6 +43,6 @@ const loginPageModule = angular.module('profitelo.controller.login', [
 ])
   .config(['$stateProvider', config])
   .controller('LoginController', LoginController)
-  .name
+  .name;
 
 export default loginPageModule;

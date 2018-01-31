@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import {UserAvatarComponent} from './user-avatar.component'
-import urlModule from '../../../services/url/url'
-import errorImage from '../../../directives/error-img/error-img'
+import * as angular from 'angular';
+import { UserAvatarComponent } from './user-avatar.component';
+import urlModule from '../../../services/url/url';
+import errorImage from '../../../directives/error-img/error-img';
 
 export interface IUserAvatarComponentBindings extends ng.IController {
-  imageToken?: string
+  imageToken?: string;
 }
 
 const userAvatarModule = angular.module('profitelo.components.interface.user-avatar', [
@@ -12,6 +12,6 @@ const userAvatarModule = angular.module('profitelo.components.interface.user-ava
   errorImage
 ])
 .component('userAvatar', new UserAvatarComponent())
-  .name
+  .name;
 
-export default userAvatarModule
+export default userAvatarModule;

@@ -1,11 +1,11 @@
-import * as angular from 'angular'
-import {InputLinksComponent} from './input-links.component'
-import '../../../directives/pro-social-icon-getter/pro-social-icon-getter'
-import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
+import * as angular from 'angular';
+import { InputLinksComponent } from './input-links.component';
+import '../../../directives/pro-social-icon-getter/pro-social-icon-getter';
+import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert';
 
 export interface IInputLinksComponentBindings extends ng.IController {
-  selectedLinks: string[]
-  label?: string
+  selectedLinks: string[];
+  label?: string;
 }
 
 const inputLinksModule = angular.module('profitelo.components.interface.input-links', [
@@ -15,6 +15,6 @@ const inputLinksModule = angular.module('profitelo.components.interface.input-li
 
 ])
 .component('inputLinks', new InputLinksComponent)
-  .name
+  .name;
 
-export default inputLinksModule
+export default inputLinksModule;

@@ -1,18 +1,18 @@
-import {TimerService} from '../../../services/timer/timer.service';
-import {RatelApi} from 'profitelo-api-ng/api/api';
-import {GetService, MoneyDto, RatelCallDetails, ServiceUsageEvent} from 'profitelo-api-ng/model/models';
+import { TimerService } from '../../../services/timer/timer.service';
+import { RatelApi } from 'profitelo-api-ng/api/api';
+import { GetService, MoneyDto, RatelCallDetails, ServiceUsageEvent } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
-import {TimerFactory} from '../../../services/timer/timer.factory';
-import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
-import {StreamManager} from '../../../classes/stream-manager';
-import {MessageRoom} from './message-room';
-import {SoundsService} from '../../../services/sounds/sounds.service';
-import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
-import * as _ from 'lodash'
-import {Subject} from 'rxjs'
-import {Subscription} from 'rxjs/Subscription'
-import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService, Connected, LoggerService} from '@anymind-ng/core';
+import { TimerFactory } from '../../../services/timer/timer.factory';
+import { MediaStreamConstraintsWrapper } from '../../../classes/media-stream-constraints-wrapper';
+import { StreamManager } from '../../../classes/stream-manager';
+import { MessageRoom } from './message-room';
+import { SoundsService } from '../../../services/sounds/sounds.service';
+import { CallActiveDevice } from 'ratel-sdk-js/dist/protocol/wire-events';
+import * as _ from 'lodash';
+import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
+import { MicrophoneService } from '../microphone-service/microphone.service';
+import { CommunicatorService, Connected, LoggerService } from '@anymind-ng/core';
 
 export enum CallState {
   NEW,
@@ -37,9 +37,9 @@ export class CurrentCall {
 
   private isRemoteVideo = false;
 
-  private streamManager?: StreamManager
+  private streamManager?: StreamManager;
 
-  private static readonly moneyChangeNotificationInterval: number = 1000
+  private static readonly moneyChangeNotificationInterval: number = 1000;
 
   protected readonly events = {
     onAnswered: new Subject<void>(),
@@ -57,7 +57,7 @@ export class CurrentCall {
     onParticipantOnline: new Subject<void>(),
     onParticipantOffline: new Subject<void>(),
     onSuspendedCallEnd: new Subject<void>(),
-  }
+  };
 
   static $inject = ['soundsService', 'ratelCall', 'timerFactory', 'service', 'sue', 'communicatorService',
     'RatelApi', 'microphoneService'];
@@ -71,7 +71,7 @@ export class CurrentCall {
               private RatelApi: RatelApi,
               private microphoneService: MicrophoneService) {
     this.registerCallbacks();
-    this.createTimer(service.price)
+    this.createTimer(service.price);
     this.messageRoom = new MessageRoom(soundsService);
   }
 
@@ -81,7 +81,7 @@ export class CurrentCall {
   public setBusinessRoom = (room: RatelSdk.BusinessRoom): Promise<void> =>
     this.messageRoom.joinRoom(room)
 
-  public setRoom = (room: RatelSdk.BusinessRoom): void => this.messageRoom.setRoom(room)
+  public setRoom = (room: RatelSdk.BusinessRoom): void => this.messageRoom.setRoom(room);
 
   public getRatelCallId = (): RatelSdk.protocol.ID =>
     this.ratelCall.id
@@ -99,15 +99,15 @@ export class CurrentCall {
 
   public onEnd = (cb: () => void): Subscription =>
     this.events.onEnd.subscribe(() => {
-      this.stopLocalStream()
-      cb()
-    });
+      this.stopLocalStream();
+      cb();
+    })
 
   public onRejected = (cb: () => void): Subscription =>
-    this.events.onRejected.subscribe(cb);
+    this.events.onRejected.subscribe(cb)
 
   public getService = (): GetService =>
-    this.service;
+    this.service
 
   public hangup = (): ng.IPromise<RatelCallDetails> =>
     this.RatelApi.postRatelStopCallRoute(this.sue.id)
@@ -131,7 +131,7 @@ export class CurrentCall {
         this.updateLocalStream(mediaStream, this.stopLocalStream));
     }
     else {
-      return Promise.reject('No streamManager')
+      return Promise.reject('No streamManager');
     }
   }
 
@@ -141,7 +141,7 @@ export class CurrentCall {
         this.updateLocalStream(mediaStream, this.stopLocalStream));
     }
     else {
-      return Promise.reject('No streamManager')
+      return Promise.reject('No streamManager');
     }
   }
 
@@ -151,7 +151,7 @@ export class CurrentCall {
         this.updateLocalStream(mediaStream, this.stopLocalStream));
     }
     else {
-      return Promise.reject('No streamManager')
+      return Promise.reject('No streamManager');
     }
   }
 
@@ -171,36 +171,36 @@ export class CurrentCall {
   public onRemoteStream = (cb: (stream: MediaStream) => void): Subscription =>
     this.events.onRemoteStream.subscribe(cb)
 
-  public getState = (): CallState => this.state
+  public getState = (): CallState => this.state;
 
   protected setState = (state: CallState): void => {
     this.state = state;
   }
 
   public onAnswered = (cb: () => void): Subscription =>
-    this.events.onAnswered.subscribe(cb);
+    this.events.onAnswered.subscribe(cb)
 
   public startTimer = (freeSeconds: number = 0): void => {
-    if (this.timer) this.timer.start(this.emitTimeMoneyChange, freeSeconds)
+    if (this.timer) this.timer.start(this.emitTimeMoneyChange, freeSeconds);
   }
 
   protected stopTimer = (): void => {
-    if (this.timer) this.timer.stop()
+    if (this.timer) this.timer.stop();
   }
 
   public setStartTime = (time: number): void => {
-    if (this.timer) this.timer.setStartTime(time)
+    if (this.timer) this.timer.setStartTime(time);
   }
 
   public pauseTimer = (): void => {
-    if (this.timer) this.timer.pause()
+    if (this.timer) this.timer.pause();
   }
 
   public resumeTimer = (): void => {
-    if (this.timer) this.timer.resume()
+    if (this.timer) this.timer.resume();
   }
 
-  public pullCall = (mediaStream: MediaStream): Promise<void> => this.ratelCall.pull(mediaStream)
+  public pullCall = (mediaStream: MediaStream): Promise<void> => this.ratelCall.pull(mediaStream);
 
   public onParticipantOnline = (cb: () => void): Subscription =>
     this.events.onParticipantOnline.subscribe(cb)
@@ -218,40 +218,40 @@ export class CurrentCall {
     if (this.localStream) {
       this.ratelCall.removeStream(this.localStream);
     }
-    if (stopLocalStream) stopLocalStream()
+    if (stopLocalStream) stopLocalStream();
     this.localStream = mediaStream;
     this.ratelCall.addStream(mediaStream);
-    this.events.onLocalStream.next(mediaStream)
+    this.events.onLocalStream.next(mediaStream);
   }
 
-  public getRemoteStream = (): MediaStream | undefined => this.remoteStream
+  public getRemoteStream = (): MediaStream | undefined => this.remoteStream;
 
-  public getLocalStream = (): MediaStream | undefined => this.localStream
+  public getLocalStream = (): MediaStream | undefined => this.localStream;
 
   public onLocalStream = (cb: (stream: MediaStream) => void): Subscription =>
-    this.events.onLocalStream.subscribe(cb);
+    this.events.onLocalStream.subscribe(cb)
 
   public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
     this.events.onCallTaken.subscribe(cb)
 
   private registerCallbacks = (): void => {
-    this.ratelCall.onAnswered(() => this.events.onAnswered.next())
-    this.ratelCall.onRejected(() => this.events.onRejected.next())
+    this.ratelCall.onAnswered(() => this.events.onAnswered.next());
+    this.ratelCall.onRejected(() => this.events.onRejected.next());
     this.ratelCall.onEnd(() => {
-      this.stopLocalStream()
-      this.stopTimer()
-      this.setState(this.ratelCall.users.length > 0 ? CallState.ENDED : CallState.CANCELLED)
-      this.events.onEnd.next()
-    })
-    this.ratelCall.onActiveDevice(this.onActiveDevice)
-    this.ratelCall.onInvited(() => this.events.onInvited.next())
-    this.ratelCall.onJoined(() => this.events.onJoined.next())
+      this.stopLocalStream();
+      this.stopTimer();
+      this.setState(this.ratelCall.users.length > 0 ? CallState.ENDED : CallState.CANCELLED);
+      this.events.onEnd.next();
+    });
+    this.ratelCall.onActiveDevice(this.onActiveDevice);
+    this.ratelCall.onInvited(() => this.events.onInvited.next());
+    this.ratelCall.onJoined(() => this.events.onJoined.next());
     this.ratelCall.onLeft((reason) => {
         if (reason.context.reason === 'connection_dropped') {
-          this.hangup()
+          this.hangup();
         }
       }
-    )
+    );
     this.ratelCall.onRemoteStream((_id, stream) => {
       this.remoteStream = stream;
       this.events.onRemoteStream.next(stream);
@@ -264,7 +264,7 @@ export class CurrentCall {
         this.isRemoteVideo = true;
         this.events.onVideoStart.next();
       }
-    })
+    });
 
     this.ratelCall.onOffline((msg) => {
       LoggerService.debug('CurrentCall: user went offline', msg);
@@ -272,13 +272,13 @@ export class CurrentCall {
       if (session) {
         if (msg.userId !== session.id) {
           LoggerService.debug('CurrentCall: Participant went offline');
-          this.pauseTimer()
+          this.pauseTimer();
           this.events.onParticipantOffline.next();
         }
       } else {
         LoggerService.error('CurrentCall: received onOffline but there is no session');
       }
-    })
+    });
 
     this.ratelCall.onOnline((msg) => {
       LoggerService.debug('CurrentCall: user went online', msg);
@@ -286,30 +286,30 @@ export class CurrentCall {
       if (session) {
         if (msg.userId !== session.id) {
           LoggerService.debug('CurrentCall: Participant went online');
-          this.resumeTimer()
-          this.events.onParticipantOnline.next()
+          this.resumeTimer();
+          this.events.onParticipantOnline.next();
         }
       } else {
         LoggerService.error('CurrentCall: received onOnline but there is no session');
       }
-    })
+    });
 
     this.communicatorService.connectionEstablishedEvent$.subscribe((connected: Connected) => {
       connected.session.chat.getActiveCalls().then((activeCalls) => {
         if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
-          this.stopLocalStream()
-          this.stopTimer()
-          this.setState(CallState.ENDED)
-          this.events.onSuspendedCallEnd.next()
+          this.stopLocalStream();
+          this.stopTimer();
+          this.setState(CallState.ENDED);
+          this.events.onSuspendedCallEnd.next();
         }
-      })
-    })
+      });
+    });
   }
 
   private onActiveDevice = (activeDevice: CallActiveDevice): void => {
-    this.stopLocalStream()
-    this.stopTimer()
-    this.events.onCallTaken.next(activeDevice)
+    this.stopLocalStream();
+    this.stopTimer();
+    this.events.onCallTaken.next(activeDevice);
   }
 
   private createTimer = (price: MoneyDto): TimerService =>

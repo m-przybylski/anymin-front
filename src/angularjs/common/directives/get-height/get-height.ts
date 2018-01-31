@@ -1,15 +1,15 @@
-import * as angular from 'angular'
+import * as angular from 'angular';
 
 interface IGetHeightScope extends ng.IScope {
-  getHeight: (height: string) => void
+  getHeight: (height: string) => void;
 }
 
 class GetHeight implements ng.IDirective<ng.IScope> {
 
-  public restrict: string = 'A'
+  public restrict: string = 'A';
   public scope = {
     getHeight: '=?'
-  }
+  };
 
   static $inject = ['$timeout'];
 
@@ -19,22 +19,22 @@ class GetHeight implements ng.IDirective<ng.IScope> {
   public link = (scope: IGetHeightScope, elem: ng.IRootElementService): void => {
 
     this.$timeout(() => {
-      scope.getHeight(String(elem[0].clientHeight) + 'px')
-    })
+      scope.getHeight(String(elem[0].clientHeight) + 'px');
+    });
 
   }
 
   public static getInstance = (): ($timeout: ng.ITimeoutService) => GetHeight => {
     const instance = ($timeout: ng.ITimeoutService): GetHeight =>
-      new GetHeight($timeout)
-    instance.$inject = ['$timeout']
-    return instance
+      new GetHeight($timeout);
+    instance.$inject = ['$timeout'];
+    return instance;
   }
 
 }
 
 const getHeight = angular.module('profitelo.directives.getHeight', [])
 .directive('getHeight', GetHeight.getInstance())
-  .name
+  .name;
 
-export default getHeight
+export default getHeight;

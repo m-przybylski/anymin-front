@@ -1,23 +1,23 @@
-import * as angular from 'angular'
-import apiModule from 'profitelo-api-ng/api.module'
-import sessionModule from '../../common/services/session/session'
-import {ExpertProfileResolver} from './expert-profile.resolver'
-import {ExpertProfileController} from './expert-profile.controller'
-import 'angularjs/common/directives/pro-footer/pro-footer'
-import navbarModule from '../../common/components/navbar/navbar'
+import * as angular from 'angular';
+import apiModule from 'profitelo-api-ng/api.module';
+import sessionModule from '../../common/services/session/session';
+import { ExpertProfileResolver } from './expert-profile.resolver';
+import { ExpertProfileController } from './expert-profile.controller';
+import 'angularjs/common/directives/pro-footer/pro-footer';
+import navbarModule from '../../common/components/navbar/navbar';
 
-import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
-import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
+import profileHeaderModule from '../../common/components/profile/profile-header/profile-header';
+import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations';
 import profileSingleConsultationModule
-  from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation'
+  from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation';
 
-import {GetExpertProfile} from 'profitelo-api-ng/model/models'
-import {StateProvider, StateParams} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import { GetExpertProfile } from 'profitelo-api-ng/model/models';
+import { StateProvider, StateParams } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 export interface IExpertProfileStateParams extends StateParams {
-  primaryConsultationId: string
-  profileId: string
+  primaryConsultationId: string;
+  profileId: string;
 }
 
 const expertProfilePageModule = angular.module('profitelo.controller.expert-profile', [
@@ -32,7 +32,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
 ])
   .config(['$stateProvider', '$qProvider',
     ($stateProvider: StateProvider, $qProvider: ng.IQProvider): void => {
-      $qProvider.errorOnUnhandledRejections(false)
+      $qProvider.errorOnUnhandledRejections(false);
       $stateProvider.state('app.expert-profile', {
         controllerAs: 'vm',
         url: '/expert-profile/{profileId}?primaryConsultationId',
@@ -44,10 +44,10 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
             ): ng.IPromise<GetExpertProfile> =>
               ExpertProfileResolver.resolve($stateParams)]
         }
-      })
+      });
     }])
   .service('ExpertProfileResolver', ExpertProfileResolver)
   .controller('ExpertProfileController', ExpertProfileController)
-  .name
+  .name;
 
-export default expertProfilePageModule
+export default expertProfilePageModule;

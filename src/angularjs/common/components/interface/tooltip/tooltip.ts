@@ -1,14 +1,14 @@
-import * as angular from 'angular'
-import {TooltipComponent} from './tooltip.component'
+import * as angular from 'angular';
+import { TooltipComponent } from './tooltip.component';
 
 export interface ITooltipComponentBindings extends ng.IController {
-  tooltipText: string
+  tooltipText: string;
 }
 
 const tooltipModule = angular.module('profitelo.components.interface.tooltip', [
   'pascalprecht.translate'
 ])
 .component('tooltip', new TooltipComponent())
-  .name
+  .name;
 
-export default tooltipModule
+export default tooltipModule;

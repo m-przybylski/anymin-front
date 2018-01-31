@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import {INavbarLoggedOutMenuComponentBindings} from './navbar-logged-out-menu'
-import {Config} from '../../../../../config';
+import * as angular from 'angular';
+import { INavbarLoggedOutMenuComponentBindings } from './navbar-logged-out-menu';
+import { Config } from '../../../../../config';
 
 export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutMenuComponentBindings {
 
-  isHelpMenuShow: boolean = false
+  isHelpMenuShow: boolean = false;
 
   static $inject = ['$document', '$element', '$scope', '$window'];
 
@@ -13,25 +13,25 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
 
     this.$document.bind('click', (event: Event) => {
 
-      const ifTargetClicked = this.$element.find(event.target).length > 0
+      const ifTargetClicked = this.$element.find(event.target).length > 0;
       if (!ifTargetClicked) {
-        this.isHelpMenuShow = false
+        this.isHelpMenuShow = false;
       }
-      this.$scope.$apply()
-    })
+      this.$scope.$apply();
+    });
 
     angular.element(this.$window).bind('scroll', () => {
       if (this.$window.pageYOffset >= Config.styles.NAVBAR_HEIGHT
         && this.$window.innerWidth >= Config.styles.DESKTOP_WINDOW_WIDTH) {
-        this.isHelpMenuShow = false
+        this.isHelpMenuShow = false;
       }
-      this.$scope.$apply()
-    })
+      this.$scope.$apply();
+    });
 
   }
 
   public toggleHelpMenuShow = (): void => {
-    this.isHelpMenuShow = !this.isHelpMenuShow
+    this.isHelpMenuShow = !this.isHelpMenuShow;
   }
 
 }

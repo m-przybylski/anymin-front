@@ -15,7 +15,7 @@
       ["Boolean", "Use boolean instead."]],
     "one-line": [true, "check-open-brace", "check-whitespace"],
     "quotemark": [true, "single"],
-    "semicolon": false,
+    "semicolon": true,
     "no-debugger": true,
     "import-spacing": false,
     "no-consecutive-blank-lines": true,
@@ -44,7 +44,8 @@
       "check-decl",
       "check-operator",
       "check-separator",
-      "check-type"
+      "check-type",
+      "check-module"
     ]
   }
 }

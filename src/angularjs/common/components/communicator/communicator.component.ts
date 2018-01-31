@@ -1,7 +1,7 @@
-import {CommunicatorComponentController} from './communicator.controller'
+import { CommunicatorComponentController } from './communicator.controller';
 
 export class CommunicatorComponent implements ng.IComponentOptions {
 
-  controller: ng.Injectable<ng.IControllerConstructor> = CommunicatorComponentController
-  template = require('./communicator.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = CommunicatorComponentController;
+  template = require('./communicator.html');
 }

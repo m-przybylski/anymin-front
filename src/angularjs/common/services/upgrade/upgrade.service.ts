@@ -6,12 +6,12 @@ export class UpgradeService {
   }
 
   public toIPromise = <T>(promise: Promise<T>): ng.IPromise<T> => {
-    const defer = this.$q.defer<T>()
+    const defer = this.$q.defer<T>();
 
     promise.then(
       (res) => this.$rootScope.$apply(() => defer.resolve(res)),
       (err) => this.$rootScope.$apply(() => defer.reject(err))
-    )
+    );
 
     return defer.promise;
   }

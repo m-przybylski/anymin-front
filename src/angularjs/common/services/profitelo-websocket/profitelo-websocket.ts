@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import {ProfiteloWebsocketService} from './profitelo-websocket.service'
-import userModule from '../user/user'
-import eventsModule from '../events/events'
+import * as angular from 'angular';
+import { ProfiteloWebsocketService } from './profitelo-websocket.service';
+import userModule from '../user/user';
+import eventsModule from '../events/events';
 
 const profiteloWebsocketModule = angular.module('profitelo.services.profitelo-websocket', [
   userModule,
@@ -9,6 +9,6 @@ const profiteloWebsocketModule = angular.module('profitelo.services.profitelo-we
   'commonConfig'
 ])
   .service('profiteloWebsocket', ProfiteloWebsocketService)
-  .name
+  .name;
 
 export default profiteloWebsocketModule;

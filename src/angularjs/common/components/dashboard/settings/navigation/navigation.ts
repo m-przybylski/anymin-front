@@ -1,17 +1,17 @@
-import {UserService} from '../../../../services/user/user.service'
-import * as angular from 'angular'
-import userModule from '../../../../services/user/user'
-import {Config} from '../../../../../../config';
-import uiRouter from '@uirouter/angularjs'
+import { UserService } from '../../../../services/user/user.service';
+import * as angular from 'angular';
+import userModule from '../../../../services/user/user';
+import { Config } from '../../../../../../config';
+import uiRouter from '@uirouter/angularjs';
 
 function controller(userService: UserService): void {
 
-  this.isPlatformForExpert = Config.isPlatformForExpert
+  this.isPlatformForExpert = Config.isPlatformForExpert;
 
   userService.getUser().then((accountDetails) => {
-    this.isWizardComplete = accountDetails.isCompany || accountDetails.isExpert
-  })
-  return this
+    this.isWizardComplete = accountDetails.isCompany || accountDetails.isExpert;
+  });
+  return this;
 }
 
 const component = {
@@ -21,7 +21,7 @@ const component = {
   bindings: {
     stateNames: '<'
   }
-}
+};
 
 const settingsNavigation = angular.module('profitelo.components.settings.navigation', [
   'pascalprecht.translate',
@@ -29,6 +29,6 @@ const settingsNavigation = angular.module('profitelo.components.settings.navigat
   userModule
 ])
   .component('settingsNavigation', component)
-  .name
+  .name;
 
-export default settingsNavigation
+export default settingsNavigation;

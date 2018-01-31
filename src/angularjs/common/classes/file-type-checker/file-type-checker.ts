@@ -5,7 +5,7 @@ export enum FileCategoryEnum {
 }
 
 interface IValidFileTypes {
-  [key: number]: string[]
+  [key: number]: string[];
 }
 
 export class FileTypeChecker {
@@ -13,7 +13,7 @@ export class FileTypeChecker {
   private static readonly validFileTypes: IValidFileTypes = {
     [FileCategoryEnum.AVATAR]: ['image/png', 'image/jpeg'],
     [FileCategoryEnum.EXPERT_FILE]: ['application/pdf', 'image/png', 'image/jpeg']
-  }
+  };
 
   static $inject = [];
 

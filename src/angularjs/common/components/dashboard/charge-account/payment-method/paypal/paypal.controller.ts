@@ -1,15 +1,15 @@
-import {IPayPalPaymentFormComponentBindings} from './paypal'
-import {PaymentsApi} from 'profitelo-api-ng/api/api'
-import {PostPayment, PaymentLink} from 'profitelo-api-ng/model/models'
-import {StateService} from '@uirouter/angularjs'
+import { IPayPalPaymentFormComponentBindings } from './paypal';
+import { PaymentsApi } from 'profitelo-api-ng/api/api';
+import { PostPayment, PaymentLink } from 'profitelo-api-ng/model/models';
+import { StateService } from '@uirouter/angularjs';
 
 export class PayPalPaymentFormComponentController implements ng.IController, IPayPalPaymentFormComponentBindings {
 
-  paymentCountryId: string
-  paymentsLinks: PaymentLink[]
-  amountMethodModal: any
-  postPayment: PostPayment
-  onAuthorize: () => void
+  paymentCountryId: string;
+  paymentsLinks: PaymentLink[];
+  amountMethodModal: any;
+  postPayment: PostPayment;
+  onAuthorize: () => void;
 
   $onInit = (): void => {
     this.postPayment = {
@@ -17,7 +17,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
       paymentCountryId: this.paymentCountryId,
       paymentOption: this.amountMethodModal.amountModel.amount,
       paymentSystemId: this.amountMethodModal.paymentSystemModel.idg
-    }
+    };
   }
 
   static $inject = ['paypalFactory', 'PaymentsApi', '$state'];
@@ -53,10 +53,10 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
             paymentSystemId: this.amountMethodModal.paymentSystemModel.id
           }
         }).then((response: any) => {
-          resolve(response.paymentId)
+          resolve(response.paymentId);
         }, (error: any) => {
-          throw new Error(error)
-        })
+          throw new Error(error);
+        });
       },
 
       onAuthorize: (data: any, _actions: any): void => {
@@ -64,12 +64,12 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
           paymentId: data.paymentID,
           payerId: data.payerID
         }).then((_response: any) => {
-          typeof this.onAuthorize === 'function' ? this.onAuthorize() : $state.go('app.dashboard.client.activities')
+          typeof this.onAuthorize === 'function' ? this.onAuthorize() : $state.go('app.dashboard.client.activities');
         }, (error: any) => {
-          throw new Error(error)
-        })
+          throw new Error(error);
+        });
       }
 
-    }, '#paypal-button')
+    }, '#paypal-button');
   }
 }

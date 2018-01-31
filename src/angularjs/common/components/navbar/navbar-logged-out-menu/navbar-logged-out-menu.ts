@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import {NavbarLoggedOutMenuComponent} from './navbar-logged-out-menu.component'
-import navbarHelpModule from '../navbar-help/navbar-help'
+import * as angular from 'angular';
+import { NavbarLoggedOutMenuComponent } from './navbar-logged-out-menu.component';
+import navbarHelpModule from '../navbar-help/navbar-help';
 import uiRouter from '@uirouter/angularjs';
 
 export interface INavbarLoggedOutMenuComponentBindings extends ng.IController {
@@ -12,6 +12,6 @@ const navbarLoggedOutMenuModule = angular.module('profitelo.components.navbar-lo
     navbarHelpModule
 ])
 .component('navbarLoggedOutMenu', new NavbarLoggedOutMenuComponent)
-  .name
+  .name;
 
-export default navbarLoggedOutMenuModule
+export default navbarLoggedOutMenuModule;

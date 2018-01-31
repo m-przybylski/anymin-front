@@ -1,12 +1,12 @@
-import * as angular from 'angular'
-import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
-import {ExpertInviteEmployeesController} from './invite-employees.controller'
-import consultationListItemModule from '../../../../../invitations/consultation-list-item/consultation-list-item'
-import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert'
+import * as angular from 'angular';
+import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts';
+import { ExpertInviteEmployeesController } from './invite-employees.controller';
+import consultationListItemModule from '../../../../../invitations/consultation-list-item/consultation-list-item';
+import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert';
 import inputConsultationEmployeeModule
-  from '../../../../../interface/input-consultation-employee/input-consultation-employee'
-import apiModule from 'profitelo-api-ng/api.module'
-import errorHandlerModule from '../../../../../../services/error-handler/error-handler'
+  from '../../../../../interface/input-consultation-employee/input-consultation-employee';
+import apiModule from 'profitelo-api-ng/api.module';
+import errorHandlerModule from '../../../../../../services/error-handler/error-handler';
 
 const expertInviteEmployeesModule = angular.module(
   'profitelo.components.dashboard.expert.activities.modals.invite-employees', [
@@ -19,6 +19,6 @@ const expertInviteEmployeesModule = angular.module(
     apiModule
   ])
   .controller('expertInviteEmployees', ExpertInviteEmployeesController)
-  .name
+  .name;
 
-export default expertInviteEmployeesModule
+export default expertInviteEmployeesModule;

@@ -1,11 +1,11 @@
-import * as angular from 'angular'
-import {ExpertEmployeesFiltersComponent} from './filters.component'
-import 'angular-translate'
-import checkboxModule from '../../../../interface/checkbox/checkbox'
-import modalsModule from '../../../../../services/modals/modals'
+import * as angular from 'angular';
+import { ExpertEmployeesFiltersComponent } from './filters.component';
+import 'angular-translate';
+import checkboxModule from '../../../../interface/checkbox/checkbox';
+import modalsModule from '../../../../../services/modals/modals';
 
 export interface IExpertEmployeesFiltersComponentBindings extends ng.IController {
-  onModalCloseCallback: () => void
+  onModalCloseCallback: () => void;
 }
 
 const expertEmployeesFiltersModule = angular.module('profitelo.components.dashboard.expert.employees.filters', [
@@ -14,6 +14,6 @@ const expertEmployeesFiltersModule = angular.module('profitelo.components.dashbo
   modalsModule
 ])
   .component('expertEmployeesFilters', new ExpertEmployeesFiltersComponent())
-  .name
+  .name;
 
-export default expertEmployeesFiltersModule
+export default expertEmployeesFiltersModule;

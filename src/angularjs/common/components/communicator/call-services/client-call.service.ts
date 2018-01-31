@@ -1,19 +1,19 @@
-import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
-import {GetSUERatelCall} from 'profitelo-api-ng/model/models';
+import { ServiceApi, RatelApi } from 'profitelo-api-ng/api/api';
+import { GetSUERatelCall } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
-import {CurrentClientCall} from '../models/current-client-call';
-import {SoundsService} from '../../../services/sounds/sounds.service';
-import {NavigatorWrapper} from '../../../classes/navigator-wrapper/navigator-wrapper';
-import {ModalsService} from '../../../services/modals/modals.service';
-import {TimerFactory} from '../../../services/timer/timer.factory';
-import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
-import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
-import {CallState} from '../models/current-call'
-import {Subject} from 'rxjs/Subject'
-import {Subscription} from 'rxjs/Subscription'
-import {first} from 'rxjs/operators'
-import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '@anymind-ng/core';
+import { CurrentClientCall } from '../models/current-client-call';
+import { SoundsService } from '../../../services/sounds/sounds.service';
+import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
+import { ModalsService } from '../../../services/modals/modals.service';
+import { TimerFactory } from '../../../services/timer/timer.factory';
+import { MediaStreamConstraintsWrapper } from '../../../classes/media-stream-constraints-wrapper';
+import { ProfiteloWebsocketService } from '../../../services/profitelo-websocket/profitelo-websocket.service';
+import { CallState } from '../models/current-call';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { first } from 'rxjs/operators';
+import { MicrophoneService } from '../microphone-service/microphone.service';
+import { CommunicatorService } from '@anymind-ng/core';
 
 export class ClientCallService {
 
@@ -21,7 +21,7 @@ export class ClientCallService {
 
   private call?: ng.IPromise<void | CurrentClientCall>;
 
-  private readonly onNewCallSubject = new Subject<CurrentClientCall>()
+  private readonly onNewCallSubject = new Subject<CurrentClientCall>();
 
   static $inject = ['communicatorService', '$log', 'timerFactory', 'ServiceApi', 'RatelApi', 'soundsService',
     'modalsService', '$q', 'profiteloWebsocket', 'microphoneService'];
@@ -39,7 +39,7 @@ export class ClientCallService {
   }
 
   public onNewCall = (cb: (call: CurrentClientCall) => void): Subscription =>
-    this.onNewCallSubject.subscribe(cb);
+    this.onNewCallSubject.subscribe(cb)
 
   public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<void | CurrentClientCall> => {
     if (this.call) return this.$q.reject('There is a call already');
@@ -51,7 +51,7 @@ export class ClientCallService {
     this.call = this.createCall(serviceId, expertId)
       .then(this.onCreateCallSuccess)
       .then(this.startCall)
-      .catch(this.onStartCallError)
+      .catch(this.onStartCallError);
 
     return this.call;
   }
@@ -63,16 +63,16 @@ export class ClientCallService {
     this.profiteloWebsocket.onNewFinancialOperation(callback)
 
   private onSuspendedCallEnd = (serviceId: string): void => {
-    this.modalsService.createClientConsultationSummaryModal(serviceId)
-    this.call = undefined
-    this.soundsService.callConnectingSound().stop()
-    this.soundsService.playCallEnded()
+    this.modalsService.createClientConsultationSummaryModal(serviceId);
+    this.call = undefined;
+    this.soundsService.callConnectingSound().stop();
+    this.soundsService.playCallEnded();
   }
 
   private onStartCallError = (err: any): void => {
     this.call = undefined;
-    this.onConsultationUnavailable()
-    this.$log.error('ClientCallService: ' + String(err))
+    this.onConsultationUnavailable();
+    this.$log.error('ClientCallService: ' + String(err));
     throw new Error(err);
   }
 
@@ -89,15 +89,15 @@ export class ClientCallService {
     call.onEnd(() => this.onCallEnd(call.getService().id));
     call.onAnswered(this.onCallAnswered);
     call.onSuspendedCallEnd(() => {
-      this.onSuspendedCallEnd(call.getService().id)
-    })
+      this.onSuspendedCallEnd(call.getService().id);
+    });
     this.communicatorService.roomInvitationEvent$.pipe(first()).subscribe((roomInvitation) => {
       if (roomInvitation.room.name === call.getRatelCallId() && !call.getMessageRoom().room) {
-        call.setBusinessRoom(roomInvitation.room as RatelSdk.BusinessRoom).catch(this.$log.error)
+        call.setBusinessRoom(roomInvitation.room as RatelSdk.BusinessRoom).catch(this.$log.error);
       } else {
         this.$log.error('Received roomInvitation name does not match current callId or room already exist');
       }
-    })
+    });
     return call;
   }
 
@@ -122,27 +122,27 @@ export class ClientCallService {
     return this.RatelApi.postCreateCallRoute({
       expertId,
       serviceId
-    }, deviceId)
+    }, deviceId);
   }
 
   private getUserMediaStream = (): ng.IPromise<MediaStream> => {
     const defer = this.$q.defer<MediaStream>();
     this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
-      .then(defer.resolve, defer.reject)
-    return defer.promise
+      .then(defer.resolve, defer.reject);
+    return defer.promise;
   }
 
   private getRatelCallById = (ratelCallId: string): ng.IPromise<RatelSdk.BusinessCall> => {
     const session = this.communicatorService.getSession();
     if (!session) throw new Error('There is no ratel session');
     const defer = this.$q.defer<RatelSdk.BusinessCall>();
-    session.chat.getCall(ratelCallId).then(call => defer.resolve(<RatelSdk.BusinessCall>call), defer.reject)
-    return defer.promise
+    session.chat.getCall(ratelCallId).then(call => defer.resolve(<RatelSdk.BusinessCall>call), defer.reject);
+    return defer.promise;
   }
 
   private onConsultationUnavailable = (): void => {
-    this.soundsService.callConnectingSound().stop()
-    this.soundsService.playCallRejected()
+    this.soundsService.callConnectingSound().stop();
+    this.soundsService.playCallRejected();
     this.modalsService.createServiceUnavailableModal(() => {
       // TODO
       // https://git.contactis.pl/itelo/profitelo/issues/893
@@ -157,18 +157,18 @@ export class ClientCallService {
       this.call
         .then((call) => {
           if (call && call.getState() !== CallState.CANCELLED)
-            this.modalsService.createClientConsultationSummaryModal(serviceId)
+            this.modalsService.createClientConsultationSummaryModal(serviceId);
         })
         .finally(() => {
-          this.call = undefined
-          this.soundsService.callConnectingSound().stop()
-          this.soundsService.playCallEnded()
-        })
+          this.call = undefined;
+          this.soundsService.callConnectingSound().stop();
+          this.soundsService.playCallEnded();
+        });
     else
-      this.$log.error('Call does not exist')
+      this.$log.error('Call does not exist');
   }
 
   private onCallAnswered = (): void => {
-    this.soundsService.callConnectingSound().stop()
+    this.soundsService.callConnectingSound().stop();
   }
 }

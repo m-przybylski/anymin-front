@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import apiModule from 'profitelo-api-ng/api.module'
-import {ConsultationModalController} from './consultation.controller'
-import tagsListModule from '../../../tags-list/tags-list'
+import * as angular from 'angular';
+import apiModule from 'profitelo-api-ng/api.module';
+import { ConsultationModalController } from './consultation.controller';
+import tagsListModule from '../../../tags-list/tags-list';
 
 const consultationModalModule = angular.module(
   'profitelo.components.search.modals.consultation', [
@@ -11,6 +11,6 @@ const consultationModalModule = angular.module(
   tagsListModule
 ])
 .controller('consultationModalController', ConsultationModalController)
-.name
+.name;
 
-export default consultationModalModule
+export default consultationModalModule;

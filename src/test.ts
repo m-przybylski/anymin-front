@@ -13,8 +13,8 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 // For angularjs testing
-import 'angular'
-import 'angular-mocks'
+import 'angular';
+import 'angular-mocks';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
 declare const __karma__: any;
@@ -28,7 +28,7 @@ __karma__.loaded = function (): void {
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting()
-)
+);
 
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);

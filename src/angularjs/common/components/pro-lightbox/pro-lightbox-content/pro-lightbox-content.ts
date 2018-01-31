@@ -6,11 +6,11 @@
     bindings: {
       slide: '<'
     }
-  }
+  };
 
   angular.module('profitelo.components.pro-lightbox-content', [
 
   ])
-    .component('proLightboxContent', proLightboxContent)
+    .component('proLightboxContent', proLightboxContent);
 
-}())
+}());

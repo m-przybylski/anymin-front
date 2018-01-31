@@ -2,7 +2,7 @@
 
   function controller(): void {
 
-    return this
+    return this;
   }
 
   const component = {
@@ -16,11 +16,11 @@
     template: require('./radio.html'),
     controllerAs: '$ctrl',
     controller: [controller]
-  }
+  };
 
   angular.module('profitelo.components.interface.radio', [
     'pascalprecht.translate'
   ])
-    .component('radioBtn', component)
+    .component('radioBtn', component);
 
-}())
+}());

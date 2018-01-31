@@ -1,17 +1,17 @@
-import {SearchService} from '../../services/search/search.service'
-import {keyboardCodes} from '../../classes/keyboard'
-import {StateService} from '@uirouter/angularjs'
+import { SearchService } from '../../services/search/search.service';
+import { keyboardCodes } from '../../classes/keyboard';
+import { StateService } from '@uirouter/angularjs';
 
 export class SearchDropdownController {
 
-  public suggestions: string[] = []
-  public searchValue?: string
+  public suggestions: string[] = [];
+  public searchValue?: string;
 
-  private static readonly minimumValidInputValueLength: number = 3
-  private isFocus: boolean = false
-  private dropdown: JQuery
-  private dropdownSelectedItem: JQuery
-  private selectedItemIndex: number = 0
+  private static readonly minimumValidInputValueLength: number = 3;
+  private isFocus: boolean = false;
+  private dropdown: JQuery;
+  private dropdownSelectedItem: JQuery;
+  private selectedItemIndex: number = 0;
 
   static $inject = ['$state', 'searchService', '$element', '$document', '$scope', '$log'];
 
@@ -24,81 +24,81 @@ export class SearchDropdownController {
   }
 
   $onInit = (): void => {
-    this.dropdown = this.$element.find('.suggestion-list')
+    this.dropdown = this.$element.find('.suggestion-list');
 
     this.$document.bind('click', (event) => {
-      const isTargetClicked = this.$element.find(event.target).length > 0
+      const isTargetClicked = this.$element.find(event.target).length > 0;
       if (!isTargetClicked) {
-        this.isFocus = false
-        this.resetDropdown()
+        this.isFocus = false;
+        this.resetDropdown();
       }
-    })
+    });
 
     this.$element.bind('keydown keypress', (event) => {
-      const keyCode = event.which || event.keyCode
+      const keyCode = event.which || event.keyCode;
       switch (keyCode) {
         case keyboardCodes.arrowDown:
           if (this.isSuggestionsDropdown()) {
-            this.onArrowDown()
+            this.onArrowDown();
           }
-          break
+          break;
 
         case keyboardCodes.arrowUp:
           if (this.isSuggestionsDropdown()) {
-            this.onArrowUp()
+            this.onArrowUp();
           }
-          break
+          break;
 
         case keyboardCodes.escape:
-          this.onEscape()
-          break
+          this.onEscape();
+          break;
 
         default:
-          break
+          break;
       }
-    })
+    });
 
     this.dropdown.bind('mouseover', (event) => {
-      this.resetDropdown()
-      this.dropdown.find(event.target.parentElement).addClass('is-focused')
-      this.dropdownSelectedItem = this.dropdown.find('.is-focused')
-      this.selectedItemIndex = this.dropdown.find('li').index(this.dropdownSelectedItem) + 1
-    })
+      this.resetDropdown();
+      this.dropdown.find(event.target.parentElement).addClass('is-focused');
+      this.dropdownSelectedItem = this.dropdown.find('.is-focused');
+      this.selectedItemIndex = this.dropdown.find('li').index(this.dropdownSelectedItem) + 1;
+    });
   }
 
   $onDestroy = (): void => {
-    this.$element.unbind('keydown keypress')
-    this.$document.unbind('click')
-    this.dropdown.unbind('mouseover')
+    this.$element.unbind('keydown keypress');
+    this.$document.unbind('click');
+    this.dropdown.unbind('mouseover');
   }
 
   public search = (): void => {
     if (this.searchValue &&  this.searchValue.length >= SearchDropdownController.minimumValidInputValueLength) {
-      this.$state.go('app.search-result', {q: this.searchValue})
+      this.$state.go('app.search-result', {q: this.searchValue});
     }
   }
 
   public onEnter = (): void => {
     if (this.selectedItemIndex > 0)
-      this.searchValue = this.suggestions[this.selectedItemIndex - 1]
-    this.search()
+      this.searchValue = this.suggestions[this.selectedItemIndex - 1];
+    this.search();
   }
 
   public onChange = (): void => {
-    this.resetDropdown()
+    this.resetDropdown();
     if (this.searchValue && this.searchValue.length >= SearchDropdownController.minimumValidInputValueLength) {
       this.searchService.querySuggestions(this.searchValue).then((response) => this.suggestions = response!.suggestions,
-        (error) => {this.$log.error(error)})
+        (error) => {this.$log.error(error); });
     }
   }
 
   public onItemSelect = (suggestion: string): void => {
-    this.searchValue = suggestion
-    this.search()
+    this.searchValue = suggestion;
+    this.search();
   }
 
   public onFocus = (): void => {
-    this.isFocus = true
+    this.isFocus = true;
   }
 
   public isSuggestionsDropdown = (): boolean =>
@@ -109,39 +109,39 @@ export class SearchDropdownController {
     && this.isFocus
 
   private markItemAsSelected = (): void => {
-    this.dropdown.find('li').removeClass('is-focused')
-    this.dropdownSelectedItem = this.dropdown.find(`li:nth-child(${this.selectedItemIndex})`)
-    this.dropdownSelectedItem.addClass('is-focused')
+    this.dropdown.find('li').removeClass('is-focused');
+    this.dropdownSelectedItem = this.dropdown.find(`li:nth-child(${this.selectedItemIndex})`);
+    this.dropdownSelectedItem.addClass('is-focused');
   }
 
   private resetDropdown = (): void => {
-    this.selectedItemIndex = 0
-    this.dropdown.find('li').removeClass('is-focused')
+    this.selectedItemIndex = 0;
+    this.dropdown.find('li').removeClass('is-focused');
   }
 
   private onEscape = (): void => {
-    this.$element.find('input').blur()
-    this.isFocus = false
-    this.$scope.$apply()
-    this.resetDropdown()
+    this.$element.find('input').blur();
+    this.isFocus = false;
+    this.$scope.$apply();
+    this.resetDropdown();
   }
 
   private onArrowDown = (): void => {
     if (this.selectedItemIndex < this.suggestions.length) {
-      ++this.selectedItemIndex
+      ++this.selectedItemIndex;
     } else {
-      this.selectedItemIndex = 1
+      this.selectedItemIndex = 1;
     }
-    this.markItemAsSelected()
+    this.markItemAsSelected();
   }
 
   private onArrowUp = (): void => {
     if (this.selectedItemIndex > 1) {
-      --this.selectedItemIndex
+      --this.selectedItemIndex;
     } else {
-      this.selectedItemIndex = this.suggestions.length
+      this.selectedItemIndex = this.suggestions.length;
     }
-    this.markItemAsSelected()
+    this.markItemAsSelected();
   }
 
 }

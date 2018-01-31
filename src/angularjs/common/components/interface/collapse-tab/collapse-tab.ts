@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
-import {IWindowService} from '../../../services/window/window.service'
-import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scrolling'
+import * as angular from 'angular';
+import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';
+import { IWindowService } from '../../../services/window/window.service';
+import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scrolling';
 
 function controller($element: ng.IRootElementService,
                     smoothScrollingService: SmoothScrollingService,
@@ -11,51 +11,51 @@ function controller($element: ng.IRootElementService,
                     $timeout: ng.ITimeoutService): void {
   this.stylesObject = {
     height: null
-  }
+  };
 
-  this.isCollapsed = false
+  this.isCollapsed = false;
 
   const getFirstCollapseElementHeight = (): number => {
-    const firstCollapseElement = $element.find('ng-transclude > div:first-child')
+    const firstCollapseElement = $element.find('ng-transclude > div:first-child');
     if (firstCollapseElement) {
-      return firstCollapseElement.height()
+      return firstCollapseElement.height();
     } else {
-      $log.error('In method getFirstCollapseElementHeight: element div:first-child not found')
-      return 0
+      $log.error('In method getFirstCollapseElementHeight: element div:first-child not found');
+      return 0;
     }
-  }
+  };
 
-  const getCollapseWrapperHeight = (): number => $element.find('.collapse-content').height()
+  const getCollapseWrapperHeight = (): number => $element.find('.collapse-content').height();
 
     const onWindowResize = (): void => {
     if (this.isCollapsed) {
-      this.stylesObject.height = getCollapseWrapperHeight()
+      this.stylesObject.height = getCollapseWrapperHeight();
     } else {
-      this.stylesObject.height = getFirstCollapseElementHeight()
+      this.stylesObject.height = getFirstCollapseElementHeight();
     }
-    $scope.$digest()
-  }
+    $scope.$digest();
+  };
 
   $timeout(() => {
-    this.stylesObject.height = getFirstCollapseElementHeight()
-  })
+    this.stylesObject.height = getFirstCollapseElementHeight();
+  });
 
-    angular.element($window).on('resize', onWindowResize)
+    angular.element($window).on('resize', onWindowResize);
 
   this.toggleCollapse = (): void => {
-    const scrollAnimationTime: number = 1000
+    const scrollAnimationTime: number = 1000;
     this.stylesObject.height = this.stylesObject.height !== getCollapseWrapperHeight() ?
-      getCollapseWrapperHeight() : getFirstCollapseElementHeight()
+      getCollapseWrapperHeight() : getFirstCollapseElementHeight();
 
-    this.isCollapsed = !this.isCollapsed
+    this.isCollapsed = !this.isCollapsed;
     if (this.stylesObject.height !== getCollapseWrapperHeight()) {
-      smoothScrollingService.simpleScrollTo('#collapseWrap', true, scrollAnimationTime)
+      smoothScrollingService.simpleScrollTo('#collapseWrap', true, scrollAnimationTime);
     }
-  }
+  };
 
-  this.checkedHeight = (): boolean => getFirstCollapseElementHeight() === getCollapseWrapperHeight()
+  this.checkedHeight = (): boolean => getFirstCollapseElementHeight() === getCollapseWrapperHeight();
 
-  return this
+  return this;
 }
 
 const collapseTab = {
@@ -63,9 +63,9 @@ const collapseTab = {
   controllerAs: '$ctrl',
   transclude: true,
   controller: ['$element', 'smoothScrollingService', '$window', '$log', '$scope', '$timeout', controller]
-}
+};
 
 angular.module('profitelo.components.interface.collapse-tab', [
   smoothScrollingModule
 ])
-  .component('collapseTab', collapseTab)
+  .component('collapseTab', collapseTab);

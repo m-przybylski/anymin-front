@@ -1,4 +1,4 @@
-export type LocalStorageKeyName = 'invitation' | 'accepted-consultations'
+export type LocalStorageKeyName = 'invitation' | 'accepted-consultations';
 
 export class LocalStorageWrapper {
 
@@ -6,9 +6,9 @@ export class LocalStorageWrapper {
 
   constructor() {}
 
-  public static setItem = (key: LocalStorageKeyName, value: string): void => localStorage.setItem(key, value)
+  public static setItem = (key: LocalStorageKeyName, value: string): void => localStorage.setItem(key, value);
 
-  public static removeItem = (key: LocalStorageKeyName): void => localStorage.removeItem(key)
+  public static removeItem = (key: LocalStorageKeyName): void => localStorage.removeItem(key);
 
-  public static getItem = (key: LocalStorageKeyName): string | null => localStorage.getItem(key)
+  public static getItem = (key: LocalStorageKeyName): string | null => localStorage.getItem(key);
 }

@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {IDirective} from 'angular'
+import * as angular from 'angular';
+import { IDirective } from 'angular';
 
 (function(): void {
   function proNewsTile(): IDirective<ng.IScope> {
@@ -11,10 +11,10 @@ import {IDirective} from 'angular'
       scope: {
         ngModel: '='
       }
-    }
+    };
   }
 
   angular.module('profitelo.directives.pro-news-tile', [])
-  .directive('proNewsTile', [proNewsTile])
+  .directive('proNewsTile', [proNewsTile]);
 
-}())
+}());

@@ -1,8 +1,8 @@
-import * as angular from 'angular'
-import {PromiseService} from './promise.service'
+import * as angular from 'angular';
+import { PromiseService } from './promise.service';
 
 const promiseModule = angular.module('profitelo.services.promise', [])
 .service('promiseService', PromiseService)
-  .name
+  .name;
 
-export default promiseModule
+export default promiseModule;

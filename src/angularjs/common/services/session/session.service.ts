@@ -1,9 +1,9 @@
-import {UserSessionService} from '../../../../angular/core/services/user-session/user-session.service';
-import {Config} from '../../../../config';
-import {GetSession, AccountLogin} from 'profitelo-api-ng/model/models'
-import {EventsService} from '../events/events.service'
-import {UpgradeService} from '../upgrade/upgrade.service';
-import {StateService} from '@uirouter/angularjs';
+import { UserSessionService } from '../../../../angular/core/services/user-session/user-session.service';
+import { Config } from '../../../../config';
+import { GetSession, AccountLogin } from 'profitelo-api-ng/model/models';
+import { EventsService } from '../events/events.service';
+import { UpgradeService } from '../upgrade/upgrade.service';
+import { StateService } from '@uirouter/angularjs';
 
 export class SessionServiceWrapper {
 
@@ -16,11 +16,11 @@ export class SessionServiceWrapper {
               $state: StateService) {
     eventsService.on('remote-session-deleted', () => {
       this.upgradeService.toIPromise(this.userSessionService.logout()).finally(() => {
-        this.onSuccessLogout()
-        eventsService.emit('logout')
+        this.onSuccessLogout();
+        eventsService.emit('logout');
         $state.reload();
-      })
-    })
+      });
+    });
   }
 
   public logout = (): ng.IPromise<void> =>
@@ -33,15 +33,15 @@ export class SessionServiceWrapper {
     this.upgradeService.toIPromise(this.userSessionService.getSession(force)).then(this.onSuccessLogin)
 
   private onSuccessLogin = (session: GetSession): GetSession => {
-    this.setApiKeyHeader(session.apiKey)
-    return session
+    this.setApiKeyHeader(session.apiKey);
+    return session;
   }
 
   private onSuccessLogout = (): void => {
-    delete this.$http.defaults.headers!.common[Config.http.apiHeader]
+    delete this.$http.defaults.headers!.common[Config.http.apiHeader];
   }
 
   private setApiKeyHeader = (apiKey: string): void => {
-    this.$http.defaults.headers!.common[Config.http.apiHeader] = apiKey
+    this.$http.defaults.headers!.common[Config.http.apiHeader] = apiKey;
   }
 }

@@ -1,18 +1,18 @@
-import * as angular from 'angular'
-import {RadioBtnTextareaComponent} from './radio-btn-textarea.component'
-import autoFocus from '../../../directives/auto-focus/auto-focus'
-import {RadioBtnTextareaAnimation} from './radio-btn-textarea.animation'
+import * as angular from 'angular';
+import { RadioBtnTextareaComponent } from './radio-btn-textarea.component';
+import autoFocus from '../../../directives/auto-focus/auto-focus';
+import { RadioBtnTextareaAnimation } from './radio-btn-textarea.animation';
 
 export interface IRadioBtnTextareaBindings extends ng.IController {
-  id: string
-  name: string
-  value: string
-  label: string
-  ngModel: string
-  checkedItem?: string
-  onSelectedItem: (value: string) => void
-  onDescriptionCallback: (description: string) => string
-  isTextarea: boolean
+  id: string;
+  name: string;
+  value: string;
+  label: string;
+  ngModel: string;
+  checkedItem?: string;
+  onSelectedItem: (value: string) => void;
+  onDescriptionCallback: (description: string) => string;
+  isTextarea: boolean;
 }
 
 const radioBtnTextarea = angular.module('profitelo.components.interface.radio-btn-textarea', [
@@ -21,6 +21,6 @@ const radioBtnTextarea = angular.module('profitelo.components.interface.radio-bt
 ])
 .component('radioBtnTextarea', new RadioBtnTextareaComponent)
 .animation('.collapse-height', RadioBtnTextareaAnimation.getInstance())
-  .name
+  .name;
 
-export default radioBtnTextarea
+export default radioBtnTextarea;

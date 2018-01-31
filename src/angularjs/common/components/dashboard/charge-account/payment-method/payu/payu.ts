@@ -1,81 +1,81 @@
-import {CommonSettingsService} from '../../../../../services/common-settings/common-settings.service'
-import apiModule from 'profitelo-api-ng/api.module'
-import {PaymentsApi, AccountApi} from 'profitelo-api-ng/api/api'
-import {SmoothScrollingService} from '../../../../../services/smooth-scrolling/smooth-scrolling.service'
-import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
-import {UserService} from '../../../../../services/user/user.service'
-import * as angular from 'angular'
-import userModule from '../../../../../services/user/user'
-import {IPrimaryDropdownListElement} from '../../../../interface/dropdown-primary/dropdown-primary'
-import topAlertModule from '../../../../../services/top-alert/top-alert'
-import commonSettingsModule from '../../../../../services/common-settings/common-settings'
-import smoothScrollingModule from '../../../../../services/smooth-scrolling/smooth-scrolling'
-import {IWindowService} from '../../../../../services/window/window.service'
-import * as _ from 'lodash'
-import {CommonConfig} from '../../../../../../../../generated_modules/common-config/common-config'
-import checkboxModule from '../../../../interface/checkbox/checkbox'
-import inputModule from '../../../../interface/input/input'
-import chooseBankModule from '../../choose-bank/choose-bank'
-import {StateService} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import { CommonSettingsService } from '../../../../../services/common-settings/common-settings.service';
+import apiModule from 'profitelo-api-ng/api.module';
+import { PaymentsApi, AccountApi } from 'profitelo-api-ng/api/api';
+import { SmoothScrollingService } from '../../../../../services/smooth-scrolling/smooth-scrolling.service';
+import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
+import { UserService } from '../../../../../services/user/user.service';
+import * as angular from 'angular';
+import userModule from '../../../../../services/user/user';
+import { IPrimaryDropdownListElement } from '../../../../interface/dropdown-primary/dropdown-primary';
+import topAlertModule from '../../../../../services/top-alert/top-alert';
+import commonSettingsModule from '../../../../../services/common-settings/common-settings';
+import smoothScrollingModule from '../../../../../services/smooth-scrolling/smooth-scrolling';
+import { IWindowService } from '../../../../../services/window/window.service';
+import * as _ from 'lodash';
+import { CommonConfig } from '../../../../../../../../generated_modules/common-config/common-config';
+import checkboxModule from '../../../../interface/checkbox/checkbox';
+import inputModule from '../../../../interface/input/input';
+import chooseBankModule from '../../choose-bank/choose-bank';
+import { StateService } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: StateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
                                    CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
                                    CommonConfig: CommonConfig, $element: JQuery): void {
-  let isPending = false
-  this.isGetCompanyInfo = false
-  this.firstNameModel = ''
-  this.lastNameModel = ''
-  this.rulesAccepted = false
-  this.isRequired = true
-  this.showInvoiceForm = false
-  this.bankModel = void 0
+  let isPending = false;
+  this.isGetCompanyInfo = false;
+  this.firstNameModel = '';
+  this.lastNameModel = '';
+  this.rulesAccepted = false;
+  this.isRequired = true;
+  this.showInvoiceForm = false;
+  this.bankModel = void 0;
   this.countryList = [{
     name: 'Poland',
     value: 'PL'
-  }]
+  }];
   this.onEnter = (option: number): void => {
-    const lastOption: number = 3
+    const lastOption: number = 3;
     if (option < lastOption) {
-      $('[data-index="' + (option + 1).toString() + '"] input').focus()
+      $('[data-index="' + (option + 1).toString() + '"] input').focus();
     }
-  }
-  this.countryISO = ''
+  };
+  this.countryISO = '';
 
   this.onSelectCountry = (selectedCountry: IPrimaryDropdownListElement): void => {
-    this.countryISO = selectedCountry.value
-  }
+    this.countryISO = selectedCountry.value;
+  };
 
   this.scrollOnBankSelect = (): void => {
-    const personalDataElement: Element = $element.find('#personal-data')[0]
-    smoothScrollingService.simpleScrollTo(personalDataElement)
-  }
+    const personalDataElement: Element = $element.find('#personal-data')[0];
+    smoothScrollingService.simpleScrollTo(personalDataElement);
+  };
 
   // FIXME on new checkbox component
   $scope.$watch(() => this.showInvoiceForm, (newValue: boolean) => {
     if (newValue && !this.isGetCompanyInfo) {
       AccountApi.getCompanyPayoutInvoiceDetailsRoute().then((response) => {
-        this.vatNumber = response.vatNumber
-        this.companyName = response.companyName
-        this.address = response.address.address
-        this.postalCode = response.address.postalCode
-        this.city = response.address.city
-        this.isGetCompanyInfo = true
+        this.vatNumber = response.vatNumber;
+        this.companyName = response.companyName;
+        this.address = response.address.address;
+        this.postalCode = response.address.postalCode;
+        this.city = response.address.city;
+        this.isGetCompanyInfo = true;
         this.selectedCountry = _.find(
           this.countryList, (countryListElement: { value: string, name: string }) =>
-            countryListElement.value === response.address.countryISO)
-        this.countryISO = this.selectedCountry.value
+            countryListElement.value === response.address.countryISO);
+        this.countryISO = this.selectedCountry.value;
       }, (error) => {
         if (error.status === '404') {
-          this.isGetCompanyInfo = true
+          this.isGetCompanyInfo = true;
         } else {
-          throw new Error('Can not get company info: ' + String(error))
+          throw new Error('Can not get company info: ' + String(error));
         }
-      })
+      });
     }
-  })
+  });
 
   this.sendPayment = (): void => {
     if (isValid() && !isPending) {
@@ -92,9 +92,9 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         lastName: this.lastNameModel,
         firstName: this.firstNameModel,
         payMethodValue: this.bankModel,
-      }
+      };
 
-      isPending = true
+      isPending = true;
 
       if (this.showInvoiceForm) {
         AccountApi.postCompanyPayoutInvoiceDetailsRoute({
@@ -109,12 +109,12 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
             countryISO: this.countryISO,
           }
         }).then((_response) => {
-          sendPayuOrder()
+          sendPayuOrder();
 
         }, (error) => {
-          isPending = false
-          throw new Error('Can not post company info: ' + String(error))
-        })
+          isPending = false;
+          throw new Error('Can not post company info: ' + String(error));
+        });
       } else {
         // FIXME after company info optional fields fix
         AccountApi.postCompanyPayoutInvoiceDetailsRoute({
@@ -129,25 +129,25 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
             countryISO: 'PL',
           }
         }).then((_response) => {
-          sendPayuOrder()
+          sendPayuOrder();
 
         }, (error) => {
-          isPending = false
-          throw new Error('Can not post company info: ' + String(error))
-        })
+          isPending = false;
+          throw new Error('Can not post company info: ' + String(error));
+        });
       }
 
     }
-  }
+  };
 
   const isValid = (): boolean => {
     const _isModelBankExist = (): boolean => {
       if (!this.bankModel) {
-        smoothScrollingService.simpleScrollTo('#bankValid')
-        return false
+        smoothScrollingService.simpleScrollTo('#bankValid');
+        return false;
       } else if (!this.firstNameModel || !this.lastNameModel || !this.emailModel || !this.rulesAccepted) {
-        smoothScrollingService.simpleScrollTo('#personal-data')
-        return false
+        smoothScrollingService.simpleScrollTo('#personal-data');
+        return false;
       } else if (this.showInvoiceForm
         && (!this.selectedCountry
           || !this.vatNumber
@@ -155,64 +155,64 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
           || !this.address
           || !this.postalCode
           || !this.city)) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
-    }
+    };
     if (angular.isDefined(this.validAction)) {
-      return this.validAction() && _isModelBankExist()
+      return this.validAction() && _isModelBankExist();
     } else {
-      return _isModelBankExist()
+      return _isModelBankExist();
     }
-  }
+  };
 
   const sendPayuOrder = (): void => {
     PaymentsApi.postPayUOrderRoute(this.sendPaymentObject).then((response) => {
-      isPending = false
-      $window.open(response.redirectUrl, '_self', undefined, true)
+      isPending = false;
+      $window.open(response.redirectUrl, '_self', undefined, true);
     }, (error) => {
-      $log.error(error)
+      $log.error(error);
       topAlertService.error({
         message: 'error',
         timeout: 4
-      })
-      typeof this.onPayuOrder === 'function' ? this.onPayuOrder() : $state.go('app.dashboard.client.activities')
-    })
-  }
+      });
+      typeof this.onPayuOrder === 'function' ? this.onPayuOrder() : $state.go('app.dashboard.client.activities');
+    });
+  };
 
-  this.patternEmail = CommonSettingsService.localSettings.emailPattern
-  this.patternName = CommonSettingsService.localSettings.alphabetPattern
+  this.patternEmail = CommonSettingsService.localSettings.emailPattern;
+  this.patternName = CommonSettingsService.localSettings.alphabetPattern;
 
   this.$onInit = (): void => {
-    this.lastNameModel = ''
+    this.lastNameModel = '';
 
     if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
-      this.bankModel = this.amountMethodModal.payMethodValue
+      this.bankModel = this.amountMethodModal.payMethodValue;
     }
     userService.getUser().then(user => {
       if (angular.isDefined(this.amountMethodModal.firstName)) {
-        this.firstNameModel = this.amountMethodModal.firstName
+        this.firstNameModel = this.amountMethodModal.firstName;
       }
 
       if (angular.isDefined(this.amountMethodModal.lastName)) {
-        this.lastNameModel = this.amountMethodModal.lastName
+        this.lastNameModel = this.amountMethodModal.lastName;
       }
 
       if (angular.isDefined(this.amountMethodModal.email)) {
-        this.emailModel = this.amountMethodModal.email
+        this.emailModel = this.amountMethodModal.email;
       } else if (angular.isDefined(user.email) && user.email !== null) {
-        this.emailModel = user.email
+        this.emailModel = user.email;
       } else if (angular.isDefined(user.unverifiedEmail) && user.unverifiedEmail !== null) {
-        this.emailModel = user.unverifiedEmail
+        this.emailModel = user.unverifiedEmail;
       }
-    })
-  }
+    });
+  };
 
   this.checkIsEmailValid = (): boolean =>
-    this.patternEmail.test(this.emailModel)
+    this.patternEmail.test(this.emailModel);
 
-  return this
+  return this;
 }
 
 const payuPaymentForm = {
@@ -227,7 +227,7 @@ const payuPaymentForm = {
   controller: ['$log', '$window', '$state', 'PaymentsApi', 'userService', 'topAlertService', 'smoothScrollingService',
     'AccountApi', 'CommonSettingsService', '$scope', 'CommonConfig', '$element', payuPaymentFormController],
   controllerAs: '$ctrl'
-}
+};
 
 angular.module('profitelo.components.dashboard.charge-account.payment-method.payu', [
   apiModule,
@@ -241,4 +241,4 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   checkboxModule,
   inputModule
 ])
-  .component('payuPaymentForm', payuPaymentForm)
+  .component('payuPaymentForm', payuPaymentForm);

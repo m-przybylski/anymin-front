@@ -1,8 +1,8 @@
-import {RadioBtnTextareaComponentController} from './radio-btn-textarea.controller'
+import { RadioBtnTextareaComponentController } from './radio-btn-textarea.controller';
 
 export class RadioBtnTextareaComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = RadioBtnTextareaComponentController
-  template = require('./radio-btn-textarea.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = RadioBtnTextareaComponentController;
+  template = require('./radio-btn-textarea.html');
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
@@ -13,5 +13,5 @@ export class RadioBtnTextareaComponent implements ng.IComponentOptions {
     onSelectedItem: '<',
     onDescriptionCallback: '<',
     isTextarea: '<'
-  }
+  };
 }

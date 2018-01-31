@@ -1,17 +1,17 @@
-import {Tag, ExpertDetails, OrganizationDetails} from 'profitelo-api-ng/model/models'
-import {StateService} from '@uirouter/angularjs'
+import { Tag, ExpertDetails, OrganizationDetails } from 'profitelo-api-ng/model/models';
+import { StateService } from '@uirouter/angularjs';
 
 export interface IServiceProviderDefaultModel {
-  name: string
-  tags: Tag[]
-  cost: number
+  name: string;
+  tags: Tag[];
+  cost: number;
 }
 
 export interface IServiceProviderDefaultQueue {
-  amountOfSteps: number,
-  currentStep: number,
-  completedSteps: any,
-  skippedSteps: any
+  amountOfSteps: number;
+  currentStep: number;
+  completedSteps: any;
+  skippedSteps: any;
 }
 
 // TODO add types or remove this provider
@@ -40,9 +40,9 @@ export class ServiceProviderService {
 
   public backToFirstStep = (expertDetails?: ExpertDetails, organizationDetails?: OrganizationDetails): void => {
     if (expertDetails && !organizationDetails) {
-      this.$state.go('app.dashboard.service-provider.individual-path')
+      this.$state.go('app.dashboard.service-provider.individual-path');
     } else {
-      this.$state.go('app.dashboard.service-provider.company-path')
+      this.$state.go('app.dashboard.service-provider.company-path');
     }
   }
 }

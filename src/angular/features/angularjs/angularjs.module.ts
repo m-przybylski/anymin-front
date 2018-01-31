@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {AngularJsProvidersModule} from '../../upgrade/angularjs-providers.module';
-import {AngularJsComponent} from './angularjs.component';
-import {AngularJsRoutingModule} from './angularjs.routing.module';
+import { NgModule } from '@angular/core';
+import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
+import { AngularJsComponent } from './angularjs.component';
+import { AngularJsRoutingModule } from './angularjs.routing.module';
 
 @NgModule({
   declarations: [

@@ -1,11 +1,11 @@
-import {ViewsApi} from 'profitelo-api-ng/api/api'
+import { ViewsApi } from 'profitelo-api-ng/api/api';
 import {
   GetDashboardClientExperts, GetFavouriteProfile, GetLastConsultation
-} from 'profitelo-api-ng/model/models'
+} from 'profitelo-api-ng/model/models';
 
 interface IAppClientFavouritesResolverResponse {
-  favouriteProfiles: GetFavouriteProfile[],
-  lastConsultations: GetLastConsultation[]
+  favouriteProfiles: GetFavouriteProfile[];
+  lastConsultations: GetLastConsultation[];
 }
 
 export class ClientFavouritesResolver {

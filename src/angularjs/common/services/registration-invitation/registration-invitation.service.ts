@@ -1,5 +1,5 @@
-import {LocalStorageWrapper} from '../../classes/local-storage-wrapper/local-storage-wrapper'
-import {IInvitationObject} from '../../../app/invitations/invitation.interface'
+import { LocalStorageWrapper } from '../../classes/local-storage-wrapper/local-storage-wrapper';
+import { IInvitationObject } from '../../../app/invitations/invitation.interface';
 
 export class RegistrationInvitationService {
 
@@ -9,15 +9,15 @@ export class RegistrationInvitationService {
   }
 
   public getInvitationObject = (): IInvitationObject | undefined => {
-    const stringifyInvitationObject = LocalStorageWrapper.getItem('invitation')
+    const stringifyInvitationObject = LocalStorageWrapper.getItem('invitation');
 
     if (stringifyInvitationObject) {
       try {
-        return JSON.parse(stringifyInvitationObject)
+        return JSON.parse(stringifyInvitationObject);
       } catch (error) {
-        this.$log.error(error)
+        this.$log.error(error);
       }
     }
-    return undefined
+    return undefined;
   }
 }

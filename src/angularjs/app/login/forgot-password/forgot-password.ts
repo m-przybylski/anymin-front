@@ -1,25 +1,25 @@
-import * as angular from 'angular'
-import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
-import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import * as angular from 'angular';
+import { TopWaitingLoaderService } from '../../../common/services/top-waiting-loader/top-waiting-loader.service';
+import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 import {
   ILoginForgotPassword,
   ILoginForgotPasswordService
-} from '../../../common/resolvers/login-forgot-password/login-forgot-password.service'
-import apiModule from 'profitelo-api-ng/api.module'
-import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
-import commonSettingsModule from '../../../common/services/common-settings/common-settings'
-import sessionModule from '../../../common/services/session/session'
-import 'angularjs/common/resolvers/login-forgot-password/login-forgot-password.service'
-import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
-import inputModule from '../../../common/components/interface/input/input'
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
-import {LoginStateService} from '../../../common/services/login-state/login-state.service'
+} from '../../../common/resolvers/login-forgot-password/login-forgot-password.service';
+import apiModule from 'profitelo-api-ng/api.module';
+import { RecoverPasswordApi } from 'profitelo-api-ng/api/api';
+import commonSettingsModule from '../../../common/services/common-settings/common-settings';
+import sessionModule from '../../../common/services/session/session';
+import 'angularjs/common/resolvers/login-forgot-password/login-forgot-password.service';
+import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader';
+import inputModule from '../../../common/components/interface/input/input';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
+import { LoginStateService } from '../../../common/services/login-state/login-state.service';
 
-type method = 'sms' | 'email'
+type method = 'sms' | 'email';
 
 export interface IForgotPasswordStateParams {
-  method: method
+  method: method;
 }
 
 function ForgotPasswordController($state: StateService, account: ILoginForgotPassword,
@@ -28,51 +28,51 @@ function ForgotPasswordController($state: StateService, account: ILoginForgotPas
                                   CommonSettingsService: CommonSettingsService,
                                   loginStateService: LoginStateService): void {
 
-  const maxSmsCodeLength: number = 4
-  this.isNewCurrentPasswordChange = ''
-  this.isPending = false
-  this.account = account
-  this.smsCode = ''
-  this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
+  const maxSmsCodeLength: number = 4;
+  this.isNewCurrentPasswordChange = '';
+  this.isPending = false;
+  this.account = account;
+  this.smsCode = '';
+  this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern;
   this.phoneNumber = loginStateService.getAccountObject().phoneNumber.prefix +
-    loginStateService.getAccountObject().phoneNumber.number
+    loginStateService.getAccountObject().phoneNumber.number;
 
   this.forceSmsRecovery = (): void => {
-    $state.go('app.login.forgot-password', {method: 'sms'}, {reload: true})
-  }
+    $state.go('app.login.forgot-password', {method: 'sms'}, {reload: true});
+  };
 
   this.submitSmsVerificationCode = (): void => {
-    this.isNewCurrentPasswordChange = this.smsCode
-    this.serverError = false
+    this.isNewCurrentPasswordChange = this.smsCode;
+    this.serverError = false;
     if (!this.isPending) {
-      this.isPending = true
-      topWaitingLoaderService.immediate()
+      this.isPending = true;
+      topWaitingLoaderService.immediate();
       RecoverPasswordApi.postRecoverPasswordVerifyMsisdnRoute({
         token: String(this.smsCode),
         msisdn: String(account.accountObject.phoneNumber.prefix) + String(account.accountObject.phoneNumber.number)
       }).then(() => {
-        this.isPending = false
-        topWaitingLoaderService.stopLoader()
+        this.isPending = false;
+        topWaitingLoaderService.stopLoader();
         $state.go('app.login.set-new-password', {
           token: String(this.smsCode),
           method: 'sms'
-        })
+        });
       }, () => {
-        this.isPending = false
-        topWaitingLoaderService.stopLoader()
-        this.serverError = true
-      })
+        this.isPending = false;
+        topWaitingLoaderService.stopLoader();
+        this.serverError = true;
+      });
     }
 
-  }
+  };
 
   this.checkIsPasswordCorrected = (): boolean =>
-    this.isNewCurrentPasswordChange !== this.smsCode
+    this.isNewCurrentPasswordChange !== this.smsCode;
 
   this.checkIsButtonDisabled = (): boolean =>
-    this.smsCode.length < maxSmsCodeLength
+    this.smsCode.length < maxSmsCodeLength;
 
-  return this
+  return this;
 
 }
 
@@ -91,7 +91,7 @@ function config($stateProvider: StateProvider): void {
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.FORGOT_PASSWORD'
     }
-  })
+  });
 }
 
 angular.module('profitelo.controller.login.forgot-password', [
@@ -105,4 +105,4 @@ angular.module('profitelo.controller.login.forgot-password', [
 ])
   .config(['$stateProvider', config])
   .controller('ForgotPasswordController', ['$state', 'account', 'RecoverPasswordApi',
-    'topWaitingLoaderService', 'CommonSettingsService', 'loginStateService', ForgotPasswordController])
+    'topWaitingLoaderService', 'CommonSettingsService', 'loginStateService', ForgotPasswordController]);

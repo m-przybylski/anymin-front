@@ -1,26 +1,26 @@
-import {JValue, PutPayoutMethodDto} from 'profitelo-api-ng/model/models'
-import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {PayoutsModalService} from './payouts.service'
+import { JValue, PutPayoutMethodDto } from 'profitelo-api-ng/model/models';
+import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
+import { PayoutsModalService } from './payouts.service';
 
 export interface IPayoutsModalControllerScope extends ng.IScope {
-  onModalCloseCallback: () => void
+  onModalCloseCallback: () => void;
 }
 
 export class PayoutsModalController implements ng.IController {
-  public isPayoutBankMethod: boolean = false
-  public isPayoutPaypalMethod: boolean = false
-  public isLoading: boolean = false
-  public payPalEmail: string = ''
-  public bankAccountNumber: string = ''
-  public emailPattern = this.CommonSettingsService.localSettings.emailPattern
-  public bankAccountNumberPattern = this.CommonSettingsService.localSettings.bankAccountNumberPattern
-  public payoutMethod: string = ''
+  public isPayoutBankMethod: boolean = false;
+  public isPayoutPaypalMethod: boolean = false;
+  public isLoading: boolean = false;
+  public payPalEmail: string = '';
+  public bankAccountNumber: string = '';
+  public emailPattern = this.CommonSettingsService.localSettings.emailPattern;
+  public bankAccountNumberPattern = this.CommonSettingsService.localSettings.bankAccountNumberPattern;
+  public payoutMethod: string = '';
 
-  private onModalCloseCallback: () => void
+  private onModalCloseCallback: () => void;
   private static readonly payoutMethodId = {
     bankAccount: 'bankAccount',
     payPalAccount: 'paypalAccount'
-  }
+  };
 
   static $inject = ['$uibModalInstance', '$scope', 'CommonSettingsService', 'payoutsModalService'];
 
@@ -29,55 +29,55 @@ export class PayoutsModalController implements ng.IController {
               private CommonSettingsService: CommonSettingsService,
               private payoutsModalService: PayoutsModalService) {
 
-    this.onModalCloseCallback = this.$scope.onModalCloseCallback
+    this.onModalCloseCallback = this.$scope.onModalCloseCallback;
   }
 
-  public isPayPalEmailValid = (): boolean => this.payPalEmail !== '' && this.emailPattern.test(this.payPalEmail)
+  public isPayPalEmailValid = (): boolean => this.payPalEmail !== '' && this.emailPattern.test(this.payPalEmail);
 
   public isBankAccountNumberValid = (): boolean =>
     this.bankAccountNumber !== '' && this.bankAccountNumberPattern.test(this.bankAccountNumber)
 
   public addPayPalAccount = (): void => {
-    this.isLoading = true
+    this.isLoading = true;
     const payoutMethod: PutPayoutMethodDto = {
       payPalAccount: {
         email: this.payPalEmail
       }
-    }
+    };
     this.payoutsModalService.putPayoutMethod(payoutMethod)
-      .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError)
+      .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError);
   }
 
   public addBankAccount = (): void => {
-    this.isLoading = true
+    this.isLoading = true;
     const payoutMethod: PutPayoutMethodDto = {
       bankAccount: {
         accountNumber: this.bankAccountNumber
       }
-    }
+    };
     this.payoutsModalService.putPayoutMethod(payoutMethod)
-      .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError)
+      .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError);
   }
 
   public choosePayoutPaypalMethod = (): void => {
-    this.payoutMethod = PayoutsModalController.payoutMethodId.payPalAccount
+    this.payoutMethod = PayoutsModalController.payoutMethodId.payPalAccount;
   }
 
   public choosePayoutBankMethod = (): void => {
-    this.payoutMethod = PayoutsModalController.payoutMethodId.bankAccount
+    this.payoutMethod = PayoutsModalController.payoutMethodId.bankAccount;
   }
 
   public onModalClose = (): void => {
-    this.$uibModalInstance.dismiss('cancel')
+    this.$uibModalInstance.dismiss('cancel');
   }
 
   private onPutPayoutMethodSucceed = (_response: ng.IPromise<JValue>): void => {
-    this.onModalCloseCallback()
-    this.$uibModalInstance.dismiss('cancel')
+    this.onModalCloseCallback();
+    this.$uibModalInstance.dismiss('cancel');
   }
 
   private onPutPayoutMethodError = (): void => {
-    this.isLoading = false
+    this.isLoading = false;
   }
 
 }

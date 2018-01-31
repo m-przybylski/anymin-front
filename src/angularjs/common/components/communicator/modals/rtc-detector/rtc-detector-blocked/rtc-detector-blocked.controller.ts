@@ -1,15 +1,15 @@
-import {CommonSettingsService} from '../../../../../services/common-settings/common-settings.service'
+import { CommonSettingsService } from '../../../../../services/common-settings/common-settings.service';
 
 export interface IRtcDetectorBlockedModalControllerScope extends ng.IScope {
 }
 
 interface ITranslateHref {
-  hrefUrl: string
+  hrefUrl: string;
 }
 
 export class RtcDetectorBlockedModalController implements ng.IController {
-  public rtcBlockedTranslation: string = 'COMMUNICATOR.MODALS.RTC.BLOCKED.DESCRIPTION'
-  public rtcBlockedTranslationHref: ITranslateHref
+  public rtcBlockedTranslation: string = 'COMMUNICATOR.MODALS.RTC.BLOCKED.DESCRIPTION';
+  public rtcBlockedTranslationHref: ITranslateHref;
 
   static $inject = ['$uibModalInstance', 'CommonSettingsService'];
 
@@ -17,7 +17,7 @@ export class RtcDetectorBlockedModalController implements ng.IController {
               CommonSettingsService: CommonSettingsService) {
     this.rtcBlockedTranslationHref = {
       hrefUrl: CommonSettingsService.links.zendeskAllowMediaUrl
-    }
+    };
   }
 
   public onModalClose = (): void =>
