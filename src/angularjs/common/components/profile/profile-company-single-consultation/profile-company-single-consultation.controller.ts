@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user/user.service';
 import { PrecallService } from '../../communicator/precall-service/precall.service';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class ProfileCompanyConsultationComponentController implements IProfileCompanyConsultationComponentBindings {
 
   public organizationServiceDetails: GetOrganizationServiceDetails;
@@ -16,7 +17,7 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
   public usageCounter: number;
   public serviceName: string;
 
-  static $inject = ['precallService', 'userService', '$state'];
+  public static $inject = ['precallService', 'userService', '$state'];
 
     constructor(private precallService: PrecallService,
               private userService: UserService,
@@ -29,7 +30,7 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
       () => this.$state.go('app.login.account'));
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.price = this.organizationServiceDetails.service.price;
     this.rating = this.organizationServiceDetails.service.rating;
     this.usageCounter = this.organizationServiceDetails.service.usageCounter;

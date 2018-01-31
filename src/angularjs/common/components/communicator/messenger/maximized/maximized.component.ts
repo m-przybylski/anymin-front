@@ -1,9 +1,10 @@
 import { MessengerMaximizedComponentController } from './maximized.controller';
 
+// tslint:disable:member-ordering
 export class MessengerMaximizedComponent implements ng.IComponentOptions {
-  template = require('./maximized.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = MessengerMaximizedComponentController;
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./maximized.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = MessengerMaximizedComponentController;
+  public bindings: {[boundProperty: string]: string} = {
     callCost: '<',
     isMessenger: '<',
     minimizeMessenger: '<',

@@ -1,4 +1,5 @@
 import { CallSummary, ICallSummaryWebsocketObject } from '../../models/CallSummary';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { ProfiteloWebsocketService } from '../profitelo-websocket/profitelo-websocket.service';
 import { IExpertCallSummary } from '../../models/ExpertCallSummary';
@@ -6,13 +7,14 @@ import { IClientCallSummary } from '../../models/ClientCallSummary';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
+// tslint:disable:member-ordering
 export class CallSummaryService {
 
   private callSummaries: CallSummary[];
 
   private readonly onCallSummarySubject = new Subject<CallSummary>();
 
-  static $inject = ['profiteloWebsocket'];
+  public static $inject = ['profiteloWebsocket'];
 
   constructor(profiteloWebsocket: ProfiteloWebsocketService) {
 

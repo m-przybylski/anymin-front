@@ -1,3 +1,5 @@
+// tslint:disable:member-ordering
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { GetActivityFilters, ServiceFilter, ExpertFilter, FinancialOperation } from 'profitelo-api-ng/model/models';
 import { IDashboardFiltersComponentBindings } from './filters';
@@ -17,6 +19,7 @@ export interface IDashboardFiltersComponentScope extends ng.IScope {
   onSetSearchParams: () => void;
 }
 
+// tslint:disable:member-ordering
 export class DashboardFiltersComponentController implements IDashboardFiltersComponentBindings {
 
   public onSetSearchParams: (queryParams: ActivitiesQueryParams) => void;
@@ -41,7 +44,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     dateFrom: ''
   };
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.activityTypesList = this.filters.activityTypes.map((type: string) =>
       ({
         name: this.translatorService.translate('DASHBOARD.FILTERS.' + type),
@@ -64,7 +67,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     });
   }
 
-  static $inject = ['translatorService', '$scope', 'userService'];
+  public static $inject = ['translatorService', '$scope', 'userService'];
 
   constructor(private translatorService: TranslatorService,
               $scope: IDashboardFiltersComponentScope,

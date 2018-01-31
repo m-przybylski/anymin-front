@@ -3,6 +3,7 @@ import { UploaderFactory } from '../../services/uploader/uploader.factory';
 import { UploaderService } from '../../services/uploader/uploader.service';
 import { FilesApi } from 'profitelo-api-ng/api/api';
 import { PostFileDetails, FileInfo } from 'profitelo-api-ng/model/models';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { FileCategoryEnum, FileTypeChecker } from '../../classes/file-type-checker/file-type-checker';
 import { TranslatorService } from '../../services/translator/translator.service';
@@ -20,6 +21,7 @@ export interface IDocumentFile {
   isUploadFailed: boolean;
 }
 
+// tslint:disable:member-ordering
 export class FileUploaderComponentController implements IFileUploaderModuleComponentBindings {
 
   public documentFiles: IDocumentFile[] = [];
@@ -38,9 +40,10 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
   private errorDisplayTime: number = 5000;
   private maxDocumentsCount: number;
 
-  static $inject = ['$log', 'FilesApi', 'translatorService', '$timeout', 'CommonSettingsService', 'uploaderFactory'];
+  public static $inject = ['$log', 'FilesApi', 'translatorService', '$timeout', 'CommonSettingsService',
+    'uploaderFactory'];
 
-    constructor(private $log: ng.ILogService,
+  constructor(private $log: ng.ILogService,
               private FilesApi: FilesApi,
               private translatorService: TranslatorService,
               private $timeout: ng.ITimeoutService,
@@ -54,7 +57,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
     this.isValidCallback(uploadingStatus);
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.tokenList.forEach((token) => {
       this.FilesApi.fileInfoPath(token).then((response) => {
         const documentObject = {

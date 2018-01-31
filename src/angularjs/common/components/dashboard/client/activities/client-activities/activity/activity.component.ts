@@ -1,10 +1,11 @@
 import { ClientActivityComponentController } from './activity.controller';
 
+// tslint:disable:member-ordering
 export class ClientActivityComponent implements ng.IComponentOptions {
-  template = require('./activity.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController;
-  controllerAs: string = '$ctrl';
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./activity.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController;
+  public controllerAs: string = '$ctrl';
+  public bindings: {[boundProperty: string]: string} = {
     activity: '<'
   };
 }

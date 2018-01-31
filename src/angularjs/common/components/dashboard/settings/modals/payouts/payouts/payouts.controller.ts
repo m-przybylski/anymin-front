@@ -6,6 +6,7 @@ export interface IPayoutsModalControllerScope extends ng.IScope {
   onModalCloseCallback: () => void;
 }
 
+// tslint:disable:member-ordering
 export class PayoutsModalController implements ng.IController {
   public isPayoutBankMethod: boolean = false;
   public isPayoutPaypalMethod: boolean = false;
@@ -22,7 +23,7 @@ export class PayoutsModalController implements ng.IController {
     payPalAccount: 'paypalAccount'
   };
 
-  static $inject = ['$uibModalInstance', '$scope', 'CommonSettingsService', 'payoutsModalService'];
+  public static $inject = ['$uibModalInstance', '$scope', 'CommonSettingsService', 'payoutsModalService'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IPayoutsModalControllerScope,

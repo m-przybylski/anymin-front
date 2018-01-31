@@ -1,7 +1,8 @@
 import { InvoiceCompanyFormComponentController } from './invoice-company.controller';
 
+// tslint:disable:member-ordering
 export class InvoiceCompanyFormComponent implements ng.IComponentOptions {
-  controllerAs: '$ctrl';
-  controller: ng.Injectable<ng.IControllerConstructor> = InvoiceCompanyFormComponentController;
-  template = require('./invoice-company.html');
+  public controllerAs: '$ctrl';
+  public controller: ng.Injectable<ng.IControllerConstructor> = InvoiceCompanyFormComponentController;
+  public template = require('./invoice-company.html');
 }

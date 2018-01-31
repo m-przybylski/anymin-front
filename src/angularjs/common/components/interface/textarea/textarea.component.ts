@@ -1,9 +1,10 @@
 import { TextareaComponentController } from './textarea.controller';
 
+// tslint:disable:member-ordering
 export class InputComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = TextareaComponentController;
-  template = require('./textarea.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = TextareaComponentController;
+  public template = require('./textarea.html');
+  public bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
     inputText: '@',

@@ -11,9 +11,10 @@ import { Config } from '../../../../config';
 import { IRootScopeService } from '../../services/root-scope/root-scope.service';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class LoginConfirmEmailResolver {
 
-  static $inject = ['$q', '$rootScope', '$timeout', 'translatorService', '$state', 'topAlertService',
+  public static $inject = ['$q', '$rootScope', '$timeout', 'translatorService', '$state', 'topAlertService',
     'sessionServiceWrapper', 'AccountApi'];
 
   constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,

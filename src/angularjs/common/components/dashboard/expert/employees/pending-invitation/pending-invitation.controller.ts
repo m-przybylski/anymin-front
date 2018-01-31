@@ -10,6 +10,7 @@ export interface IPendingInvitationComponentControllerScope extends ng.IScope {
   onDeleteCallback: () => void;
 }
 
+// tslint:disable:member-ordering
 export class PendingInvitationComponentController implements IPendingInvitationComponentBindings {
 
   public invitations: GetInvitation[] = [];
@@ -22,7 +23,7 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   private static readonly minRangeOfFewInvitations: number = 2;
   private static readonly maxRangeOfFewInvitations: number = 4;
 
-  static $inject = ['InvitationApi', 'errorHandler', 'topAlertService', 'translatorService'];
+  public static $inject = ['InvitationApi', 'errorHandler', 'topAlertService', 'translatorService'];
 
     constructor(
     private InvitationApi: InvitationApi,
@@ -31,7 +32,7 @@ export class PendingInvitationComponentController implements IPendingInvitationC
               private translatorService: TranslatorService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.invitationsCount = this.invitations.length;
     if (this.invitations[0].email !== undefined) {
       this.emailOrMsisdn = this.invitations[0].email;

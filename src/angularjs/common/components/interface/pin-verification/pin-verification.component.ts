@@ -1,10 +1,11 @@
 import { PinVerificationComponentController } from './pin-verification.controller';
 
+// tslint:disable:member-ordering
 export class PinVerificationComponent implements ng.IComponentOptions {
 
-  controller: ng.Injectable<ng.IControllerConstructor> = PinVerificationComponentController;
-  template = require('./pin-verification.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = PinVerificationComponentController;
+  public template = require('./pin-verification.html');
+  public bindings: {[boundProperty: string]: string} = {
     onSendPinAgain: '<',
     onCompletePinInputs: '<'
   };

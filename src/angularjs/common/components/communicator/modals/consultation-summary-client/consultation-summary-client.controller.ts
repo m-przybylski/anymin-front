@@ -33,6 +33,7 @@ interface ITechnicalProblem {
   name: string;
 }
 
+// tslint:disable:member-ordering
 export class ConsultationSummaryClientController implements ng.IController {
   public tags: Tag[];
   public technicalProblems: ITechnicalProblem[];
@@ -51,7 +52,7 @@ export class ConsultationSummaryClientController implements ng.IController {
   private isSendButtonClicked: boolean = false;
   private isTechnicalProblemsTab: boolean = true;
 
-  static $inject = ['$log', '$scope', '$uibModalInstance', 'callSummaryService', 'translatorService',
+  public static $inject = ['$log', '$scope', '$uibModalInstance', 'callSummaryService', 'translatorService',
     'ServiceApi', 'errorHandler'];
 
   constructor(private $log: ng.ILogService,

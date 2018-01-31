@@ -1,10 +1,10 @@
+// tslint:disable:member-ordering
 export class SmoothScrollingService {
 
+  public static $inject = ['$timeout'];
   private static readonly dividerOnHalf: number = 2;
 
-  static $inject = ['$timeout'];
-
-    constructor(private $timeout: ng.ITimeoutService) {
+  constructor(private $timeout: ng.ITimeoutService) {
   }
 
   public scrollTo = (eID: string): void => {

@@ -3,15 +3,16 @@ import { PaymentsApi } from 'profitelo-api-ng/api/api';
 import { PostPayment, PaymentLink } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class PayPalPaymentFormComponentController implements ng.IController, IPayPalPaymentFormComponentBindings {
 
-  paymentCountryId: string;
-  paymentsLinks: PaymentLink[];
-  amountMethodModal: any;
-  postPayment: PostPayment;
-  onAuthorize: () => void;
+  public paymentCountryId: string;
+  public paymentsLinks: PaymentLink[];
+  public amountMethodModal: any;
+  public postPayment: PostPayment;
+  public onAuthorize: () => void;
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.postPayment = {
       amount: this.amountMethodModal.amountModel.cashAmount,
       paymentCountryId: this.paymentCountryId,
@@ -20,7 +21,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
     };
   }
 
-  static $inject = ['paypalFactory', 'PaymentsApi', '$state'];
+  public static $inject = ['paypalFactory', 'PaymentsApi', '$state'];
 
     constructor(private paypalFactory: any, private PaymentsApi: PaymentsApi,
               $state: StateService) {

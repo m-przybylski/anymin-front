@@ -9,16 +9,17 @@ export interface ITransaction {
   paymentSystemId: string;
 }
 
+// tslint:disable:member-ordering
 export class CardPaymentFormComponentController implements ng.IController, ICardPaymentFormComponentBindings {
-  isInvoice: boolean;
-  onBraintreeFormLoad: boolean;
-  paymentCountryId: string;
-  transaction: ITransaction;
-  paymentsLinks: PaymentLink[];
-  amountMethodModal: any;
-  onCardPayment: () => void;
+  public isInvoice: boolean;
+  public onBraintreeFormLoad: boolean;
+  public paymentCountryId: string;
+  public transaction: ITransaction;
+  public paymentsLinks: PaymentLink[];
+  public amountMethodModal: any;
+  public onCardPayment: () => void;
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.transaction = {
       amount: this.amountMethodModal.amountModel.cashAmount,
       paymentCountryId: this.paymentCountryId,
@@ -26,7 +27,7 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
       paymentSystemId: this.amountMethodModal.paymentSystemModel.id
     };
   }
-  static $inject = ['$state'];
+  public static $inject = ['$state'];
 
     constructor(private $state: StateService) {
     this.isInvoice = false;

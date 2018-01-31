@@ -5,6 +5,7 @@ interface IValueLengthScope extends ng.IScope {
   inputValue: string;
 }
 
+// tslint:disable:member-ordering
 class ValueLength implements ng.IDirective<ng.IScope> {
 
   public restrict: string = 'A';
@@ -13,7 +14,7 @@ class ValueLength implements ng.IDirective<ng.IScope> {
     inputValue: '=?'
   };
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

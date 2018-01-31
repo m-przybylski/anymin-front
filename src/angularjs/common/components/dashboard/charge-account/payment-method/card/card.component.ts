@@ -9,11 +9,12 @@ export interface ICardPaymentFormComponentBindings {
   onCardPayment: () => void;
 }
 
+// tslint:disable:member-ordering
 export class CardPaymentFormComponent implements ng.IComponentOptions {
-  controllerAs: '$ctrl';
-  controller: ng.Injectable<ng.IControllerConstructor> = CardPaymentFormComponentController;
-  template = require('./card.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controllerAs: '$ctrl';
+  public controller: ng.Injectable<ng.IControllerConstructor> = CardPaymentFormComponentController;
+  public template = require('./card.html');
+  public bindings: {[boundProperty: string]: string} = {
     paymentsLinks: '<',
     amountMethodModal: '<',
     paymentCountryId: '<',

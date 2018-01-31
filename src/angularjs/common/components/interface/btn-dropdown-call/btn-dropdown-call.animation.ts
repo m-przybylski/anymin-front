@@ -1,6 +1,7 @@
+// tslint:disable:member-ordering
 export class BtnDropdownCallAnimation {
 
-  static $inject = ['$animateCss'];
+  public static $inject = ['$animateCss'];
 
     constructor(private $animateCss: ng.animate.IAnimateCssService) {}
 

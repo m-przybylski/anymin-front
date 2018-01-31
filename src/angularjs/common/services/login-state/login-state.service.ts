@@ -9,12 +9,13 @@ export interface IAccount {
   password: string;
 }
 
+// tslint:disable:member-ordering
 export class LoginStateService {
 
   private account: any = null;
   private emptyAccount: any = null;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.account = {

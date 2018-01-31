@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
 export interface ITopAlertSettings {
@@ -11,13 +12,14 @@ export interface ITopAlertSettings {
   visible?: boolean;
 }
 
+// tslint:disable:member-ordering
 export class TopAlertService {
 
   private alertArray: ITopAlertSettings[] = [];
   private defaultOptions = {};
   private alertsLimit = 2;
 
-  static $inject = ['$timeout'];
+  public static $inject = ['$timeout'];
 
     constructor(private $timeout: ng.ITimeoutService) {
   }

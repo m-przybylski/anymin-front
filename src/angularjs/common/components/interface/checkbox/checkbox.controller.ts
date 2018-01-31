@@ -1,5 +1,6 @@
 import { ICheckboxComponentBindings } from './checkbox';
 
+// tslint:disable:member-ordering
 export class CheckboxComponentController implements ICheckboxComponentBindings {
   public inputText: string = '';
   public additionalText: string = '';
@@ -11,7 +12,7 @@ export class CheckboxComponentController implements ICheckboxComponentBindings {
   public ngRequired: boolean = false;
   public onChange?: () => void;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 

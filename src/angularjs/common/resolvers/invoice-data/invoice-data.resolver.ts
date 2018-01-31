@@ -9,8 +9,9 @@ export interface IInvoiceDataResolver {
   resolveCompanyInfo: () => ng.IPromise<void | GetCompanyInvoiceDetails>;
 }
 
+// tslint:disable:member-ordering
 export class InvoiceDataResolver implements IInvoiceDataResolver {
-  static $inject = ['AccountApi', '$log'];
+  public static $inject = ['AccountApi', '$log'];
 
   constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }

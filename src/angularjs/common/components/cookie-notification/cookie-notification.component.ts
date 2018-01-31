@@ -1,6 +1,7 @@
 import { CookieNotificationComponentController } from './cookie-notification.controller';
+// tslint:disable:member-ordering
 export class CookieNotificationComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = CookieNotificationComponentController;
-  template = require('./cookie-notification.html');
-  bindings: {[boundProperty: string]: string} = {};
+  public controller: ng.Injectable<ng.IControllerConstructor> = CookieNotificationComponentController;
+  public template = require('./cookie-notification.html');
+  public bindings: {[boundProperty: string]: string} = {};
 }

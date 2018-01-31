@@ -2,6 +2,7 @@ import { SearchService } from '../../services/search/search.service';
 import { keyboardCodes } from '../../classes/keyboard';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class SearchDropdownController {
 
   public suggestions: string[] = [];
@@ -13,7 +14,7 @@ export class SearchDropdownController {
   private dropdownSelectedItem: JQuery;
   private selectedItemIndex: number = 0;
 
-  static $inject = ['$state', 'searchService', '$element', '$document', '$scope', '$log'];
+  public static $inject = ['$state', 'searchService', '$element', '$document', '$scope', '$log'];
 
     constructor(private $state: StateService,
               private searchService: SearchService,
@@ -23,7 +24,7 @@ export class SearchDropdownController {
               private $log: ng.ILogService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.dropdown = this.$element.find('.suggestion-list');
 
     this.$document.bind('click', (event) => {
@@ -34,6 +35,7 @@ export class SearchDropdownController {
       }
     });
 
+    // tslint:disable-next-line:cyclomatic-complexity
     this.$element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode;
       switch (keyCode) {
@@ -66,7 +68,7 @@ export class SearchDropdownController {
     });
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.$element.unbind('keydown keypress');
     this.$document.unbind('click');
     this.dropdown.unbind('mouseover');

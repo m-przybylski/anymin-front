@@ -5,6 +5,7 @@ import { TopAlertService } from '../../../../common/services/top-alert/top-alert
 import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { PayoutsService } from './payouts.service';
 
+// tslint:disable:member-ordering
 export class DashboardSettingsPayoutsController implements ng.IController {
   public isAnyPayoutMethod: boolean = false;
   public isLoading: boolean;
@@ -13,14 +14,14 @@ export class DashboardSettingsPayoutsController implements ng.IController {
   public bankAccountNumber?: string;
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['modalsService', 'translatorService', 'payoutsService', 'topAlertService'];
+  public static $inject = ['modalsService', 'translatorService', 'payoutsService', 'topAlertService'];
 
     constructor(private modalsService: ModalsService,
               private translatorService: TranslatorService,
               private payoutsService: PayoutsService,
               private topAlertService: TopAlertService) {}
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.getPayoutMethods();
   }
 

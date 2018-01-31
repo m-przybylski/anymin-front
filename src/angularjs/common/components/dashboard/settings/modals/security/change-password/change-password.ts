@@ -14,6 +14,7 @@ import { httpCodes } from '../../../../../../classes/http-codes';
 export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
 }
 
+// tslint:disable:member-ordering
 export class SecurityChangePasswordSettingsController implements ng.IController {
 
   public patternPassword = this.CommonSettingsService.localSettings.passwordPattern;
@@ -62,7 +63,7 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
   public checkIsNewEnteredPasswordCorrect = (): boolean =>
     this.enteredPassword !== this.newPassword && this.patternPassword.test(this.newPassword)
 
-  static $inject = ['$uibModalInstance', 'CommonSettingsService', 'AccountApi', 'passwordStrengthService'];
+  public static $inject = ['$uibModalInstance', 'CommonSettingsService', 'AccountApi', 'passwordStrengthService'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private CommonSettingsService: CommonSettingsService,

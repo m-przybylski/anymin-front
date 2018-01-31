@@ -1,5 +1,7 @@
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { PaymentLink } from 'profitelo-api-ng/model/models';
+// tslint:disable:member-ordering
 export class ChooseBankComponentController implements ng.IController {
 
   public activeOptionIndex: number;
@@ -7,12 +9,12 @@ export class ChooseBankComponentController implements ng.IController {
   public paymentsLinks: PaymentLink[];
   public onBankSelect: () => void;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (!!this.bankModel && this.bankModel.length > 0) {
       this.activeOptionIndex = _.findIndex(this.paymentsLinks, (link) => link.value === this.bankModel);
     }

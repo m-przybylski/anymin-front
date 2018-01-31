@@ -1,3 +1,5 @@
+// tslint:disable:member-ordering
+// tslint:disable:max-file-line-count
 import { TimerService } from '../../../services/timer/timer.service';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetService, MoneyDto, RatelCallDetails, ServiceUsageEvent } from 'profitelo-api-ng/model/models';
@@ -8,8 +10,9 @@ import { StreamManager } from '../../../classes/stream-manager';
 import { MessageRoom } from './message-room';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { CallActiveDevice } from 'ratel-sdk-js/dist/protocol/wire-events';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, Connected, LoggerService } from '@anymind-ng/core';
@@ -24,6 +27,7 @@ export enum CallState {
   ENDED
 }
 
+// tslint:disable:member-ordering
 export class CurrentCall {
 
   private timer: TimerService;
@@ -59,7 +63,7 @@ export class CurrentCall {
     onSuspendedCallEnd: new Subject<void>(),
   };
 
-  static $inject = ['soundsService', 'ratelCall', 'timerFactory', 'service', 'sue', 'communicatorService',
+  public static $inject = ['soundsService', 'ratelCall', 'timerFactory', 'service', 'sue', 'communicatorService',
     'RatelApi', 'microphoneService'];
 
   constructor(soundsService: SoundsService,

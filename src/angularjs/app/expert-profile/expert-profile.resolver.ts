@@ -1,12 +1,14 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IExpertProfileStateParams } from './expert-profile';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { GetExpertProfile, GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
 
+// tslint:disable:member-ordering
 export class ExpertProfileResolver {
 
-  static $inject = ['$q', 'ViewsApi'];
+  public static $inject = ['$q', 'ViewsApi'];
 
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }

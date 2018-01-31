@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import apiModule from 'profitelo-api-ng/api.module';
 import { FilesApi } from 'profitelo-api-ng/api/api';

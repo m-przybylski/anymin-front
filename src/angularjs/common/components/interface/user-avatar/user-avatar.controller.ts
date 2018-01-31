@@ -1,12 +1,13 @@
 import { UrlService } from '../../../services/url/url.service';
 import { IUserAvatarComponentBindings } from './user-avatar';
 
+// tslint:disable:member-ordering
 export class UserAvatarComponentController implements IUserAvatarComponentBindings {
 
   public imageToken?: string;
   public profileImageUrl: string;
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.imageToken) {
       this.profileImageUrl = this.urlService.resolveFileUrl(this.imageToken);
     } else {
@@ -14,7 +15,7 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     }
   }
 
-  $onChanges = (): void => {
+  public $onChanges = (): void => {
     if (this.imageToken) {
       this.profileImageUrl = this.urlService.resolveFileUrl(this.imageToken);
     } else {
@@ -22,7 +23,7 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     }
   }
 
-  static $inject = ['urlService'];
+  public static $inject = ['urlService'];
 
     constructor(private urlService: UrlService) {
   }

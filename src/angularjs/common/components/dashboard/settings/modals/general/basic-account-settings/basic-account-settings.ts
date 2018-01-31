@@ -26,6 +26,7 @@ export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
   callback: (cb: () => void) => void;
 }
 
+// tslint:disable:member-ordering
 export interface IBasicAccountSettingsControllerScope extends ng.IScope {
   isNavbar: boolean;
   isFullscreen: boolean;
@@ -55,6 +56,7 @@ interface ISaveCrop {
   zoom: number;
 }
 
+// tslint:disable:member-ordering
 export class BasicAccountSettingsController implements ng.IController {
 
   public isFileFormatValidError: boolean = false;
@@ -66,7 +68,7 @@ export class BasicAccountSettingsController implements ng.IController {
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
   private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize;
 
-  static $inject = ['$scope', 'AccountApi', 'CommonSettingsService', 'errorHandler', '$uibModalInstance',
+  public static $inject = ['$scope', 'AccountApi', 'CommonSettingsService', 'errorHandler', '$uibModalInstance',
     'userService', 'uploaderFactory', 'urlService'];
 
     constructor(private $scope: IBasicAccountSettingsControllerScope,

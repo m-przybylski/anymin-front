@@ -1,7 +1,8 @@
 import { ActiveCallBarComponentController } from './active-call-bar.controller';
+// tslint:disable:member-ordering
 export class ActiveCallBarComponent implements ng.IComponentOptions {
-  template = require('./active-call-bar.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = ActiveCallBarComponentController;
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./active-call-bar.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = ActiveCallBarComponentController;
+  public bindings: {[boundProperty: string]: string} = {
   };
 }

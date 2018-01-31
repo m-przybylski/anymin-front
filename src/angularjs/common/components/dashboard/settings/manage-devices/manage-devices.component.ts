@@ -1,10 +1,11 @@
 import { ManageDevicesComponentController } from './manage-devices.controller';
 
+// tslint:disable:member-ordering
 export class ManageDevicesComponent implements ng.IComponentOptions {
-  controllerAs: '$ctrl';
-  controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController;
-  template = require('./manage-devices.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controllerAs: '$ctrl';
+  public controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController;
+  public template = require('./manage-devices.html');
+  public bindings: {[boundProperty: string]: string} = {
     device: '@',
     apiKey: '<',
     onDeviceRemove: '<',

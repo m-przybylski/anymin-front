@@ -15,6 +15,7 @@ import 'angularjs/common/components/dashboard/charge-account/payment-method/payp
 import 'angularjs/common/components/dashboard/charge-account/payment-method/card/card';
 import 'angularjs/common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge';
 import 'angularjs/common/components/dashboard/charge-account/payment-method/payment-method';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { SmoothScrollingService } from '../../../common/services/smooth-scrolling/smooth-scrolling.service';
 import { keyboardCodes } from '../../../common/classes/keyboard';
@@ -44,27 +45,29 @@ export interface IGetLastPayment {
   paymentSystemId: string;
 }
 
+// tslint:disable:member-ordering
 export class ChargeAccountController implements ng.IController {
 
-  isNavbar = true;
-  isFullscreen = true;
-  isCreditCard = false;
-  isChargeProfiteloAccount = false;
-  isPaymentCardMethod = false;
-  isBraintreeFormLoaded = false;
-  queue = null;
-  amountModel: IAmountModel = {
+  public static $inject = ['$uibModalInstance', '$state', '$timeout', '$window', 'smoothScrollingService', '$scope'];
+  public isNavbar = true;
+  public isFullscreen = true;
+  public isCreditCard = false;
+  public isChargeProfiteloAccount = false;
+  public isPaymentCardMethod = false;
+  public isBraintreeFormLoaded = false;
+  public queue = null;
+  public amountModel: IAmountModel = {
     cashAmount: null,
     amount: null
   };
-  paymentCountryId: string;
-  amounts: IAmounts;
-  currentSection: number;
-  clientBalance?: MoneyDto;
-  lastPayment?: IGetLastPayment;
-  paymentSystems: PaymentSystem[];
-  paymentsLinks?: PaymentLink[];
-  amountMethodModal: {
+  public paymentCountryId: string;
+  public amounts: IAmounts;
+  public currentSection: number;
+  public clientBalance?: MoneyDto;
+  public lastPayment?: IGetLastPayment;
+  public paymentSystems: PaymentSystem[];
+  public paymentsLinks?: PaymentLink[];
+  public amountMethodModal: {
     amountModel: {
       cashAmount: null | MoneyDto,
       amount: null | MoneyDto
@@ -76,10 +79,26 @@ export class ChargeAccountController implements ng.IController {
     email?: string,
     payMethodValue?: string
   };
-  lastChargeAccountSectionID: number = 3;
+  public lastChargeAccountSectionID: number = 3;
 
-  currentState?: string;
-  $onInit(): void {
+  public currentState?: string;
+
+  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
+              private $state: StateService,
+              private $timeout: ng.ITimeoutService,
+              private $window: ng.IWindowService,
+              private smoothScrollingService: SmoothScrollingService,
+              private $scope: IChargeAccountScope) {
+
+    angular.element(this.$window).keydown((event) => {
+      if (event.keyCode === keyboardCodes.escape) {
+        this.onModalClose();
+      }
+    });
+  }
+
+  // tslint:disable-next-line:cyclomatic-complexity
+  public $onInit(): void {
     this.currentState = this.$scope.currentState;
 
       const paymentsOptions = this.$scope.paymentsOptions;
@@ -127,23 +146,7 @@ export class ChargeAccountController implements ng.IController {
       }
   }
 
-  static $inject = ['$uibModalInstance', '$state', '$timeout', '$window', 'smoothScrollingService', '$scope'];
-
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
-              private $state: StateService,
-              private $timeout: ng.ITimeoutService,
-              private $window: ng.IWindowService,
-              private smoothScrollingService: SmoothScrollingService,
-              private $scope: IChargeAccountScope) {
-
-    angular.element(this.$window).keydown((event) => {
-      if (event.keyCode === keyboardCodes.escape) {
-        this.onModalClose();
-      }
-    });
-  }
-
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     angular.element(this.$window).keydown('keydown');
   }
 

@@ -1,15 +1,15 @@
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 
+// tslint:disable:member-ordering
 export class TimerService {
 
+  public static $inject = ['$interval', 'money', 'freeMinutesCount', 'interval'];
   private static readonly milisecondsInSecond: number = 1000;
   private static readonly secondsInMinute: number = 60;
   private timer: ng.IPromise<any>;
   private startTime: number;
   private isPaused: boolean = false;
   private pausedTime: number;
-
-  static $inject = ['$interval', 'money', 'freeMinutesCount', 'interval'];
 
   constructor(private $interval: ng.IIntervalService, private money: MoneyDto,
               private interval: number) {

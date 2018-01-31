@@ -8,14 +8,15 @@ export interface IPaymentMethodComponentBindings {
   scrollHandler: (_arg?: number) => void;
 }
 
+// tslint:disable:member-ordering
 export class PaymentMethodComponent implements ng.IComponentOptions {
-  template = require('./payment-method.html');
-  bindings = {
+  public template = require('./payment-method.html');
+  public bindings = {
     title: '@',
     paymentSystems: '<',
     paymentSystemModel: '=?',
     scrollHandler: '<',
     lastPayment: '<'
   };
-  controller = PaymentMethodComponentController;
+  public controller = PaymentMethodComponentController;
 }

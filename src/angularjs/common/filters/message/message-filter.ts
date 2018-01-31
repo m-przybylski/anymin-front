@@ -1,5 +1,6 @@
 import { Message } from 'ratel-sdk-js';
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { UrlService } from '../../services/url/url.service';
 
@@ -26,6 +27,7 @@ import { UrlService } from '../../services/url/url.service';
     const createRegexpFromUrl = (url: string): RegExp =>
       new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g');
 
+    // tslint:disable-next-line:cyclomatic-complexity
     const handleMessage = (message: Message): string => {
       const messageContext = message.context;
       const messageUrls = getUrls(messageContext.content);

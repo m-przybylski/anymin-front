@@ -2,11 +2,12 @@ import * as ng from 'angular';
 
 type EventName = 'login' | 'logout' | 'remote-session-deleted' | 'wizard-complete';
 
+// tslint:disable:member-ordering
 export class EventsService {
 
-  private eventScope: ng.IScope;
+  public static $inject = ['$rootScope'];
 
-  static $inject = ['$rootScope'];
+  private eventScope: ng.IScope;
 
     constructor($rootScope: ng.IRootScopeService) {
     this.eventScope = $rootScope.$new();

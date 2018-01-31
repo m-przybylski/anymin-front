@@ -1,21 +1,23 @@
 import { PaymentSystem, GetLastPayment } from 'profitelo-api-ng/model/models';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IPaymentMethodComponentBindings } from './payment-method.component';
 
+// tslint:disable:member-ordering
 export class PaymentMethodComponentController implements IPaymentMethodComponentBindings, ng.IController {
-  title: string;
-  paymentSystems: PaymentSystem[];
-  paymentSystemModel: PaymentSystem;
-  scrollHandler: (arg?: number) => void;
-  activeOption: number | null = null;
-  firstSelect = false;
-  lastPayment: GetLastPayment;
-  static $inject = [];
+  public title: string;
+  public paymentSystems: PaymentSystem[];
+  public paymentSystemModel: PaymentSystem;
+  public scrollHandler: (arg?: number) => void;
+  public activeOption: number | null = null;
+  public firstSelect = false;
+  public lastPayment: GetLastPayment;
+  public static $inject = [];
 
   constructor() {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.lastPayment && this.paymentSystemModel !== null) {
       this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) =>
                                         paymentSystem.id === this.lastPayment.paymentSystemId);

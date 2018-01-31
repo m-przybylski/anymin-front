@@ -1,9 +1,10 @@
 import { LocalStorageWrapper } from '../../classes/local-storage-wrapper/local-storage-wrapper';
 import { IInvitationObject } from '../../../app/invitations/invitation.interface';
 
+// tslint:disable:member-ordering
 export class RegistrationInvitationService {
 
-  static $inject = ['$log'];
+  public static $inject = ['$log'];
 
     constructor(private $log: ng.ILogService) {
   }

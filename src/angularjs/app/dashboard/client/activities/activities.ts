@@ -20,7 +20,15 @@ import { ErrorHandlerService } from '../../../../common/services/error-handler/e
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class DashboardClientActivitiesController {
+
+  public static $inject = ['dashboardActivitiesService', 'promiseService', '$state', 'errorHandler', 'filtersData',
+    '$timeout'];
+
+  private static readonly queryLimit: number = 10;
+  private static readonly timeoutDelay: number = 400;
+  private static readonly promiseLoaderDelay = 500;
 
   public balance: MoneyDto;
   public activities: GetActivity[];
@@ -37,12 +45,6 @@ export class DashboardClientActivitiesController {
   };
 
   private activitiesQueryParam: ActivitiesQueryParams;
-  private static readonly queryLimit: number = 10;
-  private static readonly timeoutDelay: number = 400;
-  private static readonly promiseLoaderDelay = 500;
-
-  static $inject = ['dashboardActivitiesService', 'promiseService', '$state', 'errorHandler', 'filtersData',
-    '$timeout'];
 
   constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,

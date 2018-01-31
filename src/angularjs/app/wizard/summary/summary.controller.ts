@@ -6,6 +6,7 @@ import {
   PartialOrganizationDetails
 } from 'profitelo-api-ng/model/models';
 import { WizardApi, InvitationApi } from 'profitelo-api-ng/api/api';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { ErrorHandlerService } from '../../../common/services/error-handler/error-handler.service';
 import { UserService } from '../../../common/services/user/user.service';
@@ -18,6 +19,7 @@ import { StateService } from '@uirouter/angularjs';
 import { TopAlertService } from '../../../common/services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../common/services/translator/translator.service';
 
+// tslint:disable:member-ordering
 export class SummaryController implements ng.IController {
 
   public isExpertWizardPath: boolean;
@@ -31,9 +33,10 @@ export class SummaryController implements ng.IController {
   public isConsultationInvitationAccepted: boolean = false;
   public acceptedServices: GetServiceWithInvitation[];
 
-  static $inject = ['$state', 'errorHandler', 'WizardApi', 'topAlertService', 'wizardProfile', 'userService',
+  public static $inject = ['$state', 'errorHandler', 'WizardApi', 'topAlertService', 'wizardProfile', 'userService',
     'InvitationApi', '$filter', '$q', 'navbarNotificationsService', '$log'];
 
+  // tslint:disable-next-line:cyclomatic-complexity
   constructor(private $state: StateService,
               private errorHandler: ErrorHandlerService,
               private WizardApi: WizardApi,
@@ -62,7 +65,7 @@ export class SummaryController implements ng.IController {
 
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.isConsultation = this.wizardProfile.services
       && this.wizardProfile.services.length > 0 || this.isConsultationInvitationAccepted;
     this.services = this.wizardProfile.services;
@@ -174,6 +177,7 @@ export class SummaryController implements ng.IController {
     }
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   private checkIsWizardValid = (): boolean => {
     if (this.wizardProfile.isSummary && (this.checkIsWizardHasService() || this.checkIsWizardHasInvitationServices())) {
       if (!this.wizardProfile.isCompany && this.checkIsExpertProfileValid()) {
@@ -207,6 +211,7 @@ export class SummaryController implements ng.IController {
     && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
     && this.wizardProfile.organizationDetailsOption.description
 
+  // tslint:disable-next-line:cyclomatic-complexity
   private checkIfUserCanCreateExpertProfile = (): boolean => {
     if (this.wizardProfile && this.wizardProfile.services && !this.acceptedServices) {
       return !!(_.find(this.wizardProfile.services, (service) =>

@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import { ICompanyProfileStateParams } from './company-profile';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import {
   GetProfileWithDocuments,
@@ -20,9 +21,10 @@ interface ICompanyResponse {
   isFavourite: boolean;
 }
 
+// tslint:disable:member-ordering
 export class CompanyProfileResolver {
 
-  static $inject = ['$q', 'ViewsApi'];
+  public static $inject = ['$q', 'ViewsApi'];
 
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }

@@ -11,9 +11,10 @@ export interface IUnavailableServiceControllerScope extends ng.IScope {
   $parent: IUnavailableServiceControllerParentScope;
 }
 
+// tslint:disable:member-ordering
 export class UnavailableServiceController implements ng.IController {
 
-  static $inject = ['$scope', '$uibModalInstance'];
+  public static $inject = ['$scope', '$uibModalInstance'];
 
     constructor($scope: IUnavailableServiceControllerScope,
               $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {

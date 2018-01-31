@@ -7,12 +7,12 @@ import {
 @Injectable()
 export class ConfirmEmailGuard implements CanActivate {
 
-  canActivate = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> =>
+  constructor(private LoginConfirmEmailResolver: LoginConfirmEmailResolver) {
+  }
+
+  public canActivate = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> =>
     new Promise((resolve, _b): void => {
       this.LoginConfirmEmailResolver.resolve(route.params.token).finally(() => resolve(true));
     })
-
-  constructor(private LoginConfirmEmailResolver: LoginConfirmEmailResolver) {
-  }
 
 }

@@ -1,8 +1,9 @@
 
 import { ITilesComponentBindings } from './tiles';
+// tslint:disable:member-ordering
 export class TilesComponentController implements ITilesComponentBindings {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
 

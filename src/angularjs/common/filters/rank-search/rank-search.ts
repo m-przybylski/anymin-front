@@ -3,6 +3,7 @@
 namespace profitelo.filters.rankSearch {
 
   function filter(): (array: any[], searchKey: string, props: string[]) => any[] {
+    // tslint:disable-next-line:cyclomatic-complexity
     return function(array: any[], searchKey: string, props: string[]): any[] {
       if (!array || !searchKey || !props) {
         return array;

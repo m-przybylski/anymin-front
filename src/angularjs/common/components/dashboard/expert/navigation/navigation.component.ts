@@ -1,7 +1,8 @@
 import { ExpertNavigationComponentController } from './navigation.controller';
 
+// tslint:disable:member-ordering
 export class ExpertNavigationComponent implements ng.IComponentOptions {
-  controllerAs: '$ctrl';
-  controller: ng.Injectable<ng.IControllerConstructor> = ExpertNavigationComponentController;
-  template = require('./navigation.html');
+  public controllerAs: '$ctrl';
+  public controller: ng.Injectable<ng.IControllerConstructor> = ExpertNavigationComponentController;
+  public template = require('./navigation.html');
 }

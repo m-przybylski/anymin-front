@@ -6,9 +6,10 @@ export interface ISessionDeleted {
   removedSessionApiKey: string;
 }
 
+// tslint:disable:member-ordering
 export class SessionDeletedService {
 
-  static $inject = ['sessionServiceWrapper', '$log', 'eventsService', 'profiteloWebsocket'];
+  public static $inject = ['sessionServiceWrapper', '$log', 'eventsService', 'profiteloWebsocket'];
 
     constructor(private sessionServiceWrapper: SessionServiceWrapper,
               private $log: ng.ILogService,

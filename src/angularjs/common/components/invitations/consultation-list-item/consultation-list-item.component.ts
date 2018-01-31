@@ -1,9 +1,10 @@
 import { ConsultationListItemComponentController } from './consultation-list-item.controller';
 
+// tslint:disable:member-ordering
 export class ConsultationListItemComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = ConsultationListItemComponentController;
-  template = require('./consultation-list-item.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = ConsultationListItemComponentController;
+  public template = require('./consultation-list-item.html');
+  public bindings: {[boundProperty: string]: string} = {
     onChange: '<',
     service: '<',
     isChecked: '<'

@@ -1,8 +1,9 @@
 import { ExpertEmployeesFiltersComponentController } from './filters.controller';
+// tslint:disable:member-ordering
 export class ExpertEmployeesFiltersComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = ExpertEmployeesFiltersComponentController;
-  template = require('./filters.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = ExpertEmployeesFiltersComponentController;
+  public template = require('./filters.html');
+  public bindings: {[boundProperty: string]: string} = {
     onModalCloseCallback: '<'
   };
 }

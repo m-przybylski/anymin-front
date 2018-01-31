@@ -6,28 +6,30 @@ import { StateService } from '@uirouter/angularjs';
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { TranslatorService } from '../../../services/translator/translator.service';
 import { GetProfileWithServicesInvitations, GetInvitation } from 'profitelo-api-ng/model/models';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { NavbarNotificationsService } from '../navbar-notifications/navbar-notifications.service';
 import { Config } from '../../../../../config';
 import { ProfiteloWebsocketService } from '../../../services/profitelo-websocket/profitelo-websocket.service';
 
+// tslint:disable:member-ordering
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
-  isExpert: boolean = false;
-  isExpertOrOrganization: boolean;
-  isNotificationsMenuShow: boolean = false;
-  areNotificationsDisplayed: boolean = false;
-  areInvitationsDisplayed: boolean = false;
-  isNotificationsTab: boolean = true;
-  isInvitationsTab: boolean = false;
-  isHelpMenuShow: boolean = false;
-  isAvailbilityMenuShow: boolean = false;
-  isAnyMenuShow: boolean = false;
-  notificationCounter?: number;
-  invitations: GetProfileWithServicesInvitations[] = [];
+  public isExpert: boolean = false;
+  public isExpertOrOrganization: boolean;
+  public isNotificationsMenuShow: boolean = false;
+  public areNotificationsDisplayed: boolean = false;
+  public areInvitationsDisplayed: boolean = false;
+  public isNotificationsTab: boolean = true;
+  public isInvitationsTab: boolean = false;
+  public isHelpMenuShow: boolean = false;
+  public isAvailbilityMenuShow: boolean = false;
+  public isAnyMenuShow: boolean = false;
+  public notificationCounter?: number;
+  public invitations: GetProfileWithServicesInvitations[] = [];
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['userService', 'translatorService', 'topAlertService', '$state', '$element', '$document',
+  public static $inject = ['userService', 'translatorService', 'topAlertService', '$state', '$element', '$document',
     '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService', 'profiteloWebsocket'];
 
     constructor(private userService: UserService,
@@ -47,7 +49,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       profiteloWebsocket.onNewInvitation(this.fetchInvitations);
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.setIsExpert();
 
     this.$document.bind('click', (event: Event) => {
@@ -84,7 +86,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     });
   }
 
-  $onDestroy(): void {
+  public $onDestroy(): void {
     this.$document.unbind('click');
     angular.element(this.$window).unbind('scroll');
   }

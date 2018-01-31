@@ -16,16 +16,17 @@ interface INavigationComponentController extends INavigationComponentBindings {
   isAudio: boolean;
 }
 
+// tslint:disable:member-ordering
 export class NavigationComponentController implements ng.IController, INavigationComponentController {
 
-  areOptions = false;
-  isAudio = true;
-  isVideo: boolean;
-  isMessenger: boolean;
-  currentCall: CurrentCall;
+  public areOptions = false;
+  public isAudio = true;
+  public isVideo: boolean;
+  public isMessenger: boolean;
+  public currentCall: CurrentCall;
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['clientCallService', 'expertCallService'];
+  public static $inject = ['clientCallService', 'expertCallService'];
 
     constructor(clientCallService: ClientCallService,
                 expertCallService: ExpertCallService,

@@ -1,9 +1,10 @@
 import { BtnDropdownCallComponentController } from './btn-dropdown-call.controller';
 
+// tslint:disable:member-ordering
 export class BtnDropdownCallComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = BtnDropdownCallComponentController;
-  template = require('./btn-dropdown-call.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = BtnDropdownCallComponentController;
+  public template = require('./btn-dropdown-call.html');
+  public bindings: {[boundProperty: string]: string} = {
     callback: '<',
     buttonText: '@',
     buttonClass: '@'

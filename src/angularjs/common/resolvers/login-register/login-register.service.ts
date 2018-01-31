@@ -21,10 +21,10 @@ export interface ILoginRegisterService {
 
 class LoginRegisterResolver implements ILoginRegisterService {
 
-  private cacheSessionId?: string;
-
-  static $inject = ['loginStateService', '$state', 'translatorService', '$q', '$timeout', 'topAlertService',
+  public static $inject = ['loginStateService', '$state', 'translatorService', '$q', '$timeout', 'topAlertService',
     'RegistrationApi', '$log'];
+
+  private cacheSessionId?: string;
 
   constructor(private loginStateService: LoginStateService,
               private $state: StateService,

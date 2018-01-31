@@ -1,6 +1,7 @@
 import { IBtnDropdownCallComponentBindings } from './btn-dropdown-call';
 import { Config } from '../../../../../config';
 
+// tslint:disable:member-ordering
 export class BtnDropdownCallComponentController implements ng.IController, IBtnDropdownCallComponentBindings {
   public callback: () => void;
   public isOpen: boolean = false;
@@ -8,13 +9,13 @@ export class BtnDropdownCallComponentController implements ng.IController, IBtnD
   public buttonClass: string;
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['$scope', '$document', '$element'];
+  public static $inject = ['$scope', '$document', '$element'];
 
     constructor(private $scope: ng.IScope,
               private $document: ng.IDocumentService,
               private $element: ng.IRootElementService) {}
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.$document.bind('click', (event: Event) => {
       const ifTargetClicked = this.$element.find(event.target).length > 0;
       if (!ifTargetClicked) {
@@ -24,7 +25,7 @@ export class BtnDropdownCallComponentController implements ng.IController, IBtnD
     });
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.$document.unbind('click');
   }
 

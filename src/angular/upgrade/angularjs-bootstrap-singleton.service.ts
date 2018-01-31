@@ -12,7 +12,7 @@ export class AngularJsBootstrapSingletonService {
   constructor(private upgrade: UpgradeModule) {
   }
 
-  getInstance = (): angular.IModule => {
+  public getInstance = (): angular.IModule => {
     if (this.angularjsRootModule) {
       return this.angularjsRootModule;
     }

@@ -1,5 +1,6 @@
 import { IRadioBtnTextareaBindings } from './radio-btn-textarea';
 
+// tslint:disable:member-ordering
 export class RadioBtnTextareaComponentController implements IRadioBtnTextareaBindings {
 
   public id: string;
@@ -13,11 +14,11 @@ export class RadioBtnTextareaComponentController implements IRadioBtnTextareaBin
   public isTextarea: boolean;
   public onDescriptionCallback: (description: string) => string;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 
-  $onInit(): void {
+  public $onInit(): void {
   }
 
   public onClick = (selectedItem: string): void =>

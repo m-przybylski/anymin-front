@@ -15,9 +15,10 @@ export interface IServiceProviderDefaultQueue {
 }
 
 // TODO add types or remove this provider
+// tslint:disable:member-ordering
 export class ServiceProviderService {
 
-  static $inject = ['$state'];
+  public static $inject = ['$state'];
 
     constructor(private $state: StateService) {
   }

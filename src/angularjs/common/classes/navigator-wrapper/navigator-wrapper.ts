@@ -1,5 +1,8 @@
+// tslint:disable:member-ordering
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
+// tslint:disable:member-ordering
 export class NavigatorWrapper {
 
   public static readonly frontCamera: string = 'user';
@@ -21,7 +24,7 @@ export class NavigatorWrapper {
   };
   private videoInputIdArray: string[] = [];
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.navigator = window['navigator'];

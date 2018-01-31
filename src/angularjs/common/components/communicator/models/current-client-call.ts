@@ -8,9 +8,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
 
+// tslint:disable:member-ordering
 export class CurrentClientCall extends CurrentCall {
 
-  static $inject = ['timerFactory', 'call', 'localStream', 'service', 'sue', 'soundsService', 'RatelApi',
+  public static $inject = ['timerFactory', 'call', 'localStream', 'service', 'sue', 'soundsService', 'RatelApi',
     'communicatorService', 'microphoneService', 'expert'];
 
   constructor(timerFactory: TimerFactory,

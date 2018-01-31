@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import { IImageCropComponentBindings } from './image-crop';
 
+// tslint:disable:member-ordering
 export class ImageCropComponentController implements IImageCropComponentBindings {
 
   public imageSrc: string;
@@ -8,13 +9,13 @@ export class ImageCropComponentController implements IImageCropComponentBindings
 
   private element: any;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.element = $('.cropper-container');
   }
 
-  $onChanges = (): void => {
+  public $onChanges = (): void => {
     if (angular.isDefined(this.imageSrc) && this.imageSrc) {
       this.element.croppie({
         url: this.imageSrc,

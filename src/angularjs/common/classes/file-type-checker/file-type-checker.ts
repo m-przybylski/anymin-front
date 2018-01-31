@@ -8,6 +8,7 @@ interface IValidFileTypes {
   [key: number]: string[];
 }
 
+// tslint:disable:member-ordering
 export class FileTypeChecker {
 
   private static readonly validFileTypes: IValidFileTypes = {
@@ -15,7 +16,7 @@ export class FileTypeChecker {
     [FileCategoryEnum.EXPERT_FILE]: ['application/pdf', 'image/png', 'image/jpeg']
   };
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 

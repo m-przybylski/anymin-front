@@ -1,5 +1,6 @@
 import { CommonConfig, Settings } from '../../../../../generated_modules/common-config/common-config';
 
+// tslint:disable:member-ordering
 export class CommonSettingsService {
 
   private readonly commonConfigData: Settings = CommonConfig.settings;
@@ -150,7 +151,7 @@ export class CommonSettingsService {
     ]
   };
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

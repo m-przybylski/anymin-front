@@ -1,9 +1,10 @@
 import { UploaderService } from './uploader.service';
 import { FilesApi } from 'profitelo-api-ng/api/api';
 
+// tslint:disable:member-ordering
 export class UploaderFactory {
 
-  static $inject = ['$q', '$timeout', 'FilesApi', 'Upload'];
+  public static $inject = ['$q', '$timeout', 'FilesApi', 'Upload'];
 
     constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
               private FilesApi: FilesApi, private Upload: any) {

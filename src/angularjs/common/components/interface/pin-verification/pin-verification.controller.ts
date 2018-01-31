@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import { IPinVerificationComponentBindings } from './pin-verification';
 
+// tslint:disable:member-ordering
 export class PinVerificationComponentController implements ng.IController, IPinVerificationComponentBindings {
 
   public onSendPinAgain: () => void;
@@ -13,7 +14,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   private static readonly disableSendButtonInSeconds: number = 30;
   private static readonly validPinLength: number = 4;
 
-  static $inject = ['$interval'];
+  public static $inject = ['$interval'];
 
     constructor(private $interval: ng.IIntervalService) {
 

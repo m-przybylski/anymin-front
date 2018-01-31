@@ -1,9 +1,10 @@
 import { NavbarHelpComponentController } from './navbar-help.controller';
 
+// tslint:disable:member-ordering
 export class NavbarHelpComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = NavbarHelpComponentController;
-  template: string = require('./navbar-help.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = NavbarHelpComponentController;
+  public template: string = require('./navbar-help.html');
+  public bindings: {[boundProperty: string]: string} = {
     onClick: '<'
   };
 }

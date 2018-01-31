@@ -2,6 +2,7 @@ import { ISingleConsultationEditComponentBindings } from './single-consultation-
 import { GetWizardService, WizardTag, MoneyDto } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 
+// tslint:disable:member-ordering
 export class SingleConsultationEditComponentController implements ISingleConsultationEditComponentBindings {
 
   public service: GetWizardService;
@@ -16,12 +17,12 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public language: string;
   public description: string;
 
-  static $inject = ['translatorService'];
+  public static $inject = ['translatorService'];
 
     constructor(private translatorService: TranslatorService) {
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.tagsList = this.service.tags;
     this.employeeList = [];
     if (this.service.invitations) {

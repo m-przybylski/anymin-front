@@ -1,6 +1,7 @@
+// tslint:disable:member-ordering
 export class InvoiceCompanyFormComponentController implements ng.IController {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

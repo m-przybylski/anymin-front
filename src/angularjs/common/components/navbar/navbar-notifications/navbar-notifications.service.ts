@@ -1,10 +1,11 @@
 import { Subject } from 'rxjs/Subject';
 
+// tslint:disable:member-ordering
 export class NavbarNotificationsService {
 
   public readonly onInvitationsResolvedSubject = new Subject<void>();
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

@@ -1,8 +1,9 @@
 
 import { ISimilarConsultationComponentBindings } from './similar-consultations';
+// tslint:disable:member-ordering
 export class SimilarConsultationComponentController implements ISimilarConsultationComponentBindings {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
 

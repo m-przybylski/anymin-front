@@ -10,6 +10,7 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
   sueId: string;
 }
 
+// tslint:disable:member-ordering
 export class ExpertConsultationDetailsController implements ng.IController {
   public roomId?: string;
   public isLoading: boolean = true;
@@ -33,7 +34,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
-  static $inject = ['$log', '$scope', '$uibModalInstance', 'ServiceApi', 'ViewsApi'];
+  public static $inject = ['$log', '$scope', '$uibModalInstance', 'ServiceApi', 'ViewsApi'];
 
     constructor(private $log: ng.ILogService, private $scope: IExpertConsultationDetailsScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,

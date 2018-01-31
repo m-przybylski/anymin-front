@@ -1,8 +1,9 @@
 import { DropdownPrimaryComponentController } from './dropdown-primary.controller';
+// tslint:disable:member-ordering
 export class DropdownPrimaryComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController;
-  template = require('./dropdown-primary.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController;
+  public template = require('./dropdown-primary.html');
+  public bindings: {[boundProperty: string]: string} = {
     label: '@',
     inputPlaceholder: '@',
     name: '@',

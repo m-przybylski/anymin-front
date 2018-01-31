@@ -1,12 +1,13 @@
 import { IDashboardExpertComplainsListBindings } from './complains-list';
 
+// tslint:disable:member-ordering
 export class DashboardExpertComplainsListComponentController implements IDashboardExpertComplainsListBindings {
-  isSuccess: boolean = true;
-  isError: boolean = false;
-  isInProgress: boolean = false;
-  headerTitle: string;
+  public isSuccess: boolean = true;
+  public isError: boolean = false;
+  public isInProgress: boolean = false;
+  public headerTitle: string;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
 

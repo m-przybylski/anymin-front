@@ -1,6 +1,8 @@
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { NavigatorWrapper } from './navigator-wrapper/navigator-wrapper';
 
+// tslint:disable:member-ordering
 export class MediaStreamConstraintsWrapper {
 
   private actualConstraints: MediaStreamConstraints;
@@ -22,7 +24,7 @@ export class MediaStreamConstraintsWrapper {
     }
   };
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.actualConstraints = _.cloneDeep(MediaStreamConstraintsWrapper.getDefault());

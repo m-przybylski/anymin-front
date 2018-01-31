@@ -8,6 +8,7 @@ interface IScrollableDirectiveScope extends ng.IScope {
   isNavbar: boolean;
 }
 
+// tslint:disable:member-ordering
 class ScrollableDirective implements ng.IDirective<ng.IScope> {
   public template = require('./scrollable.html');
   public restrict: string = 'E';
@@ -25,7 +26,7 @@ class ScrollableDirective implements ng.IDirective<ng.IScope> {
   private intervalDelay: number = 30;
   private static readonly dividerOnHalf: number = 2;
 
-  static $inject = ['$timeout', '$interval'];
+  public static $inject = ['$timeout', '$interval'];
 
     constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService) {
   }

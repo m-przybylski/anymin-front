@@ -11,6 +11,7 @@ interface ICircleBackgroundStyle {
   strokeDasharray: string;
 }
 
+// tslint:disable:member-ordering
 export class LoaderComponentController implements ng.IController, ILoaderComponentBindings {
   public loadingProgress: number = 0;
   public fileUploadInfo: any;
@@ -23,7 +24,7 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
   private static readonly multiplierByTwo: number = 2;
   private static readonly loadingProgressMultiplier: number = 100;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }
@@ -52,7 +53,7 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
     };
   }
 
-  $onChanges = (): void => {
+  public $onChanges = (): void => {
     if (this.fileUploadInfo) {
       this.loadingProgress = Math.floor(
         (this.fileUploadInfo.loaded / this.fileUploadInfo.total) * LoaderComponentController.loadingProgressMultiplier);

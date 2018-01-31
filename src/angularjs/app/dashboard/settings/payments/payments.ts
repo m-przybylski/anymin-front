@@ -13,6 +13,7 @@ import { httpCodes } from '../../../../common/classes/http-codes';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean;
   public accountBalance?: MoneyDto;
@@ -26,7 +27,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public isCreditCardsLoaded: boolean = false;
   private static readonly maxShortAddressLength: number = 10;
 
-  static $inject = ['getInvoiceData', 'FinancesApi', '$log', 'PaymentsApi', 'modalsService', '$state'];
+  public static $inject = ['getInvoiceData', 'FinancesApi', '$log', 'PaymentsApi', 'modalsService', '$state'];
 
   constructor(getInvoiceData: void | GetCompanyInvoiceDetails,
               FinancesApi: FinancesApi,

@@ -6,9 +6,10 @@ export interface ILanguage {
   value: string;
 }
 
+// tslint:disable:member-ordering
 export class LanguagesService {
 
-  static $inject = ['translatorService', 'CommonConfig'];
+  public static $inject = ['translatorService', 'CommonConfig'];
 
     constructor(private translatorService: TranslatorService,
               private CommonConfig: CommonConfig) {}

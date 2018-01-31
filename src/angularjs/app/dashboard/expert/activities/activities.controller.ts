@@ -10,7 +10,14 @@ import { ErrorHandlerService } from '../../../../common/services/error-handler/e
 import { httpCodes } from '../../../../common/classes/http-codes';
 import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
 
+// tslint:disable:member-ordering
 export class DashboardExpertActivitiesController {
+
+  public static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log', 'filtersData',
+    '$timeout', 'profiteloWebsocket'];
+
+  private static readonly queryLimit: number = 10;
+  private static readonly promiseLoaderDelay = 500;
 
   public areActivities: boolean;
   public activities: GetActivity[] = [];
@@ -29,12 +36,7 @@ export class DashboardExpertActivitiesController {
   public isAnyPayoutMethodSet: boolean = false;
 
   private activitiesQueryParam: ActivitiesQueryParams;
-  private static readonly queryLimit: number = 10;
   private timeoutDelay: number = 400;
-  private static readonly promiseLoaderDelay = 500;
-
-  static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log', 'filtersData', '$timeout',
-    'profiteloWebsocket'];
 
   constructor(private dashboardActivitiesService: DashboardActivitiesService,
               private promiseService: PromiseService,
@@ -51,25 +53,6 @@ export class DashboardExpertActivitiesController {
     profiteloWebsocket.onCallSummary(() => {
       this.onSetFiltersParams(this.activitiesQueryParam);
     });
-
-  }
-
-  private setDashboardActivitiesData = (): void => {
-    this.getDashboardActivities(this.activitiesQueryParam)
-      .then((responses) => {
-        this.activities = responses.activities;
-        this.areActivities = responses.activities.length > 0;
-        this.$timeout(() => {
-          this.isSearchLoading = false;
-          this.isError = false;
-        }, this.timeoutDelay);
-        this.translationCounter = {
-          currentResultsCount: this.activities.length,
-          allResultsCount: responses.count
-        };
-        this.areFilteredResults = this.activities.length > 0;
-        this.areMoreResults = responses.count > this.activities.length;
-      });
   }
 
   public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams): void => {
@@ -112,6 +95,24 @@ export class DashboardExpertActivitiesController {
         };
         this.areFilteredResults = getActivities.count > 0;
         this.areMoreResults = getActivities.count > getActivities.activities.length;
+      });
+  }
+
+  private setDashboardActivitiesData = (): void => {
+    this.getDashboardActivities(this.activitiesQueryParam)
+      .then((responses) => {
+        this.activities = responses.activities;
+        this.areActivities = responses.activities.length > 0;
+        this.$timeout(() => {
+          this.isSearchLoading = false;
+          this.isError = false;
+        }, this.timeoutDelay);
+        this.translationCounter = {
+          currentResultsCount: this.activities.length,
+          allResultsCount: responses.count
+        };
+        this.areFilteredResults = this.activities.length > 0;
+        this.areMoreResults = responses.count > this.activities.length;
       });
   }
 

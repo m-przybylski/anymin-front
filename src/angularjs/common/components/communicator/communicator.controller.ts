@@ -10,6 +10,7 @@ import { TranslatorService } from '../../services/translator/translator.service'
 import { MicrophoneService, MicrophoneStateEnum } from './microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
 
+// tslint:disable:member-ordering
 export class CommunicatorComponentController implements ng.IController {
 
   private static readonly disconnectedAnimationTimeout = 500;
@@ -39,8 +40,8 @@ export class CommunicatorComponentController implements ng.IController {
 
   public isMicrophoneMuted: boolean = false;
 
-  static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService', 'microphoneService',
-    'clientCallService', 'expertCallService', 'communicatorService'];
+  public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
+    'microphoneService', 'clientCallService', 'expertCallService', 'communicatorService'];
 
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
@@ -64,7 +65,7 @@ export class CommunicatorComponentController implements ng.IController {
     communicatorService.connectionLostEvent$.subscribe(this.connectionLost);
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.remoteStreamElement = this.$element.find('.video-player-remote video');
     this.localStreamElement = this.$element.find('.video-player-local video');
 

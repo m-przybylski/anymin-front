@@ -11,6 +11,7 @@ export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void;
 }
 
+// tslint:disable:member-ordering
 export class GeneralEmailSettingsController implements ng.IController {
   public mailPattern = this.CommonSettingsService.localSettings.emailPattern;
   public isNavbar: boolean = true;
@@ -19,7 +20,7 @@ export class GeneralEmailSettingsController implements ng.IController {
   public newEmail: string;
   private newEnteredEmail: string;
 
-  static $inject = ['$uibModalInstance', 'AccountApi', '$log', 'userService', 'CommonSettingsService', '$scope'];
+  public static $inject = ['$uibModalInstance', 'AccountApi', '$log', 'userService', 'CommonSettingsService', '$scope'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private AccountApi: AccountApi,

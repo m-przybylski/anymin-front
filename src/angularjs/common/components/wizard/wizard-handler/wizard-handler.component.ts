@@ -1,9 +1,10 @@
 import { WizardHandlerComponentController } from './wizard-handler.controller';
+// tslint:disable:member-ordering
 export class WizardHandlerComponent implements ng.IComponentOptions {
-  transclude: boolean = true;
-  controller: ng.Injectable<ng.IControllerConstructor> = WizardHandlerComponentController;
-  template = require('./wizard-handler.html');
-  bindings: {[boundProperty: string]: string} = {
+  public transclude: boolean = true;
+  public controller: ng.Injectable<ng.IControllerConstructor> = WizardHandlerComponentController;
+  public template = require('./wizard-handler.html');
+  public bindings: {[boundProperty: string]: string} = {
     onStepChange: '<',
     progressBarText: '@'
   };

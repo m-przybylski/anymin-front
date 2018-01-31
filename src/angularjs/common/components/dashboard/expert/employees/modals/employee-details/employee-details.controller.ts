@@ -5,6 +5,7 @@ export interface IExpertEmployeeDetailsModalScope extends ng.IScope {
   sueId: string;
 }
 
+// tslint:disable:member-ordering
 export class ExpertEmployeeDetailsModalController implements ng.IController {
   public isFullscreen: boolean = true;
   public isNavbar: boolean = true;
@@ -35,7 +36,7 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
 
   public invitePendingTime: string = '4 days ago';
 
-  static $inject = ['$uibModalInstance'];
+  public static $inject = ['$uibModalInstance'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
 

@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { UserService } from '../../../../../../services/user/user.service';
 import userModule from '../../../../../../services/user/user';
@@ -22,6 +23,7 @@ interface ICountryElementObject {
   name: string;
 }
 
+// tslint:disable:member-ordering
 export class GeneralCountrySettingsController implements ng.IController {
 
   public isNavbar = true;
@@ -29,7 +31,7 @@ export class GeneralCountrySettingsController implements ng.IController {
   public isFullscreen = true;
   public countryList: ICountryElementObject[] = [];
 
-  static $inject = ['$scope', 'translatorService', '$uibModalInstance', 'AccountApi', 'userService'];
+  public static $inject = ['$scope', 'translatorService', '$uibModalInstance', 'AccountApi', 'userService'];
 
   constructor(private $scope: IGeneralCountrySettingsControllerScope, private translatorService: TranslatorService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,

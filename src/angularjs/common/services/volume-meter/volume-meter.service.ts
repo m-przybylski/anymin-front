@@ -7,16 +7,16 @@ export interface IProcessor extends ScriptProcessorNode {
   clipLag?: number;
 }
 
+// tslint:disable:member-ordering
 export class VolumeMeterService {
 
+  public static $inject = ['$window'];
   private static readonly defaultClipLevel = 0.98;
   private static readonly defaultAveraging = 0.95;
   private static readonly defaultClipLag = 750;
   private static readonly bufferSize: number = 1024;
 
-  static $inject = ['$window'];
-
-    constructor(private $window: ng.IWindowService) {
+  public constructor(private $window: ng.IWindowService) {
   }
 
   public createAudioMeter = (audioContext: AudioContext,

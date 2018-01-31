@@ -4,9 +4,10 @@ import { SessionServiceWrapper } from '../session/session.service';
 import { EventsService } from '../events/events.service';
 import { GetSession } from 'profitelo-api-ng/model/GetSession';
 
+// tslint:disable:member-ordering
 export class UserService {
 
-  static $inject = ['sessionServiceWrapper', 'eventsService'];
+  public static $inject = ['sessionServiceWrapper', 'eventsService'];
 
     constructor(private sessionServiceWrapper: SessionServiceWrapper, private eventsService: EventsService) {
   }

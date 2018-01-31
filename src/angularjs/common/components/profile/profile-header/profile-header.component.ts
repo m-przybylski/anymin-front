@@ -1,8 +1,9 @@
 import { ProfileHeaderComponentController } from './profile-header.controller';
+// tslint:disable:member-ordering
 export class ProfileHeaderComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = ProfileHeaderComponentController;
-  template = require('./profile-header.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = ProfileHeaderComponentController;
+  public template = require('./profile-header.html');
+  public bindings: {[boundProperty: string]: string} = {
     profileDetails: '<',
     isFavourite: '<',
     onLike: '<',

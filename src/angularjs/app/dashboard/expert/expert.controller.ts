@@ -1,6 +1,7 @@
+// tslint:disable:member-ordering
 export class ExpertController {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
 

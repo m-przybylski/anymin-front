@@ -1,10 +1,11 @@
 import { IValidationAlertBindings } from './validation-alert';
 
+// tslint:disable:member-ordering
 export class ValidationAlertComponentController implements IValidationAlertBindings {
-  alertText: string;
-  isVisible: boolean;
-  additionalText?: string;
-  static $inject = [];
+  public alertText: string;
+  public isVisible: boolean;
+  public additionalText?: string;
+  public static $inject = [];
 
   constructor() {
 

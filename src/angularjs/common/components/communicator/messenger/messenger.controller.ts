@@ -1,9 +1,10 @@
 import { IMessengerComponentBindings } from './messenger';
 
+// tslint:disable:member-ordering
 export class MessengerComponentController implements ng.IController, IMessengerComponentBindings {
-  isMessenger: boolean;
+  public isMessenger: boolean;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

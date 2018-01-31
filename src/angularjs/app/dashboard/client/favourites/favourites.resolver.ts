@@ -8,9 +8,10 @@ interface IAppClientFavouritesResolverResponse {
   lastConsultations: GetLastConsultation[];
 }
 
+// tslint:disable:member-ordering
 export class ClientFavouritesResolver {
 
-  static $inject = ['$q', 'ViewsApi'];
+  public static $inject = ['$q', 'ViewsApi'];
 
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }

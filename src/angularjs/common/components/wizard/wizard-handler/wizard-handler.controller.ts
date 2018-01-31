@@ -1,11 +1,13 @@
 import { IWizardHandlerComponentBindings } from './wizard-handler';
 import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
 export interface IProgressStyle {
   width: string;
 }
 
+// tslint:disable:member-ordering
 export class WizardHandlerComponentController implements IWizardHandlerComponentBindings, ng.IController {
 
   public currentStep: HTMLElement;
@@ -22,7 +24,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   private wizardStepPadding: number = 50;
   private stepList: JQuery;
 
-  static $inject = ['$element', 'smoothScrollingService', '$window', '$document', '$timeout'];
+  public static $inject = ['$element', 'smoothScrollingService', '$window', '$document', '$timeout'];
 
     constructor(private $element: ng.IRootElementService,
               private smoothScrollingService: SmoothScrollingService,
@@ -31,7 +33,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
               private $timeout: ng.ITimeoutService) {
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.$timeout(() => {
       this.currentStep = this.$element.find('wizard-step')[0];
       this.stepList = this.$element.find('wizard-step');
@@ -73,7 +75,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     });
   }
 
-  $onDestroy(): void {
+  public $onDestroy(): void {
     this.$document.unbind('scroll');
   }
 

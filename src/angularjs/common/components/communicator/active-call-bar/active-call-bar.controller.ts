@@ -1,10 +1,11 @@
 import { ActiveCallBarService } from './active-call-bar.service';
 
+// tslint:disable:member-ordering
 export class ActiveCallBarComponentController implements ng.IController {
 
   public isCallPendingOnOtherDevice: boolean = false;
 
-  static $inject = ['activeCallBarService'];
+  public static $inject = ['activeCallBarService'];
 
     constructor(private activeCallBarService: ActiveCallBarService) {
     activeCallBarService.onHideCallBar(this.hideCallBar);

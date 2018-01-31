@@ -4,14 +4,14 @@ import { ICompanyProfile } from './company-profile.resolver';
 import { GetOrganizationDetails, GetOrganizationServiceDetails } from 'profitelo-api-ng/model/models';
 import { ProfileTypes } from '../../common/components/profile/profile-header/profile-header.controller';
 
+// tslint:disable:member-ordering
 export class CompanyProfileController {
 
-  profile?: GetOrganizationDetails;
-  consultations: GetOrganizationServiceDetails[];
-  isFavourite: boolean;
-  profileType: ProfileTypes;
-
-  static $inject = ['$stateParams', '$log', 'ProfileApi', 'companyProfile'];
+  public static $inject = ['$stateParams', '$log', 'ProfileApi', 'companyProfile'];
+  public profile?: GetOrganizationDetails;
+  public consultations: GetOrganizationServiceDetails[];
+  public isFavourite: boolean;
+  public profileType: ProfileTypes;
 
   constructor(private $stateParams: ICompanyProfileStateParams, private $log: ng.ILogService,
               private ProfileApi: ProfileApi, companyProfile: ICompanyProfile) {
@@ -20,6 +20,16 @@ export class CompanyProfileController {
     this.consultations = companyProfile.services;
     this.isFavourite = companyProfile.isFavourite;
     this.profileType = ProfileTypes.company;
+  }
+
+  public handleLike = (): void => {
+    if (!this.isFavourite) {
+      this.ProfileApi.postProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
+      .then(this.onProfileLike, this.onProfileLikeError);
+    } else {
+      this.ProfileApi.deleteProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
+      .then(this.onProfileDislike, this.onProfileDislikeError);
+    }
   }
 
   private onProfileLike = (): boolean =>
@@ -33,15 +43,5 @@ export class CompanyProfileController {
 
   private onProfileDislikeError = (error: any): void =>
     this.$log.error('Can not dislike this company because: ' + String(error))
-
-  public handleLike = (): void => {
-    if (!this.isFavourite) {
-      this.ProfileApi.postProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
-      .then(this.onProfileLike, this.onProfileLikeError);
-    } else {
-      this.ProfileApi.deleteProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
-      .then(this.onProfileDislike, this.onProfileDislikeError);
-    }
-  }
 
 }

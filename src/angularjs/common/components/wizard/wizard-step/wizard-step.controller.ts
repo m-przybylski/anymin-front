@@ -1,6 +1,7 @@
 import { IWizardStepModuleComponentBindings } from './wizard-step';
 import { WizardHandlerComponentController } from '../wizard-handler/wizard-handler.controller';
 
+// tslint:disable:member-ordering
 export class WizardStepComponentController implements IWizardStepModuleComponentBindings {
   public title: string;
   public additionalText: string;
@@ -15,7 +16,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public required: boolean;
   public isCompany: boolean = true;
 
-  static $inject = ['$element', '$timeout'];
+  public static $inject = ['$element', '$timeout'];
 
     constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
   }
@@ -38,13 +39,13 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
 
   public checkIsButtonDisabled = (): boolean => typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid();
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.$timeout(() => {
       this.isActive = this.wizardHandler.currentStep === this.$element[0];
     });
   }
 
-  $doCheck = (): void => {
+  public $doCheck = (): void => {
     if (!this.buttonTitle || this.isCompany) {
       this.buttonTitle = 'WIZARD.STEP.BUTTON.NEXT';
     }

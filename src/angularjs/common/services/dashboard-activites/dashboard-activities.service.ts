@@ -4,9 +4,10 @@ import { ActivitiesQueryParams } from './activities-query-params';
 import { GetActivities, GetActivityFilters } from 'profitelo-api-ng/model/models';
 import { PayoutsApi } from 'profitelo-api-ng/api/api';
 
+// tslint:disable:member-ordering
 export class DashboardActivitiesService {
 
-  static $inject = ['ViewsApi', 'PayoutsApi'];
+  public static $inject = ['ViewsApi', 'PayoutsApi'];
 
     constructor(private ViewsApi: ViewsApi,
               private PayoutsApi: PayoutsApi) {

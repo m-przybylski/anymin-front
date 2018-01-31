@@ -22,8 +22,10 @@ export interface ILoginForgotPasswordService {
 
 class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
-  static $inject = ['$q', '$timeout', 'translatorService', '$state', 'topAlertService', 'loginStateService',
+  public static $inject = ['$q', '$timeout', 'translatorService', '$state', 'topAlertService', 'loginStateService',
     'RecoverPasswordApi'];
+
+  private cacheResolvedObject: ILoginForgotPassword;
 
   constructor(private $q: ng.IQService,
               private $timeout: ng.ITimeoutService,
@@ -34,7 +36,6 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
               private RecoverPasswordApi: RecoverPasswordApi) {
 
   }
-  private cacheResolvedObject: ILoginForgotPassword;
 
   public resolve = (stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword> => {
     const _deferred = this.$q.defer<ILoginForgotPassword>();

@@ -1,9 +1,10 @@
 import { ProfileHeaderEditComponentController } from './profile-header-edit.controller';
 
+// tslint:disable:member-ordering
 export class ProfileHeaderEditComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = ProfileHeaderEditComponentController;
-  template = require('./profile-header-edit.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = ProfileHeaderEditComponentController;
+  public template = require('./profile-header-edit.html');
+  public bindings: {[boundProperty: string]: string} = {
     profileDetails: '<',
     profileType: '<',
     onDelete: '<',

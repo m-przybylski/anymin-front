@@ -1,6 +1,8 @@
+// tslint:disable:member-ordering
+// tslint:disable:member-ordering
 export class RadioBtnTextareaAnimation {
 
-  static $inject = ['$animateCss'];
+  public static $inject = ['$animateCss'];
 
     constructor(private $animateCss: ng.animate.IAnimateCssService) {}
 

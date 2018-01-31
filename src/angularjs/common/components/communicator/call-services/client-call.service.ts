@@ -15,6 +15,7 @@ import { first } from 'rxjs/operators';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
 
+// tslint:disable:member-ordering
 export class ClientCallService {
 
   private navigatorWrapper = new NavigatorWrapper();
@@ -23,7 +24,7 @@ export class ClientCallService {
 
   private readonly onNewCallSubject = new Subject<CurrentClientCall>();
 
-  static $inject = ['communicatorService', '$log', 'timerFactory', 'ServiceApi', 'RatelApi', 'soundsService',
+  public static $inject = ['communicatorService', '$log', 'timerFactory', 'ServiceApi', 'RatelApi', 'soundsService',
     'modalsService', '$q', 'profiteloWebsocket', 'microphoneService'];
 
   constructor(private communicatorService: CommunicatorService,

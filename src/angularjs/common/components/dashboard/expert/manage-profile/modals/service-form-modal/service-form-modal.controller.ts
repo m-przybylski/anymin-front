@@ -1,5 +1,8 @@
+// tslint:disable:member-ordering
+// tslint:disable:max-file-line-count
 import { CommonConfig } from '../../../../../../../../../generated_modules/common-config/common-config';
 import { UserService } from '../../../../../../services/user/user.service';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IServiceInvitation } from '../../../../../../models/ServiceInvitation';
 import {
@@ -19,6 +22,7 @@ export interface IServiceFormModalScope extends ng.IScope {
   serviceDetails?: GetExpertServiceDetails;
 }
 
+// tslint:disable:member-ordering
 export class ServiceFormModalController implements ng.IController {
 
   public readonly consultationNameMaxLength: string = Config.inputsMaxLength.consultationName;
@@ -55,8 +59,8 @@ export class ServiceFormModalController implements ng.IController {
   private consultationPriceMin: number;
   private consultationPriceMax: number;
 
-  static $inject = ['$uibModalInstance', 'translatorService', 'CommonConfig', 'userService', 'ServiceApi', '$scope',
-    'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService'];
+  public static $inject = ['$uibModalInstance', 'translatorService', 'CommonConfig', 'userService', 'ServiceApi',
+    '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService'];
 
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private translatorService: TranslatorService,
@@ -77,7 +81,7 @@ export class ServiceFormModalController implements ng.IController {
     this.assignValidationValues();
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.userService.getUser().then((user) => {
       this.isCompany = user.isCompany;
       this.isExpert = user.isExpert;

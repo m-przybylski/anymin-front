@@ -4,6 +4,7 @@ import { PaymentsApi } from 'profitelo-api-ng/api/api';
 import { JValue, DefaultCreditCard, PostPayment } from 'profitelo-api-ng/model/models';
 import * as braintree from 'braintree-web';
 import { IBraintreeFormComponentBindings } from './braintree-form';
+// tslint:disable:member-ordering
 export class BraintreeFormComponentController implements ng.IController, IBraintreeFormComponentBindings {
 
   public onBraintreeFormLoad: () => void;
@@ -15,7 +16,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   public transaction: PostPayment;
   public isSubmitted: boolean = false;
 
-  static $inject = ['PaymentsApi', 'userService'];
+  public static $inject = ['PaymentsApi', 'userService'];
 
     constructor(private PaymentsApi: PaymentsApi, private userService: UserService) {
     this.PaymentsApi.getDefaultPaymentMethodRoute().then(this.createBrainTree, this.onGetTokenError);
@@ -93,6 +94,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
             this.onBraintreeFormLoad();
           }
 
+          // tslint:disable-next-line:cyclomatic-complexity
           hostedFieldsInstance.on('validityChange', (event: any) => {
             const field = event.fields[event.emittedBy];
 

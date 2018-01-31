@@ -1,10 +1,11 @@
 import { ICookiesService, CookiesKeyName } from '../../services/cookie/cookie.service';
 import { Config } from '../../../../config';
 
+// tslint:disable:member-ordering
 export class CookieNotificationService {
   private static readonly cookieKeyValue: string = 'true';
 
-  static $inject = ['$cookies'];
+  public static $inject = ['$cookies'];
 
     constructor(private $cookies: ICookiesService) {
   }

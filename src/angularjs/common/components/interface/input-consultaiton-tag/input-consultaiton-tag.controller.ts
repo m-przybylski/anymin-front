@@ -4,8 +4,10 @@ import { PostSuggestTags, GetSuggestedTags } from 'profitelo-api-ng/model/models
 import * as angular from 'angular';
 import { PromiseService } from '../../../services/promise/promise.service';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
+// tslint:disable:member-ordering
 export class InputConsultationTagComponentController implements IInputConsultationTagBindings {
   public selectedTags: string[] = [];
   public suggestedTags: string[] = [];
@@ -27,7 +29,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
   private static readonly suggestedTagsLoaderDelay = 500;
   private static readonly postTagsSuggestionsDelay = 500;
 
-  static $inject = ['SearchApi', 'promiseService', '$log', 'CommonSettingsService'];
+  public static $inject = ['SearchApi', 'promiseService', '$log', 'CommonSettingsService'];
 
     constructor(private SearchApi: SearchApi,
               private promiseService: PromiseService,

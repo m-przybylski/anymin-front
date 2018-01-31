@@ -3,6 +3,7 @@ import { GetActivity } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../../../services/modals/modals.service';
 import { UserService } from '../../../../../services/user/user.service';
 
+// tslint:disable:member-ordering
 export class ExpertActivityComponentController implements ng.IController, IExpertActivityComponentBindings {
 
   public isCallActivity: boolean;
@@ -10,7 +11,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
   public imageUrl: string | null;
   public isCompany: boolean;
   public activityDate: Date;
-  static $inject = ['modalsService', '$log', 'userService'];
+  public static $inject = ['modalsService', '$log', 'userService'];
 
     constructor(private modalsService: ModalsService, private $log: ng.ILogService, private userService: UserService) {
 
@@ -21,7 +22,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
     });
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.activityDate = this.activity.initializedAt;
     this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION;
   }

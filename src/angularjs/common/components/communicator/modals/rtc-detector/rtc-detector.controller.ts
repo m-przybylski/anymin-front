@@ -2,13 +2,14 @@ const DetectRTC = require('detectrtc');
 export interface IRtcDetectorModalControllerScope extends ng.IScope {
 }
 
+// tslint:disable:member-ordering
 export class RtcDetectorModalController implements ng.IController {
   public isEdge = false;
   public isOpera = false;
   public isFirefox = false;
   public isSafari = false;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     if (DetectRTC.browser.isFirefox) {

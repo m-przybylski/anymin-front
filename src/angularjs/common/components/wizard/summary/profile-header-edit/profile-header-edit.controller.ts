@@ -13,22 +13,23 @@ export enum  ProfileTypes {
   'expert'
 }
 
+// tslint:disable:member-ordering
 export class ProfileHeaderEditComponentController implements IProfileHeaderEditComponentBindings {
 
-  profileDetails?: GetExpertDetails;
-  profileType: ProfileTypes;
-  documents: ProfileDocument[];
-  editLink: string = '';
-  onDelete?: () => void;
-  onEdit?: () => void;
+  public profileDetails?: GetExpertDetails;
+  public profileType: ProfileTypes;
+  public documents: ProfileDocument[];
+  public editLink: string = '';
+  public onDelete?: () => void;
+  public onEdit?: () => void;
 
-  static $inject = ['translatorService'];
+  public static $inject = ['translatorService'];
 
     constructor(private translatorService: TranslatorService) {
     this.editLink = 'app.wizard.create-profile.expert';
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.profileDetails) {
       this.documents = this.profileDetails.files;
     }

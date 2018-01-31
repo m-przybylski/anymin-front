@@ -1,9 +1,10 @@
 import { InputComponentController } from './input.controller';
 
+// tslint:disable:member-ordering
 export class InputComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputComponentController;
-  template = require('./input.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = InputComponentController;
+  public template = require('./input.html');
+  public bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
     type: '@',

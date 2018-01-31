@@ -4,16 +4,17 @@ interface IGetHeightScope extends ng.IScope {
   getHeight: (height: string) => void;
 }
 
+// tslint:disable:member-ordering
 class GetHeight implements ng.IDirective<ng.IScope> {
+
+  public static $inject = ['$timeout'];
 
   public restrict: string = 'A';
   public scope = {
     getHeight: '=?'
   };
 
-  static $inject = ['$timeout'];
-
-    constructor(private $timeout: ng.ITimeoutService) {
+  constructor(private $timeout: ng.ITimeoutService) {
   }
 
   public link = (scope: IGetHeightScope, elem: ng.IRootElementService): void => {
@@ -34,7 +35,7 @@ class GetHeight implements ng.IDirective<ng.IScope> {
 }
 
 const getHeight = angular.module('profitelo.directives.getHeight', [])
-.directive('getHeight', GetHeight.getInstance())
+  .directive('getHeight', GetHeight.getInstance())
   .name;
 
 export default getHeight;

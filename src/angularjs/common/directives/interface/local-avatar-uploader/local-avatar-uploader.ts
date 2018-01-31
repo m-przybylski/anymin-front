@@ -5,6 +5,7 @@ interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
   imageSource: string;
 }
 
+// tslint:disable:member-ordering
 class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
   public template = require('./local-avatar-uploader.html');
   public restrict: string = 'E';
@@ -13,7 +14,7 @@ class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
     onFileUpload: '=?'
   };
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

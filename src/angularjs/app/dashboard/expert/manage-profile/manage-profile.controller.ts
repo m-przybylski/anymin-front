@@ -4,6 +4,7 @@ import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 import { UserService } from '../../../../common/services/user/user.service';
 
+// tslint:disable:member-ordering
 export class DashboardExpertManageProfileController {
 
   public isLoading: boolean = true;
@@ -16,7 +17,7 @@ export class DashboardExpertManageProfileController {
 
   private expertProfile: GetExpertProfile;
 
-  static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService'];
+  public static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService'];
 
     constructor(private modalsService: ModalsService,
               private ViewsApi: ViewsApi,

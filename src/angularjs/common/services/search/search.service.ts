@@ -5,12 +5,13 @@ import {
 } from 'profitelo-api-ng/model/models';
 import { SearchApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../error-handler/error-handler.service';
+// tslint:disable:member-ordering
 export class SearchService {
 
   private static readonly suggestedTagsCounter: number = 20;
   private static readonly suggestedQueriesCounter: number = 5;
 
-  static $inject = ['SearchApi', 'errorHandler'];
+  public static $inject = ['SearchApi', 'errorHandler'];
 
     constructor(private SearchApi: SearchApi, private errorHandler: ErrorHandlerService) {
   }

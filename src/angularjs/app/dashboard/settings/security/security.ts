@@ -1,3 +1,4 @@
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import apiModule from 'profitelo-api-ng/api.module';
 import { SessionApi } from 'profitelo-api-ng/api/api';
@@ -27,11 +28,12 @@ interface ISession {
   apiKey: string;
 }
 
+// tslint:disable:member-ordering
 export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean;
   public sessions: ISession[];
 
-  static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', '$state', 'topAlertService',
+  public static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', '$state', 'topAlertService',
     'translatorService', 'sessionsData', 'profiteloWebsocket'];
 
   constructor(private modalsService: ModalsService,
@@ -49,6 +51,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     }
 
     this.sessions = sessionsData.map((session) => {
+      // tslint:disable-next-line:cyclomatic-complexity
       const deviceType = (): string => {
         if (
           session.userAgent && (

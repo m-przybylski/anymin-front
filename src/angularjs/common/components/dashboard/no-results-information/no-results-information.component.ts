@@ -1,9 +1,10 @@
 import { NoResultsInformationController } from './no-results-information.controller';
 
+// tslint:disable:member-ordering
 export class NoResultsInformationComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = NoResultsInformationController;
-  template = require('./no-results-information.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = NoResultsInformationController;
+  public template = require('./no-results-information.html');
+  public bindings: {[boundProperty: string]: string} = {
     iconSrc: '@',
     informationTitle: '@',
     informationDescription: '@',

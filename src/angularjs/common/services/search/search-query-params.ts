@@ -2,7 +2,9 @@ import { PriceSearchParam } from 'profitelo-api-ng/model/models';
 
 export type ServiceType =  'ORG' | 'EXP';
 
+// tslint:disable:member-ordering
 export class SearchQueryParams {
+  public static $inject = [];
 
   private query: string = '';
   private price: PriceSearchParam[] = [];
@@ -11,8 +13,6 @@ export class SearchQueryParams {
   private tags: string[] = [];
   private offset: number = 0;
   private count: number = 20;
-
-  static $inject = [];
 
   constructor() {
   }

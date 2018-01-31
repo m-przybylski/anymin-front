@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import './general/general';
 import './payments/payments';
@@ -12,6 +13,7 @@ import dashboardSettingsPayoutsModule from './payouts/payouts';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class SettingsController implements ng.IController {
 
   public stateNames = [
@@ -24,7 +26,7 @@ export class SettingsController implements ng.IController {
 
   public currentState: string = this.stateNames[0];
 
-  static $inject = ['$state', '$scope'];
+  public static $inject = ['$state', '$scope'];
 
     constructor($state: StateService, $scope: ng.IScope) {
 

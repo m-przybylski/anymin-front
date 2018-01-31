@@ -1,27 +1,28 @@
 import { IManageDevicesComponentBindings } from './manage-devices';
 
+// tslint:disable:member-ordering
 export class ManageDevicesComponentController implements ng.IController, IManageDevicesComponentBindings {
-  deviceInUseStatus: boolean;
-  deviceLocalization: string;
-  deviceSystem: string;
-  onDeviceRemove: (apiKey: string) => void;
-  device: string;
-  apiKey: string;
-  checkDevice = {
+  public deviceInUseStatus: boolean;
+  public deviceLocalization: string;
+  public deviceSystem: string;
+  public onDeviceRemove: (apiKey: string) => void;
+  public device: string;
+  public apiKey: string;
+  public checkDevice = {
     desktop: 'icon-computer-24',
     tablet: 'icon-tablet-24',
     mobile: 'icon-smartphone-24',
     unknown: 'icon-questionmark-24'
   };
-  currentDevice: string;
+  public currentDevice: string;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.deviceInUseStatus = false;
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.currentDevice = (<any>this.checkDevice)[this.device];
   }
 

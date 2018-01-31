@@ -12,6 +12,7 @@ export interface ISingleServiceComponentControllerScope extends ng.IScope {
   serviceDetails: GetExpertServiceDetails;
 }
 
+// tslint:disable:member-ordering
 export class SingleServiceComponentController implements ng.IController, ISingleServiceComponentBindings {
 
   public serviceDetails: GetExpertServiceDetails;
@@ -22,7 +23,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public onModalClose: () => void;
   public isDeleted: boolean = false;
 
-  static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
+  public static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
     'topAlertService', 'errorHandler'];
 
   constructor(private userService: UserService,
@@ -34,7 +35,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
               private errorHandler: ErrorHandlerService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.serviceName = this.serviceDetails.service.name;
     if (this.serviceDetails.ownerProfile.organizationDetails) {
       this.serviceOwnerName = this.serviceDetails.ownerProfile.organizationDetails.name;

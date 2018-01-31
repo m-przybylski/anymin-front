@@ -24,7 +24,7 @@ export interface ILoginSetNewPasswordService {
 
 class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
-  static $inject = ['$state', 'translatorService', '$timeout', '$q', 'loginStateService', 'topAlertService',
+  public static $inject = ['$state', 'translatorService', '$timeout', '$q', 'loginStateService', 'topAlertService',
     'RecoverPasswordApi'];
 
   constructor(private $state: StateService, private translatorService: TranslatorService,

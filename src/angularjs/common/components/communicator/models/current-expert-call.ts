@@ -8,9 +8,10 @@ import { Call } from 'ratel-sdk-js/dist/protocol/wire-entities';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
 
+// tslint:disable:member-ordering
 export class CurrentExpertCall extends CurrentCall {
 
-  static $inject = ['timerFactory', 'call', 'incomingCallDetails', 'soundsService', 'communicatorService',
+  public static $inject = ['timerFactory', 'call', 'incomingCallDetails', 'soundsService', 'communicatorService',
     'RatelApi', 'microphoneService'];
 
   constructor(private incomingCallDetails: GetIncomingCallDetails,

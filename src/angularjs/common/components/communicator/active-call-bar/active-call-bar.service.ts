@@ -2,6 +2,7 @@ import { EventsService } from '../../../services/events/events.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Subject } from 'rxjs/Subject';
 
+// tslint:disable:member-ordering
 export class ActiveCallBarService {
 
   private readonly events = {
@@ -9,7 +10,7 @@ export class ActiveCallBarService {
     onHideCallBar: new Subject<void>()
   };
 
-  static $inject = ['expertCallService', 'eventsService'];
+  public static $inject = ['expertCallService', 'eventsService'];
 
     constructor(private expertCallService: ExpertCallService,
               eventsService: EventsService) {

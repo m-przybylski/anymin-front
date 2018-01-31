@@ -5,6 +5,7 @@ import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
+// tslint:disable:member-ordering
 export class MessageRoom {
 
   private static readonly chatHistoryLimit: number = 200;
@@ -16,7 +17,7 @@ export class MessageRoom {
     onMessage: new Subject<RatelSdk.Message>()
   };
 
-  static $inject = ['soundsService'];
+  public static $inject = ['soundsService'];
 
   constructor(private soundsService: SoundsService) {
   }

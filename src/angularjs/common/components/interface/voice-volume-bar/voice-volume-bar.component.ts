@@ -1,9 +1,10 @@
 import { VoiceVolumeBarComponentController } from './voice-volume-bar.controller';
+// tslint:disable:member-ordering
 export class VoiceVolumeBarComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = VoiceVolumeBarComponentController;
-  template = require('./voice-volume-bar.html');
-  transclude: boolean = true;
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = VoiceVolumeBarComponentController;
+  public template = require('./voice-volume-bar.html');
+  public transclude: boolean = true;
+  public bindings: {[boundProperty: string]: string} = {
     stream: '<'
   };
 }

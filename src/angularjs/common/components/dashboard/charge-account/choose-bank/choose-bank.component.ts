@@ -1,10 +1,11 @@
 import { ChooseBankComponentController } from './choose-bank.controller';
+// tslint:disable:member-ordering
 export class ChooseBankComponent implements ng.IComponentOptions {
-  template = require('./choose-bank.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = ChooseBankComponentController;
-  controllerAs: string = '$ctrl';
-  transclude: boolean = true;
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./choose-bank.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = ChooseBankComponentController;
+  public controllerAs: string = '$ctrl';
+  public transclude: boolean = true;
+  public bindings: {[boundProperty: string]: string} = {
     title: '@',
     paymentsLinks: '<',
     bankModel: '=?',

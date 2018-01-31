@@ -7,6 +7,7 @@ import { CurrentCall } from '../../models/current-call';
 import { Message } from 'ratel-sdk-js/dist/protocol/wire-entities';
 import { CommunicatorService } from '@anymind-ng/core';
 
+// tslint:disable:member-ordering
 export class MessengerMinimizedComponentController implements ng.IController, IMessengerMinimizedComponentBindings {
 
   public onMessageClick: (msg: RatelSdk.Message) => void;
@@ -17,7 +18,7 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
   private static readonly messageShowTimeout = 5000;
   private clientSession: RatelSdk.Session | undefined;
 
-  static $inject = ['$timeout', 'communicatorService', 'clientCallService', 'expertCallService'];
+  public static $inject = ['$timeout', 'communicatorService', 'clientCallService', 'expertCallService'];
 
     constructor(private $timeout: ng.ITimeoutService,
               private communicatorService: CommunicatorService,

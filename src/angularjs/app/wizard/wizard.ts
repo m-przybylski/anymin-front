@@ -31,6 +31,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
       resolve: {
         previousState: ['userService', '$state',
           (userService: UserService, $state: StateService): string | undefined => {
+          // tslint:disable-next-line:cyclomatic-complexity
           userService.getUser(true).then((response) => {
             if (!response.hasPassword) $state.go('app.post-register.set-password');
             else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email');

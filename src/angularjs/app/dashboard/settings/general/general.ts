@@ -9,6 +9,7 @@ import { Config } from '../../../../../config';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class DashboardSettingsGeneralController implements ng.IController {
 
   public avatarImageSource?: string;
@@ -20,7 +21,7 @@ export class DashboardSettingsGeneralController implements ng.IController {
   public showUnverifiedEmail: boolean;
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['modalsService', 'user', '$state'];
+  public static $inject = ['modalsService', 'user', '$state'];
 
   constructor(private modalsService: ModalsService, user: AccountDetails, private $state: StateService) {
     this.nickname = user.settings.nickname;
