@@ -3,7 +3,7 @@ import { CurrentCall } from '../models/current-call';
 import { ClientCallService } from '../call-services/client-call.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';
-import { IFilterService } from '../../../services/filter/filter.service';
+import { TranslatorService } from '../../../services/translator/translator.service';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean;
@@ -26,11 +26,13 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public currentCall: CurrentCall;
   public isPlatformForExpert = Config.isPlatformForExpert;
 
-  public static $inject = ['clientCallService', 'expertCallService'];
+  public static $inject = ['translatorService', 'clientCallService', 'expertCallService'];
 
-    constructor(clientCallService: ClientCallService,
-                expertCallService: ExpertCallService,
-                private $filter: IFilterService) {
+  private changeCameraErrorMessage = this.translatorService.translate('COMMUNICATOR.ERROR.SWITCH_CAMERA');
+
+  constructor(private translatorService: TranslatorService,
+              clientCallService: ClientCallService,
+              expertCallService: ExpertCallService) {
     clientCallService.onNewCall(this.clearButtonsState);
     expertCallService.onNewCall(this.clearButtonsState);
     expertCallService.onCallPull(this.clearButtonsState);
@@ -50,10 +52,12 @@ export class NavigationComponentController implements ng.IController, INavigatio
   }
 
   public changeCamera = (): void => {
-    this.currentCall.changeCamera().then(() => {
-      this.isVideo = true;
-    }, (_err) => {
-      alert(this.$filter('translate')('COMMUNICATOR.ERROR.SWITCH_CAMERA'));
+    this.currentCall.stopVideo().then(() => {
+      this.currentCall.changeCamera().then(() => {
+        this.isVideo = true;
+      }, (_err) => {
+        alert(this.changeCameraErrorMessage);
+      });
     });
   }
 
