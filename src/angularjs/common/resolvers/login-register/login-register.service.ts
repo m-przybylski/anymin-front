@@ -1,27 +1,27 @@
-import * as angular from 'angular'
-import {TopAlertService} from '../../services/top-alert/top-alert.service'
-import {LoginStateService} from '../../services/login-state/login-state.service'
-import apiModule from 'profitelo-api-ng/api.module'
-import {RegistrationApi} from 'profitelo-api-ng/api/api'
-import loginStateModule from '../../services/login-state/login-state'
-import topAlertModule from '../../services/top-alert/top-alert'
-import {TranslatorService} from '../../services/translator/translator.service'
-import translatorModule from '../../services/translator/translator'
-import {httpCodes} from '../../classes/http-codes'
-import {StateService} from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { TopAlertService } from '../../services/top-alert/top-alert.service';
+import { LoginStateService } from '../../services/login-state/login-state.service';
+import apiModule from 'profitelo-api-ng/api.module';
+import { RegistrationApi } from 'profitelo-api-ng/api/api';
+import loginStateModule from '../../services/login-state/login-state';
+import topAlertModule from '../../services/top-alert/top-alert';
+import { TranslatorService } from '../../services/translator/translator.service';
+import translatorModule from '../../services/translator/translator';
+import { httpCodes } from '../../classes/http-codes';
+import { StateService } from '@uirouter/angularjs';
 
 export interface ILoginRegister {
-  sessionId: string
-  accountObject: any
+  sessionId: string;
+  accountObject: any;
 }
 
 export interface ILoginRegisterService {
-  resolve(): ng.IPromise<{} | ILoginRegister>
+  resolve(): ng.IPromise<{} | ILoginRegister>;
 }
 
 class LoginRegisterResolver implements ILoginRegisterService {
 
-  private cacheSessionId?: string
+  private cacheSessionId?: string;
 
   static $inject = ['loginStateService', '$state', 'translatorService', '$q', '$timeout', 'topAlertService',
     'RegistrationApi', '$log'];
@@ -39,50 +39,50 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   public resolve = (): ng.IPromise<{} | ILoginRegister> => {
 
-    const _deferred = this.$q.defer<{} | ILoginRegister>()
+    const _deferred = this.$q.defer<{} | ILoginRegister>();
 
     const handleError = (error: any): void => {
       if (error.status === httpCodes.badRequest && this.cacheSessionId) {
         _deferred.resolve({
           sessionId: this.cacheSessionId,
           accountObject: _account
-        })
+        });
       } else {
-        _deferred.reject()
-        this.$log.error(error)
+        _deferred.reject();
+        this.$log.error(error);
       }
-    }
+    };
 
-    const _account = this.loginStateService.getAccountObject()
+    const _account = this.loginStateService.getAccountObject();
 
     if (_account.phoneNumber.number === null) {
       this.topAlertService.warning({
         message: this.translatorService.translate('REGISTER.ENTER_PHONE_NUMBER_FIRST'),
         timeout: 3
-      })
+      });
       this.$timeout(() => {
-        this.$state.go('app.login.account')
-      })
-      _deferred.resolve({})
+        this.$state.go('app.login.account');
+      });
+      _deferred.resolve({});
     } else {
       this.RegistrationApi.requestVerificationRoute({
         msisdn: _account.phoneNumber.prefix + _account.phoneNumber.number
       }).then((response) => {
-        this.setCacheVerificationObject(response.sessionId)
+        this.setCacheVerificationObject(response.sessionId);
         _deferred.resolve({
           sessionId: response.sessionId,
           accountObject: _account
-        })
+        });
       }, (error) => {
-        handleError(error)
-      })
+        handleError(error);
+      });
     }
 
-    return _deferred.promise
+    return _deferred.promise;
   }
 
   private setCacheVerificationObject = (sessionId: string): void => {
-    this.cacheSessionId = sessionId
+    this.cacheSessionId = sessionId;
   }
 }
 
@@ -93,4 +93,4 @@ angular.module('profitelo.resolvers.login-register', [
   translatorModule,
   topAlertModule
 ])
-  .service('LoginRegisterResolver', LoginRegisterResolver)
+  .service('LoginRegisterResolver', LoginRegisterResolver);

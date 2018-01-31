@@ -1,5 +1,5 @@
 
-import {ISimilarConsultationComponentBindings} from './similar-consultations'
+import { ISimilarConsultationComponentBindings } from './similar-consultations';
 export class SimilarConsultationComponentController implements ISimilarConsultationComponentBindings {
 
   static $inject = [];

@@ -1,13 +1,13 @@
-import * as angular from 'angular'
-import {NavbarComponent} from './navbar.component'
-import navbarLoggedInMenuModule from './navbar-logged-in-menu/navbar-logged-in-menu'
-import navbarLoggedOutMenuModule from './navbar-logged-out-menu/navbar-logged-out-menu'
-import userModule from '../../services/user/user'
-import searchDropdownModule from '../search-dropdown/search-dropdown'
+import * as angular from 'angular';
+import { NavbarComponent } from './navbar.component';
+import navbarLoggedInMenuModule from './navbar-logged-in-menu/navbar-logged-in-menu';
+import navbarLoggedOutMenuModule from './navbar-logged-out-menu/navbar-logged-out-menu';
+import userModule from '../../services/user/user';
+import searchDropdownModule from '../search-dropdown/search-dropdown';
 import uiRouter from '@uirouter/angularjs';
 
 export interface INavbarComponentBindings extends ng.IController {
-  searchInputQueryValue: string
+  searchInputQueryValue: string;
 }
 
 const navbarModule = angular.module('profitelo.components.navbar', [
@@ -19,6 +19,6 @@ const navbarModule = angular.module('profitelo.components.navbar', [
   navbarLoggedOutMenuModule
 ])
   .component('navbar', new NavbarComponent)
-  .name
+  .name;
 
-export default navbarModule
+export default navbarModule;

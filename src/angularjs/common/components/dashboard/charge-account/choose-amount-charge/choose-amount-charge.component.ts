@@ -1,12 +1,12 @@
-import {ChooseAmountChargeComponentController} from './choose-amount-charge.controller'
+import { ChooseAmountChargeComponentController } from './choose-amount-charge.controller';
 export class ChooseAmountChargeComponent implements ng.IComponentOptions {
-  template = require('./choose-amount-charge.html')
+  template = require('./choose-amount-charge.html');
   bindings = {
     title: '@',
     amounts: '<',
     scrollHandler: '<',
     amountModel: '=?',
     currentSection: '=?'
-  }
-  controller: ng.Injectable<ng.IControllerConstructor> = ChooseAmountChargeComponentController
+  };
+  controller: ng.Injectable<ng.IControllerConstructor> = ChooseAmountChargeComponentController;
 }

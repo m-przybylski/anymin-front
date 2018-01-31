@@ -1,29 +1,29 @@
-import * as angular from 'angular'
-import '../../../../../../components/braintree-form/braintree-form'
-import '../../../../../../components/interface/preloader/preloader'
-import '../../../../../../directives/interface/scrollable/scrollable'
+import * as angular from 'angular';
+import '../../../../../../components/braintree-form/braintree-form';
+import '../../../../../../components/interface/preloader/preloader';
+import '../../../../../../directives/interface/scrollable/scrollable';
 
 export interface IAddPaymentMethodControllerScope extends ng.IScope {
-  callback: () => void
+  callback: () => void;
 }
 
 export class AddPaymentMethodController implements ng.IController {
 
-  public isNavbar: boolean = true
-  public isFullscreen: boolean = true
-  public onBraintreeFormLoad: boolean = false
+  public isNavbar: boolean = true;
+  public isFullscreen: boolean = true;
+  public onBraintreeFormLoad: boolean = false;
 
   public onModalClose = (): void => {
-    this.$uibModalInstance.dismiss('cancel')
+    this.$uibModalInstance.dismiss('cancel');
   }
 
   public onLoad = (): void => {
-    this.onBraintreeFormLoad = true
+    this.onBraintreeFormLoad = true;
   }
 
   public onFormSucceed = (): void => {
-    this.$scope.callback()
-    this.$uibModalInstance.dismiss('cancel')
+    this.$scope.callback();
+    this.$uibModalInstance.dismiss('cancel');
   }
   static $inject = ['$uibModalInstance', '$scope'];
 
@@ -39,4 +39,4 @@ angular.module('profitelo.components.dashboard.settings.modals.payments.add-paym
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.scrollable'
 ])
-  .controller('addPaymentMethodController', AddPaymentMethodController)
+  .controller('addPaymentMethodController', AddPaymentMethodController);

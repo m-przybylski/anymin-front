@@ -1,6 +1,6 @@
 export class SmoothScrollingService {
 
-  private static readonly dividerOnHalf: number = 2
+  private static readonly dividerOnHalf: number = 2;
 
   static $inject = ['$timeout'];
 
@@ -12,118 +12,118 @@ export class SmoothScrollingService {
     const currentYPosition = (): number => {
       // Firefox, Chrome, Opera, Safari
       if (self.pageYOffset) {
-        return self.pageYOffset
+        return self.pageYOffset;
       }
       // Internet Explorer 6 - standards mode
       if (document.documentElement && document.documentElement.scrollTop) {
-        return document.documentElement.scrollTop
+        return document.documentElement.scrollTop;
       }
 
       // Internet Explorer 6, 7 and 8
       if (document.body.scrollTop) {
-        return document.body.scrollTop
+        return document.body.scrollTop;
       }
-      return 0
-    }
+      return 0;
+    };
 
     const elmYPosition = (id: string): number => {
-      const elm: HTMLElement | null = document.getElementById(id)
+      const elm: HTMLElement | null = document.getElementById(id);
 
       if (!elm) {
-        throw new Error(`Elem ${id} not found`)
+        throw new Error(`Elem ${id} not found`);
       }
 
-      let y: number = elm.offsetTop
-      let node: HTMLElement = elm
+      let y: number = elm.offsetTop;
+      let node: HTMLElement = elm;
       while (node.offsetParent && node.offsetParent !== document.body) {
-        node = <HTMLElement>node.offsetParent
-        y += node.offsetTop
+        node = <HTMLElement>node.offsetParent;
+        y += node.offsetTop;
       }
-      return y
-    }
+      return y;
+    };
 
-    const startY: number = currentYPosition()
-    const stopY: number = elmYPosition(eID)
-    const distance: number = stopY > startY ? stopY - startY : startY - stopY
-    const minimumDistanceToScroll: number = 100
+    const startY: number = currentYPosition();
+    const stopY: number = elmYPosition(eID);
+    const distance: number = stopY > startY ? stopY - startY : startY - stopY;
+    const minimumDistanceToScroll: number = 100;
     if (distance < minimumDistanceToScroll) {
-      scrollTo(0, stopY)
-      return
+      scrollTo(0, stopY);
+      return;
     }
-    const speed: number = 3
-    const distanceDivider: number = 25
-    const step: number = Math.round(distance / distanceDivider)
-    let leapY: number = stopY > startY ? startY + step : startY - step
-    let timer: number = 0
+    const speed: number = 3;
+    const distanceDivider: number = 25;
+    const step: number = Math.round(distance / distanceDivider);
+    let leapY: number = stopY > startY ? startY + step : startY - step;
+    let timer: number = 0;
 
     const increaseTimer = (): void => {
-      const maxSpeed: number = 30
+      const maxSpeed: number = 30;
       if (timer * speed < maxSpeed) {
-        timer += 1
+        timer += 1;
       }
       this.$timeout(() => {
-        scrollFunction()
-      }, speed * timer)
-    }
+        scrollFunction();
+      }, speed * timer);
+    };
 
     const scrollFunction = (): void => {
 
       if (stopY > leapY) {
-        window.scrollTo(0, leapY)
-        leapY += step
+        window.scrollTo(0, leapY);
+        leapY += step;
         if (leapY > stopY) {
-          leapY = stopY
+          leapY = stopY;
         }
-        increaseTimer()
-        return
+        increaseTimer();
+        return;
       } else if (stopY < leapY) {
-        window.scrollTo(0, leapY)
-        leapY -= step
+        window.scrollTo(0, leapY);
+        leapY -= step;
         if (leapY < stopY) {
-          leapY = stopY
+          leapY = stopY;
         }
-        increaseTimer()
-        return
+        increaseTimer();
+        return;
       }
 
-    }
-    scrollFunction()
-    return
+    };
+    scrollFunction();
+    return;
   }
 
   public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000): void => {
-    const navbarHeight: number = 80
-    const topPaddingHeight: number = 32
-    let scrollTop: number = $(element).offset().top
+    const navbarHeight: number = 80;
+    const topPaddingHeight: number = 32;
+    let scrollTop: number = $(element).offset().top;
     if (isNavbar) {
-      scrollTop -= navbarHeight + topPaddingHeight
+      scrollTop -= navbarHeight + topPaddingHeight;
     }
 
     $('html, body').animate({
       scrollTop
-    }, time)
+    }, time);
 
     $(window).on('wheel', () => {
-      $('html, body').stop(true, false)
-    })
+      $('html, body').stop(true, false);
+    });
   }
 
   public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number): void => {
-    const scrollAnimationTime: number = 1000
-    let scrollTop: number
+    const scrollAnimationTime: number = 1000;
+    let scrollTop: number;
     if (wrapperHeight < windowHeight) {
       scrollTop = ( $(element).offset().top - windowHeight / SmoothScrollingService.dividerOnHalf +
-        wrapperHeight / SmoothScrollingService.dividerOnHalf)
+        wrapperHeight / SmoothScrollingService.dividerOnHalf);
     } else {
-      scrollTop = ( $(element).offset().top )
+      scrollTop = ( $(element).offset().top );
     }
 
     $('html, body').animate({
       scrollTop
-    }, scrollAnimationTime)
+    }, scrollAnimationTime);
     $(window).on('wheel', () => {
-      $('html, body').stop(true, false)
-    })
+      $('html, body').stop(true, false);
+    });
   }
 
 }

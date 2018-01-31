@@ -1,20 +1,20 @@
 import * as RatelSdk from 'ratel-sdk-js';
-import {SoundsService} from '../../../services/sounds/sounds.service';
-import {Message} from 'ratel-sdk-js'
-import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
-import {Subject} from 'rxjs/Subject'
-import {Subscription} from 'rxjs/Subscription'
+import { SoundsService } from '../../../services/sounds/sounds.service';
+import { Message } from 'ratel-sdk-js';
+import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 export class MessageRoom {
 
-  private static readonly chatHistoryLimit: number = 200
-  public room?: RatelSdk.BusinessRoom
+  private static readonly chatHistoryLimit: number = 200;
+  public room?: RatelSdk.BusinessRoom;
 
   private readonly events = {
     onTyping: new Subject<void>(),
     onMark: new Subject<RatelSdk.events.RoomMark>(),
     onMessage: new Subject<RatelSdk.Message>()
-  }
+  };
 
   static $inject = ['soundsService'];
 
@@ -23,41 +23,41 @@ export class MessageRoom {
 
   public getHistory = (): Promise<Paginated<Message>> => {
     if (this.room) {
-      return this.room.getMessages(0, MessageRoom.chatHistoryLimit)
+      return this.room.getMessages(0, MessageRoom.chatHistoryLimit);
     } else {
-      return Promise.reject('No room')
+      return Promise.reject('No room');
     }
   }
 
   public getUsers = (): Promise<RatelSdk.protocol.ID[]> => {
     if (this.room) {
-      return this.room.getUsers()
+      return this.room.getUsers();
     } else {
-      return Promise.reject('No room')
+      return Promise.reject('No room');
     }
   }
 
   public indicateTyping = (): Promise<void> => {
     if (this.room) {
-      return this.room.indicateTyping()
+      return this.room.indicateTyping();
     } else {
-      return Promise.reject('No room')
+      return Promise.reject('No room');
     }
   }
 
   public sendMessage = (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
     if (this.room) {
-      return this.room.sendCustom(msg, 'MESSAGE', context)
+      return this.room.sendCustom(msg, 'MESSAGE', context);
     } else {
-      return Promise.reject('No room')
+      return Promise.reject('No room');
     }
   }
 
   public mark = (timestamp: RatelSdk.protocol.Timestamp): Promise<void> => {
     if (this.room) {
-      return this.room.setMark(timestamp)
+      return this.room.setMark(timestamp);
     } else {
-      return Promise.reject('No room')
+      return Promise.reject('No room');
     }
   }
 
@@ -68,8 +68,8 @@ export class MessageRoom {
 
   public joinRoom = (room: RatelSdk.BusinessRoom): Promise<void> => {
     if (!this.room) {
-      this.setRoom(room)
-      return room.join()
+      this.setRoom(room);
+      return room.join();
     }
     else {
       throw new Error('Room already set');
@@ -86,12 +86,12 @@ export class MessageRoom {
     this.events.onMessage.subscribe(cb)
 
   private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
-    room.onTyping(() => this.events.onTyping.next())
-    room.onMarked((roomMark) => this.events.onMark.next(roomMark))
+    room.onTyping(() => this.events.onTyping.next());
+    room.onMarked((roomMark) => this.events.onMark.next(roomMark));
     room.onCustom('MESSAGE', (roomMessage) => {
-      this.events.onMessage.next(roomMessage)
-      this.soundsService.playMessageNew()
-    })
+      this.events.onMessage.next(roomMessage);
+      this.soundsService.playMessageNew();
+    });
   }
 
 }

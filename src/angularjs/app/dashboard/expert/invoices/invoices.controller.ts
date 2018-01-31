@@ -1,11 +1,11 @@
 export class DashboardExpertInvoicesController {
 
-  public areInvoices: boolean
+  public areInvoices: boolean;
 
   static $inject = [];
 
   constructor() {
-    this.areInvoices = true
+    this.areInvoices = true;
   }
 
 }

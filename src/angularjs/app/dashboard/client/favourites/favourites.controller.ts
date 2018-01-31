@@ -1,15 +1,15 @@
-import * as _ from 'lodash'
-import {GetDashboardClientExperts} from 'profitelo-api-ng/model/models'
-import {StateService} from '@uirouter/angularjs'
+import * as _ from 'lodash';
+import { GetDashboardClientExperts } from 'profitelo-api-ng/model/models';
+import { StateService } from '@uirouter/angularjs';
 
 export function DashboardClientFavouritesController(clientFavouritesConsultations: GetDashboardClientExperts,
                                                     $state: StateService): void {
-  this.lastConsultations = _.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
-  this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
+  this.lastConsultations = _.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt');
+  this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles;
 
   this.searchForExpert = (): void => {
-    $state.go('app.search-result')
-  }
+    $state.go('app.search-result');
+  };
 
-  return this
+  return this;
 }

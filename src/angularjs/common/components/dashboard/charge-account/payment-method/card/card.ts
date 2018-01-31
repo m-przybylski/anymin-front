@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import {CardPaymentFormComponent} from './card.component';
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { CardPaymentFormComponent } from './card.component';
+import uiRouter from '@uirouter/angularjs';
 
 const cardModule: string = angular.module('profitelo.components.dashboard.charge-account.payment-method.card', [
   'pascalprecht.translate',
@@ -9,6 +9,6 @@ const cardModule: string = angular.module('profitelo.components.dashboard.charge
   'profitelo.components.braintree-form',
 ])
   .component('cardPaymentForm', new CardPaymentFormComponent())
-  .name
+  .name;
 
-export default cardModule
+export default cardModule;

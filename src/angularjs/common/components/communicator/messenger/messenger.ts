@@ -1,12 +1,12 @@
-import * as angular from 'angular'
-import 'angular-sanitize'
-import soundsModule from '../../../services/sounds/sounds'
-import {MessengerComponent} from './messenger.component'
-import messengerMinimizedModule from './minimized/minimized'
-import messengerMaximizedModule from './maximized/maximized'
+import * as angular from 'angular';
+import 'angular-sanitize';
+import soundsModule from '../../../services/sounds/sounds';
+import { MessengerComponent } from './messenger.component';
+import messengerMinimizedModule from './minimized/minimized';
+import messengerMaximizedModule from './maximized/maximized';
 
 export interface IMessengerComponentBindings {
-  isMessenger: boolean
+  isMessenger: boolean;
 }
 
 const messengerModule = angular.module('profitelo.components.communicator.messenger', [
@@ -16,9 +16,9 @@ const messengerModule = angular.module('profitelo.components.communicator.messen
   messengerMinimizedModule
 ])
   .config(['$qProvider', ($qProvider: ng.IQProvider): any => {
-    $qProvider.errorOnUnhandledRejections(false)
+    $qProvider.errorOnUnhandledRejections(false);
   }])
   .component('messenger', new MessengerComponent)
-  .name
+  .name;
 
 export default messengerModule;

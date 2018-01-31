@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {SessionDeletedService} from './session-deleted.service'
+import * as angular from 'angular';
+import { SessionDeletedService } from './session-deleted.service';
 
 const sessionDeletedModule = angular.module('profitelo.services.session-deleted', [
 ])

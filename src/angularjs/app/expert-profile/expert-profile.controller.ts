@@ -1,26 +1,26 @@
-import {IExpertProfileStateParams} from './expert-profile'
-import {ProfileApi} from 'profitelo-api-ng/api/api'
-import {GetExpertProfile, GetExpertDetails, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
-import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header.controller';
+import { IExpertProfileStateParams } from './expert-profile';
+import { ProfileApi } from 'profitelo-api-ng/api/api';
+import { GetExpertProfile, GetExpertDetails, GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
+import { ProfileTypes } from '../../common/components/profile/profile-header/profile-header.controller';
 
 export class ExpertProfileController {
 
-  public profile: GetExpertDetails | undefined
-  public consultations: GetExpertServiceDetails[]
-  public isFavourite: boolean
-  public profileType: ProfileTypes
-  public profileId: string
+  public profile: GetExpertDetails | undefined;
+  public consultations: GetExpertServiceDetails[];
+  public isFavourite: boolean;
+  public profileType: ProfileTypes;
+  public profileId: string;
 
   static $inject = ['$stateParams', '$log', 'expertProfile', 'ProfileApi'];
 
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
               expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
 
-    this.profile = expertProfile.profile.expertDetails
-    this.consultations = expertProfile.services
-    this.isFavourite = expertProfile.isFavourite
-    this.profileType = ProfileTypes.expert
-    this.profileId = expertProfile.profile.id
+    this.profile = expertProfile.profile.expertDetails;
+    this.consultations = expertProfile.services;
+    this.isFavourite = expertProfile.isFavourite;
+    this.profileType = ProfileTypes.expert;
+    this.profileId = expertProfile.profile.id;
   }
 
   public onProfileLike = (): boolean =>
@@ -38,10 +38,10 @@ export class ExpertProfileController {
   public handleLike = (): void => {
     if (!this.isFavourite) {
       this.ProfileApi.postProfileFavouriteExpertRoute(this.$stateParams.profileId)
-        .then(this.onProfileLike, this.onProfileLikeError)
+        .then(this.onProfileLike, this.onProfileLikeError);
     } else {
       this.ProfileApi.deleteProfileFavouriteExpertRoute(this.$stateParams.profileId)
-        .then(this.onProfileDislike, this.onProfileDislikeError)
+        .then(this.onProfileDislike, this.onProfileDislikeError);
     }
   }
 

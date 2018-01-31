@@ -1,31 +1,31 @@
-import * as angular from 'angular'
-import ValidationAlertModule from '../alert/validation-alert/validation-alert'
-import {DropdownPrimaryComponent} from './dropdown-primary.component'
+import * as angular from 'angular';
+import ValidationAlertModule from '../alert/validation-alert/validation-alert';
+import { DropdownPrimaryComponent } from './dropdown-primary.component';
 
 // TODO Refactor: https://git.contactis.pl/itelo/profitelo/issues/1052
 
 export interface IDropdownItem {
-  name: string
-  value: any | null
+  name: string;
+  value: any | null;
 }
 
 export interface IDropdownPrimaryComponentBindings {
-  label: string
-  inputPlaceholder: string
-  name: string
-  placeholder: string
-  mainList: IPrimaryDropdownListElement[]
-  onSelectMain: (item: IDropdownItem) => void
-  selectedItem: IDropdownItem
+  label: string;
+  inputPlaceholder: string;
+  name: string;
+  placeholder: string;
+  mainList: IPrimaryDropdownListElement[];
+  onSelectMain: (item: IDropdownItem) => void;
+  selectedItem: IDropdownItem;
 }
 
 export interface IPrimaryDropdownListElement {
-  name: string
-  value: any
+  name: string;
+  value: any;
 }
 
 export interface IFilterBy {
-  name: string
+  name: string;
 }
 
 const dropdownPrimaryModule = angular.module('profitelo.components.interface.dropdown-primary', [
@@ -33,6 +33,6 @@ const dropdownPrimaryModule = angular.module('profitelo.components.interface.dro
   ValidationAlertModule
 ])
 .component('dropdownPrimary', new DropdownPrimaryComponent)
-  .name
+  .name;
 
-export default dropdownPrimaryModule
+export default dropdownPrimaryModule;

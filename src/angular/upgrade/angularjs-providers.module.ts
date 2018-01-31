@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   AngularJsBootstrapSingletonService
 } from './angularjs-bootstrap-singleton.service';
@@ -9,6 +9,6 @@ import {
 export class AngularJsProvidersModule {
 
   constructor(angularJsBootstrapSingletonService: AngularJsBootstrapSingletonService) {
-    angularJsBootstrapSingletonService.getInstance()
+    angularJsBootstrapSingletonService.getInstance();
   }
 }

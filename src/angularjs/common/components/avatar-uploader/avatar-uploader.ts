@@ -1,13 +1,13 @@
-import * as angular from 'angular'
-import {AvatarUploaderComponent} from './avatar-uploader.component'
-import ValidationAlertModule from '../interface/alert/validation-alert/validation-alert'
-import commonSettingsModule from '../../services/common-settings/common-settings'
+import * as angular from 'angular';
+import { AvatarUploaderComponent } from './avatar-uploader.component';
+import ValidationAlertModule from '../interface/alert/validation-alert/validation-alert';
+import commonSettingsModule from '../../services/common-settings/common-settings';
 
 export interface IAvatarUploaderComponentBindings extends ng.IController {
-  avatarToken?: string
-  isValid?: boolean
-  validationText?: string
-  isSubmitted?: boolean
+  avatarToken?: string;
+  isValid?: boolean;
+  validationText?: string;
+  isSubmitted?: boolean;
 }
 
 const avatarUploaderModule = angular.module('profitelo.components.avatar-uploader', [
@@ -17,6 +17,6 @@ const avatarUploaderModule = angular.module('profitelo.components.avatar-uploade
   commonSettingsModule
 ])
 .component('avatarUploader', new AvatarUploaderComponent)
-  .name
+  .name;
 
-export default avatarUploaderModule
+export default avatarUploaderModule;

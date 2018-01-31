@@ -1,9 +1,9 @@
 export class DashboardExpertComplainsController {
 
-  public areComplains: boolean
+  public areComplains: boolean;
   static $inject = [];
 
   constructor() {
-    this.areComplains = false
+    this.areComplains = false;
   }
 }

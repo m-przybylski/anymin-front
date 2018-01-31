@@ -1,16 +1,16 @@
-import { Tag } from 'profitelo-api-ng/model/models'
-import {MoneyDto} from 'profitelo-api-ng/model/models'
+import { Tag } from 'profitelo-api-ng/model/models';
+import { MoneyDto } from 'profitelo-api-ng/model/models';
 
 export interface IExpertEmployeeDetailsModalScope extends ng.IScope {
-  sueId: string
+  sueId: string;
 }
 
 export class ExpertEmployeeDetailsModalController implements ng.IController {
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
+  public isFullscreen: boolean = true;
+  public isNavbar: boolean = true;
 
   public onModalClose = (): void => {
-    this.$uibModalInstance.dismiss('cancel')
+    this.$uibModalInstance.dismiss('cancel');
   }
 
   public tags: Tag[] = [
@@ -26,14 +26,14 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
       status: Tag.StatusEnum.NEW,
       persisted: false
     }
-  ]
+  ];
 
   public cosultationPrice: MoneyDto = {
     amount: 705,
     currency: 'PLN'
-  }
+  };
 
-  public invitePendingTime: string = '4 days ago'
+  public invitePendingTime: string = '4 days ago';
 
   static $inject = ['$uibModalInstance'];
 

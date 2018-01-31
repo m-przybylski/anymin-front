@@ -1,13 +1,13 @@
-import * as angular from 'angular'
-import {ManageDevicesComponent} from './manage-devices.component';
+import * as angular from 'angular';
+import { ManageDevicesComponent } from './manage-devices.component';
 
 export interface IManageDevicesComponentBindings {
-  deviceInUseStatus: boolean
-  deviceLocalization: string
-  deviceSystem: string
-  onDeviceRemove: (apiKey: string) => void
-  device: string
-  apiKey: string
+  deviceInUseStatus: boolean;
+  deviceLocalization: string;
+  deviceSystem: string;
+  onDeviceRemove: (apiKey: string) => void;
+  device: string;
+  apiKey: string;
 }
 
 const manageDevicesModule = angular.module('profitelo.components.dashboard.settings.manage-devices', [
@@ -15,6 +15,6 @@ const manageDevicesModule = angular.module('profitelo.components.dashboard.setti
   'profitelo.resolvers.security-settings'
 ])
   .component('manageDevices', new ManageDevicesComponent())
-  .name
+  .name;
 
-export default manageDevicesModule
+export default manageDevicesModule;

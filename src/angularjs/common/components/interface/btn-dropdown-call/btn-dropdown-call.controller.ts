@@ -1,12 +1,12 @@
-import {IBtnDropdownCallComponentBindings} from './btn-dropdown-call'
-import {Config} from '../../../../../config';
+import { IBtnDropdownCallComponentBindings } from './btn-dropdown-call';
+import { Config } from '../../../../../config';
 
 export class BtnDropdownCallComponentController implements ng.IController, IBtnDropdownCallComponentBindings {
-  public callback: () => void
-  public isOpen: boolean = false
-  public buttonText: string = ''
-  public buttonClass: string
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert
+  public callback: () => void;
+  public isOpen: boolean = false;
+  public buttonText: string = '';
+  public buttonClass: string;
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
   static $inject = ['$scope', '$document', '$element'];
 
@@ -16,23 +16,23 @@ export class BtnDropdownCallComponentController implements ng.IController, IBtnD
 
   $onInit = (): void => {
     this.$document.bind('click', (event: Event) => {
-      const ifTargetClicked = this.$element.find(event.target).length > 0
+      const ifTargetClicked = this.$element.find(event.target).length > 0;
       if (!ifTargetClicked) {
-        this.isOpen = false
+        this.isOpen = false;
       }
-      this.$scope.$apply()
-    })
+      this.$scope.$apply();
+    });
   }
 
   $onDestroy = (): void => {
-    this.$document.unbind('click')
+    this.$document.unbind('click');
   }
 
   public toggleButton = (): boolean =>
     this.isOpen = !this.isOpen
 
   public onSelectItem = (): void => {
-    this.isOpen = false
-    this.callback()
+    this.isOpen = false;
+    this.callback();
   }
 }

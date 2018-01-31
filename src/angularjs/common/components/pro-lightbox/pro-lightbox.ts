@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import 'angularjs/common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content'
-import 'angularjs/common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav'
+import * as angular from 'angular';
+import 'angularjs/common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content';
+import 'angularjs/common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav';
 
 (function(): void {
 
@@ -13,13 +13,13 @@ import 'angularjs/common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-n
       slidesList: '<',
       sliderActions: '=?'
     }
-  }
+  };
 
   angular.module('profitelo.components.pro-lightbox', [
     'profitelo.components.pro-lightbox-nav',
     'profitelo.components.pro-lightbox-content',
     'ui.bootstrap'
   ])
-    .component('proLightbox', proLightbox)
+    .component('proLightbox', proLightbox);
 
-}())
+}());

@@ -1,9 +1,9 @@
-import {Config} from '../../../config';
-import {StateService} from '@uirouter/angularjs'
+import { Config } from '../../../config';
+import { StateService } from '@uirouter/angularjs';
 
 export class WizardController implements ng.IController {
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
+  public isFullscreen: boolean = true;
+  public isNavbar: boolean = true;
 
   static $inject = ['$state', 'previousState'];
 
@@ -12,11 +12,11 @@ export class WizardController implements ng.IController {
 
   public onModalClose = (): void => {
     if (Config.isPlatformForExpert) {
-      this.$state.go('app.dashboard.settings.general')
+      this.$state.go('app.dashboard.settings.general');
     } else if (this.previousState) {
-      this.$state.go(this.previousState)
+      this.$state.go(this.previousState);
     } else {
-      this.$state.go('app.home')
+      this.$state.go('app.home');
     }
   }
 }

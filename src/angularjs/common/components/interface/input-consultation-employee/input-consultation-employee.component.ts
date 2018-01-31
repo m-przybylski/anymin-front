@@ -1,8 +1,8 @@
-import {InputConsultationEmployeeComponentController} from './input-consultation-employee.controller'
+import { InputConsultationEmployeeComponentController } from './input-consultation-employee.controller';
 
 export class InputConsultationEmployeeComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationEmployeeComponentController
-  template = require('./input-consultation-employee.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationEmployeeComponentController;
+  template = require('./input-consultation-employee.html');
   bindings: {[boundProperty: string]: string} = {
     addedItemsList: '=?',
     isOwnerEmployee: '=?',
@@ -10,5 +10,5 @@ export class InputConsultationEmployeeComponent implements ng.IComponentOptions 
     isSubmitted: '<',
     validationText: '@',
     isCheckboxVisible: '<?'
-  }
+  };
 }

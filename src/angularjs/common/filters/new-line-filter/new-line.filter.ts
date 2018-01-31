@@ -1,15 +1,15 @@
-import * as angular from 'angular'
+import * as angular from 'angular';
 
 function filter($sce: ng.ISCEService): (content: string) => string {
   return (content: string): string => {
-    content = content || ''
-    const text = content.replace(/(?:\r\n|\r|\n)/g, '<br>')
+    content = content || '';
+    const text = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
-    return $sce.trustAsHtml(text)
-  }
+    return $sce.trustAsHtml(text);
+  };
 }
 
 angular.module('profitelo.filters.new-line', [
   'ngSanitize'
 ])
-  .filter('newLineFilter', ['$sce', filter])
+  .filter('newLineFilter', ['$sce', filter]);

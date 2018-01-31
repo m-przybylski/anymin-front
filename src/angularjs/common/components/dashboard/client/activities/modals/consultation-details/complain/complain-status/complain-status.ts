@@ -1,11 +1,11 @@
-import * as angular from 'angular'
-import '../../../../../../../../components/complaints/status/status'
+import * as angular from 'angular';
+import '../../../../../../../../components/complaints/status/status';
 
 (function (): void {
 
   function controller(): void {
 
-    return this
+    return this;
   }
 
   const component = {
@@ -15,12 +15,12 @@ import '../../../../../../../../components/complaints/status/status'
     bindings: {
       complainMessage: '@'
     }
-  }
+  };
 
   angular.module(
     'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status', [
       'pascalprecht.translate',
       'profitelo.components.complaints.status'
     ])
-    .component('clientComplainStatus', component)
-}())
+    .component('clientComplainStatus', component);
+}());

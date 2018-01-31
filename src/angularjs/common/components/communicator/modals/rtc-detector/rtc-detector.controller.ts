@@ -3,25 +3,25 @@ export interface IRtcDetectorModalControllerScope extends ng.IScope {
 }
 
 export class RtcDetectorModalController implements ng.IController {
-  public isEdge = false
-  public isOpera = false
-  public isFirefox = false
-  public isSafari = false
+  public isEdge = false;
+  public isOpera = false;
+  public isFirefox = false;
+  public isSafari = false;
 
   static $inject = [];
 
   constructor() {
     if (DetectRTC.browser.isFirefox) {
-      this.isFirefox = true
+      this.isFirefox = true;
     }
     if (DetectRTC.browser.isSafari) {
-      this.isSafari = true
+      this.isSafari = true;
     }
     if (DetectRTC.browser.isEdge) {
-      this.isEdge = true
+      this.isEdge = true;
     }
     if (DetectRTC.browser.isOpera) {
-      this.isOpera = true
+      this.isOpera = true;
     }
   }
 }

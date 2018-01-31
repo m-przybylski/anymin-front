@@ -1,11 +1,11 @@
-import * as angular from 'angular'
-import {ChargeAccountController} from './charge-account.controller'
-import sessionModule from '../../../common/services/session/session'
-import topAlertModule from '../../../common/services/top-alert/top-alert'
-import commonSettingsModule from '../../../common/services/common-settings/common-settings'
-import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling'
-import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { ChargeAccountController } from './charge-account.controller';
+import sessionModule from '../../../common/services/session/session';
+import topAlertModule from '../../../common/services/top-alert/top-alert';
+import commonSettingsModule from '../../../common/services/common-settings/common-settings';
+import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling';
+import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal';
+import uiRouter from '@uirouter/angularjs';
 
 const chargeAccountModalModule = angular.module('profitelo.app.charge-account.modal', [
   'ui.bootstrap',
@@ -25,6 +25,6 @@ const chargeAccountModalModule = angular.module('profitelo.app.charge-account.mo
   'profitelo.components.braintree-form'
 ])
   .controller('chargeAccountModal', ChargeAccountController)
-  .name
+  .name;
 
-export default chargeAccountModalModule
+export default chargeAccountModalModule;

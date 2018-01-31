@@ -1,11 +1,11 @@
-import {NavigationComponentController} from './navigation.controller';
+import { NavigationComponentController } from './navigation.controller';
 
 export class NavigationComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = NavigationComponentController
-  template = require('./navigation.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = NavigationComponentController;
+  template = require('./navigation.html');
   bindings: { [boundProperty: string]: string } = {
     isVideo: '=',
     isMessenger: '=',
     currentCall: '<'
-  }
+  };
 }

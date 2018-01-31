@@ -1,12 +1,12 @@
-import {TranslatorService} from '../../../../services/translator/translator.service'
-import {ServiceApi} from 'profitelo-api-ng/api/api'
-import {GetTechnicalProblem} from 'profitelo-api-ng/model/models'
+import { TranslatorService } from '../../../../services/translator/translator.service';
+import { ServiceApi } from 'profitelo-api-ng/api/api';
+import { GetTechnicalProblem } from 'profitelo-api-ng/model/models';
 
 export interface IComplaintReason {
-  id: string,
-  isDescriptionRequired: boolean,
-  name: string,
-  label: string
+  id: string;
+  isDescriptionRequired: boolean;
+  name: string;
+  label: string;
 }
 
 export class ConsultationSummaryExpertService implements ng.IController {
@@ -40,7 +40,7 @@ export class ConsultationSummaryExpertService implements ng.IController {
       label: this.translatorService.translate(
         'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.OTHER')
     }
-  ]
+  ];
 
   static $inject = ['translatorService', 'ServiceApi'];
 

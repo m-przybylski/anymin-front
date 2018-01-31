@@ -1,7 +1,7 @@
-import {IMessengerComponentBindings} from './messenger'
+import { IMessengerComponentBindings } from './messenger';
 
 export class MessengerComponentController implements ng.IController, IMessengerComponentBindings {
-  isMessenger: boolean
+  isMessenger: boolean;
 
   static $inject = [];
 

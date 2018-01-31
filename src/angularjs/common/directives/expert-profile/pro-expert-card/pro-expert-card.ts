@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {IDirective} from 'angular'
+import * as angular from 'angular';
+import { IDirective } from 'angular';
 
 (function(): void {
   function proExpertCard(): IDirective<ng.IScope> {
@@ -8,9 +8,9 @@ import {IDirective} from 'angular'
         available: 'HOME.EXPERT_CARD_AVAILABLE',
         'not-available': 'HOME.EXPERT_CARD_NOT_AVAILABLE',
         busy: 'HOME.EXPERT_CARD_BUSY'
-      }
+      };
 
-      return this
+      return this;
     }
 
     return {
@@ -21,10 +21,10 @@ import {IDirective} from 'angular'
       scope: {
         items: '<'
       }
-    }
+    };
   }
 
   angular.module('profitelo.directives.pro-expert-card', [])
-  .directive('proExpertCard', [proExpertCard])
+  .directive('proExpertCard', [proExpertCard]);
 
-}())
+}());

@@ -1,21 +1,21 @@
-import * as angular from 'angular'
-import * as _ from 'lodash'
+import * as angular from 'angular';
+import * as _ from 'lodash';
 
 export interface ITopAlertSettings {
-  id?: number
-  icon?: string
-  message?: string
-  header?: string
-  type?: string
-  timeout?: number
-  visible?: boolean
+  id?: number;
+  icon?: string;
+  message?: string;
+  header?: string;
+  type?: string;
+  timeout?: number;
+  visible?: boolean;
 }
 
 export class TopAlertService {
 
-  private alertArray: ITopAlertSettings[] = []
-  private defaultOptions = {}
-  private alertsLimit = 2
+  private alertArray: ITopAlertSettings[] = [];
+  private defaultOptions = {};
+  private alertsLimit = 2;
 
   static $inject = ['$timeout'];
 
@@ -23,44 +23,44 @@ export class TopAlertService {
   }
 
   private setId = (): number => {
-    const d = new Date()
-    const randomNumberMultiplier: number = 1000
-    const n = d.getMilliseconds() + Math.floor(Math.random() * randomNumberMultiplier)
-    return n
+    const d = new Date();
+    const randomNumberMultiplier: number = 1000;
+    const n = d.getMilliseconds() + Math.floor(Math.random() * randomNumberMultiplier);
+    return n;
   }
 
   public destroyAlert = (alertId: number): void => {
     if (this.alertsLimit < this.alertArray.length) {
-      this.alertArray[this.alertsLimit].visible = true
-      this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id)
+      this.alertArray[this.alertsLimit].visible = true;
+      this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id);
     }
-    _.remove(this.alertArray, (alert) => alert.id === alertId)
+    _.remove(this.alertArray, (alert) => alert.id === alertId);
   }
 
   private timeoutDestroy = (timeout: number, id: number): void => {
-    const timeoutMultiplier: number = 3000
+    const timeoutMultiplier: number = 3000;
     if (typeof timeout !== 'undefined' && timeout !== null) {
-      const realTimeout = timeout * timeoutMultiplier
+      const realTimeout = timeout * timeoutMultiplier;
       this.$timeout(() => {
-        this.destroyAlert(id)
-      }, realTimeout)
+        this.destroyAlert(id);
+      }, realTimeout);
     }
   }
 
   private pushAlert = (options: ITopAlertSettings): void => {
     if (this.alertArray.length < this.alertsLimit) {
-      options.visible = true
-      this.timeoutDestroy(options.timeout || 0, options.id || 0)
+      options.visible = true;
+      this.timeoutDestroy(options.timeout || 0, options.id || 0);
     }
-    this.alertArray.push(options)
+    this.alertArray.push(options);
   }
 
   public bindAlert = (alerts: any): void => {
-    alerts(this.alertArray)
+    alerts(this.alertArray);
   }
 
   public success = (options: ITopAlertSettings): void => {
-    options = options === undefined ? {} : options
+    options = options === undefined ? {} : options;
     this.defaultOptions = {
       id: this.setId(),
       icon: 'icon-success-24',
@@ -68,12 +68,12 @@ export class TopAlertService {
       type: 'success',
       timeout: null,
       visible: false
-    }
-    this.pushAlert(angular.extend(this.defaultOptions, options))
+    };
+    this.pushAlert(angular.extend(this.defaultOptions, options));
   }
 
   public warning = (options: ITopAlertSettings): void => {
-    options = options === undefined ? {} : options
+    options = options === undefined ? {} : options;
     this.defaultOptions = {
       id: this.setId(),
       icon: 'icon-warning-24',
@@ -81,12 +81,12 @@ export class TopAlertService {
       type: 'warning',
       timeout: null,
       visible: false
-    }
-    this.pushAlert(angular.extend(this.defaultOptions, options))
+    };
+    this.pushAlert(angular.extend(this.defaultOptions, options));
   }
 
   public error = (options: ITopAlertSettings): void => {
-    options = options === undefined ? {} : options
+    options = options === undefined ? {} : options;
     this.defaultOptions = {
       id: this.setId(),
       icon: 'icon-danger-24',
@@ -94,12 +94,12 @@ export class TopAlertService {
       type: 'error',
       timeout: null,
       visible: false
-    }
-    this.pushAlert(angular.extend(this.defaultOptions, options))
+    };
+    this.pushAlert(angular.extend(this.defaultOptions, options));
   }
 
   public info = (options: ITopAlertSettings): void => {
-    options = options === undefined ? {} : options
+    options = options === undefined ? {} : options;
     this.defaultOptions = {
       id: this.setId(),
       icon: 'icon-info-24',
@@ -107,7 +107,7 @@ export class TopAlertService {
       type: 'info',
       timeout: null,
       visible: false
-    }
-    this.pushAlert(angular.extend(this.defaultOptions, options))
+    };
+    this.pushAlert(angular.extend(this.defaultOptions, options));
   }
 }

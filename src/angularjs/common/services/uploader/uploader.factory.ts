@@ -1,5 +1,5 @@
-import {UploaderService} from './uploader.service'
-import {FilesApi} from 'profitelo-api-ng/api/api'
+import { UploaderService } from './uploader.service';
+import { FilesApi } from 'profitelo-api-ng/api/api';
 
 export class UploaderFactory {
 

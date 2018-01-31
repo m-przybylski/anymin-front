@@ -1,23 +1,23 @@
-import * as angular from 'angular'
-import {IDirective} from 'angular'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { IDirective } from 'angular';
+import uiRouter from '@uirouter/angularjs';
 
 function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
 
   function linkFunction(scope: any, _elem: ng.IRootElementService, _attrs: ng.IAttributes): void {
         scope.refreshSlider = (): void => {
       $timeout(() => {
-        scope.$broadcast('rzSliderForceRender')
-      })
-    }
+        scope.$broadcast('rzSliderForceRender');
+      });
+    };
 
     scope.options = {
       floor: 0,
       ceil: 20,
       onEnd: (_sliderId: string, modelValue: string, highValue: string, pointerType: string): void => {
-        scope.callback(modelValue, highValue, pointerType)
+        scope.callback(modelValue, highValue, pointerType);
       }
-    }
+    };
 
   }
 
@@ -32,7 +32,7 @@ function proRangeSlider($timeout: ng.ITimeoutService): IDirective<ng.IScope> {
       callback: '=',
       label: '@'
     }
-  }
+  };
 
 }
 
@@ -40,4 +40,4 @@ angular.module('profitelo.directives.interface.pro-range-slider', [
   uiRouter,
   'rzModule'
 ])
-  .directive('proRangeSlider', ['$timeout', proRangeSlider])
+  .directive('proRangeSlider', ['$timeout', proRangeSlider]);

@@ -1,9 +1,9 @@
-import * as angular from 'angular'
-import {ChatHistoryComponent} from './chat-history.component'
-import groupedMessagesModule from '../communicator/messenger/maximized/grouped-messages/grouped-messages'
+import * as angular from 'angular';
+import { ChatHistoryComponent } from './chat-history.component';
+import groupedMessagesModule from '../communicator/messenger/maximized/grouped-messages/grouped-messages';
 
 export interface IChatHistoryBindings {
-  roomId?: string
+  roomId?: string;
 }
 
 const chatHistoryModule = angular.module('profitelo.components.chat-history', [
@@ -11,6 +11,6 @@ const chatHistoryModule = angular.module('profitelo.components.chat-history', [
   groupedMessagesModule
 ])
 .component('chatHistory', new ChatHistoryComponent())
-  .name
+  .name;
 
 export default chatHistoryModule;

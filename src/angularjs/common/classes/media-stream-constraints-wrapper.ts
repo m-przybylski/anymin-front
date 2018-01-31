@@ -1,12 +1,12 @@
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 import { NavigatorWrapper } from './navigator-wrapper/navigator-wrapper';
 
 export class MediaStreamConstraintsWrapper {
 
-  private actualConstraints: MediaStreamConstraints
+  private actualConstraints: MediaStreamConstraints;
   private navigatorWrapper: NavigatorWrapper;
-  private currentCamera: string = NavigatorWrapper.frontCamera
-  private currentCameraIndex: number = 0
+  private currentCamera: string = NavigatorWrapper.frontCamera;
+  private currentCameraIndex: number = 0;
 
   private static readonly videoConstraints: MediaStreamConstraints = {
     video: {
@@ -14,26 +14,26 @@ export class MediaStreamConstraintsWrapper {
       height: 200,
       frameRate: 15
     }
-  }
+  };
 
   private static readonly audioConstraints: MediaStreamConstraints = {
     audio: {
       echoCancelation: true
     }
-  }
+  };
 
   static $inject = [];
 
   constructor() {
-    this.actualConstraints = _.cloneDeep(MediaStreamConstraintsWrapper.getDefault())
-    this.navigatorWrapper = new NavigatorWrapper()
+    this.actualConstraints = _.cloneDeep(MediaStreamConstraintsWrapper.getDefault());
+    this.navigatorWrapper = new NavigatorWrapper();
   }
 
   public static getDefault = (): MediaStreamConstraints =>
-    MediaStreamConstraintsWrapper.audioConstraints;
+    MediaStreamConstraintsWrapper.audioConstraints
 
   public addAudio = (): void => {
-    this.actualConstraints.audio = MediaStreamConstraintsWrapper.audioConstraints.audio
+    this.actualConstraints.audio = MediaStreamConstraintsWrapper.audioConstraints.audio;
   }
 
   public removeAudio = (): void => {
@@ -42,7 +42,7 @@ export class MediaStreamConstraintsWrapper {
   }
 
   public addVideo = (): void => {
-    this.actualConstraints.video = MediaStreamConstraintsWrapper.videoConstraints.video
+    this.actualConstraints.video = MediaStreamConstraintsWrapper.videoConstraints.video;
     }
 
   public removeVideo = (): void => {
@@ -50,7 +50,7 @@ export class MediaStreamConstraintsWrapper {
       delete this.actualConstraints.video;
   }
 
-  public getConstraints = (): MediaStreamConstraints => this.actualConstraints
+  public getConstraints = (): MediaStreamConstraints => this.actualConstraints;
 
   public toggleCamera = (): void => {
     this.currentCameraIndex = this.currentCameraIndex === 0 ? 1 : 0;

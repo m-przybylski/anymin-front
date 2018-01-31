@@ -1,9 +1,9 @@
-import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
-import {TranslatorService} from '../translator/translator.service'
+import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
+import { TranslatorService } from '../translator/translator.service';
 
 export interface ILanguage {
-  name: string,
-  value: string
+  name: string;
+  value: string;
 }
 
 export class LanguagesService {
@@ -17,12 +17,12 @@ export class LanguagesService {
     shortcut: string,
     name: string,
     'native-name': string
-  }[] = this.CommonConfig.getAllData().config['supported-languages']
+  }[] = this.CommonConfig.getAllData().config['supported-languages'];
 
   public languagesList: ILanguage[] = this.languages.map((lng) =>
     ({
       name: this.translatorService.translate('LANGUAGE.' + lng.shortcut),
       value: lng.shortcut
-    }))
+    }));
 
 }

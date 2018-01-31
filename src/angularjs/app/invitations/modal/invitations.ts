@@ -1,12 +1,12 @@
-import * as angular from 'angular'
-import {InvitationsModalController} from './invitations.controller'
-import userAvatarModule from '../../../common/components/interface/user-avatar/user-avatar'
+import * as angular from 'angular';
+import { InvitationsModalController } from './invitations.controller';
+import userAvatarModule from '../../../common/components/interface/user-avatar/user-avatar';
 import consultationListItemModule
-  from '../../../common/components/invitations/consultation-list-item/consultation-list-item'
+  from '../../../common/components/invitations/consultation-list-item/consultation-list-item';
 import noResultsInformationModule
-  from '../../../common/components/dashboard/no-results-information/no-results-information'
-import userModule from '../../../common/services/user/user'
-import translatorModule from '../../../common/services/translator/translator'
+  from '../../../common/components/dashboard/no-results-information/no-results-information';
+import userModule from '../../../common/services/user/user';
+import translatorModule from '../../../common/services/translator/translator';
 
 const invitationsModalModule = angular.module('profitelo.components.invitations.modals.invitations', [
   'ui.bootstrap',
@@ -20,6 +20,6 @@ const invitationsModalModule = angular.module('profitelo.components.invitations.
   translatorModule
 ])
 .controller('invitationsModal', InvitationsModalController)
-  .name
+  .name;
 
-export default invitationsModalModule
+export default invitationsModalModule;

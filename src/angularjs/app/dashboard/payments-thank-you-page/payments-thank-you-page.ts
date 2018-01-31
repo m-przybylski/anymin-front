@@ -1,14 +1,14 @@
-import * as angular from 'angular'
-import 'angularjs/common/components/dashboard/thank-you-page/thank-you-page'
-import 'angularjs/common/components/interface/top-modal-navbar/top-modal-navbar'
-import {StateService, StateProvider, TransitionPromise} from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angularjs/common/components/dashboard/thank-you-page/thank-you-page';
+import 'angularjs/common/components/interface/top-modal-navbar/top-modal-navbar';
+import { StateService, StateProvider, TransitionPromise } from '@uirouter/angularjs';
 
 function paymentsThankYouPageController($state: StateService): void {
 
   this.onClose = (): TransitionPromise =>
-    $state.go('app.dashboard.client.activities')
+    $state.go('app.dashboard.client.activities');
 
-  return this
+  return this;
 }
 
 function config($stateProvider: StateProvider): void {
@@ -21,7 +21,7 @@ function config($stateProvider: StateProvider): void {
       pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
       showMenu: false
     }
-  })
+  });
 }
 
 angular.module('profitelo.controller.dashboard.payments-thank-you-page', [
@@ -29,4 +29,4 @@ angular.module('profitelo.controller.dashboard.payments-thank-you-page', [
   'profitelo.components.dashboard.thank-you-page'
 ])
   .config(['$stateProvider', config])
-  .controller('paymentsThankYouPageController', ['$state', paymentsThankYouPageController])
+  .controller('paymentsThankYouPageController', ['$state', paymentsThankYouPageController]);

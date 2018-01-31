@@ -1,8 +1,8 @@
-import {InputPasswordComponentController} from './input-password.controller'
+import { InputPasswordComponentController } from './input-password.controller';
 
 export class InputPasswordComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputPasswordComponentController
-  template = require('./input-password.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = InputPasswordComponentController;
+  template = require('./input-password.html');
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
@@ -15,5 +15,5 @@ export class InputPasswordComponent implements ng.IComponentOptions {
     ngModel: '=',
     isSubmitted: '<',
     onChange: '<'
-  }
+  };
 }

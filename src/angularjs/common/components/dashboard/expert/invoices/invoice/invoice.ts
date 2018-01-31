@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import 'angular-translate'
-import {ExpertInvoiceComponent} from './invoice.component';
+import * as angular from 'angular';
+import 'angular-translate';
+import { ExpertInvoiceComponent } from './invoice.component';
 
 export interface IExpertInvoiceComponentBindings {}
 
@@ -8,6 +8,6 @@ const expertInvoiceModule = angular.module('profitelo.components.dashboard.exper
   'pascalprecht.translate'
 ])
   .component('expertInvoice', new ExpertInvoiceComponent())
-  .name
+  .name;
 
-export default expertInvoiceModule
+export default expertInvoiceModule;

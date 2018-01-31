@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import 'angular-translate'
-import {ExpertNoActivitiesComponent} from './no-activities.component'
+import * as angular from 'angular';
+import 'angular-translate';
+import { ExpertNoActivitiesComponent } from './no-activities.component';
 import noResultsInformationModule from '../../../no-results-information/no-results-information';
 
 export interface IExpertNoActivitiesComponentBindings extends ng.IController {
-  isPayoutMethod: boolean
+  isPayoutMethod: boolean;
 }
 
 const expertNoActivitiesModule = angular.module('profitelo.components.dashboard.expert.activities.no-activities', [
@@ -12,6 +12,6 @@ const expertNoActivitiesModule = angular.module('profitelo.components.dashboard.
   'pascalprecht.translate'
 ])
   .component('expertNoActivities', new ExpertNoActivitiesComponent())
-  .name
+  .name;
 
-export default expertNoActivitiesModule
+export default expertNoActivitiesModule;

@@ -10,7 +10,7 @@ export class NavbarNotificationsService {
   }
 
   public onInvitationsResolved = (onFetchInvitations: () => void): void => {
-    this.onInvitationsResolvedSubject.subscribe(onFetchInvitations)
+    this.onInvitationsResolvedSubject.subscribe(onFetchInvitations);
   }
 
   public resolveInvitations = (): void => {

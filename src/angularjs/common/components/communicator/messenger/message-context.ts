@@ -1,5 +1,5 @@
 export interface IMessageContext {
-  mimeType: string,
-  content: string,
-  description?: string
+  mimeType: string;
+  content: string;
+  description?: string;
 }

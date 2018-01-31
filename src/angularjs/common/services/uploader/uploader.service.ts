@@ -1,28 +1,28 @@
-import * as angular from 'angular'
-import {FileIdDto, PostFileDetails} from 'profitelo-api-ng/model/models'
-import {FilesApi} from 'profitelo-api-ng/api/api'
-import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
-import {IDeferred} from 'angular'
+import * as angular from 'angular';
+import { FileIdDto, PostFileDetails } from 'profitelo-api-ng/model/models';
+import { FilesApi } from 'profitelo-api-ng/api/api';
+import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
+import { IDeferred } from 'angular';
 
 export interface ICroppingDetails {
-  x?: number
-  y?: number
-  width?: number
-  height?: number
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
 }
 
 interface IFileObject {
-  file: File
-  deferred: ng.IDeferred<any>
-  postFileDetails: PostFileDetails
-  callback: (data: any) => void
+  file: File;
+  deferred: ng.IDeferred<any>;
+  postFileDetails: PostFileDetails;
+  callback: (data: any) => void;
 }
 
 export class UploaderService {
 
-  private uploadingCount = 0
-  private fileObjectsToUpload: IFileObject[] = []
-  private urls = CommonConfig.settings.urls
+  private uploadingCount = 0;
+  private fileObjectsToUpload: IFileObject[] = [];
+  private urls = CommonConfig.settings.urls;
 
   static $inject = ['$q', '$timeout', 'FilesApi', 'Upload', 'simultaneousUploadCount'];
 
@@ -37,23 +37,23 @@ export class UploaderService {
     this.$timeout(this.processUpload)
 
   private onFileUploadEnd = (): void => {
-    this.uploadingCount--
-    this.scheduleUpload()
+    this.uploadingCount--;
+    this.scheduleUpload();
   }
 
   private onFileUpload = (fileObj: IFileObject, res: any): void => {
-    fileObj.deferred.resolve(res.data)
-    this.onFileUploadEnd()
+    fileObj.deferred.resolve(res.data);
+    this.onFileUploadEnd();
   }
 
   private onFileUploadError = (fileObj: IFileObject, err: any): void => {
-    fileObj.deferred.reject(err)
-    this.onFileUploadEnd()
+    fileObj.deferred.reject(err);
+    this.onFileUploadEnd();
   }
 
   private onFileUploadProgress = (fileObj: IFileObject, res: any): void => {
     if (typeof fileObj.callback === 'function') {
-      this.$timeout(_ => fileObj.callback(res))
+      this.$timeout(_ => fileObj.callback(res));
     }
   }
 
@@ -72,12 +72,12 @@ export class UploaderService {
     )
 
   private onGetFileToken = (fileObj: IFileObject, token: FileIdDto): void => {
-    this._uploadFile(fileObj, token)
+    this._uploadFile(fileObj, token);
   }
 
   private onGetFileTokenError = (fileObj: IFileObject, err: any): void => {
-    fileObj.deferred.reject(err)
-    this.onFileUploadEnd()
+    fileObj.deferred.reject(err);
+    this.onFileUploadEnd();
   }
 
   private getFileToken = (fileObj: IFileObject): ng.IPromise<FileIdDto> =>
@@ -86,16 +86,16 @@ export class UploaderService {
   private processUpload = (): void => {
     if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&
       this.fileObjectsToUpload.length > 0) {
-      this.uploadingCount++
+      this.uploadingCount++;
 
-      const fileObj: IFileObject | undefined = this.fileObjectsToUpload.shift()
+      const fileObj: IFileObject | undefined = this.fileObjectsToUpload.shift();
 
       if (angular.isDefined(fileObj) && fileObj) {
         this.getFileToken(fileObj)
           .then(
             (response) => this.onGetFileToken(fileObj, response),
             (err: any) => this.onGetFileTokenError(fileObj, err)
-          )
+          );
       }
     }
   }
@@ -103,27 +103,27 @@ export class UploaderService {
   private addFileToQueue = (file: File,
                             postFileDetails: PostFileDetails,
                             callback: (res: any) => void): IDeferred<{}> => {
-    const deferred = this.$q.defer()
+    const deferred = this.$q.defer();
     this.fileObjectsToUpload.push({
       file,
       deferred,
       postFileDetails,
       callback
-    })
-    return deferred
+    });
+    return deferred;
   }
 
   public uploadFile = (file: File,
                        postFileDetails: PostFileDetails,
                        callback: (data: any) => void): ng.IPromise<{}> => {
     if (!file || !(file instanceof File)) {
-      return this.$q.reject('Expected File, got ' + typeof file)
+      return this.$q.reject('Expected File, got ' + typeof file);
     }
 
-    const deferred = this.addFileToQueue(file, postFileDetails, callback)
+    const deferred = this.addFileToQueue(file, postFileDetails, callback);
 
-    this.scheduleUpload()
+    this.scheduleUpload();
 
-    return deferred.promise
+    return deferred.promise;
   }
 }

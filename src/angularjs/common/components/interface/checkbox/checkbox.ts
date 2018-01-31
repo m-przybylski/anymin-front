@@ -1,18 +1,18 @@
-import * as angular from 'angular'
-import {CheckboxComponent} from './checkbox.component'
-import ValidationAlertModule from '../alert/validation-alert/validation-alert'
+import * as angular from 'angular';
+import { CheckboxComponent } from './checkbox.component';
+import ValidationAlertModule from '../alert/validation-alert/validation-alert';
 
 export interface ICheckboxComponentBindings extends ng.IController {
-  inputText: string
-  additionalText?: string
-  name: string
-  alertText?: string
-  validation?: boolean
-  ngModel: boolean
-  isDisabled?: boolean
-  ngRequired?: boolean
-  onChange?: () => void
-  translationParam?: string
+  inputText: string;
+  additionalText?: string;
+  name: string;
+  alertText?: string;
+  validation?: boolean;
+  ngModel: boolean;
+  isDisabled?: boolean;
+  ngRequired?: boolean;
+  onChange?: () => void;
+  translationParam?: string;
 }
 
 const checkboxModule = angular.module('profitelo.components.interface.checkbox', [
@@ -20,6 +20,6 @@ const checkboxModule = angular.module('profitelo.components.interface.checkbox',
   ValidationAlertModule
 ])
 .component('checkbox', new CheckboxComponent)
-  .name
+  .name;
 
-export default checkboxModule
+export default checkboxModule;

@@ -1,5 +1,5 @@
-import {ModalsService} from '../../common/services/modals/modals.service'
-import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
+import { ModalsService } from '../../common/services/modals/modals.service';
+import { FinancesApi, PaymentsApi } from 'profitelo-api-ng/api/api';
 
 export class ChargeAccountResolver {
 
@@ -12,10 +12,10 @@ export class ChargeAccountResolver {
   }
 
   public resolve = (currentStateName?: string): void => {
-    const indexOfPaymentOptions = 0
-    const indexOfCreditCards = 1
-    const indexOfPayUPaymentLinks = 2
-    const indexOfClientBalance = 3
+    const indexOfPaymentOptions = 0;
+    const indexOfCreditCards = 1;
+    const indexOfPayUPaymentLinks = 2;
+    const indexOfClientBalance = 3;
     this.$q.all([
       this.PaymentsApi.getPaymentOptionsRoute(),
       this.PaymentsApi.getCreditCardsRoute(),
@@ -23,8 +23,8 @@ export class ChargeAccountResolver {
       this.FinancesApi.getClientBalanceRoute()
     ]).then((values) => {
       this.modalsService.createChargeAccountModal(currentStateName, values[indexOfPaymentOptions],
-        values[indexOfCreditCards], values[indexOfPayUPaymentLinks], values[indexOfClientBalance])
-    })
+        values[indexOfCreditCards], values[indexOfPayUPaymentLinks], values[indexOfClientBalance]);
+    });
   }
 
 }

@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import '../../../../../../components/interface/collapse-btn/collapse-btn'
-import tagsListModule from '../../../../../tags-list/tags-list'
-import {ExpertPayoutCivilModalConttroller} from './payout-civil.controller'
+import * as angular from 'angular';
+import '../../../../../../components/interface/collapse-btn/collapse-btn';
+import tagsListModule from '../../../../../tags-list/tags-list';
+import { ExpertPayoutCivilModalConttroller } from './payout-civil.controller';
 
 const expertPayoutCivilModalModule = angular.module(
   'profitelo.components.dashboard.expert.activities.modals.payout-civil', [
@@ -11,6 +11,6 @@ const expertPayoutCivilModalModule = angular.module(
     'profitelo.components.interface.collapse-btn',
     tagsListModule
   ])
-  .controller('expertPayoutCivilController', ExpertPayoutCivilModalConttroller)
+  .controller('expertPayoutCivilController', ExpertPayoutCivilModalConttroller);
 
-export default expertPayoutCivilModalModule
+export default expertPayoutCivilModalModule;

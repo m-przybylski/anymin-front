@@ -1,5 +1,5 @@
-import {TopAlertService} from '../top-alert/top-alert.service'
-import {TranslatorService} from '../translator/translator.service'
+import { TopAlertService } from '../top-alert/top-alert.service';
+import { TranslatorService } from '../translator/translator.service';
 export class ErrorHandlerService {
 
   static $inject = ['topAlertService', '$log', 'translatorService'];
@@ -15,8 +15,8 @@ export class ErrorHandlerService {
     this.topAlertService.error({
       message: this.translatorService.translate(errorMessageTranslationKey),
       timeout: 2
-    })
-    this.$log.error(logMessage, error)
+    });
+    this.$log.error(logMessage, error);
   }
 
 }

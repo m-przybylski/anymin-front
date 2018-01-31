@@ -1,16 +1,16 @@
-import * as angular from 'angular'
-import * as _ from 'lodash'
-import './general/general'
-import './payments/payments'
-import './payouts/payouts'
-import './security/security'
-import 'angularjs/common/components/dashboard/settings/navigation/navigation'
-import 'angular-touch'
+import * as angular from 'angular';
+import * as _ from 'lodash';
+import './general/general';
+import './payments/payments';
+import './payouts/payouts';
+import './security/security';
+import 'angularjs/common/components/dashboard/settings/navigation/navigation';
+import 'angular-touch';
 import dashboardSettingsNotificationsModule from './notifications/notifications';
-import settingsNavigation from '../../../common/components/dashboard/settings/navigation/navigation'
-import dashboardSettingsPayoutsModule from './payouts/payouts'
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import settingsNavigation from '../../../common/components/dashboard/settings/navigation/navigation';
+import dashboardSettingsPayoutsModule from './payouts/payouts';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 export class SettingsController implements ng.IController {
 
@@ -20,9 +20,9 @@ export class SettingsController implements ng.IController {
     'payments',
     'payouts',
     'notifications'
-  ]
+  ];
 
-  public currentState: string = this.stateNames[0]
+  public currentState: string = this.stateNames[0];
 
   static $inject = ['$state', '$scope'];
 
@@ -30,27 +30,27 @@ export class SettingsController implements ng.IController {
 
     $scope.$watch(() => $state.current.name, (newVal, _oldVal) => {
       if (newVal) {
-        this.handleStateChange(newVal)
+        this.handleStateChange(newVal);
       }
-    })
+    });
   }
 
   private handleStateChange = (stateName: string): void => {
 
-    const realStateName = this.getRealStateName(stateName)
+    const realStateName = this.getRealStateName(stateName);
 
     if (realStateName && angular.isDefined(realStateName) && _.includes(this.stateNames, realStateName)) {
-      (<any>this.stateNames)[this.currentState] = false
-      this.currentState = realStateName
+      (<any>this.stateNames)[this.currentState] = false;
+      this.currentState = realStateName;
     }
 
-    (<any>this.stateNames)[realStateName] = true
+    (<any>this.stateNames)[realStateName] = true;
   }
 
   private getRealStateName = (stateName: string): string => {
-    const stringsArray = stateName.split('.')
-    const stateNameIndex: number = 3
-    return stringsArray[stateNameIndex]
+    const stringsArray = stateName.split('.');
+    const stateNameIndex: number = 3;
+    return stringsArray[stateNameIndex];
   }
 }
 
@@ -65,7 +65,7 @@ function config($stateProvider: StateProvider): void {
       pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
       showMenu: false
     }
-  })
+  });
 }
 
 angular.module('profitelo.controller.dashboard.settings', [
@@ -79,4 +79,4 @@ angular.module('profitelo.controller.dashboard.settings', [
   dashboardSettingsNotificationsModule
 ])
   .config(['$stateProvider', config])
-  .controller('settingsController', SettingsController)
+  .controller('settingsController', SettingsController);

@@ -6,61 +6,61 @@
       this.mainPlaceholder = {
         name: this.placeholder,
         value: null
-      }
-    }
+      };
+    };
 
-    const dropdownScroll: any = angular.element('.dropdown-content')
-    this.isOpen = false
-    this.isActive = false
+    const dropdownScroll: any = angular.element('.dropdown-content');
+    this.isOpen = false;
+    this.isActive = false;
 
-    this.activeItem = false
+    this.activeItem = false;
 
     this.mainListExist = (): boolean =>
-      angular.isDefined(this.mainList) && this.mainList.length > 0
+      angular.isDefined(this.mainList) && this.mainList.length > 0;
 
     this.isSecondaryListExist = (): boolean =>
-      angular.isDefined(this.secondaryList) && this.secondaryList.length > 0
+      angular.isDefined(this.secondaryList) && this.secondaryList.length > 0;
 
     this.toggleDropdown = (): void => {
-      this.isOpen = !this.isOpen
-    }
+      this.isOpen = !this.isOpen;
+    };
 
     const onItemChecked = (item: any): void => {
-      this.isOpen = !this.isOpen
-      this.isActive = item.value
-      this.selectedItem = item
-    }
+      this.isOpen = !this.isOpen;
+      this.isActive = item.value;
+      this.selectedItem = item;
+    };
 
-    this.isSelected = (item: any): boolean => this.activeItem === item
+    this.isSelected = (item: any): boolean => this.activeItem === item;
 
     this.onMainItemSelect = (item: any): void => {
-      this.activeItem = item
-      onItemChecked(item)
-      this.onSelectMain(item)
-    }
+      this.activeItem = item;
+      onItemChecked(item);
+      this.onSelectMain(item);
+    };
 
     this.onSecondaryItemSelect = (item: any): void => {
-      this.activeItem = item
-      onItemChecked(item)
-      this.onSelectSecond(item)
-    }
+      this.activeItem = item;
+      onItemChecked(item);
+      this.onSelectSecond(item);
+    };
 
-    dropdownScroll.perfectScrollbar()
+    dropdownScroll.perfectScrollbar();
 
     $document.bind('click', (event) => {
-      const ifTargetClicked = $element.find(event.target).length > 0
+      const ifTargetClicked = $element.find(event.target).length > 0;
       if (!ifTargetClicked) {
-        this.isOpen = false
+        this.isOpen = false;
       }
-      this.filterBy.name = ''
-      $scope.$apply()
-    })
+      this.filterBy.name = '';
+      $scope.$apply();
+    });
 
     this.filterBy = {
       name: ''
-    }
+    };
 
-    return this
+    return this;
   }
 
   const component = {
@@ -82,11 +82,11 @@
       selectedItem: '<'
     }
 
-  }
+  };
 
   angular.module('profitelo.components.interface.dropdown', [
     'pascalprecht.translate'
   ])
-  .component('dropdownInput', component)
+  .component('dropdownInput', component);
 
-}())
+}());

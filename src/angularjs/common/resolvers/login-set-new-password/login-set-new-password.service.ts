@@ -1,25 +1,25 @@
-import * as angular from 'angular'
-import {ISetNewPasswordStateParams} from '../../../app/login/set-new-password/set-new-password'
-import {TopAlertService} from '../../services/top-alert/top-alert.service'
-import apiModule from 'profitelo-api-ng/api.module'
-import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
-import {LoginStateService} from '../../services/login-state/login-state.service'
-import topAlertModule from '../../services/top-alert/top-alert'
-import loginStateModule from '../../services/login-state/login-state'
-import {TranslatorService} from '../../services/translator/translator.service'
-import translatorModule from '../../services/translator/translator'
-import {StateService} from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { ISetNewPasswordStateParams } from '../../../app/login/set-new-password/set-new-password';
+import { TopAlertService } from '../../services/top-alert/top-alert.service';
+import apiModule from 'profitelo-api-ng/api.module';
+import { RecoverPasswordApi } from 'profitelo-api-ng/api/api';
+import { LoginStateService } from '../../services/login-state/login-state.service';
+import topAlertModule from '../../services/top-alert/top-alert';
+import loginStateModule from '../../services/login-state/login-state';
+import { TranslatorService } from '../../services/translator/translator.service';
+import translatorModule from '../../services/translator/translator';
+import { StateService } from '@uirouter/angularjs';
 
 export interface ILoginSetNewPassword {
-  method: string
+  method: string;
   payload: {
     msisdn?: string
     token: string
-  }
+  };
 }
 
 export interface ILoginSetNewPasswordService {
-  resolve(stateParam: ISetNewPasswordStateParams): ng.IPromise<ILoginSetNewPassword>
+  resolve(stateParam: ISetNewPasswordStateParams): ng.IPromise<ILoginSetNewPassword>;
 }
 
 class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
@@ -36,7 +36,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
   public resolve = (stateParams: ISetNewPasswordStateParams): ng.IPromise<ILoginSetNewPassword> => {
 
-    const _deferred = this.$q.defer<ILoginSetNewPassword>()
+    const _deferred = this.$q.defer<ILoginSetNewPassword>();
 
     const smsTokenPath = (): void => {
       _deferred.resolve({
@@ -45,8 +45,8 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
           msisdn: this.loginStateService.getFullPhoneNumber(),
           token: stateParams.token
         }
-      })
-    }
+      });
+    };
 
     const emailTokenPath = (): void => {
 
@@ -58,42 +58,42 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
           payload: {
             token: stateParams.token
           }
-        })
+        });
       }, () => {
-        _deferred.reject()
+        _deferred.reject();
         this.topAlertService.warning({
           message: this.translatorService.translate('LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN'),
           timeout: 5
-        })
+        });
         this.$timeout(() => {
-          this.$state.go('app.login.account')
-        })
-      })
+          this.$state.go('app.login.account');
+        });
+      });
 
-    }
+    };
 
     if (stateParams.token.length === 0) {
-      _deferred.reject()
+      _deferred.reject();
 
       this.topAlertService.warning({
         message: 'No token. Try again'
-      })
+      });
 
       this.$timeout(() => {
-        this.$state.go('app.login.account')
-      })
+        this.$state.go('app.login.account');
+      });
 
     } else {
 
       if (stateParams.method === 'sms') {
-        smsTokenPath()
+        smsTokenPath();
       } else {
-        emailTokenPath()
+        emailTokenPath();
       }
 
     }
 
-    return _deferred.promise
+    return _deferred.promise;
   }
 }
 
@@ -103,4 +103,4 @@ angular.module('profitelo.resolvers.login-set-new-password', [
   translatorModule,
   loginStateModule
 ])
-  .service('LoginSetNewPasswordResolver', LoginSetNewPasswordResolver)
+  .service('LoginSetNewPasswordResolver', LoginSetNewPasswordResolver);

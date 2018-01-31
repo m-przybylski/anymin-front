@@ -1,17 +1,17 @@
-import * as angular from 'angular'
-import {WizardStepModuleComponent} from './wizard-step.component'
-import tooltipModule from '../../interface/tooltip/tooltip'
+import * as angular from 'angular';
+import { WizardStepModuleComponent } from './wizard-step.component';
+import tooltipModule from '../../interface/tooltip/tooltip';
 
 export interface IWizardStepModuleComponentBindings extends ng.IController {
-  title: string
-  checkIsStepValid: () => boolean
-  additionalText: string
-  tooltipText?: string
-  buttonTitle: string
-  required: boolean
-  onGoToNext?: () => void
-  onGoBack?: () => void
-  isCompany?: boolean
+  title: string;
+  checkIsStepValid: () => boolean;
+  additionalText: string;
+  tooltipText?: string;
+  buttonTitle: string;
+  required: boolean;
+  onGoToNext?: () => void;
+  onGoBack?: () => void;
+  isCompany?: boolean;
 }
 
 const wizardStepModule = angular.module('profitelo.components.wizard.wizard-step', [
@@ -19,6 +19,6 @@ const wizardStepModule = angular.module('profitelo.components.wizard.wizard-step
     tooltipModule
   ])
   .component('wizardStep', new WizardStepModuleComponent)
-    .name
+    .name;
 
-export default wizardStepModule
+export default wizardStepModule;

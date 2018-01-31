@@ -1,9 +1,9 @@
 export class DashboardSettingsNotificationsController {
 
-  public ngModel: boolean
+  public ngModel: boolean;
   static $inject = [];
 
   constructor() {
-    this.ngModel = false
+    this.ngModel = false;
   }
 }

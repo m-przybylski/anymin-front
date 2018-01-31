@@ -1,13 +1,13 @@
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 export interface ISoundObject {
-  play(): void
-  stop(): void
+  play(): void;
+  stop(): void;
 }
 
 export class SoundsService {
 
-  private static path = '/assets/sounds/'
+  private static path = '/assets/sounds/';
 
   private static soundFiles = {
     callIncoming: 'call_incoming.wav',
@@ -15,86 +15,86 @@ export class SoundsService {
     callEnded: 'call_ended.wav',
     callRejected: 'call_rejected.wav',
     messageNew: 'message_new.mp3'
-  }
+  };
 
-  private soundPaths: any
+  private soundPaths: any;
   private soundObjects: {
     callIncoming: HTMLAudioElement
     callConnecting: HTMLAudioElement
     messageNew: HTMLAudioElement
     callRejected: HTMLAudioElement
     callEnded: HTMLAudioElement
-  }
+  };
 
-  private callIncomingSoundCount = 0
-  private isCallConnecting = false
+  private callIncomingSoundCount = 0;
+  private isCallConnecting = false;
 
   static $inject = ['$log'];
 
     constructor(private $log: ng.ILogService, ) {
 
-    this.soundPaths = _.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename)
-    this.soundObjects = _.mapValues(this.soundPaths, path => new Audio(path))
+    this.soundPaths = _.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename);
+    this.soundObjects = _.mapValues(this.soundPaths, path => new Audio(path));
 
-    this.setAudioLoop(this.soundObjects.callIncoming)
-    this.setAudioLoop(this.soundObjects.callConnecting)
+    this.setAudioLoop(this.soundObjects.callIncoming);
+    this.setAudioLoop(this.soundObjects.callConnecting);
   }
 
   private setAudioLoop = (audio: HTMLAudioElement): void => {
     audio.addEventListener('ended', () => {
-      audio.currentTime = 0
-      audio.play()
-    }, false)
+      audio.currentTime = 0;
+      audio.play();
+    }, false);
   }
 
   public callIncomingSound = (): ISoundObject => {
 
     const play = (): void => {
       if (this.callIncomingSoundCount === 0) {
-        this.soundObjects.callIncoming.play()
+        this.soundObjects.callIncoming.play();
       }
-      ++this.callIncomingSoundCount
-    }
+      ++this.callIncomingSoundCount;
+    };
 
     const stop = (): void => {
       if (this.callIncomingSoundCount === 1) {
-        this.callIncomingSoundCount = 0
-        this.soundObjects.callIncoming.pause()
-        this.soundObjects.callIncoming.currentTime = 0
+        this.callIncomingSoundCount = 0;
+        this.soundObjects.callIncoming.pause();
+        this.soundObjects.callIncoming.currentTime = 0;
       } else if (this.callIncomingSoundCount > 1) {
-        --this.callIncomingSoundCount
+        --this.callIncomingSoundCount;
       } else {
-        this.$log.warn('Call incoming sound is already stopped')
+        this.$log.warn('Call incoming sound is already stopped');
       }
-    }
+    };
 
     return {
       play,
       stop
-    }
+    };
   }
 
   public callConnectingSound = (): ISoundObject => {
 
     const play = (): void => {
       if (!this.isCallConnecting) {
-        this.isCallConnecting = true
-        this.soundObjects.callConnecting.play()
+        this.isCallConnecting = true;
+        this.soundObjects.callConnecting.play();
       }
-    }
+    };
 
     const stop = (): void => {
       if (this.isCallConnecting) {
-        this.isCallConnecting = false
-        this.soundObjects.callConnecting.pause()
-        this.soundObjects.callConnecting.currentTime = 0
+        this.isCallConnecting = false;
+        this.soundObjects.callConnecting.pause();
+        this.soundObjects.callConnecting.currentTime = 0;
       }
-    }
+    };
 
     return {
       play,
       stop
-    }
+    };
   }
 
   public playMessageNew = (): Promise<void> =>

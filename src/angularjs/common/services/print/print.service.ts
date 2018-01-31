@@ -1,7 +1,7 @@
 export class PrintService {
 
-  private __container__: any
-  private contentWindow: any
+  private __container__: any;
+  private contentWindow: any;
 
   static $inject = [];
 
@@ -16,25 +16,25 @@ export class PrintService {
       '</body>'
 
   private closePrint = (): void => {
-    document.body.removeChild(this.__container__)
+    document.body.removeChild(this.__container__);
   }
 
   private setPrint = (): void => {
-    this.contentWindow.__container__ = this
-    this.contentWindow.onbeforeunload = this.closePrint
-    this.contentWindow.onafterprint = this.closePrint
-    this.contentWindow.focus() // Required for IE
-    this.contentWindow.print()
+    this.contentWindow.__container__ = this;
+    this.contentWindow.onbeforeunload = this.closePrint;
+    this.contentWindow.onafterprint = this.closePrint;
+    this.contentWindow.focus(); // Required for IE
+    this.contentWindow.print();
   }
 
   public print = (imgSrc: string): void => {
-    const oHiddFrame = document.createElement('iframe')
-    oHiddFrame.onload = this.setPrint
-    oHiddFrame.style.visibility = 'hidden'
-    oHiddFrame.style.position = 'fixed'
-    oHiddFrame.style.right = '0'
-    oHiddFrame.style.bottom = '0'
-    oHiddFrame.src = this.htmlPrintTemplate(imgSrc)
-    document.body.appendChild(oHiddFrame)
+    const oHiddFrame = document.createElement('iframe');
+    oHiddFrame.onload = this.setPrint;
+    oHiddFrame.style.visibility = 'hidden';
+    oHiddFrame.style.position = 'fixed';
+    oHiddFrame.style.right = '0';
+    oHiddFrame.style.bottom = '0';
+    oHiddFrame.src = this.htmlPrintTemplate(imgSrc);
+    document.body.appendChild(oHiddFrame);
   }
 }

@@ -1,14 +1,14 @@
-import * as angular from 'angular'
-import 'angular-touch'
-import 'angular-permission'
-import modalsModule from '../../common/services/modals/modals'
-import {InvitationsResolver} from './invitations.resolver'
-import {StateProvider, StateParams} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
-import topAlertModule from '../../common/services/top-alert/top-alert'
+import * as angular from 'angular';
+import 'angular-touch';
+import 'angular-permission';
+import modalsModule from '../../common/services/modals/modals';
+import { InvitationsResolver } from './invitations.resolver';
+import { StateProvider, StateParams } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
+import topAlertModule from '../../common/services/top-alert/top-alert';
 
 export interface IInvitationsStateParams extends StateParams {
-  companyId: string
+  companyId: string;
 }
 
 const invitationsPageModule = angular.module('profitelo.controller.invitations', [
@@ -30,9 +30,9 @@ const invitationsPageModule = angular.module('profitelo.controller.invitations',
       data: {
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       }
-    })
+    });
   }])
   .service('invitationsResolver', InvitationsResolver)
-  .name
+  .name;
 
-export default invitationsPageModule
+export default invitationsPageModule;

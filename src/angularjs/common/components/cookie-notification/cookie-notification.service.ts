@@ -1,8 +1,8 @@
-import {ICookiesService, CookiesKeyName} from '../../services/cookie/cookie.service'
-import {Config} from '../../../../config';
+import { ICookiesService, CookiesKeyName } from '../../services/cookie/cookie.service';
+import { Config } from '../../../../config';
 
 export class CookieNotificationService {
-  private static readonly cookieKeyValue: string = 'true'
+  private static readonly cookieKeyValue: string = 'true';
 
   static $inject = ['$cookies'];
 

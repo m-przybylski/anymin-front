@@ -1,13 +1,13 @@
-import * as angular from 'angular'
-import 'angularjs/common/components/dashboard/client/navigation/navigation'
-import './activities/activities'
-import './favourites/favourites'
-import DashboardClientInvoicesModule from './invoices/invoices'
-import {StateProvider} from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angularjs/common/components/dashboard/client/navigation/navigation';
+import './activities/activities';
+import './favourites/favourites';
+import DashboardClientInvoicesModule from './invoices/invoices';
+import { StateProvider } from '@uirouter/angularjs';
 
 function clientController(): void {
 
-  return this
+  return this;
 }
 
 function config($stateProvider: StateProvider): void {
@@ -21,7 +21,7 @@ function config($stateProvider: StateProvider): void {
       pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
       showMenu: false
     }
-  })
+  });
 }
 
 angular.module('profitelo.controller.dashboard.client', [
@@ -32,4 +32,4 @@ angular.module('profitelo.controller.dashboard.client', [
   DashboardClientInvoicesModule
 ])
   .config(['$stateProvider', config])
-  .controller('clientController', [clientController])
+  .controller('clientController', [clientController]);

@@ -1,20 +1,20 @@
-import * as angular from 'angular'
-import {InputComponent} from './textarea.component'
-import ValidationAlertModule from '../alert/validation-alert/validation-alert'
-import textareaAutoHeight from '../../../directives/textarea-auto-height/textarea-auto-height'
-import valueLength from '../../../directives/value-length/value-length'
+import * as angular from 'angular';
+import { InputComponent } from './textarea.component';
+import ValidationAlertModule from '../alert/validation-alert/validation-alert';
+import textareaAutoHeight from '../../../directives/textarea-auto-height/textarea-auto-height';
+import valueLength from '../../../directives/value-length/value-length';
 
 export interface ITextareaComponentBindings extends ng.IController {
-  id: string
-  name: string
-  inputText: string
-  placeholder: string
-  validationText: string
-  isValid: boolean
-  isSubmitted?: boolean
-  maxLength: string
-  onChange?: (description: string) => void
-  ngModel: string
+  id: string;
+  name: string;
+  inputText: string;
+  placeholder: string;
+  validationText: string;
+  isValid: boolean;
+  isSubmitted?: boolean;
+  maxLength: string;
+  onChange?: (description: string) => void;
+  ngModel: string;
 }
 
 const textareaModule = angular.module('profitelo.components.interface.textarea', [
@@ -24,6 +24,6 @@ const textareaModule = angular.module('profitelo.components.interface.textarea',
   valueLength
 ])
 .component('textareaPrimary', new InputComponent)
-  .name
+  .name;
 
-export default textareaModule
+export default textareaModule;

@@ -1,5 +1,5 @@
-import * as angular from 'angular'
-import {EventsService} from './events.service'
+import * as angular from 'angular';
+import { EventsService } from './events.service';
 
 const eventsModule = angular.module('profitelo.services.events', [
 ])

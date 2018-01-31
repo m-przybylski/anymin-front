@@ -1,8 +1,8 @@
-import {InputPriceComponentController} from './input-price.controller'
+import { InputPriceComponentController } from './input-price.controller';
 
 export class InputPriceComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputPriceComponentController
-  template = require('./input-price.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = InputPriceComponentController;
+  template = require('./input-price.html');
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
@@ -15,5 +15,5 @@ export class InputPriceComponent implements ng.IComponentOptions {
     onPatternValidation: '<',
     isDisabled: '<',
     isValid: '<'
-  }
+  };
 }

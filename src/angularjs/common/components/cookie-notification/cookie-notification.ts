@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import {CookieNotificationComponent} from './cookie-notification.component'
-import {CookieNotificationService} from './cookie-notification.service'
+import * as angular from 'angular';
+import { CookieNotificationComponent } from './cookie-notification.component';
+import { CookieNotificationService } from './cookie-notification.service';
 
 const cookieNotificationModule = angular.module('profitelo.components.cookie-notification', [
   'pascalprecht.translate',
@@ -8,6 +8,6 @@ const cookieNotificationModule = angular.module('profitelo.components.cookie-not
 ])
 .component('cookieNotification', new CookieNotificationComponent)
 .service('cookieNotificationService', CookieNotificationService)
-  .name
+  .name;
 
-export default cookieNotificationModule
+export default cookieNotificationModule;

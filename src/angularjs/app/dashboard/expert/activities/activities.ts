@@ -1,18 +1,19 @@
-import * as angular from 'angular'
+import * as angular from 'angular';
 import expertNoActivitiesModule
   from '../../../../common/components/dashboard/expert/activities/no-activities/no-activities';
-import {DashboardExpertActivitiesController} from './activities.controller'
+import { DashboardExpertActivitiesController } from './activities.controller';
 import expertActivityModule from '../../../../common/components/dashboard/expert/activities/activity/activity';
-import {DashboardActivitiesService} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
-import expertActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites'
-import {FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/models'
-import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters'
-import promiseModule from '../../../../common/services/promise/promise'
-import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
+import { DashboardActivitiesService }
+  from '../../../../common/services/dashboard-activites/dashboard-activities.service';
+import expertActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites';
+import { FinancialOperation, GetActivityFilters } from 'profitelo-api-ng/model/models';
+import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters';
+import promiseModule from '../../../../common/services/promise/promise';
+import errorHandlerModule from '../../../../common/services/error-handler/error-handler';
 import noResultsInformationModule
-  from '../../../../common/components/dashboard/no-results-information/no-results-information'
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+  from '../../../../common/components/dashboard/no-results-information/no-results-information';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
   'profitelo.components.interface.preloader-container',
@@ -36,9 +37,9 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
           ng.IPromise<GetActivityFilters> =>
           dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)]
       }
-    })
+    });
   }])
   .controller('dashboardExpertActivitiesController', DashboardExpertActivitiesController)
-  .name
+  .name;
 
-export default dashboardExpertActivitiesModule
+export default dashboardExpertActivitiesModule;

@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import {RtcDetectorBlockedModalController} from './rtc-detector-blocked.controller'
-import commonSettingsModule from '../../../../../services/common-settings/common-settings'
+import * as angular from 'angular';
+import { RtcDetectorBlockedModalController } from './rtc-detector-blocked.controller';
+import commonSettingsModule from '../../../../../services/common-settings/common-settings';
 
 const rtcDetectorBlockedModal =
   angular.module('profitelo.components.communicator.modals.rtc-detector.rtc-detector-blocked', [
@@ -8,6 +8,6 @@ const rtcDetectorBlockedModal =
   commonSettingsModule
 ])
   .controller('rtcDetectorBlockedModal', RtcDetectorBlockedModalController)
-    .name
+    .name;
 
-export default rtcDetectorBlockedModal
+export default rtcDetectorBlockedModal;

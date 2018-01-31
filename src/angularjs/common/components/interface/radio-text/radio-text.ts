@@ -1,20 +1,20 @@
-import * as angular from 'angular'
-import textareaModule from '../textarea/textarea'
+import * as angular from 'angular';
+import textareaModule from '../textarea/textarea';
 
 (function (): void {
 
   function controller(): void {
-    this.isCollapsed = false
+    this.isCollapsed = false;
 
     this.onClick = (): void => {
       if (this.ngModel) {
-        this.isCollapsed = true
+        this.isCollapsed = true;
       } else {
-        this.isCollapsed = false
+        this.isCollapsed = false;
       }
-    }
+    };
 
-    return this
+    return this;
   }
 
   const component = {
@@ -31,10 +31,10 @@ import textareaModule from '../textarea/textarea'
     template: require('./radio-text.html'),
     controllerAs: '$ctrl',
     controller: [controller]
-  }
+  };
 
   angular.module('profitelo.components.interface.radio-text', [
     textareaModule
   ])
-  .component('radioBtnText', component)
-}())
+  .component('radioBtnText', component);
+}());

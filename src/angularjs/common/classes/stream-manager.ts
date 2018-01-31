@@ -1,10 +1,10 @@
-import {MediaStreamConstraintsWrapper} from './media-stream-constraints-wrapper';
-import {NavigatorWrapper} from './navigator-wrapper/navigator-wrapper';
+import { MediaStreamConstraintsWrapper } from './media-stream-constraints-wrapper';
+import { NavigatorWrapper } from './navigator-wrapper/navigator-wrapper';
 
 export class StreamManager {
 
-  private isAudio: boolean
-  private navigator: NavigatorWrapper
+  private isAudio: boolean;
+  private navigator: NavigatorWrapper;
 
   static $inject = ['stream', 'constraints'];
 
@@ -14,19 +14,19 @@ export class StreamManager {
   }
 
   public addAudio = (): Promise<MediaStream> => {
-    this.constraints.addAudio()
-    this.isAudio = true
+    this.constraints.addAudio();
+    this.isAudio = true;
     return this.navigator.getUserMediaStream(this.constraints.getConstraints()).then((stream) => {
-      this.stream = stream
-      return stream
+      this.stream = stream;
+      return stream;
     });
   }
 
   public addVideo = (): Promise<MediaStream> => {
-    this.constraints.addVideo()
+    this.constraints.addVideo();
     return this.navigator.getUserMediaStream(this.constraints.getConstraints()).then((stream) => {
       if (!this.isAudio) {
-        this.disableAudioTracks(stream)
+        this.disableAudioTracks(stream);
       }
       this.stream = stream;
       return stream;
@@ -43,7 +43,7 @@ export class StreamManager {
     this.constraints.removeVideo();
     return this.navigator.getUserMediaStream(this.constraints.getConstraints()).then((stream) => {
       if (!this.isAudio) {
-        this.disableAudioTracks(stream)
+        this.disableAudioTracks(stream);
       }
       this.stream = stream;
       return stream;
@@ -62,8 +62,8 @@ export class StreamManager {
   }
 
   private disableAudioTracks = (stream: MediaStream): void => {
-    stream.getAudioTracks().forEach(t => {t.enabled = false});
-    stream.getAudioTracks().forEach(t => {t.stop()});
+    stream.getAudioTracks().forEach(t => { t.enabled = false; });
+    stream.getAudioTracks().forEach(t => { t.stop(); });
   }
 
 }

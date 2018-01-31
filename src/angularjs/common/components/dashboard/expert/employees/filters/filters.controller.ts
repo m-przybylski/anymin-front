@@ -1,31 +1,31 @@
-import {IExpertEmployeesFiltersComponentBindings} from './filters'
-import {ModalsService} from '../../../../../services/modals/modals.service'
+import { IExpertEmployeesFiltersComponentBindings } from './filters';
+import { ModalsService } from '../../../../../services/modals/modals.service';
 
 export class ExpertEmployeesFiltersComponentController implements IExpertEmployeesFiltersComponentBindings {
 
-  public checkAllEmployees: boolean
-  public areEmployees: boolean
-  public showMobileFilters: boolean
-  public showFilters: () => void
-  public onModalCloseCallback: () => void
+  public checkAllEmployees: boolean;
+  public areEmployees: boolean;
+  public showMobileFilters: boolean;
+  public showFilters: () => void;
+  public onModalCloseCallback: () => void;
 
   static $inject = ['modalsService'];
 
     constructor(private modalsService: ModalsService) {
 
-    this.checkAllEmployees = false
-    this.areEmployees = true
+    this.checkAllEmployees = false;
+    this.areEmployees = true;
 
-    this.showMobileFilters = true
+    this.showMobileFilters = true;
 
     this.showFilters = (): void => {
-      this.showMobileFilters = !this.showMobileFilters
-    }
+      this.showMobileFilters = !this.showMobileFilters;
+    };
 
   }
 
   public openInviteEmployeesModal = (): void => {
-    this.modalsService.createExpertInviteEmployeesModal(this.onModalCloseCallback)
+    this.modalsService.createExpertInviteEmployeesModal(this.onModalCloseCallback);
   }
 
 }

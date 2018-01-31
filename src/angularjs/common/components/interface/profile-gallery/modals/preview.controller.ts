@@ -1,5 +1,5 @@
 export interface IGalleryPreviewControllerScope extends ng.IScope {
-  preview: string
+  preview: string;
 }
 
 export class GalleryPreviewController implements ng.IController {

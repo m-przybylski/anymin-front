@@ -1,10 +1,10 @@
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 export class NavigatorWrapper {
 
-  public static readonly frontCamera: string = 'user'
-  public static readonly backCamera: string = 'environment'
-  private navigator: any
+  public static readonly frontCamera: string = 'user';
+  public static readonly backCamera: string = 'environment';
+  private navigator: any;
 
   private static videoConstraints: MediaStreamConstraints = {
     video: {
@@ -12,29 +12,29 @@ export class NavigatorWrapper {
       height: { min: 240, ideal: 480, max: 480 },
       frameRate: 30
     }
-  }
+  };
 
   private static audioConstraints: MediaStreamConstraints = {
     audio: {
       echoCancelation: true
     }
-  }
-  private videoInputIdArray: string[] = []
+  };
+  private videoInputIdArray: string[] = [];
 
   static $inject = [];
 
   constructor() {
-    this.navigator = window['navigator']
+    this.navigator = window['navigator'];
     this.navigator.getUserMedia =
-      this.navigator.getUserMedia || this.navigator.mozGetUserMedia || this.navigator.webkitGetUserMedia
+      this.navigator.getUserMedia || this.navigator.mozGetUserMedia || this.navigator.webkitGetUserMedia;
 
     if (typeof this.navigator.mediaDevices !== 'object') {
-      this.navigator.mediaDevices = {}
+      this.navigator.mediaDevices = {};
     }
 
     if (this.navigator.mediaDevices.getUserMedia) {
       this.navigator.getUserMedia = (arg: MediaStreamConstraints, t: any, c: any): Promise<MediaStream> =>
-        this.navigator.mediaDevices.getUserMedia(arg).then(t).catch(c)
+        this.navigator.mediaDevices.getUserMedia(arg).then(t).catch(c);
     }
 
     if (typeof this.navigator.mediaDevices.enumerateDevices !== 'undefined') {
@@ -55,7 +55,7 @@ export class NavigatorWrapper {
         config,
         (stream: MediaStream) => resolve(stream),
         (err: any) => reject(err)
-      )
+      );
     })
 
   public static getAllConstraints = (): MediaStreamConstraints =>

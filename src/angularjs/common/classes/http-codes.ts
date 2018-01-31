@@ -7,4 +7,4 @@ export const httpCodes = {
   notFound: 404,
   conflict: 409,
   internalServerError: 500
-}
+};

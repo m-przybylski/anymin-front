@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import {PagePreloaderComponent} from './page-preloader.component'
-import promiseModule from '../../../services/promise/promise'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { PagePreloaderComponent } from './page-preloader.component';
+import promiseModule from '../../../services/promise/promise';
+import uiRouter from '@uirouter/angularjs';
 
 const pagePreloaderModule = angular.module('profitelo.components.interface.page-preloader', [
   'pascalprecht.translate',
@@ -9,6 +9,6 @@ const pagePreloaderModule = angular.module('profitelo.components.interface.page-
   promiseModule,
   ])
 .component('pagePreloader', new PagePreloaderComponent())
-  .name
+  .name;
 
-export default pagePreloaderModule
+export default pagePreloaderModule;

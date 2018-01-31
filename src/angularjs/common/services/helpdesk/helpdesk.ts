@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import {HelpdeskService} from './helpdesk.service'
+import * as angular from 'angular';
+import { HelpdeskService } from './helpdesk.service';
 
 const helpdeskModule = angular.module('profitelo.services.helpdesk', [
 
 ])
 .service('helpdeskService', HelpdeskService)
-  .name
+  .name;
 
-export default helpdeskModule
+export default helpdeskModule;

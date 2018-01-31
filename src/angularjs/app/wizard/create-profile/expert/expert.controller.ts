@@ -1,33 +1,33 @@
-import {WizardApi} from 'profitelo-api-ng/api/api'
-import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitelo-api-ng/model/models'
-import * as _ from 'lodash'
-import * as angular from 'angular'
-import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
-import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
-import {Config} from '../../../../../config';
-import {StateService} from '@uirouter/angularjs'
+import { WizardApi } from 'profitelo-api-ng/api/api';
+import { PutWizardProfile, PartialExpertDetails, GetWizardProfile } from 'profitelo-api-ng/model/models';
+import * as _ from 'lodash';
+import * as angular from 'angular';
+import { IProgressStyle } from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller';
+import { CommonSettingsService } from '../../../../common/services/common-settings/common-settings.service';
+import { Config } from '../../../../../config';
+import { StateService } from '@uirouter/angularjs';
 
 export class ExpertController implements ng.IController {
-  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName
-  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription
+  public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName;
+  public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription;
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
     isSummary: false
-  }
-  public nameModel?: string = ''
-  public avatarModel?: string
-  public descriptionModel?: string = ''
-  public filesModel?: string[] = []
-  public linksModel?: string[] = []
-  public progressStyle: IProgressStyle
-  public progressBarTittle: string = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE'
-  public isSubmitted: boolean = false
-  public isStepRequired: boolean = true
-  public isPlatformForExpert: boolean = Config.isPlatformForExpert
-  private isUploading: boolean = true
-  private profileNamePattern: RegExp
-  private profileDescriptionPattern: RegExp
+  };
+  public nameModel?: string = '';
+  public avatarModel?: string;
+  public descriptionModel?: string = '';
+  public filesModel?: string[] = [];
+  public linksModel?: string[] = [];
+  public progressStyle: IProgressStyle;
+  public progressBarTittle: string = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
+  public isSubmitted: boolean = false;
+  public isStepRequired: boolean = true;
+  public isPlatformForExpert: boolean = Config.isPlatformForExpert;
+  private isUploading: boolean = true;
+  private profileNamePattern: RegExp;
+  private profileDescriptionPattern: RegExp;
 
   static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
 
@@ -35,39 +35,39 @@ export class ExpertController implements ng.IController {
               private $state: StateService,
               private CommonSettingsService: CommonSettingsService,
               private wizardProfile?: GetWizardProfile) {
-    this.assignValidationValues()
+    this.assignValidationValues();
   }
 
   $onInit = (): void => {
     if (this.wizardProfile) {
-      this.currentWizardState = angular.copy(this.wizardProfile)
+      this.currentWizardState = angular.copy(this.wizardProfile);
       if (this.wizardProfile.expertDetailsOption) {
-        this.nameModel = this.wizardProfile.expertDetailsOption.name
-        this.avatarModel = this.wizardProfile.expertDetailsOption.avatar
-        this.filesModel = this.wizardProfile.expertDetailsOption.files
-        this.descriptionModel = this.wizardProfile.expertDetailsOption.description
-        this.linksModel = this.wizardProfile.expertDetailsOption.links
+        this.nameModel = this.wizardProfile.expertDetailsOption.name;
+        this.avatarModel = this.wizardProfile.expertDetailsOption.avatar;
+        this.filesModel = this.wizardProfile.expertDetailsOption.files;
+        this.descriptionModel = this.wizardProfile.expertDetailsOption.description;
+        this.linksModel = this.wizardProfile.expertDetailsOption.links;
       }
     }
 
-    this.currentWizardState.isExpert = true
+    this.currentWizardState.isExpert = true;
     if (!this.wizardProfile || this.wizardProfile.isCompany && !this.wizardProfile.isSummary) {
-      this.currentWizardState.isCompany = false
+      this.currentWizardState.isCompany = false;
     }
     this.progressBarTittle = this.currentWizardState.isCompany ?
-      'WIZARD.STEP.EXPERT_AS_COMPANY.PROGRESSBAR.TITLE' : 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE'
-    this.saveWizardState(this.currentWizardState)
+      'WIZARD.STEP.EXPERT_AS_COMPANY.PROGRESSBAR.TITLE' : 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
+    this.saveWizardState(this.currentWizardState);
   }
 
   public onGoBack = (): void => {
     if (this.wizardProfile && !this.wizardProfile.isSummary) {
-      this.currentWizardState.isExpert = false
-      this.currentWizardState.isCompany = false
+      this.currentWizardState.isExpert = false;
+      this.currentWizardState.isCompany = false;
       this.saveWizardState(this.currentWizardState).then(() => {
-        this.$state.go('app.wizard.create-profile')
-      })
+        this.$state.go('app.wizard.create-profile');
+      });
     } else {
-      this.goToSummary()
+      this.goToSummary();
     }
   }
 
@@ -78,38 +78,38 @@ export class ExpertController implements ng.IController {
       description: this.descriptionModel,
       files: this.filesModel,
       links: this.linksModel
-    }
+    };
 
     if (this.checkIsAnyStepModelChange(wizardExpertModel)) {
-      this.currentWizardState.expertDetailsOption = angular.copy(wizardExpertModel)
-      this.saveWizardState(this.currentWizardState)
+      this.currentWizardState.expertDetailsOption = angular.copy(wizardExpertModel);
+      this.saveWizardState(this.currentWizardState);
     }
   }
 
   public goToSummary = (): void => {
     if (this.checkIsFormValid()) {
-      this.currentWizardState.expertDetailsOption!.links = this.linksModel
-      this.currentWizardState.isSummary = true
+      this.currentWizardState.expertDetailsOption!.links = this.linksModel;
+      this.currentWizardState.isSummary = true;
       this.saveWizardState(this.currentWizardState).then(() => {
-        this.$state.go('app.wizard.summary')
-      })
+        this.$state.go('app.wizard.summary');
+      });
     } else {
-      this.isSubmitted = true
+      this.isSubmitted = true;
     }
   }
 
   public checkIsNameInputValid = (): boolean => this.nameModel ?
     this.profileNamePattern.test(this.nameModel) : false
 
-  public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0)
+  public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0);
 
   public checkIsProfileDescriptionValid = (): boolean => this.descriptionModel ?
     this.profileDescriptionPattern.test(this.descriptionModel) : false
 
-  public checkIsFileUploadValid = (): boolean => this.isUploading
+  public checkIsFileUploadValid = (): boolean => this.isUploading;
 
   public onUploadingFile = (status: boolean): void => {
-    this.isUploading = status
+    this.isUploading = status;
   }
 
   public checkIsFormValid = (): boolean =>
@@ -122,7 +122,7 @@ export class ExpertController implements ng.IController {
   private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> =>
     this.WizardApi.putWizardProfileRoute(wizardState)
     .catch((error) => {
-      throw new Error('Can not save profile steps' + String(error))
+      throw new Error('Can not save profile steps' + String(error));
     })
 
   private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails): boolean =>
@@ -130,8 +130,8 @@ export class ExpertController implements ng.IController {
       || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
 
   private assignValidationValues = (): void => {
-    const localSettings = this.CommonSettingsService.localSettings
-    this.profileNamePattern = localSettings.profileNamePattern
-    this.profileDescriptionPattern = localSettings.profileDescriptionPattern
+    const localSettings = this.CommonSettingsService.localSettings;
+    this.profileNamePattern = localSettings.profileNamePattern;
+    this.profileDescriptionPattern = localSettings.profileDescriptionPattern;
   }
 }

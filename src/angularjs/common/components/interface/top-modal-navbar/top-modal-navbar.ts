@@ -1,31 +1,31 @@
-import * as angular from 'angular'
-import {IWindowService} from '../../../services/window/window.service'
-import {StateService} from '@uirouter/angularjs'
+import * as angular from 'angular';
+import { IWindowService } from '../../../services/window/window.service';
+import { StateService } from '@uirouter/angularjs';
 
 function controller($window: IWindowService, $scope: ng.IScope, $state: StateService): void {
-  this.isHidden = false
-  let checkScrollWay: number = 0
+  this.isHidden = false;
+  let checkScrollWay: number = 0;
 
   const onClose = (): void => {
     if (angular.isFunction(this.onClose)) {
-      this.onClose()
+      this.onClose();
     } else {
-      $state.go('app.dashboard.client.favourites')
+      $state.go('app.dashboard.client.favourites');
     }
-  }
+  };
 
   this.onCloseClick = (): void => {
-    onClose()
-  }
+    onClose();
+  };
 
   angular.element($window).bind('scroll', () => {
-    this.isHidden = ($window.pageYOffset > checkScrollWay)
+    this.isHidden = ($window.pageYOffset > checkScrollWay);
 
-    $scope.$apply()
-    checkScrollWay = $window.pageYOffset
-  })
+    $scope.$apply();
+    checkScrollWay = $window.pageYOffset;
+  });
 
-  return this
+  return this;
 }
 
 const component = {
@@ -34,7 +34,7 @@ const component = {
   bindings: {
     onClose: '<'
   }
-}
+};
 
 angular.module('profitelo.components.interface.top-modal-navbar', [])
-  .component('topModalNavbar', component)
+  .component('topModalNavbar', component);

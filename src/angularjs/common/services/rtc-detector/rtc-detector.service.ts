@@ -1,11 +1,11 @@
-import {NavigatorWrapper} from '../../classes/navigator-wrapper/navigator-wrapper'
-const DetectRTC = require('detectrtc')
-import {ModalsService} from '../modals/modals.service'
-import {MediaStreamConstraintsWrapper} from '../../classes/media-stream-constraints-wrapper'
+import { NavigatorWrapper } from '../../classes/navigator-wrapper/navigator-wrapper';
+const DetectRTC = require('detectrtc');
+import { ModalsService } from '../modals/modals.service';
+import { MediaStreamConstraintsWrapper } from '../../classes/media-stream-constraints-wrapper';
 
 export class RtcDetectorService {
-  private instanceModal: ng.ui.bootstrap.IModalInstanceService
-  private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper()
+  private instanceModal: ng.ui.bootstrap.IModalInstanceService;
+  private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper();
 
   static $inject = ['modalsService', '$q', '$timeout'];
 
@@ -33,14 +33,14 @@ export class RtcDetectorService {
         this.navigatorWrapper.getUserMediaStream(mediaStreamConstraints).then((stream) => {
           resolve(stream);
         }, () => {
-          reject()
-        })
+          reject();
+        });
       }, () => {
         if (DetectRTC.browser.isIe)
-          this.modalsService.createBrowserDoesNotSupportRtcModal()
+          this.modalsService.createBrowserDoesNotSupportRtcModal();
         else
-          this.getUserMedia(resolve, reject)
-      })
+          this.getUserMedia(resolve, reject);
+      });
     })
 
   private getUserMedia = (resolve: (stream: MediaStream) => void, reject: () => void): void => {
@@ -49,28 +49,28 @@ export class RtcDetectorService {
     };
     const timeOutDisplayPopupDelay = 100;
 
-    this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay)
+    this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay);
 
     this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault()).then((stream) => {
-      this.instanceModal.close('cancel')
+      this.instanceModal.close('cancel');
       resolve(stream);
     }, () => {
-      this.modalsService.createRtcDetectorBlockedModal()
+      this.modalsService.createRtcDetectorBlockedModal();
       mediaDisplayObject.shouldDisplayMedia = false;
-      if (this.instanceModal) this.instanceModal.close('cancel')
+      if (this.instanceModal) this.instanceModal.close('cancel');
       reject();
     });
   }
 
   private displayMediaPopup = (mediaDisplayObject: {shouldDisplayMedia: boolean}): () => void =>
     (): void => {mediaDisplayObject.shouldDisplayMedia &&
-      (this.instanceModal = this.modalsService.createRtcDetectorModal())}
+      (this.instanceModal = this.modalsService.createRtcDetectorModal()); }
 
   // gives us certainty that webrtc tools are loaded
   private webRtcLoadWrapper = (fn: () => boolean): ng.IPromise<boolean> =>
     this.$q((resolve, reject) =>
       DetectRTC.load(() => {
-        fn() ? resolve() : reject()
+        fn() ? resolve() : reject();
       })
     )
 }

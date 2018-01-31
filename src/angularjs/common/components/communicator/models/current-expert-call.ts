@@ -1,12 +1,12 @@
 import * as RatelSdk from 'ratel-sdk-js';
-import {GetIncomingCallDetails} from 'profitelo-api-ng/model/models';
-import {RatelApi} from 'profitelo-api-ng/api/api';
-import {CallState, CurrentCall} from './current-call';
-import {TimerFactory} from '../../../services/timer/timer.factory';
-import {SoundsService} from '../../../services/sounds/sounds.service';
-import {Call} from 'ratel-sdk-js/dist/protocol/wire-entities'
-import {MicrophoneService} from '../microphone-service/microphone.service'
-import {CommunicatorService} from '@anymind-ng/core';
+import { GetIncomingCallDetails } from 'profitelo-api-ng/model/models';
+import { RatelApi } from 'profitelo-api-ng/api/api';
+import { CallState, CurrentCall } from './current-call';
+import { TimerFactory } from '../../../services/timer/timer.factory';
+import { SoundsService } from '../../../services/sounds/sounds.service';
+import { Call } from 'ratel-sdk-js/dist/protocol/wire-entities';
+import { MicrophoneService } from '../microphone-service/microphone.service';
+import { CommunicatorService } from '@anymind-ng/core';
 
 export class CurrentExpertCall extends CurrentCall {
 
@@ -23,10 +23,10 @@ export class CurrentExpertCall extends CurrentCall {
 
     super(soundsService, call as RatelSdk.BusinessCall, timerFactory,
       incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi, microphoneService);
-    this.setState(CallState.INCOMING)
+    this.setState(CallState.INCOMING);
     this.onCallTaken(() => {
-      this.setState(CallState.PENDING_ON_OTHER_DEVICE)
-    })
+      this.setState(CallState.PENDING_ON_OTHER_DEVICE);
+    });
   }
 
   public answer = (localStream: MediaStream): Promise<void> => {
@@ -35,10 +35,10 @@ export class CurrentExpertCall extends CurrentCall {
   }
 
   public pull = (localStream: MediaStream): Promise<void> => {
-    this.setLocalStream(localStream)
+    this.setLocalStream(localStream);
     return this.pullCall(localStream).then(() => {
       this.setState(CallState.PENDING);
-    })
+    });
   }
 
   public reject = (): Promise<void> => this.ratelCall.reject('rejected').then(this.onReject);

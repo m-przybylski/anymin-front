@@ -1,33 +1,33 @@
-import {ModalsService} from '../../../../../../services/modals/modals.service'
-import {GetActivity} from 'profitelo-api-ng/model/models'
-import {IClientActivityComponentBindings} from './activity'
+import { ModalsService } from '../../../../../../services/modals/modals.service';
+import { GetActivity } from 'profitelo-api-ng/model/models';
+import { IClientActivityComponentBindings } from './activity';
 
 export class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
 
-  public activity: GetActivity
-  public isCallActivity: boolean
-  public imageToken?: string
-  public activityDate: Date
+  public activity: GetActivity;
+  public isCallActivity: boolean;
+  public imageToken?: string;
+  public activityDate: Date;
   static $inject = ['modalsService', '$log'];
 
     constructor(private modalsService: ModalsService, private $log: ng.ILogService) {
   }
 
   $onInit(): void {
-    this.activityDate = this.activity.initializedAt
-    if (this.activity.serviceUsageDetails) this.imageToken = this.activity.serviceUsageDetails.expertAvatar
+    this.activityDate = this.activity.initializedAt;
+    if (this.activity.serviceUsageDetails) this.imageToken = this.activity.serviceUsageDetails.expertAvatar;
   }
 
   public openActivityDescription = (): void => {
     if (this.isCallActivity) {
-      const sueId: string = this.activity.serviceUsageDetails!.serviceUsageEventId
+      const sueId: string = this.activity.serviceUsageDetails!.serviceUsageEventId;
       if (sueId) {
-        this.modalsService.createClientSUEActivityDetailsModal(sueId)
+        this.modalsService.createClientSUEActivityDetailsModal(sueId);
       } else {
-        this.$log.error('Activity SUE is undefined')
+        this.$log.error('Activity SUE is undefined');
       }
     } else {
-      this.modalsService.createClientChargeDetailsModal(this.activity)
+      this.modalsService.createClientChargeDetailsModal(this.activity);
     }
   }
 }

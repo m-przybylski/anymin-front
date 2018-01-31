@@ -1,34 +1,34 @@
-import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, Tag, GetCallDetails, GetServiceTags} from 'profitelo-api-ng/model/models'
+import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { MoneyDto, Tag, GetCallDetails, GetServiceTags } from 'profitelo-api-ng/model/models';
 
 export interface IExpertConsultationDetailsParentScope extends ng.IScope {
-  sueId: string
+  sueId: string;
 }
 
 export interface IExpertConsultationDetailsScope extends ng.IScope {
-  $parent: IExpertConsultationDetailsParentScope
-  sueId: string
+  $parent: IExpertConsultationDetailsParentScope;
+  sueId: string;
 }
 
 export class ExpertConsultationDetailsController implements ng.IController {
-  public roomId?: string
-  public isLoading: boolean = true
-  public serviceTags: Tag[] = []
-  public expertAvatar?: string
-  public expertName?: string
-  public serviceName: string
-  public serviceId: string
-  public financialOperation?: MoneyDto
-  public startedAt: Date
-  public callDuration: number
-  public isRecommended: boolean
-  public sueId: string
-  public recommendedTags: Tag[] = []
-  public isRecommendable: boolean
-  public consultationComment?: string
-  private callDetails: GetCallDetails
+  public roomId?: string;
+  public isLoading: boolean = true;
+  public serviceTags: Tag[] = [];
+  public expertAvatar?: string;
+  public expertName?: string;
+  public serviceName: string;
+  public serviceId: string;
+  public financialOperation?: MoneyDto;
+  public startedAt: Date;
+  public callDuration: number;
+  public isRecommended: boolean;
+  public sueId: string;
+  public recommendedTags: Tag[] = [];
+  public isRecommendable: boolean;
+  public consultationComment?: string;
+  private callDetails: GetCallDetails;
 
-  public complaintReasons: any
+  public complaintReasons: any;
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -40,9 +40,9 @@ export class ExpertConsultationDetailsController implements ng.IController {
               ViewsApi: ViewsApi) {
 
     ViewsApi.getDashboardCallDetailsRoute($scope.$parent.sueId)
-    .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
+    .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError);
 
-    this.sueId = this.$scope.$parent.sueId
+    this.sueId = this.$scope.$parent.sueId;
 
     this.complaintReasons = [
       {
@@ -67,52 +67,52 @@ export class ExpertConsultationDetailsController implements ng.IController {
         isDescriptive: true,
         name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER',
       }
-    ]
+    ];
   }
 
   private onGetCallDetailsError = (err: any): void => {
-    this.isLoading = false
-    this.$log.error(err)
+    this.isLoading = false;
+    this.$log.error(err);
   }
 
   private onGetCallDetails = (response: GetCallDetails): void => {
-    this.callDetails = response
+    this.callDetails = response;
     if (response.isRecommendable) {
       this.ServiceApi.postServicesTagsRoute({
         serviceIds: [response.service.id]
-      }).then(this.onServiceTags, this.onServiceTagsError)
+      }).then(this.onServiceTags, this.onServiceTagsError);
     } else {
-      this.openExpertActivityModal()
+      this.openExpertActivityModal();
     }
   }
 
   private onServiceTagsError = (err: any): void => {
-    this.$log.error(err)
+    this.$log.error(err);
   }
 
   private onServiceTags = (res: GetServiceTags[]): void => {
-    this.openExpertActivityModal(res[0]!.tags)
+    this.openExpertActivityModal(res[0]!.tags);
   }
 
   private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
-    this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar
-    this.expertName = this.callDetails.expertProfile.expertDetails!.name
-    this.recommendedTags = this.callDetails.recommendedTags
-    this.serviceName = this.callDetails.service.name
-    this.serviceId = this.callDetails.service.id
+    this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar;
+    this.expertName = this.callDetails.expertProfile.expertDetails!.name;
+    this.recommendedTags = this.callDetails.recommendedTags;
+    this.serviceName = this.callDetails.service.name;
+    this.serviceId = this.callDetails.service.id;
 
     if (this.callDetails.serviceUsageDetails)
-      this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation
-    this.startedAt = this.callDetails.serviceUsageDetails.startedAt
-    this.callDuration = this.callDetails.serviceUsageDetails.callDuration
-    this.isRecommended = this.callDetails.isRecommended
-    this.isRecommendable = this.callDetails.isRecommendable
+      this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation;
+    this.startedAt = this.callDetails.serviceUsageDetails.startedAt;
+    this.callDuration = this.callDetails.serviceUsageDetails.callDuration;
+    this.isRecommended = this.callDetails.isRecommended;
+    this.isRecommendable = this.callDetails.isRecommendable;
 
     if (this.callDetails.comment)
-      this.consultationComment = this.callDetails.comment.content
-    this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId
-    this.serviceTags = serviceTags
-    this.isLoading = false
+      this.consultationComment = this.callDetails.comment.content;
+    this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId;
+    this.serviceTags = serviceTags;
+    this.isLoading = false;
   }
 
 }

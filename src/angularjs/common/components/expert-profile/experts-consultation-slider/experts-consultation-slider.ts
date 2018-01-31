@@ -1,35 +1,35 @@
-import * as angular from 'angular'
-import {UrlService} from '../../../services/url/url.service'
-import urlModule from '../../../services/url/url'
+import * as angular from 'angular';
+import { UrlService } from '../../../services/url/url.service';
+import urlModule from '../../../services/url/url';
 
 function controller($scope: any, urlService: UrlService): void {
-  const minExpertsCount: number = 5
-  this.areControllsVisible = false
-  this.expertsArray = []
-  this.expertsArray = this.expertsArray.concat(this.experts)
+  const minExpertsCount: number = 5;
+  this.areControllsVisible = false;
+  this.expertsArray = [];
+  this.expertsArray = this.expertsArray.concat(this.experts);
 
   if (this.expertsArray.length >= minExpertsCount) {
-    this.areControllsVisible = true
+    this.areControllsVisible = true;
   }
 
-  this.controlls = {}
+  this.controlls = {};
 
   this.nextSlide = (): void => {
-    $scope.controlls.nextSlide()
-  }
+    $scope.controlls.nextSlide();
+  };
 
   this.prevSlide = (): void => {
-    $scope.controlls.prevSlide()
-  }
+    $scope.controlls.prevSlide();
+  };
 
   this.expertImage = (token: string): string => {
     if (!!token && token !== null) {
-      return urlService.resolveFileUrl(token)
+      return urlService.resolveFileUrl(token);
     }
-    return ''
-  }
+    return '';
+  };
 
-  return this
+  return this;
 }
 
 const expertsConsultationSlider = {
@@ -40,11 +40,11 @@ const expertsConsultationSlider = {
   },
   controller: ['$scope', 'urlService', controller],
   controllerAs: '$ctrl'
-}
+};
 
 angular.module('profitelo.components.expert-profile.experts-consultation-slider', [
   'profitelo.components.interface.slider',
   urlModule,
   'pascalprecht.translate'
 ])
-  .component('expertsConsultationSlider', expertsConsultationSlider)
+  .component('expertsConsultationSlider', expertsConsultationSlider);

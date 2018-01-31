@@ -1,30 +1,30 @@
-import * as angular from 'angular'
-import sessionModule from '../../common/services/session/session'
-import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
-import 'angularjs/common/directives/expert-profile/pro-expert-card/pro-expert-card'
-import 'angularjs/common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more'
-import 'angularjs/common/directives/pro-advice-tile/pro-advice-tile'
-import 'angularjs/common/directives/pro-news-tile/pro-news-tile'
-import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider'
-import 'angularjs/common/components/interface/slider/slider'
-import navbarModule from '../../common/components/navbar/navbar'
-import {Config} from '../../../config';
-import {StateService, StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
-import {UserService} from '../../common/services/user/user.service'
+import * as angular from 'angular';
+import sessionModule from '../../common/services/session/session';
+import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling';
+import 'angularjs/common/directives/expert-profile/pro-expert-card/pro-expert-card';
+import 'angularjs/common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more';
+import 'angularjs/common/directives/pro-advice-tile/pro-advice-tile';
+import 'angularjs/common/directives/pro-news-tile/pro-news-tile';
+import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider';
+import 'angularjs/common/components/interface/slider/slider';
+import navbarModule from '../../common/components/navbar/navbar';
+import { Config } from '../../../config';
+import { StateService, StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
+import { UserService } from '../../common/services/user/user.service';
 
 function HomeController(): void {
 
-  this.interfaceController = {}
+  this.interfaceController = {};
 
-  this.interfaceController.hideSearchMask = true
+  this.interfaceController.hideSearchMask = true;
   this.nextSlide = (): void => {
-    this.controlls.nextSlide()
-  }
+    this.controlls.nextSlide();
+  };
 
   this.prevSlide = (): void => {
-    this.controlls.prevSlide()
-  }
+    this.controlls.prevSlide();
+  };
 
   this.expertCard = [
     {
@@ -108,7 +108,7 @@ function HomeController(): void {
         description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
       }
     }
-  ]
+  ];
   this.newsTile = [
     {
       title: 'Stu Unger Rise And Fall Of A Poker Genius',
@@ -117,7 +117,7 @@ function HomeController(): void {
       numberOfLikes: '99',
       publishDate: '2016-02-24'
     }
-  ]
+  ];
   this.adviceTile = [
     {
       title: 'Stu Unger Rise And Fall Of A Poker Genius',
@@ -126,7 +126,7 @@ function HomeController(): void {
       numberOfLikes: '99',
       publishDate: '2016-02-24'
     }
-  ]
+  ];
 
   this.similarExperts = [
     {
@@ -173,9 +173,9 @@ function HomeController(): void {
         type: 'EXP'
       }
     }
-  ]
+  ];
 
-  return this
+  return this;
 }
 
 const homePageModule = angular.module('profitelo.controller.home', [
@@ -200,10 +200,10 @@ const homePageModule = angular.module('profitelo.controller.home', [
         isPlatformForExpert: ['userService', '$state', (userService: UserService, $state: StateService): void => {
           if (Config.isPlatformForExpert)
             userService.getUser().then((response) => {
-              if (!response.hasPassword) $state.go('app.post-register.set-password')
-              else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email')
-              else $state.go('app.dashboard.expert.activities')
-            })
+              if (!response.hasPassword) $state.go('app.post-register.set-password');
+              else if (!response.unverifiedEmail && !response.email) $state.go('app.post-register.set-email');
+              else $state.go('app.dashboard.expert.activities');
+            });
         }]
       },
       data: {
@@ -213,9 +213,9 @@ const homePageModule = angular.module('profitelo.controller.home', [
           redirectTo: 'app.post-register.set-password'
         },
       }
-    })
+    });
   }])
   .controller('HomeController', HomeController)
-  .name
+  .name;
 
 export default homePageModule;

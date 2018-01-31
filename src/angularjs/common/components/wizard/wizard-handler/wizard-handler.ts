@@ -1,15 +1,15 @@
-import * as angular from 'angular'
-import {WizardHandlerComponent} from './wizard-handler.component'
+import * as angular from 'angular';
+import { WizardHandlerComponent } from './wizard-handler.component';
 
 export interface IWizardHandlerComponentBindings extends ng.IController {
-  onStepChange: () => void
-  progressBarText: string
+  onStepChange: () => void;
+  progressBarText: string;
 }
 
 const wizardHandlerModule = angular.module('profitelo.components.wizard.wizard-handler', [
   'pascalprecht.translate'
 ])
 .component('wizardHandler', new WizardHandlerComponent)
-  .name
+  .name;
 
-export default wizardHandlerModule
+export default wizardHandlerModule;

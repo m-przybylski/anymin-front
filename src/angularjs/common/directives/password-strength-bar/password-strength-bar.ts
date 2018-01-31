@@ -1,11 +1,11 @@
 /* tslint:disable:  no-magic-numbers */
 
-import * as angular from 'angular'
-import {IDirective} from 'angular'
+import * as angular from 'angular';
+import { IDirective } from 'angular';
 
 export interface IPasswordStrengthScope extends ng.IScope {
-  currentClass: number,
-  classes: string[]
+  currentClass: number;
+  classes: string[];
 }
 
 (function(): void {
@@ -20,19 +20,19 @@ export interface IPasswordStrengthScope extends ng.IScope {
         'weak',
         'strong',
         'very-strong'
-      ]
-      scope.currentClass = 0
+      ];
+      scope.currentClass = 0;
 
       scope.$watch(() => scope.currentClass, (newValue: number, _oldValue: number) => {
-        scope.currentClass = Math.floor(scope.currentClass)
+        scope.currentClass = Math.floor(scope.currentClass);
 
         if (newValue > 4) {
-          scope.currentClass = 4
+          scope.currentClass = 4;
         }
         if (newValue < 0) {
-          scope.currentClass = 0
+          scope.currentClass = 0;
         }
-      })
+      });
 
     }
     return {
@@ -43,10 +43,10 @@ export interface IPasswordStrengthScope extends ng.IScope {
       scope: {
         currentClass: '=?'
       }
-    }
+    };
   }
 
   angular.module('profitelo.directives.password-strength-bar', [])
-  .directive('passwordStrengthBar', [passwordStrengthBar])
+  .directive('passwordStrengthBar', [passwordStrengthBar]);
 
-}())
+}());

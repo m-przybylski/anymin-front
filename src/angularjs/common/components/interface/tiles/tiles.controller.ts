@@ -1,5 +1,5 @@
 
-import {ITilesComponentBindings} from './tiles'
+import { ITilesComponentBindings } from './tiles';
 export class TilesComponentController implements ITilesComponentBindings {
 
   static $inject = [];

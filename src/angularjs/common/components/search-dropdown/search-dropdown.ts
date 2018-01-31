@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import {SearchDropdownComponent} from './search-dropdown.component'
-import searchModule from '../../services/search/search'
-import filtersModule from '../../filters/filters'
+import * as angular from 'angular';
+import { SearchDropdownComponent } from './search-dropdown.component';
+import searchModule from '../../services/search/search';
+import filtersModule from '../../filters/filters';
 import uiRouter from '@uirouter/angularjs';
 
 const searchDropdownModule = angular.module('profitelo.components.search-dropdown', [
@@ -12,6 +12,6 @@ const searchDropdownModule = angular.module('profitelo.components.search-dropdow
   filtersModule
 ])
 .component('searchDropdown', new SearchDropdownComponent)
-  .name
+  .name;
 
-export default searchDropdownModule
+export default searchDropdownModule;

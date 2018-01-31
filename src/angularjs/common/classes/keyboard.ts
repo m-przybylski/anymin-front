@@ -20,4 +20,4 @@ export const keyboardCodes = {
   seven: 55,
   eight: 56,
   nine:	57
-}
+};

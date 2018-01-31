@@ -1,19 +1,19 @@
-import * as angular from 'angular'
-import * as _ from 'lodash'
-import {IRootScopeService} from '../root-scope/root-scope.service';
-import '../../../../../generated_modules/translations/pl-pl'
-import '../../../../../generated_modules/translations/en-us'
+import * as angular from 'angular';
+import * as _ from 'lodash';
+import { IRootScopeService } from '../root-scope/root-scope.service';
+import '../../../../../generated_modules/translations/pl-pl';
+import '../../../../../generated_modules/translations/en-us';
 
 export interface IInterfaceLanguage {
-  nativeName: string
-  ietfCode: string
+  nativeName: string;
+  ietfCode: string;
 }
 
 export class InterfaceLanguageService {
 
-  private static selectedInterfaceLanguageCookie = 'selectedInterfaceLanguage'
+  private static selectedInterfaceLanguageCookie = 'selectedInterfaceLanguage';
 
-  private static defaultTranslation = 'pl-pl'
+  private static defaultTranslation = 'pl-pl';
 
   // Array with supported interface languages by this project
   // Add new one to support them
@@ -21,7 +21,7 @@ export class InterfaceLanguageService {
     {nativeName: 'English (U.S.)', ietfCode: 'en-us'},
     {nativeName: 'Polski (Polska)', ietfCode: 'pl-pl'}
     // { nativeName: 'Deutsch (Deutchland)', ietfCode: 'de-de' }
-  ]
+  ];
 
   static $inject = ['$log', '$http', '$rootScope', '$translate', '$locale', '$cookies', '$location',
     'tmhDynamicLocale', 'amMoment'];
@@ -41,9 +41,9 @@ export class InterfaceLanguageService {
   public unifyToIetfCode = (inputCode: string): string => {
     if (angular.isUndefined(inputCode) || !inputCode) {
       // throw new Error('inputCode must be provided')
-      inputCode = ''
+      inputCode = '';
     }
-    return String(inputCode).trim().replace(/[_]/g, '-').toLowerCase()
+    return String(inputCode).trim().replace(/[_]/g, '-').toLowerCase();
   }
 
   // @method       _getInterfaceLanguages
@@ -51,7 +51,7 @@ export class InterfaceLanguageService {
   // @description  Get all frontend available interface languages from
   //               the database
   // @returns      {Array}
-  public getInterfaceLanguages = (): IInterfaceLanguage[] => InterfaceLanguageService.interfaceLanguages
+  public getInterfaceLanguages = (): IInterfaceLanguage[] => InterfaceLanguageService.interfaceLanguages;
 
   // @method       _getStartupLanguage
   // @setter
@@ -60,46 +60,46 @@ export class InterfaceLanguageService {
   // @returns      { String }
   public getStartupLanguage = (ietfCode?: string): string => {
     if (typeof ietfCode === 'undefined' || !ietfCode) {
-      ietfCode = ''
+      ietfCode = '';
     }
 
-    const _queryLang = this.$location.search().lang
-    const _cookie = this.$cookies.get(InterfaceLanguageService.selectedInterfaceLanguageCookie)
+    const _queryLang = this.$location.search().lang;
+    const _cookie = this.$cookies.get(InterfaceLanguageService.selectedInterfaceLanguageCookie);
 
     const _logDefaultTranslation = (): string => {
-      const previousLanguage = this.unifyToIetfCode(this.$translate.use())
+      const previousLanguage = this.unifyToIetfCode(this.$translate.use());
       const msg = 'Your language `' + previousLanguage + '`' +
         ' was not found, so used our default language `' + InterfaceLanguageService.defaultTranslation + '`, ' +
         _.find(InterfaceLanguageService.interfaceLanguages,
-          {ietfCode: InterfaceLanguageService.defaultTranslation})!['nativeName'] + '.'
+          {ietfCode: InterfaceLanguageService.defaultTranslation})!['nativeName'] + '.';
 
-      this.$log.info(msg)
+      this.$log.info(msg);
 
-      return InterfaceLanguageService.defaultTranslation
-    }
+      return InterfaceLanguageService.defaultTranslation;
+    };
 
     if (ietfCode !== null && ietfCode) {
       // pre-defined language
-      return ietfCode
+      return ietfCode;
     } else if (_queryLang && _.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _queryLang})) {
       // variable lang from URLs
-      return _queryLang
+      return _queryLang;
     } else if (angular.isDefined(_cookie)) {
       if (_.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _cookie})) {
         // found right language into cookie
-        return _cookie
+        return _cookie;
       } else {
         // language into cookie was not found into `_interfaceLanguages` so we set default
-        return _logDefaultTranslation()
+        return _logDefaultTranslation();
       }
     } else {
       if (_.find(InterfaceLanguageService.interfaceLanguages,
           {ietfCode: this.unifyToIetfCode(this.$translate.use())})) {
         // found language
-        return this.unifyToIetfCode(this.$translate.use())
+        return this.unifyToIetfCode(this.$translate.use());
       } else {
         // not found a language
-        return _logDefaultTranslation()
+        return _logDefaultTranslation();
       }
     }
   }
@@ -109,17 +109,17 @@ export class InterfaceLanguageService {
   // @param        {String}   langCode    some string with language key; like `pl-PL`
   // @description  Set user language for the website.
   public setLanguage = (ietfCode: string): void => {
-    const _code = this.unifyToIetfCode(ietfCode)
-    const _countryCode = _code.split('-')[0]
-    this.$cookies.put(InterfaceLanguageService.selectedInterfaceLanguageCookie, _code)
+    const _code = this.unifyToIetfCode(ietfCode);
+    const _countryCode = _code.split('-')[0];
+    this.$cookies.put(InterfaceLanguageService.selectedInterfaceLanguageCookie, _code);
     if (this.$http.defaults.headers) {
-      this.$http.defaults.headers.common['X-LANG'] = _code
+      this.$http.defaults.headers.common['X-LANG'] = _code;
     } else {
-      this.$log.error('Can not set X-LANG - headers missing')
+      this.$log.error('Can not set X-LANG - headers missing');
     }
-    this.$rootScope.$locale = this.$locale
-    this.$translate.use(_code)        // for translations strings
-    this.tmhDynamicLocale.set(_code)  // set locale for translations
-    this.amMoment.changeLocale(_countryCode)
+    this.$rootScope.$locale = this.$locale;
+    this.$translate.use(_code);        // for translations strings
+    this.tmhDynamicLocale.set(_code);  // set locale for translations
+    this.amMoment.changeLocale(_countryCode);
   }
 }

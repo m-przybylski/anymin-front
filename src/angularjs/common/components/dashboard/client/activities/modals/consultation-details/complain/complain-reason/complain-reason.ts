@@ -1,18 +1,18 @@
-import * as angular from 'angular'
-import {ModalsService} from '../../../../../../../../services/modals/modals.service'
-import '../../../../../../../../components/interface/radio-text/radio-text'
-import '../../../../../../../../components/interface/radio/radio'
-import '../../../../../../../../services/modals/modals'
+import * as angular from 'angular';
+import { ModalsService } from '../../../../../../../../services/modals/modals.service';
+import '../../../../../../../../components/interface/radio-text/radio-text';
+import '../../../../../../../../components/interface/radio/radio';
+import '../../../../../../../../services/modals/modals';
 
 function controller(modalsService: ModalsService): void {
-  this.isRadioActive = false
+  this.isRadioActive = false;
 
   this.showComplainReasonModal = (): void => {
     if (angular.isFunction(this.onComplainOpen)) {
-      this.onComplainOpen()
+      this.onComplainOpen();
     }
-    modalsService.createClientComplainReportModal()
-  }
+    modalsService.createClientComplainReportModal();
+  };
 
   this.complaintReasons = [
     {
@@ -41,16 +41,16 @@ function controller(modalsService: ModalsService): void {
       name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER',
       description: 'Other reason description'
     }
-  ]
+  ];
 
-  this.isSelected = (item: any): boolean => this.isRadioActive === item
+  this.isSelected = (item: any): boolean => this.isRadioActive === item;
 
   this.isRadioSelected = (item: any): void => {
-    this.onReasonChange()
-    this.isRadioActive = item
-  }
+    this.onReasonChange();
+    this.isRadioActive = item;
+  };
 
-  return this
+  return this;
 }
 
 const component = {
@@ -61,7 +61,7 @@ const component = {
     onReasonChange: '<',
     onComplainOpen: '<'
   }
-}
+};
 
 angular.module(
   'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', [
@@ -71,4 +71,4 @@ angular.module(
   'profitelo.components.interface.radio',
 
 ])
-  .component('clientComplainReason', component)
+  .component('clientComplainReason', component);

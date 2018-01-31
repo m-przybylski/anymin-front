@@ -1,14 +1,14 @@
-import {SearchQueryParams} from './search-query-params'
+import { SearchQueryParams } from './search-query-params';
 import {
   GetSearchRequestResult, PostSuggestTags, PostSearchRequest,
   GetSuggestedQueries, PostSuggestQueries, GetSuggestedTags
-} from 'profitelo-api-ng/model/models'
-import {SearchApi} from 'profitelo-api-ng/api/api'
-import {ErrorHandlerService} from '../error-handler/error-handler.service'
+} from 'profitelo-api-ng/model/models';
+import { SearchApi } from 'profitelo-api-ng/api/api';
+import { ErrorHandlerService } from '../error-handler/error-handler.service';
 export class SearchService {
 
-  private static readonly suggestedTagsCounter: number = 20
-  private static readonly suggestedQueriesCounter: number = 5
+  private static readonly suggestedTagsCounter: number = 20;
+  private static readonly suggestedQueriesCounter: number = 5;
 
   static $inject = ['SearchApi', 'errorHandler'];
 
@@ -16,18 +16,18 @@ export class SearchService {
   }
 
   public search = (queryParams: SearchQueryParams): ng.IPromise<GetSearchRequestResult[]> => {
-    const promise = this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams))
-    promise.catch(this.errorHandler.handleServerError)
-    return promise
+    const promise = this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams));
+    promise.catch(this.errorHandler.handleServerError);
+    return promise;
   }
 
   public querySuggestions = (queryParam: string): ng.IPromise<void | GetSuggestedQueries> => {
     const params: PostSuggestQueries = {
       query: queryParam,
       count: SearchService.suggestedQueriesCounter
-    }
+    };
     return this.SearchApi.postQueriesSuggestionsRoute(params)
-    .catch(this.errorHandler.handleServerError)
+    .catch(this.errorHandler.handleServerError);
   }
 
   public querySuggestedTags = (
@@ -39,23 +39,23 @@ export class SearchService {
       query,
       tags,
       count
-    }
-    const promise = this.SearchApi.postTagsSuggestionsRoute(params)
-    promise.catch(this.errorHandler.handleServerError)
-    return promise
+    };
+    const promise = this.SearchApi.postTagsSuggestionsRoute(params);
+    promise.catch(this.errorHandler.handleServerError);
+    return promise;
   }
 
   public loadMore = (queryParams: SearchQueryParams): ng.IPromise<GetSearchRequestResult[]> => {
-    queryParams.setOffset(queryParams.getOffset() + queryParams.getCount())
-    const promise = this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams))
+    queryParams.setOffset(queryParams.getOffset() + queryParams.getCount());
+    const promise = this.SearchApi.postSearchRoute(this.generatePostSearchRequest(queryParams));
     promise.catch((error) => {
-      this.handleLoadMoreError(queryParams, error)
-    })
-    return promise
+      this.handleLoadMoreError(queryParams, error);
+    });
+    return promise;
   }
 
   private handleLoadMoreError = (queryParams: SearchQueryParams, _error: Error): void => {
-    queryParams.setOffset(queryParams.getOffset() - queryParams.getCount())
+    queryParams.setOffset(queryParams.getOffset() - queryParams.getCount());
   }
 
   private generatePostSearchRequest = (queryParams: SearchQueryParams): PostSearchRequest => ({

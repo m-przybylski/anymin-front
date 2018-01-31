@@ -1,15 +1,15 @@
-import * as angular from 'angular'
-import 'angular-permission'
-import './set-email/set-email'
-import './set-password/set-password'
-import {Config} from '../../../config';
-import {StateProvider} from '@uirouter/angularjs'
-import uiRouter from '@uirouter/angularjs'
+import * as angular from 'angular';
+import 'angular-permission';
+import './set-email/set-email';
+import './set-password/set-password';
+import { Config } from '../../../config';
+import { StateProvider } from '@uirouter/angularjs';
+import uiRouter from '@uirouter/angularjs';
 
 function controller(): void {
-  this.isPlatformForExpert = Config.isPlatformForExpert
+  this.isPlatformForExpert = Config.isPlatformForExpert;
 
-  return this
+  return this;
 }
 
 function config($stateProvider: StateProvider): void {
@@ -26,7 +26,7 @@ function config($stateProvider: StateProvider): void {
       },
       pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
     }
-  })
+  });
 }
 
 const postRegisterPageModule = angular.module('profitelo.controller.post-register', [
@@ -38,6 +38,6 @@ const postRegisterPageModule = angular.module('profitelo.controller.post-registe
 ])
   .config(['$stateProvider', config])
   .controller('PostRegisterController', [controller])
-  .name
+  .name;
 
-export default postRegisterPageModule
+export default postRegisterPageModule;

@@ -1,67 +1,67 @@
-import * as angular from 'angular'
-import {IWindowService} from '../../../services/window/window.service'
+import * as angular from 'angular';
+import { IWindowService } from '../../../services/window/window.service';
 
 function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService): void {
   this.stylesObject = {
     height: null
-  }
+  };
 
-  this.isCollapsed = true
+  this.isCollapsed = true;
 
   this.$onInit = (): void => {
     if (this.collapseStream)
-      this.collapseStream.subscribe(this.collapseToggle)
-  }
+      this.collapseStream.subscribe(this.collapseToggle);
+  };
 
   const updateStylesObject = (): void => {
     if (!this.isCollapsed) {
-      this.stylesObject.height = getCollapseBtnContentHeight()
+      this.stylesObject.height = getCollapseBtnContentHeight();
     } else {
-      this.stylesObject.height = getCollapseBtnHeight()
+      this.stylesObject.height = getCollapseBtnHeight();
     }
-  }
+  };
 
   this.collapseToggle = (): void => {
-    this.isCollapsed = !this.isCollapsed
-    updateStylesObject()
-  }
+    this.isCollapsed = !this.isCollapsed;
+    updateStylesObject();
+  };
 
   this.$doCheck = (): void => {
-    this.onWindowResize()
-  }
+    this.onWindowResize();
+  };
 
   const getCollapseBtnHeight = (): number => {
-    const _element = $element.find('.collapse-btn-header')[0]
+    const _element = $element.find('.collapse-btn-header')[0];
     if (!!_element) {
-      return _element.clientHeight
+      return _element.clientHeight;
     } else {
-      $log.error('Element not found')
-      return 0
+      $log.error('Element not found');
+      return 0;
     }
-  }
+  };
 
   const getCollapseBtnContentHeight = (): number => {
-    const _element = $element.find('.collapse-btn-wrapper')[0]
+    const _element = $element.find('.collapse-btn-wrapper')[0];
     if (!!_element) {
-      return _element.clientHeight
+      return _element.clientHeight;
     } else {
-      $log.error('Element not found')
-      return 0
+      $log.error('Element not found');
+      return 0;
     }
-  }
+  };
 
     this.onWindowResize = (): void => {
     if (!this.isCollapsed) {
-      this.stylesObject.height = getCollapseBtnContentHeight()
+      this.stylesObject.height = getCollapseBtnContentHeight();
     }
     else {
-      this.stylesObject.height = getCollapseBtnHeight()
+      this.stylesObject.height = getCollapseBtnHeight();
     }
-  }
+  };
 
-    angular.element($window).on('resize', this.onWindowResize)
+    angular.element($window).on('resize', this.onWindowResize);
 
-  return this
+  return this;
 }
 
 const component = {
@@ -74,9 +74,9 @@ const component = {
     collapseIcon: '@',
     collapseStream: '<'
   }
-}
+};
 
 angular.module('profitelo.components.interface.collapse-btn', [
   'pascalprecht.translate'
 ])
-.component('collapseBtn', component)
+.component('collapseBtn', component);

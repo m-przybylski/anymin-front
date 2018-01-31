@@ -49,7 +49,7 @@ export class UserSessionService {
 
   private onSuccessLogout = (): void => {
     this.sessionCache = undefined;
-    this.authService.unsetApiKey()
+    this.authService.unsetApiKey();
   }
 
   private onFailureLogout = (err: any): void => {
@@ -60,5 +60,5 @@ export class UserSessionService {
   }
 
   public isLoggedIn = (): boolean =>
-    typeof this.sessionCache !== 'undefined';
+    typeof this.sessionCache !== 'undefined'
 }

@@ -1,10 +1,10 @@
-import * as angular from 'angular'
-import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider'
-import 'angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert'
+import * as angular from 'angular';
+import 'angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider';
+import 'angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert';
 
 function controller(): void {
 
-  return this
+  return this;
 }
 
 const component = {
@@ -14,11 +14,11 @@ const component = {
   bindings: {
     favouriteExperts: '<'
   }
-}
+};
 
 angular.module('profitelo.components.dashboard.client.favourites.favourite-experts', [
   'pascalprecht.translate',
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert'
 ])
-  .component('clientFavouriteExperts', component)
+  .component('clientFavouriteExperts', component);

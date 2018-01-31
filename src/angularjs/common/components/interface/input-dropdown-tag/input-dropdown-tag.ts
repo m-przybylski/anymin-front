@@ -1,18 +1,18 @@
-import * as angular from 'angular'
-import {InputDropdownTagComponent} from './input-dropdown-tag.component'
-import {IDropdownInputDictionary} from './input-dropdown-tag.controller'
-import ngEnter from '../../../directives/ng-enter/ng-enter'
-import ValidationAlertModule from '../alert/validation-alert/validation-alert'
+import * as angular from 'angular';
+import { InputDropdownTagComponent } from './input-dropdown-tag.component';
+import { IDropdownInputDictionary } from './input-dropdown-tag.controller';
+import ngEnter from '../../../directives/ng-enter/ng-enter';
+import ValidationAlertModule from '../alert/validation-alert/validation-alert';
 
 export interface InputDropdownTagComponentBindings extends ng.IController {
-  label: string
-  placeholder: string
-  dictionary: IDropdownInputDictionary
-  hintLabel: string
-  isValid?: boolean
-  validationText?: string
-  isSubmitted?: boolean
-  selectedItemsValue: string[]
+  label: string;
+  placeholder: string;
+  dictionary: IDropdownInputDictionary;
+  hintLabel: string;
+  isValid?: boolean;
+  validationText?: string;
+  isSubmitted?: boolean;
+  selectedItemsValue: string[];
 }
 
 const inputDropdownTagModule = angular.module('profitelo.components.interface.input-dropdown-tag', [
@@ -21,6 +21,6 @@ const inputDropdownTagModule = angular.module('profitelo.components.interface.in
     ValidationAlertModule
   ])
   .component('inputDropdownTag', new InputDropdownTagComponent)
-    .name
+    .name;
 
-export default inputDropdownTagModule
+export default inputDropdownTagModule;

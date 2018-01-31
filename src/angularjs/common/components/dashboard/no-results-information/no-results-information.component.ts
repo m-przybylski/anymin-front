@@ -1,8 +1,8 @@
-import {NoResultsInformationController} from './no-results-information.controller'
+import { NoResultsInformationController } from './no-results-information.controller';
 
 export class NoResultsInformationComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = NoResultsInformationController
-  template = require('./no-results-information.html')
+  controller: ng.Injectable<ng.IControllerConstructor> = NoResultsInformationController;
+  template = require('./no-results-information.html');
   bindings: {[boundProperty: string]: string} = {
     iconSrc: '@',
     informationTitle: '@',
@@ -12,5 +12,5 @@ export class NoResultsInformationComponent implements ng.IComponentOptions {
     buttonIconLeftClass: '@',
     buttonIconRightClass: '@',
     buttonOnClick: '<'
-  }
+  };
 }

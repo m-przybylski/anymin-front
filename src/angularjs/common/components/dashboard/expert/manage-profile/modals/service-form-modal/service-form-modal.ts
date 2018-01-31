@@ -1,17 +1,17 @@
-import * as angular from 'angular'
-import {ServiceFormModalController} from './service-form-modal.controller'
-import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
-import inputModule from '../../../../../interface/input/input'
-import textareaModule from '../../../../../interface/textarea/textarea'
-import dropdownPrimaryModule from '../../../../../interface/dropdown-primary/dropdown-primary'
+import * as angular from 'angular';
+import { ServiceFormModalController } from './service-form-modal.controller';
+import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts';
+import inputModule from '../../../../../interface/input/input';
+import textareaModule from '../../../../../interface/textarea/textarea';
+import dropdownPrimaryModule from '../../../../../interface/dropdown-primary/dropdown-primary';
 import consultationEmployeeInputModule
-  from '../../../../../interface/input-consultation-employee/input-consultation-employee'
-import inputPriceModule from '../../../../../interface/input-price/input-price'
-import consultationTagInputModule from '../../../../../interface/input-consultaiton-tag/input-consultaiton-tag'
-import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert'
-import apiModule from 'profitelo-api-ng/api.module'
-import languagesModule from '../../../../../../services/languages/languages'
-import translatorModule from '../../../../../../services/translator/translator'
+  from '../../../../../interface/input-consultation-employee/input-consultation-employee';
+import inputPriceModule from '../../../../../interface/input-price/input-price';
+import consultationTagInputModule from '../../../../../interface/input-consultaiton-tag/input-consultaiton-tag';
+import ValidationAlertModule from '../../../../../interface/alert/validation-alert/validation-alert';
+import apiModule from 'profitelo-api-ng/api.module';
+import languagesModule from '../../../../../../services/languages/languages';
+import translatorModule from '../../../../../../services/translator/translator';
 
 const serviceFormModalModule = angular.module(
   'profitelo.components.dashboard.expert.manage-profile.modals.consultation-form-modal', [
@@ -31,6 +31,6 @@ const serviceFormModalModule = angular.module(
   translatorModule
 ])
 .controller('serviceFormModalController', ServiceFormModalController)
-  .name
+  .name;
 
-export default serviceFormModalModule
+export default serviceFormModalModule;

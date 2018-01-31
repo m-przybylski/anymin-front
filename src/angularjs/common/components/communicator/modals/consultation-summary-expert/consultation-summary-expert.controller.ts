@@ -1,50 +1,50 @@
-import {CallSummary} from '../../../../models/CallSummary'
-import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
-import {IExpertCallSummary} from '../../../../models/ExpertCallSummary'
-import {MoneyDto, GetTechnicalProblem} from 'profitelo-api-ng/model/models'
-import {ServiceApi} from 'profitelo-api-ng/api/api'
-import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
-import {TranslatorService} from '../../../../services/translator/translator.service';
-import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import { CallSummary } from '../../../../models/CallSummary';
+import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';
+import { IExpertCallSummary } from '../../../../models/ExpertCallSummary';
+import { MoneyDto, GetTechnicalProblem } from 'profitelo-api-ng/model/models';
+import { ServiceApi } from 'profitelo-api-ng/api/api';
+import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
+import { TranslatorService } from '../../../../services/translator/translator.service';
+import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
 
 import {
   ConsultationSummaryExpertService, IComplaintReason
-} from './consultation-summary-expert.service'
-import {Subscription} from 'rxjs/Subscription'
-import {Subject} from 'rxjs/Subject'
-import {Observable} from 'rxjs/Observable'
+} from './consultation-summary-expert.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
-  callSummary?: CallSummary
-  onModalClose: () => void
-  isFullscreen: boolean
-  isNavbar: boolean
-  serviceId: string
+  callSummary?: CallSummary;
+  onModalClose: () => void;
+  isFullscreen: boolean;
+  isNavbar: boolean;
+  serviceId: string;
 }
 
 export class ConsultationSummaryExpertController implements ng.IController {
-  public complaintReasons: IComplaintReason[]
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
-  public callSummary?: IExpertCallSummary
-  public isLoading: boolean
+  public complaintReasons: IComplaintReason[];
+  public isFullscreen: boolean = true;
+  public isNavbar: boolean = true;
+  public callSummary?: IExpertCallSummary;
+  public isLoading: boolean;
 
-  public clientId: string
-  public serviceName: string
-  public callDuration: number
-  public profit: MoneyDto
-  public clientAvatar?: string
-  public clientReportMessage: string = ''
-  public isSendingClientReport: boolean = false
-  public isClientReportSent: boolean = false
-  public isSubmitted: boolean = false
+  public clientId: string;
+  public serviceName: string;
+  public callDuration: number;
+  public profit: MoneyDto;
+  public clientAvatar?: string;
+  public clientReportMessage: string = '';
+  public isSendingClientReport: boolean = false;
+  public isClientReportSent: boolean = false;
+  public isSubmitted: boolean = false;
 
-  public radioModel: GetTechnicalProblem.ProblemTypeEnum
-  public technicalProblemsDescription: string
+  public radioModel: GetTechnicalProblem.ProblemTypeEnum;
+  public technicalProblemsDescription: string;
 
-  private callSummarySubscription: Subscription
-  private static readonly minValidClientReportMessageLength: number = 3
-  private sueId: string
+  private callSummarySubscription: Subscription;
+  private static readonly minValidClientReportMessageLength: number = 3;
+  private sueId: string;
 
   private hideTechnicalProblemsEvent = new Subject<void>();
   private hideReportClientEvent = new Subject<void>();
@@ -60,10 +60,10 @@ export class ConsultationSummaryExpertController implements ng.IController {
               private translatorService: TranslatorService,
               private errorHandler: ErrorHandlerService,
               private consultationSummaryExpertService: ConsultationSummaryExpertService) {
-    this.isLoading = true
-    this.complaintReasons = this.consultationSummaryExpertService.complaintReasons
-    this.callSummarySubscription = this.callSummaryService.onCallSummary(this.onCallSummary)
-    this.loadFromExistingCallSummaries()
+    this.isLoading = true;
+    this.complaintReasons = this.consultationSummaryExpertService.complaintReasons;
+    this.callSummarySubscription = this.callSummaryService.onCallSummary(this.onCallSummary);
+    this.loadFromExistingCallSummaries();
   }
 
   public get hideTechnicalProblems$(): Observable<void> {
@@ -75,24 +75,24 @@ export class ConsultationSummaryExpertController implements ng.IController {
   }
 
   public onTechnicalProblemsCancel = (): void => {
-    this.hideTechnicalProblemsEvent.next()
+    this.hideTechnicalProblemsEvent.next();
   }
 
   public onReportClientCancel = (): void => {
-    this.hideReportClientEvent.next()
+    this.hideReportClientEvent.next();
   }
 
   public onSendTechnicalProblems = (): void => {
     this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
       this.technicalProblemsDescription).then(() => {
-      this.onModalClose()
+      this.onModalClose();
       this.topAlertService.success({
         message: this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
         timeout: 2
-      })
+      });
     }).catch((error) => {
-      this.errorHandler.handleServerError(error)
-    })
+      this.errorHandler.handleServerError(error);
+    });
   }
 
   public onSelectComplaint = (problemType: GetTechnicalProblem.ProblemTypeEnum): GetTechnicalProblem.ProblemTypeEnum =>
@@ -102,57 +102,57 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.technicalProblemsDescription = description
 
   public onSendClientReportClick = (): void => {
-    this.isSubmitted = true
+    this.isSubmitted = true;
     if (this.isClientReportValid())
-      this.sendClientReport(this.sueId, this.clientReportMessage)
+      this.sendClientReport(this.sueId, this.clientReportMessage);
   }
 
   public sendClientReport = (sueId: string, message: string): void => {
-    this.isSendingClientReport = true
+    this.isSendingClientReport = true;
 
     this.ServiceApi.postExpertComplaintRoute(sueId, {message}).then(() => {
       this.topAlertService.success({
         message:
           this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
         timeout: 2
-      })
-      this.isClientReportSent = true
+      });
+      this.isClientReportSent = true;
     }).catch((error) => {
-      this.errorHandler.handleServerError(error, 'Can not send report client')
+      this.errorHandler.handleServerError(error, 'Can not send report client');
     }).finally(() => {
-      this.isSendingClientReport = false
-    })
+      this.isSendingClientReport = false;
+    });
   }
 
   public isClientReportValid = (): boolean => this.clientReportMessage.length >=
     ConsultationSummaryExpertController.minValidClientReportMessageLength
 
-  public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel')
+  public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel');
 
   private onCallSummary = (callSummary: IExpertCallSummary): void => {
     if (callSummary.service.id === this.$scope.serviceId) {
-      this.callSummary = callSummary
-      this.isLoading = false
+      this.callSummary = callSummary;
+      this.isLoading = false;
       if (this.callSummary.clientAccountDetails) {
-        this.clientId = this.callSummary.clientAccountDetails.clientId
-        this.clientAvatar = this.callSummary.clientAccountDetails.avatar
+        this.clientId = this.callSummary.clientAccountDetails.clientId;
+        this.clientAvatar = this.callSummary.clientAccountDetails.avatar;
       }
-      this.serviceName = this.callSummary.service.name
-      this.profit = this.callSummary.profit
-      this.callDuration = this.callSummary.callDuration
-      this.sueId = this.callSummary.serviceUsageEventId
-      this.clearSummary(callSummary)
+      this.serviceName = this.callSummary.service.name;
+      this.profit = this.callSummary.profit;
+      this.callDuration = this.callSummary.callDuration;
+      this.sueId = this.callSummary.serviceUsageEventId;
+      this.clearSummary(callSummary);
     }
   }
 
   private loadFromExistingCallSummaries = (): void => {
-    const callSummary = this.callSummaryService.getCallSummary(this.$scope.serviceId)
+    const callSummary = this.callSummaryService.getCallSummary(this.$scope.serviceId);
     callSummary && this.callSummaryService.isExpertCallSummary(callSummary)
-      ? this.onCallSummary(callSummary) : undefined
+      ? this.onCallSummary(callSummary) : undefined;
   }
 
   private clearSummary = (callSummary: CallSummary): void => {
-    this.callSummarySubscription.unsubscribe()
-    this.callSummaryService.removeCallSummary(callSummary)
+    this.callSummarySubscription.unsubscribe();
+    this.callSummaryService.removeCallSummary(callSummary);
   }
 }
