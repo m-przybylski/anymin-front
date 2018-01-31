@@ -1,12 +1,13 @@
 import { MediaStreamConstraintsWrapper } from './media-stream-constraints-wrapper';
 import { NavigatorWrapper } from './navigator-wrapper/navigator-wrapper';
 
+// tslint:disable:member-ordering
 export class StreamManager {
 
   private isAudio: boolean;
   private navigator: NavigatorWrapper;
 
-  static $inject = ['stream', 'constraints'];
+  public static $inject = ['stream', 'constraints'];
 
   constructor(private stream: MediaStream, private constraints: MediaStreamConstraintsWrapper) {
     this.navigator = new NavigatorWrapper();

@@ -9,15 +9,21 @@ import { Observable } from 'rxjs/Observable';
 import { Config } from '../../../../config';
 import { ApiKeyService } from './api-key.service';
 
-type Headers = {[key: string]: string};
+interface IHeaders {
+  [key: string]: string;
+}
 
 @Injectable()
 export class ApiKeyInterceptor implements HttpInterceptor {
 
   constructor(private apiKeyService: ApiKeyService) {}
 
-  private getAuthHeaders = (): Headers => {
-    const headers: Headers = {};
+  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(this.getRequestWithAuthHeaders(request));
+  }
+
+  private getAuthHeaders = (): IHeaders => {
+    const headers: IHeaders = {};
     const apiKey = this.apiKeyService.getApiKey();
 
     if (apiKey) {
@@ -32,7 +38,4 @@ export class ApiKeyInterceptor implements HttpInterceptor {
       setHeaders: this.getAuthHeaders()
     })
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(this.getRequestWithAuthHeaders(request));
-  }
 }

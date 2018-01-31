@@ -12,12 +12,13 @@ export interface IExpertIncomingCallControllerScope extends ng.IScope {
   $parent: IExpertIncomingCallParentControllerScope;
 }
 
+// tslint:disable:member-ordering
 export class ExpertIncomingCallController implements ng.IController {
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
-  static $inject = ['$scope', '$uibModalInstance'];
+  public static $inject = ['$scope', '$uibModalInstance'];
 
     constructor($scope: IExpertIncomingCallControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {

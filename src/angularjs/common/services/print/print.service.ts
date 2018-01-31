@@ -1,9 +1,11 @@
+// tslint:disable:member-ordering
+// tslint:disable:member-ordering
 export class PrintService {
 
   private __container__: any;
   private contentWindow: any;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

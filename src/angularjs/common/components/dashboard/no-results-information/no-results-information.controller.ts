@@ -1,19 +1,20 @@
 import { INoResultsInformationComponentBindings } from './no-results-information';
 import * as angular from 'angular';
 
+// tslint:disable:member-ordering
 export class NoResultsInformationController implements INoResultsInformationComponentBindings {
 
-  iconSrc: string;
-  informationTitle: string;
-  informationDescription: string;
-  buttonTitle: string;
-  buttonClass: string;
-  buttonIconLeftClass: string;
-  buttonIconRightClass: string;
-  buttonOnClick: () => void;
-  buttonCallback: () => void;
+  public iconSrc: string;
+  public informationTitle: string;
+  public informationDescription: string;
+  public buttonTitle: string;
+  public buttonClass: string;
+  public buttonIconLeftClass: string;
+  public buttonIconRightClass: string;
+  public buttonOnClick: () => void;
+  public buttonCallback: () => void;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
 

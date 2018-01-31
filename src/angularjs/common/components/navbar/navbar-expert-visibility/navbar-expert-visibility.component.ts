@@ -1,8 +1,9 @@
 import { NavbarExpertVisibilityComponentController } from './navbar-expert-visibility.controller';
 
+// tslint:disable:member-ordering
 export class NavbarExpertVisibilityComponent implements ng.IComponentOptions {
-  transclude: boolean = true;
-  controller: ng.Injectable<ng.IControllerConstructor> = NavbarExpertVisibilityComponentController;
-  template = require('./navbar-expert-visibility.html');
-  bindings: {[boundProperty: string]: string} = {};
+  public transclude: boolean = true;
+  public controller: ng.Injectable<ng.IControllerConstructor> = NavbarExpertVisibilityComponentController;
+  public template = require('./navbar-expert-visibility.html');
+  public bindings: {[boundProperty: string]: string} = {};
 }

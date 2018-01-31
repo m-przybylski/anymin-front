@@ -5,9 +5,10 @@ import { EventsService } from '../events/events.service';
 import { UpgradeService } from '../upgrade/upgrade.service';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class SessionServiceWrapper {
 
-  static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService', '$state'];
+  public static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService', '$state'];
 
   constructor(private userSessionService: UserSessionService,
               private $http: ng.IHttpService,

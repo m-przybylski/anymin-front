@@ -3,7 +3,7 @@ import { GetSession, AccountLogin } from '@anymind-ng/api';
 
 class UserSessionServiceMock {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

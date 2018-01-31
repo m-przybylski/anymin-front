@@ -4,18 +4,19 @@ import { GetProfileWithServicesInvitations } from 'profitelo-api-ng/model/models
 import * as angular from 'angular';
 import { Config } from '../../../../../config';
 
+// tslint:disable:member-ordering
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
 
-  isNotificationsTab: boolean = true;
-  isInvitationsTab: boolean = false;
-  areInvitationsDisplayed: boolean = false;
-  areInvitations: boolean = true;
-  onClick: () => void;
-  buttonCallback: () => void;
-  invitations: GetProfileWithServicesInvitations[];
+  public isNotificationsTab: boolean = true;
+  public isInvitationsTab: boolean = false;
+  public areInvitationsDisplayed: boolean = false;
+  public areInvitations: boolean = true;
+  public onClick: () => void;
+  public buttonCallback: () => void;
+  public invitations: GetProfileWithServicesInvitations[];
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['modalsService', '$element'];
+  public static $inject = ['modalsService', '$element'];
 
     constructor(private modalsService: ModalsService,
               private $element: ng.IRootElementService) {
@@ -28,7 +29,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     };
   }
 
-  $onChanges(): void {
+  public $onChanges(): void {
     this.areInvitations = this.invitations.length > 0;
   }
 

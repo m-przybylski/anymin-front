@@ -3,6 +3,7 @@ import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
 import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
 import { Subscription } from 'rxjs/Subscription';
 
+// tslint:disable:member-ordering
 export class NavbarExpertVisibilityComponentController implements ng.IController {
 
   public callback: () => void;
@@ -13,7 +14,7 @@ export class NavbarExpertVisibilityComponentController implements ng.IController
   public isVisibilityPending = false;
   private visibilitySubscription: Subscription;
 
-  static $inject = ['$scope', '$element', '$document', 'errorHandler', 'navbarExpertVisibilityService'];
+  public static $inject = ['$scope', '$element', '$document', 'errorHandler', 'navbarExpertVisibilityService'];
 
     constructor(private $scope: ng.IScope,
               private $element: ng.IRootElementService,
@@ -22,7 +23,7 @@ export class NavbarExpertVisibilityComponentController implements ng.IController
               private navbarExpertVisibilityService: NavbarExpertVisibilityService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.$document.bind('click', (event: Event) => {
       const ifTargetClicked = this.$element.find(event.target).length > 0;
       if (!ifTargetClicked)
@@ -53,7 +54,7 @@ export class NavbarExpertVisibilityComponentController implements ng.IController
     });
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.$document.unbind('click');
     this.visibilitySubscription.unsubscribe();
   }

@@ -9,6 +9,7 @@ export interface IComplaintReason {
   label: string;
 }
 
+// tslint:disable:member-ordering
 export class ConsultationSummaryExpertService implements ng.IController {
 
   public complaintReasons: IComplaintReason[] = [
@@ -42,7 +43,7 @@ export class ConsultationSummaryExpertService implements ng.IController {
     }
   ];
 
-  static $inject = ['translatorService', 'ServiceApi'];
+  public static $inject = ['translatorService', 'ServiceApi'];
 
     constructor(private translatorService: TranslatorService,
               private ServiceApi: ServiceApi) {

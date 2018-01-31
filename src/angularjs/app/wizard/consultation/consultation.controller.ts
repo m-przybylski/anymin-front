@@ -2,6 +2,7 @@ import { WizardApi } from 'profitelo-api-ng/api/api';
 import { GetWizardProfile, MoneyDto, GetWizardService, WizardTag } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../common/services/user/user.service';
 import { IServiceInvitation } from '../../../common/models/ServiceInvitation';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { LanguagesService } from '../../../common/services/languages/languages.service';
@@ -19,6 +20,7 @@ interface ILanguagesList {
   value: string;
 }
 
+// tslint:disable:member-ordering
 export class ConsultationController implements ng.IController {
   public readonly inputNameMaxLength: string = Config.inputsMaxLength.consultationName;
   public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.consultationDescription;
@@ -51,7 +53,7 @@ export class ConsultationController implements ng.IController {
   private consultationPriceMin: number;
   private consultationPriceMax: number;
 
-  static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService', 'CommonConfig',
+  public static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService', 'CommonConfig',
     'wizardProfile', 'languagesService', 'CommonSettingsService'];
 
   constructor(private translatorService: TranslatorService,
@@ -79,7 +81,7 @@ export class ConsultationController implements ng.IController {
     }
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.checkIsPriceInputValid();
 
     this.userService.getUser().then((response) => {
@@ -126,6 +128,7 @@ export class ConsultationController implements ng.IController {
     }
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   public saveConsultation = (): void => {
     if (this.checkIsFormValid() && this.wizardProfile) {
       const priceModel: MoneyDto = {

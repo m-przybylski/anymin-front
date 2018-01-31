@@ -4,9 +4,10 @@ import { RtcDetectorService } from '../../../services/rtc-detector/rtc-detector.
 import { ModalsService } from '../../../services/modals/modals.service';
 import { MediaStreamConstraintsWrapper } from '../../../classes/media-stream-constraints-wrapper';
 
+// tslint:disable:member-ordering
 export class PrecallService {
 
-  static $inject = ['rtcDetectorService', 'modalsService'];
+  public static $inject = ['rtcDetectorService', 'modalsService'];
 
     constructor(private rtcDetectorService: RtcDetectorService,
               private modalsService: ModalsService) {

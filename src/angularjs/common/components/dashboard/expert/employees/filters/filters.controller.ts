@@ -1,6 +1,7 @@
 import { IExpertEmployeesFiltersComponentBindings } from './filters';
 import { ModalsService } from '../../../../../services/modals/modals.service';
 
+// tslint:disable:member-ordering
 export class ExpertEmployeesFiltersComponentController implements IExpertEmployeesFiltersComponentBindings {
 
   public checkAllEmployees: boolean;
@@ -9,7 +10,7 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
   public showFilters: () => void;
   public onModalCloseCallback: () => void;
 
-  static $inject = ['modalsService'];
+  public static $inject = ['modalsService'];
 
     constructor(private modalsService: ModalsService) {
 

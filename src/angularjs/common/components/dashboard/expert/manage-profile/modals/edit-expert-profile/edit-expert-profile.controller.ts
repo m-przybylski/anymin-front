@@ -18,6 +18,7 @@ interface ILabels {
   organizationDescription: string;
 }
 
+// tslint:disable:member-ordering
 export class EditExpertProfileController implements ng.IController {
 
   public profileAvatarToken: string;
@@ -44,7 +45,7 @@ export class EditExpertProfileController implements ng.IController {
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
   private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern;
 
-  static $inject = ['$uibModalInstance', 'ProfileApi', '$log', 'topAlertService', 'translatorService',
+  public static $inject = ['$uibModalInstance', 'ProfileApi', '$log', 'topAlertService', 'translatorService',
     '$scope', 'CommonSettingsService'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -55,7 +56,7 @@ export class EditExpertProfileController implements ng.IController {
               private $scope: IEditExpertProfileScope,
               private CommonSettingsService: CommonSettingsService) {}
 
-  $onInit(): void {
+  public $onInit(): void {
     if (this.isGetExpertDetails(this.$scope.profile)) {
       this.profileAvatarToken = this.$scope.profile.avatar;
       this.profileNameLabel = EditExpertProfileController.labels.expertName;

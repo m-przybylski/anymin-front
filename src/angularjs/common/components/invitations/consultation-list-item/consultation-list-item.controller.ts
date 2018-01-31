@@ -7,6 +7,7 @@ export interface IConsultationListItemComponentScope extends ng.IScope {
   service: IGetServiceWithInvitationsAndTags;
 }
 
+// tslint:disable:member-ordering
 export class ConsultationListItemComponentController implements IConsultationListItemComponentBindings {
 
   public service: IGetServiceWithInvitationsAndTags;
@@ -17,12 +18,12 @@ export class ConsultationListItemComponentController implements IConsultationLis
   public inviteTime: string;
   public checkboxId: string;
   public isChecked: boolean = false;
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.title = this.service.name;
     this.price = this.service.price;
     this.tags = this.service.tags;

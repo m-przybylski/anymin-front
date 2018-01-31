@@ -1,5 +1,6 @@
 import { WizardApi } from 'profitelo-api-ng/api/api';
 import { PutWizardProfile, PartialExpertDetails, GetWizardProfile } from 'profitelo-api-ng/model/models';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import * as angular from 'angular';
 import { IProgressStyle } from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller';
@@ -7,6 +8,7 @@ import { CommonSettingsService } from '../../../../common/services/common-settin
 import { Config } from '../../../../../config';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class ExpertController implements ng.IController {
   public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName;
   public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription;
@@ -29,7 +31,7 @@ export class ExpertController implements ng.IController {
   private profileNamePattern: RegExp;
   private profileDescriptionPattern: RegExp;
 
-  static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
+  public static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
 
     constructor(private WizardApi: WizardApi,
               private $state: StateService,
@@ -38,7 +40,8 @@ export class ExpertController implements ng.IController {
     this.assignValidationValues();
   }
 
-  $onInit = (): void => {
+  // tslint:disable-next-line:cyclomatic-complexity
+  public $onInit = (): void => {
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile);
       if (this.wizardProfile.expertDetailsOption) {

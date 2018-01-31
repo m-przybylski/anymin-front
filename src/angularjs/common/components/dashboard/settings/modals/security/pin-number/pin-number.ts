@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import apiModule from 'profitelo-api-ng/api.module';
@@ -19,6 +20,7 @@ interface IProtectedViewsStatus {
   [key: string]: boolean | undefined;
 }
 
+// tslint:disable:member-ordering
 export class SecurityPinNumberSettingsController implements ng.IController {
 
   private readonly pinLength: number = 4;
@@ -41,7 +43,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel');
   }
 
-  static $inject = ['$uibModalInstance', 'AccountApi', 'CommonSettingsService'];
+  public static $inject = ['$uibModalInstance', 'AccountApi', 'CommonSettingsService'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: AccountApi,
               private CommonSettingsService: CommonSettingsService) {

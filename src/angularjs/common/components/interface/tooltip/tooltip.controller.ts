@@ -6,6 +6,7 @@ export interface ITooltipStyles {
   left: number;
 }
 
+// tslint:disable:member-ordering
 export class TooltioComponentController implements ITooltipComponentBindings {
   public tooltipText: string;
   public tooltipStyles: ITooltipStyles;
@@ -16,14 +17,14 @@ export class TooltioComponentController implements ITooltipComponentBindings {
   private static readonly dividerOnHalf: number = 2;
   private static readonly maxMobilePhoneWidth: number = 480;
 
-  static $inject = ['$element', '$timeout', '$window'];
+  public static $inject = ['$element', '$timeout', '$window'];
 
     constructor(private $element: IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.$timeout(() => {
       this.adjustTooltipPosition();
 

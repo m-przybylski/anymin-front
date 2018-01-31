@@ -1,11 +1,12 @@
 import { Config } from '../../../config';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class WizardController implements ng.IController {
   public isFullscreen: boolean = true;
   public isNavbar: boolean = true;
 
-  static $inject = ['$state', 'previousState'];
+  public static $inject = ['$state', 'previousState'];
 
     constructor(private $state: StateService, private previousState: string) {
   }

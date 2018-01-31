@@ -5,11 +5,17 @@ interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
 }
 
 class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
+  public static $inject = [];
   public restrict: string = 'A';
 
-  static $inject = [];
-
   constructor() {
+  }
+
+  public static getInstance = (): () => LocalAvatarUploaderDirective => {
+    const instance = (): LocalAvatarUploaderDirective =>
+      new LocalAvatarUploaderDirective();
+    instance.$inject = [];
+    return instance;
   }
 
   public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes): void => {
@@ -73,12 +79,6 @@ class LocalAvatarUploaderDirective implements ng.IDirective<ng.IScope> {
 
   }
 
-  public static getInstance = (): () => LocalAvatarUploaderDirective => {
-    const instance = (): LocalAvatarUploaderDirective =>
-      new LocalAvatarUploaderDirective();
-    instance.$inject = [];
-    return instance;
-  }
 }
 
 const focusNext =  angular.module('profitelo.directives.interface.focus-next', [])

@@ -10,6 +10,7 @@ export interface IExpertEmployeeComponentControllerScope extends ng.IScope {
   onDeleteCallback: () => void;
 }
 
+// tslint:disable:member-ordering
 export class ExpertEmployeeComponentController implements IExpertEmployeeComponentBindings {
 
   public profileWithEmployments: GetProfileDetailsWithEmployments;
@@ -23,7 +24,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   private static readonly minRangeOfFewConsultations: number = 2;
   private static readonly maxRangeOfFewConsultations: number = 4;
 
-  static $inject = ['EmploymentApi', 'errorHandler', 'topAlertService', 'translatorService'];
+  public static $inject = ['EmploymentApi', 'errorHandler', 'topAlertService', 'translatorService'];
 
     constructor(private EmploymentApi: EmploymentApi,
               private errorHandler: ErrorHandlerService,
@@ -31,7 +32,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
               private translatorService: TranslatorService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.employeeName = this.profileWithEmployments.expertProfile.name;
     this.employeeAvatar = this.profileWithEmployments.expertProfile.img;
     this.employmentsCount = this.profileWithEmployments.employments.length;

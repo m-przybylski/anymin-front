@@ -1,5 +1,6 @@
 import { FinancialOperation, GetActivity } from 'profitelo-api-ng/model/models';
 
+// tslint:disable:member-ordering
 export class ActivitiesQueryParams {
 
   private activityType: GetActivity.ActivityTypeEnum | undefined;
@@ -11,7 +12,7 @@ export class ActivitiesQueryParams {
   private limit: string | undefined;
   private offset: string | undefined;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 

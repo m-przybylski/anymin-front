@@ -1,6 +1,7 @@
 import { IVoiceVolumeBarComponentBindings } from './voice-volume-bar';
 import { VolumeMeterService, IProcessor } from '../../../services/volume-meter/volume-meter.service';
 
+// tslint:disable:member-ordering
 export class VoiceVolumeBarComponentController implements IVoiceVolumeBarComponentBindings {
 
   private static readonly width: number = 1000;
@@ -14,14 +15,14 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
   private mediaStreamSource: MediaStreamAudioSourceNode;
   public stream?: MediaStream;
 
-  static $inject = ['volumeMeter', '$window', '$element'];
+  public static $inject = ['volumeMeter', '$window', '$element'];
 
     constructor(private volumeMeter: VolumeMeterService,
               private $window: ng.IWindowService,
               private $element: JQuery) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.$element.find('#meter')) {
       const canvasElement: HTMLCanvasElement = <HTMLCanvasElement>this.$element.find('#meter')[0];
       this.canvasContext = canvasElement.getContext('2d');
@@ -34,7 +35,7 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
     }
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     if (this.audioContext) this.audioContext.close();
   }
 

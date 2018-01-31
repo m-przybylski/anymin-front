@@ -1,4 +1,5 @@
 import { CommonConfig, Settings } from '../../../../../generated_modules/common-config/common-config';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
 export interface ISocialUrl {
@@ -7,11 +8,12 @@ export interface ISocialUrl {
   pattern: RegExp;
 }
 
+// tslint:disable:member-ordering
 export class UrlService {
 
   private commonConfig: Settings;
 
-  static $inject = ['CommonSettingsService', 'CommonConfig'];
+  public static $inject = ['CommonSettingsService', 'CommonConfig'];
 
     constructor(private CommonSettingsService: any, CommonConfig: CommonConfig) {
     this.commonConfig = CommonConfig.getAllData();

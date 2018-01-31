@@ -1,7 +1,8 @@
 import { IExpertInvoiceComponentBindings } from './invoice';
 
+// tslint:disable:member-ordering
 export class ExpertInvoiceComponentController implements IExpertInvoiceComponentBindings {
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 }

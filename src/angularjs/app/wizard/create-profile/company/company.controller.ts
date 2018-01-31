@@ -2,11 +2,13 @@ import { PutWizardProfile, PartialOrganizationDetails, GetWizardProfile } from '
 import { WizardApi } from 'profitelo-api-ng/api/api';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import * as angular from 'angular';
 import { CommonSettingsService } from '../../../../common/services/common-settings/common-settings.service';
 import { Config } from '../../../../../config';
 
+// tslint:disable:member-ordering
 export class CompanyController implements ng.IController {
   public readonly inputDescriptionMaxLength: string = Config.inputsMaxLength.profileDescription;
   public readonly inputNameMaxLength: string = Config.inputsMaxLength.profileName;
@@ -30,7 +32,7 @@ export class CompanyController implements ng.IController {
   private isUploading: boolean = true;
   private companyNamePattern: RegExp;
   private companyDescriptionPattern: RegExp;
-  static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
+  public static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
 
     constructor(private WizardApi: WizardApi,
               private $state: StateService,
@@ -51,7 +53,7 @@ export class CompanyController implements ng.IController {
     }
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile);
       if (this.wizardProfile.organizationDetailsOption) {

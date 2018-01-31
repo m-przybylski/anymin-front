@@ -16,6 +16,7 @@ export interface IPrecallModalControllerScope extends ng.IScope {
   stream: MediaStream;
 }
 
+// tslint:disable:member-ordering
 export class PrecallModalController implements ng.IController {
   public isLoading: boolean = true;
   public callLimitModel: string = '0';
@@ -52,7 +53,7 @@ export class PrecallModalController implements ng.IController {
   private readonly secondPerMinute: number = 60;
   private readonly minPrepaidMinutesTimeLimitToCall: number = 2;
 
-  static $inject = ['$log', '$uibModalInstance', 'FinancesApi', 'PaymentsApi', 'CommonConfig', 'topAlertService',
+  public static $inject = ['$log', '$uibModalInstance', 'FinancesApi', 'PaymentsApi', 'CommonConfig', 'topAlertService',
     'translatorService', '$state', 'modalsService', 'clientCallService', 'errorHandler', '$scope'];
 
   constructor(private $log: ng.ILogService,
@@ -69,7 +70,7 @@ export class PrecallModalController implements ng.IController {
               private $scope: IPrecallModalControllerScope) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.prepaidValue = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.PREPAID.READONLY.VALUE');
     this.prepaidTranslation = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL');
     this.dateTimeLimit = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE');
@@ -152,6 +153,7 @@ export class PrecallModalController implements ng.IController {
     });
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   public startCall = (): void => {
     if (!this.isPrepaid && this.isRegExpPriceInputValid
       && this.isPriceInputValid

@@ -7,6 +7,7 @@ export interface IAddPaymentMethodControllerScope extends ng.IScope {
   callback: () => void;
 }
 
+// tslint:disable:member-ordering
 export class AddPaymentMethodController implements ng.IController {
 
   public isNavbar: boolean = true;
@@ -25,7 +26,7 @@ export class AddPaymentMethodController implements ng.IController {
     this.$scope.callback();
     this.$uibModalInstance.dismiss('cancel');
   }
-  static $inject = ['$uibModalInstance', '$scope'];
+  public static $inject = ['$uibModalInstance', '$scope'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IAddPaymentMethodControllerScope) {

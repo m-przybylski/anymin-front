@@ -1,8 +1,9 @@
 import { PendingInvitationComponentController } from './pending-invitation.controller';
+// tslint:disable:member-ordering
 export class PendingInvitationComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = PendingInvitationComponentController;
-  template = require('./pending-invitation.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = PendingInvitationComponentController;
+  public template = require('./pending-invitation.html');
+  public bindings: {[boundProperty: string]: string} = {
     invitations: '<',
     onDeleteCallback: '<'
   };

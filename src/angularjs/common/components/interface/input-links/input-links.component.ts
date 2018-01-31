@@ -1,9 +1,10 @@
 import { InputLinksComponentController } from './input-links.controller';
+// tslint:disable:member-ordering
 export class InputLinksComponent implements ng.IComponentOptions {
-  transclude: boolean = true;
-  controller: ng.Injectable<ng.IControllerConstructor> = InputLinksComponentController;
-  template = require('./input-links.html');
-  bindings: {[boundProperty: string]: string} = {
+  public transclude: boolean = true;
+  public controller: ng.Injectable<ng.IControllerConstructor> = InputLinksComponentController;
+  public template = require('./input-links.html');
+  public bindings: {[boundProperty: string]: string} = {
     selectedLinks: '=?',
     label: '@'
   };

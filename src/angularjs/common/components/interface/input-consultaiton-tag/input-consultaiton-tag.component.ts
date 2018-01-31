@@ -1,9 +1,10 @@
 import { InputConsultationTagComponentController } from './input-consultaiton-tag.controller';
 
+// tslint:disable:member-ordering
 export class InputConsultationTagComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationTagComponentController;
-  template = require('./input-consultaiton-tag.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = InputConsultationTagComponentController;
+  public template = require('./input-consultaiton-tag.html');
+  public bindings: {[boundProperty: string]: string} = {
     serviceName: '<',
     serviceDescription: '<',
     selectedTags: '=?',

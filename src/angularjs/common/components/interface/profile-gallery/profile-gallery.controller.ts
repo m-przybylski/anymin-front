@@ -8,15 +8,16 @@ export interface IProfileGalleryComponentScope extends ng.IScope {
   documents: string[];
 }
 
+// tslint:disable:member-ordering
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
-  documents: string[];
-  uploadedFiles: FileInfo[] = [];
-  idDocumentsContainerCollapsed: boolean;
-  documentsCollapsedLength: number;
-  lastDocument: string;
-  readonly documentsLimit: number = 5;
+  public documents: string[];
+  public uploadedFiles: FileInfo[] = [];
+  public idDocumentsContainerCollapsed: boolean;
+  public documentsCollapsedLength: number;
+  public lastDocument: string;
+  public readonly documentsLimit: number = 5;
 
-  static $inject = ['modalsService', 'FilesApi', 'errorHandler'];
+  public static $inject = ['modalsService', 'FilesApi', 'errorHandler'];
 
     constructor(private modalsService: ModalsService,
               private FilesApi: FilesApi,
@@ -24,7 +25,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
     this.idDocumentsContainerCollapsed = false;
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.documents.forEach((token) => {
       this.FilesApi.fileInfoPath(token).then((response) => {
         this.uploadedFiles.push(response);

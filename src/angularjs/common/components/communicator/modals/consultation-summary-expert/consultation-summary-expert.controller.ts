@@ -22,6 +22,7 @@ export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   serviceId: string;
 }
 
+// tslint:disable:member-ordering
 export class ConsultationSummaryExpertController implements ng.IController {
   public complaintReasons: IComplaintReason[];
   public isFullscreen: boolean = true;
@@ -49,7 +50,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   private hideTechnicalProblemsEvent = new Subject<void>();
   private hideReportClientEvent = new Subject<void>();
 
-  static $inject = ['$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi', 'topAlertService',
+  public static $inject = ['$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi', 'topAlertService',
     'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
 
   constructor(private $scope: IConsultationSummaryExpertControllerScope,

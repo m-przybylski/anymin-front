@@ -1,10 +1,11 @@
 import * as angular from 'angular';
 
+// tslint:disable:member-ordering
 class TextareaAutoHeightClass implements ng.IDirective {
   public restrict: string = 'A';
   private static readonly elementMaxHeight: number = 300;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

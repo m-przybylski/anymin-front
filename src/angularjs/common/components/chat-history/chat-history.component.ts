@@ -1,9 +1,10 @@
 import { ChatHistoryComponentController } from './chat-history.controller';
 
+// tslint:disable:member-ordering
 export class ChatHistoryComponent {
-  template = require('./chat-history.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = ChatHistoryComponentController;
-  bindings: { [boundProperty: string]: string } = {
+  public template = require('./chat-history.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = ChatHistoryComponentController;
+  public bindings: { [boundProperty: string]: string } = {
     roomId: '<'
   };
 }

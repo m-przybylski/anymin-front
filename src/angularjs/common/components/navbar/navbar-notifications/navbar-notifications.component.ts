@@ -1,9 +1,10 @@
 import { NavbarNotificationsComponentController } from './navbar-notifications.controller';
 
+// tslint:disable:member-ordering
 export class NavbarNotificationsComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = NavbarNotificationsComponentController;
-  template: string = require('./navbar-notifications.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = NavbarNotificationsComponentController;
+  public template: string = require('./navbar-notifications.html');
+  public bindings: {[boundProperty: string]: string} = {
     isNotificationsTab: '<',
     isInvitationsTab: '<',
     onClick: '<',

@@ -1,11 +1,12 @@
 import { SummaryChargeAccountComponentController } from './summary-charge-account.controller';
 
+// tslint:disable:member-ordering
 export class SummaryChargeAccountComponent implements ng.IComponentOptions {
-  template = require('./summary-charge-account.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = SummaryChargeAccountComponentController;
-  replace: true;
-  controllerAs: '$ctrl';
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./summary-charge-account.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = SummaryChargeAccountComponentController;
+  public replace: true;
+  public controllerAs: '$ctrl';
+  public bindings: {[boundProperty: string]: string} = {
     amount: '<',
     btnTitle: '@'
   };

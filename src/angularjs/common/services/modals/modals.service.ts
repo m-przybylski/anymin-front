@@ -120,9 +120,10 @@ import {
 } from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method';
 
 // TODO add types for dialogScope Scopes
+// tslint:disable:member-ordering
 export class ModalsService {
 
-  static $inject = ['$rootScope', 'dialogService'];
+  public static $inject = ['$rootScope', 'dialogService'];
 
     constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }

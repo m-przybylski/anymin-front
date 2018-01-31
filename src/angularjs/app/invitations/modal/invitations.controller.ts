@@ -4,6 +4,7 @@ import {
 } from 'profitelo-api-ng/model/models';
 import { InvitationApi, ServiceApi } from 'profitelo-api-ng/api/api';
 import { StateService } from '@uirouter/angularjs';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { UserService } from '../../../common/services/user/user.service';
 import { LocalStorageWrapper } from '../../../common/classes/local-storage-wrapper/local-storage-wrapper';
@@ -21,6 +22,7 @@ export interface IInvitationsModalScope extends ng.IScope {
   profileWithServicesInvitations?: GetProfileWithServicesInvitations;
 }
 
+// tslint:disable:member-ordering
 export class InvitationsModalController implements ng.IController {
   public areInvitations: boolean = false;
   public isServiceSelected: boolean = true;
@@ -40,7 +42,7 @@ export class InvitationsModalController implements ng.IController {
     if (this.$state.current.name === 'app.invitations') this.$state.go('app.home');
   }
 
-  static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi',
+  public static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi',
     'topAlertService', '$q', '$log', 'navbarNotificationsService', 'translatorService', '$scope'];
 
     constructor(private $state: StateService,

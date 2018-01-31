@@ -1,9 +1,10 @@
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 import { TimerService } from './timer.service';
 
+// tslint:disable:member-ordering
 export class TimerFactory {
 
-  static $inject = ['$interval'];
+  public static $inject = ['$interval'];
 
     constructor(private $interval: ng.IIntervalService) {}
 

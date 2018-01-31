@@ -1,6 +1,7 @@
 import { IInputLinksComponentBindings } from './input-links';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 
+// tslint:disable:member-ordering
 export class InputLinksComponentController implements IInputLinksComponentBindings, ng.IController {
 
   public selectedLinks: string[] = [];
@@ -11,13 +12,13 @@ export class InputLinksComponentController implements IInputLinksComponentBindin
   public noUrl: boolean = false;
   public label?: string;
 
-  static $inject = ['CommonSettingsService'];
+  public static $inject = ['CommonSettingsService'];
 
     constructor(CommonSettingsService: CommonSettingsService) {
     this.urlPattern = CommonSettingsService.localSettings.urlPattern;
   }
 
-  $onInit(): void {
+  public $onInit(): void {
 
   }
 

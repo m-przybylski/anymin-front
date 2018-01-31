@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IMessengerMaximizedComponentBindings } from './maximized';
 import { PostFileDetails, MoneyDto } from 'profitelo-api-ng/model/models';
@@ -15,6 +16,7 @@ import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { IMessageContext } from '../message-context';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
 
+// tslint:disable:member-ordering
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
   public callCost: MoneyDto;
@@ -41,7 +43,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private messageRoom?: MessageRoom;
   public expertName: string = '';
 
-  static $inject = ['$log', '$timeout', '$element', 'clientCallService', 'expertCallService', 'uploaderFactory'];
+  public static $inject = ['$log', '$timeout', '$element', 'clientCallService', 'expertCallService', 'uploaderFactory'];
 
     constructor(private $log: ng.ILogService,
               private $timeout: ng.ITimeoutService,
@@ -97,7 +99,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     });
   }
 
-  $onChanges = (): void => {
+  public $onChanges = (): void => {
     if (this.isMessenger) {
       angular.element(this.$element).find('.messenger-input input').focus();
     }

@@ -1,5 +1,7 @@
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
+// tslint:disable:member-ordering
 export class CustomTranslationHandlerService {
 
   private static _exceptionsStrings = [
@@ -7,7 +9,7 @@ export class CustomTranslationHandlerService {
     '<i class="icon icon-home icon-sm"></i>'
   ];
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

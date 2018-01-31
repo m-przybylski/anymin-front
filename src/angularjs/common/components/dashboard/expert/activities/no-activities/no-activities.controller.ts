@@ -1,6 +1,7 @@
 import { IExpertNoActivitiesComponentBindings } from './no-activities';
 import { Config } from '../../../../../../../config';
 
+// tslint:disable:member-ordering
 export class ExpertNoActivitiesComponentController implements IExpertNoActivitiesComponentBindings {
 
   public translationPayoutsHref: {
@@ -10,7 +11,7 @@ export class ExpertNoActivitiesComponentController implements IExpertNoActivitie
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
   public isPayoutMethod: boolean;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.translationPayoutsHref = {

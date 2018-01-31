@@ -1,5 +1,6 @@
 import { IInputPasswordComponentBindings } from './input-password';
 
+// tslint:disable:member-ordering
 export class InputPasswordComponentController implements IInputPasswordComponentBindings {
   public id: string;
   public name: string;
@@ -15,7 +16,7 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   public onChange: string = '';
   public readonly maxLength: number = 64;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 

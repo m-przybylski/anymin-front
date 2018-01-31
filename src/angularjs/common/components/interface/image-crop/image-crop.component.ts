@@ -1,9 +1,10 @@
 import { ImageCropComponentController } from './image-crop.controller';
 
+// tslint:disable:member-ordering
 export class ImageCropComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = ImageCropComponentController;
-  template = require('./image-crop.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = ImageCropComponentController;
+  public template = require('./image-crop.html');
+  public bindings: {[boundProperty: string]: string} = {
     imageSrc: '<',
     saveCropAvatar: '<'
   };

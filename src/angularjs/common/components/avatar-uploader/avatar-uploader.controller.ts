@@ -6,6 +6,7 @@ import { FileTypeChecker, FileCategoryEnum } from '../../classes/file-type-check
 import { CommonSettingsService } from '../../services/common-settings/common-settings.service';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
 
+// tslint:disable:member-ordering
 export class AvatarUploaderComponentController implements IAvatarUploaderComponentBindings, ng.IController {
 
   public uploadedFile: File;
@@ -25,7 +26,7 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
   private clearFormAfterCropping: () => void;
   private maxValidAvatarSize: number = this.CommonSettingsService.localSettings.profileAvatarSize;
 
-  static $inject = ['$scope', 'CommonSettingsService', 'uploaderFactory'];
+  public static $inject = ['$scope', 'CommonSettingsService', 'uploaderFactory'];
 
     constructor(private $scope: ng.IScope,
               private CommonSettingsService: CommonSettingsService,

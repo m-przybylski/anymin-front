@@ -11,6 +11,7 @@ import topAlertModule from '../../../../../services/top-alert/top-alert';
 import commonSettingsModule from '../../../../../services/common-settings/common-settings';
 import smoothScrollingModule from '../../../../../services/smooth-scrolling/smooth-scrolling';
 import { IWindowService } from '../../../../../services/window/window.service';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonConfig } from '../../../../../../../../generated_modules/common-config/common-config';
 import checkboxModule from '../../../../interface/checkbox/checkbox';
@@ -141,6 +142,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   };
 
   const isValid = (): boolean => {
+    // tslint:disable-next-line:cyclomatic-complexity
     const _isModelBankExist = (): boolean => {
       if (!this.bankModel) {
         smoothScrollingService.simpleScrollTo('#bankValid');
@@ -190,6 +192,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
       this.bankModel = this.amountMethodModal.payMethodValue;
     }
+    // tslint:disable-next-line:cyclomatic-complexity
     userService.getUser().then(user => {
       if (angular.isDefined(this.amountMethodModal.firstName)) {
         this.firstNameModel = this.amountMethodModal.firstName;

@@ -1,12 +1,13 @@
 import { ChooseAmountChargeComponentController } from './choose-amount-charge.controller';
+// tslint:disable:member-ordering
 export class ChooseAmountChargeComponent implements ng.IComponentOptions {
-  template = require('./choose-amount-charge.html');
-  bindings = {
+  public template = require('./choose-amount-charge.html');
+  public bindings = {
     title: '@',
     amounts: '<',
     scrollHandler: '<',
     amountModel: '=?',
     currentSection: '=?'
   };
-  controller: ng.Injectable<ng.IControllerConstructor> = ChooseAmountChargeComponentController;
+  public controller: ng.Injectable<ng.IControllerConstructor> = ChooseAmountChargeComponentController;
 }

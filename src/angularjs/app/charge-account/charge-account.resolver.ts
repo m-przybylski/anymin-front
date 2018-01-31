@@ -1,9 +1,10 @@
 import { ModalsService } from '../../common/services/modals/modals.service';
 import { FinancesApi, PaymentsApi } from 'profitelo-api-ng/api/api';
 
+// tslint:disable:member-ordering
 export class ChargeAccountResolver {
 
-  static $inject = ['modalsService', '$q', 'PaymentsApi', 'FinancesApi'];
+  public static $inject = ['modalsService', '$q', 'PaymentsApi', 'FinancesApi'];
 
     constructor(private modalsService: ModalsService,
               private $q: ng.IQService,

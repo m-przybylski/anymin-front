@@ -1,5 +1,6 @@
 import * as angular from 'angular';
 import { InputDropdownTagComponentBindings } from './input-dropdown-tag';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { keyboardCodes } from '../../../classes/keyboard';
 
@@ -12,6 +13,7 @@ export interface IDropdownInputDictionary {
   [key: string]: string;
 }
 
+// tslint:disable:member-ordering
 export class InputDropdownTagComponentController implements InputDropdownTagComponentBindings {
   public isOpen: boolean = false;
   public isActive: boolean = false;
@@ -34,7 +36,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   private dropdown: JQuery = this.$element.find('.dropdown-list');
   private static readonly dividerOnHalf: number = 2;
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     for (const key in this.dictionary) {
       if (this.dictionary.hasOwnProperty(key)) {
         this.dropdownList.push({
@@ -53,7 +55,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     });
   }
 
-  static $inject = ['$document', '$scope', '$element', '$filter'];
+  public static $inject = ['$document', '$scope', '$element', '$filter'];
 
     constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
               private $element: ng.IRootElementService, private $filter: ng.IFilterService) {
@@ -80,6 +82,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
     this.dropdownScroll.perfectScrollbar();
 
+    // tslint:disable-next-line:cyclomatic-complexity
     $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode;
 

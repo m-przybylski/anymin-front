@@ -7,9 +7,10 @@ export interface ISecuritySettingsService {
   resolve(): ng.IPromise<GetSession[]>;
 }
 
+// tslint:disable:member-ordering
 export class SecuritySettingsResolver implements ISecuritySettingsService {
 
-  static $inject = ['SessionApi', '$log'];
+  public static $inject = ['SessionApi', '$log'];
 
   constructor(private SessionApi: SessionApi, private $log: ng.ILogService) {
 

@@ -5,12 +5,14 @@ import { httpCodes } from '../../common/classes/http-codes';
 import { LocalStorageWrapper } from '../../common/classes/local-storage-wrapper/local-storage-wrapper';
 import { UserService } from '../../common/services/user/user.service';
 import { GetInvitation, GetProfileWithServicesInvitations } from 'profitelo-api-ng/model/models';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class InvitationsResolver {
 
-  static $inject = ['InvitationApi', '$state', 'modalsService', '$log', 'userService', 'ProfileApi'];
+  public static $inject = ['InvitationApi', '$state', 'modalsService', '$log', 'userService', 'ProfileApi'];
 
     constructor(private InvitationApi: InvitationApi,
               private $state: StateService,

@@ -1,5 +1,6 @@
 import { ITextareaComponentBindings } from './textarea';
 
+// tslint:disable:member-ordering
 export class TextareaComponentController implements ITextareaComponentBindings {
   public id: string;
   public name: string;
@@ -15,7 +16,7 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public onChange?: (description: string) => void;
   public textareaValueLength: number = 0;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 

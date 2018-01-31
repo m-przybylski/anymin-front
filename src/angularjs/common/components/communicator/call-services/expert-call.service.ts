@@ -16,6 +16,7 @@ import { CommunicatorService, Connected } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 
+// tslint:disable:member-ordering
 export class ExpertCallService {
 
   private currentExpertCall?: CurrentExpertCall;
@@ -34,7 +35,7 @@ export class ExpertCallService {
     onDisconnectCall: new Subject<void>()
   };
 
-  static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
+  public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
     'RatelApi', 'communicatorService', 'microphoneService', 'translatorService', 'eventsService',
     'sessionServiceWrapper'];
 
@@ -245,5 +246,4 @@ export class ExpertCallService {
   private showMissedCallAlert = (): void => {
     alert(this.missedCallAlertMessage);
   }
-
 }

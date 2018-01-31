@@ -20,10 +20,8 @@ export class UserSessionService {
   public login = (loginDetails: AccountLogin): Promise<GetSession> =>
     this.sessionService.login(loginDetails).toPromise().then(this.onSuccessLogin)
 
-  private getSessionFromBackend = (): Promise<GetSession> => {
-    this.sessionCache = this.sessionService.checkRoute().toPromise().then(this.onSuccessLogin);
-    return this.sessionCache;
-  }
+  public isLoggedIn = (): boolean =>
+    typeof this.sessionCache !== 'undefined'
 
   public getSession = (force: boolean = false): Promise<GetSession> => {
     if (force) {
@@ -38,6 +36,11 @@ export class UserSessionService {
         return this.getSessionFromBackend();
       }
     }
+  }
+
+  private getSessionFromBackend = (): Promise<GetSession> => {
+    this.sessionCache = this.sessionService.checkRoute().toPromise().then(this.onSuccessLogin);
+    return this.sessionCache;
   }
 
   private onSuccessLogin = (session: GetSession): GetSession => {
@@ -59,6 +62,4 @@ export class UserSessionService {
     }
   }
 
-  public isLoggedIn = (): boolean =>
-    typeof this.sessionCache !== 'undefined'
 }

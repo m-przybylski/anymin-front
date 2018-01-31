@@ -1,7 +1,8 @@
+// tslint:disable:member-ordering
 export class DashboardSettingsNotificationsController {
 
   public ngModel: boolean;
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.ngModel = false;

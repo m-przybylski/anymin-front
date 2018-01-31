@@ -3,21 +3,22 @@ import { INavbarComponentBindings } from './navbar';
 import { UserService } from '../../services/user/user.service';
 import { Config } from '../../../../config';
 
+// tslint:disable:member-ordering
 export class NavbarComponentController implements INavbarComponentBindings {
-  isWindowScrollBottom: boolean = false;
-  isCollapsed: boolean = false;
-  isSearchVisible: boolean = false;
-  elementOffsetHeight: number = 0;
-  isNavigationCollapsed: boolean = false;
-  isLoggedIn: boolean;
-  searchInputQueryValue: string;
-  navbarStyle: {
+  public isWindowScrollBottom: boolean = false;
+  public isCollapsed: boolean = false;
+  public isSearchVisible: boolean = false;
+  public elementOffsetHeight: number = 0;
+  public isNavigationCollapsed: boolean = false;
+  public isLoggedIn: boolean;
+  public searchInputQueryValue: string;
+  public navbarStyle: {
     transform: string
   };
   public onLogoLink: string = '';
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
 
-  static $inject = ['$scope', '$window', '$element', 'userService', '$document'];
+  public static $inject = ['$scope', '$window', '$element', 'userService', '$document'];
 
     constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
               private userService: UserService, private $document: ng.IDocumentService) {
@@ -72,7 +73,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
     });
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     Config.isPlatformForExpert ? this.onLogoLink = 'app.dashboard.expert.activities' : this.onLogoLink = 'app.home';
   }
 

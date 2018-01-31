@@ -2,6 +2,7 @@ import { IInputPriceComponentBindings } from './input-price';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 import { keyboardCodes } from '../../../classes/keyboard';
 
+// tslint:disable:member-ordering
 export class InputPriceComponentController implements IInputPriceComponentBindings {
   public id: string;
   public name: string;
@@ -19,13 +20,13 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public isValid: boolean;
   public isDisabled: boolean = false;
 
-  static $inject = ['$element', 'CommonSettingsService'];
+  public static $inject = ['$element', 'CommonSettingsService'];
 
     constructor(private $element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
     this.priceRegexp = CommonSettingsService.localSettings.pricePattern;
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     const digitsCodes = [keyboardCodes.enter,
       keyboardCodes.backspace,
       keyboardCodes.zero,
@@ -99,7 +100,7 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     this.isFocus = false;
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.$element.find('input').unbind('keypress keydown');
   }
 }

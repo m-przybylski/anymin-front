@@ -4,9 +4,10 @@ import { JValue } from 'profitelo-api-ng/model/JValue';
 import { httpCodes } from '../../../../common/classes/http-codes';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 
+// tslint:disable:member-ordering
 export class PayoutsService {
 
-  static $inject = ['PayoutsApi', '$log', 'errorHandler'];
+  public static $inject = ['PayoutsApi', '$log', 'errorHandler'];
 
     constructor(private PayoutsApi: PayoutsApi,
               private $log: ng.ILogService,

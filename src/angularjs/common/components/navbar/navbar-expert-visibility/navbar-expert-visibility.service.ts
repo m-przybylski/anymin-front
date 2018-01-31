@@ -8,12 +8,13 @@ export interface IExpertPresenceUpdate {
   status: GetExpertVisibility.VisibilityEnum;
 }
 
+// tslint:disable:member-ordering
 export class NavbarExpertVisibilityService {
 
   private readonly requestDelay: number = 2000;
   private readonly changeVisibilitySubject = new Subject<IExpertPresenceUpdate>();
 
-  static $inject = ['PresenceApi', '$q', '$timeout', '$window', 'profiteloWebsocket'];
+  public static $inject = ['PresenceApi', '$q', '$timeout', '$window', 'profiteloWebsocket'];
 
     constructor(private PresenceApi: PresenceApi,
               private $q: ng.IQService,

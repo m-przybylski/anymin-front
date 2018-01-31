@@ -3,6 +3,7 @@ import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { GetExpertProfile, GetExpertDetails, GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
 import { ProfileTypes } from '../../common/components/profile/profile-header/profile-header.controller';
 
+// tslint:disable:member-ordering
 export class ExpertProfileController {
 
   public profile: GetExpertDetails | undefined;
@@ -11,7 +12,7 @@ export class ExpertProfileController {
   public profileType: ProfileTypes;
   public profileId: string;
 
-  static $inject = ['$stateParams', '$log', 'expertProfile', 'ProfileApi'];
+  public static $inject = ['$stateParams', '$log', 'expertProfile', 'ProfileApi'];
 
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
               expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {

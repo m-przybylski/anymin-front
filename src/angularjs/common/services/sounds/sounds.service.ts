@@ -1,3 +1,5 @@
+// tslint:disable:member-ordering
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
 export interface ISoundObject {
@@ -5,6 +7,7 @@ export interface ISoundObject {
   stop(): void;
 }
 
+// tslint:disable:member-ordering
 export class SoundsService {
 
   private static path = '/assets/sounds/';
@@ -29,7 +32,7 @@ export class SoundsService {
   private callIncomingSoundCount = 0;
   private isCallConnecting = false;
 
-  static $inject = ['$log'];
+  public static $inject = ['$log'];
 
     constructor(private $log: ng.ILogService, ) {
 

@@ -1,11 +1,12 @@
 import { IHelpdesk } from './helpdesk.interface';
 import { ISearchArticleResults } from './search-article-results.interface';
 
+// tslint:disable:member-ordering
 export class HelpdeskService implements IHelpdesk {
 
   private static readonly baseZendeskUrl: string = 'https://anymind.zendesk.com/';
 
-  static $inject = ['$http'];
+  public static $inject = ['$http'];
 
     constructor(private $http: ng.IHttpService) {
   }

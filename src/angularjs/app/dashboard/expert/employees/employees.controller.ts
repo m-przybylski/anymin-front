@@ -3,8 +3,10 @@ import { GetProfileDetailsWithEmployments, GetServiceWithInvitations, GetInvitat
   from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../../common/services/user/user.service';
 import { ModalsService } from '../../../../common/services/modals/modals.service';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
+// tslint:disable:member-ordering
 export class DashboardExpertEmployeesController {
 
   public profilesWithEmployments: GetProfileDetailsWithEmployments[];
@@ -21,7 +23,7 @@ export class DashboardExpertEmployeesController {
   private pendingInvitationsCount: number;
   private emoloyeesCount: number;
 
-  static $inject = ['EmploymentApi', 'userService', 'modalsService', '$log', 'ServiceApi'];
+  public static $inject = ['EmploymentApi', 'userService', 'modalsService', '$log', 'ServiceApi'];
 
     constructor(private EmploymentApi: EmploymentApi,
               private userService: UserService,
@@ -30,7 +32,7 @@ export class DashboardExpertEmployeesController {
               private ServiceApi: ServiceApi) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.userService.getUser().then(user => {
       this.userId = user.id;
       this.getProfilesWithEmployments();

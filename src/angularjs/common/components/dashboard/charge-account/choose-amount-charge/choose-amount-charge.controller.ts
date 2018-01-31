@@ -2,21 +2,23 @@ import { IChooseAmountChargeComponentBindings } from './choose-amount-charge';
 import { IAmounts, IAmountModel } from '../../../../../app/charge-account/modal/charge-account.controller';
 import { CommonSettingsService } from '../../../../services/common-settings/common-settings.service';
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
+// tslint:disable:member-ordering
 export class ChooseAmountChargeComponentController implements IChooseAmountChargeComponentBindings, ng.IController {
-  title: string;
-  amounts: IAmounts;
-  amountModel: IAmountModel;
-  scrollHandler: (slideTo?: number) => void;
-  currentSection: number;
-  activeOption: null | number;
-  firstSelect: boolean;
-  cashAmountModel: number | null;
-  minimalPaymentAmount: number;
-  amountModifier: number = 1;
-  userAmountOption: number = 3;
+  public title: string;
+  public amounts: IAmounts;
+  public amountModel: IAmountModel;
+  public scrollHandler: (slideTo?: number) => void;
+  public currentSection: number;
+  public activeOption: null | number;
+  public firstSelect: boolean;
+  public cashAmountModel: number | null;
+  public minimalPaymentAmount: number;
+  public amountModifier: number = 1;
+  public userAmountOption: number = 3;
 
-  static $inject = ['$scope', 'CommonSettingsService'];
+  public static $inject = ['$scope', 'CommonSettingsService'];
 
     constructor(private $scope: ng.IScope, CommonSettingsService: CommonSettingsService) {
 
@@ -26,7 +28,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     this.firstSelect = this.activeOption !== null;
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / this.amountModifier;
 
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {

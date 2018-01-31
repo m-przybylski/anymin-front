@@ -13,16 +13,17 @@ export enum  ProfileTypes {
   'expert'
 }
 
+// tslint:disable:member-ordering
 export class ProfileHeaderComponentController implements IProfileHeaderComponentBindings {
 
-  profileDetails?: GetExpertDetails;
-  isFavourite: boolean;
-  onLike: () => void;
-  profileType: ProfileTypes;
-  documents: ProfileDocument[];
-  isSession: boolean = false;
+  public profileDetails?: GetExpertDetails;
+  public isFavourite: boolean;
+  public onLike: () => void;
+  public profileType: ProfileTypes;
+  public documents: ProfileDocument[];
+  public isSession: boolean = false;
 
-  static $inject = ['userService'];
+  public static $inject = ['userService'];
 
     constructor(userService: UserService) {
     userService.getUser().then(() => {
@@ -30,7 +31,7 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
     });
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.profileDetails) {
       this.documents = this.profileDetails.files;
     }

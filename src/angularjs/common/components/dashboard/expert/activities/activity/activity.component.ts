@@ -1,9 +1,10 @@
 import { ExpertActivityComponentController } from './activity.controller';
 
+// tslint:disable:member-ordering
 export class ExpertActivityComponent implements ng.IComponentOptions {
-  template = require('./activity.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = ExpertActivityComponentController;
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./activity.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = ExpertActivityComponentController;
+  public bindings: {[boundProperty: string]: string} = {
     activity: '<'
   };
 }

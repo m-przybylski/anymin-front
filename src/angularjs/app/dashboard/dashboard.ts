@@ -14,11 +14,11 @@ import { Config } from '../../../config';
 
 class DashboardController {
 
+  public static $inject = ['$scope', '$state'];
+
   public isPayment: boolean = false;
 
-  static $inject = ['$scope', '$state'];
-
-    constructor($scope: ng.IScope, $state: StateService) {
+  constructor($scope: ng.IScope, $state: StateService) {
     // TODO Remove after UX-TEST
     $scope.$watch(() => $state.current, (newValue, _oldValue) => {
       this.isPayment = newValue.name === 'app.dashboard.charge-account';

@@ -1,8 +1,9 @@
 import * as ng from 'angular';
 
+// tslint:disable:member-ordering
 export class DialogService {
 
-  static $inject = ['$uibModal'];
+  public static $inject = ['$uibModal'];
 
     constructor(private $uibModal: ng.ui.bootstrap.IModalService) {
   }

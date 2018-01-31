@@ -2,8 +2,10 @@ import { INavbarHelpComponentBindings } from './navbar-help';
 import * as angular from 'angular';
 import { HelpdeskService } from '../../../services/helpdesk/helpdesk.service';
 import { ISearchArticle } from '../../../services/helpdesk/search-article.interface';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonConfig } from '../../../../../../generated_modules/common-config/common-config';
+// tslint:disable:member-ordering
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
   public zendeskUrl?: string;
@@ -16,7 +18,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   private static readonly searchDebounceDelay: number = 500;
   private debouncedSearch: () => void;
 
-  static $inject = ['helpdeskService', '$log', 'CommonConfig'];
+  public static $inject = ['helpdeskService', '$log', 'CommonConfig'];
 
     constructor(private helpdeskService: HelpdeskService,
               private $log: ng.ILogService,
@@ -32,7 +34,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
     this.debouncedSearch = _.debounce(this.querySearchResults, NavbarHelpComponentController.searchDebounceDelay);
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.zendeskUrl = this.CommonConfig.getAllData().urls.zendesk;
   }
 

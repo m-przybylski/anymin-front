@@ -1,6 +1,7 @@
 import { PromiseService } from '../../../services/promise/promise.service';
 import { StateService, StateObject } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class PagePreloaderComponentController implements ng.IController {
 
   public isLoading: boolean = false;
@@ -14,7 +15,7 @@ export class PagePreloaderComponentController implements ng.IController {
   private toStateName: string;
   private toStateParams: { [key: string]: string };
 
-  static $inject = ['$rootScope', '$timeout', 'promiseService', '$log', '$state'];
+  public static $inject = ['$rootScope', '$timeout', 'promiseService', '$log', '$state'];
 
     constructor(private $rootScope: ng.IRootScopeService,
               private $timeout: ng.ITimeoutService,
@@ -23,7 +24,7 @@ export class PagePreloaderComponentController implements ng.IController {
               private $state: StateService) {
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.stateChangeStart =
       this.$rootScope.$on('$stateChangeStart', (_event, toState, _toParams, fromState, _fromParams) => {
         if (this.doesResolverExist(toState) && !this.areStatesNamesEqual(toState, fromState)) {
@@ -55,7 +56,7 @@ export class PagePreloaderComponentController implements ng.IController {
       });
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.stateChangeStart();
     this.stateChangeSuccess();
     this.stateChangeError();

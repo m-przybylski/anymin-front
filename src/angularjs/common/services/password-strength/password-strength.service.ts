@@ -1,8 +1,9 @@
 /* tslint:disable:  no-magic-numbers */
 
+// tslint:disable:member-ordering
 export class PasswordStrengthService {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }
@@ -34,6 +35,7 @@ export class PasswordStrengthService {
     return out;
   };
 
+  // tslint:disable-next-line:cyclomatic-complexity
   private _getStrength = (p: string): number => {
 
     const matches: any = {

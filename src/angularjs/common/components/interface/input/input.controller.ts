@@ -3,6 +3,7 @@ import { keyboardCodes } from '../../../classes/keyboard';
 
 type InputTypes = 'text' | 'tel' |'number';
 
+// tslint:disable:member-ordering
 export class InputComponentController implements IInputComponentBindings {
   private textType: InputTypes = 'text';
   private telType: InputTypes = 'tel';
@@ -23,11 +24,11 @@ export class InputComponentController implements IInputComponentBindings {
   public onChangeCallback?: (value: string) => void;
   public inputValueLength: number = 0;
 
-  static $inject = ['$element'];
+  public static $inject = ['$element'];
 
     constructor(private $element: JQuery) {}
 
-  $onInit(): void {
+  public $onInit(): void {
     if (this.type === this.telType) {
       this.blockInvalidDigits([keyboardCodes.dotASCI, keyboardCodes.commaASCI, keyboardCodes.backspace,
         keyboardCodes.enter, keyboardCodes.zero, keyboardCodes.one,
@@ -68,7 +69,7 @@ export class InputComponentController implements IInputComponentBindings {
     return digitsCodes.indexOf(code) === -1;
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.$element.find('input').unbind('keypress');
   }
 

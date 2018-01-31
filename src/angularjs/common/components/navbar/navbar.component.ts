@@ -1,9 +1,10 @@
 import { NavbarComponentController } from './navbar.controller';
 
+// tslint:disable:member-ordering
 export class NavbarComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = NavbarComponentController;
-  template: string = require('./navbar.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = NavbarComponentController;
+  public template: string = require('./navbar.html');
+  public bindings: {[boundProperty: string]: string} = {
     searchInputQueryValue: '<'
   };
 }

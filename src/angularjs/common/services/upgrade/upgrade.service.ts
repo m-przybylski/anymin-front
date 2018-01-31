@@ -1,6 +1,7 @@
+// tslint:disable:member-ordering
 export class UpgradeService {
 
-  static $inject = ['$q', '$rootScope'];
+  public static $inject = ['$q', '$rootScope'];
 
   constructor(private $q: ng.IQService, private $rootScope: ng.IRootScopeService) {
   }

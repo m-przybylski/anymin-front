@@ -1,9 +1,10 @@
 import { UserService } from '../user/user.service';
 import { AccountDetails } from '@anymind-ng/api';
 
+// tslint:disable:member-ordering
 export class PermissionService {
 
-  static $inject = ['PermRoleStore', 'PermPermissionStore', '$q', 'userService'];
+  public static $inject = ['PermRoleStore', 'PermPermissionStore', '$q', 'userService'];
 
   constructor(private PermRoleStore: ng.permission.RoleStore,
               private PermPermissionStore: ng.permission.PermissionStore,

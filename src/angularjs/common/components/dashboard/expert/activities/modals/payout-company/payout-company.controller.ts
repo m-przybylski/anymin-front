@@ -4,6 +4,7 @@ export interface IExpertPayoutCompanyModalScope extends ng.IScope {
   sueId: string;
 }
 
+// tslint:disable:member-ordering
 export class ExpertPayoutCompanyModalController implements ng.IController {
 
   public recommendedTag = [
@@ -11,7 +12,7 @@ export class ExpertPayoutCompanyModalController implements ng.IController {
     {name: 'tagtetst2'}
   ];
 
-  static $inject = ['$scope', '$uibModalInstance'];
+  public static $inject = ['$scope', '$uibModalInstance'];
 
     constructor($scope: IExpertPayoutCompanyModalScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance ) {

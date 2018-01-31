@@ -1,7 +1,8 @@
 import { IFilterService } from '../filter/filter.service';
+// tslint:disable:member-ordering
 export class TranslatorService {
 
-  static $inject = ['$filter'];
+  public static $inject = ['$filter'];
 
     constructor(private $filter: IFilterService) {
   }

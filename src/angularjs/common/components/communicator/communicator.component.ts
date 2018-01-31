@@ -1,7 +1,8 @@
 import { CommunicatorComponentController } from './communicator.controller';
 
+// tslint:disable:member-ordering
 export class CommunicatorComponent implements ng.IComponentOptions {
 
-  controller: ng.Injectable<ng.IControllerConstructor> = CommunicatorComponentController;
-  template = require('./communicator.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = CommunicatorComponentController;
+  public template = require('./communicator.html');
 }

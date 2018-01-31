@@ -17,6 +17,7 @@ interface ISendedSMS {
   date: number;
 }
 
+// tslint:disable:member-ordering
 export class PhoneSettingsService {
   private isNumberExist: boolean = false;
   private isButtonDisabled: boolean = false;
@@ -39,8 +40,7 @@ export class PhoneSettingsService {
   private static readonly oneSecondInMillisecond: number = 1000;
   private static readonly timeToResend: number = 30;
 
-  /* @ngInject */
-  static $inject = ['AccountApi', 'errorHandler', 'CommonSettingsService', '$interval', '$log'];
+  public static $inject = ['AccountApi', 'errorHandler', 'CommonSettingsService', '$interval', '$log'];
 
   constructor(private AccountApi: AccountApi,
               private errorHandler: ErrorHandlerService,

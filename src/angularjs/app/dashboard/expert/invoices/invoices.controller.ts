@@ -1,8 +1,9 @@
+// tslint:disable:member-ordering
 export class DashboardExpertInvoicesController {
 
   public areInvoices: boolean;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.areInvoices = true;

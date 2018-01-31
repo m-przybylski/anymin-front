@@ -7,6 +7,7 @@ export interface IExpertInviteEmployeesControllerScope extends ng.IScope {
   onModalCloseCallback: () => void;
 }
 
+// tslint:disable:member-ordering
 export class ExpertInviteEmployeesController implements ng.IController {
 
   public static readonly loaderDelay: number = 500;
@@ -21,7 +22,7 @@ export class ExpertInviteEmployeesController implements ng.IController {
   private invitations: PostInvitation[] = [];
   private selectedServices: GetService[] = [];
 
-  static $inject = ['$uibModalInstance', 'InvitationApi', '$timeout', 'userService', 'ServiceApi', '$log',
+  public static $inject = ['$uibModalInstance', 'InvitationApi', '$timeout', 'userService', 'ServiceApi', '$log',
     'errorHandler', '$scope'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -33,7 +34,7 @@ export class ExpertInviteEmployeesController implements ng.IController {
               private errorHandler: ErrorHandlerService,
               private $scope: IExpertInviteEmployeesControllerScope) {}
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.getServices();
   }
 

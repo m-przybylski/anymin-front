@@ -2,11 +2,12 @@ import * as angular from 'angular';
 import { INavbarLoggedOutMenuComponentBindings } from './navbar-logged-out-menu';
 import { Config } from '../../../../../config';
 
+// tslint:disable:member-ordering
 export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutMenuComponentBindings {
 
-  isHelpMenuShow: boolean = false;
+  public isHelpMenuShow: boolean = false;
 
-  static $inject = ['$document', '$element', '$scope', '$window'];
+  public static $inject = ['$document', '$element', '$scope', '$window'];
 
     constructor(private $document: ng.IDocumentService, private $element: ng.IRootElementService,
               private $scope: ng.IScope, private $window: ng.IWindowService) {

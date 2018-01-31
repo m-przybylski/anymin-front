@@ -7,6 +7,7 @@ import { ProfiteloWebsocketService } from '../../../../services/profitelo-websoc
 import { UserService } from '../../../../services/user/user.service';
 import { Config } from '../../../../../../config';
 
+// tslint:disable:member-ordering
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
   private static readonly loaderDelay: number = 500;
@@ -15,7 +16,7 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
   public isPlatformForExpert: boolean = Config.isPlatformForExpert;
   public isCompany: boolean = true;
 
-  static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'profiteloWebsocket'];
+  public static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'profiteloWebsocket'];
 
     constructor(FinancesApi: FinancesApi,
               userService: UserService,

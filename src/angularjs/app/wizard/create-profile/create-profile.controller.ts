@@ -2,12 +2,13 @@ import { WizardApi } from 'profitelo-api-ng/api/api';
 import { httpCodes } from '../../../common/classes/http-codes';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class CreateProfileController implements ng.IController {
 
   public isLoading: boolean = true;
   public isSummary: boolean = false;
 
-  static $inject = ['$state', 'WizardApi', 'previousState'];
+  public static $inject = ['$state', 'WizardApi', 'previousState'];
 
     constructor(private $state: StateService, WizardApi: WizardApi, previousState: string) {
     WizardApi.getWizardProfileRoute().then((wizardProfile) => {

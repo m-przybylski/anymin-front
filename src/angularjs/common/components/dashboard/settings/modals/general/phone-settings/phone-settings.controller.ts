@@ -7,6 +7,7 @@ export interface IPhoneSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void;
 }
 
+// tslint:disable:member-ordering
 export class PhoneSettingsController implements ng.IController {
   public numberModel: string = '';
   public prefixList: IPrefixListElement[] = [];
@@ -14,8 +15,8 @@ export class PhoneSettingsController implements ng.IController {
   public counter: number;
   public showPinCodeForm: boolean;
 
-  /* @ngInject */
-  static $inject = ['$uibModalInstance', 'phoneSettingsService', 'AccountApi', 'userService', 'errorHandler', '$scope'];
+  public static $inject = ['$uibModalInstance', 'phoneSettingsService', 'AccountApi', 'userService', 'errorHandler',
+    '$scope'];
 
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private phoneSettingsService: PhoneSettingsService,
@@ -24,7 +25,7 @@ export class PhoneSettingsController implements ng.IController {
               private errorHandler: ErrorHandlerService,
               private $scope: IPhoneSettingsControllerScope) {}
 
-  $onInit(): void {
+  public $onInit(): void {
     this.prefixList = this.phoneSettingsService.getPrefixList();
     this.prefixPlaceholder = this.prefixList[0].value;
     this.phoneSettingsService.onCountDownUpdate(this.updateCountDown);

@@ -1,7 +1,8 @@
 import { PagePreloaderComponentController } from './page-preloader.controller';
+// tslint:disable:member-ordering
 export class PagePreloaderComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = PagePreloaderComponentController;
-  template = require('./page-preloader.html');
-  bindings: { [boundProperty: string]: string } = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = PagePreloaderComponentController;
+  public template = require('./page-preloader.html');
+  public bindings: { [boundProperty: string]: string } = {
   };
 }

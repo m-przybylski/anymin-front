@@ -1,3 +1,4 @@
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { GetDashboardClientExperts } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';

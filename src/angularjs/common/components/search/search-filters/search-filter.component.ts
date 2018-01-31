@@ -1,8 +1,9 @@
 import { SearchFiltersComponentController } from './search-filters.controller';
+// tslint:disable:member-ordering
 export class SearchFiltersComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = SearchFiltersComponentController;
-  template = require('./search-filers.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = SearchFiltersComponentController;
+  public template = require('./search-filers.html');
+  public bindings: {[boundProperty: string]: string} = {
     tags: '<'
   };
 }

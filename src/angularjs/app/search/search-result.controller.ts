@@ -7,6 +7,7 @@ import { PromiseService } from '../../common/services/promise/promise.service';
 import { ErrorHandlerService } from '../../common/services/error-handler/error-handler.service';
 import { StateService, StateParams } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class SearchResultController {
 
   private static readonly minimalLoaderDelay: number = 500;
@@ -19,7 +20,7 @@ export class SearchResultController {
   public isSearchLoading: boolean = true;
   private searchQueryParams: SearchQueryParams;
 
-  static $inject = ['errorHandler', 'searchService', 'promiseService', '$state'];
+  public static $inject = ['errorHandler', 'searchService', 'promiseService', '$state'];
 
     constructor(private errorHandler: ErrorHandlerService,
               private searchService: SearchService,
@@ -30,7 +31,7 @@ export class SearchResultController {
     this.stateParams = $state.params;
   }
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     if (this.stateParams.q) {
       this.setSearchQueryParams();
       this.promiseService.setMinimalDelay(

@@ -4,14 +4,15 @@ import { UserService } from '../../../services/user/user.service';
 import { PrecallService } from '../../communicator/precall-service/precall.service';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class ProfileSingleConsultationComponentController implements IProfileSingleConsultationComponentBindings {
 
-  service: GetService;
-  tags: Tag[];
-  ownerCompany: GetProfile;
-  profileId: string;
+  public service: GetService;
+  public tags: Tag[];
+  public ownerCompany: GetProfile;
+  public profileId: string;
 
-  static $inject = ['precallService', 'userService', '$state'];
+  public static $inject = ['precallService', 'userService', '$state'];
 
     constructor(private precallService: PrecallService, private userService: UserService,
               private $state: StateService) {

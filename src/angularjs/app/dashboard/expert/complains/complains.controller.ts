@@ -1,7 +1,8 @@
+// tslint:disable:member-ordering
 export class DashboardExpertComplainsController {
 
+  public static $inject = [];
   public areComplains: boolean;
-  static $inject = [];
 
   constructor() {
     this.areComplains = false;

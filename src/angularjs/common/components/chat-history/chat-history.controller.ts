@@ -2,9 +2,11 @@ import { IChatHistoryBindings } from './chat-history';
 import * as RatelSdk from 'ratel-sdk-js';
 import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { Message } from 'ratel-sdk-js';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommunicatorService } from '@anymind-ng/core';
 
+// tslint:disable:member-ordering
 export class ChatHistoryComponentController implements IChatHistoryBindings {
 
   public chatMessages: Message[];
@@ -16,14 +18,14 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   private session?: RatelSdk.Session;
   private static readonly chatHistoryLimit: number = 500;
 
-  static $inject = ['communicatorService', '$log', '$scope'];
+  public static $inject = ['communicatorService', '$log', '$scope'];
 
   constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
               private $scope: ng.IScope) {
   }
 
-  $onInit(): void {
+  public $onInit(): void {
     this.session = this.communicatorService.getSession();
     this.getMessages();
   }

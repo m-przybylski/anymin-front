@@ -1,9 +1,10 @@
 import { MessengerMinimizedComponentController } from './minimized.controller';
 
+// tslint:disable:member-ordering
 export class MessengerMinimizedComponent implements ng.IComponentOptions {
-  template = require('./minimized.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = MessengerMinimizedComponentController;
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./minimized.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = MessengerMinimizedComponentController;
+  public bindings: {[boundProperty: string]: string} = {
     onMessageClick: '<'
   };
 }

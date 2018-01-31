@@ -4,6 +4,7 @@ import { CSVFileReader } from './CSVFileReader';
 
 const phoneNumbers = require('libphonenumber-js');
 
+// tslint:disable:member-ordering
 export class InputConsultationEmployeeComponentController implements IInputConsultationEmployeeBindings {
   public addedItemsList: string[] = [];
   public inputValue: string;
@@ -27,7 +28,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   private static readonly defaultCountryPrefix = '+48';
   private consultationInvitationsMaxCount: number;
 
-  static $inject = ['CommonSettingsService', '$timeout'];
+  public static $inject = ['CommonSettingsService', '$timeout'];
 
     constructor(private CommonSettingsService: CommonSettingsService,
               private $timeout: ng.ITimeoutService) {
@@ -61,6 +62,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public isEmployeeExist = (inputValue: string): boolean =>
   this.addedItemsList.indexOf(inputValue) !== -1
 
+  // tslint:disable-next-line:cyclomatic-complexity
   public onEnter = (inputValue: string): void => {
     this.isValidEmployee = this.isEmployeeExist(inputValue);
 

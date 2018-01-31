@@ -3,9 +3,10 @@ import { PayoutsApi } from 'profitelo-api-ng/api/api';
 import { PutPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';
 
+// tslint:disable:member-ordering
 export class PayoutsModalService {
 
-  static $inject = ['PayoutsApi', 'errorHandler'];
+  public static $inject = ['PayoutsApi', 'errorHandler'];
 
     constructor(private PayoutsApi: PayoutsApi,
               private errorHandler: ErrorHandlerService) {}

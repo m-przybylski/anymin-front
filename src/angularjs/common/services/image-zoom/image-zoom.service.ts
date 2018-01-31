@@ -1,5 +1,6 @@
 import * as angular from 'angular';
 // TODO refactor: create factory instead of 'createZoomInstance'
+// tslint:disable:member-ordering
 export class ImageZoomService {
 
   private image: HTMLImageElement;
@@ -21,7 +22,7 @@ export class ImageZoomService {
 
   private resizeZoom: number;
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
     this.settings = {
@@ -39,7 +40,7 @@ export class ImageZoomService {
       height: 0
     };
 
-    this.resizeZoom = 1 + this.settings.zoomScale;
+    this.resizeZoom = this.settings.zoomScale + 1;
   }
 
   public resetImg = (): void => {

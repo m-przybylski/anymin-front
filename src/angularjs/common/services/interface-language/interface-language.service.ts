@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IRootScopeService } from '../root-scope/root-scope.service';
 import '../../../../../generated_modules/translations/pl-pl';
@@ -9,6 +10,7 @@ export interface IInterfaceLanguage {
   ietfCode: string;
 }
 
+// tslint:disable:member-ordering
 export class InterfaceLanguageService {
 
   private static selectedInterfaceLanguageCookie = 'selectedInterfaceLanguage';
@@ -23,7 +25,7 @@ export class InterfaceLanguageService {
     // { nativeName: 'Deutsch (Deutchland)', ietfCode: 'de-de' }
   ];
 
-  static $inject = ['$log', '$http', '$rootScope', '$translate', '$locale', '$cookies', '$location',
+  public static $inject = ['$log', '$http', '$rootScope', '$translate', '$locale', '$cookies', '$location',
     'tmhDynamicLocale', 'amMoment'];
 
     constructor(private $log: ng.ILogService, private $http: ng.IHttpService,
@@ -58,6 +60,7 @@ export class InterfaceLanguageService {
   // @param        {String}    [ietfCode]   string with a language code; ex: en, en-us, pl-pl
   // @description  Determinate user startup language
   // @returns      { String }
+  // tslint:disable-next-line:cyclomatic-complexity
   public getStartupLanguage = (ietfCode?: string): string => {
     if (typeof ietfCode === 'undefined' || !ietfCode) {
       ietfCode = '';

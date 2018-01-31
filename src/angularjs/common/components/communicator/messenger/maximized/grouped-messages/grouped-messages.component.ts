@@ -1,9 +1,10 @@
 import { GroupedMessagesComponentController } from './grouped-messages.controller';
 
+// tslint:disable:member-ordering
 export class GroupedMessagesComponent {
-  template = require('./grouped-messages.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = GroupedMessagesComponentController;
-  bindings: {[boundProperty: string]: string} = {
+  public template = require('./grouped-messages.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = GroupedMessagesComponentController;
+  public bindings: {[boundProperty: string]: string} = {
     messages: '<',
     participantAvatar: '@'
   };

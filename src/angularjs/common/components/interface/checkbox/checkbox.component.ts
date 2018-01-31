@@ -1,9 +1,10 @@
 import { CheckboxComponentController } from './checkbox.controller';
 
+// tslint:disable:member-ordering
 export class CheckboxComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = CheckboxComponentController;
-  template = require('./checkbox.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = CheckboxComponentController;
+  public template = require('./checkbox.html');
+  public bindings: {[boundProperty: string]: string} = {
     inputText: '@',
     additionalText: '@',
     inputTextTranslationParam: '<',

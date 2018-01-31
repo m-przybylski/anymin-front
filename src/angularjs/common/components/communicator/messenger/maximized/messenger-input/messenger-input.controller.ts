@@ -1,5 +1,6 @@
 import { IMessengerInputBindings } from './messenger-input';
 
+// tslint:disable:member-ordering
 export class MessengerInputComponentController implements IMessengerInputBindings {
 
   public onSendMessage: (text: string) => void;
@@ -8,7 +9,7 @@ export class MessengerInputComponentController implements IMessengerInputBinding
   public isFileUploading: boolean;
   public inputModel: string = '';
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

@@ -1,9 +1,10 @@
 import { MessengerInputComponentController } from './messenger-input.controller';
 
+// tslint:disable:member-ordering
 export class MessengerInputComponent {
-  template = require('./messenger-input.html');
-  controller: ng.Injectable<ng.IControllerConstructor> = MessengerInputComponentController;
-  bindings: { [boundProperty: string]: string } = {
+  public template = require('./messenger-input.html');
+  public controller: ng.Injectable<ng.IControllerConstructor> = MessengerInputComponentController;
+  public bindings: { [boundProperty: string]: string } = {
     onSendMessage: '<',
     onUploadFiles: '<',
     onTyping: '<',

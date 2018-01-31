@@ -1,5 +1,6 @@
 import { IRootScopeService } from '../root-scope/root-scope.service';
 
+// tslint:disable:member-ordering
 export class TopWaitingLoaderService {
 
   private bindedProgress: (progress: number) => void;
@@ -8,7 +9,7 @@ export class TopWaitingLoaderService {
   private immediateInterval: ng.IPromise<any>;
   private maxProgressValue: number = 100;
 
-  static $inject = ['$rootScope', '$timeout', '$interval'];
+  public static $inject = ['$rootScope', '$timeout', '$interval'];
 
     constructor($rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
               private $interval: ng.IIntervalService) {

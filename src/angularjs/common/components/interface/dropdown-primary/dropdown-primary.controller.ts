@@ -4,6 +4,7 @@ import {
 } from './dropdown-primary';
 import { keyboardCodes } from '../../../classes/keyboard';
 import * as angular from 'angular';
+// tslint:disable:member-ordering
 export class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
 
   public isOpen: boolean = false;
@@ -31,7 +32,7 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   private dropdownScrollContainerElement: JQuery;
   private static readonly dividerOnHalf: number = 2;
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.mainPlaceholder = {
       name: this.placeholder,
       value: null
@@ -49,6 +50,7 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
     });
     this.dropdownScrollContainerElement.perfectScrollbar();
 
+    // tslint:disable-next-line:cyclomatic-complexity
     this.$element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode;
       switch (keyCode) {
@@ -77,11 +79,11 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
     });
   }
 
-  $onDestroy = (): void => {
+  public $onDestroy = (): void => {
     this.$element.unbind('keydown keypress');
   }
 
-  static $inject = ['$document', '$scope', '$element'];
+  public static $inject = ['$document', '$scope', '$element'];
 
     constructor(private $document: ng.IDocumentService,
               private $scope: ng.IScope,

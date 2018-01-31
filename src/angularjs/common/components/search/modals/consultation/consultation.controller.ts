@@ -4,6 +4,7 @@ import { MoneyDto } from 'profitelo-api-ng/model/models';
 export interface IConsultationModalControllerScope extends ng.IScope {
 }
 
+// tslint:disable:member-ordering
 export class ConsultationModalController implements ng.IController {
 
   public expertAvatar: string = 'cfdc5f156b804940a89e4bead38e269a';
@@ -51,7 +52,7 @@ export class ConsultationModalController implements ng.IController {
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
-  static $inject = ['$uibModalInstance'];
+  public static $inject = ['$uibModalInstance'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {}
 

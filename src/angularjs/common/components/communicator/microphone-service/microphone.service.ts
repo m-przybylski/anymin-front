@@ -5,11 +5,12 @@ export enum MicrophoneStateEnum {
   MUTED
 }
 
+// tslint:disable:member-ordering
 export class MicrophoneService {
 
   private microphoneStatusEmitter: BehaviorSubject<MicrophoneStateEnum> = new BehaviorSubject(MicrophoneStateEnum.GOOD);
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {
   }

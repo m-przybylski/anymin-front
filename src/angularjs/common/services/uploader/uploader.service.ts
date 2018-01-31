@@ -18,13 +18,14 @@ interface IFileObject {
   callback: (data: any) => void;
 }
 
+// tslint:disable:member-ordering
 export class UploaderService {
 
   private uploadingCount = 0;
   private fileObjectsToUpload: IFileObject[] = [];
   private urls = CommonConfig.settings.urls;
 
-  static $inject = ['$q', '$timeout', 'FilesApi', 'Upload', 'simultaneousUploadCount'];
+  public static $inject = ['$q', '$timeout', 'FilesApi', 'Upload', 'simultaneousUploadCount'];
 
     constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
               private FilesApi: FilesApi, private Upload: any, private simultaneousUploadCount: number) {

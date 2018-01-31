@@ -8,6 +8,7 @@ import { IExpertPresenceUpdate }
   from '../../components/navbar/navbar-expert-visibility/navbar-expert-visibility.service';
 import { Config } from '../../../../config';
 
+// tslint:disable:member-ordering
 export class ProfiteloWebsocketService {
   private websocket: WebSocket;
   private wsEndpoint: string;
@@ -24,7 +25,7 @@ export class ProfiteloWebsocketService {
     onNewInvitation: new Subject<any>()
   };
 
-  static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
+  public static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
 
   constructor(private $log: ng.ILogService,
               private userService: UserService,
@@ -86,6 +87,7 @@ export class ProfiteloWebsocketService {
     this.events.onInit.next();
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   private handleMessageType = (data: any): void => {
     const type = data.messageType;
     const value = data.value;

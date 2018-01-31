@@ -1,9 +1,10 @@
 import { RadioBtnTextareaComponentController } from './radio-btn-textarea.controller';
 
+// tslint:disable:member-ordering
 export class RadioBtnTextareaComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = RadioBtnTextareaComponentController;
-  template = require('./radio-btn-textarea.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = RadioBtnTextareaComponentController;
+  public template = require('./radio-btn-textarea.html');
+  public bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
     value: '@',

@@ -1,9 +1,10 @@
 import { ProfileGalleryComponentController } from './profile-gallery.controller';
 
+// tslint:disable:member-ordering
 export class ProfileGalleryComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = ProfileGalleryComponentController;
-  template = require('./profile-gallery.html');
-  bindings: {[boundProperty: string]: string} = {
+  public controller: ng.Injectable<ng.IControllerConstructor> = ProfileGalleryComponentController;
+  public template = require('./profile-gallery.html');
+  public bindings: {[boundProperty: string]: string} = {
     documents: '<'
   };
 }

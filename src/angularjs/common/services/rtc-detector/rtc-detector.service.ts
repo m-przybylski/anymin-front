@@ -3,13 +3,13 @@ const DetectRTC = require('detectrtc');
 import { ModalsService } from '../modals/modals.service';
 import { MediaStreamConstraintsWrapper } from '../../classes/media-stream-constraints-wrapper';
 
+// tslint:disable:member-ordering
 export class RtcDetectorService {
+  public static $inject = ['modalsService', '$q', '$timeout'];
   private instanceModal: ng.ui.bootstrap.IModalInstanceService;
   private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper();
 
-  static $inject = ['modalsService', '$q', '$timeout'];
-
-    constructor(private modalsService: ModalsService,
+  constructor(private modalsService: ModalsService,
               private $q: ng.IQService,
               private $timeout: ng.ITimeoutService) {
   }
@@ -20,6 +20,7 @@ export class RtcDetectorService {
     )
 
   private isMediaPermissionGiven = (mediaStreamConstraints: MediaStreamConstraints): ng.IPromise<boolean> =>
+    // tslint:disable-next-line:cyclomatic-complexity
     this.webRtcLoadWrapper(() =>
       mediaStreamConstraints.audio && !mediaStreamConstraints.video ? DetectRTC.isWebsiteHasMicrophonePermissions :
       !mediaStreamConstraints.audio && mediaStreamConstraints.video ? DetectRTC.isWebsiteHasWebcamPermissions :

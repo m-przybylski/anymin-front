@@ -4,6 +4,7 @@ import { CommonConfig } from '../../../../../../generated_modules/common-config/
 import { TranslatorService } from '../../../services/translator/translator.service';
 import { StateService } from '@uirouter/angularjs';
 
+// tslint:disable:member-ordering
 export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
 
   public languagesList: {}[];
@@ -23,7 +24,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   private moneyDivider: number;
   private static readonly mobileWidth: number = 768;
 
-  $onInit = (): void => {
+  public $onInit = (): void => {
     this.sortBy = {
       name: this.translatorService.translate(`SEARCH.SORT_BY.${this.$state.params.sortBy}`),
       value: this.$state.params.sortBy
@@ -41,7 +42,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.maxPrice = this.$state.params.maxPrice ? this.$state.params.maxPrice / this.moneyDivider : this.maxPrice;
   }
 
-  static $inject = ['translatorService', '$window', '$state', 'CommonConfig'];
+  public static $inject = ['translatorService', '$window', '$state', 'CommonConfig'];
 
     constructor(private translatorService: TranslatorService,
               private $window: ng.IWindowService,

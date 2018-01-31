@@ -1,8 +1,9 @@
 export type LocalStorageKeyName = 'invitation' | 'accepted-consultations';
 
+// tslint:disable:member-ordering
 export class LocalStorageWrapper {
 
-  static $inject = [];
+  public static $inject = [];
 
   constructor() {}
 

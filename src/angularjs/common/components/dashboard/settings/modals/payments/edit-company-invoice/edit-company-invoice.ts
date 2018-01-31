@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+// tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IPrimaryDropdownListElement } from '../../../../../interface/dropdown-primary/dropdown-primary';
 import apiModule from 'profitelo-api-ng/api.module';
@@ -12,19 +13,20 @@ export interface IEditCompanyInvoiceControllerScope extends ng.IScope {
   callback: () => void;
 }
 
+// tslint:disable:member-ordering
 export class EditCompanyInvoiceController implements ng.IController {
 
-  isNavbar: boolean = true;
-  isFullscreen: boolean = true;
-  companyName: string;
-  address: string;
-  postalCode: string;
-  vatNumber: string;
-  email: string;
-  city: string;
-  selectedCountry?: IPrimaryDropdownListElement;
-  countryISO: string;
-  countryList: IPrimaryDropdownListElement[] = [{
+  public isNavbar: boolean = true;
+  public isFullscreen: boolean = true;
+  public companyName: string;
+  public address: string;
+  public postalCode: string;
+  public vatNumber: string;
+  public email: string;
+  public city: string;
+  public selectedCountry?: IPrimaryDropdownListElement;
+  public countryISO: string;
+  public countryList: IPrimaryDropdownListElement[] = [{
     name: 'Poland',
     value: 'PL'
   }];
@@ -57,7 +59,7 @@ export class EditCompanyInvoiceController implements ng.IController {
     });
   }
 
-  static $inject = ['$uibModalInstance', '$scope', 'AccountApi'];
+  public static $inject = ['$uibModalInstance', '$scope', 'AccountApi'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private $scope: IEditCompanyInvoiceControllerScope, private AccountApi: AccountApi) {
