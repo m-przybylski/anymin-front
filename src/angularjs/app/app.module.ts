@@ -91,7 +91,7 @@ export const angularjsModule = angular.module('profitelo', [
   'profitelo.translations.pl-pl'
 
 ])
-  .run(['$rootScope', '$log', 'permissionService', '$anchorScroll', 'eventsService',
+  .run(['$rootScope', '$log', 'permissionService', '$anchorScroll',
     'sessionServiceWrapper', '$urlRouter', '$state', 'topAlertService', 'sessionDeletedService',
     'profiteloWebsocket', AppRunFunction])
   .config(['$urlRouterProvider', '$httpProvider', '$stateProvider', '$translateProvider',

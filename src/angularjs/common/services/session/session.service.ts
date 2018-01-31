@@ -3,19 +3,23 @@ import {Config} from '../../../../config';
 import {GetSession, AccountLogin} from 'profitelo-api-ng/model/models'
 import {EventsService} from '../events/events.service'
 import {UpgradeService} from '../upgrade/upgrade.service';
+import {StateService} from '@uirouter/angularjs';
 
 export class SessionServiceWrapper {
 
-  static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService'];
+  static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService', '$state'];
 
   constructor(private userSessionService: UserSessionService,
               private $http: ng.IHttpService,
               private upgradeService: UpgradeService,
-              eventsService: EventsService) {
+              eventsService: EventsService,
+              $state: StateService) {
     eventsService.on('remote-session-deleted', () => {
-      this.userSessionService.logout()
-      this.onSuccessLogout()
-      eventsService.emit('logout')
+      this.upgradeService.toIPromise(this.userSessionService.logout()).finally(() => {
+        this.onSuccessLogout()
+        eventsService.emit('logout')
+        $state.reload();
+      })
     })
   }
 

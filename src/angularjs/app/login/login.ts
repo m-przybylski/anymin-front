@@ -26,7 +26,7 @@ function config($stateProvider: StateProvider): void {
     data: {
       permissions: {
         only: ['anon'],
-        redirectTo: 'app.home'
+        redirectTo: 'app.dashboard.expert.activities'
       }
     }
   })
