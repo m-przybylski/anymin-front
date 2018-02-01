@@ -60,6 +60,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.expertCallService.onCallEnd(this.destroy);
     this.expertCallService.onCallPull((currentExpertCall) => {
       if (!this.messageRoom) this.expertInit(currentExpertCall);
+      // FIXME
+      // tslint:disable-next-line:no-floating-promises
       else this.getMessages(currentExpertCall);
     });
   }

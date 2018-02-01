@@ -1,5 +1,6 @@
 import { AppPage } from './app.po';
 
+// tslint:disable:no-floating-promises
 describe('any-mind-platform App', () => {
   let page: AppPage;
 

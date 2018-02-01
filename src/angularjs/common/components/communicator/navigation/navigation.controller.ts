@@ -5,6 +5,7 @@ import { ExpertCallService } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';
 import { TranslatorService } from '../../../services/translator/translator.service';
 import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
+import { LoggerService } from '@anymind-ng/core';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean;
@@ -38,7 +39,9 @@ export class NavigationComponentController implements ng.IController, INavigatio
     clientCallService.onNewCall(this.clearButtonsState);
     expertCallService.onNewCall(this.clearButtonsState);
     expertCallService.onCallPull(this.clearButtonsState);
-    new NavigatorWrapper().hasMoreThanOneCamera().then((val) => this.isToogleCameraVisible = val);
+    new NavigatorWrapper().hasMoreThanOneCamera().then(
+      (val) => this.isToogleCameraVisible = val,
+      (err) => LoggerService.warn('NavigationComponentController: Can not get information about media devices', err));
   }
 
   public hangupCall = (): ng.IPromise<RatelCallDetails> =>
@@ -55,6 +58,8 @@ export class NavigationComponentController implements ng.IController, INavigatio
   }
 
   public changeCamera = (): void => {
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.currentCall.stopVideo().then(() => {
       this.currentCall.changeCamera().then(() => {
         this.isVideo = true;
@@ -78,6 +83,8 @@ export class NavigationComponentController implements ng.IController, INavigatio
 
   public stopVideo = (): void => {
     this.isVideo = false;
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.currentCall.stopVideo();
   }
 

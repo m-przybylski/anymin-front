@@ -46,6 +46,8 @@ export class SoundsService {
   private setAudioLoop = (audio: HTMLAudioElement): void => {
     audio.addEventListener('ended', () => {
       audio.currentTime = 0;
+      // FIXME
+      // tslint:disable-next-line:no-floating-promises
       audio.play();
     }, false);
   }
@@ -54,6 +56,8 @@ export class SoundsService {
 
     const play = (): void => {
       if (this.callIncomingSoundCount === 0) {
+        // FIXME
+        // tslint:disable-next-line:no-floating-promises
         this.soundObjects.callIncoming.play();
       }
       ++this.callIncomingSoundCount;
@@ -82,6 +86,8 @@ export class SoundsService {
     const play = (): void => {
       if (!this.isCallConnecting) {
         this.isCallConnecting = true;
+        // FIXME
+        // tslint:disable-next-line:no-floating-promises
         this.soundObjects.callConnecting.play();
       }
     };

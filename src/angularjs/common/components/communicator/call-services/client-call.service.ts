@@ -67,6 +67,8 @@ export class ClientCallService {
     this.modalsService.createClientConsultationSummaryModal(serviceId);
     this.call = undefined;
     this.soundsService.callConnectingSound().stop();
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.soundsService.playCallEnded();
   }
 
@@ -145,6 +147,8 @@ export class ClientCallService {
 
   private onConsultationUnavailable = (): void => {
     this.soundsService.callConnectingSound().stop();
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.soundsService.playCallRejected();
     this.modalsService.createServiceUnavailableModal(() => {
       // TODO
@@ -165,6 +169,8 @@ export class ClientCallService {
         .finally(() => {
           this.call = undefined;
           this.soundsService.callConnectingSound().stop();
+          // FIXME
+          // tslint:disable-next-line:no-floating-promises
           this.soundsService.playCallEnded();
         });
     else

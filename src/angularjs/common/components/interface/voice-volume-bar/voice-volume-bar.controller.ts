@@ -36,6 +36,8 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
   }
 
   public $onDestroy = (): void => {
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     if (this.audioContext) this.audioContext.close();
   }
 

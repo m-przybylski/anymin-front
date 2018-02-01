@@ -91,6 +91,8 @@ export class MessageRoom {
     room.onMarked((roomMark) => this.events.onMark.next(roomMark));
     room.onCustom('MESSAGE', (roomMessage) => {
       this.events.onMessage.next(roomMessage);
+      // FIXME
+      // tslint:disable-next-line:no-floating-promises
       this.soundsService.playMessageNew();
     });
   }
