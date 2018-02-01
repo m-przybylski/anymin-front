@@ -1,4 +1,8 @@
+import { LogLevel } from '@anymind-ng/core';
+
 export class Config {
+
+  public static readonly logLevel = LogLevel.DEBUG;
 
   public static readonly http = {
     apiHeader: 'X-Api-Key'

@@ -9,6 +9,7 @@ import {roomType} from 'ratel-sdk-js'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {CommunicatorService} from '@anymind-ng/core';
 import {empty} from 'rxjs/observable/empty';
+import {loggerServiceMock} from '../../../services/logger/logger.mock';
 
 describe('Unit tests: CurrentCall', () => {
 
@@ -71,7 +72,7 @@ describe('Unit tests: CurrentCall', () => {
     RatelApi = _RatelApi_
     q = $q
     currentCall = new CurrentCall(soundsService, ratelCall, timerFactory, service, sue, communicatorService,
-      RatelApi, microphoneService)
+      RatelApi, microphoneService, loggerServiceMock);
   })))
 
   it('should reject promise while starting environment video', (done) => {

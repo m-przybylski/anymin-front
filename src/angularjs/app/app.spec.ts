@@ -5,6 +5,7 @@ import {CommonConfig} from '../../../generated_modules/common-config/common-conf
 import {IRootScopeService} from '../common/services/root-scope/root-scope.service';
 import {angularjsModule} from './app.module';
 import {StateService} from '@uirouter/angularjs';
+import loggerMockModule from '../common/services/logger/logger.mock';
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -34,7 +35,8 @@ describe('Unit tests: app>', () => {
     }))
 
     beforeEach(() => {
-      angular.mock.module(angularjsModule.name)
+      angular.mock.module(angularjsModule.name);
+      angular.mock.module(loggerMockModule);
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
               $injector: ng.auto.IInjectorService, _InterfaceLanguageService_: InterfaceLanguageService,
               RatelApiMock: RatelApiMock, SessionApiMock: SessionApiMock, ServiceApiMock: ServiceApiMock,

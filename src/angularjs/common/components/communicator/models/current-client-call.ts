@@ -6,13 +6,13 @@ import { TimerFactory } from '../../../services/timer/timer.factory';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
-import { CommunicatorService } from '@anymind-ng/core';
+import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 
 // tslint:disable:member-ordering
 export class CurrentClientCall extends CurrentCall {
 
   public static $inject = ['timerFactory', 'call', 'localStream', 'service', 'sue', 'soundsService', 'RatelApi',
-    'communicatorService', 'microphoneService', 'expert'];
+    'communicatorService', 'microphoneService', 'expert', 'logger'];
 
   constructor(timerFactory: TimerFactory,
               call: RatelSdk.BusinessCall,
@@ -23,9 +23,10 @@ export class CurrentClientCall extends CurrentCall {
               RatelApi: RatelApi,
               communicatorService: CommunicatorService,
               microphoneService: MicrophoneService,
-              private expert: GetProfile) {
+              private expert: GetProfile,
+              logger: LoggerService) {
 
-    super(soundsService, call, timerFactory, service, sue, communicatorService, RatelApi, microphoneService);
+    super(soundsService, call, timerFactory, service, sue, communicatorService, RatelApi, microphoneService, logger);
     this.setLocalStream(localStream);
     this.ratelCall.addStream(localStream);
 

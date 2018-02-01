@@ -6,13 +6,13 @@ import { TimerFactory } from '../../../services/timer/timer.factory';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { Call } from 'ratel-sdk-js/dist/protocol/wire-entities';
 import { MicrophoneService } from '../microphone-service/microphone.service';
-import { CommunicatorService } from '@anymind-ng/core';
+import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 
 // tslint:disable:member-ordering
 export class CurrentExpertCall extends CurrentCall {
 
   public static $inject = ['timerFactory', 'call', 'incomingCallDetails', 'soundsService', 'communicatorService',
-    'RatelApi', 'microphoneService'];
+    'RatelApi', 'microphoneService', 'logger'];
 
   constructor(private incomingCallDetails: GetIncomingCallDetails,
               timerFactory: TimerFactory,
@@ -20,10 +20,11 @@ export class CurrentExpertCall extends CurrentCall {
               soundsService: SoundsService,
               communicatorService: CommunicatorService,
               RatelApi: RatelApi,
-              microphoneService: MicrophoneService) {
+              microphoneService: MicrophoneService,
+              logger: LoggerService) {
 
     super(soundsService, call as RatelSdk.BusinessCall, timerFactory,
-      incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi, microphoneService);
+      incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi, microphoneService, logger);
     this.setState(CallState.INCOMING);
     this.onCallTaken(() => {
       this.setState(CallState.PENDING_ON_OTHER_DEVICE);

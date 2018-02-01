@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Call } from 'ratel-sdk-js/dist/protocol/wire-entities';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { TranslatorService } from '../../../services/translator/translator.service';
-import { CommunicatorService, Connected } from '@anymind-ng/core';
+import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 
@@ -37,7 +37,7 @@ export class ExpertCallService {
   };
 
   public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService', 'eventsService',
+    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService', 'logger', 'eventsService',
     'sessionServiceWrapper'];
 
   constructor(private ServiceApi: ServiceApi,
@@ -50,6 +50,7 @@ export class ExpertCallService {
               private communicatorService: CommunicatorService,
               private microphoneService: MicrophoneService,
               private translatorService: TranslatorService,
+              private logger: LoggerService,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
     communicatorService.callInvitationEvent$.subscribe(this.onExpertCallIncoming);
@@ -67,14 +68,14 @@ export class ExpertCallService {
     });
   }
 
-  private updateActiveCallStatus = (connected: Connected): void => {
+  private updateActiveCallStatus = (connected: IConnected): void => {
     // FIXME
     // tslint:disable-next-line:no-floating-promises
     connected.session.chat.getActiveCalls().then((activeCalls) => {
       if (activeCalls[0]) {
         this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
           this.currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, activeCalls[0],
-            this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
+            this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
           this.currentExpertCall.onEnd(() => {
             this.events.onCallEnd.next();
             this.currentExpertCall = undefined;
@@ -111,7 +112,7 @@ export class ExpertCallService {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
         const currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, callInvitation.call,
-          this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService);
+          this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
 
         this.currentExpertCall = currentExpertCall;
 

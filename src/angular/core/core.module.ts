@@ -6,10 +6,13 @@ import { ApiConfigurationFactory } from './factories/api-configuration/api-confi
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiKeyService } from './services/api-key/api-key.service';
 import { ApiKeyInterceptor } from './services/api-key/api-key.interceptor';
+import { LoggerModule } from '@anymind-ng/core';
+import { Config } from '../../config';
 
 @NgModule({
   imports: [
-    ApiModule.forRoot(ApiConfigurationFactory)
+    ApiModule.forRoot(ApiConfigurationFactory),
+    LoggerModule.forRoot(Config.logLevel),
   ],
   providers: [
     ApiKeyService,

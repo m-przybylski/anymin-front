@@ -8,6 +8,7 @@ import {CurrentClientCall} from './current-client-call'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {CommunicatorService} from '@anymind-ng/core';
 import {empty} from 'rxjs/observable/empty';
+import {loggerServiceMock} from '../../../services/logger/logger.mock';
 
 describe('Unit tests: CurrentClientCall', () => {
 
@@ -65,7 +66,7 @@ describe('Unit tests: CurrentClientCall', () => {
     RatelApi = _RatelApi_
     q = $q
     currentClientCall = new CurrentClientCall(timerFactory, ratelCall, localStream,
-      service, sue, soundsService, RatelApi, communicatorService, microphoneService, expert)
+      service, sue, soundsService, RatelApi, communicatorService, microphoneService, expert, loggerServiceMock)
   })))
 
   it('should currentClientCall exist', () => {

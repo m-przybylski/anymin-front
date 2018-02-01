@@ -34,6 +34,7 @@ import toggleClassOnPullCall from '../common/directives/toggle-class-on-pull-cal
 import cookieNotificationModule from '../common/components/cookie-notification/cookie-notification';
 import sessionDeletedModule from '../common/services/session-deleted/session-deleted';
 import { UpgradeService } from '../common/services/upgrade/upgrade.service';
+import loggerModule from '../common/services/logger/logger';
 
 declare const Raven: any;
 
@@ -65,6 +66,7 @@ export const angularjsModule = angular.module('profitelo', [
   commonConfigModule,
 
   // services
+  loggerModule,
   topAlertModule,
   interfaceLanguageModule,
   customTranslationHandlerModule,
