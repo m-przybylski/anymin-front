@@ -43,7 +43,6 @@ describe('Testing Controller: expertIncomingCall', () => {
 
     scope.rejectCall()
 
-    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('reject')
-    expect(scope.$parent.rejectCall).toHaveBeenCalled()
+    expect(scope.$parent.rejectCall).toHaveBeenCalledWith($uibModalInstance)
   }))
 })

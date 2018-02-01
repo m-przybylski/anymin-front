@@ -1,46 +1,28 @@
 import { CallSummary, ICallSummaryWebsocketObject } from '../../models/CallSummary';
-// tslint:disable-next-line:import-blacklist
-import * as _ from 'lodash';
 import { ProfiteloWebsocketService } from '../profitelo-websocket/profitelo-websocket.service';
-import { IExpertCallSummary } from '../../models/ExpertCallSummary';
-import { IClientCallSummary } from '../../models/ClientCallSummary';
-import { Subject } from 'rxjs/Subject';
+import { ViewsApi } from 'profitelo-api-ng/api/api';
+import { GetCallDetails } from 'profitelo-api-ng/model/models';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 
-// tslint:disable:strict-type-predicates
-// tslint:disable:member-ordering
 export class CallSummaryService {
+  public static $inject = ['ViewsApi', 'profiteloWebsocket'];
 
-  private callSummaries: CallSummary[];
+  private readonly callSummaryBuffer = 10;
 
-  private readonly onCallSummarySubject = new Subject<CallSummary>();
+  private readonly onCallSummarySubject = new ReplaySubject<CallSummary>(this.callSummaryBuffer);
 
-  public static $inject = ['profiteloWebsocket'];
-
-  constructor(profiteloWebsocket: ProfiteloWebsocketService) {
-
-    this.callSummaries = [];
+  constructor(private ViewsApi: ViewsApi, profiteloWebsocket: ProfiteloWebsocketService) {
     profiteloWebsocket.onCallSummary(this.onNewCallSummary);
   }
+
+  public getCallSummary = (sueId: string): ng.IPromise<GetCallDetails> =>
+    this.ViewsApi.getDashboardCallDetailsRoute(sueId)
 
   public onCallSummary = (callback: (callSummary: CallSummary) => void): Subscription =>
     this.onCallSummarySubject.subscribe(callback)
 
-  public getCallSummary = (serviceId: string): CallSummary | undefined => {
-    this.callSummaries = this.callSummaries.filter(callSummary => callSummary.service.id !== serviceId);
-    return _.find(this.callSummaries, callSummary => callSummary.service.id === serviceId);
-  }
-
-  public removeCallSummary = (callSummary: CallSummary): void => {
-    this.callSummaries = this.callSummaries.filter(summary => summary !== callSummary);
-  }
-
-  public isExpertCallSummary =
-    (callSummary: IExpertCallSummary | IClientCallSummary): callSummary is IExpertCallSummary =>
-      (<IExpertCallSummary>callSummary).profit !== undefined
-
   private onNewCallSummary = (data: ICallSummaryWebsocketObject): void => {
-    this.callSummaries.push(data.callSummary);
     this.onCallSummarySubject.next(data.callSummary);
   }
 }

@@ -1,39 +1,66 @@
+import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { PullableCall } from '../models/pullable-call';
 
-// tslint:disable:member-ordering
 export class ActiveCallBarService {
 
-  private readonly events = {
-    onShowCallBar: new Subject<void>(),
-    onHideCallBar: new Subject<void>()
-  };
+  public static $inject = ['logger', 'expertCallService', 'eventsService', 'communicatorService'];
 
-  public static $inject = ['expertCallService', 'eventsService'];
+  public isPulling = false;
 
-    constructor(private expertCallService: ExpertCallService,
-              eventsService: EventsService) {
-    expertCallService.onCallActive(this.notifyShowCallBar);
-    expertCallService.onCallPull(this.notifyHideCallBar);
-    expertCallService.onCallTaken(this.notifyShowCallBar);
-    expertCallService.onCallEnd(this.notifyHideCallBar);
-    eventsService.on('logout', this.notifyHideCallBar);
+  private readonly showCallBarEvent = new Subject<void>();
+  private readonly hideCallBarEvent = new Subject<void>();
+  private pullableCall?: PullableCall;
+
+  constructor(private logger: LoggerService,
+              expertCallService: ExpertCallService,
+              eventsService: EventsService,
+              communicatorService: CommunicatorService) {
+
+    communicatorService.connectionLostEvent$.subscribe(this.handleConnectionLost);
+    expertCallService.pullableCall$.subscribe(this.handlePullable);
+    eventsService.on('logout', () => this.hideCallBarEvent.next());
   }
 
   public pullCall = (): void => {
-    this.expertCallService.pullCall();
+    if (this.pullableCall) {
+      this.logger.debug('ActiveCallBarService: Pulling the call');
+      this.isPulling = true;
+      this.pullableCall.pull()
+        .then(
+          () => {
+            this.hideCallBarEvent.next();
+            this.pullableCall = undefined;
+            this.logger.debug('ActiveCallBarService: Pulled the call');
+          },
+          err => {
+            this.logger.error('ActiveCallBarService: Error when pulling call', err);
+          })
+        .finally(() => this.isPulling = false);
+    } else {
+      this.logger.error('ActiveCallBarService: Cannot pull, there is no call');
+    }
   }
 
-  public onHideCallBar = (cb: () => void): void => {
-    this.events.onHideCallBar.subscribe(cb);
+  public get hideCallBar$(): Observable<void> {
+    return this.hideCallBarEvent;
   }
 
-  public onShowCallBar = (cb: () => void): void => {
-    this.events.onShowCallBar.subscribe(cb);
+  public get showCallBar$(): Observable<void> {
+    return this.showCallBarEvent;
   }
 
-  private notifyHideCallBar = (): void => this.events.onHideCallBar.next();
+  private handlePullable = (pullableCall: PullableCall): void => {
+    this.pullableCall = pullableCall;
+    pullableCall.onPullExpired(() => this.hideCallBarEvent.next());
+    this.showCallBarEvent.next();
+  }
 
-  private notifyShowCallBar = (): void => this.events.onShowCallBar.next();
+  private handleConnectionLost = (): void => {
+    this.pullableCall = undefined;
+    this.hideCallBarEvent.next();
+  }
 }

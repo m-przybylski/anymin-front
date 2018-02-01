@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import { LoggerService, CommunicatorService, IConnected } from '@anymind-ng/core';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IMessengerMaximizedComponentBindings } from './maximized';
@@ -6,23 +7,24 @@ import { PostFileDetails, MoneyDto } from 'profitelo-api-ng/model/models';
 import { UploaderService } from '../../../../services/uploader/uploader.service';
 import { UploaderFactory } from '../../../../services/uploader/uploader.factory';
 import { MessageRoom } from '../../models/message-room';
-import { ClientCallService } from '../../call-services/client-call.service';
 import { ExpertCallService } from '../../call-services/expert-call.service';
 import { CurrentCall } from '../../models/current-call';
-import { CurrentClientCall } from '../../models/current-client-call';
-import { CurrentExpertCall } from '../../models/current-expert-call';
+import { ExpertCall } from '../../models/current-expert-call';
 import { Message } from 'ratel-sdk-js';
 import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { IMessageContext } from '../message-context';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
+import { takeWhile } from 'rxjs/operators';
 
-// tslint:disable:member-ordering
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
+  public static $inject = ['logger', '$timeout', '$element', 'expertCallService', 'communicatorService',
+    'uploaderFactory'];
   public callCost: MoneyDto;
   public isMessenger: boolean;
   public minimizeMessenger: () => void;
   public callLength: number;
+  public isLoading = true;
 
   public participantAvatar = '';
   public isTyping = false;
@@ -33,73 +35,33 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   } = {};
   public isFileUploadError = false;
 
+  public expertName = '';
+  private readonly historyLimit = 10000;
   private messagesScroll = angular.element('.messenger-scroll');
   private indicateTypingDebounceTimeout = 1000;
-  public indicateTypingDebounce = (): void => {};
   private typingTimeout = 2000;
   private fileUploadErrorMessageTimeout = 15000;
   private uploader: UploaderService;
 
   private messageRoom?: MessageRoom;
-  public expertName = '';
+  private postProcessOptions: PostFileDetails = {
+    croppingDetails: undefined,
+    fileType: FileTypeEnum.CHAT
+  };
 
-  public static $inject = ['$log', '$timeout', '$element', 'clientCallService', 'expertCallService', 'uploaderFactory'];
-
-    constructor(private $log: ng.ILogService,
+  constructor(private logger: LoggerService,
               private $timeout: ng.ITimeoutService,
               private $element: ng.IRootElementService,
-              private clientCallService: ClientCallService,
               private expertCallService: ExpertCallService,
+              private communicatorService: CommunicatorService,
               uploaderFactory: UploaderFactory) {
 
     this.uploader = uploaderFactory.getInstance();
     this.messagesScroll.perfectScrollbar();
-
-    this.clientCallService.onNewCall(this.clientInit);
-    this.expertCallService.onNewCall(this.expertInit);
-    this.expertCallService.onCallEnd(this.destroy);
-    this.expertCallService.onCallPull((currentExpertCall) => {
-      if (!this.messageRoom) this.expertInit(currentExpertCall);
-      // FIXME
-      // tslint:disable-next-line:no-floating-promises
-      else this.getMessages(currentExpertCall);
-    });
+    this.expertCallService.newCall$.subscribe(this.expertInit);
+    communicatorService.connectionLostEvent$.subscribe(() => this.isLoading = true);
   }
-
-  private getMessages = (currentCall: CurrentCall): Promise<void> =>
-    currentCall.getMessageRoom().getHistory()
-      .then(this.onGetHistory)
-      .catch(this.onGetHistoryError)
-
-  private onGetHistoryError = (error: any): void => {
-    this.$log.error(error);
-  }
-
-  private clearChatMessages = (): void => {
-    this.groupedMessages = [];
-  }
-
-  private onGetHistory = (messages: Paginated<Message>): void => {
-    this.clearChatMessages();
-    const chatMessages: Message[] = messages.items.filter(message => message.tag === 'MESSAGE');
-    chatMessages.forEach((message) => {
-      this.addGroupedMessage(message);
-    });
-  }
-
-  private onNewCall = (currentCall: CurrentCall): void => {
-    this.messageRoom = currentCall.getMessageRoom();
-    this.messageRoom.onMessage(this.addMessage);
-    this.messageRoom.onTyping(this.onTyping);
-    currentCall.onTimeCostChange((data) => {
-      this.callLength = data.time;
-      this.callCost = data.money;
-    });
-    this.indicateTypingDebounce = _.throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
-      leading: true,
-      trailing: false
-    });
-  }
+  public indicateTypingDebounce = (): void => {};
 
   public $onChanges = (): void => {
     if (this.isMessenger) {
@@ -127,21 +89,49 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     });
   }
 
-  private clientInit = (currentClientCall: CurrentClientCall): void => {
-    const expert = currentClientCall.getExpert();
-
-    if (expert.expertDetails && expert.expertDetails.avatar) {
-      this.participantAvatar = expert.expertDetails.avatar;
-    }
-
-    if (expert.expertDetails && expert.expertDetails.name) {
-      this.expertName = expert.expertDetails.name;
-    }
-
-    this.onNewCall(currentClientCall);
+  private handleRoomHistory = (messages: Paginated<Message>): void => {
+      this.isLoading = false;
+      this.groupedMessages = [];
+      // to filter out room events
+      const chatMessages: Message[] = messages.items.filter(message => message.tag === 'MESSAGE');
+      this.logger.debug('MessengerMaximizedComponentController: received history messaged', chatMessages);
+      chatMessages.forEach(this.addGroupedMessage);
   }
 
-  private expertInit = (currentExpertCall: CurrentExpertCall): void => {
+  private updateChatHistory = (messageRoom: MessageRoom): void => {
+    this.isLoading = true;
+    messageRoom.getHistory(0, this.historyLimit).then(
+      this.handleRoomHistory,
+      (err) => {
+        this.logger.error('MessengerMaximizedComponentController: Could not load history messaged', err);
+        this.isLoading = false;
+      });
+  }
+
+  private onNewCall = (currentCall: CurrentCall): void => {
+    currentCall.messageRoom$.subscribe((messageRoom) => {
+      this.messageRoom = messageRoom;
+      this.messageRoom.message$.subscribe(this.addMessage);
+      this.messageRoom.typing$.subscribe(this.onTyping);
+      currentCall.onTimeCostChange((data) => {
+        this.callLength = data.time;
+        this.callCost = data.money;
+      });
+      this.indicateTypingDebounce = _.throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
+        leading: true,
+        trailing: false
+      });
+      // Because the call might be pulled, let's read room history
+      this.updateChatHistory(messageRoom);
+      // If there was a reconnection and message room remains the same, refresh the room history
+      this.communicatorService.connectionEstablishedEvent$
+        .pipe(takeWhile((connected: IConnected) => connected.session === currentCall.getSession()))
+        .pipe(takeWhile(() => this.messageRoom === messageRoom))
+        .subscribe(() => this.updateChatHistory(messageRoom));
+    });
+  }
+
+  private expertInit = (currentExpertCall: ExpertCall): void => {
     this.participantAvatar = '';
     this.onNewCall(currentExpertCall);
   }
@@ -184,20 +174,15 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   private onMessageSendError = (err: any): void =>
-    this.$log.error('msg send err:', err)
+    this.logger.error('MessengerMaximizedComponentController: msg send err:', err)
 
   private sendMessage = (messageObject: string, context: IMessageContext): void => {
     this.messageRoom ? this.messageRoom.sendMessage(messageObject, context).catch(this.onMessageSendError) :
-      this.$log.error('Can not send message cause room does not exist');
+      this.logger.error('MessengerMaximizedComponentController: Can not send message cause room does not exist');
   }
 
   private onUploadProgess = (res: any): void =>
-    this.$log.debug(res)
-
-  private postProcessOptions: PostFileDetails = {
-    croppingDetails: undefined,
-    fileType: FileTypeEnum.CHAT
-  };
+    this.logger.debug('MessengerMaximizedComponentController: upload progress', res)
 
   private onFileUpload = (res: any): void => {
     this.uploadedFile.progress = false;
@@ -209,7 +194,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   private onFileUploadError = (err: any): void => {
-    this.$log.error(err);
+    this.logger.error(err);
     this.uploadedFile.progress = false;
     this.isFileUploadError = true;
     this.$timeout(() => {
@@ -219,19 +204,11 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private uploadFile = (file: File): ng.IPromise<void> =>
     this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
-    .then(this.onFileUpload, this.onFileUploadError)
+      .then(this.onFileUpload, this.onFileUploadError)
 
   private onTyping = (): void => {
     this.isTyping = true;
     this.scrollMessagesBottom();
     this.$timeout(this.onTypingEnd, this.typingTimeout);
-  }
-
-  private destroy = (): void => {
-    this.participantAvatar = '';
-    this.isTyping = false;
-    this.groupedMessages = [];
-    this.uploadedFile = {};
-    this.messageRoom = undefined;
   }
 }

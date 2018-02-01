@@ -6,15 +6,14 @@ import 'angularjs/common/components/interface/slider/slider';
 import 'angularjs/common/components/expert-profile/experts-consultation-slider/experts-consultation-slider';
 import {
   UserService } from '../../../services/user/user.service';
-import { ClientCallService } from '../../communicator/call-services/client-call.service';
 import { StateService } from '@uirouter/angularjs';
 
-function controller(clientCallService: ClientCallService, userService: UserService, $state: StateService): void {
+function controller(userService: UserService, $state: StateService): void {
 
   this.startCall = (): void => {
     userService.getUser().then((accountDetails) => {
       if (accountDetails) {
-        clientCallService.callServiceId(this.serviceTagsEmployeesTuple.service.id);
+        alert('Sorry, not implemented');
       }
     }).catch(() => {
       $state.go('app.login.account');
@@ -35,7 +34,7 @@ const companySingleConsultation = {
     serviceTagsEmployeesTuple: '<',
     title: '@'
   },
-  controller: ['clientCallService', 'userService', '$state', controller],
+  controller: ['userService', '$state', controller],
   controllerAs: '$ctrl'
 };
 

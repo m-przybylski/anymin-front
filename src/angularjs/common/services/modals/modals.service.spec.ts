@@ -53,14 +53,6 @@ describe('Unit testing: profitelo.services.modals >', () => {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientConsultationSummaryModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-
-      modalsService.createClientConsultationSummaryModal(<any>{})
-
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
-
     it('should create createExpertConsultationSummaryModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 

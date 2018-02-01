@@ -1,8 +1,8 @@
-import { CallSummary } from '../../../../models/CallSummary';
+import { LoggerService } from '@anymind-ng/core';
 import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';
 import { IExpertCallSummary } from '../../../../models/ExpertCallSummary';
-import { MoneyDto, GetTechnicalProblem } from 'profitelo-api-ng/model/models';
-import { ServiceApi } from 'profitelo-api-ng/api/api';
+import { MoneyDto, GetTechnicalProblem, GetCallDetails } from 'profitelo-api-ng/model/models';
+import { ServiceApi, ViewsApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
@@ -15,22 +15,20 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
-  callSummary?: CallSummary;
-  onModalClose: () => void;
-  isFullscreen: boolean;
-  isNavbar: boolean;
-  serviceId: string;
+  serviceUsageEventId: string;
 }
 
-// tslint:disable:member-ordering
 export class ConsultationSummaryExpertController implements ng.IController {
+
+  public static $inject = ['ViewsApi', 'logger', '$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi',
+    'topAlertService', 'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
+  private static readonly minValidClientReportMessageLength = 3;
   public complaintReasons: IComplaintReason[];
   public isFullscreen = true;
   public isNavbar = true;
-  public callSummary?: IExpertCallSummary;
   public isLoading: boolean;
 
-  public clientId: string;
+  public clientNickname: string;
   public serviceName: string;
   public callDuration: number;
   public profit: MoneyDto;
@@ -44,16 +42,14 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public technicalProblemsDescription: string;
 
   private callSummarySubscription: Subscription;
-  private static readonly minValidClientReportMessageLength = 3;
   private sueId: string;
 
   private hideTechnicalProblemsEvent = new Subject<void>();
   private hideReportClientEvent = new Subject<void>();
 
-  public static $inject = ['$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi', 'topAlertService',
-    'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
-
-  constructor(private $scope: IConsultationSummaryExpertControllerScope,
+  constructor(ViewsApi: ViewsApi,
+              private logger: LoggerService,
+              private $scope: IConsultationSummaryExpertControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
               private ServiceApi: ServiceApi,
@@ -64,7 +60,12 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.isLoading = true;
     this.complaintReasons = this.consultationSummaryExpertService.complaintReasons;
     this.callSummarySubscription = this.callSummaryService.onCallSummary(this.onCallSummary);
-    this.loadFromExistingCallSummaries();
+    this.sueId = this.$scope.serviceUsageEventId;
+
+    ViewsApi.getDashboardCallDetailsRoute(this.sueId).then(
+      this.onCallSummaryByRequest,
+      err => this.logger.warn('ConsultationSummaryExpertController: Could not get summary from backend', err)
+    );
   }
 
   public get hideTechnicalProblems$(): Observable<void> {
@@ -130,30 +131,34 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel');
 
-  private onCallSummary = (callSummary: IExpertCallSummary): void => {
-    if (callSummary.service.id === this.$scope.serviceId) {
-      this.callSummary = callSummary;
-      this.isLoading = false;
-      if (this.callSummary.clientAccountDetails) {
-        this.clientId = this.callSummary.clientAccountDetails.clientId;
-        this.clientAvatar = this.callSummary.clientAccountDetails.avatar;
-      }
-      this.serviceName = this.callSummary.service.name;
-      this.profit = this.callSummary.profit;
-      this.callDuration = this.callSummary.callDuration;
-      this.sueId = this.callSummary.serviceUsageEventId;
-      this.clearSummary(callSummary);
+  private onCallSummaryByRequest = (callDetails: GetCallDetails): void => {
+    this.isLoading = false;
+    if (callDetails.clientDetails.nickname) {
+      this.clientNickname = callDetails.clientDetails.nickname;
+    } else {
+      this.clientNickname = callDetails.clientDetails.clientId;
     }
+    this.clientAvatar = callDetails.clientDetails.avatar;
+    this.serviceName = callDetails.service.name;
+    const profit = callDetails.serviceUsageDetails.financialOperation;
+    if (profit) {
+      this.profit = profit;
+    } else {
+      this.logger.debug('ConsultationSummaryExpertController: There were no financial operation');
+    }
+    this.callDuration = callDetails.serviceUsageDetails.callDuration;
   }
 
-  private loadFromExistingCallSummaries = (): void => {
-    const callSummary = this.callSummaryService.getCallSummary(this.$scope.serviceId);
-    if (callSummary && this.callSummaryService.isExpertCallSummary(callSummary))
-      this.onCallSummary(callSummary);
-  }
-
-  private clearSummary = (callSummary: CallSummary): void => {
-    this.callSummarySubscription.unsubscribe();
-    this.callSummaryService.removeCallSummary(callSummary);
+  private onCallSummary = (callSummary: IExpertCallSummary): void => {
+    if (callSummary.serviceUsageEventId === this.sueId) {
+      this.isLoading = false;
+      if (callSummary.clientAccountDetails) {
+        this.clientNickname = callSummary.clientAccountDetails.clientId;
+        this.clientAvatar = callSummary.clientAccountDetails.avatar;
+      }
+      this.serviceName = callSummary.service.name;
+      this.profit = callSummary.profit;
+      this.callDuration = callSummary.callDuration;
+    }
   }
 }

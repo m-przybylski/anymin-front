@@ -1,41 +1,35 @@
+// tslint:disable:max-file-line-count
+import { CommunicatorService, LoggerService, IConnected } from '@anymind-ng/core';
 import { ServiceApi, RatelApi } from 'profitelo-api-ng/api/api';
-import * as RatelSdk from 'ratel-sdk-js';
+import { GetIncomingCallDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { SoundsService } from '../../../services/sounds/sounds.service';
-import { CurrentExpertCall } from '../models/current-expert-call';
+import { ExpertCall } from '../models/current-expert-call';
 import { TimerFactory } from '../../../services/timer/timer.factory';
-import { CallActiveDevice } from 'ratel-sdk-js/dist/protocol/wire-events';
 import { RtcDetectorService } from '../../../services/rtc-detector/rtc-detector.service';
 import { MediaStreamConstraintsWrapper } from '../../../classes/media-stream-constraints-wrapper';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { Call } from 'ratel-sdk-js/dist/protocol/wire-entities';
 import { MicrophoneService } from '../microphone-service/microphone.service';
-import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
+import { CallActiveDevice } from 'ratel-sdk-js/dist/protocol/wire-events';
+import { CallEnd } from 'ratel-sdk-js/dist/protocol/events';
+import { Message } from 'ratel-sdk-js/dist/message';
+import { BusinessCall, Session, Call, callType, CallReason } from 'ratel-sdk-js';
+import { first } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromPromise';
+import { PullableCall } from '../models/pullable-call';
+import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 
-// tslint:disable:member-ordering
-// tslint:disable:max-file-line-count
 export class ExpertCallService {
 
-  private currentExpertCall?: CurrentExpertCall;
-
-  private callingModal: ng.ui.bootstrap.IModalInstanceService;
-  private onEndSubscription?: Subscription;
-
-  private readonly events = {
-    onNewCall: new Subject<CurrentExpertCall>(),
-    onCallPull: new Subject<CurrentExpertCall>(),
-    onCallTaken: new Subject<CallActiveDevice>(),
-    onCallActive: new Subject<Call[]>(),
-    onCallEnd: new Subject<CurrentExpertCall>(),
-    onDisconnectCall: new Subject<void>()
-  };
-
   public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'eventsService',
-    'sessionServiceWrapper'];
+    'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'upgradeService',
+    'eventsService', 'sessionServiceWrapper'];
+
+  private readonly newCallEvent = new Subject<ExpertCall>();
+  private readonly pullableCallEvent = new Subject<PullableCall>();
 
   constructor(private ServiceApi: ServiceApi,
               private timerFactory: TimerFactory,
@@ -46,11 +40,13 @@ export class ExpertCallService {
               private communicatorService: CommunicatorService,
               private microphoneService: MicrophoneService,
               private logger: LoggerService,
+              private upgradeService: UpgradeService,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
-    communicatorService.callInvitationEvent$.subscribe(this.onExpertCallIncoming);
-    communicatorService.connectionEstablishedEvent$.subscribe(this.updateActiveCallStatus);
-    communicatorService.connectionLostEvent$.subscribe(this.notifyOnDisconnectCall);
+    communicatorService.connectionEstablishedEvent$.subscribe(this.checkIncomingCalls);
+    communicatorService.connectionEstablishedEvent$.subscribe(this.checkPullableCalls);
+    communicatorService.callInvitationEvent$.subscribe(
+      (inv) => this.onExpertCallIncoming(inv.session, inv.callInvitation.call));
 
     sessionServiceWrapper.getSession().then(() => communicatorService.authenticate().subscribe());
     eventsService.on('login', () => {
@@ -63,203 +59,226 @@ export class ExpertCallService {
     });
   }
 
-  private updateActiveCallStatus = (connected: IConnected): void => {
-    // FIXME
-    // tslint:disable-next-line:no-floating-promises
+  public get newCall$(): Observable<ExpertCall> {
+    return this.newCallEvent;
+  }
+
+  public get pullableCall$(): Observable<PullableCall> {
+    return this.pullableCallEvent;
+  }
+
+  private handlePullableCall = (session: Session, call: BusinessCall): void => {
+    this.logger.debug('ExpertCallService: Handling pullable call for', call);
+
+    const pullCallback = (): ng.IPromise<ExpertCall> => {
+      this.logger.debug('ExpertCallService: PULLING');
+
+      return this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault()).then(localStream =>
+        this.ServiceApi.getIncomingCallDetailsRoute(call.id).then((incomingCallDetails) => {
+
+          const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory,
+            call, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
+
+          this.logger.debug('ExpertCallService: get call msgs!');
+          call.getMessages().then(msgs => this.logger.debug('ExpertCallService: call msgs', msgs));
+
+          return this.upgradeService.toIPromise(currentExpertCall.pull(localStream).then(() => {
+            currentExpertCall.onEnd(() => this.onAnsweredCallEnd(currentExpertCall));
+            currentExpertCall.onCallTaken(() => this.handlePullableCall(session, call));
+            currentExpertCall.startTimer(incomingCallDetails.sue.freeSeconds);
+            // FIXME https://git.contactis.pl/itelo/profitelo-frontend/issues/416
+            // Using answeredAt will calculate the time wrongly if there were reconnects
+            const answeredAt = incomingCallDetails.sue.answeredAt;
+            if (answeredAt) {
+              currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)));
+            } else {
+              this.logger.error('ExpertCallService: Pulled the call which was not answered');
+            }
+            this.newCallEvent.next(currentExpertCall);
+
+            return currentExpertCall;
+          }));
+        })
+      );
+    };
+
+    this.pullableCallEvent.next(new PullableCall(pullCallback, call));
+  }
+
+  private checkPullableCalls = (connected: IConnected): void => {
     connected.session.chat.getActiveCalls().then((activeCalls) => {
-      if (activeCalls[0]) {
-        this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
-          this.currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, activeCalls[0],
-            this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
-          this.currentExpertCall.onEnd(() => {
-            this.events.onCallEnd.next();
-            this.currentExpertCall = undefined;
-          });
-          this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd);
-          this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
-          this.events.onCallActive.next(activeCalls);
-        });
-      } else this.logger.debug('No active call exists');
-    });
-  }
-
-  private notifyOnDisconnectCall = (): void =>
-    this.events.onDisconnectCall.next()
-
-  public onDisconnectCall = (cb: () => void): Subscription =>
-    this.events.onDisconnectCall.subscribe(cb)
-
-  public onNewCall = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
-    this.events.onNewCall.subscribe(cb)
-
-  public onCallPull = (cb: (currentExpertCall: CurrentExpertCall) => void): Subscription =>
-    this.events.onCallPull.subscribe(cb)
-
-  public onCallTaken = (cb: (activeDevice: CallActiveDevice) => void): Subscription =>
-    this.events.onCallTaken.subscribe(cb)
-
-  public onCallActive = (cb: (activeCalls: Call[]) => void): Subscription => this.events.onCallActive.subscribe(cb);
-
-  public onCallEnd = (cb: () => void): Subscription => this.events.onCallEnd.subscribe(cb);
-
-  private onExpertCallIncoming = (callInvitation: RatelSdk.events.CallInvitation): void => {
-    if (!this.currentExpertCall) {
-      this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
-
-        const currentExpertCall = new CurrentExpertCall(incomingCallDetails, this.timerFactory, callInvitation.call,
-          this.soundsService, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
-
-        this.currentExpertCall = currentExpertCall;
-
-        this.onEndSubscription = this.currentExpertCall.onEnd(this.onExpertCallDisappearBeforeAnswering);
-        this.currentExpertCall.onSuspendedCallEnd(this.onSuspendedCallEnd);
-
-        this.soundsService.callIncomingSound().play();
-
-        this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
-
-        this.callingModal = this.modalsService.createIncomingCallModal(
-          incomingCallDetails.service,
-          () => this.answerCall(currentExpertCall),
-          () => this.rejectCall(currentExpertCall)
-        );
-      });
-    } else {
-      this.logger.info('Received callInvitation but there is a call already');
-    }
-  }
-
-  public pullCall = (): void => {
-    this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
-      .then(localStream => {
-        if (this.currentExpertCall) {
-          // FIXME
-          // tslint:disable-next-line:no-floating-promises
-          this.currentExpertCall.pull(localStream);
-          this.onCallPulled(this.currentExpertCall);
-        } else throw new Error('Call does not exist');
-      }, this.onGetUserMediaStreamFailure)
-      .catch((error) => {
-        this.logger.error(error);
-      });
-  }
-
-  private onCurrentExpertCallTaken = (activeDevice: CallActiveDevice): void => {
-    if (activeDevice.device !== this.communicatorService.getDeviceId()) {
-      // FIXME
-      // tslint:disable-next-line:no-floating-promises
-      this.soundsService.callIncomingSound().stop();
-      this.dismissCallingModal();
-      this.events.onCallTaken.next(activeDevice);
-      if (this.currentExpertCall && this.onEndSubscription) {
-        this.onEndSubscription.unsubscribe();
-        this.onEndSubscription = this.currentExpertCall.onEnd(() => {
-          this.events.onCallEnd.next();
-        });
+      this.logger.debug('ExpertCallService: Received active calls', activeCalls);
+      if (activeCalls.length > 1) {
+        this.logger.debug('ExpertCallService: Abnormal state - received more than 1 active calls, choosing first',
+          activeCalls);
       }
+      const activeCall = activeCalls[0];
+      if (activeCall) {
+        if (callType.isBusiness(activeCall)) {
+          this.handlePullableCall(connected.session, activeCall);
+        } else {
+          this.logger.warn('ActiveCallBarService: Abnormal state - Active call is not BusinessCall, aborting');
+        }
+      }
+    }, (err) => this.logger.warn('ActiveCallBarService: Could not get active calls', err));
+  }
+
+  private checkIncomingCalls = (connected: IConnected): void => {
+    this.logger.debug('ExpertCallService: Reconnected, checking incoming calls');
+    connected.session.chat.getCallsWithPendingInvitations().then((incomingCalls) => {
+      this.logger.debug('ExpertCallService: Received incoming calls', incomingCalls);
+      if (incomingCalls.length > 1) {
+        this.logger.debug('ExpertCallService: Abnormal state - received more incoming calls than 1, choosing first',
+          incomingCalls);
+      }
+      const incomingCall = incomingCalls[0];
+      if (incomingCall) {
+        this.onExpertCallIncoming(connected.session, incomingCall);
+      }
+    }, (err) => this.logger.warn('ExpertCallService: Could not load incoimg calls after successful connection', err));
+  }
+
+  private onExpertCallIncoming = (session: Session, call: Call): void => {
+    if (callType.isBusiness(call)) {
+      this.onExpertBusinessCallIncoming(session, call);
+    } else {
+      this.logger.warn('ExpertCallService: Incoming call was not of BusinessCall type, rejecting');
+      call.reject(CallReason.CallRejected).then(
+        () => this.logger.debug('ExpertCallService: Unsupported call invitation leave successful'),
+        (err) => this.logger.warn('ExpertCallService: Can not leave unsupported call invitation', err));
     }
   }
 
-  private onSuspendedCallEnd = (): void => {
-    // FIXME
-    // tslint:disable-next-line:no-floating-promises
-    this.soundsService.playCallEnded();
-    if (this.currentExpertCall)
-      this.modalsService.createExpertConsultationSummaryModal(this.currentExpertCall.getService().id);
-    else
-      this.logger.error('call does not exist');
-    this.currentExpertCall = undefined;
-  }
+  private onExpertBusinessCallIncoming = (session: Session, call: BusinessCall): void => {
+    this.ServiceApi.getIncomingCallDetailsRoute(call.id).then((incomingCallDetails) => {
 
-  private onExpertCallDisappearBeforeAnswering = (): void => {
-    this.currentExpertCall = undefined;
-    this.dismissCallingModal();
-    this.events.onCallEnd.next();
-    // FIXME
-    // tslint:disable-next-line:no-floating-promises
-    this.soundsService.callIncomingSound().stop();
-    // FIXME
-    // tslint:disable-next-line:no-floating-promises
-    this.soundsService.playCallRejected();
-    this.callingModal.closed.then(this.showMissedCallAlert);
-  }
+      this.soundsService.callIncomingSound().play();
 
-  private answerCall = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> =>
-    this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
-      .then(localStream => {
-        if (this.currentExpertCall) {
-          this.events.onNewCall.next(currentExpertCall);
-          // FIXME
-          // tslint:disable-next-line:no-floating-promises
-          currentExpertCall.answer(localStream);
-          this.onCallAnswered(currentExpertCall);
-        } else {
-          localStream.getTracks().forEach(t => t.stop());
-        }
-      }, this.onGetUserMediaStreamFailure)
-      .catch(this.onAnswerCallError)
+      const callingModal = this.modalsService.createIncomingCallModal(
+        incomingCallDetails.service,
+        (modal) => this.handleAnswerCallInvitation(modal, incomingCallDetails, session, call),
+        (modal) => this.rejectCallInvitation(modal, call)
+      );
 
-  private onGetUserMediaStreamFailure = (err: any): void => {
-    this.logger.debug(err);
-  }
+      this.communicatorService.connectionLostEvent$
+        .pipe(first())
+        .subscribe(() => this.handleConnectionLostWhileCallIncoming(callingModal));
 
-  private onCallPulled = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
-    this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
-    return this.ServiceApi.getIncomingCallDetailsRoute(currentExpertCall.getRatelCallId())
-      .then((incomingCallDetails) => {
-        currentExpertCall.startTimer(incomingCallDetails.sue.freeSeconds);
-        currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)));
-        const session = this.communicatorService.getSession();
-        if (!session) throw new Error('Session not available');
-        if (incomingCallDetails.sue.ratelRoomId)
-          session.chat.getRoom(incomingCallDetails.sue.ratelRoomId).then(businessRoom => {
-            currentExpertCall.setRoom(businessRoom as RatelSdk.BusinessRoom);
-            this.events.onCallPull.next(currentExpertCall);
-          });
-      });
-  }
+      // Client went offline when calling
+      call.onOffline((offline: Message) => this.handleClientWentOfflineBeforeAnswering(offline, call, callingModal));
+      // Client timeouted when calling
+      call.onLeft((left: Message) => this.handleClientLeftBeforeAnswering(left, incomingCallDetails, callingModal));
+      // Call was answered on the other device
+      call.onActiveDevice((active: CallActiveDevice) =>
+        this.handleCallAnsweredOnOtherDevice(active, callingModal, session, call));
+      // Client ended the call when calling
+      call.onEnd((end: CallEnd) => this.handleCallEndedBeforeAnswering(end, callingModal));
 
-  private onCallAnswered = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
-    if (this.onEndSubscription) this.onEndSubscription.unsubscribe();
-    this.soundsService.callIncomingSound().stop();
-    this.onEndSubscription = currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
-    return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
-      const session = this.communicatorService.getSession();
-      if (!session) throw new Error('Session not available');
-      session.chat.getRoom(room.id).then(businessRoom =>
-        currentExpertCall.setBusinessRoom(businessRoom as RatelSdk.BusinessRoom));
+    }, (err) => {
+      this.logger.warn('ExpertCallService: Could not get incoming call details, rejecting the call', err);
+      call.reject(CallReason.CallRejected);
     });
   }
 
-  private onAnswerCallError = (err: any): void =>
-    this.logger.error(err)
+  private handleConnectionLostWhileCallIncoming = (callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+    this.soundsService.callIncomingSound().stop();
+    callingModal.close();
+  }
 
-  private rejectCall = (currentExpertCall: CurrentExpertCall): void => {
-    // FIXME
-    // tslint:disable-next-line:no-floating-promises
-    currentExpertCall.reject().then(() => {
-      // FIXME
-      // tslint:disable-next-line:no-floating-promises
-      this.soundsService.callIncomingSound().stop();
-      // FIXME
-      // tslint:disable-next-line:no-floating-promises
-      this.soundsService.playCallRejected();
-      this.currentExpertCall = undefined;
+  private handleClientWentOfflineBeforeAnswering = (offlineEvent: Message,
+                                                    call: BusinessCall,
+                                                    callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+    this.logger.debug('ExpertCallService: Client went offline when calling, rejecting call', offlineEvent);
+    call.reject(CallReason.CallRejected);
+    callingModal.close();
+    this.soundsService.callIncomingSound().stop();
+    this.soundsService.playCallRejected().catch(
+      (err) => this.logger.warn('ExpertCallService: could not play rejected sound', err));
+  }
+
+  private handleClientLeftBeforeAnswering = (callLeft: Message,
+                                             incomingCallDetails: GetIncomingCallDetails,
+                                             callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+    this.logger.debug('ExpertCallService: Client left from call invitation, ending call', callLeft);
+    callingModal.close();
+    this.soundsService.callIncomingSound().stop();
+    this.soundsService.playCallRejected().catch(
+      (err) => this.logger.warn('ExpertCallService: could not play rejected sound', err));
+    this.RatelApi.postRatelStopCallRoute(incomingCallDetails.sue.id).then(
+      () => this.logger.debug('ExpertCallService: Call ended successfully'),
+      (err) => this.logger.warn('ExpertCallService: Cannot end the call', err));
+  }
+
+  private handleCallAnsweredOnOtherDevice = (callActiveDevice: CallActiveDevice,
+                                             callingModal: ng.ui.bootstrap.IModalInstanceService,
+                                             session: Session,
+                                             call: BusinessCall): void => {
+    this.logger.debug('ExpertCallService: Call was answered on other device', callActiveDevice);
+    callingModal.close();
+    this.soundsService.callIncomingSound().stop();
+    this.handlePullableCall(session, call);
+  }
+
+  private handleCallEndedBeforeAnswering = (callEnd: CallEnd,
+                                            callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+    this.logger.debug('ExpertCallService: Call was ended before expert answer', callEnd);
+    callingModal.closed.then(this.showMissedCallAlert);
+    callingModal.close();
+    this.soundsService.callIncomingSound().stop();
+    this.soundsService.playCallRejected().catch(
+      (err) => this.logger.warn('ExpertCallService: could not play rejected sound', err));
+  }
+
+  private handleAnswerCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance,
+                                        incomingCallDetails: GetIncomingCallDetails,
+                                        session: Session,
+                                        call: BusinessCall): void => {
+    this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault()).then(
+      localStream => {
+
+        const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory,
+          call, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
+
+        currentExpertCall.answer(localStream).then(
+          () => {
+            currentExpertCall.onEnd(() => this.onAnsweredCallEnd(currentExpertCall));
+            currentExpertCall.onCallTaken(() => this.handlePullableCall(session, call));
+            this.newCallEvent.next(currentExpertCall);
+            this.soundsService.callIncomingSound().stop();
+            callingModal.close();
+          },
+          (err) => this.logger.error('ExpertCallService: Could not answer the call', err)
+        );
+      },
+      (err) => this.logger.warn('ExpertCallService: Could not get user media', err));
+  }
+
+  private rejectCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance,
+                                  call: BusinessCall): void => {
+    // Clear callbacks registered in `incoming` state
+    call.onEnd(() => {
     });
+    call.onLeft(() => {
+    });
+
+    call.reject(CallReason.CallRejected).then(
+      () => {
+        this.soundsService.callIncomingSound().stop();
+        callingModal.close();
+        this.soundsService.playCallRejected().then(
+          () => this.logger.debug('ExpertCallService: Played call rejected'),
+          (err) => this.logger.warn('ExpertCallService: could not play call rejected', err));
+        this.logger.debug('ExpertCallService: Call was successfully rejected');
+      },
+      (err) => this.logger.error('ExpertCallService: Error when rejecting the call', err));
   }
 
-  private onExpertCallEnd = (currentExpertCall?: CurrentExpertCall): void => {
-    // FIXME
-    // tslint:disable-next-line:no-floating-promises
-    this.soundsService.playCallEnded();
-    this.events.onCallEnd.next();
-    this.dismissCallingModal();
-    if (currentExpertCall) this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getService().id);
-    this.currentExpertCall = undefined;
-  }
-
-  private dismissCallingModal = (): void => {
-    if (this.callingModal) this.callingModal.close();
+  private onAnsweredCallEnd = (currentExpertCall: ExpertCall): void => {
+    this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getSueId());
+    this.soundsService.playCallEnded().then(
+      () => this.logger.debug('ExpertCallService: call end sound played'),
+      (err) => this.logger.warn('ExpertCallService: Cannot play call end sound', err)
+    );
   }
 
   private showMissedCallAlert = (): void => {

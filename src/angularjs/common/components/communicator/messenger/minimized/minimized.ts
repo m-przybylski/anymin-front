@@ -1,8 +1,9 @@
 import * as angular from 'angular';
 import { MessengerMinimizedComponent } from './minimized.component';
+import { Message } from 'ratel-sdk-js';
 
 export interface IMessengerMinimizedComponentBindings {
-  onMessageClick: (msg: any) => void;
+  onMessageClick(msg: Message): void;
 }
 
 const messengerMinimizedModule = angular.module('profitelo.components.communicator.messenger.minimized', [])

@@ -5,7 +5,6 @@ import { IPrimaryDropdownListElement } from '../../../interface/dropdown-primary
 import { CommonConfig } from '../../../../../../../generated_modules/common-config/common-config';
 import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
 import { ModalsService } from '../../../../services/modals/modals.service';
-import { ClientCallService } from '../../call-services/client-call.service';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { StateService } from '@uirouter/angularjs';
@@ -54,7 +53,7 @@ export class PrecallModalController implements ng.IController {
   private readonly minPrepaidMinutesTimeLimitToCall = 2;
 
   public static $inject = ['$log', '$uibModalInstance', 'FinancesApi', 'PaymentsApi', 'CommonConfig', 'topAlertService',
-    'translatorService', '$state', 'modalsService', 'clientCallService', 'errorHandler', '$scope'];
+    'translatorService', '$state', 'modalsService', 'errorHandler', '$scope'];
 
   constructor(private $log: ng.ILogService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -65,7 +64,6 @@ export class PrecallModalController implements ng.IController {
               private translatorService: TranslatorService,
               private $state: StateService,
               private modalsService: ModalsService,
-              private clientCallService: ClientCallService,
               private errorHandler: ErrorHandlerService,
               private $scope: IPrecallModalControllerScope) {
   }
@@ -161,9 +159,7 @@ export class PrecallModalController implements ng.IController {
       && this.prepaidCallLimitModel !== 0 || this.isPrepaid
       && this.isBalanceEnoughForMinimalCallTime) {
       this.isButtonProgress = true;
-      this.clientCallService.callServiceId(this.service.id).finally(() => {
-        this.onModalClose();
-      });
+      alert('Sorry, not implemented');
     }
   }
 

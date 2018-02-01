@@ -2,16 +2,14 @@ import { IGroupedMessagesComponentBindings } from './grouped-messages';
 import { Message } from 'ratel-sdk-js';
 import { CommunicatorService } from '@anymind-ng/core';
 
-// tslint:disable:member-ordering
 export class GroupedMessagesComponentController implements ng.IController, IGroupedMessagesComponentBindings {
 
+  public static $inject = ['communicatorService'];
   public messages: Message[] = [];
   public participantAvatar = '';
   public isMine = false;
 
-  public static $inject = ['communicatorService'];
-
-    constructor(private communicatorService: CommunicatorService) {
+  constructor(private communicatorService: CommunicatorService) {
   }
 
   public $onChanges = (): void => {

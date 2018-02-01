@@ -9,7 +9,8 @@ export class Config {
   };
 
   public static readonly communicator = {
-    reconnectTimeout: 1000
+    reconnectTimeout: 1000,
+    moneyChangeInterval: 1000
   };
 
   public static readonly backend = {

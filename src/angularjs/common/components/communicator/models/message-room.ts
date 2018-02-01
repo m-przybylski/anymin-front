@@ -1,100 +1,49 @@
-import * as RatelSdk from 'ratel-sdk-js';
-import { SoundsService } from '../../../services/sounds/sounds.service';
-import { Message } from 'ratel-sdk-js';
-import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
+import { Message, BusinessRoom } from 'ratel-sdk-js';
+import { Paginated, HistoryFilter, Context, ID, Timestamp } from 'ratel-sdk-js/dist/protocol/protocol';
+import { RoomTyping, RoomMark } from 'ratel-sdk-js/dist/protocol/events';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
-// tslint:disable:member-ordering
 export class MessageRoom {
 
-  private static readonly chatHistoryLimit = 200;
-  public room?: RatelSdk.BusinessRoom;
+  private readonly messageEvent = new Subject<Message>();
+  private readonly typingEvent = new Subject<RoomTyping>();
+  private readonly markEvent = new Subject<RoomMark>();
 
-  private readonly events = {
-    onTyping: new Subject<void>(),
-    onMark: new Subject<RatelSdk.events.RoomMark>(),
-    onMessage: new Subject<RatelSdk.Message>()
-  };
-
-  public static $inject = ['soundsService'];
-
-  constructor(private soundsService: SoundsService) {
+  constructor(private room: BusinessRoom) {
+    room.onTyping((ev) => this.typingEvent.next(ev));
+    room.onMarked((ev) => this.markEvent.next(ev));
+    room.onCustom('MESSAGE', (ev) => this.messageEvent.next(ev));
   }
 
-  public getHistory = (): Promise<Paginated<Message>> => {
-    if (this.room) {
-      return this.room.getMessages(0, MessageRoom.chatHistoryLimit);
-    } else {
-      return Promise.reject('No room');
-    }
+  public get message$(): Observable<Message> {
+    return this.messageEvent;
   }
 
-  public getUsers = (): Promise<RatelSdk.protocol.ID[]> => {
-    if (this.room) {
-      return this.room.getUsers();
-    } else {
-      return Promise.reject('No room');
-    }
+  public get typing$(): Observable<RoomTyping> {
+    return this.typingEvent;
   }
 
-  public indicateTyping = (): Promise<void> => {
-    if (this.room) {
-      return this.room.indicateTyping();
-    } else {
-      return Promise.reject('No room');
-    }
+  public get mark$(): Observable<RoomMark> {
+    return this.markEvent;
   }
 
-  public sendMessage = (msg: string, context: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
-    if (this.room) {
-      return this.room.sendCustom(msg, 'MESSAGE', context);
-    } else {
-      return Promise.reject('No room');
-    }
-  }
+  public getHistory = (offset: number, limit: number, filter?: HistoryFilter):
+    Promise<Paginated<Message>> =>
+      this.room.getMessages(offset, limit, filter)
 
-  public mark = (timestamp: RatelSdk.protocol.Timestamp): Promise<void> => {
-    if (this.room) {
-      return this.room.setMark(timestamp);
-    } else {
-      return Promise.reject('No room');
-    }
-  }
+  public getUsers = (): Promise<ID[]> =>
+    this.room.getUsers()
 
-  public setRoom = (room: RatelSdk.BusinessRoom): void => {
-    this.room = room;
-    this.registerRoomEvent(room);
-  }
+  public indicateTyping = (): Promise<void> =>
+    this.room.indicateTyping()
 
-  public joinRoom = (room: RatelSdk.BusinessRoom): Promise<void> => {
-    if (!this.room) {
-      this.setRoom(room);
-      return room.join();
-    }
-    else {
-      throw new Error('Room already set');
-    }
-  }
+  public sendMessage = (msg: string, context: Context): Promise<Message> =>
+      this.room.sendCustom(msg, 'MESSAGE', context)
 
-  public onTyping = (cb: () => void): Subscription =>
-    this.events.onTyping.subscribe(cb)
+  public mark = (timestamp: Timestamp): Promise<void> =>
+    this.room.setMark(timestamp)
 
-  public onMark = (cb: (roomMark: RatelSdk.events.RoomMark) => void): Subscription =>
-    this.events.onMark.subscribe(cb)
-
-  public onMessage = (cb: (msg: RatelSdk.Message) => void): Subscription =>
-    this.events.onMessage.subscribe(cb)
-
-  private registerRoomEvent = (room: RatelSdk.BusinessRoom): void => {
-    room.onTyping(() => this.events.onTyping.next());
-    room.onMarked((roomMark) => this.events.onMark.next(roomMark));
-    room.onCustom('MESSAGE', (roomMessage) => {
-      this.events.onMessage.next(roomMessage);
-      // FIXME
-      // tslint:disable-next-line:no-floating-promises
-      this.soundsService.playMessageNew();
-    });
-  }
-
+  public join = (room: BusinessRoom): Promise<void> =>
+    room.join()
 }

@@ -1,8 +1,8 @@
 import { GetService } from 'profitelo-api-ng/model/models';
 
 export interface IExpertIncomingCallParentControllerScope extends ng.IScope {
-  rejectCall: () => void;
-  answerCall: () => void;
+  rejectCall: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void;
+  answerCall: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void;
   service: GetService;
 }
 
@@ -12,24 +12,27 @@ export interface IExpertIncomingCallControllerScope extends ng.IScope {
   $parent: IExpertIncomingCallParentControllerScope;
 }
 
-// tslint:disable:member-ordering
 export class ExpertIncomingCallController implements ng.IController {
-
-  public onModalClose = (): void =>
-    this.$uibModalInstance.dismiss('cancel')
 
   public static $inject = ['$scope', '$uibModalInstance'];
 
-    constructor($scope: IExpertIncomingCallControllerScope,
-              private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+  private isClicked = false;
+
+  constructor($scope: IExpertIncomingCallControllerScope,
+              $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
     $scope.rejectCall = (): void => {
-      $uibModalInstance.dismiss('reject');
-      $scope.$parent.rejectCall();
+      if (!this.isClicked) {
+        this.isClicked = true;
+        $scope.$parent.rejectCall($uibModalInstance);
+      }
     };
 
     $scope.answerCall = (): void => {
-      $scope.$parent.answerCall();
+      if (!this.isClicked) {
+        this.isClicked = true;
+        $scope.$parent.answerCall($uibModalInstance);
+      }
     };
   }
 }
