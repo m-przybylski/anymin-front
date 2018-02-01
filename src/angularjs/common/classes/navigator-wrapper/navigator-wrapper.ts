@@ -45,6 +45,11 @@ export class NavigatorWrapper {
     }
   }
 
+  public hasMoreThanOneCamera = (): Promise<boolean> =>
+    this.navigator.mediaDevices.enumerateDevices()
+      .then(this.recognizeDevices)
+      .then(() => this.videoInputIdArray.length > 1)
+
   private recognizeDevices = (deviceInfos: MediaDeviceInfo[]): void => {
     this.videoInputIdArray =
       deviceInfos

@@ -20,7 +20,7 @@
       span.icon.icon-reject-24
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.END_CALL")
 
-    a.btn.btn-circle.black.switch-camera(data-ng-click="$ctrl.changeCamera()")
+    a.btn.btn-circle.black.switch-camera(data-ng-if="$ctrl.isToogleCameraVisible" data-ng-click="$ctrl.changeCamera()")
       span.icon.icon-reload-24
       span.icon-title(data-translate="COMMUNICATOR.NAVIGATION.CAMERA_SWITCH")
 

@@ -4,6 +4,7 @@ import { ClientCallService } from '../call-services/client-call.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';
 import { TranslatorService } from '../../../services/translator/translator.service';
+import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean;
@@ -22,6 +23,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public areOptions = false;
   public isAudio = true;
   public isVideo: boolean;
+  public isToogleCameraVisible: boolean;
   public isMessenger: boolean;
   public currentCall: CurrentCall;
   public isPlatformForExpert = Config.isPlatformForExpert;
@@ -36,6 +38,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
     clientCallService.onNewCall(this.clearButtonsState);
     expertCallService.onNewCall(this.clearButtonsState);
     expertCallService.onCallPull(this.clearButtonsState);
+    new NavigatorWrapper().hasMoreThanOneCamera().then((val) => this.isToogleCameraVisible = val);
   }
 
   public hangupCall = (): ng.IPromise<RatelCallDetails> =>
