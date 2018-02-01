@@ -17,6 +17,7 @@ import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 
 // tslint:disable:member-ordering
+// tslint:disable:max-file-line-count
 export class ExpertCallService {
 
   private currentExpertCall?: CurrentExpertCall;
@@ -67,6 +68,8 @@ export class ExpertCallService {
   }
 
   private updateActiveCallStatus = (connected: Connected): void => {
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     connected.session.chat.getActiveCalls().then((activeCalls) => {
       if (activeCalls[0]) {
         this.ServiceApi.getIncomingCallDetailsRoute(activeCalls[0].id).then((incomingCallDetails) => {
@@ -134,6 +137,8 @@ export class ExpertCallService {
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault())
       .then(localStream => {
         if (this.currentExpertCall) {
+          // FIXME
+          // tslint:disable-next-line:no-floating-promises
           this.currentExpertCall.pull(localStream);
           this.onCallPulled(this.currentExpertCall);
         } else throw new Error('Call does not exist');
@@ -145,6 +150,8 @@ export class ExpertCallService {
 
   private onCurrentExpertCallTaken = (activeDevice: CallActiveDevice): void => {
     if (activeDevice.device !== this.communicatorService.getDeviceId()) {
+      // FIXME
+      // tslint:disable-next-line:no-floating-promises
       this.soundsService.callIncomingSound().stop();
       this.dismissCallingModal();
       this.events.onCallTaken.next(activeDevice);
@@ -158,6 +165,8 @@ export class ExpertCallService {
   }
 
   private onSuspendedCallEnd = (): void => {
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.soundsService.playCallEnded();
     if (this.currentExpertCall)
       this.modalsService.createExpertConsultationSummaryModal(this.currentExpertCall.getService().id);
@@ -170,7 +179,11 @@ export class ExpertCallService {
     this.currentExpertCall = undefined;
     this.dismissCallingModal();
     this.events.onCallEnd.next();
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.soundsService.callIncomingSound().stop();
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.soundsService.playCallRejected();
     this.callingModal.closed.then(this.showMissedCallAlert);
   }
@@ -180,6 +193,8 @@ export class ExpertCallService {
       .then(localStream => {
         if (this.currentExpertCall) {
           this.events.onNewCall.next(currentExpertCall);
+          // FIXME
+          // tslint:disable-next-line:no-floating-promises
           currentExpertCall.answer(localStream);
           this.onCallAnswered(currentExpertCall);
         } else {
@@ -224,14 +239,22 @@ export class ExpertCallService {
     this.$log.error(err)
 
   private rejectCall = (currentExpertCall: CurrentExpertCall): void => {
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     currentExpertCall.reject().then(() => {
+      // FIXME
+      // tslint:disable-next-line:no-floating-promises
       this.soundsService.callIncomingSound().stop();
+      // FIXME
+      // tslint:disable-next-line:no-floating-promises
       this.soundsService.playCallRejected();
       this.currentExpertCall = undefined;
     });
   }
 
   private onExpertCallEnd = (currentExpertCall?: CurrentExpertCall): void => {
+    // FIXME
+    // tslint:disable-next-line:no-floating-promises
     this.soundsService.playCallEnded();
     this.events.onCallEnd.next();
     this.dismissCallingModal();

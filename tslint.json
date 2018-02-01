@@ -62,7 +62,7 @@
     "no-duplicate-super": true,
     // "no-empty": true,
     // "no-empty-interface": true,
-    // "no-floating-promises": true,
+    "no-floating-promises": true,
     "no-for-in-array": true,
     // "no-implicit-dependencies": true,
     // "no-import-side-effect": true,
