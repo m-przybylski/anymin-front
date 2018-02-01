@@ -8,6 +8,7 @@ import {CurrentExpertCall} from './current-expert-call'
 import {MicrophoneService} from '../microphone-service/microphone.service'
 import {CommunicatorService} from '@anymind-ng/core';
 import { empty } from 'rxjs/observable/empty';
+import {loggerServiceMock} from '../../../services/logger/logger.mock';
 
 describe('Unit tests: current expert call', () => {
 
@@ -62,7 +63,7 @@ describe('Unit tests: current expert call', () => {
     RatelApi = _RatelApi_
     q = $q
     currentExpertCall = new CurrentExpertCall(incomingCallDetails, timerFactory, callInvitation.call,
-       soundsService, communicatorService, RatelApi, microphoneService)
+       soundsService, communicatorService, RatelApi, microphoneService, loggerServiceMock)
   })))
 
   it('should currentExpertCall exist', () => {

@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
-import { CommunicatorService, Connected, LoggerService } from '@anymind-ng/core';
+import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
 
 export enum CallState {
   NEW,
@@ -64,7 +64,7 @@ export class CurrentCall {
   };
 
   public static $inject = ['soundsService', 'ratelCall', 'timerFactory', 'service', 'sue', 'communicatorService',
-    'RatelApi', 'microphoneService'];
+    'RatelApi', 'microphoneService', 'logger'];
 
   constructor(soundsService: SoundsService,
               protected ratelCall: RatelSdk.BusinessCall,
@@ -73,7 +73,8 @@ export class CurrentCall {
               private sue: ServiceUsageEvent,
               private communicatorService: CommunicatorService,
               private RatelApi: RatelApi,
-              private microphoneService: MicrophoneService) {
+              private microphoneService: MicrophoneService,
+              private logger: LoggerService) {
     this.registerCallbacks();
     this.createTimer(service.price);
     this.messageRoom = new MessageRoom(soundsService);
@@ -272,34 +273,34 @@ export class CurrentCall {
     });
 
     this.ratelCall.onOffline((msg) => {
-      LoggerService.debug('CurrentCall: user went offline', msg);
+      this.logger.debug('CurrentCall: user went offline', msg);
       const session = this.communicatorService.getSession();
       if (session) {
         if (msg.userId !== session.id) {
-          LoggerService.debug('CurrentCall: Participant went offline');
+          this.logger.debug('CurrentCall: Participant went offline');
           this.pauseTimer();
           this.events.onParticipantOffline.next();
         }
       } else {
-        LoggerService.error('CurrentCall: received onOffline but there is no session');
+        this.logger.error('CurrentCall: received onOffline but there is no session');
       }
     });
 
     this.ratelCall.onOnline((msg) => {
-      LoggerService.debug('CurrentCall: user went online', msg);
+      this.logger.debug('CurrentCall: user went online', msg);
       const session = this.communicatorService.getSession();
       if (session) {
         if (msg.userId !== session.id) {
-          LoggerService.debug('CurrentCall: Participant went online');
+          this.logger.debug('CurrentCall: Participant went online');
           this.resumeTimer();
           this.events.onParticipantOnline.next();
         }
       } else {
-        LoggerService.error('CurrentCall: received onOnline but there is no session');
+        this.logger.error('CurrentCall: received onOnline but there is no session');
       }
     });
 
-    this.communicatorService.connectionEstablishedEvent$.subscribe((connected: Connected) => {
+    this.communicatorService.connectionEstablishedEvent$.subscribe((connected: IConnected) => {
       connected.session.chat.getActiveCalls().then((activeCalls) => {
         if (!_.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id)) {
           this.stopLocalStream();

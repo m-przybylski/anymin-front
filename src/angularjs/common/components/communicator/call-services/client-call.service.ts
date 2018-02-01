@@ -13,7 +13,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { first } from 'rxjs/operators';
 import { MicrophoneService } from '../microphone-service/microphone.service';
-import { CommunicatorService } from '@anymind-ng/core';
+import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 
 // tslint:disable:member-ordering
 export class ClientCallService {
@@ -25,7 +25,7 @@ export class ClientCallService {
   private readonly onNewCallSubject = new Subject<CurrentClientCall>();
 
   public static $inject = ['communicatorService', '$log', 'timerFactory', 'ServiceApi', 'RatelApi', 'soundsService',
-    'modalsService', '$q', 'profiteloWebsocket', 'microphoneService'];
+    'modalsService', '$q', 'profiteloWebsocket', 'microphoneService', 'logger'];
 
   constructor(private communicatorService: CommunicatorService,
               private $log: ng.ILogService,
@@ -36,7 +36,8 @@ export class ClientCallService {
               private modalsService: ModalsService,
               private $q: ng.IQService,
               private profiteloWebsocket: ProfiteloWebsocketService,
-              private microphoneService: MicrophoneService) {
+              private microphoneService: MicrophoneService,
+              private logger: LoggerService) {
   }
 
   public onNewCall = (cb: (call: CurrentClientCall) => void): Subscription =>
@@ -113,7 +114,7 @@ export class ClientCallService {
               this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
                 new CurrentClientCall(this.timerFactory, ratelCall, stream,
                   sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi,
-                  this.communicatorService, this.microphoneService, sur.expert)))
+                  this.communicatorService, this.microphoneService, sur.expert, this.logger)))
           )
       )
 

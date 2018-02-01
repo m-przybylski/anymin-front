@@ -9,6 +9,7 @@ import navigationModule from './navigation';
 import { INavigationComponentBindings, NavigationComponentController } from './navigation.controller';
 import { CurrentExpertCall } from '../models/current-expert-call';
 import { CurrentClientCall } from '../models/current-client-call';
+import loggerMockModule from '../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.communicator.navigation', () =>
   describe('for communicatorNav component >', () => {
@@ -44,6 +45,7 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
 
     beforeEach(() => {
       angular.mock.module(communicatorModule);
+      angular.mock.module(loggerMockModule);
     });
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {

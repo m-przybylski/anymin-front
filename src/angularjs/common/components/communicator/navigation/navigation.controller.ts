@@ -29,19 +29,20 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public currentCall: CurrentCall;
   public isPlatformForExpert = Config.isPlatformForExpert;
 
-  public static $inject = ['translatorService', 'clientCallService', 'expertCallService'];
+  public static $inject = ['translatorService', 'clientCallService', 'expertCallService', 'logger'];
 
   private changeCameraErrorMessage = this.translatorService.translate('COMMUNICATOR.ERROR.SWITCH_CAMERA');
 
   constructor(private translatorService: TranslatorService,
               clientCallService: ClientCallService,
-              expertCallService: ExpertCallService) {
+              expertCallService: ExpertCallService,
+              logger: LoggerService) {
     clientCallService.onNewCall(this.clearButtonsState);
     expertCallService.onNewCall(this.clearButtonsState);
     expertCallService.onCallPull(this.clearButtonsState);
     new NavigatorWrapper().hasMoreThanOneCamera().then(
       (val) => this.isToogleCameraVisible = val,
-      (err) => LoggerService.warn('NavigationComponentController: Can not get information about media devices', err));
+      (err) => logger.warn('NavigationComponentController: Can not get information about media devices', err));
   }
 
   public hangupCall = (): ng.IPromise<RatelCallDetails> =>
