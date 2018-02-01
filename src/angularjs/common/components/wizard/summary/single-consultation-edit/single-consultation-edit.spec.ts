@@ -1,6 +1,6 @@
-import * as angular from 'angular'
-import singleConsultationEditModule from './single-consultation-edit'
-import {SingleConsultationEditComponentController} from './single-consultation-edit.controller'
+import * as angular from 'angular';
+import singleConsultationEditModule from './single-consultation-edit';
+import { SingleConsultationEditComponentController } from './single-consultation-edit.controller';
 
 describe('Unit testing: profitelo.components.wizard.single-consultation-edit', () => {
   return describe('for single-consultation-edit component >', () => {
@@ -18,6 +18,12 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
       $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
     }))
 
+    const modalsService = {
+      createConfirmAlertModal: (_msg: string, cb: () => void) => {
+        cb();
+      }
+    };
+
     beforeEach(() => {
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
@@ -25,9 +31,9 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
 
         rootScope = $rootScope.$new()
         compile = $compile
-
-        component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
-        })
+        component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {
+          modalsService
+        }, {})
 
       })
     })
@@ -50,9 +56,9 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         description: 'asd',
         language: 'pl'
       }
-      component.onRemove = (): void => {}
+      component.onRemove = (): void => {
+      }
       expect(component.checkIsOnRemoveExist()).toBe(true)
-      spyOn(window, 'confirm').and.returnValue(true)
       spyOn(component, 'onRemove')
       component.removeConsultation()
       expect(component.onRemove).toHaveBeenCalledWith(component.service)
@@ -72,14 +78,15 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         description: 'asd',
         language: 'pl'
       }
-      component.onEdit = (): void => {}
+      component.onEdit = (): void => {
+      }
       expect(component.checkIsOnEditExist()).toBe(true)
       spyOn(component, 'onEdit')
       component.editConsultation()
       expect(component.onEdit).toHaveBeenCalledWith(component.service)
     })
 
-    it('should add employee email', inject(($componentController: ng.IComponentControllerService)  => {
+    it('should add employee email', inject(($componentController: ng.IComponentControllerService) => {
       component.employeeList = []
       component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
         service: {
@@ -102,7 +109,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
       expect(component.employeeList.length).toBe(1)
     }))
 
-    it('should add employee msisdn', inject(($componentController: ng.IComponentControllerService)  => {
+    it('should add employee msisdn', inject(($componentController: ng.IComponentControllerService) => {
       component.employeeList = []
       component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
         service: {
@@ -125,7 +132,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
       expect(component.employeeList.length).toBe(1)
     }))
 
-    it('should not add employee', inject(($componentController: ng.IComponentControllerService)  => {
+    it('should not add employee', inject(($componentController: ng.IComponentControllerService) => {
       component.employeeList = []
       component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
         service: {

@@ -3,9 +3,9 @@ import { CurrentCall } from '../models/current-call';
 import { ClientCallService } from '../call-services/client-call.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';
-import { TranslatorService } from '../../../services/translator/translator.service';
-import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
+import { ModalsService } from '../../../services/modals/modals.service';
 import { LoggerService } from '@anymind-ng/core';
+import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean;
@@ -29,14 +29,12 @@ export class NavigationComponentController implements ng.IController, INavigatio
   public currentCall: CurrentCall;
   public isPlatformForExpert = Config.isPlatformForExpert;
 
-  public static $inject = ['translatorService', 'clientCallService', 'expertCallService', 'logger'];
+  public static $inject = ['modalsService', 'clientCallService', 'expertCallService', 'logger'];
 
-  private changeCameraErrorMessage = this.translatorService.translate('COMMUNICATOR.ERROR.SWITCH_CAMERA');
-
-  constructor(private translatorService: TranslatorService,
-              clientCallService: ClientCallService,
-              expertCallService: ExpertCallService,
-              logger: LoggerService) {
+    constructor(private modalsService: ModalsService,
+                clientCallService: ClientCallService,
+                expertCallService: ExpertCallService,
+                logger: LoggerService) {
     clientCallService.onNewCall(this.clearButtonsState);
     expertCallService.onNewCall(this.clearButtonsState);
     expertCallService.onCallPull(this.clearButtonsState);
@@ -65,7 +63,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
       this.currentCall.changeCamera().then(() => {
         this.isVideo = true;
       }, (_err) => {
-        alert(this.changeCameraErrorMessage);
+        this.modalsService.createInfoAlertModal('COMMUNICATOR.ERROR.SWITCH_CAMERA');
       });
     });
   }

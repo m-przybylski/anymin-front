@@ -118,6 +118,8 @@ import {
 import {
   IAddPaymentMethodControllerScope
 } from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method';
+import { ConfirmAlertController, IConfirmAlertScope } from '../../controllers/confirm-alert/confirm-alert.controller';
+import { IInfoAlertScope, InfoAlertController } from '../../controllers/info-alert/info-alert.controller';
 
 // TODO add types for dialogScope Scopes
 // tslint:disable:member-ordering
@@ -603,7 +605,7 @@ export class ModalsService {
   }
 
   public createServiceFormModal = (onModalClose: () => void,
-                                   service?: GetExpertServiceDetails): IModalInstanceService => {
+                                      service?: GetExpertServiceDetails): IModalInstanceService => {
 
     const dialogScope: IServiceFormModalScope =
       <IServiceFormModalScope>this.$rootScope.$new(true);
@@ -616,6 +618,46 @@ export class ModalsService {
       controller: ServiceFormModalController,
       template: require(
         'angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.html'
+      ),
+      scope: dialogScope
+    });
+  }
+
+  public createConfirmAlertModal = (translationMessage: string,
+                                    onConfirm: () => void,
+                                    onCancel?: () => void): IModalInstanceService => {
+
+    const dialogScope: IConfirmAlertScope =
+      <IConfirmAlertScope>this.$rootScope.$new(true);
+    dialogScope.onCancel = onCancel;
+    dialogScope.translationMessage = translationMessage;
+    dialogScope.onConfirm = onConfirm;
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      windowClass: 'modal-open',
+      controller: ConfirmAlertController,
+      template: require(
+        'angularjs/common/controllers/confirm-alert/confirm-alert.html'
+      ),
+      scope: dialogScope
+    });
+  }
+
+  public createInfoAlertModal = (translationMessage: string,
+                                 onModalClose?: () => void): IModalInstanceService => {
+
+    const dialogScope: IInfoAlertScope =
+      <IInfoAlertScope>this.$rootScope.$new(true);
+    dialogScope.onModalsClose = onModalClose;
+    dialogScope.translationMessage = translationMessage;
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      windowClass: 'modal-open',
+      controller: InfoAlertController,
+      template: require(
+        'angularjs/common/controllers/info-alert/info-alert.html'
       ),
       scope: dialogScope
     });

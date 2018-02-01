@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {ProfileHeaderEditComponentController} from './profile-header-edit.controller'
+import { ProfileHeaderEditComponentController } from './profile-header-edit.controller'
 import profileHeaderEditModule from './profile-header-edit'
 
 describe('Unit testing: profitelo.components.profile.profile-header-edit', () => {
@@ -18,6 +18,12 @@ describe('Unit testing: profitelo.components.profile.profile-header-edit', () =>
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 
+    const modalsService = {
+      createConfirmAlertModal: (_msg: string, cb: () => void) => {
+        cb()
+      }
+    }
+
     beforeEach(() => {
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
@@ -26,7 +32,9 @@ describe('Unit testing: profitelo.components.profile.profile-header-edit', () =>
         rootScope = $rootScope.$new()
         compile = $compile
 
-        injectors = {}
+        injectors = {
+          modalsService
+        }
 
         component = $componentController<ProfileHeaderEditComponentController, {}>('profileHeaderEdit', injectors, {})
 
@@ -38,15 +46,16 @@ describe('Unit testing: profitelo.components.profile.profile-header-edit', () =>
     })
 
     it('should delete profile', () => {
-      component.onDelete = (): void => {}
-      spyOn(window, 'confirm').and.returnValue(true)
+      component.onDelete = (): void => {
+      }
       spyOn(component, 'onDelete')
       component.deleteProfile()
       expect(component.onDelete).toHaveBeenCalled()
     })
 
     it('should edit profile', () => {
-      component.onEdit = (): void => {}
+      component.onEdit = (): void => {
+      }
       spyOn(component, 'onEdit')
       component.editProfile()
       expect(component.onEdit).toHaveBeenCalled()

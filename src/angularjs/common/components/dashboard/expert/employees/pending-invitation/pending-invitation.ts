@@ -7,6 +7,7 @@ import errorHandlerModule from '../../../../../services/error-handler/error-hand
 import topAlertModule from '../../../../../services/top-alert/top-alert';
 import translatorModule from '../../../../../services/translator/translator';
 import { GetInvitation } from 'profitelo-api-ng/model/models';
+import modalsModule from '../../../../../services/modals/modals';
 
 export interface IPendingInvitationComponentBindings extends ng.IController {
   invitations: GetInvitation[];
@@ -20,6 +21,7 @@ const pendingInvitationModule =
   apiModule,
   errorHandlerModule,
   topAlertModule,
+  modalsModule,
   translatorModule
 ])
 .component('pendingInvitation', new PendingInvitationComponent())

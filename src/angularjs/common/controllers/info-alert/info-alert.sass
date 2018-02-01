@@ -1,0 +1,33 @@
+@import "../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+
+.modal-info
+  z-index: $z-index-1200
+  animation: fadeInY 0.6s
+  border-radius: $s-border-radius
+  overflow: hidden
+
+  +xsm
+    position: relative
+    box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+
+  .modal-main
+    background: $c-white
+    border-radius: $s-border-radius
+    padding: 0
+
+    +smm
+      position: relative
+
+    .modal-header
+      padding: 32px
+      text-align: center
+      border: none
+
+      *
+        +default-font-regular
+
+    .modal-container
+      padding: 32px
+      display: flex
+      justify-content: center

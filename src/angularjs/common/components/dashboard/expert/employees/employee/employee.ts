@@ -7,6 +7,7 @@ import apiModule from 'profitelo-api-ng/api.module';
 import errorHandlerModule from '../../../../../services/error-handler/error-handler';
 import topAlertModule from '../../../../../services/top-alert/top-alert';
 import translatorModule from '../../../../../services/translator/translator';
+import modalsModule from '../../../../../services/modals/modals';
 
 export interface IExpertEmployeeComponentBindings extends ng.IController {
   profileWithEmployments: GetProfileDetailsWithEmployments;
@@ -17,6 +18,7 @@ const expertEmployeeModule = angular.module('profitelo.components.dashboard.expe
   'pascalprecht.translate',
   userAvatarModule,
   apiModule,
+  modalsModule,
   errorHandlerModule,
   topAlertModule,
   translatorModule

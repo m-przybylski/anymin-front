@@ -1,0 +1,8 @@
+.modal-info
+  .modal-main.container-medium
+    .modal-header
+      h3 {{ vm.messageText }}
+    .modal-container
+        button.btn.btn-primary(
+        data-ng-click="vm.closeModal()"
+        data-translate="INFO_ALERT.OK")

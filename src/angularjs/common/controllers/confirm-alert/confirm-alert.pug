@@ -1,0 +1,13 @@
+.modal-confirm
+  .modal-main.container-medium
+    .modal-header
+      h3 {{ vm.messageText }}
+    .modal-container
+      .btn-group
+        button.btn.btn-primary(
+        data-ng-click="vm.onCancel()"
+        data-translate="CONFIRM_ALERT.CANCEL_BUTTON")
+
+        button.btn.btn-primary(
+        data-ng-click="vm.onConfirm()"
+        data-translate="CONFIRM_ALERT.CONFIRM_BUTTON")

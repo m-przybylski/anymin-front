@@ -13,6 +13,7 @@ import {
 } from '../../../common/components/navbar/navbar-notifications/navbar-notifications.service';
 import { TranslatorService } from '../../../common/services/translator/translator.service';
 import { TopAlertService } from '../../../common/services/top-alert/top-alert.service';
+import { ModalsService } from '../../../common/services/modals/modals.service';
 
 export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitation {
   tags?: Tag[];
@@ -32,8 +33,6 @@ export class InvitationsModalController implements ng.IController {
   public isLoading = true;
   public isSubmitButtonDisabled = false;
 
-  private confirmWindowMessage =
-    this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.CONFIRM_MESSAGE');
   private services: IGetServiceWithInvitationsAndTags[] = [];
   private acceptedServices: IGetServiceWithInvitationsAndTags[] = [];
 
@@ -43,7 +42,7 @@ export class InvitationsModalController implements ng.IController {
   }
 
   public static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi',
-    'topAlertService', '$q', '$log', 'navbarNotificationsService', 'translatorService', '$scope'];
+    'topAlertService', '$q', '$log', 'navbarNotificationsService', 'translatorService', 'modalsService', '$scope'];
 
     constructor(private $state: StateService,
               private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
@@ -55,6 +54,7 @@ export class InvitationsModalController implements ng.IController {
               private $log: ng.ILogService,
               private navbarNotificationsService: NavbarNotificationsService,
               private translatorService: TranslatorService,
+              private modalsService: ModalsService,
               $scope: IInvitationsModalScope) {
     if ($scope.profileWithServicesInvitations) {
       this.setInvitationData($scope.profileWithServicesInvitations);
@@ -99,9 +99,9 @@ export class InvitationsModalController implements ng.IController {
 
   public submitInvitations = (): void => {
     if (this.acceptedServices.length < this.services.length) {
-      if (confirm(this.confirmWindowMessage)) {
+      this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.CONFIRM_MESSAGE', () => {
         this.processInvitationState();
-      }
+      });
     } else {
       this.processInvitationState();
     }

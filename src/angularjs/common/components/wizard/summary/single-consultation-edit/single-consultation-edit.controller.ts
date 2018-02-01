@@ -1,6 +1,7 @@
 import { ISingleConsultationEditComponentBindings } from './single-consultation-edit';
 import { GetWizardService, WizardTag, MoneyDto } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../services/translator/translator.service';
+import { ModalsService } from '../../../../services/modals/modals.service';
 
 // tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
@@ -18,9 +19,10 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public language: string;
   public description: string;
 
-  public static $inject = ['translatorService'];
+  public static $inject = ['translatorService', 'modalsService'];
 
-    constructor(private translatorService: TranslatorService) {
+  constructor(private translatorService: TranslatorService,
+              private modalsService: ModalsService) {
   }
 
   public $onInit(): void {
@@ -43,10 +45,10 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   }
 
   public removeConsultation = (): void => {
-    const confirmWindowMessage =
-      this.translatorService.translate('WIZARD.SUMMARY.DELETE_SERVICE.BUTTON.CONFIRMATION_MESSAGE');
-    if (this.checkIsOnRemoveExist() && confirm(confirmWindowMessage)) {
-      this.onRemove(this.service);
+    if (this.checkIsOnRemoveExist()) {
+      this.modalsService.createConfirmAlertModal('WIZARD.SUMMARY.DELETE_SERVICE.BUTTON.CONFIRMATION_MESSAGE', () => {
+        this.onRemove(this.service);
+      });
     }
   }
 
