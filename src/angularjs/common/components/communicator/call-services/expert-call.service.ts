@@ -34,7 +34,7 @@ export class ExpertCallService {
   };
 
   public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService', 'logger', 'eventsService',
+    'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'eventsService',
     'sessionServiceWrapper'];
 
   constructor(private ServiceApi: ServiceApi,
