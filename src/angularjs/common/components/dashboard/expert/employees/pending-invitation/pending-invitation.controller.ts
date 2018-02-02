@@ -4,6 +4,7 @@ import { ErrorHandlerService } from '../../../../../services/error-handler/error
 import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../../services/translator/translator.service';
 import { GetInvitation } from 'profitelo-api-ng/model/models';
+import { ModalsService } from '../../../../../services/modals/modals.service';
 
 export interface IPendingInvitationComponentControllerScope extends ng.IScope {
   invitations: GetInvitation[];
@@ -23,13 +24,13 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   private static readonly minRangeOfFewInvitations = 2;
   private static readonly maxRangeOfFewInvitations = 4;
 
-  public static $inject = ['InvitationApi', 'errorHandler', 'topAlertService', 'translatorService'];
+  public static $inject = ['InvitationApi', 'errorHandler', 'topAlertService', 'translatorService', 'modalsService'];
 
-    constructor(
-    private InvitationApi: InvitationApi,
+  constructor(private InvitationApi: InvitationApi,
               private errorHandler: ErrorHandlerService,
               private topAlertService: TopAlertService,
-              private translatorService: TranslatorService) {
+              private translatorService: TranslatorService,
+              private modalsService: ModalsService) {
   }
 
   public $onInit = (): void => {
@@ -43,24 +44,24 @@ export class PendingInvitationComponentController implements IPendingInvitationC
   }
 
   public deleteInvitations = (): void => {
-    const confirmWindowMessage =
-      this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_INVITATION.CONFIRMATION_MESSAGE');
-    if (confirm(confirmWindowMessage)) {
-      const invitationsToDelete = this.invitations.map(invitation => invitation.id);
-      this.InvitationApi.deleteInvitationsRoute({invitationsIds: invitationsToDelete})
-        .then(() => {
-          this.topAlertService.success({
-            message:
-              this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_INVITATION.SUCCESS_MESSAGE'),
-            timeout: 2
+    this.modalsService.createConfirmAlertModal(
+      'DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_INVITATION.CONFIRMATION_MESSAGE', () => {
+        const invitationsToDelete = this.invitations.map(invitation => invitation.id);
+        this.InvitationApi.deleteInvitationsRoute({invitationsIds: invitationsToDelete})
+          .then(() => {
+            this.topAlertService.success({
+              message:
+                this.translatorService.translate(
+                  'DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_INVITATION.SUCCESS_MESSAGE'),
+              timeout: 2
+            });
+            this.areInvitationsDeleted = true;
+            this.onDeleteCallback();
+          })
+          .catch((error) => {
+            this.errorHandler.handleServerError(error, 'Can not delete invitations');
           });
-          this.areInvitationsDeleted = true;
-          this.onDeleteCallback();
-        })
-        .catch((error) => {
-          this.errorHandler.handleServerError(error, 'Can not delete invitations');
-        });
-    }
+      });
   }
 
   private setInvitationText = (invitationsCount: number): string => {

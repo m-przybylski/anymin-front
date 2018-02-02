@@ -1,14 +1,14 @@
 import * as angular from 'angular'
 
-import singleServiceModule, {ISingleServiceComponentBindings} from './single-service'
-import {SingleServiceComponentController} from './single-service.controller'
-import {GetExpertServiceDetails, Tag} from 'profitelo-api-ng/model/models'
+import singleServiceModule, { ISingleServiceComponentBindings } from './single-service'
+import { SingleServiceComponentController } from './single-service.controller'
+import { GetExpertServiceDetails, Tag } from 'profitelo-api-ng/model/models'
 import userModule from '../../../../../services/user/user'
-import {UserService} from '../../../../../services/user/user.service'
-import {ModalsService} from '../../../../../services/modals/modals.service'
-import {EmploymentApiMock} from 'profitelo-api-ng/api/api';
-import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service';
-import {httpCodes} from '../../../../../classes/http-codes'
+import { UserService } from '../../../../../services/user/user.service'
+import { ModalsService } from '../../../../../services/modals/modals.service'
+import { EmploymentApiMock } from 'profitelo-api-ng/api/api';
+import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';
+import { httpCodes } from '../../../../../classes/http-codes';
 
 describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.single-service', () =>
   describe('for singleService >', () => {
@@ -23,7 +23,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
     let EmploymentApiMock: EmploymentApiMock
     let errorHandler: ErrorHandlerService
 
-    const userService: UserService  = <UserService>{
+    const userService: UserService = <UserService>{
       getUser: {}
     }
 
@@ -97,7 +97,8 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
         }
 
         const bindings: ISingleServiceComponentBindings = {
-          onModalClose: (): void => {},
+          onModalClose: (): void => {
+          },
           serviceDetails
         }
 
@@ -117,12 +118,14 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
 
     it('should show error when delete employment failed', () => {
       component.isOwnerOfService = false
-      spyOn(window, 'confirm').and.returnValue(true)
       spyOn(errorHandler, 'handleServerError')
-      EmploymentApiMock.deleteEmploymentForServiceRoute(httpCodes.badRequest, 'id')
-      component.suspendProvideService()
-      $httpBackend.flush()
-      expect(errorHandler.handleServerError).toHaveBeenCalled()
+      spyOn(modalsService, 'createConfirmAlertModal').and.callFake((_msg: string, cb: () => void) => {
+        cb();
+      });
+      EmploymentApiMock.deleteEmploymentForServiceRoute(httpCodes.badRequest, 'id');
+      component.suspendProvideService();
+      $httpBackend.flush();
+      expect(errorHandler.handleServerError).toHaveBeenCalled();
     })
   })
 )

@@ -1,5 +1,5 @@
 import { GetExpertDetails, ProfileDocument } from 'profitelo-api-ng/model/models';
-import { TranslatorService } from '../../../../services/translator/translator.service';
+import { ModalsService } from '../../../../services/modals/modals.service';
 
 export interface IProfileHeaderEditComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails;
@@ -8,7 +8,7 @@ export interface IProfileHeaderEditComponentBindings extends ng.IController {
   onEdit?: () => void;
 }
 
-export enum  ProfileTypes {
+export enum ProfileTypes {
   'company',
   'expert'
 }
@@ -24,9 +24,9 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   public onDelete?: () => void;
   public onEdit?: () => void;
 
-  public static $inject = ['translatorService'];
+  public static $inject = ['modalsService'];
 
-    constructor(private translatorService: TranslatorService) {
+  constructor(private modalsService: ModalsService) {
     this.editLink = 'app.wizard.create-profile.expert';
   }
 
@@ -40,11 +40,9 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
     this.profileType === ProfileTypes.expert
 
   public deleteProfile = (): void => {
-    const confirmWindowMessage =
-      this.translatorService.translate('WIZARD.SUMMARY.DELETE_PROFILE.BUTTON.CONFIRMATION_MESSAGE');
-    if (this.onDelete && typeof this.onDelete === 'function' && confirm(confirmWindowMessage)) {
-      this.onDelete();
-    }
+    this.modalsService.createConfirmAlertModal('WIZARD.SUMMARY.DELETE_PROFILE.BUTTON.CONFIRMATION_MESSAGE', () => {
+      if (this.onDelete && typeof this.onDelete === 'function') this.onDelete();
+    });
   }
 
   public editProfile = (): void => {

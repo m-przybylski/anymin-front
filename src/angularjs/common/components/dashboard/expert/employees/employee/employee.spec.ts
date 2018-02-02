@@ -5,6 +5,7 @@ import {ExpertEmployeeComponentController, IExpertEmployeeComponentControllerSco
 import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service'
 import {EmploymentApiMock} from 'profitelo-api-ng/api/api';
 import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
+import { ModalsService } from '../../../../../services/modals/modals.service';
 
 describe('Unit testing: profitelo.components.dashboard.expert.employees.employee', () =>
   describe('for expertEmployee >', () => {
@@ -16,6 +17,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.employee
     let component: ExpertEmployeeComponentController
     let topAlertService: TopAlertService
     let EmploymentApiMock: EmploymentApiMock
+    let modalsService: ModalsService
     const errorHandler: ErrorHandlerService = <ErrorHandlerService>{
       handleServerError: (_err: any, _logMessage: string): void => {}
     }
@@ -61,13 +63,15 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.employee
               _$componentController_: ng.IComponentControllerService,
               _$httpBackend_: ng.IHttpBackendService,
               _topAlertService_: TopAlertService,
-              _EmploymentApiMock_: EmploymentApiMock) => {
+              _EmploymentApiMock_: EmploymentApiMock,
+              _modalsService_: ModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         httpBackend = _$httpBackend_
         topAlertService = _topAlertService_
         EmploymentApiMock = _EmploymentApiMock_
+        modalsService = _modalsService_
       })
 
       component = componentController<ExpertEmployeeComponentController, {}>('expertEmployee',
@@ -86,7 +90,9 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.employee
 
     it('should show error when delete employee failed', () => {
       spyOn(errorHandler, 'handleServerError')
-      spyOn(window, 'confirm').and.returnValue(true)
+      spyOn(modalsService, 'createConfirmAlertModal').and.callFake((_msg: string, cb: () => void) => {
+        cb();
+      });
       EmploymentApiMock.deleteEmploymentsRoute(500)
       component.deleteEmployee()
       httpBackend.flush()
@@ -95,7 +101,9 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.employee
 
     it('should delete employee', () => {
       spyOn(topAlertService, 'success')
-      spyOn(window, 'confirm').and.returnValue(true)
+      spyOn(modalsService, 'createConfirmAlertModal').and.callFake((_msg: string, cb: () => void) => {
+        cb();
+      });
       EmploymentApiMock.deleteEmploymentsRoute(200, {employmentIds: ['id']})
       component.deleteEmployee()
       httpBackend.flush()

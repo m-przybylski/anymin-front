@@ -8,6 +8,7 @@ import {TopAlertService} from '../../../../../services/top-alert/top-alert.servi
 import {GetInvitation} from 'profitelo-api-ng/model/models';
 import {InvitationApiMock} from 'profitelo-api-ng/api/api';
 import {httpCodes} from '../../../../../classes/http-codes'
+import { ModalsService } from '../../../../../services/modals/modals.service';
 
 describe('Unit testing: profitelo.components.dashboard.expert.employees.pending-invitation', () =>
   describe('for pendingInvitation >', () => {
@@ -19,6 +20,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.pending-
     let component: PendingInvitationComponentController
     let topAlertService: TopAlertService
     let InvitationApiMock: InvitationApiMock
+    let modalsService: ModalsService
     const errorHandler: ErrorHandlerService = <ErrorHandlerService>{
       handleServerError: (_err: any, _logMessage: string): void => {}
     }
@@ -61,13 +63,15 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.pending-
               _$componentController_: ng.IComponentControllerService,
               _$httpBackend_: ng.IHttpBackendService,
               _topAlertService_: TopAlertService,
-              _InvitationApiMock_: InvitationApiMock) => {
+              _InvitationApiMock_: InvitationApiMock,
+              _modalsService_: ModalsService ) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         httpBackend = _$httpBackend_
         topAlertService = _topAlertService_
         InvitationApiMock = _InvitationApiMock_
+        modalsService = _modalsService_
       })
 
       component = componentController<PendingInvitationComponentController, {}>('pendingInvitation',
@@ -86,8 +90,10 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.pending-
 
     it('should show error when delete invitations failed', () => {
       spyOn(errorHandler, 'handleServerError')
-      spyOn(window, 'confirm').and.returnValue(true)
       InvitationApiMock.deleteInvitationsRoute(httpCodes.notFound)
+      spyOn(modalsService, 'createConfirmAlertModal').and.callFake((_msg: string, cb: () => void) => {
+        cb();
+      });
       component.deleteInvitations()
       httpBackend.flush()
       expect(errorHandler.handleServerError).toHaveBeenCalled()
@@ -95,8 +101,10 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.pending-
 
     it('should delete invitations', () => {
       spyOn(topAlertService, 'success')
-      spyOn(window, 'confirm').and.returnValue(true)
       InvitationApiMock.deleteInvitationsRoute(httpCodes.ok, {invitationsIds: 'id'})
+      spyOn(modalsService, 'createConfirmAlertModal').and.callFake((_msg: string, cb: () => void) => {
+        cb();
+      });
       component.deleteInvitations()
       httpBackend.flush()
       expect(topAlertService.success).toHaveBeenCalled()

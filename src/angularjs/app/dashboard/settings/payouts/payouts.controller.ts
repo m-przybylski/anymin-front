@@ -36,14 +36,12 @@ export class DashboardSettingsPayoutsController implements ng.IController {
   }
 
   public deletePaymentMethod = (): void => {
-    const confirmWindowMessage =
-      this.translatorService.translate('SETTINGS.PAYMENTS.DELETE_METHOD.CONFIRM_MESSAGE');
-    if (confirm(confirmWindowMessage)) {
-      this.payoutsService.putPayoutMethod().then(() => {
-        this.isAnyPayoutMethod = false;
-        this.showSuccessAlert();
+      this.modalsService.createConfirmAlertModal('SETTINGS.PAYMENTS.DELETE_METHOD.CONFIRM_MESSAGE', () => {
+        this.payoutsService.putPayoutMethod().then(() => {
+          this.isAnyPayoutMethod = false;
+          this.showSuccessAlert();
       });
-    }
+    });
   }
 
   public addPayoutMethod = (): void => {

@@ -11,7 +11,6 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Call } from 'ratel-sdk-js/dist/protocol/wire-entities';
 import { MicrophoneService } from '../microphone-service/microphone.service';
-import { TranslatorService } from '../../../services/translator/translator.service';
 import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
@@ -25,8 +24,6 @@ export class ExpertCallService {
   private callingModal: ng.ui.bootstrap.IModalInstanceService;
   private onEndSubscription?: Subscription;
 
-  private missedCallAlertMessage = this.translatorService.translate('COMMUNICATOR.MISSED_CALL_ALERT_MESSAGE');
-
   private readonly events = {
     onNewCall: new Subject<CurrentExpertCall>(),
     onCallPull: new Subject<CurrentExpertCall>(),
@@ -36,20 +33,18 @@ export class ExpertCallService {
     onDisconnectCall: new Subject<void>()
   };
 
-  public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', '$log', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService', 'translatorService', 'logger', 'eventsService',
+  public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', 'rtcDetectorService',
+    'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'eventsService',
     'sessionServiceWrapper'];
 
   constructor(private ServiceApi: ServiceApi,
               private timerFactory: TimerFactory,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
-              private $log: ng.ILogService,
               private rtcDetectorService: RtcDetectorService,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private microphoneService: MicrophoneService,
-              private translatorService: TranslatorService,
               private logger: LoggerService,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
@@ -84,7 +79,7 @@ export class ExpertCallService {
           this.currentExpertCall.onCallTaken(this.onCurrentExpertCallTaken);
           this.events.onCallActive.next(activeCalls);
         });
-      } else this.$log.debug('No active call exists');
+      } else this.logger.debug('No active call exists');
     });
   }
 
@@ -130,7 +125,7 @@ export class ExpertCallService {
         );
       });
     } else {
-      this.$log.info('Received callInvitation but there is a call already');
+      this.logger.info('Received callInvitation but there is a call already');
     }
   }
 
@@ -145,7 +140,7 @@ export class ExpertCallService {
         } else throw new Error('Call does not exist');
       }, this.onGetUserMediaStreamFailure)
       .catch((error) => {
-        this.$log.error(error);
+        this.logger.error(error);
       });
   }
 
@@ -158,7 +153,7 @@ export class ExpertCallService {
       this.events.onCallTaken.next(activeDevice);
       if (this.currentExpertCall && this.onEndSubscription) {
         this.onEndSubscription.unsubscribe();
-        this.onEndSubscription  = this.currentExpertCall.onEnd(() => {
+        this.onEndSubscription = this.currentExpertCall.onEnd(() => {
           this.events.onCallEnd.next();
         });
       }
@@ -172,7 +167,7 @@ export class ExpertCallService {
     if (this.currentExpertCall)
       this.modalsService.createExpertConsultationSummaryModal(this.currentExpertCall.getService().id);
     else
-      this.$log.error('call does not exist');
+      this.logger.error('call does not exist');
     this.currentExpertCall = undefined;
   }
 
@@ -205,7 +200,7 @@ export class ExpertCallService {
       .catch(this.onAnswerCallError)
 
   private onGetUserMediaStreamFailure = (err: any): void => {
-    this.$log.debug(err);
+    this.logger.debug(err);
   }
 
   private onCallPulled = (currentExpertCall: CurrentExpertCall): ng.IPromise<void> => {
@@ -237,7 +232,7 @@ export class ExpertCallService {
   }
 
   private onAnswerCallError = (err: any): void =>
-    this.$log.error(err)
+    this.logger.error(err)
 
   private rejectCall = (currentExpertCall: CurrentExpertCall): void => {
     // FIXME
@@ -268,6 +263,6 @@ export class ExpertCallService {
   }
 
   private showMissedCallAlert = (): void => {
-    alert(this.missedCallAlertMessage);
+    this.modalsService.createInfoAlertModal('COMMUNICATOR.MISSED_CALL_ALERT_MESSAGE');
   }
 }
