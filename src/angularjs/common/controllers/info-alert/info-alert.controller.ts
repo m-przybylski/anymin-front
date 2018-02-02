@@ -1,7 +1,7 @@
 import { TranslatorService } from '../../services/translator/translator.service';
 
 export interface IInfoAlertScope extends ng.IScope {
-  onModalsClose?: () => void;
+  onModalClose?: () => void;
   translationMessage: string;
 }
 
@@ -18,6 +18,6 @@ export class InfoAlertController {
 
   public closeModal = (): void => {
     this.$uibModalInstance.close();
-    if (this.$scope.onModalsClose) this.$scope.onModalsClose();
+    if (this.$scope.onModalClose) this.$scope.onModalClose();
   }
 }

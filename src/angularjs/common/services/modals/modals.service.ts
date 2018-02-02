@@ -649,7 +649,7 @@ export class ModalsService {
 
     const dialogScope: IInfoAlertScope =
       <IInfoAlertScope>this.$rootScope.$new(true);
-    dialogScope.onModalsClose = onModalClose;
+    dialogScope.onModalClose = onModalClose;
     dialogScope.translationMessage = translationMessage;
 
     return this.dialogService.openDialog({

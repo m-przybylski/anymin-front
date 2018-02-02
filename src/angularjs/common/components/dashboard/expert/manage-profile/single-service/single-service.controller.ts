@@ -59,18 +59,17 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   }
 
   private deleteService = (): void => {
-      this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT');
-      this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
-        () => {
-          this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then(() => {
-            this.topAlertService.success({
-              message:
-                this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
-              timeout: 2
-            });
-            this.isDeleted = true;
-          }, this.onReject);
-        });
+    this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
+      () => {
+        this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then(() => {
+          this.topAlertService.success({
+            message:
+              this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
+            timeout: 2
+          });
+          this.isDeleted = true;
+        }, this.onReject);
+      });
   }
 
   private deleteEmployment = (): void => {
