@@ -54,7 +54,12 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     if (this.currentCall) {
       this.currentCall.hangup().then(
         () => this.logger.debug('NavigationComponentController: Call hanged up'),
-        (err) => this.logger.error('NavigationComponentController: Could not hangup the call', err));
+        (err) => this.logger.error('NavigationComponentController: Could not hangup the call', err))
+        .catch(() => {
+          if (this.currentCall) {
+            this.currentCall.forceEndCall();
+          }
+        });
     } else {
       this.logger.error('NavigationComponentController: Cannot hangup the call, there is no call');
     }
