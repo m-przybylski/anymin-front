@@ -91,6 +91,10 @@ export class CompanyController implements ng.IController {
       // tslint:disable-next-line:no-non-null-assertion
       this.currentWizardState.organizationDetailsOption!.links = this.linksModel;
       this.currentWizardState.isSummary = true;
+      if (this.isPlatformForExpert) {
+        // tslint:disable-next-line:no-non-null-assertion
+        this.currentWizardState.organizationDetailsOption!.description = this.descriptionModel;
+      }
       this.saveWizardState(this.currentWizardState).then(() => {
         this.$state.go('app.wizard.summary');
       });
