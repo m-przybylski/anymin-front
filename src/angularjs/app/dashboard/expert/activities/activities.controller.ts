@@ -93,6 +93,7 @@ export class DashboardExpertActivitiesController {
           currentResultsCount: getActivities.activities.length,
           allResultsCount: getActivities.count
         };
+        this.areActivities = true;
         this.areFilteredResults = getActivities.count > 0;
         this.areMoreResults = getActivities.count > getActivities.activities.length;
       });
