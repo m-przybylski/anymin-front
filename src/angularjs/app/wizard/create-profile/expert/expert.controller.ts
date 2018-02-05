@@ -94,6 +94,10 @@ export class ExpertController implements ng.IController {
       // tslint:disable-next-line:no-non-null-assertion
       this.currentWizardState.expertDetailsOption!.links = this.linksModel;
       this.currentWizardState.isSummary = true;
+      if (this.isPlatformForExpert) {
+        // tslint:disable-next-line:no-non-null-assertion
+        this.currentWizardState.expertDetailsOption!.description = this.descriptionModel;
+      }
       this.saveWizardState(this.currentWizardState).then(() => {
         this.$state.go('app.wizard.summary');
       });
