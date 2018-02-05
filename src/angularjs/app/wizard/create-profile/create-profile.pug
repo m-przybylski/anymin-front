@@ -1,7 +1,7 @@
 section.create-profile
   .container-big
     preloader(data-is-loading="vm.isLoading")
-      p.information-text(data-translate="WIZARD.STEP.DIRECTORY.INFORMATION")
+      p.information-text(data-ng-if="!vm.isSummary" data-translate="WIZARD.STEP.DIRECTORY.INFORMATION")
       header.entry-title.choose-path(data-ng-if="!vm.isSummary")
         span {{:: 'WIZARD.STEP.TITLE' | translate }}
 
