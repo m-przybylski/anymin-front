@@ -5,8 +5,8 @@
 *   `nginx`
 
 ## Installation
-Download repository and inside:
-
+- Download repository and inside:
+- 
 > If you setup frontend localy with local domains, **DO NOT FORGET** to change
 > `profitelo.urls.frontend` into `config.json` to those set into your server config,
 > to avoid domains mismatch errors.
@@ -18,30 +18,42 @@ git submodule init
 git submodule update
 npm run tr
 npm run cc
-npm run serve
+npm run start
 ```
 
-testing:
+- testing:
 ```bash
 npm run test
 ```
 
-create component
+- create component
 ```bash
 npm run component [name]
 ```
 
-download translations from tr
+- download translations from tr
 ```
 npm run tr
 ```
 
-generate common config
+- choose environment
+
+available `env_name`:
+ - build-dev
+ - build-stage
+ - build-prod
+ - integration-test
+ 
+```
+export PROFITELO_ENV=env_name
+```
+
+- generate common config
 ```
 npm run cc
 ```
 
-generate new api client
+- generate new api client
 ```
 brew install swagger-codegen
 cd src/common/api
