@@ -9,12 +9,12 @@ function proCalendar(): IDirective<ng.IScope> {
   const dateFormatIndex = 2;
 
   function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
-    scope.today = function (): void {
+    scope.today = function(): void {
       scope.dt = new Date();
     };
     scope.today();
 
-    scope.clear = function (): void {
+    scope.clear = function(): void {
       scope.dt = null;
     };
 
@@ -47,25 +47,62 @@ function proCalendar(): IDirective<ng.IScope> {
       formatYear: 'yy',
       maxDate: new Date(maxDateYear, maxDateMonth, maxDateDay),
       startingDay: 1,
-      showWeeks: false
+      showWeeks: true,
+      dateDisabled: disabled
     };
 
-    scope.toggleMin = function (): void {
+    function isDisabledDateDateFrom(data: any): boolean {
+
+      if (data.date.getTime() > new Date().getTime()) {
+        return true;
+      }
+
+      if (scope.dateTo === '' || scope.dateTo === null) {
+        return false;
+      }
+
+      return data.date.getTime() > scope.dateTo.getTime();
+    }
+
+    function isDisabledDateDateTo(data: any): boolean {
+
+      if (data.date.getTime() > new Date().getTime()) {
+        return true;
+      }
+
+      if (scope.dateFrom === '' || scope.dateFrom === null) {
+        return false;
+      }
+
+      return data.date.getTime() < scope.dateFrom.getTime();
+    }
+
+    function disabled(data: any): boolean {
+      // This is made only for demo purposes, whole calendar logic should be rewritten, this is shiet
+      if (scope.defaultValue === 'dateFrom') {
+        return isDisabledDateDateFrom(data);
+      } else if (scope.defaultValue === 'dateTo') {
+        return isDisabledDateDateTo(data);
+      }
+      return false;
+    }
+
+    scope.toggleMin = function(): void {
       scope.inlineOptions.minDate = scope.inlineOptions.minDate ? null : new Date();
       scope.dateOptions.minDate = scope.inlineOptions.minDate;
     };
 
     scope.toggleMin();
 
-    scope.open1 = function (): void {
+    scope.open1 = function(): void {
       scope.popup1.opened = true;
     };
 
-    scope.open2 = function (): void {
+    scope.open2 = function(): void {
       scope.popup2.opened = true;
     };
 
-    scope.setDate = function (year: number, month: number, day: number): void {
+    scope.setDate = function(year: number, month: number, day: number): void {
       scope.dt = new Date(year, month, day);
     };
 
@@ -105,6 +142,8 @@ function proCalendar(): IDirective<ng.IScope> {
     link: linkFunction,
     scope: {
       ngModel: '=',
+      dateFrom: '=',
+      dateTo: '=',
       placeholder: '@',
       defaultValue: '@',
       label: '@'
