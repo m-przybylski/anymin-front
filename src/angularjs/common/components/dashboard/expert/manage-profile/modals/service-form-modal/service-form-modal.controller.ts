@@ -156,8 +156,13 @@ export class ServiceFormModalController implements ng.IController {
     && this.consultationTags.length >= this.consultationTagsMinCount
     && this.consultationTags.length <= this.consultationTagsMaxCount
 
-  public isLanguageValid = (): boolean => this.consultationLanguage !== undefined
-    && this.consultationLanguage.name.length > 0
+  public isLanguageValid = (): boolean => {
+    if (this.isPlatformForExpert) {
+      return true;
+    } else {
+      return this.consultationLanguage !== undefined && this.consultationLanguage.name.length > 0;
+    }
+  }
 
   public isDescriptionValid = (): boolean => this.consultationDescriptionPattern.test(this.consultationDescription);
 

@@ -3,7 +3,7 @@
     top-modal-navbar(data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
       form(name="editProfileForm" novalidate)
-        .modal-section
+        .modal-section(data-ng-if="!vm.isPlatformForExpert")
           dropdown-primary(
           data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_LANGUAGE_TITLE"
           data-main-list="vm.languagesList"
