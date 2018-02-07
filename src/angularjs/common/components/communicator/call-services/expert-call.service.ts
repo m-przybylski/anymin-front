@@ -21,6 +21,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import { PullableCall } from '../models/pullable-call';
 import { UpgradeService } from '../../../services/upgrade/upgrade.service';
+import { Config } from '../../../../../config';
 
 export class ExpertCallService {
 
@@ -108,7 +109,7 @@ export class ExpertCallService {
   private checkPullableCalls = (connected: IConnected): void => {
     connected.session.chat.getActiveCalls().then((activeCalls) => {
       this.logger.debug('ExpertCallService: Received active calls', activeCalls);
-      if (activeCalls.length > 1) {
+      if (activeCalls.length > Config.communicator.maxSimultaneousCallsCount) {
         this.logger.debug('ExpertCallService: Abnormal state - received more than 1 active calls, choosing first',
           activeCalls);
       }
@@ -127,7 +128,7 @@ export class ExpertCallService {
     this.logger.debug('ExpertCallService: Reconnected, checking incoming calls');
     connected.session.chat.getCallsWithPendingInvitations().then((incomingCalls) => {
       this.logger.debug('ExpertCallService: Received incoming calls', incomingCalls);
-      if (incomingCalls.length > 1) {
+      if (incomingCalls.length > Config.communicator.maxSimultaneousCallsCount) {
         this.logger.debug('ExpertCallService: Abnormal state - received more incoming calls than 1, choosing first',
           incomingCalls);
       }
