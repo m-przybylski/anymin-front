@@ -3,7 +3,7 @@ import { ServiceApi } from 'profitelo-api-ng/api/api';
 import { GetTechnicalProblem } from 'profitelo-api-ng/model/models';
 
 export interface IComplaintReason {
-  id: string;
+  id: GetTechnicalProblem.ProblemTypeEnum;
   isDescriptionRequired: boolean;
   name: string;
   label: string;
@@ -14,28 +14,28 @@ export class ConsultationSummaryExpertService implements ng.IController {
 
   public complaintReasons: IComplaintReason[] = [
     {
-      id: 'EXPERT_COULD_NOT_HEAR_CLIENT',
+      id: GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT,
       isDescriptionRequired: false,
       name: 'complaintForm',
       label: this.translatorService.translate(
         'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.CLIENT_COULD_NOT_HEAR_EXPERT')
     },
     {
-      id: 'CLIENT_COULD_NOT_HEAR_EXPERT',
+      id: GetTechnicalProblem.ProblemTypeEnum.CLIENTCOULDNOTHEAREXPERT,
       isDescriptionRequired: false,
       name: 'complaintForm',
       label: this.translatorService.translate(
         'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.EXPERT_COULD_NOT_HEAR_CLIENT')
     },
     {
-      id: 'NOISE',
+      id: GetTechnicalProblem.ProblemTypeEnum.NOISE,
       isDescriptionRequired: false,
       name: 'complaintForm',
       label: this.translatorService.translate(
         'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.NOISE')
     },
     {
-      id: 'OTHER',
+      id: GetTechnicalProblem.ProblemTypeEnum.OTHER,
       isDescriptionRequired: true,
       name: 'complaintForm',
       label: this.translatorService.translate(
