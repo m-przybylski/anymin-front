@@ -14,6 +14,7 @@ import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information';
 import { StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
+import loggerModule from '../../../../common/services/logger/logger';
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
   'profitelo.components.interface.preloader-container',
@@ -23,6 +24,7 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
   expertActivitiesModule,
   expertActivityModule,
   promiseModule,
+  loggerModule,
   errorHandlerModule,
   noResultsInformationModule
 ])
