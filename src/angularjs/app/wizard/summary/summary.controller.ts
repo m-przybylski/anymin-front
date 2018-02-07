@@ -1,3 +1,4 @@
+// tslint:disable:max-file-line-count
 import {
   GetWizardProfile,
   PartialExpertDetails,
@@ -18,6 +19,7 @@ import {
 import { StateService } from '@uirouter/angularjs';
 import { TopAlertService } from '../../../common/services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../common/services/translator/translator.service';
+import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 
 // tslint:disable:member-ordering
 // tslint:disable:strict-type-predicates
@@ -34,8 +36,11 @@ export class SummaryController implements ng.IController {
   public isConsultationInvitationAccepted = false;
   public acceptedServices: GetServiceWithInvitation[];
 
+  private namePattern: RegExp;
+  private descriptionPattern: RegExp;
+
   public static $inject = ['$state', 'errorHandler', 'WizardApi', 'topAlertService', 'wizardProfile', 'userService',
-    'InvitationApi', '$filter', '$q', 'navbarNotificationsService', '$log'];
+    'InvitationApi', '$filter', '$q', 'navbarNotificationsService', '$log', 'CommonSettingsService'];
 
   // tslint:disable-next-line:cyclomatic-complexity
   constructor(private $state: StateService,
@@ -48,9 +53,10 @@ export class SummaryController implements ng.IController {
               private translatorService: TranslatorService,
               private $q: ng.IQService,
               private navbarNotificationsService: NavbarNotificationsService,
-              private $log: ng.ILogService) {
-
+              private $log: ng.ILogService,
+              private CommonSettingsService: CommonSettingsService) {
     this.setInvitationsServices();
+    this.assignValidationValues();
     if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
       this.isExpertWizardPath = wizardProfile.isExpert;
       this.wizardProfileData = wizardProfile.expertDetailsOption;
@@ -63,7 +69,6 @@ export class SummaryController implements ng.IController {
         this.isCompanyWithExpert = wizardProfile.isCompany && wizardProfile.isExpert;
       }
     }
-
   }
 
   public $onInit(): void {
@@ -194,10 +199,20 @@ export class SummaryController implements ng.IController {
     return false;
   }
 
+  private checkIsExpertNameValid = (): boolean =>
+    this.wizardProfile.expertDetailsOption &&
+    this.wizardProfile.expertDetailsOption.name ?
+      this.namePattern.test(this.wizardProfile.expertDetailsOption.name) : false
+
+  private checkIsExpertDescriptionValid = (): boolean =>
+    this.wizardProfile.expertDetailsOption &&
+    this.wizardProfile.expertDetailsOption.description ?
+      this.descriptionPattern.test(this.wizardProfile.expertDetailsOption.description) : false
+
   private checkIsExpertProfileValid = (): string | boolean | undefined =>
     this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
-    && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
-    && this.wizardProfile.expertDetailsOption.name
+    && this.wizardProfile.expertDetailsOption.avatar && this.checkIsExpertDescriptionValid()
+    && this.checkIsExpertNameValid()
 
   private checkIsWizardHasService = (): boolean | undefined =>
     this.wizardProfile.services && this.wizardProfile.services.length > 0
@@ -207,10 +222,20 @@ export class SummaryController implements ng.IController {
     && typeof this.acceptedServices !== 'undefined'
     && this.acceptedServices.length > 0
 
+  private checkIsCompanyNameValid = (): boolean =>
+    this.wizardProfile.organizationDetailsOption &&
+    this.wizardProfile.organizationDetailsOption.name ?
+      this.namePattern.test(this.wizardProfile.organizationDetailsOption.name) : false
+
+  private checkIsCompanyDescriptionValid = (): boolean =>
+    this.wizardProfile.organizationDetailsOption &&
+    this.wizardProfile.organizationDetailsOption.description ?
+      this.descriptionPattern.test(this.wizardProfile.organizationDetailsOption.description) : false
+
   private checkIsCompanyProfileValid = (): string | boolean | undefined =>
     this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
-    && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
-    && this.wizardProfile.organizationDetailsOption.description
+    && this.checkIsCompanyNameValid() && this.wizardProfile.organizationDetailsOption.logo
+    && this.checkIsCompanyDescriptionValid()
 
   // tslint:disable-next-line:cyclomatic-complexity
   private checkIfUserCanCreateExpertProfile = (): boolean => {
@@ -228,5 +253,11 @@ export class SummaryController implements ng.IController {
       (acceptedService) => this.InvitationApi.postInvitationAcceptRoute(acceptedService.invitation.id)))
       .then(() => this.navbarNotificationsService.resolveInvitations())
       .catch((error) => this.errorHandler.handleServerError(error))
+
+  private assignValidationValues = (): void => {
+    const localSettings = this.CommonSettingsService.localSettings;
+    this.namePattern = localSettings.profileNamePattern;
+    this.descriptionPattern = localSettings.profileDescriptionPattern;
+  }
 
 }
