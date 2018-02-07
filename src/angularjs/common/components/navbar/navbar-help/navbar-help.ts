@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import { NavbarHelpComponent } from './navbar-help.component';
 import helpdeskModule from '../../../services/helpdesk/helpdesk';
+import noResultsInformationModule from '../../dashboard/no-results-information/no-results-information';
 
 export interface INavbarHelpComponentBindings extends ng.IController {
   onClick: () => void;
@@ -8,7 +9,9 @@ export interface INavbarHelpComponentBindings extends ng.IController {
 
 const navbarHelpModule = angular.module('profitelo.components.navbar.navbar-help', [
   'pascalprecht.translate',
-  helpdeskModule
+  'profitelo.components.interface.preloader-container',
+  helpdeskModule,
+  noResultsInformationModule
 ])
 .component('navbarHelp', new NavbarHelpComponent)
   .name;

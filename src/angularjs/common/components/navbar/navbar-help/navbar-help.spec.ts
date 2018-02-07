@@ -14,17 +14,6 @@ describe('Unit testing: navbarHelp', () => {
     let component: NavbarHelpComponentController
     let bindings: INavbarHelpComponentBindings
     let helpdeskService: HelpdeskService
-    const validHTML =
-      '<navbar-help></navbar-help>'
-
-    function create(html: string,  bindings: INavbarHelpComponentBindings): JQuery {
-      const parentScope = rootScope.$new()
-      const parentBoundScope = angular.extend(parentScope, bindings)
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(parentBoundScope)
-      parentBoundScope.$digest()
-      return compiledElement
-    }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService): void => {
       $provide.value('helpdeskService', helpdeskService)
@@ -59,11 +48,6 @@ describe('Unit testing: navbarHelp', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
-    it('should compile the component', () => {
-      const el = create(validHTML, bindings)
-      expect(el.html()).toBeDefined(true)
-    })
 
     it('should search zendesk articles', inject(($q: ng.IQService) => {
       spyOn(helpdeskService, 'searchArticles').and.callFake(() => $q.resolve({}))

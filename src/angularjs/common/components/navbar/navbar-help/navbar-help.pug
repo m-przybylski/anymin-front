@@ -8,13 +8,20 @@
         input.help-search(type="text" name="search" placeholder="{{'NAVIGATION.HELP_MENU.SEARCH_PLACEHOLDER' | translate}}"
           ng-model="$ctrl.helpSearchQuery" autofocus data-ng-change="$ctrl.onHelpSearchInputChange()")
 
-      .help-content
-        .help-title
-          span(data-translate="NAVIGATION.HELP_MENU.SUGGESTIONS")
-        ul.help-link-list
-          li(ng-repeat="result in $ctrl.searchResults | filter : helpSearchQuery | limitTo : $ctrl.resultCount")
-            a(target="_blank" href="{{ result.html_url }}") {{ result.name }}
-      .help-menu-footer
-        a.btn.btn-link(data-translate="NAVIGATION.HELP_MENU.HELP_CENTER"
-        target="_blank"
-        href="{{$ctrl.zendeskUrl}}")
+      preloader-container(data-is-loading="$ctrl.isLoading")
+
+        no-results-information(
+        data-ng-if="$ctrl.searchResults.length < 1"
+        data-icon-src="assets/images/profitelo_icons/icon1.png"
+        data-information-title="NAVIGATION.HELP_MENU.NO_RESULTS_INFORMATION")
+
+        .help-content(data-ng-if="$ctrl.searchResults.length > 0")
+          .help-title
+            span(data-translate="NAVIGATION.HELP_MENU.SUGGESTIONS")
+          ul.help-link-list
+            li(ng-repeat="result in $ctrl.searchResults | filter : helpSearchQuery | limitTo : $ctrl.resultCount")
+              a(target="_blank" href="{{ result.html_url }}") {{ result.name }}
+        .help-menu-footer
+          a.btn.btn-link(data-translate="NAVIGATION.HELP_MENU.HELP_CENTER"
+          target="_blank"
+          href="{{$ctrl.zendeskUrl}}")
