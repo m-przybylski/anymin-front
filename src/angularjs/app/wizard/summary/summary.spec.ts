@@ -45,7 +45,7 @@ describe('Testing Controller: SummaryController', () => {
     expertDetailsOption:  {
       name: 'Czesław',
       avatar: 'logo.png',
-      description: 'Expert'
+      description: 'Expert description expample'
     }
   }
 

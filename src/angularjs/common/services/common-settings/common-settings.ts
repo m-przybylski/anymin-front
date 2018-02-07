@@ -6,6 +6,6 @@ const commonSettingsModule = angular.module('profitelo.services.commonSettings',
   commonConfigModule
 ])
   .service('CommonSettingsService', CommonSettingsService)
-  .name;
+    .name;
 
 export default commonSettingsModule;
