@@ -3,12 +3,10 @@ import * as angular from 'angular';
 import './navigation';
 import communicatorModule from '../communicator';
 import { CurrentCall } from '../models/current-call';
-import { ClientCallService } from '../call-services/client-call.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import navigationModule from './navigation';
 import { INavigationComponentBindings, NavigationComponentController } from './navigation.controller';
-import { CurrentExpertCall } from '../models/current-expert-call';
-import { CurrentClientCall } from '../models/current-client-call';
+import { empty } from 'rxjs/observable/empty';
 import loggerMockModule from '../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.communicator.navigation', () =>
@@ -29,18 +27,12 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
     } as CurrentCall;
 
     const bindings: INavigationComponentBindings = {
-      currentCall,
       isMessenger: false,
       isVideo: false
     };
 
-    const clientCallService: ClientCallService = {
-      onNewCall: (_cb: (call: CurrentClientCall) => void): void => {}
-    } as ClientCallService;
-
     const expertCallService: ExpertCallService = {
-      onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {},
-      onCallPull: (_cb: (call: CurrentExpertCall) => void): void => {}
+      newCall$: empty()
     } as ExpertCallService;
 
     beforeEach(() => {
@@ -51,7 +43,6 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/');
       $provide.value('normalizeTranslationKeyFilter', (x: string) => x);
-      $provide.value('clientCallService', clientCallService);
       $provide.value('expertCallService', expertCallService);
     }));
 
@@ -66,8 +57,7 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
         compile = $compile;
 
         const injectors = {
-          expertCallService,
-          clientCallService
+          expertCallService
         };
 
         component = $componentController<NavigationComponentController, INavigationComponentBindings>(
@@ -137,18 +127,23 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
     });
 
     it('should startAudio', inject(($q: ng.IQService) => {
+      component.currentCall = currentCall;
+      component.isAudio = false;
       spyOn(currentCall, 'startAudio').and.returnValue($q.resolve());
       component.startAudio();
       expect(currentCall.startAudio).toHaveBeenCalled();
     }));
 
     it('should stopAudio', inject(() => {
+      component.currentCall = currentCall;
+      component.isAudio = true;
       spyOn(currentCall, 'stopAudio');
       component.stopAudio();
       expect(currentCall.stopAudio).toHaveBeenCalled();
     }));
 
     it('should startVideo', inject(($q: ng.IQService) => {
+      component.currentCall = currentCall;
       spyOn(currentCall, 'startVideo').and.returnValue($q.resolve());
       spyOn(component, 'animateButtons');
       component.startVideo({} as Element);
@@ -165,6 +160,8 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
     }));
 
     it('should stopVideo', inject(($q: ng.IQService) => {
+      component.isVideo = true;
+      component.currentCall = currentCall;
       spyOn(currentCall, 'stopVideo').and.returnValue($q.resolve());
       component.stopVideo();
       expect(currentCall.stopVideo).toHaveBeenCalled();

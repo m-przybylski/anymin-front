@@ -1,14 +1,15 @@
+import { LoggerService } from '@anymind-ng/core';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 import { TimerService } from './timer.service';
 
-// tslint:disable:member-ordering
 export class TimerFactory {
 
-  public static $inject = ['$interval'];
+  public static $inject = ['logger', '$interval'];
 
-    constructor(private $interval: ng.IIntervalService) {}
+  constructor(private logger: LoggerService, private $interval: ng.IIntervalService) {
+  }
 
   public getInstance(money: MoneyDto, interval = 200): TimerService {
-    return new TimerService(this.$interval, money, interval);
+    return new TimerService(this.logger, this.$interval, money, interval);
   }
 }

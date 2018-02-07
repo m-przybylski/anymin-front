@@ -41,8 +41,6 @@ import rtcDetectorBlockedModal
 import rtcDetectorNoBrowserSupportModal
 // tslint:disable-next-line: max-line-length
 from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support';
-import consultationSummaryClientModule
-  from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client';
 import consultationModalModule from '../../components/search/modals/consultation/consultation';
 
 const modalsModule = angular.module('profitelo.services.modals', [
@@ -76,7 +74,6 @@ const modalsModule = angular.module('profitelo.services.modals', [
   rtcDetectorBlockedModal,
   rtcDetectorNoBrowserSupportModal,
   expertIncomingCallModule,
-  consultationSummaryClientModule,
   consultationModalModule,
   payoutsModalModule
 ])

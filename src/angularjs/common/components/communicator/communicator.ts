@@ -14,12 +14,10 @@ import './navigation/navigation';
 import './messenger/messenger';
 import ratelSdkModule from '../ratel-sdk/ratel-sdk';
 import eventsModule from '../../services/events/events';
-import { ClientCallService } from './call-services/client-call.service';
 import { ExpertCallService } from './call-services/expert-call.service';
 import userAvatarModule from '../interface/user-avatar/user-avatar';
 import navigationModule from './navigation/navigation';
 import RtcDetectorModule from '../../services/rtc-detector/rtc-detector';
-import { PrecallService } from './precall-service/precall.service';
 import translatorModule from '../../services/translator/translator';
 import { MicrophoneService } from './microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
@@ -51,8 +49,6 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   }])
   .component('communicator', new CommunicatorComponent)
   .factory('communicatorService', downgradeInjectable(CommunicatorService))
-  .service('precallService', PrecallService)
-  .service('clientCallService', ClientCallService)
   .service('expertCallService', ExpertCallService)
   .service('microphoneService', MicrophoneService)
   .name;

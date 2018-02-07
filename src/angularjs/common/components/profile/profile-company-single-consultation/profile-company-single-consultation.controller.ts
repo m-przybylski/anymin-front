@@ -1,13 +1,14 @@
 import { IProfileCompanyConsultationComponentBindings } from './profile-company-single-consultation';
-import { Tag, GetOrganizationServiceDetails,
-  GetProfile, MoneyDto, GetProfileDetails } from 'profitelo-api-ng/model/models';
+import {
+  Tag, GetOrganizationServiceDetails,
+  GetProfile, MoneyDto, GetProfileDetails
+} from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';
-import { PrecallService } from '../../communicator/precall-service/precall.service';
 import { StateService } from '@uirouter/angularjs';
 
-// tslint:disable:member-ordering
 export class ProfileCompanyConsultationComponentController implements IProfileCompanyConsultationComponentBindings {
 
+  public static $inject = ['userService', '$state'];
   public organizationServiceDetails: GetOrganizationServiceDetails;
   public tags: Tag[];
   public employees: GetProfileDetails[];
@@ -17,16 +18,13 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
   public usageCounter: number;
   public serviceName: string;
 
-  public static $inject = ['precallService', 'userService', '$state'];
-
-    constructor(private precallService: PrecallService,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private $state: StateService) {
   }
 
   public startCall = (): void => {
-    this.userService.getUser()
-    .then(() => this.precallService.openPrecallModal(this.organizationServiceDetails.service, this.ownerProfile),
+    this.userService.getUser().then(
+      () => alert('Sorry, not implemented'),
       () => this.$state.go('app.login.account'));
   }
 

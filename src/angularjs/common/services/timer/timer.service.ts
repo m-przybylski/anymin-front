@@ -1,21 +1,21 @@
+import { LoggerService } from '@anymind-ng/core';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 
-// tslint:disable:member-ordering
 export class TimerService {
 
-  public static $inject = ['$interval', 'money', 'freeMinutesCount', 'interval'];
   private static readonly milisecondsInSecond = 1000;
   private static readonly secondsInMinute = 60;
-  private timer: ng.IPromise<any>;
+  private timer?: ng.IPromise<any>;
   private startTime: number;
   private isPaused = false;
+  private pausedCount = 0;
   private pausedTime: number;
 
-  constructor(private $interval: ng.IIntervalService, private money: MoneyDto,
+  constructor(private logger: LoggerService, private $interval: ng.IIntervalService, private money: MoneyDto,
               private interval: number) {
   }
 
-  public start = (cb: (obj: {time: number, money: MoneyDto}) => void, freeSeconds = 0): void => {
+  public start = (cb: (obj: { time: number, money: MoneyDto }) => void, freeSeconds = 0): void => {
     this.startTime = Date.now();
     this.timer = this.$interval(() => {
       if (!this.isPaused) {
@@ -32,17 +32,31 @@ export class TimerService {
   }
 
   public stop = (): void => {
-    this.$interval.cancel(this.timer);
+    if (this.timer) {
+      this.$interval.cancel(this.timer);
+    } else {
+      this.logger.error('TimerService: Cannot stop, there is no timer');
+    }
   }
 
   public pause = (): void => {
-    this.isPaused = true;
-    this.pausedTime = Date.now();
+    if (!this.isPaused) {
+      this.isPaused = true;
+      this.pausedTime = Date.now();
+    }
+    this.pausedCount++;
   }
 
   public resume = (): void => {
-    this.isPaused = false;
-    this.startTime = this.startTime  - (this.pausedTime - Date.now());
+    if (this.pausedCount === 1) {
+      this.pausedCount = 0;
+      this.isPaused = false;
+      this.startTime = this.startTime - (this.pausedTime - Date.now());
+    } else if (this.pausedCount > 1) {
+      this.pausedCount--;
+    } else {
+      this.logger.error('TimerService: Cannot resume, nothing is paused');
+    }
   }
 
   public setStartTime = (time: number): void => {

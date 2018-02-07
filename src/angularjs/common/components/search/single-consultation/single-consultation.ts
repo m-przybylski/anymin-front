@@ -3,7 +3,6 @@ import communicatorModule from '../../communicator/communicator';
 import filtersModule from '../../../filters/filters';
 import urlModule from '../../../services/url/url';
 import { UserService } from '../../../services/user/user.service';
-import { ClientCallService } from '../../communicator/call-services/client-call.service';
 import { GetSearchRequestResult } from 'profitelo-api-ng/model/models';
 import apiModule from 'profitelo-api-ng/api.module';
 import { StateService } from '@uirouter/angularjs';
@@ -14,7 +13,7 @@ export interface ISingleConsultationScope extends ng.IScope {
   consultation: GetSearchRequestResult;
 }
 
-function singleConsultationController($state: StateService, clientCallService: ClientCallService,
+function singleConsultationController($state: StateService,
                                       userService: UserService): void {
 
   this.isLinkActive = false;
@@ -58,9 +57,9 @@ function singleConsultationController($state: StateService, clientCallService: C
 
   this.startCall = (): void => {
     if (this.isLinkActive) {
-      userService.getUser()
-        .then(() => clientCallService.callServiceId(this.consultation.service.id),
-          () => $state.go('app.login.account'));
+      userService.getUser().then(
+        () => alert('Sorry, not implemented'),
+        () => $state.go('app.login.account'));
     }
   };
 
@@ -72,7 +71,7 @@ const singleConsultation = {
   bindings: {
     consultation: '<'
   },
-  controller: ['$state', 'clientCallService', 'userService', singleConsultationController]
+  controller: ['$state', 'userService', singleConsultationController]
 };
 
 angular.module('profitelo.components.search.single-consultation', [

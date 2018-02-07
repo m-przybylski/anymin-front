@@ -1,21 +1,20 @@
 import { GetService, GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
-import { ClientCallService } from './call-services/client-call.service';
 import { ExpertCallService } from './call-services/expert-call.service';
-import { CurrentClientCall } from './models/current-client-call';
-import { CurrentExpertCall } from './models/current-expert-call';
+import { ExpertCall } from './models/current-expert-call';
 import { CurrentCall } from './models/current-call';
-import { MessageRoom } from './models/message-room';
 import { TopAlertService } from '../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../services/translator/translator.service';
 import { MicrophoneService, MicrophoneStateEnum } from './microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 
-// tslint:disable:member-ordering
-export class CommunicatorComponentController implements ng.IController {
+export class CommunicatorComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy {
+
+  public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
+    'microphoneService', 'expertCallService', 'communicatorService'];
 
   private static readonly disconnectedAnimationTimeout = 500;
-
-  public currentCall?: CurrentCall;
 
   public isClosed = true;
   public isDisconnectedAnimation = false;
@@ -36,12 +35,9 @@ export class CommunicatorComponentController implements ng.IController {
   public localStreamElement: ng.IAugmentedJQuery;
   public remoteStreamElement: ng.IAugmentedJQuery;
 
-  public messageRoom?: MessageRoom;
-
   public isMicrophoneMuted = false;
 
-  public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
-    'microphoneService', 'clientCallService', 'expertCallService', 'communicatorService'];
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
@@ -49,23 +45,23 @@ export class CommunicatorComponentController implements ng.IController {
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
               private microphoneService: MicrophoneService,
-              clientCallService: ClientCallService,
-              expertCallService: ExpertCallService,
-              communicatorService: CommunicatorService) {
-
-    clientCallService.onNewCall(this.registerClientCall);
-    clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning);
-    clientCallService.onNewFinancialOperation(this.onNewFinancialOperation);
-
-    expertCallService.onNewCall(this.registerExpertCall);
-    expertCallService.onCallPull(this.onCallPull);
-    expertCallService.onCallTaken(this.closeCommunicator);
-
-    communicatorService.connectionEstablishedEvent$.subscribe(this.connectionEstablished);
-    communicatorService.connectionLostEvent$.subscribe(this.connectionLost);
+              private expertCallService: ExpertCallService,
+              private communicatorService: CommunicatorService) {
   }
 
-  public $onInit = (): void => {
+  public $onInit(): void {
+    this.expertCallService.newCall$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(this.registerExpertCall);
+
+    this.communicatorService.connectionEstablishedEvent$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(this.connectionEstablished);
+
+    this.communicatorService.connectionLostEvent$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(this.connectionLost);
+
     this.remoteStreamElement = this.$element.find('.video-player-remote video');
     this.localStreamElement = this.$element.find('.video-player-local video');
 
@@ -78,12 +74,15 @@ export class CommunicatorComponentController implements ng.IController {
       this.isMicrophoneMuted = state === MicrophoneStateEnum.MUTED);
   }
 
+  public $onDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   private connectionEstablished = (): void => {
     // If established for the first time, do nothing
     if (this.isOffline) {
       this.isOffline = false;
-      if (this.currentCall) this.currentCall.resumeTimer();
-
       this.topAlertService.success({
         message: this.translatorService.translate('COMMUNICATOR.NETWORK_RECONNECTED'),
         timeout: 3
@@ -93,37 +92,14 @@ export class CommunicatorComponentController implements ng.IController {
 
   private connectionLost = (): void => {
     this.isOffline = true;
-    if (this.currentCall) this.currentCall.pauseTimer();
-
     this.topAlertService.error({
       message: this.translatorService.translate('COMMUNICATOR.NETWORK_INTERRUPT'),
       timeout: 2
     });
   }
 
-  private registerClientCall = (call: CurrentClientCall): void => {
+  private registerExpertCall = (call: ExpertCall): void => {
     this.cleanupComponent();
-    this.currentCall = call;
-    this.service = call.getService();
-    this.expert = call.getExpert();
-    this.expertAvatar = this.expert.expertDetails ? this.expert.expertDetails.avatar : undefined;
-    this.isConnecting = true;
-    this.isClosed = false;
-    this.registerCommonCallEvents(call);
-  }
-
-  private onCallPull = (call: CurrentExpertCall): void => {
-    this.cleanupComponent();
-    this.currentCall = call;
-    this.service = call.getService();
-    this.isConnecting = false;
-    this.isClosed = false;
-    this.registerCommonCallEvents(call);
-  }
-
-  private registerExpertCall = (call: CurrentExpertCall): void => {
-    this.cleanupComponent();
-    this.currentCall = call;
     this.service = call.getService();
     this.isConnecting = true;
     this.isClosed = false;
@@ -131,24 +107,19 @@ export class CommunicatorComponentController implements ng.IController {
   }
 
   private registerCommonCallEvents = (call: CurrentCall): void => {
-    const remoteStream = call.getRemoteStream();
-    if (remoteStream) this.onRemoteStream(remoteStream);
+    call.onRemoteStream(this.handleRemoteStream);
 
     const localStream = call.getLocalStream();
     if (localStream) this.onLocalStream(localStream);
-    this.messageRoom = call.getMessageRoom();
 
     call.onLocalStream(this.onLocalStream);
-    call.onRemoteStream(this.onRemoteStream);
     call.onEnd(this.onCallEnd);
-    call.onRejected(this.onCallEnd);
     call.onVideoStart(this.onVideoStart);
     call.onVideoStop(this.onVideoStop);
     call.onTimeCostChange(this.onTimeCostChange);
     call.onParticipantOnline(this.onUserBackOnline);
     call.onParticipantOffline(this.onUserOffline);
-    call.onSuspendedCallEnd(this.closeCommunicator);
-    call.onAnswered(this.onAnswered);
+    call.onCallTaken(this.closeCommunicator);
   }
 
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
@@ -156,11 +127,8 @@ export class CommunicatorComponentController implements ng.IController {
     this.callCost = timeMoneyTuple.money;
   }
 
-  private onAnswered = (): void => {
+  private handleRemoteStream = (stream: MediaStream): void => {
     this.isConnecting = false;
-  }
-
-  private onRemoteStream = (stream: MediaStream): void => {
     this.remoteStreamElement.attr('src', this.$window.URL.createObjectURL(stream));
   }
 
@@ -189,8 +157,6 @@ export class CommunicatorComponentController implements ng.IController {
   }
 
   private cleanupComponent = (): void => {
-    this.currentCall = undefined;
-    this.messageRoom = undefined;
     this.isDisconnectedAnimation = false;
     this.isConnecting = false;
     this.service = undefined;
@@ -209,20 +175,11 @@ export class CommunicatorComponentController implements ng.IController {
     this.closeCommunicator();
   }
 
-  /* Other events */
   private onVideoStart = (): void => {
     this.isRemoteVideo = true;
   }
 
   private onVideoStop = (): void => {
     this.isRemoteVideo = false;
-  }
-
-  private onOneMinuteLeftWarning = (): void => {
-    this.isOneMinuteLeftWarning = true;
-  }
-
-  private onNewFinancialOperation = (data: any): void => {
-    if (this.callCost && this.callCost.amount < data.operation.amount) this.isOneMinuteLeftWarning = false;
   }
 }

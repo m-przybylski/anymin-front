@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {TimerFactory} from './timer.factory'
 import timerModule from './timer'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
+import loggerMockModule from '../logger/logger.mock';
 
 describe('Unit testing: profitelo.services.timer >', () => {
   describe('for profitelo.services.timer >', () => {
@@ -10,6 +11,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
 
     beforeEach(() => {
     angular.mock.module(timerModule)
+    angular.mock.module(loggerMockModule)
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {

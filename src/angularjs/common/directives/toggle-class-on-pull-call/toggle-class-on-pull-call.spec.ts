@@ -1,57 +1,62 @@
-import * as angular from 'angular'
-import toggleClassOnPullCall from './toggle-class-on-pull-call'
-import {ExpertCallService} from '../../components/communicator/call-services/expert-call.service'
-import {CurrentExpertCall} from '../../components/communicator/models/current-expert-call'
-import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/events'
-import {EventsService} from '../../services/events/events.service'
-import {IRootScopeService} from '../../services/root-scope/root-scope.service';
+import * as angular from 'angular';
+import toggleClassOnPullCall from './toggle-class-on-pull-call';
+import { ExpertCallService } from '../../components/communicator/call-services/expert-call.service';
+import { empty } from 'rxjs/observable/empty';
+import { EventsService } from '../../services/events/events.service';
+import { IRootScopeService } from '../../services/root-scope/root-scope.service';
+import loggerMockModule from '../../services/logger/logger.mock';
+import communicatorMockModule from '../../components/communicator/communicator.mock';
 
-describe('Unit testing: profitelo.directives.toggle-class-on-pull-call', () => {
-  return describe('for toggle-class-on-pull-call directive >', () => {
+describe('Unit testing: profitelo.directives.toggle-class-on-pull-call', () =>
+  describe('for toggle-class-on-pull-call directive >', () => {
 
-    let compile: ng.ICompileService
-    let scope: ng.IScope
-    const validHTML = '<div toggle-class-on-pull-call="is-active"></div>'
+    let compile: ng.ICompileService;
+    let scope: ng.IScope;
+    const validHTML = '<div toggle-class-on-pull-call="is-active"></div>';
 
     const expertCallService: any = {
-      onCallPull: (_cb: (currentExpertCall: CurrentExpertCall) => void): void => {},
-      onCallTaken: (_cb: (activeDevice: CallActiveDevice) => void): void => {},
-      onCallEnd: (_cb: () => void): void => {},
-      onCallActive: (_cb: () => void): void => {}
-    } as ExpertCallService
+      newCall$: empty()
+    } as ExpertCallService;
 
     const eventsService: EventsService = <any>{
       on: (_event: string, _callback: () => {}) => {}
-    }
+    };
+
+    const activeCallBarServiceMock = {
+      showCallBar$: empty(),
+      hideCallBar$: empty()
+    };
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('expertCallService', expertCallService)
-      $provide.value('eventsService', eventsService)
-    }))
+      $provide.value('expertCallService', expertCallService);
+      $provide.value('eventsService', eventsService);
+      $provide.value('activeCallBarService', activeCallBarServiceMock);
+    }));
 
     beforeEach(() => {
-      angular.mock.module(toggleClassOnPullCall)
+      angular.mock.module(communicatorMockModule);
+      angular.mock.module(toggleClassOnPullCall);
+      angular.mock.module(loggerMockModule);
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
-        scope = $rootScope.$new()
-        compile = $compile
-      })
-    })
+        scope = $rootScope.$new();
+        compile = $compile;
+      });
+    });
 
     function create(): JQuery {
-      const elem = angular.element(validHTML)
-      const compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
+      const elem = angular.element(validHTML);
+      const compiledElement = compile(elem)(scope);
+      scope.$digest();
+      return compiledElement;
     }
 
     it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
+      expect(true).toBeTruthy();
+    }));
 
     it('should compile the directive', () => {
-      const el = create()
-      expect(el.html()).toBeDefined(true)
-    })
-  })
-})
+      const el = create();
+      expect(el.html()).toBeDefined(true);
+    });
+  }));

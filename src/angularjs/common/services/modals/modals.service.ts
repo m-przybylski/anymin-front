@@ -95,10 +95,6 @@ import {
 // tslint:disable-next-line: max-line-length
 } from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller';
 import {
-  ConsultationSummaryClientController,
-  IConsultationSummaryClientControllerScope
-} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client.controller';
-import {
   ConsultationModalController,
   IConsultationModalControllerScope
 } from '../../components/search/modals/consultation/consultation.controller';
@@ -130,8 +126,10 @@ export class ModalsService {
     constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
-  public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () =>
-    void): IModalInstanceService => {
+  public createIncomingCallModal = (service: GetService,
+                                    answerCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void,
+                                    rejectCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void
+  ): IModalInstanceService => {
     const dialogScope: IExpertIncomingCallParentControllerScope =
       <IExpertIncomingCallParentControllerScope>this.$rootScope.$new(true);
 
@@ -178,34 +176,15 @@ export class ModalsService {
     });
   }
 
-  public createClientConsultationSummaryModal = (serviceId: string): IModalInstanceService => {
-    if (!serviceId) {
-      throw new Error('Expected serviceId, got ' + serviceId);
-    }
-
-    const dialogScope: IConsultationSummaryClientControllerScope =
-      <IConsultationSummaryClientControllerScope>this.$rootScope.$new(true);
-
-    dialogScope.serviceId = serviceId;
-
-    return this.dialogService.openDialog({
-      controller: ConsultationSummaryClientController,
-      template: require(
-        'angularjs/common/components/communicator/modals/consultation-summary-client/consultation-summary-client.html'
-      ),
-      scope: dialogScope
-    });
-  }
-
-  public createExpertConsultationSummaryModal = (serviceId: string): IModalInstanceService => {
-    if (!serviceId) {
-      throw new Error('Expected serviceId, got ' + serviceId);
+  public createExpertConsultationSummaryModal = (serviceUsageEventId: string): IModalInstanceService => {
+    if (!serviceUsageEventId) {
+      throw new Error('Expected serviceUsageEventId, got ' + serviceUsageEventId);
     }
 
     const dialogScope: IConsultationSummaryExpertControllerScope =
       <IConsultationSummaryExpertControllerScope>this.$rootScope.$new(true);
 
-    dialogScope.serviceId = serviceId;
+    dialogScope.serviceUsageEventId = serviceUsageEventId;
 
     return this.dialogService.openDialog({
       controller: ConsultationSummaryExpertController,

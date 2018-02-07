@@ -16,7 +16,7 @@
   .messenger-messages(ngf-drop="$ctrl.onUploadFiles($files)"
   ngf-drag-over-class="'dragover'" ngf-multiple="false")
     .messenger-scroll
-      grouped-messages(data-ng-repeat="messages in $ctrl.groupedMessages track by $index" data-messages="messages"
+      grouped-messages(data-ng-repeat="messages in $ctrl.groupedMessages" data-messages="messages"
         data-participant-avatar="{{ :: $ctrl.participantAvatar }}")
       .file-loader(data-ng-show="$ctrl.uploadedFile.progress")
         .preloader-container

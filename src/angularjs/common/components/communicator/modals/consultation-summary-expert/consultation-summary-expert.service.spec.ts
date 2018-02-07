@@ -4,6 +4,7 @@ import {ConsultationSummaryExpertService} from './consultation-summary-expert.se
 import {ServiceApiMock} from 'profitelo-api-ng/api/api'
 import {httpCodes} from '../../../../classes/http-codes'
 import {GetTechnicalProblem} from 'profitelo-api-ng/model/models'
+import loggerMockModule from '../../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.communicator.modals.consultation-summary-expert >', () => {
   describe('for profitelo.components.communicator.modals.consultation-summary-expert', () => {
@@ -14,6 +15,7 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     beforeEach(() => {
       angular.mock.module(consultationSummaryExpertControllerModule)
+      angular.mock.module(loggerMockModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {

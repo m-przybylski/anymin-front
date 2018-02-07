@@ -4,6 +4,7 @@ import soundsModule from '../../../services/sounds/sounds';
 import { MessengerComponent } from './messenger.component';
 import messengerMinimizedModule from './minimized/minimized';
 import messengerMaximizedModule from './maximized/maximized';
+import { MessengerService } from './messenger.service';
 
 export interface IMessengerComponentBindings {
   isMessenger: boolean;
@@ -19,6 +20,7 @@ const messengerModule = angular.module('profitelo.components.communicator.messen
     $qProvider.errorOnUnhandledRejections(false);
   }])
   .component('messenger', new MessengerComponent)
+  .service('messengerService', MessengerService)
   .name;
 
 export default messengerModule;

@@ -1,46 +1,53 @@
 import { IMessengerMinimizedComponentBindings } from './minimized';
-import { MessageRoom } from '../../models/message-room';
-import * as RatelSdk from 'ratel-sdk-js';
-import { ClientCallService } from '../../call-services/client-call.service';
+import { Message, Session } from 'ratel-sdk-js';
 import { ExpertCallService } from '../../call-services/expert-call.service';
 import { CurrentCall } from '../../models/current-call';
-import { Message } from 'ratel-sdk-js/dist/protocol/wire-entities';
-import { CommunicatorService } from '@anymind-ng/core';
+import { MessageRoom } from '../../models/message-room';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 
-// tslint:disable:member-ordering
-export class MessengerMinimizedComponentController implements ng.IController, IMessengerMinimizedComponentBindings {
+export class MessengerMinimizedComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy,
+  IMessengerMinimizedComponentBindings {
 
-  public onMessageClick: (msg: RatelSdk.Message) => void;
-  public messageRoom: MessageRoom;
-
-  public messages: RatelSdk.Message[] = [];
-
+  public static $inject = ['$timeout', 'expertCallService'];
   private static readonly messageShowTimeout = 5000;
-  private clientSession: RatelSdk.Session | undefined;
 
-  public static $inject = ['$timeout', 'communicatorService', 'clientCallService', 'expertCallService'];
+  public onMessageClick: (msg: Message) => void;
 
-    constructor(private $timeout: ng.ITimeoutService,
-              private communicatorService: CommunicatorService,
-              clientCallService: ClientCallService,
-              expertCallService: ExpertCallService) {
-    clientCallService.onNewCall(this.onInit);
-    expertCallService.onNewCall(this.onInit);
+  public messages: Message[] = [];
+
+  private ngUnsubscribe = new Subject<void>();
+
+  constructor(private $timeout: ng.ITimeoutService,
+              private expertCallService: ExpertCallService) {
   }
 
-  private onInit = (currentCall: CurrentCall): void => {
-    this.clientSession = this.communicatorService.getSession();
-    this.messages = [];
-    currentCall.getMessageRoom().onMessage(this.showMessage);
+  public $onInit(): void {
+    this.expertCallService.newCall$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleNewExpertCall);
   }
 
-  private hideMessage = (message: RatelSdk.Message): Message[] =>
+  public $onDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  private hideMessage = (message: Message): Message[] =>
     this.messages = this.messages.filter(msg => msg !== message)
 
-  private showMessage = (message: RatelSdk.Message): void => {
-    if (typeof this.clientSession !== 'undefined' && this.clientSession.id !== message.userId) {
+  private showMessage = (message: Message, session: Session): void => {
+    if (session.id !== message.userId) {
       this.messages.push(message);
       this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout);
     }
   }
+
+  private handleNewExpertCall = (currentCall: CurrentCall): void => {
+    this.messages = [];
+    currentCall.messageRoom$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((room) =>
+      this.handleNewMessageRoom(room, currentCall.getSession()));
+  }
+
+  private handleNewMessageRoom = (messageRoom: MessageRoom, session: Session): Subscription =>
+    messageRoom.message$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(msg => this.showMessage(msg, session))
 }
