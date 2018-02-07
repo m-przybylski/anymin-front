@@ -6,7 +6,6 @@ import { Config } from '../../../../config';
 interface IProFooterScope extends ng.IScope {
   isPlatformForExpert: boolean;
   zendeskUrl: string;
-  anymindLandingUrl: string;
   anymindBlogUrl: string;
   termsOfServiceUrl: string;
   privacyPolicyUrl: string;
@@ -19,7 +18,6 @@ interface IProFooterScope extends ng.IScope {
     function linkFunction(scope: IProFooterScope): void {
       scope.isPlatformForExpert = Config.isPlatformForExpert;
       scope.zendeskUrl = CommonConfig.getAllData().urls.zendesk;
-      scope.anymindLandingUrl = CommonConfig.getAllData().urls['widget-landing'];
       scope.anymindBlogUrl = CommonConfig.getAllData().urls['widget-blog'];
       scope.termsOfServiceUrl = CommonConfig.getAllData().urls['terms-of-service'];
       scope.privacyPolicyUrl = CommonConfig.getAllData().urls['privacy-policy'];
