@@ -1,1 +1,38 @@
-<div class="grid uib-daypicker" role="grid" aria-labelledby="{{::uniqueId}}-title" aria-activedescendant="{{activeDateId}}"><div class="top-table-section"><div class="tab-row"><div class="cell"><div class="uib-left" type="button" ng-click="move(-1)" tabindex="-1"><span class="icon icon-arrow-left-16"></span></div></div><div class="cell" colspan="{{::5 + showWeeks}}"><div class="uib-title" id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1"><strong>{{title}}</strong></div></div><div class="cell"><div class="uib-right" type="button" ng-click="move(1)" tabindex="-1"><span class="icon icon-arrow-right-16"></span></div></div></div><div class="tab-row-weeks"><div class="cell text-center" ng-if="showWeeks"></div><div class="cell text-center" ng-repeat="label in ::labels track by $index"><small aria-label="{{::label.full}}">{{::label.abbr}}</small></div></div></div><div class="main-table-section"><div class="tab-row uib-weeks" ng-repeat="row in rows track by $index"><div class="cell text-center h6" ng-if="showWeeks"><em>{{ weekNumbers[$index] }}</em></div><div class="cell uib-day text-center" ng-repeat="dt in row" role="gridcell" id="{{::dt.uid}}" ng-class="::dt.customClass"><div class="btn" type="button" uib-is-class="        'btn-info' for selectedDt,        'active' for activeDt        on dt" ng-click="select(dt.date)" ng-disabled="::dt.disabled" tabindex="-1"><span ng-class="::{'text-muted': dt.secondary, 'text-info': dt.current}">{{::dt.label}}</span></div></div></div></div></div>
+<div class="grid uib-daypicker" role="grid" aria-labelledby="{{::uniqueId}}-title"
+     aria-activedescendant="{{activeDateId}}">
+    <div class="top-table-section">
+        <div class="tab-row">
+            <div class="cell">
+                <button class="uib-left" type="button" ng-click="move(-1)" tabindex="-1"><span
+                        class="icon icon-arrow-left-24"></span></button>
+            </div>
+            <div class="cell" colspan="{{::5 + showWeeks}}">
+                <button class="uib-title" id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true"
+                     type="button" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1">
+                    <strong>{{title}}</strong></button>
+            </div>
+            <div class="cell">
+                <button class="uib-right" type="button" ng-click="move(1)" tabindex="-1"><span
+                        class="icon icon-arrow-right-24"></span></button>
+            </div>
+        </div>
+        <div class="tab-row-weeks">
+            <div class="cell text-center" ng-if="showWeeks"></div>
+            <div class="cell text-center" ng-repeat="label in ::labels track by $index">
+                <small aria-label="{{::label.full}}">{{::label.abbr}}</small>
+            </div>
+        </div>
+    </div>
+    <div class="main-table-section">
+        <div class="tab-row uib-weeks" ng-repeat="row in rows track by $index">
+            <div class="cell text-center h6" ng-if="showWeeks"><em>{{ weekNumbers[$index] }}</em></div>
+            <div class="cell uib-day text-center" ng-repeat="dt in row" role="gridcell" id="{{::dt.uid}}"
+                 ng-class="::dt.customClass">
+                <button class="btn" type="button"
+                     uib-is-class="        'btn-info' for selectedDt,        'active' for activeDt        on dt"
+                     ng-click="select(dt.date)" ng-disabled="::dt.disabled" tabindex="-1"><span
+                        ng-class="::{'text-muted': dt.secondary, 'text-info': dt.current}">{{::dt.label}}</span></button>
+            </div>
+        </div>
+    </div>
+</div>

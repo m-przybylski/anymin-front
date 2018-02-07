@@ -33,12 +33,16 @@
         .calendar
           pro-calendar(
             data-default-value="dateFrom"
+            data-date-from="$ctrl.activitiesFilters.dateFrom"
+            data-date-to="$ctrl.activitiesFilters.dateTo"
             data-ng-model="$ctrl.activitiesFilters.dateFrom"
             data-label="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.FROM' | translate }}"
           )
 
           pro-calendar(
             data-default-value="dateTo"
+            data-date-from="$ctrl.activitiesFilters.dateFrom"
+            data-date-to="$ctrl.activitiesFilters.dateTo"
             data-ng-model="$ctrl.activitiesFilters.dateTo"
             data-label="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.TO' | translate }}")
 

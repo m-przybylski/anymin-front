@@ -24,7 +24,7 @@
 
     .uib-button-bar
       display: none
-      
+
     li
       outline: none
 
@@ -87,6 +87,14 @@
 
             &:focus
               outline: 0
+
+            &:disabled
+              background-color: $c-white
+              cursor: not-allowed
+
+              span
+                color: $c-tertiary-txt
+                cursor: not-allowed
 
             span
               +default-font-regular
