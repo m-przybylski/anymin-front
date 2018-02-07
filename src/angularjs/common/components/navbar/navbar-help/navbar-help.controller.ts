@@ -14,8 +14,11 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   public onClick: () => void;
   public buttonCallback: () => void;
   public resultCount = 4;
+  public isLoading: boolean;
+  public areSearchResults: boolean;
   private static readonly minimalQueryLength = 3;
   private static readonly searchDebounceDelay = 500;
+  private static readonly defaultSearchQuery = 'jak';
   private debouncedSearch: () => void;
 
   public static $inject = ['helpdeskService', '$log', 'CommonConfig'];
@@ -32,6 +35,8 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
       }
     };
     this.debouncedSearch = _.debounce(this.querySearchResults, NavbarHelpComponentController.searchDebounceDelay);
+
+    this.querySearchResults();
   }
 
   public $onInit(): void {
@@ -44,11 +49,17 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   }
 
   private querySearchResults = (): void => {
-    this.helpdeskService.searchArticles(this.helpSearchQuery).then((response) => {
-      this.searchResults = response.results;
-    }, (error) => {
-      this.$log.error(error);
-    });
+    this.isLoading = true;
+    this.areSearchResults = false;
+    this.helpdeskService.searchArticles(this.helpSearchQuery || NavbarHelpComponentController.defaultSearchQuery)
+      .then((response) => {
+        this.searchResults = response.results;
+        this.areSearchResults = this.searchResults.length > 0;
+      }, (error) => {
+        this.$log.error(error);
+      }).finally(() => {
+        this.isLoading = false;
+      });
   }
 
 }
