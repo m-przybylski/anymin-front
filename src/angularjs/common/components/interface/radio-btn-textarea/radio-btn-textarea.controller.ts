@@ -9,16 +9,19 @@ export class RadioBtnTextareaComponentController implements IRadioBtnTextareaBin
   public label: string;
   public ngModel: string;
   public onSelectedItem: (value: string) => void;
-  public checkedItem: string;
+  public checkedItem?: string;
   public description: string;
   public isTextarea: boolean;
   public onDescriptionCallback: (description: string) => string;
 
   public static $inject = [];
 
-  constructor() {}
+  constructor() {
+  }
 
   public $onInit(): void {
+    if (typeof this.checkedItem === 'string' && this.checkedItem.length > 0 && this.checkedItem === this.id)
+      this.ngModel = this.checkedItem;
   }
 
   public onClick = (selectedItem: string): void =>

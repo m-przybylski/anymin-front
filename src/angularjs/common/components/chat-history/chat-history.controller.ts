@@ -31,8 +31,8 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   }
 
   public getMessages = (): void => {
-    this.isLoading = true;
     if (this.session && this.roomId) {
+      this.isLoading = true;
       this.session.chat.getRoom(this.roomId)
         .then(room => room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit)
           .then(this.onGetMessages, this.onReject))
@@ -47,6 +47,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
 
   private onReject = (err: any): void => {
     this.isError = true;
+    this.isLoading = false;
     this.$log.error(err);
   }
 

@@ -5,6 +5,6 @@
         div
           span {{ $ctrl.title | translate }}
 
-      .collapse-btn-content.animation(data-ng-show="!$ctrl.isCollapsed")
+      .collapse-btn-content.animation(data-ng-if="!$ctrl.isCollapsed")
         div
           ng-transclude
