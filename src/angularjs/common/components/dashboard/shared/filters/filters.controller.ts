@@ -44,7 +44,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     dateFrom: ''
   };
 
-  public $onInit = (): void => {
+  public $onChanges = (): void => {
     this.activityTypesList = this.filters.activityTypes.map((type: string) =>
       ({
         name: this.translatorService.translate('DASHBOARD.FILTERS.' + type),

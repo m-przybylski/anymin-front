@@ -9,12 +9,13 @@ import { PromiseService } from '../../../../common/services/promise/promise.serv
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 import { httpCodes } from '../../../../common/classes/http-codes';
 import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
+import { LoggerService } from '@anymind-ng/core';
 
 // tslint:disable:member-ordering
 export class DashboardExpertActivitiesController {
 
-  public static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log', 'filtersData',
-    '$timeout', 'profiteloWebsocket'];
+  public static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log',
+    '$timeout', 'logger', 'filtersData', 'profiteloWebsocket'];
 
   private static readonly queryLimit = 10;
   private static readonly promiseLoaderDelay = 500;
@@ -42,8 +43,9 @@ export class DashboardExpertActivitiesController {
               private promiseService: PromiseService,
               private errorHandler: ErrorHandlerService,
               private $log: ng.ILogService,
-              filtersData: GetActivityFilters,
               private $timeout: ng.ITimeoutService,
+              private logger: LoggerService,
+              filtersData: GetActivityFilters,
               profiteloWebsocket: ProfiteloWebsocketService) {
     this.activitiesQueryParam = new ActivitiesQueryParams;
     this.setBasicQueryParam(this.activitiesQueryParam);
@@ -84,6 +86,12 @@ export class DashboardExpertActivitiesController {
   }
 
   public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
+    this.dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)
+      .then((filters) => {
+        this.filters = filters;
+      }, error => {
+        this.logger.error('DashboardExpertActivitiesController: Can not fetch filters on call summary', error);
+      });
     this.setBasicQueryParam(activitiesQueryParams);
     this.getDashboardActivities(activitiesQueryParams)
       .then((getActivities) => {
