@@ -5,7 +5,7 @@ import { IServiceInvitation } from '../../../common/models/ServiceInvitation';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
-import { LanguagesService } from '../../../common/services/languages/languages.service';
+import { ILanguage, LanguagesService } from '../../../common/services/languages/languages.service';
 import { TranslatorService } from '../../../common/services/translator/translator.service';
 import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 import { Config } from '../../../../config';
@@ -52,6 +52,10 @@ export class ConsultationController implements ng.IController {
   private consultationInvitationsMaxCount: number;
   private consultationPriceMin: number;
   private consultationPriceMax: number;
+  private static readonly defaultConsultationLanguage: ILanguage = {
+    name: 'Polish',
+    value: 'pl'
+  };
 
   public static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService', 'CommonConfig',
     'wizardProfile', 'languagesService', 'CommonSettingsService'];
@@ -91,8 +95,8 @@ export class ConsultationController implements ng.IController {
       const language = _.find(this.languagesList, (languageItem) =>
         languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase());
 
-      if (language)
-        this.languageInputValue = language;
+      language ? this.languageInputValue = language :
+        this.languageInputValue = ConsultationController.defaultConsultationLanguage;
     });
 
     if (this.$stateParams.service) {
