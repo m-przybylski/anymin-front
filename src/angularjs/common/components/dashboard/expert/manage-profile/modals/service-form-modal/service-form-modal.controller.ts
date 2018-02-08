@@ -58,6 +58,10 @@ export class ServiceFormModalController implements ng.IController {
   private consultationInvitationsMaxCount: number;
   private consultationPriceMin: number;
   private consultationPriceMax: number;
+  private static readonly defaultConsultationLanguage: ILanguage = {
+    name: 'Polish',
+    value: 'pl'
+  };
 
   public static $inject = ['$uibModalInstance', 'translatorService', 'CommonConfig', 'userService', 'ServiceApi',
     '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService'];
@@ -87,8 +91,10 @@ export class ServiceFormModalController implements ng.IController {
       this.isExpert = user.isExpert;
       this.currency = user.currency;
       this.defaultLanguageISO = user.countryISO;
-      this.consultationLanguage = _.find(this.languagesList, (languageItem) =>
+      const language = _.find(this.languagesList, (languageItem) =>
         languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase());
+      language ? this.consultationLanguage = language :
+        this.consultationLanguage = ServiceFormModalController.defaultConsultationLanguage;
 
       if (this.$scope.serviceDetails) {
         this.serviceDetails = this.$scope.serviceDetails;
