@@ -5,6 +5,7 @@ import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertControllerScope
 } from './consultation-summary-expert.controller';
+import { GetTechnicalProblem } from 'profitelo-api-ng/model/models';
 import consultationSummaryExpertModule from './consultation-summary-expert';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
 import { httpCodes } from '../../../../classes/http-codes';
@@ -27,7 +28,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
 
   const consultationSummaryExpertService: SpyObj<ConsultationSummaryExpertService> =
     jasmine.createSpyObj<ConsultationSummaryExpertService>('consultationSummaryExpertService', [
-      'sendTechnicalProblems'
+      'sendTechnicalProblems', 'complaintReasons'
     ]);
 
   beforeEach(() => {
@@ -40,7 +41,8 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
     $provide.value('normalizeTranslationKeyFilter', (x: string) => x);
   }));
 
-  beforeEach(() => {inject(($rootScope: any,
+  beforeEach(() => {
+    inject(($rootScope: any,
             $controller: ng.IControllerService,
             _$httpBackend_: ng.IHttpBackendService,
             _ViewsApi_: ViewsApi,
@@ -58,14 +60,14 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
 
       consultationSummaryExpertController =
         $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
-        $scope: scope,
-        $uibModalInstance,
-        httpBackend: _$httpBackend_,
-        ViewsApi: _ViewsApi_,
-        consultationSummaryExpertService
-      });
+          $scope: scope,
+          $uibModalInstance,
+          httpBackend: _$httpBackend_,
+          ViewsApi: _ViewsApi_,
+          consultationSummaryExpertService
+        });
 
-    ViewsApiMock.getDashboardCallDetailsRoute(404, '123');
+      ViewsApiMock.getDashboardCallDetailsRoute(404, '123');
     });
   });
 
@@ -108,33 +110,64 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
 
   it('should show success alert when send technical problems',
     inject(($q: ng.IQService, $controller: ng.IControllerService) => {
-    spyOn(topAlertService, 'success');
-    serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', {});
-    consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.resolve({}));
-    consultationSummaryExpertController =
-      $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
-        $scope: scope,
-        $uibModalInstance,
-        consultationSummaryExpertService
-      });
-    consultationSummaryExpertController.onSendTechnicalProblems();
-    scope.$apply();
-    expect(topAlertService.success).toHaveBeenCalled();
-  }));
+      spyOn(topAlertService, 'success');
+      serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.NOISE);
+      consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.resolve({}));
+      consultationSummaryExpertController =
+        $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
+          $scope: scope,
+          $uibModalInstance,
+          consultationSummaryExpertService
+        });
+      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.NOISE;
+      consultationSummaryExpertController.onSendTechnicalProblems();
+      scope.$apply();
+      expect(topAlertService.success).toHaveBeenCalled();
+    }));
 
-  it('should show error when send technical problems fails', inject(($q: ng.IQService, $controller: ng.IControllerService) => {
-    spyOn(errorHandler, 'handleServerError');
-    serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', {});
-    consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.reject({}));
-    consultationSummaryExpertController =
-      $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
-        $scope: scope,
-        $uibModalInstance,
-        consultationSummaryExpertService
-      });
-    consultationSummaryExpertController.onSendTechnicalProblems();
-    scope.$apply();
-    expect(errorHandler.handleServerError).toHaveBeenCalled();
-  }));
+  it('should show error when send technical problems fails',
+    inject(($q: ng.IQService, $controller: ng.IControllerService) => {
+      spyOn(errorHandler, 'handleServerError');
+      serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.NOISE);
+      consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.reject({}));
+      consultationSummaryExpertController =
+        $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
+          $scope: scope,
+          $uibModalInstance,
+          consultationSummaryExpertService
+        });
+      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.NOISE;
+      consultationSummaryExpertController.onSendTechnicalProblems();
+      scope.$apply();
+      expect(errorHandler.handleServerError).toHaveBeenCalled();
+    }));
+
+  it('should valid send technical problem form',
+    inject(($controller: ng.IControllerService) => {
+      const consultationSummaryExpertService = {
+          complaintReasons: [
+            {
+              id: GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT,
+              isDescriptionRequired: false,
+              name: 'complaintForm',
+              label: 'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.CLIENT_COULD_NOT_HEAR_EXPERT'
+            },
+            {
+              id: GetTechnicalProblem.ProblemTypeEnum.OTHER,
+              isDescriptionRequired: true,
+              name: 'complaintForm',
+              label: 'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.OTHER'
+            }
+          ]
+        };
+      consultationSummaryExpertController =
+        $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
+          $scope: scope,
+          $uibModalInstance,
+          consultationSummaryExpertService
+        });
+      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.NOISE;
+      expect(consultationSummaryExpertController.isTechnicalProblemsFormValid()).toBe(true);
+    }));
 
 });

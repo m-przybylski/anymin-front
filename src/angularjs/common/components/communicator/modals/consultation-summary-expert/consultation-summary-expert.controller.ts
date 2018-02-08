@@ -38,8 +38,8 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public isClientReportSent = false;
   public isSubmitted = false;
 
-  public radioModel: GetTechnicalProblem.ProblemTypeEnum;
-  public technicalProblemsDescription: string;
+  public radioModel?: GetTechnicalProblem.ProblemTypeEnum;
+  public technicalProblemsDescription?: string;
 
   private callSummarySubscription: Subscription;
   private sueId: string;
@@ -85,16 +85,18 @@ export class ConsultationSummaryExpertController implements ng.IController {
   }
 
   public onSendTechnicalProblems = (): void => {
-    this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
-      this.technicalProblemsDescription).then(() => {
-      this.onModalClose();
-      this.topAlertService.success({
-        message: this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
-        timeout: 2
+    if (this.radioModel) {
+      this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
+        this.technicalProblemsDescription).then(() => {
+        this.onModalClose();
+        this.topAlertService.success({
+          message: this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
+          timeout: 2
+        });
+      }).catch((error) => {
+        this.errorHandler.handleServerError(error);
       });
-    }).catch((error) => {
-      this.errorHandler.handleServerError(error);
-    });
+    }
   }
 
   public onSelectComplaint = (problemType: GetTechnicalProblem.ProblemTypeEnum): GetTechnicalProblem.ProblemTypeEnum =>
@@ -130,6 +132,11 @@ export class ConsultationSummaryExpertController implements ng.IController {
     ConsultationSummaryExpertController.minValidClientReportMessageLength
 
   public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel');
+
+  public isTechnicalProblemsFormValid = (): boolean =>
+    this.complaintReasons.filter((reason) => reason.isDescriptionRequired && reason.id === this.radioModel
+    ).length > 0 ? this.technicalProblemsDescription !== undefined && this.technicalProblemsDescription.length > 0
+      : this.radioModel !== undefined
 
   private onCallSummaryByRequest = (callDetails: GetCallDetails): void => {
     this.isLoading = false;
