@@ -226,6 +226,7 @@ export class CurrentCall {
     this.ratelCall.onInvited(() => this.events.onInvited.next());
     this.ratelCall.onJoined(() => this.events.onJoined.next());
     this.ratelCall.onLeft((reason) => {
+      this.setState(CallState.ENDED);
         if (reason.context.reason === 'connection_dropped') {
           this.hangup();
         }
@@ -265,18 +266,22 @@ export class CurrentCall {
 
     // Check if call still exists
     this.communicatorService.connectionEstablishedEvent$.subscribe((connected: IConnected) => {
-      connected.session.chat.getActiveCalls().then((activeCalls) => {
-        const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
-        if (call) {
-          // TODO update call length
-          // https://git.contactis.pl/itelo/profitelo-frontend/issues/421
-        } else { // Call no longer exists, propagate call end
-          this.stopLocalStream();
-          this.stopTimer();
-          this.setState(CallState.ENDED);
-          this.events.onEnd.next();
-        }
-      });
+      this.logger.debug('CurrentCall: Reconnected checking if call was pending');
+      if (this.state === CallState.PENDING) {
+        this.logger.debug('CurrentCall: Reconnected in pending call, checking active calls');
+        connected.session.chat.getActiveCalls().then((activeCalls) => {
+          const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
+          if (call) {
+            // TODO update call length
+            // https://git.contactis.pl/itelo/profitelo-frontend/issues/421
+          } else { // Call no longer exists, propagate call end
+            this.stopLocalStream();
+            this.stopTimer();
+            this.setState(CallState.ENDED);
+            this.events.onEnd.next();
+          }
+        });
+      }
     });
 
     this.communicatorService.connectionEstablishedEvent$.subscribe(() => this.timer.resume());
@@ -287,6 +292,7 @@ export class CurrentCall {
     this.logger.debug('CurrentCall: received onActiveDevice, call was pulled on other device', activeDevice);
     this.stopLocalStream();
     this.stopTimer();
+    this.setState(CallState.PENDING_ON_OTHER_DEVICE);
     this.events.onCallTaken.next(activeDevice);
   }
 
