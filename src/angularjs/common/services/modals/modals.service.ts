@@ -2,7 +2,7 @@
 import {
   GetService, GetActivity, MoneyDto, GetCreditCard, GetPaymentOptions,
   PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails, GetProfileWithServicesInvitations,
-  GetExpertServiceDetails
+  GetExpertServiceDetails, GetCompanyInvoiceDetails
 } from 'profitelo-api-ng/model/models';
 import { DialogService } from '../dialog/dialog.service';
 import {
@@ -110,12 +110,16 @@ import {
 } from '../../components/communicator/modals/service-unavailable/service-unavailable';
 import {
   IPayoutsModalControllerScope
-} from '../../components/dashboard/settings/modals/payouts/payouts/payouts.controller';
+} from '../../components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller';
 import {
   IAddPaymentMethodControllerScope
 } from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method';
 import { ConfirmAlertController, IConfirmAlertScope } from '../../controllers/confirm-alert/confirm-alert.controller';
 import { IInfoAlertScope, InfoAlertController } from '../../controllers/info-alert/info-alert.controller';
+import {
+  ICompanyInvoiceDetailsModalControllerScope,
+  CompanyInvoiceDetailsModalController
+} from '../../components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.controller';
 
 // TODO add types for dialogScope Scopes
 // tslint:disable:member-ordering
@@ -364,9 +368,10 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      controller: 'payoutsModalController',
+      controller: 'payoutsMethodsModalController',
       windowClass: 'modal-open',
-      template: require('angularjs/common/components/dashboard/settings/modals/payouts/payouts/payouts.html'),
+      template: require(
+        'angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.html'),
       scope: dialogScope
     });
   }
@@ -491,7 +496,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      windowClass: 'modal-open',
+      windowClass: 'modal-open full-screen',
       controller: ChargeAccountController,
       template: require('angularjs/app/charge-account/modal/charge-account.html'),
       scope: dialogScope
@@ -641,5 +646,24 @@ export class ModalsService {
       scope: dialogScope
     });
   }
+
+  public createCompanyInvoiceDetailsModal =
+    (onModalClose: () => void, companyInvoiceDetails?: GetCompanyInvoiceDetails): IModalInstanceService => {
+
+      const dialogScope: ICompanyInvoiceDetailsModalControllerScope =
+        <ICompanyInvoiceDetailsModalControllerScope>this.$rootScope.$new(true);
+      dialogScope.onModalCloseCallback = onModalClose;
+      dialogScope.companyInvoiceDetails = companyInvoiceDetails;
+
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        windowClass: 'modal-open',
+        controller: CompanyInvoiceDetailsModalController,
+        template: require(
+          'angularjs/common/components/dashboard/settings/modals/' +
+          'payouts/company-invoice-details/company-invoice-details.html'),
+        scope: dialogScope
+      });
+    }
 
 }

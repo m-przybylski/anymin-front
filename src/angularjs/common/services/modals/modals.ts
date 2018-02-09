@@ -15,7 +15,8 @@ import '../../components/dashboard/settings/modals/security/change-password/chan
 import '../../components/dashboard/settings/modals/security/pin-number/pin-number';
 import '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method';
 import '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice';
-import {default as payoutsModalModule } from '../../components/dashboard/settings/modals/payouts/payouts/payouts';
+import {default as payoutsMethodsModalModule }
+  from '../../components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods';
 import '../../directives/interface/scrollable/scrollable';
 import '../../components/interface/multiselect/multiselect';
 import callSummaryModule from '../call-summary/call-summary';
@@ -42,6 +43,8 @@ import rtcDetectorNoBrowserSupportModal
 // tslint:disable-next-line: max-line-length
 from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support';
 import consultationModalModule from '../../components/search/modals/consultation/consultation';
+import companyInvoiceDetailsModalModule
+  from '../../components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details';
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -75,7 +78,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   rtcDetectorNoBrowserSupportModal,
   expertIncomingCallModule,
   consultationModalModule,
-  payoutsModalModule
+  payoutsMethodsModalModule,
+  companyInvoiceDetailsModalModule
 ])
 .service('modalsService', ModalsService)
   .name;

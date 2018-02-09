@@ -1,5 +1,5 @@
-import { PayoutsApi } from 'profitelo-api-ng/api/api';
-import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
+import { PayoutsApi, AccountApi } from 'profitelo-api-ng/api/api';
+import { GetCompanyInvoiceDetails, GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { JValue } from 'profitelo-api-ng/model/JValue';
 import { httpCodes } from '../../../../common/classes/http-codes';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
@@ -7,21 +7,22 @@ import { ErrorHandlerService } from '../../../../common/services/error-handler/e
 // tslint:disable:member-ordering
 export class PayoutsService {
 
-  public static $inject = ['PayoutsApi', '$log', 'errorHandler'];
+  public static $inject = ['PayoutsApi', '$log', 'errorHandler', 'AccountApi'];
 
-    constructor(private PayoutsApi: PayoutsApi,
-              private $log: ng.ILogService,
-              private errorHandler: ErrorHandlerService) {}
+  constructor(private PayoutsApi: PayoutsApi,
+            private $log: ng.ILogService,
+            private errorHandler: ErrorHandlerService,
+            private AccountApi: AccountApi) {}
 
-  public getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => {
-    const promise = this.PayoutsApi.getPayoutMethodsRoute();
-    promise.catch(error => {
-      if (error.status !== httpCodes.notFound) {
-        this.$log.error('Can not get payouts methods', error);
+  public getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto | undefined> =>
+    this.PayoutsApi.getPayoutMethodsRoute().catch(error => {
+      if (error.status === httpCodes.notFound) {
+        return undefined;
+      } else {
+        this.$log.error('Can not get payouts methods ', error);
+        throw error;
       }
-    });
-    return promise;
-  }
+    })
 
   public putPayoutMethod = (): ng.IPromise<JValue> => {
     const promise = this.PayoutsApi.putPayoutMethodRoute({});
@@ -30,5 +31,15 @@ export class PayoutsService {
     });
     return promise;
   }
+
+  public getCompanyPayoutsInvoiceDetails = (): ng.IPromise<GetCompanyInvoiceDetails | undefined> =>
+    this.AccountApi.getCompanyPayoutInvoiceDetailsRoute().catch(error => {
+      if (error.status === httpCodes.notFound) {
+        return undefined;
+      } else {
+        this.$log.error('Can not get company payouts invoice details', error);
+        throw error;
+        }
+    })
 
 }

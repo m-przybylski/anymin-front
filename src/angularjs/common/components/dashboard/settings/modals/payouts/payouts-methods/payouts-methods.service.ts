@@ -4,7 +4,7 @@ import { PutPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';
 
 // tslint:disable:member-ordering
-export class PayoutsModalService {
+export class PayoutsMethodsModalService {
 
   public static $inject = ['PayoutsApi', 'errorHandler'];
 

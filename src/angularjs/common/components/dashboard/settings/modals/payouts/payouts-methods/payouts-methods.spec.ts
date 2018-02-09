@@ -1,14 +1,14 @@
 import * as angular from 'angular'
-import {PayoutsModalController, IPayoutsModalControllerScope} from './payouts.controller'
-import {PayoutsModalService} from './payouts.service'
+import {PayoutsMethodsModalController, IPayoutsModalControllerScope} from './payouts-methods.controller'
+import {PayoutsMethodsModalService} from './payouts-methods.service'
 import SpyObj = jasmine.SpyObj
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
-import payoutsModalModule from './payouts'
+import {default as payoutsMethodsModalModule} from './payouts-methods'
 import {IRootScopeService} from '../../../../../../services/root-scope/root-scope.service';
 
-describe('Testing Controller: PayoutsModalController', () => {
+describe('Testing Controller: PayoutsMethodsModalController', () => {
 
-  let controller: PayoutsModalController
+  let controller: PayoutsMethodsModalController
   let scope: IPayoutsModalControllerScope
   let injectors = {}
 
@@ -16,12 +16,12 @@ describe('Testing Controller: PayoutsModalController', () => {
     dismiss: (): void => {},
     close: (): void => {}
   }
-  const payoutsModalService: SpyObj<PayoutsModalService> =
-    jasmine.createSpyObj<PayoutsModalService>('payoutsModalService', ['putPayoutMethod'])
+  const payoutsMethodsModalService: SpyObj<PayoutsMethodsModalService> =
+    jasmine.createSpyObj<PayoutsMethodsModalService>('payoutsMethodsModalService', ['putPayoutMethod'])
 
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
-    angular.mock.module(payoutsModalModule)
+    angular.mock.module(payoutsMethodsModalModule)
   })
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -37,11 +37,11 @@ describe('Testing Controller: PayoutsModalController', () => {
       scope = <IPayoutsModalControllerScope>$rootScope.$new()
       injectors = {
         $uibModalInstance,
-        payoutsModalService,
+        payoutsMethodsModalService,
         $scope: scope
       }
 
-      controller = $controller<PayoutsModalController>('payoutsModalController', injectors)
+      controller = $controller<PayoutsMethodsModalController>('payoutsMethodsModalController', injectors)
     })
   })
 
@@ -78,10 +78,10 @@ describe('Testing Controller: PayoutsModalController', () => {
   it('should add pay pal account', inject(($q: ng.IQService, $controller: ng.IControllerService) => {
     spyOn($uibModalInstance, 'dismiss')
     scope.onModalCloseCallback = (): void => {}
-    payoutsModalService.putPayoutMethod.and.callFake(() => $q.resolve({}))
-    controller = $controller<PayoutsModalController>('payoutsModalController', {
+    payoutsMethodsModalService.putPayoutMethod.and.callFake(() => $q.resolve({}))
+    controller = $controller<PayoutsMethodsModalController>('payoutsMethodsModalController', {
       $uibModalInstance,
-      payoutsModalService,
+      payoutsMethodsModalService,
       $scope: scope
     })
     controller.addPayPalAccount()
@@ -92,10 +92,10 @@ describe('Testing Controller: PayoutsModalController', () => {
   it('should hide loader when add pay pal account fails',
     inject(($q: ng.IQService, $controller: ng.IControllerService, errorHandler: ErrorHandlerService) => {
     spyOn(errorHandler, 'handleServerError')
-    payoutsModalService.putPayoutMethod.and.callFake(() => $q.reject())
-    controller = $controller<PayoutsModalController>('payoutsModalController', {
+      payoutsMethodsModalService.putPayoutMethod.and.callFake(() => $q.reject())
+    controller = $controller<PayoutsMethodsModalController>('payoutsMethodsModalController', {
       $uibModalInstance,
-      payoutsModalService,
+      payoutsMethodsModalService,
       $scope: scope
     })
     controller.addPayPalAccount()
