@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 
-import {FinancialOperation} from 'profitelo-api-ng/model/models'
 import {DashboardActivitiesService} from '../../../../services/dashboard-activites/dashboard-activities.service'
 import dashboardFiltersModule from './filters'
 import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
@@ -43,7 +42,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         }],
         experts: []
       }
-      scope.accountType = FinancialOperation.AccountTypeEnum.PROFILE
+      scope.accountType = 'PROFILE'
       scope.onSetSearchParams = (): void => {}
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
@@ -86,7 +85,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       const bindings = {
         filters: filtersMock,
         onSetSearchParams: (): boolean => true,
-        accountType: FinancialOperation.AccountTypeEnum.PROFILE
+        accountType: 'PROFILE'
       }
 
       component = componentController('dashboardFilters', injectors, bindings)

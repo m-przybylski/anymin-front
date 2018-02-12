@@ -1,10 +1,10 @@
 // tslint:disable:member-ordering
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { GetActivityFilters, ServiceFilter, ExpertFilter, FinancialOperation } from 'profitelo-api-ng/model/models';
+import { GetActivityFilters, ServiceFilter, ExpertFilter } from 'profitelo-api-ng/model/models';
 import { IDashboardFiltersComponentBindings } from './filters';
 import { IPrimaryDropdownListElement } from '../../../interface/dropdown-primary/dropdown-primary';
-import { ActivitiesQueryParams } from '../../../../services/dashboard-activites/activities-query-params';
+import { AccountType, ActivitiesQueryParams } from '../../../../services/dashboard-activites/activities-query-params';
 import { UserService } from '../../../../services/user/user.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 
@@ -15,7 +15,7 @@ interface IDropdownList {
 
 export interface IDashboardFiltersComponentScope extends ng.IScope {
   filters: {};
-  accountType: FinancialOperation.AccountTypeEnum;
+  accountType: AccountType;
   onSetSearchParams: () => void;
 }
 
@@ -36,7 +36,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   public selectedService?: IPrimaryDropdownListElement;
   public selectedExpert?: IPrimaryDropdownListElement;
   public secondaryServicesDropdownList: IPrimaryDropdownListElement[];
-  public accountType: FinancialOperation.AccountTypeEnum;
+  public accountType: AccountType;
   public isCompany = false;
   private watchGroup: string[] = ['dateFrom', 'dateTo'];
   public activitiesFilters = {
@@ -52,7 +52,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       })
     );
 
-    this.isClientDashboard = this.accountType === FinancialOperation.AccountTypeEnum.CLIENT;
+    this.isClientDashboard = false;
 
     if (this.filters.services) {
       this.servicesDropdownList = this.createDropdownServiceList(this.filters.services);
