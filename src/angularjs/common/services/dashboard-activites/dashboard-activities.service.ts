@@ -1,6 +1,6 @@
 import { ViewsApi } from 'profitelo-api-ng/api/api';
-import { FinancialOperation, GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
-import { ActivitiesQueryParams } from './activities-query-params';
+import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
+import { AccountType, ActivitiesQueryParams } from './activities-query-params';
 import { GetActivities, GetActivityFilters } from 'profitelo-api-ng/model/models';
 import { PayoutsApi } from 'profitelo-api-ng/api/api';
 
@@ -21,7 +21,7 @@ export class DashboardActivitiesService {
     throw new Error('Can not get filters data: ' + String(error));
   }
 
-  public resolveFilters = (accountType: FinancialOperation.AccountTypeEnum): ng.IPromise<GetActivityFilters> => {
+  public resolveFilters = (accountType: AccountType): ng.IPromise<GetActivityFilters> => {
     const promise = this.ViewsApi.getDashboardActivityFiltersRoute(String(accountType));
     promise.catch(this.handleFilterResponseError);
     return promise;

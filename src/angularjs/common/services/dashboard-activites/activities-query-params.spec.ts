@@ -1,5 +1,5 @@
-import {ActivitiesQueryParams} from './activities-query-params'
-import {FinancialOperation, GetActivity} from 'profitelo-api-ng/model/models'
+import { ActivitiesQueryParams } from './activities-query-params'
+import { GetActivity } from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: activities query params >', () => {
   describe('for activities query params>', () => {
@@ -33,8 +33,8 @@ describe('Unit testing: activities query params >', () => {
     })
 
     it('should set and get account type', () => {
-      activitiesQueryParams.setAccountType(FinancialOperation.AccountTypeEnum.PROFILE)
-      expect(activitiesQueryParams.getAccountType()).toEqual(FinancialOperation.AccountTypeEnum.PROFILE )
+      activitiesQueryParams.setAccountType('PROFILE')
+      expect(activitiesQueryParams.getAccountType()).toEqual('PROFILE')
     })
 
     it('should set and get date from', () => {

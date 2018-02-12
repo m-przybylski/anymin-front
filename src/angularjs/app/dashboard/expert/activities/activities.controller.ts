@@ -1,8 +1,11 @@
-import { GetActivity, FinancialOperation, GetActivityFilters } from 'profitelo-api-ng/model/models';
+import { GetActivity, GetActivityFilters } from 'profitelo-api-ng/model/models';
 import {
   DashboardActivitiesService
 } from '../../../../common/services/dashboard-activites/dashboard-activities.service';
-import { ActivitiesQueryParams } from '../../../../common/services/dashboard-activites/activities-query-params';
+import {
+  AccountType,
+  ActivitiesQueryParams
+} from '../../../../common/services/dashboard-activites/activities-query-params';
 
 import { GetActivities, GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { PromiseService } from '../../../../common/services/promise/promise.service';
@@ -31,7 +34,7 @@ export class DashboardExpertActivitiesController {
     currentResultsCount: number
     allResultsCount: number
   };
-  public accountType = FinancialOperation.AccountTypeEnum.PROFILE;
+  public accountType: AccountType = 'PROFILE';
   public isActivitiesLoading = false;
   public areFilteredResults = false;
   public isAnyPayoutMethodSet = false;
@@ -86,7 +89,7 @@ export class DashboardExpertActivitiesController {
   }
 
   public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
-    this.dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)
+    this.dashboardActivitiesService.resolveFilters('PROFILE')
       .then((filters) => {
         this.filters = filters;
       }, error => {

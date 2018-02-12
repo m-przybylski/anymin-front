@@ -67,7 +67,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
           consultationSummaryExpertService
         });
 
-      ViewsApiMock.getDashboardCallDetailsRoute(404, '123');
+      ViewsApiMock.getExpertCallSummaryRoute(404, '123');
     });
   });
 

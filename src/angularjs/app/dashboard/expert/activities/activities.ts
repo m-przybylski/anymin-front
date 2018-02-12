@@ -6,7 +6,7 @@ import expertActivityModule from '../../../../common/components/dashboard/expert
 import { DashboardActivitiesService }
   from '../../../../common/services/dashboard-activites/dashboard-activities.service';
 import expertActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites';
-import { FinancialOperation, GetActivityFilters } from 'profitelo-api-ng/model/models';
+import { GetActivityFilters } from 'profitelo-api-ng/model/models';
 import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters';
 import promiseModule from '../../../../common/services/promise/promise';
 import errorHandlerModule from '../../../../common/services/error-handler/error-handler';
@@ -37,7 +37,7 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
       resolve: {
         filtersData: ['dashboardActivitiesService', (dashboardActivitiesService: DashboardActivitiesService):
           ng.IPromise<GetActivityFilters> =>
-          dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)]
+          dashboardActivitiesService.resolveFilters('PROFILE')]
       }
     });
   }])

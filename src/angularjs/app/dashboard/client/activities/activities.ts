@@ -1,7 +1,5 @@
 import * as angular from 'angular';
-import {
-  MoneyDto, GetActivity, FinancialOperation, GetActivityFilters, GetActivities
-} from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetActivity, GetActivityFilters, GetActivities } from 'profitelo-api-ng/model/models';
 import 'angularjs/common/components/dashboard/client/activities/client-activities/activity/activity';
 import 'angularjs/common/components/interface/preloader-container/preloader-container';
 import 'angularjs/common/components/complaints/status/status';
@@ -10,7 +8,10 @@ import {
   DashboardActivitiesService
 } from '../../../../common/services/dashboard-activites/dashboard-activities.service';
 import dashboardActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites';
-import { ActivitiesQueryParams } from '../../../../common/services/dashboard-activites/activities-query-params';
+import {
+  AccountType,
+  ActivitiesQueryParams
+} from '../../../../common/services/dashboard-activites/activities-query-params';
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information';
 import promiseModule from '../../../../common/services/promise/promise';
@@ -37,7 +38,7 @@ export class DashboardClientActivitiesController {
   public isMoreResults: boolean;
   public isError = false;
   public filters: GetActivityFilters;
-  public accountType = FinancialOperation.AccountTypeEnum.CLIENT;
+  public accountType: AccountType = 'CLIENT';
   public isActivitiesLoading = false;
   public translationCounter: {
     currentResultsCount: number
@@ -150,7 +151,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
       resolve: {
         filtersData: ['dashboardActivitiesService',
           (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
-            dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)]
+            dashboardActivitiesService.resolveFilters('CLIENT')]
       }
     });
   }])

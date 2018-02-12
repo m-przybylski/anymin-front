@@ -1,7 +1,7 @@
 import { LoggerService } from '@anymind-ng/core';
 import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';
 import { IExpertCallSummary } from '../../../../models/ExpertCallSummary';
-import { MoneyDto, GetTechnicalProblem, GetCallDetails } from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetTechnicalProblem, GetExpertCallSummary } from 'profitelo-api-ng/model/models';
 import { ServiceApi, ViewsApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
@@ -62,7 +62,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
     this.callSummarySubscription = this.callSummaryService.onCallSummary(this.onCallSummary);
     this.sueId = this.$scope.serviceUsageEventId;
 
-    ViewsApi.getDashboardCallDetailsRoute(this.sueId).then(
+    ViewsApi.getExpertCallSummaryRoute(this.sueId).then(
       this.onCallSummaryByRequest,
       err => this.logger.warn('ConsultationSummaryExpertController: Could not get summary from backend', err)
     );
@@ -138,22 +138,17 @@ export class ConsultationSummaryExpertController implements ng.IController {
     ).length > 0 ? this.technicalProblemsDescription !== undefined && this.technicalProblemsDescription.length > 0
       : this.radioModel !== undefined
 
-  private onCallSummaryByRequest = (callDetails: GetCallDetails): void => {
+  private onCallSummaryByRequest = (summary: GetExpertCallSummary): void => {
     this.isLoading = false;
-    if (callDetails.clientDetails.nickname) {
-      this.clientNickname = callDetails.clientDetails.nickname;
+    if (summary.clientNickname) {
+      this.clientNickname = summary.clientNickname;
     } else {
-      this.clientNickname = callDetails.clientDetails.clientId;
+      this.clientNickname = summary.clientId;
     }
-    this.clientAvatar = callDetails.clientDetails.avatar;
-    this.serviceName = callDetails.service.name;
-    const profit = callDetails.serviceUsageDetails.financialOperation;
-    if (profit) {
-      this.profit = profit;
-    } else {
-      this.logger.debug('ConsultationSummaryExpertController: There were no financial operation');
-    }
-    this.callDuration = callDetails.serviceUsageDetails.callDuration;
+    this.clientAvatar = summary.clientAvatar;
+    this.serviceName = summary.serviceName;
+    this.profit = summary.callProfit;
+    this.callDuration = summary.callDuration;
   }
 
   private onCallSummary = (callSummary: IExpertCallSummary): void => {
