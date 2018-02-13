@@ -248,7 +248,11 @@ export class ExpertCallService {
             this.soundsService.callIncomingSound().stop();
             callingModal.close();
           },
-          (err) => this.logger.error('ExpertCallService: Could not answer the call', err)
+          (err) => {
+            this.soundsService.callIncomingSound().stop();
+            callingModal.close();
+            this.logger.error('ExpertCallService: Could not answer the call', err);
+          }
         );
       },
       (err) => this.logger.warn('ExpertCallService: Could not get user media', err));
@@ -256,6 +260,7 @@ export class ExpertCallService {
 
   private rejectCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance,
                                   call: BusinessCall): void => {
+    this.logger.debug('ExpertCallService: Rejecting call invitation', call);
     // Clear callbacks registered in `incoming` state
     call.onEnd(() => {
     });
@@ -271,7 +276,11 @@ export class ExpertCallService {
           (err) => this.logger.warn('ExpertCallService: could not play call rejected', err));
         this.logger.debug('ExpertCallService: Call was successfully rejected');
       },
-      (err) => this.logger.error('ExpertCallService: Error when rejecting the call', err));
+      (err) => {
+        this.soundsService.callIncomingSound().stop();
+        callingModal.close();
+        this.logger.error('ExpertCallService: Error when rejecting the call', err);
+      });
   }
 
   private onAnsweredCallEnd = (currentExpertCall: ExpertCall): void => {

@@ -284,8 +284,41 @@ export class CurrentCall {
       }
     });
 
-    this.communicatorService.connectionEstablishedEvent$.subscribe(() => this.timer.resume());
+    this.communicatorService.connectionEstablishedEvent$.subscribe(this.handleConnectionBack);
     this.communicatorService.connectionLostEvent$.subscribe(() => this.timer.pause());
+  }
+
+  private handleConnectionBack = (): void => {
+    this.ratelCall.getMessages().then(callMsgs => {
+      this.logger.debug('CurrentCall: handling connection back, call msgs', callMsgs);
+      if (this.checkIfCallWasPulledWhenOffline(callMsgs)) {
+        this.logger.debug('CurrentCall: call was pulled on other device, stopping');
+        this.stopLocalStream();
+        this.stopTimer();
+        this.setState(CallState.PENDING_ON_OTHER_DEVICE);
+        this.events.onCallTaken.next();
+      } else {
+        this.logger.debug('CurrentCall: call was not pulled, resuming');
+        // FIXME update the timer with all the events
+        this.timer.resume();
+      }
+    });
+  }
+  private isCallMessageMine = (msg: RatelSdk.Message): boolean =>
+    this.session.id === msg.userId
+
+  private checkIfCallWasPulledWhenOffline = (callMsgs: RatelSdk.Message[]): boolean => {
+    const myMessages = callMsgs.filter(this.isCallMessageMine);
+    const reversed = myMessages.slice().reverse();
+
+    for (const msg of reversed) {
+      if (msg.tag === 'DEVICE_OFFLINE') {
+        return false;
+      } else if (msg.tag === 'CALL_TRANSFERRED') {
+        return true;
+      }
+    }
+    return false;
   }
 
   private onActiveDevice = (activeDevice: CallActiveDevice): void => {
