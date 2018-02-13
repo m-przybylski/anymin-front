@@ -37,14 +37,14 @@ export class CurrentCall {
     onLeft: new Subject<void>(),
     onRemoteStream: new ReplaySubject<MediaStream>(1),
     onLocalStream: new Subject<MediaStream>(),
-    onTimeCostChange: new Subject<{ time: number, money: MoneyDto }>(),
+    onTimeCostChange: new ReplaySubject<{ time: number, money: MoneyDto }>(1),
     onVideoStart: new Subject<void>(),
     onVideoStop: new Subject<void>(),
     onParticipantOnline: new Subject<void>(),
-    onParticipantOffline: new Subject<void>()
+    onParticipantOffline: new ReplaySubject<void>(1)
   };
 
-  private timer: TimerService;
+  protected timer: TimerService;
 
   private state: CallState;
 
@@ -162,11 +162,11 @@ export class CurrentCall {
   public getState = (): CallState => this.state;
 
   public startTimer = (freeSeconds = 0): void => {
-    if (this.timer) this.timer.start(this.emitTimeMoneyChange, freeSeconds);
+    this.timer.start(this.emitTimeMoneyChange, freeSeconds);
   }
 
   public setStartTime = (time: number): void => {
-    if (this.timer) this.timer.setStartTime(time);
+    this.timer.setStartTime(time);
   }
 
   public pullCall = (mediaStream: MediaStream): Promise<void> => this.ratelCall.pull(mediaStream);
@@ -189,7 +189,7 @@ export class CurrentCall {
     this.events.onCallTaken.subscribe(cb)
 
   protected stopTimer = (): void => {
-    if (this.timer) this.timer.stop();
+    this.timer.stop();
   }
 
   protected setLocalStream = (localStream: MediaStream): void => {
@@ -203,6 +203,24 @@ export class CurrentCall {
 
   protected setState = (state: CallState): void => {
     this.state = state;
+  }
+
+  protected isClientOnline = (callMsgs: RatelSdk.Message[]): boolean => {
+    const clientMessages = callMsgs.filter(this.isCallMessageNotMine);
+    const reversed = clientMessages.slice().reverse();
+
+    for (const msg of reversed) {
+      switch (msg.tag) {
+        case 'DEVICE_ONLINE':
+          return true;
+        case 'DEVICE_OFFLINE':
+          return false;
+        case 'CALL_TRANSFERRED':
+          return true;
+        default:
+      }
+    }
+    return true;
   }
 
   private updateLocalStream = (mediaStream: MediaStream, stopLocalStream?: () => void): void => {
@@ -251,7 +269,7 @@ export class CurrentCall {
       if (msg.userId !== this.session.id) {
         this.logger.debug('CurrentCall: Participant went offline');
         this.timer.pause();
-        this.events.onParticipantOffline.next();
+        this.events.onParticipantOffline.next(undefined);
       }
     });
 
@@ -291,23 +309,31 @@ export class CurrentCall {
   private handleConnectionBack = (): void => {
     this.ratelCall.getMessages().then(callMsgs => {
       this.logger.debug('CurrentCall: handling connection back, call msgs', callMsgs);
-      if (this.checkIfCallWasPulledWhenOffline(callMsgs)) {
+      if (this.isMyCallPulled(callMsgs)) {
         this.logger.debug('CurrentCall: call was pulled on other device, stopping');
         this.stopLocalStream();
         this.stopTimer();
         this.setState(CallState.PENDING_ON_OTHER_DEVICE);
         this.events.onCallTaken.next();
-      } else {
-        this.logger.debug('CurrentCall: call was not pulled, resuming');
+      } else if (this.isClientOnline(callMsgs)) {
+        this.logger.debug('CurrentCall: call was not pulled, client is online - resuming');
         // FIXME update the timer with all the events
         this.timer.resume();
+        this.events.onParticipantOnline.next();
+      } else {
+        this.logger.debug('CurrentCall: call was not pulled but client is offline - propagating onParticipantOffline');
+        this.events.onParticipantOffline.next(undefined);
       }
     });
   }
+
   private isCallMessageMine = (msg: RatelSdk.Message): boolean =>
     this.session.id === msg.userId
 
-  private checkIfCallWasPulledWhenOffline = (callMsgs: RatelSdk.Message[]): boolean => {
+  private isCallMessageNotMine = (msg: RatelSdk.Message): boolean =>
+    this.session.id !== msg.userId
+
+  private isMyCallPulled = (callMsgs: RatelSdk.Message[]): boolean => {
     const myMessages = callMsgs.filter(this.isCallMessageMine);
     const reversed = myMessages.slice().reverse();
 

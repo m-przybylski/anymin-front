@@ -1,5 +1,5 @@
 import { BusinessRoom, BusinessCall, roomType, CallReason } from 'ratel-sdk-js';
-import { Session } from 'ratel-sdk-js';
+import { Session, Message } from 'ratel-sdk-js';
 import { GetIncomingCallDetails } from 'profitelo-api-ng/model/models';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { CallState, CurrentCall } from './current-call';
@@ -35,12 +35,24 @@ export class ExpertCall extends CurrentCall {
       .then(businessRoom => this.joinRoom(businessRoom as BusinessRoom));
   }
 
-  public pull = (localStream: MediaStream): Promise<void> => {
+  public pull = (localStream: MediaStream, callMsgs: Message[], callStartedAt: number): Promise<void> => {
     this.setLocalStream(localStream);
     return this.pullCall(localStream).then(() => {
-      this.setState(CallState.PENDING);
+      // FIXME https://git.contactis.pl/itelo/profitelo-frontend/issues/416
+      // Using answeredAt will calculate the time wrongly if there were reconnects
+      this.setStartTime(callStartedAt);
+      this.startTimer(this.incomingCallDetails.sue.freeSeconds);
+      if (this.isClientOnline(callMsgs)) {
+        this.logger.debug('ExpertCall: Client is online in pulled call');
+        this.setState(CallState.PENDING);
+      } else {
+        this.logger.debug('ExpertCall: Client is offline in pulled call, emitting onOffline, pausing timer');
+        this.timer.pause();
+        this.events.onParticipantOffline.next(undefined);
+      }
       const roomId = this.getRatelRoomId();
       if (roomId) {
+        this.logger.debug(`ExpertCall: Initializing ratel room by id ${roomId}`);
         this.getSession().chat.getRoom(roomId).then((room) => {
           this.logger.debug('ExpertCall: received ratel room', room);
           if (roomType.isBusiness(room)) {
@@ -49,7 +61,7 @@ export class ExpertCall extends CurrentCall {
             this.logger.error('ExpertCall: Abnormal state,received room is not BusinessRoom');
           }
         }, (err) => {
-          this.logger.error('ExpertCall: Abnormal state, could not get room', err);
+          this.logger.error(`ExpertCall: Abnormal state, could not get room ${roomId}`, err);
         });
       } else {
         this.logger.error('ExpertCall: Abnormal state, there is no roomId in the SUE');

@@ -16,17 +16,18 @@ export class TimerService {
   }
 
   public start = (cb: (obj: { time: number, money: MoneyDto }) => void, freeSeconds = 0): void => {
-    this.startTime = Date.now();
+    this.isPaused = false;
+    this.pausedCount = 0;
+    if (this.startTime) {
+      this.logger.info('TimerService: Start time is already defined, not updating');
+    } else {
+      this.startTime = Date.now();
+    }
+    // Init the cost
+    this.notifyChange(cb, freeSeconds);
     this.timer = this.$interval(() => {
       if (!this.isPaused) {
-        const _time = (Date.now() - this.startTime) / TimerService.milisecondsInSecond;
-        cb({
-          time: _time,
-          money: {
-            amount: this.setAmountValue(_time, freeSeconds),
-            currency: this.money.currency
-          }
-        });
+        this.notifyChange(cb, freeSeconds);
       }
     }, this.interval);
   }
@@ -61,6 +62,17 @@ export class TimerService {
 
   public setStartTime = (time: number): void => {
     this.startTime = time;
+  }
+
+  private notifyChange = (cb: (obj: { time: number, money: MoneyDto }) => void, freeSeconds: number): void => {
+    const _time = (Date.now() - this.startTime) / TimerService.milisecondsInSecond;
+    cb({
+      time: _time,
+      money: {
+        amount: this.setAmountValue(_time, freeSeconds),
+        currency: this.money.currency
+      }
+    });
   }
 
   private setAmountValue = (time: number, freeSeconds: number): number => {
