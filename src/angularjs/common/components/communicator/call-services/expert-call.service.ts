@@ -68,6 +68,9 @@ export class ExpertCallService {
     return this.pullableCallEvent;
   }
 
+  private getCallMessages = (call: Call): ng.IPromise<Message[]> =>
+    this.upgradeService.toIPromise(call.getMessages())
+
   private handlePullableCall = (session: Session, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
@@ -80,25 +83,20 @@ export class ExpertCallService {
           const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory,
             call, this.communicatorService, this.RatelApi, this.microphoneService, this.logger);
 
-          this.logger.debug('ExpertCallService: get call msgs!');
-          call.getMessages().then(msgs => this.logger.debug('ExpertCallService: call msgs', msgs));
+          // FIXME https://git.contactis.pl/itelo/profitelo-frontend/issues/416
+          // Using answeredAt will calculate the time wrongly if there were reconnects
+          const startedAt = Date.parse(String(incomingCallDetails.sue.answeredAt));
 
-          return this.upgradeService.toIPromise(currentExpertCall.pull(localStream).then(() => {
-            currentExpertCall.onEnd(() => this.onAnsweredCallEnd(currentExpertCall));
-            currentExpertCall.onCallTaken(() => this.handlePullableCall(session, call));
-            currentExpertCall.startTimer(incomingCallDetails.sue.freeSeconds);
-            // FIXME https://git.contactis.pl/itelo/profitelo-frontend/issues/416
-            // Using answeredAt will calculate the time wrongly if there were reconnects
-            const answeredAt = incomingCallDetails.sue.answeredAt;
-            if (answeredAt) {
-              currentExpertCall.setStartTime(Date.parse(String(incomingCallDetails.sue.answeredAt)));
-            } else {
-              this.logger.error('ExpertCallService: Pulled the call which was not answered');
-            }
-            this.newCallEvent.next(currentExpertCall);
+          return this.getCallMessages(call).then(callMsgs =>
+            this.upgradeService.toIPromise(currentExpertCall.pull(localStream, callMsgs, startedAt).then(() => {
+              currentExpertCall.onEnd(() => this.onAnsweredCallEnd(currentExpertCall));
+              currentExpertCall.onCallTaken(() => this.handlePullableCall(session, call));
+              this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
+              this.newCallEvent.next(currentExpertCall);
 
-            return currentExpertCall;
-          }));
+              return currentExpertCall;
+            }))
+          );
         })
       );
     };
