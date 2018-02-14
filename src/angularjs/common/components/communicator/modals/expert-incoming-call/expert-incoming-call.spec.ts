@@ -19,6 +19,7 @@ describe('Testing Controller: expertIncomingCall', () => {
 
       scope = <IExpertIncomingCallControllerScope>$rootScope.$new()
       scope.$parent = <IExpertIncomingCallParentControllerScope>$rootScope.$new()
+      scope.$parent.expertSueDetails = <any>{serviceName: '123'};
       scope.$parent.rejectCall = (): void => {
       }
       scope.$parent.answerCall = (): void => {

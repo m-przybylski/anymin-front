@@ -2,7 +2,7 @@
 import {
   GetService, GetActivity, MoneyDto, GetCreditCard, GetPaymentOptions,
   PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails, GetProfileWithServicesInvitations,
-  GetExpertServiceDetails, GetCompanyInvoiceDetails
+  GetExpertServiceDetails, GetCompanyInvoiceDetails, GetExpertSueDetails
 } from 'profitelo-api-ng/model/models';
 import { DialogService } from '../dialog/dialog.service';
 import {
@@ -130,14 +130,14 @@ export class ModalsService {
     constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
-  public createIncomingCallModal = (service: GetService,
+  public createIncomingCallModal = (expertSueDetails: GetExpertSueDetails,
                                     answerCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void,
                                     rejectCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void
   ): IModalInstanceService => {
     const dialogScope: IExpertIncomingCallParentControllerScope =
       <IExpertIncomingCallParentControllerScope>this.$rootScope.$new(true);
 
-    dialogScope.service = service;
+    dialogScope.expertSueDetails = expertSueDetails;
     dialogScope.answerCall = answerCallback;
     dialogScope.rejectCall = rejectCallback;
 

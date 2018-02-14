@@ -13,7 +13,7 @@ data-ng-hide="$ctrl.isClosed")
             .author
               span {{ $ctrl.expert.expertDetails.name }}
             .communicator-conversation-title
-              p {{ $ctrl.service.name }}
+              p {{ $ctrl.serviceName }}
             .communicator-counter
               span {{ $ctrl.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
               span(data-ng-bind-html="$ctrl.callCost | money")

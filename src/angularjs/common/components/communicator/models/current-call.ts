@@ -3,8 +3,8 @@
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { TimerService } from '../../../services/timer/timer.service';
-import { RatelApi } from 'profitelo-api-ng/api/api';
-import { GetService, MoneyDto, RatelCallDetails, ServiceUsageEvent } from 'profitelo-api-ng/model/models';
+import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { MoneyDto, RatelCallDetails } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import { Session } from 'ratel-sdk-js';
 import { TimerFactory } from '../../../services/timer/timer.factory';
@@ -18,7 +18,6 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
-import { Config } from '../../../../../config';
 
 export enum CallState {
   REJECTED,
@@ -26,6 +25,14 @@ export enum CallState {
   PENDING_ON_OTHER_DEVICE,
   CANCELLED,
   ENDED
+}
+
+export interface ICallDetails {
+  sueId: string;
+  serviceId: string;
+  servicePrice: MoneyDto;
+  serviceName: string;
+  ratelRoomId?: string;
 }
 
 export class CurrentCall {
@@ -60,14 +67,14 @@ export class CurrentCall {
   constructor(protected ratelCall: RatelSdk.BusinessCall,
               private session: Session,
               private timerFactory: TimerFactory,
-              private service: GetService,
-              private sue: ServiceUsageEvent,
+              private callDetails: ICallDetails,
               private communicatorService: CommunicatorService,
               protected RatelApi: RatelApi,
+              private ServiceApi: ServiceApi,
               private microphoneService: MicrophoneService,
               protected logger: LoggerService) {
     this.registerCallbacks();
-    this.createTimer(service.price);
+    this.createTimer(callDetails.servicePrice);
   }
 
   public forceEndCall = (): void => {
@@ -93,19 +100,19 @@ export class CurrentCall {
     this.ratelCall.id
 
   public getSueId = (): string =>
-    this.sue.id
+    this.callDetails.sueId
 
   public getRatelRoomId = (): string | undefined =>
-    this.sue.ratelRoomId
+    this.callDetails.ratelRoomId
 
   public onEnd = (cb: () => void): Subscription =>
     this.events.onEnd.subscribe(cb)
 
-  public getService = (): GetService =>
-    this.service
+  public getCallDetails = (): ICallDetails =>
+    this.callDetails
 
   public hangup = (): ng.IPromise<RatelCallDetails> =>
-    this.RatelApi.postRatelStopCallRoute(this.sue.id)
+    this.RatelApi.postRatelStopCallRoute(this.callDetails.sueId)
 
   public changeCamera = (): Promise<void> =>
     this.startEnvironmentVideo()
@@ -172,8 +179,8 @@ export class CurrentCall {
     this.timer.start(this.emitTimeMoneyChange, freeSeconds);
   }
 
-  public setStartTime = (time: number): void => {
-    this.timer.setStartTime(time);
+  public setDuration = (time: number): void => {
+    this.timer.setCurrentDuration(time);
   }
 
   public pullCall = (mediaStream: MediaStream): Promise<void> => this.ratelCall.pull(mediaStream);
@@ -295,6 +302,9 @@ export class CurrentCall {
     });
 
     // Check if call still exists
+    // FIXME
+    // remove this and handle it in this.handleConnectionBack when artichoke will return CALL_END in call.getMessages
+    // https://git.contactis.pl/itelo/profitelo-frontend/issues/456
     this.communicatorService.connectionEstablishedEvent$.subscribe((connected: IConnected) => {
       this.logger.debug('CurrentCall: Reconnected checking if call was pending');
       if (this.state === CallState.PENDING) {
@@ -302,8 +312,11 @@ export class CurrentCall {
         connected.session.chat.getActiveCalls().then((activeCalls) => {
           const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
           if (call) {
-            // TODO update call length
-            // https://git.contactis.pl/itelo/profitelo-frontend/issues/421
+            this.ServiceApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+              this.timer.setCurrentDuration(callDetails.callDuration);
+            }).catch((err) => {
+              this.logger.debug('CurrentCall: Error while getting call details', err);
+            });
           } else { // Call no longer exists, propagate call end
             this.handleOnEnd();
           }
@@ -325,10 +338,14 @@ export class CurrentCall {
         this.setState(CallState.PENDING_ON_OTHER_DEVICE);
         this.events.onCallTaken.next();
       } else if (this.isClientOnline(callMsgs)) {
-        this.logger.debug('CurrentCall: call was not pulled, client is online - resuming');
-        // FIXME update the timer with all the events
-        this.timer.resume();
-        this.events.onParticipantOnline.next();
+        this.logger.debug('CurrentCall: call was not pulled, client is online - update call duration and resume');
+        this.ServiceApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+          this.timer.setCurrentDuration(callDetails.callDuration);
+          this.timer.resume();
+          this.events.onParticipantOnline.next();
+        }).catch((err) => {
+          this.logger.debug('CurrentCall: Error while getting call details', err);
+        });
       } else {
         this.logger.debug('CurrentCall: call was not pulled but client is offline - propagating onParticipantOffline');
         this.events.onParticipantOffline.next(undefined);
@@ -365,8 +382,7 @@ export class CurrentCall {
   }
 
   private createTimer = (price: MoneyDto): TimerService =>
-    this.timer = this.timerFactory.getInstance(
-      price, Config.communicator.moneyChangeInterval)
+    this.timer = this.timerFactory.getInstance(price)
 
   private emitTimeMoneyChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void =>
     this.events.onTimeCostChange.next(timeMoneyTuple)

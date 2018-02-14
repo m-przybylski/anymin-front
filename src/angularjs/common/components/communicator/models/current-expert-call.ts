@@ -1,25 +1,26 @@
 import { BusinessRoom, BusinessCall, roomType, CallReason } from 'ratel-sdk-js';
 import { Session, Message } from 'ratel-sdk-js';
-import { GetIncomingCallDetails } from 'profitelo-api-ng/model/models';
-import { RatelApi } from 'profitelo-api-ng/api/api';
-import { CallState, CurrentCall } from './current-call';
+import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
+import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { CallState, CurrentCall, ICallDetails } from './current-call';
 import { TimerFactory } from '../../../services/timer/timer.factory';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 
 export class ExpertCall extends CurrentCall {
 
-  constructor(private incomingCallDetails: GetIncomingCallDetails,
+  constructor(private getExpertSueDetails: GetExpertSueDetails,
               session: Session,
               timerFactory: TimerFactory,
               call: BusinessCall,
               communicatorService: CommunicatorService,
               RatelApi: RatelApi,
+              ServiceApi: ServiceApi,
               microphoneService: MicrophoneService,
               logger: LoggerService) {
 
-    super(call, session, timerFactory,
-      incomingCallDetails.service, incomingCallDetails.sue, communicatorService, RatelApi, microphoneService, logger);
+    super(call, session, timerFactory, ExpertCall.toCallDetails(getExpertSueDetails), communicatorService,
+      RatelApi, ServiceApi, microphoneService, logger);
     this.setState(CallState.PENDING);
     this.onCallTaken(() => {
       this.setState(CallState.PENDING_ON_OTHER_DEVICE);
@@ -35,13 +36,11 @@ export class ExpertCall extends CurrentCall {
       .then(businessRoom => this.joinRoom(businessRoom as BusinessRoom));
   }
 
-  public pull = (localStream: MediaStream, callMsgs: Message[], callStartedAt: number): Promise<void> => {
+  public pull = (localStream: MediaStream, callMsgs: Message[]): Promise<void> => {
     this.setLocalStream(localStream);
     return this.pullCall(localStream).then(() => {
-      // FIXME https://git.contactis.pl/itelo/profitelo-frontend/issues/416
-      // Using answeredAt will calculate the time wrongly if there were reconnects
-      this.setStartTime(callStartedAt);
-      this.startTimer(this.incomingCallDetails.sue.freeSeconds);
+      this.setDuration(this.getExpertSueDetails.callDuration);
+      this.startTimer(this.getExpertSueDetails.freeSeconds);
       if (this.isClientOnline(callMsgs)) {
         this.logger.debug('ExpertCall: Client is online in pulled call');
         this.setState(CallState.PENDING);
@@ -71,9 +70,17 @@ export class ExpertCall extends CurrentCall {
 
   public reject = (): Promise<void> => this.ratelCall.reject(CallReason.CallRejected).then(this.onReject);
 
+  private static toCallDetails = (expertSue: GetExpertSueDetails): ICallDetails => ({
+    sueId: expertSue.sueId,
+    serviceId: expertSue.serviceName,
+    servicePrice: expertSue.servicePrice,
+    serviceName: expertSue.serviceName,
+    ratelRoomId: expertSue.ratelRoomId
+  })
+
   private onAnswer = (): void => {
     this.setState(CallState.PENDING);
-    this.startTimer(this.incomingCallDetails.sue.freeSeconds);
+    this.startTimer(this.getExpertSueDetails.freeSeconds);
   }
 
   private onReject = (): void => {

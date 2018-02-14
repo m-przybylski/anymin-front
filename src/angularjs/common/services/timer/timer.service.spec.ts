@@ -30,8 +30,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
         currency: 'PLN'
       }
 
-      // FIXME
-      const timer = timerFactory.getInstance(money, <any>undefined)
+      const timer = timerFactory.getInstance(money)
 
       timer.start(() => {
         functionCalled = true
@@ -46,7 +45,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
 
     }))
 
-    it('should use time factory with 30 free seconds', (done) =>
+    it('should use time factory with 10 free seconds', (done) =>
       inject(($interval: ng.IIntervalService) => {
       let currentMoney: MoneyDto = {
         amount: 100,
@@ -56,7 +55,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
       const timer = timerFactory.getInstance({
         amount: 100,
         currency: 'PLN'
-      }, <any>undefined)
+      })
 
       const callBack = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
         currentMoney = timeMoneyTuple.money
@@ -67,7 +66,7 @@ describe('Unit testing: profitelo.services.timer >', () => {
       timer.pause()
       expect(currentMoney.amount).toEqual(0)
       timer.resume()
-      $interval.flush(6000)
+      $interval.flush(4000)
       timer.stop()
       expect(currentMoney.amount).toEqual(0)
     }))
