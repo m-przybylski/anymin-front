@@ -36,7 +36,7 @@ export class CurrentCall {
     onJoined: new Subject<void>(),
     onLeft: new Subject<void>(),
     onRemoteStream: new ReplaySubject<MediaStream>(1),
-    onLocalStream: new Subject<MediaStream>(),
+    onLocalStream: new ReplaySubject<MediaStream>(1),
     onTimeCostChange: new ReplaySubject<{ time: number, money: MoneyDto }>(1),
     onVideoStart: new Subject<void>(),
     onVideoStop: new Subject<void>(),
@@ -233,18 +233,23 @@ export class CurrentCall {
     this.events.onLocalStream.next(mediaStream);
   }
 
+  private handleOnEnd = (): void => {
+    this.stopLocalStream();
+    // Subscribe, because remote stream can come after call end when audio/video was changed when hanging up the call
+    this.events.onLocalStream.subscribe(this.stopStream);
+    this.events.onRemoteStream.subscribe(this.stopStream);
+    this.stopTimer();
+    this.setState(this.ratelCall.users.length > 0 ? CallState.ENDED : CallState.CANCELLED);
+    this.events.onEnd.next();
+  }
+
   private registerCallbacks = (): void => {
-    this.ratelCall.onEnd(() => {
-      this.stopLocalStream();
-      this.stopTimer();
-      this.setState(this.ratelCall.users.length > 0 ? CallState.ENDED : CallState.CANCELLED);
-      this.events.onEnd.next();
-    });
+    this.ratelCall.onEnd(this.handleOnEnd);
     this.ratelCall.onActiveDevice(this.onActiveDevice);
     this.ratelCall.onInvited(() => this.events.onInvited.next());
     this.ratelCall.onJoined(() => this.events.onJoined.next());
     this.ratelCall.onLeft((reason) => {
-      this.setState(CallState.ENDED);
+        this.setState(CallState.ENDED);
         if (reason.context.reason === 'connection_dropped') {
           this.hangup();
         }
@@ -293,10 +298,7 @@ export class CurrentCall {
             // TODO update call length
             // https://git.contactis.pl/itelo/profitelo-frontend/issues/421
           } else { // Call no longer exists, propagate call end
-            this.stopLocalStream();
-            this.stopTimer();
-            this.setState(CallState.ENDED);
-            this.events.onEnd.next();
+            this.handleOnEnd();
           }
         });
       }
@@ -364,12 +366,19 @@ export class CurrentCall {
 
   private stopLocalStream = (): void => {
     if (this.localStream) {
-      if (this.localStream.stop) {
-        this.localStream.stop();
-      }
-      else {
-        this.localStream.getTracks().forEach(t => t.stop());
-      }
+      this.logger.debug('CurrentCall: stopping local stream');
+      this.stopStream(this.localStream);
+    } else {
+      this.logger.debug('CurrentCall: Cannot stop the local stream, there is no stream');
+    }
+  }
+
+  private stopStream = (stream: MediaStream): void => {
+    if (stream.stop) {
+      stream.stop();
+    }
+    else {
+      stream.getTracks().forEach(t => t.stop());
     }
   }
 

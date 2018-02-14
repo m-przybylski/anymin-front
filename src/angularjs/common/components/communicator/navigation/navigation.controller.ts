@@ -71,21 +71,21 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
   }
 
   public changeCamera = (): void => {
-    this.logger.error('NavigationComponentController: Trying to change camera');
+    this.logger.debug('NavigationComponentController: Trying to change camera');
     if (this.currentCall) {
-      this.currentCall.stopVideo().then(() => {
+      if (this.isVideo) {
         this.isVideo = false;
-        if (this.currentCall) {
-          this.currentCall.changeCamera().then(() => {
-            this.isVideo = true;
-          }, (err) => {
-            this.modalsService.createInfoAlertModal('COMMUNICATOR.ERROR.SWITCH_CAMERA');
-            this.logger.error('NavigationComponentController: Cannot change the camera', err);
-          });
-        } else {
-          this.logger.error('NavigationComponentController: Cannot change the camera, there is no call');
-        }
-      }, (err) => this.logger.error('NavigationComponentController: Could not stop the video', err));
+        this.currentCall.stopVideo().then(() => {
+          this.logger.debug('NavigationComponentController: Video stopped successfully - calling turnOnSecondCamera');
+          this.turnOnSecondCamera();
+        }, (err) => {
+          this.logger.error('NavigationComponentController: Could not stop the video', err);
+          this.isVideo = true;
+        });
+      } else {
+        this.logger.debug('NavigationComponentController: Video is stopped - calling turnOnSecondCamera');
+        this.turnOnSecondCamera();
+      }
     } else {
       this.logger.error('NavigationComponentController: Cannot stop the camera, there is no call');
     }
@@ -94,13 +94,17 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
   public startAudio = (): void => {
     if (this.currentCall) {
       this.logger.debug('NavigationComponentController: Starting the audio');
-      this.isAudio = true;
-      this.currentCall.startAudio().then(
-        () => this.logger.debug('NavigationComponentController: Audio started'),
-        (err) => {
-          this.isAudio = false;
-          this.logger.debug('NavigationComponentController: Starting the audio failed', err);
-        });
+      if (!this.isAudio) {
+        this.isAudio = true;
+        this.currentCall.startAudio().then(
+          () => this.logger.debug('NavigationComponentController: Audio started'),
+          (err) => {
+            this.isAudio = false;
+            this.logger.debug('NavigationComponentController: Starting the audio failed', err);
+          });
+      } else {
+        this.logger.error('NavigationComponentController: Cannot start audio - audio is already started');
+      }
     } else {
       this.logger.error('NavigationComponentController: Cannot start the audio, there is no call');
     }
@@ -109,40 +113,52 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
   public stopAudio = (): void => {
     this.logger.debug('NavigationComponentController: Stopping the audio');
     if (this.currentCall) {
-      this.isAudio = false;
-      this.currentCall.stopAudio();
+      if (this.isAudio) {
+        this.isAudio = false;
+        this.currentCall.stopAudio();
+        this.logger.debug('NavigationComponentController: Audio stopped successfully');
+      } else {
+        this.logger.error('NavigationComponentController: Cannot stop audio - audio is already stopped');
+      }
     } else {
       this.logger.error('NavigationComponentController: Cannot stop the audio, there is no call');
     }
   }
 
   public stopVideo = (): void => {
-    if (this.isVideo) {
-      this.isVideo = false;
-      if (this.currentCall) {
+    this.logger.debug('NavigationComponentController: Stopping video');
+    if (this.currentCall) {
+      if (this.isVideo) {
+        this.isVideo = false;
         this.currentCall.stopVideo().then(
           () => this.logger.debug('NavigationComponentController: Video stopped'),
           (err) => {
             this.isVideo = true;
-            this.logger.warn('NavigationComponentController: Cannot stop the video', err);
+            this.logger.error('NavigationComponentController: Cannot stop the video', err);
           });
       } else {
-        this.logger.error('NavigationComponentController: Cannot stop the video, there is no call');
+        this.logger.error('NavigationComponentController: Cannot stop the video - video is already stopped');
       }
+    } else {
+      this.logger.error('NavigationComponentController: Cannot stop the video, there is no call');
     }
   }
 
   public startVideo = (elem: Element): void => {
     this.logger.debug('NavigationComponentController: Starting video');
     if (this.currentCall) {
-      this.isVideo = true;
-      this.animateButtons(elem);
-      this.currentCall.startVideo().then(() => {
-        this.logger.debug('NavigationComponentController: Video started');
-      }, (err) => {
-        this.isVideo = false;
-        this.logger.error('NavigationComponentController: Cannot start the video', err);
-      });
+      if (!this.isVideo) {
+        this.isVideo = true;
+        this.animateButtons(elem);
+        this.currentCall.startVideo().then(() => {
+          this.logger.debug('NavigationComponentController: Video started');
+        }, (err) => {
+          this.isVideo = false;
+          this.logger.error('NavigationComponentController: Cannot start the video', err);
+        });
+      } else {
+        this.logger.error('NavigationComponentController: Cannot start the video - video is already started');
+      }
     } else {
       this.logger.error('NavigationComponentController: Cannot start the video, there is no call');
     }
@@ -163,5 +179,25 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     this.isAudio = true;
     this.isVideo = false;
     this.isMessenger = false;
+  }
+
+  private turnOnSecondCamera = (): void => {
+    if (this.currentCall) {
+      if (!this.isVideo) {
+        this.isVideo = true;
+        this.currentCall.changeCamera().then(() => {
+          this.logger.debug('NavigationComponentController: Successfully turned second camera');
+        }).catch((err) => {
+          this.isVideo = false;
+          this.modalsService.createInfoAlertModal('COMMUNICATOR.ERROR.SWITCH_CAMERA');
+          this.logger.error('NavigationComponentController: Cannot turn on the second camera', err);
+        });
+      } else {
+        this.logger.error('NavigationComponentController: Cannot turn on second camera,' +
+          'there is a video already, stop it firstly');
+      }
+    } else {
+      this.logger.error('NavigationComponentController: Cannot change the camera, there is no call');
+    }
   }
 }
