@@ -221,7 +221,9 @@ export class ExpertCallService {
   private handleCallEndedBeforeAnswering = (callEnd: CallEnd,
                                             callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
     this.logger.debug('ExpertCallService: Call was ended before expert answer', callEnd);
-    callingModal.closed.then(this.showMissedCallAlert);
+    if (callEnd.reason !== 'rejected') {
+      callingModal.closed.then(this.showMissedCallAlert);
+    }
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
     this.soundsService.playCallRejected().catch(
