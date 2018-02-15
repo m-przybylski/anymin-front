@@ -10,7 +10,6 @@ export class Config {
 
   public static readonly communicator = {
     reconnectTimeout: 1000,
-    moneyChangeInterval: 1000,
     maxSimultaneousCallsCount: 1
   };
 

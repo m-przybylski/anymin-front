@@ -1,4 +1,4 @@
-import { GetService, GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
+import { GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { ExpertCallService } from './call-services/expert-call.service';
 import { ExpertCall } from './models/current-expert-call';
 import { CurrentCall } from './models/current-call';
@@ -19,7 +19,7 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   public isClosed = true;
   public isDisconnectedAnimation = false;
   public isConnecting = false;
-  public service?: GetService;
+  public serviceName?: string;
   public expert?: GetProfile;
   public expertAvatar?: string;
 
@@ -100,7 +100,7 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
 
   private registerExpertCall = (call: ExpertCall): void => {
     this.cleanupComponent();
-    this.service = call.getService();
+    this.serviceName = call.getCallDetails().serviceName;
     this.isConnecting = true;
     this.isClosed = false;
     this.registerCommonCallEvents(call);
@@ -159,7 +159,7 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   private cleanupComponent = (): void => {
     this.isDisconnectedAnimation = false;
     this.isConnecting = false;
-    this.service = undefined;
+    this.serviceName = undefined;
     this.expert = undefined;
     this.isRemoteVideo = false;
     this.isLocalVideo = false;

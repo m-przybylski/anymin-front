@@ -3,25 +3,23 @@ import { MoneyDto } from 'profitelo-api-ng/model/models';
 
 export class TimerService {
 
-  private static readonly milisecondsInSecond = 1000;
   private static readonly secondsInMinute = 60;
+  private static readonly milisecondsInSecond = 1000;
   private timer?: ng.IPromise<any>;
-  private startTime: number;
+  private currentDuration: number;
   private isPaused = false;
   private pausedCount = 0;
-  private pausedTime: number;
 
-  constructor(private logger: LoggerService, private $interval: ng.IIntervalService, private money: MoneyDto,
-              private interval: number) {
+  constructor(private logger: LoggerService, private $interval: ng.IIntervalService, private money: MoneyDto) {
   }
 
   public start = (cb: (obj: { time: number, money: MoneyDto }) => void, freeSeconds = 0): void => {
     this.isPaused = false;
     this.pausedCount = 0;
-    if (this.startTime) {
-      this.logger.info('TimerService: Start time is already defined, not updating');
+    if (this.currentDuration) {
+      this.logger.info('TimerService: Duration is already set, do not setting 0');
     } else {
-      this.startTime = Date.now();
+      this.currentDuration = 0;
     }
     // Init the cost
     this.notifyChange(cb, freeSeconds);
@@ -29,7 +27,7 @@ export class TimerService {
       if (!this.isPaused) {
         this.notifyChange(cb, freeSeconds);
       }
-    }, this.interval);
+    }, TimerService.milisecondsInSecond);
   }
 
   public stop = (): void => {
@@ -43,7 +41,6 @@ export class TimerService {
   public pause = (): void => {
     if (!this.isPaused) {
       this.isPaused = true;
-      this.pausedTime = Date.now();
     }
     this.pausedCount++;
   }
@@ -52,7 +49,6 @@ export class TimerService {
     if (this.pausedCount === 1) {
       this.pausedCount = 0;
       this.isPaused = false;
-      this.startTime = this.startTime - (this.pausedTime - Date.now());
     } else if (this.pausedCount > 1) {
       this.pausedCount--;
     } else {
@@ -60,16 +56,16 @@ export class TimerService {
     }
   }
 
-  public setStartTime = (time: number): void => {
-    this.startTime = time;
+  public setCurrentDuration = (timeInSeconds: number): void => {
+    this.currentDuration = timeInSeconds;
   }
 
   private notifyChange = (cb: (obj: { time: number, money: MoneyDto }) => void, freeSeconds: number): void => {
-    const _time = (Date.now() - this.startTime) / TimerService.milisecondsInSecond;
+    this.currentDuration += 1;
     cb({
-      time: _time,
+      time: this.currentDuration,
       money: {
-        amount: this.setAmountValue(_time, freeSeconds),
+        amount: this.setAmountValue(this.currentDuration, freeSeconds),
         currency: this.money.currency
       }
     });

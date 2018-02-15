@@ -1,9 +1,10 @@
 import * as angular from 'angular'
-import {ModalsService} from './modals.service'
+import { ModalsService } from './modals.service'
 import modalsModule from './modals'
 import dialogModule from '../dialog/dialog'
-import {DialogService} from '../dialog/dialog.service'
-import {GetService, GetActivity, GetExpertServiceDetails, GetProfile} from 'profitelo-api-ng/model/models'
+import { DialogService } from '../dialog/dialog.service'
+import { GetExpertSueDetails, GetActivity, GetExpertServiceDetails, GetProfile,
+  GetService } from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
@@ -26,7 +27,7 @@ describe('Unit testing: profitelo.services.modals >', () => {
     it('should create IncomingCallModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createIncomingCallModal(<GetService>{}, () => {
+      modalsService.createIncomingCallModal(<GetExpertSueDetails>{}, () => {
       }, () => {
       })
 

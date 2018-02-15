@@ -2,7 +2,8 @@ import { CurrentCall } from './current-call';
 import * as angular from 'angular';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { TimerFactory } from '../../../services/timer/timer.factory';
-import { RatelApi } from 'profitelo-api-ng/api/api';
+import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import * as apiModule from 'profitelo-api-ng/api.module';
 import { ServiceUsageEvent } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import { roomType, Session } from 'ratel-sdk-js';
@@ -32,7 +33,8 @@ describe('Unit tests: CurrentCall', () => {
     onOnline: (): void => {}
   };
   const service = <any>{
-    price: 23
+    price: 23,
+    name: 'asd'
   };
 
   // tslint:disable:no-object-literal-type-assertion
@@ -65,18 +67,29 @@ describe('Unit tests: CurrentCall', () => {
     id: '12'
   };
 
+  beforeEach(() => {
+    angular.mock.module(apiModule);
+  });
+
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL');
     $provide.value('soundsService', SoundsService);
     $provide.value('RatelApi', RatelApi);
+    $provide.value('ServiceApi', ServiceApi);
   }));
 
   beforeEach((inject((_RatelApi_: RatelApi,
+                      _ServiceApi_: ServiceApi,
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_;
     q = $q;
-    currentCall = new CurrentCall(ratelCall, session, timerFactory, service, sue, communicatorService,
-      RatelApi, microphoneService, loggerServiceMock);
+    const callDetails = <any>{
+      sueId: sue.id,
+      servicePrice: {},
+      serviceName: service.name
+    };
+    currentCall = new CurrentCall(ratelCall, session, timerFactory, callDetails, communicatorService,
+      RatelApi, _ServiceApi_, microphoneService, loggerServiceMock);
   })));
 
   it('should reject promise while starting environment video', (done) => {
@@ -112,7 +125,7 @@ describe('Unit tests: CurrentCall', () => {
   });
 
   it('should return service', () => {
-    expect(currentCall.getService()).toEqual(service);
+    expect(currentCall.getCallDetails().serviceName).toEqual(service.name);
   });
 
   it('should return sue id', () => {
