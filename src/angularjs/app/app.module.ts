@@ -45,7 +45,11 @@ declare const Raven: any;
 try {
   if (window.location.host.includes('stage')) {
     Raven
-      .config(Config.sentryUrl, { release: VERSION.hash, environment: CommonConfig.settings.environment, extra: VERSION.version })
+      .config(Config.sentryUrl, {
+        release: VERSION.hash,
+        environment: CommonConfig.settings.environment,
+        extra: VERSION.version
+      })
       .addPlugin(Raven.Plugins.Angular, angular)
       .install();
     console.log('Sentry logs enabled');

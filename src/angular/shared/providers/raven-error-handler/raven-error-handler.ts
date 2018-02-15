@@ -1,9 +1,9 @@
 import { ErrorHandler } from '@angular/core';
 import * as Raven from 'raven-js';
 import { environment } from '../../../../environments/environment';
-import { VERSION } from '../../../../environments/version';
 import { Config } from '../../../../config';
 import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
+import { VERSION } from '../../../../../generated_modules/version';
 
 export class RavenErrorHandler implements ErrorHandler {
 
