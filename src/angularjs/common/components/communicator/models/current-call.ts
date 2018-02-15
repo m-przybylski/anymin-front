@@ -1,3 +1,4 @@
+// tslint:disable:member-ordering
 // tslint:disable:max-file-line-count
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
@@ -67,6 +68,12 @@ export class CurrentCall {
               protected logger: LoggerService) {
     this.registerCallbacks();
     this.createTimer(service.price);
+  }
+
+  public forceEndCall = (): void => {
+    this.stopLocalStream();
+    this.stopTimer();
+    this.events.onEnd.next();
   }
 
   public get messageRoom$(): Observable<MessageRoom> {
