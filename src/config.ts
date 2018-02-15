@@ -1,4 +1,6 @@
 import { LogLevel } from '@anymind-ng/core';
+import { VERSION } from '../generated_modules/version/version';
+import { CommonConfig } from '../generated_modules/common-config/common-config';
 
 export class Config {
 
@@ -39,5 +41,15 @@ export class Config {
 
   public static readonly isPlatformForExpert = true;
 
-  public static readonly sentryUrl = 'https://d5b6e4ad5fa6423e8df0e2225cb79fa3@sentry.io/286340';
+  public static readonly sentry = {
+    url: 'https://d5b6e4ad5fa6423e8df0e2225cb79fa3@sentry.io/286340',
+    enabledEnvironments: [
+      'prod', 'demo'
+    ],
+    options: {
+      release: VERSION.hash,
+      environment: CommonConfig.settings.environment,
+      extra: VERSION.version
+    }
+  };
 }
