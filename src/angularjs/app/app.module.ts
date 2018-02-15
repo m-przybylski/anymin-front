@@ -35,22 +35,20 @@ import cookieNotificationModule from '../common/components/cookie-notification/c
 import sessionDeletedModule from '../common/services/session-deleted/session-deleted';
 import { UpgradeService } from '../common/services/upgrade/upgrade.service';
 import loggerModule from '../common/services/logger/logger';
+import { Config } from '../../config';
+import * as Raven from 'raven-js';
+const ravenAngularPlugin = require('raven-js/dist/plugins/angular');
 
-declare const Raven: any;
-
-// TODO: replace it with custom logging
-// tslint:disable:no-console
-try {
-  if (window.location.host.includes('stage')) {
-    Raven
-      .config('https://8ba058291ca44938bc6c2c9de13434d6@sentry.io/136454')
-      .addPlugin(Raven.Plugins.Angular, angular)
-      .install();
-    console.log('Sentry logs enabled');
-  } else {
-    console.log('Sentry logs disabled');
-  }
-} catch (e) {
+if (Config.sentry.enabledEnvironments.includes(CommonConfig.settings.environment)) {
+  Raven
+    .config(Config.sentry.url, Config.sentry.options)
+    .addPlugin(ravenAngularPlugin, angular)
+    .install();
+  // tslint:disable-next-line:no-console
+  console.log('Sentry logs enabled');
+} else {
+  // tslint:disable-next-line:no-console
+  console.log('Sentry logs disabled');
 }
 
 export const angularjsModule = angular.module('profitelo', [
