@@ -23,7 +23,12 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
       phoneSettingsService =
         $injector.get<PhoneSettingsService>('phoneSettingsService')
       rootScope = $rootScope
+      jasmine.clock().install()
     }))
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    })
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
@@ -36,7 +41,6 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
 
     it('should set status button as disabled when promise error', () => {
       const thirtySeconds = 20000
-      jasmine.clock().install()
       jasmine.clock().mockDate(new Date())
       phoneSettingsService.addNewNumber(phoneNumber)
       expect(phoneSettingsService.setButtonDisabled(phoneNumber)).toBeTruthy()

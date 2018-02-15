@@ -37,12 +37,12 @@ import { UpgradeService } from '../common/services/upgrade/upgrade.service';
 import loggerModule from '../common/services/logger/logger';
 import { Config } from '../../config';
 import * as Raven from 'raven-js';
-const ravenAngularPlugin = require('raven-js/dist/plugins/angular');
+const ngRaven = require('raven-js/plugins/angular');
 
 if (Config.sentry.enabledEnvironments.includes(CommonConfig.settings.environment)) {
   Raven
     .config(Config.sentry.url, Config.sentry.options)
-    .addPlugin(ravenAngularPlugin, angular)
+    .addPlugin(ngRaven, angular)
     .install();
   // tslint:disable-next-line:no-console
   console.log('Sentry logs enabled');
@@ -52,6 +52,7 @@ if (Config.sentry.enabledEnvironments.includes(CommonConfig.settings.environment
 }
 
 export const angularjsModule = angular.module('profitelo', [
+  ngRaven.moduleName,
   'pascalprecht.translate',
   'tmh.dynamicLocale',
   'ngAnimate',

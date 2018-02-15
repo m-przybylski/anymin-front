@@ -6,6 +6,14 @@ import {IRootScopeService} from '../common/services/root-scope/root-scope.servic
 import {angularjsModule} from './app.module';
 import {StateService} from '@uirouter/angularjs';
 import loggerMockModule from '../common/services/logger/logger.mock';
+import * as Raven from 'raven-js';
+const ngRaven = require('raven-js/plugins/angular');
+
+Raven
+  .config('https://test@sentry.io/000000')
+  .addPlugin(ngRaven, angular)
+  .setShouldSendCallback(() => false)
+  .install();
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -65,6 +73,10 @@ describe('Unit tests: app>', () => {
 
         _InterfaceLanguageService.setLanguage(_InterfaceLanguageService.getStartupLanguage())
       })
+    })
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
     })
 
     it('should exsist', () => {
