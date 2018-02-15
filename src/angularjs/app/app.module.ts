@@ -35,6 +35,8 @@ import cookieNotificationModule from '../common/components/cookie-notification/c
 import sessionDeletedModule from '../common/services/session-deleted/session-deleted';
 import { UpgradeService } from '../common/services/upgrade/upgrade.service';
 import loggerModule from '../common/services/logger/logger';
+import { Config } from '../../config';
+import { VERSION } from '../../../generated_modules/version';
 
 declare const Raven: any;
 
@@ -43,7 +45,7 @@ declare const Raven: any;
 try {
   if (window.location.host.includes('stage')) {
     Raven
-      .config('https://8ba058291ca44938bc6c2c9de13434d6@sentry.io/136454')
+      .config(Config.sentryUrl, { release: VERSION.hash, environment: CommonConfig.settings.environment, extra: VERSION.version })
       .addPlugin(Raven.Plugins.Angular, angular)
       .install();
     console.log('Sentry logs enabled');

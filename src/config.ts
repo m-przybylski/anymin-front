@@ -38,4 +38,6 @@ export class Config {
   };
 
   public static readonly isPlatformForExpert = true;
+
+  public static readonly sentryUrl = 'https://d5b6e4ad5fa6423e8df0e2225cb79fa3@sentry.io/286340';
 }

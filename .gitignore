@@ -13,6 +13,7 @@
 /src/angularjs/app/**/*.html
 /src/angularjs/common/**/*.html
 /src/angular/**/*.html
+/src/environments/version.ts
 
 
 # IDEs and editors
