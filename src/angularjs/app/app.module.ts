@@ -39,17 +39,11 @@ import { Config } from '../../config';
 import * as Raven from 'raven-js';
 const ngRaven = require('raven-js/plugins/angular');
 
-if (Config.sentry.enabledEnvironments.includes(CommonConfig.settings.environment)) {
-  Raven
-    .config(Config.sentry.url, Config.sentry.options)
-    .addPlugin(ngRaven, angular)
-    .install();
-  // tslint:disable-next-line:no-console
-  console.log('Sentry logs enabled');
-} else {
-  // tslint:disable-next-line:no-console
-  console.log('Sentry logs disabled');
-}
+Raven
+  .config(Config.sentry.url, Config.sentry.options)
+  .addPlugin(ngRaven, angular)
+  .setShouldSendCallback(() => Config.sentry.enabledEnvironments.includes(CommonConfig.settings.environment))
+  .install();
 
 export const angularjsModule = angular.module('profitelo', [
   ngRaven.moduleName,
