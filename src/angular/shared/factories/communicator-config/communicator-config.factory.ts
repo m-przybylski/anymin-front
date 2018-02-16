@@ -10,11 +10,13 @@ export function CommunicatorConfigFactory(): Config {
     logLevel: 2, // DEBUG = 0, INFO = 1,WARN = 2,ERROR = 3, NONE = 4
     ratel: {
       protocol: ratelUrl.protocol,
+      pathname: ratelUrl.pathname,
       hostname: ratelUrl.hostname,
       port: ratelUrl.port,
     },
     chat: {
       protocol: chatUrl.protocol,
+      pathname: chatUrl.pathname,
       hostname: chatUrl.hostname,
       port: chatUrl.port,
       rtc: {
