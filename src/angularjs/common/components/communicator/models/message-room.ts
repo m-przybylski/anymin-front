@@ -13,7 +13,7 @@ export class MessageRoom {
   constructor(private room: BusinessRoom) {
     room.onTyping((ev) => this.typingEvent.next(ev));
     room.onMarked((ev) => this.markEvent.next(ev));
-    room.onCustom('MESSAGE', (ev) => this.messageEvent.next(ev));
+    room.onCustom('MESSAGE', this.onCustomMessage);
   }
 
   public get message$(): Observable<Message> {
@@ -46,4 +46,7 @@ export class MessageRoom {
 
   public join = (room: BusinessRoom): Promise<void> =>
     room.join()
+
+  private onCustomMessage = (msg: Message): void =>
+    this.messageEvent.next(msg)
 }

@@ -42,5 +42,5 @@ data-ng-hide="$ctrl.isClosed")
     communicator-nav(data-is-video="$ctrl.isLocalVideo" data-is-messenger="$ctrl.isMessenger"
     data-current-call="$ctrl.currentCall")
 
-    messenger(data-is-messenger="$ctrl.isMessenger" data-call-cost="$ctrl.callCost"
+    messenger(data-ng-if="!$ctrl.isClosed", data-is-messenger="$ctrl.isMessenger" data-call-cost="$ctrl.callCost"
     data-call-length="$ctrl.callLengthInSeconds")

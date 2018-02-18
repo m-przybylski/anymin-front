@@ -14,9 +14,12 @@ import { Message } from 'ratel-sdk-js';
 import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { IMessageContext } from '../message-context';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
-import { takeWhile } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { takeWhile, takeUntil } from 'rxjs/operators';
 
-export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
+export class MessengerMaximizedComponentController implements
+  ng.IController, IMessengerMaximizedComponentBindings, ng.IOnDestroy {
 
   public static $inject = ['logger', '$timeout', '$element', 'expertCallService', 'communicatorService',
     'uploaderFactory'];
@@ -49,6 +52,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     fileType: FileTypeEnum.CHAT
   };
 
+  private ngUnsubscribe = new Subject<void>();
+
   constructor(private logger: LoggerService,
               private $timeout: ng.ITimeoutService,
               private $element: ng.IRootElementService,
@@ -58,10 +63,15 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
     this.uploader = uploaderFactory.getInstance();
     this.messagesScroll.perfectScrollbar();
-    this.expertCallService.newCall$.subscribe(this.expertInit);
-    communicatorService.connectionLostEvent$.subscribe(() => this.isLoading = true);
+    this.expertCallService.newCall$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.expertInit);
+    communicatorService.connectionLostEvent$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.isLoading = true);
   }
   public indicateTypingDebounce = (): void => {};
+
+  public $onDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   public $onChanges = (): void => {
     if (this.isMessenger) {
@@ -78,16 +88,14 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     });
   }
 
-  public uploadAgain = (): void => {
-    this.onUploadFiles((this.uploadedFile.file) ? [this.uploadedFile.file] : []);
-  }
+  public uploadAgain = (): void =>
+    this.onUploadFiles((this.uploadedFile.file) ? [this.uploadedFile.file] : [])
 
-  public onSendMessage = (messageBody: string): void => {
+  public onSendMessage = (messageBody: string): void =>
     this.sendMessage(messageBody, {
       mimeType: 'text/plain',
       content: messageBody,
-    });
-  }
+    })
 
   private handleRoomHistory = (messages: Paginated<Message>): void => {
       this.isLoading = false;
@@ -108,8 +116,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       });
   }
 
-  private onNewCall = (currentCall: CurrentCall): void => {
-    currentCall.messageRoom$.subscribe((messageRoom) => {
+  private onNewCall = (currentCall: CurrentCall): Subscription =>
+    currentCall.messageRoom$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((messageRoom) => {
       this.messageRoom = messageRoom;
       this.messageRoom.message$.subscribe(this.addMessage);
       this.messageRoom.typing$.subscribe(this.onTyping);
@@ -125,11 +133,11 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       this.updateChatHistory(messageRoom);
       // If there was a reconnection and message room remains the same, refresh the room history
       this.communicatorService.connectionEstablishedEvent$
+        .pipe(takeUntil(this.ngUnsubscribe))
         .pipe(takeWhile((connected: IConnected) => connected.session === currentCall.getSession()))
         .pipe(takeWhile(() => this.messageRoom === messageRoom))
         .subscribe(() => this.updateChatHistory(messageRoom));
-    });
-  }
+    })
 
   private expertInit = (currentExpertCall: ExpertCall): void => {
     this.participantAvatar = '';
@@ -149,16 +157,16 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     });
   }
 
-  private addGroupedMessage = (message: Message): void => {
+  private addGroupedMessage = (message: Message): number => {
     if (this.groupedMessages.length === 0) {
-      this.groupedMessages.push([message]);
+      return this.groupedMessages.push([message]);
     } else {
       const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1];
       const firstElementOfLastMessageGroup = _.head(lastMessageGroup);
       if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.userId === message.userId) {
-        lastMessageGroup.push(message);
+        return lastMessageGroup.push(message);
       } else {
-        this.groupedMessages.push([message]);
+        return this.groupedMessages.push([message]);
       }
     }
   }
