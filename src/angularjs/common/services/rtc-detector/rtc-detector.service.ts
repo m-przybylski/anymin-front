@@ -1,3 +1,4 @@
+import { LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../classes/navigator-wrapper/navigator-wrapper';
 const DetectRTC = require('detectrtc');
 import { ModalsService } from '../modals/modals.service';
@@ -5,13 +6,14 @@ import { MediaStreamConstraintsWrapper } from '../../classes/media-stream-constr
 
 // tslint:disable:member-ordering
 export class RtcDetectorService {
-  public static $inject = ['modalsService', '$q', '$timeout'];
+  public static $inject = ['modalsService', '$q', '$timeout', 'logger'];
   private instanceModal: ng.ui.bootstrap.IModalInstanceService;
   private navigatorWrapper: NavigatorWrapper = new NavigatorWrapper();
 
   constructor(private modalsService: ModalsService,
               private $q: ng.IQService,
-              private $timeout: ng.ITimeoutService) {
+              private $timeout: ng.ITimeoutService,
+              private logger: LoggerService) {
   }
 
   public isBrowserSupported = (): ng.IPromise<boolean> =>
@@ -33,10 +35,11 @@ export class RtcDetectorService {
       this.isMediaPermissionGiven(mediaStreamConstraints).then(() => {
         this.navigatorWrapper.getUserMediaStream(mediaStreamConstraints).then((stream) => {
           resolve(stream);
-        }, () => {
-          reject();
+        }, (err) => {
+          reject(err);
         });
-      }, () => {
+      }, (err) => {
+        this.logger.warn('RtcDetectorService: isMediaPermissionGiven rejected with error', err);
         if (DetectRTC.browser.isIe)
           this.modalsService.createBrowserDoesNotSupportRtcModal();
         else
@@ -44,7 +47,7 @@ export class RtcDetectorService {
       });
     })
 
-  private getUserMedia = (resolve: (stream: MediaStream) => void, reject: () => void): void => {
+  private getUserMedia = (resolve: (stream: MediaStream) => void, reject: (err: any) => void): void => {
     const mediaDisplayObject = {
       shouldDisplayMedia: true
     };
@@ -55,11 +58,13 @@ export class RtcDetectorService {
     this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault()).then((stream) => {
       this.instanceModal.close('cancel');
       resolve(stream);
-    }, () => {
+    }, (err) => {
+      this.logger.warn('RtcDetectorService: Can not get user media', err);
+      this.logger.debug('RtcDetectorService: Showing media blocked modal');
       this.modalsService.createRtcDetectorBlockedModal();
       mediaDisplayObject.shouldDisplayMedia = false;
       if (this.instanceModal) this.instanceModal.close('cancel');
-      reject();
+      reject(err);
     });
   }
 
