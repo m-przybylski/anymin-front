@@ -40,9 +40,11 @@ export class NavigatorWrapper {
         this.navigator.mediaDevices.getUserMedia(arg).then(t).catch(c);
     }
 
-    if (typeof this.navigator.mediaDevices.enumerateDevices !== 'undefined') {
-      this.navigator.mediaDevices.enumerateDevices().then(this.recognizeDevices);
+    if (typeof this.navigator.mediaDevices.enumerateDevices === 'undefined') {
+      this.navigator.mediaDevices.enumerateDevices = Promise.resolve([]);
     }
+
+    this.navigator.mediaDevices.enumerateDevices().then(this.recognizeDevices);
   }
 
   public hasMoreThanOneCamera = (): Promise<boolean> =>
