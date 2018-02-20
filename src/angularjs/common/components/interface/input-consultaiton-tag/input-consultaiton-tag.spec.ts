@@ -56,14 +56,14 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       component.selectedTags = []
       component.onEnter()
       expect(component.selectedTags.length).toBe(1)
-      expect(component.isInputValueInvalid).toBe(false)
+      expect(component.isInputValidationAlert).toBe(false)
       expect(component.tagModel).toBe('')
     })
 
     it('should tagModel invalid', () => {
       component.tagModel = ''
       component.onEnter()
-      expect(component.isInputValueInvalid).toBe(true)
+      expect(component.isInputValidationAlert).toBe(true)
     })
 
     it('should add selected number', () => {
@@ -72,7 +72,7 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       component.suggestedTags = ['asd', 'dsa']
       component.addSelectedItem(item, index)
       expect(component.selectedTags.length).toBe(1)
-      expect(component.isInputValueInvalid).toBe(false)
+      expect(component.isInputValidationAlert).toBe(false)
       expect(component.suggestedTags.length).toBe(1)
     })
 
@@ -80,7 +80,7 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       component.onBlur()
       expect(component.isDirty).toBe(true)
       expect(component.isFocus).toBe(false)
-      expect(component.isInputValueInvalid).toBe(false)
+      expect(component.isInputValidationAlert).toBe(false)
     })
 
     it('should onFocus', () => {
@@ -100,6 +100,44 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       component.isDirty = true
       expect(component.isValidationAlertVisible()).toEqual(true)
     })
+
+    it('should assign validation alert translation when tags count invalid', () => {
+      const invalidTagsCount = 22;
+      const tag = '';
+      component.selectedTags = new Array(invalidTagsCount).fill(tag, 0, invalidTagsCount);
+      component.onEnter();
+      expect(component.validationAlertTranslation).toEqual(
+        'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAGS_COUNT');
+    });
+
+    it('should assign validation alert translation when tag length invalid', () => {
+      component.tagModel = 'a';
+      component.onEnter();
+      expect(component.validationAlertTranslation).toEqual(
+        'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_CHARACTERS_COUNT');
+    });
+
+    it('should assign validation alert translation when tag is duplicated', () => {
+      component.selectedTags = ['someTag']
+      component.tagModel = 'someTag';
+      component.onEnter();
+      expect(component.validationAlertTranslation).toEqual(
+        'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAG_DUPLICATED');
+    });
+
+    it('should assign validation alert translation when tag has too much words', () => {
+      component.tagModel = 'some tag with too much words';
+      component.onEnter();
+      expect(component.validationAlertTranslation).toEqual(
+        'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_WORDS_COUNT');
+    });
+
+    it('should assign validation alert translation when tag name invalid', () => {
+      component.tagModel = 'WWWW';
+      component.onEnter();
+      expect(component.validationAlertTranslation).toEqual(
+        'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAG_NAME');
+    });
 
   })
 )
