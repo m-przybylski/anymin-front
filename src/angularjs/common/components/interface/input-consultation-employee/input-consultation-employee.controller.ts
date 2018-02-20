@@ -56,23 +56,23 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   private isValidPhoneNumber = (inputValue: string): boolean =>
   inputValue.length > 0 && this.phonePattern.test(inputValue)
 
-  private isValidEmailAddress = (inputValue: string): boolean =>
-  inputValue.length > 0 && this.mailRegexp.test(inputValue)
+  private isValidEmailAddress = (inputValue?: string): boolean =>
+    inputValue && inputValue.length > 0 ? this.mailRegexp.test(inputValue) : false
 
-  public isEmployeeExist = (inputValue: string): boolean =>
-  this.addedItemsList.indexOf(inputValue) !== -1
+  public isEmployeeExist = (inputValue?: string): boolean =>
+    inputValue ? this.addedItemsList.indexOf(inputValue) !== -1 : false
 
   // tslint:disable-next-line:cyclomatic-complexity
-  public onEnter = (inputValue: string): void => {
+  public onEnter = (inputValue?: string): void => {
     this.isValidEmployee = this.isEmployeeExist(inputValue);
 
-    if (phoneNumbers.isValidNumber(inputValue, 'PL')) {
+    if (inputValue && phoneNumbers.isValidNumber(inputValue, 'PL')) {
       const correctValue = this.getFullPhoneNumber(inputValue);
 
       if (this.isValidPhoneNumber(correctValue) && !this.isMaxInvitationsCountReached())
         this.addEmployee(correctValue);
     }
-    else if (this.isValidEmailAddress(inputValue) && !this.isMaxInvitationsCountReached()) {
+    else if (inputValue && this.isValidEmailAddress(inputValue) && !this.isMaxInvitationsCountReached()) {
       this.addEmployee(inputValue);
     }
     else if (this.isMaxInvitationsCountReached()) {

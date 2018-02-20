@@ -13,10 +13,22 @@ export class RavenErrorHandler implements ErrorHandler {
 
   public handleError(err: any): void {
     if (RavenErrorHandler.isSentryEnabled()) {
-      Raven.captureException(err);
+      Raven.captureException(<any>RavenErrorHandler.serializeError(err));
     }
     // tslint:disable-next-line:no-console
     console.error(err);
+  }
+
+  private static serializeError = (err?: any): string => {
+    if (typeof err === 'string') {
+      return err;
+    } else {
+      try {
+        return JSON.stringify(err);
+      } catch (ex) {
+        return `Was not able to stringify error: ${err}, exception: ${ex}`;
+      }
+    }
   }
 
   private static isSentryEnabled = (): boolean =>
