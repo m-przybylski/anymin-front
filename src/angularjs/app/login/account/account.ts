@@ -67,7 +67,7 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
 
   const invitationObject = registrationInvitationService.getInvitationObject();
   setPhoneNumberFromLocalStorage(invitationObject);
-  this.account.phoneNumber.prefix = this.prefixes[0].value;
+  this.prefix = this.prefixes[0].value;
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern;
   this.backToPhoneNumber = (): void => {
     this.account.password = null;
@@ -94,21 +94,22 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
     || invitationObject.msisdn === `${this.account.phoneNumber.prefix}${this.account.phoneNumber.number}`);
 
   this.updateSortTypeParam = (item: any): void => {
-    this.account.phoneNumber.prefix = item.value;
+    this.prefix = item.value;
   };
 
   this.getPhoneNumberStatus = (): void => {
     if (!this.isPending) {
       this.isPending = true;
       topWaitingLoaderService.immediate();
+      this.account.phoneNumber.prefix = this.prefix;
+      this.account.phoneNumber.number = this.phoneNumber;
       loginStateService.setAccountObject(this.account);
-      this.phoneNumber = loginStateService.getAccountObject().phoneNumber.prefix +
-        loginStateService.getAccountObject().phoneNumber.number;
       RegistrationApi.checkRegistrationStatusRoute(
         <string>this.account.phoneNumber.prefix + <string>this.account.phoneNumber.number
       ).then((response) => {
         this.isPending = false;
         _determinePhoneNumberStatus(response.status);
+        this.fullPhoneNumber = loginStateService.getFullPhoneNumber();
         topWaitingLoaderService.stopLoader();
       }, (error) => {
         $log.error(error);

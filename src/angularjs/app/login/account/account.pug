@@ -1,5 +1,5 @@
 .phone-number(data-ng-if="vm.current == 1")
-  form.input-form(name="phoneNumberForm" data-ng-submit="vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) " +
+  form.input-form(name="phoneNumberForm" data-ng-submit="vm.isValidPhoneNumber(vm.prefix, vm.phoneNumber) " +
   "&& vm.getPhoneNumberStatus()" novalidate autocomplete="off")
     .inputs-handler
       .pro-dropdown
@@ -15,9 +15,9 @@
       data-type="tel"
       data-id="phoneNumber"
       data-placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER"
-      data-ng-model="vm.account.phoneNumber.number"
+      data-ng-model="vm.phoneNumber"
       data-input-text="LOGIN.ENTER_NUMBER"
-      data-is-valid="vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number)"
+      data-is-valid="vm.isValidPhoneNumber(vm.prefix, vm.phoneNumber)"
       data-validation-text="LOGIN.PHONE_NUMBER_REQUIRED"
       data-is-submitted="phoneNumberForm.$submitted"
       auto-focus
@@ -33,7 +33,7 @@
 
     .phone-number-container
       span(data-translate="REGISTER.USER_PHONE")
-      span.number {{ vm.phoneNumber }}
+      span.number {{ vm.fullPhoneNumber }}
 
     input.hidden-input(data-ng-model="vm.account.phoneNumber.number" type="text" name="phone-number" tabindex="-1")
     input-password(

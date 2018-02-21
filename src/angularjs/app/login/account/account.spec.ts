@@ -117,7 +117,9 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should go to password view', () => {
       AccountFormController.isPending = false
-      _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'REGISTERED'})
+      AccountFormController.phoneNumber = '555555555';
+      AccountFormController.prefix = '000';
+      _RegistrationApiMock.checkRegistrationStatusRoute(200, '000555555555', <any>{status: 'REGISTERED'})
 
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
@@ -126,7 +128,9 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should redirect to register ', () => {
       spyOn($state, 'go')
-      _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'UNREGISTERED'})
+      AccountFormController.phoneNumber = '555555555';
+      AccountFormController.prefix = '000';
+      _RegistrationApiMock.checkRegistrationStatusRoute(200, '000555555555', <any>{status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.login.register')
@@ -134,7 +138,9 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should get error response', () => {
       spyOn(topAlertService, 'error')
-      _RegistrationApiMock.checkRegistrationStatusRoute(400, '321321642', <any>{status: 'UNREGISTERED'})
+      AccountFormController.phoneNumber = '555555555';
+      AccountFormController.prefix = '000';
+      _RegistrationApiMock.checkRegistrationStatusRoute(400, '000555555555', <any>{status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
       expect(topAlertService.error).toHaveBeenCalled()
@@ -142,7 +148,9 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should redirect to forgot-password', () => {
       spyOn($state, 'go')
-      _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'NO_PASSWORD'})
+      AccountFormController.phoneNumber = '555555555';
+      AccountFormController.prefix = '000';
+      _RegistrationApiMock.checkRegistrationStatusRoute(200, '000555555555', <any>{status: 'NO_PASSWORD'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.login.forgot-password', {method: 'sms'})
