@@ -1,5 +1,5 @@
 import { IExpertActivityComponentBindings } from './activity';
-import { GetActivity } from 'profitelo-api-ng/model/models';
+import { GetProfileActivity } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../../../services/modals/modals.service';
 import { UserService } from '../../../../../services/user/user.service';
 
@@ -7,13 +7,13 @@ import { UserService } from '../../../../../services/user/user.service';
 export class ExpertActivityComponentController implements ng.IController, IExpertActivityComponentBindings {
 
   public isCallActivity: boolean;
-  public activity: GetActivity;
+  public activity: GetProfileActivity;
   public imageUrl: string | null;
   public isCompany: boolean;
   public activityDate: Date;
   public static $inject = ['modalsService', '$log', 'userService'];
 
-    constructor(private modalsService: ModalsService, private $log: ng.ILogService, private userService: UserService) {
+  constructor(private modalsService: ModalsService, private $log: ng.ILogService, private userService: UserService) {
 
     this.userService.getUser().then((response) => {
       this.isCompany = response.isCompany;
@@ -24,7 +24,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
 
   public $onInit(): void {
     this.activityDate = this.activity.initializedAt;
-    this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION;
+    this.isCallActivity = this.activity.activityType !== GetProfileActivity.ActivityTypeEnum.FINANCIALTRANSACTION;
   }
 
   public openActivityDescription = (): void => {

@@ -1,6 +1,6 @@
 // tslint:disable: max-file-line-count
 import {
-  GetService, GetActivity, MoneyDto, GetCreditCard, GetPaymentOptions,
+  GetService, GetClientActivity, MoneyDto, GetCreditCard, GetPaymentOptions,
   PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails, GetProfileWithServicesInvitations,
   GetExpertServiceDetails, GetCompanyInvoiceDetails, GetExpertSueDetails
 } from 'profitelo-api-ng/model/models';
@@ -227,7 +227,7 @@ export class ModalsService {
     });
   }
 
-  public createClientChargeDetailsModal = (financeActivityDetails: GetActivity): IModalInstanceService => {
+  public createClientChargeDetailsModal = (financeActivityDetails: GetClientActivity): IModalInstanceService => {
     if (!financeActivityDetails) {
       throw new Error('Expected financeActivityDetails, got ' + String(financeActivityDetails));
     }

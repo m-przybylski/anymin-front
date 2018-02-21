@@ -1,9 +1,9 @@
 import * as angular from 'angular';
-import { GetActivity,  MoneyDto } from 'profitelo-api-ng/model/models';
+import { GetClientActivity, MoneyDto } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';
 
 export interface IClientChargeDetailsParentControllerScope extends ng.IScope {
-  financeActivityDetails: GetActivity;
+  financeActivityDetails: GetClientActivity;
 }
 
 export interface IClientChargeDetailsControllerScope extends ng.IScope {

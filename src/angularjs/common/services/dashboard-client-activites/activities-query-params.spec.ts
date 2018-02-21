@@ -1,5 +1,5 @@
 import {ActivitiesQueryParams} from './activities-query-params'
-import {GetProfileActivity} from 'profitelo-api-ng/model/models'
+import {GetClientActivity} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: activities query params >', () => {
   describe('for activities query params>', () => {
@@ -15,8 +15,8 @@ describe('Unit testing: activities query params >', () => {
     })
 
     it('should set and get activity type', () => {
-      activitiesQueryParams.setActivityType(GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT)
-      expect(activitiesQueryParams.getActivityType()).toEqual(GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT)
+      activitiesQueryParams.setActivityType(GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT)
+      expect(activitiesQueryParams.getActivityType()).toEqual(GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT)
     })
 
     it('should set and get profile Id ', () => {

@@ -106,7 +106,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
 
     if (this.callDetails.serviceUsageDetails)
       this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation;
-    this.startedAt = this.callDetails.serviceUsageDetails.startedAt;
+    this.startedAt = this.callDetails.serviceUsageDetails.answeredAt;
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration;
     this.isRecommended = this.callDetails.isRecommended;
     this.isRecommendable = this.callDetails.isRecommendable;

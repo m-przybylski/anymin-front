@@ -1,11 +1,9 @@
-import {GetProfileActivity} from 'profitelo-api-ng/model/models';
-
-export type AccountType = 'CLIENT' | 'PROFILE';
+import { GetClientActivity } from 'profitelo-api-ng/model/models';
 
 // tslint:disable:member-ordering
 export class ActivitiesQueryParams {
 
-  private activityType: GetProfileActivity.ActivityTypeEnum | undefined;
+  private activityType: GetClientActivity.ActivityTypeEnum | undefined;
   private profileId: string | undefined;
   private serviceId: string | undefined;
   private dateFrom: string | undefined;
@@ -18,7 +16,7 @@ export class ActivitiesQueryParams {
   constructor() {
   }
 
-  public getActivityType = (): GetProfileActivity.ActivityTypeEnum | undefined => this.activityType;
+  public getActivityType = (): GetClientActivity.ActivityTypeEnum | undefined => this.activityType;
   public getProfileId = (): string | undefined => this.profileId;
   public getServiceId = (): string | undefined => this.serviceId;
   public getDateFrom = (): string | undefined => this.dateFrom;
@@ -26,7 +24,7 @@ export class ActivitiesQueryParams {
   public getLimit = (): string | undefined => this.limit;
   public getOffset = (): string | undefined => this.offset;
 
-  public setActivityType = (value?: GetProfileActivity.ActivityTypeEnum): void => {
+  public setActivityType = (value?: GetClientActivity.ActivityTypeEnum): void => {
     if (value !== this.activityType) {
       this.activityType = value;
     }
@@ -36,7 +34,7 @@ export class ActivitiesQueryParams {
     if (value !== this.profileId) {
       this.profileId = value;
       if (value) {
-        this.activityType = GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT
+        this.activityType = GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
       }
     }
   }
@@ -45,7 +43,7 @@ export class ActivitiesQueryParams {
     if (value !== this.serviceId) {
       this.serviceId = value;
       if (value) {
-        this.activityType = GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT
+        this.activityType = GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
       }
     }
   }

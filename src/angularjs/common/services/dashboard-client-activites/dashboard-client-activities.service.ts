@@ -1,11 +1,11 @@
-import {ViewsApi} from 'profitelo-api-ng/api/api';
-import {GetPayoutMethodDto} from 'profitelo-api-ng/model/models';
-import {ActivitiesQueryParams} from './activities-query-params';
-import {GetProfileActivities, GetActivityFilters} from 'profitelo-api-ng/model/models';
-import {PayoutsApi} from 'profitelo-api-ng/api/api';
+import { ViewsApi } from 'profitelo-api-ng/api/api';
+import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
+import { ActivitiesQueryParams } from './activities-query-params';
+import { GetClientActivities, GetActivityFilters } from 'profitelo-api-ng/model/models';
+import { PayoutsApi } from 'profitelo-api-ng/api/api';
 
 // tslint:disable:member-ordering
-export class DashboardProfileActivitiesService {
+export class DashboardClientActivitiesService {
 
   public static $inject = ['ViewsApi', 'PayoutsApi'];
 
@@ -22,15 +22,15 @@ export class DashboardProfileActivitiesService {
   }
 
   public resolveFilters = (): ng.IPromise<GetActivityFilters> => {
-    const promise = this.ViewsApi.getDashboardActivitiesProfileFiltersRoute();
+    const promise = this.ViewsApi.getDashboardActivitiesClientFiltersRoute();
     promise.catch(this.handleFilterResponseError);
     return promise;
   }
 
-  public getDashboardProfileActivities = (queryParams: ActivitiesQueryParams): ng.IPromise<GetProfileActivities> => {
+  public getDashboardClientActivities = (queryParams: ActivitiesQueryParams): ng.IPromise<GetClientActivities> => {
     const activityType = !!(queryParams.getActivityType()) ? String(queryParams.getActivityType()) : undefined;
 
-    const promise = this.ViewsApi.getDashboardActivitiesProfileRoute(activityType, queryParams.getProfileId(),
+    const promise = this.ViewsApi.getDashboardActivitiesClientRoute(activityType, queryParams.getProfileId(),
       queryParams.getServiceId(), queryParams.getDateFrom(), queryParams.getDateTo(), queryParams.getLimit(),
       queryParams.getOffset());
 

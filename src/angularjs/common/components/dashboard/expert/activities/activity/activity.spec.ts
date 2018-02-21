@@ -2,7 +2,7 @@ import * as angular from 'angular';
 import expertActivityModule, {IExpertActivityComponentBindings} from './activity'
 import {ModalsService} from '../../../../../services/modals/modals.service'
 import {ExpertActivityComponentController} from './activity.controller'
-import {GetActivity} from 'profitelo-api-ng/model/models';
+import {GetProfileActivity} from 'profitelo-api-ng/model/models';
 
 describe('Unit testing: profitelo.components.dashboard.expert.activities.activity', () => {
   return describe('for exertLastActivitiesList >', () => {
@@ -41,7 +41,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
       component.isCallActivity = true
       component.activity = {
         accountId: 'accountId',
-        activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
+        activityType: GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
         serviceUsageDetails: {
           expertAvatar: 'expertAvatar',
           expertName: 'expertName',
@@ -55,7 +55,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           },
           type: 'type'
         },
-          accountType: GetActivity.AccountTypeEnum.CLIENT,
           initializedAt: new Date()
       }
       spyOn(modalsService, 'createExpertSUEActivityDetailsModal')
@@ -73,7 +72,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
       component.isCallActivity = true
       component.activity = {
         accountId: 'accountId',
-        activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
+        activityType: GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
         serviceUsageDetails: {
           expertAvatar: 'expertAvatar',
           expertName: 'expertName',
@@ -87,7 +86,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           },
           type: 'type'
         },
-        accountType: GetActivity.AccountTypeEnum.CLIENT,
         initializedAt: new Date()
       }
       spyOn($log, 'error')

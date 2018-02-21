@@ -74,7 +74,7 @@ export class ClientConsultationDetailsController implements ng.IController {
     this.serviceName = this.callDetails.service.name;
     this.serviceId = this.callDetails.service.id;
     this.financialOperation = this.callDetails.serviceUsageDetails.financialOperation;
-    this.startedAt = this.callDetails.serviceUsageDetails.startedAt;
+    this.startedAt = this.callDetails.serviceUsageDetails.answeredAt;
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration;
     this.callCostPerMinute = this.callDetails.service.price;
     this.isRecommended = this.callDetails.isRecommended;

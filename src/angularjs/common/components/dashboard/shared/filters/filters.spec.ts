@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 
-import {DashboardActivitiesService} from '../../../../services/dashboard-activites/dashboard-activities.service'
+import {DashboardProfileActivitiesService} from '../../../../services/dashboard-profile-activites/dashboard-profile-activities.service'
 import dashboardFiltersModule from './filters'
-import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
+import dashboardActivitiesModule from '../../../../services/dashboard-profile-activites/dashboard-profile-activites'
 import {IDashboardFiltersComponentScope} from './filters.controller'
 
 describe('Unit testing: profitelo.components.dashboard.activities.filters', () => {
@@ -28,7 +28,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         id: '23dd33f'
       }]
     }
-    let dashboardActivitiesService: DashboardActivitiesService
+    let dashboardActivitiesService: DashboardProfileActivitiesService
     const validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
     let injectors = {}
@@ -69,7 +69,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
     beforeEach(() => {
       inject(($rootScope: any, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService,
-              _dashboardActivitiesService_: DashboardActivitiesService) => {
+              _dashboardActivitiesService_: DashboardProfileActivitiesService) => {
 
         componentController = _$componentController_
         rootScope = $rootScope.$new()

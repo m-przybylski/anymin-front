@@ -1,13 +1,13 @@
 import * as angular from 'angular'
-import {DashboardActivitiesService} from './dashboard-activities.service'
+import {DashboardProfileActivitiesService} from './dashboard-profile-activities.service'
 import {ViewsApiMock} from 'profitelo-api-ng/api/api'
-import dashboardActivitiesModule from './dashboard-activites'
+import dashboardActivitiesModule from './dashboard-profile-activites'
 import {PayoutsApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
   describe('for profitelo.services.expertActivitiesService >', () => {
 
-    let dashboardActivitiesService: DashboardActivitiesService
+    let dashboardActivitiesService: DashboardProfileActivitiesService
     let rootScope: ng.IRootScopeService
     let ViewsApiMock: ViewsApiMock
 
@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
     }))
 
     beforeEach(inject(($injector: ng.auto.IInjectorService, $rootScope: angular.IRootScopeService) => {
-      dashboardActivitiesService = $injector.get<DashboardActivitiesService>('dashboardActivitiesService')
+      dashboardActivitiesService = $injector.get<DashboardProfileActivitiesService>('dashboardActivitiesService')
       rootScope = $rootScope
       ViewsApiMock = $injector.get<ViewsApiMock>('ViewsApiMock')
     }))

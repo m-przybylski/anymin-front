@@ -1,17 +1,15 @@
 import * as angular from 'angular';
-import { MoneyDto, GetActivity, GetActivityFilters, GetActivities } from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetClientActivity, GetActivityFilters, GetClientActivities } from 'profitelo-api-ng/model/models';
 import 'angularjs/common/components/dashboard/client/activities/client-activities/activity/activity';
 import 'angularjs/common/components/interface/preloader-container/preloader-container';
 import 'angularjs/common/components/complaints/status/status';
 import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters';
 import {
-  DashboardActivitiesService
-} from '../../../../common/services/dashboard-activites/dashboard-activities.service';
-import dashboardActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites';
-import {
-  AccountType,
-  ActivitiesQueryParams
-} from '../../../../common/services/dashboard-activites/activities-query-params';
+  DashboardClientActivitiesService
+} from '../../../../common/services/dashboard-client-activites/dashboard-client-activities.service';
+import dashboardActivitiesModule from
+        '../../../../common/services/dashboard-client-activites/dashboard-client-activites';
+import { ActivitiesQueryParams } from '../../../../common/services/dashboard-client-activites/activities-query-params';
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information';
 import promiseModule from '../../../../common/services/promise/promise';
@@ -32,13 +30,12 @@ export class DashboardClientActivitiesController {
   private static readonly promiseLoaderDelay = 500;
 
   public balance: MoneyDto;
-  public activities: GetActivity[];
+  public activities: GetClientActivity[];
   public isSearchLoading = true;
   public isActivitiesHistory = false;
   public isMoreResults: boolean;
   public isError = false;
   public filters: GetActivityFilters;
-  public accountType: AccountType = 'CLIENT';
   public isActivitiesLoading = false;
   public translationCounter: {
     currentResultsCount: number
@@ -47,7 +44,7 @@ export class DashboardClientActivitiesController {
 
   private activitiesQueryParam: ActivitiesQueryParams;
 
-  constructor(private dashboardActivitiesService: DashboardActivitiesService,
+  constructor(private dashboardActivitiesService: DashboardClientActivitiesService,
               private promiseService: PromiseService,
               private $state: StateService,
               private errorHandler: ErrorHandlerService,
@@ -87,7 +84,7 @@ export class DashboardClientActivitiesController {
     this.activitiesQueryParam.setOffset(this.activities.length);
 
     this.promiseService.setMinimalDelay(
-      this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam),
+      this.dashboardActivitiesService.getDashboardClientActivities(this.activitiesQueryParam),
       DashboardClientActivitiesController.promiseLoaderDelay).then((getActivities) => {
       this.activities = this.activities.concat(getActivities.activities);
       this.isMoreResults = getActivities.count > DashboardClientActivitiesController.queryLimit;
@@ -112,8 +109,8 @@ export class DashboardClientActivitiesController {
     this.$state.go('app.search-result');
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
-    const promise = this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams);
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetClientActivities> => {
+    const promise = this.dashboardActivitiesService.getDashboardClientActivities(activitiesQueryParams);
 
     promise.catch((error) => {
       this.isSearchLoading = false;
@@ -126,7 +123,6 @@ export class DashboardClientActivitiesController {
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardClientActivitiesController.queryLimit);
     activitiesQueryParams.setOffset(0);
-    activitiesQueryParams.setAccountType(this.accountType);
   }
 
 }
@@ -150,8 +146,8 @@ angular.module('profitelo.controller.dashboard.client.activities', [
       controllerAs: 'vm',
       resolve: {
         filtersData: ['dashboardActivitiesService',
-          (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
-            dashboardActivitiesService.resolveFilters('CLIENT')]
+          (dashboardActivitiesService: DashboardClientActivitiesService): ng.IPromise<GetActivityFilters> =>
+            dashboardActivitiesService.resolveFilters()]
       }
     });
   }])

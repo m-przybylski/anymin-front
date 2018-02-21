@@ -1,14 +1,13 @@
-import {GetClientActivity} from 'profitelo-api-ng/model/models';
+import { GetProfileActivity } from 'profitelo-api-ng/model/models';
 
 export type AccountType = 'CLIENT' | 'PROFILE';
 
 // tslint:disable:member-ordering
 export class ActivitiesQueryParams {
 
-  private activityType: GetClientActivity.ActivityTypeEnum | undefined;
+  private activityType: GetProfileActivity.ActivityTypeEnum | undefined;
   private profileId: string | undefined;
   private serviceId: string | undefined;
-  private accountType: AccountType;
   private dateFrom: string | undefined;
   private dateTo: string | undefined;
   private limit: string | undefined;
@@ -19,16 +18,15 @@ export class ActivitiesQueryParams {
   constructor() {
   }
 
-  public getActivityType = (): GetActivity.ActivityTypeEnum | undefined => this.activityType;
+  public getActivityType = (): GetProfileActivity.ActivityTypeEnum | undefined => this.activityType;
   public getProfileId = (): string | undefined => this.profileId;
   public getServiceId = (): string | undefined => this.serviceId;
-  public getAccountType = (): AccountType => this.accountType;
   public getDateFrom = (): string | undefined => this.dateFrom;
   public getDateTo = (): string | undefined => this.dateTo;
   public getLimit = (): string | undefined => this.limit;
   public getOffset = (): string | undefined => this.offset;
 
-  public setActivityType = (value?: GetActivity.ActivityTypeEnum): void => {
+  public setActivityType = (value?: GetProfileActivity.ActivityTypeEnum): void => {
     if (value !== this.activityType) {
       this.activityType = value;
     }
@@ -38,8 +36,7 @@ export class ActivitiesQueryParams {
     if (value !== this.profileId) {
       this.profileId = value;
       if (value) {
-        this.activityType = this.accountType === 'PROFILE' ?
-          GetClientActivity.ActivityTypeEnum.EXPERTSERVICEUSAGEEVENT : GetClientActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT;
+        this.activityType = GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
       }
     }
   }
@@ -48,8 +45,7 @@ export class ActivitiesQueryParams {
     if (value !== this.serviceId) {
       this.serviceId = value;
       if (value) {
-        this.activityType = this.accountType === 'PROFILE' ?
-          GetClientActivity.ActivityTypeEnum.EXPERTSERVICEUSAGEEVENT : GetClientActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT;
+        this.activityType = GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
       }
     }
   }
@@ -87,12 +83,6 @@ export class ActivitiesQueryParams {
     const checkedValue = value && value > 0 ? Number(value) : 0;
     if (String(checkedValue) !== this.offset) {
       this.offset = String(value);
-    }
-  }
-
-  public setAccountType = (value: AccountType): void => {
-    if (value !== this.accountType) {
-      this.accountType = value;
     }
   }
 
