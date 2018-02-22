@@ -5,6 +5,7 @@ import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-up
 import { CommunicatorModule, CommunicatorService, CommunicatorSessionService } from '@anymind-ng/core';
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
+import { UnsupportedGuard } from './guards/unsupported/unsupported.guard';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { Config } from '../../config';
   providers: [
     EventsServiceProvider,
     CommunicatorService,
-    CommunicatorSessionService
+    CommunicatorSessionService,
+    UnsupportedGuard
   ]
 })
 

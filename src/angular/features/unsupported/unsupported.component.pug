@@ -1,0 +1,21 @@
+section.unsupported
+  .container
+    img.anymind-logo(src='/assets/images/anymind_logo_medium.png' alt='AnyMind')
+
+    header.header
+      span Ups, Twoja przeglądarka nie wspiera technologii AnyMind...
+    p Jeśli chcesz korzystać z naszej strony, użyj innej przeglądarki:
+
+    .browser-info-container
+      .single-browser
+        a(href='https://www.opera.com/pl' target='_blank')
+          img.browser-icon(src='/assets/images/browsers/opera.png' alt='Opera logo')
+          span Opera
+      .single-browser
+        a(href='https://www.mozilla.org/pl/firefox/new/' target='_blank')
+          img.browser-icon(src='assets/images/browsers/firefox.png' alt='Firefox logo')
+          span Firefox
+      .single-browser(*ngIf='isChromeLogoVisible')
+        a(href='https://www.google.pl/chrome/browser/desktop/index.html' target='_blank')
+          img.browser-icon(src="/assets/images/browsers/chrome.png" alt="Chrome logo")
+          span Chrome
