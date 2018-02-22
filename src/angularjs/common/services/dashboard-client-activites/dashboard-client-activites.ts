@@ -2,10 +2,10 @@ import * as angular from 'angular';
 import { DashboardClientActivitiesService } from './dashboard-client-activities.service';
 import apiModule from 'profitelo-api-ng/api.module';
 
-const dashboardActivitiesModule = angular.module('profitelo.services.dashboard-activities', [
+const dashboardClientActivitiesModule = angular.module('profitelo.services.dashboard-client-activities', [
   apiModule
 ])
-.service('dashboardActivitiesService', DashboardClientActivitiesService)
+.service('dashboardClientActivitiesService', DashboardClientActivitiesService)
   .name;
 
-export default dashboardActivitiesModule;
+export default dashboardClientActivitiesModule;

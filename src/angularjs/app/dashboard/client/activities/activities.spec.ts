@@ -51,14 +51,14 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     })
 
     it('should load more activities',
-      inject((promiseService: PromiseService, dashboardActivitiesService: DashboardClientActivitiesService) => {
+      inject((promiseService: PromiseService, dashboardClientActivitiesService: DashboardClientActivitiesService) => {
         dashboardClientActivitiesController.activities = [{
           accountId: 'id',
           activityType: GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
           initializedAt: new Date()
         }]
         spyOn(promiseService, 'setMinimalDelay').and.callThrough()
-        spyOn(dashboardActivitiesService, 'getDashboardClientActivities').and.returnValue({
+        spyOn(dashboardClientActivitiesService, 'getDashboardClientActivities').and.returnValue({
           activities: [{
             accountId: 'id',
             activityType: GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
@@ -68,7 +68,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
         })
         dashboardClientActivitiesController.loadMoreActivities()
         expect(promiseService.setMinimalDelay).toHaveBeenCalled()
-        expect(dashboardActivitiesService.getDashboardClientActivities).toHaveBeenCalled()
+        expect(dashboardClientActivitiesService.getDashboardClientActivities).toHaveBeenCalled()
       }))
 
   })

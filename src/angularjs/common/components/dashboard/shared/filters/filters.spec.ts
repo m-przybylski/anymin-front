@@ -28,7 +28,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         id: '23dd33f'
       }]
     }
-    let dashboardActivitiesService: DashboardProfileActivitiesService
+    let dashboardProfileActivitiesService: DashboardProfileActivitiesService
     const validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
     let injectors = {}
@@ -42,7 +42,6 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         }],
         experts: []
       }
-      scope.accountType = 'PROFILE'
       scope.onSetSearchParams = (): void => {}
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
@@ -69,18 +68,18 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
     beforeEach(() => {
       inject(($rootScope: any, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService,
-              _dashboardActivitiesService_: DashboardProfileActivitiesService) => {
+              _dashboardProfileActivitiesService_: DashboardProfileActivitiesService) => {
 
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        dashboardActivitiesService = _dashboardActivitiesService_
+        dashboardProfileActivitiesService = _dashboardProfileActivitiesService_
       })
 
       injectors = {
         $element: create(validHTML),
         userService,
-        dashboardActivitiesService
+        dashboardProfileActivitiesService
       }
       const bindings = {
         filters: filtersMock,

@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.services.clientActivitiesService >', () => {
     }))
 
     beforeEach(inject(($injector: ng.auto.IInjectorService, $rootScope: angular.IRootScopeService) => {
-      dashboardActivitiesService = $injector.get<DashboardClientActivitiesService>('dashboardActivitiesService')
+      dashboardActivitiesService = $injector.get<DashboardClientActivitiesService>('dashboardClientActivitiesService')
       rootScope = $rootScope
       ViewsApiMock = $injector.get<ViewsApiMock>('ViewsApiMock')
     }))

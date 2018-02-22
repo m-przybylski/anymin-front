@@ -22,8 +22,8 @@ import uiRouter from '@uirouter/angularjs';
 // tslint:disable:member-ordering
 export class DashboardClientActivitiesController {
 
-  public static $inject = ['dashboardActivitiesService', 'promiseService', '$state', 'errorHandler', 'filtersData',
-    '$timeout'];
+  public static $inject = ['dashboardClientActivitiesService', 'promiseService', '$state', 'errorHandler',
+      'filtersData', '$timeout'];
 
   private static readonly queryLimit = 10;
   private static readonly timeoutDelay = 400;
@@ -145,7 +145,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
       controller: 'dashboardClientActivitiesController',
       controllerAs: 'vm',
       resolve: {
-        filtersData: ['dashboardActivitiesService',
+        filtersData: ['dashboardClientActivitiesService',
           (dashboardActivitiesService: DashboardClientActivitiesService): ng.IPromise<GetActivityFilters> =>
             dashboardActivitiesService.resolveFilters()]
       }

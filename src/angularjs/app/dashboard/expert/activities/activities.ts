@@ -38,7 +38,8 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
       controller: 'dashboardExpertActivitiesController',
       controllerAs: 'vm',
       resolve: {
-        filtersData: ['dashboardActivitiesService', (dashboardActivitiesService: DashboardProfileActivitiesService):
+        filtersData: ['dashboardProfileActivitiesService',
+            (dashboardActivitiesService: DashboardProfileActivitiesService):
           ng.IPromise<GetActivityFilters> => dashboardActivitiesService.resolveFilters()]
       }
     });

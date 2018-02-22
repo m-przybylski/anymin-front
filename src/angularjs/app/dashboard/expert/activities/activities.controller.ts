@@ -14,7 +14,7 @@ import { LoggerService } from '@anymind-ng/core';
 // tslint:disable:member-ordering
 export class DashboardExpertActivitiesController {
 
-  public static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log',
+  public static $inject = ['dashboardProfileActivitiesService', 'promiseService', 'errorHandler', '$log',
     '$timeout', 'logger', 'filtersData', 'profiteloWebsocket'];
 
   private static readonly queryLimit = 10;
