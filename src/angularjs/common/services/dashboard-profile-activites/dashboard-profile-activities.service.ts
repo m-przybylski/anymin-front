@@ -3,22 +3,23 @@ import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { ActivitiesQueryParams } from './activities-query-params';
 import { GetProfileActivities, GetActivityFilters } from 'profitelo-api-ng/model/models';
 import { PayoutsApi } from 'profitelo-api-ng/api/api';
+import { LoggerService } from '@anymind-ng/core';
 
-// tslint:disable:member-ordering
 export class DashboardProfileActivitiesService {
 
-  public static $inject = ['ViewsApi', 'PayoutsApi'];
+  public static $inject = ['ViewsApi', 'PayoutsApi', 'logger'];
 
   constructor(private ViewsApi: ViewsApi,
-              private PayoutsApi: PayoutsApi) {
+              private PayoutsApi: PayoutsApi,
+              private logger: LoggerService) {
   }
 
   private handleActivitiesResponseError = (error: any): void => {
-    throw new Error('Can not get activities: ' + String(error));
+      this.logger.warn('Can not get activities: ' + String(error));
   }
 
   private handleFilterResponseError = (error: any): void => {
-    throw new Error('Can not get filters data: ' + String(error));
+      this.logger.warn('Can not get filters data: ' + String(error));
   }
 
   public resolveFilters = (): ng.IPromise<GetActivityFilters> => {

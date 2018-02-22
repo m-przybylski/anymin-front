@@ -5,13 +5,13 @@ export type AccountType = 'CLIENT' | 'PROFILE';
 // tslint:disable:member-ordering
 export class ActivitiesQueryParams {
 
-  private activityType: GetProfileActivity.ActivityTypeEnum | undefined;
-  private profileId: string | undefined;
-  private serviceId: string | undefined;
-  private dateFrom: string | undefined;
-  private dateTo: string | undefined;
-  private limit: string | undefined;
-  private offset: string | undefined;
+  private activityType?: GetProfileActivity.ActivityTypeEnum;
+  private profileId?: string;
+  private serviceId?: string;
+  private dateFrom?: string;
+  private dateTo?: string;
+  private limit?: string;
+  private offset?: string;
 
   public static $inject = [];
 
