@@ -2,6 +2,8 @@ import { GetClientActivity } from 'profitelo-api-ng/model/models';
 
 export class ActivitiesQueryParams {
 
+  public static $inject = [];
+
   private activityType?: GetClientActivity.ActivityTypeEnum;
   private profileId?: string;
   private serviceId?: string;
@@ -9,8 +11,6 @@ export class ActivitiesQueryParams {
   private dateTo?: string;
   private limit?: string;
   private offset?: string;
-
-  public static $inject = [];
 
   constructor() {
   }
