@@ -14,11 +14,8 @@ export class DashboardProfileActivitiesService {
                 private logger: LoggerService) {
     }
 
-    public resolveFilters = (): ng.IPromise<GetActivityFilters> => {
-        const promise = this.ViewsApi.getDashboardActivitiesProfileFiltersRoute();
-        promise.catch(this.handleFilterResponseError);
-        return promise;
-    }
+    public resolveFilters = (): ng.IPromise<GetActivityFilters> =>
+        this.ViewsApi.getDashboardActivitiesProfileFiltersRoute()
 
     public getDashboardProfileActivities = (queryParams: ActivitiesQueryParams): ng.IPromise<GetProfileActivities> => {
         const activityType = !!(queryParams.getActivityType()) ? String(queryParams.getActivityType()) : undefined;
@@ -35,10 +32,6 @@ export class DashboardProfileActivitiesService {
 
     private handleActivitiesResponseError = (error: any): void => {
         this.logger.warn('Can not get activities: ' + String(error));
-    }
-
-    private handleFilterResponseError = (error: any): void => {
-        this.logger.warn('Can not get filters data: ' + String(error));
     }
 
 }

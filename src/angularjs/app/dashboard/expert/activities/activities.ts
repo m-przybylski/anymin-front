@@ -20,31 +20,36 @@ import uiRouter from '@uirouter/angularjs';
 import loggerModule from '../../../../common/services/logger/logger';
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
-  'profitelo.components.interface.preloader-container',
-  uiRouter,
-  expertNoActivitiesModule,
-  dashboardFiltersModule,
-  expertActivitiesModule,
-  expertActivityModule,
-  promiseModule,
-  loggerModule,
-  errorHandlerModule,
-  noResultsInformationModule
+    'profitelo.components.interface.preloader-container',
+    uiRouter,
+    expertNoActivitiesModule,
+    dashboardFiltersModule,
+    expertActivitiesModule,
+    expertActivityModule,
+    promiseModule,
+    loggerModule,
+    errorHandlerModule,
+    noResultsInformationModule
 ])
-  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
-    $stateProvider.state('app.dashboard.expert.activities', {
-      url: '/activities',
-      template: require('./activities.html'),
-      controller: 'dashboardExpertActivitiesController',
-      controllerAs: 'vm',
-      resolve: {
-        filtersData: ['dashboardProfileActivitiesService',
-            (dashboardActivitiesService: DashboardProfileActivitiesService):
-          ng.IPromise<GetActivityFilters> => dashboardActivitiesService.resolveFilters()]
-      }
-    });
-  }])
-  .controller('dashboardExpertActivitiesController', DashboardExpertActivitiesController)
-  .name;
+    .config(['$stateProvider', ($stateProvider: StateProvider): void => {
+        $stateProvider.state('app.dashboard.expert.activities', {
+            url: '/activities',
+            template: require('./activities.html'),
+            controller: 'dashboardExpertActivitiesController',
+            controllerAs: 'vm',
+            resolve: {
+                filtersData: ['dashboardProfileActivitiesService',
+                    (dashboardActivitiesService: DashboardProfileActivitiesService):
+                        ng.IPromise<GetActivityFilters | void> =>
+                        dashboardActivitiesService.resolveFilters().catch(handleFilterResponseError)]
+            }
+        });
+    }])
+    .controller('dashboardExpertActivitiesController', DashboardExpertActivitiesController)
+    .name;
 
 export default dashboardExpertActivitiesModule;
+
+function handleFilterResponseError(error: any): void {
+    this.logger.warn('Can not get filters data: ' + String(error));
+}

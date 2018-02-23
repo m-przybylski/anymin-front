@@ -84,7 +84,7 @@ export class DashboardExpertActivitiesController {
     });
   }
 
-  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
+    public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.dashboardActivitiesService.resolveFilters()
       .then((filters) => {
         this.filters = filters;
