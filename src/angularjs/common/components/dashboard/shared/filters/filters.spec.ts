@@ -4,6 +4,7 @@ import {DashboardProfileActivitiesService} from '../../../../services/dashboard-
 import dashboardFiltersModule from './filters'
 import dashboardActivitiesModule from '../../../../services/dashboard-profile-activites/dashboard-profile-activites'
 import {IDashboardFiltersComponentScope} from './filters.controller'
+import loggerMockModule from '../../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.dashboard.activities.filters', () => {
   return describe('for dashboardFilters >', () => {
@@ -49,6 +50,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       return compiledElement
     }
     beforeEach(() => {
+      angular.mock.module(loggerMockModule)
       angular.mock.module(dashboardFiltersModule)
       angular.mock.module(userService)
       angular.mock.module(dashboardActivitiesModule)

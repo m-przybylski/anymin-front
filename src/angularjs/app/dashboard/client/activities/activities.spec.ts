@@ -6,6 +6,7 @@ import {PromiseService} from '../../../../common/services/promise/promise.servic
 import {GetClientActivity} from 'profitelo-api-ng/model/models';
 import {IRootScopeService} from '../../../../common/services/root-scope/root-scope.service';
 import {StateService, TransitionPromise} from '@uirouter/angularjs';
+import loggerMockModule from '../../../../common/services/logger/logger.mock';
 
 describe('Unit tests: DashboardClientActivitiesController >', () => {
   describe('Testing Controller: DashboardClientActivitiesController', () => {
@@ -20,6 +21,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     }))
 
     beforeEach(() => {
+      angular.mock.module(loggerMockModule)
       angular.mock.module('profitelo.controller.dashboard.client.activities')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {

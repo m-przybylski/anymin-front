@@ -3,6 +3,7 @@ import { DashboardProfileActivitiesService } from './dashboard-profile-activitie
 import { ViewsApiMock } from 'profitelo-api-ng/api/api'
 import dashboardActivitiesModule from './dashboard-profile-activites'
 import { PayoutsApiMock } from 'profitelo-api-ng/api/api'
+import loggerMockModule from '../logger/logger.mock';
 
 describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
   describe('for profitelo.services.expertActivitiesService >', () => {
@@ -17,6 +18,7 @@ describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
 
     beforeEach(() => {
       angular.mock.module(dashboardActivitiesModule)
+      angular.mock.module(loggerMockModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
