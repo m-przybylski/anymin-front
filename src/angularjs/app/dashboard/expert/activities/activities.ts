@@ -51,5 +51,5 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
 export default dashboardExpertActivitiesModule;
 
 function handleFilterResponseError(error: any): void {
-    this.logger.warn('Can not get filters data: ' + String(error));
+    this.logger.warn('ProfileActivitiesModule: Can not get filters data: ' + String(error));
 }
