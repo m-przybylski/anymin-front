@@ -3,8 +3,10 @@ import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { UrlService } from '../../services/url/url.service';
+import { LoggerService } from '@anymind-ng/core';
 
-  function messageFilter($log: ng.ILogService, urlService: UrlService): (message: Message) => string {
+  function messageFilter(urlService: UrlService,
+                         logger: LoggerService): (message: Message) => string {
 
     const hasImageUrl = (text: string): RegExpMatchArray | null => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/;
@@ -27,8 +29,15 @@ import { UrlService } from '../../services/url/url.service';
     const createRegexpFromUrl = (url: string): RegExp =>
       new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g');
 
+    const handleImageMessage = (message: Message): string => {
+      const fileUrl: string = getCorrectUrl(urlService.resolveFileUrl(message.context.content));
+
+      return `<a href="${fileUrl}" target="_blank">` +
+        `<img src="${fileUrl}"/></a>`;
+    };
+
     // tslint:disable-next-line:cyclomatic-complexity
-    const handleMessage = (message: Message): string => {
+    const handleTextMessage = (message: Message): string => {
       const messageContext = message.context;
       const messageUrls = getUrls(messageContext.content);
       if (messageContext && messageContext.description && messageContext.description.length > 0) {
@@ -56,11 +65,25 @@ import { UrlService } from '../../services/url/url.service';
       return message.context.content;
     };
 
+    const handleMessage = (message: Message): string => {
+      switch (message.context.mimeType) {
+        case 'text/plain':
+          return handleTextMessage(message);
+        case 'image/jpeg':
+          return handleImageMessage(message);
+        case 'image/png':
+          return handleImageMessage(message);
+        default:
+          logger.error('MessagePipe: Unhandled message type, fix me please');
+          return handleTextMessage(message);
+      }
+    };
+
     return function(message: Message): string {
       if (message) {
         return handleMessage(message);
       } else {
-        $log.error('Expected Message object but got:' + typeof message);
+        logger.error('Expected Message object but got:' + typeof message);
         return '';
       }
 
@@ -68,4 +91,4 @@ import { UrlService } from '../../services/url/url.service';
   }
   angular.module('profitelo.filters.message-filter', [
   ])
-    .filter('message', ['$log', 'urlService', messageFilter]);
+    .filter('message', ['urlService', 'logger', messageFilter]);
