@@ -8,9 +8,14 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
 
     let $filter: IFilterService
     const urlService: UrlService = <UrlService>{}
+    const logger = {
+      error: (): void => {
+      }
+    }
 
-    beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService): void => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService): void => {
       $provide.value('urlService', urlService)
+      $provide.value('logger', logger)
     }))
 
     beforeEach(() => {
@@ -28,7 +33,7 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
         body: 'asdasdasd',
         context: {
           content: 'asdasdasd',
-          mimeType: 'image/png'
+          mimeType: 'plain/text'
         }
       }
       expect($filter('message')(messageObject)).toEqual(messageObject.context.content)
