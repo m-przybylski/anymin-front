@@ -3,7 +3,7 @@ import { ModalsService } from './modals.service'
 import modalsModule from './modals'
 import dialogModule from '../dialog/dialog'
 import { DialogService } from '../dialog/dialog.service'
-import { GetExpertSueDetails, GetActivity, GetExpertServiceDetails, GetProfile,
+import { GetExpertSueDetails, GetClientActivity, GetExpertServiceDetails, GetProfile,
   GetService } from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.services.modals >', () => {
@@ -161,7 +161,7 @@ describe('Unit testing: profitelo.services.modals >', () => {
     it('should open client charge details modal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createClientChargeDetailsModal(<GetActivity>{})
+      modalsService.createClientChargeDetailsModal(<GetClientActivity>{})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))

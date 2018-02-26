@@ -1,9 +1,10 @@
 import * as angular from 'angular'
 
-import {DashboardActivitiesService} from '../../../../services/dashboard-activites/dashboard-activities.service'
+import {DashboardProfileActivitiesService} from '../../../../services/dashboard-profile-activites/dashboard-profile-activities.service'
 import dashboardFiltersModule from './filters'
-import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
+import dashboardActivitiesModule from '../../../../services/dashboard-profile-activites/dashboard-profile-activites'
 import {IDashboardFiltersComponentScope} from './filters.controller'
+import loggerMockModule from '../../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.dashboard.activities.filters', () => {
   return describe('for dashboardFilters >', () => {
@@ -28,7 +29,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         id: '23dd33f'
       }]
     }
-    let dashboardActivitiesService: DashboardActivitiesService
+    let dashboardProfileActivitiesService: DashboardProfileActivitiesService
     const validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
     let injectors = {}
@@ -42,7 +43,6 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         }],
         experts: []
       }
-      scope.accountType = 'PROFILE'
       scope.onSetSearchParams = (): void => {}
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
@@ -50,6 +50,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       return compiledElement
     }
     beforeEach(() => {
+      angular.mock.module(loggerMockModule)
       angular.mock.module(dashboardFiltersModule)
       angular.mock.module(userService)
       angular.mock.module(dashboardActivitiesModule)
@@ -69,18 +70,18 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
     beforeEach(() => {
       inject(($rootScope: any, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService,
-              _dashboardActivitiesService_: DashboardActivitiesService) => {
+              _dashboardProfileActivitiesService_: DashboardProfileActivitiesService) => {
 
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        dashboardActivitiesService = _dashboardActivitiesService_
+        dashboardProfileActivitiesService = _dashboardProfileActivitiesService_
       })
 
       injectors = {
         $element: create(validHTML),
         userService,
-        dashboardActivitiesService
+        dashboardProfileActivitiesService
       }
       const bindings = {
         filters: filtersMock,

@@ -5,8 +5,10 @@ import '../../../interface/dropdown/dropdown';
 import '../../../../directives/interface/pro-calendar/pro-calendar';
 import { GetActivityFilters } from 'profitelo-api-ng/model/models';
 import { DashboardFiltersComponent } from './filters.component';
-import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites';
-import { AccountType, ActivitiesQueryParams } from '../../../../services/dashboard-activites/activities-query-params';
+import dashboardActivitiesModule from '../../../../services/dashboard-profile-activites/dashboard-profile-activites';
+import {
+  AccountType, ActivitiesQueryParams
+} from '../../../../services/dashboard-profile-activites/activities-query-params';
 import userModule from '../../../../services/user/user';
 import translatorModule from '../../../../services/translator/translator';
 

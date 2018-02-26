@@ -1,53 +1,48 @@
-import { GetActivity } from 'profitelo-api-ng/model/models';
+import { GetClientActivity } from 'profitelo-api-ng/model/models';
 
-export type AccountType = 'CLIENT' | 'PROFILE';
-// tslint:disable:member-ordering
 export class ActivitiesQueryParams {
-
-  private activityType: GetActivity.ActivityTypeEnum | undefined;
-  private profileId: string | undefined;
-  private serviceId: string | undefined;
-  private accountType: AccountType;
-  private dateFrom: string | undefined;
-  private dateTo: string | undefined;
-  private limit: string | undefined;
-  private offset: string | undefined;
 
   public static $inject = [];
 
-  constructor() {}
+  private activityType?: GetClientActivity.ActivityTypeEnum;
+  private profileId?: string;
+  private serviceId?: string;
+  private dateFrom?: string;
+  private dateTo?: string;
+  private limit?: string;
+  private offset?: string;
 
-  public getActivityType = (): GetActivity.ActivityTypeEnum | undefined => this.activityType;
+  constructor() {
+  }
+
+  public getActivityType = (): GetClientActivity.ActivityTypeEnum | undefined => this.activityType;
   public getProfileId = (): string | undefined => this.profileId;
   public getServiceId = (): string | undefined => this.serviceId;
-  public getAccountType = (): AccountType => this.accountType;
   public getDateFrom = (): string | undefined => this.dateFrom;
   public getDateTo = (): string | undefined => this.dateTo;
   public getLimit = (): string | undefined => this.limit;
   public getOffset = (): string | undefined => this.offset;
 
-  public setActivityType = (value?: GetActivity.ActivityTypeEnum): void => {
+  public setActivityType = (value?: GetClientActivity.ActivityTypeEnum): void => {
     if (value !== this.activityType) {
       this.activityType = value;
     }
   }
 
-  public setProfileId  = (value?: string): void => {
+  public setProfileId = (value?: string): void => {
     if (value !== this.profileId) {
       this.profileId = value;
       if (value) {
-        this.activityType = this.accountType === 'PROFILE' ?
-          GetActivity.ActivityTypeEnum.EXPERTSERVICEUSAGEEVENT : GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT;
+        this.activityType = GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
       }
     }
   }
 
-  public setServiceId  = (value?: string): void => {
+  public setServiceId = (value?: string): void => {
     if (value !== this.serviceId) {
       this.serviceId = value;
       if (value) {
-        this.activityType = this.accountType === 'PROFILE' ?
-          GetActivity.ActivityTypeEnum.EXPERTSERVICEUSAGEEVENT : GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT;
+        this.activityType = GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
       }
     }
   }
@@ -85,12 +80,6 @@ export class ActivitiesQueryParams {
     const checkedValue = value && value > 0 ? Number(value) : 0;
     if (String(checkedValue) !== this.offset) {
       this.offset = String(value);
-    }
-  }
-
-  public setAccountType = (value: AccountType): void => {
-    if (value !== this.accountType) {
-      this.accountType = value;
     }
   }
 

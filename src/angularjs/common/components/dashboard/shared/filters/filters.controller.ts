@@ -4,7 +4,9 @@ import * as _ from 'lodash';
 import { GetActivityFilters, ServiceFilter, ExpertFilter } from 'profitelo-api-ng/model/models';
 import { IDashboardFiltersComponentBindings } from './filters';
 import { IPrimaryDropdownListElement } from '../../../interface/dropdown-primary/dropdown-primary';
-import { AccountType, ActivitiesQueryParams } from '../../../../services/dashboard-activites/activities-query-params';
+import {
+  AccountType, ActivitiesQueryParams
+} from '../../../../services/dashboard-profile-activites/activities-query-params';
 import { UserService } from '../../../../services/user/user.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 
@@ -108,7 +110,6 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
 
   public updateActivityTypeParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams;
-    queryParams.setAccountType(this.accountType);
     queryParams.setActivityType(item.value);
     queryParams.setServiceId(undefined);
     queryParams.setProfileId(undefined);
@@ -122,7 +123,6 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
 
   public updateProfileParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams;
-    queryParams.setAccountType(this.accountType);
     queryParams.setProfileId(item.value);
     queryParams.setServiceId(undefined);
     queryParams.setDateFrom(this.activitiesFilters.dateFrom);
@@ -147,7 +147,6 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
 
   public mainUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams;
-    queryParams.setAccountType(this.accountType);
     queryParams.setServiceId(item.value);
     if (this.selectedExpert) {
       queryParams.setProfileId(this.selectedExpert.value);
@@ -160,7 +159,6 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
 
   public secondUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams;
-    queryParams.setAccountType(this.accountType);
     queryParams.setServiceId(item.value);
     queryParams.setProfileId(undefined);
     queryParams.setDateFrom(this.activitiesFilters.dateFrom);

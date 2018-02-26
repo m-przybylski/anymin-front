@@ -1,13 +1,14 @@
 import * as angular from 'angular'
-import {DashboardActivitiesService} from './dashboard-activities.service'
+import {DashboardClientActivitiesService} from './dashboard-client-activities.service'
 import {ViewsApiMock} from 'profitelo-api-ng/api/api'
-import dashboardActivitiesModule from './dashboard-activites'
+import dashboardActivitiesModule from './dashboard-client-activites'
 import {PayoutsApiMock} from 'profitelo-api-ng/api/api'
+import loggerMockModule from '../logger/logger.mock';
 
-describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
-  describe('for profitelo.services.expertActivitiesService >', () => {
+describe('Unit testing: profitelo.services.clientActivitiesService >', () => {
+  describe('for profitelo.services.clientActivitiesService >', () => {
 
-    let dashboardActivitiesService: DashboardActivitiesService
+    let dashboardActivitiesService: DashboardClientActivitiesService
     let rootScope: ng.IRootScopeService
     let ViewsApiMock: ViewsApiMock
 
@@ -17,6 +18,7 @@ describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
 
     beforeEach(() => {
       angular.mock.module(dashboardActivitiesModule)
+      angular.mock.module(loggerMockModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -24,7 +26,7 @@ describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
     }))
 
     beforeEach(inject(($injector: ng.auto.IInjectorService, $rootScope: angular.IRootScopeService) => {
-      dashboardActivitiesService = $injector.get<DashboardActivitiesService>('dashboardActivitiesService')
+      dashboardActivitiesService = $injector.get<DashboardClientActivitiesService>('dashboardClientActivitiesService')
       rootScope = $rootScope
       ViewsApiMock = $injector.get<ViewsApiMock>('ViewsApiMock')
     }))

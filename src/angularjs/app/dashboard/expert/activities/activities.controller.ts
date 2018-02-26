@@ -1,13 +1,10 @@
-import { GetActivity, GetActivityFilters } from 'profitelo-api-ng/model/models';
+import { GetProfileActivity, GetActivityFilters } from 'profitelo-api-ng/model/models';
 import {
-  DashboardActivitiesService
-} from '../../../../common/services/dashboard-activites/dashboard-activities.service';
-import {
-  AccountType,
-  ActivitiesQueryParams
-} from '../../../../common/services/dashboard-activites/activities-query-params';
+  DashboardProfileActivitiesService
+} from '../../../../common/services/dashboard-profile-activites/dashboard-profile-activities.service';
+import { ActivitiesQueryParams } from '../../../../common/services/dashboard-profile-activites/activities-query-params';
 
-import { GetActivities, GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
+import { GetProfileActivities, GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { PromiseService } from '../../../../common/services/promise/promise.service';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 import { httpCodes } from '../../../../common/classes/http-codes';
@@ -17,14 +14,14 @@ import { LoggerService } from '@anymind-ng/core';
 // tslint:disable:member-ordering
 export class DashboardExpertActivitiesController {
 
-  public static $inject = ['dashboardActivitiesService', 'promiseService', 'errorHandler', '$log',
+  public static $inject = ['dashboardProfileActivitiesService', 'promiseService', 'errorHandler', '$log',
     '$timeout', 'logger', 'filtersData', 'profiteloWebsocket'];
 
   private static readonly queryLimit = 10;
   private static readonly promiseLoaderDelay = 500;
 
   public areActivities: boolean;
-  public activities: GetActivity[] = [];
+  public activities: GetProfileActivity[] = [];
 
   public isSearchLoading = true;
   public isError = false;
@@ -34,7 +31,6 @@ export class DashboardExpertActivitiesController {
     currentResultsCount: number
     allResultsCount: number
   };
-  public accountType: AccountType = 'PROFILE';
   public isActivitiesLoading = false;
   public areFilteredResults = false;
   public isAnyPayoutMethodSet = false;
@@ -42,7 +38,7 @@ export class DashboardExpertActivitiesController {
   private activitiesQueryParam: ActivitiesQueryParams;
   private timeoutDelay = 400;
 
-  constructor(private dashboardActivitiesService: DashboardActivitiesService,
+  constructor(private dashboardActivitiesService: DashboardProfileActivitiesService,
               private promiseService: PromiseService,
               private errorHandler: ErrorHandlerService,
               private $log: ng.ILogService,
@@ -76,7 +72,7 @@ export class DashboardExpertActivitiesController {
     this.activitiesQueryParam.setOffset(this.activities.length);
 
     this.promiseService.setMinimalDelay(
-      this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam),
+      this.dashboardActivitiesService.getDashboardProfileActivities(this.activitiesQueryParam),
       DashboardExpertActivitiesController.promiseLoaderDelay).then((getActivities) => {
       this.activities = this.activities.concat(getActivities.activities);
       this.areMoreResults = getActivities.count > this.activities.length;
@@ -88,8 +84,8 @@ export class DashboardExpertActivitiesController {
     });
   }
 
-  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
-    this.dashboardActivitiesService.resolveFilters('PROFILE')
+    public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
+    this.dashboardActivitiesService.resolveFilters()
       .then((filters) => {
         this.filters = filters;
       }, error => {
@@ -137,8 +133,9 @@ export class DashboardExpertActivitiesController {
     return promise;
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
-    const promise = this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams);
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams):
+      ng.IPromise<GetProfileActivities> => {
+    const promise = this.dashboardActivitiesService.getDashboardProfileActivities(activitiesQueryParams);
 
     promise.catch((error) => {
       this.isSearchLoading = false;
@@ -151,7 +148,6 @@ export class DashboardExpertActivitiesController {
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardExpertActivitiesController.queryLimit);
     activitiesQueryParams.setOffset(0);
-    activitiesQueryParams.setAccountType(this.accountType);
   }
 
 }

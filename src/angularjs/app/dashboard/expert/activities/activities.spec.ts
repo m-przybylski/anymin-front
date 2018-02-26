@@ -14,6 +14,11 @@ describe('Unit tests: dashboardExpertActivities >', () => {
       $provide.value('apiUrl', 'awesomeURL')
     }))
 
+    const dashboardActivitiesService = {
+      getDashboardProfileActivities: () => Promise.reject(undefined),
+      getPayoutMethods: () => Promise.reject(undefined)
+    }
+
     beforeEach(() => {
       angular.mock.module(dashboardExpertActivitiesModule)
 
@@ -23,7 +28,8 @@ describe('Unit tests: dashboardExpertActivities >', () => {
             $state: _$state_,
             $scope: $rootScope.$new(),
             topAlertService: {},
-            filtersData: {}
+            filtersData: {},
+            dashboardActivitiesService
           })
       })
     })

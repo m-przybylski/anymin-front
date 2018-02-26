@@ -1,19 +1,19 @@
 import * as angular from 'angular'
 
 import {DashboardClientActivitiesController} from './activities'
-import {DashboardActivitiesService} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
+import {DashboardClientActivitiesService} from '../../../../common/services/dashboard-client-activites/dashboard-client-activities.service'
 import {PromiseService} from '../../../../common/services/promise/promise.service'
-import {GetActivity} from 'profitelo-api-ng/model/models';
+import {GetClientActivity} from 'profitelo-api-ng/model/models';
 import {IRootScopeService} from '../../../../common/services/root-scope/root-scope.service';
 import {StateService, TransitionPromise} from '@uirouter/angularjs';
+import loggerMockModule from '../../../../common/services/logger/logger.mock';
 
 describe('Unit tests: DashboardClientActivitiesController >', () => {
   describe('Testing Controller: DashboardClientActivitiesController', () => {
 
     let dashboardClientActivitiesController: DashboardClientActivitiesController
 
-    const clientActivitiesService: DashboardActivitiesService = {
-    } as DashboardActivitiesService
+    const clientActivitiesService: DashboardClientActivitiesService = {} as DashboardClientActivitiesService
     let $state: StateService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -21,6 +21,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     }))
 
     beforeEach(() => {
+      angular.mock.module(loggerMockModule)
       angular.mock.module('profitelo.controller.dashboard.client.activities')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
@@ -33,9 +34,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
           $controller<DashboardClientActivitiesController>('dashboardClientActivitiesController', {
             $state: $state,
             $scope: $rootScope.$new(),
-            topAlertService: {
-
-            },
+            topAlertService: {},
             clientActivitiesService: clientActivitiesService,
             filtersData: {},
             errorHandler: {}
@@ -54,27 +53,25 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     })
 
     it('should load more activities',
-      inject((promiseService: PromiseService, dashboardActivitiesService: DashboardActivitiesService) => {
-      dashboardClientActivitiesController.activities = [{
+      inject((promiseService: PromiseService, dashboardClientActivitiesService: DashboardClientActivitiesService) => {
+        dashboardClientActivitiesController.activities = [{
           accountId: 'id',
-          activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
-          accountType: GetActivity.AccountTypeEnum.CLIENT,
+          activityType: GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
           initializedAt: new Date()
-      }]
-      spyOn(promiseService, 'setMinimalDelay').and.callThrough()
-      spyOn(dashboardActivitiesService, 'getDashboardActivities').and.returnValue({
-        activities: [{
-          accountId: 'id',
-          activityType: GetActivity.ActivityTypeEnum.CLIENTSERVICEUSAGEEVENT,
-          accountType: GetActivity.AccountTypeEnum.CLIENT,
-          initializedAt: new Date()
-        }],
-        count: 1
-      })
-      dashboardClientActivitiesController.loadMoreActivities()
-      expect(promiseService.setMinimalDelay).toHaveBeenCalled()
-      expect(dashboardActivitiesService.getDashboardActivities).toHaveBeenCalled()
-    }))
+        }]
+        spyOn(promiseService, 'setMinimalDelay').and.callThrough()
+        spyOn(dashboardClientActivitiesService, 'getDashboardClientActivities').and.returnValue({
+          activities: [{
+            accountId: 'id',
+            activityType: GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
+            initializedAt: new Date()
+          }],
+          count: 1
+        })
+        dashboardClientActivitiesController.loadMoreActivities()
+        expect(promiseService.setMinimalDelay).toHaveBeenCalled()
+        expect(dashboardClientActivitiesService.getDashboardClientActivities).toHaveBeenCalled()
+      }))
 
   })
 })

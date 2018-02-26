@@ -1,17 +1,17 @@
 import { ModalsService } from '../../../../../../services/modals/modals.service';
-import { GetActivity } from 'profitelo-api-ng/model/models';
+import { GetClientActivity } from 'profitelo-api-ng/model/models';
 import { IClientActivityComponentBindings } from './activity';
 
 // tslint:disable:member-ordering
 export class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
 
-  public activity: GetActivity;
+  public activity: GetClientActivity;
   public isCallActivity: boolean;
   public imageToken?: string;
   public activityDate: Date;
   public static $inject = ['modalsService', '$log'];
 
-    constructor(private modalsService: ModalsService, private $log: ng.ILogService) {
+  constructor(private modalsService: ModalsService, private $log: ng.ILogService) {
   }
 
   public $onInit(): void {

@@ -4,7 +4,6 @@ import { SoundsService } from '../../../services/sounds/sounds.service';
 import { TimerFactory } from '../../../services/timer/timer.factory';
 import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
 import * as apiModule from 'profitelo-api-ng/api.module';
-import { ServiceUsageEvent } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import { roomType, Session } from 'ratel-sdk-js';
 import { MicrophoneService } from '../microphone-service/microphone.service';
@@ -63,9 +62,7 @@ describe('Unit tests: CurrentCall', () => {
     getInstance: (): TimerService => timerInstance
   };
 
-  const sue: ServiceUsageEvent = <any>{
-    id: '12'
-  };
+  const sueId: string = '12';
 
   beforeEach(() => {
     angular.mock.module(apiModule);
@@ -84,7 +81,7 @@ describe('Unit tests: CurrentCall', () => {
     RatelApi = _RatelApi_;
     q = $q;
     const callDetails = <any>{
-      sueId: sue.id,
+      sueId: sueId,
       servicePrice: {},
       serviceName: service.name
     };
@@ -129,7 +126,7 @@ describe('Unit tests: CurrentCall', () => {
   });
 
   it('should return sue id', () => {
-    expect(currentCall.getSueId()).toEqual(sue.id);
+    expect(currentCall.getSueId()).toEqual(sueId);
   });
 
   it('should call join room method', () => {
