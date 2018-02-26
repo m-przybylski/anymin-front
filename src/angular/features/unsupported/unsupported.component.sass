@@ -1,0 +1,48 @@
+@import "../../../angularjs/template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../angularjs/template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.unsupported
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 100vh
+  padding: 32px
+  background: $c-white
+
+  .container
+    max-width: 100%
+    text-align: center
+
+  .anymind-logo
+    margin: 0 0 32px
+
+  .widget-header
+    justify-content: center
+
+  .header
+    margin: 0 0 16px
+
+    span
+      +header
+      +default-font-regular
+
+  p
+    +subHeader
+
+  .browser-info-container
+    margin: 32px 0 0
+    display: flex
+    justify-content: center
+
+    .single-browser
+      margin: 0 32px
+
+      .browser-icon
+        display: block
+        margin:  0 0 8px
+
+      span
+        text-align: center
+        margin-top: 24px
+        font-size: 14px
+        color: $c-primary

@@ -14,6 +14,7 @@
   },
   "files": [
     "angular/features/confirm-email/confirm-email.module.ts",
+    "angular/features/unsupported/unsupported.module.ts",
     "angular/features/angularjs/angularjs.module.ts",
     "angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts",
     "polyfills.ts",
