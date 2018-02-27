@@ -10,6 +10,8 @@ import '../../../../../../directives/interface/scrollable/scrollable';
 import autoFocus from '../../../../../../directives/auto-focus/auto-focus';
 import inputModule from '../../../../../interface/input/input';
 import { httpCodes } from '../../../../../../classes/http-codes';
+import { TopAlertService } from '../../../../../../services/top-alert/top-alert.service';
+import { TranslatorService } from '../../../../../../services/translator/translator.service';
 
 export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
 }
@@ -41,6 +43,7 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
     })
       .then(_res => {
         this.$uibModalInstance.dismiss('cancel');
+        this.showSuccessAlert();
       }, (err: any) => {
         this.isError = true;
         if (err.status === httpCodes.badRequest) {
@@ -63,11 +66,15 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
   public checkIsNewEnteredPasswordCorrect = (): boolean =>
     this.enteredPassword !== this.newPassword && this.patternPassword.test(this.newPassword)
 
-  public static $inject = ['$uibModalInstance', 'CommonSettingsService', 'AccountApi', 'passwordStrengthService'];
+  public static $inject = ['$uibModalInstance', 'CommonSettingsService', 'AccountApi', 'passwordStrengthService',
+    'topAlertService', 'translatorService'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private CommonSettingsService: CommonSettingsService,
-              private AccountApi: AccountApi, private passwordStrengthService: PasswordStrengthService) {
+                private CommonSettingsService: CommonSettingsService,
+                private AccountApi: AccountApi,
+                private passwordStrengthService: PasswordStrengthService,
+                private topAlertService: TopAlertService,
+                private translatorService: TranslatorService) {
   }
 
   public onPasswordChange = (password: string): void => {
@@ -79,6 +86,13 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');
+  }
+
+  private showSuccessAlert = (): void => {
+    this.topAlertService.success({
+      message: this.translatorService.translate('SETTINGS.SECURITY.CHANGE_PASSWORD.SUCCESS_ALERT'),
+      timeout: 2
+    });
   }
 }
 

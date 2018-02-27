@@ -1,10 +1,12 @@
-import * as angular from 'angular'
+import * as angular from 'angular';
 
 import {
   SecurityChangePasswordSettingsController,
   ISecurityChangePasswordSettingsControllerScope
-} from './change-password'
-import {AccountApi, AccountApiMock} from 'profitelo-api-ng/api/api'
+} from './change-password';
+import { AccountApi, AccountApiMock } from 'profitelo-api-ng/api/api';
+import { TopAlertService } from '../../../../../../services/top-alert/top-alert.service';
+import { TranslatorService } from '../../../../../../services/translator/translator.service';
 
 describe('Testing Controller: securityChangePasswordSettingsController', () => {
 
@@ -14,6 +16,10 @@ describe('Testing Controller: securityChangePasswordSettingsController', () => {
   let AccountApiMock: AccountApiMock
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+  const translatorService: TranslatorService = jasmine.createSpyObj('translatorService',
+    ['translate']);
+  const topAlertService: TopAlertService = jasmine.createSpyObj('topAlertService',
+    ['success']);
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeUrl')
@@ -30,8 +36,10 @@ describe('Testing Controller: securityChangePasswordSettingsController', () => {
       AccountApiMock = _AccountApiMock_
       const injectors = {
         $scope: scope,
-        AccountApi: AccountApi,
-        $uibModalInstance: $uibModalInstance,
+        AccountApi,
+        $uibModalInstance,
+        translatorService,
+        topAlertService
       }
 
       controller = $controller<SecurityChangePasswordSettingsController>(
