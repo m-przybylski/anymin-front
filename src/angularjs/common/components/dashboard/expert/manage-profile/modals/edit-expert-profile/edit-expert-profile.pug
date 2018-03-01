@@ -14,11 +14,11 @@
           input-primary(
           data-type="text"
           data-id="inputText"
-          data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE"
+          data-placeholder="{{ ::vm.profileNamePlaceholder }}"
           data-ng-model="vm.profileName"
-          data-input-text="{{ vm.profileNameLabel }}"
+          data-input-text="{{ ::vm.profileNameLabel }}"
           data-ng-required="true"
-          data-max-length="{{vm.inputNameMaxLength}}"
+          data-max-length="{{::vm.inputNameMaxLength}}"
           data-is-submitted="vm.isSubmitted"
           data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.VALIDATION_TEXT"
           data-is-valid="vm.isNameValid()"
@@ -26,11 +26,11 @@
 
         div
           textarea-primary(
-          data-input-text="{{ vm.profileDescriptionLabel }}"
-          data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE"
+          data-input-text="{{ ::vm.profileDescriptionLabel }}"
+          data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.PLACEHOLDER"
           data-ng-model="vm.profileDescription"
           data-id="edit_expert_area"
-          data-max-length="{{vm.inputDescriptionMaxLength}}"
+          data-max-length="{{::vm.inputDescriptionMaxLength}}"
           data-is-submitted="vm.isSubmitted"
           data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.VALIDATION_TEXT"
           data-is-valid="vm.isDescriptionValid()"

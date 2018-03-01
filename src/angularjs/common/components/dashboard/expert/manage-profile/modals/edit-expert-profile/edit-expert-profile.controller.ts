@@ -11,11 +11,13 @@ export interface IEditExpertProfileScope extends ng.IScope {
   onModalCloseCallback: () => void;
 }
 
-interface ILabels {
-  expertName: string;
-  expertDescription: string;
-  organizationName: string;
-  organizationDescription: string;
+interface IEditProfileTranslations {
+  expertNameLabel: string;
+  expertDescriptionLabel: string;
+  expertNamePlaceholder: string;
+  organizationNameLabel: string;
+  organizationNamePlaceholder: string;
+  organizationDescriptionLabel: string;
 }
 
 // tslint:disable:strict-type-predicates
@@ -32,15 +34,18 @@ export class EditExpertProfileController implements ng.IController {
   public isNavbar = true;
   public isSubmitted = false;
   public profileNameLabel: string;
+  public profileNamePlaceholder: string;
   public profileDescriptionLabel: string;
   public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
   public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
 
-  private static readonly labels: ILabels = {
-    expertName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE',
-    expertDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE',
-    organizationName: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.TITLE',
-    organizationDescription: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE'
+  private static readonly translations: IEditProfileTranslations = {
+    expertNameLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE',
+    expertNamePlaceholder: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.PLACEHOLDER',
+    expertDescriptionLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE',
+    organizationNameLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.TITLE',
+    organizationNamePlaceholder: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.PLACEHOLDER',
+    organizationDescriptionLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE'
   };
   private isUploaded = true;
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
@@ -60,12 +65,14 @@ export class EditExpertProfileController implements ng.IController {
   public $onInit(): void {
     if (this.isGetExpertDetails(this.$scope.profile)) {
       this.profileAvatarToken = this.$scope.profile.avatar;
-      this.profileNameLabel = EditExpertProfileController.labels.expertName;
-      this.profileDescriptionLabel = EditExpertProfileController.labels.expertDescription;
+      this.profileNameLabel = EditExpertProfileController.translations.expertNameLabel;
+      this.profileNamePlaceholder = EditExpertProfileController.translations.expertNamePlaceholder;
+      this.profileDescriptionLabel = EditExpertProfileController.translations.expertDescriptionLabel;
     } else {
       this.profileAvatarToken = this.$scope.profile.logo;
-      this.profileNameLabel = EditExpertProfileController.labels.organizationName;
-      this.profileDescriptionLabel = EditExpertProfileController.labels.organizationDescription;
+      this.profileNameLabel = EditExpertProfileController.translations.organizationNameLabel;
+      this.profileNamePlaceholder = EditExpertProfileController.translations.organizationNamePlaceholder;
+      this.profileDescriptionLabel = EditExpertProfileController.translations.organizationDescriptionLabel;
     }
       this.profileName = this.$scope.profile.name;
       this.profileDescription = this.$scope.profile.description;
