@@ -281,6 +281,13 @@ export class CurrentCall {
         this.isRemoteVideo = true;
         this.events.onVideoStart.next();
       }
+      stream.onremovetrack = (t: MediaStreamTrackEvent): void => {
+        this.logger.debug('CurrentCall: onRemoveTrack event called');
+        if (t.track.kind === 'video') {
+          this.isRemoteVideo = false;
+          this.events.onVideoStop.next();
+        }
+      };
     });
 
     this.ratelCall.onOffline((msg) => {
