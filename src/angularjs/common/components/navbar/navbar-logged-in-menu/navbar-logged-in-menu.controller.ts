@@ -29,7 +29,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   public isPlatformForExpert = Config.isPlatformForExpert;
 
   public static $inject = ['userService', 'translatorService', 'topAlertService', '$element', '$document',
-    '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService', 'profiteloWebsocket'];
+    '$window', '$scope', '$log', 'ProfileApi', '$location', 'navbarNotificationsService', 'profiteloWebsocket'];
 
     constructor(private userService: UserService,
               private translatorService: TranslatorService,
@@ -40,6 +40,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
               private $scope: ng.IScope,
               private $log: ng.ILogService,
               private ProfileApi: ProfileApi,
+              private $location: ng.ILocationService,
               navbarNotificationsService: NavbarNotificationsService,
               profiteloWebsocket: ProfiteloWebsocketService) {
 
@@ -91,9 +92,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   public logout = (): void => {
     this.userService.logout().then(() => {
-      // HACKED FIXME
-      // this.$state.reload(); // this sometimes stucks
-      window.location.href = '/login/account';
+      this.$location.path('/login');
       this.topAlertService.success({
         message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
         timeout: 2

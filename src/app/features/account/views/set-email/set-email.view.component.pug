@@ -1,0 +1,29 @@
+.set-email-view
+  login-background
+    login-content(
+      titleText="DASHBOARD.SET_EMAIL.TITLE",
+      subTitle="DASHBOARD.SET_EMAIL.SUBTITLE"
+    )
+      form(
+        [id]="setEmailFormName",
+        [formGroup]="setEmailForm",
+        novalidate,
+        (ngSubmit)="onFormSubmit(setEmailForm)"
+      )
+        .input-icon-container
+          span.icon.icon-mail
+          input-email(
+            label="DASHBOARD.SET_EMAIL.EMAIL.ENTER_EMAIL.LABEL",
+            placeholder="DASHBOARD.SET_EMAIL.ENTER_EMAIL.PLACEHOLDER",
+            [form]="setEmailForm",
+            [controlName]="emailControlName",
+            [errorTextKey]="'DASHBOARD.SET_EMAIL.ENTER_EMAIL.VALIDATION_MESSAGE'",
+            [isDisabled]="isRequestPending",
+            [initialFocus]="isInputInitialFocused"
+          )
+
+        submit-button(
+          titleText="LOGIN.NEXT",
+          [formName]="setEmailFormName",
+          [isLoading]="isRequestPending"
+        )

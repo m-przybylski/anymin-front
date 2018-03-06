@@ -1,14 +1,16 @@
 import * as angular from 'angular';
-import { AccountDetails, LoginCredentials } from 'profitelo-api-ng/model/models';
+import { AccountDetails } from 'profitelo-api-ng/model/models';
 import { SessionServiceWrapper } from '../session/session.service';
 import { EventsService } from '../events/events.service';
 import { GetSession } from 'profitelo-api-ng/model/GetSession';
+import { LoginCredentials } from '@anymind-ng/api';
 
+// tslint:disable:member-ordering
 export class UserService {
 
   public static $inject = ['sessionServiceWrapper', 'eventsService'];
 
-  constructor(private sessionServiceWrapper: SessionServiceWrapper, private eventsService: EventsService) {
+    constructor(private sessionServiceWrapper: SessionServiceWrapper, private eventsService: EventsService) {
   }
 
   public getUser = (purgeCache = false): ng.IPromise<AccountDetails> =>

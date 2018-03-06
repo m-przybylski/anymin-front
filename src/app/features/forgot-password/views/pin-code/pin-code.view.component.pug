@@ -1,0 +1,42 @@
+.pin-code-view
+  login-background
+    .forgot-password-pin
+      login-content(
+        titleText="FORGOT_PASSWORD.TITLE",
+        [msisdn]="msisdn"
+      )
+        form(
+          [id]="pinCodeFormName",
+          [formGroup]="pinCodeForm",
+          novalidate,
+          (ngSubmit)="onFormSubmit(pinCodeForm)")
+          .input-icon-container
+            span.icon.icon-cellphone
+            input-pin-code(
+              label="LOGIN.PIN_CODE.ENTER_CODE.LABEL",
+              placeholder="LOGIN.PIN_CODE.ENTER_CODE.PLACEHOLDER",
+              [form]="pinCodeForm",
+              [controlName]="pinCodeControlName",
+              errorTextKey="LOGIN.PIN_CODE.ENTER_CODE.VALIDATION_MESSAGE",
+              [isDisabled]="isRequestPending",
+              [initialFocus]="isInputInitialFocused"
+            )
+
+          submit-button(
+            titleText="FORGOT_PASSWORD.SUBMIT_BUTTON",
+            [formName]="pinCodeFormName",
+            [isLoading]="isRequestPending"
+          )
+
+        .send-again
+          p([translate]="'LOGIN.PIN_CODE.SMS_CODE'")
+          p(
+            *ngIf="isCountingDown()",
+            [translate]="'LOGIN.PIN_CODE.SEND_AGAIN.COUNTER'",
+            [translateParams]="{seconds: timeLeft}"
+          )
+          a.send-again__link(
+            *ngIf="!isCountingDown()",
+            (click)="resendPinCode()",
+            [translate]="'LOGIN.PIN_CODE.SEND_AGAIN'"
+          )

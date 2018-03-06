@@ -1,0 +1,25 @@
+.login-content
+  .login-content__container
+    .main
+      header.login-content__header
+        .logo
+          img(
+            src="{{urlIcons}}/logo_vertical_color.svg",
+            alt="AnyMind_logo"
+          )
+        .title-container
+          h6 {{ titleTrKey | translate  }}
+            tooltip(
+              *ngIf="tooltipText",
+              [tooltipText]="tooltipText",
+              placement="top-right"
+            )
+          p.title-container__subtitle(*ngIf="subTitleTrKey", [innerHTML]="subTitleTrKey | translate")
+          p.title-container__subtitle(*ngIf="msisdn")
+            span([translate]="'LOGIN.YOUR_NUMBER'")
+            span.title-container__subtitle__msisdn {{ msisdn }}
+            a.title-container__subtitle___link(routerLink="/login", [translate]="'LOGIN.CHANGE_NUMBER'")
+
+      ng-content
+
+    login-mobile-footer

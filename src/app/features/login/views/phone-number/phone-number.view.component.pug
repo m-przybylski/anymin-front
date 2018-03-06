@@ -1,0 +1,34 @@
+.phone-number-view
+  login-background
+    login-content(
+      titleText="LOGIN.TRUST_EXPERTS",
+      tooltipText="LOGIN.TOOLTIP"
+    )
+      form(
+        [id]="msisdnFormName",
+        [formGroup]="msisdnForm",
+        novalidate,
+        (ngSubmit)="onFormSubmit(msisdnForm)"
+      )
+        .input-icon-container
+          span.icon.icon-headphone
+          .input-handler
+            input-prefix(
+              label="LOGIN.AREA_CODE",
+              [value]="msisdnPrefix"
+            )
+            input-phone-number(
+              label="LOGIN.ENTER_NUMBER",
+              placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
+              errorTextKey="LOGIN.ENTER_NUMBER.VALIDATION_MESSAGE",
+              [controlName]="msisdnControlName",
+              [form]="msisdnForm",
+              [isDisabled]="isRequestPending",
+              [initialFocus]="isInputInitialFocused"
+            )
+
+        submit-button(
+          titleText="LOGIN.NEXT",
+          [formName]="msisdnFormName",
+          [isLoading]="isRequestPending"
+        )

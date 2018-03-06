@@ -7,10 +7,13 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
 
   public isHelpMenuShow = false;
 
-  public static $inject = ['$document', '$element', '$scope', '$window'];
+  public static $inject = ['$document', '$element', '$scope', '$window', '$location'];
 
-    constructor(private $document: ng.IDocumentService, private $element: ng.IRootElementService,
-              private $scope: ng.IScope, private $window: ng.IWindowService) {
+    constructor(private $document: ng.IDocumentService,
+                private $element: ng.IRootElementService,
+                private $scope: ng.IScope,
+                private $window: ng.IWindowService,
+                private $location: ng.ILocationService) {
 
     this.$document.bind('click', (event: Event) => {
 
@@ -33,6 +36,10 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
 
   public toggleHelpMenuShow = (): void => {
     this.isHelpMenuShow = !this.isHelpMenuShow;
+  }
+
+  public redirectToLogin = (): void => {
+    this.$location.path('/login');
   }
 
 }

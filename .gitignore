@@ -12,7 +12,7 @@
 # To support pug-cli
 /src/angularjs/app/**/*.html
 /src/angularjs/common/**/*.html
-/src/angular/**/*.html
+/src/app/**/*.html
 /src/environments/version.ts
 
 

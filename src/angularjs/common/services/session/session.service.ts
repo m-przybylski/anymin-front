@@ -1,25 +1,25 @@
-import { UserSessionService } from '../../../../angular/core/services/user-session/user-session.service';
+import { UserSessionService } from '../../../../app/core/services/user-session/user-session.service';
 import { Config } from '../../../../config';
-import { GetSession, LoginCredentials } from 'profitelo-api-ng/model/models';
+import { GetSession } from 'profitelo-api-ng/model/models';
 import { EventsService } from '../events/events.service';
 import { UpgradeService } from '../upgrade/upgrade.service';
-import { StateService } from '@uirouter/angularjs';
+import { LoginCredentials } from '@anymind-ng/api';
 
 // tslint:disable:member-ordering
 export class SessionServiceWrapper {
 
-  public static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService', '$state'];
+  public static $inject = ['userSessionService', '$http', 'upgradeService', 'eventsService', '$location'];
 
   constructor(private userSessionService: UserSessionService,
               private $http: ng.IHttpService,
               private upgradeService: UpgradeService,
               eventsService: EventsService,
-              $state: StateService) {
+              $location: ng.ILocationService) {
     eventsService.on('remote-session-deleted', () => {
       this.upgradeService.toIPromise(this.userSessionService.logout()).finally(() => {
         this.onSuccessLogout();
         eventsService.emit('logout');
-        $state.reload();
+        $location.path('/login');
       });
     });
   }

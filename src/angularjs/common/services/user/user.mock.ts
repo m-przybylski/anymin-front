@@ -1,5 +1,6 @@
 import * as angular from 'angular';
-import { AccountDetails, AccountLogin, GetSession } from '@anymind-ng/api';
+import { GetSession } from '@anymind-ng/api';
+import { AccountDetails, AccountLogin } from 'profitelo-api-ng/model/models';
 
 class UserServiceMock {
 

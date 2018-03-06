@@ -127,7 +127,7 @@
     // "unified-signatures": true,
     "use-default-type-parameter": true,
     "use-isnan": true,
-    "ban-types": [true, ["Object", "Use {} instead."], ["String", "Use string instead."],
+    "ban-types": [true, ["String", "Use string instead."],
       ["Function"], ["Number", "Use number instead."], ["Number", "Use number instead."],
       ["Boolean", "Use boolean instead."]],
     "one-line": [true, "check-open-brace", "check-whitespace"],

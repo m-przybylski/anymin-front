@@ -19,6 +19,9 @@ import permissionModule from '../common/services/permission/permission';
 import pagesModule from './pages';
 import communicatorModule from '../common/components/communicator/communicator';
 import 'angularjs/common/components/interface/preloader-container/preloader-container';
+import 'angularjs/common/directives/interface/pro-alert/pro-alert';
+import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader';
+import 'angularjs/common/services/top-waiting-loader/top-waiting-loader';
 import '../../../generated_modules/angularjs-translations/pl-pl';
 import '../../../generated_modules/angularjs-translations/en-us';
 import topAlertModule from '../common/services/top-alert/top-alert';
@@ -80,6 +83,8 @@ export const angularjsModule = angular.module('profitelo', [
   // directives
   'profitelo.components.interface.preloader-container',
   'profitelo.directives.pro-top-waiting-loader',
+  'profitelo.services.pro-top-waiting-loader-service',
+  'profitelo.directives.interface.pro-alert',
   toggleClassOnPullCall,
 
   // translations

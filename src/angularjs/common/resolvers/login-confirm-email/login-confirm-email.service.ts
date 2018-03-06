@@ -14,15 +14,13 @@ import { StateService } from '@uirouter/angularjs';
 export class LoginConfirmEmailResolver {
 
   public static $inject = ['$q', '$rootScope', '$timeout', '$state', 'topAlertService',
-    'sessionServiceWrapper', 'AccountApi'];
+    'sessionServiceWrapper', 'AccountApi', '$location'];
 
-  constructor(private $q: ng.IQService,
-              private $rootScope: IRootScopeService,
-              private $timeout: ng.ITimeoutService,
+  constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
               private $state: StateService,
-              private topAlertService: TopAlertService,
-              private sessionServiceWrapper: SessionServiceWrapper,
-              private AccountApi: AccountApi) {
+              private topAlertService: TopAlertService, private sessionServiceWrapper: SessionServiceWrapper,
+              private AccountApi: AccountApi,
+              private $location: ng.ILocationService) {
 
   }
 
@@ -36,7 +34,7 @@ export class LoginConfirmEmailResolver {
         timeout: 4
       });
       this.$timeout(() => {
-        this.$state.go('app.login.account');
+        this.$location.path('/login');
       });
     };
 

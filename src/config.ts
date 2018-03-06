@@ -56,4 +56,15 @@ export class Config {
   public static readonly googlePlayProfile = {
     url: 'https://play.google.com/apps/testing/com.anymind.app'
   };
+
+  public static readonly assetsUrl = {
+    images: '/assets/images',
+    imagesTablet: '/assets/images/tablet',
+    imagesSmallDesktop: '/assets/images/small_desktop',
+    imagesDesktop: '/assets/images/desktop',
+    icons: '/assets/images/profitelo_icons',
+    iconsTablet: '/assets/images/profitelo_icons/tablet',
+    iconsSmallDesktop: '/assets/images/profitelo_icons/small_desktop',
+    iconsDesktop: '/assets/images/profitelo_icons/desktop'
+  };
 }
