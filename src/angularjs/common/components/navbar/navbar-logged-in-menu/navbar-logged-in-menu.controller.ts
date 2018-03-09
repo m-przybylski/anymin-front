@@ -2,7 +2,6 @@ import * as angular from 'angular';
 import { INavbarLoggedInMenuComponentBindings } from './navbar-logged-in-menu';
 import { UserService } from '../../../services/user/user.service';
 import { TopAlertService } from '../../../services/top-alert/top-alert.service';
-import { StateService } from '@uirouter/angularjs';
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { TranslatorService } from '../../../services/translator/translator.service';
 import { GetProfileWithServicesInvitations, GetInvitation } from 'profitelo-api-ng/model/models';
@@ -29,13 +28,12 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   public invitations: GetProfileWithServicesInvitations[] = [];
   public isPlatformForExpert = Config.isPlatformForExpert;
 
-  public static $inject = ['userService', 'translatorService', 'topAlertService', '$state', '$element', '$document',
+  public static $inject = ['userService', 'translatorService', 'topAlertService', '$element', '$document',
     '$window', '$scope', '$log', 'ProfileApi', 'navbarNotificationsService', 'profiteloWebsocket'];
 
     constructor(private userService: UserService,
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
-              private $state: StateService,
               private $element: ng.IRootElementService,
               private $document: ng.IDocumentService,
               private $window: ng.IWindowService,
@@ -93,7 +91,9 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   public logout = (): void => {
     this.userService.logout().then(() => {
-      this.$state.reload();
+      // HACKED FIXME
+      // this.$state.reload(); // this sometimes stucks
+      window.location.href = '/login/account';
       this.topAlertService.success({
         message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
         timeout: 2

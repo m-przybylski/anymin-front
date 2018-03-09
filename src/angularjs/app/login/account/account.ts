@@ -22,7 +22,7 @@ import inputModule from '../../../common/components/interface/input/input';
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password';
 import autoFocus from '../../../common/directives/auto-focus/auto-focus';
 import { LocalStorageWrapper } from '../../../common/classes/local-storage-wrapper/local-storage-wrapper';
-import { Config } from '../../../../config';
+// import { Config } from '../../../../config';
 import { IInvitationObject } from '../../invitations/invitation.interface';
 import {
   RegistrationInvitationService
@@ -135,18 +135,22 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
       }).then(() => {
         this.isPending = false;
         topWaitingLoaderService.stopLoader();
-        if (invitationObject && checkIsUserFromInvitation(invitationObject)) {
-          $state.go('app.invitations', {token: invitationObject.token});
-          LocalStorageWrapper.removeItem('invitation');
-        } else {
-          Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
-            $state.go('app.dashboard.client.favourites');
-        }
         loginStateService.clearServiceObject();
         topAlertService.success({
           message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
           timeout: 2
         });
+        if (invitationObject && checkIsUserFromInvitation(invitationObject)) {
+          LocalStorageWrapper.removeItem('invitation');
+          // FIXME - HACKED sometimes stuck here
+          // $state.go('app.invitations', {token: invitationObject.token});
+          window.location.href = '/invitations/' + invitationObject.token;
+        } else {
+          // FIXME - HACKED sometimes stuck here
+          /* Config.isPlatformForExpert ? $state.go('app.dashboard.expert.activities') :
+            $state.go('app.dashboard.client.favourites'); */
+          window.location.href = '/dashboard/expert/activities';
+        }
       }, (error) => {
         topWaitingLoaderService.stopLoader();
         this.serverError = true;
