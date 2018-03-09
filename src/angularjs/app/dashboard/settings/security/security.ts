@@ -12,7 +12,7 @@ import 'angularjs/common/resolvers/security-settings/security-settings.service';
 import 'angularjs/common/components/dashboard/settings/manage-devices/manage-devices';
 import { SessionServiceWrapper } from '../../../../common/services/session/session.service';
 import { UserService } from '../../../../common/services/user/user.service';
-import { StateService, StateProvider } from '@uirouter/angularjs';
+import { StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 import { TopAlertService } from '../../../../common/services/top-alert/top-alert.service';
 import topAlertModule from '../../../../common/services/top-alert/top-alert';
@@ -33,14 +33,13 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean;
   public sessions: ISession[];
 
-  public static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', '$state', 'topAlertService',
+  public static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', 'topAlertService',
     'translatorService', 'sessionsData', 'profiteloWebsocket'];
 
   constructor(private modalsService: ModalsService,
               private currentSession: GetSession,
               private SessionApi: SessionApi,
               private userService: UserService,
-              private $state: StateService,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
               sessionsData: GetSession[],
@@ -94,7 +93,9 @@ export class DashboardSettingsSecurityController implements ng.IController {
       });
     } else {
       this.userService.logout().then(() => {
-        this.$state.reload();
+        // HACKED FIXME
+        // this.$state.reload(); // this sometimes stucks
+        window.location.href = '/login/account';
         this.topAlertService.success({
           message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
