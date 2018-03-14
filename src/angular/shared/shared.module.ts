@@ -6,6 +6,9 @@ import { CommunicatorModule, CommunicatorService, CommunicatorSessionService } f
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
 import { UnsupportedGuard } from './guards/unsupported/unsupported.guard';
+import { WidgetGeneratorComponent } from './components/widget-generator/widget-generator.component';
+import { DropdownPrimaryDirective } from './components/dropdown/dropdown.directive';
+import { RadioButtonDirective } from './components/radio/radio.directive';
 
 @NgModule({
   imports: [
@@ -13,8 +16,12 @@ import { UnsupportedGuard } from './guards/unsupported/unsupported.guard';
     CommonModule,
     CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout)
   ],
-  declarations: [],
-  exports: [],
+  declarations: [
+    DropdownPrimaryDirective,
+    RadioButtonDirective,
+    WidgetGeneratorComponent
+  ],
+  entryComponents: [WidgetGeneratorComponent],
   providers: [
     EventsServiceProvider,
     CommunicatorService,

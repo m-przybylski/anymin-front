@@ -10,6 +10,7 @@ import AvatarUploaderModule from '../../../common/components/avatar-uploader/ava
 import { UserService } from '../../../common/services/user/user.service';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
+import dashboardExpertGenerateWidgetModule from './generate-widget/generate-widget';
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
   'ngTouch',
@@ -20,6 +21,7 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
   dashboardExpertComplainsModule,
   dashboardExpertInvoicesModule,
   dashboardExpertManageProfileModule,
+  dashboardExpertGenerateWidgetModule,
   AvatarUploaderModule
 ])
   .config(['$stateProvider', ($stateProvider: StateProvider): void => {
