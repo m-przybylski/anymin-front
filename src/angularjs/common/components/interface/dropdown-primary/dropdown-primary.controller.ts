@@ -110,6 +110,7 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   angular.isDefined(this.mainList) && this.mainList.length > 0
 
   public toggleDropdown = (): void => {
+    console.log(this.mainList);
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       this.clearDropdown();

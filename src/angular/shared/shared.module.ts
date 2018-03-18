@@ -9,6 +9,7 @@ import { UnsupportedGuard } from './guards/unsupported/unsupported.guard';
 import { WidgetGeneratorComponent } from './components/widget-generator/widget-generator.component';
 import { DropdownPrimaryDirective } from './components/dropdown/dropdown.directive';
 import { RadioButtonDirective } from './components/radio/radio.directive';
+import { WidgetGeneratorService } from './components/widget-generator/widget-generator.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { RadioButtonDirective } from './components/radio/radio.directive';
     EventsServiceProvider,
     CommunicatorService,
     CommunicatorSessionService,
+    WidgetGeneratorService,
     UnsupportedGuard
   ]
 })

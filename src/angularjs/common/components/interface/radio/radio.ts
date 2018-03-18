@@ -11,6 +11,7 @@
       name: '@',
       id: '@',
       ngModel: '=?',
+      onClick: '=?',
       value: '@'
     },
     template: require('./radio.html'),
