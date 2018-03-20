@@ -9,7 +9,8 @@ export class RadioButtonDirective extends UpgradeComponent {
   @Input() public ngModel: string;
   @Input() public value: string;
   @Input() public id: string;
-  @Input() public name: string;
+  @Input() public inputName: string;
+  @Input() public inputId: string;
   @Input() public label: string;
   @Input() public onClick: (model: string) => void;
 

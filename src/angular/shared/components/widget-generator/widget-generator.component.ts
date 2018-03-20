@@ -6,27 +6,36 @@ import
 import { WidgetGeneratorService } from './widget-generator.service';
 import { UserSessionService } from '../../../core/services/user-session/user-session.service';
 import { GetOrganizationServiceDetails } from '@anymind-ng/api';
+import { CommonSettingsService } from '../../../../angularjs/common/services/common-settings/common-settings.service';
+// tslint:disable-next-line:import-blacklist
+import * as _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
+import { LoggerService } from '@anymind-ng/core';
 
 @Component({
   templateUrl: './widget-generator.component.html',
-  selector: 'widget-generator'
+  selector: 'widget-generator',
+  styleUrls: ['widget-generator.component.sass']
 })
 export class WidgetGeneratorComponent implements OnInit {
 
-  public readonly headScript = '<script src="https://widgetpage.com></script>';
+  public readonly headScript = `<script src="${this.CommonSettingsService.links.widget}></script>`;
 
   public bodyScript: string;
   public radioModel = 'static';
   public serviceList: IPrimaryDropdownListElement[] = [];
   public expertList: IPrimaryDropdownListElement[] = [];
   public selectedService?: IPrimaryDropdownListElement;
+  public expertId?: string;
+  public serviceId?: string;
 
-  private expertId?: string;
-  private serviceId?: string;
   private profileWithServices: GetOrganizationServiceDetails[] = [];
 
   constructor(private widgetGeneratorService: WidgetGeneratorService,
-              private userSessionService: UserSessionService) {
+              private CommonSettingsService: CommonSettingsService,
+              private userSessionService: UserSessionService,
+              private translate: TranslateService,
+              private logger: LoggerService) {
   }
 
   public ngOnInit(): void {
@@ -34,6 +43,8 @@ export class WidgetGeneratorComponent implements OnInit {
       if (session.account)
         session.account.isCompany ? this.getCompanyInitializeData(session.account.id)
           : this.getExpertInitializeData(session.account.id);
+    }, (error) => {
+        this.logger.error(error);
     });
   }
 
@@ -59,7 +70,22 @@ export class WidgetGeneratorComponent implements OnInit {
     if (this.expertList.length > 1 && element.value !== undefined && this.expertList[0].value !== undefined) {
       this.addAllExpertsOptionToDropdown();
     }
-    if (element.value === undefined) this.expertList.shift();
+    this.removeAllExpertsOptionFromDropdown(element);
+  }
+
+  public copyToClipboard = (textToCopy: string): void => {
+    const textArea = document.createElement('textarea');
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      document.execCommand('copy');
+    } finally {
+      document.body.removeChild(textArea);
+    }
+
   }
 
   private getExpertInitializeData = (accountId: string): void => {
@@ -72,6 +98,8 @@ export class WidgetGeneratorComponent implements OnInit {
         name: serviceWithProfile.service.name,
         value: serviceWithProfile.service.id
       }));
+    }, (error) => {
+      this.logger.error(error);
     });
   }
 
@@ -88,27 +116,33 @@ export class WidgetGeneratorComponent implements OnInit {
           value: profileWithServices.service.id
         }));
         this.profileWithServices = profileWithServices.services;
+      }, (error) => {
+        this.logger.error(error);
       });
   }
 
   private generateWidgetCode = (): void => {
     this.bodyScript = `<anymind-widget class="${this.radioModel}"
-      ${this.expertId ? `expertID="${this.expertId}"` : ''}
-      ${this.serviceId ? `serviceID="${this.serviceId}"` : ''}></anymind-widget>`;
+      ${this.expertId ? `expertID="${this.expertId}"` : ''}${this.serviceId ? `serviceID="${this.serviceId}"` : ''}>
+      </anymind-widget>`;
   }
 
   private addAllConsultationOptionToDropdown = (): void => {
     this.serviceList.unshift({
-      name: 'Wszystkie konsultacje',
+      name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
       value: undefined
     });
   }
 
   private addAllExpertsOptionToDropdown = (): void => {
     this.expertList.unshift({
-      name: 'Wszyscy eksperci',
+      name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_EXPERTS_DROPDOWN_ALL_OPTION'),
       value: undefined
     });
+  }
+
+  private removeAllExpertsOptionFromDropdown = (element: IPrimaryDropdownListElement): void => {
+    if (element.value === undefined) this.expertList.shift();
   }
 
   private reloadServicesDropdown = (): void => {
@@ -121,8 +155,12 @@ export class WidgetGeneratorComponent implements OnInit {
         name: profileWithServices.service.name,
         value: profileWithServices.service.id
       }));
+    this.setDropdownSelectedService();
+  }
+
+  private setDropdownSelectedService = (): void => {
     if (_.find(this.serviceList, (service) => service.value === this.serviceId)) {
-     this.selectedService = _.find(this.serviceList, (service) => service.value === this.serviceId);
+      this.selectedService = _.find(this.serviceList, (service) => service.value === this.serviceId);
     } else {
       this.serviceId = undefined;
       this.selectedService = {

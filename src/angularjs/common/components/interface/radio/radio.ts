@@ -8,8 +8,8 @@
   const component = {
     bindings: {
       label: '@',
-      name: '@',
-      id: '@',
+      inputName: '@',
+      inputId: '@',
       ngModel: '=?',
       onClick: '=?',
       value: '@'

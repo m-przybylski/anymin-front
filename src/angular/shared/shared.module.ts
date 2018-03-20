@@ -10,12 +10,15 @@ import { WidgetGeneratorComponent } from './components/widget-generator/widget-g
 import { DropdownPrimaryDirective } from './components/dropdown/dropdown.directive';
 import { RadioButtonDirective } from './components/radio/radio.directive';
 import { WidgetGeneratorService } from './components/widget-generator/widget-generator.service';
+import { CommonSettingsService } from '../../angularjs/common/services/common-settings/common-settings.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
-    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout)
+    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout),
+    TranslateModule
   ],
   declarations: [
     DropdownPrimaryDirective,
@@ -26,9 +29,13 @@ import { WidgetGeneratorService } from './components/widget-generator/widget-gen
   providers: [
     EventsServiceProvider,
     CommunicatorService,
+    CommonSettingsService,
     CommunicatorSessionService,
     WidgetGeneratorService,
     UnsupportedGuard
+  ],
+  exports: [
+    TranslateModule
   ]
 })
 

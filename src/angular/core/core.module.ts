@@ -8,11 +8,13 @@ import { ApiKeyService } from './services/api-key/api-key.service';
 import { ApiKeyInterceptor } from './services/api-key/api-key.interceptor';
 import { LoggerModule } from '@anymind-ng/core';
 import { Config } from '../../config';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     ApiModule.forRoot(ApiConfigurationFactory),
     LoggerModule.forRoot(Config.logLevel),
+    TranslateModule.forRoot()
   ],
   providers: [
     ApiKeyService,

@@ -14,9 +14,9 @@
       li(data-ng-class="{'is-pending': $ctrl.isVisible}")
         radio-btn(
           data-ng-click="$ctrl.selectVisibleOption()"
-          data-id="visible"
+          data-input-id="visible"
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.VISIBLE"
-          name="availbility_name"
+          input-name="availbility_name"
           data-value="visible"
           data-ng-model="$ctrl.radioModel"
         )
@@ -24,9 +24,9 @@
       li(data-ng-class="{'is-pending': !$ctrl.isVisible}")
         radio-btn(
           data-ng-click="$ctrl.selectInvisibleOption()"
-          data-id="invisible"
+          data-input-id="invisible"
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.INVISIBLE"
-          name="availbility_name"
+          input-name="availbility_name"
           data-value="invisible"
           data-ng-model="$ctrl.radioModel"
         )
@@ -35,9 +35,9 @@
       li
         radio-btn(
           data-ng-click="$ctrl.selectVisibleOption()"
-          data-id="visible_mobile"
+          data-input-id="visible_mobile"
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.VISIBLE"
-          name="availbility_name_mobile"
+          input-name="availbility_name_mobile"
           data-value="visible"
           data-ng-model="$ctrl.radioModel"
         )
@@ -45,9 +45,9 @@
       li
         radio-btn(
           data-ng-click="$ctrl.selectInvisibleOption()"
-          data-id="invisible_mobile"
+          data-input-id="invisible_mobile"
           data-label="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.AVAILBILITY.INVISIBLE"
-          name="availbility_name_mobile"
+          input-name="availbility_name_mobile"
           data-value="invisible"
           data-ng-model="$ctrl.radioModel"
         )

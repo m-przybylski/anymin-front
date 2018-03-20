@@ -1,13 +1,14 @@
 .radio
   div
-    input(
-      type="radio"
-      id="{{ $ctrl.id }}"
-      name="{{$ctrl.name}}"
-      value="{{$ctrl.value}}"
-      ng-model="$ctrl.ngModel"
-      ng-click="$ctrl.onClick($ctrl.ngModel)"
-    )
-    label.label
+    label
+      input(
+        type="radio"
+        id="{{ $ctrl.inputId }}"
+        name="{{$ctrl.inputName}}"
+        value="{{$ctrl.value}}"
+        ng-model="$ctrl.ngModel"
+        ng-click="$ctrl.onClick($ctrl.ngModel)"
+      )
+      label.label
 
-  span.text(for="{{ $ctrl.id }}") {{$ctrl.label | translate }}
+      span.text(for="{{ $ctrl.inputId }}") {{$ctrl.label | translate }}
