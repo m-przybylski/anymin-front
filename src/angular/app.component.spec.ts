@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 
 // tslint:disable:no-floating-promises
 describe('AppComponent', () => {
@@ -11,7 +12,8 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        CoreModule
       ]
     }).compileComponents();
   }));

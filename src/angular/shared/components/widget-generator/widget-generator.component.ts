@@ -85,7 +85,6 @@ export class WidgetGeneratorComponent implements OnInit {
     } finally {
       document.body.removeChild(textArea);
     }
-
   }
 
   private getExpertInitializeData = (accountId: string): void => {
@@ -164,7 +163,8 @@ export class WidgetGeneratorComponent implements OnInit {
     } else {
       this.serviceId = undefined;
       this.selectedService = {
-        name: 'Wybierz konsultacje',
+        name:
+          this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_PLACEHOLDER'),
         value: undefined
       };
     }
