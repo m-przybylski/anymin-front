@@ -6,20 +6,36 @@ import { CommunicatorModule, CommunicatorService, CommunicatorSessionService } f
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
 import { UnsupportedGuard } from './guards/unsupported/unsupported.guard';
+import { WidgetGeneratorComponent } from './components/widget-generator/widget-generator.component';
+import { DropdownPrimaryDirective } from './components/dropdown/dropdown.directive';
+import { RadioButtonDirective } from './components/radio/radio.directive';
+import { WidgetGeneratorService } from './components/widget-generator/widget-generator.service';
+import { CommonSettingsService } from '../../angularjs/common/services/common-settings/common-settings.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
-    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout)
+    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout),
+    TranslateModule
   ],
-  declarations: [],
-  exports: [],
+  declarations: [
+    DropdownPrimaryDirective,
+    RadioButtonDirective,
+    WidgetGeneratorComponent
+  ],
+  entryComponents: [WidgetGeneratorComponent],
   providers: [
     EventsServiceProvider,
     CommunicatorService,
+    CommonSettingsService,
     CommunicatorSessionService,
+    WidgetGeneratorService,
     UnsupportedGuard
+  ],
+  exports: [
+    TranslateModule
   ]
 })
 

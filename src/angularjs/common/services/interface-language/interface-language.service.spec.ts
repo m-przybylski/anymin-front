@@ -1,8 +1,8 @@
 // General tests which not require specyfic mocked services
 import * as angular from 'angular'
 import {InterfaceLanguageService} from './interface-language.service'
-import '../../../../../generated_modules/translations/pl-pl'
-import '../../../../../generated_modules/translations/en-us'
+import '../../../../../generated_modules/angularjs-translations/pl-pl'
+import '../../../../../generated_modules/angularjs-translations/en-us'
 
 describe('Unit testing: profitelo.services.interface-language >', function (): void {
   describe('for InterfaceLanguageService service >', function (): void {
