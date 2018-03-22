@@ -16,6 +16,7 @@ export class WizardStepModuleComponent implements ng.IComponentOptions {
     buttonTitle: '@',
     onGoToNext: '<?',
     onGoBack: '<?',
+    isButtonsHide: '<?',
     required: '<',
     isCompany: '<'
   };

@@ -78,3 +78,32 @@
     .input
       height: $s-input-height-container
 
+  .select-consultation-type
+    display: flex
+    justify-content: center
+
+    [class*="directory"]
+      border: 1px solid $c-lines
+      margin: 0 8px
+      width: 200px
+      cursor: pointer
+      height: 132px
+      display: flex
+      align-items: center
+      justify-content: center
+      text-align: center
+
+      p
+        +paragraphTitle
+        text-transform: uppercase
+        text-align: center
+
+      &:hover
+        span, p
+          color: $c-primary
+
+      &.is-active
+        border-color: $c-primary
+
+        span, p
+          color: $c-primary

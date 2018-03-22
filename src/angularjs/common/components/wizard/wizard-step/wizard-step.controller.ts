@@ -16,10 +16,11 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public onGoBack: () => void;
   public required: boolean;
   public isCompany = true;
+  public isButtonsHide = false;
 
   public static $inject = ['$element', '$timeout'];
 
-    constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
+  constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
   }
 
   public onClickNext = (): void => {

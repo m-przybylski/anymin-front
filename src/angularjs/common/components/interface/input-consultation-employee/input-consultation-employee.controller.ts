@@ -1,6 +1,8 @@
 import { IInputConsultationEmployeeBindings } from './input-consultation-employee';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 import { CSVFileReader } from './CSVFileReader';
+import { UserService } from '../../../services/user/user.service';
+import { LoggerService } from '@anymind-ng/core';
 
 const phoneNumbers = require('libphonenumber-js');
 
@@ -27,13 +29,25 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
 
   private static readonly defaultCountryPrefix = '+48';
   private consultationInvitationsMaxCount: number;
+  private userEmail?: string;
+  private userPhoneNumber?: string;
+  public static $inject = ['CommonSettingsService', '$timeout', 'userService', 'logger'];
 
-  public static $inject = ['CommonSettingsService', '$timeout'];
-
-    constructor(private CommonSettingsService: CommonSettingsService,
-              private $timeout: ng.ITimeoutService) {
+  constructor(private CommonSettingsService: CommonSettingsService,
+              private $timeout: ng.ITimeoutService,
+              private userService: UserService,
+              private logger: LoggerService) {
     this.CSVFileReader = new CSVFileReader;
     this.assignValidationValues();
+  }
+
+  public $onInit(): void {
+    this.userService.getUser().then(account => {
+      this.userEmail = account.email;
+      this.userPhoneNumber = account.msisdn;
+    }, (error) => {
+      this.logger.error(error);
+    });
   }
 
   public onChange = (): void => {
@@ -54,7 +68,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     inputValue.replace(/ /g, '').replace(/-/g, '')
 
   private isValidPhoneNumber = (inputValue: string): boolean =>
-  inputValue.length > 0 && this.phonePattern.test(inputValue)
+    inputValue.length > 0 && this.phonePattern.test(inputValue)
 
   private isValidEmailAddress = (inputValue?: string): boolean =>
     inputValue && inputValue.length > 0 ? this.mailRegexp.test(inputValue) : false
@@ -66,13 +80,13 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public onEnter = (inputValue?: string): void => {
     this.isValidEmployee = this.isEmployeeExist(inputValue);
 
-    if (inputValue && phoneNumbers.isValidNumber(inputValue, 'PL')) {
+    if (inputValue && phoneNumbers.isValidNumber(inputValue, 'PL') && !this.isPhoneNumberBelongsToUser(inputValue)) {
       const correctValue = this.getFullPhoneNumber(inputValue);
-
       if (this.isValidPhoneNumber(correctValue) && !this.isMaxInvitationsCountReached())
         this.addEmployee(correctValue);
     }
-    else if (inputValue && this.isValidEmailAddress(inputValue) && !this.isMaxInvitationsCountReached()) {
+    else if (inputValue && this.isValidEmailAddress(inputValue) && !this.isMaxInvitationsCountReached()
+      && !this.isEmailBelongsToUser(inputValue)) {
       this.addEmployee(inputValue);
     }
     else if (this.isMaxInvitationsCountReached()) {
@@ -118,6 +132,11 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public uploadCSVFile = (files: FileList): void => {
     this.CSVFileReader.read(files[0], this.onLoadFile, this.handleErrorUpload);
   }
+
+  private isEmailBelongsToUser = (email: string): boolean => this.userEmail === email;
+
+  private isPhoneNumberBelongsToUser = (phoneNumber: string): boolean =>
+    this.userPhoneNumber === InputConsultationEmployeeComponentController.defaultCountryPrefix + phoneNumber
 
   private onLoadFile = (mailOrNumberList: string[]): void => {
     this.wrongValuesCounter = 0;

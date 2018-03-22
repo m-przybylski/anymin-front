@@ -9,7 +9,7 @@ form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl
   .wizard-content
     ng-transclude
 
-  .wizard-step-action
+  .wizard-step-action(data-ng-if="!$ctrl.isButtonsHide")
     button.btn.btn-default(
     data-translate="{{$ctrl.buttonTitle}}"
     data-ng-click="$ctrl.onClickNext()"

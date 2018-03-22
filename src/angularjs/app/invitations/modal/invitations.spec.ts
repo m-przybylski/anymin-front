@@ -94,6 +94,7 @@ describe('Testing Controller: InvitationsModal', () => {
       ownerId: 'ownerId',
       name: 'name',
       description: 'descc',
+      isFreelance: false,
       price: {
         amount: 123,
         currency: 'PLN'
@@ -130,6 +131,7 @@ describe('Testing Controller: InvitationsModal', () => {
         amount: 123,
         currency: 'PLN'
       },
+      isFreelance: false,
       isSuspended: false,
       language: 'PL',
       createdAt: date,

@@ -93,6 +93,7 @@ describe('Testing Controller: ServiceFormModalController', () => {
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         rating: 123,
         usageCounter: 123,
         usageDurationInSeconds: 123,
