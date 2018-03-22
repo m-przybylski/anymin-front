@@ -120,6 +120,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         rating: 123,
         usageCounter: 123,
         usageDurationInSeconds: 123,
@@ -137,6 +138,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
             amount: 123,
             currency: 'PLN'
           },
+          isFreelance: false,
           rating: 123,
           usageCounter: 123,
           usageDurationInSeconds: 123,
@@ -225,6 +227,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         rating: 123,
         usageCounter: 123,
         usageDurationInSeconds: 123,
@@ -252,6 +255,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         rating: 123,
         usageCounter: 123,
         usageDurationInSeconds: 123,
@@ -269,6 +273,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
             amount: 123,
             currency: 'PLN'
           },
+          isFreelance: false,
           rating: 123,
           usageCounter: 123,
           usageDurationInSeconds: 123,

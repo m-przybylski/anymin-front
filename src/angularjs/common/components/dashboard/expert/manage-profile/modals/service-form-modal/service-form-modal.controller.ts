@@ -42,6 +42,7 @@ export class ServiceFormModalController implements ng.IController {
   public isRegExpPriceInputValid = true;
   public isCompany = false;
   public isExpert = false;
+  public isFreelance = false;
   public isPlatformForExpert = Config.isPlatformForExpert;
   public isPriceAmountValid = true;
 
@@ -99,6 +100,7 @@ export class ServiceFormModalController implements ng.IController {
       if (this.$scope.serviceDetails) {
         this.serviceDetails = this.$scope.serviceDetails;
         this.consultationName = this.serviceDetails.service.name;
+        this.isFreelance = this.$scope.serviceDetails.service.isFreelance;
         this.consultationLanguage = {
           name: this.translatorService.translate('LANGUAGE.' + this.serviceDetails.service.language),
           value: this.serviceDetails.service.language
@@ -218,6 +220,7 @@ export class ServiceFormModalController implements ng.IController {
       tags,
       invitations,
       language,
+      isFreelance: this.isFreelance,
       isOwnerEmployee,
       description: this.consultationDescription,
       name: this.consultationName,

@@ -1,8 +1,32 @@
 section.consultation
   .container-big
     wizard-handler(data-progress-bar-text="WIZARD.STEP.CONSULTATION.PROGRESSBAR.TITLE")
+
+      wizard-step.step(
+      data-ng-if="vm.isCompany"
+      data-title="WIZARD.CONSULTATION.TYPE.TITLE"
+      data-on-go-back="vm.onGoBack"
+      data-is-buttons-hide="true"
+      )
+        p.information-text(data-translate="WIZARD.STEP.CONSULTATION.DIRECTORY.INFORMATION")
+        .select-consultation-type.step
+          .freelance-directory(
+          data-ng-class="{'is-active': vm.isServiceTypeSelected && vm.isFreelance}"
+          data-ng-click="vm.selectFreelance()")
+            a
+              span
+              p(data-translate="WIZARD.CONSULTATION.DIRECTORY.FREELANCE.TITLE")
+
+          .company-directory(
+          data-ng-class="{'is-active': vm.isServiceTypeSelected && !vm.isFreelance}"
+          data-ng-click="vm.selectCompany()")
+            a
+              span
+              p(data-translate="WIZARD.CONSULTATION.DIRECTORY.COMPANY.TITLE")
+
       wizard-step.step(
       data-ng-if="!vm.isPlatformForExpert"
+      data-ng-hide="vm.isCompany && !vm.isServiceTypeSelected"
       data-title="WIZARD.CONSULTATION.LANGUAGE.TITLE"
       data-on-go-back="vm.onGoBack"
       data-check-is-step-valid="vm.checkIsLanguageInputValid"
@@ -19,6 +43,8 @@ section.consultation
         data-title="WIZARD.SUMMARY.CONSULTATION.NAME.TITLE"
         data-check-is-step-valid="vm.checkIsNameInputValid"
         data-required="vm.isStepRequired"
+        data-on-go-back="vm.onGoBack"
+        data-ng-hide="vm.isCompany && !vm.isServiceTypeSelected"
       )
         input-primary(
           data-ng-model="vm.nameInputValue"
@@ -34,6 +60,7 @@ section.consultation
       data-tooltip-text="WIZARD.CONSULTATION.DESCRIPTION.TOOLTIP"
       data-check-is-step-valid="vm.checkIsDescriptionInputValid"
       data-required="vm.isStepRequired"
+      data-ng-hide="vm.isCompany && !vm.isServiceTypeSelected"
       )
         textarea-primary(
         data-ng-model="vm.descriptionInputValue"
@@ -49,6 +76,7 @@ section.consultation
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.TAGS.TOOLTIP"
         data-check-is-step-valid="vm.checkIsTagsInputValid"
         data-required="vm.isStepRequired"
+        data-ng-hide="vm.isCompany && !vm.isServiceTypeSelected"
       )
         input-consultation-tag(
           data-service-name="vm.nameInputValue"
@@ -66,6 +94,7 @@ section.consultation
         data-button-title="WIZARD.STEP.EXPERT.CONSULTATION.SUMMARY.BUTTON"
         data-is-company="vm.isCompany"
         data-required="vm.isStepRequired"
+        data-ng-hide="vm.isCompany && !vm.isServiceTypeSelected"
       )
         .hint(data-ng-if="!vm.isPlatformForExpert")
           p(data-translate="WIZARD.CONSULTATION.PRICE.SUGGESTED")
@@ -92,6 +121,7 @@ section.consultation
         data-additional-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.ADDITIONAL_TEXT.TITLE"
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.TOOLTIP"
         data-on-go-to-next="vm.saveConsultation"
+        data-ng-hide="vm.isCompany && !vm.isServiceTypeSelected"
         data-button-title="WIZARD.STEP.EXPERT.CONSULTATION.SUMMARY.BUTTON"
       )
         input-consultation-employee(
@@ -99,6 +129,7 @@ section.consultation
         data-is-owner-employee = "vm.isOwnerEmployee"
         data-validation-text="WIZARD.CONSULTATION.INVITATIONS_INPUT_VALIDATION"
         data-is-submitted="vm.isSubmitted"
+        data-is-checkbox-visible="!vm.isFreelance"
         data-is-valid="vm.checkIsEmployeesInputValid()"
         )
 

@@ -37,6 +37,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         rating: 123,
         usageCounter: 123,
         usageDurationInSeconds: 123,

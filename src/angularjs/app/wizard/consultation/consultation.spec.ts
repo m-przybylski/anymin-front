@@ -44,6 +44,7 @@ describe('Testing Controller: ConsultationController', () => {
       amount: 2423,
       currency: 'PLN'
     },
+    isFreelance: false,
     tags: [{
       name: 'Tag-1'
     },

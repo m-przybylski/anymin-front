@@ -49,6 +49,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         tags: [{
           name: 'tag-1'
         }],
@@ -71,6 +72,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         tags: [{
           name: 'tag-1'
         }],
@@ -95,6 +97,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
             amount: 123,
             currency: 'PLN'
           },
+          isFreelance: false,
           tags: [{
             name: 'tag-1'
           }],
@@ -121,6 +124,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
           tags: [{
             name: 'tag-1'
           }],
+          isFreelance: false,
           isOwnerEmployee: false,
           invitations: [{
             msisdn: 'some@email.com'
@@ -141,6 +145,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
             amount: 123,
             currency: 'PLN'
           },
+          isFreelance: false,
           tags: [{
             name: 'tag-1'
           }],

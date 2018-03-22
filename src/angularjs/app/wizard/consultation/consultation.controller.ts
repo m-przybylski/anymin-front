@@ -39,6 +39,8 @@ export class ConsultationController implements ng.IController {
   public isCompany: boolean;
   public isSubmitted = false;
   public isPriceAmountValid = true;
+  public isFreelance = false;
+  public isServiceTypeSelected = false;
 
   private isExpert: boolean;
   private currentEditServiceIndex = -1;
@@ -161,6 +163,7 @@ export class ConsultationController implements ng.IController {
       const serviceModel: GetWizardService = {
         tags,
         invitations,
+        isFreelance: this.isFreelance,
         language: this.languageInputValue.value,
         description: this.descriptionInputValue,
         name: this.nameInputValue,
@@ -184,6 +187,17 @@ export class ConsultationController implements ng.IController {
 
   public onGoBack = (): void => {
     this.$state.go('app.wizard.summary');
+  }
+
+  public selectFreelance = (): void => {
+    this.isServiceTypeSelected = true;
+    this.isFreelance = true;
+    this.isOwnerEmployee = false;
+  }
+
+  public selectCompany = (): void => {
+    this.isServiceTypeSelected = true;
+    this.isFreelance = false;
   }
 
   public isRegExpPriceValid = (isRegExpPriceValid: boolean): void => {

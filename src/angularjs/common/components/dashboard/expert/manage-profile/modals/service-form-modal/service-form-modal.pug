@@ -78,7 +78,7 @@
             p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.TITLE")
             p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.SUBTITLE")
           input-consultation-employee(
-          data-is-checkbox-visible="vm.isExpert"
+          data-is-checkbox-visible="vm.isExpert && !vm.isFreelance"
           data-added-items-list = "vm.consultationNewInvitations"
           data-is-owner-employee = "vm.isOwnerEmployee"
           data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_EMPLOYEES.VALIDATION_TEXT"

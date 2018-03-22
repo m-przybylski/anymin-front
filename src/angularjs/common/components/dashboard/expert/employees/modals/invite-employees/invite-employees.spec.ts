@@ -67,6 +67,7 @@ describe('Testing Controller: expertInviteEmployeesController', () => {
         amount: 123,
         currency: 'PLN'
       },
+      isFreelance: false,
       rating: 123,
       usageCounter: 123,
       usageDurationInSeconds: 123,

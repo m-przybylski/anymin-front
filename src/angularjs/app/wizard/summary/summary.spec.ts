@@ -30,6 +30,7 @@ describe('Testing Controller: SummaryController', () => {
     services: [
       {
         name: 'ServiceName',
+        isFreelance: false,
         price: {
           amount: 4200,
           currency: 'PLN'
@@ -116,6 +117,7 @@ describe('Testing Controller: SummaryController', () => {
         amount: 2423,
         currency: 'PLN'
       },
+      isFreelance: false,
       tags: [{
         name: 'Tag-1'
       }],
@@ -140,6 +142,7 @@ describe('Testing Controller: SummaryController', () => {
         name: 'name',
         description: 'asd',
         language: 'pl',
+        isFreelance: false,
         price: {
           amount: 2423,
           currency: 'PLN'
@@ -210,6 +213,7 @@ describe('Testing Controller: SummaryController', () => {
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         tags: [{
           name: 'tag-1'
         }],
@@ -261,6 +265,7 @@ describe('Testing Controller: SummaryController', () => {
           amount: 123,
           currency: 'PLN'
         },
+        isFreelance: false,
         tags: [{
           name: 'tag-1'
         }],
