@@ -19,7 +19,7 @@ import { LoggerService } from '@anymind-ng/core';
 })
 export class WidgetGeneratorComponent implements OnInit {
 
-  public readonly headScript = `<script src="${this.CommonSettingsService.links.widget}></script>`;
+  public readonly headScript = `<script src="${this.CommonSettingsService.links.widgetSdk}></script>`;
 
   public bodyScript: string;
   public radioModel = 'static';
@@ -28,8 +28,11 @@ export class WidgetGeneratorComponent implements OnInit {
   public selectedService?: IPrimaryDropdownListElement;
   public expertId?: string;
   public serviceId?: string;
+  public isError = false;
+  public isWidgetGenerating = false;
 
   private profileWithServices: GetOrganizationServiceDetails[] = [];
+  private widgetId?: string;
 
   constructor(private widgetGeneratorService: WidgetGeneratorService,
               private CommonSettingsService: CommonSettingsService,
@@ -44,21 +47,32 @@ export class WidgetGeneratorComponent implements OnInit {
         session.account.isCompany ? this.getCompanyInitializeData(session.account.id)
           : this.getExpertInitializeData(session.account.id);
     }, (error) => {
-        this.logger.error(error);
+      this.logger.error(error);
     });
   }
 
   public selectRadio = (value: string): void => {
     this.radioModel = value;
-    if (this.expertId || this.serviceId) {
-      this.generateWidgetCode();
-    }
+    if (this.widgetId) this.bodyScript = this.generateBodyCode(this.widgetId);
+  }
+
+  public generateWidgetCode = (expertId?: string, serviceId?: string): void => {
+    this.isWidgetGenerating = true;
+    this.widgetGeneratorService.generateWidget(expertId, serviceId).subscribe((widget) => {
+      this.isError = false;
+      this.widgetId = widget.id;
+      this.bodyScript = this.generateBodyCode(widget.id);
+    }, (error) => {
+      this.isError = true;
+      this.isWidgetGenerating = false;
+      this.logger.warn(error);
+    });
   }
 
   public selectExpert = (element: IPrimaryDropdownListElement): void => {
     this.expertId = element.value;
     this.reloadServicesDropdown();
-    this.generateWidgetCode();
+    this.isWidgetGenerating = false;
     if (this.serviceList.length > 1 && element.value !== undefined && this.serviceList[0].value !== undefined) {
       this.addAllConsultationOptionToDropdown();
     }
@@ -66,7 +80,7 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public selectConsultation = (element: IPrimaryDropdownListElement): void => {
     this.serviceId = element.value;
-    this.generateWidgetCode();
+    this.isWidgetGenerating = false;
     if (this.expertList.length > 1 && element.value !== undefined && this.expertList[0].value !== undefined) {
       this.addAllExpertsOptionToDropdown();
     }
@@ -120,12 +134,6 @@ export class WidgetGeneratorComponent implements OnInit {
       });
   }
 
-  private generateWidgetCode = (): void => {
-    this.bodyScript = `<anymind-widget class="${this.radioModel}"
-      ${this.expertId ? `expertID="${this.expertId}"` : ''}${this.serviceId ? `serviceID="${this.serviceId}"` : ''}>
-      </anymind-widget>`;
-  }
-
   private addAllConsultationOptionToDropdown = (): void => {
     this.serviceList.unshift({
       name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
@@ -139,6 +147,10 @@ export class WidgetGeneratorComponent implements OnInit {
       value: undefined
     });
   }
+
+  private generateBodyCode = (widgetId?: string): string => `<button
+      data-anymind-widget="${widgetId}"
+      class="anymind-button${this.radioModel === 'flatten' ? ' anymind-floating' : ''}"></button>`
 
   private removeAllExpertsOptionFromDropdown = (element: IPrimaryDropdownListElement): void => {
     if (element.value === undefined) this.expertList.shift();

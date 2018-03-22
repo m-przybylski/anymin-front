@@ -45,3 +45,10 @@
       code {{ bodyScript }}
       a.btn.btn-large.btn-primary((click)="copyToClipboard(bodyScript)")
         | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COPY_BUTTON' | translate }}
+
+  section
+    .generate-btn
+      button.btn.btn-large.btn-primary((click)="generateWidgetCode(expertId, serviceId)",
+      *ngIf="(expertId || serviceId)", [disabled]="isWidgetGenerating")
+        | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.GENERATE_BUTTON' | translate }}
+      p.validation-alert(*ngIf="isError") {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.VALIDATION_ERROR' | translate }}
