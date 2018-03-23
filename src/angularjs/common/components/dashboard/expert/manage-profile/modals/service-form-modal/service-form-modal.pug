@@ -3,7 +3,7 @@
     top-modal-navbar(data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
       form(name="editProfileForm" novalidate)
-        .modal-section(data-ng-if="!vm.serviceDetails")
+        .modal-section(data-ng-if="vm.isCompany && !vm.serviceDetails")
           header.section-title
             p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DIRECTORY.TITLE")
             p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION.DIRECTORY.INFORMATION")
