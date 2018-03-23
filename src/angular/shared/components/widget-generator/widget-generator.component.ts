@@ -19,7 +19,7 @@ import { LoggerService } from '@anymind-ng/core';
 })
 export class WidgetGeneratorComponent implements OnInit {
 
-  public readonly headScript = `<script src="${this.CommonSettingsService.links.widgetSdk}></script>`;
+  public readonly headScript = `<script src="${this.CommonSettingsService.links.widgetSdk}"></script>`;
 
   public bodyScript: string;
   public radioModel = 'static';
