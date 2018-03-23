@@ -3,7 +3,7 @@
 
 .consultation-form
   .modal-section
-    margin: 0 0 96px
+    margin: 0 0 36px
 
     +smm
       min-width: 640px
@@ -31,7 +31,7 @@
       p
         margin: 0 8px 0 0
 
-    input-consultation-employee,
+    input-consultation-employee
       input
         border-bottom: 1px solid $c-lines
         width: 100%
@@ -43,6 +43,36 @@
     textarea-primary
       textarea
         height: $s-input-height-container
+
+    .select-consultation-type
+      display: flex
+      justify-content: center
+
+    [class*="directory"]
+      border: 1px solid $c-lines
+      margin: 0 8px
+      width: 200px
+      cursor: pointer
+      height: 132px
+      display: flex
+      align-items: center
+      justify-content: center
+      text-align: center
+
+      p
+        +paragraphTitle
+        text-transform: uppercase
+        text-align: center
+
+      &:hover
+        span, p
+          color: $c-primary
+
+      &.is-active
+        border-color: $c-primary
+
+        span, p
+          color: $c-primary
 
   .modal-action
     flex-wrap: wrap
