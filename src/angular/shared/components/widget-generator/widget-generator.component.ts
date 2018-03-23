@@ -30,6 +30,7 @@ export class WidgetGeneratorComponent implements OnInit {
   public serviceId?: string;
   public isError = false;
   public isWidgetGenerating = false;
+  public isCompany = false;
 
   private profileWithServices: GetOrganizationServiceDetails[] = [];
   private widgetId?: string;
@@ -43,9 +44,11 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public ngOnInit(): void {
     this.userSessionService.getSession().then((session) => {
-      if (session.account)
+      if (session.account) {
+        this.isCompany = session.account.isCompany;
         session.account.isCompany ? this.getCompanyInitializeData(session.account.id)
           : this.getExpertInitializeData(session.account.id);
+      }
     }, (error) => {
       this.logger.error(error);
     });
@@ -71,7 +74,7 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public selectExpert = (element: IPrimaryDropdownListElement): void => {
     this.expertId = element.value;
-    this.reloadServicesDropdown();
+    if (this.isCompany) this.reloadServicesDropdown();
     this.isWidgetGenerating = false;
     if (this.serviceList.length > 1 && element.value !== undefined && this.serviceList[0].value !== undefined) {
       this.addAllConsultationOptionToDropdown();
@@ -89,6 +92,9 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public copyToClipboard = (textToCopy: string): void => {
     const textArea = document.createElement('textarea');
+    textArea.style.position = 'absolute';
+    textArea.style.top = '50vh';
+    textArea.style.left = '0';
     textArea.value = textToCopy;
     document.body.appendChild(textArea);
     textArea.focus();
