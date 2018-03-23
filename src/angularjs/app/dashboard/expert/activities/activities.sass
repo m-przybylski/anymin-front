@@ -1,0 +1,17 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins.sass"
+
+.activities
+  .no-payout-message-container
+    margin: 0 0 24px 0
+    text-align: center
+
+    p
+      +paragraph
+      +default-font-regular
+      padding: 16px 24px
+      background: rgba($c-error, 0.3)
+
+    a
+      color: $c-primary

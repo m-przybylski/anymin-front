@@ -34,6 +34,10 @@ export class DashboardExpertActivitiesController {
   public isActivitiesLoading = false;
   public areFilteredResults = false;
   public isAnyPayoutMethodSet = false;
+  public translationPayoutsHref: {
+    hrefUrl: string
+  };
+  public activeAccountTranslation: string;
 
   private activitiesQueryParam: ActivitiesQueryParams;
   private timeoutDelay = 400;
@@ -54,6 +58,10 @@ export class DashboardExpertActivitiesController {
     profiteloWebsocket.onCallSummary(() => {
       this.onSetFiltersParams(this.activitiesQueryParam);
     });
+    this.translationPayoutsHref = {
+      hrefUrl: '/dashboard/settings/payouts'
+    };
+    this.activeAccountTranslation = 'DASHBOARD.EXPERT_ACCOUNT.NO_ACTIVITIES.DSC';
   }
 
   public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams): void => {
@@ -84,7 +92,7 @@ export class DashboardExpertActivitiesController {
     });
   }
 
-    public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
+  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.dashboardActivitiesService.resolveFilters()
       .then((filters) => {
         this.filters = filters;
@@ -133,17 +141,17 @@ export class DashboardExpertActivitiesController {
     return promise;
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams):
-      ng.IPromise<GetProfileActivities> => {
-    const promise = this.dashboardActivitiesService.getDashboardProfileActivities(activitiesQueryParams);
+  private getDashboardActivities =
+    (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetProfileActivities> => {
+      const promise = this.dashboardActivitiesService.getDashboardProfileActivities(activitiesQueryParams);
 
-    promise.catch((error) => {
-      this.isSearchLoading = false;
-      this.isError = true;
-      this.errorHandler.handleServerError(error, 'Can not load activities');
-    });
-    return promise;
-  }
+      promise.catch((error) => {
+        this.isSearchLoading = false;
+        this.isError = true;
+        this.errorHandler.handleServerError(error, 'Can not load activities');
+      });
+      return promise;
+    }
 
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardExpertActivitiesController.queryLimit);
