@@ -21,17 +21,21 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public readonly headScript = `<script src="${this.CommonSettingsService.links.widgetSdk}"></script>`;
 
-  public bodyScript: string;
+  public bodyScript?: string;
   public radioModel = 'static';
   public serviceList: IPrimaryDropdownListElement[] = [];
   public expertList: IPrimaryDropdownListElement[] = [];
   public selectedService?: IPrimaryDropdownListElement;
+  public selectedCompanyService?: IPrimaryDropdownListElement;
   public expertId?: string;
   public serviceId?: string;
   public isError = false;
   public isWidgetGenerating = false;
   public isCompany = false;
-
+  public isUserHasAnyServices = false;
+  public isLoading = true;
+  public widgetTypeModel = 'service';
+  public serviceCompanyList: IPrimaryDropdownListElement[] = [];
   private profileWithServices: GetOrganizationServiceDetails[] = [];
   private widgetId?: string;
 
@@ -56,7 +60,14 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public selectRadio = (value: string): void => {
     this.radioModel = value;
-    if (this.widgetId) this.bodyScript = this.generateBodyCode(this.widgetId);
+    if (this.bodyScript) this.bodyScript = this.generateBodyCode(this.widgetId);
+  }
+
+  public selectType = (value: string): void => {
+    this.widgetTypeModel = value;
+    this.expertId = undefined;
+    this.serviceId = undefined;
+    this.bodyScript = undefined;
   }
 
   public generateWidgetCode = (expertId?: string, serviceId?: string): void => {
@@ -74,20 +85,13 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public selectExpert = (element: IPrimaryDropdownListElement): void => {
     this.expertId = element.value;
-    if (this.isCompany) this.reloadServicesDropdown();
+    this.reloadServicesDropdown();
     this.isWidgetGenerating = false;
-    if (this.serviceList.length > 1 && element.value !== undefined && this.serviceList[0].value !== undefined) {
-      this.addAllConsultationOptionToDropdown();
-    }
   }
 
   public selectConsultation = (element: IPrimaryDropdownListElement): void => {
     this.serviceId = element.value;
     this.isWidgetGenerating = false;
-    if (this.expertList.length > 1 && element.value !== undefined && this.expertList[0].value !== undefined) {
-      this.addAllExpertsOptionToDropdown();
-    }
-    this.removeAllExpertsOptionFromDropdown(element);
   }
 
   public copyToClipboard = (textToCopy: string): void => {
@@ -109,14 +113,21 @@ export class WidgetGeneratorComponent implements OnInit {
 
   private getExpertInitializeData = (accountId: string): void => {
     this.widgetGeneratorService.getExpertProfileWithServices(accountId).then((profileWithServices) => {
-      this.expertList = [{
-        name: profileWithServices.profile.expertDetails ? profileWithServices.profile.expertDetails.name : '',
-        value: profileWithServices.profile.id
-      }];
-      this.serviceList = profileWithServices.services.map((serviceWithProfile) => ({
-        name: serviceWithProfile.service.name,
-        value: serviceWithProfile.service.id
-      }));
+      this.expertId = profileWithServices.profile.id;
+      this.serviceList = profileWithServices.services
+        .filter(serviceWithProfile => !serviceWithProfile.service.deletedAt)
+        .filter(serviceWithProfile => this.expertId === serviceWithProfile.service.ownerId)
+        .map((serviceWithProfile) => ({
+          name: serviceWithProfile.service.name,
+          value: serviceWithProfile.service.id
+        }));
+      this.isUserHasAnyServices = this.serviceList.length > 0;
+      this.addAllConsultationOptionToDropdown();
+      this.selectedService = {
+        name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
+        value: undefined
+      };
+      this.isLoading = false;
     }, (error) => {
       this.logger.error(error);
     });
@@ -130,11 +141,24 @@ export class WidgetGeneratorComponent implements OnInit {
             name: employee.name,
             value: employee.id
           }))), 'value');
-        this.serviceList = profileWithServices.services.map((profileWithServices) => ({
-          name: profileWithServices.service.name,
-          value: profileWithServices.service.id
-        }));
-        this.profileWithServices = profileWithServices.services;
+        this.serviceList = profileWithServices.services
+          .filter(profileWithServices => !profileWithServices.service.deletedAt)
+          .map((profileWithServices) => ({
+            name: profileWithServices.service.name,
+            value: profileWithServices.service.id
+          }));
+        this.isUserHasAnyServices = this.serviceList.length > 0;
+        this.serviceCompanyList.unshift({
+          name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
+          value: undefined
+        });
+        this.selectedCompanyService = {
+          name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
+          value: undefined
+        };
+        this.profileWithServices = profileWithServices.services
+          .filter(profileWithServices => !profileWithServices.service.deletedAt);
+        this.isLoading = false;
       }, (error) => {
         this.logger.error(error);
       });
@@ -147,42 +171,31 @@ export class WidgetGeneratorComponent implements OnInit {
     });
   }
 
-  private addAllExpertsOptionToDropdown = (): void => {
-    this.expertList.unshift({
-      name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_EXPERTS_DROPDOWN_ALL_OPTION'),
-      value: undefined
-    });
-  }
-
   private generateBodyCode = (widgetId?: string): string => `<button
       data-anymind-widget="${widgetId}"
       class="anymind-button${this.radioModel === 'flatten' ? ' anymind-floating' : ''}"></button>`
 
-  private removeAllExpertsOptionFromDropdown = (element: IPrimaryDropdownListElement): void => {
-    if (element.value === undefined) this.expertList.shift();
-  }
-
   private reloadServicesDropdown = (): void => {
-    this.serviceList = this.expertId !== undefined ?
+    this.serviceCompanyList =
       this.profileWithServices.filter((service) => _.find(service.employees, (employee) =>
         employee.id === this.expertId)).map((serviceWithEmployees) => ({
         name: serviceWithEmployees.service.name,
         value: serviceWithEmployees.service.id
-      })) : this.profileWithServices.map((profileWithServices) => ({
-        name: profileWithServices.service.name,
-        value: profileWithServices.service.id
       }));
+    this.serviceCompanyList.unshift({
+      name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
+      value: undefined
+    });
     this.setDropdownSelectedService();
   }
 
   private setDropdownSelectedService = (): void => {
-    if (_.find(this.serviceList, (service) => service.value === this.serviceId)) {
-      this.selectedService = _.find(this.serviceList, (service) => service.value === this.serviceId);
+    if (_.find(this.serviceCompanyList, (service) => service.value === this.serviceId)) {
+      this.selectedCompanyService = _.find(this.serviceCompanyList, (service) => service.value === this.serviceId);
     } else {
       this.serviceId = undefined;
-      this.selectedService = {
-        name:
-          this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_PLACEHOLDER'),
+      this.selectedCompanyService = {
+        name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
         value: undefined
       };
     }

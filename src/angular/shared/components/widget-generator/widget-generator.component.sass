@@ -36,7 +36,7 @@
 
     .html-code
       display: flex
-      justify-content: space-between
+      justify-content: flex-start
       align-items: center
 
       code
@@ -48,7 +48,12 @@
         max-width: 800px
 
       a
-        margin: 0 0 0 12px
+        margin: 0 0 0 24px
+
+    .single-dropdown
+      &::ng-deep
+        .dropdown
+          max-width: 50vh
 
     .dropdowns
       display: flex
@@ -91,3 +96,5 @@
         text-align: center
         margin: 8px 0 0
 
+        &.warning-alert
+          color: $c-warning
