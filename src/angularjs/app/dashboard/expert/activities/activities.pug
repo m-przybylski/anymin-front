@@ -5,6 +5,8 @@
   expert-no-activities(data-ng-if="!vm.areActivities && !vm.isSearchLoading"
   data-is-payout-method="vm.isAnyPayoutMethodSet")
   div(data-ng-if="vm.areActivities && !vm.isSearchLoading")
+    .no-payout-message-container(data-ng-hide="vm.isAnyPayoutMethodSet")
+      p(data-translate="{{ vm.activeAccountTranslation | translate: vm.translationPayoutsHref }}")
     dashboard-filters(data-filters="vm.filters" data-on-set-search-params="vm.onSetFiltersParams"
     data-account-type="vm.accountType")
     expert-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
