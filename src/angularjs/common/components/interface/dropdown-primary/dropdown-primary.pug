@@ -1,4 +1,4 @@
-.dropdown.dropdown-input(data-ng-class="{'is-open': $ctrl.isOpen, 'is-active': $ctrl.isActive}")
+.dropdown.dropdown-input(data-ng-class="{'is-open': $ctrl.isOpen, 'is-active': $ctrl.isActive, 'is-disabled': $ctrl.isDisabled}")
   .dropdown-header(data-ng-click="$ctrl.toggleDropdown()")
     label {{ $ctrl.label | translate }}
     span(data-ng-if="$ctrl.selectedItem") {{ $ctrl.selectedItem.name }}

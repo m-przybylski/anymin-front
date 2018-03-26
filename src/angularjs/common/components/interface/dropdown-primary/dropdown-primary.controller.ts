@@ -27,6 +27,7 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   public isValid: boolean;
   public validationText: string;
   public isSubmitted: boolean;
+  public isDisabled = false;
   private dropdown: JQuery = this.$element.find('.dropdown-list');
   private dropdownSelectedItem: JQuery;
   public selectedItemNumber = 0;
@@ -85,7 +86,7 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
 
   public static $inject = ['$document', '$scope', '$element'];
 
-    constructor(private $document: ng.IDocumentService,
+  constructor(private $document: ng.IDocumentService,
               private $scope: ng.IScope,
               private $element: ng.IRootElementService) {
   }
@@ -96,8 +97,8 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
     this.dropdownSelectedItem.addClass('is-focused');
     if (this.dropdownSelectedItem[0]) {
       this.dropdownScrollContainerElement
-      .scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() /
-        DropdownPrimaryComponentController.dividerOnHalf - this.dropdownSelectedItem[0].clientHeight));
+        .scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() /
+          DropdownPrimaryComponentController.dividerOnHalf - this.dropdownSelectedItem[0].clientHeight));
     }
   }
 
@@ -107,17 +108,19 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   }
 
   public mainListExist = (): boolean =>
-  angular.isDefined(this.mainList) && this.mainList.length > 0
+    angular.isDefined(this.mainList) && this.mainList.length > 0
 
   public toggleDropdown = (): void => {
-    this.isOpen = !this.isOpen;
-    if (this.isOpen) {
-      this.clearDropdown();
+    if (!this.isDisabled) {
+      this.isOpen = !this.isOpen;
+      if (this.isOpen) {
+        this.clearDropdown();
+      }
     }
   }
 
   public isSelected = (item: IDropdownItem): boolean =>
-  this.selectedItem === item
+    this.selectedItem === item
 
   public onMainItemSelect = (item: IDropdownItem): void => {
     this.activeItem = item;

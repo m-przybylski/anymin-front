@@ -15,6 +15,7 @@ export class DropdownPrimaryDirective extends UpgradeComponent {
   @Input() public label: string;
   @Input() public inputPlaceholder: string;
   @Input() public placeholder: string;
+  @Input() public isDisabled: boolean;
   @Input() public mainList: IPrimaryDropdownListElement[];
 
   constructor(elementRef: ElementRef, injector: Injector) {
