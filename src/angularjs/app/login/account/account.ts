@@ -27,17 +27,22 @@ import { IInvitationObject } from '../../invitations/invitation.interface';
 import {
   RegistrationInvitationService
 } from
-    '../../../common/services/registration-invitation/registration-invitation.service';
+  '../../../common/services/registration-invitation/registration-invitation.service';
 import registerInvitationModule from '../../../common/services/registration-invitation/registration-invitation';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
+import { ModalsService } from '../../../common/services/modals/modals.service';
+import modalsModule from '../../../common/services/modals/modals';
+import { httpCodes } from '../../../common/classes/http-codes';
 
 function AccountFormController($log: ng.ILogService, $state: StateService,
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
                                topWaitingLoaderService: TopWaitingLoaderService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
                                CommonSettingsService: CommonSettingsService,
-                               registrationInvitationService: RegistrationInvitationService): void {
+                               modalsService: ModalsService,
+                               registrationInvitationService: RegistrationInvitationService,
+                               $window: Window): void {
 
   this.enteredPassword = '';
   this.isPending = false;
@@ -112,13 +117,22 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
         this.fullPhoneNumber = loginStateService.getFullPhoneNumber();
         topWaitingLoaderService.stopLoader();
       }, (error) => {
-        $log.error(error);
-        this.isPending = false;
-        topAlertService.error({
-          message: $filter('translate')('INTERFACE.API_ERROR'),
-          timeout: 4
-        });
-        topWaitingLoaderService.stopLoader();
+        if (error.status === httpCodes.forbidden
+          && error.data.code === CommonSettingsService.errorCodes.notAllowedToLogin) {
+          this.isPending = false;
+          modalsService.createConfirmAlertModal('ACCOUNT.LOGIN.CLOSED_BETA_MODAL.HEADER', () => {
+            $window.open(CommonSettingsService.links.assignForClosedBeta, '_blank');
+          }, () => {
+          }, 'ACCOUNT.LOGIN.CLOSED_BETA_MODAL.CONFIRM_BUTTON');
+        } else {
+          $log.error(error);
+          this.isPending = false;
+          topAlertService.error({
+            message: $filter('translate')('INTERFACE.API_ERROR'),
+            timeout: 4
+          });
+          topWaitingLoaderService.stopLoader();
+        }
       });
     }
   };
@@ -183,6 +197,7 @@ angular.module('profitelo.controller.login.account', [
   sessionModule,
   loginStateModule,
   apiModule,
+  modalsModule,
   commonSettingsModule,
   communicatorModule,
   'permission',
@@ -200,4 +215,4 @@ angular.module('profitelo.controller.login.account', [
   .config(['$stateProvider', config])
   .controller('AccountFormController', ['$log', '$state', '$filter', 'RegistrationApi',
     'userService', 'topWaitingLoaderService', 'topAlertService', 'loginStateService', 'CommonSettingsService',
-    'registrationInvitationService', AccountFormController]);
+    'modalsService', 'registrationInvitationService', '$window', AccountFormController]);

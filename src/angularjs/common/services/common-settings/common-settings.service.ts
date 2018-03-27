@@ -10,7 +10,11 @@ export class CommonSettingsService {
     imageUrl: this.urls.files + this.urls['file-download'],
     zendeskAllowMediaUrl: this.urls.zendesk + 'hc/pl/articles/115002692852-' +
     '-Moja-przegl%C4%85darka-nie-ma-dost%C4%99pu-do-kamery-i-mikrofonu-jak-to-naprawi%C4%87-',
-    widgetSdk: this.commonConfigData.urls['widget-sdk']
+    widgetSdk: this.commonConfigData.urls['widget-sdk'],
+    assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL'
+  };
+  public readonly errorCodes = {
+    notAllowedToLogin: 108
   };
   public readonly languages = this.commonConfigData.config['supported-languages'];
   public readonly localSettings = {
