@@ -18,6 +18,7 @@ export class ConsultationListItemComponentController implements IConsultationLis
   public inviteTime: string;
   public checkboxId: string;
   public isChecked = false;
+  public isFreelance: boolean;
   public static $inject = [];
 
   constructor() {
@@ -28,6 +29,7 @@ export class ConsultationListItemComponentController implements IConsultationLis
     this.price = this.service.price;
     this.tags = this.service.tags;
     this.checkboxId = String(new Date().getTime()) + this.title;
+    this.isFreelance = this.service.isFreelance;
   }
 
   public changeConsultationStatus = (): void => {
