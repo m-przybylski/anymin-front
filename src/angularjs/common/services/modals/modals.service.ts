@@ -61,7 +61,9 @@ import {
 import {
   IExpertInviteEmployeesControllerScope
 } from '../../components/dashboard/expert/employees/modals/invite-employees/invite-employees.controller';
-import { InvitationsModalController, IInvitationsModalScope }
+import {
+  InvitationsModalController, IInvitationsModalScope
+}
   from '../../../app/invitations/modal/invitations.controller';
 import {
   IPrecallModalControllerScope,
@@ -79,7 +81,9 @@ import {
   IPhoneSettingsControllerScope
 } from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
 import { IModalInstanceService } from 'angular-ui-bootstrap';
-import { IChargeAccountScope, ChargeAccountController }
+import {
+  IChargeAccountScope, ChargeAccountController
+}
   from '../../../app/charge-account/modal/charge-account.controller';
 import {
   ExpertIncomingCallController,
@@ -127,13 +131,13 @@ export class ModalsService {
 
   public static $inject = ['$rootScope', 'dialogService'];
 
-    constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
+  constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
   public createIncomingCallModal = (expertSueDetails: GetExpertSueDetails,
                                     answerCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void,
-                                    rejectCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void
-  ): IModalInstanceService => {
+                                    rejectCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void)
+    : IModalInstanceService => {
     const dialogScope: IExpertIncomingCallParentControllerScope =
       <IExpertIncomingCallParentControllerScope>this.$rootScope.$new(true);
 
@@ -470,18 +474,18 @@ export class ModalsService {
     });
   }
 
-  public createInvitationsModal = (profileWithServicesInvitations?: GetProfileWithServicesInvitations):
-    IModalInstanceService => {
-    const dialogScope: IInvitationsModalScope =
-      <IInvitationsModalScope>this.$rootScope.$new(true);
-    dialogScope.profileWithServicesInvitations = profileWithServicesInvitations;
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: InvitationsModalController,
-      template: require('angularjs/app/invitations/modal/invitations.html'),
-      scope: dialogScope
-    });
-  }
+  public createInvitationsModal =
+    (profileWithServicesInvitations?: GetProfileWithServicesInvitations): IModalInstanceService => {
+      const dialogScope: IInvitationsModalScope =
+        <IInvitationsModalScope>this.$rootScope.$new(true);
+      dialogScope.profileWithServicesInvitations = profileWithServicesInvitations;
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        controller: InvitationsModalController,
+        template: require('angularjs/app/invitations/modal/invitations.html'),
+        scope: dialogScope
+      });
+    }
 
   public createChargeAccountModal = (currentStateName?: string, paymentsOptions?: GetPaymentOptions,
                                      creditCards?: GetCreditCard[], paymentsLinks?: PaymentLink[],
@@ -505,21 +509,21 @@ export class ModalsService {
 
   public createManageProfileEditProfileModal =
     (profile: GetOrganizationDetails | GetExpertDetails, onModalClose: () => void): IModalInstanceService => {
-    const dialogScope: IEditExpertProfileScope =
-      <IEditExpertProfileScope>this.$rootScope.$new(true);
-    dialogScope.profile = profile;
-    dialogScope.onModalCloseCallback = onModalClose;
+      const dialogScope: IEditExpertProfileScope =
+        <IEditExpertProfileScope>this.$rootScope.$new(true);
+      dialogScope.profile = profile;
+      dialogScope.onModalCloseCallback = onModalClose;
 
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: EditExpertProfileController,
-      template: require('angularjs/common/components/dashboard/expert/manage-profile/' +
-        'modals/edit-expert-profile/edit-expert-profile.html'),
-      scope: dialogScope
-    });
-  }
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        controller: EditExpertProfileController,
+        template: require('angularjs/common/components/dashboard/expert/manage-profile/' +
+          'modals/edit-expert-profile/edit-expert-profile.html'),
+        scope: dialogScope
+      });
+    }
 
-  public createPrecallModal = (service: GetService, owner: GetProfile, stream: MediaStream): IModalInstanceService  => {
+  public createPrecallModal = (service: GetService, owner: GetProfile, stream: MediaStream): IModalInstanceService => {
     const dialogScope: IPrecallModalControllerScope =
       <IPrecallModalControllerScope>this.$rootScope.$new(true);
 
@@ -589,7 +593,7 @@ export class ModalsService {
   }
 
   public createServiceFormModal = (onModalClose: () => void,
-                                      service?: GetExpertServiceDetails): IModalInstanceService => {
+                                   service?: GetExpertServiceDetails): IModalInstanceService => {
 
     const dialogScope: IServiceFormModalScope =
       <IServiceFormModalScope>this.$rootScope.$new(true);
@@ -609,13 +613,15 @@ export class ModalsService {
 
   public createConfirmAlertModal = (translationMessage: string,
                                     onConfirm: () => void,
-                                    onCancel?: () => void): IModalInstanceService => {
+                                    onCancel?: () => void,
+                                    translationConfirmButtonMessage?: string): IModalInstanceService => {
 
     const dialogScope: IConfirmAlertScope =
       <IConfirmAlertScope>this.$rootScope.$new(true);
     dialogScope.onCancel = onCancel;
     dialogScope.translationMessage = translationMessage;
     dialogScope.onConfirm = onConfirm;
+    dialogScope.translationConfirmButtonMessage = translationConfirmButtonMessage;
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
