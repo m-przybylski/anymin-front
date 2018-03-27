@@ -18,5 +18,8 @@
 
     .consultation-title
       span {{$ctrl.title}}
+      span.freelance-invitation(
+      data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.INVITE.FREELANCE_SERVICE"
+      data-ng-if="$ctrl.isFreelance")
 
     tags-list(data-tags="$ctrl.tags")
