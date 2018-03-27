@@ -5,6 +5,7 @@ import { ErrorHandlerService } from '../../../../../services/error-handler/error
 import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../../services/translator/translator.service';
 import { ModalsService } from '../../../../../services/modals/modals.service';
+import { GetEmployment } from '@anymind-ng/api';
 
 export interface IExpertEmployeeComponentControllerScope extends ng.IScope {
   profileWithEmployments: GetProfileDetailsWithEmployments;
@@ -21,6 +22,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   public employeeAvatar: string;
   public isEmploeeDeleted = false;
   public consultationText = '';
+  public employeeConsultations: GetEmployment[];
 
   private static readonly minRangeOfFewConsultations = 2;
   private static readonly maxRangeOfFewConsultations = 4;
@@ -38,6 +40,8 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
     this.employeeName = this.profileWithEmployments.expertProfile.name;
     this.employeeAvatar = this.profileWithEmployments.expertProfile.img;
     this.employmentsCount = this.profileWithEmployments.employments.length;
+    this.employeeConsultations = this.profileWithEmployments.employments;
+
     switch (true) {
       case this.employmentsCount === 1:
         this.consultationText = this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.ONE_CONSULTATION');
@@ -51,6 +55,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
         this.consultationText =
           this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.MANY_CONSULTATIONS');
     }
+
   }
 
   public deleteEmployee = (): void => {
