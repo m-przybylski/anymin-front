@@ -33,7 +33,7 @@ export class ConsultationController implements ng.IController {
   public isOwnerEmployee = false;
   public languagesList: ILanguagesList[];
   public languageInputValue: ILanguagesList;
-  public descriptionInputValue: string;
+  public descriptionInputValue = '';
   public isPlatformForExpert = Config.isPlatformForExpert;
   public isRegExpPriceInputValid = true;
   public isCompany: boolean;

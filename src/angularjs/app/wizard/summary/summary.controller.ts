@@ -174,6 +174,7 @@ export class SummaryController implements ng.IController {
         if (differenceArray && differenceArray.length === 0) {
           this.isConsultationInvitationAccepted = true;
           this.acceptedServices = JSON.parse(acceptedConsultationsObject);
+          this.isUserShouldCreateExpert = this.checkIfUserCanCreateExpertProfile();
           this.isConsultation = this.wizardProfile.services
             && this.wizardProfile.services.length > 0 || this.isConsultationInvitationAccepted;
         }
