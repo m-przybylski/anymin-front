@@ -10,6 +10,10 @@
           .consultations-count-container
             span {{ $ctrl.employmentsCount | translate}}
             span.consultation-slug {{ $ctrl.consultationText }}
+          .emmployee-consultation-list
+            ul
+              li(data-ng-repeat="consultation in $ctrl.employeeConsultations")
+                span {{consultation.serviceName}}
 
         .employee-button-container
           a.btn.btn-link(

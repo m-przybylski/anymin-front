@@ -1,12 +1,17 @@
 import { EmploymentApi, ServiceApi } from 'profitelo-api-ng/api/api';
-import { GetProfileDetailsWithEmployments, GetServiceWithInvitations, GetInvitation }
+import {
+  GetServiceWithInvitations, GetInvitation
+}
   from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../../common/services/user/user.service';
 import { ModalsService } from '../../../../common/services/modals/modals.service';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
+import { GetProfileDetailsWithEmployments, GetServiceWithEmployees } from '@anymind-ng/api';
+import { GetEmployment } from '@anymind-ng/api/model/getEmployment';
 
 // tslint:disable:member-ordering
+
 export class DashboardExpertEmployeesController {
 
   public profilesWithEmployments: GetProfileDetailsWithEmployments[];
@@ -25,7 +30,7 @@ export class DashboardExpertEmployeesController {
 
   public static $inject = ['EmploymentApi', 'userService', 'modalsService', '$log', 'ServiceApi'];
 
-    constructor(private EmploymentApi: EmploymentApi,
+  constructor(private EmploymentApi: EmploymentApi,
               private userService: UserService,
               private modalsService: ModalsService,
               private $log: ng.ILogService,
@@ -41,19 +46,58 @@ export class DashboardExpertEmployeesController {
   }
 
   public getProfilesWithEmployments = (): void => {
-      this.EmploymentApi.getEmployeesRoute().then(profilesWithEmployments => {
-        this.profilesWithEmployments = profilesWithEmployments.filter(profileWithEmployments =>
-          profileWithEmployments.expertProfile.id !== this.userId
-        );
-        this.emoloyeesCount = this.profilesWithEmployments.length;
-        this.areEmployees = this.emoloyeesCount > 0;
-        this.isGetEmployeesError = false;
-      }).catch((error) => {
+    this.EmploymentApi.getEmployeesRoute().then(profilesWithEmployments => {
+
+      const employeesServicesList = _.flatMap(profilesWithEmployments, (employments) =>
+        _.flatMap(employments.employments, (serviceId) =>
+          serviceId.serviceId
+        )
+      );
+
+      this.ServiceApi.postServiceWithEmployeesRoute({serviceIds: employeesServicesList})
+        .then((res: GetServiceWithEmployees[]) => {
+          this.profilesWithEmployments = profilesWithEmployments.filter(profileWithEmployments =>
+            profileWithEmployments.expertProfile.id !== this.userId
+          );
+
+          this.profilesWithEmployments.map((profilesWithEmployment: GetProfileDetailsWithEmployments) =>
+            profilesWithEmployment.employments =
+              profilesWithEmployment.employments.map((employee: GetEmployment) => {
+                const serviceWithEmployees = _.find(res, (serviceWithEmployee: GetServiceWithEmployees) =>
+                  serviceWithEmployee.serviceDetails.id === employee.serviceId);
+
+                if (serviceWithEmployees) {
+                  return {
+                    id: employee.id,
+                    serviceId: employee.serviceId,
+                    profileId: employee.profileId,
+                    createdAt: employee.createdAt,
+                    serviceName: serviceWithEmployees.serviceDetails.name
+                  };
+                } else {
+                  return {
+                    id: employee.id,
+                    serviceId: employee.serviceId,
+                    profileId: employee.profileId,
+                    createdAt: employee.createdAt
+                  };
+                }
+              }
+            ));
+
+          this.emoloyeesCount = this.profilesWithEmployments.length;
+          this.areEmployees = this.emoloyeesCount > 0;
+          this.isGetEmployeesError = false;
+        }).catch((error) => {
         this.isGetEmployeesError = true;
         this.$log.error('Cannot load data', error);
-      }).finally(() => {
-        this.areEmployeesLoading = false;
       });
+    }).catch((error) => {
+      this.isGetEmployeesError = true;
+      this.$log.error('Cannot load data', error);
+    }).finally(() => {
+      this.areEmployeesLoading = false;
+    });
   }
 
   public getServicesInvitations = (): void => {
@@ -104,7 +148,7 @@ export class DashboardExpertEmployeesController {
     const groupedByEmail = _.groupBy(invitationsByEmail, e => e.email);
     const invitationsGroupedByEmail = _.values(groupedByEmail);
 
-    const invitationsByMsisdn =  _.flatMap(servicesWithInvitations, (service) =>
+    const invitationsByMsisdn = _.flatMap(servicesWithInvitations, (service) =>
       service.invitations.filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW &&
         invitation.msisdn !== undefined));
     const groupedByMsisdn = _.groupBy(invitationsByMsisdn, e => e.msisdn);
