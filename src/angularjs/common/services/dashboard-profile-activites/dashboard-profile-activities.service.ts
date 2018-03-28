@@ -1,37 +1,41 @@
-import { ViewsApi } from 'profitelo-api-ng/api/api';
+import { ViewsApi, AccountApi } from 'profitelo-api-ng/api/api';
 import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { ActivitiesQueryParams } from './activities-query-params';
-import { GetProfileActivities, GetActivityFilters } from 'profitelo-api-ng/model/models';
+import { GetProfileActivities, GetActivityFilters, GetCompanyInvoiceDetails } from 'profitelo-api-ng/model/models';
 import { PayoutsApi } from 'profitelo-api-ng/api/api';
 import { LoggerService } from '@anymind-ng/core';
 
 export class DashboardProfileActivitiesService {
 
-    public static $inject = ['ViewsApi', 'PayoutsApi', 'logger'];
+  public static $inject = ['ViewsApi', 'PayoutsApi', 'AccountApi', 'logger'];
 
-    constructor(private ViewsApi: ViewsApi,
-                private PayoutsApi: PayoutsApi,
-                private logger: LoggerService) {
-    }
+  constructor(private ViewsApi: ViewsApi,
+              private PayoutsApi: PayoutsApi,
+              private AccountApi: AccountApi,
+              private logger: LoggerService) {
+  }
 
-    public resolveFilters = (): ng.IPromise<GetActivityFilters> =>
-        this.ViewsApi.getDashboardActivitiesProfileFiltersRoute()
+  public resolveFilters = (): ng.IPromise<GetActivityFilters> =>
+    this.ViewsApi.getDashboardActivitiesProfileFiltersRoute()
 
-    public getDashboardProfileActivities = (queryParams: ActivitiesQueryParams): ng.IPromise<GetProfileActivities> => {
-        const activityType = !!(queryParams.getActivityType()) ? String(queryParams.getActivityType()) : undefined;
+  public getDashboardProfileActivities = (queryParams: ActivitiesQueryParams): ng.IPromise<GetProfileActivities> => {
+    const activityType = !!(queryParams.getActivityType()) ? String(queryParams.getActivityType()) : undefined;
 
-        const promise = this.ViewsApi.getDashboardActivitiesProfileRoute(activityType, queryParams.getProfileId(),
-            queryParams.getServiceId(), queryParams.getDateFrom(), queryParams.getDateTo(), queryParams.getLimit(),
-            queryParams.getOffset());
+    const promise = this.ViewsApi.getDashboardActivitiesProfileRoute(activityType, queryParams.getProfileId(),
+      queryParams.getServiceId(), queryParams.getDateFrom(), queryParams.getDateTo(), queryParams.getLimit(),
+      queryParams.getOffset());
 
-        promise.catch(this.handleActivitiesResponseError);
-        return promise;
-    }
+    promise.catch(this.handleActivitiesResponseError);
+    return promise;
+  }
 
-    public getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => this.PayoutsApi.getPayoutMethodsRoute();
+  public getInvoiceDetails = (): ng.IPromise<GetCompanyInvoiceDetails> =>
+    this.AccountApi.getCompanyPayoutInvoiceDetailsRoute()
 
-    private handleActivitiesResponseError = (error: any): void => {
-        this.logger.warn('Can not get activities: ' + String(error));
-    }
+  public getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => this.PayoutsApi.getPayoutMethodsRoute();
+
+  private handleActivitiesResponseError = (error: any): void => {
+    this.logger.warn('Can not get activities: ' + String(error));
+  }
 
 }
