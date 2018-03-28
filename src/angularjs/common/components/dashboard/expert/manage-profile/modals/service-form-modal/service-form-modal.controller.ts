@@ -183,10 +183,16 @@ export class ServiceFormModalController implements ng.IController {
 
   public isDescriptionValid = (): boolean => this.consultationDescriptionPattern.test(this.consultationDescription);
 
-  public areInvitationsValid = (): boolean => this.isCompany ? this.isOwnerEmployee
-    && this.consultationNewInvitations.length <= this.consultationInvitationsMaxCount
-    || this.consultationNewInvitations.length >= this.consultationInvitationsMinCount
-    && this.consultationNewInvitations.length <= this.consultationInvitationsMaxCount : true
+  public areInvitationsValid = (): boolean => {
+    if (this.$scope.serviceDetails) {
+      return true;
+    } else if (this.isCompany) {
+      return this.isOwnerEmployee ||
+        (this.consultationNewInvitations.length >= this.consultationInvitationsMinCount
+          && this.consultationNewInvitations.length <= this.consultationInvitationsMaxCount);
+    }
+    return true;
+  }
 
   public isPriceValid = (): boolean => this.isPriceAmountValid && this.isRegExpPriceInputValid;
 
