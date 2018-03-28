@@ -94,6 +94,10 @@ export class WidgetGeneratorComponent implements OnInit {
     this.isWidgetGenerating = false;
   }
 
+  public isGenerateButtonDisabled = (): boolean =>
+    this.isWidgetGenerating && (this.checkIsServiceWidgetFormValid()
+    || this.checkIsExpertWidgetFormValid())
+
   public copyToClipboard = (textToCopy: string): void => {
     const textArea = document.createElement('textarea');
     textArea.style.position = 'absolute';
@@ -148,10 +152,6 @@ export class WidgetGeneratorComponent implements OnInit {
             value: profileWithServices.service.id
           }));
         this.isUserHasAnyServices = this.serviceList.length > 0;
-        this.serviceCompanyList.unshift({
-          name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
-          value: undefined
-        });
         this.selectedCompanyService = {
           name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
           value: undefined
@@ -182,10 +182,6 @@ export class WidgetGeneratorComponent implements OnInit {
         name: serviceWithEmployees.service.name,
         value: serviceWithEmployees.service.id
       }));
-    this.serviceCompanyList.unshift({
-      name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
-      value: undefined
-    });
     this.setDropdownSelectedService();
   }
 
@@ -195,9 +191,15 @@ export class WidgetGeneratorComponent implements OnInit {
     } else {
       this.serviceId = undefined;
       this.selectedCompanyService = {
-        name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION'),
+        name: this.translate.instant('DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_PLACEHOLDER'),
         value: undefined
       };
     }
   }
+
+  private checkIsServiceWidgetFormValid = (): boolean =>
+    this.widgetTypeModel === 'service' && !(this.expertId || this.serviceId)
+
+  private checkIsExpertWidgetFormValid = (): boolean =>
+    this.widgetTypeModel === 'expert' && !(this.expertId && this.serviceId)
 }

@@ -101,7 +101,7 @@
     section
       .generate-btn
         button.btn.btn-large.btn-primary((click)="generateWidgetCode(expertId, serviceId)",
-        *ngIf="(expertId || serviceId)", [disabled]="isWidgetGenerating")
+        [disabled]="(widgetTypeModel==='service' && !(!isWidgetGenerating && (expertId || serviceId)) || (widgetTypeModel==='expert' && !(!isWidgetGenerating && (expertId && serviceId))))")
           | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.GENERATE_BUTTON' | translate }}
         p.validation-alert(*ngIf="isError") {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.VALIDATION_ERROR' | translate }}
         p.warning-alert(*ngIf="bodyScript && !isWidgetGenerating") {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.VALIDATION_WARNING' | translate }}
