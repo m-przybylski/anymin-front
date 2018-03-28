@@ -33,10 +33,11 @@ export class DashboardExpertActivitiesController {
   };
   public isActivitiesLoading = false;
   public areFilteredResults = false;
-  public isAnyPayoutMethodSet = false;
+  public isPayoutDataAlertVisible = false;
   public translationPayoutsHref: {
     hrefUrl: string
   };
+  public isInvoiceLoaded = false;
   public activeAccountTranslation: string;
 
   private activitiesQueryParam: ActivitiesQueryParams;
@@ -54,7 +55,14 @@ export class DashboardExpertActivitiesController {
     this.setBasicQueryParam(this.activitiesQueryParam);
     this.setDashboardActivitiesData();
     this.filters = filtersData;
-    this.getPayoutMethods().then(() => this.isAnyPayoutMethodSet = true);
+
+    this.getPayoutMethods().then(() => {
+      dashboardActivitiesService.getInvoiceDetails().catch((error) => {
+        if (error.status === httpCodes.notFound) {
+          this.isPayoutDataAlertVisible = true;
+        }
+      });
+    });
     profiteloWebsocket.onCallSummary(() => {
       this.onSetFiltersParams(this.activitiesQueryParam);
     });
@@ -72,7 +80,12 @@ export class DashboardExpertActivitiesController {
         this.isSearchLoading = false;
         this.isError = false;
       });
-    this.getPayoutMethods().then(() => this.isAnyPayoutMethodSet = true);
+    this.getPayoutMethods().then(() =>
+      this.dashboardActivitiesService.getInvoiceDetails().catch((error) => {
+        if (error.status === httpCodes.notFound) {
+          this.isPayoutDataAlertVisible = true;
+        }
+      }));
   }
 
   public loadMoreActivities = (): void => {
@@ -135,8 +148,8 @@ export class DashboardExpertActivitiesController {
   private getPayoutMethods = (): ng.IPromise<GetPayoutMethodDto> => {
     const promise = this.dashboardActivitiesService.getPayoutMethods();
     promise.catch((error) => {
-      if (error.status === httpCodes.notFound) this.isAnyPayoutMethodSet = false;
-      else this.$log.error(error);
+      if (error.status === httpCodes.notFound) this.isPayoutDataAlertVisible = true;
+      else this.$log.warn(error);
     });
     return promise;
   }
@@ -152,7 +165,6 @@ export class DashboardExpertActivitiesController {
       });
       return promise;
     }
-
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardExpertActivitiesController.queryLimit);
     activitiesQueryParams.setOffset(0);

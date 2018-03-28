@@ -3,9 +3,9 @@
   data-is-error="vm.isError" data-error-message="DASHBOARD_CLIENT.ERROR_MESSAGE"
   data-error-fn="vm.sendRequestAgain")
   expert-no-activities(data-ng-if="!vm.areActivities && !vm.isSearchLoading"
-  data-is-payout-method="vm.isAnyPayoutMethodSet")
+  data-is-payout-data-alert-visible="vm.isPayoutDataAlertVisible")
   div(data-ng-if="vm.areActivities && !vm.isSearchLoading")
-    .no-payout-message-container(data-ng-hide="vm.isAnyPayoutMethodSet")
+    .no-payout-message-container(data-ng-show="vm.isPayoutDataAlertVisible")
       p(data-translate="{{ vm.activeAccountTranslation | translate: vm.translationPayoutsHref }}")
     dashboard-filters(data-filters="vm.filters" data-on-set-search-params="vm.onSetFiltersParams"
     data-account-type="vm.accountType")

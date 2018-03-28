@@ -9,7 +9,7 @@ export class ExpertNoActivitiesComponentController implements IExpertNoActivitie
   };
   public activeAccountTranslation: string;
   public isPlatformForExpert = Config.isPlatformForExpert;
-  public isPayoutMethod: boolean;
+  public isPayoutDataAlertVisible: boolean;
 
   public static $inject = [];
 
