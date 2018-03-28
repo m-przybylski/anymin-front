@@ -10,7 +10,6 @@ export interface IExpertInviteEmployeesControllerScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ExpertInviteEmployeesController implements ng.IController {
 
-  public static readonly loaderDelay = 500;
   public services: GetService[] = [];
   public invitationsInputValue: string[] = [];
   public isSubmitted = false;
@@ -22,12 +21,11 @@ export class ExpertInviteEmployeesController implements ng.IController {
   private invitations: PostInvitation[] = [];
   private selectedServices: GetService[] = [];
 
-  public static $inject = ['$uibModalInstance', 'InvitationApi', '$timeout', 'userService', 'ServiceApi', '$log',
+  public static $inject = ['$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi', '$log',
     'errorHandler', '$scope'];
 
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private InvitationApi: InvitationApi,
-              private $timeout: ng.ITimeoutService,
               private userService: UserService,
               private ServiceApi: ServiceApi,
               private $log: ng.ILogService,
@@ -54,9 +52,7 @@ export class ExpertInviteEmployeesController implements ng.IController {
 
   public sendInvitations = (): void => {
     if (this.isFormValid()) {
-      this.$timeout(() => {
-        this.isSendingRequest = true;
-      }, ExpertInviteEmployeesController.loaderDelay);
+      this.isSendingRequest = true;
       this.InvitationApi.postInvitationRoute(this.createInvitationsModel())
         .then(this.onSendInvitations, this.onSendInvitationsError);
     } else {
