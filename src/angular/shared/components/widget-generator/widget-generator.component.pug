@@ -6,12 +6,13 @@
   .expert-path(*ngIf="!isCompany")
     section
       h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.EXPERT_PATH.SELECT_SERVICE' | translate }}
-      dropdown-primary.single-dropdown(
-      label="{{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_LABEL' | translate }}",
-      [mainList]="serviceList",
-      [(selectedItem)]="selectedService",
-      [onSelectMain]="selectConsultation",
-      [placeholder]="'DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION' | translate")
+      .dropdowns
+        dropdown-primary.single-dropdown(
+        label="{{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_LABEL' | translate }}",
+        [mainList]="serviceList",
+        [(selectedItem)]="selectedService",
+        [onSelectMain]="selectConsultation",
+        [placeholder]="'DASHBOARD.EXPERT_ACCOUNT.WIDGET.SELECT_SECTION_SERVICES_DROPDOWN_ALL_OPTION' | translate")
 
     section
       h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.EXPERT_PATH.BUTTONS_SECTION_HEADER' | translate }}

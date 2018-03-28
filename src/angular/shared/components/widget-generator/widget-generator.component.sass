@@ -3,7 +3,6 @@
 
 .widget-generator
   .information
-
     h3
       font-weight: 500
       color: $c-primary-txt
@@ -18,7 +17,7 @@
       line-height: 24px
 
   section
-    margin: 24px 0
+    margin: 48px 0
 
     h4
       font-weight: 400
@@ -50,23 +49,21 @@
       a
         margin: 0 0 0 24px
 
-    .single-dropdown
-      &::ng-deep
-        .dropdown
-          max-width: 50vh
-
     .dropdowns
-      display: flex
-      justify-content: space-between
-      width: 100%
+      +smm
+        width: 50%
+        padding: 0 24px
 
       dropdown-primary
         width: 100%
-        margin: 0 24px
+        margin: 0 0 24px
+        display: block
 
     form
-      display: flex
       radio-btn
+        margin: 0 0 8px
+        display: block
+        
         &::ng-deep
           .radio
             div
