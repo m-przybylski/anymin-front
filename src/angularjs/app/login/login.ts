@@ -10,6 +10,7 @@ import uiRouter from '@uirouter/angularjs';
 
 function LoginController(): void {
   this.isPlatformForExpert = Config.isPlatformForExpert;
+  this.googlePlayUrl = Config.googlePlayProfile.url;
 
   this.isPlatformForExpert ? this.onLogoLink = 'app.login.account' : this.onLogoLink = 'app.home';
 
