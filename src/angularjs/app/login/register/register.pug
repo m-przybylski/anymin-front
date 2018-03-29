@@ -31,6 +31,16 @@
     data-alert-text="REGISTER.VALID_CHECKBOX"
     )
 
+    checkbox(
+    id="marketingRules"
+    data-input-text="LOGIN.ACCEPT_MARKETING_RULES"
+    data-ng-model="vm.areMarketingRulesAccepted"
+    data-name="marketingRules"
+    data-ng-required="vm.isRequired"
+    data-validation="!vm.areMarketingRulesAccepted && smsCodeForm.$submitted"
+    data-alert-text="REGISTER.VALID_CHECKBOX"
+    )
+
     .btn-handle.btn-handler.flex-row.login-handler
       button.btn.btn-default(type="submit" data-translate="LOGIN.NEXT")
       button.btn.btn-primary(data-ui-sref="app.login.account" data-translate="LOGIN.BACK")
