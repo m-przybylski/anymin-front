@@ -21,6 +21,7 @@ interface ILanguagesList {
 }
 
 // tslint:disable:member-ordering
+// tslint:disable:max-file-line-count
 export class ConsultationController implements ng.IController {
   public readonly inputNameMaxLength = Config.inputsMaxLength.consultationName;
   public readonly inputDescriptionMaxLength = Config.inputsMaxLength.consultationDescription;
@@ -41,6 +42,8 @@ export class ConsultationController implements ng.IController {
   public isPriceAmountValid = true;
   public isFreelance = false;
   public isServiceTypeSelected = false;
+
+  public hrefUrl = 'https://anymind.com/cennik-anymind/';
 
   private isExpert: boolean;
   private currentEditServiceIndex = -1;
