@@ -2,16 +2,22 @@
   .list-row.service-row
     .consultation-title
       span {{ $ctrl.serviceName }}
-      p.additional-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.FREELANCE_SERVICE"
-      data-ng-if="$ctrl.isFreelance")
 
     .service-action
       .service-company-profile(data-ng-show="!$ctrl.isOwnerOfService")
         .profile-preview
           user-avatar.thumb.x48(data-image-token="$ctrl.serviceOwnerLogo")
           .service-owner
-            span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.CONSULTING_AS_EMPLOYEE")
+            span.works-as-text(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.FREELANCE_SERVICE"
+            data-ng-if="$ctrl.isFreelance")
+
+            span.works-as-text(data-ng-if="!$ctrl.isFreelance" data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.CONSULTING_AS_EMPLOYEE")
             span.company-link {{ $ctrl.serviceOwnerName }}
+
+      .service-company-profile(data-ng-show="$ctrl.isOwnerOfService")
+        .profile-preview
+          .service-owner
+            span.works-as-text(data-ng-if="!$ctrl.isFreelance" data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.OWN_CONSULTATION")
 
       .btn-handler
         a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY"

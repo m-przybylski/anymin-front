@@ -4,6 +4,7 @@ import { CommonConfig } from '../../../../../generated_modules/common-config/com
 import { Config } from '../../../../config';
 
 interface IProFooterScope extends ng.IScope {
+  googlePlayUrl: string;
   isPlatformForExpert: boolean;
   zendeskUrl: string;
   anymindBlogUrl: string;
@@ -16,6 +17,7 @@ interface IProFooterScope extends ng.IScope {
   function proFooter(CommonConfig: CommonConfig): IDirective<ng.IScope> {
 
     function linkFunction(scope: IProFooterScope): void {
+      scope.googlePlayUrl = Config.googlePlayProfile.url;
       scope.isPlatformForExpert = Config.isPlatformForExpert;
       scope.zendeskUrl = CommonConfig.getAllData().urls.zendesk;
       scope.anymindBlogUrl = CommonConfig.getAllData().urls['widget-blog'];

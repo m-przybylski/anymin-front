@@ -52,4 +52,8 @@ export class Config {
       extra: VERSION.version
     }
   };
+
+  public static readonly googlePlayProfile = {
+    url: 'https://play.google.com/apps/testing/com.anymind.app'
+  };
 }

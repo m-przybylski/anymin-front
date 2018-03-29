@@ -39,6 +39,8 @@
     +xsm
       display: flex
       align-items: center
+      flex: 0
+      min-width: 400px
 
     .service-owner
       span
@@ -52,14 +54,13 @@
   .btn-handler
     display: flex
     justify-content: space-between
+    justify-content: flex-end
     margin: 0
 
     +smm
       margin: 0 0 0 48px
-
-    +mdm
-      margin: 0 0 0 104px
-
+      min-width: 96px
+      
     .btn
       width: auto
       margin: 0

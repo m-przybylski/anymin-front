@@ -8,6 +8,7 @@ import uiRouter from '@uirouter/angularjs';
 
 function controller(): void {
   this.isPlatformForExpert = Config.isPlatformForExpert;
+  this.googlePlayUrl = Config.googlePlayProfile.url;
 
   return this;
 }

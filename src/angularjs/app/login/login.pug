@@ -2,7 +2,7 @@
   .left-column
     .top-content
       img.logo(src="/assets/images/AnyMind_logo.png" data-ui-sref="{{ vm.onLogoLink }}")
-      
+
       .top-div
         h3.light(data-translate="LOGIN.TRUST_EXPERTS")
         h4(data-ng-if="!vm.isPlatformForExpert")
@@ -16,9 +16,9 @@
       .log-bottom
         p(data-translate="LOGIN.DOWNLOAD_FREE_APP")
         .app-buttons
-          a
+          a(href="{{vm.googlePlayUrl}}" target="_blank")
             img(src="/assets/images/google_play.png")
           a(data-ng-if="!vm.isPlatformForExpert")
             img(src="/assets/images/app_store.png")
-            
+
   .img-column

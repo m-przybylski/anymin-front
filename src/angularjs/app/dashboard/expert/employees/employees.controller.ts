@@ -7,8 +7,7 @@ import { UserService } from '../../../../common/services/user/user.service';
 import { ModalsService } from '../../../../common/services/modals/modals.service';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { GetProfileDetailsWithEmployments, GetServiceWithEmployees } from '@anymind-ng/api';
-import { GetEmployment } from '@anymind-ng/api/model/getEmployment';
+import { GetProfileDetailsWithEmployments } from '@anymind-ng/api';
 
 // tslint:disable:member-ordering
 
@@ -55,15 +54,15 @@ export class DashboardExpertEmployeesController {
       );
 
       this.ServiceApi.postServiceWithEmployeesRoute({serviceIds: employeesServicesList})
-        .then((res: GetServiceWithEmployees[]) => {
+        .then((res) => {
           this.profilesWithEmployments = profilesWithEmployments.filter(profileWithEmployments =>
             profileWithEmployments.expertProfile.id !== this.userId
           );
 
-          this.profilesWithEmployments.map((profilesWithEmployment: GetProfileDetailsWithEmployments) =>
+          this.profilesWithEmployments.map((profilesWithEmployment) =>
             profilesWithEmployment.employments =
-              profilesWithEmployment.employments.map((employee: GetEmployment) => {
-                const serviceWithEmployees = _.find(res, (serviceWithEmployee: GetServiceWithEmployees) =>
+              profilesWithEmployment.employments.map((employee) => {
+                const serviceWithEmployees = _.find(res, (serviceWithEmployee) =>
                   serviceWithEmployee.serviceDetails.id === employee.serviceId);
 
                 if (serviceWithEmployees) {
@@ -72,7 +71,8 @@ export class DashboardExpertEmployeesController {
                     serviceId: employee.serviceId,
                     profileId: employee.profileId,
                     createdAt: employee.createdAt,
-                    serviceName: serviceWithEmployees.serviceDetails.name
+                    serviceName: serviceWithEmployees.serviceDetails.name,
+                    isFreelance: serviceWithEmployees.serviceDetails.isFreelance
                   };
                 } else {
                   return {

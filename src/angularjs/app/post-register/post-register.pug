@@ -16,7 +16,7 @@
       .log-bottom
         p(data-translate="LOGIN.DOWNLOAD_FREE_APP")
         .app-buttons
-          a
+          a(href="{{vm.googlePlayUrl}}" target="_blank")
             img(src="/assets/images/google_play.png")
           a(data-ng-if="!vm.isPlatformForExpert")
             img(src="/assets/images/app_store.png")
