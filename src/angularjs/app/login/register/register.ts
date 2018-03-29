@@ -47,6 +47,7 @@ function RegisterController($log: ng.ILogService,
   this.alreadyCheck = false;
   this.correctCode = false;
   this.areRulesAccepted = false;
+  this.areMarketingRulesAccepted = false;
   this.isRequired = true;
   this.phoneNumber = loginStateService.getAccountObject().phoneNumber.prefix +
     loginStateService.getAccountObject().phoneNumber.number;
