@@ -105,7 +105,9 @@ export class WidgetGeneratorComponent implements OnInit {
     textArea.style.left = '0';
     textArea.value = textToCopy;
     document.body.appendChild(textArea);
-    textArea.focus();
+    (<any>textArea).focus({
+      preventScroll: true
+    });
     textArea.select();
 
     try {
