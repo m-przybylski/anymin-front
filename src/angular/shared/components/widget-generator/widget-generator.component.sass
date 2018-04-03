@@ -86,11 +86,13 @@
       align-items: center
       flex-wrap: wrap
 
-      a
-        &.disable
+      button
+        &.disabled
           color: $c-lines
           cursor: not-allowed
-          text-decoration: underline
+
+        &:hover
+          border-color: $c-lines
       p
         width: 100%
         color: $c-error

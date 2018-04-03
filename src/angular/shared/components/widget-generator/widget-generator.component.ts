@@ -34,6 +34,7 @@ export class WidgetGeneratorComponent implements OnInit {
   public isCompany = false;
   public isUserHasAnyServices = false;
   public isLoading = true;
+  public isDisabledButtonClicked = false;
   public widgetTypeModel = 'service';
   public serviceCompanyList: IPrimaryDropdownListElement[] = [];
   private profileWithServices: GetOrganizationServiceDetails[] = [];
@@ -68,10 +69,12 @@ export class WidgetGeneratorComponent implements OnInit {
     this.expertId = undefined;
     this.serviceId = undefined;
     this.bodyScript = undefined;
+    this.clearButtonClicked();
   }
 
   public generateWidgetCode = (expertId?: string, serviceId?: string): void => {
     this.isWidgetGenerating = true;
+    this.clearButtonClicked();
     this.widgetGeneratorService.generateWidget(expertId, serviceId).subscribe((widget) => {
       this.isError = false;
       this.widgetId = widget.id;
@@ -86,17 +89,18 @@ export class WidgetGeneratorComponent implements OnInit {
   public selectExpert = (element: IPrimaryDropdownListElement): void => {
     this.expertId = element.value;
     this.reloadServicesDropdown();
+    this.clearButtonClicked();
     this.isWidgetGenerating = false;
   }
 
   public selectConsultation = (element: IPrimaryDropdownListElement): void => {
     this.serviceId = element.value;
     this.isWidgetGenerating = false;
+    this.clearButtonClicked();
   }
 
   public isGenerateButtonDisabled = (): boolean =>
-    this.isWidgetGenerating && (this.checkIsServiceWidgetFormValid()
-    || this.checkIsExpertWidgetFormValid())
+    (this.checkIsServiceWidgetFormValid() || this.checkIsExpertWidgetFormValid())
 
   public copyToClipboard = (textToCopy: string): void => {
     const textArea = document.createElement('textarea');
@@ -115,6 +119,19 @@ export class WidgetGeneratorComponent implements OnInit {
     } finally {
       document.body.removeChild(textArea);
     }
+  }
+
+  public setButtonClicked = (): void => {
+    this.isDisabledButtonClicked = true;
+  }
+
+  public onClickGenerateButton = (expertId?: string, serviceId?: string): void => {
+    this.setButtonClicked();
+    if (!this.isGenerateButtonDisabled()) this.generateWidgetCode(expertId, serviceId);
+  }
+
+  private clearButtonClicked = (): void => {
+    this.isDisabledButtonClicked = false;
   }
 
   private getExpertInitializeData = (accountId: string): void => {
@@ -200,8 +217,8 @@ export class WidgetGeneratorComponent implements OnInit {
   }
 
   private checkIsServiceWidgetFormValid = (): boolean =>
-    this.widgetTypeModel === 'service' && !(this.expertId || this.serviceId)
+    this.widgetTypeModel === 'service' && !(!this.isWidgetGenerating && (this.expertId || this.serviceId))
 
   private checkIsExpertWidgetFormValid = (): boolean =>
-    this.widgetTypeModel === 'expert' && !(this.expertId && this.serviceId)
+    this.widgetTypeModel === 'expert' && !(!this.isWidgetGenerating && (this.expertId && this.serviceId))
 }
