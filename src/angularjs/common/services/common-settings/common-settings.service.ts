@@ -11,6 +11,7 @@ export class CommonSettingsService {
     zendeskAllowMediaUrl: this.urls.zendesk + 'hc/pl/articles/115002692852-' +
     '-Moja-przegl%C4%85darka-nie-ma-dost%C4%99pu-do-kamery-i-mikrofonu-jak-to-naprawi%C4%87-',
     widgetSdk: this.commonConfigData.urls['widget-sdk'],
+    widget: this.commonConfigData.urls.widget,
     assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL'
   };
   public readonly errorCodes = {
