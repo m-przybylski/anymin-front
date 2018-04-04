@@ -36,17 +36,6 @@
           data-is-valid="vm.isDescriptionValid()"
           )
 
-        div
-          input-links(
-            data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.LABEL"
-            data-selected-links="vm.profileLinks"
-          )
-
-        div
-          p.files-title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.FILES.LABEL")
-          file-uploader(
-          data-token-list="vm.profileFilesTokens"
-          data-is-valid-callback="vm.onFileUploadEnd")
 
     .modal-action
       button.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.BUTTON.SAVE"

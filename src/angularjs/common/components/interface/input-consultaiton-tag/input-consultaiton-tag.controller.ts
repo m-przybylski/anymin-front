@@ -52,7 +52,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
 
   public onEnter = (): void => {
     if (this.isTagValid()) {
-      this.selectedTags.push(this.tagModel);
+      this.selectedTags.push((this.tagModel || '').toLowerCase());
       this.isInputValidationAlert = false;
       this.tagModel = '';
       this.updateSuggestedTags();
@@ -146,7 +146,7 @@ export class InputConsultationTagComponentController implements IInputConsultati
     this.serviceName !== undefined || this.selectedTags && this.selectedTags.length > 0
 
   private onPostTagsSuggestions = (suggestedTags: GetSuggestedTags, tagsQuery: PostSuggestTags): void => {
-    this.suggestedTags = suggestedTags.tags;
+    this.suggestedTags = suggestedTags.tags.map(tag => tag.toLowerCase());
     this.cacheSuggestedTags = angular.copy(tagsQuery);
   }
 
