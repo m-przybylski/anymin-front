@@ -37,6 +37,9 @@ export class WidgetGeneratorComponent implements OnInit {
   public isDisabledButtonClicked = false;
   public widgetTypeModel = 'service';
   public serviceCompanyList: IPrimaryDropdownListElement[] = [];
+  public currentWidgetUrl: string;
+
+  private readonly widgetUrl = this.CommonSettingsService.links.widget;
   private profileWithServices: GetOrganizationServiceDetails[] = [];
   private widgetId?: string;
 
@@ -79,6 +82,7 @@ export class WidgetGeneratorComponent implements OnInit {
       this.isError = false;
       this.widgetId = widget.id;
       this.bodyScript = this.generateBodyCode(widget.id);
+      this.currentWidgetUrl = this.widgetUrl + '?widgetId=' + widget.id;
     }, (error) => {
       this.isError = true;
       this.isWidgetGenerating = false;

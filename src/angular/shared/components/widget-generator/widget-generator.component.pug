@@ -49,6 +49,14 @@
         a.btn.btn-large.btn-primary((click)="copyToClipboard(bodyScript)")
           | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COPY_BUTTON' | translate }}
 
+    section(*ngIf="bodyScript")
+      h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.URL_SECTION_HEADER' | translate }}
+      p([innerHTML]="'DASHBOARD.EXPERT_ACCOUNT.WIDGET.URL_SECTION_PARAGRAPH' | translate ")
+      .html-code
+        code {{ currentWidgetUrl }}
+        a.btn.btn-large.btn-primary((click)="copyToClipboard(currentWidgetUrl)")
+          | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COPY_BUTTON' | translate }}
+
   .company-path(*ngIf="isCompany")
     section
       h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COMPANY_PATH_HEAD.CHOOSE_TYPE_HEADER' | translate }}
@@ -122,6 +130,15 @@
         code {{ bodyScript }}
         a.btn.btn-large.btn-primary((click)="copyToClipboard(bodyScript)")
           | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COPY_BUTTON' | translate }}
+
+    section(*ngIf="bodyScript")
+      h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COMPANY_PATH_URL_SECTION_HEADER' | translate }}
+      p([innerHTML]="'DASHBOARD.EXPERT_ACCOUNT.WIDGET.URL_SECTION_PARAGRAPH' | translate ")
+      .html-code
+        code {{ currentWidgetUrl }}
+        a.btn.btn-large.btn-primary((click)="copyToClipboard(currentWidgetUrl)")
+          | {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.COPY_BUTTON' | translate }}
+
 .no-services(*ngIf="!isUserHasAnyServices && !isLoading")
   .no-results-information
     img.information-icon(src="assets/images/profitelo_icons/no_services.png" alt="icon")
