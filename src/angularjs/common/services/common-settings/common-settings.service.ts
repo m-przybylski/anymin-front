@@ -64,7 +64,7 @@ export class CommonSettingsService {
     'uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF21-\\uFF3A\\' +
     'uFF41-\\uFF5A\\uFF66-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC- ]+$',
     countryCodes: this.commonConfigData.config['country-codes'],
-    passwordPattern: new RegExp(this.validation.password.regex),
+    passwordPattern: new RegExp(this.validation.password.regex.replace(/\\\\/g, '\\')),
     pinPattern: new RegExp(this.validation.pin.regex),
     profileNamePattern: new RegExp(this.validation.profile.name.regex.replace(/\\\\/g, '\\')),
     profileDescriptionPattern: new RegExp(this.validation.profile.description.regex.replace(/\\\\/g, '\\')),
