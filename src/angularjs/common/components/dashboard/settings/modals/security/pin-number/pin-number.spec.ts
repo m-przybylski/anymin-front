@@ -63,7 +63,7 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
   it('should check is new password is correct', () => {
     controller.confirmPassword = '123'
     expect(controller.checkIsNewEnteredPasswordCorrected()).toBeFalsy()
-    controller.confirmPassword = '1234567qqa'
+    controller.confirmPassword = '123456SSS7qqa'
     expect(controller.checkIsNewEnteredPasswordCorrected()).toBeTruthy()
   })
 
