@@ -23,6 +23,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public onModalClose: () => void;
   public isDeleted = false;
   public isFreelance = false;
+  public isCompany = false;
 
   public static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
     'topAlertService', 'errorHandler'];
@@ -45,6 +46,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
     }
     this.userService.getUser().then((user) => {
       this.isOwnerOfService = user.id === this.serviceDetails.ownerProfile.id;
+      this.isCompany = user.isCompany;
     });
   }
 

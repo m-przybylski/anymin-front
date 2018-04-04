@@ -17,7 +17,9 @@
       .service-company-profile(data-ng-show="$ctrl.isOwnerOfService")
         .profile-preview
           .service-owner
-            span.works-as-text(data-ng-if="!$ctrl.isFreelance" data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.OWN_CONSULTATION")
+            span.works-as-text(data-ng-if="!$ctrl.isFreelance && !$ctrl.isCompany" data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.OWN_CONSULTATION")
+            span.works-as-text(data-ng-if="!$ctrl.isFreelance && $ctrl.isCompany" data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.WORKER_CONSULTATION")
+            span.works-as-text(data-ng-if="$ctrl.isFreelance && $ctrl.isCompany" data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.FREELANCE_CONSULTATION")
 
       .btn-handler
         a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY"
