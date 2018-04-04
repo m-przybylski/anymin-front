@@ -7,7 +7,7 @@ export function CommunicatorConfigFactory(): Config {
   const chatUrl = new URL(CommonConfig.settings.urls.communicator.artichoke);
 
   return {
-    logLevel: 2, // DEBUG = 0, INFO = 1,WARN = 2,ERROR = 3, NONE = 4
+    logLevel: 2, // DEBUG = 0, INFO = 1, WARN = 2, ERROR = 3, NONE = 4
     ratel: {
       protocol: ratelUrl.protocol,
       pathname: ratelUrl.pathname,
