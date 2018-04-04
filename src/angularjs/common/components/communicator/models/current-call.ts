@@ -257,6 +257,27 @@ export class CurrentCall {
     this.events.onEnd.next();
   }
 
+  private onNewRemoteStream = (stream: MediaStream): void => {
+    this.logger.debug('CurrentCall: Received remote stream');
+    this.events.onRemoteStream.next(stream);
+
+    if (stream.getVideoTracks().length === 0 && this.isRemoteVideo) {
+      this.isRemoteVideo = false;
+      this.events.onVideoStop.next();
+    }
+    else if (stream.getVideoTracks().length > 0 && !this.isRemoteVideo) {
+      this.isRemoteVideo = true;
+      this.events.onVideoStart.next();
+    }
+    stream.onremovetrack = (t: MediaStreamTrackEvent): void => {
+      this.logger.debug('CurrentCall: onRemoveTrack event called');
+      if (t.track.kind === 'video') {
+        this.isRemoteVideo = false;
+        this.events.onVideoStop.next();
+      }
+    };
+  }
+
   private registerCallbacks = (): void => {
     this.ratelCall.onEnd(this.handleOnEnd);
     this.ratelCall.onActiveDevice(this.onActiveDevice);
@@ -269,26 +290,7 @@ export class CurrentCall {
         }
       }
     );
-    this.ratelCall.onRemoteStream((_id, stream) => {
-      this.logger.debug('CurrentCall: Received remote stream');
-      this.events.onRemoteStream.next(stream);
-
-      if (stream.getVideoTracks().length === 0 && this.isRemoteVideo) {
-        this.isRemoteVideo = false;
-        this.events.onVideoStop.next();
-      }
-      else if (stream.getVideoTracks().length > 0 && !this.isRemoteVideo) {
-        this.isRemoteVideo = true;
-        this.events.onVideoStart.next();
-      }
-      stream.onremovetrack = (t: MediaStreamTrackEvent): void => {
-        this.logger.debug('CurrentCall: onRemoveTrack event called');
-        if (t.track.kind === 'video') {
-          this.isRemoteVideo = false;
-          this.events.onVideoStop.next();
-        }
-      };
-    });
+    this.ratelCall.onRemoteStream((_id, stream) => this.onNewRemoteStream(stream));
 
     this.ratelCall.onOffline((msg) => {
       this.logger.debug('CurrentCall: user went offline', msg);
@@ -313,6 +315,8 @@ export class CurrentCall {
     // remove this and handle it in this.handleConnectionBack when artichoke will return CALL_END in call.getMessages
     // https://git.contactis.pl/itelo/profitelo-frontend/issues/456
     this.communicatorService.connectionEstablishedEvent$.subscribe((connected: IConnected) => {
+      // This is a HACK to enable media after reconnection - it will be fixed in ratel-sdk-js v2
+      this.ratelCall.onRemoteStream((_id, stream) => this.onNewRemoteStream(stream));
       this.logger.debug('CurrentCall: Reconnected checking if call was pending');
       if (this.state === CallState.PENDING) {
         this.logger.debug('CurrentCall: Reconnected in pending call, checking active calls');
@@ -336,6 +340,8 @@ export class CurrentCall {
   }
 
   private handleConnectionBack = (): void => {
+    // This is a HACK to enable media after reconnection - it will be fixed in ratel-sdk-js v2
+    this.ratelCall.onRemoteStream((_id, stream) => this.onNewRemoteStream(stream));
     this.ratelCall.getMessages().then(callMsgs => {
       this.logger.debug('CurrentCall: handling connection back, call msgs', callMsgs);
       if (this.isMyCallPulled(callMsgs)) {
