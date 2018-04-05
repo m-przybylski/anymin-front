@@ -298,6 +298,9 @@ export class CurrentCall {
         this.logger.debug('CurrentCall: Participant went offline');
         this.timer.pause();
         this.events.onParticipantOffline.next(undefined);
+        this.logger.debug('CurrentCall: Hanging up the call because participant went offline');
+        this.hangup().catch(err =>
+          this.logger.warn('CurrentCall: could not hangup the call when participant went offline', err));
       }
     });
 
