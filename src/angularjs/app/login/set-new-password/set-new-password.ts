@@ -98,6 +98,10 @@ function SetNewPasswordController($state: StateService, $filter: IFilterService,
   this.checkIsPasswordCorrect = (): boolean =>
     this.patternPassword.test(this.newPassword);
 
+  this.clickDisabledButton = (): void => {
+    if (!this.checkIsPasswordCorrect()) this.isPasswordTooWeak = true;
+  };
+
   return this;
 
 }
@@ -109,9 +113,10 @@ function config($stateProvider: StateProvider): void {
     controller: 'SetNewPasswordController',
     template: require('./set-new-password.html'),
     resolve: {
-      tokenStatus: ['$stateParams', 'LoginSetNewPasswordResolver', ($stateParams: ISetNewPasswordStateParams,
-                    LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> =>
-         LoginSetNewPasswordResolver.resolve($stateParams)]
+      tokenStatus: ['$stateParams', 'LoginSetNewPasswordResolver',
+        ($stateParams: ISetNewPasswordStateParams,
+         LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> =>
+          LoginSetNewPasswordResolver.resolve($stateParams)]
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.SET_NEW_PASSWORD'
@@ -120,7 +125,7 @@ function config($stateProvider: StateProvider): void {
 }
 
 angular.module('profitelo.controller.login.set-new-password', [
-    loginStateModule,
+  loginStateModule,
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',
   passwordStrengthModule,

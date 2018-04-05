@@ -12,9 +12,25 @@
   .hidden-input
     display: none
 
+
+  .password-information
+    span
+      color: $c-secondary-txt
+
   button
     margin: 16px 0 0 0
     width: 100%
+
+    &.disabled
+      cursor: not-allowed
+      background: $c-lines
+      border-color: $c-lines
+
+  .click-alert
+    color: $c-warning
+    display: flex
+    justify-content: center
+    margin: 24px 0 0
 
 .set-email
   button

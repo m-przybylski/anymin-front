@@ -19,8 +19,10 @@ import autoFocus from '../../../common/directives/auto-focus/auto-focus';
 import { LocalStorageWrapper } from '../../../common/classes/local-storage-wrapper/local-storage-wrapper';
 import { ErrorHandlerService } from '../../../common/services/error-handler/error-handler.service';
 import errorHandlerModule from '../../../common/services/error-handler/error-handler';
-import { RegistrationInvitationService }
-from '../../../common/services/registration-invitation/registration-invitation.service';
+import {
+  RegistrationInvitationService
+}
+  from '../../../common/services/registration-invitation/registration-invitation.service';
 import registrationInvitationModule from '../../../common/services/registration-invitation/registration-invitation';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
@@ -45,6 +47,7 @@ function _controller($log: ng.ILogService,
   this.alreadyCheck = false;
   this.isServerError = false;
   this.phoneNumber = user.msisdn;
+  this.isPasswordTooWeak = false;
 
   this.msisdn = {
     number: user.msisdn
@@ -57,7 +60,7 @@ function _controller($log: ng.ILogService,
   };
 
   const _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void): void => {
-        if (!this.isPending) {
+    if (!this.isPending) {
       this.isPending = true;
       this.isServerError = false;
       topWaitingLoaderService.immediate();
@@ -117,10 +120,10 @@ function _controller($log: ng.ILogService,
           isBlocked: false
         }, () => {
           verifyEmailByToken(invitationObject.token)
-          .then(() => {
-            clearInvitationFromLocalStorage();
-            redirectToInvitation(invitationObject.token);
-          }, onVerifyEmailError);
+            .then(() => {
+              clearInvitationFromLocalStorage();
+              redirectToInvitation(invitationObject.token);
+            }, onVerifyEmailError);
           this.isPending = false;
           topWaitingLoaderService.stopLoader();
         });
@@ -136,19 +139,23 @@ function _controller($log: ng.ILogService,
       this.isServerError = false;
       topWaitingLoaderService.immediate();
       AccountApi.putAccountRoute(user.id, updateObject)
-      .then(successCallback, (error) => {
-        this.isServerError = true;
-        topWaitingLoaderService.stopLoader();
-        errorHandler.handleServerError(error);
-      })
-      .finally(() => {
-        this.isPending = false;
-      });
+        .then(successCallback, (error) => {
+          this.isServerError = true;
+          topWaitingLoaderService.stopLoader();
+          errorHandler.handleServerError(error);
+        })
+        .finally(() => {
+          this.isPending = false;
+        });
     }
   };
 
   this.checkIsPasswordCorrect = (): boolean =>
     this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password);
+
+  this.clickDisabledButton = (): void => {
+    if (!this.checkIsPasswordCorrect()) this.isPasswordTooWeak = true;
+  };
 
   return this;
 }
@@ -160,14 +167,14 @@ function config($stateProvider: StateProvider): void {
     controller: 'SetPasswordController',
     template: require('./set-password.html'),
     resolve: {
-      user: ['userService', '$state', (userService: UserService, $state: ng.ui.IStateService):
-        ng.IPromise<AccountDetails> => {
-        const userData = userService.getUser(true);
-        userData.then((user) => {
-          if (user.hasPassword) $state.go('app.post-register.set-email');
-        });
-        return userData;
-      }]
+      user: ['userService', '$state',
+        (userService: UserService, $state: ng.ui.IStateService): ng.IPromise<AccountDetails> => {
+          const userData = userService.getUser(true);
+          userData.then((user) => {
+            if (user.hasPassword) $state.go('app.post-register.set-email');
+          });
+          return userData;
+        }]
     },
 
     data: {
@@ -177,7 +184,7 @@ function config($stateProvider: StateProvider): void {
 }
 
 angular.module('profitelo.controller.post-register.set-password', [
-    userModule,
+  userModule,
   apiModule,
   commonSettingsModule,
   passwordStrengthModule,
@@ -191,7 +198,7 @@ angular.module('profitelo.controller.post-register.set-password', [
   autoFocus,
   errorHandlerModule
 ])
-.config(['$stateProvider', config])
-.controller('SetPasswordController', ['$log', '$filter', '$state', 'topWaitingLoaderService',
-  'passwordStrengthService', 'user', 'registrationInvitationService', 'topAlertService', 'errorHandler',
-  'CommonSettingsService', 'AccountApi', _controller]);
+  .config(['$stateProvider', config])
+  .controller('SetPasswordController', ['$log', '$filter', '$state', 'topWaitingLoaderService',
+    'passwordStrengthService', 'user', 'registrationInvitationService', 'topAlertService', 'errorHandler',
+    'CommonSettingsService', 'AccountApi', _controller]);

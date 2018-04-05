@@ -37,6 +37,10 @@
         button
           margin: 0 0 16px
           flex: 0 0 100%
+          &.disabled
+            cursor: not-allowed
+            background: $c-lines
+            border-color: $c-lines
 
           +smm
             flex: 1 1 50%
@@ -94,6 +98,17 @@
       .set-email
         button
           width: 100%
+
+      .password-information
+        padding: 0 0 12px 0
+        span
+          color: $c-secondary-txt
+
+      .click-alert
+        color: $c-warning
+        display: flex
+        justify-content: center
+        margin: 24px 0 0
 
     .bottom-content
       align-self: flex-end
