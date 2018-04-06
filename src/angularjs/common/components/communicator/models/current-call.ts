@@ -4,7 +4,7 @@
 import * as _ from 'lodash';
 import { TimerService } from '../../../services/timer/timer.service';
 import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
-import { MoneyDto, RatelCallDetails } from 'profitelo-api-ng/model/models';
+import { MoneyDto, RatelCallDetails, PostTechnicalProblem } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import { Session } from 'ratel-sdk-js';
 import { TimerFactory } from '../../../services/timer/timer.factory';
@@ -301,6 +301,10 @@ export class CurrentCall {
         this.logger.debug('CurrentCall: Hanging up the call because participant went offline');
         this.hangup().catch(err =>
           this.logger.warn('CurrentCall: could not hangup the call when participant went offline', err));
+        this.ServiceApi.postTechnicalProblemRoute(this.getSueId(),
+          {problemType: PostTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT})
+          .then(() => this.logger.debug('CurrentCall: participant auto disconnect reported'),
+            () => this.logger.warn('CurrentCall: failed when reporting participant auto disconnect'));
       }
     });
 
