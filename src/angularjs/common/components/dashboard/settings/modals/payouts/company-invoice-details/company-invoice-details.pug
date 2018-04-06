@@ -8,7 +8,7 @@
 
       form(
         name="companyInvoiceDetailsForm"
-        data-ng-submit="vm.isFormValid() && vm.saveCompanyInvoiceDetails()"
+        data-ng-submit="!this.isBackendValidationError && vm.isFormValid() && vm.saveCompanyInvoiceDetails()"
         novalidate
       )
 
@@ -30,7 +30,8 @@
             data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER"
             data-ng-model="vm.vatNumber"
             data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL"
-            data-is-valid="vm.isVatNumberValid()"
+            data-is-valid="vm.isVatNumberValid() && !vm.isBackendValidationError"
+            data-on-change-callback="vm.onVatInputChange"
             data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.VAT.VALIDATION"
           )
 

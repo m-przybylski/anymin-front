@@ -15,7 +15,8 @@ export class CommonSettingsService {
     assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL'
   };
   public readonly errorCodes = {
-    notAllowedToLogin: 108
+    notAllowedToLogin: 108,
+    illegalArgument: 105
   };
   public readonly languages = this.commonConfigData.config['supported-languages'];
   public readonly localSettings = {
