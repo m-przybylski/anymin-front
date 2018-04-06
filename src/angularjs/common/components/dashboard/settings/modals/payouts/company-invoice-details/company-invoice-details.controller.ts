@@ -3,6 +3,7 @@ import { GetCompanyInvoiceDetails, PostCompanyInvoiceDetails } from 'profitelo-a
 import { TranslatorService } from '../../../../../../services/translator/translator.service';
 import { TopAlertService } from '../../../../../../services/top-alert/top-alert.service';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
+import { httpCodes } from '../../../../../../classes/http-codes';
 
 export interface ICompanyInvoiceDetailsModalControllerScope extends ng.IScope {
   onModalCloseCallback: () => void;
@@ -28,6 +29,7 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
   public countryList: ICountry[] = [];
   public selectedCountry: ICountry;
   public isLoading = false;
+  public isBackendValidationError = false;
 
   private onModalCloseCallback: () => void;
   private companyInvoiceDetails?: GetCompanyInvoiceDetails;
@@ -66,12 +68,19 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
   public saveCompanyInvoiceDetails = (): void => {
     this.isLoading = true;
     this.companyInvoiceDetailsModalService.saveInvoiceDetails(this.createCompanyInvoiceDetailsModel())
-      .then(this.onSaveCompanyInvoiceDetailsSucceed).finally(() => {
+      .then(this.onSaveCompanyInvoiceDetailsSucceed)
+      .catch((error) => {
+        if (error.status === httpCodes.badRequest
+          && error.data.code === this.CommonSettingsService.errorCodes.illegalArgument) {
+          this.isBackendValidationError = true;
+        }
+      })
+      .finally(() => {
         this.isLoading = false;
-    });
+      });
   }
 
-  public isVatNumberValid = (): boolean => this.vatNumberPattern.test(this.vatNumber.replace(/-/g, ''));
+  public isVatNumberValid = (): boolean => this.vatNumberPattern.test(this.vatNumber.replace(/-|\s/g, ''));
 
   public isNameValid = (): boolean => this.name.length > 0;
 
@@ -91,9 +100,13 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
     && this.isCityValid()
     && this.isEmailValid()
 
+  public onVatInputChange = (): void => {
+    this.isBackendValidationError = false;
+  }
+
   private createCompanyInvoiceDetailsModel = (): PostCompanyInvoiceDetails => (
-     {
-      vatNumber: this.vatNumber.replace(/-/g, ''),
+    {
+      vatNumber: this.vatNumber.replace(/-|\s/g, ''),
       companyName: this.name,
       address: {
         address: this.address,

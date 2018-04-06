@@ -77,7 +77,7 @@ describe('Unit testing: profitelo.components.settings.payouts.modals.company-inv
           email: 'email@com.pl',
         }
         spyOn(errorHandler, 'handleServerError')
-        AccountApiMock.postCompanyPayoutInvoiceDetailsRoute(httpCodes.badRequest)
+        AccountApiMock.postCompanyPayoutInvoiceDetailsRoute(httpCodes.internalServerError)
         companyInvoiceDetailsModalService.saveInvoiceDetails(mockPostCompanyInvoiceDetails).catch( _error => {
           expect(errorHandler.handleServerError).toHaveBeenCalled()
           done()
