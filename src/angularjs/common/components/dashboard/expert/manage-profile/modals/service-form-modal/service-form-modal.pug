@@ -73,7 +73,9 @@
 
         .modal-section
           header.section-title
-            p.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.TITLE")
+            span.title(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.TITLE")
+            tooltip(data-tooltip-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATION_MODAL.ADD_PRICE.TOOLTIP")
+
           input-price(
           data-ng-model="vm.consultationPrice"
           data-id="priceModel"

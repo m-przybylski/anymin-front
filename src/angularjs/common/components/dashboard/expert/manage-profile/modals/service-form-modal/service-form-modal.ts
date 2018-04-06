@@ -19,6 +19,7 @@ const serviceFormModalModule = angular.module(
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.pro-tags-dropdown',
   'profitelo.components.interface.dropdown',
+  'profitelo.components.interface.tooltip',
   apiModule,
   inputModule,
   textareaModule,
