@@ -1,7 +1,11 @@
 section.unsupported
   .container
-    img.anymind-logo(src='/assets/images/anymind_logo_medium.png' alt='AnyMind')
+    header
+      h4 Niestety, Twoja przeglądarka i/lub system operacyjny nie jest wspierany przez AnyMind
+      p Aby móc używać AnyMind, skorzystaj z komputera z systemem Windows, Linux lub OSX, albo z urządzenia mobilnego z systemem Android <strong>oraz</strong> przeglądarki Chrome
 
-    header.header
-      span Ups, Twoje urządzenie nie wspiera technologii AnyMind...
-    p Aplikacja na Twój system będzie wkrótce dostępna w App Store.
+    .browser-info-container
+      .single-browser
+        a(href='https://www.google.com/chrome/' target='_blank')
+          img.browsers-icons.chrome(src="/assets/images/browsers/chrome.png")
+          span Chrome
