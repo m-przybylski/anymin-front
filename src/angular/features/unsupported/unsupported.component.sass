@@ -13,18 +13,39 @@
     max-width: 100%
     text-align: center
 
-  .anymind-logo
-    margin: 0 0 32px
+    h4
+      font-size: 22px
+      line-height: 32px
+      font-weight: 400
+      color: $c-primary-txt
 
-  .widget-header
+    p
+      font-weight: 400
+      color: $c-secondary-txt
+      font-size: 14px
+      margin: 16px 0 0
+      line-height: 18px
+
+
+  .browser-info-container
+    margin: 48px 0 0
+    display: flex
     justify-content: center
 
-  .header
-    margin: 0 0 16px
+    .single-browser
+      margin: 0 32px
 
-    span
-      +header
-      +default-font-regular
+      > *
+        display: block
 
-  p
-    +subHeader
+      img
+        height: 48px
+        width: 48px
+
+      span
+        display: block
+        text-align: center
+        margin-top: 24px
+        font-size: 14px
+        color: $c-primary
+
