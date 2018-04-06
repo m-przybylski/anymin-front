@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {PayoutsMethodsModalController, IPayoutsModalControllerScope} from './payouts-methods.controller'
 import {PayoutsMethodsModalService} from './payouts-methods.service'
 import SpyObj = jasmine.SpyObj
-import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import {default as payoutsMethodsModalModule} from './payouts-methods'
 import {IRootScopeService} from '../../../../../../services/root-scope/root-scope.service';
 
@@ -87,20 +86,6 @@ describe('Testing Controller: PayoutsMethodsModalController', () => {
     controller.addPayPalAccount()
     scope.$apply()
     expect($uibModalInstance.dismiss).toHaveBeenCalled()
-  }))
-
-  it('should hide loader when add pay pal account fails',
-    inject(($q: ng.IQService, $controller: ng.IControllerService, errorHandler: ErrorHandlerService) => {
-    spyOn(errorHandler, 'handleServerError')
-      payoutsMethodsModalService.putPayoutMethod.and.callFake(() => $q.reject())
-    controller = $controller<PayoutsMethodsModalController>('payoutsMethodsModalController', {
-      $uibModalInstance,
-      payoutsMethodsModalService,
-      $scope: scope
-    })
-    controller.addPayPalAccount()
-    scope.$apply()
-    expect(controller.isLoading).toBe(false)
   }))
 
 })

@@ -41,7 +41,7 @@ describe('Unit testing: profitelo.components.settings.modals.payouts.payouts-met
       (done) => inject((errorHandler: ErrorHandlerService, $httpBackend: ng.IHttpBackendService,
                         PayoutsApiMock: PayoutsApiMock) => {
       spyOn(errorHandler, 'handleServerError')
-      PayoutsApiMock.putPayoutMethodRoute(httpCodes.badRequest)
+      PayoutsApiMock.putPayoutMethodRoute(httpCodes.internalServerError)
         payoutsMethodsModalService.putPayoutMethod({}).catch( _error => {
         expect(errorHandler.handleServerError).toHaveBeenCalled()
         done()

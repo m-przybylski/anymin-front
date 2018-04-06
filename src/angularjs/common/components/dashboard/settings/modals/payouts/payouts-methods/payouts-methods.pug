@@ -17,8 +17,8 @@
             | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL' | translate }}
             span.icon.icon-success-12
 
-        .add-payout-method(data-ng-switch="vm.payoutMethod")
-          .modal-form(data-ng-switch-when="paypalAccount" id="paypalAccount")
+        .add-payout-method
+          .modal-form(data-ng-show="vm.payoutMethod === 'paypalAccount'")
             .modal-container
               .paypal-method
                 form.form(data-ng-submit="payPalForm.$valid && vm.addPayPalAccount()" name="payPalForm")
@@ -38,7 +38,7 @@
                     data-ng-disabled="!vm.isPayPalEmailValid()"
                   )
 
-          .modal-form(data-ng-switch-when="bankAccount" id="bankAccount")
+          .modal-form(data-ng-show="vm.payoutMethod === 'bankAccount'")
             .modal-container
               .paypal-method
                 form.form(data-ng-submit="bankForm.$valid && vm.addBankAccount()" name="bankForm")
@@ -47,13 +47,13 @@
                   data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK_ACCOUNT.PLACEHOLDER"
                   data-ng-model="vm.bankAccountNumber"
                   data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK_ACCOUNT.LABEL"
-                  data-ng-pattern="vm.bankAccountNumberPattern"
-                  data-is-valid="vm.isBankAccountNumberValid()"
+                  data-is-valid="vm.isBankAccountNumberValid() && !vm.isBackendValidationError"
                   data-validation-text="DASHBOARD.CHARGE_ACCOUNT.BANK_ACCOUNT_ERROR"
+                  data-on-change-callback="vm.onInputChange"
                   )
 
                   button.btn.btn-default(
                   data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON"
                   type="submit"
-                  data-ng-disabled="!vm.isBankAccountNumberValid()"
+                  data-ng-disabled="!vm.isBankAccountNumberValid() || vm.isBackendValidationError"
                   )
