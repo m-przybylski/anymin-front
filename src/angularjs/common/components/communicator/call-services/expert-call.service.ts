@@ -147,7 +147,7 @@ export class ExpertCallService {
   }
 
   private onExpertBusinessCallIncoming = (session: Session, call: BusinessCall): void => {
-    this.ServiceApi.getSueDetailsForExpertRoute(call.id+'123').then((expertSueDetails) => {
+    this.ServiceApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
       this.soundsService.callIncomingSound().play();
 
