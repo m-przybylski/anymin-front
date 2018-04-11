@@ -172,8 +172,10 @@ export class ExpertCallService {
       call.onEnd((end: CallEnd) => this.handleCallEndedBeforeAnswering(end, callingModal));
 
     }, (err) => {
-      this.logger.error('ExpertCallService: Could not get incoming call details, rejecting the call', call, err);
-      if (err.status !== httpCodes.unauthorized) {
+      if (err.status === httpCodes.unauthorized) {
+        this.logger.error('ExpertCallService: Unauthorized to get incoming call details', call, err);
+      } else {
+        this.logger.error('ExpertCallService: Error when getting incoming call details, rejecting the call', call, err);
         call.reject(CallReason.CallRejected);
       }
     });
