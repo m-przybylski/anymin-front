@@ -23,6 +23,7 @@ import 'rxjs/add/observable/fromPromise';
 import { PullableCall } from '../models/pullable-call';
 import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 import { Config } from '../../../../../config';
+import { httpCodes } from '../../../classes/http-codes';
 
 export class ExpertCallService {
 
@@ -138,15 +139,15 @@ export class ExpertCallService {
     if (callType.isBusiness(call)) {
       this.onExpertBusinessCallIncoming(session, call);
     } else {
-      this.logger.warn('ExpertCallService: Incoming call was not of BusinessCall type, rejecting');
+      this.logger.error('ExpertCallService: Incoming call was not of BusinessCall type, rejecting', call);
       call.reject(CallReason.CallRejected).then(
         () => this.logger.debug('ExpertCallService: Unsupported call invitation leave successful'),
-        (err) => this.logger.warn('ExpertCallService: Can not leave unsupported call invitation', err));
+        (err) => this.logger.error('ExpertCallService: Can not leave unsupported call invitation', err));
     }
   }
 
   private onExpertBusinessCallIncoming = (session: Session, call: BusinessCall): void => {
-    this.ServiceApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+    this.ServiceApi.getSueDetailsForExpertRoute(call.id+'123').then((expertSueDetails) => {
 
       this.soundsService.callIncomingSound().play();
 
@@ -171,8 +172,10 @@ export class ExpertCallService {
       call.onEnd((end: CallEnd) => this.handleCallEndedBeforeAnswering(end, callingModal));
 
     }, (err) => {
-      this.logger.warn('ExpertCallService: Could not get incoming call details, rejecting the call', err);
-      call.reject(CallReason.CallRejected);
+      this.logger.error('ExpertCallService: Could not get incoming call details, rejecting the call', call, err);
+      if (err.status !== httpCodes.unauthorized) {
+        call.reject(CallReason.CallRejected);
+      }
     });
   }
 
