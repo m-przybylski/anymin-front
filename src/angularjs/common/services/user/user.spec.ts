@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {UserService} from './user.service'
 import userModule from './user'
-import {AccountDetails, AccountLogin} from 'profitelo-api-ng/model/models'
+import {AccountDetails, LoginCredentials} from 'profitelo-api-ng/model/models'
 import sessionMockModule from '../session/session.mock';
 
 describe('Unit testing: profitelo.services.userService >', () => {
@@ -22,7 +22,7 @@ describe('Unit testing: profitelo.services.userService >', () => {
     const sessionServiceWrapper = {
       getSession: (): ng.IPromise<{account: AccountDetails}> => resolverParam,
       logout: (): ng.IPromise<void> => q.resolve(),
-      login: (_loginDetails: AccountLogin): ng.IPromise<void> => q.resolve()
+      login: (_loginDetails: LoginCredentials): ng.IPromise<void> => q.resolve()
     }
 
     beforeEach(() => {

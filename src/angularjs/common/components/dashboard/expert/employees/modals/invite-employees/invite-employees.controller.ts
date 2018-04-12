@@ -90,13 +90,11 @@ export class ExpertInviteEmployeesController implements ng.IController {
       if (emailOrPhone.indexOf('@') > -1) {
         this.invitations.push({
           serviceId: service.id,
-          serviceName: service.name,
           email: emailOrPhone
         });
       } else {
         this.invitations.push({
           serviceId: service.id,
-          serviceName: service.name,
           msisdn: emailOrPhone
         });
       }

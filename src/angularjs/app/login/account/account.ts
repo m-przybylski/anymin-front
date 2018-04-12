@@ -1,6 +1,7 @@
+// tslint:disable:max-file-line-count
 import * as angular from 'angular';
-
 const phonenumbers = require('libphonenumber-js');
+import { LoggerService } from '@anymind-ng/core';
 import { IFilterService } from '../../../common/services/filter/filter.service';
 import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 import { LoginStateService } from '../../../common/services/login-state/login-state.service';
@@ -22,27 +23,26 @@ import inputModule from '../../../common/components/interface/input/input';
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password';
 import autoFocus from '../../../common/directives/auto-focus/auto-focus';
 import { LocalStorageWrapper } from '../../../common/classes/local-storage-wrapper/local-storage-wrapper';
-// import { Config } from '../../../../config';
 import { IInvitationObject } from '../../invitations/invitation.interface';
 import {
   RegistrationInvitationService
 } from
-  '../../../common/services/registration-invitation/registration-invitation.service';
+    '../../../common/services/registration-invitation/registration-invitation.service';
 import registerInvitationModule from '../../../common/services/registration-invitation/registration-invitation';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 import { ModalsService } from '../../../common/services/modals/modals.service';
 import modalsModule from '../../../common/services/modals/modals';
-import { httpCodes } from '../../../common/classes/http-codes';
+import { backendErrorCodes } from '../../../common/classes/backend-error-codes';
 
-function AccountFormController($log: ng.ILogService, $state: StateService,
+function AccountFormController($state: StateService,
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
                                topWaitingLoaderService: TopWaitingLoaderService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
                                CommonSettingsService: CommonSettingsService,
                                modalsService: ModalsService,
                                registrationInvitationService: RegistrationInvitationService,
-                               $window: Window): void {
+                               $window: Window, logger: LoggerService): void {
 
   this.enteredPassword = '';
   this.isPending = false;
@@ -88,9 +88,15 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
       case 'NO_PASSWORD':
         $state.go('app.login.forgot-password', {method: 'sms'});
         break;
+      case 'BLOCKED':
+        modalsService.createInfoAlertModal('ALERT.ACCOUNT_BLOCKED');
+        break;
       case 'UNREGISTERED':
-      default:
         $state.go('app.login.register');
+        break;
+      default:
+        modalsService.createInfoAlertModal('ALERT.SOMETHING_WENT_WRONG');
+        logger.error('AccountFormController: unrecognized registration status ', status);
     }
   };
 
@@ -116,22 +122,32 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
         _determinePhoneNumberStatus(response.status);
         this.fullPhoneNumber = loginStateService.getFullPhoneNumber();
         topWaitingLoaderService.stopLoader();
-      }, (error) => {
-        if (error.status === httpCodes.forbidden
-          && error.data.code === CommonSettingsService.errorCodes.notAllowedToLogin) {
-          this.isPending = false;
-          modalsService.createConfirmAlertModal('ACCOUNT.LOGIN.CLOSED_BETA_MODAL.HEADER', () => {
-            $window.open(CommonSettingsService.links.assignForClosedBeta, '_blank');
-          }, () => {
-          }, 'ACCOUNT.LOGIN.CLOSED_BETA_MODAL.CONFIRM_BUTTON');
-        } else {
-          $log.error(error);
-          this.isPending = false;
-          topAlertService.error({
-            message: $filter('translate')('INTERFACE.API_ERROR'),
-            timeout: 4
-          });
-          topWaitingLoaderService.stopLoader();
+        // tslint:disable-next-line:cyclomatic-complexity
+      }, (err) => {
+        this.isPending = false;
+        topWaitingLoaderService.stopLoader();
+
+        const code = err && err.data && err.data.code ? err.data.code : '';
+        switch (code) {
+          case backendErrorCodes.notAllowedToLogin:
+            modalsService.createConfirmAlertModal('ACCOUNT.LOGIN.CLOSED_BETA_MODAL.HEADER', () => {
+              $window.open(CommonSettingsService.links.assignForClosedBeta, '_blank');
+            }, () => {
+            }, 'ACCOUNT.LOGIN.CLOSED_BETA_MODAL.CONFIRM_BUTTON');
+            break;
+          case backendErrorCodes.badAuthCreds:
+          case backendErrorCodes.validationFailed:
+            this.serverError = true;
+            break;
+          case backendErrorCodes.accountBlocked:
+            modalsService.createInfoAlertModal('ALERT.ACCOUNT_BLOCKED');
+            break;
+          case backendErrorCodes.loginAttemptsExceeded:
+            modalsService.createInfoAlertModal('LOGIN.PASSWORD_ATTEMPTS_EXCEEDED');
+            break;
+          default:
+            modalsService.createInfoAlertModal('ALERT.SOMETHING_WENT_WRONG');
+            logger.error('AccountFormController: unrecognized registration status ', err);
         }
       });
     }
@@ -165,12 +181,31 @@ function AccountFormController($log: ng.ILogService, $state: StateService,
             $state.go('app.dashboard.client.favourites'); */
           window.location.href = '/dashboard/expert/activities';
         }
-      }, (error) => {
+        // tslint:disable-next-line:cyclomatic-complexity
+      }, (err) => {
         topWaitingLoaderService.stopLoader();
-        this.serverError = true;
         this.isPending = false;
-        if (error.status === '500' || error.status === '404') {
-          throw new Error('User can not login: ' + String(error));
+        const code = err && err.error && err.error.code ? err.error.code : '';
+        switch (code) {
+          case backendErrorCodes.notAllowedToLogin:
+            modalsService.createConfirmAlertModal('ACCOUNT.LOGIN.CLOSED_BETA_MODAL.HEADER', () => {
+              $window.open(CommonSettingsService.links.assignForClosedBeta, '_blank');
+            }, () => {
+            }, 'ACCOUNT.LOGIN.CLOSED_BETA_MODAL.CONFIRM_BUTTON');
+            break;
+          case backendErrorCodes.badAuthCreds:
+          case backendErrorCodes.validationFailed:
+            this.serverError = true;
+            break;
+          case backendErrorCodes.accountBlocked:
+            modalsService.createInfoAlertModal('ALERT.ACCOUNT_BLOCKED');
+            break;
+          case backendErrorCodes.loginAttemptsExceeded:
+            modalsService.createInfoAlertModal('LOGIN.PASSWORD_ATTEMPTS_EXCEEDED');
+            break;
+          default:
+            modalsService.createInfoAlertModal('ALERT.SOMETHING_WENT_WRONG');
+            logger.error('AccountFormController: unrecognized registration status ', err);
         }
       });
     }
@@ -213,6 +248,6 @@ angular.module('profitelo.controller.login.account', [
   autoFocus
 ])
   .config(['$stateProvider', config])
-  .controller('AccountFormController', ['$log', '$state', '$filter', 'RegistrationApi',
+  .controller('AccountFormController', ['$state', '$filter', 'RegistrationApi',
     'userService', 'topWaitingLoaderService', 'topAlertService', 'loginStateService', 'CommonSettingsService',
-    'modalsService', 'registrationInvitationService', '$window', AccountFormController]);
+    'modalsService', 'registrationInvitationService', '$window', 'logger', AccountFormController]);
