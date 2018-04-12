@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import { LoggerService } from '@anymind-ng/core';
 import { IFilterService } from '../../../common/services/filter/filter.service';
 import { TopWaitingLoaderService } from '../../../common/services/top-waiting-loader/top-waiting-loader.service';
 import { TopAlertService } from '../../../common/services/top-alert/top-alert.service';
@@ -25,6 +26,9 @@ import checkboxModule from '../../../common/components/interface/checkbox/checkb
 import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { StateService, StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
+import { backendErrorCodes } from '../../../common/classes/backend-error-codes';
+import { ModalsService } from '../../../common/services/modals/modals.service';
+import modalsModule from '../../../common/services/modals/modals';
 
 function RegisterController($log: ng.ILogService,
                             $filter: IFilterService,
@@ -38,7 +42,9 @@ function RegisterController($log: ng.ILogService,
                             RegistrationApi: RegistrationApi,
                             AccountApi: AccountApi,
                             loginStateService: LoginStateService,
-                            CommonConfig: CommonConfig): void {
+                            CommonConfig: CommonConfig,
+                            modalsService: ModalsService,
+                            logger: LoggerService): void {
   this.passwordStrength = 0;
   this.isPending = false;
   this.rulesAccepted = false;
@@ -65,6 +71,22 @@ function RegisterController($log: ng.ILogService,
 
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern;
 
+  const _handleSmsTokenError = (err: any): void => {
+    switch (err.data.code) {
+      case backendErrorCodes.badAuthCreds:
+      case backendErrorCodes.validationFailed:
+      case backendErrorCodes.incorrectToken:
+        this.serverError = true;
+        break;
+      case backendErrorCodes.tokenAttemptsExceeded:
+        modalsService.createInfoAlertModal('LOGIN.VERIFICATION_ATTEMPTS_EXCEEDED');
+        break;
+      default:
+        modalsService.createInfoAlertModal('ALERT.SOMETHING_WENT_WRONG');
+        logger.error('AccountFormController: unrecognized registration status ', err);
+    }
+  };
+
   this.verifyCode = (): void => {
     if (angular.isDefined(this.registrationSteps.smsCode) &&
       this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
@@ -75,8 +97,7 @@ function RegisterController($log: ng.ILogService,
       }).then(() => {
         this.correctCode = true;
       }, (err: any) => {
-        $log.error(err);
-        this.serverError = true;
+        _handleSmsTokenError(err);
       });
     } else if (!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
       this.alreadyCheck = false;
@@ -104,10 +125,9 @@ function RegisterController($log: ng.ILogService,
           $state.go('app.post-register.set-password');
         });
       }, (error: any) => {
-        $log.error(error);
         this.isPending = false;
-        this.serverError = true;
         topWaitingLoaderService.stopLoader();
+        _handleSmsTokenError(error);
       });
     }
   };
@@ -170,6 +190,7 @@ angular.module('profitelo.controller.login.register', [
   'profitelo.resolvers.login-register',
   apiModule,
   uiRouter,
+  modalsModule,
   communicatorModule,
   commonSettingsModule,
   topAlertModule,
@@ -183,4 +204,5 @@ angular.module('profitelo.controller.login.register', [
   .config(['$stateProvider', config])
   .controller('RegisterController', ['$log', '$filter', '$state', 'topWaitingLoaderService',
     'eventsService', 'sessionServiceWrapper', 'topAlertService', 'smsSessionId', 'CommonSettingsService',
-    'RegistrationApi', 'AccountApi', 'loginStateService', 'CommonConfig', RegisterController]);
+    'RegistrationApi', 'AccountApi', 'loginStateService', 'CommonConfig', 'modalsService', 'logger',
+    RegisterController]);

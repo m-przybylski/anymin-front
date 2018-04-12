@@ -11,6 +11,7 @@ import {UserService} from '../../../common/services/user/user.service'
 import {Config} from '../../../../config';
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
 import {StateService} from '@uirouter/angularjs'
+import loggerMockModule from '../../../common/services/logger/logger.mock';
 
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {
@@ -47,6 +48,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.login.account')
+      angular.mock.module(loggerMockModule);
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $injector: ng.auto.IInjectorService,
               _topWaitingLoaderService_: TopWaitingLoaderService, _topAlertService_: TopAlertService,
               _loginStateService_: LoginStateService, _$httpBackend_: ng.IHttpBackendService,
@@ -137,13 +139,11 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     })
 
     it('should get error response', () => {
-      spyOn(topAlertService, 'error')
       AccountFormController.phoneNumber = '555555555';
       AccountFormController.prefix = '000';
       _RegistrationApiMock.checkRegistrationStatusRoute(400, '000555555555', <any>{status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
-      expect(topAlertService.error).toHaveBeenCalled()
     })
 
     it('should redirect to forgot-password', () => {
@@ -167,15 +167,5 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
         expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
       }))
-
-    it('should display error', inject(($q: ng.IQService) => {
-      spyOn(userService, 'login').and.returnValue($q.reject({status: 406}))
-
-      AccountFormController.current = 2
-      AccountFormController.login()
-      scope.$digest()
-      expect(AccountFormController.serverError).toBe(true)
-    }))
-
   })
 })

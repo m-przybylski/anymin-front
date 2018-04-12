@@ -7,6 +7,7 @@ import {TopWaitingLoaderService} from '../../../common/services/top-waiting-load
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
+import loggerMockModule from '../../../common/services/logger/logger.mock';
 
 describe('Unit tests: profitelo.controller.login.register>', () => {
   describe('Testing Controller: RegisterController', () => {
@@ -54,6 +55,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.login.register')
+      angular.mock.module(loggerMockModule);
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
               _topWaitingLoaderService_: TopWaitingLoaderService, RegistrationApi: RegistrationApi,
               AccountApi: AccountApi, _topAlertService_: TopAlertService,

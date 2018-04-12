@@ -1,6 +1,6 @@
 import { UserSessionService } from '../../../../angular/core/services/user-session/user-session.service';
 import { Config } from '../../../../config';
-import { GetSession, AccountLogin } from 'profitelo-api-ng/model/models';
+import { GetSession, LoginCredentials } from 'profitelo-api-ng/model/models';
 import { EventsService } from '../events/events.service';
 import { UpgradeService } from '../upgrade/upgrade.service';
 import { StateService } from '@uirouter/angularjs';
@@ -27,7 +27,7 @@ export class SessionServiceWrapper {
   public logout = (): ng.IPromise<void> =>
     this.upgradeService.toIPromise(this.userSessionService.logout()).then(this.onSuccessLogout)
 
-  public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> =>
+  public login = (loginDetails: LoginCredentials): ng.IPromise<GetSession> =>
     this.upgradeService.toIPromise(this.userSessionService.login(loginDetails)).then(this.onSuccessLogin)
 
   public getSession = (force = false): ng.IPromise<GetSession> =>
