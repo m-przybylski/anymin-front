@@ -5,7 +5,6 @@ import { TopAlertService } from '../../services/top-alert/top-alert.service';
 import { SessionServiceWrapper } from '../../services/session/session.service';
 import topAlertModule from '../../services/top-alert/top-alert';
 import sessionModule from '../../services/session/session';
-import { TranslatorService } from '../../services/translator/translator.service';
 import translatorModule from '../../services/translator/translator';
 import { Config } from '../../../../config';
 import { IRootScopeService } from '../../services/root-scope/root-scope.service';
@@ -14,12 +13,15 @@ import { StateService } from '@uirouter/angularjs';
 // tslint:disable:member-ordering
 export class LoginConfirmEmailResolver {
 
-  public static $inject = ['$q', '$rootScope', '$timeout', 'translatorService', '$state', 'topAlertService',
+  public static $inject = ['$q', '$rootScope', '$timeout', '$state', 'topAlertService',
     'sessionServiceWrapper', 'AccountApi'];
 
-  constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
-              private translatorService: TranslatorService, private $state: StateService,
-              private topAlertService: TopAlertService, private sessionServiceWrapper: SessionServiceWrapper,
+  constructor(private $q: ng.IQService,
+              private $rootScope: IRootScopeService,
+              private $timeout: ng.ITimeoutService,
+              private $state: StateService,
+              private topAlertService: TopAlertService,
+              private sessionServiceWrapper: SessionServiceWrapper,
               private AccountApi: AccountApi) {
 
   }
@@ -30,7 +32,7 @@ export class LoginConfirmEmailResolver {
     const handleBadToken = (): void => {
       _deferred.reject();
       this.topAlertService.error({
-        message: this.translatorService.translate('LOGIN.EMAIL_CONFIRMATION_FAIL'),
+        message: 'Nie udało się potwierdzić adresu email.',
         timeout: 4
       });
       this.$timeout(() => {
@@ -45,7 +47,7 @@ export class LoginConfirmEmailResolver {
         _deferred.resolve();
 
         this.topAlertService.success({
-          message: this.translatorService.translate('LOGIN.EMAIL_CONFIRMATION_SUCCESS'),
+          message: 'Adres email został potwierdzony!',
           timeout: 4
         });
 
