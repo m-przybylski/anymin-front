@@ -51,13 +51,14 @@ export class InputConsultationTagComponentController implements IInputConsultati
   }
 
   public onEnter = (): void => {
-    if (this.isTagValid()) {
-      this.selectedTags.push((this.tagModel || '').toLowerCase());
+    const tag = (this.tagModel || '').toLowerCase();
+    if (this.isTagValid(tag)) {
+      this.selectedTags.push(tag);
       this.isInputValidationAlert = false;
       this.tagModel = '';
       this.updateSuggestedTags();
     } else {
-      this.showInputValidationAlert();
+      this.showInputValidationAlert(tag);
     }
   }
 
@@ -156,12 +157,12 @@ export class InputConsultationTagComponentController implements IInputConsultati
     this.isError = true;
   }
 
-  private isTagPatternValid = (): boolean => this.tagPattern.test(this.tagModel);
+  private isTagPatternValid = (tag: string): boolean => this.tagPattern.test(tag);
 
-  private isTagLengthValid = (): boolean =>
-    this.minTagLength <= this.tagModel.length && this.tagModel.length <= this.maxTagLength
+  private isTagLengthValid = (tag: string): boolean =>
+    this.minTagLength <= tag.length && tag.length <= this.maxTagLength
 
-  private isMaxTagWordsValid = (): boolean => this.tagModel.split(' ').length <= this.maxTagWordsCount;
+  private isMaxTagWordsValid = (tag: string): boolean => tag.split(' ').length <= this.maxTagWordsCount;
 
   private throttlePostTagsSuggestions = (tagsQuery: PostSuggestTags): void =>
     _.throttle(() => this.postTagsSuggestions(tagsQuery),
@@ -169,31 +170,31 @@ export class InputConsultationTagComponentController implements IInputConsultati
 
   private isTagsCountValid = (): boolean => this.selectedTags.length < this.maxTagsCount;
 
-  private isTagNotDuplicated = (): boolean => this.selectedTags.indexOf(this.tagModel) === -1;
+  private isTagNotDuplicated = (tag: string): boolean => this.selectedTags.indexOf(tag) === -1;
 
-  private isTagValid = (): boolean =>
-    this.isTagLengthValid()
-    && this.isTagNotDuplicated()
+  private isTagValid = (tag: string): boolean =>
+    this.isTagLengthValid(tag)
+    && this.isTagNotDuplicated(tag)
     && this.isTagsCountValid()
-    && this.isTagPatternValid()
-    && this.isMaxTagWordsValid()
+    && this.isTagPatternValid(tag)
+    && this.isMaxTagWordsValid(tag)
 
-  private assignValidationAlertTranslation = (): void => {
+  private assignValidationAlertTranslation = (tag: string): void => {
     if (!this.isTagsCountValid()) {
       this.validationAlertTranslation = InputConsultationTagComponentController.validationTranslations.tagsCount;
-    } else if (!this.isTagLengthValid()) {
+    } else if (!this.isTagLengthValid(tag)) {
       this.validationAlertTranslation = InputConsultationTagComponentController.validationTranslations.charactersCount;
-    } else if (!this.isTagNotDuplicated()) {
+    } else if (!this.isTagNotDuplicated(tag)) {
       this.validationAlertTranslation = InputConsultationTagComponentController.validationTranslations.duplicate;
-    } else if (!this.isMaxTagWordsValid()) {
+    } else if (!this.isMaxTagWordsValid(tag)) {
       this.validationAlertTranslation = InputConsultationTagComponentController.validationTranslations.wordsCount;
-    } else if (!this.isTagPatternValid()) {
+    } else if (!this.isTagPatternValid(tag)) {
       this.validationAlertTranslation = InputConsultationTagComponentController.validationTranslations.name;
     }
   }
 
-  private showInputValidationAlert = (): void => {
-    this.assignValidationAlertTranslation();
+  private showInputValidationAlert = (tag: string): void => {
+    this.assignValidationAlertTranslation(tag);
     this.isInputValidationAlert = true;
   }
 
