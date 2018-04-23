@@ -118,7 +118,7 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
     });
 
     it('should assign validation alert translation when tag is duplicated', () => {
-      component.selectedTags = ['someTag']
+      component.selectedTags = ['sometag'];
       component.tagModel = 'someTag';
       component.onEnter();
       expect(component.validationAlertTranslation).toEqual(
@@ -130,13 +130,6 @@ describe('Unit testing: profitelo.components.interface.input-consultation-tag', 
       component.onEnter();
       expect(component.validationAlertTranslation).toEqual(
         'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_WORDS_COUNT');
-    });
-
-    it('should assign validation alert translation when tag name invalid', () => {
-      component.tagModel = 'WWWW';
-      component.onEnter();
-      expect(component.validationAlertTranslation).toEqual(
-        'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAG_NAME');
     });
 
   })
