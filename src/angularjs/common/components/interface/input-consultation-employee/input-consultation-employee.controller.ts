@@ -1,9 +1,13 @@
 import { IInputConsultationEmployeeBindings } from './input-consultation-employee';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
-import { CSVFileReader } from './CSVFileReader';
 import { UserService } from '../../../services/user/user.service';
 import { LoggerService } from '@anymind-ng/core';
+import { ParseResult, ParseError } from 'papaparse';
+// tslint:disable-next-line
+import { flatten } from 'lodash';
+import { ModalsService } from '../../../services/modals/modals.service';
 
+const Papa = require('papaparse');
 const phoneNumbers = require('libphonenumber-js');
 
 // tslint:disable:member-ordering
@@ -15,7 +19,6 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public isInputValueInvalid = false;
   public isUploadFileIsInvalid = false;
   public areUploadedFilesInvalid = false;
-  public wrongValuesCounter: number;
   private mailRegexp: RegExp;
   private phonePattern: RegExp;
   public isFocus = false;
@@ -24,20 +27,16 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   public isCheckboxVisible = true;
   public isMaxConsultationCountError = false;
 
-  private readonly validationTime = 3000;
-  private CSVFileReader: CSVFileReader;
-
   private static readonly defaultCountryPrefix = '+48';
   private consultationInvitationsMaxCount: number;
   private userEmail?: string;
   private userPhoneNumber?: string;
-  public static $inject = ['CommonSettingsService', '$timeout', 'userService', 'logger'];
+  public static $inject = ['CommonSettingsService', 'userService', 'modalsService', 'logger'];
 
   constructor(private CommonSettingsService: CommonSettingsService,
-              private $timeout: ng.ITimeoutService,
               private userService: UserService,
+              private modalsService: ModalsService,
               private logger: LoggerService) {
-    this.CSVFileReader = new CSVFileReader;
     this.assignValidationValues();
   }
 
@@ -130,7 +129,25 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   }
 
   public uploadCSVFile = (files: FileList): void => {
-    this.CSVFileReader.read(files[0], this.onLoadFile, this.handleErrorUpload);
+    const file = files[0];
+    if (file) {
+      Papa.parse(file, {
+        complete: (result: ParseResult): void => {
+          const loadedNumber = this.onLoadFile(result.data);
+          this.showCSVstatus(loadedNumber, result.errors);
+        }
+      });
+    } else {
+      this.logger.error('InputConsultationEmployeeComponentController: csv upload - file is undefined');
+    }
+  }
+
+  private showCSVstatus = (loadedNumber: number, errors: ParseError[]): void => {
+    this.modalsService.createInfoAlertModal(`Liczba załadowanych rekordów: ${loadedNumber}`, () => {
+      if (errors.length > 0 && loadedNumber === 0) {
+        this.modalsService.createInfoAlertModal('Błąd! Format pliku jest niepoprawny');
+      }
+    });
   }
 
   private isEmailBelongsToUser = (email: string): boolean => this.userEmail === email;
@@ -138,41 +155,46 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   private isPhoneNumberBelongsToUser = (phoneNumber: string): boolean =>
     this.userPhoneNumber === InputConsultationEmployeeComponentController.defaultCountryPrefix + phoneNumber
 
-  private onLoadFile = (mailOrNumberList: string[]): void => {
-    this.wrongValuesCounter = 0;
-    mailOrNumberList.forEach((mailOrNumber) => {
-      if (mailOrNumber.length > 0 && !(this.addedItemsList.indexOf(mailOrNumber) !== -1) &&
-        (this.mailRegexp.test(mailOrNumber) || phoneNumbers.isValidNumber(mailOrNumber))) {
-        this.addedItemsList.push(mailOrNumber);
+  private onLoadFile = (csv: string[][]): number => {
+    const emailsOrMsisdns = flatten(csv).filter(str => str.length > 0).map(str => str.replace(/\s/g, ''));
+    this.logger.debug(emailsOrMsisdns);
+
+    let loadedCount = 0;
+    emailsOrMsisdns.forEach((emailOrMsisdn) => {
+
+      if (this.addedItemsList.indexOf(emailOrMsisdn) === -1 && this.mailRegexp.test(emailOrMsisdn)) {
+        this.logger.debug(`Recognized ${emailOrMsisdn} as email`);
+        loadedCount += 1;
+        this.addedItemsList.push(emailOrMsisdn);
       } else {
-        this.wrongValuesCounter++;
+        try {
+          const maybeMsisdn = this.getNumberWithoutPolishPrefix(emailOrMsisdn);
+          const arrayNumber = this.getFullPhoneNumber(maybeMsisdn);
+          if (phoneNumbers.isValidNumber(maybeMsisdn, 'PL') && this.addedItemsList.indexOf(arrayNumber) === -1) {
+            loadedCount += 1;
+            this.addedItemsList.push(arrayNumber);
+          }
+        } catch (e) {
+            this.logger.debug(`Not recognized ${emailOrMsisdn}`);
+        }
       }
     });
-    if (this.wrongValuesCounter > 0) {
-      this.showInvalidRecordsError();
-    }
-    if (mailOrNumberList.length < 1) {
-      this.showFileUploadError();
-    }
+
     this.isMaxConsultationCountError = this.areInvitationsExceedValidLimit();
+    return loadedCount;
   }
 
-  private handleErrorUpload = (): void => {
-    this.showFileUploadError();
-  }
-
-  private showFileUploadError = (): void => {
-    this.$timeout(() => {
-      this.isUploadFileIsInvalid = false;
-    }, this.validationTime);
-    this.isUploadFileIsInvalid = true;
-  }
-
-  private showInvalidRecordsError = (): void => {
-    this.$timeout(() => {
-      this.areUploadedFilesInvalid = false;
-    }, this.validationTime);
-    this.areUploadedFilesInvalid = true;
+  private getNumberWithoutPolishPrefix = (phonenumber: string): string => {
+    // tslint:disable:no-magic-numbers
+    if (phonenumber.startsWith('48')) {
+      return phonenumber.substr(2);
+    } else if (phonenumber.startsWith('0048')) {
+      return phonenumber.substr(4);
+    } else if (phonenumber.startsWith('+48')) {
+      return phonenumber.substr(3);
+    } else {
+      return phonenumber;
+    }
   }
 
   private isMaxInvitationsCountReached = (): boolean =>
