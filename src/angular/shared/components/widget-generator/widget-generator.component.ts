@@ -194,9 +194,9 @@ export class WidgetGeneratorComponent implements OnInit {
     });
   }
 
-  private generateBodyCode = (widgetId?: string): string => `<button
-      data-anymind-widget="${widgetId}"
-      class="anymind-button${this.radioModel === 'flatten' ? ' anymind-floating' : ''}"></button>`
+  private generateBodyCode = (widgetId?: string): string =>
+    // tslint:disable-next-line:max-line-length
+    `<button data-anymind-widget="${widgetId}" class="anymind-button${this.radioModel === 'flatten' ? ' anymind-floating' : ''}"></button>`
 
   private reloadServicesDropdown = (): void => {
     this.serviceCompanyList =
