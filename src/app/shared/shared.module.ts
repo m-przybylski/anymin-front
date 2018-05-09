@@ -28,6 +28,7 @@ import { LocalStorageWrapperService } from './services/local-storage/local-stora
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
 import { InputSetPasswordComponent } from './components/input-set-password/input-set-password.component';
 import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.service';
+import { CommonConfig } from '../../../generated_modules/common-config/common-config';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.se
     MsisdnGuard,
     LocalStorageWrapperService,
     RegistrationInvitationService,
-    PinCodeTimerService
+    PinCodeTimerService,
+    CommonConfig
   ]
 })
 

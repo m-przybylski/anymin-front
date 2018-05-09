@@ -17,7 +17,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDestroy {
 
-  public readonly msisdnFormName = 'msisdnForm';
+  public readonly msisdnFormId = 'msisdnForm';
   public readonly msisdnControlName = 'msisdn';
 
   public msisdnForm: FormGroup;

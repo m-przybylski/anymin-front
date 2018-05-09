@@ -74,22 +74,22 @@ export class SetPasswordViewService {
         }
       })
 
-  private handleSetPasswordError = (httpError: HttpErrorResponse): Observable<SetPasswordStatus> => {
+  private handleSetPasswordError = (httpError: HttpErrorResponse): SetPasswordStatus => {
     const err = httpError.error;
     if (isBackendError(err)) {
       switch (err.code) {
         case BackendErrors.IncorrectValidation:
-          return of(SetPasswordStatus.INVALID_PASSWORD);
+          return SetPasswordStatus.INVALID_PASSWORD;
 
         default:
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
           this.logger.warn('Unhandled set password status ');
-          return of(SetPasswordStatus.ERROR);
+          return SetPasswordStatus.ERROR;
       }
     } else {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       this.logger.warn('Error when set password', err);
-      return of(SetPasswordStatus.ERROR);
+      return SetPasswordStatus.ERROR;
     }
   }
 
@@ -129,9 +129,10 @@ export class SetPasswordViewService {
       .pipe(mergeMap(() => this.verifyEmailByToken(token)))
       .pipe(catchError(this.handleSetPasswordByInvitationError));
   }
+
   private setPasswordWithoutInvitation = (accountId: string, password: string): Observable<SetPasswordStatus> =>
     this.accountService.patchUpdateAccountRoute(accountId, {password})
       .pipe(mergeMap(this.redirectToSetEmail))
-      .pipe(catchError(this.handleSetPasswordError))
+      .pipe(catchError((err) => of(this.handleSetPasswordError(err))))
 
 }

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { VerifiedCodeService } from '../../verified-code.service';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { FormUtilsService } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService } from '@anymind-ng/components';
 import {
   SetNewPasswordFromMsisdnViewService,
   SetNewPasswordFromMsisdnStatus
@@ -22,7 +22,7 @@ import { Subject } from 'rxjs/Subject';
 export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy {
 
   public readonly passwordControlName = 'password';
-  public readonly setPasswordFormName = 'passwordForm';
+  public readonly setPasswordFormId = 'passwordForm';
 
   public msisdn: string;
   public token?: string;
@@ -37,6 +37,7 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
               private tokenService: VerifiedCodeService,
               private setNewPasswordFromMsisdnService: SetNewPasswordFromMsisdnViewService,
               private formUtils: FormUtilsService,
+              private alertService: AlertService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromMsisdnViewComponent');
   }
@@ -56,16 +57,21 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
   }
 
   public onFormSubmit = (setPasswordForm: FormGroup): void => {
-    if (setPasswordForm.valid && this.token) {
-      this.isRequestPending = true;
-      const password = setPasswordForm.controls[this.passwordControlName].value;
-      this.setNewPasswordFromMsisdnService.handleNewPassword(this.msisdn, this.token, password)
-        .pipe(finalize(() => {
-          this.tokenService.unsetVerifiedCode();
-          this.isRequestPending = false;
-        }))
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(this.handleSetNewPasswordStatus);
+    if (setPasswordForm.valid) {
+      if (this.token) {
+        this.isRequestPending = true;
+        const password = setPasswordForm.controls[this.passwordControlName].value;
+        this.setNewPasswordFromMsisdnService.handleNewPassword(this.msisdn, this.token, password)
+          .pipe(finalize(() => {
+            this.tokenService.unsetVerifiedCode();
+            this.isRequestPending = false;
+          }))
+          .pipe(takeUntil(this.ngUnsubscribe$))
+          .subscribe(this.handleSetNewPasswordStatus);
+      } else {
+        this.logger.warn('there is no token when try to submit form', this.token);
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+      }
     } else {
       this.formUtils.validateAllFormFields(setPasswordForm);
     }

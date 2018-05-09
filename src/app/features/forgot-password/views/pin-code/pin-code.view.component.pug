@@ -6,7 +6,7 @@
         [msisdn]="msisdn"
       )
         form(
-          [id]="pinCodeFormName",
+          [id]="pinCodeFormId",
           [formGroup]="pinCodeForm",
           novalidate,
           (ngSubmit)="onFormSubmit(pinCodeForm)")
@@ -24,7 +24,7 @@
 
           submit-button(
             titleText="FORGOT_PASSWORD.SUBMIT_BUTTON",
-            [formName]="pinCodeFormName",
+            [formName]="pinCodeFormId",
             [isLoading]="isRequestPending"
           )
 

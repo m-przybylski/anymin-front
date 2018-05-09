@@ -5,7 +5,7 @@
       subTitle="DASHBOARD.SET_EMAIL.SUBTITLE"
     )
       form(
-        [id]="setEmailFormName",
+        [id]="setEmailFormId",
         [formGroup]="setEmailForm",
         novalidate,
         (ngSubmit)="onFormSubmit(setEmailForm)"
@@ -24,6 +24,6 @@
 
         submit-button(
           titleText="LOGIN.NEXT",
-          [formName]="setEmailFormName",
+          [formName]="setEmailFormId",
           [isLoading]="isRequestPending"
         )

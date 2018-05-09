@@ -14,7 +14,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class SetEmailViewComponent implements OnInit, OnDestroy {
 
-  public readonly setEmailFormName = 'setEmailForm';
+  public readonly setEmailFormId = 'setEmailForm';
   public readonly emailControlName = 'email';
 
   public setEmailForm: FormGroup;

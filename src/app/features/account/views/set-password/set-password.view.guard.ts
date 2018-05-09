@@ -16,7 +16,7 @@ export class SetPasswordViewGuard implements CanActivate {
 
   public canActivate = (): Promise<boolean> =>
     this.userSessionService.getSession().then((session) => {
-        if (this.isUserHasPassword(session)) {
+        if (this.hasUserPassword(session)) {
           this.logger.info('SetPasswordViewGuard: user has password, redirecting to set-email');
           this.router.navigate(['/account/set-email']).then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
@@ -32,8 +32,8 @@ export class SetPasswordViewGuard implements CanActivate {
       }
     )
 
-  private isUserHasPassword = (session: GetSession): boolean | undefined => {
+  private hasUserPassword = (session: GetSession): boolean => {
     const userAccount = session.account;
-    return userAccount && userAccount.hasPassword;
+    return userAccount !== undefined && userAccount.hasPassword;
   }
 }

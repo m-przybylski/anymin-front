@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 
 @Component({
   selector: 'login-mobile-footer',
@@ -8,5 +9,12 @@ import { Component } from '@angular/core';
 
 export class LoginMobileFooterComponent {
 
-  constructor() {}
+  private readonly googlePlayStoreUrl = this.CommonConfig.getAllData().urls['play-store'];
+
+  constructor(private CommonConfig: CommonConfig) {}
+
+  public redirectToGooglePlayStore = (): void => {
+    window.open(this.googlePlayStoreUrl, '_blank');
+  }
+
 }

@@ -19,7 +19,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class PinCodeViewComponent implements OnInit, OnDestroy {
 
-  public readonly pinCodeFormName = 'pinCodeForm';
+  public readonly pinCodeFormId = 'pinCodeForm';
   public readonly pinCodeControlName = 'pinCode';
   public readonly termsOfServiceControlName = 'termsOfService';
   public readonly termsOfMarketingControlName = 'termsOfMarketing';
@@ -112,6 +112,10 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
     switch (status) {
       case PinCodeServiceStatus.SUCCESS:
         this.logger.warn('Handled backend success status');
+        break;
+
+      case PinCodeServiceStatus.CREATE_MSISDN_TOKEN_TOO_RECENTLY:
+        this.logger.warn('Handled backend CREATE_MSISDN_TOKEN_TOO_RECENTLY status');
         break;
 
       case PinCodeServiceStatus.INVALID:
