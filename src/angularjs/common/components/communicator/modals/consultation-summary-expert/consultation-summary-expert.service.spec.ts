@@ -67,7 +67,6 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
         consultationSummaryExpertService.sendTechnicalProblems(sueId, problemType, description).then((response) => {
           expect(response).toEqual({problemType, description})
-          console.log(response)
           done()
         })
         $httpBackend.flush()
