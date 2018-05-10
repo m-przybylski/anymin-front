@@ -62,7 +62,7 @@ describe('Component: PhoneNumberViewComponent', () => {
     });
   }));
 
-  it('should display validaion error cause number is invalid', () => {
+  it('should display validation error cause number is invalid', () => {
     const componentFixture = TestBed.createComponent(PhoneNumberViewComponent);
     const component = componentFixture.componentInstance;
     const mockFormUtilsService = TestBed.get(FormUtilsService);

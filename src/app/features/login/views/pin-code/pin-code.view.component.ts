@@ -14,8 +14,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Component({
   templateUrl: './pin-code.view.html',
-  styleUrls: ['./pin-code.view.component.sass'],
-  providers: [PinCodeViewService]
+  styleUrls: ['./pin-code.view.component.sass']
 })
 export class PinCodeViewComponent implements OnInit, OnDestroy {
 
