@@ -101,10 +101,10 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
       .subscribe(timeLeft => this.timeLeft = timeLeft);
   }
 
-  private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<{}> => {
+  private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('error when resolving pin-code', httpError);
-    return of({});
+    return of();
   }
 
   // tslint:disable:cyclomatic-complexity

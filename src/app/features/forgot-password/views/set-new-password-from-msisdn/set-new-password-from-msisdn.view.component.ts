@@ -69,7 +69,7 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
           .pipe(takeUntil(this.ngUnsubscribe$))
           .subscribe(this.handleSetNewPasswordStatus);
       } else {
-        this.logger.warn('there is no token when try to submit form', this.token);
+        this.logger.error('there is no token when try to submit form', this.token);
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       }
     } else {

@@ -13,7 +13,7 @@ export class LoginMobileFooterComponent {
 
   constructor(private CommonConfig: CommonConfig) {}
 
-  public redirectToGooglePlayStore = (): void => {
+  public openGooglePlayStoreInNewTab = (): void => {
     window.open(this.googlePlayStoreUrl, '_blank');
   }
 

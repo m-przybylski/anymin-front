@@ -12,7 +12,7 @@ export class SetNewPasswordFromEmailViewGuard implements CanActivate {
               private route: ActivatedRouteSnapshot) {
   }
 
-  // TODO WAIT FOR BACKEND
+  // TODO WAIT FOR BACKEND: PLAT-236
   public canActivate(): boolean {
     if (this.isTokenValid()) {
       return true;

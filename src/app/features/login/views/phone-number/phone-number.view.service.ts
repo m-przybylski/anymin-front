@@ -42,7 +42,7 @@ export class PhoneNumberViewService {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
     return this.checkIsMsisdnInvitationExist() && invitationObject && invitationObject.msisdn
       ? invitationObject.msisdn.slice(this.prefixLength)
-      : '';
+      : undefined;
   }
 
   private handleRegistrationStatus = (msisdn: string, status: GetRegistrationStatus.StatusEnum):

@@ -49,9 +49,11 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
     this.msisdnForm.controls[this.msisdnControlName].setValidators(
       this.inputPhoneNumber.getValidators(this.msisdnPrefix));
 
-    this.msisdnForm.setValue({
-      [this.msisdnControlName]: invitePhoneNumber
-    });
+    if (invitePhoneNumber) {
+      this.msisdnForm.setValue({
+        [this.msisdnControlName]: invitePhoneNumber
+      });
+    }
   }
 
   public ngOnDestroy(): void {
@@ -73,22 +75,22 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
   }
 
   private handleRegistrationStatus = (status: PhoneNumberServiceStatus): void => {
-      switch (status) {
-        case PhoneNumberServiceStatus.MSISDN_INVALID:
-          this.displayIncorrectMsisdnError();
-          break;
+    switch (status) {
+      case PhoneNumberServiceStatus.MSISDN_INVALID:
+        this.displayIncorrectMsisdnError();
+        break;
 
-        case PhoneNumberServiceStatus.SUCCESS:
-          this.logger.warn('Msisdn handled properly (success)');
-          break;
+      case PhoneNumberServiceStatus.SUCCESS:
+        this.logger.warn('Msisdn handled properly (success)');
+        break;
 
-        case PhoneNumberServiceStatus.ERROR:
-          this.logger.warn('Msisdn handled properly (error)');
-          break;
+      case PhoneNumberServiceStatus.ERROR:
+        this.logger.warn('Msisdn handled properly (error)');
+        break;
 
-        default:
-          this.logger.error('Unhandled phone number registration status', status);
-      }
+      default:
+        this.logger.error('Unhandled phone number registration status', status);
+    }
   }
 
   private displayIncorrectMsisdnError = (): void => {
