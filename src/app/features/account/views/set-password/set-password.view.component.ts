@@ -14,12 +14,11 @@ import { Subject } from 'rxjs/Subject';
 })
 export class SetPasswordViewComponent implements OnInit, OnDestroy {
 
-  public readonly setPasswordFormName = 'setPasswordForm';
+  public readonly setPasswordFormId = 'setPasswordForm';
   public readonly passwordControlName = 'password';
 
   public setPasswordForm: FormGroup;
   public isRequestPending = false;
-  public msisdn: string;
   public isInputInitialFocused = true;
 
   private accountId: string;
@@ -35,12 +34,7 @@ export class SetPasswordViewComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.setPasswordForm = new FormGroup({});
-
     this.accountId = this.route.snapshot.data.accountId;
-
-    this.route.params.subscribe(params => {
-      this.msisdn = params.msisdn;
-    });
   }
 
   public ngOnDestroy(): void {

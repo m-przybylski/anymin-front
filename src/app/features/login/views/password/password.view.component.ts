@@ -12,7 +12,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 export class PasswordViewComponent implements OnInit {
 
-  public readonly passwordFormName = 'passwordForm';
+  public readonly passwordFormId = 'passwordForm';
   public readonly passwordControlName = 'password';
 
   public passwordForm: FormGroup;
@@ -45,7 +45,7 @@ export class PasswordViewComponent implements OnInit {
       const password = passwordForm.value[this.passwordControlName];
 
       this.passwordService.login(this.msisdn, password)
-        .then((status: PasswordLoginStatus) => {
+        .then((status) => {
           this.isRequestPending = false;
           this.handlePasswordStatus(status);
         })

@@ -5,7 +5,6 @@ import { EventsService } from '../events/events.service';
 import { GetSession } from 'profitelo-api-ng/model/GetSession';
 import { LoginCredentials } from '@anymind-ng/api';
 
-// tslint:disable:member-ordering
 export class UserService {
 
   public static $inject = ['sessionServiceWrapper', 'eventsService'];

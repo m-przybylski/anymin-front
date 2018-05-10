@@ -2,12 +2,14 @@ import { IInvitationObject } from '../../../../angularjs/app/invitations/invitat
 import { LocalStorageWrapperService } from '../local-storage/local-storage.service';
 import { LoggerService } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
+import { Alerts, AlertService } from '@anymind-ng/components';
 
 @Injectable()
 export class RegistrationInvitationService {
 
   constructor(private logger: LoggerService,
-              private localStorageWrapperService: LocalStorageWrapperService) {
+              private localStorageWrapperService: LocalStorageWrapperService,
+              private alertService: AlertService) {
   }
 
   public getInvitationObject = (): IInvitationObject | undefined => {
@@ -18,6 +20,7 @@ export class RegistrationInvitationService {
         return JSON.parse(stringifyInvitationObject);
       } catch (error) {
         this.logger.error('RegistrationInvitationService: error when try to parse invitation object ', error);
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       }
     }
     return undefined;

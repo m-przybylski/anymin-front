@@ -21,7 +21,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
 
-  public readonly pinCodeFormName = 'pinCodeForm';
+  public readonly pinCodeFormId = 'pinCodeForm';
   public readonly pinCodeControlName = 'pinCode';
 
   public msisdn: string;

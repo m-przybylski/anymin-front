@@ -21,7 +21,7 @@ import { Subject } from 'rxjs/Subject';
 export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
 
   public readonly passwordControlName = 'password';
-  public readonly setPasswordFormName = 'passwordForm';
+  public readonly setPasswordFormId = 'passwordForm';
 
   public token: string;
   public setPasswordForm: FormGroup;
@@ -75,7 +75,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
         break;
 
       case SetNewPasswordFromEmailStatus.NO_TOKEN:
-          this.alertService.pushDangerAlert(Alerts.CannotFindEmailToken);
+        this.alertService.pushDangerAlert(Alerts.CannotFindEmailToken);
         this.router.navigate(['/login']).then(isRedirectSuccessful => {
           if (!isRedirectSuccessful) {
             this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -90,6 +90,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
 
       default:
         this.logger.error('Unhandled status when set new password from email', status);
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
   }
 

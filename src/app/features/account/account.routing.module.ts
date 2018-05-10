@@ -6,13 +6,12 @@ import { SetPasswordViewComponent } from './views/set-password/set-password.view
 import { SetEmailViewComponent } from './views/set-email/set-email.view.component';
 import { SetEmailViewGuard } from './views/set-email/set-email.view.guard';
 import { SetPasswordViewGuard } from './views/set-password/set-password.view.guard';
-import { MsisdnGuard } from '../../shared/guards/msisdn/msisdn.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full' },
   {
-    path: 'set-password/:msisdn',
-    canActivate: [SetPasswordViewGuard, MsisdnGuard],
+    path: 'set-password',
+    canActivate: [SetPasswordViewGuard],
     component: SetPasswordViewComponent,
     resolve: {
       accountId: SetPasswordViewResolver

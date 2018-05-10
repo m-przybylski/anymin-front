@@ -5,7 +5,7 @@
       tooltipText="LOGIN.TOOLTIP"
     )
       form(
-        [id]="msisdnFormName",
+        [id]="msisdnFormId",
         [formGroup]="msisdnForm",
         novalidate,
         (ngSubmit)="onFormSubmit(msisdnForm)"
@@ -29,6 +29,6 @@
 
         submit-button(
           titleText="LOGIN.NEXT",
-          [formName]="msisdnFormName",
+          [formName]="msisdnFormId",
           [isLoading]="isRequestPending"
         )
