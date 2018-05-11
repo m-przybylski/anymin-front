@@ -49,7 +49,7 @@ describe('Service: PinCode service', () => {
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
     tick();
-    expect(router.navigate).toHaveBeenCalledWith(['/account/set-password/' + mockPhoneNumber]);
+    expect(router.navigate).toHaveBeenCalledWith(['/account/set-password']);
 
   }));
 

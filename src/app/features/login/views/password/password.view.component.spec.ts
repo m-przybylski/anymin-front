@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/observable/of';
 import { InputPasswordErrorsEnum } from '@anymind-ng/components';
+import { CommonConfig } from '../../../../../../generated_modules/common-config/common-config';
 
 // tslint:disable:no-floating-promises
 // tslint:disable:no-unbound-method
@@ -43,6 +44,7 @@ describe('Component: PasswordViewComponent', () => {
         RouterTestingModule
       ],
       providers: [
+        CommonConfig,
         {provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['params'])},
         {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {

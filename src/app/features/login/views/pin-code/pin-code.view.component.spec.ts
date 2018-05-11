@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from '@anymind-ng/api';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { of } from 'rxjs/observable/of';
+import { CommonConfig } from '../../../../../../generated_modules/common-config/common-config';
 
 // tslint:disable:no-floating-promises
 // tslint:disable:no-unbound-method
@@ -34,6 +35,7 @@ describe('Component: Login PinCodeViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
+        CommonConfig,
         {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['snapshot', 'params', 'queryParams'])},
         {provide: RegistrationService, useValue: createSpyObj('RegistrationService', ['requestVerificationRoute'])},
