@@ -26,9 +26,7 @@ export class PasswordViewComponent implements OnInit {
               private passwordService: PasswordViewService,
               private route: ActivatedRoute,
               loggerFactory: LoggerFactory) {
-
     this.logger = loggerFactory.createLoggerService('PasswordViewComponent');
-
   }
 
   public ngOnInit(): void {

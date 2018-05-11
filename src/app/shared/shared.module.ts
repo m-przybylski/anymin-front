@@ -28,6 +28,11 @@ import { LocalStorageWrapperService } from './services/local-storage/local-stora
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
 import { InputSetPasswordComponent } from './components/input-set-password/input-set-password.component';
 import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.service';
+import {
+  ContentHeightAnimateDirective
+}
+  from './directives/animation/content-height/content-height.animation.directive';
+import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
 import { CommonConfig } from '../../../generated_modules/common-config/common-config';
 
 @NgModule({
@@ -48,7 +53,8 @@ import { CommonConfig } from '../../../generated_modules/common-config/common-co
     DropdownPrimaryDirective,
     RadioButtonDirective,
     WidgetGeneratorComponent,
-    InputSetPasswordComponent
+    InputSetPasswordComponent,
+    ContentHeightAnimateDirective
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -57,7 +63,8 @@ import { CommonConfig } from '../../../generated_modules/common-config/common-co
     LoginBackgroundComponent,
     LoginContentComponent,
     LoginMobileFooterComponent,
-    InputSetPasswordComponent
+    InputSetPasswordComponent,
+    ContentHeightAnimateDirective
   ],
   providers: [
     EventsServiceProvider,
@@ -71,8 +78,9 @@ import { CommonConfig } from '../../../generated_modules/common-config/common-co
     MsisdnGuard,
     LocalStorageWrapperService,
     RegistrationInvitationService,
+    CommonConfig,
     PinCodeTimerService,
-    CommonConfig
+    ContentHeightAnimationService
   ]
 })
 

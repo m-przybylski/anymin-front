@@ -1,16 +1,23 @@
 @import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/variables/variables"
 @import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
 
+\:host
+  background: $c-white
+  display: block
+  
+  +xsm
+    border-radius: 8px
+  
 .login-content
+  opacity: 0
+  animation: fadeIn 0.3s 0.2s
+  animation-fill-mode: forwards
   display: flex
   align-items: center
-  background: $c-white
   height: 100vh
-  border-radius: 0
 
   +xsm
     height: auto
-    border-radius: 8px
 
   &__container
     min-width: 320px

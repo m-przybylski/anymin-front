@@ -101,7 +101,6 @@ export class PhoneNumberViewService {
 
   private handleRegistrationStatusError = (err: HttpErrorResponse): Observable<PhoneNumberServiceStatus> => {
     const error = err.error;
-
     if (isBackendError(error)) {
       switch (error.code) {
         case BackendErrors.NotAllowedToLogin:
