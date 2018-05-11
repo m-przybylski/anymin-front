@@ -40,11 +40,11 @@
         "maximumWarning": "7500kb",
         "maximumError": "8000kb"
       },
-        {
-          "type": "initial",
-          "maximumWarning": "5200kb",
-          "maximumError": "5500kb"
-        }]
+      {
+        "type": "initial",
+        "maximumWarning": "5200kb",
+        "maximumError": "5500kb"
+      }]
     }
   ],
   "e2e": {
