@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { RegistrationService, GetRegistrationSession } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Observable } from 'rxjs/observable';
 import { catchError } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
 import { Alerts, AlertService } from '@anymind-ng/components';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
