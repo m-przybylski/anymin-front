@@ -14,7 +14,7 @@ ul.nologin-state.navbar-list(data-ng-class="$ctrl.isHelpMenuShow ? 'mobile-menu-
           span.mobile-only.icon.icon-for-experts-24
           span(data-translate="NAVIGATION.MENU_ITEMS.FOR_EXPERTS")
       li
-        a.btn.btn-primary.btn-small.sign-in.navbar-btn(data-ui-sref="app.login.account")
+        a.btn.btn-primary.btn-small.sign-in.navbar-btn(data-ng-click="$ctrl.redirectToLogin()")
           span.mobile-only.icon.icon-sign-in-24
           span(data-translate="NAVIGATION.MENU_ITEMS.JOIN_OR_LOGIN")
 

@@ -39,7 +39,9 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
       data: {
         permissions: {
           only: ['user'],
-          redirectTo: 'app.login.account'
+          redirectTo: ['$location', ($location: ng.ILocationService): void => {
+            $location.path('/login');
+          }]
         },
         pageTitle: 'PAGE_TITLE.WIZARDS.CREATE_PROFILE.COMPANY'
       }

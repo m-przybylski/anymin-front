@@ -14,7 +14,8 @@ export interface ISingleConsultationScope extends ng.IScope {
 }
 
 function singleConsultationController($state: StateService,
-                                      userService: UserService): void {
+                                      userService: UserService,
+                                      $location: ng.ILocationService): void {
 
   this.isLinkActive = false;
   const percentage = 100;
@@ -59,7 +60,7 @@ function singleConsultationController($state: StateService,
     if (this.isLinkActive) {
       userService.getUser().then(
         () => alert('Sorry, not implemented'),
-        () => $state.go('app.login.account'));
+        () => $location.path('/login'));
     }
   };
 
@@ -71,7 +72,7 @@ const singleConsultation = {
   bindings: {
     consultation: '<'
   },
-  controller: ['$state', 'userService', singleConsultationController]
+  controller: ['$state', 'userService', '$location', singleConsultationController]
 };
 
 angular.module('profitelo.components.search.single-consultation', [

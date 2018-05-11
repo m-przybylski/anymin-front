@@ -1,0 +1,63 @@
+@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
+
+.login-content
+  display: flex
+  align-items: center
+  background: $c-white
+  height: 100vh
+  border-radius: 0
+
+  +xsm
+    height: auto
+    border-radius: 8px
+
+  &__container
+    min-width: 320px
+    width: 100vw
+    padding: 48px 16px 24px
+    text-align: center
+    height: 100vh
+    display: flex
+    flex-wrap: wrap
+    align-content: space-between
+    justify-content: center
+
+    +xsm
+      display: block
+      min-width: 480px
+      max-width: 480px
+      height: auto
+      padding: 48px
+
+  .main
+    width: 100%
+
+  .logo
+    display: flex
+    justify-content: center
+    margin: 0 0 32px
+
+    img
+      height: 48px
+
+  .title-container
+    margin: 0 0 32px
+    text-align: center
+
+    h6
+      +h6
+      display: inline-flex
+      align-items: center
+      text-align: center
+
+    &__subtitle
+      +paragraphSmall
+      margin: 8px 0 0
+
+      &__msisdn
+        margin: 0 4px
+
+      &__link
+        color: $c-secondary
+        font-weight: 500

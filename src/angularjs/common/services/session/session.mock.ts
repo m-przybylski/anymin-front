@@ -1,5 +1,6 @@
 import * as angular from 'angular';
-import { GetSession, AccountLogin } from '@anymind-ng/api';
+import { GetSession } from '@anymind-ng/api';
+import { LoginCredentials } from 'profitelo-api-ng/model/models';
 
 class UserSessionServiceMock {
 
@@ -11,7 +12,7 @@ class UserSessionServiceMock {
   public logout = (): Promise<any> =>
     Promise.reject('mock')
 
-  public login = (_loginDetails: AccountLogin): Promise<GetSession> =>
+  public login = (_loginDetails: LoginCredentials): Promise<GetSession> =>
     Promise.reject('mock')
 
   public isLoggedIn(): boolean {

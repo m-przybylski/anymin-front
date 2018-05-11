@@ -6,9 +6,8 @@ import 'angularjs/common/components/interface/slider/slider';
 import 'angularjs/common/components/expert-profile/experts-consultation-slider/experts-consultation-slider';
 import {
   UserService } from '../../../services/user/user.service';
-import { StateService } from '@uirouter/angularjs';
 
-function controller(userService: UserService, $state: StateService): void {
+function controller(userService: UserService, $location: ng.ILocationService): void {
 
   this.startCall = (): void => {
     userService.getUser().then((accountDetails) => {
@@ -16,7 +15,7 @@ function controller(userService: UserService, $state: StateService): void {
         alert('Sorry, not implemented');
       }
     }).catch(() => {
-      $state.go('app.login.account');
+      $location.path('/login');
     });
   };
 
@@ -34,7 +33,7 @@ const companySingleConsultation = {
     serviceTagsEmployeesTuple: '<',
     title: '@'
   },
-  controller: ['userService', '$state', controller],
+  controller: ['userService', '$location', controller],
   controllerAs: '$ctrl'
 };
 

@@ -12,14 +12,16 @@ import { StateService } from '@uirouter/angularjs';
 // tslint:disable:member-ordering
 export class InvitationsResolver {
 
-  public static $inject = ['InvitationApi', '$state', 'modalsService', '$log', 'userService', 'ProfileApi'];
+  public static $inject =
+    ['InvitationApi', '$state', 'modalsService', '$log', 'userService', 'ProfileApi', '$location'];
 
     constructor(private InvitationApi: InvitationApi,
               private $state: StateService,
               private modalsService: ModalsService,
               private $log: ng.ILogService,
               private userService: UserService,
-              private ProfileApi: ProfileApi) {
+              private ProfileApi: ProfileApi,
+              private $location: ng.ILocationService) {
   }
 
   public resolve = (stateParams: IInvitationsStateParams): void => {
@@ -51,7 +53,7 @@ export class InvitationsResolver {
         msisdn: tokenInvitation.msisdn,
         email: tokenInvitation.email
       }));
-      this.$state.go('app.login.account');
+      this.$location.path('/login');
     }
   }
 

@@ -16,7 +16,8 @@ export function AppRunFunction($rootScope: IRootScopeService,
                                $state: StateService,
                                topAlertService: TopAlertService,
                                sessionDeletedService: SessionDeletedService,
-                               profiteloWebsocket: ProfiteloWebsocketService): void {
+                               profiteloWebsocket: ProfiteloWebsocketService,
+                               $location: ng.ILocationService): void {
   // initialize all views permissions
   permissionService.initializeAll();
 
@@ -42,7 +43,7 @@ export function AppRunFunction($rootScope: IRootScopeService,
     event.preventDefault();
     $log.error('Permission to state', toState.name, 'DENIED');
     if (Config.isPlatformForExpert) {
-      $state.go('app.login.account');
+      $location.path('/login');
     } else {
       $state.go('app.home');
     }

@@ -13,9 +13,13 @@
     ]
   },
   "files": [
-    "angular/features/confirm-email/confirm-email.module.ts",
-    "angular/features/unsupported/unsupported.module.ts",
-    "angular/features/angularjs/angularjs.module.ts",
+    "app/features/confirm-email/confirm-email.module.ts",
+    "app/features/unsupported/unsupported.module.ts",
+    "app/features/login/login.module.ts",
+    "app/features/account/account.module.ts",
+    "app/features/forgot-password/forgot-password.module.ts",
+    "app/features/dashboard/dashboard.module.ts",
+    "app/features/angularjs/angularjs.module.ts",
     "angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts",
     "polyfills.ts",
     "main.ts",

@@ -1,7 +1,7 @@
-import * as angular from 'angular'
-import {UserService} from './user.service'
-import userModule from './user'
-import {AccountDetails, LoginCredentials} from 'profitelo-api-ng/model/models'
+import * as angular from 'angular';
+import { UserService } from './user.service';
+import userModule from './user';
+import { AccountDetails, LoginCredentials } from 'profitelo-api-ng/model/models';
 import sessionMockModule from '../session/session.mock';
 
 describe('Unit testing: profitelo.services.userService >', () => {
@@ -10,17 +10,16 @@ describe('Unit testing: profitelo.services.userService >', () => {
     let userServiceT: UserService
     let rootScope: ng.IRootScopeService
     let q: ng.IQService
-    let resolverParam: ng.IPromise<{account: AccountDetails}>
+    let resolverParam: ng.IPromise<{ account: AccountDetails }>
 
-    const accountDetails: AccountDetails = {
-    } as AccountDetails
+    const accountDetails: AccountDetails = {} as AccountDetails
 
     const eventsService = {
       emit: (param: string): string => param
     }
 
     const sessionServiceWrapper = {
-      getSession: (): ng.IPromise<{account: AccountDetails}> => resolverParam,
+      getSession: (): ng.IPromise<{ account: AccountDetails }> => resolverParam,
       logout: (): ng.IPromise<void> => q.resolve(),
       login: (_loginDetails: LoginCredentials): ng.IPromise<void> => q.resolve()
     }

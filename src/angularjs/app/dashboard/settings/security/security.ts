@@ -34,7 +34,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public sessions: ISession[];
 
   public static $inject = ['modalsService', 'currentSession', 'SessionApi', 'userService', 'topAlertService',
-    'translatorService', 'sessionsData', 'profiteloWebsocket'];
+    'translatorService', '$location', 'sessionsData', 'profiteloWebsocket'];
 
   constructor(private modalsService: ModalsService,
               private currentSession: GetSession,
@@ -42,6 +42,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
               private userService: UserService,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
+              private $location: ng.ILocationService,
               sessionsData: GetSession[],
               profiteloWebsocket: ProfiteloWebsocketService) {
 
@@ -93,9 +94,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
       });
     } else {
       this.userService.logout().then(() => {
-        // HACKED FIXME
-        // this.$state.reload(); // this sometimes stucks
-        window.location.href = '/login/account';
+        this.$location.path('/login');
         this.topAlertService.success({
           message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2

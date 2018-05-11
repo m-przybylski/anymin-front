@@ -17,8 +17,8 @@
   },
   "files": [
     "test.ts",
-    "angular/app.module.ts",
-    "angular/features/angularjs/angularjs.module.ts",
+    "app/app.module.ts",
+    "app/features/angularjs/angularjs.module.ts",
     "../node_modules/profitelo-api-ng/api.module.ts",
     "../node_modules/profitelo-api-ng/api/api.ts"
   ],

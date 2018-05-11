@@ -4,11 +4,10 @@ import {
   GetProfile, MoneyDto, GetProfileDetails
 } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';
-import { StateService } from '@uirouter/angularjs';
 
 export class ProfileCompanyConsultationComponentController implements IProfileCompanyConsultationComponentBindings {
 
-  public static $inject = ['userService', '$state'];
+  public static $inject = ['userService', '$location'];
   public organizationServiceDetails: GetOrganizationServiceDetails;
   public tags: Tag[];
   public employees: GetProfileDetails[];
@@ -19,13 +18,13 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
   public serviceName: string;
 
   constructor(private userService: UserService,
-              private $state: StateService) {
+              private $location: ng.ILocationService) {
   }
 
   public startCall = (): void => {
     this.userService.getUser().then(
       () => alert('Sorry, not implemented'),
-      () => this.$state.go('app.login.account'));
+      () => this.$location.path('/login'));
   }
 
   public $onInit = (): void => {
