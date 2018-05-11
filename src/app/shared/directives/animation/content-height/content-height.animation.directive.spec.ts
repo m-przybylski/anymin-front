@@ -1,19 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   ContentHeightAnimationService
 }
   from '../../../services/animation/content-height/content-height.animation.service';
 import createSpyObj = jasmine.createSpyObj;
 import { ContentHeightAnimateDirective } from './content-height.animation.directive';
-import { Component, DebugElement, ElementRef } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { AnimationBuilder, AnimationFactory } from '@angular/animations';
 import { By } from '@angular/platform-browser';
-import { Subject } from 'rxjs/Subject';
 import { AnimationPlayer } from '@angular/animations/src/players/animation_player';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   template: `
-      <div contentHeightAnimation style="height: 200px;"><span>SomeTestText</span></div>`
+    <div contentHeightAnimation style="height: 200px;"><span>SomeTestText</span></div>`
 })
 
 class TestDirectiveComponent {
@@ -21,9 +21,6 @@ class TestDirectiveComponent {
 
 describe('Directive: ContentHeightAnimateDirective', () => {
 
-  let component: TestDirectiveComponent;
-  let fixture: ComponentFixture<TestDirectiveComponent>;
-  let directiveElement: DebugElement;
   const currentHeight = 200;
 
   beforeEach(() => {
@@ -32,7 +29,7 @@ describe('Directive: ContentHeightAnimateDirective', () => {
       providers: [
         {
           provide: ContentHeightAnimationService,
-          useValue: createSpyObj('ContentHeightAnimationService', ['previousHeight$'])
+          useValue: createSpyObj('ContentHeightAnimationService', ['getPreviousHeight$'])
         },
         {
           provide: AnimationBuilder, useValue: createSpyObj('AnimationBuilder', ['build'])
@@ -42,15 +39,13 @@ describe('Directive: ContentHeightAnimateDirective', () => {
         }
       ]
     });
-
-    fixture = TestBed.createComponent(TestDirectiveComponent);
-    component = fixture.componentInstance;
-    directiveElement = fixture.debugElement.query(By.css('div'));
   });
 
-  it('should create animation', () => {
+  it('should play animation', () => {
+    const fixture = TestBed.createComponent(TestDirectiveComponent);
+    const directiveElement = fixture.debugElement.query(By.css('div'));
     const contentHeightAnimationService = TestBed.get(ContentHeightAnimationService);
-    contentHeightAnimationService.previousHeight$.and.returnValue(new Subject<string>());
+    contentHeightAnimationService.getPreviousHeight$.and.returnValue(new BehaviorSubject('23px'));
 
     const animationBuilder = TestBed.get(AnimationBuilder);
     const playObject = {
@@ -67,10 +62,5 @@ describe('Directive: ContentHeightAnimateDirective', () => {
 
     expect(directiveElement.nativeElement.clientHeight).toBe(currentHeight);
     expect(playObject.play).toHaveBeenCalled();
-  });
-
-  it('should destroy lifecycle of directive', () => {
-    fixture.destroy();
-    expect(fixture.componentInstance).toBeDefined();
   });
 });
