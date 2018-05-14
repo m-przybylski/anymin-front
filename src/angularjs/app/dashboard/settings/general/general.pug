@@ -14,7 +14,7 @@
     a.btn.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openBasicAccountSettingsModal()")
 
-  .list-row
+  .list-row(data-ng-if="!vm.isPlatformForExpert")
     .list-icon
       span.icon.icon-smartphone-24
 
