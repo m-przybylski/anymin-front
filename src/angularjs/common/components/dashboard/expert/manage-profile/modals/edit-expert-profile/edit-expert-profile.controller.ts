@@ -36,6 +36,7 @@ export class EditExpertProfileController implements ng.IController {
   public profileNameLabel: string;
   public profileNamePlaceholder: string;
   public profileDescriptionLabel: string;
+  public isInputRequired = true;
   public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
   public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
 
