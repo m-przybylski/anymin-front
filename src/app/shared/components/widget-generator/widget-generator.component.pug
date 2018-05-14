@@ -35,7 +35,7 @@
 
     section(*ngIf="bodyScript")
       h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.EXPERT_PATH.HEAD_SCRIPT_SECTION_HEADER' | translate }}
-      p {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.HEAD_SCRIPT_SECTION_PARAGRAPH' | translate }}
+      p([innerHTML]="'DASHBOARD.EXPERT_ACCOUNT.WIDGET.HEAD_SCRIPT_SECTION_PARAGRAPH'| translate")
       .html-code
         code {{ headScript }}
         a.btn.btn-large.btn-primary((click)="copyToClipboard(headScript)")
@@ -118,7 +118,7 @@
 
     section(*ngIf="bodyScript && (expertId || serviceId)")
         h4 {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.HEAD_SCRIPT_SECTION_HEADER' | translate }}
-        p {{ 'DASHBOARD.EXPERT_ACCOUNT.WIDGET.HEAD_SCRIPT_SECTION_PARAGRAPH' | translate }}
+        p([innerHTML]="'DASHBOARD.EXPERT_ACCOUNT.WIDGET.HEAD_SCRIPT_SECTION_PARAGRAPH' | translate")
         .html-code
           code {{ headScript }}
           a.btn.btn-large.btn-primary((click)="copyToClipboard(headScript)")
