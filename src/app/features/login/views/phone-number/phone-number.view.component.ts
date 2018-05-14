@@ -24,6 +24,7 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
   public msisdnPrefix: string = this.CommonSettingsService.localSettings.countryCodes[0];
   public isRequestPending = false;
   public isInputInitialFocused = true;
+  public isInputRequired = true;
 
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
@@ -47,7 +48,7 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
     const invitePhoneNumber = this.loginService.getPhoneNumberFromInvitation();
 
     this.msisdnForm.controls[this.msisdnControlName].setValidators(
-      this.inputPhoneNumber.getValidators(this.msisdnPrefix));
+      this.inputPhoneNumber.getValidators(this.msisdnPrefix, this.isInputRequired));
 
     if (invitePhoneNumber) {
       this.msisdnForm.setValue({

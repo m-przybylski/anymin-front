@@ -20,6 +20,7 @@ export class SetEmailViewComponent implements OnInit, OnDestroy {
   public setEmailForm: FormGroup;
   public isRequestPending = false;
   public isInputInitialFocused = true;
+  public isInputRequired = true;
 
   private accountId: string;
   private logger: LoggerService;

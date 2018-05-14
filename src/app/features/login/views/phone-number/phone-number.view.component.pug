@@ -21,11 +21,11 @@
             input-phone-number(
               label="LOGIN.ENTER_NUMBER",
               placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
-              errorTextKey="LOGIN.ENTER_NUMBER.VALIDATION_MESSAGE",
               [controlName]="msisdnControlName",
               [form]="msisdnForm",
               [isDisabled]="isRequestPending",
-              [initialFocus]="isInputInitialFocused"
+              [initialFocus]="isInputInitialFocused",
+              [isRequired]="isInputRequired"
             )
 
         submit-button(
