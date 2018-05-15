@@ -48,7 +48,8 @@ describe('Unit testing: profitelo.components.interface.textarea', () => {
         validationText: 'tekst',
         isValid: true,
         ngModel: 'input value',
-        onChange: (): void => {}
+        onChange: (): void => {},
+        ngRequired: false
       }
 
 

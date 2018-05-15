@@ -14,6 +14,7 @@ export class InputComponent implements ng.IComponentOptions {
     isValid: '<',
     ngModel: '=',
     isSubmitted: '<',
-    onChange: '<'
+    onChange: '<',
+    ngRequired: '<?'
   };
 }

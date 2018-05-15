@@ -15,6 +15,7 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public validationText: string;
   public onChange?: (description: string) => void;
   public textareaValueLength = 0;
+  public ngRequired = false;
 
   public static $inject = [];
 
