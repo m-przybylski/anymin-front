@@ -26,7 +26,7 @@
     data-ng-click=":: vm.openGeneralPhoneSettingsModal()")
 
   .list-row-double
-    .list-row.is-active
+    .list-row.is-active(data-ng-if="vm.email")
       .list-icon
         span.icon.icon-success-24
 
@@ -37,13 +37,16 @@
       a.btn.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
       data-ng-click=":: vm.openGeneralEmailSettingsModal()")
 
-    .list-row.is-inactive(data-ng-show="vm.showUnverifiedEmail")
+    .list-row(data-ng-show="vm.showUnverifiedEmail" data-ng-class="{'is-inactive-no-email': !vm.email, 'is-inactive': vm.email}")
       .list-icon
         span.icon.icon-failure-24
 
       .list-data
         span.label(data-translate="SETTINGS.GENERAL.EMAIL.WAITING_FOR_VERIFICATION.LABEL")
         span.new-mail {{ vm.unverifiedEmail }}
+
+      a.btn.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT" data-ng-if="!vm.email"
+      data-ng-click=":: vm.openGeneralEmailSettingsModal()")
 
   .list-row
     .list-icon
