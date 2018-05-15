@@ -38,13 +38,15 @@ export class InvitationsModalController implements ng.IController {
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');
-    if (this.$state.current.name === 'app.invitations') this.$state.go('app.home');
+    if (this.$state.current.name === 'app.invitations' || this.$location.url().includes('invitations'))
+      this.$state.go('app.dashboard.expert.activities');
   }
 
   public static $inject = ['$state', '$uibModalInstance', 'InvitationApi', 'userService', 'ServiceApi',
-    'topAlertService', '$q', '$log', 'navbarNotificationsService', 'translatorService', 'modalsService', '$scope'];
+    'topAlertService', '$q', '$log', 'navbarNotificationsService', 'translatorService', 'modalsService', '$location',
+    '$scope'];
 
-    constructor(private $state: StateService,
+  constructor(private $state: StateService,
               private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
               private InvitationApi: InvitationApi,
               private userService: UserService,
@@ -55,6 +57,7 @@ export class InvitationsModalController implements ng.IController {
               private navbarNotificationsService: NavbarNotificationsService,
               private translatorService: TranslatorService,
               private modalsService: ModalsService,
+              private $location: ng.ILocationService,
               $scope: IInvitationsModalScope) {
     if ($scope.profileWithServicesInvitations) {
       this.setInvitationData($scope.profileWithServicesInvitations);
@@ -73,7 +76,7 @@ export class InvitationsModalController implements ng.IController {
       this.description = profileWithServicesInvitations.organizationDetails.description;
 
       this.services = profileWithServicesInvitations.services.filter((service) =>
-      service.invitation.status === GetInvitation.StatusEnum.NEW);
+        service.invitation.status === GetInvitation.StatusEnum.NEW);
 
       this.acceptedServices = this.services;
 
@@ -135,10 +138,10 @@ export class InvitationsModalController implements ng.IController {
     services.forEach((service) => {
       if (_.some(this.acceptedServices, service)) {
         this.InvitationApi.postInvitationAcceptRoute(service.invitation.id)
-        .then((_response) => (this.onEmploymentUpdateDone(service)));
+          .then((_response) => (this.onEmploymentUpdateDone(service)));
       } else {
         this.InvitationApi.postInvitationRejectRoute(service.invitation.id)
-        .then((_response) => (this.onEmploymentUpdateDone(service)));
+          .then((_response) => (this.onEmploymentUpdateDone(service)));
       }
     });
   }
