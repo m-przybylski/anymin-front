@@ -10,6 +10,7 @@ import { SetEmailViewComponent } from './views/set-email/set-email.view.componen
 import { AccountRoutingModule } from './account.routing.module';
 import { SetEmailViewGuard } from './views/set-email/set-email.view.guard';
 import { SetPasswordViewGuard } from './views/set-password/set-password.view.guard';
+import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SetPasswordViewGuard } from './views/set-password/set-password.view.gua
     CommonModule,
     AccountRoutingModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
+    AngularJsProvidersModule
   ],
   providers: [
     SetEmailViewResolver,

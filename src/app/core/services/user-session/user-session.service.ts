@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GetSession, LoginCredentials, SessionService } from '@anymind-ng/api';
 import { ApiKeyService } from '../api-key/api-key.service';
+import { EventsService } from '../../../../angularjs/common/services/events/events.service';
 
 @Injectable()
 export class UserSessionService {
@@ -10,7 +11,8 @@ export class UserSessionService {
   private readonly unauthorizedCode = 401;
 
   constructor(private authService: ApiKeyService,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private eventsService: EventsService) {
   }
 
   public logout = (): Promise<any> =>
@@ -18,7 +20,11 @@ export class UserSessionService {
       .toPromise().then(this.onSuccessLogout, this.onFailureLogout)
 
   public login = (loginDetails: LoginCredentials): Promise<GetSession> =>
-    this.sessionService.login(loginDetails).toPromise().then(this.onSuccessLogin)
+    this.sessionService.login(loginDetails).toPromise().then((session) => {
+      this.eventsService.emit('login');
+
+      return this.onSuccessLogin(session);
+    })
 
   public isLoggedIn = (): boolean =>
     typeof this.sessionCache !== 'undefined'

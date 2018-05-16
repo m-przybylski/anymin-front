@@ -10,6 +10,7 @@ import { Alerts, AlertService } from '@anymind-ng/components';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { of } from 'rxjs/observable/of';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { EventsService } from '../../../../../angularjs/common/services/events/events.service';
 
 export enum PinCodeServiceStatus {
   SUCCESS,
@@ -32,6 +33,7 @@ export class PinCodeViewService {
               private alertService: AlertService,
               private userSessionService: UserSessionService,
               private registrationService: RegistrationService,
+              private eventsService: EventsService,
               loggerFactory: LoggerFactory) {
 
     this.logger = loggerFactory.createLoggerService('PinCodeViewService');
@@ -41,6 +43,7 @@ export class PinCodeViewService {
     });
 
   }
+
   public handleRegistration = (sessionId: string, token: string): Observable<PinCodeServiceStatus> =>
     this.registrationService.confirmVerificationRoute({sessionId, token})
       .pipe(mergeMap(() => fromPromise(this.purgeSessionCache())))
@@ -86,7 +89,11 @@ export class PinCodeViewService {
   }
 
   private purgeSessionCache = (): Promise<PinCodeServiceStatus> =>
-    this.userSessionService.getSession(true).then(() => PinCodeServiceStatus.SUCCESS)
+    this.userSessionService.getSession(true).then(() => {
+      this.eventsService.emit('login');
+
+      return PinCodeServiceStatus.SUCCESS;
+    })
 
   private redirectToSetPassword = (): Promise<void> =>
     this.router.navigate(['/account/set-password'])
