@@ -34,7 +34,7 @@ export class ExpertCallService {
   private readonly newCallEvent = new ReplaySubject<ExpertCall>(1);
   private readonly pullableCallEvent = new Subject<PullableCall>();
 
-  constructor(private serviceUsageEventApi: ServiceUsageEventApi,
+  constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
               private timerFactory: TimerFactory,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
@@ -80,10 +80,10 @@ export class ExpertCallService {
       this.logger.debug('ExpertCallService: PULLING');
 
       return this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault()).then(localStream =>
-        this.serviceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+        this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
           const currentExpertCall = new ExpertCall(expertSueDetails, session, this.timerFactory, call,
-            this.communicatorService, this.RatelApi, this.serviceUsageEventApi, this.microphoneService,  this.logger);
+            this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger);
 
           return this.getCallMessages(call).then(callMsgs =>
             this.upgradeService.toIPromise(currentExpertCall.pull(localStream, callMsgs).then(() => {
@@ -147,7 +147,7 @@ export class ExpertCallService {
   }
 
   private onExpertBusinessCallIncoming = (session: Session, call: BusinessCall): void => {
-    this.serviceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+    this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
       this.soundsService.callIncomingSound().play();
 
@@ -240,7 +240,7 @@ export class ExpertCallService {
       localStream => {
 
         const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory, call,
-          this.communicatorService, this.RatelApi, this.serviceUsageEventApi, this.microphoneService,  this.logger);
+          this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger);
 
         currentExpertCall.answer(localStream).then(
           () => {

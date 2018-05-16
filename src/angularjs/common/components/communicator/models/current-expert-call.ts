@@ -16,12 +16,12 @@ export class ExpertCall extends CurrentCall {
               call: BusinessCall,
               communicatorService: CommunicatorService,
               RatelApi: RatelApi,
-              serviceUsageEventApi: ServiceUsageEventApi,
+              ServiceUsageEventApi: ServiceUsageEventApi,
               microphoneService: MicrophoneService,
               logger: LoggerService) {
 
     super(call, session, timerFactory, ExpertCall.toCallDetails(getExpertSueDetails), communicatorService,
-      RatelApi, microphoneService, serviceUsageEventApi, logger);
+      RatelApi, microphoneService, ServiceUsageEventApi, logger);
     this.setState(CallState.PENDING);
     this.onCallTaken(() => {
       this.setState(CallState.PENDING_ON_OTHER_DEVICE);

@@ -72,7 +72,7 @@ export class CurrentCall {
               private communicatorService: CommunicatorService,
               protected RatelApi: RatelApi,
               private microphoneService: MicrophoneService,
-              private serviceUsageEventApi: ServiceUsageEventApi,
+              private ServiceUsageEventApi: ServiceUsageEventApi,
               protected logger: LoggerService) {
     this.registerCallbacks();
     this.createTimer(callDetails.servicePrice);
@@ -302,7 +302,7 @@ export class CurrentCall {
         this.logger.debug('CurrentCall: Hanging up the call because participant went offline');
         this.hangup().catch(err =>
           this.logger.warn('CurrentCall: could not hangup the call when participant went offline', err));
-        this.serviceUsageEventApi.postTechnicalProblemRoute(this.getSueId(),
+        this.ServiceUsageEventApi.postTechnicalProblemRoute(this.getSueId(),
           {problemType: PostTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT})
           .then(() => this.logger.debug('CurrentCall: participant auto disconnect reported'),
             () => this.logger.warn('CurrentCall: failed when reporting participant auto disconnect'));
@@ -331,7 +331,7 @@ export class CurrentCall {
         connected.session.chat.getActiveCalls().then((activeCalls) => {
           const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
           if (call) {
-            this.serviceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+            this.ServiceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
               this.timer.setCurrentDuration(callDetails.callDuration);
             }).catch((err) => {
               this.logger.debug('CurrentCall: Error while getting call details', err);
@@ -360,7 +360,7 @@ export class CurrentCall {
         this.events.onCallTaken.next();
       } else if (this.isClientOnline(callMsgs)) {
         this.logger.debug('CurrentCall: call was not pulled, client is online - update call duration and resume');
-        this.serviceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+        this.ServiceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
           this.timer.setCurrentDuration(callDetails.callDuration);
           this.timer.resume();
           this.events.onParticipantOnline.next();

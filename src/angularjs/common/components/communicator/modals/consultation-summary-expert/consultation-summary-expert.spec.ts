@@ -40,7 +40,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL');
     $provide.value('normalizeTranslationKeyFilter', (x: string) => x);
-    $provide.value('serviceUsageEventApi', ServiceUsageEventApi);
+    $provide.value('ServiceUsageEventApi', ServiceUsageEventApi);
   }));
 
   beforeEach(() => {

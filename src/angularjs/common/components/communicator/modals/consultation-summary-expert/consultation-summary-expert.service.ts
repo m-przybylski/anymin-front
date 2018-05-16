@@ -43,13 +43,13 @@ export class ConsultationSummaryExpertService implements ng.IController {
     }
   ];
 
-  public static $inject = ['translatorService', 'serviceUsageEventApi'];
+  public static $inject = ['translatorService', 'ServiceUsageEventApi'];
 
     constructor(private translatorService: TranslatorService,
-                private serviceUsageEventApi: ServiceUsageEventApi) {
+                private ServiceUsageEventApi: ServiceUsageEventApi) {
   }
 
   public sendTechnicalProblems =
     (sueId: string, problemType: GetTechnicalProblem.ProblemTypeEnum, description?: string): ng.IPromise<{}> =>
-    this.serviceUsageEventApi.postTechnicalProblemRoute(sueId, {problemType, description})
+    this.ServiceUsageEventApi.postTechnicalProblemRoute(sueId, {problemType, description})
 }

@@ -21,7 +21,7 @@ export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
 
 export class ConsultationSummaryExpertController implements ng.IController {
 
-  public static $inject = ['ViewsApi', 'logger', 'serviceUsageEventApi', '$scope', '$uibModalInstance',
+  public static $inject = ['ViewsApi', 'logger', 'ServiceUsageEventApi', '$scope', '$uibModalInstance',
     'callSummaryService', 'topAlertService', 'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
   private static readonly minValidClientReportMessageLength = 3;
   public complaintReasons: IComplaintReason[];
@@ -50,7 +50,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   constructor(ViewsApi: ViewsApi,
               private logger: LoggerService,
-              private serviceUsageEventApi: ServiceUsageEventApi,
+              private ServiceUsageEventApi: ServiceUsageEventApi,
               private $scope: IConsultationSummaryExpertControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
@@ -115,7 +115,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public sendClientReport = (sueId: string, message: string): void => {
     this.isSendingClientReport = true;
 
-    this.serviceUsageEventApi.postExpertComplaintRoute(sueId, {message}).then(() => {
+    this.ServiceUsageEventApi.postExpertComplaintRoute(sueId, {message}).then(() => {
       this.topAlertService.success({
         message:
           this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),

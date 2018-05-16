@@ -62,31 +62,30 @@ export class DashboardExpertEmployeesController {
           this.profilesWithEmployments.map((profilesWithEmployment) =>
             profilesWithEmployment.employments =
               profilesWithEmployment.employments.map((employee) => {
-                const serviceWithEmployees = _.find(res, (serviceWithEmployee) =>
-                  serviceWithEmployee.serviceDetails.id === employee.serviceId);
+                  const serviceWithEmployees = _.find(res, (serviceWithEmployee) =>
+                    serviceWithEmployee.serviceDetails.id === employee.serviceId);
 
-                if (serviceWithEmployees) {
-                  return {
-                    id: employee.id,
-                    serviceId: employee.serviceId,
-                    profileId: employee.profileId,
-                    createdAt: employee.createdAt,
-                    usageCounter: employee.usageCounter,
-                    serviceName: serviceWithEmployees.serviceDetails.name,
-                    isFreelance: serviceWithEmployees.serviceDetails.isFreelance
-                  };
-                } else {
-                  return {
-                    id: employee.id,
-                    serviceId: employee.serviceId,
-                    profileId: employee.profileId,
-                    createdAt: employee.createdAt,
-                    usageCounter: employee.usageCounter
-
-                  };
+                  if (serviceWithEmployees) {
+                    return {
+                      id: employee.id,
+                      serviceId: employee.serviceId,
+                      profileId: employee.profileId,
+                      createdAt: employee.createdAt,
+                      usageCounter: employee.usageCounter,
+                      serviceName: serviceWithEmployees.serviceDetails.name,
+                      isFreelance: serviceWithEmployees.serviceDetails.isFreelance
+                    };
+                  } else {
+                    return {
+                      id: employee.id,
+                      serviceId: employee.serviceId,
+                      profileId: employee.profileId,
+                      createdAt: employee.createdAt,
+                      usageCounter: employee.usageCounter
+                    };
+                  }
                 }
-              }
-            ));
+              ));
 
           this.emoloyeesCount = this.profilesWithEmployments.length;
           this.areEmployees = this.emoloyeesCount > 0;
