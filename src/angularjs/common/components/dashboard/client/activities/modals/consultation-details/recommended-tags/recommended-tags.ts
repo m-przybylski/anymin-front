@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import apiModule from 'profitelo-api-ng/api.module';
 import { ServiceApi } from 'profitelo-api-ng/api/api';
 import { Tag } from 'profitelo-api-ng/model/models';
+import { PostSueRating } from 'profitelo-api-ng/model/PostSueRating';
 
 function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
 
@@ -29,7 +30,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
     $log.error(err);
 
   this.recommendConsultation = (): void => {
-    ServiceApi.postServiceRecommendationRoute(this.serviceUsageEventId)
+    ServiceApi.postSueRatingRoute(this.serviceUsageEventId, {rate : PostSueRating.RateEnum.POSITIVE})
       .then(onRecommendService, onRecommendServiceError);
   };
 
@@ -45,7 +46,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
     $log.error(err);
 
   this.saveRecommendedTags = (): void => {
-    ServiceApi.putServiceRecommendationsRoute(
+    ServiceApi.putSueRatingRoute(
       this.serviceUsageEventId,
       {tags: _.map(this.selectedTags, (tag: any) => tag.id)}
     ).then(onRecommendServiceTags, onRecommendServiceTagsError);

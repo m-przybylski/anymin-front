@@ -35,6 +35,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.employee
         id: 'id',
         serviceId: 'serviceId',
         profileId: 'profileId',
+        usageCounter: 1,
         createdAt: new Date()
       }]
     }

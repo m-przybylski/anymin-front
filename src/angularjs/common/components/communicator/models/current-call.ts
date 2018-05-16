@@ -3,7 +3,7 @@
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { TimerService } from '../../../services/timer/timer.service';
-import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { RatelApi } from 'profitelo-api-ng/api/api';
 import { MoneyDto, RatelCallDetails, PostTechnicalProblem } from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import { Session } from 'ratel-sdk-js';
@@ -18,6 +18,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 export enum CallState {
   REJECTED,
@@ -70,8 +71,8 @@ export class CurrentCall {
               private callDetails: ICallDetails,
               private communicatorService: CommunicatorService,
               protected RatelApi: RatelApi,
-              private ServiceApi: ServiceApi,
               private microphoneService: MicrophoneService,
+              private ServiceUsageEventApi: ServiceUsageEventApi,
               protected logger: LoggerService) {
     this.registerCallbacks();
     this.createTimer(callDetails.servicePrice);
@@ -301,7 +302,7 @@ export class CurrentCall {
         this.logger.debug('CurrentCall: Hanging up the call because participant went offline');
         this.hangup().catch(err =>
           this.logger.warn('CurrentCall: could not hangup the call when participant went offline', err));
-        this.ServiceApi.postTechnicalProblemRoute(this.getSueId(),
+        this.ServiceUsageEventApi.postTechnicalProblemRoute(this.getSueId(),
           {problemType: PostTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT})
           .then(() => this.logger.debug('CurrentCall: participant auto disconnect reported'),
             () => this.logger.warn('CurrentCall: failed when reporting participant auto disconnect'));
@@ -330,7 +331,7 @@ export class CurrentCall {
         connected.session.chat.getActiveCalls().then((activeCalls) => {
           const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
           if (call) {
-            this.ServiceApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+            this.ServiceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
               this.timer.setCurrentDuration(callDetails.callDuration);
             }).catch((err) => {
               this.logger.debug('CurrentCall: Error while getting call details', err);
@@ -359,7 +360,7 @@ export class CurrentCall {
         this.events.onCallTaken.next();
       } else if (this.isClientOnline(callMsgs)) {
         this.logger.debug('CurrentCall: call was not pulled, client is online - update call duration and resume');
-        this.ServiceApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+        this.ServiceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
           this.timer.setCurrentDuration(callDetails.callDuration);
           this.timer.resume();
           this.events.onParticipantOnline.next();

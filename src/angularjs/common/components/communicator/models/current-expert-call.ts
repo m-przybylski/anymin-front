@@ -1,11 +1,12 @@
 import { BusinessRoom, BusinessCall, roomType, CallReason } from 'ratel-sdk-js';
 import { Session, Message } from 'ratel-sdk-js';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
-import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { RatelApi } from 'profitelo-api-ng/api/api';
 import { CallState, CurrentCall, ICallDetails } from './current-call';
 import { TimerFactory } from '../../../services/timer/timer.factory';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, LoggerService } from '@anymind-ng/core';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 export class ExpertCall extends CurrentCall {
 
@@ -15,12 +16,12 @@ export class ExpertCall extends CurrentCall {
               call: BusinessCall,
               communicatorService: CommunicatorService,
               RatelApi: RatelApi,
-              ServiceApi: ServiceApi,
+              ServiceUsageEventApi: ServiceUsageEventApi,
               microphoneService: MicrophoneService,
               logger: LoggerService) {
 
     super(call, session, timerFactory, ExpertCall.toCallDetails(getExpertSueDetails), communicatorService,
-      RatelApi, ServiceApi, microphoneService, logger);
+      RatelApi, microphoneService, ServiceUsageEventApi, logger);
     this.setState(CallState.PENDING);
     this.onCallTaken(() => {
       this.setState(CallState.PENDING_ON_OTHER_DEVICE);

@@ -5,14 +5,6 @@
         span(data-ng-bind-html="::$ctrl.price | money")
         span.time(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
-      ul.consultation-details-info
-        li.options-item.recomendation
-          span.icon.icon-satisfaction-16
-          span  {{ $ctrl.rating }}%
-        li.options-item.conversation-count
-          span.icon.icon-call-16
-          span {{ $ctrl.usageCounter }}
-
     .consultation-title
       h3
         span {{ $ctrl.serviceName }}

@@ -1,6 +1,6 @@
 import { TranslatorService } from '../../../../services/translator/translator.service';
-import { ServiceApi } from 'profitelo-api-ng/api/api';
 import { GetTechnicalProblem } from 'profitelo-api-ng/model/models';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 export interface IComplaintReason {
   id: GetTechnicalProblem.ProblemTypeEnum;
@@ -43,13 +43,13 @@ export class ConsultationSummaryExpertService implements ng.IController {
     }
   ];
 
-  public static $inject = ['translatorService', 'ServiceApi'];
+  public static $inject = ['translatorService', 'ServiceUsageEventApi'];
 
     constructor(private translatorService: TranslatorService,
-              private ServiceApi: ServiceApi) {
+                private ServiceUsageEventApi: ServiceUsageEventApi) {
   }
 
   public sendTechnicalProblems =
     (sueId: string, problemType: GetTechnicalProblem.ProblemTypeEnum, description?: string): ng.IPromise<{}> =>
-    this.ServiceApi.postTechnicalProblemRoute(sueId, {problemType, description})
+    this.ServiceUsageEventApi.postTechnicalProblemRoute(sueId, {problemType, description})
 }

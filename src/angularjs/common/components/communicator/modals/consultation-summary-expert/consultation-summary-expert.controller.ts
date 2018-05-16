@@ -2,7 +2,7 @@ import { LoggerService } from '@anymind-ng/core';
 import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';
 import { IExpertCallSummary } from '../../../../models/ExpertCallSummary';
 import { MoneyDto, GetTechnicalProblem, GetExpertCallSummary } from 'profitelo-api-ng/model/models';
-import { ServiceApi, ViewsApi } from 'profitelo-api-ng/api/api';
+import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
@@ -13,6 +13,7 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   serviceUsageEventId: string;
@@ -20,8 +21,8 @@ export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
 
 export class ConsultationSummaryExpertController implements ng.IController {
 
-  public static $inject = ['ViewsApi', 'logger', '$scope', '$uibModalInstance', 'callSummaryService', 'ServiceApi',
-    'topAlertService', 'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
+  public static $inject = ['ViewsApi', 'logger', 'ServiceUsageEventApi', '$scope', '$uibModalInstance',
+    'callSummaryService', 'topAlertService', 'translatorService', 'errorHandler', 'consultationSummaryExpertService'];
   private static readonly minValidClientReportMessageLength = 3;
   public complaintReasons: IComplaintReason[];
   public isFullscreen = true;
@@ -49,10 +50,10 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   constructor(ViewsApi: ViewsApi,
               private logger: LoggerService,
+              private ServiceUsageEventApi: ServiceUsageEventApi,
               private $scope: IConsultationSummaryExpertControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
-              private ServiceApi: ServiceApi,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
               private errorHandler: ErrorHandlerService,
@@ -114,7 +115,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public sendClientReport = (sueId: string, message: string): void => {
     this.isSendingClientReport = true;
 
-    this.ServiceApi.postExpertComplaintRoute(sueId, {message}).then(() => {
+    this.ServiceUsageEventApi.postExpertComplaintRoute(sueId, {message}).then(() => {
       this.topAlertService.success({
         message:
           this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),

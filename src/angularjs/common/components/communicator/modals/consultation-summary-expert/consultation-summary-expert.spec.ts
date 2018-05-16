@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 
-import { ViewsApi, ServiceApiMock, ViewsApiMock } from 'profitelo-api-ng/api/api';
+import { ViewsApi, ViewsApiMock } from 'profitelo-api-ng/api/api';
 import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertControllerScope
@@ -13,12 +13,13 @@ import { TopAlertService } from '../../../../services/top-alert/top-alert.servic
 import { ConsultationSummaryExpertService } from './consultation-summary-expert.service';
 import SpyObj = jasmine.SpyObj;
 import loggerMockModule from '../../../../services/logger/logger.mock';
+import { ServiceUsageEventApi, ServiceUsageEventApiMock } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 describe('Testing Controller: consultationSummaryExpertController', () => {
 
   let consultationSummaryExpertController: ConsultationSummaryExpertController;
   let scope: IConsultationSummaryExpertControllerScope;
-  let serviceApiMock: ServiceApiMock;
+  let serviceUsageEventApiMock: ServiceUsageEventApiMock;
   let errorHandler: ErrorHandlerService;
   let $httpBackend: ng.IHttpBackendService;
   let topAlertService: TopAlertService;
@@ -39,6 +40,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL');
     $provide.value('normalizeTranslationKeyFilter', (x: string) => x);
+    $provide.value('ServiceUsageEventApi', ServiceUsageEventApi);
   }));
 
   beforeEach(() => {
@@ -47,13 +49,13 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
             _$httpBackend_: ng.IHttpBackendService,
             _ViewsApi_: ViewsApi,
             ViewsApiMock: ViewsApiMock,
-            _ServiceApiMock_: ServiceApiMock,
+            _ServiceUsageEventApiMock_: ServiceUsageEventApiMock,
             _errorHandler_: ErrorHandlerService,
             _topAlertService_: TopAlertService) => {
 
       scope = <IConsultationSummaryExpertControllerScope>$rootScope.$new();
       scope.serviceUsageEventId = '123';
-      serviceApiMock = _ServiceApiMock_;
+      serviceUsageEventApiMock = _ServiceUsageEventApiMock_;
       errorHandler = _errorHandler_;
       $httpBackend = _$httpBackend_;
       topAlertService = _topAlertService_;
@@ -85,22 +87,6 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
     expect(consultationSummaryExpertController.isClientReportValid()).toEqual(true);
   });
 
-  it('should send client report', () => {
-    spyOn(topAlertService, 'success');
-    serviceApiMock.postExpertComplaintRoute(httpCodes.ok, 'sueId', {});
-    consultationSummaryExpertController.sendClientReport('sueId', 'message');
-    $httpBackend.flush();
-    expect(topAlertService.success).toHaveBeenCalled();
-  });
-
-  it('should show error when send client report failed', () => {
-    spyOn(errorHandler, 'handleServerError');
-    serviceApiMock.postExpertComplaintRoute(httpCodes.notFound, 'sueId');
-    consultationSummaryExpertController.sendClientReport('sueId', 'message');
-    $httpBackend.flush();
-    expect(errorHandler.handleServerError).toHaveBeenCalled();
-  });
-
   it('should invoke send report function if report message is valid', () => {
     spyOn(consultationSummaryExpertController, 'sendClientReport');
     consultationSummaryExpertController.clientReportMessage = 'message';
@@ -111,7 +97,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   it('should show success alert when send technical problems',
     inject(($q: ng.IQService, $controller: ng.IControllerService) => {
       spyOn(topAlertService, 'success');
-      serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.NOISE);
+      serviceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.NOISE);
       consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.resolve({}));
       consultationSummaryExpertController =
         $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
@@ -128,7 +114,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   it('should show error when send technical problems fails',
     inject(($q: ng.IQService, $controller: ng.IControllerService) => {
       spyOn(errorHandler, 'handleServerError');
-      serviceApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.NOISE);
+      serviceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.NOISE);
       consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.reject({}));
       consultationSummaryExpertController =
         $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {

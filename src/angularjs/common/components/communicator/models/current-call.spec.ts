@@ -2,7 +2,7 @@ import { CurrentCall } from './current-call';
 import * as angular from 'angular';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { TimerFactory } from '../../../services/timer/timer.factory';
-import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { RatelApi } from 'profitelo-api-ng/api/api';
 import * as apiModule from 'profitelo-api-ng/api.module';
 import * as RatelSdk from 'ratel-sdk-js';
 import { roomType, Session } from 'ratel-sdk-js';
@@ -11,6 +11,7 @@ import { CommunicatorService } from '@anymind-ng/core';
 import { empty } from 'rxjs/observable/empty';
 import { loggerServiceMock } from '../../../services/logger/logger.mock';
 import { TimerService } from '../../../services/timer/timer.service';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 describe('Unit tests: CurrentCall', () => {
 
@@ -72,11 +73,11 @@ describe('Unit tests: CurrentCall', () => {
     $provide.value('apiUrl', 'awesomeURL');
     $provide.value('soundsService', SoundsService);
     $provide.value('RatelApi', RatelApi);
-    $provide.value('ServiceApi', ServiceApi);
+    $provide.value('ServiceUsageEventApi', ServiceUsageEventApi);
   }));
 
   beforeEach((inject((_RatelApi_: RatelApi,
-                      _ServiceApi_: ServiceApi,
+                      _ServiceUsageEventApi_: ServiceUsageEventApi,
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_;
     q = $q;
@@ -86,7 +87,7 @@ describe('Unit tests: CurrentCall', () => {
       serviceName: service.name
     };
     currentCall = new CurrentCall(ratelCall, session, timerFactory, callDetails, communicatorService,
-      RatelApi, _ServiceApi_, microphoneService, loggerServiceMock);
+      RatelApi, microphoneService, _ServiceUsageEventApi_, loggerServiceMock);
   })));
 
   it('should reject promise while starting environment video', (done) => {
