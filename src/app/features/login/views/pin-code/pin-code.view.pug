@@ -27,7 +27,7 @@
           input-checkbox(
             label="LOGIN.PIN_CODE.ACCEPT_TERMS",
             errorTextKey="LOGIN.PIN_CODE.ACCEPT_TERMS.VALIDATION_MESSAGE",
-            [isRequired]="true",
+            [isRequired]="isInputRequired",
             [form]="pinCodeForm",
             [controlName]="termsOfServiceControlName",
             [isDisabled]="isRequestPending"
@@ -37,7 +37,7 @@
           input-checkbox(
             label="LOGIN.PIN_CODE.ACCEPT_MARKETING",
             errorTextKey="LOGIN.PIN_CODE.ACCEPT_MARKETING.VALIDATION_MESSAGE",
-            [isRequired]="true",
+            [isRequired]="isInputRequired",
             [form]="pinCodeForm",
             [controlName]="termsOfMarketingControlName",
             [isDisabled]="isRequestPending"
