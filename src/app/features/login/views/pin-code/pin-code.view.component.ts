@@ -29,6 +29,7 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
   public timeLeft: number;
   public isRequestPending = false;
   public isInputInitialFocused = true;
+  public isInputRequired = true;
   public logger: LoggerService;
   public isUserRegisteredWithoutPassword = false;
 
