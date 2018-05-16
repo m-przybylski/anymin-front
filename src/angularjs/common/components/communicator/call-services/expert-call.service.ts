@@ -1,6 +1,6 @@
 // tslint:disable:max-file-line-count
 import { CommunicatorService, LoggerService, IConnected } from '@anymind-ng/core';
-import { ServiceApi, RatelApi } from 'profitelo-api-ng/api/api';
+import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { SoundsService } from '../../../services/sounds/sounds.service';
@@ -23,17 +23,18 @@ import { PullableCall } from '../models/pullable-call';
 import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 export class ExpertCallService {
 
-  public static $inject = ['ServiceApi', 'timerFactory', 'modalsService', 'soundsService', 'rtcDetectorService',
-    'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'upgradeService',
+  public static $inject = ['ServiceUsageEventApi', 'timerFactory', 'modalsService', 'soundsService',
+    'rtcDetectorService', 'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'upgradeService',
     'eventsService', 'sessionServiceWrapper'];
 
   private readonly newCallEvent = new ReplaySubject<ExpertCall>(1);
   private readonly pullableCallEvent = new Subject<PullableCall>();
 
-  constructor(private ServiceApi: ServiceApi,
+  constructor(private serviceUsageEventApi: ServiceUsageEventApi,
               private timerFactory: TimerFactory,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
@@ -79,10 +80,10 @@ export class ExpertCallService {
       this.logger.debug('ExpertCallService: PULLING');
 
       return this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault()).then(localStream =>
-        this.ServiceApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+        this.serviceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
-          const currentExpertCall = new ExpertCall(expertSueDetails, session, this.timerFactory,
-            call, this.communicatorService, this.RatelApi, this.ServiceApi, this.microphoneService, this.logger);
+          const currentExpertCall = new ExpertCall(expertSueDetails, session, this.timerFactory, call,
+            this.communicatorService, this.RatelApi, this.serviceUsageEventApi, this.microphoneService,  this.logger);
 
           return this.getCallMessages(call).then(callMsgs =>
             this.upgradeService.toIPromise(currentExpertCall.pull(localStream, callMsgs).then(() => {
@@ -146,7 +147,7 @@ export class ExpertCallService {
   }
 
   private onExpertBusinessCallIncoming = (session: Session, call: BusinessCall): void => {
-    this.ServiceApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+    this.serviceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
       this.soundsService.callIncomingSound().play();
 
@@ -238,8 +239,8 @@ export class ExpertCallService {
     this.rtcDetectorService.getMedia(MediaStreamConstraintsWrapper.getDefault()).then(
       localStream => {
 
-        const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory,
-          call, this.communicatorService, this.RatelApi, this.ServiceApi, this.microphoneService, this.logger);
+        const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory, call,
+          this.communicatorService, this.RatelApi, this.serviceUsageEventApi, this.microphoneService,  this.logger);
 
         currentExpertCall.answer(localStream).then(
           () => {

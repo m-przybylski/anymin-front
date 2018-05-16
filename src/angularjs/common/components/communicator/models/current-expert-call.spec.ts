@@ -1,7 +1,7 @@
 import * as angular from 'angular';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { TimerFactory } from '../../../services/timer/timer.factory';
-import { RatelApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { Session } from 'ratel-sdk-js';
 import { ExpertCall } from './current-expert-call';
@@ -9,6 +9,7 @@ import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
 import { empty } from 'rxjs/observable/empty';
 import { loggerServiceMock } from '../../../services/logger/logger.mock';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 describe('Unit tests: current expert call', () => {
 
@@ -52,16 +53,16 @@ describe('Unit tests: current expert call', () => {
     $provide.value('apiUrl', 'awesomeURL');
     $provide.value('soundsService', SoundsService);
     $provide.value('RatelApi', RatelApi);
-    $provide.value('ServiceApi', ServiceApi);
+    $provide.value('ServiceUsageEventApi', ServiceUsageEventApi);
   }));
 
   beforeEach((inject((_RatelApi_: RatelApi,
-                      _ServiceApi_: ServiceApi,
+                      _ServiceUsageEventApi_: ServiceUsageEventApi,
                       $q: ng.IQService) => {
     RatelApi = _RatelApi_;
     q = $q;
     currentExpertCall = new ExpertCall(incomingCallDetails, session, timerFactory, call,
-       communicatorService, RatelApi, _ServiceApi_, microphoneService, loggerServiceMock);
+       communicatorService, RatelApi, _ServiceUsageEventApi_, microphoneService, loggerServiceMock);
   })));
 
   it('should currentExpertCall exist', () => {

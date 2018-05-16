@@ -29,8 +29,8 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
 
   public $onInit = (): void => {
     this.price = this.organizationServiceDetails.service.price;
-    this.rating = this.organizationServiceDetails.service.rating;
-    this.usageCounter = this.organizationServiceDetails.service.usageCounter;
+    // this.rating = this.organizationServiceDetails.service.rating;
+    // this.usageCounter = this.organizationServiceDetails.service.usageCounter;
     this.serviceName = this.organizationServiceDetails.service.name;
   }
 }

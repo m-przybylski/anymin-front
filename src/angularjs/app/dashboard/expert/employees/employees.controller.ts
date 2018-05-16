@@ -71,6 +71,7 @@ export class DashboardExpertEmployeesController {
                     serviceId: employee.serviceId,
                     profileId: employee.profileId,
                     createdAt: employee.createdAt,
+                    usageCounter: employee.usageCounter,
                     serviceName: serviceWithEmployees.serviceDetails.name,
                     isFreelance: serviceWithEmployees.serviceDetails.isFreelance
                   };
@@ -79,7 +80,9 @@ export class DashboardExpertEmployeesController {
                     id: employee.id,
                     serviceId: employee.serviceId,
                     profileId: employee.profileId,
-                    createdAt: employee.createdAt
+                    createdAt: employee.createdAt,
+                    usageCounter: employee.usageCounter
+
                   };
                 }
               }

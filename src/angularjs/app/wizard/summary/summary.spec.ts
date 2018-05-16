@@ -147,9 +147,6 @@ describe('Testing Controller: SummaryController', () => {
           amount: 2423,
           currency: 'PLN'
         },
-        rating: 123,
-        usageCounter: 123,
-        usageDurationInSeconds: 123,
         isSuspended: false,
         createdAt: new Date(123)
       }]
