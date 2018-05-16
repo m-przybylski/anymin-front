@@ -45,9 +45,8 @@ export class SetPasswordViewService {
         .pipe(catchError(() => this.setPasswordByInvitation(accountId, password)))
       : this.setPasswordWithoutInvitation(accountId, password);
   }
-  private redirectToSetEmail = (): Promise<SetPasswordStatus> => {
-    this.localStorageWrapperService.removeItem('invitation');
-    return this.router.navigate(['/account/set-email'])
+  private redirectToSetEmail = (): Promise<SetPasswordStatus> =>
+    this.router.navigate(['/account/set-email'])
       .then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -57,8 +56,7 @@ export class SetPasswordViewService {
           this.alertService.pushSuccessAlert(Alerts.SetPasswordViewSuccess);
           return SetPasswordStatus.SUCCESS;
         }
-      });
-  }
+      })
 
   private redirectToInvitations = (token: string): Promise<SetPasswordStatus> =>
     this.router.navigate(['/invitations/' + token])

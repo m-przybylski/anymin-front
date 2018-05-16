@@ -84,7 +84,7 @@ describe('Testing Controller: InvitationsModal', () => {
     spyOn(uibModalInstance, 'dismiss')
     controller.onModalClose()
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
-    expect(state.go).toHaveBeenCalledWith('app.home')
+    expect(state.go).toHaveBeenCalledWith('app.dashboard.expert.activities');
   })
 
   it('should get services tags', () => {
