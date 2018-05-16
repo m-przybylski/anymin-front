@@ -19,6 +19,7 @@ import {
 import {
   SetNewPasswordFromEmailViewGuard
 } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
+import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {
     CommonModule,
     ReactiveFormsModule,
     ForgotPasswordRoutingModule,
-    SharedModule
+    SharedModule,
+    AngularJsProvidersModule
   ]
 })
 export class ForgotPasswordModule {

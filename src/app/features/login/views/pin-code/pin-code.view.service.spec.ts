@@ -9,6 +9,7 @@ import { PinCodeServiceStatus, PinCodeViewService } from './pin-code.view.servic
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { BackendErrors } from '../../../../shared/models/backend-error/backend-error';
+import { EventsService } from '../../../../../angularjs/common/services/events/events.service';
 
 // tslint:disable:max-file-line-count
 // tslint:disable:no-unbound-method
@@ -26,7 +27,8 @@ describe('Service: PinCode service', () => {
         {provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert'])},
         {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession'])},
-        {provide: Router, useValue: createSpyObj('Router', ['navigate'])}
+        {provide: Router, useValue: createSpyObj('Router', ['navigate'])},
+        {provide: EventsService, useValue: createSpyObj('EventsService', ['emit'])}
       ]
     });
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);

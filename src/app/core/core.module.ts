@@ -21,7 +21,7 @@ import { CommonConfig } from '../../../generated_modules/common-config/common-co
     ApiModule.forRoot(ApiConfigurationFactory),
     LoggerModule.forRoot(Config.logLevel),
     NgbModule.forRoot(),
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot()
   ],
   providers: [
     ApiKeyService,
