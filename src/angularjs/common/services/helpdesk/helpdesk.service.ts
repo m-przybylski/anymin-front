@@ -6,6 +6,7 @@ import { ISearchArticleResults } from './search-article-results.interface';
 export class HelpdeskService implements IHelpdesk {
 
   private static readonly baseZendeskUrl = 'https://anymind.zendesk.com/';
+  private static readonly zendeskExpertCategoryId = '115000117831';
 
   public static $inject = ['$http'];
 
@@ -23,7 +24,8 @@ export class HelpdeskService implements IHelpdesk {
       method: 'GET',
       url: searchArticlesUrlPath,
       params: {
-        query
+        query,
+        category: HelpdeskService.zendeskExpertCategoryId
       },
       withCredentials: false,
       headers: {
