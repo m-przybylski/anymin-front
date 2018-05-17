@@ -4,7 +4,9 @@ import { EventsService } from '../events/events.service';
 import { ICallSummaryWebsocketObject } from '../../models/CallSummary';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { IExpertPresenceUpdate }
+import {
+  IExpertPresenceUpdate
+}
   from '../../components/navbar/navbar-expert-visibility/navbar-expert-visibility.service';
 import { Config } from '../../../../config';
 
@@ -22,7 +24,8 @@ export class ProfiteloWebsocketService {
     onProfileCallProfit: new Subject<any>(),
     onExpertVisibilityUpdate: new Subject<any>(),
     onSessionDeleted: new Subject<any>(),
-    onNewInvitation: new Subject<any>()
+    onNewInvitation: new Subject<any>(),
+    onProfileCallRefund: new Subject<any>()
   };
 
   public static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
@@ -74,6 +77,9 @@ export class ProfiteloWebsocketService {
   public onProfileCallProfit = (callback: (data: any) => void): Subscription =>
     this.events.onProfileCallProfit.subscribe(callback)
 
+  public onProfileCallRefund = (callback: (data: any) => void): Subscription =>
+    this.events.onProfileCallRefund.subscribe(callback)
+
   public onExpertVisibilityUpdate = (callback: (data: IExpertPresenceUpdate) => void): Subscription =>
     this.events.onExpertVisibilityUpdate.subscribe(callback)
 
@@ -116,6 +122,9 @@ export class ProfiteloWebsocketService {
         break;
       case 'NEW_INVITATION':
         this.events.onNewInvitation.next(value);
+        break;
+      case 'PROFILE_CALL_REFUND':
+        this.events.onProfileCallRefund.next(value);
         break;
       default:
         this.$log.info('Unknown messageType ' + String(type));

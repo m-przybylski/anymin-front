@@ -28,11 +28,11 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
       this.isCompany = account.isCompany;
     });
 
-    profiteloWebsocket.onNewFinancialOperation((data) => {
+    profiteloWebsocket.onProfileCallProfit((data) => {
       this.expertBalance = data.balanceAfter;
     });
 
-    profiteloWebsocket.onProfileCallProfit((data) => {
+    profiteloWebsocket.onProfileCallRefund((data) => {
       this.expertBalance = data.balanceAfter;
     });
 
