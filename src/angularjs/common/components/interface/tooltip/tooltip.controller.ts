@@ -47,7 +47,7 @@ export class TooltioComponentController implements ITooltipComponentBindings {
   }
 
   private adjustTooltipPosition = (): void => {
-    this.tooltipContentWidth = this.$element.find('.tooltip-content')[0].clientWidth;
+    this.tooltipContentWidth = this.$element.find('.tooltip-content')[0].clientWidth || this.maxTooltipWidth;
     if (this.$window.innerWidth < TooltioComponentController.maxMobilePhoneWidth) {
       this.tooltipStyles = {
         left: 0
