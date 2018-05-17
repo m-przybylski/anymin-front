@@ -5,7 +5,7 @@ import { ErrorHandlerService } from '../../../../../services/error-handler/error
 import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../../services/translator/translator.service';
 import { ModalsService } from '../../../../../services/modals/modals.service';
-import { GetEmployment } from '@anymind-ng/api';
+import { GetEmploymentDetails } from '@anymind-ng/api';
 
 export interface IExpertEmployeeComponentControllerScope extends ng.IScope {
   profileWithEmployments: GetProfileDetailsWithEmployments;
@@ -22,7 +22,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   public employeeAvatar: string;
   public isEmploeeDeleted = false;
   public consultationText = '';
-  public employeeConsultations: GetEmployment[];
+  public employeeConsultations: GetEmploymentDetails[];
 
   private static readonly minRangeOfFewConsultations = 2;
   private static readonly maxRangeOfFewConsultations = 4;

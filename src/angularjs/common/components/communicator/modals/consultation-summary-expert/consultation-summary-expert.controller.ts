@@ -141,12 +141,12 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   private onCallSummaryByRequest = (summary: GetExpertCallSummary): void => {
     this.isLoading = false;
-    if (summary.clientNickname) {
-      this.clientNickname = summary.clientNickname;
+    if (summary.clientDetails.nickname) {
+      this.clientNickname = summary.clientDetails.nickname;
     } else {
-      this.clientNickname = summary.clientId;
+      this.clientNickname = summary.clientDetails.clientId;
     }
-    this.clientAvatar = summary.clientAvatar;
+    this.clientAvatar = summary.clientDetails.avatar;
     this.serviceName = summary.serviceName;
     this.profit = summary.callProfit;
     this.callDuration = summary.callDuration;
