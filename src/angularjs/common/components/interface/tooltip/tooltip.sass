@@ -8,8 +8,10 @@
     position: relative
 
   &.tooltip-angularjs
-    position: relative
-  
+
+    +xsm
+      position: relative
+      
   &.is-hover
     .btn
       z-index: $z-index-300
@@ -57,3 +59,4 @@
 
     p
       +paragraphSmall
+      white-space: pre-wrap
