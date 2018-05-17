@@ -3,11 +3,11 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@a
 import { RegistrationService, GetRegistrationSession } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError } from 'rxjs/operators';
-import { _throw } from 'rxjs/observable/throw';
 import { Alerts, AlertService } from '@anymind-ng/components';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { empty } from 'rxjs/observable/empty';
 
 @Injectable()
 export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
@@ -34,12 +34,6 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
     if (isBackendError(err)) {
       switch (err.code) {
         case BackendErrors.CreateAnotherPinCodeTokenRecently:
-          this.router.navigate(['/login']).then(isRedirectSuccessful => {
-            if (!isRedirectSuccessful) {
-              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Error when redirect to login');
-            }
-          });
           this.alertService.pushDangerAlert(Alerts.CreateAnotherPinCodeTokenTooRecently);
           break;
 
@@ -61,6 +55,7 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
       this.logger.warn('error when resolving pin-code', err);
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
-    return _throw(err);
+
+    return empty();
   }
 }
