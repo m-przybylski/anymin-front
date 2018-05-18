@@ -18,7 +18,7 @@
           p.title-container__subtitle(*ngIf="msisdn")
             span([translate]="'LOGIN.YOUR_NUMBER'")
             span.title-container__subtitle__msisdn {{ msisdn }}
-            a.title-container__subtitle___link(routerLink="/login", [translate]="'LOGIN.CHANGE_NUMBER'")
+            a.title-container__subtitle__link(routerLink="/login", [translate]="'LOGIN.CHANGE_NUMBER'")
 
       ng-content
 

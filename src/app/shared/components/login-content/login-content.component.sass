@@ -4,10 +4,10 @@
 \:host
   background: $c-white
   display: block
-  
+
   +xsm
     border-radius: 8px
-  
+
 .login-content
   opacity: 0
   animation: fadeIn 0.3s 0.2s
@@ -59,12 +59,15 @@
       text-align: center
 
     &__subtitle
-      +paragraphSmall
-      margin: 8px 0 0
+      +subtitleSmall
+      color: $c-text-secondary
+
+      span
+        color: $c-text-secondary
 
       &__msisdn
         margin: 0 4px
 
       &__link
-        color: $c-secondary
-        font-weight: 500
+        +buttonTextSmall
+        color: $c-primary
