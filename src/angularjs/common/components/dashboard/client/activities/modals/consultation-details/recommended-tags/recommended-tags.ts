@@ -2,11 +2,12 @@ import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import apiModule from 'profitelo-api-ng/api.module';
-import { ServiceApi } from 'profitelo-api-ng/api/api';
 import { Tag } from 'profitelo-api-ng/model/models';
 import { PostSueRating } from 'profitelo-api-ng/model/PostSueRating';
+import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
-function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
+function controller($log: ng.ILogService,
+                    ServiceUsageEventApi: ServiceUsageEventApi): void {
 
   const updateBindings = (): void => {
     if (this.selectedTags) {
@@ -30,7 +31,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
     $log.error(err);
 
   this.recommendConsultation = (): void => {
-    ServiceApi.postSueRatingRoute(this.serviceUsageEventId, {rate : PostSueRating.RateEnum.POSITIVE})
+    ServiceUsageEventApi.postSueRatingRoute(this.serviceUsageEventId, {rate : PostSueRating.RateEnum.POSITIVE})
       .then(onRecommendService, onRecommendServiceError);
   };
 
@@ -46,7 +47,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
     $log.error(err);
 
   this.saveRecommendedTags = (): void => {
-    ServiceApi.putSueRatingRoute(
+    ServiceUsageEventApi.putSueRatingRoute(
       this.serviceUsageEventId,
       {tags: _.map(this.selectedTags, (tag: any) => tag.id)}
     ).then(onRecommendServiceTags, onRecommendServiceTagsError);
