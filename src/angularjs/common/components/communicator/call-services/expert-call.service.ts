@@ -17,7 +17,6 @@ import { Message } from 'ratel-sdk-js/dist/message';
 import { BusinessCall, Session, Call, callType, CallReason } from 'ratel-sdk-js';
 import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { PullableCall } from '../models/pullable-call';
 import { UpgradeService } from '../../../services/upgrade/upgrade.service';
@@ -31,7 +30,7 @@ export class ExpertCallService {
     'rtcDetectorService', 'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'upgradeService',
     'eventsService', 'sessionServiceWrapper'];
 
-  private readonly newCallEvent = new ReplaySubject<ExpertCall>(1);
+  private readonly newCallEvent = new Subject<ExpertCall>();
   private readonly pullableCallEvent = new Subject<PullableCall>();
 
   constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
