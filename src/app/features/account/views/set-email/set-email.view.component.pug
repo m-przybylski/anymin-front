@@ -18,9 +18,9 @@
             placeholder="DASHBOARD.SET_EMAIL.ENTER_EMAIL.PLACEHOLDER",
             [form]="setEmailForm",
             [controlName]="emailControlName",
-            [errorTextKey]="'DASHBOARD.SET_EMAIL.ENTER_EMAIL.VALIDATION_MESSAGE'",
             [isDisabled]="isRequestPending",
-            [initialFocus]="isInputInitialFocused"
+            [initialFocus]="isInputInitialFocused",
+            [isRequired]="isInputRequired"
           )
 
         submit-button(
