@@ -14,7 +14,10 @@
               [tooltipText]="tooltipText",
               placement="top-right"
             )
-          p.title-container__subtitle(*ngIf="subTitleTrKey", [innerHTML]="subTitleTrKey | translate")
+          p.title-container__subtitle.title-container__subtitle--info(
+            *ngIf="subTitleTrKey",
+            [innerHTML]="subTitleTrKey | translate"
+          )
           p.title-container__subtitle(*ngIf="msisdn")
             span([translate]="'LOGIN.YOUR_NUMBER'")
             span.title-container__subtitle__msisdn {{ msisdn }}

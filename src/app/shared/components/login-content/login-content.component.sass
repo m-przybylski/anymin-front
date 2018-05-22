@@ -14,7 +14,6 @@
   animation-fill-mode: forwards
   display: flex
   align-items: center
-  height: 100vh
 
   +xsm
     height: auto
@@ -22,19 +21,21 @@
   &__container
     min-width: 320px
     width: 100vw
-    padding: 48px 16px 24px
+    padding: 48px 16px
     text-align: center
-    height: 100vh
+    min-height: 100vh
     display: flex
     flex-wrap: wrap
     align-content: space-between
     justify-content: center
+    background: $c-white
 
     +xsm
       display: block
       min-width: 480px
       max-width: 480px
       height: auto
+      min-height: auto
       padding: 48px
 
   .main
@@ -71,3 +72,6 @@
       &__link
         +buttonTextSmall
         color: $c-primary
+
+      &--info
+        margin: 16px 0 0
