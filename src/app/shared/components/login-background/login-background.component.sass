@@ -1,9 +1,13 @@
+@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
+
 .login-background
   &__container
     background: url("/assets/images/login-background.jpeg") no-repeat
     background-size: cover
     width: 100%
-    height: 100vh
     display: flex
     align-items: center
     justify-content: center
+
+    +xsm
+      height: 100vh
