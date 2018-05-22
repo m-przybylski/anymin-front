@@ -19,6 +19,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, IConnected, LoggerService } from '@anymind-ng/core';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
+import { takeUntil } from 'rxjs/operators';
+import { EventsService } from '../../../services/events/events.service';
 
 export enum CallState {
   REJECTED,
@@ -65,6 +67,8 @@ export class CurrentCall {
 
   private readonly messageRoomEvent = new ReplaySubject<MessageRoom>(1);
 
+  private ngUnsubscribe = new Subject<void>();
+
   constructor(protected ratelCall: RatelSdk.BusinessCall,
               private session: Session,
               private timerFactory: TimerFactory,
@@ -73,9 +77,14 @@ export class CurrentCall {
               protected RatelApi: RatelApi,
               private microphoneService: MicrophoneService,
               private ServiceUsageEventApi: ServiceUsageEventApi,
-              protected logger: LoggerService) {
+              protected logger: LoggerService,
+              private eventsService: EventsService) {
     this.registerCallbacks();
     this.createTimer(callDetails.servicePrice);
+    this.eventsService.on('logout', () => {
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
+    });
   }
 
   public forceEndCall = (): void => {
@@ -322,29 +331,32 @@ export class CurrentCall {
     // FIXME
     // remove this and handle it in this.handleConnectionBack when artichoke will return CALL_END in call.getMessages
     // https://git.contactis.pl/itelo/profitelo-frontend/issues/456
-    this.communicatorService.connectionEstablishedEvent$.subscribe((connected: IConnected) => {
-      // This is a HACK to enable media after reconnection - it will be fixed in ratel-sdk-js v2
-      this.ratelCall.onRemoteStream((_id, stream) => this.onNewRemoteStream(stream));
-      this.logger.debug('CurrentCall: Reconnected checking if call was pending');
-      if (this.state === CallState.PENDING) {
-        this.logger.debug('CurrentCall: Reconnected in pending call, checking active calls');
-        connected.session.chat.getActiveCalls().then((activeCalls) => {
-          const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
-          if (call) {
-            this.ServiceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
-              this.timer.setCurrentDuration(callDetails.callDuration);
-            }).catch((err) => {
-              this.logger.debug('CurrentCall: Error while getting call details', err);
-            });
-          } else { // Call no longer exists, propagate call end
-            this.handleOnEnd();
-          }
-        });
-      }
-    });
+    this.communicatorService.connectionEstablishedEvent$.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((connected: IConnected) => {
+        // This is a HACK to enable media after reconnection - it will be fixed in ratel-sdk-js v2
+        this.ratelCall.onRemoteStream((_id, stream) => this.onNewRemoteStream(stream));
+        this.logger.debug('CurrentCall: Reconnected checking if call was pending');
+        if (this.state === CallState.PENDING) {
+          this.logger.debug('CurrentCall: Reconnected in pending call, checking active calls');
+          connected.session.chat.getActiveCalls().then((activeCalls) => {
+            const call = _.find(activeCalls, (activeCall) => activeCall.id === this.ratelCall.id);
+            if (call) {
+              this.ServiceUsageEventApi.getSueDetailsForExpertRoute(this.ratelCall.id).then((callDetails) => {
+                this.timer.setCurrentDuration(callDetails.callDuration);
+              }).catch((err) => {
+                this.logger.debug('CurrentCall: Error while getting call details', err);
+              });
+            } else { // Call no longer exists, propagate call end
+              this.handleOnEnd();
+            }
+          });
+        }
+      });
 
-    this.communicatorService.connectionEstablishedEvent$.subscribe(this.handleConnectionBack);
-    this.communicatorService.connectionLostEvent$.subscribe(() => this.timer.pause());
+    this.communicatorService.connectionEstablishedEvent$.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(this.handleConnectionBack);
+    this.communicatorService.connectionLostEvent$.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => this.timer.pause());
   }
 
   private handleConnectionBack = (): void => {

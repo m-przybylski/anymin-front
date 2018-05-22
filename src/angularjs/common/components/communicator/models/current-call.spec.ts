@@ -21,16 +21,26 @@ describe('Unit tests: CurrentCall', () => {
   const microphoneService: MicrophoneService = jasmine.createSpyObj('microphoneService', ['']);
 
   const ratelCall: RatelSdk.BusinessCall = <any>{
-    onAnswered: (): void => {},
-    onRejected: (): void => {},
-    onEnd: (): void => {},
-    onActiveDevice: (): void => {},
-    onInvited: (): void => {},
-    onJoined: (): void => {},
-    onLeft: (): void => {},
-    onRemoteStream: (): void => {},
-    onOffline: (): void => {},
-    onOnline: (): void => {}
+    onAnswered: (): void => {
+    },
+    onRejected: (): void => {
+    },
+    onEnd: (): void => {
+    },
+    onActiveDevice: (): void => {
+    },
+    onInvited: (): void => {
+    },
+    onJoined: (): void => {
+    },
+    onLeft: (): void => {
+    },
+    onRemoteStream: (): void => {
+    },
+    onOffline: (): void => {
+    },
+    onOnline: (): void => {
+    }
   };
   const service = <any>{
     price: 23,
@@ -41,22 +51,30 @@ describe('Unit tests: CurrentCall', () => {
   const session: Session = {} as Session;
 
   const communicatorService: CommunicatorService = <any>{
-    onActiveCall: (): void => {},
+    onActiveCall: (): void => {
+    },
     connectionEstablishedEvent$: empty(),
     connectionLostEvent$: empty()
   };
 
+  const eventsService = jasmine.createSpyObj('EventsService', ['on']);
+
   const businessRoom: RatelSdk.BusinessRoom = <any>{
     roomType: roomType.RoomType.BUSINESS,
-    onTyping: (): void => {},
-    onMarked: (): void => {},
-    onCustom: (): void => {},
-    onInvited: (): void => {},
+    onTyping: (): void => {
+    },
+    onMarked: (): void => {
+    },
+    onCustom: (): void => {
+    },
+    onInvited: (): void => {
+    },
     join: (): Promise<{}> => Promise.resolve({})
   };
 
   const timerInstance: TimerService = {
-    pause: (): void => {}
+    pause: (): void => {
+    }
   } as TimerService;
 
   const timerFactory: TimerFactory = <any>{
@@ -87,7 +105,7 @@ describe('Unit tests: CurrentCall', () => {
       serviceName: service.name
     };
     currentCall = new CurrentCall(ratelCall, session, timerFactory, callDetails, communicatorService,
-      RatelApi, microphoneService, _ServiceUsageEventApi_, loggerServiceMock);
+      RatelApi, microphoneService, _ServiceUsageEventApi_, loggerServiceMock, eventsService);
   })));
 
   it('should reject promise while starting environment video', (done) => {

@@ -43,7 +43,7 @@ export class ExpertCallService {
               private microphoneService: MicrophoneService,
               private logger: LoggerService,
               private upgradeService: UpgradeService,
-              eventsService: EventsService,
+              private eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkIncomingCalls);
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkPullableCalls);
@@ -82,7 +82,8 @@ export class ExpertCallService {
         this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
           const currentExpertCall = new ExpertCall(expertSueDetails, session, this.timerFactory, call,
-            this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger);
+            this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger,
+            this.eventsService);
 
           return this.getCallMessages(call).then(callMsgs =>
             this.upgradeService.toIPromise(currentExpertCall.pull(localStream, callMsgs).then(() => {
@@ -239,7 +240,8 @@ export class ExpertCallService {
       localStream => {
 
         const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory, call,
-          this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger);
+          this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger,
+          this.eventsService);
 
         currentExpertCall.answer(localStream).then(
           () => {
