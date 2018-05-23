@@ -8,6 +8,9 @@ import {
 } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs/Subject';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponentEditProfile } from '../../../../shared/components/modals/edit-profile/modal.component';
+import { ModalComponent } from '../../../../shared/components/modals/modal.component';
 
 @Component({
   templateUrl: './phone-number.view.component.html',
