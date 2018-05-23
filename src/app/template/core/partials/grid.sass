@@ -1,0 +1,73 @@
+@mixin xlgm-landscape
+	@media only screen and (min-width: 1400px) and (orientation: landscape)
+		@content
+
+@mixin xlgm-portrait
+	@media only screen and (min-width: 1400px) and (orientation: portrait)
+		@content
+
+@mixin xlgm
+	@media only screen and (min-width: 1400px)
+		@content
+
+@mixin lgm-landscape
+	@media only screen and (min-width: 1280px) and (orientation: landscape)
+		@content
+
+@mixin lgm-portrait
+	@media only screen and (min-width: 1280px) and (orientation: portrait)
+		@content
+
+@mixin lgm
+	@media only screen and (min-width: 1280px)
+		@content
+
+@mixin mdm-landscape
+	@media only screen and (min-width: 960px) and (orientation: landscape)
+		@content
+
+@mixin mdm-portrait
+	@media only screen and (min-width: 960px) and (orientation: portrait)
+		@content
+
+@mixin mdm
+	@media only screen and (min-width: 960px)
+		@content
+
+@mixin smm-landscape-smm-portrait
+	@media only screen and (min-width: 768px) and (min-height: 767px)
+		@content
+
+@mixin smm-landscape
+	@media only screen and (min-width: 768px) and (orientation: landscape)
+		@content
+
+@mixin smm-portrait
+	@media only screen and (min-width: 768px) and (orientation: portrait)
+		@content
+
+@mixin smm
+	@media only screen and (min-width: 768px)
+		@content
+
+@mixin xsm-landscape
+	@media only screen and (min-width: 480px) and (orientation: landscape)
+		@content
+
+@mixin xsm-portrait
+	@media only screen and (min-width: 480px) and (orientation: portrait)
+		@content
+
+@mixin xsm
+	@media only screen and (min-width: 480px)
+		@content
+
+.mobile-hidden
+	display: none
+	
+	+lgm
+		display: inline
+
+.desktop-hidden
+	+lgm
+		display: none
