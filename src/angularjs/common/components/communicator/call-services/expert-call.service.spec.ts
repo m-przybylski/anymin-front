@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       },
       createServiceUnavailableModal: (): void => {
       }
-    }
+    };
 
     const communicatorServiceMock = {
       onCallInvitation: (cb: any): void => onCallInvitation = cb,

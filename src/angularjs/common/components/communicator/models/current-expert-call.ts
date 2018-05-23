@@ -7,6 +7,7 @@ import { TimerFactory } from '../../../services/timer/timer.factory';
 import { MicrophoneService } from '../microphone-service/microphone.service';
 import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
+import { EventsService } from '../../../services/events/events.service';
 
 export class ExpertCall extends CurrentCall {
 
@@ -18,10 +19,11 @@ export class ExpertCall extends CurrentCall {
               RatelApi: RatelApi,
               ServiceUsageEventApi: ServiceUsageEventApi,
               microphoneService: MicrophoneService,
-              logger: LoggerService) {
+              logger: LoggerService,
+              eventsService: EventsService) {
 
     super(call, session, timerFactory, ExpertCall.toCallDetails(getExpertSueDetails), communicatorService,
-      RatelApi, microphoneService, ServiceUsageEventApi, logger);
+      RatelApi, microphoneService, ServiceUsageEventApi, logger, eventsService);
     this.setState(CallState.PENDING);
     this.onCallTaken(() => {
       this.setState(CallState.PENDING_ON_OTHER_DEVICE);

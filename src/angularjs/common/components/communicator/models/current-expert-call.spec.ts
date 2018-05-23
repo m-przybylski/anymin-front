@@ -49,6 +49,8 @@ describe('Unit tests: current expert call', () => {
     sueId: '12'
   };
 
+  const eventsService = jasmine.createSpyObj('EventsService', ['on']);
+
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL');
     $provide.value('soundsService', SoundsService);
@@ -62,7 +64,7 @@ describe('Unit tests: current expert call', () => {
     RatelApi = _RatelApi_;
     q = $q;
     currentExpertCall = new ExpertCall(incomingCallDetails, session, timerFactory, call,
-       communicatorService, RatelApi, _ServiceUsageEventApi_, microphoneService, loggerServiceMock);
+       communicatorService, RatelApi, _ServiceUsageEventApi_, microphoneService, loggerServiceMock, eventsService);
   })));
 
   it('should currentExpertCall exist', () => {
