@@ -49,7 +49,7 @@ export class CurrentCall {
     onRemoteStream: new ReplaySubject<MediaStream>(1),
     onLocalStream: new ReplaySubject<MediaStream>(1),
     onTimeCostChange: new ReplaySubject<{ time: number, money: MoneyDto }>(1),
-    onVideoStart: new Subject<void>(),
+    onVideoStart: new ReplaySubject<MediaStream>(1),
     onVideoStop: new Subject<void>(),
     onParticipantOnline: new Subject<void>(),
     onParticipantOffline: new ReplaySubject<void>(1)
@@ -270,14 +270,13 @@ export class CurrentCall {
   private onNewRemoteStream = (stream: MediaStream): void => {
     this.logger.debug('CurrentCall: Received remote stream');
     this.events.onRemoteStream.next(stream);
-
     if (stream.getVideoTracks().length === 0 && this.isRemoteVideo) {
       this.isRemoteVideo = false;
       this.events.onVideoStop.next();
     }
     else if (stream.getVideoTracks().length > 0 && !this.isRemoteVideo) {
       this.isRemoteVideo = true;
-      this.events.onVideoStart.next();
+      this.events.onVideoStart.next(stream);
     }
     stream.onremovetrack = (t: MediaStreamTrackEvent): void => {
       this.logger.debug('CurrentCall: onRemoveTrack event called');
