@@ -1,6 +1,6 @@
 .pin-code-view
-  login-background
-    login-content(
+  plat-login-background
+    plat-login-content(
       contentHeightAnimation,
       titleText="LOGIN.PIN_CODE.TITLE",
       [msisdn]="msisdn"
@@ -14,7 +14,7 @@
 
         .input-icon-container
           span.icon.icon-cellphone
-          input-pin-code(
+          am-core-input-pin-code(
             label="LOGIN.PIN_CODE.ENTER_CODE.LABEL",
             placeholder="LOGIN.PIN_CODE.ENTER_CODE.PLACEHOLDER",
             [form]="pinCodeForm",
@@ -24,7 +24,7 @@
           )
 
         div(*ngIf="!isUserRegisteredWithoutPassword")
-          input-checkbox(
+          am-core-input-checkbox(
             label="LOGIN.PIN_CODE.ACCEPT_TERMS",
             errorTextKey="LOGIN.PIN_CODE.ACCEPT_TERMS.VALIDATION_MESSAGE",
             [isRequired]="isInputRequired",
@@ -34,7 +34,7 @@
           )
 
         div(*ngIf="!isUserRegisteredWithoutPassword")
-          input-checkbox(
+          am-core-input-checkbox(
             label="LOGIN.PIN_CODE.ACCEPT_MARKETING",
             errorTextKey="LOGIN.PIN_CODE.ACCEPT_MARKETING.VALIDATION_MESSAGE",
             [isRequired]="isInputRequired",
@@ -43,7 +43,7 @@
             [isDisabled]="isRequestPending"
           )
 
-        submit-button(
+        am-core-submit-button(
           titleText="LOGIN.PIN_CODE.SUBMIT_BUTTON",
           [formName]="pinCodeFormId",
           [isLoading]="isRequestPending"

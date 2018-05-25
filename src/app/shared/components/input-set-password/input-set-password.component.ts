@@ -8,7 +8,7 @@ export enum InputSetPasswordErrors {
 }
 
 @Component({
-  selector: 'input-set-password',
+  selector: 'plat-input-set-password',
   templateUrl: './input-set-password.component.html',
   styleUrls: ['./input-set-password.component.sass']
 })

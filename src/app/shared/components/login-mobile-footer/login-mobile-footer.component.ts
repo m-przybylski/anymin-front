@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 
 @Component({
-  selector: 'login-mobile-footer',
+  selector: 'plat-login-mobile-footer',
   templateUrl: './login-mobile-footer.component.html',
   styleUrls: ['./login-mobile-footer.component.sass']
 })

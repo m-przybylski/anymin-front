@@ -1,6 +1,6 @@
 .set-email-view
-  login-background
-    login-content(
+  plat-login-background
+    plat-login-content(
       contentHeightAnimation,
       titleText="DASHBOARD.SET_EMAIL.TITLE",
       subTitle="DASHBOARD.SET_EMAIL.SUBTITLE"
@@ -13,7 +13,7 @@
       )
         .input-icon-container
           span.icon.icon-mail
-          input-email(
+          am-core-input-email(
             label="DASHBOARD.SET_EMAIL.EMAIL.ENTER_EMAIL.LABEL",
             placeholder="DASHBOARD.SET_EMAIL.ENTER_EMAIL.PLACEHOLDER",
             [form]="setEmailForm",
@@ -23,7 +23,7 @@
             [isRequired]="isInputRequired"
           )
 
-        submit-button(
+        am-core-submit-button(
           titleText="LOGIN.NEXT",
           [formName]="setEmailFormId",
           [isLoading]="isRequestPending"

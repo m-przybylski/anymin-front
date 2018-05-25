@@ -1,6 +1,6 @@
 .phone-number-view
-  login-background
-    login-content(
+  plat-login-background
+    plat-login-content(
       contentHeightAnimation,
       titleText="LOGIN.TRUST_EXPERTS",
       tooltipText="LOGIN.TOOLTIP"
@@ -14,11 +14,11 @@
         .input-icon-container
           span.icon.icon-headphone
           .input-handler
-            input-prefix(
+            am-core-input-prefix(
               label="LOGIN.AREA_CODE",
               [value]="msisdnPrefix"
             )
-            input-phone-number(
+            am-core-input-phone-number(
               label="LOGIN.ENTER_NUMBER",
               placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
               [controlName]="msisdnControlName",
@@ -28,7 +28,7 @@
               [isRequired]="isInputRequired"
             )
 
-        submit-button(
+        am-core-submit-button(
           titleText="LOGIN.NEXT",
           [formName]="msisdnFormId",
           [isLoading]="isRequestPending"
