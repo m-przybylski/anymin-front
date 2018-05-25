@@ -1,0 +1,44 @@
+@import "../../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+@import "../../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
+
+.user-navigation
+  display: flex
+  justify-content: space-between
+
+  >ul
+    display: flex
+    justify-content: space-around
+
+
+    span
+      color: $c-text-primary
+
+    &.menus-navigation
+      li
+        a
+          padding: 0 8px 0 0
+
+          +xsm
+            padding: 0 16px 0 0
+
+        &:last-child
+         a
+          padding: 0
+
+           span
+             font-size: 4
+
+
+
+        span
+          font-size: 32px
+          color: $c-text-secondary
+
+          &.icon-avatar
+            color: $c-white
+            background-color: $c-text-secondary
+            border-radius: 50%
+
+
+
+
