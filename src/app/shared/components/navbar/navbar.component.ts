@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'plat-navbar',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
-  constructor() { }
+  @Input()
+  public isCompany: boolean;
+
+  constructor() {
+  }
+
 }

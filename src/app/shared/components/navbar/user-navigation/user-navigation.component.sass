@@ -5,40 +5,60 @@
   display: flex
   justify-content: space-between
 
-  >ul
+  &__list
     display: flex
     justify-content: space-around
-
+    align-items: center
 
     span
       color: $c-text-primary
 
-    &.menus-navigation
+    &--expert, &--company
+      display: none
+
+      li
+        margin: 0 24px 0 0
+
+        a
+          span
+            +buttonTextSmall
+            color: $c-text-secondary
+
+          &:hover
+            span
+              color: $c-primary
+
+      +mdm
+        display: flex
+
+
+    &--menu
       li
         a
-          padding: 0 8px 0 0
-
-          +xsm
-            padding: 0 16px 0 0
+          margin: 0 8px 0 0
+          display: flex
 
         &:last-child
          a
-          padding: 0
+          margin: 0 0 0 8px
 
-           span
-             font-size: 4
+         span
+           font-size: 40px
 
-
+           +xsm
+            font-size: 48px
 
         span
           font-size: 32px
           color: $c-text-secondary
+
+          &:hover
+            color: $c-primary
 
           &.icon-avatar
             color: $c-white
             background-color: $c-text-secondary
             border-radius: 50%
 
-
-
-
+            &:hover
+              background-color: $c-primary

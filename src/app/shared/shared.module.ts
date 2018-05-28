@@ -60,7 +60,7 @@ import { PinElementDirective } from './directives/pin-element/pin-element.direct
     InputSetPasswordComponent,
     ContentHeightAnimateDirective,
     NavbarComponent,
-    UserNavigationComponent
+    UserNavigationComponent,
     ContentHeightAnimateDirective,
     ModalComponent,
     PinElementDirective

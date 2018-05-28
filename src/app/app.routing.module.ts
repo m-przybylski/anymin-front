@@ -15,7 +15,7 @@ const appRoutes: Routes = [
       loadChildren: './features/forgot-password/forgot-password.module#ForgotPasswordModule',
     },
     {path: 'account', canActivate: [SessionGuard], loadChildren: './features/account/account.module#AccountModule'},
-    {path: 'dupa', canActivate: [SessionGuard],
+    {path: 'dashboard', canActivate: [SessionGuard],
       loadChildren: './features/dashboard/dashboard.module#DashboardModule'},
     // required by AngularJS
     {path: 'dashboard/expert/activities', loadChildren: './features/angularjs/angularjs.module#AngularJsModule'},
