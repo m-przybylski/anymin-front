@@ -1,6 +1,5 @@
-@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/mixins"
-@import "../../../template/core/variables/variables"
-@import "../../../template/core/partials/grid"
+@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/core"
+@import "../../core/variables/variables"
 
 .modal-backdrop
 	background: $c-lines
@@ -28,9 +27,9 @@
 			justify-content: center
 			align-items: center
 			min-height: 100vh
-			padding: 0
+			padding: 0 !important
 			border-radius: 0
-
+			
 .modal-component
 	background: $c-white
 	animation: fadeInY 0.2s
@@ -38,6 +37,7 @@
 	height: 100vh
 	
 	+smm
+		height: auto
 		background: none
 		height: auto
 	
@@ -60,13 +60,62 @@
 		width: inherit
 		left:  inherit
 		top: 0
+		border-radius: 8px 8px 0 0
+		z-index: $z-index-1000
 		
 		+smm
 			position: absolute
 			left: 0
 			top: 0
 			width: 100%
+			
+		&__nav
+			position: absolute
+			top: 0
+			width: 56px
+			height: 56px
+			display: flex
+			align-items: center
+			justify-content: center
+			z-index: $z-index-100
+			
+			&:first-of-type
+				left: 0
+				
+			&:last-of-type
+				right: 0
+			
+			a
+				height: 24px
+				max-height: 24px
+				width: 24px
+				max-width: 24px
+				overflow: hidden
+				cursor: pointer
+				padding: 0
 		
+			.icon
+				border-radius: 50%
+				display: flex
+				align-items: center
+				justify-content: center
+				background: $c-lines
+				transition: background-color 0.1s ease-in
+				
+				&:hover
+					background: $c-text-secondary
+					
+					&::before
+						color: $c-white
+				
+				&::before
+					transition: color 0.1s ease-in
+					color: $c-text-secondary
+		
+		&__title
+			text-align: center
+			flex: 1
+			
 		&--fixed
 			border-radius: 8px 8px 0 0
 			position: fixed
@@ -79,42 +128,26 @@
 			
 			p
 				+subtitle
-		
-		.icon
-			background: $c-lines
-			border-radius: 50%
-			transition: background-color 0.1s ease-in
-			
-			&:hover
-				background: $c-text-secondary
-				
-				&::before
-					color: $c-white
-			
-			&::before
-				transition: color 0.1s ease-in
-				color: $c-text-secondary
-	
+
 	&__container
 		box-shadow: 0 16px 24px 0 $c-lines
 		overflow: hidden
 		background: $c-modal-background
 		margin: 0 auto
 		display: block
-		width: 100%
 		position: relative
+		width: 100%
+		border-radius: 8px
 		
 		+smm
-			margin: 0 auto
 			width: $s-modal-container-small
-			border-radius: 8px
 			
 		+mdm
 			width: $s-modal-container-medium
 			
 		+lgm
 			width: $s-modal-container-big
-		
+			
 		&--big
 			+lgm
 				width: $s-modal-container-big
@@ -129,3 +162,32 @@
 	
 	&__content
 		padding: 48px + $s-modal-header 48px 48px
+		
+		&__header
+			margin: 0 0 24px
+			display: flex
+			align-items: center
+			
+			> span
+				+h6
+				
+				span
+					color: $c-label
+	
+	&__handler
+		+smm
+			display: flex
+			align-items: center
+			justify-content: flex-start
+		
+	&__action
+		display: flex
+		align-items: center
+		justify-content: space-between
+		margin: 48px 0 0
+		
+.modal-form
+	animation: none
+	
+	&__row
+		margin: 0 0 52px

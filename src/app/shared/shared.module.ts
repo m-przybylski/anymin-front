@@ -35,7 +35,6 @@ import {
 import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
-import { ModalComponent } from './components/modals/modal.component';
 import { PinElementDirective } from './directives/pin-element/pin-element.directive';
 import {
   UserNavigationUnderlineDirective
@@ -44,6 +43,11 @@ import { UserAvatarComponent } from './components/user-avatar/user-avatar.compon
 import {
   NavbarUserAvatarComponent
 } from './components/navbar/navbar-user-avatar/navbar-user-avatar/navbar-user-avatar.component';
+import { ModalComponentEditProfile } from './components/navbar/edit-profile/edit-profile.component';
+import {
+  BasicProfileDataComponent
+}
+  from './components/navbar/edit-profile/basic-profile-data/basic-profile-data.component';
 
 @NgModule({
   imports: [
@@ -67,13 +71,14 @@ import {
     ContentHeightAnimateDirective,
     NavbarComponent,
     UserNavigationComponent,
-    ModalComponent,
-    PinElementDirective,
     UserAvatarComponent,
+    UserNavigationUnderlineDirective,
     NavbarUserAvatarComponent,
-    UserNavigationUnderlineDirective
+    PinElementDirective,
+    ModalComponentEditProfile,
+    BasicProfileDataComponent
   ],
-  entryComponents: [WidgetGeneratorComponent, ModalComponent],
+  entryComponents: [WidgetGeneratorComponent, ModalComponentEditProfile],
   exports: [
     AnymindComponentsModule,
     TranslateModule,

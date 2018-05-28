@@ -31,7 +31,11 @@ export class Config {
     profileName: '150',
     profileDescription: '600',
     consultationName: '350',
-    consultationDescription: '600'
+    consultationDescription: '600',
+    consultationMaxDescription: '600',
+    consultationMinDescription: '3',
+    profileNameMinLenght: '3',
+    profileNameMaxLenght: '60'
   };
 
   public static readonly styles = {
