@@ -8,6 +8,7 @@ export class RtcDetectorModalController implements ng.IController {
   public isOpera = false;
   public isFirefox = false;
   public isSafari = false;
+  public isChrome = false;
 
   public static $inject = [];
 
@@ -23,6 +24,9 @@ export class RtcDetectorModalController implements ng.IController {
     }
     if (DetectRTC.browser.isOpera) {
       this.isOpera = true;
+    }
+    if (DetectRTC.browser.isChrome) {
+      this.isChrome = true;
     }
   }
 }

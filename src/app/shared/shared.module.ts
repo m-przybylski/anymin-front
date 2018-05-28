@@ -8,7 +8,7 @@ import {
 } from '@anymind-ng/core';
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
-import { UnsupportedGuard } from './guards/unsupported/unsupported.guard';
+import { UnsupportedGuard } from '../features/unsupported/unsupported.guard';
 import { SessionGuard } from './guards/session/session.guard';
 import { AnonymousGuard } from './guards/anonymous/anonymous.guard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
