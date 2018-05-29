@@ -1,0 +1,4 @@
+.user-avatar([ngClass]="avatarSize")
+  img.user-avatar__img(src="{{ avatarUrl }}", *ngIf="avatarUrl; else iconAvatar")
+  ng-template(#iconAvatar)
+    span.icon.icon-avatar
