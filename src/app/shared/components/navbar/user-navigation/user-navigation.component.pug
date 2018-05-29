@@ -1,0 +1,33 @@
+.user-navigation
+  ul.user-navigation__list.user-navigation__list--expert(*ngIf="!isCompany")
+    li(*ngIf="isUserExpert")
+      a
+        span {{ "NAVBAR.EXPERT_ACTIVITIES" | translate }}
+    li
+      a(routerLink="/dashboard/discover")
+        span {{ "NAVBAR.DISCOVER" | translate }}
+    li
+      a
+        span {{ "NAVBAR.ACTIVITIES" | translate }}
+    li
+      a
+        span {{ "NAVBAR.FAVOURITE" | translate }}
+
+  ul.user-navigation__list.user-navigation__list--company(*ngIf="isCompany")
+    li
+      a(routerLink="/dashboard/company-activities")
+        span {{ "NAVBAR.COMPANY_ACTIVITIES" | translate }}
+    li
+      a
+        span {{ "NAVBAR.COMPANY_EMPLOYEES" | translate }}
+
+  ul.user-navigation__list.user-navigation__list--menu
+    li
+      a
+        span.icon.icon-questionmark
+    li
+      a
+        span.icon.icon-bell
+    li
+      a
+        span.icon.icon-avatar
