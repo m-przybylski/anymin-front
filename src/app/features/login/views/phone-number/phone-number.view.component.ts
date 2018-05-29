@@ -34,7 +34,6 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
               private CommonSettingsService: CommonSettingsService,
               private inputPhoneNumber: InputPhoneNumberService,
               loggerFactory: LoggerFactory) {
-
     this.logger = loggerFactory.createLoggerService('PhoneNumberViewComponent');
   }
 

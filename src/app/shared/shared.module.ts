@@ -34,6 +34,8 @@ import {
   from './directives/animation/content-height/content-height.animation.directive';
 import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
 import { CommonConfig } from '../../../generated_modules/common-config/common-config';
+import { ModalComponent } from './components/modals/modal.component';
+import { PinElementDirective } from './directives/pin-element/pin-element.directive';
 
 @NgModule({
   imports: [
@@ -54,9 +56,11 @@ import { CommonConfig } from '../../../generated_modules/common-config/common-co
     RadioButtonDirective,
     WidgetGeneratorComponent,
     InputSetPasswordComponent,
-    ContentHeightAnimateDirective
+    ContentHeightAnimateDirective,
+    ModalComponent,
+    PinElementDirective
   ],
-  entryComponents: [WidgetGeneratorComponent],
+  entryComponents: [WidgetGeneratorComponent, ModalComponent],
   exports: [
     AnymindComponentsModule,
     TranslateModule,

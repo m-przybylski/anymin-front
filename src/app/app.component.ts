@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
@@ -8,7 +8,8 @@ const englishTranslations = require('../../generated_modules/angular-translation
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   constructor(private logger: LoggerService,
