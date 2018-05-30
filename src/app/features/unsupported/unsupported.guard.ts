@@ -8,13 +8,17 @@ const DetectRTC = require('detectrtc');
 @Injectable()
 export class UnsupportedGuard implements CanActivate {
 
+  private readonly facebookBrowserName = 'is[FB_IAB/Orca-Android;FBAV';
+
   constructor(private router: Router,
               private logger: LoggerService,
               private alertService: AlertService) {
   }
 
   public canActivate(): boolean {
-    if (DetectRTC.osName === 'iOS' && DetectRTC.browser.isChrome || DetectRTC.browser.isSafari) {
+    if (DetectRTC.browser[this.facebookBrowserName] || (DetectRTC.osName !== 'iOS' && DetectRTC.browser.isChrome)) {
+      return true;
+    } else {
       this.router.navigate(['/unsupported']).then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -23,6 +27,5 @@ export class UnsupportedGuard implements CanActivate {
       });
       return false;
     }
-    return true;
   }
 }
