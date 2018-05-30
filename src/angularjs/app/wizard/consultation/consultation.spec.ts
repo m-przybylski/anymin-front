@@ -5,7 +5,6 @@ import {ConsultationController, IConsultationStateParams} from './consultation.c
 import consultaionWizardModule from './consultation'
 import {UserService} from '../../../common/services/user/user.service'
 import apiModule from 'profitelo-api-ng/api.module'
-import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import {StateService} from '@uirouter/angularjs'
 
@@ -25,18 +24,6 @@ describe('Testing Controller: ConsultationController', () => {
     isExpert: false,
     isCompany: true,
     isSummary: true
-  }
-  const commonConfig: CommonConfig = <CommonConfig>{
-    getAllData: (): any => {
-      return {
-        config: {
-          moneyDivider: 100,
-          'supported-languages': [{
-            shortcut: 'pl', name: 'Polish'
-          }]
-        }
-      }
-    }
   }
   const serviceMock: GetWizardService = {
     name: 'Edit Consultation',
@@ -78,7 +65,6 @@ describe('Testing Controller: ConsultationController', () => {
       $stateParams: stateParams,
       wizardProfile: wizardProfile,
       WizardApi: wizardApi,
-      CommonConfig: commonConfig,
       $filter: filter,
     })
   }

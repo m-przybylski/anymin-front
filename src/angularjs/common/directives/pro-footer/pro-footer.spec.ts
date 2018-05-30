@@ -12,7 +12,6 @@ describe('Unit testing: profitelo.directives.pro-footer', () => {
     beforeEach(() => {
 
       angular.mock.module('profitelo.directives.pro-footer')
-      angular.mock.module('commonConfig')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope = $rootScope.$new()

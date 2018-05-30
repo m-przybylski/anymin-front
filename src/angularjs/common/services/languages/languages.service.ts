@@ -1,5 +1,5 @@
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { TranslatorService } from '../translator/translator.service';
+import { CommonConfig } from '../../../../common-config';
 
 export interface ILanguage {
   name: string;
@@ -9,16 +9,15 @@ export interface ILanguage {
 // tslint:disable:member-ordering
 export class LanguagesService {
 
-  public static $inject = ['translatorService', 'CommonConfig'];
+  public static $inject = ['translatorService'];
 
-    constructor(private translatorService: TranslatorService,
-              private CommonConfig: CommonConfig) {}
+    constructor(private translatorService: TranslatorService) {}
 
   private languages: {
     shortcut: string,
     name: string,
     'native-name': string
-  }[] = this.CommonConfig.getAllData().config['supported-languages'];
+  }[] = CommonConfig.getCommonConfig().config['supported-languages'];
 
   public languagesList: ILanguage[] = this.languages.map((lng) =>
     ({

@@ -1,4 +1,3 @@
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { UserService } from '../user/user.service';
 import { EventsService } from '../events/events.service';
 import { ICallSummaryWebsocketObject } from '../../models/CallSummary';
@@ -9,6 +8,7 @@ import {
 }
   from '../../components/navbar/navbar-expert-visibility/navbar-expert-visibility.service';
 import { Config } from '../../../../config';
+import { CommonConfig } from '../../../../common-config';
 
 // tslint:disable:member-ordering
 export class ProfiteloWebsocketService {
@@ -28,15 +28,14 @@ export class ProfiteloWebsocketService {
     onProfileCallRefund: new Subject<any>()
   };
 
-  public static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope', 'CommonConfig'];
+  public static $inject = ['$log', 'userService', 'eventsService', '$timeout', '$rootScope'];
 
   constructor(private $log: ng.ILogService,
               private userService: UserService,
               private eventsService: EventsService,
               private $timeout: ng.ITimeoutService,
-              private $rootScope: ng.IRootScopeService,
-              CommonConfig: CommonConfig) {
-    this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register';
+              private $rootScope: ng.IRootScopeService) {
+    this.wsEndpoint = CommonConfig.getCommonConfig().urls.ws + '/ws/register';
     this.eventsService.on('login', this.connectWebsocket);
     this.eventsService.on('logout', this.disconnectWebsocket);
   }

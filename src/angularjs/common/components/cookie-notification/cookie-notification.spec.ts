@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 
 import {CookieNotificationComponentController} from './cookie-notification.controller'
-import commonConfigModule from '../../../../../generated_modules/common-config/common-config'
 
 describe('Unit testing: profitelo.components.cookies', () => {
   describe('for cookie component >', () => {
@@ -25,7 +24,6 @@ describe('Unit testing: profitelo.components.cookies', () => {
 
       angular.mock.module('profitelo.components.cookie-notification')
       angular.mock.module('ngCookies')
-      angular.mock.module(commonConfigModule)
 
       inject(($rootScope: any, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService) => {

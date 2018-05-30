@@ -14,7 +14,6 @@ import { WizardApi } from 'profitelo-api-ng/api/api';
 import { GetWizardProfile } from 'profitelo-api-ng/model/models';
 import userModule from '../../../common/services/user/user';
 import apiModule from 'profitelo-api-ng/api.module';
-import commonConfigModule from '../../../../../generated_modules/common-config/common-config';
 import inputPriceModule from '../../../common/components/interface/input-price/input-price';
 import languagesModule from '../../../common/services/languages/languages';
 import translatorModule from '../../../common/services/translator/translator';
@@ -33,7 +32,6 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
   consultationTagInputModule,
   tooltipModule,
   userModule,
-  commonConfigModule,
   consultationEmployeeInputModule,
   inputPriceModule,
   languagesModule,

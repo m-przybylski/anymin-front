@@ -1,8 +1,8 @@
 import { ISearchFiltersComponentBindings } from './search-filters';
 import { IPrimaryDropdownListElement } from '../../interface/dropdown-primary/dropdown-primary';
-import { CommonConfig } from '../../../../../../generated_modules/common-config/common-config';
 import { TranslatorService } from '../../../services/translator/translator.service';
 import { StateService } from '@uirouter/angularjs';
+import { CommonConfig } from '../../../../../common-config';
 
 // tslint:disable:member-ordering
 export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
@@ -42,20 +42,19 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.maxPrice = this.$state.params.maxPrice ? this.$state.params.maxPrice / this.moneyDivider : this.maxPrice;
   }
 
-  public static $inject = ['translatorService', '$window', '$state', 'CommonConfig'];
+  public static $inject = ['translatorService', '$window', '$state'];
 
     constructor(private translatorService: TranslatorService,
               private $window: ng.IWindowService,
-              private $state: StateService,
-              CommonConfig: CommonConfig) {
+              private $state: StateService) {
 
-    this.moneyDivider = CommonConfig.getAllData().config.moneyDivider;
+    this.moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
 
     const languages: {
       shortcut: string,
       name: string,
       'native-name': string
-    }[] = CommonConfig.getAllData().config['supported-languages'];
+    }[] = CommonConfig.getCommonConfig().config['supported-languages'];
 
     this.languagesList = languages.map((lng) =>
       ({

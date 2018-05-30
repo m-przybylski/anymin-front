@@ -4,7 +4,6 @@ import navbarHelpModule from './navbar-help'
 import {INavbarHelpComponentBindings} from './navbar-help'
 import {HelpdeskService} from '../../../services/helpdesk/helpdesk.service'
 import * as _ from 'lodash'
-import commonConfigModule from '../../../../../../generated_modules/common-config/common-config'
 
 describe('Unit testing: navbarHelp', () => {
   return describe('for navbarHelp component >', () => {
@@ -21,7 +20,6 @@ describe('Unit testing: navbarHelp', () => {
     beforeEach(() => {
 
       angular.mock.module(navbarHelpModule)
-      angular.mock.module(commonConfigModule)
 
       inject(($rootScope: ng.IRootScopeService,
               $compile: ng.ICompileService,

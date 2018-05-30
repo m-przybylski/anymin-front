@@ -11,7 +11,6 @@ describe('Unit testing: profitelo.services.client-activities-service >', () => {
     }))
 
     beforeEach(() => {
-      angular.mock.module('commonConfig')
       angular.mock.module('profitelo.services.image-zoom')
     })
 

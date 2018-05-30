@@ -1,27 +1,9 @@
-import * as angular from "angular"
 'use strict'
 
-export type Settings = {{{json jsonSettings}}}
+export type Config{{{jsonInterfaceName}}} = {{{json jsonSettings}}}
 
-/* istanbul ignore next */
-export class CommonConfig {
+export class {{{ngInjectableName}}}{{{jsonInterfaceName}}} {
 
-    public static readonly settings: Settings = {{{json jsonSettings}}}
+    public static readonly settings: Config{{{jsonInterfaceName}}} = {{{json jsonSettings}}}
 
-    constructor() {}
-
-    public getAllData(): Settings {
-        return angular.copy(CommonConfig.settings)
-    }
-
-    public $get() {
-        return new CommonConfig()
-    }
 }
-
-
-const commonConfigModule = angular.module('{{ngModuleName}}', [])
-    .provider('{{ngProviderName}}', new CommonConfig)
-    .name
-
-export default commonConfigModule

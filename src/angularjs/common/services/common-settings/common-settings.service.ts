@@ -1,9 +1,9 @@
-import { CommonConfig, Settings } from '../../../../../generated_modules/common-config/common-config';
-
 // tslint:disable:member-ordering
+import { CommonConfig } from '../../../../common-config';
+
 export class CommonSettingsService {
 
-  private readonly commonConfigData: Settings = CommonConfig.settings;
+  private readonly commonConfigData = CommonConfig.getCommonConfig();
   private readonly validation = this.commonConfigData.validation;
   private readonly urls = this.commonConfigData.urls;
   public readonly links = {

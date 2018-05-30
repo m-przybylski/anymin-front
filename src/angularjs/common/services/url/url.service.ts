@@ -1,6 +1,6 @@
-import { CommonConfig, Settings } from '../../../../../generated_modules/common-config/common-config';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
+import { CommonConfig } from '../../../../common-config';
 
 export interface ISocialUrl {
   iconClass: string;
@@ -11,12 +11,11 @@ export interface ISocialUrl {
 // tslint:disable:member-ordering
 export class UrlService {
 
-  private commonConfig: Settings;
+  private commonConfig = CommonConfig.getCommonConfig();
 
-  public static $inject = ['CommonSettingsService', 'CommonConfig'];
+  public static $inject = ['CommonSettingsService'];
 
-    constructor(private CommonSettingsService: any, CommonConfig: CommonConfig) {
-    this.commonConfig = CommonConfig.getAllData();
+    constructor(private CommonSettingsService: any) {
   }
 
   public resolveSocialUrl = (remoteUrl: string): ISocialUrl | undefined => {

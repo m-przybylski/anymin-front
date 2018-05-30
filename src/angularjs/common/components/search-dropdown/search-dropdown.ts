@@ -6,7 +6,6 @@ import uiRouter from '@uirouter/angularjs';
 
 const searchDropdownModule = angular.module('profitelo.components.search-dropdown', [
   uiRouter,
-  'commonConfig',
   searchModule,
     'profitelo.components.interface.preloader',
   filtersModule

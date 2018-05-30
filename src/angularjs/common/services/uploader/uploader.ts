@@ -5,8 +5,7 @@ import 'ng-file-upload';
 
 const uploaderModule = angular.module('profitelo.services.uploader', [
   apiModule,
-  'ngFileUpload',
-  'commonConfig'
+  'ngFileUpload'
 ])
   .config(['$qProvider', ($qProvider: ng.IQProvider): any => {
     $qProvider.errorOnUnhandledRejections(false);
