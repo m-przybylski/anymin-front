@@ -13,19 +13,20 @@ import smoothScrollingModule from '../../../../../services/smooth-scrolling/smoo
 import { IWindowService } from '../../../../../services/window/window.service';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { CommonConfig } from '../../../../../../../../generated_modules/common-config/common-config';
 import checkboxModule from '../../../../interface/checkbox/checkbox';
 import inputModule from '../../../../interface/input/input';
 import chooseBankModule from '../../choose-bank/choose-bank';
 import { StateService } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
+import { CommonConfig } from '../../../../../../../common-config';
 // tslint:disable:no-use-before-declare
 // tslint:disable:strict-type-predicates
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: StateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
-                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
-                                   CommonConfig: CommonConfig, $element: JQuery): void {
+                                   CommonSettingsService: CommonSettingsService,
+                                   $scope: ng.IScope, $element: JQuery): void {
+
   let isPending = false;
   this.isGetCompanyInfo = false;
   this.firstNameModel = '';
@@ -84,7 +85,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 
       this.sendPaymentObject = {
         email: this.emailModel,
-        continueUrl: CommonConfig.getAllData().urls.frontend + '/dashboard/client/activities',
+        continueUrl: CommonConfig.getCommonConfig().urls.frontend + '/dashboard/client/activities',
         payment: {
           amount: this.amountMethodModal.amountModel.cashAmount,
           paymentCountryId: this.paymentCountryId,
@@ -229,7 +230,7 @@ const payuPaymentForm = {
     paymentCountryId: '=?'
   },
   controller: ['$log', '$window', '$state', 'PaymentsApi', 'userService', 'topAlertService', 'smoothScrollingService',
-    'AccountApi', 'CommonSettingsService', '$scope', 'CommonConfig', '$element', payuPaymentFormController],
+    'AccountApi', 'CommonSettingsService', '$scope', '$element', payuPaymentFormController],
   controllerAs: '$ctrl'
 };
 

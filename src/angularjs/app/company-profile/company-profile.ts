@@ -41,8 +41,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'profitelo.components.interface.collapse-tab',
   'profitelo.components.expert-profile.company-single-consultation',
   'profitelo.components.expert-profile.similar-experts-slider',
-  'profitelo.components.expert-profile.social-links',
-  'commonConfig'
+  'profitelo.components.expert-profile.social-links'
 ])
   .config(['$stateProvider', '$qProvider',
     ($stateProvider: StateProvider, $qProvider: ng.IQProvider): void => {

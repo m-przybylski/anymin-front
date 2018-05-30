@@ -20,7 +20,6 @@ import
 import { BrowserModule } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
 import { LoggerFactory } from '@anymind-ng/core';
-import { CommonConfig } from '../../../../../../generated_modules/common-config/common-config';
 
 // tslint:disable:no-floating-promises
 describe('Component: PhoneNumberViewComponent', () => {
@@ -41,7 +40,6 @@ describe('Component: PhoneNumberViewComponent', () => {
         FormsModule
       ],
       providers: [
-        CommonConfig,
         CommonSettingsService,
         {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {

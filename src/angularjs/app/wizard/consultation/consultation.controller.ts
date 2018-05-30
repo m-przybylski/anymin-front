@@ -4,12 +4,12 @@ import { UserService } from '../../../common/services/user/user.service';
 import { IServiceInvitation } from '../../../common/models/ServiceInvitation';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { ILanguage, LanguagesService } from '../../../common/services/languages/languages.service';
 import { TranslatorService } from '../../../common/services/translator/translator.service';
 import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 import { Config } from '../../../../config';
 import { StateService, StateParams } from '@uirouter/angularjs';
+import { CommonConfig } from '../../../../common-config';
 
 export interface IConsultationStateParams extends StateParams {
   service: GetWizardService;
@@ -62,7 +62,7 @@ export class ConsultationController implements ng.IController {
     value: 'pl'
   };
 
-  public static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService', 'CommonConfig',
+  public static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService',
     'wizardProfile', 'languagesService', 'CommonSettingsService'];
 
   constructor(private translatorService: TranslatorService,
@@ -70,14 +70,13 @@ export class ConsultationController implements ng.IController {
               private $stateParams: IConsultationStateParams,
               private WizardApi: WizardApi,
               private userService: UserService,
-              private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
               private languagesService: LanguagesService,
               private CommonSettingsService: CommonSettingsService) {
 
     this.languagesList = this.languagesService.languagesList;
 
-    this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider;
+    this.moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
 
     this.assignValidationValues();
 

@@ -1,5 +1,5 @@
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { CookieNotificationService } from './cookie-notification.service';
+import { CommonConfig } from '../../../../common-config';
 
 interface ICookieHref {
   hrefUrl: string;
@@ -10,13 +10,12 @@ export class CookieNotificationComponentController implements ng.IController {
 
   public cookieTranslationHref: ICookieHref;
 
-  public static $inject = ['cookieNotificationService', 'CommonConfig'];
+  public static $inject = ['cookieNotificationService'];
 
-    constructor(private cookieNotificationService: CookieNotificationService,
-              CommonConfig: CommonConfig) {
+    constructor(private cookieNotificationService: CookieNotificationService) {
 
     this.cookieTranslationHref = {
-      hrefUrl: CommonConfig.getAllData().urls['privacy-policy']
+      hrefUrl: CommonConfig.getCommonConfig().urls['privacy-policy']
     };
   }
 

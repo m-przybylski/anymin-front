@@ -1,8 +1,8 @@
 import * as angular from 'angular';
 import { FileIdDto, PostFileDetails } from 'profitelo-api-ng/model/models';
 import { FilesApi } from 'profitelo-api-ng/api/api';
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { IDeferred } from 'angular';
+import { CommonConfig } from '../../../../common-config';
 
 export interface ICroppingDetails {
   x?: number;
@@ -24,7 +24,7 @@ export class UploaderService {
 
   private uploadingCount = 0;
   private fileObjectsToUpload: IFileObject[] = [];
-  private urls = CommonConfig.settings.urls;
+  private urls = CommonConfig.getCommonConfig().urls;
 
   public static $inject = ['$q', '$timeout', 'FilesApi', 'Upload', 'simultaneousUploadCount'];
 

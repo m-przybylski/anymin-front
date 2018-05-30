@@ -1,6 +1,6 @@
 import { LogLevel } from '@anymind-ng/core';
 import { VERSION } from '../generated_modules/version/version';
-import { CommonConfig } from '../generated_modules/common-config/common-config';
+import { CommonConfig } from './common-config';
 
 export class Config {
 
@@ -48,7 +48,7 @@ export class Config {
     ],
     options: {
       release: VERSION.hash,
-      environment: CommonConfig.settings.environment,
+      environment: CommonConfig.getCommonConfig().environment,
       extra: VERSION.version
     }
   };

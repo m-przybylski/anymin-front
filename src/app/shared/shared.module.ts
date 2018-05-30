@@ -33,7 +33,6 @@ import {
 }
   from './directives/animation/content-height/content-height.animation.directive';
 import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
-import { CommonConfig } from '../../../generated_modules/common-config/common-config';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
 import { ModalComponent } from './components/modals/modal.component';
@@ -88,7 +87,6 @@ import { PinElementDirective } from './directives/pin-element/pin-element.direct
     MsisdnGuard,
     LocalStorageWrapperService,
     RegistrationInvitationService,
-    CommonConfig,
     PinCodeTimerService,
     ContentHeightAnimationService
   ]

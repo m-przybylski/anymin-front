@@ -1,6 +1,5 @@
 // tslint:disable:member-ordering
 // tslint:disable:max-file-line-count
-import { CommonConfig } from '../../../../../../../../../generated_modules/common-config/common-config';
 import { UserService } from '../../../../../../services/user/user.service';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
@@ -16,6 +15,7 @@ import { ILanguage, LanguagesService } from '../../../../../../services/language
 import { TranslatorService } from '../../../../../../services/translator/translator.service';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { Config } from '../../../../../../../../config';
+import { CommonConfig } from '../../../../../../../../common-config';
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void;
@@ -64,12 +64,11 @@ export class ServiceFormModalController implements ng.IController {
     value: 'pl'
   };
 
-  public static $inject = ['$uibModalInstance', 'translatorService', 'CommonConfig', 'userService', 'ServiceApi',
+  public static $inject = ['$uibModalInstance', 'translatorService', 'userService', 'ServiceApi',
     '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService'];
 
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private translatorService: TranslatorService,
-              private CommonConfig: CommonConfig,
               private userService: UserService,
               private ServiceApi: ServiceApi,
               private $scope: IServiceFormModalScope,
@@ -81,7 +80,7 @@ export class ServiceFormModalController implements ng.IController {
 
     this.languagesList = this.languagesService.languagesList;
 
-    this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider;
+    this.moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
 
     this.assignValidationValues();
   }

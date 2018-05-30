@@ -4,7 +4,7 @@ import { HelpdeskService } from '../../../services/helpdesk/helpdesk.service';
 import { ISearchArticle } from '../../../services/helpdesk/search-article.interface';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { CommonConfig } from '../../../../../../generated_modules/common-config/common-config';
+import { CommonConfig } from '../../../../../common-config';
 // tslint:disable:member-ordering
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
@@ -21,11 +21,10 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   private static readonly defaultSearchQuery = 'jak';
   private debouncedSearch: () => void;
 
-  public static $inject = ['helpdeskService', '$log', 'CommonConfig'];
+  public static $inject = ['helpdeskService', '$log'];
 
     constructor(private helpdeskService: HelpdeskService,
-              private $log: ng.ILogService,
-              private CommonConfig: CommonConfig) {
+              private $log: ng.ILogService) {
 
     this.buttonCallback = (): void => {
       if (this.onClick && angular.isFunction(this.onClick)) {
@@ -40,7 +39,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   }
 
   public $onInit(): void {
-    this.zendeskUrl = this.CommonConfig.getAllData().urls.zendesk;
+    this.zendeskUrl = CommonConfig.getCommonConfig().urls.zendesk;
   }
 
   public onHelpSearchInputChange = (): void => {

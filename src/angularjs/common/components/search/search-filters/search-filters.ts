@@ -5,7 +5,6 @@ import searchModule from '../../../services/search/search';
 import 'angularjs/common/directives/interface/pro-range-slider/pro-range-slider';
 import 'angularjs/common/directives/pro-tags-slider/pro-tags-slider';
 import 'angularjs/common/directives/interface/pro-switcher/pro-switcher';
-import {default as commonConfigModule } from '../../../../../../generated_modules/common-config/common-config';
 import { SearchFiltersComponent } from './search-filter.component';
 import translatorModule from '../../../services/translator/translator';
 import uiRouter from '@uirouter/angularjs';
@@ -23,7 +22,6 @@ angular.module('profitelo.components.search.searchFilters', [
   'profitelo.directives.interface.pro-switcher',
   searchModule,
   translatorModule,
-  commonConfigModule,
   filtersModule
 ])
   .component('searchFilters', new SearchFiltersComponent());

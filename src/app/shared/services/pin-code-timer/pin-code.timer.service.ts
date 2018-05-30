@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { take, map } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
+import { CommonConfig } from '../../../../common-config';
 
 @Injectable()
 export class PinCodeTimerService {
 
-  private readonly countDownMax = this.commonConfig.getAllData().config['request-msisdn-token-timeout'];
+  private readonly countDownMax = CommonConfig.getCommonConfig().config['request-msisdn-token-timeout'];
   private readonly oneSecondInterval: number = 1000;
 
-  constructor(private commonConfig: CommonConfig) {
+  constructor() {
   }
 
   public getTimeLeft$ = (): Observable<number> => {

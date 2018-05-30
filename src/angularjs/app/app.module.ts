@@ -29,7 +29,6 @@ import { AppComponentController } from './app.controller';
 import { AppConfigFunction } from './app.config';
 import { AppRunFunction } from './app.run';
 import 'croppie';
-import { CommonConfig, default as commonConfigModule } from '../../../generated_modules/common-config/common-config';
 import profiteloWebsocketModule from '../common/services/profitelo-websocket/profitelo-websocket';
 import pagePreloaderModule from '../common/components/interface/page-preloader/page-preloader';
 import activeCallBarModule from '../common/components/communicator/active-call-bar/active-call-bar';
@@ -40,12 +39,13 @@ import { UpgradeService } from '../common/services/upgrade/upgrade.service';
 import loggerModule from '../common/services/logger/logger';
 import { Config } from '../../config';
 import * as Raven from 'raven-js';
+import { CommonConfig } from '../../common-config';
 const ngRaven = require('raven-js/plugins/angular');
 
 Raven
   .config(Config.sentry.url, Config.sentry.options)
   .addPlugin(ngRaven, angular)
-  .setShouldSendCallback(() => Config.sentry.enabledEnvironments.includes(CommonConfig.settings.environment))
+  .setShouldSendCallback(() => Config.sentry.enabledEnvironments.includes(CommonConfig.getCommonConfig().environment))
   .install();
 
 export const angularjsModule = angular.module('profitelo', [
@@ -57,9 +57,6 @@ export const angularjsModule = angular.module('profitelo', [
   uiRouter,
   'permission',
   'permission.ui',
-
-  // modules
-  commonConfigModule,
 
   // services
   loggerModule,
@@ -98,6 +95,5 @@ export const angularjsModule = angular.module('profitelo', [
   .config(['$urlRouterProvider', '$httpProvider', '$stateProvider', '$translateProvider',
     '$locationProvider', '$animateProvider', 'tmhDynamicLocaleProvider', AppConfigFunction])
   .controller('AppComponentController', ['InterfaceLanguageService', AppComponentController])
-  .factory('apiUrl',
-    ['CommonConfig', (CommonConfig: CommonConfig): string => CommonConfig.getAllData().urls.backend])
+  .constant('apiUrl', CommonConfig.getCommonConfig().urls.backend)
   .service('upgradeService', UpgradeService);

@@ -1,11 +1,11 @@
 import * as angular from 'angular'
 import {ServiceApiMock, RatelApiMock, SessionApiMock} from 'profitelo-api-ng/api/api'
 import {InterfaceLanguageService} from '../common/services/interface-language/interface-language.service'
-import {CommonConfig} from '../../../generated_modules/common-config/common-config'
 import {IRootScopeService} from '../common/services/root-scope/root-scope.service';
 import {angularjsModule} from './app.module';
 import {StateService} from '@uirouter/angularjs';
 import loggerMockModule from '../common/services/logger/logger.mock';
+import { CommonConfig } from '../../common-config';
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -17,7 +17,6 @@ describe('Unit tests: app>', () => {
     let _httpBackend: ng.IHttpBackendService
     let _state: StateService
     let _commonConfigData
-    let _CommonConfig: CommonConfig
     let _RatelApiMock: RatelApiMock
     let _SessionApiMock: SessionApiMock
     let _ServiceApiMock: ServiceApiMock
@@ -45,14 +44,13 @@ describe('Unit tests: app>', () => {
 
         $scope = $rootScope.$new()
 
-        _CommonConfig = $injector.get<CommonConfig>('CommonConfig')
         _httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
         _state = $injector.get<StateService>('$state')
         _RatelApiMock = RatelApiMock
         _SessionApiMock = SessionApiMock
         _ServiceApiMock = ServiceApiMock
 
-        _commonConfigData = _CommonConfig.getAllData()
+        _commonConfigData = CommonConfig.getCommonConfig()
 
         AppController = $controller('AppComponentController', {
           $scope: $scope,

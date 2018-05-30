@@ -3,8 +3,7 @@ import { UrlService } from './url.service';
 import commonSettingsModule from '../common-settings/common-settings';
 
 const urlModule = angular.module('profitelo.services.url', [
-  commonSettingsModule,
-  'commonConfig'
+  commonSettingsModule
 ])
   .service('urlService', UrlService)
   .name;

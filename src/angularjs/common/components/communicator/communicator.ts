@@ -36,7 +36,6 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   userAvatarModule,
   navigationModule,
   'ngSanitize',
-  'commonConfig',
   filtersModule,
   ratelSdkModule,
   translatorModule,

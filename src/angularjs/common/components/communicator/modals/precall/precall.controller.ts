@@ -2,12 +2,12 @@ import * as angular from 'angular';
 import { PaymentsApi, FinancesApi } from 'profitelo-api-ng/api/api';
 import { GetProfile, GetService, MoneyDto } from 'profitelo-api-ng/model/models';
 import { IPrimaryDropdownListElement } from '../../../interface/dropdown-primary/dropdown-primary';
-import { CommonConfig } from '../../../../../../../generated_modules/common-config/common-config';
 import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
 import { ModalsService } from '../../../../services/modals/modals.service';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { StateService } from '@uirouter/angularjs';
+import { CommonConfig } from '../../../../../../common-config';
 
 export interface IPrecallModalControllerScope extends ng.IScope {
   service: GetService;
@@ -38,7 +38,7 @@ export class PrecallModalController implements ng.IController {
   public mediaStream?: MediaStream;
   private prepaidCallLimitModel: number;
   private prepaidValue: string;
-  private moneyDivider = this.CommonConfig.getAllData().config.moneyDivider;
+  private moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
   private consultationPrice: number;
 
   public onModalClose = (): void => {
@@ -52,14 +52,13 @@ export class PrecallModalController implements ng.IController {
   private readonly secondPerMinute = 60;
   private readonly minPrepaidMinutesTimeLimitToCall = 2;
 
-  public static $inject = ['$log', '$uibModalInstance', 'FinancesApi', 'PaymentsApi', 'CommonConfig', 'topAlertService',
+  public static $inject = ['$log', '$uibModalInstance', 'FinancesApi', 'PaymentsApi', 'topAlertService',
     'translatorService', '$state', 'modalsService', 'errorHandler', '$scope'];
 
   constructor(private $log: ng.ILogService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private FinancesApi: FinancesApi,
               private PaymentsApi: PaymentsApi,
-              private CommonConfig: CommonConfig,
               private topAlertService: TopAlertService,
               private translatorService: TranslatorService,
               private $state: StateService,

@@ -1,7 +1,7 @@
 import * as angular from 'angular';
 import { IDirective } from 'angular';
-import { CommonConfig } from '../../../../../generated_modules/common-config/common-config';
 import { Config } from '../../../../config';
+import { CommonConfig } from '../../../../common-config';
 
 interface IProFooterScope extends ng.IScope {
   googlePlayUrl: string;
@@ -14,16 +14,16 @@ interface IProFooterScope extends ng.IScope {
 }
 
 (function(): void {
-  function proFooter(CommonConfig: CommonConfig): IDirective<ng.IScope> {
+  function proFooter(): IDirective<ng.IScope> {
 
     function linkFunction(scope: IProFooterScope): void {
       scope.googlePlayUrl = Config.googlePlayProfile.url;
       scope.isPlatformForExpert = Config.isPlatformForExpert;
-      scope.zendeskUrl = CommonConfig.getAllData().urls.zendesk;
-      scope.anymindBlogUrl = CommonConfig.getAllData().urls['widget-blog'];
-      scope.termsOfServiceUrl = CommonConfig.getAllData().urls['terms-of-service'];
-      scope.privacyPolicyUrl = CommonConfig.getAllData().urls['privacy-policy'];
-      scope.helpMailUrl = CommonConfig.getAllData().config['help-mail'];
+      scope.zendeskUrl = CommonConfig.getCommonConfig().urls.zendesk;
+      scope.anymindBlogUrl = CommonConfig.getCommonConfig().urls['widget-blog'];
+      scope.termsOfServiceUrl = CommonConfig.getCommonConfig().urls['terms-of-service'];
+      scope.privacyPolicyUrl = CommonConfig.getCommonConfig().urls['privacy-policy'];
+      scope.helpMailUrl = CommonConfig.getCommonConfig().config['help-mail'];
     }
 
     return {
@@ -35,9 +35,8 @@ interface IProFooterScope extends ng.IScope {
   }
 
   angular.module('profitelo.directives.pro-footer', [
-    'pascalprecht.translate',
-    'commonConfig'
+    'pascalprecht.translate'
   ])
-  .directive('proFooter', ['CommonConfig', proFooter]);
+  .directive('proFooter', [proFooter]);
 
 }());

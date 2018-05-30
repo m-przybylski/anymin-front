@@ -5,8 +5,7 @@ import eventsModule from '../events/events';
 
 const profiteloWebsocketModule = angular.module('profitelo.services.profitelo-websocket', [
   userModule,
-  eventsModule,
-  'commonConfig'
+  eventsModule
 ])
   .service('profiteloWebsocket', ProfiteloWebsocketService)
   .name;
