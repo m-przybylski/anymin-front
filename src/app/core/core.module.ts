@@ -12,12 +12,12 @@ import { Config } from '../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AnymindComponentsCoreModule } from '@anymind-ng/components';
-import { CommonConfig } from '../../common-config';
+import { AnymindComponentsFactory } from './factories/anymind-components/anymind-components.factory';
 
 @NgModule({
   imports: [
     HttpClientModule,
-    AnymindComponentsCoreModule.forRoot(CommonConfig.getCommonConfig()),
+    AnymindComponentsCoreModule.forRoot(AnymindComponentsFactory),
     ApiModule.forRoot(ApiConfigurationFactory),
     LoggerModule.forRoot(Config.logLevel),
     NgbModule.forRoot(),
