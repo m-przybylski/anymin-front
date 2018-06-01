@@ -9,7 +9,7 @@ export class CommonConfig {
 
   private static config?: ConfigDEFAULT;
 
-  public static getCommonConfig = (): ConfigDEFAULT => {
+  public static getCommonConfig(): ConfigDEFAULT {
 
     if (CommonConfig.config) {
       return CommonConfig.config;
