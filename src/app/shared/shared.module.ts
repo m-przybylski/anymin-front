@@ -37,6 +37,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
 import { ModalComponent } from './components/modals/modal.component';
 import { PinElementDirective } from './directives/pin-element/pin-element.directive';
+import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
+import {
+  NavbarUserAvatarComponent
+} from './components/navbar/navbar-user-avatar/navbar-user-avatar/navbar-user-avatar.component';
 
 @NgModule({
   imports: [
@@ -60,9 +64,10 @@ import { PinElementDirective } from './directives/pin-element/pin-element.direct
     ContentHeightAnimateDirective,
     NavbarComponent,
     UserNavigationComponent,
-    ContentHeightAnimateDirective,
     ModalComponent,
-    PinElementDirective
+    PinElementDirective,
+    UserAvatarComponent,
+    NavbarUserAvatarComponent
   ],
   entryComponents: [WidgetGeneratorComponent, ModalComponent],
   exports: [
@@ -73,7 +78,8 @@ import { PinElementDirective } from './directives/pin-element/pin-element.direct
     LoginMobileFooterComponent,
     InputSetPasswordComponent,
     ContentHeightAnimateDirective,
-    NavbarComponent
+    NavbarComponent,
+    UserAvatarComponent
   ],
   providers: [
     EventsServiceProvider,

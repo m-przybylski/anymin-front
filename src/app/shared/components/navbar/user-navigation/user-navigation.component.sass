@@ -31,22 +31,11 @@
       +mdm
         display: flex
 
-
     &--menu
       li
         a
           margin: 0 8px 0 0
           display: flex
-
-        &:last-child
-         a
-          margin: 0 0 0 8px
-
-         span
-           font-size: 40px
-
-           +xsm
-            font-size: 48px
 
         span
           font-size: 32px
@@ -55,10 +44,8 @@
           &:hover
             color: $c-primary
 
-          &.icon-avatar
-            color: $c-white
-            background-color: $c-text-secondary
-            border-radius: 50%
+        &:last-child
+          cursor: pointer
 
-            &:hover
-              background-color: $c-primary
+          +xsm
+            margin: 0 0 0 8px

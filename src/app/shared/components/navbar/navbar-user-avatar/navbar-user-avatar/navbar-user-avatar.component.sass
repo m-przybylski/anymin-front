@@ -1,0 +1,43 @@
+@import "../../../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+@import "../../../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
+
+.navbar-user-avatar
+  position: relative
+
+  &__icon
+    position: absolute
+    right: -4px
+    bottom: -4px
+    font-size: 20px
+
+    &::before
+      background: $c-white
+      border-radius: 50%
+
+  .icon-available
+    &::before
+      color: $c-success-primary
+
+  .icon-offline
+    &::before
+      color: $c-placeholder
+
+  plat-user-avatar
+    &::ng-deep
+      .user-avatar
+        width: 40px
+        height: 40px
+
+        +xsm
+          width: 48px
+          height: 48px
+
+      .icon-avatar
+        font-size: 40px
+
+        +xsm
+          font-size: 48px
+
+      .icon-avatar
+        &:hover
+          background: $c-primary
