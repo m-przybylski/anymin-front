@@ -29,7 +29,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
 
     if (this.documents) {
       this.documents.map((token) => {
-        this.FilesApi.fileInfoPath(token).then((response) => {
+        this.FilesApi.fileInfoRoute(token).then((response) => {
           this.uploadedFiles.push(response);
         }, (error: any) => this.errorHandler.handleServerError(error));
       });

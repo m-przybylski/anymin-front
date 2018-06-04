@@ -42,7 +42,7 @@ function lightboxModelController($scope: any, $window: IWindowService,
 
   const fileInfoRequest = (slide: any): void => {
     this.isPending = true;
-    FilesApi.fileInfoPath(slide.token).then((response) => {
+    FilesApi.fileInfoRoute(slide.token).then((response) => {
         this.currentSlide = slide;
         this.isPending = false;
         this.navSettings.name = response.name;

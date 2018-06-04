@@ -93,7 +93,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
         })
 
         // FIXME
-        FilesApiMock.fileInfoPath(200, 'TOKEN-1', <any>{})
+        FilesApiMock.fileInfoRoute(200, 'TOKEN-1', <any>{})
         $timeout.flush()
         httpBackend.flush()
         triggerKeyPress(angular.element(window), 22)
@@ -108,8 +108,8 @@ describe('profitelo.common.controller.lightbox-model', () => {
       const startingSlide = lightboxModelController.currentSlide
 
       // FIXME
-      FilesApiMock.fileInfoPath(200, 'TOKEN-2', <any>{contentType: 'application/pdf'})
-      FilesApiMock.fileInfoPath(200, 'TOKEN-1', <any>{})
+      FilesApiMock.fileInfoRoute(200, 'TOKEN-2', <any>{contentType: 'application/pdf'})
+      FilesApiMock.fileInfoRoute(200, 'TOKEN-1', <any>{})
 
       lightboxModelController.sliderActions.nextSlide()
       httpBackend.flush()
@@ -124,7 +124,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
 
     it('should close lightbox on FilesApi error', () => {
       spyOn(uibModalInstance, 'close')
-      FilesApiMock.fileInfoPath(500, 'TOKEN-2')
+      FilesApiMock.fileInfoRoute(500, 'TOKEN-2')
       lightboxModelController.sliderActions.nextSlide()
       httpBackend.flush()
       expect(uibModalInstance.close).toHaveBeenCalled()

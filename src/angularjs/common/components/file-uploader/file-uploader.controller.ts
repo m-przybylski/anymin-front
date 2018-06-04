@@ -59,7 +59,7 @@ export class FileUploaderComponentController implements IFileUploaderModuleCompo
 
   public $onInit(): void {
     this.tokenList.forEach((token) => {
-      this.FilesApi.fileInfoPath(token).then((response) => {
+      this.FilesApi.fileInfoRoute(token).then((response) => {
         const documentObject = {
           fileInfo: response,
           isUploadFailed: false
