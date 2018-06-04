@@ -63,7 +63,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     it('should upload 2 files at a time', inject(($q: ng.IQService, $timeout: ng.ITimeoutService,
                                                   FilesApiMock: FilesApiMock, $httpBackend: ng.IHttpBackendService) => {
 
-      FilesApiMock.createFileTokenPath(httpCodes.ok, {fileId: '1'})
+      FilesApiMock.createFileTokenRoute(httpCodes.ok, {fileId: '1'})
 
       const simultaneousUploadCount = 2
       const instance = uploaderFactory.getInstance(simultaneousUploadCount)
@@ -97,7 +97,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
     it('should not upload file if token error', inject(($timeout: ng.ITimeoutService, $rootScope: IRootScopeService,
                                                         $httpBackend: ng.IHttpBackendService, FilesApiMock: FilesApiMock) => {
-      FilesApiMock.createFileTokenPath(httpCodes.forbidden, undefined, 'error')
+      FilesApiMock.createFileTokenRoute(httpCodes.forbidden, undefined, 'error')
 
       const simultaneousUploadCount = 2
       const instance = uploaderFactory.getInstance(simultaneousUploadCount)
@@ -119,7 +119,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
                                                       $rootScope: IRootScopeService, FilesApiMock: FilesApiMock,
                                                       $httpBackend: ng.IHttpBackendService) => {
 
-      FilesApiMock.createFileTokenPath(httpCodes.ok, {fileId: '1'})
+      FilesApiMock.createFileTokenRoute(httpCodes.ok, {fileId: '1'})
 
       const simultaneousUploadCount = 2
       const instance = uploaderFactory.getInstance(simultaneousUploadCount)
@@ -143,7 +143,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
     it('should call callback on upload progress', inject(($q: ng.IQService, $timeout: ng.ITimeoutService,
                                                           FilesApi: FilesApi) => {
-      spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.resolve({fileId: 1}))
+      spyOn(FilesApi, 'createFileTokenRoute').and.returnValue($q.resolve({fileId: 1}))
 
       const obj = {
         callback: (): void => {
@@ -164,14 +164,14 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       $timeout.flush()
 
-      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenRoute).toHaveBeenCalled()
       expect(UploadMock.upload).toHaveBeenCalled()
       expect(obj.callback).toHaveBeenCalled()
     }))
 
     it('should upload files with no limits', inject(($q: ng.IQService, $timeout: ng.ITimeoutService,
                                                      FilesApi: FilesApi) => {
-      spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.resolve({fileId: 1}))
+      spyOn(FilesApi, 'createFileTokenRoute').and.returnValue($q.resolve({fileId: 1}))
 
       const simultaneousUploadCount = 0
       const instance = uploaderFactory.getInstance(simultaneousUploadCount)
@@ -183,7 +183,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       $timeout.flush()
 
-      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenRoute).toHaveBeenCalled()
       expect(UploadMock.upload).toHaveBeenCalled()
     }))
   })

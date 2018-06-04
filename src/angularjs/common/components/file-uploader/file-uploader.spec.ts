@@ -61,7 +61,7 @@ describe('Unit testing: profitelo.components.file-uploader', () =>
         }
 
         bindings.tokenList.map((token) => {
-          FilesApiMock.fileInfoPath(200, token)
+          FilesApiMock.fileInfoRoute(200, token)
         })
 
         const injectors = {
@@ -122,9 +122,9 @@ describe('Unit testing: profitelo.components.file-uploader', () =>
 
     it('should get file info onInit', inject((FilesApi: FilesApi) => {
       component.tokenList = ['token-1']
-      spyOn(FilesApi, 'fileInfoPath').and.callThrough()
+      spyOn(FilesApi, 'fileInfoRoute').and.callThrough()
       component.$onInit()
-      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(FilesApi.fileInfoRoute).toHaveBeenCalled()
     }))
 
     it('should show file type error', () => {

@@ -7,7 +7,7 @@ interface IAccountSettings {
 }
 
 export interface IExpertCallSummary {
-  serviceUsageEventId: string;
+  sueId: string;
   profit: MoneyDto;
   callDuration: number;
   service: GetService;

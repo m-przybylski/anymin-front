@@ -83,7 +83,7 @@ export class UploaderService {
   }
 
   private getFileToken = (fileObj: IFileObject): ng.IPromise<FileIdDto> =>
-    this.FilesApi.createFileTokenPath(fileObj.postFileDetails)
+    this.FilesApi.createFileTokenRoute(fileObj.postFileDetails)
 
   private processUpload = (): void => {
     if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&

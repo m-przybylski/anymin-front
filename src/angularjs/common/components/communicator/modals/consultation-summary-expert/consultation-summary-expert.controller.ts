@@ -1,7 +1,7 @@
 import { LoggerService } from '@anymind-ng/core';
 import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';
 import { IExpertCallSummary } from '../../../../models/ExpertCallSummary';
-import { MoneyDto, GetTechnicalProblem, GetExpertCallSummary } from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetTechnicalProblem, ExpertCallSummary } from 'profitelo-api-ng/model/models';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
@@ -139,7 +139,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
     ).length > 0 ? this.technicalProblemsDescription !== undefined && this.technicalProblemsDescription.length > 0
       : this.radioModel !== undefined
 
-  private onCallSummaryByRequest = (summary: GetExpertCallSummary): void => {
+  private onCallSummaryByRequest = (summary: ExpertCallSummary): void => {
     this.isLoading = false;
     if (summary.clientDetails.nickname) {
       this.clientNickname = summary.clientDetails.nickname;
@@ -147,13 +147,13 @@ export class ConsultationSummaryExpertController implements ng.IController {
       this.clientNickname = summary.clientDetails.clientId;
     }
     this.clientAvatar = summary.clientDetails.avatar;
-    this.serviceName = summary.serviceName;
-    this.profit = summary.callProfit;
+    this.serviceName = summary.service.name;
+    this.profit = summary.profit;
     this.callDuration = summary.callDuration;
   }
 
   private onCallSummary = (callSummary: IExpertCallSummary): void => {
-    if (callSummary.serviceUsageEventId === this.sueId) {
+    if (callSummary.sueId === this.sueId) {
       this.isLoading = false;
       if (callSummary.clientAccountDetails) {
         this.clientNickname = callSummary.clientAccountDetails.clientId;
