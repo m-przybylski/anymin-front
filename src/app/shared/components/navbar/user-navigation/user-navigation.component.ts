@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component, ElementRef, Input, OnInit, ViewChildren, QueryList
+} from '@angular/core';
 import { UserNavigationComponentService } from './user-navigation.component.service';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'plat-user-navigation',
@@ -8,17 +12,29 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
   styleUrls: ['./user-navigation.component.sass'],
   providers: [UserNavigationComponentService]
 })
-export class UserNavigationComponent implements OnInit {
+
+export class UserNavigationComponent implements OnInit, AfterViewChecked {
 
   @Input()
   public isCompany: boolean;
   public isUserExpert: boolean;
+  public currentElement$ = new Subject<ElementRef>();
 
+  private readonly activeElementClassName = 'active';
+  @ViewChildren('listElement') private listOfNavbarElements: QueryList<ElementRef>;
   private logger: LoggerService;
 
   constructor(private userNavigationComponentService: UserNavigationComponentService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('UserNavigationComponent');
+  }
+
+  public ngAfterViewChecked(): void {
+    const activeElement = this.listOfNavbarElements.filter(element =>
+      element.nativeElement && element.nativeElement.className === this.activeElementClassName);
+    if (activeElement[0]) {
+      this.currentElement$.next(activeElement[0]);
+    }
   }
 
   public ngOnInit(): void {
