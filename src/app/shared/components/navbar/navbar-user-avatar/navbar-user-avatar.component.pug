@@ -1,7 +1,9 @@
-.navbar-user-avatar
+.navbar-user-avatar((click)="toggleMenuVisibility()")
   plat-user-avatar(
     [avatarSize]="avatarSize",
     [avatarToken]="avatarToken"
   )
   span.navbar-user-avatar__icon.icon.icon-available(*ngIf="userVisibility === visibilityStatusEnum.Visible")
   span.navbar-user-avatar__icon.icon.icon-offline(*ngIf="userVisibility === visibilityStatusEnum.Invisible")
+
+  ng-content

@@ -42,12 +42,18 @@ import {
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
 import {
   NavbarUserAvatarComponent
-} from './components/navbar/navbar-user-avatar/navbar-user-avatar/navbar-user-avatar.component';
+} from './components/navbar/navbar-user-avatar/navbar-user-avatar.component';
 import { ModalComponentEditProfile } from './components/navbar/edit-profile/edit-profile.component';
 import {
   BasicProfileDataComponent
 }
   from './components/navbar/edit-profile/basic-profile-data/basic-profile-data.component';
+import { NavbarUserMenuComponent } from './components/navbar/navbar-user-menu/navbar-user-menu.component';
+import { NavbarCompanyMenuComponent } from './components/navbar/navbar-company-menu/navbar-company-menu.component';
+import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-menu/navbar-expert-menu.component';
+import { InputSwitchComponent } from './components/input-switch/input-switch.component';
+import { NavbarMenuService }
+  from './services/navbar-menu-service/navbar-menu.service';
 
 @NgModule({
   imports: [
@@ -76,7 +82,12 @@ import {
     NavbarUserAvatarComponent,
     PinElementDirective,
     ModalComponentEditProfile,
-    BasicProfileDataComponent
+    BasicProfileDataComponent,
+    UserAvatarComponent,
+    NavbarUserMenuComponent,
+    NavbarCompanyMenuComponent,
+    NavbarExpertMenuComponent,
+    InputSwitchComponent
   ],
   entryComponents: [WidgetGeneratorComponent, ModalComponentEditProfile],
   exports: [
@@ -103,7 +114,8 @@ import {
     LocalStorageWrapperService,
     RegistrationInvitationService,
     PinCodeTimerService,
-    ContentHeightAnimationService
+    ContentHeightAnimationService,
+    NavbarMenuService
   ]
 })
 
