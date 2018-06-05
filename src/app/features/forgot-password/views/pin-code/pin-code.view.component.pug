@@ -1,7 +1,7 @@
 .pin-code-view
-  login-background
+  plat-login-background
     .forgot-password-pin
-      login-content(
+      plat-login-content(
         contentHeightAnimation,
         titleText="FORGOT_PASSWORD.TITLE",
         [msisdn]="msisdn"
@@ -13,7 +13,7 @@
           (ngSubmit)="onFormSubmit(pinCodeForm)")
           .input-icon-container
             span.icon.icon-cellphone
-            input-pin-code(
+            am-core-input-pin-code(
               label="LOGIN.PIN_CODE.ENTER_CODE.LABEL",
               placeholder="LOGIN.PIN_CODE.ENTER_CODE.PLACEHOLDER",
               [form]="pinCodeForm",
@@ -23,7 +23,7 @@
               [initialFocus]="isInputInitialFocused"
             )
 
-          submit-button(
+          am-core-submit-button(
             titleText="FORGOT_PASSWORD.SUBMIT_BUTTON",
             [formName]="pinCodeFormId",
             [isLoading]="isRequestPending"

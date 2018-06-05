@@ -14,7 +14,7 @@ import { LoggerService } from '@anymind-ng/core';
 
 @Component({
   templateUrl: './widget-generator.component.html',
-  selector: 'widget-generator',
+  selector: 'plat-widget-generator',
   styleUrls: ['widget-generator.component.sass']
 })
 export class WidgetGeneratorComponent implements OnInit {

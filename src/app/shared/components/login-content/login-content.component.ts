@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Config } from '../../../../config';
 
 @Component({
-  selector: 'login-content',
+  selector: 'plat-login-content',
   templateUrl: './login-content.component.html',
   styleUrls: ['./login-content.component.sass']
 })

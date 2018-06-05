@@ -18,6 +18,7 @@ import noResultsInformationModule
 import { StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
 import loggerModule from '../../../../common/services/logger/logger';
+import { LoggerService } from '@anymind-ng/core';
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
     'profitelo.components.interface.preloader-container',
@@ -39,9 +40,12 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
             controllerAs: 'vm',
             resolve: {
                 filtersData: ['dashboardProfileActivitiesService',
-                    (dashboardActivitiesService: DashboardProfileActivitiesService):
+                    (dashboardActivitiesService: DashboardProfileActivitiesService,
+                     logger: LoggerService):
                         ng.IPromise<GetActivityFilters | void> =>
-                        dashboardActivitiesService.resolveFilters().catch(handleFilterResponseError)]
+                        dashboardActivitiesService.resolveFilters().catch((error) =>
+                          logger.warn('ProfileActivitiesModule: Can not get filters data: ' + String(error))
+                        )]
             }
         });
     }])
@@ -49,7 +53,3 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
     .name;
 
 export default dashboardExpertActivitiesModule;
-
-function handleFilterResponseError(error: any): void {
-    this.logger.warn('ProfileActivitiesModule: Can not get filters data: ' + String(error));
-}
