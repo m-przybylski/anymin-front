@@ -37,6 +37,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
 import { ModalComponent } from './components/modals/modal.component';
 import { PinElementDirective } from './directives/pin-element/pin-element.directive';
+import {
+  UserNavigationUnderlineDirective
+} from './components/navbar/user-navigation/user-navigation-underline.directive';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
 import {
   NavbarUserAvatarComponent
@@ -67,7 +70,8 @@ import {
     ModalComponent,
     PinElementDirective,
     UserAvatarComponent,
-    NavbarUserAvatarComponent
+    NavbarUserAvatarComponent,
+    UserNavigationUnderlineDirective
   ],
   entryComponents: [WidgetGeneratorComponent, ModalComponent],
   exports: [
