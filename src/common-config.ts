@@ -4,7 +4,7 @@ import { CommonConfigBUILDSTAGE } from '../generated_modules/common-config/commo
 import { CommonConfigBUILDDEMO } from '../generated_modules/common-config/common-config.build-demo';
 import { CommonConfigBUILDPROD } from '../generated_modules/common-config/common-config.build-prod';
 import { CommonConfigINTEGRATIONTEST } from '../generated_modules/common-config/common-config.integration-test';
-import localEnvironment from './common-config.env';
+import localEnvironment  from '../generated_modules/common-config-env/common-config.env';
 
 export class CommonConfig {
 
