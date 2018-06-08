@@ -17,13 +17,18 @@
     "e2e": "protractor ./protractor.conf.js",
     "transaltions": "node lib/tr/tr.js",
     "tr": "npm run transaltions",
-    "common-config": "node lib/common-config/generator.js",
+    "common-config": "node lib/common-config/generator.js && npm run env",
     "cc": "npm run common-config",
     "ci-test": "npm run cc && npm run postinstall && npm run tr && npm run lint && npm run test-single",
     "ci-deploy": "npm run cc && npm run tr && npm run build",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "pug": "pug src --doctype html",
-    "pug-watch": "pug src --doctype html --watch"
+    "pug-watch": "pug src --doctype html --watch",
+    "env": "node lib/environment/environment.js",
+    "env-stage": "npm run env build-stage",
+    "env-dev": "npm run env build-dev",
+    "env-demo": "npm run env build-demo",
+    "env-prod": "npm run env build-prod"
   },
   "private": true,
   "dependencies": {
