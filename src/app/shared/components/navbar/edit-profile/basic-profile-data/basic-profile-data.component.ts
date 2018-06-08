@@ -26,8 +26,8 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
   @Input()
   public controlName: string;
 
-  public readonly profileNameMaxLenght = Config.inputsLength.profileNameMaxLenght;
-  public readonly profileNameMinLenght = Config.inputsLength.profileNameMinLenght;
+  public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;
+  public readonly profileNameMinlength = Config.inputsLength.profileNameMinlength;
   public ngModel = '';
   private logger: LoggerService;
   private ngUnsubscribe = new Subject<string>();

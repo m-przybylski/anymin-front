@@ -33,8 +33,8 @@ export class Config {
     consultationName: '350',
     consultationMaxDescription: '600',
     consultationMinDescription: '3',
-    profileNameMinLenght: '3',
-    profileNameMaxLenght: '60'
+    profileNameMinlength: '3',
+    profileNameMaxlength: '60'
   };
 
   public static readonly styles = {
