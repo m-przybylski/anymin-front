@@ -29,12 +29,12 @@ export class ExpertProfileResolver {
     };
 
     const handleExpertResponse = (response: GetExpertProfile): ng.IPromise<GetExpertProfile> => {
-      if (!response.profile.expertDetails) {
+      if (!response.profileWithDocuments.profile.expertDetails) {
         return this.$q.reject('Profile is not expert');
       }
 
       return this.$q.resolve({
-        profile: response.profile,
+        profileWithDocuments: response.profileWithDocuments,
         services: sortServices(response.services),
         isFavourite: response.isFavourite
       });

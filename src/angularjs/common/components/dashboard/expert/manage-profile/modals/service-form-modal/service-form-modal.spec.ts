@@ -3,7 +3,6 @@ import * as angular from 'angular'
 import serviceFormModalModule from './service-form-modal'
 import {ServiceFormModalController, IServiceFormModalScope} from './service-form-modal.controller'
 import {ServiceApi} from 'profitelo-api-ng/api/api';
-import {Tag} from 'profitelo-api-ng/model/models';
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 describe('Testing Controller: ServiceFormModalController', () => {
 
@@ -70,45 +69,6 @@ describe('Testing Controller: ServiceFormModalController', () => {
     serviceFormModalController.consultationDescription = 'someDescription someDescription someDescription someDescription'
     serviceFormModalController.consultationNewInvitations = ['employee@wp.pl']
     serviceFormModalController.consultationPrice = '1.00'
-    serviceFormModalController.saveConsultation()
-    expect(ServiceApi.postServiceRoute).toHaveBeenCalled()
-    expect(serviceFormModalController.isSubmitted).toBe(false)
-  }))
-
-  it('should edit existing consultation', inject(($q: ng.IQService) => {
-    spyOn(ServiceApi, 'postServiceRoute').and.callFake(() => $q.resolve({}))
-    serviceFormModalController.consultationName = 'someName'
-    serviceFormModalController.consultationTags = ['tag', 'tag2', 'tag3']
-    serviceFormModalController.consultationLanguage = {name: 'pl', value: 'pl'}
-    serviceFormModalController.consultationDescription = 'someDescription someDescription someDescription someDescription'
-    serviceFormModalController.consultationNewInvitations = ['48555555555']
-    serviceFormModalController.consultationPrice = '1.00'
-    scope.serviceDetails = {
-      service: {
-        id: 'id',
-        ownerId: 'id',
-        name: 'name',
-        description: 'description',
-        price: {
-          amount: 123,
-          currency: 'PLN'
-        },
-        isFreelance: false,
-        language: 'pl',
-        isSuspended: false,
-        createdAt: new Date(123)
-      },
-      ownerProfile: {
-        id: 'id',
-        isActive: false
-      },
-      tags: [{
-        name: 'tag',
-        id: 'id',
-        status: Tag.StatusEnum.NEW,
-        persisted: false
-      }]
-    }
     serviceFormModalController.saveConsultation()
     expect(ServiceApi.postServiceRoute).toHaveBeenCalled()
     expect(serviceFormModalController.isSubmitted).toBe(false)

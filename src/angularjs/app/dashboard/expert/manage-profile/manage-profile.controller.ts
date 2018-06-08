@@ -19,7 +19,7 @@ export class DashboardExpertManageProfileController {
 
   public static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService'];
 
-    constructor(private modalsService: ModalsService,
+  constructor(private modalsService: ModalsService,
               private ViewsApi: ViewsApi,
               private errorHandler: ErrorHandlerService,
               private userService: UserService) {
@@ -30,13 +30,13 @@ export class DashboardExpertManageProfileController {
     this.userService.getUser().then((user) => {
       this.ViewsApi.getWebExpertProfileRoute(user.id).then((expertProfile) => {
         this.expertProfile = expertProfile;
-        if (expertProfile.profile.expertDetails) {
-          this.expertName = expertProfile.profile.expertDetails.name;
-          this.expertAvatar = expertProfile.profile.expertDetails.avatar;
+        if (expertProfile.profileWithDocuments.profile.expertDetails) {
+          this.expertName = expertProfile.profileWithDocuments.profile.expertDetails.name;
+          this.expertAvatar = expertProfile.profileWithDocuments.profile.expertDetails.avatar;
         }
-        if (expertProfile.profile.organizationDetails) {
-          this.organizationName = expertProfile.profile.organizationDetails.name;
-          this.organizationLogo = expertProfile.profile.organizationDetails.logo;
+        if (expertProfile.profileWithDocuments.profile.organizationDetails) {
+          this.organizationName = expertProfile.profileWithDocuments.profile.organizationDetails.name;
+          this.organizationLogo = expertProfile.profileWithDocuments.profile.organizationDetails.logo;
         }
         this.services = expertProfile.services.filter(serviceDetails =>
           serviceDetails.service.deletedAt === undefined
@@ -53,14 +53,16 @@ export class DashboardExpertManageProfileController {
   }
 
   public editCompanyProfile = (): void => {
-    if (this.expertProfile.profile.organizationDetails)
-      this.modalsService.createManageProfileEditProfileModal(this.expertProfile.profile.organizationDetails,
+    if (this.expertProfile.profileWithDocuments.profile.organizationDetails)
+      this.modalsService.createManageProfileEditProfileModal(
+        this.expertProfile.profileWithDocuments.profile.organizationDetails,
         this.getExpertProfile);
   }
 
   public editExpertProfile = (): void => {
-    if (this.expertProfile.profile.expertDetails)
-      this.modalsService.createManageProfileEditProfileModal(this.expertProfile.profile.expertDetails,
+    if (this.expertProfile.profileWithDocuments.profile.expertDetails)
+      this.modalsService.createManageProfileEditProfileModal(
+        this.expertProfile.profileWithDocuments.profile.expertDetails,
         this.getExpertProfile);
   }
 

@@ -1,6 +1,6 @@
 import {
-  GetInvitation, GetServiceTags, Tag, GetProfileWithServicesInvitations,
-  GetServiceWithInvitation
+  GetInvitation, GetServiceTags, GetProfileWithServicesInvitations,
+  GetServiceWithInvitation, GetTag
 } from 'profitelo-api-ng/model/models';
 import { InvitationApi, ServiceApi } from 'profitelo-api-ng/api/api';
 import { StateService } from '@uirouter/angularjs';
@@ -16,7 +16,7 @@ import { TopAlertService } from '../../../common/services/top-alert/top-alert.se
 import { ModalsService } from '../../../common/services/modals/modals.service';
 
 export interface IGetServiceWithInvitationsAndTags extends GetServiceWithInvitation {
-  tags?: Tag[];
+  tags?: GetTag[];
 }
 
 export interface IInvitationsModalScope extends ng.IScope {
@@ -70,10 +70,10 @@ export class InvitationsModalController implements ng.IController {
   }
 
   private setInvitationData = (profileWithServicesInvitations?: GetProfileWithServicesInvitations): void => {
-    if (profileWithServicesInvitations && profileWithServicesInvitations.organizationDetails) {
-      this.companyName = profileWithServicesInvitations.organizationDetails.name;
-      this.logo = profileWithServicesInvitations.organizationDetails.logo;
-      this.description = profileWithServicesInvitations.organizationDetails.description;
+    if (profileWithServicesInvitations && profileWithServicesInvitations.profile.organizationDetails) {
+      this.companyName = profileWithServicesInvitations.profile.organizationDetails.name;
+      this.logo = profileWithServicesInvitations.profile.organizationDetails.logo;
+      this.description = profileWithServicesInvitations.profile.organizationDetails.description;
 
       this.services = profileWithServicesInvitations.services.filter((service) =>
         service.invitation.status === GetInvitation.StatusEnum.NEW);
@@ -81,7 +81,7 @@ export class InvitationsModalController implements ng.IController {
       this.acceptedServices = this.services;
 
       this.ServiceApi.postServicesTagsRoute({
-        serviceIds: this.services.map((service) => service.id)
+        serviceIds: this.services.map((service) => service.service.id)
       }).then((serviceTags) => {
         this.services = this.getServicesTags(this.services, serviceTags);
       }).catch((error) => {
@@ -113,7 +113,7 @@ export class InvitationsModalController implements ng.IController {
   public getServicesTags = (services: IGetServiceWithInvitationsAndTags[],
                             servicesTags: GetServiceTags[]): IGetServiceWithInvitationsAndTags[] =>
     services.map((service) => {
-      const serviceTags = _.find(servicesTags, (serviceTags) => service.id === serviceTags.serviceId);
+      const serviceTags = _.find(servicesTags, (serviceTags) => service.service.id === serviceTags.serviceId);
       if (serviceTags) {
         service.tags = serviceTags.tags;
       }

@@ -31,9 +31,6 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   }
 
   public $onInit = (): void => {
-    if (this.profileDetails) {
-      this.documents = this.profileDetails.files;
-    }
   }
 
   public checkType = (): boolean =>

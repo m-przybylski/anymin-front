@@ -1,11 +1,11 @@
-import { MoneyDto, Tag, GetProfile, GetService } from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetTag, GetProfile, GetService } from 'profitelo-api-ng/model/models';
 
 export interface IClientCallSummary {
   serviceUsageEventId: string;
   cost: MoneyDto;
   tags: {
     serviceId: string,
-    tags: Tag[]
+    tags: GetTag[]
   };
   isRecommendable: boolean;
   companyExpertProfile: GetProfile;

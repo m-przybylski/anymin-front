@@ -1,5 +1,5 @@
 import { IProfileGalleryComponentBindings } from './profile-gallery';
-import { FileInfo } from 'profitelo-api-ng/model/models';
+import { GetFileInfo } from 'profitelo-api-ng/model/models';
 import { FilesApi } from 'profitelo-api-ng/api/api';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
@@ -11,7 +11,7 @@ export interface IProfileGalleryComponentScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
   public documents: string[] = [];
-  public uploadedFiles: FileInfo[] = [];
+  public uploadedFiles: GetFileInfo[] = [];
   public idDocumentsContainerCollapsed: boolean;
   public documentsCollapsedLength: number;
   public lastDocument: string;

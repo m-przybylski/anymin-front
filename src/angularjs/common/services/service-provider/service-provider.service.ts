@@ -1,9 +1,11 @@
-import { Tag, ExpertDetails, OrganizationDetails } from 'profitelo-api-ng/model/models';
+import { GetTag } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';
+import { IExpertDetails } from '../../models/ExpertDetails';
+import { IOrganizationDetails } from '../../models/OrganizationDetails';
 
 export interface IServiceProviderDefaultModel {
   name: string;
-  tags: Tag[];
+  tags: GetTag[];
   cost: number;
 }
 
@@ -39,7 +41,7 @@ export class ServiceProviderService {
       skippedSteps: {}
     })
 
-  public backToFirstStep = (expertDetails?: ExpertDetails, organizationDetails?: OrganizationDetails): void => {
+  public backToFirstStep = (expertDetails?: IExpertDetails, organizationDetails?: IOrganizationDetails): void => {
     if (expertDetails && !organizationDetails) {
       this.$state.go('app.dashboard.service-provider.individual-path');
     } else {

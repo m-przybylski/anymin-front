@@ -10,13 +10,13 @@ import {
 } from 'profitelo-api-ng/model/models';
 
 export interface ICompanyProfile {
-  profile: GetProfileWithDocuments;
+  profileWithDocuments: GetProfileWithDocuments;
   services: GetOrganizationServiceDetails[];
   isFavourite: boolean;
 }
 
 interface ICompanyResponse {
-  profile: GetProfileWithDocuments;
+  profileWithDocuments: GetProfileWithDocuments;
   services: GetOrganizationServiceDetails[];
   isFavourite: boolean;
 }
@@ -50,12 +50,12 @@ export class CompanyProfileResolver {
     };
 
     const handleCompanyResponse = (response: GetOrganizationProfile): ng.IPromise<ICompanyResponse> => {
-      if (!response.profile.organizationDetails) {
+      if (!response.profileWithDocuments.profile.organizationDetails) {
         return this.$q.reject('Profile is not organization');
       }
 
       return this.$q.resolve({
-        profile: response.profile,
+        profileWithDocuments: response.profileWithDocuments,
         services: sortServices(response.services),
         isFavourite: response.isFavourite
       });

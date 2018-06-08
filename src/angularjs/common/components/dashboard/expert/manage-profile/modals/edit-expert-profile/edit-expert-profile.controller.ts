@@ -78,9 +78,6 @@ export class EditExpertProfileController implements ng.IController {
       this.profileName = this.$scope.profile.name;
       this.profileDescription = this.$scope.profile.description;
       this.profileLinks = this.$scope.profile.links;
-      this.$scope.profile.files.forEach((file) => {
-        this.profileFilesTokens.push(file.token);
-    });
   }
 
   public saveChanges = (): void => {

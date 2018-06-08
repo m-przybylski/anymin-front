@@ -68,10 +68,6 @@ describe('Testing Controller: editExpertProfileController', () => {
       name: 'name',
       avatar: 'avatar',
       description: 'someDescription someDescription someDescription someDescription',
-      files: [{
-        token: 'token',
-        previews: ['prev']
-      }],
       links: ['link']
     }
     const updatedProfile = {
@@ -99,10 +95,6 @@ describe('Testing Controller: editExpertProfileController', () => {
       name: 'name',
       logo: 'avatar',
       description: 'someDescription someDescription someDescription someDescription',
-      files: [{
-        token: 'token',
-        previews: ['prev']
-      }],
       links: ['link']
     }
     const updatedProfile = {

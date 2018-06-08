@@ -63,7 +63,7 @@ export class DashboardExpertEmployeesController {
             profilesWithEmployment.employments =
               profilesWithEmployment.employments.map((employee) => {
                   const serviceWithEmployees = _.find(res, (serviceWithEmployee) =>
-                    serviceWithEmployee.serviceDetails.id === employee.serviceId);
+                    serviceWithEmployee.service.id === employee.serviceId);
 
                   if (serviceWithEmployees) {
                     return {
@@ -72,8 +72,8 @@ export class DashboardExpertEmployeesController {
                       profileId: employee.profileId,
                       createdAt: employee.createdAt,
                       usageCounter: employee.usageCounter,
-                      serviceName: serviceWithEmployees.serviceDetails.name,
-                      isFreelance: serviceWithEmployees.serviceDetails.isFreelance
+                      serviceName: serviceWithEmployees.service.name,
+                      isFreelance: serviceWithEmployees.service.isFreelance
                     };
                   } else {
                     return {

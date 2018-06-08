@@ -1,6 +1,6 @@
 // TODO should be refactor to component: https://git.contactis.pl/itelo/profitelo/issues/1000
 import * as angular from 'angular';
-import { Tag } from 'profitelo-api-ng/model/models';
+import { GetTag } from 'profitelo-api-ng/model/models';
 import { IWindowService } from '../../services/window/window.service';
 import { IDirective } from 'angular';
 import { StateService } from '@uirouter/angularjs';
@@ -11,15 +11,15 @@ interface ILeftOffset {
 }
 
 export interface IProTagsSliderScope extends ng.IScope {
-  tagAction: (tag: Tag) => void;
-  onTagClickAction: (tag: Tag) => void;
+  tagAction: (tag: GetTag) => void;
+  onTagClickAction: (tag: GetTag) => void;
   slidesContainerOffsetWidth: number;
   leftOffset: ILeftOffset;
   prevSlide: (next: number) => void;
   nextSlide: (next: number) => void;
   leftArrowActive: () => boolean;
   rightArrowActive: () => boolean;
-  tags: Tag[];
+  tags: GetTag[];
   addTagToQueryAndSearch: (tag: string) => void;
 }
 
@@ -61,13 +61,13 @@ function proTagsSlider($window: IWindowService,
       _clearSlider();
     });
 
-    scope.$watch(() => scope.tags, (newValue: Tag[], _oldValue: Tag[]) => {
+    scope.$watch(() => scope.tags, (newValue: GetTag[], _oldValue: GetTag[]) => {
       if (newValue) {
         elementsMap = $.map($(element).find('.slide-page li'), (li) => li.clientWidth);
       }
     });
 
-    scope.tagAction = (tag: Tag): void => {
+    scope.tagAction = (tag: GetTag): void => {
       if (tag.id !== $location.search().tagId) {
         if (typeof scope.onTagClickAction === 'function')
           scope.onTagClickAction(tag);

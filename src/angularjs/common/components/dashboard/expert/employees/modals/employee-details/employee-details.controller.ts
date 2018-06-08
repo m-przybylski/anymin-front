@@ -1,4 +1,4 @@
-import { Tag } from 'profitelo-api-ng/model/models';
+import { GetTag } from 'profitelo-api-ng/model/models';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 
 export interface IExpertEmployeeDetailsModalScope extends ng.IScope {
@@ -14,18 +14,16 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel');
   }
 
-  public tags: Tag[] = [
+  public tags: GetTag[] = [
     {
       id: 'mockId',
       name: 'tag-1',
-      status: Tag.StatusEnum.NEW,
-      persisted: false
+      status: GetTag.StatusEnum.NEW
     },
     {
       id: 'mockId2',
       name: 'tag-2',
-      status: Tag.StatusEnum.NEW,
-      persisted: false
+      status: GetTag.StatusEnum.NEW
     }
   ];
 
