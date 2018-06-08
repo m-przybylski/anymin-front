@@ -27,11 +27,10 @@ export class Config {
     }
   };
 
-  public static readonly inputsMaxLength = {
+  public static readonly inputsLength = {
     profileName: '150',
     profileDescription: '600',
     consultationName: '350',
-    consultationDescription: '600',
     consultationMaxDescription: '600',
     consultationMinDescription: '3',
     profileNameMinLenght: '3',

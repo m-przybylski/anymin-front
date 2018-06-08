@@ -23,8 +23,8 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
   public clientNameForm = new FormGroup({});
   public expertNameForm = new FormGroup({});
   public isExpertForm = true;
-  public readonly consultationMinLenght = Config.inputsMaxLength.consultationMinDescription;
-  public readonly consultationMaxLenght = Config.inputsMaxLength.consultationMaxDescription;
+  public readonly consultationMinLenght = Config.inputsLength.consultationMinDescription;
+  public readonly consultationMaxLenght = Config.inputsLength.consultationMaxDescription;
 
   @Input()
   public isOpenAsExpert: boolean;
