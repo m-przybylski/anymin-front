@@ -1,0 +1,31 @@
+@import "../../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+@import "../../../../template/core/variables/variables"
+@import "../../../../template/core/partials/grid"
+@import "../../../../template/core/partials/modals"
+
+\:host
+	display: block
+	width: 100%
+	
+	.default-avatar
+		background: $c-text-secondary
+		border: 1px solid $c-lines
+		width: 152px
+		height: 152px
+		border-radius: 50%
+		
+		span
+			color: $c-white
+			font-size: 152px
+	
+	.modal-component
+		&__handler
+			.form
+				flex: 1
+				
+				+smm
+					margin: 32px 0 0 48px
+					
+		&__action
+			&--expert
+				justify-content: center

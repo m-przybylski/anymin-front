@@ -25,8 +25,8 @@ export interface IServiceFormModalScope extends ng.IScope {
 // tslint:disable:member-ordering
 export class ServiceFormModalController implements ng.IController {
 
-  public readonly consultationNameMaxLength = Config.inputsMaxLength.consultationName;
-  public readonly consultationDescriptionMaxLength = Config.inputsMaxLength.consultationDescription;
+  public readonly consultationNameMaxLength = Config.inputsLength.consultationName;
+  public readonly consultationDescriptionMaxLength = Config.inputsLength.consultationMaxDescription;
   public isLoading = true;
   public isError = false;
   public consultationName = '';

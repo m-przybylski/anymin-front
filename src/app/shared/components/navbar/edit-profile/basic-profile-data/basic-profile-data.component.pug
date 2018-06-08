@@ -1,0 +1,16 @@
+.basic-profile-data
+  .basic-profile-data__content
+    .crop-photo
+      .default-avatar
+        span.icon.icon-avatar
+
+    am-core-input-text(
+      [isDisabled]="false",
+      [label]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'",
+      [errorTextKey]="'FEATURE.PAYMENTS.CHOOSE_BANK.NAME_INPUT.ERROR'",
+      [form]="formGroup",
+      [minLength]="profileNameMinlength",
+      [maxLength]="profileNameMaxlength",
+      [controlName]="controlName",
+      [inputValue]="ngModel"
+    )

@@ -10,8 +10,8 @@ import { Config } from '../../../../../config';
 
 // tslint:disable:member-ordering
 export class CompanyController implements ng.IController {
-  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
-  public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
+  public readonly inputDescriptionMaxLength = Config.inputsLength.profileDescription;
+  public readonly inputNameMaxLength = Config.inputsLength.profileName;
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,

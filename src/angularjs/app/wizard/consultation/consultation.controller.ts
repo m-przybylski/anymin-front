@@ -23,8 +23,8 @@ interface ILanguagesList {
 // tslint:disable:member-ordering
 // tslint:disable:max-file-line-count
 export class ConsultationController implements ng.IController {
-  public readonly inputNameMaxLength = Config.inputsMaxLength.consultationName;
-  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.consultationDescription;
+  public readonly inputNameMaxLength = Config.inputsLength.consultationName;
+  public readonly inputDescriptionMaxLength = Config.inputsLength.consultationMaxDescription;
   public isStepRequired = true;
   public currency: string;
   public nameInputValue = '';

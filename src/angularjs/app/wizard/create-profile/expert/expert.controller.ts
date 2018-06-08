@@ -10,8 +10,8 @@ import { StateService } from '@uirouter/angularjs';
 
 // tslint:disable:member-ordering
 export class ExpertController implements ng.IController {
-  public readonly inputNameMaxLength = Config.inputsMaxLength.profileName;
-  public readonly inputDescriptionMaxLength = Config.inputsMaxLength.profileDescription;
+  public readonly inputNameMaxLength = Config.inputsLength.profileName;
+  public readonly inputDescriptionMaxLength = Config.inputsLength.profileDescription;
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
