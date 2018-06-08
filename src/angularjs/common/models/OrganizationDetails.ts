@@ -1,7 +1,6 @@
-export interface OrganizationDetails {
-  name: string
-  logo?: string
-  description: string
-  files: any[]
-  links: string[]
+export interface IOrganizationDetails {
+  name: string;
+  logo?: string;
+  description: string;
+  files: any[];
 }

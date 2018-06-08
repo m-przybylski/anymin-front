@@ -16,7 +16,7 @@ export class CompanyProfileController {
   constructor(private $stateParams: ICompanyProfileStateParams, private $log: ng.ILogService,
               private ProfileApi: ProfileApi, companyProfile: ICompanyProfile) {
 
-    this.profile = companyProfile.profile.organizationDetails;
+    this.profile = companyProfile.profileWithDocuments.profile.organizationDetails;
     this.consultations = companyProfile.services;
     this.isFavourite = companyProfile.isFavourite;
     this.profileType = ProfileTypes.company;

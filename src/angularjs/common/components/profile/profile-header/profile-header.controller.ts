@@ -32,9 +32,6 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
   }
 
   public $onInit = (): void => {
-    if (this.profileDetails) {
-      this.documents = this.profileDetails.files;
-    }
   }
 
   public checkType = (): boolean =>

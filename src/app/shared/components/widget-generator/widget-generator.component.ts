@@ -140,7 +140,7 @@ export class WidgetGeneratorComponent implements OnInit {
 
   private getExpertInitializeData = (accountId: string): void => {
     this.widgetGeneratorService.getExpertProfileWithServices(accountId).then((profileWithServices) => {
-      this.expertId = profileWithServices.profile.id;
+      this.expertId = profileWithServices.profileWithDocuments.profile.id;
       this.serviceList = profileWithServices.services
         .filter(serviceWithProfile => !serviceWithProfile.service.deletedAt)
         .filter(serviceWithProfile => this.expertId === serviceWithProfile.service.ownerId)

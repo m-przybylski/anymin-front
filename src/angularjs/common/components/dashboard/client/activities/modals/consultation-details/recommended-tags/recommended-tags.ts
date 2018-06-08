@@ -2,7 +2,7 @@ import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import apiModule from 'profitelo-api-ng/api.module';
-import { Tag } from 'profitelo-api-ng/model/models';
+import { GetTag } from 'profitelo-api-ng/model/models';
 import { PostSueRating } from 'profitelo-api-ng/model/PostSueRating';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
@@ -35,7 +35,7 @@ function controller($log: ng.ILogService,
       .then(onRecommendService, onRecommendServiceError);
   };
 
-  this.onSelectChange = (tagsArray: Tag[]): void => {
+  this.onSelectChange = (tagsArray: GetTag[]): void => {
     this.selectedTags = tagsArray;
   };
 

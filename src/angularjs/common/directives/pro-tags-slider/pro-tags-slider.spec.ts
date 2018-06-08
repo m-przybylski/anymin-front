@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 
-import {Tag} from 'profitelo-api-ng/model/models'
+import {GetTag} from 'profitelo-api-ng/model/models'
 import {IProTagsSliderScope} from './pro-tags-slider'
 import {IRootScopeService} from '../../services/root-scope/root-scope.service';
 
@@ -45,7 +45,7 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
     it('should call next slide', () => {
       const el = create(validHTML)
       const isoScope = el.isolateScope<IProTagsSliderScope>()
-      const tag = {name: 'sdsd', id: '999', status: Tag.StatusEnum.NEW, persisted: false}
+      const tag = {name: 'sdsd', id: '999', status: GetTag.StatusEnum.NEW, persisted: false}
       isoScope.tagAction(tag)
     })
   })

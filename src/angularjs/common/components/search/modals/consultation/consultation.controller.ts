@@ -1,4 +1,4 @@
-import { Tag } from 'profitelo-api-ng/model/models';
+import { GetTag } from 'profitelo-api-ng/model/models';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 
 export interface IConsultationModalControllerScope extends ng.IScope {
@@ -20,23 +20,20 @@ export class ConsultationModalController implements ng.IController {
   public consultationDescription = 'Opis najlepszej uslugi w miescie';
   public isLoading = false;
   public isExpert = false;
-  public tags: Tag[] = [{
+  public tags: GetTag[] = [{
       id: 'id',
       name: 'tag',
-      status: Tag.StatusEnum.NEW,
-      persisted: false
+      status: GetTag.StatusEnum.NEW
     },
     {
       id: 'id',
       name: 'tag2',
-      status: Tag.StatusEnum.NEW,
-      persisted: false
+      status: GetTag.StatusEnum.NEW
     },
     {
       id: 'id',
       name: 'tag3',
-      status: Tag.StatusEnum.NEW,
-      persisted: false
+      status: GetTag.StatusEnum.NEW
     }];
   public employees: {}[] = [{
     name: 'Jan Kowalski'},

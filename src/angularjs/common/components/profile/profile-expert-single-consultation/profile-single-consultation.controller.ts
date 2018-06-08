@@ -1,12 +1,12 @@
 import { IProfileSingleConsultationComponentBindings } from './profile-single-consultation';
-import { Tag, GetService, GetProfile } from 'profitelo-api-ng/model/models';
+import { GetTag, GetService, GetProfile } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';
 
 export class ProfileSingleConsultationComponentController implements IProfileSingleConsultationComponentBindings {
 
   public static $inject = ['userService', '$location'];
   public service: GetService;
-  public tags: Tag[];
+  public tags: GetTag[];
   public ownerCompany: GetProfile;
   public profileId: string;
 

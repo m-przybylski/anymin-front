@@ -43,7 +43,7 @@ export class InvitationsResolver {
   private onGetProfileInvitations =
     (invitations: GetProfileWithServicesInvitations[], tokenInvitation: GetInvitation): void => {
       this.modalsService.createInvitationsModal(
-        _.find(invitations, (invitation) => invitation.id === tokenInvitation.serviceOwnerId));
+        _.find(invitations, (invitation) => invitation.profile.id === tokenInvitation.serviceOwnerId));
     }
 
   private onGetUserError = (error: any, stateParams: IInvitationsStateParams, tokenInvitation: GetInvitation): void => {

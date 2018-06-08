@@ -1,5 +1,5 @@
 import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';
-import { MoneyDto, Tag, GetCallDetails, GetServiceTags } from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetTag, GetCallDetails, GetServiceTags } from 'profitelo-api-ng/model/models';
 
 export interface IExpertConsultationDetailsParentScope extends ng.IScope {
   sueId: string;
@@ -14,7 +14,7 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
 export class ExpertConsultationDetailsController implements ng.IController {
   public roomId?: string;
   public isLoading = true;
-  public serviceTags: Tag[] = [];
+  public serviceTags: GetTag[] = [];
   public expertAvatar?: string;
   public expertName?: string;
   public serviceName: string;
@@ -24,7 +24,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public callDuration: number;
   public isRecommended: boolean;
   public sueId: string;
-  public recommendedTags: Tag[] = [];
+  public recommendedTags: GetTag[] = [];
   public isRecommendable: boolean;
   public consultationComment?: string;
   private callDetails: GetCallDetails;
@@ -95,7 +95,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
     this.openExpertActivityModal(res[0].tags);
   }
 
-  private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
+  private openExpertActivityModal = (serviceTags: GetTag[] = []): void => {
     // tslint:disable-next-line:no-non-null-assertion
     this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar;
     // tslint:disable-next-line:no-non-null-assertion

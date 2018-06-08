@@ -1,5 +1,5 @@
 import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';
-import { MoneyDto, Tag, GetCallDetails } from 'profitelo-api-ng/model/models';
+import { MoneyDto, GetTag, GetCallDetails } from 'profitelo-api-ng/model/models';
 
 export interface IClientConsultationDetailsScope extends ng.IScope {
   sueId: string;
@@ -65,7 +65,7 @@ export class ClientConsultationDetailsController implements ng.IController {
     this.openClientActivityModal(res[0].tags);
   }
 
-  private openClientActivityModal = (serviceTags: Tag[] = []): void => {
+  private openClientActivityModal = (serviceTags: GetTag[] = []): void => {
     if (this.callDetails.expertProfile.expertDetails) {
       this.expertAvatar = this.callDetails.expertProfile.expertDetails.avatar;
       this.expertName = this.callDetails.expertProfile.expertDetails.name;

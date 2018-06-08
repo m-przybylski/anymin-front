@@ -1,5 +1,5 @@
 import { IConsultationListItemComponentBindings } from './consultation-list-item';
-import { GetServiceWithInvitation, Tag } from 'profitelo-api-ng/model/models';
+import { GetServiceWithInvitation, GetTag } from 'profitelo-api-ng/model/models';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 import { IGetServiceWithInvitationsAndTags } from '../../../../app/invitations/modal/invitations.controller';
 
@@ -14,7 +14,7 @@ export class ConsultationListItemComponentController implements IConsultationLis
   public onChange: (service: GetServiceWithInvitation, isChecked: boolean) => void;
   public title: string;
   public price: MoneyDto;
-  public tags?: Tag[];
+  public tags?: GetTag[];
   public inviteTime: string;
   public checkboxId: string;
   public isChecked = false;
@@ -25,11 +25,11 @@ export class ConsultationListItemComponentController implements IConsultationLis
   }
 
   public $onInit(): void {
-    this.title = this.service.name;
-    this.price = this.service.price;
+    this.title = this.service.service.name;
+    this.price = this.service.service.price;
     this.tags = this.service.tags;
     this.checkboxId = String(new Date().getTime()) + this.title;
-    this.isFreelance = this.service.isFreelance;
+    this.isFreelance = this.service.service.isFreelance;
   }
 
   public changeConsultationStatus = (): void => {

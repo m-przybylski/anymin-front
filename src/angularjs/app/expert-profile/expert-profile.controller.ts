@@ -17,11 +17,11 @@ export class ExpertProfileController {
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
               expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
 
-    this.profile = expertProfile.profile.expertDetails;
+    this.profile = expertProfile.profileWithDocuments.profile.expertDetails;
     this.consultations = expertProfile.services;
     this.isFavourite = expertProfile.isFavourite;
     this.profileType = ProfileTypes.expert;
-    this.profileId = expertProfile.profile.id;
+    this.profileId = expertProfile.profileWithDocuments.profile.id;
   }
 
   public onProfileLike = (): boolean =>

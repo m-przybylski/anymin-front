@@ -1,6 +1,6 @@
 import { IProfileCompanyConsultationComponentBindings } from './profile-company-single-consultation';
 import {
-  Tag, GetOrganizationServiceDetails,
+  GetTag, GetOrganizationServiceDetails,
   GetProfile, MoneyDto, GetProfileDetails
 } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';
@@ -9,7 +9,7 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
 
   public static $inject = ['userService', '$location'];
   public organizationServiceDetails: GetOrganizationServiceDetails;
-  public tags: Tag[];
+  public tags: GetTag[];
   public employees: GetProfileDetails[];
   public ownerProfile: GetProfile;
   public price: MoneyDto;

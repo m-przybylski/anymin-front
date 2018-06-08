@@ -1,5 +1,5 @@
 import { ITagsListBindings } from './tags-list';
-import { Tag } from 'profitelo-api-ng/model/models';
+import { GetTag } from 'profitelo-api-ng/model/models';
 
 // tslint:disable:member-ordering
 export class TagsListComponentController implements ITagsListBindings {
@@ -7,7 +7,7 @@ export class TagsListComponentController implements ITagsListBindings {
   public readonly defaultMobileTagsLimit = 7;
   private static readonly maxVisibleTags = 30;
 
-  public tags: Tag[];
+  public tags: GetTag[];
   public tagsLimit = this.defaultMobileTagsLimit;
   public static $inject = [];
 

@@ -2,7 +2,7 @@ import { IFileUploaderModuleComponentBindings } from './file-uploader';
 import { UploaderFactory } from '../../services/uploader/uploader.factory';
 import { UploaderService } from '../../services/uploader/uploader.service';
 import { FilesApi } from 'profitelo-api-ng/api/api';
-import { PostFileDetails, FileInfo } from 'profitelo-api-ng/model/models';
+import { PostFileDetails, GetFileInfo } from 'profitelo-api-ng/model/models';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { FileCategoryEnum, FileTypeChecker } from '../../classes/file-type-checker/file-type-checker';
@@ -16,7 +16,7 @@ export interface IFileUploaderComponentScope extends ng.IScope {
 
 export interface IDocumentFile {
   file?: File;
-  fileInfo?: FileInfo;
+  fileInfo?: GetFileInfo;
   fileUploadInfo?: any;
   isUploadFailed: boolean;
 }
