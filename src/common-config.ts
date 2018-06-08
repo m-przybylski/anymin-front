@@ -4,6 +4,7 @@ import { CommonConfigBUILDSTAGE } from '../generated_modules/common-config/commo
 import { CommonConfigBUILDDEMO } from '../generated_modules/common-config/common-config.build-demo';
 import { CommonConfigBUILDPROD } from '../generated_modules/common-config/common-config.build-prod';
 import { CommonConfigINTEGRATIONTEST } from '../generated_modules/common-config/common-config.integration-test';
+import localEnvironment from './common-config.env';
 
 export class CommonConfig {
 
@@ -33,7 +34,7 @@ export class CommonConfig {
       case CommonConfig.getURLhost(CommonConfigBUILDPROD.settings.urls.widget):
         return CommonConfig.deepObjectExtend(CommonConfigDEFAULT.settings, CommonConfigBUILDPROD.settings);
       default:
-        return CommonConfigDEFAULT.settings;
+        return CommonConfig.loadLocalEnvironment(localEnvironment);
     }
   }
 
@@ -57,4 +58,23 @@ export class CommonConfig {
 
     return target;
   }
+
+  private static loadLocalEnvironment = (environmentName: string): ConfigDEFAULT => {
+    switch (environmentName) {
+      case('BUILDDEV'):
+        return CommonConfig.deepObjectExtend(CommonConfigDEFAULT.settings, CommonConfigBUILDDEV.settings);
+      case('INTEGRATIONTEST'):
+        return CommonConfig.deepObjectExtend(CommonConfigDEFAULT.settings, CommonConfigINTEGRATIONTEST.settings);
+      case('BUILDSTAGE'):
+        return CommonConfig.deepObjectExtend(CommonConfigDEFAULT.settings, CommonConfigBUILDSTAGE.settings);
+      case('BUILDDEMO'):
+        return CommonConfig.deepObjectExtend(CommonConfigDEFAULT.settings, CommonConfigBUILDDEMO.settings);
+      case('BUILDPROD'):
+        return CommonConfig.deepObjectExtend(CommonConfigDEFAULT.settings, CommonConfigBUILDPROD.settings);
+      default:
+        return CommonConfigDEFAULT.settings;
+    }
+
+  }
+
 }
