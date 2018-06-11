@@ -38,20 +38,24 @@
       padding: 0 0 8px 0
 
     .html-code
-      display: flex
-      justify-content: flex-start
-      align-items: center
-
+      +smm
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        max-width: 800px
+  
       code
         margin: 12px 0
         background: $c-lines
         padding: 12px
         color: $c-primary-txt
         border: dashed $c-primary 1px
-        max-width: 800px
+        display: block
+        word-break: break-all
 
       a
-        margin: 0 0 0 24px
+        +smm
+          margin: 0 0 0 24px
 
     .dropdowns
       +smm
