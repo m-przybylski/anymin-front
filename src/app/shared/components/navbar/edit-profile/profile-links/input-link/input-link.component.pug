@@ -1,0 +1,33 @@
+.input-link.input(
+[formGroup]="formGroup",
+[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
+	.input__handler
+		.input__container
+			.input__label-container
+				label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+				span.input__required-asterix(*ngIf="isRequired") *
+
+			input(
+			[formControlName]="controlName",
+			(focus)="onFocus()",
+			(blur)="onBlur()",
+			placeholder="{{ placeholderTrKey | translate }}",
+			type="text",
+			[readonly]="isDisabled",
+			maxlength="{{maxLength}}",
+			(keydown)="onKeyDown($event)"
+			)
+
+		a.button.button--secondary.button--small((click)="onAddLinkClick()")
+			span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.BUTTON' | translate }}
+
+	.input__alert
+		am-core-validation-alert(
+		[isVisible]="isCustomValidationInvalid()",
+		[validationTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.ERROR.LINK_EXIST'"
+		)
+
+		am-core-validation-alert(
+		[isVisible]="isFieldValueInvalid()",
+		[validationTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.ERROR.INVALID'"
+		)

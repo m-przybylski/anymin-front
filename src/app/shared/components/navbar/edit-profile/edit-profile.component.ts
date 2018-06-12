@@ -19,6 +19,7 @@ import { Config } from '../../../../../config';
 export class ModalComponentEditProfile implements OnInit, OnDestroy {
   public expertFormControlName = 'expertNameProfileControl';
   public expertFormControlDescription = 'expertDescriptionControl';
+  public expertFormControlLink = 'expertLinkControl';
   public clientFormControlName = 'clientNameProfileControl';
   public clientNameForm = new FormGroup({});
   public expertNameForm = new FormGroup({});

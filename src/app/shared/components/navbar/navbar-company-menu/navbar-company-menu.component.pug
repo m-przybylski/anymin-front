@@ -14,7 +14,7 @@
         .user-name-container
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.LOGGED_AS'")
           span.user-name-container__user-name {{ companyName }}
-      a.button.button--link([translate]="'NAVBAR_USER_MENU.EDIT'")
+      a.button.button--link((click)="openEditProfileModal()", [translate]="'NAVBAR_USER_MENU.EDIT'")
 
     li.menu-list__section.lgm-only
       ul

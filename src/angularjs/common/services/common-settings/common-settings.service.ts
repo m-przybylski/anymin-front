@@ -93,7 +93,7 @@ export class CommonSettingsService {
     bankAccountNumberPattern: /^(PL)?[0-9]{26}$/,
     numberPattern: /^\+?\d+(\s\d+)*$/,
     pricePattern: /^\d{1,}([\.,](\d{1,2})?)?$/,
-    urlPattern: /^(https?:\/\/)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
+    urlPattern: /^(https?:\/\/|www\.)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
     vatNumberPattern: /^(PL)?[0-9]{10}$/,
     postalCodePattern: /^[0-9]{2}-[0-9]{3}$/,
     socialNetworks: [

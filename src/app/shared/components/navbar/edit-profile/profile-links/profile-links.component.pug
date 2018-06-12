@@ -1,0 +1,24 @@
+.profile-links
+  .profile-links__handler
+    plat-input-link(
+    [label]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.LABEL'",
+    [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.PLACEHOLDER'",
+    [form]="formGroup",
+    [controlName]="controlName",
+    [pattern]="urlPattern",
+    [onChange]="onChangeValue"
+    )
+
+  .profile-links__list
+    .profile-links__list__item(*ngFor="let item of linksList", [@animation])
+      .profile-links__content
+        .profile-links__list__icon
+          span.icon.icon-language-24(*ngIf="!item.icon")
+          span(*ngIf="item.icon", [className]="item.icon")
+
+        .profile-links__list__title
+          span(*ngIf="!item.shortName") {{item.link}}
+          span(*ngIf="item.shortName") {{ item.shortName }}
+
+        .profile-links__list__delete
+          span.icon.icon-trash((click)="onDeleteClick(item)")
