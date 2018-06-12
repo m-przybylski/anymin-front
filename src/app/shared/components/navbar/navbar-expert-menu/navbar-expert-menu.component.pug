@@ -1,0 +1,82 @@
+.navbar-expert-menu(*ngIf="isMenuVisible", [@slideInOut])
+  ul.smm-only
+    li.menu-list__section.menu-list__section--mobile-close
+      span.title([translate]="'NAVBAR_USER_MENU.ACCOUNT'")
+      span.icon.icon-clear
+
+  ul.menu-list
+    li.menu-list__header
+      .menu-list__user-information
+        plat-user-avatar(
+          [avatarSize]="avatarSize48",
+          [avatarToken]="expertAvatarToken"
+        )
+        .user-name-container
+          span.user-name-container__title([translate]="'NAVBAR_USER_MENU.LOGGED_AS'")
+          span.user-name-container__user-name {{ expertName }}
+      a.button.button--link([translate]="'NAVBAR_USER_MENU.EDIT'")
+
+    li.menu-list__section
+      ul
+        li.menu-list__row.menu-list__row--visibility
+          .title-container
+            span.icon.icon-available
+            span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_LABEL.AVAILABLE'")
+          plat-input-switch((click)="onInputSwitchClick($event)")
+
+    li.menu-list__section.lgm-only
+      ul
+        li.menu-list__row
+          span.icon.icon-headphone
+          span.option-title([translate]="'NAVBAR_USER_MENU.CONSULTATIONS'")
+
+        li.menu-list__row
+          span.icon.icon-discovery
+          span.option-title([translate]="'NAVBAR_USER_MENU.DISCOVER'")
+
+        li.menu-list__row
+          span.icon.icon-list
+          span.option-title([translate]="'NAVBAR_USER_MENU.ACTIVITIES'")
+
+        li.menu-list__row
+          span.icon.icon-heart
+          span.option-title([translate]="'NAVBAR_USER_MENU.FAVOURITES'")
+
+    li.menu-list__section
+      ul
+        li.menu-list__row
+          span.icon.icon-settings
+          span.option-title([translate]="'NAVBAR_USER_MENU.SETTINGS'")
+
+        li.menu-list__row
+          span.icon.icon-payment-card
+          span.option-title([translate]="'NAVBAR_USER_MENU.PAYMENT_METHODS'")
+
+    li.menu-list__section(*ngIf="!isCompany")
+      ul
+        li.menu-list__row
+          span.icon.icon-organization
+          span.option-title([translate]="'NAVBAR_USER_MENU.CREATE_COMPANY'")
+
+    li.menu-list__section
+      ul
+        li.menu-list__row
+          span.icon.icon-anymind
+          span.option-title([translate]="'NAVBAR_USER_MENU.ANYMIND_WIDGET'")
+
+        li.menu-list__row
+          span.icon.icon-invite
+          span.option-title([translate]="'NAVBAR_USER_MENU.INVITE_FRIENDS'")
+
+        li.menu-list__row((click)="logout()")
+          span.icon.icon-logout
+          span.option-title([translate]="'NAVBAR_USER_MENU.LOGOUT'")
+
+    li.menu-list__section.menu-list__section--switch-account(*ngIf="isCompany")
+      ul
+        li.menu-list__row
+          plat-user-avatar(
+            [avatarSize]="avatarSize32",
+            [avatarToken]="companyAvatarToken"
+          )
+          span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_ORGANIZATION'")

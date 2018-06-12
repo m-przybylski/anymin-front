@@ -1,0 +1,9 @@
+.input-switch
+  label.input-switch__label
+    .input-switch__switcher-container
+      input(
+        type="checkbox",
+        [checked]="isInputChecked"
+      )
+      span.input-switch__switcher
+    span.input-switch__label-text(*ngIf="label", [translate]="labelTrKey")

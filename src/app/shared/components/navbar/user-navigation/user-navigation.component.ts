@@ -17,6 +17,7 @@ export class UserNavigationComponent implements OnInit, AfterViewChecked {
 
   @Input()
   public isCompany: boolean;
+
   public isUserExpert: boolean;
   public currentElement$ = new Subject<ElementRef>();
 
@@ -44,4 +45,5 @@ export class UserNavigationComponent implements OnInit, AfterViewChecked {
       this.logger.error('Can not get session');
     });
   }
+
 }
