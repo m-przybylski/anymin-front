@@ -26,8 +26,13 @@
       transform-origin: 100% 0
       word-break: break-word
       max-width: 298px
-
+      
+      &.icon
+        padding: 8px 0 8px 16px
+        
       .file
+        display: flex
+        align-items: center
         color: $c-primary-txt
 
         i
@@ -59,9 +64,14 @@
         background: $c-primary
         color: $c-white
         border-radius: 0 8px 8px 0
-
+        
+        &.icon
+          padding: 8px 16px 8px 0
+  
         .file
           color: $c-white
+          display: flex
+          align-items: center
 
       &:last-child
         span
