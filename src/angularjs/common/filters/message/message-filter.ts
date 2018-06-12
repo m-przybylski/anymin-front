@@ -43,7 +43,7 @@ import { LoggerService } from '@anymind-ng/core';
       if (messageContext && messageContext.description && messageContext.description.length > 0) {
         const fileUrl = urlService.resolveFileUrl(messageContext.content);
         return `<a href="${fileUrl}" target="_blank" class="file">
-                <i class="icon-file-24"></i>${messageContext.description}</a>`;
+                <span class="icon icon-file"></span>${messageContext.description}</a>`;
 
       } else if (messageUrls && messageUrls.length > 0) {
         for (const url in messageUrls) {
@@ -73,8 +73,10 @@ import { LoggerService } from '@anymind-ng/core';
           return handleImageMessage(message);
         case 'image/png':
           return handleImageMessage(message);
+        case 'application/pdf':
+          return handleImageMessage(message);
         default:
-          logger.error('MessagePipe: Unhandled message type, fix me please');
+          logger.warn('MessagePipe: Unhandled message type, fix me please');
           return handleTextMessage(message);
       }
     };

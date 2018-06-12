@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
     let $filter: IFilterService
     const urlService: UrlService = <UrlService>{}
     const logger = {
-      error: (): void => {
+      warn: (): void => {
       }
     }
 
