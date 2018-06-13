@@ -6,5 +6,5 @@
       span.description-container__description {{ description | translate}}
 
   .setting-option__right
-    button.btn.btn-small
+    button.btn.btn-small((click)="buttonHandler()")
       span {{ buttonText | translate}}

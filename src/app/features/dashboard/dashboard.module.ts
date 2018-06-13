@@ -14,7 +14,17 @@ import { CompanyDashboardComponent } from './views/company-dashboard/company-das
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { ModalsModule } from '../../shared/components/modals/modals.module';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
-import { SettingOptionComponent } from './views/user-dashboard/settings/components/setting-option/setting-option.component';
+import {
+  SettingOptionComponent
+} from './views/user-dashboard/settings/components/setting-option/setting-option.component';
+import {
+  ChangeNumberComponent
+} from './views/user-dashboard/settings/components/change-number/change-number/change-number.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {
+  SmsConfirmationComponent
+} from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +37,15 @@ import { SettingOptionComponent } from './views/user-dashboard/settings/componen
     ExpertActivitiesComponent,
     FavouritesComponent,
     SettingsViewComponent,
-    SettingOptionComponent
+    SettingOptionComponent,
+    ChangeNumberComponent,
+    SmsConfirmationComponent,
   ],
+  entryComponents: [ChangeNumberComponent],
   providers: [],
   imports: [
+    ReactiveFormsModule,
+    CommonModule,
     SharedModule,
     AngularJsProvidersModule,
     DashboardRoutingModule,
