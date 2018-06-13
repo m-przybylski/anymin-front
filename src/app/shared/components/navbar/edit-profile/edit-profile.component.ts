@@ -9,6 +9,9 @@ import {
   from '../../../services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../config';
 import { EditProfileModalComponentService } from './edit-profile.component.service';
+import { FileCategoryEnum } from '../../../services/uploader/file-type-checker';
+import { CommonConfig } from '../../../../../common-config';
+import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
@@ -23,6 +26,11 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public clientNameForm = new FormGroup({});
   public expertNameForm = new FormGroup({});
   public isExpertForm = true;
+  public isFileUploading: boolean;
+  public maxValidFileSize: number;
+  public maxValidFilesCount: number;
+  public commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
+  public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public readonly consultationMinlength = Config.inputsLength.consultationMinDescription;
   public readonly consultationMaxlength = Config.inputsLength.consultationMaxDescription;
 
@@ -36,6 +44,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isExpertForm = this.isOpenAsExpert;
+    this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
+    this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
   }
 
   public ngOnDestroy(): void {
@@ -60,5 +70,9 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public onModalClose = (): void =>
     this.activeModal.close()
+
+  public onUploadingFile = (isUploading: boolean): void => {
+    this.isFileUploading = isUploading;
+  }
 
 }

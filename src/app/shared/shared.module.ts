@@ -46,8 +46,7 @@ import { NavbarUserMenuComponent } from './components/navbar/navbar-user-menu/na
 import { NavbarCompanyMenuComponent } from './components/navbar/navbar-company-menu/navbar-company-menu.component';
 import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-menu/navbar-expert-menu.component';
 import { InputSwitchComponent } from './components/input-switch/input-switch.component';
-import { NavbarMenuService }
-  from './services/navbar-menu-service/navbar-menu.service';
+import { NavbarMenuService } from './services/navbar-menu-service/navbar-menu.service';
 import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
 
 @NgModule({

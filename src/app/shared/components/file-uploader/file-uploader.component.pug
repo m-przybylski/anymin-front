@@ -1,0 +1,69 @@
+.file-uploader-component
+  .drag-and-drop
+    .drag-and-drop__label([translate]="'FILE_UPLOADER.LABEL'")
+    .drag-and-drop__upload-field([draggable]="isElementDraggable")
+      input.drag-and-drop__hidden-input(
+        #inputFile,
+        type="file",
+        [multiple]="isMultipleFilesAllowed",
+        (change)="onInputFileChange($event)",
+        accept="image/*, application/pdf",
+        (click)="onInputFileClick($event)"
+      )
+      .drag-and-drop__title
+        span.icon.icon-upload-files
+        p([translate]="'FILE_UPLOADER.DRAG_AND_DROP.TITLE'")
+        span.button.button--tertiary(
+          (click)="inputFile.click()",
+          [translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'"
+        )
+    .drag-and-drop__counter
+      span.counter__length {{ validUserFilesCounter }}
+      span.counter__limit / {{ maxFilesCount }} {{ 'FILE_UPLOADER.DRAG_AND_DROP.FILES_COUNTER' | translate }}
+
+  .uploaded-files([@fadeInOutListItems]="userFiles.length")
+    .uploaded-files__item(*ngFor="let currentFile of userFiles")
+      .uploaded-files__preview(
+        *ngIf="currentFile.fileInfo",
+        [@fadeInWithDelay]
+      )
+        img.preview__img(src="{{ currentFile.fileInfo.previews[0] }}")
+        .preview-info-container
+          span.uploaded-files__file-name {{ createFileName(currentFile.fileInfo.name) }}
+          span.icon.icon-trash((click)="removeFile(currentFile)")
+
+      .uploaded-files__loading(
+        *ngIf="!currentFile.fileInfo && currentFile.fileStatus === fileStatusEnum.VALID",
+        [@fadeOut]
+      )
+        span.icon.icon-clear((click)="removeFileFromUpload(currentFile)")
+        .uploaded-files__loader-container
+          span.icon.icon-loading
+          p.uploaded-files__file-name {{ createFileName(currentFile.file.name) }}
+
+      .uploaded-files__error(
+        *ngIf="currentFile.fileStatus !== fileStatusEnum.VALID",
+        [@fadeInWithDelay]
+      )
+        span.icon.icon-clear((click)="removeFile(currentFile)")
+        .uploaded-files__error-container
+          span.icon.icon-warning
+          p.uploaded-files__file-name {{ createFileName(currentFile.file.name) }}
+          ng-container([ngSwitch]="currentFile.fileStatus")
+            span.uploaded-files__error-text.uploaded-files__error-text--upload-error(
+              *ngSwitchCase="fileStatusEnum.UPLOAD_FAILURE",
+              (click)="reuploadFile(currentFile)",
+              [translate]="'FILE_UPLOADER.UPLOAD_ERROR'"
+            )
+            span.uploaded-files__error-text(
+              *ngSwitchCase="fileStatusEnum.INVALID_COUNT",
+              [translate]="'FILE_UPLOADER.COUNT_ERROR'"
+            )
+            span.uploaded-files__error-text(
+              *ngSwitchCase="fileStatusEnum.INVALID_TYPE",
+              [translate]="'FILE_UPLOADER.TYPE_ERROR'"
+            )
+            span.uploaded-files__error-text(
+              *ngSwitchCase="fileStatusEnum.INVALID_SIZE",
+              [translate]="'FILE_UPLOADER.SIZE_ERROR'"
+            )

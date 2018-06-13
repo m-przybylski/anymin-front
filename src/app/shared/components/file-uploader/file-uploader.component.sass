@@ -1,0 +1,148 @@
+@import "~@anymind-ng/components/src/template/stylesheets/stylesheets"
+
+.file-uploader-component
+  min-width: 320px
+  max-width: 100%
+
+  .drag-and-drop
+    position: relative
+    margin: 0 0 32px
+
+    &__hidden-input
+      display: none
+
+    &__label
+      +label
+      margin: 0 0 8px
+
+    &__upload-field
+      width: 100%
+      height: 192px
+      padding: 16px 0 0
+      display: flex
+      justify-content: center
+      flex-wrap: wrap
+      text-align: center
+      background: $c-main-background
+      border: 1px dashed $c-lines
+      border-radius: 2px
+
+    &__title
+      max-width: 160px
+
+      .icon-upload-files
+        color: $c-text-secondary
+        font-size: 48px
+        margin: 0 0 8px
+
+      p
+        +caption
+        font-weight: 500
+        color: $c-label
+        margin: 0 0 16px
+
+    &__counter
+      position: absolute
+      right: 0
+      top: 100%
+
+      span
+        +label
+        text-transform: none
+        padding: 0 0 0 4px
+
+  .uploaded-files
+    display: flex
+    flex-wrap: wrap
+    margin: 0 -4px -8px
+
+    &__item
+      position: relative
+      width: calc(50% - 8px)
+      box-shadow: 0 1px 2px 0 $c-lines
+      border-radius: 2px
+      margin: 0 4px 8px
+      background: $c-white
+
+      &::after
+        content: ""
+        display: block
+        padding-bottom: 100%
+
+      +xsm
+        width: calc(33% - 8px)
+
+      +smm
+        width: calc(25% - 8px)
+
+    &__loading,
+    &__error
+      position: absolute
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 100%
+      height: 100%
+
+      .icon-clear
+        position: absolute
+        top: 0
+        right: 0
+        cursor: pointer
+
+    &__file-name
+      +caption
+      font-weight: 500
+      color: $c-label
+
+    &__error-text
+      +caption
+      color: $c-error-primary
+
+      &--upload-error
+        cursor: pointer
+
+    &__loader-container
+      text-align: center
+
+      .icon-loading
+        animation: rotate360Deg 1s linear infinite
+        color: $c-text-secondary
+
+    &__error-container
+      text-align: center
+      max-width: 149px
+      line-height: 16px
+
+      .icon-warning
+        color: $c-text-secondary
+        display: block
+        margin: 0 0 8px
+        line-height: 24px
+
+      .uploaded-files__file-name
+        margin: 0 0 16px
+
+    .preview
+      &__img
+        position: absolute
+        max-height: calc(100% - 40px)
+        width: 100%
+        right: 0
+        left: 0
+        margin: auto
+
+    .preview-info-container
+      display: flex
+      justify-content: space-between
+      align-items: center
+      position: absolute
+      bottom: 0
+      left: 0
+      height: 40px
+      width: 100%
+      padding: 12px
+
+      .icon-trash
+        cursor: pointer
+
