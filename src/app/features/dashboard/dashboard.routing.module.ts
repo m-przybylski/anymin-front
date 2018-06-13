@@ -10,6 +10,7 @@ import { ExpertActivitiesComponent } from './views/user-dashboard/expert-activit
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
+import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 
 const routes: Routes = [
 
@@ -18,7 +19,8 @@ const routes: Routes = [
     {path: 'discover', component: DiscoverComponent},
     {path: 'client-activities', component: ClientActivitiesComponent},
     {path: 'expert-activities', component: ExpertActivitiesComponent},
-    {path: 'favourites', component: FavouritesComponent}
+    {path: 'favourites', component: FavouritesComponent},
+    {path: 'settings', component: SettingsViewComponent}
   ]
   },
   {
