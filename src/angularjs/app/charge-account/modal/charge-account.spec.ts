@@ -1,12 +1,13 @@
-import * as angular from 'angular'
-import '../charge-account'
-import chargeAccountModalModule from './charge-account'
-import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
-import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling'
-import {IChargeAccountScope, ChargeAccountController} from './charge-account.controller'
-import {keyboardCodes} from '../../../common/classes/keyboard'
-import {IRootScopeService} from '../../../common/services/root-scope/root-scope.service';
-import {StateService, TransitionPromise} from '@uirouter/angularjs';
+import * as angular from 'angular';
+import '../charge-account';
+import chargeAccountModalModule from './charge-account';
+import { SmoothScrollingService } from '../../../common/services/smooth-scrolling/smooth-scrolling.service';
+import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling';
+import { IChargeAccountScope, ChargeAccountController } from './charge-account.controller';
+import { keyboardCodes } from '../../../common/classes/keyboard';
+import { IRootScopeService } from '../../../common/services/root-scope/root-scope.service';
+import { StateService, TransitionPromise } from '@uirouter/angularjs';
+import { PaymentSystem } from 'profitelo-api-ng/model/models';
 
 describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void => {
   describe('Testing Controller: chargeAccountController', (): void => {
@@ -79,6 +80,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
 
     it('should call smoothScrollingService on minimal-payment validation error', (): void => {
       spyOn(smoothScrollingService, 'simpleScrollTo')
+
       scope.paymentsOptions = {
         paymentCountryId: 'lp',
         countryISO: 'pl',
@@ -94,10 +96,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
         ],
         paymentSystems: [{
           id: 'id',
-          slug: 'slug',
-          desc: 'desc',
-          updatedAt: new Date(),
-          createdAt: new Date()
+          name: PaymentSystem.NameEnum.PayPal
         }]
       }
       scope.creditCards = []
@@ -126,7 +125,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
           },
         ]
       }
-      chargeAccountController.amountModel.cashAmount!.amount = 2000
+      chargeAccountController.amountModel.cashAmount!.amount = 2000;
       chargeAccountController.validAction()
       expect(smoothScrollingService.simpleScrollTo).not.toHaveBeenCalled()
     })
