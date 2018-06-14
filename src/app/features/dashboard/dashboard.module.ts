@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import {
   SmsConfirmationComponent
 } from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
+import { ModalSettingsHeaderComponent } from './views/user-dashboard/settings/components/modal-settings-header/modal-settings-header.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {
     SettingOptionComponent,
     ChangeNumberComponent,
     SmsConfirmationComponent,
+    ModalSettingsHeaderComponent
   ],
   entryComponents: [ChangeNumberComponent],
   providers: [],
