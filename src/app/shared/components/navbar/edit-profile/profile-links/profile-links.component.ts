@@ -91,7 +91,7 @@ export class ProfileLinksComponent {
     if (this.isSocialLink(value)) {
       return this.checkSocialLinkProtocol(value);
     } else {
-      return this.checkAddressLinkProtocol(value);
+      return value.replace(/^(?:https?:\/\/)?(?:www\.)|(?:http?:\/\/)?(?:www\.)|(?:https?:\/\/)|(?:http?:\/\/)/i, '').split('/')[0];
     }
   }
 
@@ -107,23 +107,6 @@ export class ProfileLinksComponent {
     } else if (addressUrl.startsWith(Config.webProtocols.httpProtocol) &&
       !addressUrl.includes(Config.webProtocols.httpWwwProtocol)) {
       return addressUrl.replace(Config.webProtocols.httpProtocol, Config.webProtocols.httpsWwwProtocol);
-    } else {
-      return addressUrl;
-    }
-  }
-
-  // tslint:disable:cyclomatic-complexity
-  private checkAddressLinkProtocol = (addressUrl: string): string => {
-    if (addressUrl.startsWith(Config.webProtocols.wwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.wwwProtocol, Config.webProtocols.httpWwwProtocol);
-    } else if (addressUrl.startsWith(Config.webProtocols.httpWwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.httpWwwProtocol, Config.webProtocols.httpWwwProtocol);
-    } else if (addressUrl.startsWith(Config.webProtocols.httpsProtocol)
-      && !addressUrl.startsWith(Config.webProtocols.httpsWwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.httpsProtocol, Config.webProtocols.httpsWwwProtocol);
-    } else if (addressUrl.startsWith(Config.webProtocols.httpProtocol) &&
-      !addressUrl.includes(Config.webProtocols.httpWwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.httpProtocol, Config.webProtocols.httpWwwProtocol);
     } else {
       return addressUrl;
     }
