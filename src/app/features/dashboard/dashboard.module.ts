@@ -17,15 +17,11 @@ import { SettingsViewComponent } from './views/user-dashboard/settings/settings.
 import {
   SettingOptionComponent
 } from './views/user-dashboard/settings/components/setting-option/setting-option.component';
-import {
-  ChangeNumberComponent
-} from './views/user-dashboard/settings/components/change-number/change-number/change-number.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
   SmsConfirmationComponent
 } from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
-import { ModalSettingsHeaderComponent } from './views/user-dashboard/settings/components/modal-settings-header/modal-settings-header.component';
 
 @NgModule({
   declarations: [
@@ -39,11 +35,10 @@ import { ModalSettingsHeaderComponent } from './views/user-dashboard/settings/co
     FavouritesComponent,
     SettingsViewComponent,
     SettingOptionComponent,
-    ChangeNumberComponent,
-    SmsConfirmationComponent,
-    ModalSettingsHeaderComponent
+    SmsConfirmationComponent
+
   ],
-  entryComponents: [ChangeNumberComponent],
+  entryComponents: [],
   providers: [],
   imports: [
     ReactiveFormsModule,

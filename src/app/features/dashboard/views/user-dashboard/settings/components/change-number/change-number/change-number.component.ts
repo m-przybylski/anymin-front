@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CommonSettingsService } from '../../../../../../../../../angularjs/common/services/common-settings/common-settings.service';
+import {
+  CommonSettingsService
+}
+  from '../../../../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { UserSessionService } from '../../../../../../../../core/services/user-session/user-session.service';
+import { ModalContainerWidthEnum } from '../../../../../../../../shared/components/modals/modal/modal.component';
 
 @Component({
   selector: 'plat-change-number',
@@ -18,7 +22,7 @@ export class ChangeNumberComponent implements OnInit {
   public isRequestPending = false;
   public isInputInitialFocused = true;
   public isInputRequired = true;
-
+  public modalWidth = ModalContainerWidthEnum.SmallWidth;
   public isDisabled = false;
 
   private readonly msisdnLength = 3;

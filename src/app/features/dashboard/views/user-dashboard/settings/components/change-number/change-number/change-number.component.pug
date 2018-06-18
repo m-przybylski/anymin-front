@@ -1,35 +1,31 @@
-.modal-component.modal-component--edit-profile
-  .modal-component__scroll(pinElement="modal-component__header")
-    .modal-component__container.modal-component__container--medium
-      plat-modal-settings-header([title]="chui")
+plat-modal-component(
+[modalTrTitleHeader]="'Edytuj se numer'",
+[modalContainerClass]="modalWidth"
+)
+  .modal-form
+    form(
+    [id]="changeNumberFormId",
+    [formGroup]="changeNumberForm",
+    novalidate,
+    (ngSubmit)="onFormSubmit(changeNumberForm)"
+    )
+      .input-handler
+        am-core-input-prefix(
+        label="LOGIN.AREA_CODE",
+        [value]="msisdnPrefix"
+        )
+        am-core-input-phone-number(
+        label="LOGIN.ENTER_NUMBER",
+        placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
+        [controlName]="msisdnControlName",
+        [form]="changeNumberForm",
+        [isDisabled]="isRequestPending",
+        [initialFocus]="isInputInitialFocused",
+        [isRequired]="isInputRequired"
+        )
 
-      .modal-component__content
-        .modal-form
-          form(
-          [id]="changeNumberFormId",
-          [formGroup]="changeNumberForm",
-          novalidate,
-          (ngSubmit)="onFormSubmit(changeNumberForm)"
-          )
-            .input-handler
-              am-core-input-prefix(
-              label="LOGIN.AREA_CODE",
-              [value]="msisdnPrefix"
-              )
-              am-core-input-phone-number(
-              label="LOGIN.ENTER_NUMBER",
-              placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
-              [controlName]="msisdnControlName",
-              [form]="changeNumberForm",
-              [isDisabled]="isRequestPending",
-              [initialFocus]="isInputInitialFocused",
-              [isRequired]="isInputRequired"
-              )
-
-            am-core-submit-button(
-            titleText="DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON",
-            [isDisabled]="isDisabled",
-            [formName]="changeNumberFormId",
-            [isLoading]="isRequestPending"
-            )
-
+      am-core-submit-button(
+      titleText="DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON",
+      [formName]="changeNumberFormId",
+      [isLoading]="isRequestPending"
+      )

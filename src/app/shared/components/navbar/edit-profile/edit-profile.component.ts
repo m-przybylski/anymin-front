@@ -30,7 +30,7 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
   @Input()
   public isOpenAsExpert: boolean;
 
-  constructor(public activeModal: NgbActiveModal,
+  constructor(private activeModal: NgbActiveModal,
               private contentHeightService: ContentHeightAnimationService) {
   }
 
@@ -45,7 +45,15 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
   public onClientFormSubmit = (): void => {
   }
 
-  public onExpertFormSubmit = (): void => {
+  public onExpertFormSubmit = (expetFormGroup: FormGroup): void => {
+    console.log(expetFormGroup.valid);
+    if (expetFormGroup.valid) {
+      console.log('valid')
+
+    } else {
+      console.log('invalid')
+      // this.formUtils.validateAllFormFields(expetFormGroup);
+    }
   }
 
   public onBackToClientStep = (): void => {

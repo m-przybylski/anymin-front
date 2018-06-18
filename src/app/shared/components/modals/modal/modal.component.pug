@@ -1,0 +1,11 @@
+.modal-component
+  .modal-component__scroll(pinElement="modal-component__header")
+    .modal-component__container([ngClass]="modalContainerClass")
+      plat-modal-header(
+        [titleTrHeader]="modalTrTitleHeader",
+        [onBackWardClick]="onBackClick",
+        [isBackWardVisible]="isBackWardVisible"
+      )
+
+      .modal-component__content
+        ng-content

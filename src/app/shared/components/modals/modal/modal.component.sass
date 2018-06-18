@@ -1,0 +1,164 @@
+@import "~@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+@import "~@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
+@import "../../../../template/core/variables/variables"
+@import "../../../../template/core/partials/partials"
+
+.modal-component
+	background: $c-white
+	animation: fadeInY 0.2s
+	animation-fill-mode: forwards
+	height: 100vh
+	
+	+smm
+		height: auto
+		background: none
+	
+	&__scroll
+		overflow: scroll
+		max-height: 100vh
+		
+		+smm
+			padding: 48px 0
+	
+	&__header
+		height: $s-modal-header
+		background: $c-white
+		display: flex
+		justify-content: space-between
+		align-items: center
+		box-shadow: 0 1px 2px 0 $c-boxshadow-header-modal
+		margin: auto
+		position: fixed
+		width: inherit
+		left:  inherit
+		top: 0
+		border-radius: 8px 8px 0 0
+		z-index: $z-index-1000
+		
+		+smm
+			position: absolute
+			left: 0
+			top: 0
+			width: 100%
+		
+		&__nav
+			position: absolute
+			top: 0
+			width: 56px
+			height: 56px
+			display: flex
+			align-items: center
+			justify-content: center
+			z-index: $z-index-100
+			
+			&:first-of-type
+				left: 0
+			
+			&:last-of-type
+				right: 0
+			
+			a
+				height: 24px
+				max-height: 24px
+				width: 24px
+				max-width: 24px
+				overflow: hidden
+				cursor: pointer
+				padding: 0
+			
+			.icon
+				border-radius: 50%
+				display: flex
+				align-items: center
+				justify-content: center
+				background: $c-lines
+				transition: background-color 0.1s ease-in
+				
+				&:hover
+					background: $c-text-secondary
+					
+					&::before
+						color: $c-white
+				
+				&::before
+					transition: color 0.1s ease-in
+					color: $c-text-secondary
+		
+		&--fixed
+			border-radius: 8px 8px 0 0
+			position: fixed
+			width: inherit
+			left:  inherit
+			top: 0
+		
+		&__title
+			+subtitle
+			text-align: center
+			flex: 1
+			
+			p
+				+subtitle
+	
+	&__container
+		box-shadow: 0 16px 24px 0 $c-lines
+		overflow: hidden
+		background: $c-modal-background
+		margin: 0 auto
+		display: block
+		position: relative
+		width: 100%
+		border-radius: 8px
+		
+		+smm
+			width: calc(100% - 48px)
+			
+		+mdm
+			width: $s-modal-container-medium
+			
+		+lgm
+			width: $s-modal-container-big
+		
+		&--big
+			+lgm
+				width: $s-modal-container-big
+		
+		&--medium
+			+mdm
+				width: $s-modal-container-medium
+		
+		&--small
+			+mdm
+				width: $s-modal-container-small
+	
+	&__content
+		padding: 48px + $s-modal-header 48px 48px
+		
+		&__header
+			margin: 0 0 24px
+			display: flex
+			align-items: center
+			
+			> span
+				+h6
+				
+				span
+					color: $c-label
+	
+	&__handler
+		+smm
+			display: flex
+			align-items: center
+			justify-content: flex-start
+	
+	&__action
+		display: flex
+		align-items: center
+		justify-content: space-between
+		margin: 48px 0 0
+
+.modal-form
+	animation: none
+	border: 0
+	
+	&__row
+		margin: 0 0 48px

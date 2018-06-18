@@ -45,9 +45,8 @@ export class InputAddLinkComponent {
     this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid = (): boolean =>
-    this.formUtils.isFieldInvalid(this.formGroup, this.controlName) &&
-    this.isFieldValueInvalid() || this.isCustomValidationInvalid()
+  // public isFieldInvalid = (): boolean =>
+  //   this.formUtils.isFieldInvalid(this.formGroup, this.controlName)
 
   public isCustomValidationInvalid = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;

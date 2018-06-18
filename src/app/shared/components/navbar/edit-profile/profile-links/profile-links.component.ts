@@ -49,16 +49,16 @@ export class ProfileLinksComponent {
     this.isInputValueCorrect(inputValue)
 
   public isInputValueCorrect = (value: string): void => {
-    if (this.formGroup.valid) {
+    if (this.formGroup.controls[this.controlName].valid) {
       if (this.isValueExist(this.unifyLinkProtocol(value))) {
         this.formGroup.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.ValueExist]: true});
-        this.formUtils.validateAllFormFields(this.formGroup);
+        this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
       } else {
         this.addElement(this.unifyLinkProtocol(value));
       }
     } else {
       this.formGroup.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.IncorrectValue]: true});
-      this.formUtils.validateAllFormFields(this.formGroup);
+      this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
     }
   }
 

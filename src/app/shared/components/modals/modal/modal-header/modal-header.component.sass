@@ -1,0 +1,87 @@
+@import "~@anymind-ng/components/src/template/stylesheets/core/core"
+@import "../../../../../template/core/variables/variables"
+
+\:host
+	display: block
+	width: inherit
+	
+.modal-component
+	&__header
+		height: $s-modal-header
+		background: $c-white
+		display: flex
+		justify-content: space-between
+		align-items: center
+		box-shadow: 0 1px 2px 0 $c-boxshadow-header-modal
+		margin: auto
+		position: fixed
+		width: inherit
+		left:  inherit
+		top: 0
+		border-radius: 8px 8px 0 0
+		z-index: $z-index-1000
+		
+		+smm
+			position: absolute
+			left: 0
+			top: 0
+			width: 100%
+		
+		&__nav
+			position: absolute
+			top: 0
+			width: 56px
+			height: 56px
+			display: flex
+			align-items: center
+			justify-content: center
+			z-index: $z-index-100
+			
+			&:first-of-type
+				left: 0
+			
+			&:last-of-type
+				right: 0
+			
+			a
+				height: 24px
+				max-height: 24px
+				width: 24px
+				max-width: 24px
+				overflow: hidden
+				cursor: pointer
+				padding: 0
+			
+			.icon
+				border-radius: 50%
+				display: flex
+				align-items: center
+				justify-content: center
+				background: $c-lines
+				transition: background-color 0.1s ease-in
+				
+				&:hover
+					background: $c-text-secondary
+					
+					&::before
+						color: $c-white
+				
+				&::before
+					transition: color 0.1s ease-in
+					color: $c-text-secondary
+		
+		&--fixed
+			border-radius: 8px 8px 0 0
+			position: fixed
+			width: inherit
+			left:  inherit
+			top: 0
+		
+		&__title
+			+subtitle
+			text-align: center
+			flex: 1
+			
+			p
+				+subtitle
+	
