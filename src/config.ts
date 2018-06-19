@@ -60,14 +60,6 @@ export class Config {
     url: 'https://play.google.com/apps/testing/com.anymind.app'
   };
 
-  public static readonly webProtocols = {
-    wwwProtocol: 'www.',
-    httpProtocol: 'http://',
-    httpsProtocol: 'https://',
-    httpWwwProtocol: 'http://www.',
-    httpsWwwProtocol: 'https://www.'
-  };
-
   public static readonly assetsUrl = {
     images: '/assets/images',
     imagesTablet: '/assets/images/tablet',

@@ -7,14 +7,9 @@ import {
   CommonSettingsService
 }
   from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { Config } from '../../../../../../config';
 import { Animations, FormUtilsService } from '@anymind-ng/components';
 import { ProfileLinksComponentErrorEnum } from './input-link/input-link.component';
-
-interface IShortLink {
-  url: string;
-  icon: string;
-}
+import { ProfileLinksComponentService } from './profile-links.component.service';
 
 interface ILinkList {
   link: string;
@@ -26,7 +21,8 @@ interface ILinkList {
   selector: 'plat-profile-links',
   styleUrls: ['./profile-links.component.sass'],
   templateUrl: './profile-links.component.html',
-  animations: Animations.addItemAnimation
+  animations: Animations.addItemAnimation,
+  providers: [ProfileLinksComponentService]
 
 })
 export class ProfileLinksComponent {
@@ -42,6 +38,7 @@ export class ProfileLinksComponent {
   private urlPattern: RegExp;
 
   constructor(private formUtils: FormUtilsService,
+              private profileLinksComponentService: ProfileLinksComponentService,
               loggerFactory: LoggerFactory,
               CommonSettingsService: CommonSettingsService) {
     this.logger = loggerFactory.createLoggerService('ProfileLinksComponent');
@@ -66,11 +63,11 @@ export class ProfileLinksComponent {
   }
 
   public addElement = (value: string): void => {
-    if (this.isSocialLink(value)) {
+    if (this.profileLinksComponentService.isSocialLink(value)) {
       this.linksList.push({
         link: value,
-        shortName: this.cropSocialLinkParameterAsName(this.unifyLinkProtocol(value)).url,
-        icon: this.cropSocialLinkParameterAsName(this.unifyLinkProtocol(value)).icon
+        shortName: this.profileLinksComponentService.cropSocialMediaLinkAsName(this.unifyLinkProtocol(value)).url,
+        icon: this.profileLinksComponentService.cropSocialMediaLinkAsName(this.unifyLinkProtocol(value)).icon
       });
     } else if (value.length > 0) {
       this.linksList.push({link: value});
@@ -87,72 +84,6 @@ export class ProfileLinksComponent {
   private clearInputValue = (): void =>
     this.formGroup.controls[this.controlName].setValue('')
 
-  private unifyLinkProtocol = (value: string): string => {
-    if (this.isSocialLink(value)) {
-      return this.checkSocialLinkProtocol(value);
-    } else {
-      return value.replace(/^(?:https?:\/\/)?(?:www\.)|(?:http?:\/\/)?(?:www\.)|(?:https?:\/\/)|(?:http?:\/\/)/i, '').split('/')[0];
-    }
-  }
-
-  // tslint:disable:cyclomatic-complexity
-  private checkSocialLinkProtocol = (addressUrl: string): string => {
-    if (addressUrl.startsWith(Config.webProtocols.wwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.wwwProtocol, Config.webProtocols.httpsWwwProtocol);
-    } else if (addressUrl.startsWith(Config.webProtocols.httpWwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.httpWwwProtocol, Config.webProtocols.httpsWwwProtocol);
-    } else if (addressUrl.startsWith(Config.webProtocols.httpsProtocol)
-      && !addressUrl.startsWith(Config.webProtocols.httpsWwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.httpsProtocol, Config.webProtocols.httpsWwwProtocol);
-    } else if (addressUrl.startsWith(Config.webProtocols.httpProtocol) &&
-      !addressUrl.includes(Config.webProtocols.httpWwwProtocol)) {
-      return addressUrl.replace(Config.webProtocols.httpProtocol, Config.webProtocols.httpsWwwProtocol);
-    } else {
-      return addressUrl;
-    }
-  }
-
-  private isSocialLink = (value: string): boolean =>
-    (value.includes('facebook.com') || value.includes('twitter.com') ||
-      value.includes('linkedin.com'))
-
-  private cropSocialLinkParameterAsName = (link: string): IShortLink => {
-    const socialMediaLinks = {
-      facebook: {
-        url: 'https://www.facebook.com/',
-        icon: 'icon icon-facebook'
-      },
-      twitter: {
-        url: 'https://www.twitter.com/',
-        icon: 'icon icon-twitter'
-      },
-      linkedIn: {
-        url: 'https://www.linkedin.com/in/',
-        icon: 'icon icon-linkedin'
-      }
-    };
-
-    let shortLink: IShortLink = {
-      icon: '',
-      url: ''
-    };
-
-    if (link.includes(socialMediaLinks.facebook.url)) {
-      shortLink = {
-        url: link.split(socialMediaLinks.facebook.url)[1],
-        icon: socialMediaLinks.facebook.icon
-      };
-    } else if (link.includes(socialMediaLinks.twitter.url)) {
-      shortLink = {
-        url: link.split(socialMediaLinks.twitter.url)[1],
-        icon: socialMediaLinks.twitter.icon
-      };
-    } else if (link.includes(socialMediaLinks.linkedIn.url)) {
-      shortLink = {
-        url: link.split(socialMediaLinks.linkedIn.url)[1],
-        icon: socialMediaLinks.linkedIn.icon
-      };
-    }
-    return shortLink;
-  }
+  private unifyLinkProtocol = (value: string): string =>
+    this.profileLinksComponentService.unifyLinkProtocol(value)
 }
