@@ -4,20 +4,14 @@ import { ViewsApi } from 'profitelo-api-ng/api/api';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import {
-  GetProfileWithDocuments,
-  GetOrganizationServiceDetails,
-  GetOrganizationProfile
+  ServiceWithEmployments,
+  OrganizationProfileView
 } from 'profitelo-api-ng/model/models';
+import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
 
 export interface ICompanyProfile {
-  profileWithDocuments: GetProfileWithDocuments;
-  services: GetOrganizationServiceDetails[];
-  isFavourite: boolean;
-}
-
-interface ICompanyResponse {
-  profileWithDocuments: GetProfileWithDocuments;
-  services: GetOrganizationServiceDetails[];
+  profileWithDocuments: OrganizationProfileWithDocuments;
+  services: ServiceWithEmployments[];
   isFavourite: boolean;
 }
 
@@ -34,8 +28,8 @@ export class CompanyProfileResolver {
     const handleCompanyResponseError = (error: any): ng.IPromise<void> =>
       this.$q.reject(error);
 
-    const sortServices = (servicesWithTagsAndEmployees: GetOrganizationServiceDetails[]):
-      GetOrganizationServiceDetails[] => {
+    const sortServices = (servicesWithTagsAndEmployees: ServiceWithEmployments[]):
+      ServiceWithEmployments[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
         serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId);
 
@@ -49,19 +43,19 @@ export class CompanyProfileResolver {
       return servicesWithTagsAndEmployees;
     };
 
-    const handleCompanyResponse = (response: GetOrganizationProfile): ng.IPromise<ICompanyResponse> => {
-      if (!response.profileWithDocuments.profile.organizationDetails) {
+    const handleCompanyResponse = (response: OrganizationProfileView): ng.IPromise<ICompanyProfile> => {
+      if (!response.organizationProfile) {
         return this.$q.reject('Profile is not organization');
       }
 
       return this.$q.resolve({
-        profileWithDocuments: response.profileWithDocuments,
+        profileWithDocuments: response.organizationProfile,
         services: sortServices(response.services),
         isFavourite: response.isFavourite
       });
     };
 
-    const resolveCompanyProfile = (): ng.IPromise<GetOrganizationProfile> => {
+    const resolveCompanyProfile = (): ng.IPromise<ICompanyProfile> => {
       const promise = this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
         .then(handleCompanyResponse);
 

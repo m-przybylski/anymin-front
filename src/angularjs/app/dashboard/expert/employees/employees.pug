@@ -1,9 +1,12 @@
 .employees
-  preloader-container(data-is-loading="vm.areEmployeesLoading || vm.arePendingInvitationsLoading")
+  preloader-container(data-is-loading="vm.areEmployeesLoading || vm.arePendingInvitationsLoading"
+  data-is-error="vm.isError"
+  data-error-message="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE"
+  data-error-fn="vm.getServices")
 
     .error-btn-container
       a.btn.btn-primary(data-ng-if="vm.isGetEmployeesError"
-      data-ng-click="vm.getProfilesWithEmployments()"
+      data-ng-click="vm.postServicesEmployees()"
       data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.TRY_AGAIN_BUTTON")
 
     .employees-section
@@ -13,14 +16,14 @@
           span.icon.icon-add-expert-24
 
       expert-employee(
-      data-ng-repeat="profileWithEmployments in vm.profilesWithEmployments"
-      data-profile-with-employments="profileWithEmployments"
+      data-ng-repeat="employees in vm.employees"
+      data-profile-with-employments="employee"
       data-on-delete-callback="vm.onDeleteEmploymentsCallback"
       )
 
     .error-btn-container
       a.btn.btn-primary(data-ng-if="vm.isPendingInvitationsError"
-      data-ng-click="vm.getServicesInvitations()"
+      data-ng-click="vm.postServiceWithInvitations()"
       data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.TRY_AGAIN_BUTTON")
 
     header.entry-title(data-ng-show="vm.arePendingInvitations")

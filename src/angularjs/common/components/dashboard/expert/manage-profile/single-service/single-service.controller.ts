@@ -1,21 +1,21 @@
 import { ISingleServiceComponentBindings } from './single-service';
-import { GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../../../services/user/user.service';
 import { ModalsService } from '../../../../../services/modals/modals.service';
 import { ServiceApi, EmploymentApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
 import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';
 import { TranslatorService } from '../../../../../services/translator/translator.service';
+import { ServiceWithOwnerProfile } from '@anymind-ng/api';
 
 export interface ISingleServiceComponentControllerScope extends ng.IScope {
   onModalClose: () => void;
-  serviceDetails: GetExpertServiceDetails;
+  serviceDetails: ServiceWithOwnerProfile;
 }
 
 // tslint:disable:member-ordering
 export class SingleServiceComponentController implements ng.IController, ISingleServiceComponentBindings {
 
-  public serviceDetails: GetExpertServiceDetails;
+  public serviceDetails: ServiceWithOwnerProfile;
   public isOwnerOfService: boolean;
   public serviceName: string;
   public serviceOwnerName: string;
@@ -24,6 +24,8 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   public isDeleted = false;
   public isFreelance = false;
   public isCompany = false;
+
+  private userId: string;
 
   public static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
     'topAlertService', 'errorHandler'];
@@ -35,19 +37,21 @@ export class SingleServiceComponentController implements ng.IController, ISingle
               private translatorService: TranslatorService,
               private topAlertService: TopAlertService,
               private errorHandler: ErrorHandlerService) {
+    this.userService.getUser().then((user) => {
+      this.userId = user.id;
+      this.isCompany = user.isCompany;
+    });
+
   }
 
   public $onInit = (): void => {
-    this.serviceName = this.serviceDetails.service.name;
-    if (this.serviceDetails.ownerProfile.organizationDetails) {
+    this.serviceName = this.serviceDetails.name;
+    if (this.serviceDetails.ownerProfile && this.serviceDetails.ownerProfile.organizationDetails) {
       this.serviceOwnerName = this.serviceDetails.ownerProfile.organizationDetails.name;
       this.serviceOwnerLogo = this.serviceDetails.ownerProfile.organizationDetails.logo;
-      this.isFreelance = this.serviceDetails.service.isFreelance;
+      this.isFreelance = this.serviceDetails.isFreelance;
+      this.isOwnerOfService = this.userId === this.serviceDetails.ownerProfile.id;
     }
-    this.userService.getUser().then((user) => {
-      this.isOwnerOfService = user.id === this.serviceDetails.ownerProfile.id;
-      this.isCompany = user.isCompany;
-    });
   }
 
   public openServiceFormModal = (): void => {
@@ -65,7 +69,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   private deleteService = (): void => {
     this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
       () => {
-        this.ServiceApi.deleteServiceRoute(this.serviceDetails.service.id).then(() => {
+        this.ServiceApi.deleteServiceRoute(this.serviceDetails.id).then(() => {
           this.topAlertService.success({
             message:
               this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
@@ -79,7 +83,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   private deleteEmployment = (): void => {
     this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT',
       () => {
-        this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.service.id).then(() => {
+        this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.id).then(() => {
           this.topAlertService.success({
             message:
               this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),

@@ -1,8 +1,10 @@
 import { ModalsService } from '../../../../common/services/modals/modals.service';
-import { GetExpertServiceDetails, GetExpertProfile } from 'profitelo-api-ng/model/models';
+import { ExpertProfileView } from 'profitelo-api-ng/model/models';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 import { UserService } from '../../../../common/services/user/user.service';
+import { ExpertProfileWithDocuments, OrganizationProfileView, ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
 
 // tslint:disable:member-ordering
 export class DashboardExpertManageProfileController {
@@ -13,61 +15,66 @@ export class DashboardExpertManageProfileController {
   public expertAvatar: string;
   public organizationName: string;
   public organizationLogo: string;
-  public services: GetExpertServiceDetails[];
+  public services: ServiceWithOwnerProfile[];
 
-  private expertProfile: GetExpertProfile;
+  private expertProfile: ExpertProfileWithDocuments;
+  private organizationProfile: OrganizationProfileWithDocuments;
 
-  public static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService'];
+  public static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService', '$q'];
 
   constructor(private modalsService: ModalsService,
               private ViewsApi: ViewsApi,
               private errorHandler: ErrorHandlerService,
-              private userService: UserService) {
+              private userService: UserService,
+              private $q: ng.IQService) {
     this.getExpertProfile();
   }
 
   public getExpertProfile = (): void => {
     this.userService.getUser().then((user) => {
-      this.ViewsApi.getWebExpertProfileRoute(user.id).then((expertProfile) => {
-        this.expertProfile = expertProfile;
-        if (expertProfile.profileWithDocuments.profile.expertDetails) {
-          this.expertName = expertProfile.profileWithDocuments.profile.expertDetails.name;
-          this.expertAvatar = expertProfile.profileWithDocuments.profile.expertDetails.avatar;
-        }
-        if (expertProfile.profileWithDocuments.profile.organizationDetails) {
-          this.organizationName = expertProfile.profileWithDocuments.profile.organizationDetails.name;
-          this.organizationLogo = expertProfile.profileWithDocuments.profile.organizationDetails.logo;
-        }
-        this.services = expertProfile.services.filter(serviceDetails =>
-          serviceDetails.service.deletedAt === undefined
-        );
+      this.$q.all([
+        this.ViewsApi.getWebExpertProfileRoute(user.id),
+        this.ViewsApi.getWebOrganizationProfileRoute(user.id)
+      ]).then(results => {
         this.isLoading = false;
-      })
-        .catch((error) => {
-          this.isLoading = false;
-          this.isError = true;
-          this.errorHandler.handleServerError(error,
-            'Can not load expert profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
-        });
+        this.onGetExpertProfile(results[0]);
+        this.onGetOrganizationProfile(results[1]);
+      }).catch(error => {
+        this.isLoading = false;
+        this.isError = true;
+        this.errorHandler.handleServerError(error,
+          'Can not load expert profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
+      });
     });
   }
 
   public editCompanyProfile = (): void => {
-    if (this.expertProfile.profileWithDocuments.profile.organizationDetails)
       this.modalsService.createManageProfileEditProfileModal(
-        this.expertProfile.profileWithDocuments.profile.organizationDetails,
-        this.getExpertProfile);
+        this.organizationProfile, this.getExpertProfile);
   }
 
   public editExpertProfile = (): void => {
-    if (this.expertProfile.profileWithDocuments.profile.expertDetails)
       this.modalsService.createManageProfileEditProfileModal(
-        this.expertProfile.profileWithDocuments.profile.expertDetails,
-        this.getExpertProfile);
+        this.expertProfile, this.getExpertProfile);
   }
 
   public openServiceFormModal = (): void => {
     this.modalsService.createServiceFormModal(this.getExpertProfile);
+  }
+
+  private onGetExpertProfile = (expertProfile: ExpertProfileView): void => {
+    this.expertProfile = expertProfile.expertProfile;
+    this.expertName = this.expertProfile.name;
+    this.expertAvatar = this.expertProfile.avatar;
+    this.services = expertProfile.employments.filter(employment =>
+      employment.serviceDetails.deletedAt === undefined
+    ).map(employment => employment.serviceDetails);
+  }
+
+  private onGetOrganizationProfile = (organizationDetails: OrganizationProfileView): void => {
+    this.organizationProfile = organizationDetails.organizationProfile;
+    this.organizationName = this.organizationProfile.name;
+    this.organizationLogo = this.organizationProfile.logo;
   }
 
 }

@@ -1,13 +1,14 @@
 import { IExpertProfileStateParams } from './expert-profile';
 import { ProfileApi } from 'profitelo-api-ng/api/api';
-import { GetExpertProfile, GetExpertDetails, GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
+import { ExpertProfileView } from 'profitelo-api-ng/model/models';
 import { ProfileTypes } from '../../common/components/profile/profile-header/profile-header.controller';
+import { ExpertProfileWithDocuments, ServiceWithOwnerProfile } from '@anymind-ng/api';
 
 // tslint:disable:member-ordering
 export class ExpertProfileController {
 
-  public profile: GetExpertDetails | undefined;
-  public consultations: GetExpertServiceDetails[];
+  public profile: ExpertProfileWithDocuments;
+  public consultations: ServiceWithOwnerProfile[];
   public isFavourite: boolean;
   public profileType: ProfileTypes;
   public profileId: string;
@@ -15,13 +16,13 @@ export class ExpertProfileController {
   public static $inject = ['$stateParams', '$log', 'expertProfile', 'ProfileApi'];
 
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
-              expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
+              expertProfile: ExpertProfileView, private ProfileApi: ProfileApi) {
 
-    this.profile = expertProfile.profileWithDocuments.profile.expertDetails;
-    this.consultations = expertProfile.services;
+    this.profile = expertProfile.expertProfile;
+    this.consultations = expertProfile.employments.map(employment => employment.serviceDetails);
     this.isFavourite = expertProfile.isFavourite;
     this.profileType = ProfileTypes.expert;
-    this.profileId = expertProfile.profileWithDocuments.profile.id;
+    this.profileId = expertProfile.expertProfile.id;
   }
 
   public onProfileLike = (): boolean =>

@@ -1,13 +1,13 @@
 import * as angular from 'angular';
 import { SingleServiceComponent } from './single-service.component';
 import userAvatarModule from '../../../../interface/user-avatar/user-avatar';
-import { GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
 import userModule from '../../../../../services/user/user';
 import modalsModule from '../../../../../services/modals/modals';
 import translatorModule from '../../../../../services/translator/translator';
+import { ServiceWithOwnerProfile } from '@anymind-ng/api';
 
 export interface ISingleServiceComponentBindings {
-  serviceDetails: GetExpertServiceDetails;
+  serviceDetails: ServiceWithOwnerProfile;
   onModalClose: () => void;
 }
 
