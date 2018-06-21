@@ -1,0 +1,74 @@
+@import "~@anymind-ng/components/src/template/stylesheets/core/partials/input/input"
+
+.input
+	&::before,
+	&::after
+		content: none
+	
+	&__container
+		position: relative
+		flex: 1
+		
+		&::before
+			content: ''
+			position: absolute
+			bottom: 0
+			left: 0
+			right: auto
+			height: 1px
+			width: 100%
+			background: $c-lines
+			z-index: 0
+		
+		&::after
+			transition: width 0.3s ease-out
+			content: ''
+			position: absolute
+			bottom: 0
+			left: 0
+			right: auto
+			height: 1px
+			width: 100%
+			animation: input-border-line-animation-out 0.3s ease-in
+		
+	
+	&__handler
+		display: flex
+		align-items: center
+		
+	&:hover
+		.input__container
+			&::after
+				animation: input-border-line-animation 0.3s ease-in-out
+				animation-fill-mode: forwards
+			
+	&--invalid
+		.input__container
+			&::after
+				animation: input-border-line-animation-error 0.3s ease-in
+		
+			&::before
+				background: $c-error-primary
+		
+	&--focused
+		.input__container
+			&::after
+				animation: input-border-line-animation 0.3s ease-in-out
+				animation-fill-mode: forwards
+		
+	&--disabled
+		.input__container
+			&::after
+				animation: none !important
+				background: none
+				height: auto
+				top: 0
+		
+			&::before
+				background: $c-lines !important
+		
+		&:hover
+			.input__container
+				&::after
+			animation: none !important
+	

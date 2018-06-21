@@ -15,11 +15,10 @@
 
       .modal-component__content
         header.modal-component__content__header
-          span {{ 'EDIT_PROFILE.CONTENT.TITLE' | translate }}
+          span([innerHtml]="'EDIT_PROFILE.CONTENT.TITLE' | translate")
 
           am-core-tooltip(
-            [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'",
-            placement="top-right"
+            [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
           )
 
         .modal-form
@@ -64,7 +63,7 @@
                 am-core-textarea-primary(
                 [maxLength]="consultationMaxlength",
                 [minLength]="consultationMinlength",
-                [placeholder]="'FEATURE.CALL_SUMMARY.COMMENT.INPUT.PLACEHOLDER'",
+                [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.PLACEHOLDER'",
                 [controlName]="expertFormControlDescription",
                 [form]="expertNameForm",
                 [errorTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.ERROR'",
@@ -85,11 +84,13 @@
                 header.modal-component__content__header
                   span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.LINKS' | translate }}
 
-                .input
-                  input(type="text")
+                plat-profile-links(
+                  [formGroup]="expertNameForm",
+                  [controlName]="expertFormControlLink"
+                )
 
           .modal-component__action(*ngIf="!isExpertForm")
-              a.button.button--link((click)="onCreateExpertAccount()")
+              a.button.button--link.button--small((click)="onCreateExpertAccount()")
                 | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
 
               button.button.button--default(type="submit" form="clientNameForm")

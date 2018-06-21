@@ -10,6 +10,9 @@ import {
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { ModalComponentEditProfile } from '../edit-profile/edit-profile.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
@@ -37,7 +40,8 @@ export class NavbarExpertMenuComponent implements OnInit {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private navbarMenuService: NavbarMenuService,
+  constructor(private modalService: NgbModal,
+              private navbarMenuService: NavbarMenuService,
               private loggerFactory: LoggerFactory) {
   }
 
@@ -51,6 +55,9 @@ export class NavbarExpertMenuComponent implements OnInit {
       .pipe(catchError(this.handleError))
       .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
   }
+
+  public openEditProfileModal = (): NgbModalRef =>
+    this.modalService.open(ModalComponentEditProfile)
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();

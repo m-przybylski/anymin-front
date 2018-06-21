@@ -35,7 +35,6 @@ import {
 import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
-import { PinElementDirective } from './directives/pin-element/pin-element.directive';
 import {
   UserNavigationUnderlineDirective
 } from './components/navbar/user-navigation/user-navigation-underline.directive';
@@ -43,11 +42,6 @@ import { UserAvatarComponent } from './components/user-avatar/user-avatar.compon
 import {
   NavbarUserAvatarComponent
 } from './components/navbar/navbar-user-avatar/navbar-user-avatar.component';
-import { ModalComponentEditProfile } from './components/navbar/edit-profile/edit-profile.component';
-import {
-  BasicProfileDataComponent
-}
-  from './components/navbar/edit-profile/basic-profile-data/basic-profile-data.component';
 import { NavbarUserMenuComponent } from './components/navbar/navbar-user-menu/navbar-user-menu.component';
 import { NavbarCompanyMenuComponent } from './components/navbar/navbar-company-menu/navbar-company-menu.component';
 import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-menu/navbar-expert-menu.component';
@@ -80,16 +74,13 @@ import { NavbarMenuService }
     UserAvatarComponent,
     UserNavigationUnderlineDirective,
     NavbarUserAvatarComponent,
-    PinElementDirective,
-    ModalComponentEditProfile,
-    BasicProfileDataComponent,
     UserAvatarComponent,
     NavbarUserMenuComponent,
     NavbarCompanyMenuComponent,
     NavbarExpertMenuComponent,
     InputSwitchComponent
   ],
-  entryComponents: [WidgetGeneratorComponent, ModalComponentEditProfile],
+  entryComponents: [WidgetGeneratorComponent],
   exports: [
     AnymindComponentsModule,
     TranslateModule,

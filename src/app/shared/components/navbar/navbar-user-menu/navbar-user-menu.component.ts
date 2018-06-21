@@ -8,6 +8,9 @@ import { NavbarMenuService }
 from '../../../services/navbar-menu-service/navbar-menu.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { ModalComponentEditProfile } from '../edit-profile/edit-profile.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -24,7 +27,8 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private loggerFactory: LoggerFactory,
+  constructor(private modalService: NgbModal,
+              private loggerFactory: LoggerFactory,
               private navbarMenuService: NavbarMenuService) {
   }
 
@@ -41,6 +45,9 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
+
+  public openEditProfileModal = (): NgbModalRef =>
+    this.modalService.open(ModalComponentEditProfile)
 
   public logout = (): void => {
     this.navbarMenuService.logout();

@@ -9,5 +9,4 @@ export class DiscoverComponent {
 
   constructor() {
   }
-
 }

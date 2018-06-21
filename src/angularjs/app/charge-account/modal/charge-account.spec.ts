@@ -80,7 +80,6 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
 
     it('should call smoothScrollingService on minimal-payment validation error', (): void => {
       spyOn(smoothScrollingService, 'simpleScrollTo')
-
       scope.paymentsOptions = {
         paymentCountryId: 'lp',
         countryISO: 'pl',

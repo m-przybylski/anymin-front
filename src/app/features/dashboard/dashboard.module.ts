@@ -12,6 +12,7 @@ import { ExpertActivitiesComponent } from './views/user-dashboard/expert-activit
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
+import { ModalsModule } from '../../shared/components/modals/modals.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.vi
   imports: [
     SharedModule,
     AngularJsProvidersModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    ModalsModule
   ]
 })
 export class DashboardModule {
