@@ -34,8 +34,8 @@ export class ProfileLinksComponent {
   public controlName: string;
 
   public linksList: ILinkList[] = [];
+  public urlPattern: RegExp;
   private logger: LoggerService;
-  private urlPattern: RegExp;
 
   constructor(private formUtils: FormUtilsService,
               private profileLinksComponentService: ProfileLinksComponentService,
