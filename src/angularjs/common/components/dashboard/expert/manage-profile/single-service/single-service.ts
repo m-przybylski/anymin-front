@@ -5,9 +5,10 @@ import userModule from '../../../../../services/user/user';
 import modalsModule from '../../../../../services/modals/modals';
 import translatorModule from '../../../../../services/translator/translator';
 import { ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { GetService } from 'profitelo-api-ng/model/GetService';
 
 export interface ISingleServiceComponentBindings {
-  serviceDetails: ServiceWithOwnerProfile;
+  serviceDetails: ServiceWithOwnerProfile | GetService;
   onModalClose: () => void;
 }
 

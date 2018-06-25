@@ -121,26 +121,25 @@ export class DashboardExpertEmployeesController {
   private onPostServiceWithEmployees = (servicesWithEmployees: GetServiceWithEmployees[]): void => {
     servicesWithEmployees.forEach(serviceWithEmployees => {
       serviceWithEmployees.employeesDetails.forEach(employment => {
-        this.employees.forEach(e => {
-          if (e.employeeId !== employment.employeeProfile.id) {
-            this.employees.push({
-              employeeId: employment.employeeProfile.id,
-              employeeName: employment.employeeProfile.name,
-              employeeAvatar: employment.employeeProfile.avatar,
-              services: [{
-                serviceName: serviceWithEmployees.serviceDetails.name,
-                isFreelance: serviceWithEmployees.serviceDetails.isFreelance
-              }],
-              employmentsId: [employment.id]
-            });
-          } else {
-            e.services.push({
+        const employee = this.employees.find(e => e.employeeId === employment.employeeProfile.id);
+        if (!employee) {
+          this.employees.push({
+            employeeId: employment.employeeProfile.id,
+            employeeName: employment.employeeProfile.name,
+            employeeAvatar: employment.employeeProfile.avatar,
+            services: [{
               serviceName: serviceWithEmployees.serviceDetails.name,
               isFreelance: serviceWithEmployees.serviceDetails.isFreelance
-            });
-            e.employmentsId.push(employment.id);
-          }
-        });
+            }],
+            employmentsId: [employment.id]
+          });
+        } else {
+          employee.services.push({
+            serviceName: serviceWithEmployees.serviceDetails.name,
+            isFreelance: serviceWithEmployees.serviceDetails.isFreelance
+          });
+          employee.employmentsId.push(employment.id);
+        }
       });
     });
     this.employeesCount = this.employees.length;

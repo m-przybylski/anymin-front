@@ -5,17 +5,17 @@ import { ServiceApi, EmploymentApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
 import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';
 import { TranslatorService } from '../../../../../services/translator/translator.service';
-import { ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { GetService, ServiceWithOwnerProfile } from 'profitelo-api-ng/model/models';
 
 export interface ISingleServiceComponentControllerScope extends ng.IScope {
   onModalClose: () => void;
-  serviceDetails: ServiceWithOwnerProfile;
+  serviceDetails: ServiceWithOwnerProfile | GetService;
 }
 
 // tslint:disable:member-ordering
 export class SingleServiceComponentController implements ng.IController, ISingleServiceComponentBindings {
 
-  public serviceDetails: ServiceWithOwnerProfile;
+  public serviceDetails: ServiceWithOwnerProfile | GetService;
   public isOwnerOfService: boolean;
   public serviceName: string;
   public serviceOwnerName: string;
@@ -40,18 +40,24 @@ export class SingleServiceComponentController implements ng.IController, ISingle
     this.userService.getUser().then((user) => {
       this.userId = user.id;
       this.isCompany = user.isCompany;
+      this.serviceName = this.serviceDetails.name;
+      if (this.isGetServiceModel(this.serviceDetails)) {
+        this.isOwnerOfService = this.userId === this.serviceDetails.ownerId;
+        this.isFreelance = this.serviceDetails.isFreelance;
+      } else {
+        if (this.serviceDetails.ownerProfile && this.serviceDetails.ownerProfile.organizationDetails) {
+          this.serviceOwnerName = this.serviceDetails.ownerProfile.organizationDetails.name;
+          this.serviceOwnerLogo = this.serviceDetails.ownerProfile.organizationDetails.logo;
+          this.isFreelance = this.serviceDetails.isFreelance;
+          this.isOwnerOfService = this.userId === this.serviceDetails.ownerProfile.id;
+        } else if (this.serviceDetails.ownerProfile && this.serviceDetails.ownerProfile.expertDetails) {
+          this.serviceOwnerName = this.serviceDetails.ownerProfile.expertDetails.name;
+          this.serviceOwnerLogo = this.serviceDetails.ownerProfile.expertDetails.avatar;
+          this.isFreelance = this.serviceDetails.isFreelance;
+          this.isOwnerOfService = this.userId === this.serviceDetails.ownerProfile.id;
+        }
+      }
     });
-
-  }
-
-  public $onInit = (): void => {
-    this.serviceName = this.serviceDetails.name;
-    if (this.serviceDetails.ownerProfile && this.serviceDetails.ownerProfile.organizationDetails) {
-      this.serviceOwnerName = this.serviceDetails.ownerProfile.organizationDetails.name;
-      this.serviceOwnerLogo = this.serviceDetails.ownerProfile.organizationDetails.logo;
-      this.isFreelance = this.serviceDetails.isFreelance;
-      this.isOwnerOfService = this.userId === this.serviceDetails.ownerProfile.id;
-    }
   }
 
   public openServiceFormModal = (): void => {
@@ -65,6 +71,11 @@ export class SingleServiceComponentController implements ng.IController, ISingle
       this.deleteEmployment();
     }
   }
+
+  private isGetServiceModel(serviceDetails: ServiceWithOwnerProfile | GetService): serviceDetails is GetService {
+    // tslint:disable-next-line:strict-type-predicates
+    return (<GetService>serviceDetails).ownerId !== undefined;
+}
 
   private deleteService = (): void => {
     this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
