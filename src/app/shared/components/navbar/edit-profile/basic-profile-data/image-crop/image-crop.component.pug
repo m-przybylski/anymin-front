@@ -1,0 +1,14 @@
+plat-modal-component(
+  [modalTrTitleHeader]="'EDIT_PROFILE.IMAGE_CROP.TITLE'",
+  [modalContainerClass]="modalClass"
+)
+  .image-cropper([ngClass]="{'is-loading': isPending}")
+    ngx-img(#cropper, (onSelect)='onImageSelect($event)',
+    [config]="cropConfig")
+
+  .modal-component__action.modal-component__action--crop
+    a.button.button--primary.button--small((click)="onModalClose()")
+      | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.CANCEL' | translate }}
+
+    a.button.button--default.button--small((click)="onImgUrlSubmit()")
+      | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE' | translate }}

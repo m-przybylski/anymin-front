@@ -10,9 +10,9 @@ import {
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { ModalComponentEditProfile } from '../edit-profile/edit-profile.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import { EditProfileModalComponent } from '../edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-navbar-company-menu',
@@ -57,7 +57,7 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
   }
 
   public openEditProfileModal = (): NgbModalRef =>
-    this.modalService.open(ModalComponentEditProfile)
+    this.modalService.open(EditProfileModalComponent)
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();

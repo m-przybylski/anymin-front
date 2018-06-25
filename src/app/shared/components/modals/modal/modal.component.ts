@@ -1,16 +1,13 @@
 import {
-  Component, Input, OnDestroy, OnInit
+  Component, Input, OnInit
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  ContentHeightAnimationService
-}
-  from '../../../services/animation/content-height/content-height.animation.service';
 
 export enum ModalContainerWidthEnum {
   SmallWidth = 'modal-component__container--small',
   MediumWidth = 'modal-component__container--medium',
-  BigWidth = 'modal-component__container--big'
+  BigWidth = 'modal-component__container--big',
+  CroppWidth = 'modal-component__container--cropp'
 }
 
 @Component({
@@ -19,7 +16,7 @@ export enum ModalContainerWidthEnum {
   templateUrl: './modal.component.html'
 })
 
-export class ModalComponent implements OnInit, OnDestroy {
+export class ModalComponent implements OnInit {
 
   @Input()
   public modalTrTitleHeader?: string;
@@ -33,17 +30,12 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input()
   public modalContainerClass?: ModalContainerWidthEnum;
 
-  constructor(public activeModal: NgbActiveModal,
-              private contentHeightService: ContentHeightAnimationService) {
+  constructor(private activeModal: NgbActiveModal) {
   }
 
   public ngOnInit(): void {
     if (!this.modalContainerClass)
       this.modalContainerClass = ModalContainerWidthEnum.MediumWidth;
-  }
-
-  public ngOnDestroy(): void {
-    this.contentHeightService.getPreviousHeight$().next('inherit');
   }
 
   public onBackClick = (): void => {

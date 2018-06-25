@@ -4,7 +4,8 @@ import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/co
 
 export enum AvatarSizesEnum {
   x32 = 'user-avatar--x32',
-  x48 = 'user-avatar--x48'
+  x48 = 'user-avatar--x48',
+  x152 = 'user-avatar--x152'
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class UserAvatarComponent implements OnInit {
   @Input()
   public avatarToken?: string;
 
+  @Input()
   public avatarUrl?: string;
 
   private commonConfig: ConfigDEFAULT;

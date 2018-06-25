@@ -41,6 +41,8 @@ export class ChangeNumberComponent implements OnInit {
         this.changeNumberForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
         this.changeNumberForm.controls[this.msisdnControlName].setValue(this.userPhoneNumber);
       }
+    }).catch(() => {
+
     });
   }
 

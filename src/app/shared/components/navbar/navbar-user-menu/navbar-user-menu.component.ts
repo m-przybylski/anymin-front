@@ -8,9 +8,9 @@ import { NavbarMenuService }
 from '../../../services/navbar-menu-service/navbar-menu.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { ModalComponentEditProfile } from '../edit-profile/edit-profile.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import { EditProfileModalComponent } from '../edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -47,7 +47,7 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
   }
 
   public openEditProfileModal = (): NgbModalRef =>
-    this.modalService.open(ModalComponentEditProfile)
+    this.modalService.open(EditProfileModalComponent)
 
   public logout = (): void => {
     this.navbarMenuService.logout();

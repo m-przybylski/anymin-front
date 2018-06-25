@@ -39,7 +39,7 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
         if (previousHeight !== this.currentHeight) {
           const animation = this.animationBuilder.build([
             animate('300ms ease-in-out', keyframes([
-              style({height: previousHeight, offset: 0}),
+              style({height: previousHeight, overflow: 'hidden', offset: 0}),
               style({height: this.currentHeight, offset: 0.5}),
               style({height: 'auto', offset: 1})
             ]))

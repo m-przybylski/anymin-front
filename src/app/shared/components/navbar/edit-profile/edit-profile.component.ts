@@ -3,20 +3,19 @@ import {
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import { ModalComponentEditProfileService } from './edit-profile.component.service';
 import {
   ContentHeightAnimationService
 }
   from '../../../services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../config';
+import { EditProfileModalComponentService } from './edit-profile.component.service';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
-  templateUrl: './edit-profile.component.html',
-  providers: [ModalComponentEditProfileService]
+  templateUrl: './edit-profile.component.html'
 })
 
-export class ModalComponentEditProfile implements OnInit, OnDestroy {
+export class EditProfileModalComponent implements OnInit, OnDestroy {
   public expertFormControlName = 'expertNameProfileControl';
   public expertFormControlDescription = 'expertDescriptionControl';
   public expertFormControlLink = 'expertLinkControl';
@@ -31,6 +30,7 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
   public isOpenAsExpert: boolean;
 
   constructor(private activeModal: NgbActiveModal,
+              private editProfileModalComponentService: EditProfileModalComponentService,
               private contentHeightService: ContentHeightAnimationService) {
   }
 
@@ -40,19 +40,13 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.contentHeightService.getPreviousHeight$().next('inherit');
-  }
-
-  public onClientFormSubmit = (): void => {
+    this.editProfileModalComponentService.getPreviousValue$().next('');
+    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
   }
 
   public onExpertFormSubmit = (expetFormGroup: FormGroup): void => {
-    console.log(expetFormGroup.valid);
     if (expetFormGroup.valid) {
-      console.log('valid')
-
     } else {
-      console.log('invalid')
-      // this.formUtils.validateAllFormFields(expetFormGroup);
     }
   }
 

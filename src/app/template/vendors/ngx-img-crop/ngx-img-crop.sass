@@ -1,0 +1,55 @@
+@import "~@anymind-ng/components/src/template/stylesheets/core/core"
+
+.cropper-crop-box
+	box-shadow: 0 0 0 2000px rgba($c-black, 0.5)
+	border-radius: 50%
+
+	&::after
+		content: ""
+		border: 1px dashed rgba($c-white, 0.35)
+		width: 100%
+		height: 100%
+		position: absolute
+		left: 0
+		top: 0
+		z-index: -$z-index-100
+
+.ngx-img-crop-wrapper
+	border: 0 !important
+
+	.ngx-img-crop-col
+		margin: 0 !important
+
+		.cropper-view-box, .cropper-face
+			border-radius: 50%
+
+		.point-n,
+		.point-s,
+		.point-w,
+		.point-e
+			display: none !important
+
+		[class*="point"]
+			width: 12px !important
+			height: 12px !important
+			background: $c-primary !important
+			border: 2px solid $c-white !important
+			border-radius: 50%
+			z-index: $z-index-100
+
+		.cropper-line
+			display: none !important
+
+		.cropper-view-box
+			display: none !important
+
+		.cropper-modal, .cropper-drag-box
+			background: none !important
+
+.cropper-canvas
+	//max-width: 100%
+	//max-height: 100%
+
+.ngx-img-clear
+	display: none !important
+	
