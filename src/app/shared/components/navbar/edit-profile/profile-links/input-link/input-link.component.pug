@@ -1,6 +1,6 @@
 .input-link.input(
 [formGroup]="formGroup",
-[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
+[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid()}")
 	.input__handler
 		.input__container
 			.input__label-container
@@ -13,8 +13,6 @@
 			(blur)="onBlur()",
 			placeholder="{{placeholderTrKey | translate}}",
 			type="text",
-			[readonly]="isDisabled",
-			maxlength="{{maxLength}}",
 			(keydown)="onKeyDown($event)"
 			)
 

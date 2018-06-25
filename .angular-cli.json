@@ -42,8 +42,8 @@
       },
       {
         "type": "initial",
-        "maximumWarning": "5200kb",
-        "maximumError": "5500kb"
+        "maximumWarning": "5500kb",
+        "maximumError": "6000kb"
       }]
     }
   ],
