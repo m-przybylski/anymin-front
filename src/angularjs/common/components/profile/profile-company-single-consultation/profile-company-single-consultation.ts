@@ -1,11 +1,13 @@
 import * as angular from 'angular';
 import { ProfileCompanyConsultationComponent } from './profile-company-single-consultation.component';
-import { GetTag, GetOrganizationServiceDetails, GetProfileDetails, GetProfile } from 'profitelo-api-ng/model/models';
+import { GetTag, GetProfile } from 'profitelo-api-ng/model/models';
+import { ServiceWithEmployments } from 'profitelo-api-ng/model/ServiceWithEmployments';
+import { EmploymentWithExpertProfile } from '@anymind-ng/api';
 
 export interface IProfileCompanyConsultationComponentBindings extends ng.IController {
-  organizationServiceDetails: GetOrganizationServiceDetails;
+  organizationServiceDetails: ServiceWithEmployments;
   tags: GetTag[];
-  employees: GetProfileDetails[];
+  employments: EmploymentWithExpertProfile[];
   ownerProfile: GetProfile;
 }
 

@@ -1,8 +1,7 @@
 // tslint:disable: max-file-line-count
 import {
-  GetService, GetClientActivity, MoneyDto, GetCreditCard, GetPaymentOptions,
-  PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails, GetProfileWithServicesInvitations,
-  GetExpertServiceDetails, GetCompanyInvoiceDetails, GetExpertSueDetails
+  GetService, GetClientActivity, MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, GetProfile,
+  GetProfileWithServicesInvitations, GetCompanyInvoiceDetails, GetExpertSueDetails
 } from 'profitelo-api-ng/model/models';
 import { DialogService } from '../dialog/dialog.service';
 import {
@@ -124,6 +123,8 @@ import {
   ICompanyInvoiceDetailsModalControllerScope,
   CompanyInvoiceDetailsModalController
 } from '../../components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.controller';
+import { ExpertProfileWithDocuments, ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
 
 // TODO add types for dialogScope Scopes
 // tslint:disable:member-ordering
@@ -508,7 +509,8 @@ export class ModalsService {
   }
 
   public createManageProfileEditProfileModal =
-    (profile: GetOrganizationDetails | GetExpertDetails, onModalClose: () => void): IModalInstanceService => {
+    (profile: ExpertProfileWithDocuments | OrganizationProfileWithDocuments,
+     onModalClose: () => void): IModalInstanceService => {
       const dialogScope: IEditExpertProfileScope =
         <IEditExpertProfileScope>this.$rootScope.$new(true);
       dialogScope.profile = profile;
@@ -593,7 +595,7 @@ export class ModalsService {
   }
 
   public createServiceFormModal = (onModalClose: () => void,
-                                   service?: GetExpertServiceDetails): IModalInstanceService => {
+                                   service?: ServiceWithOwnerProfile): IModalInstanceService => {
 
     const dialogScope: IServiceFormModalScope =
       <IServiceFormModalScope>this.$rootScope.$new(true);

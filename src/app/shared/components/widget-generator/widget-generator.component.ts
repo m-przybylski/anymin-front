@@ -5,7 +5,7 @@ import
 } from '../../../../angularjs/common/components/interface/dropdown-primary/dropdown-primary';
 import { WidgetGeneratorService } from './widget-generator.service';
 import { UserSessionService } from '../../../core/services/user-session/user-session.service';
-import { GetOrganizationServiceDetails } from '@anymind-ng/api';
+import { ServiceWithEmployments } from '@anymind-ng/api';
 import { CommonSettingsService } from '../../../../angularjs/common/services/common-settings/common-settings.service';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
@@ -40,7 +40,7 @@ export class WidgetGeneratorComponent implements OnInit {
   public currentWidgetUrl: string;
 
   private readonly widgetUrl = this.CommonSettingsService.links.widget;
-  private profileWithServices: GetOrganizationServiceDetails[] = [];
+  private profileWithServices: ServiceWithEmployments[] = [];
   private widgetId?: string;
 
   constructor(private widgetGeneratorService: WidgetGeneratorService,
@@ -140,13 +140,15 @@ export class WidgetGeneratorComponent implements OnInit {
 
   private getExpertInitializeData = (accountId: string): void => {
     this.widgetGeneratorService.getExpertProfileWithServices(accountId).then((profileWithServices) => {
-      this.expertId = profileWithServices.profileWithDocuments.profile.id;
-      this.serviceList = profileWithServices.services
-        .filter(serviceWithProfile => !serviceWithProfile.service.deletedAt)
-        .filter(serviceWithProfile => this.expertId === serviceWithProfile.service.ownerId)
+      this.expertId = profileWithServices.expertProfile.id;
+      this.serviceList = profileWithServices.employments
+        .filter(employment => !employment.serviceDetails.deletedAt)
+        .filter(serviceWithProfile =>
+          serviceWithProfile.serviceDetails.ownerProfile &&
+          this.expertId === serviceWithProfile.serviceDetails.ownerProfile.id)
         .map((serviceWithProfile) => ({
-          name: serviceWithProfile.service.name,
-          value: serviceWithProfile.service.id
+          name: serviceWithProfile.serviceDetails.name,
+          value: serviceWithProfile.serviceDetails.id
         }));
       this.isUserHasAnyServices = this.serviceList.length > 0;
       this.addAllConsultationOptionToDropdown();
@@ -164,9 +166,9 @@ export class WidgetGeneratorComponent implements OnInit {
     this.widgetGeneratorService.getOrganizationProfilesWithServices(accountId)
       .then((profileWithServices) => {
         this.expertList = _.uniqBy(_.flatMap(profileWithServices.services,
-          (profileWithServices) => profileWithServices.employees.map((employee) => ({
-            name: employee.name,
-            value: employee.id
+          (profileWithServices) => profileWithServices.employments.map((employment) => ({
+            name: employment.employeeProfile.name,
+            value: employment.id
           }))), 'value');
         this.serviceList = profileWithServices.services
           .filter(profileWithServices => !profileWithServices.service.deletedAt)
@@ -200,8 +202,8 @@ export class WidgetGeneratorComponent implements OnInit {
 
   private reloadServicesDropdown = (): void => {
     this.serviceCompanyList =
-      this.profileWithServices.filter((service) => _.find(service.employees, (employee) =>
-        employee.id === this.expertId)).map((serviceWithEmployees) => ({
+      this.profileWithServices.filter((service) => _.find(service.employments, (employment) =>
+        employment.id === this.expertId)).map((serviceWithEmployees) => ({
         name: serviceWithEmployees.service.name,
         value: serviceWithEmployees.service.id
       }));

@@ -1,4 +1,5 @@
-import { EmploymentApi, ServiceApi } from 'profitelo-api-ng/api/api';
+import { ServiceApi } from 'profitelo-api-ng/api/api';
+import { GetServiceWithEmployees } from 'profitelo-api-ng/model/models';
 import {
   GetServiceWithInvitations, GetInvitation
 }
@@ -7,116 +8,73 @@ import { UserService } from '../../../../common/services/user/user.service';
 import { ModalsService } from '../../../../common/services/modals/modals.service';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { GetProfileDetailsWithEmployments } from '@anymind-ng/api';
+import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 
 // tslint:disable:member-ordering
 
+export interface IEmployee {
+  employeeId: string;
+  employeeName: string;
+  employeeAvatar: string;
+  services: {
+    serviceName: string;
+    isFreelance: boolean;
+  }[];
+  employmentsId: string[];
+}
+
 export class DashboardExpertEmployeesController {
 
-  public profilesWithEmployments: GetProfileDetailsWithEmployments[];
   public areEmployeesLoading = true;
   public isGetEmployeesError = false;
+  public isGetServicesError = false;
   public arePendingInvitationsLoading = true;
   public isPendingInvitationsError = false;
   public areEmployees = false;
   public arePendingInvitations = false;
   public pendingInvitations: GetInvitation[][];
+  public employees: IEmployee[] = [];
 
   private userId: string;
   private servicesId: string[] = [];
   private pendingInvitationsCount: number;
-  private emoloyeesCount: number;
+  private employeesCount: number;
 
-  public static $inject = ['EmploymentApi', 'userService', 'modalsService', '$log', 'ServiceApi'];
+  public static $inject = ['userService', 'modalsService', '$log', 'ServiceApi', 'errorHandler'];
 
-  constructor(private EmploymentApi: EmploymentApi,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private modalsService: ModalsService,
               private $log: ng.ILogService,
-              private ServiceApi: ServiceApi) {
+              private ServiceApi: ServiceApi,
+              private errorHandler: ErrorHandlerService) {
   }
 
   public $onInit = (): void => {
     this.userService.getUser().then(user => {
       this.userId = user.id;
-      this.getProfilesWithEmployments();
-      this.getServicesInvitations();
+      this.getServices();
     });
   }
 
-  public getProfilesWithEmployments = (): void => {
-    this.EmploymentApi.getEmployeesRoute().then(profilesWithEmployments => {
-
-      const employeesServicesList = _.flatMap(profilesWithEmployments, (employments) =>
-        _.flatMap(employments.employments, (serviceId) =>
-          serviceId.serviceId
-        )
-      );
-
-      this.ServiceApi.postServiceWithEmployeesRoute({serviceIds: employeesServicesList})
-        .then((res) => {
-          this.profilesWithEmployments = profilesWithEmployments.filter(profileWithEmployments =>
-            profileWithEmployments.expertProfile.id !== this.userId
-          );
-
-          this.profilesWithEmployments.map((profilesWithEmployment) =>
-            profilesWithEmployment.employments =
-              profilesWithEmployment.employments.map((employee) => {
-                  const serviceWithEmployees = _.find(res, (serviceWithEmployee) =>
-                    serviceWithEmployee.service.id === employee.serviceId);
-
-                  if (serviceWithEmployees) {
-                    return {
-                      id: employee.id,
-                      serviceId: employee.serviceId,
-                      profileId: employee.profileId,
-                      createdAt: employee.createdAt,
-                      usageCounter: employee.usageCounter,
-                      serviceName: serviceWithEmployees.service.name,
-                      isFreelance: serviceWithEmployees.service.isFreelance
-                    };
-                  } else {
-                    return {
-                      id: employee.id,
-                      serviceId: employee.serviceId,
-                      profileId: employee.profileId,
-                      createdAt: employee.createdAt,
-                      usageCounter: employee.usageCounter
-                    };
-                  }
-                }
-              ));
-
-          this.emoloyeesCount = this.profilesWithEmployments.length;
-          this.areEmployees = this.emoloyeesCount > 0;
-          this.isGetEmployeesError = false;
-        }).catch((error) => {
-        this.isGetEmployeesError = true;
-        this.$log.error('Cannot load data', error);
+  public getServices = (): void => {
+    this.isGetServicesError = false;
+    this.ServiceApi.getProfileServicesRoute(this.userId)
+      .then(services => {
+        this.servicesId = services.map(service => service.id);
+        this.postServiceWithInvitations(this.servicesId);
+        this.postServicesEmployees(this.servicesId);
+      })
+      .catch((error) => {
+        this.errorHandler.handleServerError(error,
+          'Can not load services', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
+        this.areEmployeesLoading = false;
+        this.arePendingInvitationsLoading = false;
+        this.isGetServicesError = true;
       });
-    }).catch((error) => {
-      this.isGetEmployeesError = true;
-      this.$log.error('Cannot load data', error);
-    }).finally(() => {
-      this.areEmployeesLoading = false;
-    });
-  }
-
-  public getServicesInvitations = (): void => {
-    this.arePendingInvitationsLoading = true;
-    this.ServiceApi.getProfileServicesRoute(this.userId).then(services => {
-      this.servicesId = services.map(service => service.id);
-      this.postServiceWithInvitations(this.servicesId);
-      this.isPendingInvitationsError = false;
-    }).catch((error) => {
-      this.arePendingInvitationsLoading = false;
-      this.isPendingInvitationsError = true;
-      this.$log.error('Cannot load data', error);
-    });
   }
 
   public openInviteEmployeesModal = (): void => {
-    this.modalsService.createExpertInviteEmployeesModal(this.getServicesInvitations);
+    this.modalsService.createExpertInviteEmployeesModal(this.getServices);
   }
 
   public onDeleteInvitationsCallback = (): void => {
@@ -125,14 +83,15 @@ export class DashboardExpertEmployeesController {
   }
 
   public onDeleteEmploymentsCallback = (): void => {
-    this.emoloyeesCount -= 1;
-    this.areEmployees = this.emoloyeesCount > 0;
+    this.employeesCount -= 1;
+    this.areEmployees = this.employeesCount > 0;
   }
 
   public isNoResultsInformation = (): boolean =>
     this.areEmployees || this.arePendingInvitations || this.isGetEmployeesError || this.isPendingInvitationsError
 
   private postServiceWithInvitations = (servicesId: string[]): void => {
+    this.isPendingInvitationsError = false;
     this.ServiceApi.postServiceInvitationsRoute({serviceIds: servicesId}).then(servicesWithInvitations => {
       this.groupInvitations(servicesWithInvitations);
     }).catch((error) => {
@@ -141,6 +100,51 @@ export class DashboardExpertEmployeesController {
     }).finally(() => {
       this.arePendingInvitationsLoading = false;
     });
+  }
+
+  private postServicesEmployees = (servicesId: string[]): void => {
+    this.isGetEmployeesError = false;
+    this.ServiceApi.postServiceWithEmployeesRoute({serviceIds: servicesId})
+      .then(servicesWithEmployees => {
+        this.isGetEmployeesError = false;
+        this.onPostServiceWithEmployees(servicesWithEmployees);
+      })
+      .catch((error) => {
+        this.isGetEmployeesError = true;
+        this.$log.error('Cannot load data', error);
+      })
+      .finally(() => {
+        this.areEmployeesLoading = false;
+      });
+  }
+
+  private onPostServiceWithEmployees = (servicesWithEmployees: GetServiceWithEmployees[]): void => {
+    servicesWithEmployees.forEach(serviceWithEmployees => {
+      serviceWithEmployees.employeesDetails.forEach(employment => {
+        this.employees.forEach(e => {
+          if (e.employeeId !== employment.employeeProfile.id) {
+            this.employees.push({
+              employeeId: employment.employeeProfile.id,
+              employeeName: employment.employeeProfile.name,
+              employeeAvatar: employment.employeeProfile.avatar,
+              services: [{
+                serviceName: serviceWithEmployees.serviceDetails.name,
+                isFreelance: serviceWithEmployees.serviceDetails.isFreelance
+              }],
+              employmentsId: [employment.id]
+            });
+          } else {
+            e.services.push({
+              serviceName: serviceWithEmployees.serviceDetails.name,
+              isFreelance: serviceWithEmployees.serviceDetails.isFreelance
+            });
+            e.employmentsId.push(employment.id);
+          }
+        });
+      });
+    });
+    this.employeesCount = this.employees.length;
+    this.areEmployees = this.employeesCount > 0;
   }
 
   private groupInvitations = (servicesWithInvitations: GetServiceWithInvitations[]): void => {

@@ -1,16 +1,14 @@
 import { IProfileCompanyConsultationComponentBindings } from './profile-company-single-consultation';
-import {
-  GetTag, GetOrganizationServiceDetails,
-  GetProfile, MoneyDto, GetProfileDetails
-} from 'profitelo-api-ng/model/models';
+import { GetTag, ServiceWithEmployments, GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';
+import { EmploymentWithExpertProfile } from '@anymind-ng/api';
 
 export class ProfileCompanyConsultationComponentController implements IProfileCompanyConsultationComponentBindings {
 
   public static $inject = ['userService', '$location'];
-  public organizationServiceDetails: GetOrganizationServiceDetails;
+  public organizationServiceDetails: ServiceWithEmployments;
   public tags: GetTag[];
-  public employees: GetProfileDetails[];
+  public employments: EmploymentWithExpertProfile[];
   public ownerProfile: GetProfile;
   public price: MoneyDto;
   public serviceName: string;

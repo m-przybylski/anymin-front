@@ -115,7 +115,7 @@ export class PrecallModalController implements ng.IController {
       this.isLoading = false;
       this.paymentMethods = paymentMethods.map((el) => ({
         name: /*el.cardType + ': ' + */el.maskedNumber,
-        value: el.cardAuth
+        value: el.id
       }));
       this.paymentMethods.push(this.clientBalance);
     }, (error) => {
@@ -203,7 +203,7 @@ export class PrecallModalController implements ng.IController {
     this.dateTimeLimit = this.translatorService.translate('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE');
     this.isPrepaid = data.value === this.prepaidValue;
     const token = this.isPrepaid ? undefined : data.value;
-    this.PaymentsApi.putDefaultPaymentMethodRoute({cardAuth: token}).then(() => {
+    this.PaymentsApi.putDefaultPaymentMethodRoute({creditCardId: token}).then(() => {
       // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015
       const input = angular.element('input-price input')[0];
       if (input) {

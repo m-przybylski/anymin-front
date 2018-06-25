@@ -1,8 +1,9 @@
 import * as angular from 'angular'
 
 import manageProfileEditProfileModule from './edit-expert-profile'
-import {EditExpertProfileController, IEditExpertProfileScope} from './edit-expert-profile.controller'
-import {ProfileApi} from 'profitelo-api-ng/api/api';
+import { EditExpertProfileController, IEditExpertProfileScope } from './edit-expert-profile.controller'
+import { ProfileApi } from 'profitelo-api-ng/api/api';
+
 describe('Testing Controller: editExpertProfileController', () => {
 
   let editExpertProfileController: EditExpertProfileController
@@ -65,10 +66,14 @@ describe('Testing Controller: editExpertProfileController', () => {
     editExpertProfileController.profileAvatarToken = 'someToken'
     editExpertProfileController.profileDescription = 'someDescription someDescription someDescription someDescription'
     scope.profile = {
+      id: 'id',
       name: 'name',
       avatar: 'avatar',
       description: 'someDescription someDescription someDescription someDescription',
-      links: ['link']
+      documents: [{
+        token: 'token',
+        previews: ['preview']
+      }]
     }
     const updatedProfile = {
       expertDetails: {
@@ -92,10 +97,14 @@ describe('Testing Controller: editExpertProfileController', () => {
     editExpertProfileController.profileAvatarToken = 'someToken'
     editExpertProfileController.profileDescription = 'someDescription someDescription someDescription someDescription'
     scope.profile = {
+      id: 'id',
       name: 'name',
       logo: 'avatar',
       description: 'someDescription someDescription someDescription someDescription',
-      links: ['link']
+      documents: [{
+        token: 'token',
+        previews: ['preview']
+      }]
     }
     const updatedProfile = {
       organizationDetails: {

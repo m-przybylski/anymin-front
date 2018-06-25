@@ -5,8 +5,8 @@ import { UserService } from '../../../../../../services/user/user.service';
 import * as _ from 'lodash';
 import { IServiceInvitation } from '../../../../../../models/ServiceInvitation';
 import {
-  MoneyDto, PostService, PostServiceTag, GetExpertServiceDetails, GetInvitation,
-  GetProfileDetailsWithEmployments, GetServiceWithInvitations
+  MoneyDto, PostService, PostServiceTag, GetInvitation,
+  ExpertProfileWithEmployments, GetServiceWithInvitations, GetMobileServiceDetails
 }
   from 'profitelo-api-ng/model/models';
 import { ServiceApi, EmploymentApi } from 'profitelo-api-ng/api/api';
@@ -16,10 +16,12 @@ import { TranslatorService } from '../../../../../../services/translator/transla
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { Config } from '../../../../../../../../config';
 import { CommonConfig } from '../../../../../../../../common-config';
+import { ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { ViewsApi } from 'profitelo-api-ng/api/ViewsApi';
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void;
-  serviceDetails?: GetExpertServiceDetails;
+  serviceDetails?: ServiceWithOwnerProfile;
 }
 
 // tslint:disable:member-ordering
@@ -50,7 +52,7 @@ export class ServiceFormModalController implements ng.IController {
   private currency: string;
   private defaultLanguageISO = '';
   private onModalCloseCallback: () => void;
-  private serviceDetails?: GetExpertServiceDetails;
+  private serviceDetails?: ServiceWithOwnerProfile;
   private consultationNamePattern: RegExp;
   private consultationDescriptionPattern: RegExp;
   private consultationTagsMinCount: number;
@@ -65,7 +67,7 @@ export class ServiceFormModalController implements ng.IController {
   };
 
   public static $inject = ['$uibModalInstance', 'translatorService', 'userService', 'ServiceApi',
-    '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService'];
+    '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService', 'ViewsApi'];
 
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private translatorService: TranslatorService,
@@ -76,7 +78,8 @@ export class ServiceFormModalController implements ng.IController {
               private languagesService: LanguagesService,
               private EmploymentApi: EmploymentApi,
               private $q: ng.IQService,
-              private CommonSettingsService: CommonSettingsService) {
+              private CommonSettingsService: CommonSettingsService,
+              private ViewsApi: ViewsApi) {
 
     this.languagesList = this.languagesService.languagesList;
 
@@ -98,16 +101,15 @@ export class ServiceFormModalController implements ng.IController {
 
       if (this.$scope.serviceDetails) {
         this.serviceDetails = this.$scope.serviceDetails;
-        this.consultationName = this.serviceDetails.service.name;
-        this.isFreelance = this.$scope.serviceDetails.service.isFreelance;
+        this.consultationName = this.serviceDetails.name;
+        this.isFreelance = this.$scope.serviceDetails.isFreelance;
         this.consultationLanguage = {
-          name: this.translatorService.translate('LANGUAGE.' + this.serviceDetails.service.language),
-          value: this.serviceDetails.service.language
+          name: this.translatorService.translate('LANGUAGE.' + this.serviceDetails.language),
+          value: this.serviceDetails.language
         };
-        this.consultationDescription = this.serviceDetails.service.description;
-        this.consultationPrice = (this.serviceDetails.service.price.amount / this.moneyDivider).toString();
-        this.consultationTags = this.serviceDetails.tags.map((tag) => tag.name);
-        this.getDataFromBackend(this.serviceDetails.service.id);
+        this.consultationDescription = this.serviceDetails.description;
+        this.consultationPrice = (this.serviceDetails.price.amount / this.moneyDivider).toString();
+        this.getDataFromBackend(this.serviceDetails.id);
       }
     });
     this.onModalCloseCallback = this.$scope.onModalCloseCallback;
@@ -115,13 +117,16 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   private getDataFromBackend = (serviceId: string): void => {
+    const serviceDetailsResults = 2;
     this.isLoading = true;
     this.$q.all([
       this.ServiceApi.postServiceInvitationsRoute({serviceIds: [serviceId]}),
-      this.EmploymentApi.getEmployeesRoute()
+      this.EmploymentApi.getEmployeesRoute(),
+      this.ViewsApi.getMobileServiceDetailsRoute(serviceId)
     ]).then((results) => {
       this.onGetServiceInvitations(results[0]);
       this.onGetEmployments(results[1]);
+      this.onGetServiceDetails(results[serviceDetailsResults]);
     }).catch(() => {
       this.isError = true;
     }).finally(() => {
@@ -133,7 +138,7 @@ export class ServiceFormModalController implements ng.IController {
     if (this.isFormValid()) {
       this.isLoading = true;
       if (this.serviceDetails) {
-        this.ServiceApi.putServiceRoute(this.serviceDetails.service.id, this.createServiceModel()).then(() => {
+        this.ServiceApi.putServiceRoute(this.serviceDetails.id, this.createServiceModel()).then(() => {
           this.onModalCloseCallback();
           this.onModalClose();
         }, this.onReject);
@@ -260,14 +265,19 @@ export class ServiceFormModalController implements ng.IController {
     this.consultationNewInvitations = emailInvitation.concat(msisdnInvitation);
   }
 
-  private onGetEmployments = (employments: GetProfileDetailsWithEmployments[]): void => {
-    const serviceOwnerEmployments: GetProfileDetailsWithEmployments | undefined =
-      _.find<GetProfileDetailsWithEmployments>(employments, (employment) =>
-        this.serviceDetails && employment.expertProfile.id === this.serviceDetails.ownerProfile.id);
+  private onGetEmployments = (employments: ExpertProfileWithEmployments[]): void => {
+    const serviceOwnerEmployments: ExpertProfileWithEmployments | undefined =
+      _.find<ExpertProfileWithEmployments>(employments, (employment) =>
+        this.serviceDetails && this.serviceDetails.ownerProfile &&
+        employment.expertProfile.id === this.serviceDetails.ownerProfile.id);
 
     if (serviceOwnerEmployments)
       this.isOwnerEmployee = _.find(serviceOwnerEmployments.employments || [], (employment) =>
-        (this.serviceDetails && this.serviceDetails.service.id === employment.serviceId)) !== undefined;
+        (this.serviceDetails && this.serviceDetails.id === employment.serviceId)) !== undefined;
+  }
+
+  private onGetServiceDetails = (serviceDetails: GetMobileServiceDetails): void => {
+    this.consultationTags = serviceDetails.tags.map((tag) => tag.name);
   }
 
   private onReject = (error: any): void => {

@@ -1,28 +1,27 @@
 import { IExpertEmployeeComponentBindings } from './employee';
-import { GetProfileDetailsWithEmployments } from 'profitelo-api-ng/model/models';
 import { EmploymentApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';
 import { TopAlertService } from '../../../../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../../../services/translator/translator.service';
 import { ModalsService } from '../../../../../services/modals/modals.service';
-import { GetEmploymentDetails } from '@anymind-ng/api';
+import { IEmployee } from '../../../../../../app/dashboard/expert/employees/employees.controller';
 
 export interface IExpertEmployeeComponentControllerScope extends ng.IScope {
-  profileWithEmployments: GetProfileDetailsWithEmployments;
+  profileWithEmployments: IEmployee;
   onDeleteCallback: () => void;
 }
 
 // tslint:disable:member-ordering
 export class ExpertEmployeeComponentController implements IExpertEmployeeComponentBindings {
 
-  public profileWithEmployments: GetProfileDetailsWithEmployments;
+  public profileWithEmployments: IEmployee;
   public onDeleteCallback: () => void;
   public employeeName: string;
   public employmentsCount: number;
   public employeeAvatar: string;
   public isEmploeeDeleted = false;
   public consultationText = '';
-  public employeeConsultations: GetEmploymentDetails[];
+  public employeeConsultations: any[];
 
   private static readonly minRangeOfFewConsultations = 2;
   private static readonly maxRangeOfFewConsultations = 4;
@@ -37,10 +36,10 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   }
 
   public $onInit = (): void => {
-    this.employeeName = this.profileWithEmployments.expertProfile.name;
-    this.employeeAvatar = this.profileWithEmployments.expertProfile.img;
-    this.employmentsCount = this.profileWithEmployments.employments.length;
-    this.employeeConsultations = this.profileWithEmployments.employments;
+    this.employeeName = this.profileWithEmployments.employeeName;
+    this.employeeAvatar = this.profileWithEmployments.employeeAvatar;
+    this.employmentsCount = this.profileWithEmployments.employmentsId.length;
+    this.employeeConsultations = this.profileWithEmployments.services;
 
     switch (true) {
       case this.employmentsCount === 1:
@@ -61,9 +60,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
   public deleteEmployee = (): void => {
     this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_EMPLOYEE.CONFIRM_TEXT',
       () => {
-        const employmentsToDelete = this.profileWithEmployments.employments.map(employment =>
-          employment.id
-        );
+        const employmentsToDelete = this.profileWithEmployments.employmentsId;
         this.EmploymentApi.deleteEmploymentsRoute({employmentIds: employmentsToDelete})
           .then(() => {
             this.topAlertService.success({

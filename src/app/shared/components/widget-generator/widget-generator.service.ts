@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  GetExpertProfile, GetOrganizationProfile, GetWidget,
-  ViewsService, WidgetService
-} from '@anymind-ng/api';
+import { ExpertProfileView, GetWidget, ViewsService, WidgetService } from '@anymind-ng/api';
 import { Observable } from 'rxjs/Observable';
+import { OrganizationProfileView } from '@anymind-ng/api/model/organizationProfileView';
 
 @Injectable()
 export class WidgetGeneratorService {
@@ -12,10 +10,10 @@ export class WidgetGeneratorService {
               private widgetService: WidgetService) {
   }
 
-  public getExpertProfileWithServices = (profileId: string): Promise<GetExpertProfile> =>
+  public getExpertProfileWithServices = (profileId: string): Promise<ExpertProfileView> =>
     this.viewsService.getWebExpertProfileRoute(profileId).toPromise()
 
-  public getOrganizationProfilesWithServices = (profileId: string): Promise<GetOrganizationProfile> =>
+  public getOrganizationProfilesWithServices = (profileId: string): Promise<OrganizationProfileView> =>
     this.viewsService.getWebOrganizationProfileRoute(profileId).toPromise()
 
   public generateWidget = (expertId?: string, serviceId?: string): Observable<GetWidget> =>

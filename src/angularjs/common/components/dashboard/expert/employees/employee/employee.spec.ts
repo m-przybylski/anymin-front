@@ -1,10 +1,10 @@
 import * as angular from 'angular'
 
 import expertEmployeeModule from './employee';
-import {ExpertEmployeeComponentController, IExpertEmployeeComponentControllerScope} from './employee.controller';
-import {ErrorHandlerService} from '../../../../../services/error-handler/error-handler.service'
-import {EmploymentApiMock} from 'profitelo-api-ng/api/api';
-import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
+import { ExpertEmployeeComponentController, IExpertEmployeeComponentControllerScope } from './employee.controller';
+import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service'
+import { EmploymentApiMock } from 'profitelo-api-ng/api/api';
+import { TopAlertService } from '../../../../../services/top-alert/top-alert.service'
 import { ModalsService } from '../../../../../services/modals/modals.service';
 
 describe('Unit testing: profitelo.components.dashboard.expert.employees.employee', () =>
@@ -19,25 +19,22 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.employee
     let EmploymentApiMock: EmploymentApiMock
     let modalsService: ModalsService
     const errorHandler: ErrorHandlerService = <ErrorHandlerService>{
-      handleServerError: (_err: any, _logMessage: string): void => {}
+      handleServerError: (_err: any, _logMessage: string): void => {
+      }
     }
     let httpBackend: ng.IHttpBackendService
 
     const validHTML = '<expert-employee data-profile-with-employments="profileWithEmployments"></expert-employee>'
 
     const profileWithEmployments = {
-      expertProfile: {
-        id: 'id',
-        name: 'name',
-        img: 'img'
-      },
-      employments: [{
-        id: 'id',
-        serviceId: 'serviceId',
-        profileId: 'profileId',
-        usageCounter: 1,
-        createdAt: new Date()
-      }]
+      employeeId: 'employeeId',
+      employeeName: 'employeeName',
+      employeeAvatar: 'employeeAvatar',
+      services: [{
+        serviceName: 'serviceName',
+        isFreelance: true
+      }],
+      employmentsId: ['emplId']
     }
 
     function create(html: string): JQuery {

@@ -14,9 +14,9 @@
     .employees
       span.label(data-translate="COMPANY_PROFILE.SINGLE_CONSULTATION.EMPLOYEES.TITLE")
       ul.employees-list
-        li.employees-item(data-ng-repeat="employee in $ctrl.employees")
-          a(data-ui-sref="app.expert-profile({ profileId: employee.id })")
-            user-avatar.thumb.x48(data-image-token="employee.img")
+        li.employees-item(data-ng-repeat="employment in $ctrl.employments")
+          a(data-ui-sref="app.expert-profile({ profileId: employment.id })")
+            user-avatar.thumb.x48(data-image-token="employment.img")
               .status-list
                 span.status.availability
                   span.icon.icon-success-12

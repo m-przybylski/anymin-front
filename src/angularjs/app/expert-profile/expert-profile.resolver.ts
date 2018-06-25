@@ -3,7 +3,8 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 import { IExpertProfileStateParams } from './expert-profile';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
-import { GetExpertProfile, GetExpertServiceDetails } from 'profitelo-api-ng/model/models';
+import { ExpertProfileView } from 'profitelo-api-ng/model/models';
+import { EmploymentWithService } from '@anymind-ng/api';
 
 // tslint:disable:member-ordering
 export class ExpertProfileResolver {
@@ -13,11 +14,11 @@ export class ExpertProfileResolver {
     constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 
-  public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> => {
+  public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<ExpertProfileView> => {
 
-    const sortServices = (servicesWithTagsAndEmployees: GetExpertServiceDetails[]): GetExpertServiceDetails[] => {
+    const sortServices = (servicesWithTagsAndEmployees: EmploymentWithService[]): EmploymentWithService[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
-      serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId);
+      serviceWithTagsAndEmployees.id === stateParams.primaryConsultationId);
 
       if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
         && servicesWithTagsAndEmployees.length > 1) {
@@ -28,19 +29,19 @@ export class ExpertProfileResolver {
       return servicesWithTagsAndEmployees;
     };
 
-    const handleExpertResponse = (response: GetExpertProfile): ng.IPromise<GetExpertProfile> => {
-      if (!response.profileWithDocuments.profile.expertDetails) {
+    const handleExpertResponse = (response: ExpertProfileView): ng.IPromise<ExpertProfileView> => {
+      if (!response.expertProfile) {
         return this.$q.reject('Profile is not expert');
       }
 
       return this.$q.resolve({
-        profileWithDocuments: response.profileWithDocuments,
-        services: sortServices(response.services),
+        expertProfile: response.expertProfile,
+        employments: sortServices(response.employments),
         isFavourite: response.isFavourite
       });
     };
 
-    const resolveExpertProfile = (): ng.IPromise<GetExpertProfile> =>
+    const resolveExpertProfile = (): ng.IPromise<ExpertProfileView> =>
       this.ViewsApi.getWebExpertProfileRoute(stateParams.profileId)
         .then(handleExpertResponse, (err) => this.$q.reject(err));
 

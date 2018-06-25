@@ -29,7 +29,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   private createBrainTree = (tokenObject: DefaultCreditCard): void => {
     if (!!tokenObject.card) {
       braintree.client.create({
-        authorization: tokenObject.card.cardAuth
+        authorization: tokenObject.card.id
       }, (err, clientInstance) => {
         if (err) {
           throw new Error('Can not authorize braintree: ' + String(err));

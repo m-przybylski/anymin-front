@@ -1,13 +1,14 @@
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../../../services/top-alert/top-alert.service';
-import { GetOrganizationDetails, GetExpertDetails, UpdateProfile }
-  from 'profitelo-api-ng/model/models';
+import { UpdateProfile } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../../../services/translator/translator.service';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { Config } from '../../../../../../../../config';
+import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
+import { ExpertProfileWithDocuments } from '@anymind-ng/api';
 
 export interface IEditExpertProfileScope extends ng.IScope {
-  profile: GetOrganizationDetails | GetExpertDetails;
+  profile: ExpertProfileWithDocuments | OrganizationProfileWithDocuments;
   onModalCloseCallback: () => void;
 }
 
@@ -77,7 +78,6 @@ export class EditExpertProfileController implements ng.IController {
     }
       this.profileName = this.$scope.profile.name;
       this.profileDescription = this.$scope.profile.description;
-      this.profileLinks = this.$scope.profile.links;
   }
 
   public saveChanges = (): void => {
@@ -130,8 +130,8 @@ export class EditExpertProfileController implements ng.IController {
     && this.isDescriptionValid()
     && this.isFileUploadValid()
 
-  private isGetExpertDetails = (profileDetails: GetOrganizationDetails | GetExpertDetails):
-    profileDetails is GetExpertDetails => (<GetExpertDetails>profileDetails).avatar !== undefined
+  private isGetExpertDetails = (profileDetails: OrganizationProfileWithDocuments | ExpertProfileWithDocuments):
+    profileDetails is ExpertProfileWithDocuments => (<ExpertProfileWithDocuments>profileDetails).avatar !== undefined
 
   private sendUpdatedProfile = (updatedProfile: UpdateProfile): void => {
     this.ProfileApi.patchProfileRoute(updatedProfile).then((_res) => {

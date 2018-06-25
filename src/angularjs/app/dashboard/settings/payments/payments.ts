@@ -63,7 +63,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       }
       PaymentsApi.getDefaultPaymentMethodRoute().then((response) => {
         if (response.card) {
-          this.checkedPaymentMethod = response.card.cardAuth;
+          this.checkedPaymentMethod = response.card.id;
         }
       }, (error) => {
         $log.error(error);
@@ -78,7 +78,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   }
 
   public changeDefaultPaymentMethod = (token?: string): void => {
-    this.PaymentsApi.putDefaultPaymentMethodRoute({cardAuth: token}).then(() => {
+    this.PaymentsApi.putDefaultPaymentMethodRoute({creditCardId: token}).then(() => {
     }, (error) => {
       throw new Error('Can not change default payment method ' + String(error));
     });

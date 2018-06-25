@@ -3,8 +3,10 @@ import { ModalsService } from './modals.service'
 import modalsModule from './modals'
 import dialogModule from '../dialog/dialog'
 import { DialogService } from '../dialog/dialog.service'
-import { GetExpertSueDetails, GetClientActivity, GetExpertServiceDetails, GetProfile,
-  GetService } from 'profitelo-api-ng/model/models'
+import {
+  GetExpertSueDetails, GetClientActivity, GetProfile,
+  GetService
+} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
@@ -192,13 +194,15 @@ describe('Unit testing: profitelo.services.modals >', () => {
 
     it('should open consultation form modal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
-      modalsService.createServiceFormModal(() => {}, <GetExpertServiceDetails>{})
+      modalsService.createServiceFormModal(() => {
+      }, <any>{})
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
     it('should open expert invite employees modal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
-      modalsService.createExpertInviteEmployeesModal(() => {})
+      modalsService.createExpertInviteEmployeesModal(() => {
+      })
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
