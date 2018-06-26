@@ -47,7 +47,7 @@ export class ModalComponent implements OnInit {
   public onModalClose = (): void =>
     this.activeModal.close()
 
-  private setModalContainerWidth = (): string => {
+  public setModalContainerWidth = (): string => {
     switch (this.modalContainerClass) {
       case ModalContainerWidthEnum.SMALL_WIDTH:
         return 'modal-component__container--small';
