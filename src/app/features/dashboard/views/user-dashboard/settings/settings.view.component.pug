@@ -1,6 +1,14 @@
 .settings
   span.settings__header Ustawienia konta
 
+  plat-input-switch
+
+  plat-setting-option(
+  [title]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE'",
+  [description]="'+48 500 000 123'",
+  [buttonText]="'Zmień'"
+  )
+
   plat-setting-option(
   [title]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE'",
   [description]="'+48 500 000 123'",
@@ -21,12 +29,6 @@
 
   plat-setting-option(
   [title]="'DASHBOARD.SETTINGS.CHANGE_LANGUAGE_TITLE'",
-  [description]="'filip.franczak@anymind.com'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
-
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE'",
   [description]="'filip.franczak@anymind.com'",
   [buttonText]="'Zmień'",
   [buttonHandler]="")

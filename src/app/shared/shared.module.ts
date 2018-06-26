@@ -74,6 +74,7 @@ import { InputTagsComponent } from './components/consultation-tags/input-tags/in
     ContentHeightAnimateDirective,
     NavbarComponent,
     UserNavigationComponent,
+    UserAvatarComponent,
     UserNavigationUnderlineDirective,
     NavbarUserAvatarComponent,
     UserAvatarComponent,
@@ -100,7 +101,8 @@ import { InputTagsComponent } from './components/consultation-tags/input-tags/in
     PreloaderContainerComponent,
     ConsultationTagsComponent,
     ConsultationPriceComponent,
-    InputTagsComponent
+    InputTagsComponent,
+	  InputSwitchComponent
   ],
   providers: [
     EventsServiceProvider,
