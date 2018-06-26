@@ -1,0 +1,31 @@
+plat-modal-component(
+[modalTrTitleHeader]="'Edytuj se numer'",
+[modalContainerClass]="modalWidth"
+)
+  .modal-form
+    form(
+    [id]="changeNumberFormId",
+    [formGroup]="changeNumberForm",
+    novalidate,
+    (ngSubmit)="onFormSubmit(changeNumberForm)"
+    )
+      .input-handler
+        am-core-input-prefix(
+        label="LOGIN.AREA_CODE",
+        [value]="msisdnPrefix"
+        )
+        am-core-input-phone-number(
+        label="LOGIN.ENTER_NUMBER",
+        placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
+        [controlName]="msisdnControlName",
+        [form]="changeNumberForm",
+        [isDisabled]="isRequestPending",
+        [initialFocus]="isInputInitialFocused",
+        [isRequired]="isInputRequired"
+        )
+
+      am-core-submit-button(
+      titleText="DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON",
+      [formName]="changeNumberFormId",
+      [isLoading]="isRequestPending"
+      )

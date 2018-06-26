@@ -12,7 +12,16 @@ import { ExpertActivitiesComponent } from './views/user-dashboard/expert-activit
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
-import { ModalsModule } from '../../shared/components/modals/modals.module';
+import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
+import {
+  SettingOptionComponent
+} from './views/user-dashboard/settings/components/setting-option/setting-option.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {
+  SmsConfirmationComponent
+} from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
+import { EditProfileModalModule } from '../../shared/components/navbar/edit-profile/edit-profile.module';
 
 @NgModule({
   declarations: [
@@ -23,14 +32,19 @@ import { ModalsModule } from '../../shared/components/modals/modals.module';
     ClientActivitiesComponent,
     EmployeesComponent,
     ExpertActivitiesComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    SettingsViewComponent,
+    SettingOptionComponent,
+    SmsConfirmationComponent
+
   ],
-  providers: [],
   imports: [
+    ReactiveFormsModule,
+    CommonModule,
     SharedModule,
     AngularJsProvidersModule,
     DashboardRoutingModule,
-    ModalsModule
+    EditProfileModalModule
   ]
 })
 export class DashboardModule {

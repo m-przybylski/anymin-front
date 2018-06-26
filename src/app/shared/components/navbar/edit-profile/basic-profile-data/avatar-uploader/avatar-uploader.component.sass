@@ -1,0 +1,33 @@
+@import "~@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+
+.avatar-uploader
+	position: relative
+	min-width: 152px
+	min-height: 152px
+	
+	&__button
+		position: absolute
+		right: 0
+		bottom: 0
+		
+		&--remove
+			span
+				background: $c-error-secondary
+			
+		&--add
+			span
+				background: $c-primary
+	
+		span
+			width: 40px
+			height: 40px
+			display: flex
+			align-items: center
+			justify-content: center
+			border-radius: 50%
+			cursor: pointer
+			color: $c-white
+			
+		input
+			display: none
+			

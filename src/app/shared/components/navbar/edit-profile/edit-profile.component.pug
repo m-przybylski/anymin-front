@@ -1,101 +1,79 @@
-.modal-component.modal-component--edit-profile
-  .modal-component__scroll(pinElement="modal-component__header")
-    .modal-component__container.modal-component__container--medium
-      .modal-component__header
-        .modal-component__header__nav.modal-component__header__nav--back
-          a.button.button--back(*ngIf="isExpertForm && !isOpenAsExpert", (click)="onBackToClientStep()")
-            span.icon.icon-backward
+plat-modal-component(
+    [modalTrTitleHeader]="'EDIT_PROFILE.TITLE'",
+    [isBackwardVisible]="isExpertForm && !isOpenAsExpert",
+    [onBackwardClick]="onBackToClientStep"
+  )
 
-        .modal-component__header__title
-          p {{ 'EDIT_PROFILE.TITLE' | translate }}
+  header.modal-component__content__header
+    span([innerHtml]="'EDIT_PROFILE.CONTENT.TITLE' | translate")
 
-        .modal-component__header__nav.modal-component__header__nav--close
-          a.button.button--close((click)="onModalClose()")
-            span.icon.icon-clear
+    am-core-tooltip(
+    [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+    )
 
-      .modal-component__content
-        header.modal-component__content__header
-          span([innerHtml]="'EDIT_PROFILE.CONTENT.TITLE' | translate")
+  .modal-form
+    form.form.form--client(
+    *ngIf="!isExpertForm; else expertForm",
+    contentHeightAnimation,
+    [id]="'clientNameForm'",
+    [formGroup]="clientNameForm",
+    novalidate,
+    id="clientNameForm"
+    )
 
-          am-core-tooltip(
-            [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+      plat-basic-profile-data(
+      [formGroup]="clientNameForm",
+      [controlName]="clientFormControlName"
+      )
+
+    ng-template(#expertForm)
+      form.form.form--expert(
+      contentHeightAnimation,
+      [id]="'expertNameForm'",
+      [formGroup]="expertNameForm",
+      id="expertNameForm",
+      novalidate
+      )
+        .modal-form__row
+          plat-basic-profile-data(
+          [formGroup]="expertNameForm",
+          [controlName]="expertFormControlName",
+          [isRequired]="isExpertForm")
+
+        .modal-form__row
+          header.modal-component__content__header
+            span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.TITLE' | translate }}
+
+          am-core-textarea-primary(
+          [maxLength]="consultationMaxlength",
+          [minLength]="consultationMinlength",
+          [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.PLACEHOLDER'",
+          [form]="expertNameForm",
+          [controlName]="expertFormControlDescription",
+          [errorTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.ERROR'",
+          [label]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.LABEL'",
+          [isRequired]="isExpertForm",
           )
 
-        .modal-form
-          form.form.form--client(
-            *ngIf="!isExpertForm; else expertForm",
-            contentHeightAnimation,
-            [id]="'clientNameForm'",
-            [formGroup]="clientNameForm",
-            novalidate,
-            id="clientNameForm",
-            (ngSubmit)="onClientFormSubmit(clientNameForm)"
-            )
+        .modal-form__row
+          plat-profile-links(
+          [formGroup]="expertNameForm",
+          [controlName]="expertFormControlLink"
+          )
 
-              plat-basic-profile-data(
-                [formGroup]="clientNameForm",
-                [controlName]="clientFormControlName"
-              )
+    .modal-component__action(*ngIf="!isOpenAsExpert")
+      a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="!isExpertForm")
+        | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
 
-          ng-template(#expertForm)
-            form.form.form--expert(
-            contentHeightAnimation,
-            [id]="'expertNameForm'",
-            [formGroup]="expertNameForm",
-            novalidate,
-            id="expertNameForm",
-            (ngSubmit)="onExpertFormSubmit(expertNameForm)"
-            )
-              .modal-form__row
-                plat-basic-profile-data(
-                [formGroup]="expertNameForm",
-                [controlName]="expertFormControlName")
+      a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="isExpertForm")
+        | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
 
-              .modal-form__row
-                header.modal-component__content__header
-                  span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION' | translate }}
+      button.button.button--default(type="submit" form="clientNameForm", *ngIf="!isExpertForm")
+        | {{ 'EDIT_PROFILE.CONTENT.CREATE_CLIENT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
 
-                  am-core-tooltip(
-                  [tooltipText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.TOOLTIP'",
-                  placement="top-right"
-                  )
+      a.button.button--default(type="submit", *ngIf="isExpertForm", (click)="onExpertFormSubmit(expertNameForm)")
+        | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
 
-                am-core-textarea-primary(
-                [maxLength]="consultationMaxlength",
-                [minLength]="consultationMinlength",
-                [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.PLACEHOLDER'",
-                [controlName]="expertFormControlDescription",
-                [form]="expertNameForm",
-                [errorTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.ERROR'",
-                [label]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.LABEL'")
-
-              .modal-form__row
-                header.modal-component__content__header
-                  span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.FILES' | translate }}
-                  am-core-tooltip(
-                    [tooltipText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.FILES.TOOLTIP'",
-                    placement="top-right"
-                  )
-
-                .input
-                  input(type="text")
-
-              .modal-form__row
-                header.modal-component__content__header
-                  span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.LINKS' | translate }}
-
-                plat-profile-links(
-                  [formGroup]="expertNameForm",
-                  [controlName]="expertFormControlLink"
-                )
-
-          .modal-component__action(*ngIf="!isExpertForm")
-              a.button.button--link.button--small((click)="onCreateExpertAccount()")
-                | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
-
-              button.button.button--default(type="submit" form="clientNameForm")
-                | {{ 'EDIT_PROFILE.CONTENT.CREATE_CLIENT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
-
-          .modal-component__action.modal-component__action--expert(*ngIf="isExpertForm")
-            button.button.button--default(type="submit" form="expertNameForm")
-              | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
+    .modal-component__action.modal-component__action--expert(*ngIf="isExpertForm && isOpenAsExpert")
+      a.button.button--default(type="submit", (click)="onExpertFormSubmit(expertNameForm)")
+        | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}

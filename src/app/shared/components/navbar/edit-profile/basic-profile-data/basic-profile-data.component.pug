@@ -1,8 +1,7 @@
 .basic-profile-data
   .basic-profile-data__content
     .crop-photo
-      .default-avatar
-        span.icon.icon-avatar
+      app-avatar-uploader([avatarUrl]="imageAvatar")
 
     am-core-input-text(
       [isDisabled]="false",
@@ -12,5 +11,6 @@
       [minLength]="profileNameMinlength",
       [maxLength]="profileNameMaxlength",
       [controlName]="controlName",
-      [inputValue]="ngModel"
+      [inputValue]="ngModel",
+      [isRequired]="isRequired"
     )

@@ -3,20 +3,19 @@ import {
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import { ModalComponentEditProfileService } from './edit-profile.component.service';
 import {
   ContentHeightAnimationService
 }
   from '../../../services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../config';
+import { EditProfileModalComponentService } from './edit-profile.component.service';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
-  templateUrl: './edit-profile.component.html',
-  providers: [ModalComponentEditProfileService]
+  templateUrl: './edit-profile.component.html'
 })
 
-export class ModalComponentEditProfile implements OnInit, OnDestroy {
+export class EditProfileModalComponent implements OnInit, OnDestroy {
   public expertFormControlName = 'expertNameProfileControl';
   public expertFormControlDescription = 'expertDescriptionControl';
   public expertFormControlLink = 'expertLinkControl';
@@ -30,7 +29,8 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
   @Input()
   public isOpenAsExpert: boolean;
 
-  constructor(public activeModal: NgbActiveModal,
+  constructor(private activeModal: NgbActiveModal,
+              private editProfileModalComponentService: EditProfileModalComponentService,
               private contentHeightService: ContentHeightAnimationService) {
   }
 
@@ -40,12 +40,14 @@ export class ModalComponentEditProfile implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.contentHeightService.getPreviousHeight$().next('inherit');
+    this.editProfileModalComponentService.getPreviousValue$().next('');
+    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
   }
 
-  public onClientFormSubmit = (): void => {
-  }
-
-  public onExpertFormSubmit = (): void => {
+  public onExpertFormSubmit = (expetFormGroup: FormGroup): void => {
+    if (expetFormGroup.valid) {
+    } else {
+    }
   }
 
   public onBackToClientStep = (): void => {
