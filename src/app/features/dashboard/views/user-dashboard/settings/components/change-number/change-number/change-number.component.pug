@@ -6,8 +6,7 @@ plat-modal-component(
     form(
     [id]="changeNumberFormId",
     [formGroup]="changeNumberForm",
-    novalidate,
-    (ngSubmit)="onFormSubmit(changeNumberForm)"
+    novalidate
     )
       .input-handler
         am-core-input-prefix(
