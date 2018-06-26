@@ -30,6 +30,9 @@ export class ModalComponent implements OnInit {
   @Input()
   public modalContainerClass?: ModalContainerWidthEnum;
 
+  @Input()
+  public isCloseButtonVisible ? = true;
+
   constructor(private activeModal: NgbActiveModal) {
   }
 

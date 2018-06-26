@@ -3,8 +3,16 @@
 .modal-backdrop
 	background: $c-lines
 	opacity: 1 !important
-
+	z-index: $z-index-1000
+	
+	&--upper
+		z-index: $z-index-1000 + 1
+		
+		+ .modal
+			z-index: $z-index-1000 + 1 !important
+	
 .modal
+	z-index: $z-index-1000 !important
 	display: block
 	
 	.modal-dialog

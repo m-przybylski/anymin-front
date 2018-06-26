@@ -5,6 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileModalComponentService } from '../../edit-profile.component.service';
 import { Alerts, AlertService } from '@anymind-ng/components';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { PreloaderContentSizeEnum } from '../../../../preloader/preloader-container.component';
 
 @Component({
   selector: 'app-image-crop',
@@ -17,6 +18,8 @@ export class ImageCropModalComponent implements AfterViewInit, OnDestroy {
 
   public modalClass = ModalContainerWidthEnum.CROPP_WIDTH;
   public isPending = true;
+  public readonly isCloseButtonVisible = false;
+  public readonly preloaderContentSize = PreloaderContentSizeEnum.FULL_CONTENT;
   public readonly cropConfig = {
     crop: [{ratio: 1, width: 190, height: 190}],
     height: 190,

@@ -1,13 +1,18 @@
 plat-modal-component(
-  [modalTrTitleHeader]="'EDIT_PROFILE.IMAGE_CROP.TITLE'",
-  [modalContainerClass]="modalClass"
+[modalTrTitleHeader]="'EDIT_PROFILE.IMAGE_CROP.TITLE'",
+[modalContainerClass]="modalClass",
+[isCloseButtonVisible]="isCloseButtonVisible"
 )
-  .image-cropper([ngClass]="{'is-loading': isPending}")
+  .image-cropper
+    plat-preloader-container(
+    [contentSizeClass]="preloaderContentSize",
+    *ngIf="isPending")
+
     ngx-img(#cropper, (onSelect)='onImageSelect($event)',
     [config]="cropConfig")
 
   .modal-component__action.modal-component__action--crop
-    a.button.button--primary.button--small((click)="onModalClose()")
+    a.button.button--tertiary.button--small((click)="onModalClose()")
       | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.CANCEL' | translate }}
 
     a.button.button--default.button--small((click)="onImgUrlSubmit()")
