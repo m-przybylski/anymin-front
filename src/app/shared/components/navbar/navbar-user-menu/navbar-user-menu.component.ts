@@ -21,7 +21,7 @@ import { EditProfileModalComponent } from '../edit-profile/edit-profile.componen
 
 export class NavbarUserMenuComponent implements OnInit, OnDestroy {
 
-  public readonly avatarSize48 = AvatarSizesEnum.x48;
+  public readonly avatarSize48 = AvatarSizesEnum.X_48;
   public isMenuVisible: boolean;
 
   private logger: LoggerService;

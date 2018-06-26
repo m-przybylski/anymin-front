@@ -11,7 +11,7 @@ export class AvatarUploaderComponent implements OnDestroy {
 
   @Input()
   public avatarUrl: string;
-  public readonly avatarSize = AvatarSizesEnum.x152;
+  public readonly avatarSize = AvatarSizesEnum.X_152;
 
   constructor(private editProfileModalComponentService: EditProfileModalComponentService) {
   }

@@ -32,8 +32,8 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
   @Input()
   public expertAvatarToken?: string;
 
-  public readonly avatarSize32 = AvatarSizesEnum.x32;
-  public readonly avatarSize48 = AvatarSizesEnum.x48;
+  public readonly avatarSize32 = AvatarSizesEnum.X_32;
+  public readonly avatarSize48 = AvatarSizesEnum.X_48;
   public isExpert: boolean;
   public isMenuVisible: boolean;
 

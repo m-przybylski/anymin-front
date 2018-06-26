@@ -22,7 +22,7 @@ export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
   @Input()
   public userVisibility?: GetExpertVisibility.VisibilityEnum;
 
-  public readonly avatarSize = AvatarSizesEnum.x48;
+  public readonly avatarSize = AvatarSizesEnum.X_48;
   public visibilityStatusEnum: typeof GetExpertVisibility.VisibilityEnum = GetExpertVisibility.VisibilityEnum;
   public isMenuVisible = false;
 

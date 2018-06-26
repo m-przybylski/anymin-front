@@ -32,8 +32,8 @@ export class NavbarExpertMenuComponent implements OnInit {
   @Input()
   public companyAvatarToken?: string;
 
-  public readonly avatarSize32 = AvatarSizesEnum.x32;
-  public readonly avatarSize48 = AvatarSizesEnum.x48;
+  public readonly avatarSize32 = AvatarSizesEnum.X_32;
+  public readonly avatarSize48 = AvatarSizesEnum.X_48;
   public isCompany: boolean;
   public isMenuVisible: boolean;
 

@@ -1,10 +1,10 @@
 .modal-component
   .modal-component__scroll(pinElement="modal-component__header")
-    .modal-component__container([ngClass]="modalContainerClass")
+    .modal-component__container([ngClass]="setModalContainerWidth()")
       plat-modal-header(
         [titleTrHeader]="modalTrTitleHeader",
-        [onBackWardClick]="onBackClick",
-        [isBackWardVisible]="isBackWardVisible"
+        [onBackwardClick]="onBackClick",
+        [isBackwardVisible]="isBackwardVisible"
       )
 
       .modal-component__content

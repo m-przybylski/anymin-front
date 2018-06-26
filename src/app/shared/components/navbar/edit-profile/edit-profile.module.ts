@@ -27,4 +27,4 @@ import { EditProfileModalComponentService } from './edit-profile.component.servi
     AvatarUploaderDirective
   ]
 })
-export class EditProfileModule { }
+export class EditProfileModalModule { }

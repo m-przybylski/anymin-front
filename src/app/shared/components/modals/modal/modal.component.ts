@@ -4,10 +4,10 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 export enum ModalContainerWidthEnum {
-  SmallWidth = 'modal-component__container--small',
-  MediumWidth = 'modal-component__container--medium',
-  BigWidth = 'modal-component__container--big',
-  CroppWidth = 'modal-component__container--cropp'
+  SMALL_WIDTH,
+  MEDIUM_WIDTH,
+  BIG_WIDTH,
+  CROPP_WIDTH
 }
 
 @Component({
@@ -22,10 +22,10 @@ export class ModalComponent implements OnInit {
   public modalTrTitleHeader?: string;
 
   @Input()
-  public isBackWardVisible?: boolean;
+  public isBackwardVisible?: boolean;
 
   @Input()
-  public onBackWardClick?: () => void;
+  public onBackwardClick?: () => void;
 
   @Input()
   public modalContainerClass?: ModalContainerWidthEnum;
@@ -34,16 +34,35 @@ export class ModalComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.setModalContainerWidth();
     if (!this.modalContainerClass)
-      this.modalContainerClass = ModalContainerWidthEnum.MediumWidth;
+      this.modalContainerClass = ModalContainerWidthEnum.MEDIUM_WIDTH;
   }
 
   public onBackClick = (): void => {
-    if (this.onBackWardClick)
-      this.onBackWardClick();
+    if (this.onBackwardClick)
+      this.onBackwardClick();
   }
 
   public onModalClose = (): void =>
     this.activeModal.close()
 
+  private setModalContainerWidth = (): string => {
+    switch (this.modalContainerClass) {
+      case ModalContainerWidthEnum.SMALL_WIDTH:
+        return 'modal-component__container--small';
+
+      case ModalContainerWidthEnum.MEDIUM_WIDTH:
+        return 'modal-component__container--medium';
+
+      case ModalContainerWidthEnum.BIG_WIDTH:
+        return 'modal-component__container--big';
+
+      case ModalContainerWidthEnum.CROPP_WIDTH:
+        return 'modal-component__container--cropp';
+
+      default:
+        return 'modal-component__container--medium';
+    }
+  }
 }

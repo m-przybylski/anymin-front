@@ -15,7 +15,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 })
 export class ImageCropModalComponent implements AfterViewInit, OnDestroy {
 
-  public modalClass = ModalContainerWidthEnum.CroppWidth;
+  public modalClass = ModalContainerWidthEnum.CROPP_WIDTH;
   public isPending = true;
   public readonly cropConfig = {
     crop: [{ratio: 1, width: 190, height: 190}],

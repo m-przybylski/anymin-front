@@ -3,9 +3,9 @@ import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
 export enum AvatarSizesEnum {
-  x32 = 'user-avatar--x32',
-  x48 = 'user-avatar--x48',
-  x152 = 'user-avatar--x152'
+  X_32 = 'user-avatar--x32',
+  X_48 = 'user-avatar--x48',
+  X_152 = 'user-avatar--x152'
 }
 
 @Component({

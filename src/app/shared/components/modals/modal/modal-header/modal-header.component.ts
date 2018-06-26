@@ -12,10 +12,10 @@ export class ModalHeaderComponent {
   public titleTrHeader?: string;
 
   @Input()
-  public onBackWardClick?: () => void;
+  public onBackwardClick?: () => void;
 
   @Input()
-  public isBackWardVisible = false;
+  public isBackwardVisible = false;
 
   constructor(public activeModal: NgbActiveModal) {
   }
@@ -24,8 +24,8 @@ export class ModalHeaderComponent {
     this.activeModal.close()
 
   public onBackClick = (): void => {
-    if (this.onBackWardClick)
-      this.onBackWardClick();
+    if (this.onBackwardClick)
+      this.onBackwardClick();
   }
 
 }

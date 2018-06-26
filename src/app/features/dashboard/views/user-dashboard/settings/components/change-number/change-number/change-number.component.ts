@@ -22,7 +22,7 @@ export class ChangeNumberComponent implements OnInit {
   public isRequestPending = false;
   public isInputInitialFocused = true;
   public isInputRequired = true;
-  public modalWidth = ModalContainerWidthEnum.SmallWidth;
+  public modalWidth = ModalContainerWidthEnum.SMALL_WIDTH;
   public isDisabled = false;
 
   private readonly msisdnLength = 3;
