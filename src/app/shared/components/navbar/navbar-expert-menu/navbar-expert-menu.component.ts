@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AvatarSizesEnum } from '../../user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Animations } from '@anymind-ng/components';
 import { Subject } from 'rxjs/Subject';
 import { catchError, takeUntil } from 'rxjs/operators';
@@ -32,8 +32,8 @@ export class NavbarExpertMenuComponent implements OnInit {
   @Input()
   public companyAvatarToken?: string;
 
-  public readonly avatarSize32 = AvatarSizesEnum.X_32;
-  public readonly avatarSize48 = AvatarSizesEnum.X_48;
+  public readonly avatarSize32 = AvatarSizeEnum.X_32;
+  public readonly avatarSize48 = AvatarSizeEnum.X_48;
   public isCompany: boolean;
   public isMenuVisible: boolean;
 

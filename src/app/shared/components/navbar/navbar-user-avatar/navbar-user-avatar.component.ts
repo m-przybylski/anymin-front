@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
-import { AvatarSizesEnum } from '../../user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Subject } from 'rxjs/Subject';
 import { NavbarMenuService }
 from '../../../services/navbar-menu-service/navbar-menu.service';
@@ -22,7 +22,7 @@ export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
   @Input()
   public userVisibility?: GetExpertVisibility.VisibilityEnum;
 
-  public readonly avatarSize = AvatarSizesEnum.X_48;
+  public readonly avatarSize = AvatarSizeEnum.X_48;
   public visibilityStatusEnum: typeof GetExpertVisibility.VisibilityEnum = GetExpertVisibility.VisibilityEnum;
   public isMenuVisible = false;
 

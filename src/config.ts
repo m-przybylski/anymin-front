@@ -70,4 +70,8 @@ export class Config {
     iconsSmallDesktop: '/assets/images/profitelo_icons/small_desktop',
     iconsDesktop: '/assets/images/profitelo_icons/desktop'
   };
+
+  public static readonly imageSizeInBytes = {
+    imageCropMaxSize: 3145728
+  };
 }

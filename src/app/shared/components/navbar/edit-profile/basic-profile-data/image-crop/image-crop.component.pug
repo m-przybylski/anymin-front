@@ -15,5 +15,9 @@ plat-modal-component(
     a.button.button--tertiary.button--small((click)="onModalClose()")
       | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.CANCEL' | translate }}
 
-    a.button.button--default.button--small((click)="onImgUrlSubmit()")
-      | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE' | translate }}
+    am-core-submit-button(
+      (click)="onImgUrlSubmit()",
+      [titleText]="'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE'",
+      [isDisabled]="isPending",
+      [isButtonSmall]="true"
+      )

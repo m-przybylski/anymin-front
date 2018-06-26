@@ -1,11 +1,12 @@
 .avatar-uploader
   plat-user-avatar(
     [avatarSize]="avatarSize",
-    [avatarUrl]="avatarUrl"
+    [avatarUrl]="avatarUrl",
+    [avatarError]="isError"
   )
   .avatar-uploader__button.avatar-uploader__button--add(*ngIf="!avatarUrl")
     label
-      input(type='file', appAvatarUploader, #appAvatarUploader, accept="image/png, image/jpeg")
+      input(type='file', appAvatarUploader, [onAvatarError]="onError", #appAvatarUploader, accept="image/png, image/jpeg")
       span.icon.icon-add
 
   .avatar-uploader__button.avatar-uploader__button--remove((click)="onClickClear()", *ngIf="avatarUrl")
