@@ -17,6 +17,9 @@ export class ModalHeaderComponent {
   @Input()
   public isBackwardVisible = false;
 
+  @Input()
+  public isCloseButtonVisible ? = true;
+
   constructor(public activeModal: NgbActiveModal) {
   }
 

@@ -7,5 +7,5 @@
     p {{ titleTrHeader | translate }}
 
   .modal-component__header__nav.modal-component__header__nav--close
-    a.button.button--close((click)="onModalClose()")
+    a.button.button--close((click)="onModalClose()", *ngIf="isCloseButtonVisible")
       span.icon.icon-clear

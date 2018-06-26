@@ -48,6 +48,7 @@ import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-men
 import { InputSwitchComponent } from './components/input-switch/input-switch.component';
 import { NavbarMenuService }
   from './services/navbar-menu-service/navbar-menu.service';
+import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { NavbarMenuService }
     NavbarUserMenuComponent,
     NavbarCompanyMenuComponent,
     NavbarExpertMenuComponent,
-    InputSwitchComponent
+    InputSwitchComponent,
+    PreloaderContainerComponent
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -90,7 +92,8 @@ import { NavbarMenuService }
     InputSetPasswordComponent,
     ContentHeightAnimateDirective,
     NavbarComponent,
-    UserAvatarComponent
+    UserAvatarComponent,
+    PreloaderContainerComponent
   ],
   providers: [
     EventsServiceProvider,
