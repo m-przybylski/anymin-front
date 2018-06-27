@@ -1,19 +1,20 @@
 import * as angular from 'angular';
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { MessageRoom } from './message-room';
-import { roomType } from 'ratel-sdk-js';
-import * as RatelSdk from 'ratel-sdk-js';
+import { RoomType, BusinessRoom } from 'ratel-sdk-js';
+import { EMPTY } from 'rxjs';
 
 describe('Unit tests: MessageRoom', () => {
 
   let messageRoom: MessageRoom;
 
-  const businessRoom: RatelSdk.BusinessRoom = <any>{
-    roomType: roomType.RoomType.BUSINESS,
-    onTyping: () => {},
-    onMarked: () => {},
-    onCustom: () => {},
-    onInvited: () => {},
+  const businessRoom: BusinessRoom = <any>{
+    roomType: RoomType.BUSINESS,
+    typing$: EMPTY,
+    marked$: EMPTY,
+    customMessage$: EMPTY,
+    getCustomMessageStream: () => EMPTY,
+    invited$: EMPTY,
     join: () => {},
     setMark: () => {},
     sendCustom: () => {},

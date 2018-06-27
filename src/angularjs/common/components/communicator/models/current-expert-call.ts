@@ -1,5 +1,4 @@
-import { BusinessRoom, BusinessCall, roomType, CallReason } from 'ratel-sdk-js';
-import { Session, Message } from 'ratel-sdk-js';
+import { BusinessRoom, BusinessCall, CallReason, callEvents, Session } from 'ratel-sdk-js';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { CallState, CurrentCall, ICallDetails } from './current-call';
@@ -30,18 +29,19 @@ export class ExpertCall extends CurrentCall {
     });
   }
 
-  public answer = (localStream: MediaStream): Promise<void> => {
-    this.setLocalStream(localStream);
-    return this.ratelCall.answer(localStream)
+  public answer = (audioTrack: MediaStreamTrack): Promise<void> => {
+    this.setLocalAudioTrack(audioTrack);
+    return this.ratelCall.answer([audioTrack])
       .then(this.onAnswer)
       .then(() => this.RatelApi.postRatelCreateRoomRoute(this.getSueId()))
       .then((room) => this.getSession().chat.getRoom(room.id))
       .then(businessRoom => this.joinRoom(businessRoom as BusinessRoom));
   }
 
-  public pull = (localStream: MediaStream, callMsgs: Message[]): Promise<void> => {
-    this.setLocalStream(localStream);
-    return this.pullCall(localStream).then(() => {
+  public pull = (audioTrack: MediaStreamTrack,
+                 callMsgs: ReadonlyArray<callEvents.CallEvent>): Promise<void> => {
+    this.setLocalAudioTrack(audioTrack);
+    return this.pullCall(audioTrack).then(() => {
       this.setDuration(this.getExpertSueDetails.callDuration);
       this.startTimer(this.getExpertSueDetails.freeSeconds);
       if (this.isClientOnline(callMsgs)) {
@@ -57,7 +57,7 @@ export class ExpertCall extends CurrentCall {
         this.logger.debug(`ExpertCall: Initializing ratel room by id ${roomId}`);
         this.getSession().chat.getRoom(roomId).then((room) => {
           this.logger.debug('ExpertCall: received ratel room', room);
-          if (roomType.isBusiness(room)) {
+          if (BusinessRoom.isBusiness(room)) {
             this.setRoom(room);
           } else {
             this.logger.error('ExpertCall: Abnormal state,received room is not BusinessRoom');

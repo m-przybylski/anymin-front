@@ -1,11 +1,10 @@
 import { IMessengerMinimizedComponentBindings } from './minimized';
-import { Message, Session } from 'ratel-sdk-js';
+import { roomEvents, Session } from 'ratel-sdk-js';
 import { ExpertCallService } from '../../call-services/expert-call.service';
 import { CurrentCall } from '../../models/current-call';
 import { MessageRoom } from '../../models/message-room';
-import { Subject } from 'rxjs/Subject';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
 export class MessengerMinimizedComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy,
   IMessengerMinimizedComponentBindings {
@@ -13,9 +12,9 @@ export class MessengerMinimizedComponentController implements ng.IController, ng
   public static $inject = ['$timeout', 'expertCallService'];
   private static readonly messageShowTimeout = 5000;
 
-  public onMessageClick: (msg: Message) => void;
+  public onMessageClick: (msg: roomEvents.CustomMessageSent) => void;
 
-  public messages: Message[] = [];
+  public messages: roomEvents.CustomMessageSent[] = [];
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -32,11 +31,11 @@ export class MessengerMinimizedComponentController implements ng.IController, ng
     this.ngUnsubscribe.complete();
   }
 
-  private hideMessage = (message: Message): Message[] =>
+  private hideMessage = (message: roomEvents.CustomMessageSent): roomEvents.CustomMessageSent[] =>
     this.messages = this.messages.filter(msg => msg !== message)
 
-  private showMessage = (message: Message, session: Session): void => {
-    if (session.id !== message.userId) {
+  private showMessage = (message: roomEvents.CustomMessageSent, session: Session): void => {
+    if (session.id !== message.authorId) {
       this.messages.push(message);
       this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout);
     }

@@ -1,7 +1,6 @@
 import * as angular from 'angular';
 import toggleClassOnPullCall from './toggle-class-on-pull-call';
-import { ExpertCallService } from '../../components/communicator/call-services/expert-call.service';
-import { empty } from 'rxjs/observable/empty';
+import { EMPTY } from 'rxjs';
 import { EventsService } from '../../services/events/events.service';
 import { IRootScopeService } from '../../services/root-scope/root-scope.service';
 import loggerMockModule from '../../services/logger/logger.mock';
@@ -15,16 +14,16 @@ describe('Unit testing: profitelo.directives.toggle-class-on-pull-call', () =>
     const validHTML = '<div toggle-class-on-pull-call="is-active"></div>';
 
     const expertCallService: any = {
-      newCall$: empty()
-    } as ExpertCallService;
+      newCall$: EMPTY
+    };
 
     const eventsService: EventsService = <any>{
       on: (_event: string, _callback: () => {}) => {}
     };
 
     const activeCallBarServiceMock = {
-      showCallBar$: empty(),
-      hideCallBar$: empty()
+      showCallBar$: EMPTY,
+      hideCallBar$: EMPTY
     };
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {

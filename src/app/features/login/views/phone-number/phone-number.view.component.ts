@@ -7,7 +7,7 @@ import {
   CommonSettingsService
 } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './phone-number.view.component.html',

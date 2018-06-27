@@ -8,7 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { GetRecoverMethod } from '@anymind-ng/api';
 
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 
 @Injectable()

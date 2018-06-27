@@ -5,7 +5,7 @@ import {
   ContentHeightAnimationService
 }
   from '../../../services/animation/content-height/content-height.animation.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Directive({
   selector: '[contentHeightAnimation]'

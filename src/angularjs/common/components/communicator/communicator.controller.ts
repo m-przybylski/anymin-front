@@ -6,7 +6,7 @@ import { TopAlertService } from '../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../services/translator/translator.service';
 import { MicrophoneService, MicrophoneStateEnum } from './microphone-service/microphone.service';
 import { CommunicatorService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export class CommunicatorComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy {
@@ -32,8 +32,9 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   public callLengthInSeconds = 0;
   public callCost?: MoneyDto;
 
-  public localStreamElement: ng.IAugmentedJQuery;
-  public remoteStreamElement: ng.IAugmentedJQuery;
+  public localVideoStreamElement: ng.IAugmentedJQuery;
+  public remoteAudioStreamElement: ng.IAugmentedJQuery;
+  public remoteVideoStreamElement: ng.IAugmentedJQuery;
 
   public isMicrophoneMuted = false;
 
@@ -62,8 +63,10 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(this.connectionLost);
 
-    this.remoteStreamElement = this.$element.find('.video-player-remote video');
-    this.localStreamElement = this.$element.find('.video-player-local video');
+    this.remoteVideoStreamElement = this.$element.find('.video-player-remote video');
+    this.remoteAudioStreamElement = this.$element.find('.video-player-remote audio');
+
+    this.localVideoStreamElement = this.$element.find('.video-player-local video');
 
     const communicatorElement: ng.IAugmentedJQuery = this.$element.find('.communicator');
     if (communicatorElement) {
@@ -107,15 +110,12 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   }
 
   private registerCommonCallEvents = (call: CurrentCall): void => {
-    call.onRemoteStream(this.handleRemoteStream);
+    call.remoteMediaTrack$.subscribe(this.handleRemoteStream);
 
-    const localStream = call.getLocalStream();
-    if (localStream) this.onLocalStream(localStream);
+    call.getLocalMediaTracks().forEach(t => this.onLocalMediaTrack(t));
 
-    call.onLocalStream(this.onLocalStream);
+    call.localMediaTrack$.subscribe(this.onLocalMediaTrack);
     call.onEnd(this.onCallEnd);
-    call.onVideoStart(this.onVideoStart);
-    call.onVideoStop(this.onVideoStop);
     call.onTimeCostChange(this.onTimeCostChange);
     call.onParticipantOnline(this.onUserBackOnline);
     call.onParticipantOffline(this.onUserOffline);
@@ -127,13 +127,23 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.callCost = timeMoneyTuple.money;
   }
 
-  private handleRemoteStream = (stream: MediaStream): void => {
+  private handleRemoteStream = (track: MediaStreamTrack): void => {
     this.isConnecting = false;
-    this.remoteStreamElement.attr('src', this.$window.URL.createObjectURL(stream));
+    if (track.kind === 'video') {
+      this.attachTrackToElement(this.remoteVideoStreamElement, track);
+      this.isRemoteVideo = true;
+      track.onended = (): void => {
+        this.isRemoteVideo = false;
+      };
+    } else {
+      this.attachTrackToElement(this.remoteAudioStreamElement, track);
+    }
   }
 
-  private onLocalStream = (stream: MediaStream): void => {
-    this.localStreamElement.attr('src', this.$window.URL.createObjectURL(stream));
+  private onLocalMediaTrack = (track: MediaStreamTrack): void => {
+    if (track.kind === 'video') {
+      this.attachTrackToElement(this.localVideoStreamElement, track);
+    }
   }
 
   private onUserBackOnline = (): void => {
@@ -175,11 +185,12 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.closeCommunicator();
   }
 
-  private onVideoStart = (): void => {
-    this.isRemoteVideo = true;
-  }
-
-  private onVideoStop = (): void => {
-    this.isRemoteVideo = false;
+  private attachTrackToElement = (element: ng.IAugmentedJQuery, track: MediaStreamTrack): void => {
+    const stream = new MediaStream([track]);
+    try {
+      element.prop({srcObject: stream});
+    } catch (_err) {
+      element.attr('src', this.$window.URL.createObjectURL(stream));
+    }
   }
 }

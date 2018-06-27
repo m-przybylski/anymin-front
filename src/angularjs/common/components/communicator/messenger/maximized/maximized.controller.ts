@@ -10,12 +10,11 @@ import { MessageRoom } from '../../models/message-room';
 import { ExpertCallService } from '../../call-services/expert-call.service';
 import { CurrentCall } from '../../models/current-call';
 import { ExpertCall } from '../../models/current-expert-call';
-import { Message } from 'ratel-sdk-js';
+import { roomEvents } from 'ratel-sdk-js';
 import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { IMessageContext } from '../message-context';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject, Subscription } from 'rxjs';
 import { takeWhile, takeUntil } from 'rxjs/operators';
 
 export class MessengerMaximizedComponentController implements
@@ -31,7 +30,7 @@ export class MessengerMaximizedComponentController implements
 
   public participantAvatar = '';
   public isTyping = false;
-  public groupedMessages: Message[][] = [];
+  public groupedMessages: roomEvents.CustomMessageSent[][] = [];
   public uploadedFile: {
     progress?: boolean,
     file?: File
@@ -97,11 +96,11 @@ export class MessengerMaximizedComponentController implements
       content: messageBody,
     })
 
-  private handleRoomHistory = (messages: Paginated<Message>): void => {
+  private handleRoomHistory = (messages: Paginated<roomEvents.CustomMessageSent>): void => {
       this.isLoading = false;
       this.groupedMessages = [];
       // to filter out room events
-      const chatMessages: Message[] = messages.items.filter(message => message.tag === 'MESSAGE');
+      const chatMessages: roomEvents.CustomMessageSent[] = messages.items.filter(message => message.tag === 'MESSAGE');
       this.logger.debug('MessengerMaximizedComponentController: received history messaged', chatMessages);
       chatMessages.forEach(this.addGroupedMessage);
   }
@@ -157,13 +156,13 @@ export class MessengerMaximizedComponentController implements
     });
   }
 
-  private addGroupedMessage = (message: Message): number => {
+  private addGroupedMessage = (message: roomEvents.CustomMessageSent): number => {
     if (this.groupedMessages.length === 0) {
       return this.groupedMessages.push([message]);
     } else {
       const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1];
       const firstElementOfLastMessageGroup = _.head(lastMessageGroup);
-      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.userId === message.userId) {
+      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.authorId === message.authorId) {
         return lastMessageGroup.push(message);
       } else {
         return this.groupedMessages.push([message]);
@@ -176,7 +175,7 @@ export class MessengerMaximizedComponentController implements
     this.$timeout(this.scrollMessagesBottom);
   }
 
-  private addMessage = (msg: Message): void => {
+  private addMessage = (msg: roomEvents.CustomMessageSent): void => {
     this.addGroupedMessage(msg);
     this.onTypingEnd();
   }

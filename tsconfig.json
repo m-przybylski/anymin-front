@@ -43,7 +43,8 @@
       "lodash",
       "perfect-scrollbar",
       "ng-file-upload",
-      "raven-js"
+      "raven-js",
+      "webrtc"
     ]
   }
 }

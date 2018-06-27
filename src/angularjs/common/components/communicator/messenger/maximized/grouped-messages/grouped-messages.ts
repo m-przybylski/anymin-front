@@ -1,10 +1,10 @@
 import * as angular from 'angular';
 import filtersModule from '../../../../../filters/filters';
 import { GroupedMessagesComponent } from './grouped-messages.component';
-import { Message } from 'ratel-sdk-js';
+import { roomEvents } from 'ratel-sdk-js';
 
 export interface IGroupedMessagesComponentBindings {
-  messages: Message[];
+  messages: roomEvents.CustomMessageSent[];
   participantAvatar: string;
 }
 

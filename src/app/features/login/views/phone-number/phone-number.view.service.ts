@@ -8,7 +8,7 @@ import { BackendErrors, isBackendError } from '../../../../shared/models/backend
 import {
   RegistrationInvitationService
 } from '../../../../shared/services/registration-invitation/registration-invitation.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
 

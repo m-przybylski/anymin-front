@@ -1,4 +1,4 @@
-import { Message } from 'ratel-sdk-js';
+import { roomEvents } from 'ratel-sdk-js';
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
@@ -6,7 +6,7 @@ import { UrlService } from '../../services/url/url.service';
 import { LoggerService } from '@anymind-ng/core';
 
   function messageFilter(urlService: UrlService,
-                         logger: LoggerService): (message: Message) => string {
+                         logger: LoggerService): (message: roomEvents.CustomMessageSent) => string {
 
     const hasImageUrl = (text: string): RegExpMatchArray | null => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/;
@@ -29,7 +29,7 @@ import { LoggerService } from '@anymind-ng/core';
     const createRegexpFromUrl = (url: string): RegExp =>
       new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g');
 
-    const handleImageMessage = (message: Message): string => {
+    const handleImageMessage = (message: roomEvents.CustomMessageSent): string => {
       const fileUrl: string = getCorrectUrl(urlService.resolveFileUrl(message.context.content));
 
       return `<a href="${fileUrl}" target="_blank">` +
@@ -37,7 +37,7 @@ import { LoggerService } from '@anymind-ng/core';
     };
 
     // tslint:disable-next-line:cyclomatic-complexity
-    const handleTextMessage = (message: Message): string => {
+    const handleTextMessage = (message: roomEvents.CustomMessageSent): string => {
       const messageContext = message.context;
       const messageUrls = getUrls(messageContext.content);
       if (messageContext && messageContext.description && messageContext.description.length > 0) {
@@ -65,7 +65,7 @@ import { LoggerService } from '@anymind-ng/core';
       return message.context.content;
     };
 
-    const handleMessage = (message: Message): string => {
+    const handleMessage = (message: roomEvents.CustomMessageSent): string => {
       switch (message.context.mimeType) {
         case 'text/plain':
           return handleTextMessage(message);
@@ -81,7 +81,7 @@ import { LoggerService } from '@anymind-ng/core';
       }
     };
 
-    return function(message: Message): string {
+    return function(message: roomEvents.CustomMessageSent): string {
       if (message) {
         return handleMessage(message);
       } else {

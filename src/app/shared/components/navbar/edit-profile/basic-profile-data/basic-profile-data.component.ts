@@ -10,7 +10,7 @@ import { of } from 'rxjs/observable/of';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService } from '@anymind-ng/components';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'plat-basic-profile-data',

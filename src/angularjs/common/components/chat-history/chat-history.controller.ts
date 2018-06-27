@@ -1,7 +1,5 @@
 import { IChatHistoryBindings } from './chat-history';
-import * as RatelSdk from 'ratel-sdk-js';
-import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
-import { Message } from 'ratel-sdk-js';
+import { Session, protocol, roomEvents } from 'ratel-sdk-js';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommunicatorService } from '@anymind-ng/core';
@@ -9,13 +7,13 @@ import { CommunicatorService } from '@anymind-ng/core';
 // tslint:disable:member-ordering
 export class ChatHistoryComponentController implements IChatHistoryBindings {
 
-  public chatMessages: Message[];
+  public chatMessages: roomEvents.CustomMessageSent[];
   public roomId?: string;
   public isLoading = true;
   public isChatHistory = true;
   public isError = false;
-  public groupedMessages: Message[][] = [];
-  private session?: RatelSdk.Session;
+  public groupedMessages: roomEvents.CustomMessageSent[][] = [];
+  private session?: Session;
   private static readonly chatHistoryLimit = 500;
 
   public static $inject = ['communicatorService', '$log', '$scope'];
@@ -51,8 +49,11 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.$log.error(err);
   }
 
-  private onGetMessages = (messages: Paginated<Message>): void => {
-    this.chatMessages = messages.items.filter(message => message.tag === 'MESSAGE');
+  private onGetMessages = (messages: protocol.Paginated<roomEvents.RoomEvent>): void => {
+    this.chatMessages = messages.items
+      .filter(m => ChatHistoryComponentController.isCustomMessageSent(m))
+      .map(m => m as roomEvents.CustomMessageSent)
+      .filter(message => message.tag === 'MESSAGE');
     this.isChatHistory = this.chatMessages.length > 0;
     this.isError = false;
     this.chatMessages.forEach((message) => {
@@ -61,13 +62,16 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.$scope.$apply();
   }
 
-  private addGroupedMessage = (message: Message): void => {
+  private static isCustomMessageSent = (e: roomEvents.RoomEvent): e is roomEvents.CustomMessageSent =>
+    e.tag === roomEvents.CustomMessageSent.tag
+
+  private addGroupedMessage = (message: roomEvents.CustomMessageSent): void => {
     if (this.groupedMessages.length === 0) {
       this.groupedMessages.push([message]);
     } else {
       const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1];
       const firstElementOfLastMessageGroup = _.head(lastMessageGroup);
-      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.userId === message.userId) {
+      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.authorId === message.authorId) {
         lastMessageGroup.push(message);
       } else {
         this.groupedMessages.push([message]);

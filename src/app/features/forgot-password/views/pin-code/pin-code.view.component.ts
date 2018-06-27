@@ -5,13 +5,13 @@ import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { LoggerService } from '@anymind-ng/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import { VerifiedCodeService } from '../../verified-code.service';
 import { ForgotPasswordPinCodeViewService, ForgotPasswordPinCodeServiceStatus } from './pin-code.view.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './pin-code.view.component.html',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FilesService } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { GetFileInfo } from '@anymind-ng/api/model/getFileInfo';
 import { FileCategoryEnum, FileTypeChecker } from '../../services/uploader/file-type-checker';
 

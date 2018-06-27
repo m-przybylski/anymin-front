@@ -20,7 +20,6 @@ export function CommunicatorConfigFactory(): Config {
       hostname: chatUrl.hostname,
       port: chatUrl.port,
       rtc: {
-        rtcpMuxPolicy: 'negotiate',
         bundlePolicy: 'balanced',
         iceTransportPolicy: 'relay',
         iceServers: [{

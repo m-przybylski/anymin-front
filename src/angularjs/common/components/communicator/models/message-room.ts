@@ -1,52 +1,52 @@
-import { Message, BusinessRoom } from 'ratel-sdk-js';
-import { Paginated, HistoryFilter, Context, ID, Timestamp } from 'ratel-sdk-js/dist/protocol/protocol';
-import { RoomTyping, RoomMark } from 'ratel-sdk-js/dist/protocol/events';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { BusinessRoom, protocol, roomEvents, chatEvents } from 'ratel-sdk-js';
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export class MessageRoom {
 
-  private readonly messageEvent = new Subject<Message>();
-  private readonly typingEvent = new Subject<RoomTyping>();
-  private readonly markEvent = new Subject<RoomMark>();
+  private static readonly customMessageTag = 'MESSAGE';
+
+  private readonly messageEvent = new Subject<roomEvents.CustomMessageSent>();
+  private readonly typingEvent = new Subject<roomEvents.TypingSent>();
+  private readonly markEvent = new Subject<roomEvents.MarkSent>();
 
   constructor(private room: BusinessRoom) {
-    room.onTyping((ev) => this.typingEvent.next(ev));
-    room.onMarked((ev) => this.markEvent.next(ev));
-    room.onCustom('MESSAGE', this.onCustomMessage);
+    room.typing$.subscribe((ev) => this.typingEvent.next(ev));
+    room.marked$.subscribe((ev) => this.markEvent.next(ev));
+    room.getCustomMessageStream(MessageRoom.customMessageTag).subscribe(this.onCustomMessage);
   }
 
-  public get message$(): Observable<Message> {
+  public get message$(): Observable<roomEvents.CustomMessageSent> {
     return this.messageEvent;
   }
 
-  public get typing$(): Observable<RoomTyping> {
+  public get typing$(): Observable<roomEvents.TypingSent> {
     return this.typingEvent;
   }
 
-  public get mark$(): Observable<RoomMark> {
+  public get mark$(): Observable<roomEvents.MarkSent> {
     return this.markEvent;
   }
 
-  public getHistory = (offset: number, limit: number, filter?: HistoryFilter):
-    Promise<Paginated<Message>> =>
+  public getHistory = (offset: number, limit: number, filter?: protocol.HistoryFilter):
+    Promise<protocol.Paginated<roomEvents.RoomEvent>> =>
       this.room.getMessages(offset, limit, filter)
 
-  public getUsers = (): Promise<ID[]> =>
+  public getUsers = (): Promise<ReadonlyArray<protocol.ID>> =>
     this.room.getUsers()
 
   public indicateTyping = (): Promise<void> =>
     this.room.indicateTyping()
 
-  public sendMessage = (msg: string, context: Context): Promise<Message> =>
-      this.room.sendCustom(msg, 'MESSAGE', context)
+  public sendMessage = (msg: string, context: protocol.Context): Promise<chatEvents.Received> =>
+      this.room.sendCustom(msg, MessageRoom.customMessageTag, context)
 
-  public mark = (timestamp: Timestamp): Promise<void> =>
+  public mark = (timestamp: protocol.Timestamp): Promise<void> =>
     this.room.setMark(timestamp)
 
   public join = (room: BusinessRoom): Promise<void> =>
     room.join()
 
-  private onCustomMessage = (msg: Message): void =>
+  private onCustomMessage = (msg: roomEvents.CustomMessageSent): void =>
     this.messageEvent.next(msg)
 }

@@ -1,8 +1,8 @@
 import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PullableCall } from '../models/pullable-call';
 
 export class ActiveCallBarService {

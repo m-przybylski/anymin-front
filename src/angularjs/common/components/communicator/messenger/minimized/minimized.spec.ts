@@ -2,8 +2,7 @@ import * as angular from 'angular';
 import { IMessengerMinimizedComponentBindings } from './minimized';
 import { MessengerMinimizedComponentController } from './minimized.controller';
 import communicatorModule from '../../communicator';
-import { ExpertCallService } from '../../call-services/expert-call.service';
-import { empty } from 'rxjs/observable/empty';
+import { EMPTY } from 'rxjs';
 
 describe('Unit testing: profitelo.components.communicator.messenger.minimized', () =>
   describe('for messengerMinimized component >', () => {
@@ -18,10 +17,10 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     };
 
     // tslint:disable-next-line:no-object-literal-type-assertion
-    const expertCallService: ExpertCallService = {
-      newCall$: empty(),
-      pullableCall$: empty()
-    } as ExpertCallService;
+    const expertCallService: any = {
+      newCall$: EMPTY,
+      pullableCall$: EMPTY
+    };
 
     beforeEach(() => {
       angular.mock.module(communicatorModule);

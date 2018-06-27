@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '@anymind-ng/api';
 import { catchError, mergeMap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import {
   RegistrationInvitationService

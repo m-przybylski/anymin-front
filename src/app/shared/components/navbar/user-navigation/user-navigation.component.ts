@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { UserNavigationComponentService } from './user-navigation.component.service';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'plat-user-navigation',

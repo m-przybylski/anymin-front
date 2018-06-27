@@ -1,8 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 import { animate, AnimationBuilder, keyframes, style } from '@angular/animations';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Directive({
   selector: '[userNavigationUnderlineDirective]'

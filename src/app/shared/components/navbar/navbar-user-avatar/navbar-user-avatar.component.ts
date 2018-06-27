@@ -1,12 +1,12 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { NavbarMenuService }
 from '../../../services/navbar-menu-service/navbar-menu.service';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 @Component({

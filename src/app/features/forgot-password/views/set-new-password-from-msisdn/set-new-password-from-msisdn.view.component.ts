@@ -10,7 +10,7 @@ import {
 } from './set-new-password-from-msisdn.view.service';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { InputSetPasswordErrors } from '../../../../shared/components/input-set-password/input-set-password.component';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'set-new-password-from-msisdn',

@@ -34,10 +34,11 @@ data-ng-hide="$ctrl.isClosed")
       p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
 
     .video-player-local(data-ng-show="$ctrl.isLocalVideo")
-      video(autoplay="true" muted="true" volume="0" playsinline)
+      video(autoplay="true" muted="true" playsinline)
 
     .video-player-remote(data-ng-show="$ctrl.isRemoteVideo")
       video(autoplay="true" playsinline)
+      audio(autoplay="true")
 
     communicator-nav(data-is-video="$ctrl.isLocalVideo" data-is-messenger="$ctrl.isMessenger"
     data-current-call="$ctrl.currentCall")

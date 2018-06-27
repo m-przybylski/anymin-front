@@ -3,7 +3,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { RegistrationService } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService } from '@anymind-ng/components';

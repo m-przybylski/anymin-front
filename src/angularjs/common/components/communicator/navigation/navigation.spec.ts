@@ -2,11 +2,9 @@ import * as angular from 'angular';
 
 import './navigation';
 import communicatorModule from '../communicator';
-import { CurrentCall } from '../models/current-call';
-import { ExpertCallService } from '../call-services/expert-call.service';
 import navigationModule from './navigation';
 import { INavigationComponentBindings, NavigationComponentController } from './navigation.controller';
-import { empty } from 'rxjs/observable/empty';
+import { EMPTY } from 'rxjs';
 import loggerMockModule from '../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.communicator.navigation', () =>
@@ -18,22 +16,22 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
 
     const validHTML = '<communicator-nav is-video="isVideo" is-messenger="isMessenger"></communicator-nav>';
 
-    const currentCall: CurrentCall = {
-      stopAudio: (): void => {},
-      startAudio: (): void => {},
+    const currentCall: any = {
+      mute: (): void => {},
+      unmute: (): void => {},
       startVideo: (): void => {},
       stopVideo: (): void => {},
       changeCamera: (): void => {}
-    } as CurrentCall;
+    };
 
     const bindings: INavigationComponentBindings = {
       isMessenger: false,
       isVideo: false
     };
 
-    const expertCallService: ExpertCallService = {
-      newCall$: empty()
-    } as ExpertCallService;
+    const expertCallService: any = {
+      newCall$: EMPTY
+    };
 
     beforeEach(() => {
       angular.mock.module(communicatorModule);
@@ -126,20 +124,20 @@ describe('Unit testing: profitelo.components.communicator.navigation', () =>
       expect(event.currentTarget.classList.remove).toHaveBeenCalled();
     });
 
-    it('should startAudio', inject(($q: ng.IQService) => {
+    it('should startAudio', inject(() => {
       component.currentCall = currentCall;
       component.isAudio = false;
-      spyOn(currentCall, 'startAudio').and.returnValue($q.resolve());
+      spyOn(currentCall, 'unmute');
       component.startAudio();
-      expect(currentCall.startAudio).toHaveBeenCalled();
+      expect(currentCall.unmute).toHaveBeenCalled();
     }));
 
     it('should stopAudio', inject(() => {
       component.currentCall = currentCall;
       component.isAudio = true;
-      spyOn(currentCall, 'stopAudio');
+      spyOn(currentCall, 'mute');
       component.stopAudio();
-      expect(currentCall.stopAudio).toHaveBeenCalled();
+      expect(currentCall.mute).toHaveBeenCalled();
     }));
 
     it('should startVideo', inject(($q: ng.IQService) => {

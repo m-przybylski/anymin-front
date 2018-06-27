@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
