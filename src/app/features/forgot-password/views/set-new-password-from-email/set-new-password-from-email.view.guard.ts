@@ -8,16 +8,15 @@ export class SetNewPasswordFromEmailViewGuard implements CanActivate {
 
   constructor(private router: Router,
               private logger: LoggerService,
-              private alertService: AlertService,
-              private route: ActivatedRouteSnapshot) {
+              private alertService: AlertService) {
   }
 
-  // TODO WAIT FOR BACKEND: PLAT-236
-  public canActivate(): boolean {
-    if (this.isTokenValid()) {
+  public canActivate(route: ActivatedRouteSnapshot): boolean {
+
+    if (this.isTokenValid(route)) {
       return true;
     } else {
-      this.router.navigate(['/login']) .then(isRedirectSuccessful => {
+      this.router.navigate(['/login']).then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
           this.logger.warn('Can not redirect to login');
@@ -27,7 +26,7 @@ export class SetNewPasswordFromEmailViewGuard implements CanActivate {
     }
   }
 
-  private isTokenValid = (): boolean =>
-    typeof this.route.params.token === 'string' && this.route.params.token.length > 0
+  private isTokenValid = (route: ActivatedRouteSnapshot): boolean =>
+    typeof route.params.token === 'string' && route.params.token.length > 0
 
 }
