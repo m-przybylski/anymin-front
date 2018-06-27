@@ -168,10 +168,11 @@ export class WidgetGeneratorComponent implements OnInit {
         this.expertList = _.uniqBy(_.flatMap(profileWithServices.services,
           (profileWithServices) => profileWithServices.employments.map((employment) => ({
             name: employment.employeeProfile.name,
-            value: employment.id
+            value: employment.employeeProfile.id
           }))), 'value');
         this.serviceList = profileWithServices.services
-          .filter(profileWithServices => !profileWithServices.service.deletedAt)
+          .filter(profileWithServices => !profileWithServices.service.deletedAt
+            && profileWithServices.employments.length > 0)
           .map((profileWithServices) => ({
             name: profileWithServices.service.name,
             value: profileWithServices.service.id
@@ -203,7 +204,7 @@ export class WidgetGeneratorComponent implements OnInit {
   private reloadServicesDropdown = (): void => {
     this.serviceCompanyList =
       this.profileWithServices.filter((service) => _.find(service.employments, (employment) =>
-        employment.id === this.expertId)).map((serviceWithEmployees) => ({
+        employment.employeeProfile.id === this.expertId)).map((serviceWithEmployees) => ({
         name: serviceWithEmployees.service.name,
         value: serviceWithEmployees.service.id
       }));
