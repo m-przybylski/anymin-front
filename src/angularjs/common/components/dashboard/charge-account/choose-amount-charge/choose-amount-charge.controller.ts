@@ -1,3 +1,4 @@
+// tslint:disable:no-null-keyword
 import { IChooseAmountChargeComponentBindings } from './choose-amount-charge';
 import { IAmounts, IAmountModel } from '../../../../../app/charge-account/modal/charge-account.controller';
 import { CommonSettingsService } from '../../../../services/common-settings/common-settings.service';

@@ -1,3 +1,4 @@
+// tslint:disable:no-null-keyword
 // tslint:disable:no-invalid-this
 (function (): void {
 

@@ -1,3 +1,4 @@
+// tslint:disable:no-null-keyword
 import {
   IDropdownItem, IPrimaryDropdownListElement, IDropdownPrimaryComponentBindings,
   IFilterBy

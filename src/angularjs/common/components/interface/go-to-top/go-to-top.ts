@@ -1,3 +1,4 @@
+// tslint:disable:no-null-keyword
 // tslint:disable:no-invalid-this
 import * as angular from 'angular';
 import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';
