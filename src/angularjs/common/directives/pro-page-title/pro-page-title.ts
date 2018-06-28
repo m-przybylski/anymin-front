@@ -1,3 +1,4 @@
+// tslint:disable:no-loop-statement
 // tslint:disable:no-let
 // tslint:disable:prefer-template
 // tslint:disable:only-arrow-functions

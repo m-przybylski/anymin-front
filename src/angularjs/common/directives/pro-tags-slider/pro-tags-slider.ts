@@ -1,3 +1,4 @@
+// tslint:disable:no-loop-statement
 // tslint:disable:no-mixed-interface
 // tslint:disable:no-let
 // tslint:disable:readonly-array
