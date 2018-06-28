@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { IWizardStepModuleComponentBindings } from './wizard-step';
 import { WizardHandlerComponentController } from '../wizard-handler/wizard-handler.controller';
 

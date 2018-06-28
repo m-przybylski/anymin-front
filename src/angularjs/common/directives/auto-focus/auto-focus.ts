@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-empty
 // tslint:disable:newline-before-return
 import * as angular from 'angular';

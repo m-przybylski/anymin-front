@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-empty
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

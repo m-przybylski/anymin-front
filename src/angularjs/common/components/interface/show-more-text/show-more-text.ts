@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-conditional-expression
 // tslint:disable:no-require-imports
 // tslint:disable:no-null-keyword

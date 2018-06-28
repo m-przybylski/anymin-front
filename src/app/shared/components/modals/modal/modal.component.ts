@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import {
   Component, Input, OnInit
 } from '@angular/core';

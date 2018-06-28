@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-conditional-expression
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';

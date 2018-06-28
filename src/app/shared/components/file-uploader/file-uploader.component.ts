@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 import { Component, EventEmitter, HostListener, Input, Output, OnDestroy, OnInit } from '@angular/core';

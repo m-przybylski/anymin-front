@@ -15,5 +15,5 @@ for line in lines:
   s.add(line[7 : line.find("[")])
 
 for line in list(s):
-  line_prepender(line, "// tslint:disable:prefer-template")
+  line_prepender(line, "// tslint:disable:strict-boolean-expressions")
   print(line)

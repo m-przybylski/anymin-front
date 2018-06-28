@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 export interface IProcessor extends ScriptProcessorNode {
   clipping?: boolean;
   lastClip?: number;

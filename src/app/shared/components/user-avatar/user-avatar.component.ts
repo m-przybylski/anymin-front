@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';

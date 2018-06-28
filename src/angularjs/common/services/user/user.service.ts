@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import * as angular from 'angular';
 import { AccountDetails } from 'profitelo-api-ng/model/models';
 import { SessionServiceWrapper } from '../session/session.service';

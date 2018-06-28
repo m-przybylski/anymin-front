@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-require-imports
 // tslint:disable:no-import-side-effect
 // tslint:disable:no-duplicate-imports

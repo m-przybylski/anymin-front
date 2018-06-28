@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-method-signature
 // tslint:disable:no-invalid-this
 // tslint:disable:newline-before-return

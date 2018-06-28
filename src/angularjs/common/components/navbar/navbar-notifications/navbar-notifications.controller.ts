@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { INavbarNotificationsComponentBindings } from './navbar-notifications';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { GetProfileWithServicesInvitations } from 'profitelo-api-ng/model/models';

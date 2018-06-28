@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { GetCompanyInvoiceDetails } from 'profitelo-api-ng/model/models';
 
 // tslint:disable:member-ordering

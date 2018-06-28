@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-null-keyword
 import { IChooseAmountChargeComponentBindings } from './choose-amount-charge';

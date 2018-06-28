@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-shadowed-variable
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';

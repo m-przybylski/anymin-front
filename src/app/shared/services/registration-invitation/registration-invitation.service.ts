@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:newline-before-return
 import { IInvitationObject } from '../../../../angularjs/app/invitations/invitation.interface';
 import { LocalStorageWrapperService } from '../local-storage/local-storage.service';

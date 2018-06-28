@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-require-imports
 // tslint:disable:no-invalid-this
 // tslint:disable:no-any

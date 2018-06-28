@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-empty
 export enum FileCategoryEnum {
   AVATAR,

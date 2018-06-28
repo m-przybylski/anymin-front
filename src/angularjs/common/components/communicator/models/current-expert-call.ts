@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-shadowed-variable
 // tslint:disable:newline-before-return
 import { BusinessRoom, BusinessCall, CallReason, callEvents, Session } from 'ratel-sdk-js';

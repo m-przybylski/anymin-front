@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:curly
 import { SearchService } from '../../services/search/search.service';
 import { keyboardCodes } from '../../classes/keyboard';

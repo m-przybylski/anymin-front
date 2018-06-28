@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import * as ng from 'angular';
 
 type EventName = 'login' | 'logout' | 'remote-session-deleted' | 'wizard-complete';

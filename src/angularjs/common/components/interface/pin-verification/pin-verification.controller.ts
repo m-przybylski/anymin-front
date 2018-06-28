@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import * as angular from 'angular';
 import { IPinVerificationComponentBindings } from './pin-verification';
 

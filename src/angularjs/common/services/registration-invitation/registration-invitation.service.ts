@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:newline-before-return
 import { LocalStorageWrapper } from '../../classes/local-storage-wrapper/local-storage-wrapper';
 import { IInvitationObject } from '../../../app/invitations/invitation.interface';

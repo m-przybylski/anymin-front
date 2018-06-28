@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-var-requires
 // tslint:disable:no-require-imports
 import { Component, ViewEncapsulation } from '@angular/core';

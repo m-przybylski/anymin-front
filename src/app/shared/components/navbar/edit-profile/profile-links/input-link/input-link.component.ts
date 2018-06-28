@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/components';

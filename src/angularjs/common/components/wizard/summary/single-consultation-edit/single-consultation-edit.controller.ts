@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template
 import { ISingleConsultationEditComponentBindings } from './single-consultation-edit';
 import { GetWizardService, WizardTag, MoneyDto } from 'profitelo-api-ng/model/models';

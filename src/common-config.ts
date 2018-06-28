@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-any
 import { CommonConfigDEFAULT, ConfigDEFAULT } from '../generated_modules/common-config/common-config.default';
 import { CommonConfigBUILDDEV } from '../generated_modules/common-config/common-config.build-dev';

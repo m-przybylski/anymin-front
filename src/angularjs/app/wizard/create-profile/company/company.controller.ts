@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable
 import { PutWizardProfile, PartialOrganizationDetails, GetWizardProfile } from 'profitelo-api-ng/model/models';

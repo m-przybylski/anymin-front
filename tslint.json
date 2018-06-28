@@ -118,7 +118,7 @@
     "return-undefined": true,
     "space-before-function-paren": false,
     "space-within-parens": true,
-    // "strict-boolean-expressions": true, TURN ON HARD
+    "strict-boolean-expressions": true,
     "strict-type-predicates": true,
     "switch-default": true,
     "switch-final-break": true,
@@ -128,7 +128,7 @@
     "use-default-type-parameter": true,
     "use-isnan": true,
     "ban-types": [true, ["String", "Use string instead."],
-      ["Function"], ["Number", "Use number instead."], ["Number", "Use number instead."],
+      ["Function"], ["Number", "Use number instead."],
       ["Boolean", "Use boolean instead."]],
     "one-line": [true, "check-open-brace", "check-whitespace"],
     "quotemark": [true, "single"],

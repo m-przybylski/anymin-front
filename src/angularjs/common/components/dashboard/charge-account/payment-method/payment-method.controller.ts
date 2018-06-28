@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-null-keyword
 // tslint:disable:no-empty
 // tslint:disable:newline-before-return

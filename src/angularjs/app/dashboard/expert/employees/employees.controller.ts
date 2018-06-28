@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-duplicate-imports
 import { ServiceApi } from 'profitelo-api-ng/api/api';

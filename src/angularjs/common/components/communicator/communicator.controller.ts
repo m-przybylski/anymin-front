@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { ExpertCallService } from './call-services/expert-call.service';
 import { ExpertCall } from './models/current-expert-call';

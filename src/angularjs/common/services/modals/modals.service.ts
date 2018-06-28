@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template
 // tslint:disable:no-require-imports
 // tslint:disable:no-implicit-dependencies
