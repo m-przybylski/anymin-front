@@ -1,4 +1,10 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/filter/filter.service.ts[8, 4]: This overload and the one on line 6 can be combined into one signature taking `'translate' | 'normalizeTranslationKey'`.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/filter/filter.service.ts[13, 4]: This overload and the one on line 6 can be combined into one signature taking `'translate' | 'searchBoldFilter'`.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/filter/filter.service.ts[13, 4]: This overload and the one on line 8 can be combined into one signature taking `'normalizeTranslationKey' | 'searchBoldFilter'`.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/filter/filter.service.ts[25, 4]: This overload and the one on line 23 can be combined into one signature taking `'newLineFilter' | 'uuidTrimmer'`.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/classes/media-stream-constraints-wrapper.ts[33, 7]: Reassigning parameter 'currentIndex' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[66, 7]: Reassigning parameter 'item' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[28, 9]: Reassigning parameter 'url' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/new-line-filter/new-line.filter.ts[7, 5]: Reassigning parameter 'content' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/interface-language/interface-language.service.ts[52, 7]: Reassigning parameter 'inputCode' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/interface-language/interface-language.service.ts[72, 7]: Reassigning parameter 'ietfCode' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/top-alert/top-alert.service.ts[70, 5]: Reassigning parameter 'options' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/top-alert/top-alert.service.ts[83, 5]: Reassigning parameter 'options' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/top-alert/top-alert.service.ts[96, 5]: Reassigning parameter 'options' is forbidden.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/top-alert/top-alert.service.ts[109, 5]: Reassigning parameter 'options' is forbidden.
