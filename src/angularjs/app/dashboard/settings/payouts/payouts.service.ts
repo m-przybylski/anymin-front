@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { PayoutsApi, AccountApi } from 'profitelo-api-ng/api/api';
 import { GetCompanyInvoiceDetails, GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { JValue } from 'profitelo-api-ng/model/JValue';

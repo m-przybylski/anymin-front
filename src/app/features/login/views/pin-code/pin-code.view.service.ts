@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ActivatedRoute, Router } from '@angular/router';

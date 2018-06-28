@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { FileIdDto, PostFileDetails, FilesService } from '@anymind-ng/api';
 import { FileUploader } from './uploader';
 import { Observable } from 'rxjs';

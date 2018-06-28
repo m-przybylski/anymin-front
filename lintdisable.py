@@ -15,5 +15,5 @@ for line in lines:
   s.add(line[7 : line.find("[")])
 
 for line in list(s):
-  line_prepender(line, "// tslint:disable:new-parens")
+  line_prepender(line, "// tslint:disable:newline-before-return")
   print(line)

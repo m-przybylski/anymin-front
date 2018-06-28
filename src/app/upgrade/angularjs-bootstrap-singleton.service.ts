@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { UpgradeModule } from '@angular/upgrade/static';
 import { setUpLocationSync } from '@angular/router/upgrade';

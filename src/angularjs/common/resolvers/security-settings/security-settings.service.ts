@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';
 import { SessionApi } from 'profitelo-api-ng/api/api';

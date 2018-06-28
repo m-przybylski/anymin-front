@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { SearchQueryParams } from './search-query-params';
 import {
   GetSearchRequestResult, PostSuggestTags, PostSearchRequest,

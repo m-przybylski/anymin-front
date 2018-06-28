@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';
 import { IWindowService } from '../../../services/window/window.service';

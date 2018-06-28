@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Alerts, AlertService } from '@anymind-ng/components';

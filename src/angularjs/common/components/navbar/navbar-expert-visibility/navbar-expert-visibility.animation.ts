@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:member-ordering
 // tslint:disable:member-ordering
 export class NavbarExpertVisibilitAnimation {

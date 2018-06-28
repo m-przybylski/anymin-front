@@ -1,41 +1,205 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[54, 37]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/activities/activities.controller.ts[55, 33]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.controller.ts[30, 30]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/avatar-uploader/avatar-uploader.ts[19, 30]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/active-call-bar/active-call-bar.ts[8, 29]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.ts[49, 30]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/maximized.ts[23, 36]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/messenger.ts[22, 27]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/minimized/minimized.ts[10, 36]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/navigation/navigation.ts[9, 33]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/cookie-notification/cookie-notification.ts[9, 34]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[90, 27]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[113, 25]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[126, 25]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[150, 25]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[162, 25]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.ts[20, 28]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/alert/validation-alert/validation-alert.ts[14, 31]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/btn-dropdown-call/btn-dropdown-call.ts[14, 31]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/checkbox/checkbox.ts[22, 24]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/dropdown-primary/dropdown-primary.ts[35, 31]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultaiton-tag/input-consultaiton-tag.ts[26, 36]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.ts[26, 41]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-dropdown-tag/input-dropdown-tag.ts[23, 34]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-links/input-links.ts[17, 26]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-password/input-password.ts[23, 29]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.ts[25, 26]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input/input.ts[28, 28]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/loader/loader.ts[11, 22]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.ts[22, 32]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/textarea/textarea.ts[27, 31]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-expert-visibility/navbar-expert-visibility.ts[16, 38]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-help/navbar-help.ts[16, 26]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-in-menu/navbar-logged-in-menu.ts[19, 34]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-out-menu/navbar-logged-out-menu.ts[14, 35]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-notifications/navbar-notifications.ts[27, 35]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar.ts[21, 24]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search-dropdown/search-dropdown.ts[13, 30]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/single-consultation-edit/single-consultation-edit.ts[21, 40]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-handler/wizard-handler.ts[12, 29]: Parentheses are required when invoking a constructor
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-step/wizard-step.ts[21, 28]: Parentheses are required when invoking a constructor
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.config.ts[43, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[183, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.resolver.ts[43, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[122, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/activities/activities.controller.ts[156, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/activities/activities.controller.ts[168, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/expert.ts[41, 15]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payouts/payouts.service.ts[32, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[55, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.resolver.ts[29, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[121, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.controller.ts[198, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.controller.ts[200, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.controller.ts[249, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.ts[46, 13]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[44, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/classes/navigator-wrapper/navigator-wrapper.ts[50, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-call.ts[203, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-call.ts[338, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-expert-call.ts[34, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-expert-call.ts[44, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payment-method.controller.ts[31, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[151, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[154, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/charge-details/charge-details.ts[45, 3]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert.ts[12, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/navigation/navigation.ts[48, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employees.controller.ts[84, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.controller.ts[74, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[200, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[223, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[229, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[235, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[240, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.service.ts[97, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.service.ts[22, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller.ts[44, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller.ts[106, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.service.ts[22, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/navigation/navigation.ts[14, 3]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/experts-consultation-slider/experts-consultation-slider.ts[30, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.controller.ts[145, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/btn-dropdown-call/btn-dropdown-call.animation.ts[33, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/collapse-btn/collapse-btn.ts[41, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/collapse-btn/collapse-btn.ts[51, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/collapse-tab/collapse-tab.ts[24, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.controller.ts[185, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-dropdown-tag/input-dropdown-tag.controller.ts[167, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.controller.ts[69, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input/input.controller.ts[70, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.animation.ts[34, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/show-more-text/show-more-text.ts[27, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/show-more-text/show-more-text.ts[37, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[35, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-expert-visibility/navbar-expert-visibility.animation.ts[34, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.controller.ts[102, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.controller.ts[111, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-handler/wizard-handler.controller.ts[68, 13]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-handler/wizard-handler.controller.ts[70, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/lightbox-modal/lightbox-modal.ts[123, 3]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/auto-focus/auto-focus.ts[35, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/error-img/error-img.ts[26, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/get-height/get-height.ts[32, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/focus-next/focus-next.ts[18, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/local-avatar-uploader/local-avatar-uploader.ts[40, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-calendar/pro-calendar.ts[87, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[38, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[63, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[66, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/scrollable/scrollable.ts[58, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/scrollable/scrollable.ts[105, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/ng-enter/ng-enter.ts[35, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/password-strength-bar/password-strength-bar.ts[38, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[58, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/textarea-auto-height/textarea-auto-height.ts[37, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/toggle-class-on-pull-call/toggle-class-on-pull-call.ts[17, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/value-length/value-length.ts[43, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[13, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[18, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[26, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[45, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[80, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/message/message-filter.ts[89, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/ms-to-date/msToDate.ts[7, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/object-size-filter.ts[6, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/seconds-to-datetime.ts[7, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/uuid-trimmer-filter/uuid-trimmer.ts[10, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/uuid-trimmer-filter/uuid-trimmer.ts[21, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/resolvers/invoice-data/invoice-data.resolver.ts[30, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/resolvers/security-settings/security-settings.service.ts[22, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-client-activites/dashboard-client-activities.service.ts[29, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-profile-activites/dashboard-profile-activities.service.ts[29, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/interface-language/interface-language.service.ts[49, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[216, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[303, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[343, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[358, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[407, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[424, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[440, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[456, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[484, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[34, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/profitelo-websocket/profitelo-websocket.service.ts[53, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/profitelo-websocket/profitelo-websocket.service.ts[56, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/registration-invitation/registration-invitation.service.ts[22, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/search/search.service.ts[22, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/search/search.service.ts[30, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/search/search.service.ts[46, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/search/search.service.ts[55, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/session/session.service.ts[38, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[27, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[43, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[52, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[79, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[87, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[92, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/timer/timer.service.ts[76, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/top-alert/top-alert.service.ts[32, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/uploader/uploader.service.ts[115, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/core/factories/api-configuration/api-configuration.factory.ts[9, 3]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/core/services/user-session/user-session.service.ts[35, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/core/services/user-session/user-session.service.ts[49, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.guard.ts[30, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.guard.ts[33, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.guard.ts[39, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.service.ts[52, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.service.ts[57, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.service.ts[67, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.service.ts[70, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.service.ts[80, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-email/set-email.view.service.ts[84, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.guard.ts[27, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.guard.ts[30, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.guard.ts[37, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[54, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[57, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[67, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[71, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[85, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[90, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[97, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/account/views/set-password/set-password.view.service.ts[103, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/forgot-password.guard.ts[94, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/pin-code/pin-code.view.component.ts[104, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/pin-code/pin-code.view.service.ts[68, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/pin-code/pin-code.view.service.ts[73, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-email/set-new-password-from-email.view.guard.ts[25, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-email/set-new-password-from-email.view.service.ts[46, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-email/set-new-password-from-email.view.service.ts[56, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-email/set-new-password-from-email.view.service.ts[64, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-email/set-new-password-from-email.view.service.ts[69, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard.ts[33, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard.ts[39, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.service.ts[62, 13]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.service.ts[67, 13]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.service.ts[72, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.service.ts[82, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.service.ts[95, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.ts[47, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.ts[50, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.ts[60, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.ts[64, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.ts[94, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.ts[99, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[43, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[59, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[69, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[79, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[83, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[93, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[98, 9]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[114, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[122, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[127, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.ts[133, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.component.ts[107, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.ts[61, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.ts[77, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.ts[82, 11]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.ts[87, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/unsupported/unsupported.guard.ts[25, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/file-uploader/file-uploader.component.service.ts[41, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/file-uploader/file-uploader.component.ts[173, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/file-uploader/file-uploader.component.ts[175, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/file-uploader/file-uploader.component.ts[228, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/input-set-password/input-set-password.component.ts[53, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/input-set-password/input-set-password.component.ts[58, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.service.ts[66, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.service.ts[75, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/navbar-company-menu/navbar-company-menu.component.ts[73, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/navbar-expert-menu/navbar-expert-menu.component.ts[77, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/navbar-user-avatar/navbar-user-avatar.component.ts[66, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/navbar-user-menu/navbar-user-menu.component.ts[58, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/guards/msisdn/msisdn.guard.ts[21, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/guards/msisdn/msisdn.guard.ts[30, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/guards/session/session.guard.ts[24, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/guards/session/session.guard.ts[33, 7]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/navbar-menu-service/navbar-menu.service.ts[36, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/navbar-menu-service/navbar-menu.service.ts[51, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/pin-code-timer/pin-code.timer.service.ts[18, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/registration-invitation/registration-invitation.service.ts[26, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/uploader/uploader.service.ts[50, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/uploader/uploader.service.ts[142, 5]: Missing blank line before return
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/upgrade/angularjs-bootstrap-singleton.service.ts[23, 7]: Missing blank line before return

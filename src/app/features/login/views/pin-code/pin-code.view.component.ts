@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetRegistrationSession, RegistrationService } from '@anymind-ng/api';

@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import commonSettingsModule from '../../services/common-settings/common-settings';
 import { keyboardCodes } from '../../classes/keyboard';

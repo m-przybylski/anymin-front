@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 

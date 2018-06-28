@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 /* tslint:disable:  no-magic-numbers */
 
 import * as angular from 'angular';

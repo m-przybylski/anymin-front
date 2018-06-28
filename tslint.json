@@ -49,7 +49,7 @@
       ]}
     ],
     "new-parens": true,
-    // "newline-before-return": true,
+    "newline-before-return": true,
     // "no-angle-bracket-type-assertion": true,
     // "no-any": true,
     "no-bitwise": true,

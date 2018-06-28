@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:curly
 import { IInputComponentBindings } from './input';
 import { keyboardCodes } from '../../../classes/keyboard';

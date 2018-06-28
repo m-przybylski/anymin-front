@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 
 function filter(): (seconds: number) => Date {

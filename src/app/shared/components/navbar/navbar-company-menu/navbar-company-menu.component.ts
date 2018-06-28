@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Animations } from '@anymind-ng/components';

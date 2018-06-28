@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:new-parens
 // tslint:disable:curly
 import { GetProfileActivity, GetActivityFilters } from 'profitelo-api-ng/model/models';

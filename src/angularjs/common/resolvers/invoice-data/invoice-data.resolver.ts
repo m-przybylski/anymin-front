@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import ILogService = angular.ILogService;
 import { GetCompanyInvoiceDetails } from 'profitelo-api-ng/model/models';

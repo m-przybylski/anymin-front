@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:curly
 import { IInputPriceComponentBindings } from './input-price';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';

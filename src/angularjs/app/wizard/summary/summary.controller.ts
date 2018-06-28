@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:max-file-line-count
 import {
   GetWizardProfile,

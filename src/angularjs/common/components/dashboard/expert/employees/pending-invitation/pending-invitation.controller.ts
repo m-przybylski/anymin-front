@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:curly
 import { IPendingInvitationComponentBindings } from './pending-invitation';
 import { InvitationApi } from 'profitelo-api-ng/api/api';

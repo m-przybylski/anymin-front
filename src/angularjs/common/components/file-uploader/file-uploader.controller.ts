@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:curly
 import { IFileUploaderModuleComponentBindings } from './file-uploader';
 import { UploaderFactory } from '../../services/uploader/uploader.factory';

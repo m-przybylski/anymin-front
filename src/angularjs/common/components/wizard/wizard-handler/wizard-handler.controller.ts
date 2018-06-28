@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { IWizardHandlerComponentBindings } from './wizard-handler';
 import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';
 // tslint:disable-next-line:import-blacklist

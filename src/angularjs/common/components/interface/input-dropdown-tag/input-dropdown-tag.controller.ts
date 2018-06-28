@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:curly
 import * as angular from 'angular';
 import { InputDropdownTagComponentBindings } from './input-dropdown-tag';

@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';

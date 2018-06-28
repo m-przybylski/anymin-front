@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { ICompanyProfileStateParams } from './company-profile';
 import { ViewsApi } from 'profitelo-api-ng/api/api';

@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { IInvitationObject } from '../../../../angularjs/app/invitations/invitation.interface';
 import { LocalStorageWrapperService } from '../local-storage/local-storage.service';
 import { LoggerService } from '@anymind-ng/core';

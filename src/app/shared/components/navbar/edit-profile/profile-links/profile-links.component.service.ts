@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 
 interface IShortLink {

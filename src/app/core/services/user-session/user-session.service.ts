@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { GetSession, LoginCredentials, SessionService } from '@anymind-ng/api';
 import { ApiKeyService } from '../api-key/api-key.service';

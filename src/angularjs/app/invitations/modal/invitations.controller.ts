@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:curly
 import {
   GetInvitation, GetServiceTags, GetProfileWithServicesInvitations,

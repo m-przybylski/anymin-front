@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { ActivitiesQueryParams } from './activities-query-params';

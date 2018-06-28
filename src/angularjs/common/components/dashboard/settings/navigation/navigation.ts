@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { UserService } from '../../../../services/user/user.service';
 import * as angular from 'angular';
 import userModule from '../../../../services/user/user';

@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 // tslint:disable:member-ordering
 // tslint:disable:no-use-before-declare
 export class SmoothScrollingService {
