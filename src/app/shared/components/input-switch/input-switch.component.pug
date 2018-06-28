@@ -1,5 +1,7 @@
 .input-switch
-  label.input-switch__label
+  span.input-switch__status-text.input-switch__status-text--on(*ngIf="isInputChecked && turnOnTrKey && turnOffTrKey", [translate]="turnOnTrKey")
+  span.input-switch__status-text.input-switch__status-text--off(*ngIf="!isInputChecked && turnOnTrKey && turnOffTrKey", [translate]="turnOffTrKey")
+  label.input-switch__label((click)="onSwitcherClick($event)")
     .input-switch__switcher-container
       input(
         type="checkbox",

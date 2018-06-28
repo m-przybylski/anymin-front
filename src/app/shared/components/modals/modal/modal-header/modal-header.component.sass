@@ -12,7 +12,7 @@
 		display: flex
 		justify-content: space-between
 		align-items: center
-		box-shadow: 0 1px 2px 0 $c-boxshadow-header-modal
+		border-bottom: 1px solid $c-boxshadow-header-modal
 		margin: auto
 		position: fixed
 		width: inherit
@@ -79,8 +79,10 @@
 
 		&__title
 			+subtitle
+			color: $c-text-secondary
 			text-align: center
 			flex: 1
 
 			p
 				+subtitle
+				color: $c-text-secondary

@@ -18,6 +18,9 @@ export class SettingOptionComponent {
   public buttonText: string;
 
   @Input()
+  public tooltipTrText: string;
+
+  @Input()
   public buttonHandler: () => {};
 
   constructor() {
