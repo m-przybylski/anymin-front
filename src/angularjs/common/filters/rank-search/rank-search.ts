@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 // tslint:disable:no-any
 /* tslint:disable:  no-magic-numbers */
 

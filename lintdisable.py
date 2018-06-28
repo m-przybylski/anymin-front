@@ -15,5 +15,5 @@ for line in lines:
   s.add(line[7 : line.find("[")])
 
 for line in list(s):
-  line_prepender(line, "// tslint:disable:no-var-requires")
+  line_prepender(line, "// tslint:disable:only-arrow-functions")
   print(line)

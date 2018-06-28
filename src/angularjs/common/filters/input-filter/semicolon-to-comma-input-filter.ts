@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 import * as angular from 'angular';
 
 function semicolonToCommaInputFilter(): (input: string) => string {

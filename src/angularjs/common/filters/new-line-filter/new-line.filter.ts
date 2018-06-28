@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 import * as angular from 'angular';
 
 function filter($sce: ng.ISCEService): (content: string) => string {

@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 // tslint:disable:no-require-imports
 // tslint:disable:no-duplicate-imports
 // tslint:disable:no-any

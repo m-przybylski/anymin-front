@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 // tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 import * as angular from 'angular';

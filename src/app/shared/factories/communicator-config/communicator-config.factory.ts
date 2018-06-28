@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 import { Config } from 'ratel-sdk-js';
 import { CommonConfig } from '../../../../common-config';
 

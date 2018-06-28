@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
