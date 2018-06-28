@@ -6,7 +6,7 @@ import { LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
 import { ExpertCall } from '../models/current-expert-call';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean;
@@ -80,13 +80,9 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     if (this.currentCall) {
       if (this.isVideo) {
         this.isVideo = false;
-        this.currentCall.stopVideo().then(() => {
+        this.currentCall.stopVideo();
           this.logger.debug('NavigationComponentController: Video stopped successfully - calling turnOnSecondCamera');
           this.turnOnSecondCamera();
-        }, (err) => {
-          this.logger.error('NavigationComponentController: Could not stop the video', err);
-          this.isVideo = true;
-        });
       } else {
         this.logger.debug('NavigationComponentController: Video is stopped - calling turnOnSecondCamera');
         this.turnOnSecondCamera();
@@ -101,12 +97,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
       this.logger.debug('NavigationComponentController: Starting the audio');
       if (!this.isAudio) {
         this.isAudio = true;
-        this.currentCall.startAudio().then(
-          () => this.logger.debug('NavigationComponentController: Audio started'),
-          (err) => {
-            this.isAudio = false;
-            this.logger.debug('NavigationComponentController: Starting the audio failed', err);
-          });
+        this.currentCall.unmute();
       } else {
         this.logger.error('NavigationComponentController: Cannot start audio - audio is already started');
       }
@@ -120,7 +111,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     if (this.currentCall) {
       if (this.isAudio) {
         this.isAudio = false;
-        this.currentCall.stopAudio();
+        this.currentCall.mute();
         this.logger.debug('NavigationComponentController: Audio stopped successfully');
       } else {
         this.logger.error('NavigationComponentController: Cannot stop audio - audio is already stopped');
@@ -135,12 +126,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     if (this.currentCall) {
       if (this.isVideo) {
         this.isVideo = false;
-        this.currentCall.stopVideo().then(
-          () => this.logger.debug('NavigationComponentController: Video stopped'),
-          (err) => {
-            this.isVideo = true;
-            this.logger.error('NavigationComponentController: Cannot stop the video', err);
-          });
+        this.currentCall.stopVideo();
       } else {
         this.logger.error('NavigationComponentController: Cannot stop the video - video is already stopped');
       }

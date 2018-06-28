@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Animations } from '@anymind-ng/components';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { NavbarMenuService }
 from '../../../services/navbar-menu-service/navbar-menu.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';

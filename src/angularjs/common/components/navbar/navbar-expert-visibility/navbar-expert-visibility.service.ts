@@ -1,8 +1,7 @@
 import { PresenceApi } from 'profitelo-api-ng/api/api';
 import { GetExpertVisibility, Function1RequestContextFutureRouteResult } from 'profitelo-api-ng/model/models';
 import { ProfiteloWebsocketService } from '../../../services/profitelo-websocket/profitelo-websocket.service';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject, Subscription } from 'rxjs';
 
 export interface IExpertPresenceUpdate {
   status: GetExpertVisibility.VisibilityEnum;

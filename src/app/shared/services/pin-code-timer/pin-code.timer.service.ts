@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
 import { CommonConfig } from '../../../../common-config';

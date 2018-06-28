@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Alerts, AlertService } from '@anymind-ng/components';
 import { LoggerService } from '@anymind-ng/core';
-
-const DetectRTC = require('detectrtc');
+import { BrowserUtils } from 'ratel-sdk-js';
 
 @Injectable()
 export class UnsupportedGuard implements CanActivate {
-
-  private readonly facebookBrowserName = 'is[FB_IAB/Orca-Android;FBAV';
 
   constructor(private router: Router,
               private logger: LoggerService,
@@ -16,7 +13,7 @@ export class UnsupportedGuard implements CanActivate {
   }
 
   public canActivate(): boolean {
-    if (DetectRTC.browser[this.facebookBrowserName] || (DetectRTC.osName !== 'iOS' && DetectRTC.browser.isChrome)) {
+    if (BrowserUtils.isBrowserSupported()) {
       return true;
     } else {
       this.router.navigate(['/unsupported']).then(isRedirectSuccessful => {

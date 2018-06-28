@@ -2,7 +2,6 @@ import { LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../classes/navigator-wrapper/navigator-wrapper';
 const DetectRTC = require('detectrtc');
 import { ModalsService } from '../modals/modals.service';
-import { MediaStreamConstraintsWrapper } from '../../classes/media-stream-constraints-wrapper';
 
 // tslint:disable:member-ordering
 export class RtcDetectorService {
@@ -55,7 +54,7 @@ export class RtcDetectorService {
 
     this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay);
 
-    this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault()).then((stream) => {
+    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.audioConstraints).then((stream) => {
       this.instanceModal.close('cancel');
       resolve(stream);
     }, (err) => {

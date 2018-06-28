@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from '@anymind-ng/components';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, map } from 'rxjs/operators';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';

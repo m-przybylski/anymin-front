@@ -6,7 +6,7 @@ import { FormUtilsService } from '@anymind-ng/components';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { InputSetPasswordErrors } from '../../../../shared/components/input-set-password/input-set-password.component';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './set-password.view.component.html',

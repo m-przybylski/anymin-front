@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import * as RatelSdk from 'ratel-sdk-js'
+import { callEvents } from 'ratel-sdk-js'
 import userModule from '../../../services/user/user'
 import {ExpertCallService} from './expert-call.service'
 import Calls = jasmine.Calls
@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.services.call >', () => {
   describe('for expert call service >', () => {
 
     let expertCallService: ExpertCallService
-    let onCallInvitation: (callInvitation: RatelSdk.events.CallInvitation) => void
+    let onCallInvitation: (callInvitation: callEvents.Invited) => void
     const modalsService = {
       createClientConsultationSummaryModal: (): void => {
       },

@@ -1,5 +1,5 @@
 import { MoneyDto } from 'profitelo-api-ng/model/models';
-import { Message } from 'ratel-sdk-js';
+import { roomEvents } from 'ratel-sdk-js';
 
 export interface IFilterService extends ng.IFilterService {
   (name: 'translate'): (translationId: string, interpolateParams?: any, interpolation?: string) => string;
@@ -17,7 +17,7 @@ export interface IFilterService extends ng.IFilterService {
 
   (name: 'money'): (translationId: MoneyDto, interpolateParams?: any, interpolation?: string) => string;
 
-  (name: 'message'): (message: Message, interpolateParams?: any, interpolation?: string) => string;
+  (name: 'message'): (message: roomEvents.CustomMessageSent, interpolateParams?: any, interpolation?: string) => string;
 
   (name: 'newLineFilter'): (content: string) => string;
 

@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Alerts, AlertService } from '@anymind-ng/components';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { empty } from 'rxjs/observable/empty';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { ActiveCallBarService } from './active-call-bar.service';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 export class ActiveCallBarComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy {
 

@@ -1,7 +1,7 @@
 import { IExpertPresenceUpdate, NavbarExpertVisibilityService } from './navbar-expert-visibility.service';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
 import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 // tslint:disable:member-ordering
 export class NavbarExpertVisibilityComponentController implements ng.IController {

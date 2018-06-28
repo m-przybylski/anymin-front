@@ -10,9 +10,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler/error-ha
 import {
   ConsultationSummaryExpertService, IComplaintReason
 } from './consultation-summary-expert.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {

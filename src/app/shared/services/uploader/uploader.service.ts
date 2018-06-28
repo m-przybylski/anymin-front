@@ -1,6 +1,6 @@
 import { FileIdDto, PostFileDetails, FilesService } from '@anymind-ng/api';
 import { FileUploader } from './uploader';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CommonConfig } from '../../../../common-config';
 import { Injectable } from '@angular/core';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';

@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 // tslint:disable:member-ordering
 export class NavbarNotificationsService {

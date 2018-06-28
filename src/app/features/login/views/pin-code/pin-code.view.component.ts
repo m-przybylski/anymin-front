@@ -7,10 +7,10 @@ import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '
 import { PinCodeViewService, PinCodeServiceStatus } from './pin-code.view.service';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './pin-code.view.html',

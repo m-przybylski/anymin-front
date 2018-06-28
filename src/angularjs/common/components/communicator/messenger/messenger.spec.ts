@@ -3,8 +3,7 @@ import { CommunicatorService } from '@anymind-ng/core';
 import { IMessengerComponentBindings, default as messengerModule } from './messenger';
 import soundsModule from '../../../services/sounds/sounds';
 import { MessengerComponentController } from './messenger.controller';
-import { empty } from 'rxjs/observable/empty';
-import { ExpertCallService } from '../call-services/expert-call.service';
+import { EMPTY } from 'rxjs';
 import loggerMockModule from '../../../services/logger/logger.mock';
 
 describe('Unit testing: profitelo.components.communicator.messenger', () =>
@@ -15,8 +14,8 @@ describe('Unit testing: profitelo.components.communicator.messenger', () =>
     let component: MessengerComponentController;
 
     const expertCallService = {
-      newCall$: empty()
-    } as ExpertCallService;
+      newCall$: EMPTY
+    };
 
     const validHTML =
       '<messenger call-length="callLength" call-cost="callCost" is-messenger="isMessenger"></messenger>';
@@ -27,8 +26,8 @@ describe('Unit testing: profitelo.components.communicator.messenger', () =>
 
     const communicatorService: CommunicatorService = <any>{
       onActiveCall: (): void => {},
-      connectionEstablishedEvent$: empty(),
-      connectionLostEvent$: empty()
+      connectionEstablishedEvent$: EMPTY,
+      connectionLostEvent$: EMPTY
     };
 
     function create(html: string, bindings: IMessengerComponentBindings): JQuery {

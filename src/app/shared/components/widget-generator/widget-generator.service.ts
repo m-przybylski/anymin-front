@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ExpertProfileView, GetWidget, ViewsService, WidgetService } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { OrganizationProfileView } from '@anymind-ng/api/model/organizationProfileView';
 
 @Injectable()

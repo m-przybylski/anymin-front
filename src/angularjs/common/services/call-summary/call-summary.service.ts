@@ -2,8 +2,7 @@ import { CallSummary, ICallSummaryWebsocketObject } from '../../models/CallSumma
 import { ProfiteloWebsocketService } from '../profitelo-websocket/profitelo-websocket.service';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { GetCallDetails } from 'profitelo-api-ng/model/models';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subscription } from 'rxjs/Subscription';
+import { ReplaySubject, Subscription } from 'rxjs';
 
 export class CallSummaryService {
   public static $inject = ['ViewsApi', 'profiteloWebsocket'];

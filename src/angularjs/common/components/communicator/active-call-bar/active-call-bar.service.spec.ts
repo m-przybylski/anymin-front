@@ -1,17 +1,16 @@
 import * as angular from 'angular';
 import { ActiveCallBarService } from './active-call-bar.service';
-import { ExpertCallService } from '../call-services/expert-call.service';
 import activeCallBarModule from './active-call-bar';
 import loggerMockModule from '../../../services/logger/logger.mock';
 import communicatorMockModule from '../communicator.mock';
-import { empty } from 'rxjs/observable/empty';
+import { EMPTY } from 'rxjs';
 
 describe('Unit testing: profitelo.components.communicator.active-call-bar >', () => {
   describe('for active-call-bar service >', () => {
 
-    const expertCallService: ExpertCallService = {
-      pullableCall$: empty()
-    } as ExpertCallService;
+    const expertCallService: any = {
+      pullableCall$: EMPTY
+    };
 
     const eventsService = {
       on: (_event: string, callback: () => void) => callback()

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, Output, OnDestroy, OnInit } from '@angular/core';
 import { GetFileInfo, PostFileDetails } from '@anymind-ng/api';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
-import { Subject } from 'rxjs/Subject';
+import { Subject, Observable } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { IUploadFileInfo, UploaderService } from '../../services/uploader/uploader.service';
@@ -11,7 +11,6 @@ import {
   IFileValidationValues
 } from './file-uploader.component.service';
 import { empty } from 'rxjs/observable/empty';
-import { Observable } from 'rxjs/Observable';
 import { Animations } from '../../animations/animations';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FileCategoryEnum } from '../../services/uploader/file-type-checker';

@@ -1,8 +1,7 @@
 import { UserService } from '../user/user.service';
 import { EventsService } from '../events/events.service';
 import { ICallSummaryWebsocketObject } from '../../models/CallSummary';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject, Subscription } from 'rxjs';
 import {
   IExpertPresenceUpdate
 }

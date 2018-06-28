@@ -5,7 +5,7 @@ import { SetEmailViewService, SetEmailStatus } from './set-email.view.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './set-email.view.component.html',

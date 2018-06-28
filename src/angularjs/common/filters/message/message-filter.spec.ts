@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {IFilterService} from '../../services/filter/filter.service'
 import {UrlService} from '../../services/url/url.service'
-import {Message} from 'ratel-sdk-js'
+import {roomEvents} from 'ratel-sdk-js'
 
 describe('Unit testing: profitelo.filters.message-filter>', () => {
   describe('for message >', () => {
@@ -27,10 +27,17 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
     }))
 
     it('should return message', () => {
-      const messageObject: Message  = <Message>{
+      const messageObject: roomEvents.CustomMessageSent  = <roomEvents.CustomMessageSent>{
         type: 'message',
-        id: 'asdasd',
+        subtag: 'MESSAGE',
+        roomId: '123',
+        messageId: 'asdasd',
+        tag: '123',
+        __discriminator__: '123',
+        authorId: '123',
+        timestamp: 123,
         body: 'asdasdasd',
+        message: 'asd',
         context: {
           content: 'asdasdasd',
           mimeType: 'plain/text'
@@ -41,15 +48,22 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
 
     it('should return html link element', () => {
 
-      const messageObject: Message  = <Message>{
+      const messageObject: roomEvents.CustomMessageSent  = <roomEvents.CustomMessageSent>{
         type: 'message',
-        id: 'asdasd',
+        subtag: 'MESSAGE',
+        roomId: '123',
+        messageId: 'asdasd',
+        tag: '123',
+        __discriminator__: '123',
+        authorId: '123',
+        timestamp: 123,
+        body: 'asdasdasd',
+        message: 'asd',
         context: {
-          content: 'asasas',
-          type: 'plain/text'
-        },
-        body: 'asdasdasd'
-      }
+          content: 'asdasdasd',
+          mimeType: 'plain/text'
+        }
+      };
       const simpleUrl = 'www.kwejk.pl'
       const complexUrl = 'https://www.kołding.pl/search?q=angular3.0&&aqs=chrome.0.69i59j69i57j0l4.766j0j7&sourceid=chrome&ie=UTF-8'
 
@@ -63,14 +77,21 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
     })
 
     it('should return html img element', () => {
-      const messageObject: Message  = <Message>{
+      const messageObject: roomEvents.CustomMessageSent  = <roomEvents.CustomMessageSent>{
         type: 'message',
-        id: 'asdasd',
+        subtag: 'MESSAGE',
+        roomId: '123',
+        messageId: 'asdasd',
+        tag: '123',
+        __discriminator__: '123',
+        authorId: '123',
+        timestamp: 123,
+        body: 'asdasdasd',
+        message: 'asd',
         context: {
-          content: 'asasas',
-          type: 'plain/text'
-        },
-        body: 'asdasdasd'
+          content: 'asdasdasd',
+          mimeType: 'plain/text'
+        }
       }
       const jpg = 'www.zabawneobrazki.pl/asdasdasdasd.jpg'
       const png = 'http://www.kołczingdlaopornych.pl/człowieksukcesu.png'
