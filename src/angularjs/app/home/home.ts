@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import * as angular from 'angular';
 import sessionModule from '../../common/services/session/session';
 import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling';

@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { IPendingInvitationComponentBindings } from './pending-invitation';
 import { InvitationApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';

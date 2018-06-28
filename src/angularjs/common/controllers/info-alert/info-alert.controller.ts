@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { TranslatorService } from '../../services/translator/translator.service';
 
 export interface IInfoAlertScope extends ng.IScope {

@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { IVoiceVolumeBarComponentBindings } from './voice-volume-bar';
 import { VolumeMeterService, IProcessor } from '../../../services/volume-meter/volume-meter.service';
 

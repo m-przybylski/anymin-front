@@ -1,3 +1,4 @@
+// tslint:disable:curly
 // tslint:disable:member-ordering
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

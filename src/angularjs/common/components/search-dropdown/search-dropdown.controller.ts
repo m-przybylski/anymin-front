@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { SearchService } from '../../services/search/search.service';
 import { keyboardCodes } from '../../classes/keyboard';
 import { StateService } from '@uirouter/angularjs';

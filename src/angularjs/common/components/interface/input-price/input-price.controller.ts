@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { IInputPriceComponentBindings } from './input-price';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 import { keyboardCodes } from '../../../classes/keyboard';

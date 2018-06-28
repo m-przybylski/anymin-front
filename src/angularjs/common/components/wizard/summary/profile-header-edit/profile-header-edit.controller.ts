@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { GetExpertDetails, ProfileDocument } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../../services/modals/modals.service';
 

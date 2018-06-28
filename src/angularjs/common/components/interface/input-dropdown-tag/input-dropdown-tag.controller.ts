@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import * as angular from 'angular';
 import { InputDropdownTagComponentBindings } from './input-dropdown-tag';
 // tslint:disable-next-line:import-blacklist

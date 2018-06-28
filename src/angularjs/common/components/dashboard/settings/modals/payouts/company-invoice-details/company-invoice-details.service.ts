@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { AccountApi } from 'profitelo-api-ng/api/api';
 import { GetCompanyInvoiceDetails, PostCompanyInvoiceDetails } from 'profitelo-api-ng/model/models';
 import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';

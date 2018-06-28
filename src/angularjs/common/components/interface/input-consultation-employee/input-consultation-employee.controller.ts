@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { IInputConsultationEmployeeBindings } from './input-consultation-employee';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 import { UserService } from '../../../services/user/user.service';

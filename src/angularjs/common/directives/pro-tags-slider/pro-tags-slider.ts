@@ -1,3 +1,4 @@
+// tslint:disable:curly
 // TODO should be refactor to component: https://git.contactis.pl/itelo/profitelo/issues/1000
 import * as angular from 'angular';
 import { GetTag } from 'profitelo-api-ng/model/models';

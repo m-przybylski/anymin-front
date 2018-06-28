@@ -14,7 +14,7 @@
     "ban-comma-operator": true,
     "binary-expression-operand-order": true,
     "callable-types": true,
-    // "curly": true,
+    "curly": true,
     "cyclomatic-complexity": [true, 6],
     // "deprecation": true,
     "import-blacklist": [true, "lodash", "rxjs/Observable", "rxjs/ReplaySubject", "rxjs/Subscription"],

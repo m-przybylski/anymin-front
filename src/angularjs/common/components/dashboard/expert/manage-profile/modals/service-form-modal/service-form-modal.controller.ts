@@ -1,3 +1,4 @@
+// tslint:disable:curly
 // tslint:disable:member-ordering
 // tslint:disable:max-file-line-count
 import { UserService } from '../../../../../../services/user/user.service';

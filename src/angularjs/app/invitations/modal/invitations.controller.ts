@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import {
   GetInvitation, GetServiceTags, GetProfileWithServicesInvitations,
   GetServiceWithInvitation, GetTag

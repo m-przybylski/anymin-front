@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { GetProfileActivity, GetActivityFilters } from 'profitelo-api-ng/model/models';
 import {
   DashboardProfileActivitiesService

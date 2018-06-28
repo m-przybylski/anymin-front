@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import * as angular from 'angular';
 import { INavbarComponentBindings } from './navbar';
 import { UserService } from '../../services/user/user.service';

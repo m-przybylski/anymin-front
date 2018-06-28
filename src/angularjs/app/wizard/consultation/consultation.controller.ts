@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import { WizardApi } from 'profitelo-api-ng/api/api';
 import { GetWizardProfile, MoneyDto, GetWizardService, WizardTag } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../common/services/user/user.service';

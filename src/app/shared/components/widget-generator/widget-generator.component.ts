@@ -64,7 +64,9 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public selectRadio = (value: string): void => {
     this.radioModel = value;
-    if (this.bodyScript) this.bodyScript = this.generateBodyCode(this.widgetId);
+    if (this.bodyScript) {
+      this.bodyScript = this.generateBodyCode(this.widgetId);
+    }
   }
 
   public selectType = (value: string): void => {
@@ -131,7 +133,9 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public onClickGenerateButton = (expertId?: string, serviceId?: string): void => {
     this.setButtonClicked();
-    if (!this.isGenerateButtonDisabled()) this.generateWidgetCode(expertId, serviceId);
+    if (!this.isGenerateButtonDisabled()) {
+      this.generateWidgetCode(expertId, serviceId);
+    }
   }
 
   private clearButtonClicked = (): void => {

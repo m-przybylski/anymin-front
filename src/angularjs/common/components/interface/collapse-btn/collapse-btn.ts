@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import * as angular from 'angular';
 import { IWindowService } from '../../../services/window/window.service';
 

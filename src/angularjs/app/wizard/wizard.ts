@@ -1,3 +1,4 @@
+// tslint:disable:curly
 import * as angular from 'angular';
 import 'angular-touch';
 import 'angular-permission';
