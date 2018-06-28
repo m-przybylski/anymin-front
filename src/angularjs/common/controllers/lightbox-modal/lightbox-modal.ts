@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:only-arrow-functions
 // tslint:disable:no-shadowed-variable

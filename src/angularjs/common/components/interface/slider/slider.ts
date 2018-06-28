@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:readonly-array
 // tslint:disable:only-arrow-functions
 // tslint:disable:no-invalid-this

@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:prefer-template
 // tslint:disable:only-arrow-functions
 // tslint:disable:no-duplicate-imports

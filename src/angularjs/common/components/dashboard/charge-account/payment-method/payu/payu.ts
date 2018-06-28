@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-require-imports

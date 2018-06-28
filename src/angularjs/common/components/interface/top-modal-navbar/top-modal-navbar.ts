@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:no-require-imports
 // tslint:disable:no-invalid-this
 import * as angular from 'angular';

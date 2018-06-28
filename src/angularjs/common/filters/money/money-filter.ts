@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template
 // tslint:disable:only-arrow-functions

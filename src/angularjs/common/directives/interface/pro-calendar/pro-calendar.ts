@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:only-arrow-functions
 // tslint:disable:no-require-imports
 // tslint:disable:no-null-keyword

@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 // tslint:disable:readonly-array
 // tslint:disable:prefer-method-signature
 // tslint:disable:no-shadowed-variable
