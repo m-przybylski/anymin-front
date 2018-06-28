@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { NgModule } from '@angular/core';
 import { ForgotPasswordRoutingModule } from './forgot-password.routing.module';
 import { ReactiveFormsModule } from '@angular/forms';

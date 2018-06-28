@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { IDashboardExpertComplainsListBindings } from './complains-list';
 
 // tslint:disable:member-ordering

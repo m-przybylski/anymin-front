@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { NgModule } from '@angular/core';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 import { AngularJsComponent } from './angularjs.component';

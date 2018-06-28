@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { Component } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 

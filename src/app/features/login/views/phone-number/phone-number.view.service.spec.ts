@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { TestBed } from '@angular/core/testing';
 import { PhoneNumberViewService } from './phone-number.view.service';
 import { GetRegistrationStatus, RegistrationService } from '@anymind-ng/api';

@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 // tslint:disable:no-any
 import { IInputLinksComponentBindings } from './input-links';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';

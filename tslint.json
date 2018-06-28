@@ -60,7 +60,7 @@
     "no-construct": true,
     "no-duplicate-imports": true,
     "no-duplicate-super": true,
-    // "no-empty": true,
+    "no-empty": true,
     // "no-empty-interface": true,
     "no-floating-promises": true,
     "no-for-in-array": true,

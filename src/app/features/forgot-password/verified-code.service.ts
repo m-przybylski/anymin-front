@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 export class VerifiedCodeService {
 
   private verifiedCode?: string;

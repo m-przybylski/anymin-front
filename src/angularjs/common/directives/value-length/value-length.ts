@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 // tslint:disable:newline-before-return
 // tslint:disable:curly
 import * as angular from 'angular';

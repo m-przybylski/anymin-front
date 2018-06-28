@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { PaymentLink } from 'profitelo-api-ng/model/models';

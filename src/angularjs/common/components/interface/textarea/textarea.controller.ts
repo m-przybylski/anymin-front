@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { ITextareaComponentBindings } from './textarea';
 
 // tslint:disable:member-ordering

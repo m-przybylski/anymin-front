@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 export type LocalStorageKeyName = 'invitation' | 'accepted-consultations';
 
 // tslint:disable:member-ordering

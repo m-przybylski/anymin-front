@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { async, TestBed } from '@angular/core/testing';
 import { PhoneNumberViewComponent } from './phone-number.view.component';
 import { PhoneNumberViewService } from './phone-number.view.service';

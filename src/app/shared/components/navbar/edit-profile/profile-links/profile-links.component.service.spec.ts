@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ProfileLinksComponentService } from './profile-links.component.service';

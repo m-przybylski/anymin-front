@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { IInputPasswordComponentBindings } from './input-password';
 
 // tslint:disable:member-ordering

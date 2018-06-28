@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { PriceSearchParam } from 'profitelo-api-ng/model/models';
 
 export type ServiceType =  'ORG' | 'EXP';

@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { GetClientActivity } from 'profitelo-api-ng/model/models';
 
 export class ActivitiesQueryParams {

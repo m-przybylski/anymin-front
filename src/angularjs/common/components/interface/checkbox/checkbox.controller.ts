@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { ICheckboxComponentBindings } from './checkbox';
 
 // tslint:disable:member-ordering

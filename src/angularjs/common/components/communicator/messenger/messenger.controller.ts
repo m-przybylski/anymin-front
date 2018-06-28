@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { IMessengerComponentBindings } from './messenger';
 
 // tslint:disable:member-ordering

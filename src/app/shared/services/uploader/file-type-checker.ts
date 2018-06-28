@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 export enum FileCategoryEnum {
   AVATAR,
   EXPERT_FILE
