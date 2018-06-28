@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import { IExpertNavigationComponentBindings } from './navigation';
 import { FinancesApi } from 'profitelo-api-ng/api/api';
 import { MoneyDto } from 'profitelo-api-ng/model/models';

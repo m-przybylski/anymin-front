@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import {
   Component, Input
 } from '@angular/core';

@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { IExpertEmployeeComponentBindings } from './employee';
 import { EmploymentApi } from 'profitelo-api-ng/api/api';

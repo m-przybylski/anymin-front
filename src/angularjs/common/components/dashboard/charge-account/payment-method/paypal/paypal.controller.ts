@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { IPayPalPaymentFormComponentBindings } from './paypal';
 import { PaymentsApi } from 'profitelo-api-ng/api/api';

@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:curly
 import { WizardApi } from 'profitelo-api-ng/api/api';
 import { GetWizardProfile, MoneyDto, GetWizardService, WizardTag } from 'profitelo-api-ng/model/models';

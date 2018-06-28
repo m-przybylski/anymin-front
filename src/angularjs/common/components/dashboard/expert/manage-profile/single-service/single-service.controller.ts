@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { ISingleServiceComponentBindings } from './single-service';
 import { UserService } from '../../../../../services/user/user.service';

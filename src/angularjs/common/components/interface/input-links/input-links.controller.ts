@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-empty
 // tslint:disable:no-any
 import { IInputLinksComponentBindings } from './input-links';

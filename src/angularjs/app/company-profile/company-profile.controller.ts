@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { ICompanyProfileStateParams } from './company-profile';
 import { ProfileApi } from 'profitelo-api-ng/api/api';

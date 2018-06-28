@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { GetTechnicalProblem } from 'profitelo-api-ng/model/models';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';

@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 // tslint:disable:curly
 import { IInputConsultationTagBindings } from './input-consultaiton-tag';

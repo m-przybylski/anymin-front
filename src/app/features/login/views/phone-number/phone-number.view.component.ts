@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PhoneNumberServiceStatus, PhoneNumberViewService } from './phone-number.view.service';

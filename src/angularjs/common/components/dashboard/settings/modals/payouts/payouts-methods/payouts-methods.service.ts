@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:newline-before-return
 // tslint:disable:curly
 import { JValue } from 'profitelo-api-ng/model/JValue';

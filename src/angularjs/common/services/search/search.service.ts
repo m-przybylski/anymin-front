@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:newline-before-return
 import { SearchQueryParams } from './search-query-params';
 import {

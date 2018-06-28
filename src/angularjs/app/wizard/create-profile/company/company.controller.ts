@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import { PutWizardProfile, PartialOrganizationDetails, GetWizardProfile } from 'profitelo-api-ng/model/models';
 import { WizardApi } from 'profitelo-api-ng/api/api';
 import { StateService } from '@uirouter/angularjs';

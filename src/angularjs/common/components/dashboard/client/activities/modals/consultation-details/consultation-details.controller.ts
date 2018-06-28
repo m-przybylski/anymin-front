@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 // tslint:disable:deprecation
 import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';

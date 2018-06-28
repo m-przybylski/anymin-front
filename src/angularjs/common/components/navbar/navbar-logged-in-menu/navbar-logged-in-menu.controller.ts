@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import * as angular from 'angular';
 import { INavbarLoggedInMenuComponentBindings } from './navbar-logged-in-menu';
 import { UserService } from '../../../services/user/user.service';

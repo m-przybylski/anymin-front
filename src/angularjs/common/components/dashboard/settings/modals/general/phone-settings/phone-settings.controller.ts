@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-empty
 // tslint:disable:deprecation
 import { PhoneSettingsService, IPrefixListElement } from './phone-settings.service';

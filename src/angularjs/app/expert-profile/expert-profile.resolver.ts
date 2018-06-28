@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:newline-before-return
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist

@@ -1,192 +1,132 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.config.ts[34, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[45, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[55, 19]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[152, 23]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/client.ts[22, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[33, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/invoices/invoices.ts[18, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[47, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/activities/activities.ts[39, 23]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/complains/complains.ts[19, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/employees/employees.ts[23, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/expert.ts[34, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/generate-widget/generate-widget.ts[15, 19]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/invoices/invoices.ts[15, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/manage-profile/manage-profile.ts[21, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[22, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/general/general.ts[70, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/notifications/notifications.ts[18, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[123, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payouts/payouts.ts[25, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[136, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[70, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/error/error.ts[17, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.ts[42, 19]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[204, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[7, 26]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[41, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.ts[50, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/company/company.ts[30, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/create-profile.ts[32, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/expert/expert.ts[44, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.ts[43, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[34, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/avatar-uploader/avatar-uploader.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/chat-history/chat-history.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/active-call-bar/active-call-bar.component.ts[4, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/grouped-messages/grouped-messages.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/maximized.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/messenger-input/messenger-input.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/messenger.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/minimized/minimized.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector.controller.ts[2, 19]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/navigation/navigation.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/complaints/status/status.ts[14, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/cookie-notification/cookie-notification.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge.component.ts[4, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/choose-bank/choose-bank.component.ts[4, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/card/card.component.ts[17, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payment-method.component.ts[13, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/paypal/paypal.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[232, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/summary-charge-account/summary-charge-account.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/client-activities/activity/activity.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain-reason/complain-reason.ts[60, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain-status/complain-status.ts[14, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain.ts[20, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/recommended-tags/recommended-tags.ts[62, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert.ts[33, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[14, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider.ts[38, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/navigation/navigation.ts[54, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/activity/activity.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/no-activities/no-activities.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/complains/complains-list/complains-list.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/employee/employee.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/filters/filters.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employee-consultation-list-item/invite-employee-consultation-list-item.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/invoices/invoice/invoice.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/single-service/single-service.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/navigation/navigation.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/no-results-information/no-results-information.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/manage-devices/manage-devices.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.service.ts[8, 22]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/navigation/navigation.ts[20, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/thank-you-page/thank-you-page.ts[24, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[34, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/experts-consultation-slider/experts-consultation-slider.ts[40, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/similar-experts-slider/similar-experts-slider.ts[36, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/social-links/social-links.ts[10, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/alert/validation-alert/validation-alert.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/btn-dropdown-call/btn-dropdown-call.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/checkbox/checkbox.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/collapse-btn/collapse-btn.ts[73, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/collapse-tab/collapse-tab.ts[65, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/dropdown-primary/dropdown-primary.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/dropdown/dropdown.ts[70, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/go-to-top/go-to-top.ts[30, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/image-crop/image-crop.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultaiton-tag/input-consultaiton-tag.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.controller.ts[12, 14]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.controller.ts[13, 22]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-dropdown-tag/input-dropdown-tag.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-links/input-links.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-password/input-password.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input/input.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/loader/loader.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/multiselect/multiselect.ts[54, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/page-preloader/page-preloader.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/pin-verification/pin-verification.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/preloader-container/preloader-container.ts[23, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/preloader/preloader.ts[14, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/profile-gallery/profile-gallery.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-text/radio-text.ts[32, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio/radio.ts[18, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/show-more-text/show-more-text.ts[69, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/textarea/textarea.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/tiles/tiles.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/tooltip/tooltip.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/top-modal-navbar/top-modal-navbar.ts[33, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/user-avatar/user-avatar.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/voice-volume-bar/voice-volume-bar.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/invitations/consultation-list-item/consultation-list-item.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/invoice/invoice-company.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-expert-visibility/navbar-expert-visibility.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-help/navbar-help.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-in-menu/navbar-logged-in-menu.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-out-menu/navbar-logged-out-menu.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-notifications/navbar-notifications.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content.ts[5, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav.ts[5, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[11, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/profile-company-single-consultation/profile-company-single-consultation.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/profile-expert-single-consultation/profile-single-consultation.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/profile-header/profile-header.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/similar-consultations/similar-consultations.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search-dropdown/search-dropdown.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/no-consultations/no-consultations.ts[11, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filter.component.ts[5, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/single-consultation/single-consultation.ts[73, 13]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/tags-list/tags-list.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/profile-header-edit/profile-header-edit.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/single-consultation-edit/single-consultation-edit.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-handler/wizard-handler.component.ts[6, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-step/wizard-step.component.ts[7, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-card/pro-expert-card.ts[19, 18]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-header/pro-expert-header.ts[26, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more.ts[9, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[62, 28]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[68, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/local-avatar-uploader/local-avatar-uploader.ts[13, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-alert/pro-alert.ts[30, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-calendar/pro-calendar.ts[143, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-range-slider/pro-range-slider.ts[27, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-switcher/pro-switcher.ts[38, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[110, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/scrollable/scrollable.ts[14, 21]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/password-strength-bar/password-strength-bar.ts[41, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-advice-tile/pro-advice-tile.ts[9, 18]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-footer/pro-footer.ts[31, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-news-tile/pro-news-tile.ts[9, 18]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-social-icon-getter/pro-social-icon-getter.ts[24, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[111, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader.ts[21, 15]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[156, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[171, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[186, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[203, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[220, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[232, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[250, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[279, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[294, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[308, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[322, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[335, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[348, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[364, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[381, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[396, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[411, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[428, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[489, 19]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[509, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[542, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[554, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[593, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[612, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[635, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[654, 17]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/rtc-detector/rtc-detector.service.ts[5, 19]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/app.component.ts[5, 28]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/app.component.ts[6, 29]: require() style import is forbidden
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/guards/msisdn/msisdn.guard.ts[6, 22]: require() style import is forbidden
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.controller.ts[4, 40]: Shadowed name: 'InterfaceLanguageService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.resolver.ts[11, 23]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.resolver.ts[12, 23]: Shadowed name: 'FinancesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.controller.ts[19, 23]: Shadowed name: 'ProfileApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.resolver.ts[25, 51]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[60, 14]: Shadowed name: 'CompanyProfileResolver'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.resolver.ts[16, 51]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[40, 14]: Shadowed name: 'ClientFavouritesResolver'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/employees/employees.controller.ts[49, 23]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/manage-profile/manage-profile.controller.ts[32, 23]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[39, 15]: Shadowed name: 'FinancesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[41, 23]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payouts/payouts.service.ts[13, 23]: Shadowed name: 'PayoutsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payouts/payouts.service.ts[16, 21]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[45, 23]: Shadowed name: 'SessionApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.controller.ts[20, 57]: Shadowed name: 'ProfileApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.resolver.ts[15, 51]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.ts[47, 14]: Shadowed name: 'ExpertProfileResolver'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/invitations.resolver.ts[19, 25]: Shadowed name: 'InvitationApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/invitations.resolver.ts[24, 23]: Shadowed name: 'ProfileApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[53, 23]: Shadowed name: 'InvitationApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[55, 23]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[118, 49]: Shadowed name: 'serviceTags'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.controller.ts[72, 23]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.controller.ts[76, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.ts[53, 39]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/company/company.controller.ts[37, 25]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/company/company.controller.ts[39, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/company/company.ts[33, 39]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/create-profile.controller.ts[13, 47]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/expert/expert.controller.ts[36, 25]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/expert/expert.controller.ts[38, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/expert/expert.ts[47, 39]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.controller.ts[49, 23]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.controller.ts[53, 23]: Shadowed name: 'InvitationApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.controller.ts[58, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.ts[47, 12]: Shadowed name: 'WizardApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/avatar-uploader/avatar-uploader.controller.ts[34, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.controller.ts[22, 25]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.controller.ts[91, 13]: Shadowed name: 'err'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.controller.ts[132, 44]: Shadowed name: 'err'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/call-services/expert-call.service.ts[34, 23]: Shadowed name: 'ServiceUsageEventApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/call-services/expert-call.service.ts[39, 23]: Shadowed name: 'RatelApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller.ts[51, 15]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller.ts[53, 23]: Shadowed name: 'ServiceUsageEventApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.service.ts[49, 25]: Shadowed name: 'ServiceUsageEventApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/precall/precall.controller.ts[62, 23]: Shadowed name: 'FinancesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/precall/precall.controller.ts[63, 23]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller.ts[20, 15]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-call.ts[66, 25]: Shadowed name: 'RatelApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-call.ts[68, 23]: Shadowed name: 'ServiceUsageEventApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-expert-call.ts[19, 15]: Shadowed name: 'RatelApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/models/current-expert-call.ts[20, 15]: Shadowed name: 'ServiceUsageEventApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge.controller.ts[25, 44]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/paypal/paypal.controller.ts[28, 53]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[34, 36]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[35, 84]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[36, 36]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.controller.ts[37, 89]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.controller.ts[38, 15]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/recommended-tags/recommended-tags.ts[13, 21]: Shadowed name: 'ServiceUsageEventApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/navigation/navigation.ts[18, 23]: Shadowed name: 'PaymentsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/navigation/navigation.ts[19, 23]: Shadowed name: 'FinancesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller.ts[43, 89]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller.ts[44, 15]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/employee/employee.controller.ts[32, 23]: Shadowed name: 'EmploymentApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employees.controller.ts[31, 23]: Shadowed name: 'InvitationApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employees.controller.ts[33, 23]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.controller.ts[31, 23]: Shadowed name: 'InvitationApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.controller.ts[61, 23]: Shadowed name: 'ProfileApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.controller.ts[66, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[79, 23]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[83, 23]: Shadowed name: 'EmploymentApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[85, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[86, 23]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[260, 14]: Shadowed name: 'emailInvitation'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/single-service/single-service.controller.ts[36, 23]: Shadowed name: 'ServiceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/single-service/single-service.controller.ts[37, 23]: Shadowed name: 'EmploymentApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/navigation/navigation.controller.ts[21, 17]: Shadowed name: 'FinancesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[79, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[80, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/country-settings/country-settings.ts[41, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.ts[29, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.ts[32, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.controller.ts[25, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.service.ts[47, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.service.ts[49, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[69, 75]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.controller.ts[46, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.service.ts[12, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller.ts[36, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.service.ts[14, 25]: Shadowed name: 'PayoutsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[77, 25]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[78, 25]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.ts[50, 91]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.ts[51, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.controller.ts[50, 23]: Shadowed name: 'FilesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.controller.ts[53, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultaiton-tag/input-consultaiton-tag.controller.ts[49, 23]: Shadowed name: 'SearchApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultaiton-tag/input-consultaiton-tag.controller.ts[52, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.controller.ts[39, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-links/input-links.controller.ts[19, 17]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.controller.ts[27, 59]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/multiselect/multiselect.ts[23, 42]: Shadowed name: 'item'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/profile-gallery/profile-gallery.controller.ts[24, 23]: Shadowed name: 'FilesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-expert-visibility/navbar-expert-visibility.service.ts[18, 25]: Shadowed name: 'PresenceApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-in-menu/navbar-logged-in-menu.controller.ts[42, 23]: Shadowed name: 'ProfileApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/lightbox-modal/lightbox-modal.ts[18, 64]: Shadowed name: 'FilesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/resolvers/invoice-data/invoice-data.resolver.ts[18, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/resolvers/login-confirm-email/login-confirm-email.service.ts[22, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/resolvers/login-confirm-email/login-confirm-email.service.ts[62, 31]: Shadowed name: 'token'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/resolvers/security-settings/security-settings.service.ts[17, 23]: Shadowed name: 'SessionApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/call-summary/call-summary.service.ts[14, 23]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-client-activites/dashboard-client-activities.service.ts[15, 25]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-client-activites/dashboard-client-activities.service.ts[16, 25]: Shadowed name: 'PayoutsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-profile-activites/dashboard-profile-activities.service.ts[15, 23]: Shadowed name: 'ViewsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-profile-activites/dashboard-profile-activities.service.ts[16, 23]: Shadowed name: 'PayoutsApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-profile-activites/dashboard-profile-activities.service.ts[17, 23]: Shadowed name: 'AccountApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/search/search.service.ts[17, 25]: Shadowed name: 'SearchApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/uploader/uploader.factory.ts[11, 23]: Shadowed name: 'FilesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/uploader/uploader.service.ts[35, 23]: Shadowed name: 'FilesApi'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/confirm-email/confirm-email.guard.ts[10, 23]: Shadowed name: 'LoginConfirmEmailResolver'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/settings/components/change-number/change-number/change-number.component.ts[32, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.component.ts[34, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/file-uploader/file-uploader.component.service.ts[25, 23]: Shadowed name: 'FilesService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.ts[43, 15]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/widget-generator/widget-generator.component.ts[48, 23]: Shadowed name: 'CommonSettingsService'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/widget-generator/widget-generator.component.ts[174, 12]: Shadowed name: 'profileWithServices'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/widget-generator/widget-generator.component.ts[179, 19]: Shadowed name: 'profileWithServices'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/widget-generator/widget-generator.component.ts[181, 17]: Shadowed name: 'profileWithServices'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/widget-generator/widget-generator.component.ts[191, 19]: Shadowed name: 'profileWithServices'
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/uploader/uploader.service.ts[39, 23]: Shadowed name: 'FilesService'

@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:no-empty-interface
 // tslint:disable:deprecation
 import * as angular from 'angular';

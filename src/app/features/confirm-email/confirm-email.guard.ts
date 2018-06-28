@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import {

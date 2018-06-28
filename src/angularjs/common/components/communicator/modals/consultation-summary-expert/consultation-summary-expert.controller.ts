@@ -1,3 +1,4 @@
+// tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 // tslint:disable:curly
 import { LoggerService } from '@anymind-ng/core';
