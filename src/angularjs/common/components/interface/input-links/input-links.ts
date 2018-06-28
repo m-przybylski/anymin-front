@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:new-parens
 import * as angular from 'angular';
 import { InputLinksComponent } from './input-links.component';

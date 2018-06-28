@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:no-implicit-dependencies
 import 'jquery';
 import 'jquery-bridget';

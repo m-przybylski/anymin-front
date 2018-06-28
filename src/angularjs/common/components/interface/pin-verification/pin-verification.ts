@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import '../../../directives/interface/focus-next/focus-next';
 import { PinVerificationComponent } from './pin-verification.component';

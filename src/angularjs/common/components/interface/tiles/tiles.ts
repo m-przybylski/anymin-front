@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:no-empty-interface
 import * as angular from 'angular';
 import { TilesComponent } from './tiles.component';

@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import 'angular-translate';
 import { ConsultationListItemComponent } from './invite-employee-consultation-list-item.component';

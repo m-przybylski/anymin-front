@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts';
 import { ExpertInviteEmployeesController } from './invite-employees.controller';

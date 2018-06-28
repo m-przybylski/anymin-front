@@ -1,100 +1,214 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/e2e/app.po.ts[2, 38]: Module 'protractor' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/e2e/app.po.ts[3, 38]: Module 'selenium-webdriver' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[21, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[22, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[23, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[24, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[4, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[5, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[14, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[15, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[16, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[17, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[18, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[19, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[14, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[15, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/client.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/client-activities/activity/activity.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[5, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/preloader-container/preloader-container.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[5, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-header/pro-expert-header.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[156, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[170, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[185, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[203, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[220, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[232, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[250, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[279, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[294, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[308, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[322, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[334, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[348, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[364, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[381, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[395, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[411, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[428, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[488, 27]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[508, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[541, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[553, 25]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[593, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[612, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[635, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[654, 9]: Module 'angularjs' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/basic-profile-data/image-crop/image-crop.component.ts[2, 48]: Module 'ngx-img' is not listed as dependency in package.json
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/edit-profile.module.ts[3, 30]: Module 'ngx-img' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[14, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[15, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[22, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[23, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[24, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[25, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[26, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[27, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[32, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[14, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[15, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[16, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[17, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[18, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[19, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[20, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[14, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[15, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[16, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/client.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/client.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/client.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/notifications/notifications.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/notifications/notifications.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[14, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/invitations.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/invitations.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[14, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/company/company.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/company/company.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/create-profile.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/create-profile.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/expert/expert.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/create-profile/expert/expert.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/summary/summary.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.ts[15, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.ts[16, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/maximized.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/messenger.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/client-activities/activity/activity.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain-reason/complain-reason.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain-reason/complain-reason.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain-reason/complain-reason.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain-status/complain-status.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/complain/complain.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/payout-civil/payout-civil.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/payout-company/payout-company.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/no-activities/no-activities.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/employee/employee.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/filters/filters.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employee-consultation-list-item/invite-employee-consultation-list-item.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employees.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/invoices/invoice/invoice.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/navigation/navigation.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/no-results-information/no-results-information.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[15, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[16, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[17, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[18, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-links/input-links.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/pin-verification/pin-verification.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/preloader-container/preloader-container.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/tiles/tiles.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/invitations/consultation-list-item/consultation-list-item.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/tags-list/tags-list.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-header/pro-expert-header.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[4, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/filters.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dialog/dialog.ts[3, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/interface-language/interface-language.service.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/interface-language/interface-language.service.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[11, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[12, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[13, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[14, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[15, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[16, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[17, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[18, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[21, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[22, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[24, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.ts[25, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/uploader/uploader.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/window/window.service.ts[2, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/polyfills.ts[47, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/polyfills.ts[58, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[5, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[6, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[7, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[8, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[9, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[10, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[18, 1]: import with explicit side-effect
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[19, 1]: import with explicit side-effect

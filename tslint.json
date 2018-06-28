@@ -65,7 +65,7 @@
     "no-floating-promises": true,
     "no-for-in-array": true,
     "no-implicit-dependencies": true,
-    // "no-import-side-effect": true,
+    "no-import-side-effect": true,
     "no-inferrable-types": true,
     "no-inferred-empty-object-type": true,
     "no-invalid-template-strings": true,

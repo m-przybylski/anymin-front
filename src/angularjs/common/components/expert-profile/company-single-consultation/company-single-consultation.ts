@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import urlModule from '../../../services/url/url';

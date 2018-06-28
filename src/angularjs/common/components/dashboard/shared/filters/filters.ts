@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import 'angular-translate';
 import apiModule from 'profitelo-api-ng/api.module';

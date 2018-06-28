@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:no-empty
 // tslint:disable:no-any
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files

@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:no-duplicate-imports
 // tslint:disable:new-parens
 import { downgradeInjectable } from '@angular/upgrade/static';

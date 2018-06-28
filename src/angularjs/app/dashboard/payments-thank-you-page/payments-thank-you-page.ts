@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 // tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import 'angularjs/common/components/dashboard/thank-you-page/thank-you-page';
