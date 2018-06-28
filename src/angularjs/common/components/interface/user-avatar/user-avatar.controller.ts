@@ -1,3 +1,4 @@
+// tslint:disable:prefer-conditional-expression
 import { UrlService } from '../../../services/url/url.service';
 import { IUserAvatarComponentBindings } from './user-avatar';
 

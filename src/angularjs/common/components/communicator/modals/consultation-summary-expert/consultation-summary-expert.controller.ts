@@ -1,3 +1,4 @@
+// tslint:disable:prefer-conditional-expression
 // tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 // tslint:disable:curly
