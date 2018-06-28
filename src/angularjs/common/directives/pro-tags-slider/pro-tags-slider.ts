@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 // tslint:disable:curly
 // TODO should be refactor to component: https://git.contactis.pl/itelo/profitelo/issues/1000

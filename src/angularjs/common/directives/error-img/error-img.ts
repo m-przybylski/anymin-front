@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { IAttributes } from 'angular';

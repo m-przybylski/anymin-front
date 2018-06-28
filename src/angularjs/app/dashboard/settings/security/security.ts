@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import apiModule from 'profitelo-api-ng/api.module';

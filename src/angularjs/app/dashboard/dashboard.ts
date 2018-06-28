@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:curly
 import * as angular from 'angular';
 import 'angular-touch';

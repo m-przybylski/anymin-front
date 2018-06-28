@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import 'angularjs/common/directives/interface/scrollable/scrollable';
 import 'angularjs/common/components/interface/preloader/preloader';

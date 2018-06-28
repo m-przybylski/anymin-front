@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import communicatorModule from '../../communicator/communicator';
 import filtersModule from '../../../filters/filters';

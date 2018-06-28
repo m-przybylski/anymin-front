@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { ModalsService } from './modals.service';
 import dialogModule from '../dialog/dialog';

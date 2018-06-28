@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import expertNoActivitiesModule
   from '../../../../common/components/dashboard/expert/activities/no-activities/no-activities';

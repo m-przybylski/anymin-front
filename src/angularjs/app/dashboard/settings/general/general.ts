@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import urlModule from '../../../../common/services/url/url';
 import userModule from '../../../../common/services/user/user';

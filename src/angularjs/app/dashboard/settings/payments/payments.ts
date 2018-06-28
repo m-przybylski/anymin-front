@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:curly
 import * as angular from 'angular';
 import { InvoiceDataResolver } from '../../../../common/resolvers/invoice-data/invoice-data.resolver';

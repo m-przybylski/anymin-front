@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { CommonSettingsService } from '../../../../../services/common-settings/common-settings.service';

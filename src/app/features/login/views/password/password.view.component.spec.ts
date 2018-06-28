@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import { async, TestBed } from '@angular/core/testing';
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

@@ -58,7 +58,7 @@
     "no-conditional-assignment": true,
     "no-console": true,
     "no-construct": true,
-    // "no-duplicate-imports": true,
+    "no-duplicate-imports": true,
     "no-duplicate-super": true,
     // "no-empty": true,
     // "no-empty-interface": true,

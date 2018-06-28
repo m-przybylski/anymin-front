@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { DashboardExpertEmployeesController } from './employees.controller';
 import expertEmployeeModule from '../../../../common/components/dashboard/expert/employees/employee/employee';

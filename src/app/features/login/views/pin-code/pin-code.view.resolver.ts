@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { RegistrationService, GetRegistrationSession } from '@anymind-ng/api';

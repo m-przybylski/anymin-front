@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';

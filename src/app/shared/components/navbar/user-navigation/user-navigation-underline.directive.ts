@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 import { animate, AnimationBuilder, keyframes, style } from '@angular/animations';
 import { Observable } from 'rxjs';

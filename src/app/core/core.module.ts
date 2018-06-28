@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsServiceProvider } from '../shared/providers/ajs-upgraded-providers/ajs-upgraded-providers';

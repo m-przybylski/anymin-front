@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import 'angular-translate';
 import { DashboardSettingsNotificationsController } from './notifications.controller';

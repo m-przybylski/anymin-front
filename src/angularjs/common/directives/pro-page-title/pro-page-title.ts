@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 import * as angular from 'angular';
 import { IFilterService } from '../../services/filter/filter.service';
