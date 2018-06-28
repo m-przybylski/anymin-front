@@ -1,45 +1,90 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/e2e/app.e2e-spec.ts[5, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[41, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller.ts[104, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.controller.ts[170, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[11, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[12, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[13, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[14, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[35, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/slider/slider.ts[36, 14]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/top-modal-navbar/top-modal-navbar.ts[9, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/lightbox-modal/lightbox-modal.ts[26, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/lightbox-modal/lightbox-modal.ts[32, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-calendar/pro-calendar.ts[34, 18]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[42, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-page-title/pro-page-title.ts[16, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-page-title/pro-page-title.ts[31, 11]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[41, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[42, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[43, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[60, 11]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[62, 16]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/money/money-filter.ts[11, 7]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/rank-search/rank-search.ts[17, 14]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/filters/rank-search/rank-search.ts[20, 16]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dialog/dialog.service.ts[23, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/image-zoom/image-zoom.service.ts[78, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[34, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[37, 16]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[86, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[87, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[91, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[92, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[93, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[40, 11]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[41, 11]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[60, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[61, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[101, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/smooth-scrolling/smooth-scrolling.service.ts[117, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/url/url.service.ts[28, 14]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/volume-meter/volume-meter.service.ts[42, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.service.ts[47, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/navbar-menu-service/navbar-menu.service.ts[28, 9]: Unexpected let, use const instead.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/navbar-menu-service/navbar-menu.service.ts[43, 9]: Unexpected let, use const instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.ts[18, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/braintree-form/braintree-form.ts[19, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/maximized.ts[15, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/messenger-input/messenger-input.ts[10, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.controller.ts[9, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.controller.ts[15, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/no-credits/no-credits.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/service-unavailable/service-unavailable.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge.ts[13, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/card/card.component.ts[13, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payment-method.component.ts[11, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/paypal/paypal.ts[16, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/charge-details/charge-details.ts[22, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/employee/employee.controller.ts[15, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/employee/employee.ts[16, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employee-consultation-list-item/invite-employee-consultation-list-item.ts[13, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.controller.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.controller.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[33, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/single-service/single-service.controller.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/single-service/single-service.ts[13, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/no-results-information/no-results-information.ts[15, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/manage-devices/manage-devices.ts[9, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/manage-devices/manage-devices.ts[10, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[43, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[44, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[45, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[47, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[50, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[51, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[52, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[60, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/country-settings/country-settings.ts[22, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.controller.ts[16, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.ts[25, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[27, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.ts[19, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.ts[13, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/btn-dropdown-call/btn-dropdown-call.ts[9, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/checkbox/checkbox.ts[16, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/checkbox/checkbox.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/dropdown-primary/dropdown-primary.ts[22, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/dropdown-primary/dropdown-primary.ts[23, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/image-crop/image-crop.ts[8, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.ts[16, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.ts[18, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input/input.ts[21, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.ts[15, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/textarea/textarea.ts[18, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/textarea/textarea.ts[19, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/invitations/consultation-list-item/consultation-list-item.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-notifications/navbar-notifications.ts[17, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-notifications/navbar-notifications.ts[18, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/profile-header/profile-header.controller.ts[10, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/profile-header/profile-header.controller.ts[11, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/profile-header-edit/profile-header-edit.controller.ts[12, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/single-consultation-edit/single-consultation-edit.ts[12, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/single-consultation-edit/single-consultation-edit.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-handler/wizard-handler.ts[8, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-step/wizard-step.ts[9, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-step/wizard-step.ts[10, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-step/wizard-step.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/wizard-step/wizard-step.ts[16, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/confirm-alert/confirm-alert.controller.ts[11, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/info-alert/info-alert.controller.ts[10, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[25, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[28, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[29, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[30, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/local-avatar-uploader/local-avatar-uploader.ts[11, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-alert/pro-alert.ts[14, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[22, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[23, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[25, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[30, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[32, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[34, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts[36, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[25, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[27, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[31, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[32, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/value-length/value-length.ts[11, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/uploader/uploader.service.ts[26, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/uploader/uploader.service.ts[28, 3]: Only the same kind of members allowed in interfaces.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/uploader/uploader.service.ts[29, 3]: Only the same kind of members allowed in interfaces.

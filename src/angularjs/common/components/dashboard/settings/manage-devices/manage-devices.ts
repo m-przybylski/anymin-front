@@ -1,3 +1,4 @@
+// tslint:disable:no-mixed-interface
 // tslint:disable:prefer-method-signature
 import * as angular from 'angular';
 import { ManageDevicesComponent } from './manage-devices.component';

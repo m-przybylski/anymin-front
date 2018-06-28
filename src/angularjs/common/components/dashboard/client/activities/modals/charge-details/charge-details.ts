@@ -1,3 +1,4 @@
+// tslint:disable:no-mixed-interface
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-method-signature
 // tslint:disable:no-invalid-this

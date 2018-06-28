@@ -1,3 +1,4 @@
+// tslint:disable:no-mixed-interface
 // tslint:disable:readonly-array
 // tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable

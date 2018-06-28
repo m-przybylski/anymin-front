@@ -1,3 +1,4 @@
+// tslint:disable:no-mixed-interface
 // tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template

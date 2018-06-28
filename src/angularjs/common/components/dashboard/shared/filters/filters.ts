@@ -1,3 +1,4 @@
+// tslint:disable:no-mixed-interface
 // tslint:disable:prefer-method-signature
 // tslint:disable:no-import-side-effect
 import * as angular from 'angular';
