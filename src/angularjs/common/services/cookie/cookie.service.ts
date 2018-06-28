@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 export type CookiesKeyName = string;
 
 export interface ICookiesService extends ng.cookies.ICookiesService {

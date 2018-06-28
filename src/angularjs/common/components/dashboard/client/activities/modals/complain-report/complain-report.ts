@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:deprecation
 (function(): void {
 

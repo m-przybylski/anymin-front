@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { ISearchFiltersComponentBindings } from './search-filters';
 import { IPrimaryDropdownListElement } from '../../interface/dropdown-primary/dropdown-primary';

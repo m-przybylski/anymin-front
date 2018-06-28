@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { browser, by, element } from 'protractor';
 import { promise as wdpromise } from 'selenium-webdriver';
 

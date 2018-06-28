@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:curly
 import { IExpertPresenceUpdate, NavbarExpertVisibilityService } from './navbar-expert-visibility.service';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';

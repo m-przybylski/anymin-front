@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:curly
 import { LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../classes/navigator-wrapper/navigator-wrapper';

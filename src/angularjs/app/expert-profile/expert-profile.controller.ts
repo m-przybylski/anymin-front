@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IExpertProfileStateParams } from './expert-profile';
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { ExpertProfileView } from 'profitelo-api-ng/model/models';

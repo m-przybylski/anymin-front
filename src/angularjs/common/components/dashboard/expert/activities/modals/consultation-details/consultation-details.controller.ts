@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:deprecation
 // tslint:disable:curly
 import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';

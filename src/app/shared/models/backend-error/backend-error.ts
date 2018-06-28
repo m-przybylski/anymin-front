@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 export function isBackendError(err: any): err is BackendError {
   return err && typeof err === 'object' && typeof err.code === 'number' && typeof err.message === 'string';
 }

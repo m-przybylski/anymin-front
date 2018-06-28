@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:new-parens
 import * as angular from 'angular';
 import 'angular-sanitize';

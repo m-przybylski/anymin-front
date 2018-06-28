@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonConfig } from '../../../../common-config';

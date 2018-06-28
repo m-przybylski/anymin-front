@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { UserService } from '../user/user.service';
 import { AccountDetails } from '@anymind-ng/api';
 

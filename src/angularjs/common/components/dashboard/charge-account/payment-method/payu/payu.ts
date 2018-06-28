@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { CommonSettingsService } from '../../../../../services/common-settings/common-settings.service';
 import apiModule from 'profitelo-api-ng/api.module';

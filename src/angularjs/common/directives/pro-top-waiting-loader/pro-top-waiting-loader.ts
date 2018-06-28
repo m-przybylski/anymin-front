@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import topWaitingLoader from '../../services/top-waiting-loader/top-waiting-loader';
 import { TopWaitingLoaderService } from '../../services/top-waiting-loader/top-waiting-loader.service';

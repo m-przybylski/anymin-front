@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IAvatarUploaderComponentBindings } from './avatar-uploader';
 import { UploaderFactory } from '../../services/uploader/uploader.factory';
 import { UploaderService } from '../../services/uploader/uploader.service';

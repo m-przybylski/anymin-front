@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IRootScopeService } from '../root-scope/root-scope.service';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { CurrentCall } from '../models/current-call';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';

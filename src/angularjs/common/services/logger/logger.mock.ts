@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { LoggerService } from '@anymind-ng/core';
 

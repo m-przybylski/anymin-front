@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,

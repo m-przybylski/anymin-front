@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { UserService } from '../user/user.service';
 import { EventsService } from '../events/events.service';

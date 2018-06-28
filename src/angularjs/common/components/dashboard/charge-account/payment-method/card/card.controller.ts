@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { MoneyDto, PaymentLink } from 'profitelo-api-ng/model/models';
 import { ICardPaymentFormComponentBindings } from './card.component';
 import { StateService } from '@uirouter/angularjs';

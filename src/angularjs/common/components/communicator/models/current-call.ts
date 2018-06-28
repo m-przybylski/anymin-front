@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:newline-before-return
 // tslint:disable:member-ordering
 // tslint:disable:max-file-line-count

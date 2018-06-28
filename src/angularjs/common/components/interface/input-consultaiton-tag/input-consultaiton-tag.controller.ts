@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:curly
 import { IInputConsultationTagBindings } from './input-consultaiton-tag';
 import { SearchApi } from 'profitelo-api-ng/api/api';

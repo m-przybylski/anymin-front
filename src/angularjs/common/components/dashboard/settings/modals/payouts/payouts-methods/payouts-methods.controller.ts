@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:newline-before-return
 // tslint:disable:deprecation
 import { JValue, PutPayoutMethodDto } from 'profitelo-api-ng/model/models';

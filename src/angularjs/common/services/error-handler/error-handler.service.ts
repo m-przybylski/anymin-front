@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { TopAlertService } from '../top-alert/top-alert.service';
 import { TranslatorService } from '../translator/translator.service';
 // tslint:disable:member-ordering

@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IMessengerInputBindings } from './messenger-input';
 
 // tslint:disable:member-ordering

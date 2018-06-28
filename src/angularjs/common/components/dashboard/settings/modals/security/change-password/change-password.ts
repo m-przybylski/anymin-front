@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:deprecation
 import * as angular from 'angular';
 import { PasswordStrengthService } from '../../../../../../services/password-strength/password-strength.service';

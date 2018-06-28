@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 (function (): void {
 
   function controller($document: ng.IDocumentService, $scope: ng.IScope, $element: ng.IRootElementService): void {

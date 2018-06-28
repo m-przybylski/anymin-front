@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IManageDevicesComponentBindings } from './manage-devices';
 
 // tslint:disable:member-ordering

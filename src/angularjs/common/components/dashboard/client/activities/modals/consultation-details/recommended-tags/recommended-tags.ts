@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

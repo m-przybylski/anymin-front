@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { UserService } from '../../services/user/user.service';
 import { PaymentsApi } from 'profitelo-api-ng/api/api';

@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { ISingleServiceComponentBindings } from './single-service';
 import { UserService } from '../../../../../services/user/user.service';
 import { ModalsService } from '../../../../../services/modals/modals.service';

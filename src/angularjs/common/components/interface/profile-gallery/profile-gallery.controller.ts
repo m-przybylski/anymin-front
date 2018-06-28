@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IProfileGalleryComponentBindings } from './profile-gallery';
 import { GetFileInfo } from 'profitelo-api-ng/model/models';
 import { FilesApi } from 'profitelo-api-ng/api/api';

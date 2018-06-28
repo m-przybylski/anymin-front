@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { UrlService } from '../../../../../../services/url/url.service';
 import { StateService } from '@uirouter/angularjs';

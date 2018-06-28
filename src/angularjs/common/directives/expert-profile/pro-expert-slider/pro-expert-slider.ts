@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import dialogModule from '../../../services/dialog/dialog';

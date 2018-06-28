@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { ModalsService } from '../../../../../../../../services/modals/modals.service';
 import '../../../../../../../../components/interface/radio-text/radio-text';

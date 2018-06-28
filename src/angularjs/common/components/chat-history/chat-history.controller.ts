@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { IChatHistoryBindings } from './chat-history';
 import { Session, protocol, roomEvents } from 'ratel-sdk-js';
 // tslint:disable-next-line:import-blacklist

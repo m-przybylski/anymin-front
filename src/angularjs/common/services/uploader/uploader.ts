@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';
 import { UploaderFactory } from './uploader.factory';

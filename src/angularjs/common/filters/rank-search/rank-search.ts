@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 /* tslint:disable:  no-magic-numbers */
 
 import * as angular from 'angular';

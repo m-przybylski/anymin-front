@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 // tslint:disable:newline-before-return
 // tslint:disable:deprecation
 import { InvitationApi, ServiceApi } from 'profitelo-api-ng/api/api';

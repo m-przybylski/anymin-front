@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 // TODO refactor: create factory instead of 'createZoomInstance'
 // tslint:disable:member-ordering

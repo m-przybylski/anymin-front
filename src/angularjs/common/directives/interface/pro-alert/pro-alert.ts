@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { TopAlertService } from '../../../services/top-alert/top-alert.service';
 import topAlertModule from '../../../services/top-alert/top-alert';
