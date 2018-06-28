@@ -1,3 +1,10 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:new-parens
+// tslint:disable:curly
 // tslint:disable:member-ordering
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

@@ -1,3 +1,15 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:no-parameter-reassignment
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import 'angular-ui-bootstrap';
 import 'ui-select';

@@ -1,3 +1,5 @@
+// tslint:disable:no-let
+// tslint:disable:readonly-array
 import * as ng from 'angular';
 
 // tslint:disable:member-ordering

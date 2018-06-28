@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputPasswordComponentController } from './input-password.controller';
 
 // tslint:disable:member-ordering

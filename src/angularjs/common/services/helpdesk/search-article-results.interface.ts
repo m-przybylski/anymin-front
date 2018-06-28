@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { ISearchArticle } from './search-article.interface';
 export interface ISearchArticleResults {
   count: number;

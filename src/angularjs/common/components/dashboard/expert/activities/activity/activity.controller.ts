@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
 import { IExpertActivityComponentBindings } from './activity';
 import { GetProfileActivity } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../../../services/modals/modals.service';

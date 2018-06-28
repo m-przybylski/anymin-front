@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { VerifiedCodeService } from '../../verified-code.service';

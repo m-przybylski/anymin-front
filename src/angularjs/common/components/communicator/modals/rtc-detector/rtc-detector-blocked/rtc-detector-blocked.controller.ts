@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-empty-interface
+// tslint:disable:deprecation
 import { CommonSettingsService } from '../../../../../services/common-settings/common-settings.service';
 
 export interface IRtcDetectorBlockedModalControllerScope extends ng.IScope {

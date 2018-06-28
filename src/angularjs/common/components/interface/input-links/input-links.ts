@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-import-side-effect
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { InputLinksComponent } from './input-links.component';
 import '../../../directives/pro-social-icon-getter/pro-social-icon-getter';

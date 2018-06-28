@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:curly
 import { IInputConsultationTagBindings } from './input-consultaiton-tag';
 import { SearchApi } from 'profitelo-api-ng/api/api';
 import { PostSuggestTags, GetSuggestedTags } from 'profitelo-api-ng/model/models';

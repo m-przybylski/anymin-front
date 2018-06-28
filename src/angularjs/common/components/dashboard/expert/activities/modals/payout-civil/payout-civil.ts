@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import '../../../../../../components/interface/collapse-btn/collapse-btn';
 import tagsListModule from '../../../../../tags-list/tags-list';

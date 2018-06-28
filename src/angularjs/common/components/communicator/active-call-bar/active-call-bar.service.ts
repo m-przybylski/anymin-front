@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-duplicate-imports
 import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 import { EventsService } from '../../../services/events/events.service';
 import { ExpertCallService } from '../call-services/expert-call.service';

@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import './seconds-to-datetime';
 import './object-size-filter';

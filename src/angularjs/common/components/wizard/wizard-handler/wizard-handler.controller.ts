@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:newline-before-return
 import { IWizardHandlerComponentBindings } from './wizard-handler';
 import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';
 // tslint:disable-next-line:import-blacklist

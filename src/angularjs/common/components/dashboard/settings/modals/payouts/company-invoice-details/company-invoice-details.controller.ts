@@ -1,3 +1,10 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:deprecation
 import { CompanyInvoiceDetailsModalService } from './company-invoice-details.service';
 import { GetCompanyInvoiceDetails, PostCompanyInvoiceDetails } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../../../services/translator/translator.service';

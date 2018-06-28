@@ -1,3 +1,9 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-invalid-this
+// tslint:disable:newline-before-return
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import { GetClientActivity, MoneyDto } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';

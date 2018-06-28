@@ -1,3 +1,9 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-invalid-this
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { IWindowService } from '../../../services/window/window.service';
 

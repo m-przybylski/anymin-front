@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-any
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ChatHistoryComponentController } from './chat-history.controller';
 
 // tslint:disable:member-ordering

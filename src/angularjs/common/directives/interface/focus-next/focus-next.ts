@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { keyboardCodes } from '../../../classes/keyboard';
 

@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import { DialogService } from './dialog.service';
 import 'angular-ui-bootstrap';

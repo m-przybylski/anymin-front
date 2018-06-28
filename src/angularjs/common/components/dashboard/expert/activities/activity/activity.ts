@@ -1,3 +1,5 @@
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty-interface
 import * as angular from 'angular';
 import { ExpertActivityComponent } from './activity.component';
 import userAvatarModule from '../../../../interface/user-avatar/user-avatar';

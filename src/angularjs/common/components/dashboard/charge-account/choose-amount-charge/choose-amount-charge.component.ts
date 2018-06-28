@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ChooseAmountChargeComponentController } from './choose-amount-charge.controller';
 // tslint:disable:member-ordering
 export class ChooseAmountChargeComponent implements ng.IComponentOptions {

@@ -1,3 +1,10 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import { ViewsApi, AccountApi } from 'profitelo-api-ng/api/api';
 import { GetPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { ActivitiesQueryParams } from './activities-query-params';

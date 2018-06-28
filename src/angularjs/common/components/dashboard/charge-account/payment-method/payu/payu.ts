@@ -1,3 +1,15 @@
+// tslint:disable:no-let
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:max-file-line-count
 import { CommonSettingsService } from '../../../../../services/common-settings/common-settings.service';
 import apiModule from 'profitelo-api-ng/api.module';
 import { PaymentsApi, AccountApi } from 'profitelo-api-ng/api/api';

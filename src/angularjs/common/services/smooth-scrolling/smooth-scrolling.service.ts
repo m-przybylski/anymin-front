@@ -1,3 +1,8 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:newline-before-return
 // tslint:disable:member-ordering
 // tslint:disable:no-use-before-declare
 export class SmoothScrollingService {

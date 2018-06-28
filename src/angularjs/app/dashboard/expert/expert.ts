@@ -1,3 +1,6 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { ExpertController } from './expert.controller';
 import dashboardExpertActivitiesModule from './activities/activities';

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ActiveCallBarComponentController } from './active-call-bar.controller';
 // tslint:disable:member-ordering
 export class ActiveCallBarComponent implements ng.IComponentOptions {

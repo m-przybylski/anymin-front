@@ -1,3 +1,9 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-let
+// tslint:disable:prefer-template
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { IFilterService } from '../../services/filter/filter.service';
 import { IDirective } from 'angular';

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { UserAvatarComponentController } from './user-avatar.controller';
 // tslint:disable:member-ordering
 export class UserAvatarComponent implements ng.IComponentOptions {

@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
 import { ModalsService } from '../../common/services/modals/modals.service';
 import { FinancesApi, PaymentsApi } from 'profitelo-api-ng/api/api';
 

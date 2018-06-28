@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
 import { PresenceApi } from 'profitelo-api-ng/api/api';
 import { GetExpertVisibility, Function1RequestContextFutureRouteResult } from 'profitelo-api-ng/model/models';
 import { ProfiteloWebsocketService } from '../../../services/profitelo-websocket/profitelo-websocket.service';

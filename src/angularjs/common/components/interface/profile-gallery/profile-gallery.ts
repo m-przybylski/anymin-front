@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import * as angular from 'angular';
 import { ProfileGalleryComponent } from './profile-gallery.component';
 import profileGalleryPreviewModule from './modals/preview';

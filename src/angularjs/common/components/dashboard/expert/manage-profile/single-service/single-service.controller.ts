@@ -1,3 +1,9 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
 import { ISingleServiceComponentBindings } from './single-service';
 import { UserService } from '../../../../../services/user/user.service';
 import { ModalsService } from '../../../../../services/modals/modals.service';

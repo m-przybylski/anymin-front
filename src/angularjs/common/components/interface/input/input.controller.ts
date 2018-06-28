@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import { IInputComponentBindings } from './input';
 import { keyboardCodes } from '../../../classes/keyboard';
 

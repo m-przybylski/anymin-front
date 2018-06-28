@@ -1,3 +1,9 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:deprecation
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../../../services/top-alert/top-alert.service';
 import { UpdateProfile } from 'profitelo-api-ng/model/models';

@@ -1,3 +1,9 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-empty-interface
+// tslint:disable:deprecation
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

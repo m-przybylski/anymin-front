@@ -1,3 +1,7 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-any
 import * as angular from 'angular';
 import sessionModule from '../../../../../services/session/session';
 import apiModule from 'profitelo-api-ng/api.module';

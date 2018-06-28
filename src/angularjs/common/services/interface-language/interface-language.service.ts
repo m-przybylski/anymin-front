@@ -1,3 +1,10 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-parameter-reassignment
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

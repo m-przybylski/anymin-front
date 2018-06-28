@@ -1,3 +1,6 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:prefer-method-signature
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { InputPriceComponent } from './input-price.component';
 import ValidationAlertModule from '../alert/validation-alert/validation-alert';

@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:unified-signatures
+// tslint:disable:no-any
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 import { roomEvents } from 'ratel-sdk-js';
 

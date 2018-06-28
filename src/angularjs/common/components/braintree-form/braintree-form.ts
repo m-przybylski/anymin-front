@@ -1,3 +1,6 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';
 import { JValue, PostPayment } from 'profitelo-api-ng/model/models';

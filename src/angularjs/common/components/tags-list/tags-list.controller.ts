@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 import { ITagsListBindings } from './tags-list';
 import { GetTag } from 'profitelo-api-ng/model/models';
 

@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export enum MicrophoneStateEnum {

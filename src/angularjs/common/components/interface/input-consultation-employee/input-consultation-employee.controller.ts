@@ -1,3 +1,12 @@
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-var-requires
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import { IInputConsultationEmployeeBindings } from './input-consultation-employee';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 import { UserService } from '../../../services/user/user.service';

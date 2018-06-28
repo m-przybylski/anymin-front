@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:deprecation
 import { InvitationApi, ServiceApi } from 'profitelo-api-ng/api/api';
 import { GetService, PostInvitations, PostInvitation } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../../../../services/user/user.service';

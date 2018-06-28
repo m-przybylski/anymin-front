@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 
 interface IGetHeightScope extends ng.IScope {

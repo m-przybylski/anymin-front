@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { LoaderComponentController } from './loader.controller';
 
 // tslint:disable:member-ordering

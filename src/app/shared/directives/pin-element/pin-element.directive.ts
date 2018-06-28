@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 import {
   AfterContentInit, Directive, ElementRef, HostListener, Input
 } from '@angular/core';

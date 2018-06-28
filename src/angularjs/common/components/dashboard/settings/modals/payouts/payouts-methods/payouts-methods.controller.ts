@@ -1,3 +1,10 @@
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:deprecation
 import { JValue, PutPayoutMethodDto } from 'profitelo-api-ng/model/models';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { PayoutsMethodsModalService } from './payouts-methods.service';

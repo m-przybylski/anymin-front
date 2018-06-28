@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-duplicate-imports
+// tslint:disable:curly
 import * as angular from 'angular';
 import 'angular-touch';
 import 'angular-permission';

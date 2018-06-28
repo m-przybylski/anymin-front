@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
+// tslint:disable:deprecation
 // tslint:disable:max-file-line-count
 import { CommunicatorService, LoggerService, IConnected } from '@anymind-ng/core';
 import { RatelApi } from 'profitelo-api-ng/api/api';

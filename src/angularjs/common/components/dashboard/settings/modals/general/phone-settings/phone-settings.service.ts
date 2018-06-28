@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-var-requires
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:newline-before-return
 import { AccountApi } from 'profitelo-api-ng/api/api';
 import { httpCodes } from '../../../../../../classes/http-codes';
 import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';

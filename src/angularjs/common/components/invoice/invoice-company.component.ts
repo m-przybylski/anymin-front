@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InvoiceCompanyFormComponentController } from './invoice-company.controller';
 
 // tslint:disable:member-ordering

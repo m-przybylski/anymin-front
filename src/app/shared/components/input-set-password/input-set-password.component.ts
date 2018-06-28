@@ -1,3 +1,4 @@
+// tslint:disable:newline-before-return
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/components';

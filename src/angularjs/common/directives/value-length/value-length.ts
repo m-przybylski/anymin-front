@@ -1,3 +1,10 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-empty
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import * as angular from 'angular';
 
 interface IValueLengthScope extends ng.IScope {

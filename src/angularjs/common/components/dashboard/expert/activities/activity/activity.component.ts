@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ExpertActivityComponentController } from './activity.controller';
 
 // tslint:disable:member-ordering

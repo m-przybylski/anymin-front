@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputPriceComponentController } from './input-price.controller';
 
 // tslint:disable:member-ordering

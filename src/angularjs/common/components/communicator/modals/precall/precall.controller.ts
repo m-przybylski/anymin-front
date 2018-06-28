@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import { PaymentsApi, FinancesApi } from 'profitelo-api-ng/api/api';
 import { GetProfile, GetService, MoneyDto } from 'profitelo-api-ng/model/models';

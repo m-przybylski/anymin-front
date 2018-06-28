@@ -1,3 +1,8 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-empty
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { UrlService } from '../../../../../../services/url/url.service';
 import { StateService } from '@uirouter/angularjs';

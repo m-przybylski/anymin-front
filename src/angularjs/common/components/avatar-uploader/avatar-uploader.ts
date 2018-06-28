@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { AvatarUploaderComponent } from './avatar-uploader.component';
 import ValidationAlertModule from '../interface/alert/validation-alert/validation-alert';

@@ -1,3 +1,8 @@
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-null-keyword
+// tslint:disable:no-invalid-this
+// tslint:disable:no-any
 (function (): void {
 
   function controller($document: ng.IDocumentService, $scope: ng.IScope, $element: ng.IRootElementService): void {

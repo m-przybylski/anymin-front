@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { NavbarLoggedInMenuComponentController } from './navbar-logged-in-menu.controller';
 // tslint:disable:member-ordering
 export class NavbarLoggedInMenuComponent implements ng.IComponentOptions {

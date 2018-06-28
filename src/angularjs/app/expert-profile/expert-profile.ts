@@ -1,3 +1,8 @@
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';
 import sessionModule from '../../common/services/session/session';

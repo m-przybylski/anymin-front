@@ -1,3 +1,8 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import urlModule from '../../../services/url/url';
 import filtersModule from '../../../filters/filters';

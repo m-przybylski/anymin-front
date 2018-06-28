@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputConsultationTagComponentController } from './input-consultaiton-tag.controller';
 
 // tslint:disable:member-ordering

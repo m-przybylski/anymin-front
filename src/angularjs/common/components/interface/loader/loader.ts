@@ -1,3 +1,5 @@
+// tslint:disable:no-any
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { LoaderComponent } from './loader.component';
 

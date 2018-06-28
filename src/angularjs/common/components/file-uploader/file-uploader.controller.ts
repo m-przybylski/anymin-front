@@ -1,3 +1,10 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import { IFileUploaderModuleComponentBindings } from './file-uploader';
 import { UploaderFactory } from '../../services/uploader/uploader.factory';
 import { UploaderService } from '../../services/uploader/uploader.service';

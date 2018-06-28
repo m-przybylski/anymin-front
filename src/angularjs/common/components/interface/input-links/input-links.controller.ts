@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-empty
+// tslint:disable:no-any
 import { IInputLinksComponentBindings } from './input-links';
 import { CommonSettingsService } from '../../../services/common-settings/common-settings.service';
 

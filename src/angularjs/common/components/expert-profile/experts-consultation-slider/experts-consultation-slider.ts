@@ -1,3 +1,8 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { UrlService } from '../../../services/url/url.service';
 import urlModule from '../../../services/url/url';

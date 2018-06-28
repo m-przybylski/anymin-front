@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-empty
 export enum FileCategoryEnum {
   AVATAR,
   EXPERT_FILE

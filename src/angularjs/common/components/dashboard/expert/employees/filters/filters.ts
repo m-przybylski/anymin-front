@@ -1,3 +1,5 @@
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import { ExpertEmployeesFiltersComponent } from './filters.component';
 import 'angular-translate';

@@ -1,3 +1,13 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { MoneyDto, GetClientActivity, GetActivityFilters, GetClientActivities } from 'profitelo-api-ng/model/models';
 import 'angularjs/common/components/dashboard/client/activities/client-activities/activity/activity';

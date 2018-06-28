@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { CookieNotificationComponentController } from './cookie-notification.controller';
 // tslint:disable:member-ordering
 export class CookieNotificationComponent implements ng.IComponentOptions {

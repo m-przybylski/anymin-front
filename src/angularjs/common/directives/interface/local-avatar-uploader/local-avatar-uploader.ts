@@ -1,3 +1,10 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-require-imports
+// tslint:disable:no-empty
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 
 interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {

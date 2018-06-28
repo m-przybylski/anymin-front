@@ -1,3 +1,6 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:prefer-method-signature
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { BtnDropdownCallComponent } from './btn-dropdown-call.component';
 import { BtnDropdownCallAnimation } from './btn-dropdown-call.animation';

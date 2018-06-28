@@ -1,3 +1,5 @@
+// tslint:disable:prefer-template
+// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';

@@ -1,3 +1,6 @@
+// tslint:disable:prefer-template
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-any
 import * as angular from 'angular';
 
 function searchBoldFilter(): (element: any, query: string) => string {

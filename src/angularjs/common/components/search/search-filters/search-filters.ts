@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import 'angularjs-slider';
 import filtersModule from '../../../filters/filters';

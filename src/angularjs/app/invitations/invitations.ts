@@ -1,3 +1,5 @@
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import 'angular-touch';
 import 'angular-permission';

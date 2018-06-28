@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { MessengerMinimizedComponentController } from './minimized.controller';
 
 // tslint:disable:member-ordering

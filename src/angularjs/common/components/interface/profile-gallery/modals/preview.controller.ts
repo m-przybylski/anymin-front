@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 export interface IGalleryPreviewControllerScope extends ng.IScope {
   preview: string;
 }

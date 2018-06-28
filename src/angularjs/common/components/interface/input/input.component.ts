@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputComponentController } from './input.controller';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:curly
 import { PromiseService } from '../../../services/promise/promise.service';
 import { StateService, StateObject } from '@uirouter/angularjs';
 

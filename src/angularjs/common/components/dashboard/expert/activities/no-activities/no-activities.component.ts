@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ExpertNoActivitiesComponentController } from './no-activities.controller';
 // tslint:disable:member-ordering
 export class ExpertNoActivitiesComponent implements ng.IComponentOptions {

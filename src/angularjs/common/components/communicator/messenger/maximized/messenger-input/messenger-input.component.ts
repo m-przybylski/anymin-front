@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { MessengerInputComponentController } from './messenger-input.controller';
 
 // tslint:disable:member-ordering

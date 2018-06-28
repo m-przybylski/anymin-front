@@ -1,3 +1,13 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:no-empty
+// tslint:disable:no-duplicate-imports
+// tslint:disable:curly
 import * as angular from 'angular';
 import { InvoiceDataResolver } from '../../../../common/resolvers/invoice-data/invoice-data.resolver';
 import { ModalsService } from '../../../../common/services/modals/modals.service';

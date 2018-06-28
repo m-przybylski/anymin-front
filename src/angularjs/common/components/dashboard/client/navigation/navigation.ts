@@ -1,3 +1,9 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import filtersModule from '../../../../filters/filters';
 import { FinancesApi, PaymentsApi } from 'profitelo-api-ng/api/api';

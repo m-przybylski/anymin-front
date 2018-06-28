@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { ReplaySubject } from 'rxjs';
 
 export class EditProfileModalComponentService {

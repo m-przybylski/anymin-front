@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
 import { ICompanyProfileStateParams } from './company-profile';
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { ICompanyProfile } from './company-profile.resolver';

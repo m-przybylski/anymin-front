@@ -1,3 +1,7 @@
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { IDirective } from 'angular';
 

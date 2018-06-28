@@ -1,3 +1,8 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-any
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import ValidationAlertModule from '../alert/validation-alert/validation-alert';
 import { DropdownPrimaryComponent } from './dropdown-primary.component';

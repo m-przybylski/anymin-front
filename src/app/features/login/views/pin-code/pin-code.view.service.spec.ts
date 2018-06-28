@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RegistrationService } from '@anymind-ng/api';
 import { ActivatedRoute, Router } from '@angular/router';

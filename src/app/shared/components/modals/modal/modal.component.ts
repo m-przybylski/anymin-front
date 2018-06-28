@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import {
   Component, Input, OnInit
 } from '@angular/core';
@@ -38,13 +39,15 @@ export class ModalComponent implements OnInit {
 
   public ngOnInit(): void {
     this.setModalContainerWidth();
-    if (!this.modalContainerClass)
+    if (!this.modalContainerClass) {
       this.modalContainerClass = ModalContainerWidthEnum.MEDIUM_WIDTH;
+    }
   }
 
   public onBackClick = (): void => {
-    if (this.onBackwardClick)
+    if (this.onBackwardClick) {
       this.onBackwardClick();
+    }
   }
 
   public onModalClose = (): void =>

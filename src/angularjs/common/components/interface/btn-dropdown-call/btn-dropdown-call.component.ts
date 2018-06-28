@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { BtnDropdownCallComponentController } from './btn-dropdown-call.controller';
 
 // tslint:disable:member-ordering

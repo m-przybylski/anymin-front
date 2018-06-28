@@ -1,3 +1,6 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { ImageCropComponent } from './image-crop.component';
 

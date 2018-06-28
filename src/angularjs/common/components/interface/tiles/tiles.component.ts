@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { TilesComponentController } from './tiles.controller';
 // tslint:disable:member-ordering
 export class TilesComponent implements ng.IComponentOptions {

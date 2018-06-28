@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
+// tslint:disable:no-duplicate-imports
 import { IConsultationListItemComponentBindings } from './consultation-list-item';
 import { GetServiceWithInvitation, GetTag } from 'profitelo-api-ng/model/models';
 import { MoneyDto } from 'profitelo-api-ng/model/models';

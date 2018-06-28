@@ -1,3 +1,12 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { FileIdDto, PostFileDetails } from 'profitelo-api-ng/model/models';
 import { FilesApi } from 'profitelo-api-ng/api/api';

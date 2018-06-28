@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
 import * as angular from 'angular';
 import { ITooltipComponentBindings } from './tooltip';
 import IRootElementService = angular.IRootElementService;

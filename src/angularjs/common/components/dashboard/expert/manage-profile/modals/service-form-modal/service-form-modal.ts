@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import { ServiceFormModalController } from './service-form-modal.controller';
 import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts';

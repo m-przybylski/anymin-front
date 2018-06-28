@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { SingleConsultationEditComponentController } from './single-consultation-edit.controller';
 
 // tslint:disable:member-ordering

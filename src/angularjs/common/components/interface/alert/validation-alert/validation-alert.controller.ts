@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 import { IValidationAlertBindings } from './validation-alert';
 
 // tslint:disable:member-ordering

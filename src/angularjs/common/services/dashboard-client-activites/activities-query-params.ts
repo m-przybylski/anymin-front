@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-empty
 import { GetClientActivity } from 'profitelo-api-ng/model/models';
 
 export class ActivitiesQueryParams {

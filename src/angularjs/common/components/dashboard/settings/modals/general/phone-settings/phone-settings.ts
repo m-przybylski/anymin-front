@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';
 import userModule from '../../../../../../services/user/user';

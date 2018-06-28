@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { NavbarExpertVisibilityComponent } from './navbar-expert-visibility.component';
 import { NavbarExpertVisibilityService } from './navbar-expert-visibility.service';

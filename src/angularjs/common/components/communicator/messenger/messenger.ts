@@ -1,3 +1,6 @@
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-any
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import 'angular-sanitize';
 import soundsModule from '../../../services/sounds/sounds';

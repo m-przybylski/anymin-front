@@ -1,3 +1,5 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistrationService, GetRegistrationStatus } from '@anymind-ng/api';

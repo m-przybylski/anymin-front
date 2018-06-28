@@ -1,3 +1,6 @@
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
 (function (): void {
 
   function controller(): void {

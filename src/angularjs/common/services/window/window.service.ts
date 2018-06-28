@@ -1,3 +1,5 @@
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-any
 import 'phonenumber/libphonenumber-bundle.js';
 
   export interface IWindowService extends ng.IWindowService {

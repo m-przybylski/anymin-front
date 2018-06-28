@@ -1,3 +1,8 @@
+// tslint:disable:no-let
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 

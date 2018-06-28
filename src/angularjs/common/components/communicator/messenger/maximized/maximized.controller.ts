@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-empty
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { LoggerService, CommunicatorService, IConnected } from '@anymind-ng/core';
 // tslint:disable-next-line:import-blacklist

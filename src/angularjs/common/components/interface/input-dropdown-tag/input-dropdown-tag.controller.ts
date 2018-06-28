@@ -1,3 +1,9 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-conditional-expression
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import * as angular from 'angular';
 import { InputDropdownTagComponentBindings } from './input-dropdown-tag';
 // tslint:disable-next-line:import-blacklist

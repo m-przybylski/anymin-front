@@ -1,3 +1,7 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import { PendingInvitationComponent } from './pending-invitation.component';
 import 'angular-translate';

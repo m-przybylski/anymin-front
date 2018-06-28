@@ -1,3 +1,11 @@
+// tslint:disable:no-let
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-invalid-this
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:deprecation
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

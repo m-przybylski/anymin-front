@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:deprecation
+// tslint:disable:curly
 import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';
 import { MoneyDto, GetTag, GetCallDetails, GetServiceTags } from 'profitelo-api-ng/model/models';
 

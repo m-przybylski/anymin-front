@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 import { IExpertInvoiceComponentBindings } from './invoice';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,4 @@
+// tslint:disable:strict-boolean-expressions
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -27,8 +28,9 @@ export class ModalHeaderComponent {
     this.activeModal.close()
 
   public onBackClick = (): void => {
-    if (this.onBackwardClick)
+    if (this.onBackwardClick) {
       this.onBackwardClick();
+    }
   }
 
 }

@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import { UserService } from '../user/user.service';
 import { EventsService } from '../events/events.service';
 import { ICallSummaryWebsocketObject } from '../../models/CallSummary';

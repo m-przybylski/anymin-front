@@ -1,3 +1,7 @@
+// tslint:disable:no-var-requires
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
 import 'jquery';
 import 'jquery-bridget';
 import 'bootstrap-sass/assets/javascripts/bootstrap';

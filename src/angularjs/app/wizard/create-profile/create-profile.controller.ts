@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
 import { WizardApi } from 'profitelo-api-ng/api/api';
 import { httpCodes } from '../../../common/classes/http-codes';
 import { StateService } from '@uirouter/angularjs';

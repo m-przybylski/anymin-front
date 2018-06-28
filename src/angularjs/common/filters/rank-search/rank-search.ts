@@ -1,3 +1,9 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-any
 /* tslint:disable:  no-magic-numbers */
 
 import * as angular from 'angular';

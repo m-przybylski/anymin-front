@@ -1,3 +1,7 @@
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-any
 import * as angular from 'angular';
 // TODO refactor: create factory instead of 'createZoomInstance'
 // tslint:disable:member-ordering

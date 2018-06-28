@@ -1,3 +1,11 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-let
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-null-keyword
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { IDirective } from 'angular';
 

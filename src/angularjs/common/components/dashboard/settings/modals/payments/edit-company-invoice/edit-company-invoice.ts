@@ -1,3 +1,12 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:no-any
+// tslint:disable:deprecation
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

@@ -1,3 +1,5 @@
+// tslint:disable:no-duplicate-imports
+// tslint:disable:newline-before-return
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';

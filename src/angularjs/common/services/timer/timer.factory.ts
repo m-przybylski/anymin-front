@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { LoggerService } from '@anymind-ng/core';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 import { TimerService } from './timer.service';

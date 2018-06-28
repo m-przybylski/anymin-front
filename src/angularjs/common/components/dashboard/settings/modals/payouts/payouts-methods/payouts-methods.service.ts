@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import { JValue } from 'profitelo-api-ng/model/JValue';
 import { PayoutsApi } from 'profitelo-api-ng/api/api';
 import { PutPayoutMethodDto } from 'profitelo-api-ng/model/models';

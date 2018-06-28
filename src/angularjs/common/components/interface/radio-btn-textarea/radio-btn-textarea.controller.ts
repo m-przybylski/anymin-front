@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
+// tslint:disable:curly
 import { IRadioBtnTextareaBindings } from './radio-btn-textarea';
 
 // tslint:disable:member-ordering

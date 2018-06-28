@@ -1,3 +1,6 @@
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:only-arrow-functions
 interface IValidationAlertAnimation {
   enter: (element: JQuery) => ng.animate.IAnimateCssRunner;
   leave: (element: JQuery) => ng.animate.IAnimateCssRunner;

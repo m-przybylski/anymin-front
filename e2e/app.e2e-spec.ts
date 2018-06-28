@@ -1,3 +1,4 @@
+// tslint:disable:no-let
 import { AppPage } from './app.po';
 
 // tslint:disable:no-floating-promises

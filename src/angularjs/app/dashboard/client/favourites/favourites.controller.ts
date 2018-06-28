@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { GetDashboardClientExperts } from 'profitelo-api-ng/model/models';

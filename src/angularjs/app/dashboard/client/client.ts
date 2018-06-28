@@ -1,3 +1,8 @@
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import 'angularjs/common/components/dashboard/client/navigation/navigation';
 import './activities/activities';

@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import urlModule from '../../../../common/services/url/url';
 import userModule from '../../../../common/services/user/user';

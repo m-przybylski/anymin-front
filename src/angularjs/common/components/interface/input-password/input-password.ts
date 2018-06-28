@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { InputPasswordComponent } from './input-password.component';
 import ValidationAlertModule from '../alert/validation-alert/validation-alert';

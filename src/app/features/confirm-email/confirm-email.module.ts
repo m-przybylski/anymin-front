@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { NgModule } from '@angular/core';
 import { ConfirmEmailComponent } from './confirm-email.component';
 import { ConfirmEmailGuard } from './confirm-email.guard';

@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:new-parens
 import {
   GetSearchRequestResult
 } from 'profitelo-api-ng/model/models';

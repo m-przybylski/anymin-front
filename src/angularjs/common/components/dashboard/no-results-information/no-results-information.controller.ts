@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
 import { INoResultsInformationComponentBindings } from './no-results-information';
 import * as angular from 'angular';
 

@@ -1,3 +1,10 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-empty-interface
+// tslint:disable:no-any
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import { PasswordStrengthService } from '../../../../../../services/password-strength/password-strength.service';
 import apiModule from 'profitelo-api-ng/api.module';

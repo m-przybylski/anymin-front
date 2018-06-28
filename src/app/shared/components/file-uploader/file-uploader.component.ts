@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-duplicate-imports
+// tslint:disable:newline-before-return
 import { Component, EventEmitter, HostListener, Input, Output, OnDestroy, OnInit } from '@angular/core';
 import { GetFileInfo, PostFileDetails } from '@anymind-ng/api';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
@@ -10,7 +14,7 @@ import {
   FileUploaderComponentService,
   IFileValidationValues
 } from './file-uploader.component.service';
-import { empty } from 'rxjs/observable/empty';
+import { EMPTY } from 'rxjs';
 import { Animations } from '../../animations/animations';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FileCategoryEnum } from '../../services/uploader/file-type-checker';
@@ -225,7 +229,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   private onGetFileInfoError = (error: HttpErrorResponse): Observable<void> => {
     this.loggerService.warn('Error when downloading files', error);
-    return empty();
+    return EMPTY;
   }
 
   private assignFileValidationValues = (): void => {

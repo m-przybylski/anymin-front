@@ -1,3 +1,9 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-empty
+// tslint:disable:curly
 import { GetExpertDetails, ProfileDocument } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../../services/modals/modals.service';
 

@@ -1,3 +1,4 @@
+// tslint:disable:no-any
 import { ErrorHandler } from '@angular/core';
 import * as Raven from 'raven-js';
 import { Config } from '../../../../config';

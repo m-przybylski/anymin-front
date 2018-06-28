@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputDropdownTagComponentController } from './input-dropdown-tag.controller';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,12 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import dialogModule from '../../../services/dialog/dialog';

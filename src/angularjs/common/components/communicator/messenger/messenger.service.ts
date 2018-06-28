@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { MessageRoom } from '../models/message-room';

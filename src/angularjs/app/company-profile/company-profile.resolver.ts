@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { ICompanyProfileStateParams } from './company-profile';
 import { ViewsApi } from 'profitelo-api-ng/api/api';

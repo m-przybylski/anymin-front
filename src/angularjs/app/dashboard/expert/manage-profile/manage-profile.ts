@@ -1,3 +1,5 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { DashboardExpertManageProfileController } from './manage-profile.controller';
 import modalsModule from '../../../../common/services/modals/modals';

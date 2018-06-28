@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-empty
+// tslint:disable:no-any
 import { ILoaderComponentBindings } from './loader';
 
 interface ICircleStyle {

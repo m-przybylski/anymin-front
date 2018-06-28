@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-any
 (function (): void {
 
   function controller(): void {

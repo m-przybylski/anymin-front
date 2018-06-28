@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { Component, Input } from '@angular/core';
 import { Animations } from '@anymind-ng/components';
 

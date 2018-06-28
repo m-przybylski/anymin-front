@@ -1,3 +1,6 @@
+// tslint:disable:no-var-requires
+// tslint:disable:no-require-imports
+// tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Alerts, AlertService } from '@anymind-ng/components';

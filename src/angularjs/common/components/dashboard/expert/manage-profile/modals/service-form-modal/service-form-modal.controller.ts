@@ -1,3 +1,13 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
+// tslint:disable:deprecation
+// tslint:disable:curly
 // tslint:disable:member-ordering
 // tslint:disable:max-file-line-count
 import { UserService } from '../../../../../../services/user/user.service';

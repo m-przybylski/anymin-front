@@ -1,3 +1,7 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { NavbarNotificationsComponent } from './navbar-notifications.component';
 import userAvatarModule from '../../interface/user-avatar/user-avatar';

@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
+// tslint:disable:no-any
 import { IMessengerInputBindings } from './messenger-input';
 
 // tslint:disable:member-ordering

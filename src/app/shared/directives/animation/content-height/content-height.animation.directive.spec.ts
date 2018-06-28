@@ -1,3 +1,5 @@
+// tslint:disable:no-empty
+// tslint:disable:no-any
 import { TestBed } from '@angular/core/testing';
 import {
   ContentHeightAnimationService

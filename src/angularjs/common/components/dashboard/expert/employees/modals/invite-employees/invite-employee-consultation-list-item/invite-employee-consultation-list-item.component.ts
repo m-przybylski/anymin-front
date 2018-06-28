@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InviteEmployeeConsultationListItemComponentController }
   from './invite-employee-consultation-list-item.controller';
 

@@ -1,3 +1,4 @@
+// tslint:disable:no-duplicate-imports
 import { BusinessRoom, protocol, roomEvents, chatEvents } from 'ratel-sdk-js';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import * as angular from 'angular';
 import { INavbarLoggedOutMenuComponentBindings } from './navbar-logged-out-menu';
 import { Config } from '../../../../../config';

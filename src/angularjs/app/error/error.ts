@@ -1,3 +1,6 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { StateProvider } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';

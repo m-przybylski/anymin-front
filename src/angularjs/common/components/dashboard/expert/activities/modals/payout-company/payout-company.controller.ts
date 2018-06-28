@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:deprecation
 export interface IExpertPayoutCompanyModalScope extends ng.IScope {
   isNavbar: boolean;
   isFullscreen: boolean;

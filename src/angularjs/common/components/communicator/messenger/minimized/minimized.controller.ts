@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { IMessengerMinimizedComponentBindings } from './minimized';
 import { roomEvents, Session } from 'ratel-sdk-js';
 import { ExpertCallService } from '../../call-services/expert-call.service';

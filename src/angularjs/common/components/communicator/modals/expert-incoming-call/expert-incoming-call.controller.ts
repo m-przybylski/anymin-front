@@ -1,3 +1,7 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:deprecation
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 
 export interface IExpertIncomingCallParentControllerScope extends ng.IScope {

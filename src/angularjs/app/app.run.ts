@@ -1,3 +1,4 @@
+// tslint:disable:only-arrow-functions
 import { PermissionService } from '../common/services/permission/permission.service';
 import { TopAlertService } from '../common/services/top-alert/top-alert.service';
 import { ProfiteloWebsocketService } from '../common/services/profitelo-websocket/profitelo-websocket.service';

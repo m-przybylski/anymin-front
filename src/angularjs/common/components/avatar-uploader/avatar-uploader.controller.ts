@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-empty
+// tslint:disable:no-any
 import { IAvatarUploaderComponentBindings } from './avatar-uploader';
 import { UploaderFactory } from '../../services/uploader/uploader.factory';
 import { UploaderService } from '../../services/uploader/uploader.service';

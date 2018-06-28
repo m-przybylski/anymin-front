@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-null-keyword
+// tslint:disable:curly
 import { IVoiceVolumeBarComponentBindings } from './voice-volume-bar';
 import { VolumeMeterService, IProcessor } from '../../../services/volume-meter/volume-meter.service';
 

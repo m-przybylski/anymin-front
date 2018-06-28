@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { BraintreeFormComponentController } from './braintree-form.controller';
 
 // tslint:disable:member-ordering

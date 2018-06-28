@@ -1,3 +1,6 @@
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
 export interface IProcessor extends ScriptProcessorNode {
   clipping?: boolean;
   lastClip?: number;

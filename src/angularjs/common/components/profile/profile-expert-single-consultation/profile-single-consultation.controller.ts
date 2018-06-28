@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { IProfileSingleConsultationComponentBindings } from './profile-single-consultation';
 import { GetTag, GetService, GetProfile } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';

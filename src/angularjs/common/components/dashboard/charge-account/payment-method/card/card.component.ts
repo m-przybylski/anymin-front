@@ -1,3 +1,8 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-require-imports
+// tslint:disable:no-any
 import { CardPaymentFormComponentController } from './card.controller';
 import { PaymentLink } from 'profitelo-api-ng/model/models';
 

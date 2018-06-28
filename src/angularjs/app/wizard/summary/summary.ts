@@ -1,3 +1,8 @@
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-require-imports
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-duplicate-imports
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import 'angular-touch';
 import 'angular-permission';

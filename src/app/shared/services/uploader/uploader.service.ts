@@ -1,3 +1,10 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import { FileIdDto, PostFileDetails, FilesService } from '@anymind-ng/api';
 import { FileUploader } from './uploader';
 import { Observable } from 'rxjs';

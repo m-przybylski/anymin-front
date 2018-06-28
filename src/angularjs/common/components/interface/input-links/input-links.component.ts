@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputLinksComponentController } from './input-links.controller';
 // tslint:disable:member-ordering
 export class InputLinksComponent implements ng.IComponentOptions {

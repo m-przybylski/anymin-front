@@ -1,3 +1,7 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-require-imports
 import { PaymentMethodComponentController } from './payment-method.controller';
 import { PaymentSystem } from 'profitelo-api-ng/model/models';
 

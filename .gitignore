@@ -64,3 +64,6 @@ npm-debug.log
 *.log
 dist/
 coverage/
+
+lintdisable.py
+lint.txt

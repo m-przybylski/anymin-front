@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { IExpertEmployeesFiltersComponentBindings } from './filters';
 import { ModalsService } from '../../../../../services/modals/modals.service';
 

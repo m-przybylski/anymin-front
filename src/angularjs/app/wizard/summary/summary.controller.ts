@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-shadowed-variable
+// tslint:disable:newline-before-return
 // tslint:disable:max-file-line-count
 import {
   GetWizardProfile,

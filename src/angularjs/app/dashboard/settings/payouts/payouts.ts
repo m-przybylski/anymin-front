@@ -1,3 +1,5 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { DashboardSettingsPayoutsController } from './payouts.controller';
 import { PayoutsService } from './payouts.service';

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { SearchDropdownController } from './search-dropdown.controller';
 // tslint:disable:member-ordering
 export class SearchDropdownComponent implements ng.IComponentOptions {

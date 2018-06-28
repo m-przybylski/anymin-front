@@ -1,3 +1,6 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-any
+// tslint:disable:newline-before-return
 import { LoggerService } from '@anymind-ng/core';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 

@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 import * as angular from 'angular';
 import { GetSession } from '@anymind-ng/api';
 import { AccountDetails, LoginCredentials } from 'profitelo-api-ng/model/models';

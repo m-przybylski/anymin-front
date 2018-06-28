@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { CookieNotificationService } from './cookie-notification.service';
 import { CommonConfig } from '../../../../common-config';
 

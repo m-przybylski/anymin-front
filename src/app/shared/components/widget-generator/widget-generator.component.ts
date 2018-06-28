@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
 import { Component, OnInit } from '@angular/core';
 import
 {
@@ -64,7 +69,9 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public selectRadio = (value: string): void => {
     this.radioModel = value;
-    if (this.bodyScript) this.bodyScript = this.generateBodyCode(this.widgetId);
+    if (this.bodyScript) {
+      this.bodyScript = this.generateBodyCode(this.widgetId);
+    }
   }
 
   public selectType = (value: string): void => {
@@ -131,7 +138,9 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public onClickGenerateButton = (expertId?: string, serviceId?: string): void => {
     this.setButtonClicked();
-    if (!this.isGenerateButtonDisabled()) this.generateWidgetCode(expertId, serviceId);
+    if (!this.isGenerateButtonDisabled()) {
+      this.generateWidgetCode(expertId, serviceId);
+    }
   }
 
   private clearButtonClicked = (): void => {

@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-conditional-expression
 import { UrlService } from '../../../services/url/url.service';
 import { IUserAvatarComponentBindings } from './user-avatar';
 

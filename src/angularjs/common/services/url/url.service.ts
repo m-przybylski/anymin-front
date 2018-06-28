@@ -1,3 +1,8 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-any
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommonConfig } from '../../../../common-config';

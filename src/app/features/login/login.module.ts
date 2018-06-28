@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PhoneNumberViewComponent } from './views/phone-number/phone-number.view.component';

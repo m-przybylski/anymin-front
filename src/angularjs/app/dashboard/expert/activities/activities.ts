@@ -1,3 +1,6 @@
+// tslint:disable:prefer-template
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import expertNoActivitiesModule
   from '../../../../common/components/dashboard/expert/activities/no-activities/no-activities';

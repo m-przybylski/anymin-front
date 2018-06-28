@@ -1,3 +1,8 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
 import { IExpertEmployeeComponentBindings } from './employee';
 import { EmploymentApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';

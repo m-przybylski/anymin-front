@@ -1,3 +1,9 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:deprecation
+// tslint:disable:curly
 import { TranslatorService } from '../../services/translator/translator.service';
 
 export interface IInfoAlertScope extends ng.IScope {

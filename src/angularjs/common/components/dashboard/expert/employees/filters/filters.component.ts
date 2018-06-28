@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ExpertEmployeesFiltersComponentController } from './filters.controller';
 // tslint:disable:member-ordering
 export class ExpertEmployeesFiltersComponent implements ng.IComponentOptions {

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { PendingInvitationComponentController } from './pending-invitation.controller';
 // tslint:disable:member-ordering
 export class PendingInvitationComponent implements ng.IComponentOptions {

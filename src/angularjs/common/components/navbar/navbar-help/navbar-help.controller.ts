@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:curly
 import { INavbarHelpComponentBindings } from './navbar-help';
 import * as angular from 'angular';
 import { HelpdeskService } from '../../../services/helpdesk/helpdesk.service';

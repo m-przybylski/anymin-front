@@ -1,3 +1,7 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:deprecation
 import * as angular from 'angular';
 
 export interface INoCreditsControllerParentScope extends ng.IScope {

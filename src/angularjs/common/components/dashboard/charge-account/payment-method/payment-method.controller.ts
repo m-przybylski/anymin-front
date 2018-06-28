@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-null-keyword
+// tslint:disable:no-empty
+// tslint:disable:newline-before-return
 import { PaymentSystem, GetLastPayment } from 'profitelo-api-ng/model/models';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

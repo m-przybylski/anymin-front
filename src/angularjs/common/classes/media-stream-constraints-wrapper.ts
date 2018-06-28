@@ -1,3 +1,4 @@
+// tslint:disable:no-parameter-reassignment
 // tslint:disable-next-line:import-blacklist
 import { cloneDeep } from 'lodash';
 import { NavigatorWrapper } from './navigator-wrapper/navigator-wrapper';

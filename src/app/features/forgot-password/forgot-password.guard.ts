@@ -1,3 +1,6 @@
+// tslint:disable:prefer-template
+// tslint:disable:no-duplicate-imports
+// tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';

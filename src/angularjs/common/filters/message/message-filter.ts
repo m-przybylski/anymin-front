@@ -1,3 +1,9 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-parameter-reassignment
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:only-arrow-functions
+// tslint:disable:newline-before-return
 import { roomEvents } from 'ratel-sdk-js';
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist

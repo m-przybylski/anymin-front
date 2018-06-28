@@ -1,3 +1,9 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-null-keyword
+// tslint:disable:no-invalid-this
 (function (): void {
 
   function thankYouPageController($location: ng.ILocationService): void {

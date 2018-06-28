@@ -1,3 +1,9 @@
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-conditional-expression
+// tslint:disable:no-require-imports
+// tslint:disable:no-null-keyword
+// tslint:disable:no-invalid-this
+// tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { IFilterService } from '../../../services/filter/filter.service';
 import { IWindowService } from '../../../services/window/window.service';

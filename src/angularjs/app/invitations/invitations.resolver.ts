@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
 import { InvitationApi, ProfileApi } from 'profitelo-api-ng/api/api';
 import { IInvitationsStateParams } from './invitations';
 import { ModalsService } from '../../common/services/modals/modals.service';

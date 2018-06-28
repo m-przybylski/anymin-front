@@ -1,3 +1,7 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-invalid-this
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { ModalsService } from '../../../../../../../../services/modals/modals.service';
 import '../../../../../../../../components/interface/radio-text/radio-text';

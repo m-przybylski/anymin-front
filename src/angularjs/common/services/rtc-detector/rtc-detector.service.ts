@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-var-requires
+// tslint:disable:no-require-imports
+// tslint:disable:no-any
+// tslint:disable:curly
 import { LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../classes/navigator-wrapper/navigator-wrapper';
 const DetectRTC = require('detectrtc');

@@ -1,3 +1,5 @@
+// tslint:disable:no-import-side-effect
+// tslint:disable:no-empty-interface
 import * as angular from 'angular';
 import 'angular-translate';
 import { ExpertInvoiceComponent } from './invoice.component';

@@ -1,3 +1,8 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-any
 import * as angular from 'angular';
 import { UserService } from '../../services/user/user.service';
 import { PaymentsApi } from 'profitelo-api-ng/api/api';

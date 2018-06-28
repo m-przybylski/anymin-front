@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-conditional-expression
+// tslint:disable:no-shadowed-variable
+// tslint:disable:deprecation
+// tslint:disable:curly
 import { LoggerService } from '@anymind-ng/core';
 import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';
 import { IExpertCallSummary } from '../../../../models/ExpertCallSummary';

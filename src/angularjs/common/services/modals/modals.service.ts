@@ -1,3 +1,10 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-template
+// tslint:disable:no-require-imports
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:newline-before-return
+// tslint:disable:deprecation
 // tslint:disable: max-file-line-count
 import {
   GetService, GetClientActivity, MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, GetProfile,

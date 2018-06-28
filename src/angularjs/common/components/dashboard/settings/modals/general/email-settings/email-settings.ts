@@ -1,3 +1,9 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-empty
+// tslint:disable:no-any
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import userModule from '../../../../../../services/user/user';
 import { UserService } from '../../../../../../services/user/user.service';

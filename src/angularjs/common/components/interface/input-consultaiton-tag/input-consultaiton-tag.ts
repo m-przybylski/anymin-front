@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { InputConsultationTagComponent } from './input-consultaiton-tag.component';
 import inputModule from '../../interface/input/input';

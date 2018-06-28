@@ -1,3 +1,6 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:prefer-method-signature
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { SingleConsultationEditComponent } from './single-consultation-edit.component';
 import tagsListModule from '../../../tags-list/tags-list';

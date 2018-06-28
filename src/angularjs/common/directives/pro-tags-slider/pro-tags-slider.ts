@@ -1,3 +1,14 @@
+// tslint:disable:no-loop-statement
+// tslint:disable:no-mixed-interface
+// tslint:disable:no-let
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:prefer-method-signature
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 // TODO should be refactor to component: https://git.contactis.pl/itelo/profitelo/issues/1000
 import * as angular from 'angular';
 import { GetTag } from 'profitelo-api-ng/model/models';

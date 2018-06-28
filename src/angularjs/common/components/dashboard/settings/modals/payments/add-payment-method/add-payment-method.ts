@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-import-side-effect
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import '../../../../../../components/braintree-form/braintree-form';
 import '../../../../../../components/interface/preloader/preloader';

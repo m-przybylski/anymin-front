@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-require-imports
+// tslint:disable:newline-before-return
 import { Config } from '../../../../../config';
 import * as angular from 'angular';
 

@@ -1,3 +1,7 @@
+// tslint:disable:only-arrow-functions
+// tslint:disable:no-invalid-this
+// tslint:disable:no-any
+// tslint:disable:deprecation
 (function(): void {
 
   function controller($scope: any, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {

@@ -1,3 +1,7 @@
+// tslint:disable:readonly-array
+// tslint:disable:prefer-template
+// tslint:disable:no-empty
+// tslint:disable:no-any
 // tslint:disable:member-ordering
 // tslint:disable:member-ordering
 export class PrintService {

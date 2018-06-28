@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ManageDevicesComponentController } from './manage-devices.controller';
 
 // tslint:disable:member-ordering

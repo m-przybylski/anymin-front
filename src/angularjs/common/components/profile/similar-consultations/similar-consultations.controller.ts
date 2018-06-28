@@ -1,3 +1,5 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-empty
 
 import { ISimilarConsultationComponentBindings } from './similar-consultations';
 // tslint:disable:member-ordering

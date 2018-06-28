@@ -1,3 +1,5 @@
+// tslint:disable:no-require-imports
+// tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { DashboardExpertInvoicesController } from './invoices.controller';
 import expertInvoiceModule from '../../../../common/components/dashboard/expert/invoices/invoice/invoice';

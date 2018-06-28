@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { IProfileCompanyConsultationComponentBindings } from './profile-company-single-consultation';
 import { GetTag, ServiceWithEmployments, GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';

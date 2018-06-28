@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { MessengerMaximizedComponentController } from './maximized.controller';
 
 // tslint:disable:member-ordering

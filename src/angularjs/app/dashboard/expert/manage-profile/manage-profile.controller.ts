@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:no-shadowed-variable
+// tslint:disable:no-duplicate-imports
 import { ModalsService } from '../../../../common/services/modals/modals.service';
 import { ExpertProfileView } from 'profitelo-api-ng/model/models';
 import { ViewsApi } from 'profitelo-api-ng/api/api';

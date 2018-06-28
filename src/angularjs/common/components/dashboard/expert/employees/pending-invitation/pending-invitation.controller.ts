@@ -1,3 +1,10 @@
+// tslint:disable:no-mixed-interface
+// tslint:disable:readonly-array
+// tslint:disable:prefer-method-signature
+// tslint:disable:prefer-conditional-expression
+// tslint:disable:no-shadowed-variable
+// tslint:disable:newline-before-return
+// tslint:disable:curly
 import { IPendingInvitationComponentBindings } from './pending-invitation';
 import { InvitationApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../../services/error-handler/error-handler.service';

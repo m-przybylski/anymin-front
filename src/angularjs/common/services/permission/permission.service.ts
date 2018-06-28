@@ -1,3 +1,6 @@
+// tslint:disable:readonly-array
+// tslint:disable:strict-boolean-expressions
+// tslint:disable:no-any
 import { UserService } from '../user/user.service';
 import { AccountDetails } from '@anymind-ng/api';
 
