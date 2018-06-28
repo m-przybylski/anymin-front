@@ -1,3 +1,4 @@
+// tslint:disable:no-var-requires
 // tslint:disable:no-require-imports
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';

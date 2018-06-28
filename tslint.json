@@ -100,7 +100,7 @@
     "no-unused-expression": true,
     "no-unused-variable": true,
     "no-use-before-declare": true,
-    // "no-var-requires": true,
+    "no-var-requires": true,
     // "no-void-expression": true,
     "number-literal-format": true,
     // "object-literal-sort-keys": true,
