@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { DashboardFiltersComponentController } from './filters.controller';
 // tslint:disable:member-ordering
 export class DashboardFiltersComponent implements ng.IComponentOptions {

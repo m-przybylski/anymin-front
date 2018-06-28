@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { GroupedMessagesComponentController } from './grouped-messages.controller';
 
 // tslint:disable:member-ordering

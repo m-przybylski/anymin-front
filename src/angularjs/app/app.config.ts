@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:newline-before-return
 import { AppComponentController } from './app.controller';
 import { StateProvider } from '@uirouter/angularjs';

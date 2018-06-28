@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 (function(): void {
 
   const proLightboxNav = {

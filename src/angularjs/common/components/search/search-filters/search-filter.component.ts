@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { SearchFiltersComponentController } from './search-filters.controller';
 // tslint:disable:member-ordering
 export class SearchFiltersComponent implements ng.IComponentOptions {

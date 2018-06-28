@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { FileUploaderComponentController } from './file-uploader.controller';
 // tslint:disable:member-ordering
 export class FileUploaderComponent implements ng.IComponentOptions {

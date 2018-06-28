@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ExpertInvoiceComponentController } from './invoice.controller';
 
 // tslint:disable:member-ordering

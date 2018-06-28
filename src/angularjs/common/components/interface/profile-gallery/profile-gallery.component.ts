@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ProfileGalleryComponentController } from './profile-gallery.controller';
 
 // tslint:disable:member-ordering

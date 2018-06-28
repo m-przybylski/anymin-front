@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { RadioBtnTextareaComponentController } from './radio-btn-textarea.controller';
 
 // tslint:disable:member-ordering

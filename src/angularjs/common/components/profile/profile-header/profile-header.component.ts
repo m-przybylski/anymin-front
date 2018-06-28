@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ProfileHeaderComponentController } from './profile-header.controller';
 // tslint:disable:member-ordering
 export class ProfileHeaderComponent implements ng.IComponentOptions {

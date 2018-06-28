@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { CheckboxComponentController } from './checkbox.controller';
 
 // tslint:disable:member-ordering

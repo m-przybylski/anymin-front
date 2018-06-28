@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { TagsListComponentController } from './tags-list.controller';
 
 // tslint:disable:member-ordering

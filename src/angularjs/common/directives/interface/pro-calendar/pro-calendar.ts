@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-null-keyword
 // tslint:disable:no-duplicate-imports
 // tslint:disable:no-any

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-invalid-this
 // tslint:disable:newline-before-return
 import { UserService } from '../../../../services/user/user.service';

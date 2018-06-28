@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-empty
 // tslint:disable:no-any
 // tslint:disable:newline-before-return

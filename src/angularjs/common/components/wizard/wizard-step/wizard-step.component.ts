@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { WizardStepComponentController } from './wizard-step.controller';
 
 // tslint:disable:member-ordering

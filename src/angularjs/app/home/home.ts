@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-null-keyword
 // tslint:disable:no-invalid-this
 // tslint:disable:no-import-side-effect

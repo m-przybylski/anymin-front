@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-any
 // tslint:disable:curly
 import { LoggerService } from '@anymind-ng/core';

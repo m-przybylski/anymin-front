@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { PagePreloaderComponentController } from './page-preloader.controller';
 // tslint:disable:member-ordering
 export class PagePreloaderComponent implements ng.IComponentOptions {

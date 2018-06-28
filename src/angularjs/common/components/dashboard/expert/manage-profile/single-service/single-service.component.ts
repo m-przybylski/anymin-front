@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { SingleServiceComponentController } from './single-service.controller';
 
 // tslint:disable:member-ordering

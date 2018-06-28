@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 
 import { PayPalPaymentFormComponentController } from './paypal.controller';
 // tslint:disable:member-ordering

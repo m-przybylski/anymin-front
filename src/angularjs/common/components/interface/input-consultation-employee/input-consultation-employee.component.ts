@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { InputConsultationEmployeeComponentController } from './input-consultation-employee.controller';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ProfileHeaderEditComponentController } from './profile-header-edit.controller';
 
 // tslint:disable:member-ordering

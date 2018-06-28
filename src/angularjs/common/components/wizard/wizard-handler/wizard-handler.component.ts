@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { WizardHandlerComponentController } from './wizard-handler.controller';
 // tslint:disable:member-ordering
 export class WizardHandlerComponent implements ng.IComponentOptions {

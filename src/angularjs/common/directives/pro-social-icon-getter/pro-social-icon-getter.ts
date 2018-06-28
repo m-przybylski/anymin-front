@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import { ISocialUrl, UrlService } from '../../services/url/url.service';

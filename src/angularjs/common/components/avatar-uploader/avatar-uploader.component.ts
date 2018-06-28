@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { AvatarUploaderComponentController } from './avatar-uploader.controller';
 // tslint:disable:member-ordering
 export class AvatarUploaderComponent implements ng.IComponentOptions {

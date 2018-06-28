@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { CommunicatorComponentController } from './communicator.controller';
 
 // tslint:disable:member-ordering

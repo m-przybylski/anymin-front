@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { NavbarComponentController } from './navbar.controller';
 
 // tslint:disable:member-ordering

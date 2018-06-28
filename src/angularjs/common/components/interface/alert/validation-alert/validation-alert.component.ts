@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ValidationAlertComponentController } from './validation-alert.controller';
 
 // tslint:disable:member-ordering

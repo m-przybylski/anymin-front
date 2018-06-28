@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:newline-before-return
 import { AccountApi } from 'profitelo-api-ng/api/api';
 import { httpCodes } from '../../../../../../classes/http-codes';

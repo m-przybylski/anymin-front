@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { PinVerificationComponentController } from './pin-verification.controller';
 
 // tslint:disable:member-ordering

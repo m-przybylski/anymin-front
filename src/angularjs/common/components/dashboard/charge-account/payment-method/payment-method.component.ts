@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { PaymentMethodComponentController } from './payment-method.controller';
 import { PaymentSystem } from 'profitelo-api-ng/model/models';
 

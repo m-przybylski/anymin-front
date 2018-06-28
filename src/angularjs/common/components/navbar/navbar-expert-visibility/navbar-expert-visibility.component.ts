@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { NavbarExpertVisibilityComponentController } from './navbar-expert-visibility.controller';
 
 // tslint:disable:member-ordering

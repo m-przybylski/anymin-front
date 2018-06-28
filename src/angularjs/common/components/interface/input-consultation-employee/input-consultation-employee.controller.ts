@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:newline-before-return
 // tslint:disable:curly
 import { IInputConsultationEmployeeBindings } from './input-consultation-employee';

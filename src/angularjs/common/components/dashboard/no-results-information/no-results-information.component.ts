@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { NoResultsInformationController } from './no-results-information.controller';
 
 // tslint:disable:member-ordering

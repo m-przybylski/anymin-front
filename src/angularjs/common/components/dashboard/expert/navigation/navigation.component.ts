@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ExpertNavigationComponentController } from './navigation.controller';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { DropdownPrimaryComponentController } from './dropdown-primary.controller';
 // tslint:disable:member-ordering
 export class DropdownPrimaryComponent implements ng.IComponentOptions {

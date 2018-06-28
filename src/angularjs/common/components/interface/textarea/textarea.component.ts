@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { TextareaComponentController } from './textarea.controller';
 
 // tslint:disable:member-ordering

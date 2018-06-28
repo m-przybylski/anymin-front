@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ChooseBankComponentController } from './choose-bank.controller';
 // tslint:disable:member-ordering
 export class ChooseBankComponent implements ng.IComponentOptions {

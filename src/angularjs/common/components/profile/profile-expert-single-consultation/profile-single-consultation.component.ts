@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { ProfileSingleConsultationComponentController } from './profile-single-consultation.controller';
 // tslint:disable:member-ordering
 export class ProfileSingleConsultationComponent implements ng.IComponentOptions {

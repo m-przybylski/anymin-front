@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { SimilarConsultationComponentController } from './similar-consultations.controller';
 // tslint:disable:member-ordering
 export class SimilarConsultationComponent implements ng.IComponentOptions {

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { SummaryChargeAccountComponentController } from './summary-charge-account.controller';
 
 // tslint:disable:member-ordering

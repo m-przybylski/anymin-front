@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 // tslint:disable:no-any
 import { CardPaymentFormComponentController } from './card.controller';
 import { PaymentLink } from 'profitelo-api-ng/model/models';

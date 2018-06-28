@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { DashboardExpertComplainsListComponentController } from './complains-list.controller';
 
 // tslint:disable:member-ordering

@@ -1,3 +1,4 @@
+// tslint:disable:no-require-imports
 import { VoiceVolumeBarComponentController } from './voice-volume-bar.controller';
 // tslint:disable:member-ordering
 export class VoiceVolumeBarComponent implements ng.IComponentOptions {
