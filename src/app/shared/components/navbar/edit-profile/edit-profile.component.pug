@@ -56,6 +56,14 @@ plat-modal-component(
           )
 
         .modal-form__row
+          plat-file-uploader(
+          [maxFileSize]="maxValidFileSize",
+          [maxFilesCount]="maxValidFilesCount",
+          [fileCategory]="fileCategory",
+          (isUploadingEmitter$)="onUploadingFile($event)"
+          )
+
+        .modal-form__row
           plat-profile-links(
           [formGroup]="expertNameForm",
           [controlName]="expertFormControlLink"

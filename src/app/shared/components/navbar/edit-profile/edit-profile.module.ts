@@ -9,14 +9,23 @@ import { ProfileLinksComponent } from './profile-links/profile-links.component';
 import { BasicProfileDataComponent } from './basic-profile-data/basic-profile-data.component';
 import { AvatarUploaderComponent } from './basic-profile-data/avatar-uploader/avatar-uploader.component';
 import { EditProfileModalComponentService } from './edit-profile.component.service';
+import { UploaderService } from '../../../services/uploader/uploader.service';
+import { FileUploaderComponent } from '../../file-uploader/file-uploader.component';
 
 @NgModule({
   imports: [
     ModalsModule,
     NgxImgModule
   ],
-  entryComponents: [EditProfileModalComponent, ImageCropModalComponent],
-  providers: [EditProfileModalComponentService],
+  entryComponents: [
+    EditProfileModalComponent,
+    ImageCropModalComponent
+  ],
+  providers: [
+    EditProfileModalComponentService,
+    UploaderService
+
+  ],
   declarations: [
     BasicProfileDataComponent,
     EditProfileModalComponent,
@@ -24,7 +33,9 @@ import { EditProfileModalComponentService } from './edit-profile.component.servi
     InputAddLinkComponent,
     ImageCropModalComponent,
     AvatarUploaderComponent,
-    AvatarUploaderDirective
+    AvatarUploaderDirective,
+    FileUploaderComponent
   ]
 })
-export class EditProfileModalModule { }
+export class EditProfileModalModule {
+}
