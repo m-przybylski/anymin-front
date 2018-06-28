@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';

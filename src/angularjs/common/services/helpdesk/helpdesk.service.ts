@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 import { IHelpdesk } from './helpdesk.interface';
 import { ISearchArticleResults } from './search-article-results.interface';
 

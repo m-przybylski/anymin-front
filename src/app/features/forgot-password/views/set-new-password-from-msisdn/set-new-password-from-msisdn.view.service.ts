@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:newline-before-return
 import { Observable } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';

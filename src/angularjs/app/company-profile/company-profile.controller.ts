@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { ICompanyProfileStateParams } from './company-profile';

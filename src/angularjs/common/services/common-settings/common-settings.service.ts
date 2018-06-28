@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-empty
 // tslint:disable:member-ordering
 import { CommonConfig } from '../../../../common-config';

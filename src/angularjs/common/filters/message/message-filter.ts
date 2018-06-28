@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:only-arrow-functions
 // tslint:disable:newline-before-return
 import { roomEvents } from 'ratel-sdk-js';

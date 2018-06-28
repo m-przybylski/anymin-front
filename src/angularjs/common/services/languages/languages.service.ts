@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 import { TranslatorService } from '../translator/translator.service';
 import { CommonConfig } from '../../../../common-config';
 

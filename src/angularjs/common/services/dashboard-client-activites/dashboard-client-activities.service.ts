@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-duplicate-imports
 // tslint:disable:no-any

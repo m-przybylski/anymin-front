@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:newline-before-return
 // tslint:disable:member-ordering
 // tslint:disable:member-ordering

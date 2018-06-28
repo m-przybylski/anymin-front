@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-var-requires
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-require-imports

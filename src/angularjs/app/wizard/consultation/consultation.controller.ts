@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable
 // tslint:disable:curly
 import { WizardApi } from 'profitelo-api-ng/api/api';

@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:no-import-side-effect
 // tslint:disable:no-any
 // tslint:disable:newline-before-return

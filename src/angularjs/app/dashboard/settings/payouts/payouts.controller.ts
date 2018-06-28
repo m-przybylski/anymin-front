@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 import { ModalsService } from '../../../../common/services/modals/modals.service';
 import { Config } from '../../../../../config';
 import { TranslatorService } from '../../../../common/services/translator/translator.service';

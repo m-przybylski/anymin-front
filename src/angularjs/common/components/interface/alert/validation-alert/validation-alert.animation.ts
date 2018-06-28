@@ -1,3 +1,4 @@
+// tslint:disable:prefer-template
 // tslint:disable:prefer-method-signature
 // tslint:disable:only-arrow-functions
 interface IValidationAlertAnimation {
