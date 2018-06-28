@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { CookieNotificationComponent } from './cookie-notification.component';
 import { CookieNotificationService } from './cookie-notification.service';

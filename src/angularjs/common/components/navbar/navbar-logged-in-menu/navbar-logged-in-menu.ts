@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { NavbarLoggedInMenuComponent } from './navbar-logged-in-menu.component';
 import navbarNotificationsModule from '../navbar-notifications/navbar-notifications';

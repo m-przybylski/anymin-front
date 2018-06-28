@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { FileUploaderComponent } from './file-uploader.component';
 import uploaderModule from '../../services/uploader/uploader';

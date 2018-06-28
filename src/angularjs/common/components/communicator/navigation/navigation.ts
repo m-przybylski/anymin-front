@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { NavigationComponent } from './navigation.component';
 import modalsModule from '../../../services/modals/modals';

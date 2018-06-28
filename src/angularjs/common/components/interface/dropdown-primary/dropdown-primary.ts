@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import ValidationAlertModule from '../alert/validation-alert/validation-alert';
 import { DropdownPrimaryComponent } from './dropdown-primary.component';

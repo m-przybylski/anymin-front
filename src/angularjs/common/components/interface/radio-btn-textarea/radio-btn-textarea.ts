@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { RadioBtnTextareaComponent } from './radio-btn-textarea.component';
 import autoFocus from '../../../directives/auto-focus/auto-focus';

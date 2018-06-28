@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { WizardHandlerComponent } from './wizard-handler.component';
 

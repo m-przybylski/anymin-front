@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import {
   GetSearchRequestResult
 } from 'profitelo-api-ng/model/models';

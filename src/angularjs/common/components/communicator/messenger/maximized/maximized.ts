@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { MessengerMaximizedComponent } from './maximized.component';
 import urlModule from '../../../../services/url/url';

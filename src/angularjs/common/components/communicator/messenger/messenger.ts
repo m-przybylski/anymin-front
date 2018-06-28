@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import 'angular-sanitize';
 import soundsModule from '../../../services/sounds/sounds';

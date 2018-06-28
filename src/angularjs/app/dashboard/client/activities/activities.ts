@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { MoneyDto, GetClientActivity, GetActivityFilters, GetClientActivities } from 'profitelo-api-ng/model/models';
 import 'angularjs/common/components/dashboard/client/activities/client-activities/activity/activity';

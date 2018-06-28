@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { ActiveCallBarComponent } from './active-call-bar.component';
 import eventsModule from '../../../services/events/events';

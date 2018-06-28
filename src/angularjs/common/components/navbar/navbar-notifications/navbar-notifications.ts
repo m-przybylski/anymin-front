@@ -1,3 +1,4 @@
+// tslint:disable:new-parens
 import * as angular from 'angular';
 import { NavbarNotificationsComponent } from './navbar-notifications.component';
 import userAvatarModule from '../../interface/user-avatar/user-avatar';
