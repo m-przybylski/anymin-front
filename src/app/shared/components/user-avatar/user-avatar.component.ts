@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
-export enum AvatarSizesEnum {
-  X_32 = 'user-avatar--x32',
-  X_48 = 'user-avatar--x48',
-  X_152 = 'user-avatar--x152'
+export enum AvatarSizeEnum {
+  X_32,
+  X_48,
+  X_152
 }
 
 @Component({
@@ -16,13 +16,16 @@ export enum AvatarSizesEnum {
 export class UserAvatarComponent implements OnInit {
 
   @Input()
-  public avatarSize: string;
+  public avatarSize: AvatarSizeEnum;
 
   @Input()
   public avatarToken?: string;
 
   @Input()
   public avatarUrl?: string;
+
+  @Input()
+  public avatarError ? = false;
 
   private commonConfig: ConfigDEFAULT;
 
@@ -33,6 +36,22 @@ export class UserAvatarComponent implements OnInit {
   public ngOnInit(): void {
     if (this.avatarToken) {
       this.avatarUrl = this.resolveFileUrl(this.avatarToken);
+    }
+  }
+
+  public setAvatarClass = (): string => {
+    switch (this.avatarSize) {
+      case AvatarSizeEnum.X_32:
+        return 'user-avatar--x32';
+
+      case AvatarSizeEnum.X_48:
+        return 'user-avatar--x48';
+
+      case AvatarSizeEnum.X_152:
+        return 'user-avatar--x152';
+
+      default:
+        return 'user-avatar--x48';
     }
   }
 

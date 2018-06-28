@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AvatarSizesEnum } from '../../user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Animations } from '@anymind-ng/components';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs/Subject';
@@ -21,7 +21,7 @@ import { EditProfileModalComponent } from '../edit-profile/edit-profile.componen
 
 export class NavbarUserMenuComponent implements OnInit, OnDestroy {
 
-  public readonly avatarSize48 = AvatarSizesEnum.X_48;
+  public readonly avatarSize48 = AvatarSizeEnum.X_48;
   public isMenuVisible: boolean;
 
   private logger: LoggerService;

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { AvatarSizesEnum } from '../../../../user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '../../../../user-avatar/user-avatar.component';
 import { EditProfileModalComponentService } from '../../edit-profile.component.service';
 
 @Component({
@@ -11,16 +11,22 @@ export class AvatarUploaderComponent implements OnDestroy {
 
   @Input()
   public avatarUrl: string;
-  public readonly avatarSize = AvatarSizesEnum.X_152;
+  public isError = false;
+  public readonly avatarSize = AvatarSizeEnum.X_152;
 
-  constructor(private editProfileModalComponentService: EditProfileModalComponentService) {
+  constructor(private editProfileModalComponentService: EditProfileModalComponentService) {}
+
+  public onError = (isError: boolean): void => {
+    this.isError = isError;
   }
 
   public ngOnDestroy(): void {
     this.editProfileModalComponentService.getPreviousAvatarSrc().next(this.avatarUrl);
   }
 
-  public onClickClear = (): void =>
-    this.editProfileModalComponentService.getPreviousAvatarSrc().next('')
+  public onClickClear = (): void => {
+    this.isError = false;
+    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
+  }
 
 }
