@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import * as angular from 'angular';
 import filtersModule from '../../../../../filters/filters';
 import { GroupedMessagesComponent } from './grouped-messages.component';

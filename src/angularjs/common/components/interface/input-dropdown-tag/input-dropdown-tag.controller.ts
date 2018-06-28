@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-conditional-expression
 // tslint:disable:newline-before-return

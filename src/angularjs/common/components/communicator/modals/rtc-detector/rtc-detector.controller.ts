@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-var-requires
 // tslint:disable:no-require-imports
 // tslint:disable:no-empty-interface

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:new-parens
 import * as angular from 'angular';
 import { InputDropdownTagComponent } from './input-dropdown-tag.component';

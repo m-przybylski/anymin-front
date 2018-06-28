@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import { TagsListComponent } from './tags-list.component';

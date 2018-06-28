@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { ProfiteloWebsocketService } from '../profitelo-websocket/profitelo-websocket.service';
 import { EventsService } from '../events/events.service';
 import { SessionServiceWrapper } from '../session/session.service';

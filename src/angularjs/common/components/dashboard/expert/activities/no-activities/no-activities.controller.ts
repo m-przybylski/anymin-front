@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { IExpertNoActivitiesComponentBindings } from './no-activities';
 import { Config } from '../../../../../../../config';
 

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-template
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-import-side-effect

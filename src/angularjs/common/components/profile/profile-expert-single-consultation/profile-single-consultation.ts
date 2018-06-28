@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import * as angular from 'angular';
 import { ProfileSingleConsultationComponent } from './profile-single-consultation.component';
 import { GetTag, GetService, GetProfile } from 'profitelo-api-ng/model/models';

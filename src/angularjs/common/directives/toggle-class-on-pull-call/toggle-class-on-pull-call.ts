@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { ActiveCallBarService } from '../../components/communicator/active-call-bar/active-call-bar.service';

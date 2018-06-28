@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-shadowed-variable
 // tslint:disable:newline-before-return
 // tslint:disable:curly

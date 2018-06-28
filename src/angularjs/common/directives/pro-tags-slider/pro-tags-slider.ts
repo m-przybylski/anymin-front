@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-method-signature
 // tslint:disable:only-arrow-functions

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-method-signature
 // tslint:disable:prefer-conditional-expression
 // tslint:disable:no-shadowed-variable

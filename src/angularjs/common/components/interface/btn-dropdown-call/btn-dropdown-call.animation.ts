@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-template
 // tslint:disable:newline-before-return
 // tslint:disable:member-ordering

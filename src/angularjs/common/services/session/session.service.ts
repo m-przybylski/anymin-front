@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:newline-before-return
 import { UserSessionService } from '../../../../app/core/services/user-session/user-session.service';
 import { Config } from '../../../../config';

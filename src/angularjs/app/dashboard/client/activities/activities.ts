@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-template
 // tslint:disable:no-require-imports
 // tslint:disable:no-invalid-this

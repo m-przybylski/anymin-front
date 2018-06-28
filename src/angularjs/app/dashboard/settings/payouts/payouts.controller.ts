@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template
 import { ModalsService } from '../../../../common/services/modals/modals.service';

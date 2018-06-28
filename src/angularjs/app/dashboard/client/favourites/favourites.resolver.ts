@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-shadowed-variable
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import {

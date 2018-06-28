@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { ICookiesService, CookiesKeyName } from '../../services/cookie/cookie.service';
 import { Config } from '../../../../config';
 

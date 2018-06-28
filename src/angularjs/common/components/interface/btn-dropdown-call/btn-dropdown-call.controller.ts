@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { IBtnDropdownCallComponentBindings } from './btn-dropdown-call';
 import { Config } from '../../../../../config';
 

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-shadowed-variable
 import { CallSummary, ICallSummaryWebsocketObject } from '../../models/CallSummary';
 import { ProfiteloWebsocketService } from '../profitelo-websocket/profitelo-websocket.service';

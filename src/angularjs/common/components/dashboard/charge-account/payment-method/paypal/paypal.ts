@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-method-signature
 // tslint:disable:no-any
 import * as angular from 'angular';

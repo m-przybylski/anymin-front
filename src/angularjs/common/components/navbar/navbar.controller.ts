@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:curly
 import * as angular from 'angular';
 import { INavbarComponentBindings } from './navbar';

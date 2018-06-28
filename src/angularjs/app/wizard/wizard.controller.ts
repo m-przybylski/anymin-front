@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 import { Config } from '../../../config';
 import { StateService } from '@uirouter/angularjs';

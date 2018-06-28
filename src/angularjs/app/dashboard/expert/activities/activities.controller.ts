@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 // tslint:disable:new-parens

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-empty
 import { GetProfileActivity } from 'profitelo-api-ng/model/models';

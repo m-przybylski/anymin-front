@@ -169,11 +169,11 @@
     ],
     // tslint-immutable
     // Recommended built-in rules
-    "no-parameter-reassignment": true
+    "no-parameter-reassignment": true,
 
     // Immutability rules
     // "readonly-keyword": true, // Impossible for angular
-    ////"readonly-array": true,
+    "readonly-array": true
     ////"no-let": true,
     // "no-object-mutation": true, // Impossible for angular
     ////"no-delete": true,

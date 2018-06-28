@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { MoneyDto, GetTag, GetProfile, GetService } from 'profitelo-api-ng/model/models';
 
 export interface IClientCallSummary {

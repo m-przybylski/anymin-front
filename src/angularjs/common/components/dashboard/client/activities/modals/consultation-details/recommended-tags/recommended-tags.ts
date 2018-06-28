@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-require-imports
 // tslint:disable:no-invalid-this

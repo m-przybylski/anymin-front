@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-import-side-effect
 // tslint:disable:new-parens
 import * as angular from 'angular';

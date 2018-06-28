@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-any
 // tslint:disable:curly
 import { IExpertPresenceUpdate, NavbarExpertVisibilityService } from './navbar-expert-visibility.service';

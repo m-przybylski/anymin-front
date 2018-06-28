@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 import { IGroupedMessagesComponentBindings } from './grouped-messages';
 import { roomEvents } from 'ratel-sdk-js';

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { IPayPalPaymentFormComponentBindings } from './paypal';

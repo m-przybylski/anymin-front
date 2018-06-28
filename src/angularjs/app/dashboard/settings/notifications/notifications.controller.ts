@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:member-ordering
 export class DashboardSettingsNotificationsController {
 

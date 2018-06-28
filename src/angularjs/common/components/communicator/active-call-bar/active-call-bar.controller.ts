@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import { ActiveCallBarService } from './active-call-bar.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';

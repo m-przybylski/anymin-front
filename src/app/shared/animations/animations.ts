@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 import {
   animate, AnimationTriggerMetadata, query, stagger, style, transition,
   trigger

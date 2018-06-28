@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-empty
 // TODO change after resolve issue: https://git.contactis.pl/itelo/profitelo/issues/919

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-empty-interface
 // tslint:disable:no-duplicate-imports
 // tslint:disable:deprecation

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:no-parameter-reassignment
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-null-keyword

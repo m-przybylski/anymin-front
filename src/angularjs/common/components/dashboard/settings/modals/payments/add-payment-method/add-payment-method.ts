@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-method-signature
 // tslint:disable:no-import-side-effect
 // tslint:disable:deprecation

@@ -1,3 +1,4 @@
+// tslint:disable:readonly-array
 // tslint:disable:prefer-method-signature
 import * as angular from 'angular';
 import { MessengerInputComponent } from './messenger-input.component';
