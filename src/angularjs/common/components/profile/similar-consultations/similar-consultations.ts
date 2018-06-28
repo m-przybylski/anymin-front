@@ -1,3 +1,4 @@
+// tslint:disable:no-empty-interface
 import * as angular from 'angular';
 import { SimilarConsultationComponent } from './similar-consultations.component';
 import tilesModule from '../../interface/tiles/tiles';

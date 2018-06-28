@@ -1,3 +1,4 @@
+// tslint:disable:no-empty-interface
 // tslint:disable:no-duplicate-imports
 // tslint:disable:deprecation
 import { GetTag } from 'profitelo-api-ng/model/models';

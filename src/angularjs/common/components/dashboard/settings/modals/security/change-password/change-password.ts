@@ -1,3 +1,4 @@
+// tslint:disable:no-empty-interface
 // tslint:disable:no-any
 // tslint:disable:deprecation
 import * as angular from 'angular';

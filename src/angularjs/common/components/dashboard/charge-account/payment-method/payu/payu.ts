@@ -1,3 +1,5 @@
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty-interface
 // tslint:disable:no-empty
 // tslint:disable:no-duplicate-imports
 // tslint:disable:no-any

@@ -1,3 +1,4 @@
+// tslint:disable:no-empty-interface
 const DetectRTC = require('detectrtc');
 export interface IRtcDetectorModalControllerScope extends ng.IScope {
 }

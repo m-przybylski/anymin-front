@@ -1,3 +1,4 @@
+// tslint:disable:no-empty-interface
 // tslint:disable:new-parens
 import * as angular from 'angular';
 import { NavbarLoggedOutMenuComponent } from './navbar-logged-out-menu.component';

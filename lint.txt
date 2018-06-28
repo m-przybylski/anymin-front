@@ -1,119 +1,15 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/expert.controller.ts[6, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[83, 85]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/classes/file-type-checker/file-type-checker.ts[21, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/classes/local-storage-wrapper/local-storage-wrapper.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/avatar-uploader/avatar-uploader.controller.ts[83, 72]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/maximized.controller.ts[69, 47]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/maximized/messenger-input/messenger-input.controller.ts[15, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/messenger/messenger.controller.ts[9, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/microphone-service/microphone.service.ts[15, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/choose-bank/choose-bank.controller.ts[14, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payment-method.controller.ts[19, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[252, 50]: This file has 253 lines, which exceeds the maximum of 250 lines allowed. Consider breaking this file up into smaller parts
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/summary-charge-account/summary-charge-account.controller.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider.ts[11, 30]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/complains/complains-list/complains-list.controller.ts[12, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employee-consultation-list-item/invite-employee-consultation-list-item.controller.ts[32, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/invoices/invoice/invoice.controller.ts[7, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[170, 41]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/country-settings/country-settings.ts[69, 40]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.ts[48, 32]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.controller.ts[72, 36]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/alert/validation-alert/validation-alert.controller.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/checkbox/checkbox.controller.ts[17, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-links/input-links.controller.ts[22, 26]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-password/input-password.controller.ts[21, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/loader/loader.controller.ts[30, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/profile-gallery/modals/preview.controller.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.controller.ts[20, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/textarea/textarea.controller.ts[22, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/tiles/tiles.controller.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/invitations/consultation-list-item/consultation-list-item.controller.ts[25, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/invoice/invoice-company.controller.ts[6, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-notifications/navbar-notifications.service.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/profile-header/profile-header.controller.ts[34, 32]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/similar-consultations/similar-consultations.controller.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.controller.ts[117, 47]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/tags-list/tags-list.controller.ts[14, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/profile-header-edit/profile-header-edit.controller.ts[34, 32]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/auto-focus/auto-focus.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/error-img/error-img.ts[11, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/focus-next/focus-next.ts[13, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/local-avatar-uploader/local-avatar-uploader.ts[21, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/ng-enter/ng-enter.ts[12, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/textarea-auto-height/textarea-auto-height.ts[11, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/value-length/value-length.ts[21, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/common-settings/common-settings.service.ts[169, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/custom-translation-handler/custom-translation-handler.service.ts[14, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-client-activites/activities-query-params.ts[15, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/dashboard-profile-activites/activities-query-params.ts[18, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/logger/logger.mock.ts[6, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/logger/logger.mock.ts[7, 16]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/logger/logger.mock.ts[8, 16]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/logger/logger.mock.ts[9, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/password-strength/password-strength.service.ts[33, 61]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/print/print.service.ts[11, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/promise/promise.service.ts[13, 27]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/search/search-query-params.ts[17, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/session/session.mock.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/user/user.mock.ts[9, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/app.module.ts[32, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/core/services/api-key/api-key.service.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/angularjs/angularjs.component.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/angularjs/angularjs.module.ts[16, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/confirm-email/confirm-email.component.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/confirm-email/confirm-email.module.ts[24, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/dashboard.module.ts[52, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/company-dashboard/company-activities/company-activities.view.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/company-dashboard/company-dashboard.view.component.ts[12, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/company-dashboard/employees/employees.view.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/client-activities/client-activities.view.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/discover/discover.view.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/expert-activities/expert-activities.view.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/favourites/favourites.view.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/settings/components/change-number/change-number/change-number.component.ts[44, 20]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component.ts[12, 27]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component.ts[22, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/dashboard/views/user-dashboard/user-dashboard.view.component.ts[12, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/forgot-password.module.ts[47, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/verified-code.service.ts[5, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/forgot-password/views/email/email.view.component.ts[11, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/login.module.ts[41, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/blocked/blocked.view.component.ts[9, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/limited-access/limited-access.view.component.ts[9, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.spec.ts[36, 25]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/password/password.view.service.spec.ts[38, 26]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.component.spec.ts[56, 25]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.component.spec.ts[58, 26]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.spec.ts[32, 25]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/phone-number/phone-number.view.service.spec.ts[34, 26]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[96, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[120, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[143, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[166, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[189, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[212, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[236, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/login/views/pin-code/pin-code.view.service.spec.ts[257, 75]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/features/unsupported/unsupported.component.ts[11, 27]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/input-switch/input-switch.component.ts[15, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/login-background/login-background.component.ts[10, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/login-content/login-content.component.ts[25, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/login-mobile-footer/login-mobile-footer.component.ts[14, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/modals/modals.module.ts[36, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/edit-profile.component.service.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/edit-profile.component.ts[58, 31]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/edit-profile.component.ts[59, 12]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.service.spec.ts[16, 25]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.service.spec.ts[18, 26]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/profile-links/profile-links.component.service.ts[15, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/navbar.component.ts[13, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/preloader/preloader-container.component.ts[22, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/directives/animation/content-height/content-height.animation.directive.spec.ts[53, 25]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/animation/content-height/content-height.animation.service.ts[7, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/local-storage/local-storage.service.ts[8, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/pin-code-timer/pin-code.timer.service.ts[14, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/services/uploader/file-type-checker.ts[17, 17]: block is empty
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/test.ts[25, 38]: block is empty
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller.ts[4, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller.ts[2, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector.controller.ts[2, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[253, 50]: This file has 254 lines, which exceeds the maximum of 250 lines allowed. Consider breaking this file up into smaller parts
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/activity/activity.ts[7, 18]: An empty interface is equivalent to `{}`.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/invoices/invoice/invoice.ts[5, 18]: An empty interface is equivalent to `{}`.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/navigation/navigation.ts[10, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[18, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.ts[14, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/tiles/tiles.ts[5, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-in-menu/navbar-logged-in-menu.ts[10, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-out-menu/navbar-logged-out-menu.ts[7, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/similar-consultations/similar-consultations.ts[5, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/modals/consultation/consultation.controller.ts[6, 18]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/focus-next/focus-next.ts[7, 11]: An interface declaring no members is equivalent to its supertype.

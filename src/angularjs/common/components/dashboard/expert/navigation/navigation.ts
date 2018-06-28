@@ -1,3 +1,5 @@
+// tslint:disable:no-empty-interface
+// tslint:disable:no-empty-interface
 import * as angular from 'angular';
 import 'angular-translate';
 import { ExpertNavigationComponent } from './navigation.component';
