@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import { GetClientActivity } from 'profitelo-api-ng/model/models';
 import { ClientActivityComponent } from './activity.component';

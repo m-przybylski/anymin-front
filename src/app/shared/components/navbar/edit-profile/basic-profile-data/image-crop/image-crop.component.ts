@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { NgxImgComponent, NgxImgService } from 'ngx-img';
 import { ModalContainerWidthEnum } from '../../../../modals/modal/modal.component';

@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
 import { NgxImgModule } from 'ngx-img';

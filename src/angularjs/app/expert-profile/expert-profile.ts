@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 // tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import apiModule from 'profitelo-api-ng/api.module';

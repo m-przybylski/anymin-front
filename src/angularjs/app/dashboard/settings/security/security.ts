@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 // tslint:disable:no-duplicate-imports
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 // tslint:disable:no-any
 // tslint:disable:deprecation
 import * as angular from 'angular';

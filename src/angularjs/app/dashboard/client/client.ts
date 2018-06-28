@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import 'angularjs/common/components/dashboard/client/navigation/navigation';
 import './activities/activities';

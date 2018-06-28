@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import * as angular from 'angular';
 import 'angularjs/common/components/dashboard/thank-you-page/thank-you-page';
 import 'angularjs/common/components/interface/top-modal-navbar/top-modal-navbar';

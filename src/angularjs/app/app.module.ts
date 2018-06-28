@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import 'jquery';
 import 'jquery-bridget';
 import 'bootstrap-sass/assets/javascripts/bootstrap';

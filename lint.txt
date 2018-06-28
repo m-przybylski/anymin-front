@@ -1,15 +1,100 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller.ts[4, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller.ts[2, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector.controller.ts[2, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/charge-account/payment-method/payu/payu.ts[253, 50]: This file has 254 lines, which exceeds the maximum of 250 lines allowed. Consider breaking this file up into smaller parts
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/activity/activity.ts[7, 18]: An empty interface is equivalent to `{}`.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/invoices/invoice/invoice.ts[5, 18]: An empty interface is equivalent to `{}`.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/navigation/navigation.ts[10, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[18, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.ts[14, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/tiles/tiles.ts[5, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-in-menu/navbar-logged-in-menu.ts[10, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-logged-out-menu/navbar-logged-out-menu.ts[7, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/profile/similar-consultations/similar-consultations.ts[5, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/modals/consultation/consultation.controller.ts[6, 18]: An interface declaring no members is equivalent to its supertype.
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/interface/focus-next/focus-next.ts[7, 11]: An interface declaring no members is equivalent to its supertype.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/e2e/app.po.ts[2, 38]: Module 'protractor' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/e2e/app.po.ts[3, 38]: Module 'selenium-webdriver' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[21, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[22, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[23, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/app.module.ts[24, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[4, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[5, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/charge-account.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[14, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[15, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[16, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[17, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[18, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/charge-account/modal/charge-account.controller.ts[19, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[14, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/company-profile/company-profile.ts[15, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/activities/activities.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/client.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/client/favourites/favourites.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/payments-thank-you-page/payments-thank-you-page.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/security/security.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/settings.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/expert-profile/expert-profile.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[9, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[12, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/search/search-result.ts[13, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/client-activities/activity/activity.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/favourites/favourite-experts/favourite-experts.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[10, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[11, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[5, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/expert-profile/company-single-consultation/company-single-consultation.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/preloader-container/preloader-container.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[2, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/pro-lightbox/pro-lightbox.ts[3, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[5, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/search-filters/search-filters.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-header/pro-expert-header.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[6, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[7, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/expert-profile/pro-expert-slider/pro-expert-slider.ts[8, 8]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[156, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[170, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[185, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[203, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[220, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[232, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[250, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[279, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[294, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[308, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[322, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[334, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[348, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[364, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[381, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[395, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[411, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[428, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[488, 27]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[508, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[541, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[553, 25]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[593, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[612, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[635, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[654, 9]: Module 'angularjs' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/basic-profile-data/image-crop/image-crop.component.ts[2, 48]: Module 'ngx-img' is not listed as dependency in package.json
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/app/shared/components/navbar/edit-profile/edit-profile.module.ts[3, 30]: Module 'ngx-img' is not listed as dependency in package.json

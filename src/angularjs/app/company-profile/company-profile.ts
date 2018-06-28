@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 // tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
 import topAlertModule from '../../common/services/top-alert/top-alert';
