@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 // tslint:disable:deprecation

@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 // tslint:disable:no-any
 (function (): void {
 

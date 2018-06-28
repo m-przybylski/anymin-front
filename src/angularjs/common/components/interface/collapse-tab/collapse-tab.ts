@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 // tslint:disable:newline-before-return
 import * as angular from 'angular';
 import { SmoothScrollingService } from '../../../services/smooth-scrolling/smooth-scrolling.service';

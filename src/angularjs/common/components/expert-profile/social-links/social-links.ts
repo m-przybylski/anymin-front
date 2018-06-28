@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 (function(): void {
 
   function controller(): void {

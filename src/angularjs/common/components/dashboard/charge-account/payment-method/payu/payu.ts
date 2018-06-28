@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 // tslint:disable:no-empty-interface
 // tslint:disable:no-empty-interface
 // tslint:disable:no-empty

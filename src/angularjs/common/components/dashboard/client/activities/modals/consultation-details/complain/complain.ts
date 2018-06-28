@@ -1,3 +1,4 @@
+// tslint:disable:no-invalid-this
 // tslint:disable:no-import-side-effect
 import * as angular from 'angular';
 import './complain-reason/complain-reason';
