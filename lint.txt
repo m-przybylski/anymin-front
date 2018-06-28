@@ -1,59 +1,42 @@
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[48, 11]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[50, 15]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/dashboard.ts[51, 20]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/activities/activities.controller.ts[151, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/expert/activities/activities.controller.ts[152, 7]: else statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/dashboard/settings/payments/payments.ts[52, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[201, 11]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[203, 15]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[204, 20]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/home/home.ts[205, 15]: else statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[41, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[130, 9]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[152, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[162, 5]: else statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/invitations/modal/invitations.controller.ts[176, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/consultation/consultation.controller.ts[127, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[36, 13]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[37, 18]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[39, 15]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/app/wizard/wizard.ts[40, 15]: else statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller.ts[109, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/client-activities/activity/activity.controller.ts[19, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller.ts[107, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller.ts[114, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.controller.ts[68, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/pending-invitation/pending-invitation.controller.ts[70, 10]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[274, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.service.ts[18, 9]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.service.ts[18, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[90, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[92, 12]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/shared/filters/filters.controller.ts[94, 12]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.controller.ts[128, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/file-uploader/file-uploader.controller.ts[131, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/collapse-btn/collapse-btn.ts[13, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultaiton-tag/input-consultaiton-tag.controller.ts[120, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-consultation-employee/input-consultation-employee.controller.ts[84, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-dropdown-tag/input-dropdown-tag.controller.ts[94, 11]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-dropdown-tag/input-dropdown-tag.controller.ts[110, 11]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-dropdown-tag/input-dropdown-tag.controller.ts[192, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input-price/input-price.controller.ts[90, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/input/input.controller.ts[57, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/page-preloader/page-preloader.controller.ts[70, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/page-preloader/page-preloader.controller.ts[71, 5]: else statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/radio-btn-textarea/radio-btn-textarea.controller.ts[23, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/voice-volume-bar/voice-volume-bar.controller.ts[41, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/interface/voice-volume-bar/voice-volume-bar.controller.ts[57, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-expert-visibility/navbar-expert-visibility.controller.ts[29, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar-help/navbar-help.controller.ts[46, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/navbar/navbar.controller.ts[85, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search-dropdown/search-dropdown.controller.ts[83, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/wizard/summary/profile-header-edit/profile-header-edit.controller.ts[41, 7]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/confirm-alert/confirm-alert.controller.ts[32, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/info-alert/info-alert.controller.ts[21, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/pro-tags-slider/pro-tags-slider.ts[72, 9]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/directives/value-length/value-length.ts[25, 5]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/rtc-detector/rtc-detector.service.ts[42, 9]: if statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/rtc-detector/rtc-detector.service.ts[44, 9]: else statements must be braced
-ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/rtc-detector/rtc-detector.service.ts[65, 7]: if statements must be braced
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/call-services/expert-call.service.ts[241, 71]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/call-services/expert-call.service.ts[270, 65]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.mock.ts[6, 20]: empty is deprecated: Deprecated in favor of using EMPTY constant.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.mock.ts[7, 32]: empty is deprecated: Deprecated in favor of using EMPTY constant.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.mock.ts[8, 25]: empty is deprecated: Deprecated in favor of using EMPTY constant.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.mock.ts[12, 18]: empty is deprecated: Deprecated in favor of using EMPTY constant.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/communicator.mock.ts[13, 13]: empty is deprecated: Deprecated in favor of using EMPTY constant.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller.ts[54, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.controller.ts[4, 51]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.controller.ts[5, 51]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.controller.ts[25, 50]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/no-credits/no-credits.ts[20, 50]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/precall/precall.controller.ts[59, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller.ts[17, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller.ts[9, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/communicator/modals/service-unavailable/service-unavailable.ts[20, 50]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/charge-details/charge-details.ts[22, 56]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/complain-report/complain-report.ts[3, 71]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/client/activities/modals/consultation-details/consultation-details.controller.ts[35, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller.ts[41, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/payout-civil/payout-civil.controller.ts[21, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/activities/modals/payout-company/payout-company.controller.ts[18, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/employee-details/employee-details.controller.ts[39, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/employees/modals/invite-employees/invite-employees.controller.ts[27, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.controller.ts[59, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller.ts[73, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.ts[78, 50]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/country-settings/country-settings.ts[37, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/email-settings/email-settings.ts[25, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/general/phone-settings/phone-settings.controller.ts[21, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.ts[31, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.ts[64, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details.controller.ts[40, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller.ts[31, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/change-password/change-password.ts[72, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/dashboard/settings/modals/security/pin-number/pin-number.ts[48, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/components/search/modals/consultation/consultation.controller.ts[54, 60]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/confirm-alert/confirm-alert.controller.ts[18, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/info-alert/info-alert.controller.ts[15, 58]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/controllers/lightbox-modal/lightbox-modal.ts[15, 69]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[139, 89]: IModalServiceInstance is deprecated: use IModalInstanceService instead.
+ERROR: /Users/mariuszbeltowski/projects/profitelo/frontend/src/angularjs/common/services/modals/modals.service.ts[140, 89]: IModalServiceInstance is deprecated: use IModalInstanceService instead.

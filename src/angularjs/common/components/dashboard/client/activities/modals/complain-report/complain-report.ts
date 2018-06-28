@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 (function(): void {
 
   function controller($scope: any, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {

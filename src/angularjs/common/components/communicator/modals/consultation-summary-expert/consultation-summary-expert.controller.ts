@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 // tslint:disable:curly
 import { LoggerService } from '@anymind-ng/core';
 import { CallSummaryService } from '../../../../services/call-summary/call-summary.service';

@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import '../../../../../../components/braintree-form/braintree-form';
 import '../../../../../../components/interface/preloader/preloader';

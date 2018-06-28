@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import { GetTag } from 'profitelo-api-ng/model/models';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 

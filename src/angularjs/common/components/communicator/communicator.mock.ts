@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import { empty } from 'rxjs/observable/empty';
 

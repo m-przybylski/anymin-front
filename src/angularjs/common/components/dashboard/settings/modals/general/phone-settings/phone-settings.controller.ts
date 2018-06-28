@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import { PhoneSettingsService, IPrefixListElement } from './phone-settings.service';
 import { AccountApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';

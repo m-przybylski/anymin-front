@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import userModule from '../../../../../../services/user/user';
 import { UploaderService } from '../../../../../../services/uploader/uploader.service';

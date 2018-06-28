@@ -7,7 +7,7 @@ import { Alerts, AlertService } from '@anymind-ng/components';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { empty } from 'rxjs/observable/empty';
+import { EMPTY } from 'rxjs';
 
 @Injectable()
 export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
@@ -56,6 +56,6 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
 
-    return empty();
+    return EMPTY;
   }
 }

@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import { PaymentsApi, FinancesApi } from 'profitelo-api-ng/api/api';
 import { GetProfile, GetService, MoneyDto } from 'profitelo-api-ng/model/models';

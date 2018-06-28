@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 // tslint:disable: max-file-line-count
 import {
   GetService, GetClientActivity, MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, GetProfile,

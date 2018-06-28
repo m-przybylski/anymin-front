@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 export interface IExpertPayoutCivilModalScope extends ng.IScope {
   sueId: string;
 }

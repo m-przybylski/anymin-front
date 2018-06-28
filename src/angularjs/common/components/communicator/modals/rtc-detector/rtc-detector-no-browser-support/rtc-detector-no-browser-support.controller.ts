@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 export interface IRtcDetectorNoBrowserSupportModalControllerScope extends ng.IScope {
 }
 

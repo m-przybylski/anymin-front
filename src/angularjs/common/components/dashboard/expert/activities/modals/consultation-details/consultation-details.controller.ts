@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 // tslint:disable:curly
 import { ViewsApi, ServiceApi } from 'profitelo-api-ng/api/api';
 import { MoneyDto, GetTag, GetCallDetails, GetServiceTags } from 'profitelo-api-ng/model/models';

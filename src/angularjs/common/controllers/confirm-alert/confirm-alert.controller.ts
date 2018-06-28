@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 // tslint:disable:curly
 import { TranslatorService } from '../../services/translator/translator.service';
 

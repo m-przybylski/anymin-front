@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import * as angular from 'angular';
 
 export interface INoCreditsControllerParentScope extends ng.IScope {

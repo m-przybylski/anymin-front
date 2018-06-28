@@ -1,3 +1,4 @@
+// tslint:disable:deprecation
 import * as angular from 'angular';
 import { GetClientActivity, MoneyDto } from 'profitelo-api-ng/model/models';
 import { StateService } from '@uirouter/angularjs';
