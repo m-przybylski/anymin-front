@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:new-parens
 // tslint:disable:curly
 // tslint:disable:member-ordering

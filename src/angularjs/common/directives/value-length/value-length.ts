@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-empty
 // tslint:disable:newline-before-return
 // tslint:disable:curly

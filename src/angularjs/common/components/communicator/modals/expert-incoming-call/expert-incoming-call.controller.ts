@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:deprecation
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 

@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-empty
 import { GetExpertDetails, ProfileDocument } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../services/user/user.service';

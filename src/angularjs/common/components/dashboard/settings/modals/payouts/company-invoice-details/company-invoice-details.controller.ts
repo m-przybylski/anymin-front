@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 import { CompanyInvoiceDetailsModalService } from './company-invoice-details.service';

@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:prefer-conditional-expression
 // tslint:disable:no-shadowed-variable
 // tslint:disable:newline-before-return

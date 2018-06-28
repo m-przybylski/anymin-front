@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-require-imports
 // tslint:disable:no-any
 import { CardPaymentFormComponentController } from './card.controller';

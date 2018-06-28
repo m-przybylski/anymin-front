@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-any
 import { IExpertEmployeeComponentBindings } from './employee';

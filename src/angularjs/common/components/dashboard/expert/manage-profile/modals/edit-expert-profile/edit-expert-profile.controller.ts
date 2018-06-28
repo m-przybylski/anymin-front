@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 import { ProfileApi } from 'profitelo-api-ng/api/api';

@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 import * as angular from 'angular';
 import filtersModule from '../../../../filters/filters';
 import inputModule from '../../../interface/input/input';

@@ -1,3 +1,4 @@
+// tslint:disable:prefer-method-signature
 // tslint:disable:no-import-side-effect
 // tslint:disable:new-parens
 import * as angular from 'angular';
