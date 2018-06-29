@@ -21,8 +21,8 @@ export function CommunicatorConfigFactory(): Config {
       hostname: chatUrl.hostname,
       port: chatUrl.port,
       rtc: {
+        iceTransportPolicy: 'all',
         bundlePolicy: 'balanced',
-        iceTransportPolicy: 'relay',
         iceServers: [{
           urls: ['stun:turn.ratel.im:443', 'turn:turn.ratel.im:443'],
           username: 'test123',
