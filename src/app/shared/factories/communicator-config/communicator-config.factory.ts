@@ -24,7 +24,8 @@ export function CommunicatorConfigFactory(): Config {
         iceTransportPolicy: 'all',
         bundlePolicy: 'balanced',
         iceServers: [{
-          urls: ['stun:turn.ratel.im:443', 'turn:turn.ratel.im:443'],
+          // FIXME ?transport=upd is required by Edge.
+          urls: ['stun:turn.ratel.im:443?transport=udp', 'turn:turn.ratel.im:443?transport=udp'],
           username: 'test123',
           credential: 'test456'
         }]
