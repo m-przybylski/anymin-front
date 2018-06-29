@@ -48,6 +48,9 @@ import { InputSwitchComponent } from './components/input-switch/input-switch.com
 import { NavbarMenuService } from './services/navbar-menu-service/navbar-menu.service';
 import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
 import { NavbarComponentService } from './components/navbar/navbar.component.service';
+import { ConsultationTagsComponent } from './components/consultation-tags/consultation-tags.component';
+import { ConsultationPriceComponent } from './components/consultation-price/consultation-price.component';
+import { InputTagsComponent } from './components/consultation-tags/input-tags/input-tags.component';
 
 @NgModule({
   imports: [
@@ -71,7 +74,6 @@ import { NavbarComponentService } from './components/navbar/navbar.component.ser
     ContentHeightAnimateDirective,
     NavbarComponent,
     UserNavigationComponent,
-    UserAvatarComponent,
     UserNavigationUnderlineDirective,
     NavbarUserAvatarComponent,
     UserAvatarComponent,
@@ -79,7 +81,10 @@ import { NavbarComponentService } from './components/navbar/navbar.component.ser
     NavbarCompanyMenuComponent,
     NavbarExpertMenuComponent,
     InputSwitchComponent,
-    PreloaderContainerComponent
+    PreloaderContainerComponent,
+    ConsultationTagsComponent,
+    ConsultationPriceComponent,
+    InputTagsComponent
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -92,7 +97,10 @@ import { NavbarComponentService } from './components/navbar/navbar.component.ser
     ContentHeightAnimateDirective,
     NavbarComponent,
     UserAvatarComponent,
-    PreloaderContainerComponent
+    PreloaderContainerComponent,
+    ConsultationTagsComponent,
+    ConsultationPriceComponent,
+    InputTagsComponent
   ],
   providers: [
     EventsServiceProvider,

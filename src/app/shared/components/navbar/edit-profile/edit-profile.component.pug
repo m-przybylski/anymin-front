@@ -46,13 +46,13 @@ plat-modal-component(
           [isDisabled]="isInputDisabled"
           )
 
-        .modal-form__row
+        .modal-form__row.modal-form__row--small
           header.modal-component__content__header
             span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.TITLE' | translate }}
 
           am-core-textarea-primary(
-          [maxLength]="consultationMaxlength",
-          [minLength]="consultationMinlength",
+          [maxLength]="profileDescriptionMaxLength",
+          [minLength]="profileDescriptionMinLength",
           [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.PLACEHOLDER'",
           [form]="expertNameForm",
           [controlName]="expertFormControlDescription",
@@ -62,7 +62,7 @@ plat-modal-component(
           [isDisabled]="isInputDisabled"
           )
 
-        .modal-form__row
+        .modal-form__row.modal-form__row--small
           plat-file-uploader(
           *ngIf="!isPending || isInputDisabled",
           [maxFileSize]="maxValidFileSize",
@@ -74,7 +74,7 @@ plat-modal-component(
           [isDisabled]="isInputDisabled"
           )
 
-        .modal-form__row
+        .modal-form__row.modal-form__row--small
           plat-profile-links(
           *ngIf="!isPending || isInputDisabled",
           [form]="expertNameForm",

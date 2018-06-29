@@ -1,0 +1,29 @@
+.profile-tags
+  plat-input-tags(
+    [label]="labelTrKey",
+    [placeholder]="placeholderTrKey",
+    [isRequired]="isRequired",
+    [form]="form",
+    [controlName]="controlName",
+    [isDisabled]="isDisabled",
+    [onAddTagCallback]="handleNewTag",
+    [errorTrKey]="validationErrorTrKey",
+    [currentTagsCount]="selectedTags.length"
+  )
+  .tags.tags--selected(*ngIf="areSelectedTags()")
+    p.tags__title([translate]="'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.SELECTED_TAGS_LABEL'")
+    ul.tags__list
+      li.tags__item.tags__item--selected(*ngFor="let tag of selectedTags", [@animation])
+        span.tags__item__tag.tags__item__tag--selected {{ tag }}
+          span.icon.icon-clear((click)="removeSelectedTag(tag)")
+
+  .tags.tags--suggested(*ngIf="areSuggestedTags()")
+    p.tags__title([translate]="'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.SUGGESTED_TAGS_LABEL'")
+    ul.tags__list
+      li.tags__item.tags__item--suggested(
+        *ngFor="let tag of suggestedTags",
+        (click)="handleSuggestedTag(tag)",
+        [@animation],
+        [ngClass]="{'tags__item--suggested--disabled': isDisabled}"
+      )
+        span.tags__item__tag {{ tag }}
