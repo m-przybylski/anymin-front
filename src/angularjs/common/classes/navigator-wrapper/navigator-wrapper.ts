@@ -9,17 +9,11 @@ export class NavigatorWrapper {
   public static readonly backCamera = 'environment';
 
   public static videoConstraints: MediaStreamConstraints = {
-    video: {
-      width: { min: 320, ideal: 640, max: 640 },
-      height: { min: 240, ideal: 480, max: 480 },
-      frameRate: 30
-    }
+    video: true
   };
 
   public static audioConstraints: MediaStreamConstraints = {
-    audio: {
-      echoCancelation: true
-    }
+    audio: true
   };
   private videoInputIdArray: string[] = [];
 
