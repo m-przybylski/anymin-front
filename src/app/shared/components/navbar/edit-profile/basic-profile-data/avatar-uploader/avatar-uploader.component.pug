@@ -1,9 +1,14 @@
-.avatar-uploader
+.avatar-uploader([formGroup]="form")
+  input([formControlName]="controlName", hidden)
+
   plat-user-avatar(
-    [avatarSize]="avatarSize",
-    [avatarUrl]="avatarUrl",
-    [avatarError]="isError"
+  (click)="openModal()",
+  [avatarSize]="avatarSize",
+  [avatarUrl]="avatarUrl",
+  [avatarError]="isError",
+  [avatarErrorValidation]="isFieldInvalid()"
   )
+
   .avatar-uploader__button.avatar-uploader__button--add(*ngIf="!avatarUrl")
     label
       input(type='file', appAvatarUploader, [onAvatarError]="onError", #appAvatarUploader, accept="image/png, image/jpeg")

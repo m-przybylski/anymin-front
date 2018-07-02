@@ -14,7 +14,6 @@ import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { EditProfileModalComponent } from '../edit-profile/edit-profile.component';
 
 @Component({
@@ -59,8 +58,8 @@ export class NavbarExpertMenuComponent implements OnInit {
       .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
   }
 
-  public openEditProfileModal = (): NgbModalRef =>
-    this.modalService.open(EditProfileModalComponent)
+  public openEditProfileModal = (): boolean =>
+    this.modalService.open(EditProfileModalComponent).componentInstance.isOpenAsExpert = !this.isCompany
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();

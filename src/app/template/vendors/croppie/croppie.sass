@@ -1,0 +1,38 @@
+@import "~@anymind-ng/components/src/template/stylesheets/core/core"
+
+.image-crop
+	position: relative
+	width: auto !important
+	
+.cr-vp-square
+	border: 1px dashed rgba($c-white, 0.35) !important
+	overflow: hidden
+	box-shadow: 0 0 0 2000px rgba($c-black, 0.75) !important
+	
+	&::after
+		content: ""
+		width: 64px
+		height: 100%
+		position: absolute
+		left: 0
+		right: 0
+		margin: auto
+		border-left: 1px dashed rgba($c-white, 0.35)
+		border-right: 1px dashed rgba($c-white, 0.35)
+	
+	&::before
+		content: ""
+		height: 64px
+		width: 100%
+		position: absolute
+		top: 0
+		bottom: 0
+		margin: auto
+		border-top: 1px dashed rgba($c-white, 0.35)
+		border-bottom: 1px dashed rgba($c-white, 0.35)
+		
+.cr-overlay
+	cursor: move !important
+	
+.cr-slider-wrap
+	display: none !important

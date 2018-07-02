@@ -3,4 +3,4 @@
 		span.preloader__icon.icon.icon-loading
 	span.preloader__message {{ trMessage | translate }}
 
-	ng-content
+	ng-content(*ngIf="!isLoading")

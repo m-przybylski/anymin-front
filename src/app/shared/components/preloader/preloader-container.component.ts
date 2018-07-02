@@ -18,6 +18,9 @@ export class PreloaderContainerComponent {
   public contentSizeClass?: PreloaderContentSizeEnum;
 
   @Input()
+  public isLoading = true;
+
+  @Input()
   public trMessage?: string;
 
   constructor() {

@@ -1,18 +1,19 @@
 // tslint:disable:readonly-array
 // tslint:disable:no-shadowed-variable
 import {
-  Component, Input
+  Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
-import { LoggerFactory, LoggerService, Animations, FormUtilsService } from '@anymind-ng/core';
-import { FormGroup } from '@angular/forms';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   CommonSettingsService
 }
   from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { Animations, FormUtilsService } from '@anymind-ng/components';
 import { ProfileLinksComponentErrorEnum } from './input-link/input-link.component';
 import { ProfileLinksComponentService } from './profile-links.component.service';
 
-interface ILinkList {
+export interface ILinkList {
   link: string;
   shortName?: string;
   icon?: string;
@@ -26,16 +27,23 @@ interface ILinkList {
   providers: [ProfileLinksComponentService]
 
 })
-export class ProfileLinksComponent {
+export class ProfileLinksComponent implements OnInit {
 
   @Input()
-  public formGroup: FormGroup;
+  public form: FormGroup;
 
   @Input()
   public controlName: string;
 
+  @Input()
+  public itemsList: string[] = [];
+
+  @Output()
+  public linksListEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
+
   public linksList: ILinkList[] = [];
   public urlPattern: RegExp;
+  private linksListUnify: string[] = [];
   private logger: LoggerService;
 
   constructor(private formUtils: FormUtilsService,
@@ -46,20 +54,28 @@ export class ProfileLinksComponent {
     this.urlPattern = CommonSettingsService.localSettings.urlPattern;
   }
 
+  public ngOnInit(): void {
+    this.form.addControl(this.controlName,
+      new FormControl('', [Validators.pattern(this.urlPattern)]));
+    if (this.itemsList.length > 0) {
+      this.itemsList.forEach(item => this.addElement(item));
+    }
+  }
+
   public onChangeValue = (inputValue: string): void =>
     this.isInputValueCorrect(inputValue)
 
   public isInputValueCorrect = (value: string): void => {
-    if (this.formGroup.controls[this.controlName].valid) {
+    if (this.form.controls[this.controlName].valid) {
       if (this.isValueExist(this.unifyLinkProtocol(value))) {
-        this.formGroup.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.ValueExist]: true});
-        this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+        this.form.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.ValueExist]: true});
+        this.formUtils.isFieldInvalid(this.form, this.controlName);
       } else {
         this.addElement(this.unifyLinkProtocol(value));
       }
     } else {
-      this.formGroup.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.IncorrectValue]: true});
-      this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+      this.form.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.IncorrectValue]: true});
+      this.formUtils.isFieldInvalid(this.form, this.controlName);
     }
   }
 
@@ -70,20 +86,30 @@ export class ProfileLinksComponent {
         shortName: this.profileLinksComponentService.cropSocialMediaLinkAsName(this.unifyLinkProtocol(value)).url,
         icon: this.profileLinksComponentService.cropSocialMediaLinkAsName(this.unifyLinkProtocol(value)).icon
       });
+      this.emitItemsList();
     } else if (value.length > 0) {
       this.linksList.push({link: value});
+      this.emitItemsList();
+      this.linksListEmitter$.emit(this.linksListUnify);
     }
     this.clearInputValue();
   }
 
-  public onDeleteClick = (deleteItem: ILinkList): ILinkList[] =>
-    this.linksList = this.linksList.filter(item => item !== deleteItem)
+  public onDeleteClick = (deleteItem: ILinkList): void => {
+    this.linksList = this.linksList.filter(item => item !== deleteItem);
+    this.emitItemsList();
+  }
 
   public isValueExist = (value: string): boolean =>
     this.linksList.filter(item => item.link === value).length > 0
 
+  private emitItemsList = (): void => {
+    this.linksListUnify = this.linksList.map(map => map.link);
+    this.linksListEmitter$.emit(this.linksListUnify);
+  }
+
   private clearInputValue = (): void =>
-    this.formGroup.controls[this.controlName].setValue('')
+    this.form.controls[this.controlName].setValue('')
 
   private unifyLinkProtocol = (value: string): string =>
     this.profileLinksComponentService.unifyLinkProtocol(value)

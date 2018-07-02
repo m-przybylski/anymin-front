@@ -1,9 +1,14 @@
 .user-avatar([ngClass]="setAvatarClass()")
   img.user-avatar__img(src="{{ avatarUrl }}", *ngIf="avatarUrl; else iconAvatar")
   ng-template(#iconAvatar)
-    span.icon.icon-avatar(*ngIf="!avatarError")
+    span.icon.icon-avatar(*ngIf="!avatarErrorValidation && !avatarError")
 
     .user-avatar__error(*ngIf="avatarError")
-      div
+      div(*ngIf="avatarError")
         span.icon.icon-warning
         p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_BIG_SIZE' | translate }}
+
+    .user-avatar__error(*ngIf="avatarErrorValidation && !avatarError")
+      div(*ngIf="avatarErrorValidation")
+        span.icon.icon-warning
+        p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.REQUIRED' | translate }}

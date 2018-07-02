@@ -74,4 +74,11 @@ export class Config {
   public static readonly imageSizeInBytes = {
     imageCropMaxSize: 3145728
   };
+
+  public static readonly resolutions = {
+    mobile: 320,
+    mobileLarge: 480,
+    tablet: 768,
+    desktop: 1024
+  };
 }

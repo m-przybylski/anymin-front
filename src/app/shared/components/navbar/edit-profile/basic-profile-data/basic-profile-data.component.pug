@@ -1,16 +1,20 @@
 .basic-profile-data
   .basic-profile-data__content
     .crop-photo
-      app-avatar-uploader([avatarUrl]="imageAvatar")
+      app-avatar-uploader(
+      [form]="form",
+      [controlName]="avatarControlName",
+      [isRequired]="isRequired"
+      )
 
     am-core-input-text(
       [isDisabled]="false",
       [label]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'",
       [errorTextKey]="'FEATURE.PAYMENTS.CHOOSE_BANK.NAME_INPUT.ERROR'",
-      [form]="formGroup",
+      [form]="form",
       [minLength]="profileNameMinlength",
       [maxLength]="profileNameMaxlength",
-      [controlName]="controlName",
-      [inputValue]="ngModel",
+      [controlName]="profileNameControlName",
+      [inputValue]="profileNameNgModel",
       [isRequired]="isRequired"
     )

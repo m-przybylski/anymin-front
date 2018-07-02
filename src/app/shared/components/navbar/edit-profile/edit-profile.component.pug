@@ -1,9 +1,8 @@
 plat-modal-component(
-    [modalTrTitleHeader]="'EDIT_PROFILE.TITLE'",
-    [isBackwardVisible]="isExpertForm && !isOpenAsExpert",
-    [onBackwardClick]="onBackToClientStep"
-  )
-
+[modalTrTitleHeader]="'EDIT_PROFILE.TITLE'",
+[isBackwardVisible]="isExpertForm && !isOpenAsExpert",
+[onBackwardClick]="onBackToClientStep"
+)
   header.modal-component__content__header
     span([innerHtml]="'EDIT_PROFILE.CONTENT.TITLE' | translate")
 
@@ -22,8 +21,9 @@ plat-modal-component(
     )
 
       plat-basic-profile-data(
-      [formGroup]="clientNameForm",
-      [controlName]="clientFormControlName"
+      [form]="clientNameForm",
+      [profileNameControlName]="clientFormControlName",
+      [avatarControlName]="clientFormControlAvatar",
       )
 
     ng-template(#expertForm)
@@ -36,8 +36,9 @@ plat-modal-component(
       )
         .modal-form__row
           plat-basic-profile-data(
-          [formGroup]="expertNameForm",
-          [controlName]="expertFormControlName",
+          [form]="expertNameForm",
+          [profileNameControlName]="expertFormControlName",
+          [avatarControlName]="expertFormControlAvatar",
           [isRequired]="isExpertForm")
 
         .modal-form__row
@@ -60,13 +61,18 @@ plat-modal-component(
           [maxFileSize]="maxValidFileSize",
           [maxFilesCount]="maxValidFilesCount",
           [fileCategory]="fileCategory",
-          (isUploadingEmitter$)="onUploadingFile($event)"
+          (isUploadingEmitter$)="onUploadingFile($event)",
+          (tokensListEmitter$)="onUploadFile($event)",
+          [tokensList]="testFiles"
           )
 
         .modal-form__row
           plat-profile-links(
-          [formGroup]="expertNameForm",
-          [controlName]="expertFormControlLink"
+          *ngIf="!isPending",
+          [form]="expertNameForm",
+          [controlName]="expertFormControlLink",
+          [itemsList]="profileLinksList",
+          (linksListEmitter$)="onAddProfileLink($event)"
           )
 
     .modal-component__action(*ngIf="!isOpenAsExpert")
@@ -76,12 +82,23 @@ plat-modal-component(
       a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="isExpertForm")
         | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
 
-      button.button.button--default(type="submit" form="clientNameForm", *ngIf="!isExpertForm")
-        | {{ 'EDIT_PROFILE.CONTENT.CREATE_CLIENT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
+      am-core-submit-button(
+      *ngIf="!isExpertForm",
+      (click) = "onClientFormSubmit(clientNameForm)",
+      [titleText]="'EDIT_PROFILE.CONTENT.CREATE_CLIENT_PROFILE.BUTTON.SAVE_PROFILE'",
+      [isDisabled]="isFileUploading"
+      )
 
-      a.button.button--default(type="submit", *ngIf="isExpertForm", (click)="onExpertFormSubmit(expertNameForm)")
-        | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
+      am-core-submit-button(
+      *ngIf="isExpertForm",
+      (click) = "onExpertFormSubmit(expertNameForm)",
+      [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
+      [isDisabled]="isFileUploading"
+      )
 
     .modal-component__action.modal-component__action--expert(*ngIf="isExpertForm && isOpenAsExpert")
-      a.button.button--default(type="submit", (click)="onExpertFormSubmit(expertNameForm)")
-        | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE' | translate }}
+      am-core-submit-button(
+      (click)="onExpertFormSubmit(expertNameForm)",
+      [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
+      [isDisabled]="isFileUploading"
+      )

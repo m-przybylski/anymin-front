@@ -1,23 +1,23 @@
 plat-modal-component(
 [modalTrTitleHeader]="'EDIT_PROFILE.IMAGE_CROP.TITLE'",
 [modalContainerClass]="modalClass",
-[isCloseButtonVisible]="isCloseButtonVisible"
+[isCloseButtonVisible]="false"
 )
-  .image-cropper
-    plat-preloader-container(
-    [contentSizeClass]="preloaderContentSize",
-    *ngIf="isPending")
+  .image-crop
+    .image-crop__container
+      plat-preloader-container(*ngIf="isPending")
+      p.hint {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.AVATAR.CROP' | translate }}
 
-    ngx-img(#cropper, (onSelect)='onImageSelect($event)',
-    [config]="cropConfig")
+    .modal-component__action.modal-component__action--crop
+      input(type="range", min="0" max="1.5" step="0.0001", #ref, (change)="onInputRangeChange($event)")
 
-  .modal-component__action.modal-component__action--crop
-    a.button.button--tertiary.button--small((click)="onModalClose()")
-      | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.CANCEL' | translate }}
+      div
+        a.button.button--tertiary.button--small((click)="onModalClose()")
+          | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.CANCEL' | translate }}
 
-    am-core-submit-button(
-      (click)="onImgUrlSubmit()",
-      [titleText]="'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE'",
-      [isDisabled]="isPending",
-      [isButtonSmall]="true"
-      )
+        am-core-submit-button(
+        (click)="onImgUrlSubmit()",
+        [titleText]="'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE'",
+        [isDisabled]="isPending",
+        [isButtonSmall]="true"
+       )
