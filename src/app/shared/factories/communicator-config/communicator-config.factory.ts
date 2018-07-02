@@ -24,8 +24,11 @@ export function CommunicatorConfigFactory(): Config {
         iceTransportPolicy: 'all',
         bundlePolicy: 'balanced',
         iceServers: [{
-          // FIXME ?transport=upd is required by Edge.
-          urls: ['stun:turn.anymind.com:443?transport=udp', 'turn:turn.anymind.com:443?transport=udp'],
+          urls: [
+            'turn:turn.anymind.com:443?transport=udp',
+            'turn:turn.anymind.com:443?transport=tcp',
+            'stun:turn.anymind.com:443'
+          ],
           username: 'test123',
           credential: 'test456'
         }]
