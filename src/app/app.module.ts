@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AngularJsBootstrapSingletonService } from './upgrade/angularjs-bootstrap-singleton.service';
 import { UpgradeModule } from '@angular/upgrade/static';
 import { RavenErrorHandler } from './shared/providers/raven-error-handler/raven-error-handler';
+import { ConfirmEmailModule } from './features/confirm-email/confirm-email.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RavenErrorHandler } from './shared/providers/raven-error-handler/raven-
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    ConfirmEmailModule,
     UpgradeModule
   ],
   providers: [

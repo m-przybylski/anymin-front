@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { UnsupportedGuard } from './features/unsupported/unsupported.guard';
 import { SessionGuard } from './shared/guards/session/session.guard';
 import { AnonymousGuard } from './shared/guards/anonymous/anonymous.guard';
+import { ConfirmEmailComponent } from './features/confirm-email/confirm-email.component';
+import { ConfirmEmailGuard } from './features/confirm-email/confirm-email.guard';
 
 const appRoutes: Routes = [
   {path: '', canActivate: [UnsupportedGuard], children: [
     {path: '', pathMatch: 'full', redirectTo: 'login'},
-    {path: 'confirm-email', loadChildren: './features/confirm-email/confirm-email.module#ConfirmEmailModule'},
+    {path: 'confirm-email/token/:token', canActivate: [ConfirmEmailGuard], component: ConfirmEmailComponent},
     {path: 'login', canActivate: [AnonymousGuard], loadChildren: './features/login/login.module#LoginModule'},
     {
       canActivate: [AnonymousGuard],
