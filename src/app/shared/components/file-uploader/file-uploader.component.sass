@@ -1,7 +1,6 @@
 @import "~@anymind-ng/components/src/template/stylesheets/stylesheets"
 
 .file-uploader-component
-  min-width: 320px
   max-width: 100%
 
   .drag-and-drop
@@ -126,7 +125,7 @@
     .preview
       &__img
         position: absolute
-        max-height: calc(100% - 40px)
+        height: 100%
         width: 100%
         right: 0
         left: 0
@@ -142,6 +141,7 @@
       height: 40px
       width: 100%
       padding: 12px
+      background: $c-white
 
       .icon-trash
         cursor: pointer

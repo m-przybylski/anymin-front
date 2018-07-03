@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 import { IServiceInvitation } from '../../../../../../models/ServiceInvitation';
 import {
   MoneyDto, PostService, PostServiceTag, GetInvitation,
-  ExpertProfileWithEmployments, GetServiceWithInvitations, GetMobileServiceDetails
+  ExpertProfileWithEmployments, GetServiceWithInvitations, GetMobileServiceDetails, GetService
 }
   from 'profitelo-api-ng/model/models';
 import { ServiceApi, EmploymentApi } from 'profitelo-api-ng/api/api';
@@ -31,7 +31,7 @@ import { ViewsApi } from 'profitelo-api-ng/api/ViewsApi';
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void;
-  serviceDetails?: ServiceWithOwnerProfile;
+  serviceDetails?: ServiceWithOwnerProfile | GetService;
 }
 
 // tslint:disable:member-ordering
@@ -62,7 +62,7 @@ export class ServiceFormModalController implements ng.IController {
   private currency: string;
   private defaultLanguageISO = '';
   private onModalCloseCallback: () => void;
-  private serviceDetails?: ServiceWithOwnerProfile;
+  private serviceDetails?: ServiceWithOwnerProfile | GetService;
   private consultationNamePattern: RegExp;
   private consultationDescriptionPattern: RegExp;
   private consultationTagsMinCount: number;
@@ -75,6 +75,7 @@ export class ServiceFormModalController implements ng.IController {
     name: 'Polish',
     value: 'pl'
   };
+  private serviceWithOwnerProfile: ServiceWithOwnerProfile;
 
   public static $inject = ['$uibModalInstance', 'translatorService', 'userService', 'ServiceApi',
     '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService', 'ViewsApi'];
@@ -276,14 +277,22 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   private onGetEmployments = (employments: ExpertProfileWithEmployments[]): void => {
+    if (this.serviceDetails && !this.isGetServiceModel(this.serviceDetails)) {
+      this.serviceWithOwnerProfile = this.serviceDetails;
+    }
     const serviceOwnerEmployments: ExpertProfileWithEmployments | undefined =
       _.find<ExpertProfileWithEmployments>(employments, (employment) =>
-        this.serviceDetails && this.serviceDetails.ownerProfile &&
-        employment.expertProfile.id === this.serviceDetails.ownerProfile.id);
+        this.serviceWithOwnerProfile && this.serviceWithOwnerProfile.ownerProfile &&
+        employment.expertProfile.id === this.serviceWithOwnerProfile.ownerProfile.id);
 
     if (serviceOwnerEmployments)
       this.isOwnerEmployee = _.find(serviceOwnerEmployments.employments || [], (employment) =>
         (this.serviceDetails && this.serviceDetails.id === employment.serviceId)) !== undefined;
+  }
+
+  private isGetServiceModel(serviceDetails: ServiceWithOwnerProfile | GetService): serviceDetails is GetService {
+    // tslint:disable-next-line:strict-type-predicates
+    return (<GetService>serviceDetails).ownerId !== undefined;
   }
 
   private onGetServiceDetails = (serviceDetails: GetMobileServiceDetails): void => {

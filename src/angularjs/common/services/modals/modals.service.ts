@@ -602,7 +602,7 @@ export class ModalsService {
   }
 
   public createServiceFormModal = (onModalClose: () => void,
-                                   service?: ServiceWithOwnerProfile): IModalInstanceService => {
+                                   service?: ServiceWithOwnerProfile | GetService): IModalInstanceService => {
 
     const dialogScope: IServiceFormModalScope =
       <IServiceFormModalScope>this.$rootScope.$new(true);

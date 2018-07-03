@@ -81,7 +81,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   private isGetServiceModel(serviceDetails: ServiceWithOwnerProfile | GetService): serviceDetails is GetService {
     // tslint:disable-next-line:strict-type-predicates
     return (<GetService>serviceDetails).ownerId !== undefined;
-}
+  }
 
   private deleteService = (): void => {
     this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
