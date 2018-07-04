@@ -43,7 +43,7 @@
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
     "@anymind-ng/api": "0.0.35",
-    "@anymind-ng/components": "0.0.108",
+    "@anymind-ng/components": "0.0.110",
     "@anymind-ng/core": "0.1.1",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",
     "@ngx-translate/core": "^9.1.1",
