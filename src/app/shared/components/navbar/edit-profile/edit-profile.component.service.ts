@@ -1,16 +1,23 @@
 // tslint:disable:no-empty
+// tslint:disable:readonly-array
 import { ReplaySubject } from 'rxjs';
-import { GetSession, ProfileService } from '@anymind-ng/api';
-import { Injectable, OnInit } from '@angular/core';
+import {
+  AccountService, GetSession, ProfileService, PutGeneralSettings, PutWizardProfile,
+  WizardService
+} from '@anymind-ng/api';
+import { Injectable } from '@angular/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Observable } from 'rxjs/Rx';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { mergeMap } from 'rxjs/operators';
+import { Account } from '@anymind-ng/api/model/account';
+import { ExpertDetailsUpdate } from '@anymind-ng/api/model/expertDetailsUpdate';
+import { WizardCompleteResult } from '@anymind-ng/api/model/wizardCompleteResult';
 
 @Injectable()
-export class EditProfileModalComponentService implements OnInit {
+export class EditProfileModalComponentService {
 
   public profileDetails: GetProfileWithDocuments;
   private value$ = new ReplaySubject<string>();
@@ -18,12 +25,11 @@ export class EditProfileModalComponentService implements OnInit {
   private logger: LoggerService;
 
   constructor(private profileService: ProfileService,
+              private accountService: AccountService,
+              private wizardService: WizardService,
               private userSessionService: UserSessionService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('EditProfileModalComponentService');
-  }
-
-  public ngOnInit(): void {
   }
 
   public getPreviousValue$ = (): ReplaySubject<string> =>
@@ -35,6 +41,24 @@ export class EditProfileModalComponentService implements OnInit {
   public getUserProfile = (): Observable<GetProfileWithDocuments> =>
     fromPromise(this.userSessionService.getSession())
       .pipe(mergeMap((session: GetSession) => this.getProfileRoute(session.accountId)))
+
+  public putClientGeneralSettings = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
+    this.accountService.putGeneralSettingsRoute({
+      isAnonymous: false,
+      nickname: formData.nickname,
+      avatar: formData.avatar
+    })
+
+  public getListAccountRoute = (): Observable<Account[]> => this.accountService.listAccountsRoute();
+
+  public putProfileRoute = (data: ExpertDetailsUpdate): Observable<ExpertDetailsUpdate> =>
+    this.profileService.putProfileRoute({expertDetails: data})
+
+  public createExpertProfile = (data: PutWizardProfile): Observable<PutWizardProfile> =>
+    this.wizardService.putWizardProfileRoute(data)
+
+  public completeCreateExpertProfile = (): Observable<WizardCompleteResult> =>
+    this.wizardService.postWizardCompleteRoute()
 
   private getProfileRoute = (accountId: string): Observable<GetProfileWithDocuments> =>
     this.profileService.getProfileRoute(accountId)

@@ -14,12 +14,14 @@ import { FileCategoryEnum } from '../../../services/uploader/file-type-checker';
 import { CommonConfig } from '../../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
 import { Alerts, AlertService, FormUtilsService } from '@anymind-ng/components';
-import { ProfileService } from '@anymind-ng/api';
 import { ExpertDetailsUpdate } from '@anymind-ng/api/model/expertDetailsUpdate';
 import { EditProfileModalComponentService } from './edit-profile.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
+import { Account } from '@anymind-ng/api/model/account';
+import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
@@ -43,23 +45,23 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public fileUploadTokensList: string[];
   public linksList: string[] = [];
   public profileLinksList: string[] = [];
+  public profileDocumentsList: ProfileDocument[] = [];
   public isPending = true;
   public commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
-  public readonly testFiles = ['2f31b4fce75d425da39a131dd7a79913', '8f45bc8e636b44cabe2bb454f0996b43'];
   public readonly consultationMinlength = Config.inputsLength.consultationMinDescription;
   public readonly consultationMaxlength = Config.inputsLength.consultationMaxDescription;
 
   @Input()
   public isOpenAsExpert: boolean;
 
+  private clientFormModel: PutGeneralSettings;
   private expertFormModel: ExpertDetailsUpdate;
   private logger: LoggerService;
 
   constructor(private activeModal: NgbActiveModal,
               private alertService: AlertService,
               private formUtils: FormUtilsService,
-              private profileService: ProfileService,
               private editProfileModalComponentService: EditProfileModalComponentService,
               private contentHeightService: ContentHeightAnimationService,
               loggerFactory: LoggerFactory) {
@@ -67,7 +69,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.setProfileDetails();
+    this.getProfileDetails();
     this.isExpertForm = this.isOpenAsExpert;
     this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
     this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
@@ -77,9 +79,19 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.contentHeightService.getPreviousHeight$().next('inherit');
   }
 
+  public onCreateExpertFormSubmit = (expetFormGroup: FormGroup): void => {
+    if (expetFormGroup.valid) {
+      this.sendExpertForm();
+      this.putWizardProfileRoute();
+    } else {
+      this.formUtils.validateAllFormFields(expetFormGroup);
+    }
+  }
+
   public onExpertFormSubmit = (expetFormGroup: FormGroup): void => {
     if (expetFormGroup.valid) {
       this.sendExpertForm();
+      this.putExpertProfileRoute();
     } else {
       this.formUtils.validateAllFormFields(expetFormGroup);
     }
@@ -87,6 +99,12 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public onClientFormSubmit = (clientNameForm: FormGroup): void => {
     if (clientNameForm.valid) {
+      this.clientFormModel = {
+        isAnonymous: false,
+        nickname: clientNameForm.controls[this.clientFormControlName].value,
+        avatar: clientNameForm.controls[this.clientFormControlAvatar].value
+      };
+      this.setClientProfileDetails();
     } else {
       this.formUtils.validateAllFormFields(clientNameForm);
     }
@@ -115,34 +133,62 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.fileUploadTokensList = token;
   }
 
-  public setProfileDetails = (): void => {
+  public getProfileDetails = (): void => {
     if (this.isOpenAsExpert) {
-      this.setExpertProfileDetails();
+      this.getExpertProfileDetails();
     } else {
-      this.setClientProfileDetails();
+      this.getClientProfileDetils();
     }
   }
 
   private setClientProfileDetails = (): void => {
-    this.isPending = false;
+    this.editProfileModalComponentService.putClientGeneralSettings(this.clientFormModel)
+      .subscribe(() => {
+        this.onModalClose();
+      }, (err) => this.handleClientProfileError(err));
   }
 
-  private setExpertProfileDetails = (): void => {
-    this.editProfileModalComponentService.getUserProfile().subscribe((profileDetails) => {
-      if (this.isExpertForm && profileDetails && profileDetails.profile.expertDetails) {
-        this.expertNameForm.controls[this.expertFormControlName].setValue(profileDetails.profile.expertDetails.name);
-        this.expertNameForm.controls[this.expertFormControlAvatar]
-          .setValue(profileDetails.profile.expertDetails.avatar);
-        this.expertNameForm.controls[this.expertFormControlDescription]
-          .setValue(profileDetails.profile.expertDetails.description);
-        this.profileLinksList = profileDetails.profile.expertDetails.links;
-        this.editProfileModalComponentService.getPreviousAvatarSrc().next(profileDetails.profile.expertDetails.avatar);
-      } else {
-        this.clientNameForm.controls[this.clientFormControlName].setValue(profileDetails.profile.id);
-        this.clientNameForm.controls[this.clientFormControlAvatar].setValue(profileDetails.profile.id);
-      }
-      this.isPending = false;
-    },  (err) => this.handleGetFileProfileError(err));
+  private handleClientProfileError = (error: HttpErrorResponse): void => {
+    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    this.logger.error('Can not set client profile', error);
+  }
+
+  private getClientProfileDetils = (): void => {
+    this.editProfileModalComponentService.getListAccountRoute()
+      .subscribe((response) => {
+        const accountDetails: Account[] = response;
+        this.isPending = false;
+        this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails[0].settings.nickname);
+        this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails[0].settings.avatar);
+        this.editProfileModalComponentService.getPreviousAvatarSrc()
+          .next(accountDetails[0].settings.avatar);
+      }, (err) => this.handleGetClientListAccountRouteError(err));
+  }
+
+  private handleGetClientListAccountRouteError = (error: HttpErrorResponse): void => {
+    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    this.logger.error('Can not get account list route', error);
+  }
+
+  private getExpertProfileDetails = (): void => {
+    this.editProfileModalComponentService.getUserProfile()
+      .subscribe((profileDetails) => {
+        this.setExpertFormValues(profileDetails);
+        this.isPending = false;
+      }, (err) => this.handleGetFileProfileError(err));
+  }
+
+  private setExpertFormValues = (profileDetails: GetProfileWithDocuments): void => {
+    if (profileDetails.profile.expertDetails !== undefined) {
+      this.expertNameForm.controls[this.expertFormControlName].setValue(profileDetails.profile.expertDetails.name);
+      this.expertNameForm.controls[this.expertFormControlAvatar].setValue(profileDetails.profile.expertDetails.avatar);
+      this.expertNameForm.controls[this.expertFormControlDescription]
+        .setValue(profileDetails.profile.expertDetails.description);
+      this.profileLinksList = profileDetails.profile.expertDetails.links;
+      this.profileDocumentsList = profileDetails.expertDocuments;
+      this.editProfileModalComponentService.getPreviousAvatarSrc()
+        .next(profileDetails.profile.expertDetails.avatar);
+    }
   }
 
   private handleGetFileProfileError = (error: HttpErrorResponse): void => {
@@ -158,12 +204,43 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       links: this.linksList,
       files: this.fileUploadTokensList
     };
-
-    this.putProfileRoute();
   }
 
-  private putProfileRoute = (): void => {
-    this.profileService.putProfileRoute({expertDetails: this.expertFormModel})
-      .subscribe(() => this.setExpertProfileDetails());
+  private putExpertProfileRoute = (): void => {
+    this.editProfileModalComponentService.putProfileRoute(this.expertFormModel)
+      .subscribe(() => this.onModalClose(), (err) => this.handlePutProfileRouteError(err));
+  }
+
+  private handlePutProfileRouteError = (error: HttpErrorResponse): void => {
+    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    this.logger.error('Can not put profile route', error);
+  }
+
+  private putWizardProfileRoute = (): void => {
+    this.editProfileModalComponentService.createExpertProfile(
+      {
+        isExpert: true,
+        isCompany: false,
+        isSummary: false,
+        expertDetailsOption: this.expertFormModel
+      }
+    ).subscribe(() => {
+      this.completeCreateExpertProfile();
+    }, (err) => this.handleCreateExpertProfileError(err));
+  }
+
+  private handleCreateExpertProfileError = (error: HttpErrorResponse): void => {
+    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    this.logger.error('Can not create expert profile', error);
+  }
+
+  private completeCreateExpertProfile = (): void => {
+    this.editProfileModalComponentService.completeCreateExpertProfile()
+      .subscribe(() => this.onModalClose(), (err) => this.handlecompleteCreateExpertProfileError(err));
+  }
+
+  private handlecompleteCreateExpertProfileError = (error: HttpErrorResponse): void => {
+    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    this.logger.error('Can not complete create expert profile', error);
   }
 }

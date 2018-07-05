@@ -58,12 +58,13 @@ plat-modal-component(
 
         .modal-form__row
           plat-file-uploader(
+          *ngIf="!isPending",
           [maxFileSize]="maxValidFileSize",
           [maxFilesCount]="maxValidFilesCount",
           [fileCategory]="fileCategory",
+          [profileDocuments]="profileDocumentsList",
           (isUploadingEmitter$)="onUploadingFile($event)",
           (tokensListEmitter$)="onUploadFile($event)",
-          [tokensList]="testFiles"
           )
 
         .modal-form__row
@@ -91,7 +92,7 @@ plat-modal-component(
 
       am-core-submit-button(
       *ngIf="isExpertForm",
-      (click) = "onExpertFormSubmit(expertNameForm)",
+      (click) = "onCreateExpertFormSubmit(expertNameForm)",
       [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
       [isDisabled]="isFileUploading"
       )
