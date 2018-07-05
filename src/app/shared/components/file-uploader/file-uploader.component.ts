@@ -3,10 +3,9 @@
 // tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 import { Component, EventEmitter, HostListener, Input, Output, OnDestroy, OnInit } from '@angular/core';
-import { GetFileInfo, PostFileDetails } from '@anymind-ng/api';
+import { PostFileDetails } from '@anymind-ng/api';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
-import { Subject, Observable } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { IUploadFileInfo, UploaderService } from '../../services/uploader/uploader.service';
 import {
@@ -14,11 +13,11 @@ import {
   FileUploaderComponentService,
   IFileValidationValues
 } from './file-uploader.component.service';
-import { EMPTY } from 'rxjs';
 import { Animations } from '../../animations/animations';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FileCategoryEnum } from '../../services/uploader/file-type-checker';
 import { CommonConfig } from '../../../../common-config';
+import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 
 interface IFileInfo {
   token: string;
@@ -43,7 +42,7 @@ interface IFile {
 export class FileUploaderComponent implements OnInit, OnDestroy {
 
   @Input()
-  public tokensList: string[] = [];
+  public profileDocuments: ProfileDocument[] = [];
 
   @Input()
   public maxFilesCount = 1;
@@ -65,6 +64,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   public fileStatusEnum: typeof FileStatus = FileStatus;
   public validUserFilesCounter = 0;
   public isElementDraggable = true;
+  public tokensList: string[] = [];
 
   private readonly maxFileNameLength = 15;
   private readonly shortenFileNameLength = 10;
@@ -180,12 +180,16 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   private getFilesInfo = (): void => {
-    this.tokensList.forEach(token => {
-      this.fileUploaderService.getFileInformation(token)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .pipe(catchError(this.onGetFileInfoError))
-        .subscribe(this.onGetFileInfoSuccess);
-    });
+    this.tokensList = this.profileDocuments.map(document => document.token);
+    this.userFiles = this.profileDocuments.map(document => ({
+      fileInfo: {
+        name: document.name,
+        token: document.token,
+        previews: document.previews
+      },
+      fileStatus: FileStatus.VALID
+    }));
+    this.validUserFilesCounter = this.userFiles.length;
   }
 
   private uploadFile = (fileToUpload: IFile): void => {
@@ -212,24 +216,6 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     file.fileStatus = FileStatus.UPLOAD_FAILURE;
     this.isUploadingEmitter$.emit(false);
     this.loggerService.warn('File upload failure', error);
-  }
-
-  private onGetFileInfoSuccess = (fileInformation: GetFileInfo): void => {
-    const file = {
-      fileInfo: {
-        token: fileInformation.token,
-        name: fileInformation.name,
-        previews: fileInformation.previews
-      },
-      fileStatus: FileStatus.VALID
-    };
-    this.userFiles = [...this.userFiles, file];
-    this.validUserFilesCounter++;
-  }
-
-  private onGetFileInfoError = (error: HttpErrorResponse): Observable<void> => {
-    this.loggerService.warn('Error when downloading files', error);
-    return EMPTY;
   }
 
   private assignFileValidationValues = (): void => {
