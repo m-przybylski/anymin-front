@@ -7,11 +7,13 @@ import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { takeUntil } from 'rxjs/internal/operators';
+import { Subject } from 'rxjs/index';
 
 @Component({
   selector: 'app-avatar-uploader',
   templateUrl: './avatar-uploader.component.html',
-  styleUrls: ['./avatar-uploader.component.sass'],
+  styleUrls: ['./avatar-uploader.component.sass']
 })
 export class AvatarUploaderComponent implements OnDestroy, OnInit {
 
@@ -25,11 +27,12 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   public form: FormGroup;
 
   @Input()
-  public isRequired?: boolean;
+  public isRequired = false;
 
   public isError = false;
   public readonly avatarSize = AvatarSizeEnum.X_152;
 
+  private ngUnsubscribe = new Subject<string>();
   private logger: LoggerService;
 
   constructor(private formUtils: FormUtilsService,
@@ -40,7 +43,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   }
 
   public ngOnInit(): void {
-    if (this.isRequired !== undefined) {
+    if (this.isRequired) {
       this.form.addControl(this.controlName, new FormControl('', [Validators.required]));
     } else {
       this.form.addControl(this.controlName, new FormControl('', []));
@@ -48,6 +51,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
 
     this.editProfileModalComponentService.getPreviousAvatarSrc()
       .pipe(catchError((err) => of(this.handleGetPrevoiusUrlAvatarError(err))))
+      .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((avatarSrc: string) => {
         this.setAvatarUrl(avatarSrc);
       });
@@ -62,6 +66,8 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
 
   public ngOnDestroy(): void {
     this.editProfileModalComponentService.getPreviousAvatarSrc().next(this.form.controls[this.controlName].value);
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public onClickClear = (): void => {

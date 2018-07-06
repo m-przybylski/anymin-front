@@ -11,8 +11,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import * as Croppie from 'croppie';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Config } from '../../../../../../../config';
+import { PreloaderContentSizeEnum } from '../../../../preloader/preloader-container.component';
 
-export interface IData {
+export interface IImageCropData {
   imgSrc: string;
   file: File;
 }
@@ -24,18 +25,19 @@ export interface IData {
 
 })
 export class ImageCropModalComponent implements OnInit, OnDestroy {
-  private static readonly mobileResolution = Config.resolutions.mobile;
-  private static readonly largeMobileResolution = Config.resolutions.mobileLarge;
+
+  @Input()
+  public cropModalData: IImageCropData;
 
   public modalClass: ModalContainerWidthEnum = ModalContainerWidthEnum.CROPP_WIDTH;
   public isPending = false;
+  public preloaderType = PreloaderContentSizeEnum.FULL_CONTENT;
 
-  @Input()
-  public cropModalData: IData;
+  private readonly mobileResolution = Config.screenWidth.mobile;
+  private readonly largeMobileResolution = Config.screenWidth.mobileLarge;
   private croppieElement: Croppie;
-  private croppingDetails: CropDetails;
   private logger: LoggerService;
-  private croppieResolution: number;
+  private croppieResolution = this.largeMobileResolution;
 
   constructor(private el: ElementRef,
               private activeModal: NgbActiveModal,
@@ -58,7 +60,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.setCroppieWidth();
+    this.assignCroppieWidth();
 
     this.croppieElement = new Croppie(this.el.nativeElement.querySelector('.image-crop__container'), {
         viewport: {
@@ -85,24 +87,24 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
   public onModalClose = (): void => this.activeModal.close();
 
   public onImgUrlSubmit = (): void => {
-    this.setCroppieCords();
     this.uploadFile();
   }
 
-  private setCroppieWidth = (): void => {
-    (this.windowRef.nativeWindow.innerWidth <= Config.resolutions.mobileLarge) ?
-      this.croppieResolution = ImageCropModalComponent.mobileResolution :
-      this.croppieResolution = ImageCropModalComponent.largeMobileResolution;
+  private assignCroppieWidth = (): void => {
+    (this.windowRef.nativeWindow.innerWidth <= Config.screenWidth.mobileLarge) ?
+      this.croppieResolution = this.mobileResolution :
+      this.croppieResolution = this.largeMobileResolution;
   }
 
   private onZoomChange = (value: number): void => this.croppieElement.setZoom(value);
 
   private uploadFile = (): void => {
+    const croppieCords = this.assignCroppieCords();
     this.isPending = true;
 
     this.uploaderService.uploadFile(this.cropModalData.file, {
         fileType: PostFileDetails.FileTypeEnum.PROFILE,
-        croppingDetails: this.croppingDetails
+        croppingDetails: croppieCords
       }
     ).then(response => {
       this.editProfileModalComponentService.getPreviousAvatarSrc().next(response.previews[0]);
@@ -112,25 +114,28 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
       .catch(err => this.handleUploadFileError(err));
   }
 
-  private setCroppieCords = (): void => {
+  private assignCroppieCords = (): CropDetails => {
     const points = this.croppieElement.get().points;
-    const pointCordX = 0;
-    const pointCordY = 1;
-    const pointWidth = 2;
-    const pointHeight = 3;
+    const indexOfPointCordX = 0;
+    const indexOfPointCordY = 1;
+    const indexOfPointWidth = 2;
+    const indexOfPointHeight = 3;
 
     if (points !== undefined) {
-      this.croppingDetails = {
-        x: Number(points[pointCordX]),
-        y: Number(points[pointCordY]),
-        width: Number(points[pointWidth]) - Number(points[pointCordX]),
-        height: Number(points[pointHeight]) - Number(points[pointCordY])
+      return {
+        x: Number(points[indexOfPointCordX]),
+        y: Number(points[indexOfPointCordY]),
+        width: Number(points[indexOfPointWidth]) - Number(points[indexOfPointCordX]),
+        height: Number(points[indexOfPointHeight]) - Number(points[indexOfPointCordY])
       };
+    } else {
+      return {x: 0, y: 0, width: 0, height: 0};
     }
   }
 
   private handleUploadFileError = (error: HttpErrorResponse): void => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-    this.logger.error('Can not upload image', error);
+    this.logger.warn('Can not upload image', error);
+    this.isPending = false;
   }
 }

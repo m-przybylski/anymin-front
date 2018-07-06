@@ -29,14 +29,14 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
   public avatarControlName: string;
 
   @Input()
-  public isRequired?: boolean;
+  public isRequired ? = false;
 
   public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;
   public readonly profileNameMinlength = Config.inputsLength.profileNameMinlength;
   public profileNameNgModel = '';
+  public isDisabled = false;
   private logger: LoggerService;
   private ngUnsubscribe = new Subject<string>();
-  private ngUnsubscribeAvatarUrl = new Subject<string>();
 
   constructor(private editProfileModalComponentService: EditProfileModalComponentService,
               private alertService: AlertService,
@@ -57,8 +57,6 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
     this.form.reset();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-    this.ngUnsubscribeAvatarUrl.next();
-    this.ngUnsubscribeAvatarUrl.complete();
   }
 
   private handleGetPrevoiusValueError = (httpError: HttpErrorResponse): void => {

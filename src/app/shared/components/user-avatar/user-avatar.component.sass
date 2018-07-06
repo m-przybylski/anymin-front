@@ -1,5 +1,5 @@
-@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/variables/variables"
-@import "../../../../../node_modules/@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
+@import "~@anymind-ng/components/src/template/stylesheets/core/variables/variables"
+@import "~@anymind-ng/components/src/template/stylesheets/core/helpers/helpers"
 
 .user-avatar
 	&__img
@@ -39,7 +39,7 @@
 	
 	.icon-avatar
 		background: $c-text-primary
-		color: $c-white
+		color: $c-half-white
 		border-radius: 50%
 	
 	&__error
@@ -60,6 +60,7 @@
 			
 		p
 			+label
+			font-weight: 400
 			font-size: $f-btn-small
 			text-transform: none
 			color: $c-error-primary

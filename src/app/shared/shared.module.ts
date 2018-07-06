@@ -47,6 +47,7 @@ import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-men
 import { InputSwitchComponent } from './components/input-switch/input-switch.component';
 import { NavbarMenuService } from './services/navbar-menu-service/navbar-menu.service';
 import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
+import { NavbarComponentService } from './components/navbar/navbar.component.service';
 
 @NgModule({
   imports: [
@@ -107,7 +108,8 @@ import { PreloaderContainerComponent } from './components/preloader/preloader-co
     RegistrationInvitationService,
     PinCodeTimerService,
     ContentHeightAnimationService,
-    NavbarMenuService
+    NavbarMenuService,
+    NavbarComponentService
   ]
 })
 

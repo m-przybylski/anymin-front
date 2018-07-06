@@ -32,7 +32,7 @@ export class Config {
     profileDescription: '600',
     consultationName: '350',
     consultationMaxDescription: '600',
-    consultationMinDescription: '3',
+    consultationMinDescription: '16',
     profileNameMinlength: '3',
     profileNameMaxlength: '60'
   };
@@ -75,7 +75,7 @@ export class Config {
     imageCropMaxSize: 3145728
   };
 
-  public static readonly resolutions = {
+  public static readonly screenWidth = {
     mobile: 320,
     mobileLarge: 480,
     tablet: 768,

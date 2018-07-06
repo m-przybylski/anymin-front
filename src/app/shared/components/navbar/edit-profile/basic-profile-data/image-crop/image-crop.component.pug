@@ -5,7 +5,8 @@ plat-modal-component(
 )
   .image-crop
     .image-crop__container
-      plat-preloader-container(*ngIf="isPending")
+      pre {{isPending}}
+      plat-preloader-container([isLoading]="isPending", [contentSizeClass]="preloaderType")
       p.hint {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.AVATAR.CROP' | translate }}
 
     .modal-component__action.modal-component__action--crop

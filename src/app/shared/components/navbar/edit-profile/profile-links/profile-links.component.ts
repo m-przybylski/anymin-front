@@ -90,7 +90,6 @@ export class ProfileLinksComponent implements OnInit {
     } else if (value.length > 0) {
       this.linksList.push({link: value});
       this.emitItemsList();
-      this.linksListEmitter$.emit(this.linksListUnify);
     }
     this.clearInputValue();
   }

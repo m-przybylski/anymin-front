@@ -29,7 +29,7 @@ export class UserAvatarComponent implements OnInit {
   public avatarError ? = false;
 
   @Input()
-  public avatarErrorValidation ? = false;
+  public avatarErrorValidation = false;
 
   private commonConfig: ConfigDEFAULT;
 

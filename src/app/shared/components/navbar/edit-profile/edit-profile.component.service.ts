@@ -12,7 +12,6 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Observable } from 'rxjs/Rx';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { mergeMap } from 'rxjs/operators';
-import { Account } from '@anymind-ng/api/model/account';
 import { ExpertDetailsUpdate } from '@anymind-ng/api/model/expertDetailsUpdate';
 import { WizardCompleteResult } from '@anymind-ng/api/model/wizardCompleteResult';
 
@@ -42,16 +41,17 @@ export class EditProfileModalComponentService {
     fromPromise(this.userSessionService.getSession())
       .pipe(mergeMap((session: GetSession) => this.getProfileRoute(session.accountId)))
 
-  public putClientGeneralSettings = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
+  public saveClientProfile = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
     this.accountService.putGeneralSettingsRoute({
       isAnonymous: false,
       nickname: formData.nickname,
       avatar: formData.avatar
     })
 
-  public getListAccountRoute = (): Observable<Account[]> => this.accountService.listAccountsRoute();
+  public getListAccountRoute = (): Observable<GetSession> =>
+    fromPromise(this.userSessionService.getSession(true))
 
-  public putProfileRoute = (data: ExpertDetailsUpdate): Observable<ExpertDetailsUpdate> =>
+  public saveExpertProfile = (data: ExpertDetailsUpdate): Observable<ExpertDetailsUpdate> =>
     this.profileService.putProfileRoute({expertDetails: data})
 
   public createExpertProfile = (data: PutWizardProfile): Observable<PutWizardProfile> =>

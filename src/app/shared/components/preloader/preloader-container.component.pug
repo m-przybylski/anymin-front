@@ -1,6 +1,2 @@
-.preloader([ngClass]="setPreloaderSize()", [@animation])
-	span.preloader__icon-container
-		span.preloader__icon.icon.icon-loading
-	span.preloader__message {{ trMessage | translate }}
-
+.preloader([ngClass]="{'preloader--full': isLoading === true && contentSizeClass === preloaderClass.FULL_CONTENT}", [@animation])
 	ng-content(*ngIf="!isLoading")

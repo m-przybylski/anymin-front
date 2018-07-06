@@ -5,8 +5,8 @@
 	width: auto !important
 	
 .cr-vp-square
-	border: 1px dashed rgba($c-white, 0.35) !important
 	overflow: hidden
+	border-radius: 50%
 	box-shadow: 0 0 0 2000px rgba($c-black, 0.75) !important
 	
 	&::after
@@ -36,3 +36,17 @@
 	
 .cr-slider-wrap
 	display: none !important
+	
+
+.cr-boundary
+	&::after
+		content: ""
+		width: 190px
+		height: 190px
+		position: absolute
+		left: 0
+		right: 0
+		top: 0
+		bottom:  0
+		margin: auto
+		border: 1px dashed rgba($c-white, 0.35)

@@ -1,7 +1,7 @@
 plat-modal-component(
-[modalTrTitleHeader]="'EDIT_PROFILE.TITLE'",
-[isBackwardVisible]="isExpertForm && !isOpenAsExpert",
-[onBackwardClick]="onBackToClientStep"
+  [modalTrTitleHeader]="'EDIT_PROFILE.TITLE'",
+  [isBackwardVisible]="isExpertForm && !isOpenAsExpert",
+  [onBackwardClick]="onBackToClientStep"
 )
   header.modal-component__content__header
     span([innerHtml]="'EDIT_PROFILE.CONTENT.TITLE' | translate")
@@ -87,19 +87,22 @@ plat-modal-component(
       *ngIf="!isExpertForm",
       (click) = "onClientFormSubmit(clientNameForm)",
       [titleText]="'EDIT_PROFILE.CONTENT.CREATE_CLIENT_PROFILE.BUTTON.SAVE_PROFILE'",
-      [isDisabled]="isFileUploading"
+      [isDisabled]="isFileUploading || isRequestPending",
+      [isLoading]="isFileUploading || isRequestPending"
       )
 
       am-core-submit-button(
       *ngIf="isExpertForm",
       (click) = "onCreateExpertFormSubmit(expertNameForm)",
       [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
-      [isDisabled]="isFileUploading"
-      )
+      [isDisabled]="isFileUploading || isRequestPending",
+      [isLoading]="isFileUploading || isRequestPending"
+            )
 
     .modal-component__action.modal-component__action--expert(*ngIf="isExpertForm && isOpenAsExpert")
       am-core-submit-button(
       (click)="onExpertFormSubmit(expertNameForm)",
       [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
-      [isDisabled]="isFileUploading"
+      [isDisabled]="isFileUploading || isRequestPending",
+      [isLoading]="isFileUploading || isRequestPending"
       )
