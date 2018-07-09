@@ -6,10 +6,9 @@ import { PostFileDetails } from '@anymind-ng/api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileModalComponentService } from '../../edit-profile.component.service';
 import { ModalContainerWidthEnum } from '../../../../modals/modal/modal.component';
-import { Alerts, AlertService, WindowRef } from '@anymind-ng/components';
+import { Alerts, AlertService, WindowRef, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Croppie from 'croppie';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Config } from '../../../../../../../config';
 import { PreloaderContentSizeEnum } from '../../../../preloader/preloader-container.component';
 
@@ -67,6 +66,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
           width: 190,
           height: 190
         },
+        mouseWheelZoom: false,
         showZoomer: false,
         boundary: {
           width: this.croppieResolution,

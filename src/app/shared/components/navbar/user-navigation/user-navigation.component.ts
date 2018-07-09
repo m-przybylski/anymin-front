@@ -3,10 +3,9 @@ import {
   Component, ElementRef, Input, OnInit, ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 import { UserNavigationComponentService } from './user-navigation.component.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { NavbarComponentService } from '../navbar.component.service';
-import { Alerts, AlertService } from '@anymind-ng/components';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

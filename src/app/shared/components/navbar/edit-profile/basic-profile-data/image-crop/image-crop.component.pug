@@ -5,7 +5,6 @@ plat-modal-component(
 )
   .image-crop
     .image-crop__container
-      pre {{isPending}}
       plat-preloader-container([isLoading]="isPending", [contentSizeClass]="preloaderType")
       p.hint {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.AVATAR.CROP' | translate }}
 
@@ -21,4 +20,4 @@ plat-modal-component(
         [titleText]="'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE'",
         [isDisabled]="isPending",
         [isButtonSmall]="true"
-       )
+      )

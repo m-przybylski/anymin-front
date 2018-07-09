@@ -3,13 +3,12 @@
 import {
   Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Animations, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   CommonSettingsService
 }
   from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { Animations, FormUtilsService } from '@anymind-ng/components';
 import { ProfileLinksComponentErrorEnum } from './input-link/input-link.component';
 import { ProfileLinksComponentService } from './profile-links.component.service';
 

@@ -54,7 +54,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
 
   @Input()
-  public isDisabled = false;
+  public isDisabled ? = false;
 
   @Output()
   public tokensListEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();

@@ -3,6 +3,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Config } from '../../../../../../../config';
 import { ImageCropModalComponent } from '../image-crop/image-crop.component';
+import {
+  ContentHeightAnimationService
+}
+  from '../../../../../services/animation/content-height/content-height.animation.service';
 
 @Directive({
   selector: '[appAvatarUploader]'
@@ -16,6 +20,7 @@ export class AvatarUploaderDirective {
 
   constructor(private modalService: NgbModal,
               private alertService: AlertService,
+              private contentHeightService: ContentHeightAnimationService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('AvatarUploaderDirective');
   }
@@ -23,6 +28,7 @@ export class AvatarUploaderDirective {
   @HostListener('change', ['$event'])
   public inputChanged = (event: HTMLSelectElement): void => {
     if (event.target.files[0].size < Config.imageSizeInBytes.imageCropMaxSize) {
+      this.contentHeightService.getPreviousHeight$().next('0');
       this.isError = false;
       this.onAvatarError(this.isError);
       if (event.target.value) {

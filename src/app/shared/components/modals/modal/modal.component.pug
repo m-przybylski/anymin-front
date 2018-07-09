@@ -2,11 +2,15 @@
   .modal-component__scroll(pinElement="modal-component__header")
     .modal-component__container([ngClass]="setModalContainerWidth()")
       plat-modal-header(
-        [titleTrHeader]="modalTrTitleHeader",
-        [onBackwardClick]="onBackClick",
-        [isBackwardVisible]="isBackwardVisible",
-        [isCloseButtonVisible]="isCloseButtonVisible"
+      [titleTrHeader]="modalTrTitleHeader",
+      [onBackwardClick]="onBackClick",
+      [isBackwardVisible]="isBackwardVisible",
+      [isCloseButtonVisible]="isCloseButtonVisible"
       )
 
-      .modal-component__content
-        ng-content
+      .modal-component__content(
+      modalAnimationComponent,
+        [ngClass]="{'modal-component__content--loading': isLoading}"
+      )
+        div(contentHeightAnimation)
+          ng-content()

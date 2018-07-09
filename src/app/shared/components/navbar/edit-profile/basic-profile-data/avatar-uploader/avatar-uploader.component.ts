@@ -2,13 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../../../user-avatar/user-avatar.component';
 import { EditProfileModalComponentService } from '../../edit-profile.component.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Alerts, AlertService, FormUtilsService } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { of } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { takeUntil } from 'rxjs/internal/operators';
-import { Subject } from 'rxjs/index';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-avatar-uploader',

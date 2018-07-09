@@ -11,10 +11,11 @@
     [label]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'",
     [errorTextKey]="'EDIT_PROFILE.INPUT.INPUT_NAME.VALIDATION.ERROR'",
     [form]="form",
-    [minLength]="profileNameMinlength",
-    [maxLength]="profileNameMaxlength",
     [controlName]="profileNameControlName",
     [inputValue]="profileNameNgModel",
     [isRequired]="isRequired",
-    [isDisabled] = "isDisabled"
+    [isDisabled] = "isDisabled",
+    [minLength]="profileNameMinlength",
+    [maxLength]="profileNameMaxlength",
+    [initialFocus]="true"
     )

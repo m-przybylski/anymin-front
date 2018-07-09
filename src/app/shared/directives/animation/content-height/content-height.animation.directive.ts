@@ -21,6 +21,8 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.contentHeightService.getPreviousHeight$().next(this.currentHeight);
+
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
@@ -37,10 +39,11 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(previousHeight => {
         if (previousHeight !== this.currentHeight) {
+
           const animation = this.animationBuilder.build([
             animate('300ms ease-in-out', keyframes([
-              style({height: previousHeight, overflow: 'hidden', offset: 0}),
-              style({height: this.currentHeight, offset: 0.5}),
+              style({height: previousHeight, offset: 0}),
+              style({height: '*', offset: 0.5}),
               style({height: 'auto', offset: 1})
             ]))
           ]);

@@ -22,7 +22,7 @@ import { FileUploaderComponent } from '../../file-uploader/file-uploader.compone
   ],
   providers: [
     EditProfileModalComponentService,
-    UploaderService
+    UploaderService,
   ],
   declarations: [
     BasicProfileDataComponent,

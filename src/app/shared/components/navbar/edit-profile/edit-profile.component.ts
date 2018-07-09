@@ -5,24 +5,20 @@ import {
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import {
-  ContentHeightAnimationService
-}
-  from '../../../services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../config';
 import { FileCategoryEnum } from '../../../services/uploader/file-type-checker';
 import { CommonConfig } from '../../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
-import { Alerts, AlertService, FormUtilsService } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ExpertDetailsUpdate } from '@anymind-ng/api/model/expertDetailsUpdate';
 import { EditProfileModalComponentService } from './edit-profile.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { GetSession } from '@anymind-ng/api';
 import { NavbarComponentService } from '../navbar.component.service';
+import { ModalAnimationComponentService } from '../../modals/modal/animation/modal-animation.animation.service';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
@@ -52,6 +48,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public readonly consultationMinlength = Config.inputsLength.consultationMinDescription;
   public readonly consultationMaxlength = Config.inputsLength.consultationMaxDescription;
+  public isInputDisabled = false;
+  public profileDescription: string;
 
   @Input()
   public isOpenAsExpert: boolean;
@@ -65,7 +63,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
               private formUtils: FormUtilsService,
               private navbarComponentService: NavbarComponentService,
               private editProfileModalComponentService: EditProfileModalComponentService,
-              private contentHeightService: ContentHeightAnimationService,
+              private modalAnimationComponentService: ModalAnimationComponentService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('EditProfileModalComponent');
   }
@@ -73,18 +71,19 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.getProfileDetails();
     this.isExpertForm = this.isOpenAsExpert;
-
     this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
     this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
   }
 
   public ngOnDestroy(): void {
-    this.contentHeightService.getPreviousHeight$().next('inherit');
+    this.modalAnimationComponentService.getPreviousHeight$().next('inherit');
+    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
+    this.editProfileModalComponentService.getPreviousValue$().next('');
   }
 
   public onCreateExpertFormSubmit = (expetFormGroup: FormGroup): void => {
-    if (expetFormGroup.valid) {
-      this.isPending = true;
+    if (expetFormGroup.valid && !this.isPending) {
+      this.isInputDisabled = true;
       this.sendExpertForm();
       this.putWizardProfileRoute();
     } else {
@@ -93,8 +92,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   }
 
   public onExpertFormSubmit = (expetFormGroup: FormGroup): void => {
-    if (expetFormGroup.valid) {
-      this.isPending = true;
+    if (expetFormGroup.valid && !this.isPending) {
+      this.isInputDisabled = true;
       this.sendExpertForm();
       this.putExpertProfileRoute();
     } else {
@@ -103,8 +102,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   }
 
   public onClientFormSubmit = (clientNameForm: FormGroup): void => {
-    if (clientNameForm.valid)
-      this.isPending = true;{
+    if (clientNameForm.valid && !this.isPending) {
+      this.isInputDisabled = true;
       this.clientFormModel = {
         isAnonymous: false,
         nickname: clientNameForm.controls[this.clientFormControlName].value,
@@ -118,10 +117,12 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public onBackToClientStep = (): void => {
     this.isExpertForm = false;
+    this.modalAnimationComponentService.onModalContentChange().next(true);
   }
 
   public onCreateExpertAccount = (): void => {
     this.isExpertForm = !this.isExpertForm;
+    this.modalAnimationComponentService.onModalContentChange().next(true);
   }
 
   public onModalClose = (): void =>
@@ -129,6 +130,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public onUploadingFile = (isUploading: boolean): void => {
     this.isFileUploading = isUploading;
+    this.isInputDisabled = isUploading;
+    this.isPending = isUploading;
   }
 
   public onAddProfileLink = (links: string[]): void => {
@@ -165,7 +168,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         const accountDetails: GetSession = response;
         this.isPending = false;
-
+        this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
         if (accountDetails.account !== undefined) {
           this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails.account.settings.nickname);
           this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails.account.settings.avatar);
@@ -180,6 +183,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       .subscribe((profileDetails) => {
         this.setExpertFormValues(profileDetails);
         this.isPending = false;
+        this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
       }, (err) => this.handleResponseError(err, 'Can not get expert file profile'));
   }
 
@@ -192,6 +196,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       this.profileLinksList = profileDetails.profile.expertDetails.links;
       this.profileDocumentsList = profileDetails.expertDocuments;
       this.fileUploadTokensList = profileDetails.expertDocuments.map(file => file.token);
+      this.profileDescription = profileDetails.profile.expertDetails.description;
       this.editProfileModalComponentService.getPreviousAvatarSrc().next(profileDetails.profile.expertDetails.avatar);
     }
   }

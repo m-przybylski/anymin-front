@@ -5,11 +5,11 @@
       input.drag-and-drop__hidden-input(
         #inputFile,
         type="file",
-        disabled="{{isDisabled}}",
         [multiple]="isMultipleFilesAllowed",
         (change)="onInputFileChange($event)",
         accept="image/*, application/pdf",
-        (click)="onInputFileClick($event)"
+        (click)="onInputFileClick($event)",
+        [disabled]="isDisabled"
       )
       .drag-and-drop__title
         span.icon.icon-upload-files

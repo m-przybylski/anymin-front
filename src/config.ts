@@ -33,8 +33,8 @@ export class Config {
     consultationName: '350',
     consultationMaxDescription: '600',
     consultationMinDescription: '16',
-    profileNameMinlength: '3',
-    profileNameMaxlength: '60'
+    profileNameMinlength: 3,
+    profileNameMaxlength: 60
   };
 
   public static readonly styles = {
@@ -80,5 +80,9 @@ export class Config {
     mobileLarge: 480,
     tablet: 768,
     desktop: 1024
+  };
+
+  public static readonly modalPreloaderDelay = {
+    delayAfterRequest: 400
   };
 }

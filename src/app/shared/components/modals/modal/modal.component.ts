@@ -1,8 +1,20 @@
 // tslint:disable:strict-boolean-expressions
 import {
-  Component, Input, OnInit
+  AfterViewInit,
+  Component, Input, OnDestroy, OnInit, ViewChild
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAnimationComponentService } from './animation/modal-animation.animation.service';
+import { ModalAnimationComponentDirective } from './animation/modal-animation.component.directive';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Config } from '../../../../../config';
+import {
+  ContentHeightAnimationService
+}
+  from '../../../services/animation/content-height/content-height.animation.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export enum ModalContainerWidthEnum {
   SMALL_WIDTH,
@@ -17,7 +29,7 @@ export enum ModalContainerWidthEnum {
   templateUrl: './modal.component.html'
 })
 
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
   public modalTrTitleHeader?: string;
@@ -34,7 +46,30 @@ export class ModalComponent implements OnInit {
   @Input()
   public isCloseButtonVisible ? = true;
 
-  constructor(private activeModal: NgbActiveModal) {
+  @ViewChild(ModalAnimationComponentDirective)
+  public onPendingRequest: ModalAnimationComponentDirective;
+
+  @ViewChild(ModalAnimationComponentDirective)
+  public onChangeModalContent: ModalAnimationComponentDirective;
+
+  public isLoading = true;
+  public isPending = true;
+
+  private logger: LoggerService;
+  private ngUnsubscribe = new Subject<string>();
+
+  constructor(private activeModal: NgbActiveModal,
+              private alertService: AlertService,
+              private modalAnimationComponentService: ModalAnimationComponentService,
+              private contentHeightAnimationService: ContentHeightAnimationService,
+              loggerFactory: LoggerFactory) {
+    this.logger = loggerFactory.createLoggerService('ModalComponent');
+  }
+
+  public ngOnDestroy(): void {
+    this.contentHeightAnimationService.getPreviousHeight$().next('auto');
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public ngOnInit(): void {
@@ -42,6 +77,22 @@ export class ModalComponent implements OnInit {
     if (!this.modalContainerClass) {
       this.modalContainerClass = ModalContainerWidthEnum.MEDIUM_WIDTH;
     }
+
+    if (this.modalContainerClass === ModalContainerWidthEnum.CROPP_WIDTH) {
+      this.isLoading = false;
+    }
+  }
+
+  public ngAfterViewInit(): void {
+    this.modalAnimationComponentService.isPendingRequest()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(isPending => this.callAnimationOnRequest(isPending),
+        (err) => this.handleModalAnimationServiceError(err, 'Can not get pending value'));
+
+    this.modalAnimationComponentService.onModalContentChange()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(onChange => this.callAnonimationOnChangeModalContent(onChange),
+        (err) => this.handleModalAnimationServiceError(err, 'Can not get on change value'));
   }
 
   public onBackClick = (): void => {
@@ -50,8 +101,27 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  public onModalClose = (): void =>
-    this.activeModal.close()
+  public onModalClose = (): void => this.activeModal.close();
+
+  private createPreloader = (): void => {
+    const loadingDelay = Config.modalPreloaderDelay.delayAfterRequest;
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, loadingDelay);
+  }
+
+  private callAnimationOnRequest = (isPending: boolean): void => {
+    this.createPreloader();
+    this.onPendingRequest.onResponse();
+    this.isPending = isPending;
+  }
+
+  private callAnonimationOnChangeModalContent = (isPending: boolean): void => {
+    this.createPreloader();
+    this.onChangeModalContent.onChangeModalContent();
+    this.isPending = isPending;
+  }
 
   private setModalContainerWidth = (): string => {
     switch (this.modalContainerClass) {
@@ -70,5 +140,11 @@ export class ModalComponent implements OnInit {
       default:
         return 'modal-component__container--medium';
     }
+  }
+
+  private handleModalAnimationServiceError = (error: HttpErrorResponse, errorMsg: string): void => {
+    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    this.logger.warn(errorMsg, error);
+    this.isPending = false;
   }
 }

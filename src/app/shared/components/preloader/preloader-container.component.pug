@@ -1,2 +1,2 @@
 .preloader([ngClass]="{'preloader--full': isLoading === true && contentSizeClass === preloaderClass.FULL_CONTENT}", [@animation])
-	ng-content(*ngIf="!isLoading")
+	ng-content(*ngIf="isLoading")
