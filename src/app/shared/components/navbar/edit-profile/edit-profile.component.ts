@@ -22,7 +22,6 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { GetSession } from '@anymind-ng/api';
-import { PreloaderContentSizeEnum } from '../../preloader/preloader-container.component';
 import { NavbarComponentService } from '../navbar.component.service';
 
 @Component({
@@ -53,7 +52,6 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public readonly consultationMinlength = Config.inputsLength.consultationMinDescription;
   public readonly consultationMaxlength = Config.inputsLength.consultationMaxDescription;
-  public readonly preloaderType = PreloaderContentSizeEnum.FULL_CONTENT;
 
   @Input()
   public isOpenAsExpert: boolean;
@@ -75,6 +73,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.getProfileDetails();
     this.isExpertForm = this.isOpenAsExpert;
+
     this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
     this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
   }
@@ -85,6 +84,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public onCreateExpertFormSubmit = (expetFormGroup: FormGroup): void => {
     if (expetFormGroup.valid) {
+      this.isPending = true;
       this.sendExpertForm();
       this.putWizardProfileRoute();
     } else {
@@ -94,6 +94,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public onExpertFormSubmit = (expetFormGroup: FormGroup): void => {
     if (expetFormGroup.valid) {
+      this.isPending = true;
       this.sendExpertForm();
       this.putExpertProfileRoute();
     } else {
@@ -102,7 +103,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   }
 
   public onClientFormSubmit = (clientNameForm: FormGroup): void => {
-    if (clientNameForm.valid) {
+    if (clientNameForm.valid)
+      this.isPending = true;{
       this.clientFormModel = {
         isAnonymous: false,
         nickname: clientNameForm.controls[this.clientFormControlName].value,

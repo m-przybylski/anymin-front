@@ -1,6 +1,6 @@
 .input-link.input(
 [formGroup]="formGroup",
-[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid()}")
+[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
 	.input__handler
 		.input__container
 			.input__label-container

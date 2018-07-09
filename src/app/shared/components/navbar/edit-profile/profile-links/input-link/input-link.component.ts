@@ -38,6 +38,9 @@ export class InputAddLinkComponent {
   @Input()
   public onChange?: (value: string) => void;
 
+  @Input()
+  public isDisabled = false;
+
   public isFocused = false;
 
   constructor(public formUtils: FormUtilsService) {

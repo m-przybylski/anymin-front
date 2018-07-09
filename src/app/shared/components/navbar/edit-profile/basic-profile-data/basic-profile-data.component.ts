@@ -31,10 +31,12 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
   @Input()
   public isRequired ? = false;
 
+  @Input()
+  public isDisabled ? = false;
+
   public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;
   public readonly profileNameMinlength = Config.inputsLength.profileNameMinlength;
   public profileNameNgModel = '';
-  public isDisabled = false;
   private logger: LoggerService;
   private ngUnsubscribe = new Subject<string>();
 

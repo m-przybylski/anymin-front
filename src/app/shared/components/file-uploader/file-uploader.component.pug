@@ -5,6 +5,7 @@
       input.drag-and-drop__hidden-input(
         #inputFile,
         type="file",
+        disabled="{{isDisabled}}",
         [multiple]="isMultipleFilesAllowed",
         (change)="onInputFileChange($event)",
         accept="image/*, application/pdf",
@@ -14,6 +15,7 @@
         span.icon.icon-upload-files
         p([translate]="'FILE_UPLOADER.DRAG_AND_DROP.TITLE'")
         span.button.button--tertiary(
+          [ngClass]="{'button--disabled': isDisabled}",
           (click)="inputFile.click()",
           [translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'"
         )

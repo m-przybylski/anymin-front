@@ -38,6 +38,9 @@ export class ProfileLinksComponent implements OnInit {
   @Input()
   public itemsList: string[] = [];
 
+  @Input()
+  public isDisabled = false;
+
   @Output()
   public linksListEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
 
