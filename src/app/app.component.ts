@@ -5,8 +5,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
-const polishTranslations = require('../../generated_modules/angular-translations/pl-pl.json');
-const englishTranslations = require('../../generated_modules/angular-translations/en-us.json');
+const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
+const englishTranslations = require('../../lib/angular-translations/en-us.json');
 
 @Component({
   selector: 'app-root',

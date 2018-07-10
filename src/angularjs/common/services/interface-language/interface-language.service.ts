@@ -9,8 +9,8 @@ import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IRootScopeService } from '../root-scope/root-scope.service';
-import '../../../../../generated_modules/angularjs-translations/pl-pl';
-import '../../../../../generated_modules/angularjs-translations/en-us';
+import '../../../../../lib/angularjs-translations/pl-pl';
+import '../../../../../lib/angularjs-translations/en-us';
 
 export interface IInterfaceLanguage {
   nativeName: string;
