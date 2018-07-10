@@ -1,7 +1,6 @@
 import { Resolve } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { LoggerService } from '@anymind-ng/core';
-import { Alerts, AlertService } from '@anymind-ng/components';
+import { LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 

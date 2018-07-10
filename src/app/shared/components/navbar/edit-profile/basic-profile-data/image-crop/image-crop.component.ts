@@ -4,8 +4,7 @@ import { NgxImgComponent, NgxImgService } from 'ngx-img';
 import { ModalContainerWidthEnum } from '../../../../modals/modal/modal.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileModalComponentService } from '../../edit-profile.component.service';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService  } from '@anymind-ng/core';
 import { PreloaderContentSizeEnum } from '../../../../preloader/preloader-container.component';
 
 @Component({

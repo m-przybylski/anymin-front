@@ -3,9 +3,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistrationService, GetRegistrationStatus } from '@anymind-ng/api';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService, Alerts, AlertService  } from '@anymind-ng/core';
 import { map, catchError } from 'rxjs/operators';
-import { Alerts, AlertService } from '@anymind-ng/components';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import {
   RegistrationInvitationService

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   FormUtilsService,
   AnymindComponentsModule, AnymindComponentsCoreModule
-} from '@anymind-ng/components';
+} from '@anymind-ng/core';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
 import { LoginBackgroundComponent } from '../../../../shared/components/login-background/login-background.component';
 import
@@ -19,7 +19,8 @@ import { PasswordLoginStatus, PasswordViewService } from './password.view.servic
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/observable/of';
-import { InputPasswordErrorsEnum } from '@anymind-ng/components';
+import { InputPasswordErrorsEnum } from '@anymind-ng/core';
+import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
 
 // tslint:disable:no-floating-promises
 // tslint:disable:no-unbound-method
@@ -36,7 +37,7 @@ describe('Component: PasswordViewComponent', () => {
         LoginMobileFooterComponent
       ],
       imports: [
-        AnymindComponentsCoreModule.forRoot(),
+        AnymindComponentsCoreModule.forRoot(getCoreConfig),
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,

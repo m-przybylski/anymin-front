@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GetRegistrationSession, RegistrationService } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { FormGroup } from '@angular/forms';
-import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '@anymind-ng/core';
 import { PinCodeViewService, PinCodeServiceStatus } from './pin-code.view.service';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError, map } from 'rxjs/internal/operators';
 import { of } from 'rxjs/index';
 import { Observable } from 'rxjs/Rx';
@@ -25,13 +24,13 @@ export class ConfirmEmailGuard implements CanActivate {
     return this.accountService.postAccountVerifyEmailRoute(token)
       .pipe(map(() => {
         this.logger.log('valid email token, allow access');
-        this.alertService.pushSuccessAlert(Alerts.ConfirmEmailSuccess);
+        this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
         this.redirectToDashboard();
 
         return true;
       }))
       .pipe(catchError((error) => {
-        this.alertService.pushDangerAlert(Alerts.ConfirmEmailFailure);
+        this.alertService.pushDangerAlert(Alerts.SetEmailViewSuccess);
         this.logger.warn('error when try to verify email token, error: ', error);
         this.redirectToDashboard();
 

@@ -12,13 +12,13 @@ import { LoggerModule } from '@anymind-ng/core';
 import { Config } from '../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { AnymindComponentsCoreModule } from '@anymind-ng/components';
-import { AnymindComponentsFactory } from './factories/anymind-components/anymind-components.factory';
+import { AnymindComponentsCoreModule } from '@anymind-ng/core';
+import { getCoreConfig } from './factories/core-config/core-config.facotry';
 
 @NgModule({
   imports: [
     HttpClientModule,
-    AnymindComponentsCoreModule.forRoot(AnymindComponentsFactory),
+    AnymindComponentsCoreModule.forRoot(getCoreConfig),
     ApiModule.forRoot(ApiConfigurationFactory),
     LoggerModule.forRoot(Config.logLevel),
     NgbModule.forRoot(),

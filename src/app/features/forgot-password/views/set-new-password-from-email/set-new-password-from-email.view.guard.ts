@@ -1,8 +1,7 @@
 // tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
 
 @Injectable()
 export class SetNewPasswordFromEmailViewGuard implements CanActivate {

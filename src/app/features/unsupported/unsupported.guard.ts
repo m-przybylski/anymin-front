@@ -1,8 +1,7 @@
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
 import { BrowserUtils } from 'ratel-sdk-js';
 
 @Injectable()

@@ -1,8 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import { ImageCropModalComponent } from '../image-crop/image-crop.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Config } from '../../../../../../../config';
 
 @Directive({

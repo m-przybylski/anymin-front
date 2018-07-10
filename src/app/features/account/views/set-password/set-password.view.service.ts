@@ -7,8 +7,7 @@ import { AccountService } from '@anymind-ng/api';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import {
   RegistrationInvitationService
 } from '../../../../shared/services/registration-invitation/registration-invitation.service';

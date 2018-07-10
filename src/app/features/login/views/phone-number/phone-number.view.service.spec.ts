@@ -4,12 +4,11 @@ import { PhoneNumberViewService } from './phone-number.view.service';
 import { GetRegistrationStatus, RegistrationService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import createSpyObj = jasmine.createSpyObj;
-import { AlertService } from '@anymind-ng/components';
+import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import {
   RegistrationInvitationService
 } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { of } from 'rxjs/observable/of';
-import { LoggerFactory } from '@anymind-ng/core';
 
 describe('Service: PhoneNumberService', () => {
 

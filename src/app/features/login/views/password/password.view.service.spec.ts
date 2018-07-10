@@ -3,11 +3,10 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RegistrationService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import createSpyObj = jasmine.createSpyObj;
-import { AlertService } from '@anymind-ng/components';
+import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import {
   RegistrationInvitationService
 } from '../../../../shared/services/registration-invitation/registration-invitation.service';
-import { LoggerFactory } from '@anymind-ng/core';
 import { PasswordLoginStatus, PasswordViewService } from './password.view.service';
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';

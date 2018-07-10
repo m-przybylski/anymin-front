@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PasswordLoginStatus, PasswordViewService } from './password.view.service';
 import { ActivatedRoute } from '@angular/router';
-import { InputPasswordErrorsEnum, FormUtilsService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { InputPasswordErrorsEnum, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 @Component({
   templateUrl: './password.view.html',

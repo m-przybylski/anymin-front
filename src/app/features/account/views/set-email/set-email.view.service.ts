@@ -13,8 +13,7 @@ import {
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Alerts, AlertService } from '@anymind-ng/components';
+import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 
 export enum SetEmailStatus {
   SUCCESS,

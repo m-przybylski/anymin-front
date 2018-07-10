@@ -1,10 +1,9 @@
 // tslint:disable:newline-before-return
 import { CanActivate, Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { LoggerService } from '@anymind-ng/core';
+import { LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { GetSession } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { Alerts, AlertService } from '@anymind-ng/components';
 
 @Injectable()
 export class SetPasswordViewGuard implements CanActivate {

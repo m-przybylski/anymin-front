@@ -6,8 +6,7 @@ import { RecoverPasswordService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { Injectable } from '@angular/core';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import {
   RegistrationInvitationService

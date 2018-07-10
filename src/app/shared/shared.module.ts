@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
 import {
   CommunicatorModule, CommunicatorService,
-  CommunicatorSessionService
+  CommunicatorSessionService, AnymindComponentsModule
 } from '@anymind-ng/core';
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
@@ -14,7 +14,6 @@ import { AnonymousGuard } from './guards/anonymous/anonymous.guard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginBackgroundComponent } from './components/login-background/login-background.component';
-import { AnymindComponentsModule } from '@anymind-ng/components';
 import { LoginContentComponent } from './components/login-content/login-content.component';
 import { LoginMobileFooterComponent } from './components/login-mobile-footer/login-mobile-footer.component';
 import { RouterModule } from '@angular/router';

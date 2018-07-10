@@ -1,7 +1,6 @@
 import { Resolve } from '@angular/router';
-import { LoggerService } from '@anymind-ng/core';
+import { LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { Alerts, AlertService } from '@anymind-ng/components';
 import { Injectable } from '@angular/core';
 import { isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';

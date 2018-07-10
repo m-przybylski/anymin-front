@@ -4,7 +4,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@a
 import { RegistrationService, GetRegistrationSession } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError } from 'rxjs/operators';
-import { Alerts, AlertService } from '@anymind-ng/components';
+import { Alerts, AlertService } from '@anymind-ng/core';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';

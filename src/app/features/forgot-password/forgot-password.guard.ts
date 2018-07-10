@@ -5,7 +5,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
 import { BackendErrors, isBackendError } from '../../shared/models/backend-error/backend-error';
-import { Alerts, AlertService } from '@anymind-ng/components';
+import { Alerts, AlertService } from '@anymind-ng/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GetRecoverMethod } from '@anymind-ng/api';
