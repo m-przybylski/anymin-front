@@ -26,8 +26,8 @@ import 'angularjs/common/components/interface/preloader-container/preloader-cont
 import 'angularjs/common/directives/interface/pro-alert/pro-alert';
 import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader';
 import 'angularjs/common/services/top-waiting-loader/top-waiting-loader';
-import '../../../generated_modules/angularjs-translations/pl-pl';
-import '../../../generated_modules/angularjs-translations/en-us';
+import '../../../lib/angularjs-translations/pl-pl';
+import '../../../lib/angularjs-translations/en-us';
 import topAlertModule from '../common/services/top-alert/top-alert';
 import { AppComponentController } from './app.controller';
 import { AppConfigFunction } from './app.config';
