@@ -3,8 +3,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService  } from '@anymind-ng/core';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import {
   RegistrationInvitationService

@@ -5,9 +5,9 @@ import { PhoneNumberViewService } from './phone-number.view.service';
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  FormUtilsService,
+  FormUtilsService, LoggerFactory,
   AnymindComponentsModule, AnymindComponentsCoreModule
-} from '@anymind-ng/components';
+} from '@anymind-ng/core';
 import
 {
   CommonSettingsService
@@ -20,7 +20,7 @@ import
 } from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
-import { LoggerFactory } from '@anymind-ng/core';
+import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
 
 // tslint:disable:no-floating-promises
 describe('Component: PhoneNumberViewComponent', () => {
@@ -34,7 +34,7 @@ describe('Component: PhoneNumberViewComponent', () => {
         LoginMobileFooterComponent
       ],
       imports: [
-        AnymindComponentsCoreModule.forRoot(),
+        AnymindComponentsCoreModule.forRoot(getCoreConfig),
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,

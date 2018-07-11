@@ -4,10 +4,9 @@
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Alerts, AlertService } from '@anymind-ng/components';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { UserSessionService } from '../../../core/services/user-session/user-session.service';
 import { Router } from '@angular/router';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 @Injectable()
 export class NavbarMenuService {

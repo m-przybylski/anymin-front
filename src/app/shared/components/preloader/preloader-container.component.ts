@@ -1,6 +1,6 @@
 // tslint:disable:no-empty
 import { Component, Input } from '@angular/core';
-import { Animations } from '@anymind-ng/components';
+import { Animations } from '@anymind-ng/core';
 
 export enum PreloaderContentSizeEnum {
   FULL_CONTENT

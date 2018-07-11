@@ -2,9 +2,8 @@
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { GetSession } from '@anymind-ng/api';
-import { Alerts, AlertService } from '@anymind-ng/components';
 
 @Injectable()
 export class SetEmailViewGuard implements CanActivate {

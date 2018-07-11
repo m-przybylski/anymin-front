@@ -2,9 +2,9 @@ import { async, TestBed } from '@angular/core/testing';
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  FormUtilsService,
+  FormUtilsService, LoggerFactory, LoggerService,
   AnymindComponentsModule, AnymindComponentsCoreModule, AlertService, InputPinCodeErrorsEnum, Alerts
-} from '@anymind-ng/components';
+} from '@anymind-ng/core';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
 import { LoginBackgroundComponent } from '../../../../shared/components/login-background/login-background.component';
 import
@@ -12,13 +12,13 @@ import
   LoginMobileFooterComponent
 } from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PinCodeViewComponent } from './pin-code.view.component';
 import { PinCodeServiceStatus, PinCodeViewService } from './pin-code.view.service';
 import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from '@anymind-ng/api';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { of } from 'rxjs/observable/of';
+import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
 
 // tslint:disable:no-floating-promises
 // tslint:disable:no-unbound-method
@@ -50,7 +50,7 @@ describe('Component: Login PinCodeViewComponent', () => {
         LoginMobileFooterComponent
       ],
       imports: [
-        AnymindComponentsCoreModule.forRoot(),
+        AnymindComponentsCoreModule.forRoot(getCoreConfig),
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,

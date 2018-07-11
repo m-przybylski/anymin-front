@@ -2,8 +2,7 @@
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { VerifiedCodeService } from '../../verified-code.service';
-import { Alerts, AlertService } from '@anymind-ng/components';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { CommonSettingsService }
   from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 

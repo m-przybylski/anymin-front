@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoggerService } from '@anymind-ng/core';
 import { UserSessionService } from '../../../core/services/user-session/user-session.service';
-import { Alerts, AlertService } from '@anymind-ng/components';
+import { Alerts, AlertService } from '@anymind-ng/core';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate {

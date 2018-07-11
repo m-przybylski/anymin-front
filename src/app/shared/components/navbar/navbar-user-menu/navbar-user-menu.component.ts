@@ -3,7 +3,7 @@
 // tslint:disable:newline-before-return
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations } from '@anymind-ng/components';
+import { Animations } from '@anymind-ng/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';

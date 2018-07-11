@@ -3,12 +3,11 @@
 import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PhoneNumberServiceStatus, PhoneNumberViewService } from './phone-number.view.service';
-import { FormUtilsService, InputPhoneNumberService } from '@anymind-ng/components';
+import { FormUtilsService, InputPhoneNumberService, LoggerFactory, LoggerService  } from '@anymind-ng/core';
 import { finalize, takeUntil } from 'rxjs/operators';
 import {
   CommonSettingsService
 } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 
 @Component({

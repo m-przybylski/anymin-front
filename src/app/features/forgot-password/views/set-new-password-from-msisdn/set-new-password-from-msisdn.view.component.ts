@@ -4,12 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { VerifiedCodeService } from '../../verified-code.service';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { Alerts, AlertService, FormUtilsService } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import {
   SetNewPasswordFromMsisdnViewService,
   SetNewPasswordFromMsisdnStatus
 } from './set-new-password-from-msisdn.view.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { InputSetPasswordErrors } from '../../../../shared/components/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
 

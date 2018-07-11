@@ -3,7 +3,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '@anymind-ng/core';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { LoggerService } from '@anymind-ng/core';

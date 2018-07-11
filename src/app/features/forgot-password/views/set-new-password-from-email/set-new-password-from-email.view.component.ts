@@ -2,12 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { Alerts, AlertService, FormUtilsService } from '@anymind-ng/components';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import {
   SetNewPasswordFromEmailStatus,
   SetNewPasswordFromEmailViewService
 } from './set-new-password-from-email.view.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { InputSetPasswordErrors } from '../../../../shared/components/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
 

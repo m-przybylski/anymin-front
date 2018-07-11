@@ -2,9 +2,8 @@
 // tslint:disable:newline-before-return
 import { IInvitationObject } from '../../../../angularjs/app/invitations/invitation.interface';
 import { LocalStorageWrapperService } from '../local-storage/local-storage.service';
-import { LoggerService } from '@anymind-ng/core';
+import { LoggerService, Alerts, AlertService  } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
-import { Alerts, AlertService } from '@anymind-ng/components';
 
 @Injectable()
 export class RegistrationInvitationService {

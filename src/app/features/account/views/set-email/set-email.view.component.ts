@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormUtilsService } from '@anymind-ng/components';
+import { FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { SetEmailViewService, SetEmailStatus } from './set-email.view.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 
 @Component({

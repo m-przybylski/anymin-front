@@ -2,13 +2,13 @@
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertService } from '@anymind-ng/components';
+import { AlertService } from '@anymind-ng/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Observable } from 'rxjs';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, map } from 'rxjs/operators';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
-import { Alerts } from '@anymind-ng/components';
+import { Alerts } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
 
