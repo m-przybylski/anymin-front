@@ -1,11 +1,9 @@
 // tslint:disable:readonly-array
 import { SoundsService } from '../../../services/sounds/sounds.service';
 import { ExpertCallService } from '../call-services/expert-call.service';
-import { MessageRoom } from '../models/message-room';
-import { LoggerService } from '@anymind-ng/core';
+import { CurrentExpertCall, LoggerService, MessageRoom } from '@anymind-ng/core';
 import { Subscription } from 'rxjs';
 import { roomEvents } from 'ratel-sdk-js';
-import { ExpertCall } from '../models/current-expert-call';
 
 export class MessengerService {
   public static $inject = ['soundService', 'logger', 'expertCallService'];
@@ -24,6 +22,6 @@ export class MessengerService {
   private handleNewMessageRoom = (messageRoom: MessageRoom): Subscription =>
     messageRoom.message$.subscribe(this.handleNewMessage)
 
-  private handleNewExpertConsultation = (expertCall: ExpertCall): Subscription =>
+  private handleNewExpertConsultation = (expertCall: CurrentExpertCall): Subscription =>
     expertCall.messageRoom$.subscribe(this.handleNewMessageRoom)
 }

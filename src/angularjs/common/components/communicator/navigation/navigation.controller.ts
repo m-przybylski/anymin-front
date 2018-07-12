@@ -1,13 +1,11 @@
 // tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-any
-import { CurrentCall } from '../models/current-call';
 import { ExpertCallService } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';
 import { ModalsService } from '../../../services/modals/modals.service';
-import { LoggerService } from '@anymind-ng/core';
+import { CurrentCall, CurrentExpertCall, LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
-import { ExpertCall } from '../models/current-expert-call';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -33,7 +31,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
   public currentCall?: CurrentCall;
   public isPlatformForExpert = Config.isPlatformForExpert;
 
-  private ngUnsubscribe = new Subject<void>();
+  private ngUnsubscribe$ = new Subject<void>();
 
   constructor(private modalsService: ModalsService,
               private logger: LoggerService,
@@ -44,24 +42,24 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
   }
 
   public $onInit(): void {
-    this.expertCallService.newCall$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleNewCall);
+    this.expertCallService.newCall$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.handleNewCall);
   }
 
   public $onDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   public hangupCall = (): void => {
     this.logger.debug('NavigationComponentController: Hanging up the call');
     if (this.currentCall) {
-      this.currentCall.hangup().then(
+      this.currentCall.hangup$().pipe(takeUntil(this.ngUnsubscribe$)).subscribe(
         () => this.logger.debug('NavigationComponentController: Call hanged up'),
-        (err) => this.logger.error('NavigationComponentController: Could not hangup the call', err))
-        .catch(() => {
+        (err) => {
           if (this.currentCall) {
             this.currentCall.forceEndCall();
           }
+          this.logger.error('NavigationComponentController: Could not hangup the call', err);
         });
     } else {
       this.logger.error('NavigationComponentController: Cannot hangup the call, there is no call');
@@ -168,7 +166,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     this.isMessenger = !this.isMessenger;
   }
 
-  private handleNewCall = (expertCall: ExpertCall): void => {
+  private handleNewCall = (expertCall: CurrentExpertCall): void => {
     this.currentCall = expertCall;
     this.isAudio = true;
     this.isVideo = false;
