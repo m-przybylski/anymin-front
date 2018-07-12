@@ -110,8 +110,9 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   }
 
   private registerCommonCallEvents = (call: CurrentCall): void => {
-    call.remoteMediaTrack$.subscribe(this.handleRemoteStream);
-    call.localMediaTrack$.subscribe(this.onLocalMediaTrack);
+    call.remoteMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleRemoteStream);
+    call.remoteVideoStatus$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleRemoteVideoStream);
+    call.localMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onLocalMediaTrack);
     call.end$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onCallEnd);
     call.timeCostChange$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onTimeCostChange);
     call.participantOffline$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onUserBackOnline);
@@ -124,25 +125,40 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.callCost = timeMoneyTuple.money;
   }
 
+  private handleRemoteVideoStream = (videoStatus: any) => {
+    this.isRemoteVideo = videoStatus;
+  }
+
   private handleRemoteStream = (track: MediaStreamTrack): void => {
     this.isConnecting = false;
-    if (track.kind === 'video') {
-      this.attachTrackToElement(this.remoteVideoStreamElement, track);
-      this.isRemoteVideo = true;
-      track.onended = (): void => {
-        this.isRemoteVideo = false;
-      };
+    // this.loggerService.debug(`Remote track received ${track.id}`, track);
+    if (this.remoteAudioStreamElement && this.remoteVideoStreamElement) {
+      if (track.kind === 'video') {
+        this.attachTrackToElement(this.remoteVideoStreamElement, track);
+        // this.remoteVideoStreamElement.get(0).play();
+        track.onended = (): void => {
+          this.isRemoteVideo = false;
+          // this.loggerService.debug(`Remote track ${track.id} END`);
+        };
+      } else {
+        this.attachTrackToElement(this.remoteAudioStreamElement, track);
+        // this.remoteAudioStreamElement.get(0).play();
+      }
     } else {
-      this.attachTrackToElement(this.remoteAudioStreamElement, track);
+      // this.loggerService.error('remote Stream Elements are undefined');
     }
   }
 
   private onLocalMediaTrack = (track: MediaStreamTrack): void => {
-    if (track.kind === 'video') {
-      this.attachTrackToElement(this.localVideoStreamElement, track);
+    if (this.localVideoStreamElement) {
+      // this.loggerService.info('CommunicatorMaximizedComponent: setting local stream');
+      if (track.kind === 'video') {
+        this.attachTrackToElement(this.localVideoStreamElement, track);
+        // this.localVideoStreamElement.get(0).play();
+      }
     }
-  }
 
+  }
   private onUserBackOnline = (): void => {
     this.isParticipantOffline = false;
   }

@@ -4,8 +4,7 @@
 // tslint:disable:no-require-imports
 // tslint:disable:no-any
 // tslint:disable:curly
-import { LoggerService } from '@anymind-ng/core';
-import { NavigatorWrapper } from '../../classes/navigator-wrapper/navigator-wrapper';
+import { LoggerService, NavigatorWrapper } from '@anymind-ng/core';
 const DetectRTC = require('detectrtc');
 import { ModalsService } from '../modals/modals.service';
 
@@ -60,7 +59,7 @@ export class RtcDetectorService {
 
     this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay);
 
-    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.audioConstraints).then((stream) => {
+    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then((stream) => {
       this.instanceModal.close('cancel');
       resolve(stream);
     }, (err) => {

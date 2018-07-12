@@ -2,7 +2,10 @@
 // tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 // tslint:disable:max-file-line-count
-import { CommunicatorService, LoggerService, IConnected, CurrentExpertCall, CallFactory } from '@anymind-ng/core';
+import {
+  CommunicatorService, LoggerService, IConnected, CurrentExpertCall, CallFactory,
+  NavigatorWrapper
+} from '@anymind-ng/core';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
@@ -18,7 +21,6 @@ import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
-import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
 
 export class ExpertCallService {
 
@@ -74,7 +76,7 @@ export class ExpertCallService {
     const pullCallback = (): ng.IPromise<CurrentExpertCall> => {
       this.logger.debug('ExpertCallService: PULLING');
 
-      return this.rtcDetectorService.getMedia(NavigatorWrapper.audioConstraints).then(localStream =>
+      return this.rtcDetectorService.getMedia(NavigatorWrapper.getAllConstraints()).then(localStream =>
         this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
           const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
@@ -240,11 +242,13 @@ export class ExpertCallService {
                                         incomingCallDetails: GetExpertSueDetails,
                                         session: Session,
                                         call: BusinessCall): void => {
-    this.rtcDetectorService.getMedia(NavigatorWrapper.audioConstraints).then(
+    this.rtcDetectorService.getMedia(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
+        localStream.getTracks().filter(track => track.kind === 'video')
+          .forEach(track => track.enabled = false);
 
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
-        currentExpertCall.answer(localStream.getAudioTracks()).then(
+        currentExpertCall.answer(localStream.getTracks()).then(
           () => {
             // FIXME unsubscribe when call end or taken.
             currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
