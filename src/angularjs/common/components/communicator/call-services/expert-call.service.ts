@@ -2,15 +2,12 @@
 // tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 // tslint:disable:max-file-line-count
-import { CommunicatorService, LoggerService, IConnected } from '@anymind-ng/core';
+import { CommunicatorService, LoggerService, IConnected, CurrentExpertCall, CallFactory } from '@anymind-ng/core';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { SoundsService } from '../../../services/sounds/sounds.service';
-import { ExpertCall } from '../models/current-expert-call';
-import { TimerFactory } from '../../../services/timer/timer.factory';
 import { RtcDetectorService } from '../../../services/rtc-detector/rtc-detector.service';
-import { MicrophoneService } from '../microphone-service/microphone.service';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 import { BusinessCall, Session, Call, CallReason, callEvents, protocol } from 'ratel-sdk-js';
@@ -25,25 +22,24 @@ import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-w
 
 export class ExpertCallService {
 
-  public static $inject = ['ServiceUsageEventApi', 'timerFactory', 'modalsService', 'soundsService',
-    'rtcDetectorService', 'RatelApi', 'communicatorService', 'microphoneService', 'logger', 'upgradeService',
+  public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
+    'rtcDetectorService', 'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
     'eventsService', 'sessionServiceWrapper'];
 
-  private readonly newCallEvent = new Subject<ExpertCall>();
+  private readonly newCallEvent = new Subject<CurrentExpertCall>();
   private readonly pullableCallEvent = new Subject<PullableCall>();
   private readonly callRejectedEvent = new Subject<void>();
 
   constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
-              private timerFactory: TimerFactory,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
               private rtcDetectorService: RtcDetectorService,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
-              private microphoneService: MicrophoneService,
               private logger: LoggerService,
               private upgradeService: UpgradeService,
-              private eventsService: EventsService,
+              private callFactory: CallFactory,
+              eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkIncomingCalls);
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkPullableCalls);
@@ -61,7 +57,7 @@ export class ExpertCallService {
     });
   }
 
-  public get newCall$(): Observable<ExpertCall> {
+  public get newCall$(): Observable<CurrentExpertCall> {
     return this.newCallEvent;
   }
 
@@ -75,26 +71,24 @@ export class ExpertCallService {
   private handlePullableCall = (session: Session, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
-    const pullCallback = (): ng.IPromise<ExpertCall> => {
+    const pullCallback = (): ng.IPromise<CurrentExpertCall> => {
       this.logger.debug('ExpertCallService: PULLING');
 
       return this.rtcDetectorService.getMedia(NavigatorWrapper.audioConstraints).then(localStream =>
         this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
-          const currentExpertCall = new ExpertCall(expertSueDetails, session, this.timerFactory, call,
-            this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger,
-            this.eventsService);
+          const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
 
           return this.getCallMessages(call).then(callMsgs =>
-            this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks()[0], callMsgs)
+            this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
               .then(() => {
-              currentExpertCall.onEnd(() => this.onAnsweredCallEnd(currentExpertCall));
-              currentExpertCall.onCallTaken(() => this.handlePullableCall(session, call));
-              this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
-              this.newCallEvent.next(currentExpertCall);
+                currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+                currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
+                this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
+                this.newCallEvent.next(currentExpertCall);
 
-              return currentExpertCall;
-            }))
+                return currentExpertCall;
+              }))
           );
         })
       );
@@ -248,14 +242,11 @@ export class ExpertCallService {
     this.rtcDetectorService.getMedia(NavigatorWrapper.audioConstraints).then(
       localStream => {
 
-        const currentExpertCall = new ExpertCall(incomingCallDetails, session, this.timerFactory, call,
-          this.communicatorService, this.RatelApi, this.ServiceUsageEventApi, this.microphoneService,  this.logger,
-          this.eventsService);
-
-        currentExpertCall.answer(localStream.getAudioTracks()[0]).then(
+        const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
+        currentExpertCall.answer(localStream.getAudioTracks()).then(
           () => {
-            currentExpertCall.onEnd(() => this.onAnsweredCallEnd(currentExpertCall));
-            currentExpertCall.onCallTaken(() => this.handlePullableCall(session, call));
+            currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+            currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
             this.newCallEvent.next(currentExpertCall);
             this.soundsService.callIncomingSound().stop();
             callingModal.close();
@@ -292,7 +283,7 @@ export class ExpertCallService {
       });
   }
 
-  private onAnsweredCallEnd = (currentExpertCall: ExpertCall): void => {
+  private onAnsweredCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getSueId());
     this.soundsService.playCallEnded().then(
       () => this.logger.debug('ExpertCallService: call end sound played'),

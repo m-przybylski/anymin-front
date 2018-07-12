@@ -2,10 +2,9 @@
 import { IMessengerMinimizedComponentBindings } from './minimized';
 import { roomEvents, Session } from 'ratel-sdk-js';
 import { ExpertCallService } from '../../call-services/expert-call.service';
-import { CurrentCall } from '../../models/current-call';
-import { MessageRoom } from '../../models/message-room';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CurrentCall, MessageRoom } from '@anymind-ng/core';
 
 export class MessengerMinimizedComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy,
   IMessengerMinimizedComponentBindings {

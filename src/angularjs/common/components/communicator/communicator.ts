@@ -23,7 +23,7 @@ import navigationModule from './navigation/navigation';
 import RtcDetectorModule from '../../services/rtc-detector/rtc-detector';
 import translatorModule from '../../services/translator/translator';
 import { MicrophoneService } from './microphone-service/microphone.service';
-import { CommunicatorService } from '@anymind-ng/core';
+import { CallFactory, CommunicatorService } from '@anymind-ng/core';
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',
@@ -51,6 +51,7 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   }])
   .component('communicator', new CommunicatorComponent)
   .factory('communicatorService', downgradeInjectable(CommunicatorService))
+  .factory('callFactory', downgradeInjectable(CallFactory))
   .service('expertCallService', ExpertCallService)
   .service('microphoneService', MicrophoneService)
   .name;

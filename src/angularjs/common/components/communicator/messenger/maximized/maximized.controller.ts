@@ -3,17 +3,17 @@
 // tslint:disable:no-empty
 // tslint:disable:no-any
 import * as angular from 'angular';
-import { LoggerService, CommunicatorService, IConnected } from '@anymind-ng/core';
+import {
+  LoggerService, CommunicatorService, IConnected, CurrentExpertCall, MessageRoom,
+  CurrentCall
+} from '@anymind-ng/core';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { IMessengerMaximizedComponentBindings } from './maximized';
 import { PostFileDetails, MoneyDto } from 'profitelo-api-ng/model/models';
 import { UploaderService } from '../../../../services/uploader/uploader.service';
 import { UploaderFactory } from '../../../../services/uploader/uploader.factory';
-import { MessageRoom } from '../../models/message-room';
 import { ExpertCallService } from '../../call-services/expert-call.service';
-import { CurrentCall } from '../../models/current-call';
-import { ExpertCall } from '../../models/current-expert-call';
 import { roomEvents } from 'ratel-sdk-js';
 import { Paginated } from 'ratel-sdk-js/dist/protocol/protocol';
 import { IMessageContext } from '../message-context';
@@ -124,7 +124,7 @@ export class MessengerMaximizedComponentController implements
       this.messageRoom = messageRoom;
       this.messageRoom.message$.subscribe(this.addMessage);
       this.messageRoom.typing$.subscribe(this.onTyping);
-      currentCall.onTimeCostChange((data) => {
+      currentCall.timeCostChange$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
         this.callLength = data.time;
         this.callCost = data.money;
       });
@@ -142,7 +142,7 @@ export class MessengerMaximizedComponentController implements
         .subscribe(() => this.updateChatHistory(messageRoom));
     })
 
-  private expertInit = (currentExpertCall: ExpertCall): void => {
+  private expertInit = (currentExpertCall: CurrentExpertCall): void => {
     this.participantAvatar = '';
     this.onNewCall(currentExpertCall);
   }

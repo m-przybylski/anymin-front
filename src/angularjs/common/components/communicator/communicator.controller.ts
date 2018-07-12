@@ -2,12 +2,10 @@
 // tslint:disable:strict-boolean-expressions
 import { GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { ExpertCallService } from './call-services/expert-call.service';
-import { ExpertCall } from './models/current-expert-call';
-import { CurrentCall } from './models/current-call';
+import { CurrentExpertCall, CommunicatorService, CurrentCall } from '@anymind-ng/core';
 import { TopAlertService } from '../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../services/translator/translator.service';
 import { MicrophoneService, MicrophoneStateEnum } from './microphone-service/microphone.service';
-import { CommunicatorService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -103,9 +101,9 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     });
   }
 
-  private registerExpertCall = (call: ExpertCall): void => {
+  private registerExpertCall = (call: CurrentExpertCall): void => {
     this.cleanupComponent();
-    this.serviceName = call.getCallDetails().serviceName;
+    this.serviceName = call.getServiceName();
     this.isConnecting = true;
     this.isClosed = false;
     this.registerCommonCallEvents(call);
@@ -113,15 +111,12 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
 
   private registerCommonCallEvents = (call: CurrentCall): void => {
     call.remoteMediaTrack$.subscribe(this.handleRemoteStream);
-
-    call.getLocalMediaTracks().forEach(t => this.onLocalMediaTrack(t));
-
     call.localMediaTrack$.subscribe(this.onLocalMediaTrack);
-    call.onEnd(this.onCallEnd);
-    call.onTimeCostChange(this.onTimeCostChange);
-    call.onParticipantOnline(this.onUserBackOnline);
-    call.onParticipantOffline(this.onUserOffline);
-    call.onCallTaken(this.closeCommunicator);
+    call.end$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onCallEnd);
+    call.timeCostChange$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onTimeCostChange);
+    call.participantOffline$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onUserBackOnline);
+    call.participantOnline$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onUserOffline);
+    call.callTaken$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.closeCommunicator);
   }
 
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
