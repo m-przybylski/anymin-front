@@ -82,6 +82,7 @@ export class ExpertCallService {
           return this.getCallMessages(call).then(callMsgs =>
             this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
               .then(() => {
+                // FIXME unsubscribe when call end or taken.
                 currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
                 currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
                 this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
@@ -245,6 +246,7 @@ export class ExpertCallService {
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
         currentExpertCall.answer(localStream.getAudioTracks()).then(
           () => {
+            // FIXME unsubscribe when call end or taken.
             currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
             currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
             this.newCallEvent.next(currentExpertCall);
