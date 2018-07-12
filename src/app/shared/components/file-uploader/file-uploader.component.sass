@@ -12,6 +12,7 @@
 
     &__label
       +label
+      color: $c-label
       margin: 0 0 8px
 
     &__upload-field
@@ -30,7 +31,7 @@
       max-width: 160px
 
       .icon-upload-files
-        color: $c-text-secondary
+        color: $c-placeholder
         font-size: 48px
         margin: 0 0 8px
 
@@ -58,7 +59,7 @@
     &__item
       position: relative
       width: calc(50% - 8px)
-      box-shadow: 0 1px 2px 0 $c-lines
+      border: 1px solid $c-lines
       border-radius: 2px
       margin: 0 4px 8px
       background: $c-white

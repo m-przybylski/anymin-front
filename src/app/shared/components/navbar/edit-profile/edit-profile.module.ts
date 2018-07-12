@@ -1,7 +1,6 @@
 // tslint:disable:no-implicit-dependencies
 import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
-import { NgxImgModule } from 'ngx-img';
 import { InputAddLinkComponent } from './profile-links/input-link/input-link.component';
 import { AvatarUploaderDirective } from './basic-profile-data/avatar-uploader/avatar-uploader.directive';
 import { EditProfileModalComponent } from './edit-profile.component';
@@ -15,8 +14,7 @@ import { FileUploaderComponent } from '../../file-uploader/file-uploader.compone
 
 @NgModule({
   imports: [
-    ModalsModule,
-    NgxImgModule
+    ModalsModule
   ],
   entryComponents: [
     EditProfileModalComponent,
@@ -24,8 +22,7 @@ import { FileUploaderComponent } from '../../file-uploader/file-uploader.compone
   ],
   providers: [
     EditProfileModalComponentService,
-    UploaderService
-
+    UploaderService,
   ],
   declarations: [
     BasicProfileDataComponent,

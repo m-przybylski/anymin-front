@@ -32,9 +32,9 @@ export class Config {
     profileDescription: '600',
     consultationName: '350',
     consultationMaxDescription: '600',
-    consultationMinDescription: '3',
-    profileNameMinlength: '3',
-    profileNameMaxlength: '60'
+    consultationMinDescription: '16',
+    profileNameMinlength: 3,
+    profileNameMaxlength: 60
   };
 
   public static readonly styles = {
@@ -73,5 +73,16 @@ export class Config {
 
   public static readonly imageSizeInBytes = {
     imageCropMaxSize: 3145728
+  };
+
+  public static readonly screenWidth = {
+    mobile: 320,
+    mobileLarge: 480,
+    tablet: 768,
+    desktop: 1024
+  };
+
+  public static readonly modalPreloaderDelay = {
+    delayAfterRequest: 400
   };
 }

@@ -8,15 +8,19 @@ import { PinElementDirective } from '../../directives/pin-element/pin-element.di
 import { ChangeNumberComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/change-number/change-number/change-number.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalHeaderComponent } from './modal/modal-header/modal-header.component';
+import { ModalAnimationComponentDirective } from './modal/animation/modal-animation.component.directive';
+import { ModalAnimationComponentService } from './modal/animation/modal-animation.animation.service';
 
 @NgModule({
   declarations: [
     ModalComponent,
     ModalHeaderComponent,
     PinElementDirective,
+    ModalAnimationComponentDirective,
     ChangeNumberComponent
   ],
   entryComponents: [ChangeNumberComponent],
+  providers: [ModalAnimationComponentService],
   imports: [
     CommonModule,
     SharedModule,

@@ -34,6 +34,5 @@
         span.icon.icon-bell
     li
       plat-navbar-user-avatar()
-
-        plat-navbar-user-menu(
-        )
+        plat-navbar-user-menu(*ngIf="!isUserExpert")
+        plat-navbar-expert-menu(*ngIf="isUserExpert")

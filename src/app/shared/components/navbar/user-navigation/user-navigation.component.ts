@@ -1,10 +1,12 @@
 import {
   AfterViewChecked,
-  Component, ElementRef, Input, OnInit, ViewChildren, QueryList
+  Component, ElementRef, Input, OnInit, ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 import { UserNavigationComponentService } from './user-navigation.component.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
+import { NavbarComponentService } from '../navbar.component.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'plat-user-navigation',
@@ -13,12 +15,13 @@ import { Subject } from 'rxjs';
   providers: [UserNavigationComponentService]
 })
 
-export class UserNavigationComponent implements OnInit, AfterViewChecked {
+export class UserNavigationComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @Input()
   public isCompany: boolean;
 
   public isUserExpert: boolean;
+  public userSessionStatus$ = new Subject<boolean>();
   public currentElement$ = new Subject<ElementRef>();
 
   private readonly activeElementClassName = 'active';
@@ -26,6 +29,8 @@ export class UserNavigationComponent implements OnInit, AfterViewChecked {
   private logger: LoggerService;
 
   constructor(private userNavigationComponentService: UserNavigationComponentService,
+              private navbarComponentService: NavbarComponentService,
+              private alertService: AlertService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('UserNavigationComponent');
   }
@@ -38,12 +43,30 @@ export class UserNavigationComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  public ngOnDestroy(): void {
+    this.userSessionStatus$.next();
+    this.userSessionStatus$.complete();
+  }
+
   public ngOnInit(): void {
     this.userNavigationComponentService.getSession().then((session) => {
       this.isUserExpert = session.account !== void 0 && session.account.isExpert;
     }).catch(() => {
       this.logger.error('Can not get session');
     });
+
+    this.navbarComponentService.getExpertSessionStatus$()
+      .pipe(takeUntil(this.userSessionStatus$))
+      .subscribe((isExpertProfile) => {
+        this.changeNavigationMenu(isExpertProfile);
+      }, (err) => {
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+        this.logger.warn('Can not set session as expert', err);
+      });
+  }
+
+  private changeNavigationMenu = (isExpertProfile: boolean): void => {
+    this.isUserExpert = isExpertProfile;
   }
 
 }

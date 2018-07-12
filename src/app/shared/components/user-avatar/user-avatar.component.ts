@@ -28,6 +28,9 @@ export class UserAvatarComponent implements OnInit {
   @Input()
   public avatarError ? = false;
 
+  @Input()
+  public avatarErrorValidation = false;
+
   private commonConfig: ConfigDEFAULT;
 
   constructor() {

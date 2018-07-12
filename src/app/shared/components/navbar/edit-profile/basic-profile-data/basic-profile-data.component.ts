@@ -20,22 +20,25 @@ import { Subject } from 'rxjs';
 export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
 
   @Input()
-  public formGroup: FormGroup;
+  public form: FormGroup;
 
   @Input()
-  public controlName: string;
+  public profileNameControlName: string;
 
   @Input()
-  public isRequired?: boolean;
+  public avatarControlName: string;
 
-  public imageAvatar: string;
+  @Input()
+  public isRequired ? = false;
+
+  @Input()
+  public isDisabled ? = false;
 
   public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;
   public readonly profileNameMinlength = Config.inputsLength.profileNameMinlength;
-  public ngModel = '';
+  public profileNameNgModel = '';
   private logger: LoggerService;
   private ngUnsubscribe = new Subject<string>();
-  private ngUnsubscribeAvatarUrl = new Subject<string>();
 
   constructor(private editProfileModalComponentService: EditProfileModalComponentService,
               private alertService: AlertService,
@@ -47,25 +50,15 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
     this.editProfileModalComponentService.getPreviousValue$()
       .pipe(catchError((err) => of(this.handleGetPrevoiusValueError(err))))
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(this.setPreviousValue);
-
-    this.editProfileModalComponentService.getPreviousAvatarSrc()
-      .pipe(catchError((err) => of(this.handleGetPrevoiusUrlAvatarError(err))))
-      .pipe(takeUntil(this.ngUnsubscribeAvatarUrl))
-      .subscribe((avatarSrc: string) => this.imageAvatar = avatarSrc);
+      .subscribe(this.setPreviousUserNameValue);
   }
 
   public ngOnDestroy(): void {
-    this.editProfileModalComponentService.getPreviousValue$().next(this.formGroup.controls[this.controlName].value);
+    this.editProfileModalComponentService.getPreviousValue$()
+      .next(this.form.controls[this.profileNameControlName].value);
+    this.form.reset();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-    this.ngUnsubscribeAvatarUrl.next();
-    this.ngUnsubscribeAvatarUrl.complete();
-  }
-
-  private handleGetPrevoiusUrlAvatarError = (httpError: HttpErrorResponse): void => {
-    this.logger.error('Error when handling previous avatar src', httpError);
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
   }
 
   private handleGetPrevoiusValueError = (httpError: HttpErrorResponse): void => {
@@ -73,6 +66,7 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
   }
 
-  private setPreviousValue = (value: string): string =>
-    this.ngModel = value
+  private setPreviousUserNameValue = (value: string): void => {
+    this.profileNameNgModel = value;
+  }
 }

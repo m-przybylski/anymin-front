@@ -5,7 +5,7 @@
 
 .modal-component
 	background: $c-white
-	animation: fadeInY 0.2s
+	animation: fadeInY 0.3s
 	animation-fill-mode: forwards
 	height: 100vh
 
@@ -108,7 +108,7 @@
 		position: relative
 		width: 100%
 		border-radius: 8px
-
+		
 		+smm
 			width: calc(100% - 48px)
 
@@ -135,10 +135,47 @@
 				padding: $s-modal-header 0 0
 
 			+mdm
-				width: $s-modal-container-small
+				width: $s-modal-container-crop
 
 	&__content
-		padding: 48px + $s-modal-header 48px 48px
+		overflow: hidden
+		position: relative
+		min-height: 128px
+		padding: 48px + $s-modal-header 16px 48px
+		
+		+smm
+			padding: 48px + $s-modal-header 48px 48px
+		
+		&--loading
+			&::before
+				content: ""
+				position: absolute
+				left: 0
+				top: calc(#{$s-modal-header} + 1px)
+				right: 0
+				bottom: 0
+				z-index: $z-index-1000
+				background: $c-white
+				display: flex
+				align-items: center
+				justify-content: center
+				height: calc(100% - #{$s-modal-header} - 1px)
+
+			&::after
+				content: "\eabb"
+				font-family: 'icons'
+				font-size: $f-icon-24
+				color: $c-primary
+				z-index: $z-index-1000
+				position: absolute
+				left: 0
+				top: $s-modal-header
+				right: 0
+				bottom: 0
+				margin: auto
+				width: 24px
+				height: 24px
+				animation: 0.6s linear rotate360Deg infinite
 
 		&__header
 			margin: 0 0 24px
@@ -168,4 +205,4 @@
 	border: 0
 
 	&__row
-		margin: 0 0 48px
+		margin: 0 0 24px

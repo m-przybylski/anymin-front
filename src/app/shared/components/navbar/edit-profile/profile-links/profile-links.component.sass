@@ -5,53 +5,53 @@
 \:host
 	display: block
 	width: 100%
-
+	
 	.default-avatar
 		background: $c-text-secondary
 		border: 1px solid $c-lines
 		width: 152px
 		height: 152px
 		border-radius: 50%
-
+		
 		span
 			color: $c-white
 			font-size: 152px
-
+	
 	.basic-profile-data
 		&__content
 			display: flex
 			justify-content: flex-start
 			align-items: center
-
+			
 			am-core-input-text
 				flex: 1
 				margin: 32px 0 0 16px
-
+				
 				+smm
 					margin: 32px 0 0 48px
 
 .profile-links
 	&__handler
 		display: flex
-
+		
 		> *:first-child
 			flex: 1
-
+	
 	&__list
 		display: flex
 		flex-wrap: wrap
 		margin: 0 -4px
-
+		
 		&__item
 			padding: 0 4px 8px
 			flex: 0 0 50%
 			max-width: 50%
-
+			
 		&__title
 			flex: 1
 			padding: 0 0 0 8px
 			max-width: calc(100% - 56px)
-
+			
 			span
 				+checkbox-label
 				overflow: hidden
@@ -59,24 +59,25 @@
 				display: block
 				white-space: nowrap
 				max-width: 100%
-
+				
 		&__delete
 			span
 				cursor: pointer
 				transition: color 0.3s
-
+				
 				&:hover
 					color: $c-secondary
 
 	&__content
-		box-shadow: 0 1px 2px 0 $c-lines
-		border-radius: 2px
+		border: 1px solid $c-lines
+		border-radius: 4px
 		display: flex
 		align-items: center
 		justify-content: space-between
-		padding: 8px 12px
-
+		padding: 12px
+		
 		> *
 			display: flex
 			align-items: center
-
+		
+		

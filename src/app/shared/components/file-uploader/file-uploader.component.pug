@@ -8,12 +8,14 @@
         [multiple]="isMultipleFilesAllowed",
         (change)="onInputFileChange($event)",
         accept="image/*, application/pdf",
-        (click)="onInputFileClick($event)"
+        (click)="onInputFileClick($event)",
+        [disabled]="isDisabled"
       )
       .drag-and-drop__title
         span.icon.icon-upload-files
         p([translate]="'FILE_UPLOADER.DRAG_AND_DROP.TITLE'")
         span.button.button--tertiary(
+          [ngClass]="{'button--disabled': isDisabled}",
           (click)="inputFile.click()",
           [translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'"
         )

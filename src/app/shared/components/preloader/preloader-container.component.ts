@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 import { Animations } from '@anymind-ng/core';
 
 export enum PreloaderContentSizeEnum {
-  FULL_CONTENT
+  FULL_CONTENT,
+  NONE
 }
 
 @Component({
@@ -18,19 +19,13 @@ export class PreloaderContainerComponent {
   public contentSizeClass?: PreloaderContentSizeEnum;
 
   @Input()
+  public isLoading = true;
+
+  @Input()
   public trMessage?: string;
 
+  public preloaderClass: typeof PreloaderContentSizeEnum = PreloaderContentSizeEnum;
+
   constructor() {
-  }
-
-  public setPreloaderSize = (): string => {
-    switch (this.contentSizeClass) {
-      case PreloaderContentSizeEnum.FULL_CONTENT:
-        return 'preloader--full';
-
-      default:
-        return 'preloader--full';
-
-    }
   }
 }

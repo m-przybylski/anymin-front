@@ -37,7 +37,6 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.logger = this.loggerFactory.createLoggerService('NavbarUserMenuComponent');
-
     this.navbarMenuService.getVisibility$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(this.handleError))
