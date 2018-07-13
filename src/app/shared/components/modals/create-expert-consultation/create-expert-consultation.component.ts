@@ -12,6 +12,7 @@ import { EMPTY } from 'rxjs/index';
 import { Observable } from 'rxjs/Rx';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
+import { CommonConfig } from '../../../../../common-config';
 
 @Component({
   selector: 'plat-create-expert-consultation',
@@ -27,7 +28,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
   public readonly tagControlName = 'tag';
   public readonly priceWithoutCommissionControlName = 'withoutCommissionPrice';
   public readonly grossPriceControlName = 'grossPrice';
-  public readonly netPriceControlName = 'netPrice';
+  public readonly nettPriceControlName = 'nettPrice';
   public readonly minValidNameLength = Config.inputsLengthNumbers.consultationMinName;
   public readonly maxValidNameLength = Config.inputsLengthNumbers.consultationMaxName;
   public readonly minValidDescriptionLength = Config.inputsLengthNumbers.consultationMinDescription;
@@ -37,6 +38,9 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
 
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
+  private readonly isFreelance = false;
+  private readonly anyMindCommission: number = CommonConfig.getCommonConfig().config.commissions.default.internal;
+  private readonly percentDivider = 100;
   private loggerService: LoggerService;
   private selectedTags: PostServiceTag[] = [];
 
@@ -76,15 +80,17 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     this.selectedTags = tagsNames.map(tagName => ({name: tagName}));
   }
 
+  public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.percentDivider}%`;
+
   private getServiceModel = (): PostService => ({
     // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-363
     invitations: [],
     isOwnerEmployee: true,
-    isFreelance: false,
+    isFreelance: this.isFreelance,
     name: this.createConsultationForm.controls[this.nameControlName].value,
     description: this.createConsultationForm.controls[this.descriptionControlName].value,
     price: {
-      amount: this.createConsultationForm.controls[this.netPriceControlName].value,
+      amount: this.createConsultationForm.controls[this.nettPriceControlName].value,
       currency: this.polishCurrency
     },
     tags: this.selectedTags,

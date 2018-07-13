@@ -1,7 +1,7 @@
 plat-modal-component(
   [modalTrTitleHeader]="'CREATE_EXPERT_CONSULTATION.HEADER.TITLE'"
 )
-  .modal-form.create-expert-consultation
+  .modal-form.create-consultation
     form(
       contentHeightAnimation,
       [id]="formId",
@@ -15,7 +15,7 @@ plat-modal-component(
         [tooltipText]="'CREATE_EXPERT_CONSULTATION.MAIN_DATA_SECTION.TITLE.TOOLTIP'"
         )
 
-      .modal-form__row
+      .modal-form__row--small
         am-core-input-prefix(
           label="CREATE_EXPERT_CONSULTATION.MAIN_DATA_SECTION.LANGUAGE_LABEL",
           [value]="'Polski'"
@@ -81,15 +81,16 @@ plat-modal-component(
         [form]="createConsultationForm",
         [withoutCommissionControlName]="priceWithoutCommissionControlName",
         [grossControlName]="grossPriceControlName",
-        [netControlName]="netPriceControlName",
-        [isDisabled]="isRequestPending"
+        [nettControlName]="nettPriceControlName",
+        [isDisabled]="isRequestPending",
+        [isFreelanceService]="isFreelance"
       )
 
-      .modal-form__row.anymind-commission
-        p.anymind-commission__title {{ 'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.COMMISSION.TITLE' | translate }}
-          span.anymind-commission__value([translate]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.COMMISSION.VALUE'")
+      .modal-form__row.calculation-data
+        p.calculation-data__title {{ 'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.COMMISSION.TITLE' | translate }}
+          span.calculation-data__value {{ getCommissionValueForUI() }}
 
-      .create-expert-consultation__submit-button-container
+      .create-consultation__submit-button-container
         am-core-submit-button(
           titleText="CREATE_EXPERT_CONSULTATION.SUBMIT_BUTTON",
           [formName]="formId",

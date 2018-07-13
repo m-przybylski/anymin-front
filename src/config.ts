@@ -126,14 +126,4 @@ export class Config {
     nine:	57
   };
 
-  public static readonly polishVatTax = 0.23;
-
-  public static readonly anyMindCommissions = {
-    expert: 0.15,
-    freelance: {
-      expert: 0.2,
-      company: 0.1
-    }
-  };
-
 }

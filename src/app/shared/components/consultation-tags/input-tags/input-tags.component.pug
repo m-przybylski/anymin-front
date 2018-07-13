@@ -19,11 +19,14 @@
           (keyup)="onKeyUp($event, input)"
         )
 
-    a.button.button--tertiary.button--small(
+    a.button.button--tertiary.button--small.xsm-hidden(
       (click)="handleNewTag(input)",
       [ngClass]="{'button--tertiary--disabled': isDisabled}"
     )
       span {{ 'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.TAGS_ADD_BUTTON' | translate }}
+
+    a.button.button--tertiary.button--small.button--circle.xsm-only((click)="handleNewTag(input)")
+      span.icon.icon-add
 
   .input__alert
     am-core-validation-alert(

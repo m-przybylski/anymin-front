@@ -139,10 +139,12 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   }
 
   public removeSelectedTag = (tag: string): void => {
-    this.selectedTags = this.selectedTags.filter(item => item !== tag);
-    this.selectedTagsEmitter$.emit(this.selectedTags);
-    // this.updateSuggestedTags();
-    this.checkTagsCount();
+    if (this.isDisabled !== undefined && !this.isDisabled) {
+      this.selectedTags = this.selectedTags.filter(item => item !== tag);
+      this.selectedTagsEmitter$.emit(this.selectedTags);
+      // this.updateSuggestedTags();
+      this.checkTagsCount();
+    }
   }
 
   public handleSuggestedTag = (tag: string): void => {

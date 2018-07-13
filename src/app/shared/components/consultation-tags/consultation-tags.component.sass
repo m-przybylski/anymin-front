@@ -8,12 +8,12 @@
 
     &__title
       +input-label
-      margin: 0 0 16px
+      margin: 0 0 8px
 
     &__list
       display: flex
       flex-wrap: wrap
-      margin: 0 -4px -8px
+      margin: 0 -4px -16px
 
     &__item
       display: flex
@@ -25,6 +25,27 @@
       &--selected
         background: $c-text-primary
         padding: 0 8px 0 16px
+
+        .icon
+          transition: background 0.3s
+          cursor: pointer
+          font-size: 16px
+          border-radius: 50%
+          background: rgba($c-white, 0.35)
+          margin: 0 0 0 8px
+          color: $c-black
+
+          &:hover
+            background: $c-white
+
+        &--disabled
+          opacity: 0.35
+
+          .icon
+            cursor: default
+
+            &:hover
+              background: rgba($c-white, 0.35)
 
       &--suggested
         transition: border-color 0.3s
@@ -59,15 +80,3 @@
 
         &--selected
           color: $c-white
-
-      .icon
-        transition: background 0.3s
-        cursor: pointer
-        font-size: 16px
-        border-radius: 50%
-        background: rgba($c-white, 0.35)
-        margin: 0 0 0 8px
-        color: $c-white
-
-        &:hover
-          opacity: 1
