@@ -1,7 +1,10 @@
 .file-uploader-component
   .drag-and-drop
     .drag-and-drop__label([translate]="'FILE_UPLOADER.LABEL'")
-    .drag-and-drop__upload-field([draggable]="isElementDraggable")
+    .drag-and-drop__upload-field(
+      [draggable]="isElementDraggable",
+      [ngClass]="{'drag-and-drop__upload-field--drag': isDragFile}"
+    )
       input.drag-and-drop__hidden-input(
         #inputFile,
         type="file",
@@ -14,17 +17,21 @@
       .drag-and-drop__title
         span.icon.icon-upload-files
         p([translate]="'FILE_UPLOADER.DRAG_AND_DROP.TITLE'")
-        span.button.button--tertiary(
-          [ngClass]="{'button--disabled': isDisabled}",
-          (click)="inputFile.click()",
-          [translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'"
+        a.button.button--tertiary(
+          [ngClass]="{'button--tertiary--disabled': isDisabled}",
+          (click)="inputFile.click()"
         )
+          span([translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'")
+
     .drag-and-drop__counter
       span.counter__length {{ validUserFilesCounter }}
       span.counter__limit / {{ maxFilesCount }} {{ 'FILE_UPLOADER.DRAG_AND_DROP.FILES_COUNTER' | translate }}
 
   .uploaded-files([@fadeInOutListItems]="userFiles.length")
-    .uploaded-files__item(*ngFor="let currentFile of userFiles")
+    .uploaded-files__item(
+      *ngFor="let currentFile of userFiles",
+      [ngClass]="{'uploaded-files__item--error': currentFile.fileStatus !== fileStatusEnum.VALID}"
+    )
       .uploaded-files__preview(
         *ngIf="currentFile.fileInfo",
         [@fadeInWithDelay]
