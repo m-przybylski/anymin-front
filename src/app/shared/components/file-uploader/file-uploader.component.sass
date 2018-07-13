@@ -11,8 +11,7 @@
       display: none
 
     &__label
-      +label
-      color: $c-label
+      +input-label
       margin: 0 0 8px
 
     &__upload-field
@@ -23,7 +22,7 @@
       justify-content: center
       flex-wrap: wrap
       text-align: center
-      background: $c-main-background
+      background: $c-white
       border: 1px dashed $c-lines
       border-radius: 2px
 
@@ -48,7 +47,7 @@
 
       span
         +label
-        text-transform: none
+        color: $c-label
         padding: 0 0 0 4px
 
   .uploaded-files

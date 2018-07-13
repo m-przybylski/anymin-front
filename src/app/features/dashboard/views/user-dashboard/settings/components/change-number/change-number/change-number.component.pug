@@ -1,5 +1,5 @@
 plat-modal-component(
-[modalTrTitleHeader]="'Edytuj se numer'",
+[modalTrTitleHeader]="'DASHBOARD.SETTINGS.CHANGE_NUMBER.TITLE'",
 [modalContainerClass]="modalWidth"
 )
   .modal-form
@@ -23,6 +23,7 @@ plat-modal-component(
         [isRequired]="isInputRequired"
         )
 
+    .modal-component__action.modal-component__action--change-number
       am-core-submit-button(
       titleText="DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON",
       [formName]="changeNumberFormId",

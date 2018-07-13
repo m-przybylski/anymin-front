@@ -11,9 +11,20 @@ export class InputSwitchComponent {
   @Input('label')
   public labelTrKey?: string;
 
+  @Input()
+  public turnOffTrKey?: string;
+
+  @Input()
+  public turnOnTrKey?: string;
+
   public isInputChecked = false;
 
   constructor() {
+  }
+
+  public onSwitcherClick = (event: Event): void => {
+    event.preventDefault();
+    this.isInputChecked = !this.isInputChecked;
   }
 
 }

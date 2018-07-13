@@ -1,10 +1,14 @@
 .setting-option
   .setting-option__left
     .description-container
-      span.description-container__title {{ title | translate }}
+      h3.description-container__title
+        | {{ title | translate }}
+        am-core-tooltip(
+        *ngIf="tooltipTrText",
+        [tooltipText]="tooltipTrText | translate"
+        )
 
       span.description-container__description {{ description | translate }}
 
   .setting-option__right
-    button.btn.btn-small((click)="buttonHandler()")
-      span {{ buttonText | translate }}
+    ng-content

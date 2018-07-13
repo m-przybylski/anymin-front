@@ -1,44 +1,52 @@
 .settings
-  span.settings__header Ustawienia konta
+  .settings__header
+    span Ustawienia konta
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE'",
-  [description]="'+48 500 000 123'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="openChangeNumberModal")
+  .settings__container
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.ANONYMITY.TITLE'",
+    [description]="'DASHBOARD.SETTINGS.ANONYMITY.DESCRIPTION'"
+    )
+      plat-input-switch(
+        [turnOnTrKey]="'DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.ON'",
+        [turnOffTrKey]="'DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.OFF'")
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_PASSWORD_TITLE'",
-  [description]="'DASHBOARD.SETTINGS.CHANGE_PASSWORD_DESCRIPTION'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE'",
+    [description]="'+48 500 000 123'",
+    [buttonText]="'Zmień'",
+    [tooltipTrText]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOLTIP'"
+    )
+      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
+        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE'",
-  [description]="'filip.franczak@anymind.com'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.CHANGE_PASSWORD_TITLE'",
+    [description]="'DASHBOARD.SETTINGS.CHANGE_PASSWORD_DESCRIPTION'")
+      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
+        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_LANGUAGE_TITLE'",
-  [description]="'filip.franczak@anymind.com'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE'",
+    [description]="'filip.franczak@anymind.com'")
+      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
+        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE'",
-  [description]="'filip.franczak@anymind.com'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_AUDIO_VIDEO_TITLE'",
-  [description]="'DASHBOARD.SETTINGS.CHANGE_AUDIO_VIDEO_DESCRIPTION'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.CHANGE_LANGUAGE_TITLE'",
+    [description]="'filip.franczak@anymind.com'")
+      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
+        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
 
-  plat-setting-option(
-  [title]="'DASHBOARD.SETTINGS.CHANGE_SESSION_TITLE'",
-  [description]="'DASHBOARD.SETTINGS.CHANGE_SESSION_DESCRIPTION'",
-  [buttonText]="'Zmień'",
-  [buttonHandler]="")
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.CHANGE_AUDIO_VIDEO_TITLE'",
+    [description]="'DASHBOARD.SETTINGS.CHANGE_AUDIO_VIDEO_DESCRIPTION'")
+      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
+        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
+
+    plat-setting-option(
+    [title]="'DASHBOARD.SETTINGS.CHANGE_SESSION_TITLE'",
+    [description]="'DASHBOARD.SETTINGS.CHANGE_SESSION_DESCRIPTION'")
+      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
+        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
