@@ -10,6 +10,8 @@ import { ModalComponent } from './modal/modal.component';
 import { ModalHeaderComponent } from './modal/modal-header/modal-header.component';
 import { ModalAnimationComponentDirective } from './modal/animation/modal-animation.component.directive';
 import { ModalAnimationComponentService } from './modal/animation/modal-animation.animation.service';
+import { CreateExpertConsultationModalComponent }
+from './create-expert-consultation/create-expert-consultation.component';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,13 @@ import { ModalAnimationComponentService } from './modal/animation/modal-animatio
     ModalHeaderComponent,
     PinElementDirective,
     ModalAnimationComponentDirective,
-    ChangeNumberComponent
+    ChangeNumberComponent,
+    CreateExpertConsultationModalComponent
   ],
-  entryComponents: [ChangeNumberComponent],
+  entryComponents: [
+    ChangeNumberComponent,
+    CreateExpertConsultationModalComponent
+  ],
   providers: [ModalAnimationComponentService],
   imports: [
     CommonModule,

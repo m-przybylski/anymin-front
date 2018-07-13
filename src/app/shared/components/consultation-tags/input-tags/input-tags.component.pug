@@ -1,0 +1,37 @@
+.input-tags
+  .input-tags__handler
+    .input(
+      [formGroup]="form",
+      [ngClass]="{'input--focused': isFocused, 'input--disabled': isDisabled, 'input--invalid': isFieldInvalid()}"
+    )
+      .input__container
+        .input__label-container
+          label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+          span.input__required-asterix(*ngIf="isRequired") *
+
+        input(
+          #input,
+          [formControlName]="controlName",
+          (focus)="onFocus()",
+          (blur)="onBlur()",
+          placeholder="{{placeholderTrKey | translate}}",
+          type="text",
+          (keyup)="onKeyUp($event, input)"
+        )
+
+    a.button.button--tertiary.button--small(
+      (click)="handleNewTag(input)",
+      [ngClass]="{'button--tertiary--disabled': isDisabled}"
+    )
+      span {{ 'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.TAGS_ADD_BUTTON' | translate }}
+
+  .input__alert
+    am-core-validation-alert(
+      [isVisible]="isFieldInvalid()",
+      [validationTextKey]="errorTrKey"
+    )
+
+    am-core-validation-alert(
+      [isVisible]="isRequiredError()",
+      [validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"
+    )

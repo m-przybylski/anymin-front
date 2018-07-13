@@ -27,6 +27,7 @@ export class Config {
     }
   };
 
+  // TODO delete this object name after removing AngularJS
   public static readonly inputsLength = {
     profileName: '150',
     profileDescription: '600',
@@ -35,6 +36,19 @@ export class Config {
     consultationMinDescription: '16',
     profileNameMinlength: 3,
     profileNameMaxlength: 60
+  };
+
+  // TODO change this object name after removing AngularJS
+  public static readonly inputsLengthNumbers = {
+    profileNameMinLength: 3,
+    profileNameMaxLength: 60,
+    profileDescriptionMinLength: 15,
+    profileDescriptionMaxLength: 600,
+    consultationMinName: 3,
+    consultationMaxName: 90,
+    consultationMinDescription: 3,
+    consultationMaxDescription: 600,
+
   };
 
   public static readonly styles = {
@@ -85,4 +99,41 @@ export class Config {
   public static readonly modalPreloaderDelay = {
     delayAfterRequest: 400
   };
+
+  public static readonly keyboardCodes = {
+    backspace: 8,
+    tab: 9,
+    enter: 13,
+    escape: 27,
+    arrowLeft: 37,
+    arrowUp: 38,
+    arrowRight:	39,
+    arrowDown: 40,
+    semicolon: 186,
+    comma: 188,
+    commaASCI: 44,
+    dot: 190,
+    dotASCI: 46,
+    zero:	48,
+    one: 49,
+    two: 50,
+    three: 51,
+    four:	52,
+    five:	53,
+    six: 54,
+    seven: 55,
+    eight: 56,
+    nine:	57
+  };
+
+  public static readonly polishVatTax = 0.23;
+
+  public static readonly anyMindCommissions = {
+    expert: 0.15,
+    freelance: {
+      expert: 0.2,
+      company: 0.1
+    }
+  };
+
 }

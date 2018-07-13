@@ -103,6 +103,25 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public onModalClose = (): void => this.activeModal.close();
 
+  public setModalContainerWidth = (): string => {
+    switch (this.modalContainerClass) {
+      case ModalContainerWidthEnum.SMALL_WIDTH:
+        return 'modal-component__container--small';
+
+      case ModalContainerWidthEnum.MEDIUM_WIDTH:
+        return 'modal-component__container--medium';
+
+      case ModalContainerWidthEnum.BIG_WIDTH:
+        return 'modal-component__container--big';
+
+      case ModalContainerWidthEnum.CROPP_WIDTH:
+        return 'modal-component__container--cropp';
+
+      default:
+        return 'modal-component__container--medium';
+    }
+  }
+
   private createPreloader = (): void => {
     const loadingDelay = Config.modalPreloaderDelay.delayAfterRequest;
     this.isLoading = true;
@@ -121,25 +140,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createPreloader();
     this.onChangeModalContent.onChangeModalContent();
     this.isPending = isPending;
-  }
-
-  private setModalContainerWidth = (): string => {
-    switch (this.modalContainerClass) {
-      case ModalContainerWidthEnum.SMALL_WIDTH:
-        return 'modal-component__container--small';
-
-      case ModalContainerWidthEnum.MEDIUM_WIDTH:
-        return 'modal-component__container--medium';
-
-      case ModalContainerWidthEnum.BIG_WIDTH:
-        return 'modal-component__container--big';
-
-      case ModalContainerWidthEnum.CROPP_WIDTH:
-        return 'modal-component__container--cropp';
-
-      default:
-        return 'modal-component__container--medium';
-    }
   }
 
   private handleModalAnimationServiceError = (error: HttpErrorResponse, errorMsg: string): void => {

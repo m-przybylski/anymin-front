@@ -46,8 +46,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public isPending = true;
   public commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
-  public readonly consultationMinlength = Config.inputsLength.consultationMinDescription;
-  public readonly consultationMaxlength = Config.inputsLength.consultationMaxDescription;
+  public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
+  public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
   public isInputDisabled = false;
   public profileDescription: string;
 

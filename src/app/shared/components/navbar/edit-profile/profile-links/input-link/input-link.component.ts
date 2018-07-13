@@ -3,7 +3,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
-import { keyboardCodes } from '../../../../../../../angularjs/common/classes/keyboard';
+import { Config } from '../../../../../../../config';
 
 export enum ProfileLinksComponentErrorEnum {
   ValueExist = 'ValueExist',
@@ -82,7 +82,7 @@ export class InputAddLinkComponent {
   }
 
   public onKeyDown = (event: KeyboardEvent): void => {
-    if (event.keyCode === keyboardCodes.enter && this.onChange !== undefined) {
+    if (event.keyCode === Config.keyboardCodes.enter && this.onChange !== undefined) {
       this.onChange(this.formGroup.controls[this.controlName].value);
       this.isCustomValidationInvalid();
     }

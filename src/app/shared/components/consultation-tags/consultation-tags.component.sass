@@ -1,0 +1,73 @@
+@import "../../../../../node_modules/@anymind-ng/core/src/template/stylesheets/core/variables/variables"
+@import "../../../../../node_modules/@anymind-ng/core/src/template/stylesheets/core/helpers/mixins"
+
+.profile-tags
+  .tags
+    &--selected
+      margin: 0 0 24px
+
+    &__title
+      +label
+      margin: 0 0 16px
+
+    &__list
+      display: flex
+      flex-wrap: wrap
+      margin: 0 -4px -8px
+
+    &__item
+      display: flex
+      align-items: center
+      height: 32px
+      border-radius: 28px
+      margin: 0 4px 8px
+
+      &--selected
+        background: $c-text-primary
+        padding: 0 8px 0 16px
+
+      &--suggested
+        transition: border-color 0.3s
+        cursor: pointer
+        background: transparent
+        border: 1px solid $c-lines
+        padding: 0 16px
+
+        span
+          transition: color 0.3s
+          color: $c-text-secondary
+
+        &:hover
+          border-color: $c-text-primary
+
+          span
+            color: $c-text-primary
+
+        &--disabled
+          cursor: default
+
+          &:hover
+            border-color: $c-lines
+
+            span
+              color: $c-text-secondary
+
+      &__tag
+        +caption
+        display: flex
+        align-items: center
+
+        &--selected
+          color: $c-white
+
+      .icon
+        transition: opacity 0.3s
+        cursor: pointer
+        font-size: 16px
+        border-radius: 50%
+        background: $c-white
+        opacity: 0.35
+        margin: 0 0 0 8px
+
+        &:hover
+          opacity: 1

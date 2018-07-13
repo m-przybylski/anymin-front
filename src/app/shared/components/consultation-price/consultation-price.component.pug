@@ -1,0 +1,34 @@
+.consultation-price
+  am-core-input-price(
+    [label]="labelWithoutCommission",
+    [isRequired]="isRequired",
+    [form]="form",
+    [controlName]="withoutCommissionControlName",
+    [isDisabled]="isDisabled",
+    [isInputMedium]="true",
+    [onInputChange]="calculateGrossPrice",
+    [minValidValue]="minValidPriceWithoutCommission",
+    [maxValidValue]="maxValidPriceWithoutCommission",
+    [minValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_LOW'",
+    [maxValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_MUCH'"
+  )
+
+  am-core-input-price(
+    [label]="labelGross",
+    [isRequired]="isRequired",
+    [form]="form",
+    [controlName]="grossControlName",
+    [isDisabled]="isDisabled",
+    [isInputMedium]="true",
+    [onInputChange]="calculatePriceWithoutCommission",
+    [minValidValue]="grossMinValidPrice",
+    [maxValidValue]="grossMaxValidPrice",
+    [minValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_LOW'",
+    [maxValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_MUCH'"
+  )
+
+  .currency
+    .currency__title
+      span([translate]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.CURRENCY_LABEL'")
+    .currency__value
+      span([translate]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.CURRENCY'")

@@ -1,0 +1,35 @@
+@import "../../../../../node_modules/@anymind-ng/core/src/template/stylesheets/stylesheets"
+
+.consultation-price
+  display: flex
+  flex-wrap: wrap
+
+  am-core-input-price
+    flex: auto
+    width: 100%
+
+    +smm
+      max-width: 180px
+      flex: none
+      margin: 0 24px 0 0
+
+  .currency
+    width: 100%
+
+    +smm
+      width: auto
+
+    &__title
+      height: 16px
+
+      span
+        +label
+
+    &__value
+      display: flex
+      align-items: center
+      height: 64px
+
+      span
+        +inputTextMedium
+        color: $c-placeholder
