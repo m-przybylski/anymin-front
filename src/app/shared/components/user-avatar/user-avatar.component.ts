@@ -6,7 +6,7 @@ import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/co
 export enum AvatarSizeEnum {
   X_32,
   X_48,
-  X_152
+  X_156
 }
 
 @Component({
@@ -51,8 +51,8 @@ export class UserAvatarComponent implements OnInit {
       case AvatarSizeEnum.X_48:
         return 'user-avatar--x48';
 
-      case AvatarSizeEnum.X_152:
-        return 'user-avatar--x152';
+      case AvatarSizeEnum.X_156:
+        return 'user-avatar--x156';
 
       default:
         return 'user-avatar--x48';

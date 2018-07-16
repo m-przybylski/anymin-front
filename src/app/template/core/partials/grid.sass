@@ -64,7 +64,7 @@
 
 .mobile-hidden
 	display: none
-
+	
 	+lgm
 		display: inline
 
@@ -73,5 +73,15 @@
 		display: none
 
 .smm-only
-  +smm
-    display: none
+	+smm
+		display: none
+
+.xsm-hidden
+	display: none !important
+	
+	+smm
+		display: inherit !important
+		
+.xsm-only
+	+smm
+		display: none !important

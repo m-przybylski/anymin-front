@@ -5,11 +5,10 @@ plat-modal-component(
   )
 
   header.modal-component__content__header
-    span([innerHtml]="'EDIT_PROFILE.CONTENT.TITLE' | translate")
-
-    am-core-tooltip(
-    [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
-    )
+    span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
+      am-core-tooltip(
+      [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+      )
 
   .modal-form
     form.form.form--client(

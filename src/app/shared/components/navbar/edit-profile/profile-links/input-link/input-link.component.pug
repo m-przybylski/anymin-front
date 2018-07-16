@@ -16,8 +16,11 @@
 			(keydown)="onKeyDown($event)"
 			)
 
-		a.button.button--secondary.button--small((click)="onAddLinkClick()")
+		a.button.button--secondary.button--small.xsm-hidden((click)="onAddLinkClick()")
 			span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.BUTTON' | translate }}
+
+		a.button.button--secondary.button--small.button--circle.xsm-only((click)="onAddLinkClick()")
+			span.icon.icon-add
 
 	.input__alert
 		am-core-validation-alert(
