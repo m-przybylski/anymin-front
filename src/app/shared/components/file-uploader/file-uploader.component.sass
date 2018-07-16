@@ -14,17 +14,6 @@
       +input-label
       margin: 0 0 8px
 
-    &__upload-field
-      width: 100%
-      height: 192px
-      padding: 16px 0 0
-      display: flex
-      justify-content: center
-      flex-wrap: wrap
-      text-align: center
-      background: $c-white
-      border: 1px dashed $c-lines
-      border-radius: 2px
 
     &__title
       max-width: 160px
@@ -39,6 +28,24 @@
         font-weight: 500
         color: $c-label
         margin: 0 0 16px
+
+    &__upload-field
+      width: 100%
+      height: 192px
+      padding: 16px 0 0
+      display: flex
+      justify-content: center
+      flex-wrap: wrap
+      text-align: center
+      background: $c-white
+      border: 1px dashed $c-lines
+      border-radius: 2px
+
+      &--drag
+        border-color: $c-primary
+
+        .icon-upload-files
+          color: $c-primary
 
     &__counter
       position: absolute
@@ -73,6 +80,12 @@
 
       +smm
         width: calc(25% - 8px)
+
+      &--error
+        border-color: $c-error-primary
+
+        .uploaded-files__file-name
+          color: $c-error-primary
 
     &__loading,
     &__error
@@ -114,7 +127,7 @@
       line-height: 16px
 
       .icon-warning
-        color: $c-text-secondary
+        color: $c-error-primary
         display: block
         margin: 0 0 8px
         line-height: 24px

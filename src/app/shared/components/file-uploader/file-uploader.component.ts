@@ -68,6 +68,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   public validUserFilesCounter = 0;
   public isElementDraggable = true;
   public tokensList: string[] = [];
+  public isDragFile = false;
 
   private readonly maxFileNameLength = 15;
   private readonly shortenFileNameLength = 10;
@@ -87,6 +88,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   @HostListener('dragover', ['$event'])
   public onDragOver(event: DragEvent): void {
+    this.isDragFile = true;
     event.preventDefault();
   }
 
@@ -102,11 +104,13 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   @HostListener('dragleave', ['$event'])
   public onDragLeave(event: DragEvent): void {
+    this.isDragFile = false;
     event.preventDefault();
   }
 
   @HostListener('drop', ['$event'])
   public onDrop(event: DragEvent): void {
+    this.isDragFile = false;
     event.preventDefault();
     event.stopPropagation();
     const files: File[] = Array.from(event.dataTransfer.files);
