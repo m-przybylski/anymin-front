@@ -119,7 +119,9 @@ export class ServiceFormModalController implements ng.IController {
           value: this.serviceDetails.language
         };
         this.consultationDescription = this.serviceDetails.description;
-        this.consultationPrice = (this.serviceDetails.price.amount / this.moneyDivider).toString();
+        this.isGetServiceModel(this.serviceDetails) ?
+          this.consultationPrice = (this.serviceDetails.price.amount / this.moneyDivider).toString() :
+          this.consultationPrice = (this.serviceDetails.netPrice.amount / this.moneyDivider).toString();
         this.getDataFromBackend(this.serviceDetails.id);
       }
     });
