@@ -28,7 +28,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   public isRequired = false;
 
   public isError = false;
-  public readonly avatarSize = AvatarSizeEnum.X_152;
+  public readonly avatarSize = AvatarSizeEnum.X_156;
 
   private ngUnsubscribe = new Subject<string>();
   private logger: LoggerService;

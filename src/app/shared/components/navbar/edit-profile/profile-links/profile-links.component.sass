@@ -16,19 +16,6 @@
 		span
 			color: $c-white
 			font-size: 152px
-	
-	.basic-profile-data
-		&__content
-			display: flex
-			justify-content: flex-start
-			align-items: center
-			
-			am-core-input-text
-				flex: 1
-				margin: 32px 0 0 16px
-				
-				+smm
-					margin: 32px 0 0 48px
 
 .profile-links
 	&__handler
@@ -38,14 +25,18 @@
 			flex: 1
 	
 	&__list
-		display: flex
-		flex-wrap: wrap
-		margin: 0 -4px
+		+smm
+			display: flex
+			flex-wrap: wrap
+			margin: 0 -4px
 		
 		&__item
-			padding: 0 4px 8px
-			flex: 0 0 50%
-			max-width: 50%
+			padding: 0 0 8px
+			
+			+smm
+				padding: 0 4px 8px
+				flex: 0 0 50%
+				max-width: 50%
 			
 		&__title
 			flex: 1
