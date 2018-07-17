@@ -28,6 +28,9 @@
     "env-demo": "npm run env build-demo",
     "env-prod": "npm run env build-prod"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -135,6 +138,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "pre-commit": "^1.2.2",
     "karma-mocha-reporter": "^2.2.2",
     "karma-remap-coverage": "^0.1.4",
     "karma-remap-istanbul": "^0.6.0",
