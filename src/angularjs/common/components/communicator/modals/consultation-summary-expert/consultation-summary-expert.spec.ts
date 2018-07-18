@@ -97,7 +97,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   it('should show success alert when send technical problems',
     inject(($q: ng.IQService, $controller: ng.IControllerService) => {
       spyOn(topAlertService, 'success');
-      serviceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT);
+      serviceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM);
       consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.resolve({}));
       consultationSummaryExpertController =
         $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
@@ -105,7 +105,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
           $uibModalInstance,
           consultationSummaryExpertService
         });
-      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT;
+      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM;
       consultationSummaryExpertController.onSendTechnicalProblems();
       scope.$apply();
       expect(topAlertService.success).toHaveBeenCalled();
@@ -114,7 +114,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   it('should show error when send technical problems fails',
     inject(($q: ng.IQService, $controller: ng.IControllerService) => {
       spyOn(errorHandler, 'handleServerError');
-      serviceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT);
+      serviceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.ok, 'sueId', GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM);
       consultationSummaryExpertService.sendTechnicalProblems.and.callFake(() => $q.reject({}));
       consultationSummaryExpertController =
         $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
@@ -122,7 +122,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
           $uibModalInstance,
           consultationSummaryExpertService
         });
-      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT;
+      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM;
       consultationSummaryExpertController.onSendTechnicalProblems();
       scope.$apply();
       expect(errorHandler.handleServerError).toHaveBeenCalled();
@@ -133,10 +133,10 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
       const consultationSummaryExpertService = {
           complaintReasons: [
             {
-              id: GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM,
+              id: GetTechnicalProblem.ProblemTypeEnum.IMAGEORSOUNDPROBLEM,
               isDescriptionRequired: false,
               name: 'complaintForm',
-              label: 'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.CLIENT_COULD_NOT_HEAR_EXPERT'
+              label: 'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.IMAGE_OR_SOUND_PROBLEM'
             },
             {
               id: GetTechnicalProblem.ProblemTypeEnum.OTHER,
@@ -152,7 +152,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
           $uibModalInstance,
           consultationSummaryExpertService
         });
-      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT;
+      consultationSummaryExpertController.radioModel = GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM;
       expect(consultationSummaryExpertController.isTechnicalProblemsFormValid()).toBe(true);
     }));
 

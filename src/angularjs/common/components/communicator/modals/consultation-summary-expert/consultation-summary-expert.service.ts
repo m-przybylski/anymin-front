@@ -37,13 +37,6 @@ export class ConsultationSummaryExpertService implements ng.IController {
         'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.IMAGE_OR_SOUND_PROBLEM')
     },
     {
-      id: GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT,
-      isDescriptionRequired: false,
-      name: 'complaintForm',
-      label: this.translatorService.translate(
-        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.AUTO_DISCONNECT')
-    },
-    {
       id: GetTechnicalProblem.ProblemTypeEnum.OTHER,
       isDescriptionRequired: true,
       name: 'complaintForm',
