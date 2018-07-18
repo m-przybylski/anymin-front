@@ -10,7 +10,6 @@ import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { SoundsService } from '../../../services/sounds/sounds.service';
-import { RtcDetectorService } from '../../../services/rtc-detector/rtc-detector.service';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 import { BusinessCall, Session, Call, CallReason, callEvents, protocol } from 'ratel-sdk-js';
@@ -25,17 +24,16 @@ import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi'
 export class ExpertCallService {
 
   public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
-    'rtcDetectorService', 'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
+    'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
     'eventsService', 'sessionServiceWrapper'];
 
   private readonly newCallEvent = new Subject<CurrentExpertCall>();
   private readonly pullableCallEvent = new Subject<PullableCall>();
   private readonly callRejectedEvent = new Subject<void>();
-
+  private navigatorWrapper = new NavigatorWrapper();
   constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
-              private rtcDetectorService: RtcDetectorService,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private logger: LoggerService,
@@ -73,28 +71,28 @@ export class ExpertCallService {
   private handlePullableCall = (session: Session, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
-    const pullCallback = (): ng.IPromise<CurrentExpertCall> => {
+    const pullCallback = (): any => {
       this.logger.debug('ExpertCallService: PULLING');
 
-      return this.rtcDetectorService.getMedia(NavigatorWrapper.getAllConstraints()).then(localStream =>
-        this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
-
-          const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
-
-          return this.getCallMessages(call).then(callMsgs =>
-            this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
-              .then(() => {
-                // FIXME unsubscribe when call end or taken.
-                currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-                currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
-                this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
-                this.newCallEvent.next(currentExpertCall);
-
-                return currentExpertCall;
-              }))
-          );
-        })
-      );
+      // return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(localStream =>
+      //   this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+      //
+      //     const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
+      //
+      //     return this.getCallMessages(call).then(callMsgs =>
+      //       this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
+      //         .then(() => {
+      //           // FIXME unsubscribe when call end or taken.
+      //           currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+      //           currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
+      //           this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
+      //           this.newCallEvent.next(currentExpertCall);
+      //
+      //           return currentExpertCall;
+      //         }))
+      //     );
+      //   })
+      // );
     };
 
     this.pullableCallEvent.next(new PullableCall(pullCallback, call));
@@ -242,10 +240,10 @@ export class ExpertCallService {
                                         incomingCallDetails: GetExpertSueDetails,
                                         session: Session,
                                         call: BusinessCall): void => {
-    this.rtcDetectorService.getMedia(NavigatorWrapper.getAllConstraints()).then(
+    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
-        localStream.getTracks().filter(track => track.kind === 'video')
-          .forEach(track => track.enabled = false);
+        // localStream.getTracks().filter(track => track.kind === 'video')
+        //   .forEach(track => track.enabled = false);
 
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
         currentExpertCall.answer(localStream.getTracks()).then(

@@ -38,12 +38,6 @@ import consultationSummaryExpertControllerModule
   from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert';
 import preallcallModalModule from '../../components/communicator/modals/precall/precall';
 import expertIncomingCallModule from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call';
-import rtcDetectorModal from '../../components/communicator/modals/rtc-detector/rtc-detector';
-import rtcDetectorBlockedModal
-  from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked';
-import rtcDetectorNoBrowserSupportModal
-// tslint:disable-next-line: max-line-length
-from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support';
 import consultationModalModule from '../../components/search/modals/consultation/consultation';
 import companyInvoiceDetailsModalModule
   from '../../components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details';
@@ -75,9 +69,6 @@ const modalsModule = angular.module('profitelo.services.modals', [
   preallcallModalModule,
   profileGalleryPreviewModule,
   consultationSummaryExpertControllerModule,
-  rtcDetectorModal,
-  rtcDetectorBlockedModal,
-  rtcDetectorNoBrowserSupportModal,
   expertIncomingCallModule,
   consultationModalModule,
   payoutsMethodsModalModule,

@@ -126,11 +126,13 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   }
 
   private handleRemoteVideoStream = (videoStatus: any) => {
+    console.log('Status', videoStatus);
     this.isRemoteVideo = videoStatus;
   }
 
   private handleRemoteStream = (track: MediaStreamTrack): void => {
     this.isConnecting = false;
+    console.log('Track', track);
     // this.loggerService.debug(`Remote track received ${track.id}`, track);
     if (this.remoteAudioStreamElement && this.remoteVideoStreamElement) {
       if (track.kind === 'video') {

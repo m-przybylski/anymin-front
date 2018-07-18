@@ -20,7 +20,6 @@ import eventsModule from '../../services/events/events';
 import { ExpertCallService } from './call-services/expert-call.service';
 import userAvatarModule from '../interface/user-avatar/user-avatar';
 import navigationModule from './navigation/navigation';
-import RtcDetectorModule from '../../services/rtc-detector/rtc-detector';
 import translatorModule from '../../services/translator/translator';
 import { MicrophoneService } from './microphone-service/microphone.service';
 import { CallFactory, CommunicatorService } from '@anymind-ng/core';
@@ -42,7 +41,6 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   filtersModule,
   ratelSdkModule,
   translatorModule,
-  RtcDetectorModule,
   'profitelo.components.communicator.navigation',
   'profitelo.components.communicator.messenger'
 ])
