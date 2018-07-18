@@ -35,7 +35,7 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     it('should send technical problem if promise was reject', (done) => {
       inject((ServiceUsageEventApiMock: ServiceUsageEventApiMock, $httpBackend: ng.IHttpBackendService) => {
-        const problemType = GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT
+        const problemType = GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT
         ServiceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.notFound, sueId, problemType)
 
         consultationSummaryExpertService.sendTechnicalProblems(sueId, problemType).catch((error) => {
@@ -48,7 +48,7 @@ describe('Unit testing: profitelo.components.communicator.modals.consultation-su
 
     it('should send technical problem without description', (done) => {
       inject((ServiceUsageEventApiMock: ServiceUsageEventApiMock, $httpBackend: ng.IHttpBackendService) => {
-        const problemType = GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT
+        const problemType = GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT
         ServiceUsageEventApiMock.postTechnicalProblemRoute(httpCodes.noContent, sueId, problemType)
 
         consultationSummaryExpertService.sendTechnicalProblems(sueId, problemType).then((response) => {
