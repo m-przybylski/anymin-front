@@ -16,25 +16,32 @@ export class ConsultationSummaryExpertService implements ng.IController {
 
   public complaintReasons: IComplaintReason[] = [
     {
-      id: GetTechnicalProblem.ProblemTypeEnum.EXPERTCOULDNOTHEARCLIENT,
+      id: GetTechnicalProblem.ProblemTypeEnum.CONNECTIONINTERRUPTED,
       isDescriptionRequired: false,
       name: 'complaintForm',
       label: this.translatorService.translate(
-        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.CLIENT_COULD_NOT_HEAR_EXPERT')
+        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.CONNECTION_INTERRUPTED')
     },
     {
-      id: GetTechnicalProblem.ProblemTypeEnum.CLIENTCOULDNOTHEAREXPERT,
+      id: GetTechnicalProblem.ProblemTypeEnum.CHATPROBLEM,
       isDescriptionRequired: false,
       name: 'complaintForm',
       label: this.translatorService.translate(
-        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.EXPERT_COULD_NOT_HEAR_CLIENT')
+        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.CHAT_PROBLEM')
     },
     {
-      id: GetTechnicalProblem.ProblemTypeEnum.NOISE,
+      id: GetTechnicalProblem.ProblemTypeEnum.IMAGEORSOUNDPROBLEM,
       isDescriptionRequired: false,
       name: 'complaintForm',
       label: this.translatorService.translate(
-        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.NOISE')
+        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.IMAGE_OR_SOUND_PROBLEM')
+    },
+    {
+      id: GetTechnicalProblem.ProblemTypeEnum.AUTODISCONNECT,
+      isDescriptionRequired: false,
+      name: 'complaintForm',
+      label: this.translatorService.translate(
+        'COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.AUTO_DISCONNECT')
     },
     {
       id: GetTechnicalProblem.ProblemTypeEnum.OTHER,
