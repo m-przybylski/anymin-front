@@ -16,7 +16,6 @@ import { BusinessCall, Session, Call, CallReason, callEvents, protocol } from 'r
 import { first, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { PullableCall } from '../models/pullable-call';
-import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
@@ -24,7 +23,7 @@ import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi'
 export class ExpertCallService {
 
   public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
-    'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
+    'RatelApi', 'communicatorService', 'logger', 'callFactory',
     'eventsService', 'sessionServiceWrapper'];
 
   private readonly newCallEvent = new Subject<CurrentExpertCall>();
@@ -37,7 +36,7 @@ export class ExpertCallService {
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private logger: LoggerService,
-              private upgradeService: UpgradeService,
+              // private upgradeService: UpgradeService,
               private callFactory: CallFactory,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
@@ -65,10 +64,10 @@ export class ExpertCallService {
     return this.pullableCallEvent;
   }
 
-  private getCallMessages = (call: Call): ng.IPromise<ReadonlyArray<callEvents.CallEvent>> =>
-    this.upgradeService.toIPromise(call.getMessages())
+  // private getCallMessages = (call: Call): ng.IPromise<ReadonlyArray<callEvents.CallEvent>> =>
+  //   this.upgradeService.toIPromise(call.getMessages())
 
-  private handlePullableCall = (session: Session, call: BusinessCall): void => {
+  private handlePullableCall = (_session: Session, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
     const pullCallback = (): any => {
