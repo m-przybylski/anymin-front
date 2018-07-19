@@ -76,10 +76,6 @@ import {
   PrecallModalController
 } from '../../components/communicator/modals/precall/precall.controller';
 import {
-  IRtcDetectorModalControllerScope,
-  RtcDetectorModalController
-} from '../../components/communicator/modals/rtc-detector/rtc-detector.controller';
-import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertControllerScope
 } from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
@@ -95,15 +91,6 @@ import {
   ExpertIncomingCallController,
   IExpertIncomingCallParentControllerScope
 } from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call.controller';
-import {
-  IRtcDetectorBlockedModalControllerScope,
-  RtcDetectorBlockedModalController
-} from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller';
-import {
-  IRtcDetectorNoBrowserSupportModalControllerScope,
-  RtcDetectorNoBrowserSupportModalController
-// tslint:disable-next-line: max-line-length
-} from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller';
 import {
   ConsultationModalController,
   IConsultationModalControllerScope
@@ -544,45 +531,6 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: PrecallModalController,
       template: require('angularjs/common/components/communicator/modals/precall/precall.html'),
-      scope: dialogScope
-    });
-  }
-
-  public createRtcDetectorModal = (): IModalInstanceService => {
-    const dialogScope: IRtcDetectorModalControllerScope =
-      <IRtcDetectorModalControllerScope>this.$rootScope.$new(true);
-
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: RtcDetectorModalController,
-      template: require('angularjs/common/components/communicator/modals/rtc-detector/rtc-detector.html'),
-      scope: dialogScope
-    });
-  }
-
-  public createRtcDetectorBlockedModal = (): IModalInstanceService => {
-    const dialogScope: IRtcDetectorBlockedModalControllerScope =
-      <IRtcDetectorBlockedModalControllerScope>this.$rootScope.$new(true);
-
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: RtcDetectorBlockedModalController,
-      template: require('angularjs/common/components/communicator/modals/rtc-detector/rtc-detector-blocked/' +
-        'rtc-detector-blocked.html'),
-      scope: dialogScope
-    });
-  }
-
-  public createBrowserDoesNotSupportRtcModal = (): IModalInstanceService => {
-    const dialogScope: IRtcDetectorNoBrowserSupportModalControllerScope =
-      <IRtcDetectorNoBrowserSupportModalControllerScope>this.$rootScope.$new(true);
-
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      windowClass: 'modal-open full-screen',
-      controller: RtcDetectorNoBrowserSupportModalController,
-      template: require('angularjs/common/components/communicator/modals/rtc-detector/' +
-        'rtc-detector-no-browser-support/rtc-detector-no-browser-support.html'),
       scope: dialogScope
     });
   }

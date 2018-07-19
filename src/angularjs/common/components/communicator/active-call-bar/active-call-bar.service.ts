@@ -38,11 +38,12 @@ export class ActiveCallBarService {
             this.hideCallBarEvent.next();
             this.pullableCall = undefined;
             this.logger.debug('ActiveCallBarService: Pulled the call');
+            this.isPulling = false;
           },
           err => {
             this.logger.error('ActiveCallBarService: Error when pulling call', err);
-          })
-        .finally(() => this.isPulling = false);
+            this.isPulling = false;
+          });
     } else {
       this.logger.error('ActiveCallBarService: Cannot pull, there is no call');
     }

@@ -21,8 +21,9 @@ export function CommunicatorConfigFactory(): Config {
       hostname: chatUrl.hostname,
       port: chatUrl.port,
       rtc: {
+        negotiationNeededDisabled: true,
         iceTransportPolicy: 'all',
-        bundlePolicy: 'balanced',
+        bundlePolicy: 'max-bundle',
         iceServers: [{
           urls: [
             'turn:turn.anymind.com:443?transport=udp',

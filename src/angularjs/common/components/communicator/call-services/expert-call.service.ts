@@ -2,38 +2,38 @@
 // tslint:disable:no-shadowed-variable
 // tslint:disable:deprecation
 // tslint:disable:max-file-line-count
-import { CommunicatorService, LoggerService, IConnected, CurrentExpertCall, CallFactory } from '@anymind-ng/core';
+import {
+  CommunicatorService, IConnected, CurrentExpertCall, CallFactory,
+  NavigatorWrapper, LoggerService
+} from '@anymind-ng/core';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { SoundsService } from '../../../services/sounds/sounds.service';
-import { RtcDetectorService } from '../../../services/rtc-detector/rtc-detector.service';
 import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 import { BusinessCall, Session, Call, CallReason, callEvents, protocol } from 'ratel-sdk-js';
 import { first, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { PullableCall } from '../models/pullable-call';
-import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
-import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
+import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 
 export class ExpertCallService {
 
   public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
-    'rtcDetectorService', 'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
+    'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
     'eventsService', 'sessionServiceWrapper'];
 
   private readonly newCallEvent = new Subject<CurrentExpertCall>();
   private readonly pullableCallEvent = new Subject<PullableCall>();
   private readonly callRejectedEvent = new Subject<void>();
-
+  private navigatorWrapper = new NavigatorWrapper();
   constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
-              private rtcDetectorService: RtcDetectorService,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private logger: LoggerService,
@@ -71,10 +71,10 @@ export class ExpertCallService {
   private handlePullableCall = (session: Session, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
-    const pullCallback = (): ng.IPromise<CurrentExpertCall> => {
+    const pullCallback = (): Promise<CurrentExpertCall> => {
       this.logger.debug('ExpertCallService: PULLING');
 
-      return this.rtcDetectorService.getMedia(NavigatorWrapper.audioConstraints).then(localStream =>
+      return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(localStream =>
         this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
           const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
@@ -240,11 +240,11 @@ export class ExpertCallService {
                                         incomingCallDetails: GetExpertSueDetails,
                                         session: Session,
                                         call: BusinessCall): void => {
-    this.rtcDetectorService.getMedia(NavigatorWrapper.audioConstraints).then(
+    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
 
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
-        currentExpertCall.answer(localStream.getAudioTracks()).then(
+        currentExpertCall.answer(localStream.getTracks()).then(
           () => {
             // FIXME unsubscribe when call end or taken.
             currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));

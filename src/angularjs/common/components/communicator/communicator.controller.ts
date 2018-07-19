@@ -2,7 +2,7 @@
 // tslint:disable:strict-boolean-expressions
 import { GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { ExpertCallService } from './call-services/expert-call.service';
-import { CurrentExpertCall, CommunicatorService, CurrentCall } from '@anymind-ng/core';
+import { CurrentExpertCall, CommunicatorService, CurrentCall, LoggerService } from '@anymind-ng/core';
 import { TopAlertService } from '../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../services/translator/translator.service';
 import { MicrophoneService, MicrophoneStateEnum } from './microphone-service/microphone.service';
@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 export class CommunicatorComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy {
 
   public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
-    'microphoneService', 'expertCallService', 'communicatorService'];
+    'microphoneService', 'expertCallService', 'communicatorService', 'logger'];
 
   private static readonly disconnectedAnimationTimeout = 500;
 
@@ -47,7 +47,8 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
               private topAlertService: TopAlertService,
               private microphoneService: MicrophoneService,
               private expertCallService: ExpertCallService,
-              private communicatorService: CommunicatorService) {
+              private communicatorService: CommunicatorService,
+              private logger: LoggerService) {
   }
 
   public $onInit(): void {
@@ -110,8 +111,9 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
   }
 
   private registerCommonCallEvents = (call: CurrentCall): void => {
-    call.remoteMediaTrack$.subscribe(this.handleRemoteStream);
-    call.localMediaTrack$.subscribe(this.onLocalMediaTrack);
+    call.remoteMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleRemoteStream);
+    call.remoteVideoStatus$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleRemoteVideoStream);
+    call.localMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onLocalMediaTrack);
     call.end$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onCallEnd);
     call.timeCostChange$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onTimeCostChange);
     call.participantOffline$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onUserBackOnline);
@@ -124,25 +126,45 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.callCost = timeMoneyTuple.money;
   }
 
+  private handleRemoteVideoStream = (videoStatus: boolean): void => {
+    this.isRemoteVideo = videoStatus;
+  }
+
   private handleRemoteStream = (track: MediaStreamTrack): void => {
     this.isConnecting = false;
-    if (track.kind === 'video') {
-      this.attachTrackToElement(this.remoteVideoStreamElement, track);
-      this.isRemoteVideo = true;
-      track.onended = (): void => {
-        this.isRemoteVideo = false;
-      };
+    this.logger.debug(`Remote track received ${track.id}`, track);
+    if (this.remoteAudioStreamElement && this.remoteVideoStreamElement) {
+      if (track.kind === 'video') {
+        this.attachTrackToElement(this.remoteVideoStreamElement, track);
+        const remoteVideoHTMLMediaElement =  this.remoteVideoStreamElement.get(0) as HTMLMediaElement;
+        remoteVideoHTMLMediaElement.play().catch((error) => {
+          this.logger.error('Can not call play method', error);
+        });
+      } else {
+        this.attachTrackToElement(this.remoteAudioStreamElement, track);
+        const remoteAudioStreamHTMLMediaElement = this.remoteAudioStreamElement.get(0) as HTMLMediaElement;
+        remoteAudioStreamHTMLMediaElement.play().catch((error) => {
+          this.logger.error('Can not call play method', error);
+        });
+      }
     } else {
-      this.attachTrackToElement(this.remoteAudioStreamElement, track);
+      this.logger.error('remote Stream Elements are undefined');
     }
   }
 
   private onLocalMediaTrack = (track: MediaStreamTrack): void => {
-    if (track.kind === 'video') {
-      this.attachTrackToElement(this.localVideoStreamElement, track);
+    if (this.localVideoStreamElement) {
+      this.logger.info('CommunicatorMaximizedComponent: setting local stream');
+      if (track.kind === 'video') {
+        this.attachTrackToElement(this.localVideoStreamElement, track);
+        const localVideoStreamHTMLMediaElement = this.localVideoStreamElement.get(0) as HTMLMediaElement;
+        localVideoStreamHTMLMediaElement.play().catch((error) => {
+          this.logger.error('Can not call play method', error);
+        });
+      }
     }
-  }
 
+  }
   private onUserBackOnline = (): void => {
     this.isParticipantOffline = false;
   }

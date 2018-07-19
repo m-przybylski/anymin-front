@@ -81,9 +81,8 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     if (this.currentCall) {
       if (this.isVideo) {
         this.isVideo = false;
-        this.currentCall.stopVideo();
-          this.logger.debug('NavigationComponentController: Video stopped successfully - calling turnOnSecondCamera');
-          this.turnOnSecondCamera();
+        this.logger.debug('NavigationComponentController: Video stopped successfully - calling turnOnSecondCamera');
+        this.turnOnSecondCamera();
       } else {
         this.logger.debug('NavigationComponentController: Video is stopped - calling turnOnSecondCamera');
         this.turnOnSecondCamera();
@@ -142,12 +141,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
       if (!this.isVideo) {
         this.isVideo = true;
         this.animateButtons(elem);
-        this.currentCall.startVideo().then(() => {
-          this.logger.debug('NavigationComponentController: Video started');
-        }, (err) => {
-          this.isVideo = false;
-          this.logger.error('NavigationComponentController: Cannot start the video', err);
-        });
+        this.currentCall.startVideo();
       } else {
         this.logger.error('NavigationComponentController: Cannot start the video - video is already started');
       }
