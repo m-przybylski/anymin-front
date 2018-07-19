@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
     let $filter: IFilterService
     const urlService: UrlService = <UrlService>{}
     const logger = {
-      warn: (): void => {
+      info: (): void => {
       }
     }
 
@@ -64,7 +64,7 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
           mimeType: 'plain/text'
         }
       };
-      const simpleUrl = 'www.kwejk.pl'
+      const simpleUrl = 'www.kwejk.pl';
       const complexUrl = 'https://www.kołding.pl/search?q=angular3.0&&aqs=chrome.0.69i59j69i57j0l4.766j0j7&sourceid=chrome&ie=UTF-8'
 
       messageObject.context.content = simpleUrl
