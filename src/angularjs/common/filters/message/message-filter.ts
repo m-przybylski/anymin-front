@@ -80,9 +80,9 @@ import { LoggerService } from '@anymind-ng/core';
         case 'image/png':
           return handleImageMessage(message);
         case 'application/pdf':
-          return handleImageMessage(message);
+          return handleTextMessage(message);
         default:
-          logger.warn('MessagePipe: Unhandled message type, fix me please');
+          logger.info('MessagePipe: Other message type');
           return handleTextMessage(message);
       }
     };
