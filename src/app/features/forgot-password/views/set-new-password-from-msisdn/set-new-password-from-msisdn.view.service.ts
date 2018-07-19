@@ -79,7 +79,7 @@ export class SetNewPasswordFromMsisdnViewService {
       .then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Error when redirect to dashboard/expert/activites');
+          this.logger.warn('Error when redirect to dashboard/expert/activities');
           return SetNewPasswordFromMsisdnStatus.ERROR;
         } else {
           return SetNewPasswordFromMsisdnStatus.SUCCESS;
@@ -101,6 +101,7 @@ export class SetNewPasswordFromMsisdnViewService {
 
   private determinateRedirectPath = (): Promise<SetNewPasswordFromMsisdnStatus> => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
+    this.alertService.pushSuccessAlert(Alerts.ChangePasswordSuccess);
 
     return invitationObject !== void 0 && invitationObject.token !== void 0
       ? this.redirectToInvitations(invitationObject.token) : this.redirectToDashboard();

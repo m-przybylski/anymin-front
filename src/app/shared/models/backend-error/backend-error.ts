@@ -11,8 +11,10 @@ export class BackendError {
 
 export enum BackendErrors {
   BadAuthenticationCredentials = 101,
+  IncorrectRequest = 107,
   NotAllowedToLogin = 108,
   IncorrectValidation = 200,
+  NoSuchAccount = 300,
   CannotFindMsisdnToken = 322,
   CannotFindEmailToken = 323,
   PincodeSentTooRecently = 332,
@@ -20,5 +22,6 @@ export enum BackendErrors {
   MsisdnVerificationTokenIncorrect = 343,
   TooManyMsisdnTokenAttempts = 344,
   ToManyIncorrectPasswordAttempts = 345,
-  MsisdnBlocked = 346
+  MsisdnBlocked = 346,
+  MissingTokenModelId = 408
 }
