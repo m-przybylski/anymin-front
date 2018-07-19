@@ -3,8 +3,8 @@
 // tslint:disable:deprecation
 // tslint:disable:max-file-line-count
 import {
-  CommunicatorService, LoggerService, IConnected, CurrentExpertCall, CallFactory,
-  NavigatorWrapper
+  CommunicatorService, IConnected, CurrentExpertCall, CallFactory,
+  NavigatorWrapper, LoggerService
 } from '@anymind-ng/core';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
@@ -19,11 +19,12 @@ import { PullableCall } from '../models/pullable-call';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
+import { UpgradeService } from '../../../services/upgrade/upgrade.service';
 
 export class ExpertCallService {
 
   public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
-    'RatelApi', 'communicatorService', 'logger', 'callFactory',
+    'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
     'eventsService', 'sessionServiceWrapper'];
 
   private readonly newCallEvent = new Subject<CurrentExpertCall>();
@@ -36,7 +37,7 @@ export class ExpertCallService {
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private logger: LoggerService,
-              // private upgradeService: UpgradeService,
+              private upgradeService: UpgradeService,
               private callFactory: CallFactory,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
@@ -64,34 +65,34 @@ export class ExpertCallService {
     return this.pullableCallEvent;
   }
 
-  // private getCallMessages = (call: Call): ng.IPromise<ReadonlyArray<callEvents.CallEvent>> =>
-  //   this.upgradeService.toIPromise(call.getMessages())
+  private getCallMessages = (call: Call): ng.IPromise<ReadonlyArray<callEvents.CallEvent>> =>
+    this.upgradeService.toIPromise(call.getMessages())
 
-  private handlePullableCall = (_session: Session, call: BusinessCall): void => {
+  private handlePullableCall = (session: Session, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
-    const pullCallback = (): any => {
+    const pullCallback = (): Promise<CurrentExpertCall> => {
       this.logger.debug('ExpertCallService: PULLING');
 
-      // return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(localStream =>
-      //   this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
-      //
-      //     const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
-      //
-      //     return this.getCallMessages(call).then(callMsgs =>
-      //       this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
-      //         .then(() => {
-      //           // FIXME unsubscribe when call end or taken.
-      //           currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-      //           currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
-      //           this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
-      //           this.newCallEvent.next(currentExpertCall);
-      //
-      //           return currentExpertCall;
-      //         }))
-      //     );
-      //   })
-      // );
+      return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(localStream =>
+        this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
+
+          const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
+
+          return this.getCallMessages(call).then(callMsgs =>
+            this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
+              .then(() => {
+                // FIXME unsubscribe when call end or taken.
+                currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+                currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
+                this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
+                this.newCallEvent.next(currentExpertCall);
+
+                return currentExpertCall;
+              }))
+          );
+        })
+      );
     };
 
     this.pullableCallEvent.next(new PullableCall(pullCallback, call));
@@ -241,8 +242,6 @@ export class ExpertCallService {
                                         call: BusinessCall): void => {
     this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
-        // localStream.getTracks().filter(track => track.kind === 'video')
-        //   .forEach(track => track.enabled = false);
 
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
         currentExpertCall.answer(localStream.getTracks()).then(

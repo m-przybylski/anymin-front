@@ -130,7 +130,7 @@ export class ProfiteloWebsocketService {
         this.events.onProfileCallRefund.next(value);
         break;
       default:
-        // this.$log.info('Unknown messageType ' + String(type));
+        this.$log.info('Unknown messageType ' + String(type));
     }
   }
 

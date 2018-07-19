@@ -58,6 +58,10 @@ import 'core-js/es7/reflect';
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
+// rtc peer connection patch: We need this because zone.js breaks addEventListener on Safari/Firefox
+// and also Zone.js is conflicted with adapter.js.
+import 'zone.js/dist/webapis-rtc-peer-connection';
+
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */

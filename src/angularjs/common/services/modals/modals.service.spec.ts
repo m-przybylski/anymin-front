@@ -152,34 +152,11 @@ describe('Unit testing: profitelo.services.modals >', () => {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should open rtc detector blocked modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-
-      modalsService.createRtcDetectorBlockedModal()
-
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
 
     it('should open client charge details modal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createClientChargeDetailsModal(<GetClientActivity>{})
-
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
-
-    it('should open rtc detector modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-
-      modalsService.createRtcDetectorModal()
-
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
-
-    it('should open browser does not support rtc modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-
-      modalsService.createBrowserDoesNotSupportRtcModal()
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))

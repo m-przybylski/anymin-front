@@ -2,7 +2,7 @@
 // tslint:disable:strict-boolean-expressions
 import { GetProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { ExpertCallService } from './call-services/expert-call.service';
-import { CurrentExpertCall, CommunicatorService, CurrentCall } from '@anymind-ng/core';
+import { CurrentExpertCall, CommunicatorService, CurrentCall, LoggerService } from '@anymind-ng/core';
 import { TopAlertService } from '../../services/top-alert/top-alert.service';
 import { TranslatorService } from '../../services/translator/translator.service';
 import { MicrophoneService, MicrophoneStateEnum } from './microphone-service/microphone.service';
@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 export class CommunicatorComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy {
 
   public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
-    'microphoneService', 'expertCallService', 'communicatorService'];
+    'microphoneService', 'expertCallService', 'communicatorService', 'logger'];
 
   private static readonly disconnectedAnimationTimeout = 500;
 
@@ -47,7 +47,8 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
               private topAlertService: TopAlertService,
               private microphoneService: MicrophoneService,
               private expertCallService: ExpertCallService,
-              private communicatorService: CommunicatorService) {
+              private communicatorService: CommunicatorService,
+              private logger: LoggerService) {
   }
 
   public $onInit(): void {
@@ -125,38 +126,41 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.callCost = timeMoneyTuple.money;
   }
 
-  private handleRemoteVideoStream = (videoStatus: any) => {
-    console.log('Status', videoStatus);
+  private handleRemoteVideoStream = (videoStatus: boolean): void => {
     this.isRemoteVideo = videoStatus;
   }
 
   private handleRemoteStream = (track: MediaStreamTrack): void => {
     this.isConnecting = false;
-    console.log('Track', track);
-    // this.loggerService.debug(`Remote track received ${track.id}`, track);
+    this.logger.debug(`Remote track received ${track.id}`, track);
     if (this.remoteAudioStreamElement && this.remoteVideoStreamElement) {
       if (track.kind === 'video') {
         this.attachTrackToElement(this.remoteVideoStreamElement, track);
-        // this.remoteVideoStreamElement.get(0).play();
-        track.onended = (): void => {
-          this.isRemoteVideo = false;
-          // this.loggerService.debug(`Remote track ${track.id} END`);
-        };
+        const remoteVideoHTMLMediaElement =  this.remoteVideoStreamElement.get(0) as HTMLMediaElement;
+        remoteVideoHTMLMediaElement.play().catch((error) => {
+          this.logger.error('Can not call play method', error);
+        });
       } else {
         this.attachTrackToElement(this.remoteAudioStreamElement, track);
-        // this.remoteAudioStreamElement.get(0).play();
+        const remoteAudioStreamHTMLMediaElement = this.remoteAudioStreamElement.get(0) as HTMLMediaElement;
+        remoteAudioStreamHTMLMediaElement.play().catch((error) => {
+          this.logger.error('Can not call play method', error);
+        });
       }
     } else {
-      // this.loggerService.error('remote Stream Elements are undefined');
+      this.logger.error('remote Stream Elements are undefined');
     }
   }
 
   private onLocalMediaTrack = (track: MediaStreamTrack): void => {
     if (this.localVideoStreamElement) {
-      // this.loggerService.info('CommunicatorMaximizedComponent: setting local stream');
+      this.logger.info('CommunicatorMaximizedComponent: setting local stream');
       if (track.kind === 'video') {
         this.attachTrackToElement(this.localVideoStreamElement, track);
-        // this.localVideoStreamElement.get(0).play();
+        const localVideoStreamHTMLMediaElement = this.localVideoStreamElement.get(0) as HTMLMediaElement;
+        localVideoStreamHTMLMediaElement.play().catch((error) => {
+          this.logger.error('Can not call play method', error);
+        });
       }
     }
 

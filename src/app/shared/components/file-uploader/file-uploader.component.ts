@@ -87,7 +87,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('dragover', ['$event'])
-  public onDragOver(event: DragEvent): void {
+  public onDragOver(event: MouseEvent): void {
     this.isDragFile = true;
     event.preventDefault();
   }
@@ -109,11 +109,11 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('drop', ['$event'])
-  public onDrop(event: any): void {
+  public onDrop(event: MouseEvent): void {
     this.isDragFile = false;
     event.preventDefault();
     event.stopPropagation();
-    const files: File[] = Array.from(event.dataTransfer.files);
+    const files: File[] = Array.from((<DragEvent>event).dataTransfer.files);
     this.saveFiles(files);
   }
 
