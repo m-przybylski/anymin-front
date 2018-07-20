@@ -13,7 +13,7 @@ export class UnsupportedGuard implements CanActivate {
   }
 
   public canActivate(): boolean {
-    if (BrowserUtils.isBrowserSupported()) {
+    if (BrowserUtils.isBrowserSupported(true)) {
       return true;
     } else {
       this.router.navigate(['/unsupported']).then(isRedirectSuccessful => {

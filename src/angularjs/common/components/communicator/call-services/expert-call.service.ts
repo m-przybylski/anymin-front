@@ -31,6 +31,7 @@ export class ExpertCallService {
   private readonly pullableCallEvent = new Subject<PullableCall>();
   private readonly callRejectedEvent = new Subject<void>();
   private navigatorWrapper = new NavigatorWrapper();
+
   constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
               private modalsService: ModalsService,
               private soundsService: SoundsService,
@@ -243,8 +244,12 @@ export class ExpertCallService {
     this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
 
+        const currentMediaTracks = localStream.getTracks();
+        currentMediaTracks.filter(track => track.kind === 'video')
+          .forEach(track => track.enabled = false);
+
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
-        currentExpertCall.answer(localStream.getTracks()).then(
+        currentExpertCall.answer(currentMediaTracks).then(
           () => {
             // FIXME unsubscribe when call end or taken.
             currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
