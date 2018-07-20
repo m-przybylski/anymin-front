@@ -1,21 +1,21 @@
 // tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
-import { Config } from '../../../../../../../config';
+import { Config } from '../../../../../config';
 
-export enum ProfileLinksComponentErrorEnum {
+export enum InputAddItemComponentStatusEnum {
   ValueExist = 'ValueExist',
   IncorrectValue = 'IncorrectValue'
 }
 
 @Component({
   selector: 'plat-input-link',
-  templateUrl: './input-link.component.html',
-  styleUrls: ['./input-link.component.sass'],
+  templateUrl: './input-add-item.component.html',
+  styleUrls: ['./input-add-item.component.sass'],
 })
-export class InputAddLinkComponent {
+export class InputAddItemComponent {
 
   @Input('label')
   public labelTrKey: string;
@@ -41,9 +41,20 @@ export class InputAddLinkComponent {
   @Input()
   public isDisabled = false;
 
+  @Input()
+  public isChangeOnSubmit = true;
+
+  public ngModel = '';
   public isFocused = false;
 
   constructor(public formUtils: FormUtilsService) {
+  }
+
+  @HostListener('input', ['$event'])
+  public onInputChange = (): void => {
+    if (typeof this.onChange === 'function' && !this.isChangeOnSubmit) {
+      this.onChange(this.formGroup.controls[this.controlName].value);
+    }
   }
 
   public ngOnInit(): void {
@@ -57,7 +68,7 @@ export class InputAddLinkComponent {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
     if (controlErrors !== null) {
       return this.formGroup.controls[this.controlName].value.length > 0 &&
-        controlErrors[ProfileLinksComponentErrorEnum.ValueExist];
+        controlErrors[InputAddItemComponentStatusEnum.ValueExist];
     } else {
       return false;
     }
@@ -67,7 +78,7 @@ export class InputAddLinkComponent {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
     if (controlErrors !== null) {
       return this.formGroup.controls[this.controlName].value.length > 0 &&
-        controlErrors[ProfileLinksComponentErrorEnum.IncorrectValue];
+        controlErrors[InputAddItemComponentStatusEnum.IncorrectValue];
     } else {
       return false;
     }

@@ -1,4 +1,4 @@
-.input-link.input(
+.input-add-item.input(
 [formGroup]="formGroup",
 [ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
 	.input__handler
@@ -13,7 +13,9 @@
 			(blur)="onBlur()",
 			placeholder="{{placeholderTrKey | translate}}",
 			type="text",
-			(keydown)="onKeyDown($event)"
+			[(ngModel)]="ngModel",
+			(keydown)="onKeyDown($event)",
+			(change)="onInputChange"
 			)
 
 		a.button.button--secondary.button--small.xsm-hidden((click)="onAddLinkClick()")

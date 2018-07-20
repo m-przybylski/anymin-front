@@ -1,0 +1,55 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/partials/input/input"
+
+.input
+	&--focused
+		.dropdown__arrow
+			span
+				color: $c-text-primary
+
+	&__container
+		width: 100%
+		
+.dropdown
+	cursor: pointer
+	position: relative
+	
+	&:not(.dropdown--list-only)
+		plat-dropdown-list
+			&::ng-deep
+				.dropdown-list
+					animation: animation-opacity 0.1s linear
+					animation-fill-mode: forwards
+					position: absolute
+					top: 14px
+					width: calc(100% + 16px)
+					left: -16px
+		
+	&:hover
+		.dropdown__arrow
+			span
+				color: $c-text-primary
+	
+	&__handler
+		position: relative
+		display: flex
+		justify-content: space-between
+	
+	&__arrow
+		position: absolute
+		display: flex
+		align-items: center
+		height: 100%
+		right: 0
+		top: 0
+		
+		span
+			transition: color 0.3s
+			color: $c-label
+	
+	input
+		cursor: pointer
+		
+	&--list-only
+		&::before,
+		&::after
+			content: none

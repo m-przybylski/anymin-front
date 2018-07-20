@@ -35,10 +35,9 @@ export class Animations {
         ], {optional: true}),
         query(':leave', [
           style({opacity: 1}),
-            animate('300ms', style({opacity: 0}))
+          animate('300ms', style({opacity: 0}))
         ], {optional: true})
       ])
     ])
   ];
-
 }

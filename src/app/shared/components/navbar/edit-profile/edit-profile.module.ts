@@ -1,7 +1,6 @@
 // tslint:disable:no-implicit-dependencies
 import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
-import { InputAddLinkComponent } from './profile-links/input-link/input-link.component';
 import { AvatarUploaderDirective } from './basic-profile-data/avatar-uploader/avatar-uploader.directive';
 import { EditProfileModalComponent } from './edit-profile.component';
 import { ImageCropModalComponent } from './basic-profile-data/image-crop/image-crop.component';
@@ -28,7 +27,6 @@ import { FileUploaderComponent } from '../../file-uploader/file-uploader.compone
     BasicProfileDataComponent,
     EditProfileModalComponent,
     ProfileLinksComponent,
-    InputAddLinkComponent,
     ImageCropModalComponent,
     AvatarUploaderComponent,
     AvatarUploaderDirective,

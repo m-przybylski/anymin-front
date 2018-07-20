@@ -9,8 +9,8 @@ import {
   CommonSettingsService
 }
   from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { ProfileLinksComponentErrorEnum } from './input-link/input-link.component';
 import { ProfileLinksComponentService } from './profile-links.component.service';
+import { InputAddItemComponentStatusEnum } from '../../../inputs/input-add-item/input-add-item.component';
 
 export interface ILinkList {
   link: string;
@@ -70,13 +70,13 @@ export class ProfileLinksComponent implements OnInit {
   public isInputValueCorrect = (value: string): void => {
     if (this.form.controls[this.controlName].valid) {
       if (this.isValueExist(this.unifyLinkProtocol(value))) {
-        this.form.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.ValueExist]: true});
+        this.form.controls[this.controlName].setErrors({[InputAddItemComponentStatusEnum.ValueExist]: true});
         this.formUtils.isFieldInvalid(this.form, this.controlName);
       } else {
         this.addElement(this.unifyLinkProtocol(value));
       }
     } else {
-      this.form.controls[this.controlName].setErrors({[ProfileLinksComponentErrorEnum.IncorrectValue]: true});
+      this.form.controls[this.controlName].setErrors({[InputAddItemComponentStatusEnum.IncorrectValue]: true});
       this.formUtils.isFieldInvalid(this.form, this.controlName);
     }
   }
