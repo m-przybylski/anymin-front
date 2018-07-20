@@ -33,12 +33,12 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
   public readonly maxValidNameLength = Config.inputsLengthNumbers.consultationMaxName;
   public readonly minValidDescriptionLength = Config.inputsLengthNumbers.consultationMinDescription;
   public readonly maxValidDescriptionLength = Config.inputsLengthNumbers.consultationMaxDescription;
+  public readonly isFreelance = false;
   public createConsultationForm: FormGroup;
   public isRequestPending = false;
 
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
-  private readonly isFreelance = false;
   private readonly anyMindCommission: number = CommonConfig.getCommonConfig().config.commissions.default.internal;
   private readonly percentDivider = 100;
   private loggerService: LoggerService;
