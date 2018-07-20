@@ -99,6 +99,7 @@ export class CommonSettingsService {
     urlPattern: /^(https?:\/\/|www\.)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
     vatNumberPattern: /^(PL)?[0-9]{10}$/,
     postalCodePattern: /^[0-9]{2}-[0-9]{3}$/,
+    phoneNumberAndMailPattern: /^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})|([0-9]{9})$/,
     socialNetworks: [
       {
         iconClass: 'icon-behance-24',

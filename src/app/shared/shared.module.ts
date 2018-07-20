@@ -59,6 +59,7 @@ import {
 import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
 import { OnElementClickDirective } from './components/dropdown/dropdown/on-element-click.directive';
 import { InputAddItemComponent } from './components/inputs/input-add-item/input-add-item.component';
+import { ValidationDirective } from './directives/validation/validation.directive';
 
 @NgModule({
   imports: [
@@ -97,7 +98,8 @@ import { InputAddItemComponent } from './components/inputs/input-add-item/input-
     ScrollToElementDirective,
     DropdownComponent,
     OnElementClickDirective,
-    InputAddItemComponent
+    InputAddItemComponent,
+    ValidationDirective
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -117,7 +119,8 @@ import { InputAddItemComponent } from './components/inputs/input-add-item/input-
     InputSwitchComponent,
     DropdownListComponent,
     DropdownComponent,
-    InputAddItemComponent
+    InputAddItemComponent,
+    ValidationDirective
   ],
   providers: [
     EventsServiceProvider,

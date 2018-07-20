@@ -22,22 +22,18 @@ import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-
   selector: 'plat-navbar-company-menu',
   templateUrl: './navbar-company-menu.component.html',
   styleUrls: ['./navbar-company-menu.component.sass'],
-  animations: Animations.slideInOut
+  animations: Animations.slideInOut,
 })
-
 export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
+  @Input() public companyName: string;
 
-  @Input()
-  public companyName: string;
+  @Input() public companyAvatarToken: string;
 
-  @Input()
-  public companyAvatarUrl: string;
+  @Input() public companyAvatarUrl: string;
 
-  @Input()
-  public expertAvatarUrl?: string;
+  @Input() public expertAvatarUrl?: string;
 
-  @Input()
-  public isExpert: boolean;
+  @Input() public isExpert: boolean;
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
   public readonly avatarSize48 = AvatarSizeEnum.X_48;
@@ -54,14 +50,14 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.navbarMenuService.getVisibility$()
+    this.navbarMenuService
+      .getVisibility$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(this.handleError))
-      .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
+      .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
   }
 
-  public openEditOrganizationModal = (): NgbModalRef =>
-    this.modalService.open(CreateOrganizationModalComponent)
+  public openEditOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
 
   public openEditProfileModal = (): NgbModalRef => this.modalService.open(EditProfileModalComponent);
 
@@ -77,8 +73,7 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
   }
 
   private handleError = (err: any): Observable<boolean> => {
-    this.logger.warn('failure when try to change navbar menu visibility, ', (err));
+    this.logger.warn('failure when try to change navbar menu visibility, ', err);
     return of(false);
   }
-
 }

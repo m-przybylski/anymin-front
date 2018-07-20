@@ -6,7 +6,7 @@ import { keyboardCodes } from '../../../../../../angularjs/common/classes/keyboa
 })
 export class ScrollToElementDirective {
   @Output()
-  public onEnter = new EventEmitter();
+  public onEnter = new EventEmitter(true);
 
   @Output()
   public onKeyUp = new EventEmitter(true);

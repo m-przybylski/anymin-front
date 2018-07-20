@@ -1,0 +1,59 @@
+plat-modal-component(
+[modalTrTitleHeader]="'INVITE_EMPLOYEES.TITLE'"
+)
+  .invite-employees
+    header.modal-component__content__header
+      span {{ serviceName }}
+
+    .modal-form
+      form.form.form--employees-invite(
+      [id]="'inviteEmployeesId'",
+      [formGroup]="inviteEmployeesFormGroupName",
+      novalidate,
+      id="inviteEmployeesId"
+      )
+
+      .dropdown__handler
+        plat-add-item(
+        [label]="'INVITE_EMPLOYEES.INPUT.LABEL'",
+        [placeholder]="''",
+        [form]="inviteEmployeesFormGroupName",
+        [controlName]="inviteEmployeesControlName",
+        [onChange]="onInputChangeValue",
+        [isChangeOnSubmit]="isChangeOnSubmit",
+        [pattern]="emailPattern",
+        (onEnterClick)="onEnter($event)",
+        [isValidationVisibleOnBlur]="isDropdownListVisible"
+        )
+
+        plat-dropdown(
+        [form]="inviteEmployeesFormGroupName",
+        [controlName]="inviteEmployeesControlName",
+        [isDropdownListVisible]="isDropdownListVisible",
+        [dropdownItems]="filteredItems",
+        (onSelectItemEmiter)="onSelectItem($event)",
+        (onCloseEmiter)="onCloseDrodpown($event)",
+        [isDropdownListOnly]="true"
+          )
+
+      .invite-employees__list
+        .invite-employees__list__item(*ngFor="let employee of invitedEmployeeList", [@animation])
+          .invite-employees__content
+            .invite-employees__avatar
+              plat-user-avatar(
+              [avatarSize]="avatarSize",
+              [avatarToken]="employee.avatar",
+              )
+
+            .invite-employees__title
+              span {{employee.name}}
+
+            .invite-employees__delete
+              span.icon.icon-trash((click)="onDeleteClick(employee)")
+
+    .modal-component__action.modal-component__action--invite-employees
+      am-core-submit-button(
+        (click)="onClickSend(inviteEmployeesFormGroupName)",
+        [titleText]="'INVITE_EMPLOYEES.BUTTON'",
+        [isDisabled]="invitedEmployeeList.length === 0",
+      )

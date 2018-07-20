@@ -1,0 +1,82 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+\:host
+	width: 100%
+	
+.invite-employees
+	.modal-component
+		&__content
+			&__header
+				margin: 0 0 48px
+				
+				span
+					+h4
+					font-weight: 700
+
+	&__list
+		+smm
+			display: flex
+			flex-wrap: wrap
+			margin: 0 -4px
+
+			&__item
+				padding: 0 0 8px
+
+				+smm
+					padding: 0 4px 8px
+					flex: 0 0 50%
+					max-width: 50%
+
+	&__content
+		border: 1px solid $c-lines
+		border-radius: 4px
+		display: flex
+		align-items: center
+		justify-content: space-between
+		padding: 12px
+
+		> *
+			display: flex
+			align-items: center
+
+	&__list
+		+smm
+			display: flex
+			flex-wrap: wrap
+			margin: 0 -4px 40px
+		
+		&__item
+			padding: 0 0 8px
+			
+			+smm
+				padding: 0 4px 8px
+				flex: 0 0 50%
+				max-width: 50%
+		
+	&__title
+		flex: 1
+		padding: 0 0 0 8px
+		max-width: calc(100% - 56px)
+		
+		span
+			+checkbox-label
+			overflow: hidden
+			text-overflow: ellipsis
+			display: block
+			white-space: nowrap
+			max-width: 100%
+		
+	&__delete
+		span
+			cursor: pointer
+			transition: color 0.3s
+			
+			&:hover
+				color: $c-secondary
+
+	.modal-component
+		&__action
+			&--invite-employees
+				display: flex
+				justify-content: center
+				

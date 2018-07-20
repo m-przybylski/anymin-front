@@ -7,13 +7,15 @@ import { Config } from '../../../../../config';
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { catchError } from 'rxjs/internal/operators';
 import { CreateCompanyConsultationService } from './create-company-consultation.service';
 import { CommonConfig } from '../../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
+import { EmployeesInviteModalComponent } from '../employees-invite/employees-invite.component';
+import { GetService } from '@anymind-ng/api';
 
 @Component({
   selector: 'plat-create-company-consultation',
@@ -59,6 +61,7 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   constructor(private formUtils: FormUtilsService,
               private createCompanyConsultationService: CreateCompanyConsultationService,
               private alertService: AlertService,
+              private modalService: NgbModal,
               private activeModal: NgbActiveModal,
               private modalAnimationComponentService: ModalAnimationComponentService,
               loggerFactory: LoggerFactory) {
@@ -79,9 +82,10 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
       this.isRequestPending = true;
       this.createCompanyConsultationService.createService(this.getServiceModel())
         .pipe(catchError(this.handleCreateServiceError))
-        .subscribe(() => {
+        .subscribe((serviceDetails: GetService) => {
           this.isRequestPending = false;
           this.alertService.pushSuccessAlert(Alerts.CreateConsultationSuccess);
+          this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
           this.activeModal.close();
         });
     } else {
