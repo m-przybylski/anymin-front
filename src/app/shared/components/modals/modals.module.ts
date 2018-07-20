@@ -12,6 +12,8 @@ import { ModalAnimationComponentDirective } from './modal/animation/modal-animat
 import { ModalAnimationComponentService } from './modal/animation/modal-animation.animation.service';
 import { CreateExpertConsultationModalComponent }
 from './create-expert-consultation/create-expert-consultation.component';
+import { CreateCompanyConsultationModalComponent }
+from './create-company-consultation/create-company-consultation.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ from './create-expert-consultation/create-expert-consultation.component';
     PinElementDirective,
     ModalAnimationComponentDirective,
     ChangeNumberComponent,
-    CreateExpertConsultationModalComponent
+    CreateExpertConsultationModalComponent,
+    CreateCompanyConsultationModalComponent
   ],
   entryComponents: [
     ChangeNumberComponent,
-    CreateExpertConsultationModalComponent
+    CreateExpertConsultationModalComponent,
+    CreateCompanyConsultationModalComponent
   ],
   providers: [ModalAnimationComponentService],
   imports: [
@@ -32,7 +36,8 @@ from './create-expert-consultation/create-expert-consultation.component';
     SharedModule,
     FormsModule,
     ReactiveFormsModule
-  ], exports: [
+  ],
+  exports: [
     CommonModule,
     SharedModule,
     FormsModule,

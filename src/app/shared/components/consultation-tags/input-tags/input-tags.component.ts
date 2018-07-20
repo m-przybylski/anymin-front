@@ -97,13 +97,15 @@ export class InputTagsComponent implements OnInit {
   }
 
   public handleNewTag = (input: HTMLInputElement): void => {
-    const tag = input.value.trim();
-    if (tag.indexOf(',') > -1 || tag.indexOf(';') > -1) {
-      this.onAddTagCallback(tag.slice(0, -1));
-    } else {
-      this.onAddTagCallback(tag);
+    if (this.isDisabled !== undefined && !this.isDisabled) {
+      const tag = input.value.trim();
+      if (tag.indexOf(',') > -1 || tag.indexOf(';') > -1) {
+        this.onAddTagCallback(tag.slice(0, -1));
+      } else {
+        this.onAddTagCallback(tag);
+      }
+      this.clearInputValue(input);
     }
-    this.clearInputValue(input);
   }
 
   private getValidators = (): ValidatorFn[] =>

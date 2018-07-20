@@ -4,9 +4,17 @@
   display: flex
   flex-wrap: wrap
 
+  .input-container
+    display: flex
+    width: 100%
+
+    +smm
+      width: auto
+
   am-core-input-price
     flex: auto
     width: 100%
+    margin: 0 16px 0 0
 
     +smm
       max-width: 180px
@@ -14,7 +22,7 @@
       margin: 0 24px 0 0
 
   .currency
-    width: 100%
+    flex: 1 0 20%
 
     +smm
       width: auto
@@ -33,6 +41,7 @@
       height: 64px
 
       span
-        +input-label
-        font-size: $f-h6
+        +h5
+        font-weight: 300
         color: $c-placeholder
+

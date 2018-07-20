@@ -13,7 +13,11 @@
   .tags.tags--selected(*ngIf="areSelectedTags()")
     p.tags__title([translate]="'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.SELECTED_TAGS_LABEL'")
     ul.tags__list
-      li.tags__item.tags__item--selected(*ngFor="let tag of selectedTags", [@animation])
+      li.tags__item.tags__item--selected(
+        *ngFor="let tag of selectedTags",
+        [@animation],
+        [ngClass]="{'tags__item--selected--disabled': isDisabled}"
+      )
         span.tags__item__tag.tags__item__tag--selected {{ tag }}
           span.icon.icon-clear((click)="removeSelectedTag(tag)")
 

@@ -15,9 +15,9 @@ import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileModalComponent } from '../edit-profile/edit-profile.component';
-import { CreateExpertConsultationModalComponent }
-from '../../modals/create-expert-consultation/create-expert-consultation.component';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import { CreateCompanyConsultationModalComponent }
+from '../../modals/create-company-consultation/create-company-consultation.component';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
@@ -77,8 +77,8 @@ export class NavbarExpertMenuComponent implements OnInit {
     e.stopPropagation();
   }
 
-  public openCreateExpertConsultationModal = (): NgbModalRef =>
-    this.modalService.open(CreateExpertConsultationModalComponent)
+  public openCreateModal = (): NgbModalRef =>
+    this.modalService.open(CreateCompanyConsultationModalComponent)
 
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', (err));
