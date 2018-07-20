@@ -25,7 +25,7 @@ import { CommonSettingsService } from '../../angularjs/common/services/common-se
 import { MsisdnGuard } from './guards/msisdn/msisdn.guard';
 import { LocalStorageWrapperService } from './services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
-import { InputSetPasswordComponent } from './components/input-set-password/input-set-password.component';
+import { InputSetPasswordComponent } from './components/inputs/input-set-password/input-set-password.component';
 import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.service';
 import {
   ContentHeightAnimateDirective
@@ -44,13 +44,21 @@ import {
 import { NavbarUserMenuComponent } from './components/navbar/navbar-user-menu/navbar-user-menu.component';
 import { NavbarCompanyMenuComponent } from './components/navbar/navbar-company-menu/navbar-company-menu.component';
 import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-menu/navbar-expert-menu.component';
-import { InputSwitchComponent } from './components/input-switch/input-switch.component';
+import { InputSwitchComponent } from './components/inputs/input-switch/input-switch.component';
 import { NavbarMenuService } from './services/navbar-menu-service/navbar-menu.service';
 import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
 import { NavbarComponentService } from './components/navbar/navbar.component.service';
 import { ConsultationTagsComponent } from './components/consultation-tags/consultation-tags.component';
 import { ConsultationPriceComponent } from './components/consultation-price/consultation-price.component';
 import { InputTagsComponent } from './components/consultation-tags/input-tags/input-tags.component';
+import { DropdownListComponent } from './components/dropdown/dropdown/dropdown-list/dropdown-list.component';
+import {
+  ScrollToElementDirective
+}
+  from './components/dropdown/dropdown/dropdown-list/scroll-to-element.directive';
+import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
+import { OnElementClickDirective } from './components/dropdown/dropdown/on-element-click.directive';
+import { InputAddItemComponent } from './components/inputs/input-add-item/input-add-item.component';
 
 @NgModule({
   imports: [
@@ -84,7 +92,12 @@ import { InputTagsComponent } from './components/consultation-tags/input-tags/in
     PreloaderContainerComponent,
     ConsultationTagsComponent,
     ConsultationPriceComponent,
-    InputTagsComponent
+    InputTagsComponent,
+    DropdownListComponent,
+    ScrollToElementDirective,
+    DropdownComponent,
+    OnElementClickDirective,
+    InputAddItemComponent
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -101,7 +114,10 @@ import { InputTagsComponent } from './components/consultation-tags/input-tags/in
     ConsultationTagsComponent,
     ConsultationPriceComponent,
     InputTagsComponent,
-    InputSwitchComponent
+    InputSwitchComponent,
+    DropdownListComponent,
+    DropdownComponent,
+    InputAddItemComponent
   ],
   providers: [
     EventsServiceProvider,

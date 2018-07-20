@@ -1,0 +1,22 @@
+.dropdown.input(
+  onElementClickDirective, (isClickedElement)="onToggleDropdown($event)",
+  [formGroup]="form",
+  [ngClass]="{'input--focused': isDropdownListVisible, 'input--disabled': isDisabled, 'dropdown--list-only': isDropdownListOnly}"
+  )
+  .input__handler
+    .input__container(*ngIf="!isDropdownListOnly")
+      .input__label-container
+        label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+        span.input__required-asterix(*ngIf="isRequired") *
+
+      .dropdown__handler((click)="onClickDropdown()")
+        input(type="text", [formControlName]="controlName", value="{{placeholderTrKey}}" readonly)
+
+        .dropdown__arrow
+          span.icon.icon-triangle
+
+    plat-dropdown-list(
+    *ngIf="isDropdownListVisible",
+    [dropdownItems]="dropdownItems",
+    [onSelectItem]="onSelectItem"
+    )

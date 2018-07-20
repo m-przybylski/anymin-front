@@ -2,6 +2,9 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
 
 .user-avatar
+	display: flex
+	align-items: center
+	
 	&__img
 		border-radius: 50%
 		width: 100%
@@ -36,6 +39,15 @@
 		
 		.icon
 			font-size: 32px
+		
+	&--x24
+		img,
+		.icon-avatar
+			width: 24px
+			height: 24px
+		
+		.icon
+			font-size: 24px
 	
 	.icon-avatar
 		background: $c-text-primary

@@ -4,6 +4,7 @@ import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
 export enum AvatarSizeEnum {
+  X_24,
   X_32,
   X_48,
   X_156
@@ -45,6 +46,9 @@ export class UserAvatarComponent implements OnInit {
 
   public setAvatarClass = (): string => {
     switch (this.avatarSize) {
+      case AvatarSizeEnum.X_24:
+        return 'user-avatar--x24';
+
       case AvatarSizeEnum.X_32:
         return 'user-avatar--x32';
 

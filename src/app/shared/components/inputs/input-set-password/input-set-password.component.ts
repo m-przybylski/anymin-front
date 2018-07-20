@@ -2,7 +2,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
-import { CommonSettingsService } from '../../../../angularjs/common/services/common-settings/common-settings.service';
+import {
+  CommonSettingsService
+}
+  from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 
 export enum InputSetPasswordErrors {
   IncorrectPassword = 'IncorrectPassword'

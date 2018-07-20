@@ -1,0 +1,21 @@
+.dropdown-list(
+scrollToElementDirective,
+(onEnter)="onSelectEnter()",
+(onKeyUp)="onKeyUp()",
+(onKeyDown)="onKeyDown()"
+)
+  ul
+    li.dropdown-list__item(
+    *ngFor="let item of dropdownItems, let i = index",
+    (mouseenter)="onMouseSelect(i)",
+    [ngClass]="{'dropdown-list__item--active': selectedItemIndex === i}",
+    (click)="onItemClicked(i)",
+    id="item_{{i}}"
+    )
+      .dropdown-list__item__handler
+        plat-user-avatar(
+        *ngIf="item.avatar",
+        [avatarSize]="avatarSize",
+        [avatarUrl]="item.avatar",
+        )
+        span {{ item.name }}

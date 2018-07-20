@@ -3,7 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SetPasswordViewService, SetPasswordStatus } from './set-password.view.service';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { InputSetPasswordErrors } from '../../../../shared/components/input-set-password/input-set-password.component';
+import {
+  InputSetPasswordErrors
+}
+  from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { LoggerFactory, LoggerService, FormUtilsService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 

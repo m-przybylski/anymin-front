@@ -7,7 +7,10 @@ import {
   SetNewPasswordFromEmailStatus,
   SetNewPasswordFromEmailViewService
 } from './set-new-password-from-email.view.service';
-import { InputSetPasswordErrors } from '../../../../shared/components/input-set-password/input-set-password.component';
+import {
+  InputSetPasswordErrors
+}
+  from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
 
 @Component({
