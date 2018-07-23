@@ -19,7 +19,8 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
       onSendPinAgain: (): void => {
       },
       onCompletePinInputs: (): void => {
-      }
+      },
+      isButtonDisabled: true
     }
 
     function create(html: string, bindings: IPinVerificationComponentBindings): JQuery {
@@ -62,7 +63,7 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
     it('should sendPinAgain', () => {
       spyOn(component, 'onSendPinAgain')
       component.sendPinAgain()
-      expect(component.isButtonDisable).toBe(true)
+      expect(component.isButtonDisabled).toBe(true)
       expect(component.onSendPinAgain).toHaveBeenCalled()
     })
 
@@ -79,6 +80,12 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
       component.onInputChange()
       expect(component.isPinInCorrect).toBe(true)
     })
+
+    it('should send pin again', () => {
+      spyOn(component, 'onSendPinAgain');
+      component.sendPinAgain()
+      expect(component.onSendPinAgain).toHaveBeenCalled();
+    });
 
   })
 })

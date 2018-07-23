@@ -5,10 +5,14 @@
 // tslint:disable:no-require-imports
 // tslint:disable:newline-before-return
 import { AccountApi } from 'profitelo-api-ng/api/api';
-import { httpCodes } from '../../../../../../classes/http-codes';
 import { ErrorHandlerService } from '../../../../../../services/error-handler/error-handler.service';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { Subject, Subscription } from 'rxjs';
+import {
+  BackendError,
+  BackendErrors,
+  isBackendError
+} from '../../../../../../../../app/shared/models/backend-error/backend-error';
 
 const phonenumbers = require('libphonenumber-js');
 
@@ -27,14 +31,16 @@ interface ISendedSMS {
 export class PhoneSettingsService {
   private isNumberExist = false;
   private isButtonDisabled = false;
+  private isValidationError = false;
+  private isSendSmsFailed = false;
 
   private counter: number;
   private numberPattern = this.CommonSettingsService.localSettings.phoneNumberPattern;
   private prefixList: IPrefixListElement[] = this.CommonSettingsService.localSettings.countryCodes
-  .map((countryCode: string) => ({
-    value: countryCode,
-    name: countryCode
-  }));
+    .map((countryCode: string) => ({
+      value: countryCode,
+      name: countryCode
+    }));
   private prefix = this.prefixList[0].value;
   private sendedSMSArray: ISendedSMS[] = [];
 
@@ -64,19 +70,40 @@ export class PhoneSettingsService {
   public onSendSms = (phoneNumber: string): ng.IPromise<void> =>
     this.setNewNumber(phoneNumber)
 
+  public isBackendValidationError = (): boolean => this.isValidationError;
+
+  public isReSendSmsFailed = (): boolean => this.isSendSmsFailed;
+
   private setNewNumber = (phoneNumber: string): ng.IPromise<void> =>
     this.AccountApi.newMsisdnVerificationRoute({unverifiedMsisdn: this.prefix + phoneNumber})
-    .then(() => {
-      this.events.onNewPhoneNumberCreate.next(true);
-    }).catch((err) => {
-      if (err.status === httpCodes.conflict) {
-        this.isNumberExist = true;
-        this.isButtonDisabled = true;
+      .then(() => {
+        this.events.onNewPhoneNumberCreate.next(true);
+      }).catch((err) => {
+      this.isButtonDisabled = true;
+      this.isSendSmsFailed = true;
+      if (isBackendError(err.data)) {
+        this.handleBackendError(err.data);
       } else {
         this.errorHandler.handleServerError(err);
-        this.$log.error('Can not send new phone number: ', err);
+        this.$log.error('PhoneSettingsService: can not send new phone number: ', err);
       }
     })
+
+  private handleBackendError = (error: BackendError): void => {
+    switch (error.code) {
+      case BackendErrors.IncorrectValidation:
+        this.isValidationError = true;
+        break;
+
+      case BackendErrors.AccountAlreadyExists:
+        this.isNumberExist = true;
+        break;
+
+      default:
+        this.$log.error('PhoneSettingsService: unhandled backend error: ', error);
+        this.errorHandler.handleServerError(error);
+    }
+  }
 
   private startCountDown = (phoneNumber: string, time: number): void => {
     this.interval = this.$interval(() => {
@@ -113,6 +140,7 @@ export class PhoneSettingsService {
     !this.isButtonDisabled && this.setNumberValid(phoneNumber)
 
   public onPhoneNumberChange = (): void => {
+    this.isValidationError = false;
     this.isButtonDisabled = false;
     this.isNumberExist = false;
     this.counter = 0;
@@ -153,5 +181,5 @@ export class PhoneSettingsService {
 
   private timeElapse = (date: number): number =>
     Number(((Date.now() - date) / PhoneSettingsService.oneSecondInMillisecond)
-    .toFixed(0))
+      .toFixed(0))
 }

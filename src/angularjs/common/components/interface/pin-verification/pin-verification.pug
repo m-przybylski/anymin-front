@@ -12,15 +12,15 @@
       input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[3]"
       data-ng-change="$ctrl.onInputChange()" focus-next)
 
-    validation-alert(
-      data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.PIN_VALIDATION"
-      data-is-visible="$ctrl.isPinInCorrect"
-    )
+      validation-alert(
+        data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.PIN_VALIDATION"
+        data-is-visible="$ctrl.isPinInCorrect"
+      )
 
   .pin-verification-send-again(data-ng-hide="$ctrl.pin" data-ng-click="$ctrl.sendPinAgain()")
     p(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.RECEIVE' | translate }}")
-    button.btn.btn-small.btn-default-border(data-ng-disabled="$ctrl.isButtonDisable"
+    button.btn.btn-small.btn-default-border(data-ng-disabled="$ctrl.isButtonDisabled"
     data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.BUTTON' | translate}}" type="submit")
 
-  .pin-verification-counter.animation.collapse-height(data-ng-if="$ctrl.isButtonDisable")
+  .pin-verification-counter.animation.collapse-height(data-ng-if="$ctrl.isButtonDisabled")
     p {{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.COUNTER' | translate }} {{ $ctrl.counter }}s.

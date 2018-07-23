@@ -8,6 +8,7 @@ export class PinVerificationComponent implements ng.IComponentOptions {
   public template = require('./pin-verification.html');
   public bindings: {[boundProperty: string]: string} = {
     onSendPinAgain: '<',
-    onCompletePinInputs: '<'
+    onCompletePinInputs: '<',
+    isButtonDisabled: '<'
   };
 }

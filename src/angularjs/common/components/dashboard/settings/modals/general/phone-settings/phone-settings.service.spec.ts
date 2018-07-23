@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import phoneSettingsModule from './phone-settings'
-import {PhoneSettingsService} from './phone-settings.service'
+import { PhoneSettingsService } from './phone-settings.service'
 
 describe('Unit testing: profitelo.components.dashboard.settings.modals.general.phone-settings ', () => {
   describe('for profitelo.components.dashboard.settings.modals.general.phone-settings', () => {
@@ -59,5 +59,14 @@ describe('Unit testing: profitelo.components.dashboard.settings.modals.general.p
       phoneSettingsService.setNumberValid(incorrectPhoneNumber)
       expect(phoneSettingsService.setNumberValid(incorrectPhoneNumber)).toBeFalsy()
     })
-  })
+
+    it('should check is backend validation error', () => {
+      expect(phoneSettingsService.isBackendValidationError()).toBeFalsy();
+    });
+
+    it('should check is re send sms failed', () => {
+      expect(phoneSettingsService.isReSendSmsFailed()).toBeFalsy();
+    });
+
+  });
 })
