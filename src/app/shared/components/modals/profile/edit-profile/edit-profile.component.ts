@@ -5,10 +5,6 @@ import {
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import { Config } from '../../../../../config';
-import { FileCategoryEnum } from '../../../services/uploader/file-type-checker';
-import { CommonConfig } from '../../../../../common-config';
-import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ExpertDetailsUpdate } from '@anymind-ng/api/model/expertDetailsUpdate';
 import { EditProfileModalComponentService } from './edit-profile.component.service';
@@ -17,8 +13,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { GetSession } from '@anymind-ng/api';
-import { NavbarComponentService } from '../navbar.component.service';
-import { ModalAnimationComponentService } from '../../modals/modal/animation/modal-animation.animation.service';
+import { ConfigDEFAULT } from '../../../../../../../generated_modules/common-config/common-config.default';
+import { CommonConfig } from '../../../../../../common-config';
+import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
+import { NavbarComponentService } from '../../../navbar/navbar.component.service';
+import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
+import { Config } from '../../../../../../config';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],

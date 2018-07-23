@@ -14,10 +14,10 @@ import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditProfileModalComponent } from '../edit-profile/edit-profile.component';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { CreateCompanyConsultationModalComponent }
 from '../../modals/create-company-consultation/create-company-consultation.component';
+import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-navbar-expert-menu',

@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
 import {
   SmsConfirmationComponent
 } from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
-import { EditProfileModalModule } from '../../shared/components/navbar/edit-profile/edit-profile.module';
+import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { EditProfileModalModule } from '../../shared/components/navbar/edit-prof
     SharedModule,
     AngularJsProvidersModule,
     DashboardRoutingModule,
-    EditProfileModalModule
+    ProfileModalModule
   ]
 })
 export class DashboardModule {

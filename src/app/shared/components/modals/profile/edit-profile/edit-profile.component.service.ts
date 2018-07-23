@@ -6,7 +6,6 @@ import {
   WizardService
 } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Observable } from 'rxjs/Rx';
@@ -14,6 +13,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { mergeMap } from 'rxjs/operators';
 import { ExpertDetailsUpdate } from '@anymind-ng/api/model/expertDetailsUpdate';
 import { WizardCompleteResult } from '@anymind-ng/api/model/wizardCompleteResult';
+import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
 
 @Injectable()
 export class EditProfileModalComponentService {
