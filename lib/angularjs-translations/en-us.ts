@@ -251,7 +251,7 @@ import "angular-translate"
         		"COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.GO_TO_PROFILE_EXPERT":"Przejdź do profilu eksperta",
         		"COMMUNICATOR.AUDIO_CONVERSATION":"Rozmowa głosowa",
         		"COMMUNICATOR.CONNECTING_WITH":"Nawiązuję połączenie z",
-        		"COMMUNICATOR.CONNECTION.ACTIVE_BAR.TITLE":"Prowadzisz rozmowę na innym urządzeniu. PRZEŁĄCZ TUTAJ",
+        		"COMMUNICATOR.CONNECTION.ACTIVE_BAR.TITLE":"Prowadzisz rozmowę na innym urządzeniu.",
         		"COMMUNICATOR.CONNECTION.WAITING.TITLE":"oczekiwanie na połączenie...",
         		"COMMUNICATOR.CONTROLS.CAMERA":"kamera",
         		"COMMUNICATOR.CONTROLS.CHAT":"czat",

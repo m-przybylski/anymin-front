@@ -1,16 +1,12 @@
-import { Call } from 'ratel-sdk-js';
-import { Subscription } from 'rxjs';
-import { merge } from 'rxjs/observable/merge';
-import { CurrentExpertCall } from '@anymind-ng/core';
+import { Call, callEvents } from 'ratel-sdk-js';
+import { Observable } from 'rxjs/Rx';
+import Ended = callEvents.Ended;
 
 export class PullableCall {
 
-  constructor(private pullCallback: () => Promise<CurrentExpertCall>, private call: Call) {
+  constructor(private call: Call) {
   }
 
-  public onPullExpired = (cb: () =>  void): Subscription =>
-    merge(this.call.end$, this.call.left$).subscribe(cb)
+  public onPullExpired = (): Observable<Ended> => this.call.end$;
 
-  public pull = (): Promise<CurrentExpertCall> =>
-    this.pullCallback()
 }
