@@ -10,7 +10,6 @@
       )
       label.label
     span.text(for="{{ $ctrl.id }}") {{ $ctrl.label | translate }}
-    pre {{$ctrl.ngModel}}
 
   .radio-description(data-ng-show="$ctrl.isCollapsed")
     p.label-description(data-ng-if="$ctrl.labelDescription") {{ $ctrl.labelDescription | translate }}

@@ -1,14 +1,8 @@
 plat-modal-component(
 [modalTrTitleHeader]="'EDIT_PROFILE.TITLE'",
-[isBackwardVisible]="isExpertForm && !isOpenAsExpert",
+[isBackwardVisible]="isExpertForm && !isExpert && !isOpenAsExpert",
 [onBackwardClick]="onBackToClientStep"
   )
-
-  header.modal-component__content__header
-    span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
-      am-core-tooltip(
-      [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
-      )
 
   .modal-form
     form.form.form--client(
@@ -19,13 +13,20 @@ plat-modal-component(
     novalidate,
     id="clientNameForm"
     )
+      .modal-form__row.modal-form__row--small
+        header.modal-component__content__header
+          span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
+            am-core-tooltip(
+            [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+            )
 
-      plat-basic-profile-data(
-      [form]="clientNameForm",
-      [profileNameControlName]="clientFormControlName",
-      [avatarControlName]="clientFormControlAvatar",
-      [isDisabled]="isInputDisabled"
-      )
+        plat-basic-profile-data(
+        [form]="clientNameForm",
+        [profileNameControlName]="clientFormControlName",
+        [avatarControlName]="clientFormControlAvatar",
+        [isDisabled]="isInputDisabled",
+        [inputTextLabel]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'"
+        )
 
     div
       form.form.form--expert(
@@ -36,13 +37,21 @@ plat-modal-component(
       id="expertNameForm",
       novalidate
       )
+
+        header.modal-component__content__header
+          span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
+            am-core-tooltip(
+            [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+            )
+
         .modal-form__row
           plat-basic-profile-data(
           [form]="expertNameForm",
           [profileNameControlName]="expertFormControlName",
           [avatarControlName]="expertFormControlAvatar",
           [isRequired]="isExpertForm",
-          [isDisabled]="isInputDisabled"
+          [isDisabled]="isInputDisabled",
+          [inputTextLabel]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'"
           )
 
         .modal-form__row.modal-form__row--small
@@ -79,15 +88,15 @@ plat-modal-component(
           [form]="expertNameForm",
           [controlName]="expertFormControlLink",
           [itemsList]="profileLinksList",
-          [isDisabled] = "isInputDisabled",
+          [isDisabled]="isInputDisabled",
           (linksListEmitter$)="onAddProfileLink($event)"
           )
 
-    .modal-component__action(*ngIf="!isOpenAsExpert")
-      a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="!isExpertForm")
+    .modal-component__action([ngClass]="{'modal-component__action--expert': isExpert || isOpenAsExpert}")
+      a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="!isExpertForm && !isExpert && !isOpenAsExpert")
         | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
 
-      a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="isExpertForm")
+      a.button.button--link.button--small((click)="onCreateExpertAccount()", *ngIf="isExpertForm && !isExpert && !isOpenAsExpert")
         | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
 
       am-core-submit-button(
@@ -101,14 +110,6 @@ plat-modal-component(
       am-core-submit-button(
       *ngIf="isExpertForm",
       (click)="onCreateExpertFormSubmit(expertNameForm)",
-      [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
-      [isDisabled]="isFileUploading || isPending || isInputDisabled",
-      [isLoading]="isFileUploading || isPending || isInputDisabled"
-      )
-
-    .modal-component__action.modal-component__action--expert(*ngIf="isExpertForm && isOpenAsExpert")
-      am-core-submit-button(
-      (click)="onExpertFormSubmit(expertNameForm)",
       [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
       [isDisabled]="isFileUploading || isPending || isInputDisabled",
       [isLoading]="isFileUploading || isPending || isInputDisabled"

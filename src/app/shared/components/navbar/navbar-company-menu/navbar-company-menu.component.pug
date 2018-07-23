@@ -8,13 +8,13 @@
     li.menu-list__header
       .menu-list__user-information
         plat-user-avatar(
-          [avatarSize]="avatarSize48",
-          [avatarToken]="companyAvatarToken"
+        [avatarSize]="avatarSize48",
+        [avatarUrl]="companyAvatarUrl"
         )
         .user-name-container
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.LOGGED_AS'")
           span.user-name-container__user-name {{ companyName }}
-      a.button.button--link((click)="openEditProfileModal()", [translate]="'NAVBAR_USER_MENU.EDIT'")
+      a.button.button--link((click)="openEditOrganizationModal()", [translate]="'NAVBAR_USER_MENU.SHOW'")
 
     li.menu-list__section.lgm-only
       ul
@@ -38,7 +38,7 @@
 
     li.menu-list__section(*ngIf="!isExpert")
       ul
-        li.menu-list__row
+        li.menu-list__row((click)="openEditProfileModal()")
           span.icon.icon-expert
           span.option-title([translate]="'NAVBAR_USER_MENU.BECOME_CONSULTATNT'")
 
@@ -54,9 +54,18 @@
 
     li.menu-list__section.menu-list__section--switch-account(*ngIf="isExpert")
       ul
-        li.menu-list__row
+        li.menu-list__row((click)="onExpertProfileSwitch($event)", [routerLink]="['/dashboard/user/discover']")
           plat-user-avatar(
-            [avatarSize]="avatarSize32",
-            [avatarToken]="expertAvatarToken"
+          [avatarSize]="avatarSize32",
+          [avatarUrl]="expertAvatarUrl"
           )
           span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_EXPERT'")
+
+    li.menu-list__section.menu-list__section--switch-account(*ngIf="!isExpert")
+      ul
+        li.menu-list__row((click)="onExpertProfileSwitch($event)", [routerLink]="['/dashboard/user/discover']")
+          plat-user-avatar(
+          [avatarSize]="avatarSize32",
+          [avatarUrl]="expertAvatarUrl"
+          )
+          span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_CLIENT'")

@@ -15,9 +15,15 @@ import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
-import { CreateCompanyConsultationModalComponent }
-from '../../modals/create-company-consultation/create-company-consultation.component';
+import {
+  CreateCompanyConsultationModalComponent
+}
+  from '../../modals/create-company-consultation/create-company-consultation.component';
 import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
+import {
+  CreateOrganizationModalComponent
+}
+  from '../../modals/profile/create-organization/create-organization.component';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
@@ -29,19 +35,22 @@ import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edi
 export class NavbarExpertMenuComponent implements OnInit {
 
   @Input()
+  public isExpert: boolean;
+
+  @Input()
+  public isCompany: boolean;
+
+  @Input()
   public expertName: string;
 
   @Input()
-  public expertAvatarToken: string;
+  public avatarUrl: string;
 
   @Input()
-  public companyAvatarToken?: string;
+  public companyAvatarUrl?: string;
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
-  public readonly avatarSize48 = AvatarSizeEnum.X_48;
-  public isCompany: boolean;
   public isMenuVisible: boolean;
-
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
@@ -51,8 +60,6 @@ export class NavbarExpertMenuComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.isCompany = this.navbarMenuService.hasUserCompanyProfile();
-
     this.logger = this.loggerFactory.createLoggerService('NavbarExpertMenuComponent');
 
     this.navbarMenuService.getVisibility$()
@@ -61,8 +68,10 @@ export class NavbarExpertMenuComponent implements OnInit {
       .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
   }
 
-  public openEditProfileModal = (): boolean =>
-    this.modalService.open(EditProfileModalComponent).componentInstance.isOpenAsExpert = !this.isCompany
+  public openEditProfileModal = (): NgbModalRef =>
+    this.modalService.open(EditProfileModalComponent)
+
+  public openCreateOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
@@ -72,6 +81,8 @@ export class NavbarExpertMenuComponent implements OnInit {
   public logout = (): void => {
     this.navbarMenuService.logout();
   }
+
+  public onOrganizationProfileSwitch = (e: Event): void => e.stopPropagation();
 
   public onInputSwitchClick = (e: Event): void => {
     e.stopPropagation();

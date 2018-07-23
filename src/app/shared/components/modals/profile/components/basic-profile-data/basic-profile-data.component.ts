@@ -34,6 +34,18 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
   @Input()
   public isDisabled ? = false;
 
+  @Input()
+  public isOrganizationAvatar = false;
+
+  @Input()
+  public inputTextLabel?: string;
+
+  @Input()
+  public inputTextPlaceholder?: string;
+
+  @Input()
+  public avatarUrl?: string;
+
   public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;
   public readonly profileNameMinlength = Config.inputsLength.profileNameMinlength;
   public profileNameNgModel = '';

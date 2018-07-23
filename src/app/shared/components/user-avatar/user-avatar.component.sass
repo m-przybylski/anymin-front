@@ -1,6 +1,30 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
 
+=x156-size
+	width: 156px
+	min-width: 156px
+	height: 156px
+	min-height: 156px
+	
+=x48-size
+	width: 48px
+	min-width: 48px
+	height: 48px
+	min-height: 48px
+	
+=x32-size
+	width: 32px
+	min-width: 32px
+	height: 32px
+	min-height: 32px
+	
+=x24-size
+	width: 24px
+	min-width: 24px
+	height: 24px
+	min-height: 24px
+	
 .user-avatar
 	display: flex
 	align-items: center
@@ -12,47 +36,55 @@
 	
 	&--x156
 		img,
-		.user-avatar__error,
-		.icon-avatar
-			width: 156px
-			min-width: 156px
-			height: 156px
-			min-height: 156px
-		
+		.user-avatar__error
+			+x156-size
+			
 		.icon
 			font-size: 156px
-	
-	&--x48
-		img,
-		.icon-avatar
-			width: 48px
-			height: 48px
+			
+			&--profile
+				+x156-size
+				
+				&.icon-organization
+					font-size: 116px
 		
+	&--x48
+		img
+			+x48-size
+			
 		.icon
 			font-size: 48px
-	
-	&--x32
-		img,
-		.icon-avatar
-			width: 32px
-			height: 32px
+			
+			&--profile
+				width: 48px
+				height: 48px
 		
+	&--x32
+		img
+			+x32-size
+			
 		.icon
 			font-size: 32px
-		
+			
+			&--profile
+				width: 32px
+				height: 32px
+	
 	&--x24
-		img,
-		.icon-avatar
-			width: 24px
-			height: 24px
-		
+		img
+			+x24-size
 		.icon
 			font-size: 24px
-	
-	.icon-avatar
-		background: $c-text-primary
-		color: $c-half-white
-		border-radius: 50%
+			
+			&--profile
+				width: 24px
+				height: 24px
+		
+	.icon
+		&--profile
+			background: $c-text-primary
+			color: $c-half-white
+			border-radius: 50%
 	
 	&__error
 		background: $c-white

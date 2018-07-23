@@ -1,7 +1,8 @@
 .user-avatar([ngClass]="setAvatarClass()")
   img.user-avatar__img(src="{{ avatarUrl }}", *ngIf="avatarUrl; else iconAvatar")
   ng-template(#iconAvatar)
-    span.icon.icon-avatar(*ngIf="!avatarErrorValidation && !avatarError")
+    span.icon.icon--profile.icon-avatar(*ngIf="!avatarErrorValidation && !avatarError && !isOrganizationAvatar")
+    span.icon.icon--profile.icon-organization(*ngIf="!avatarErrorValidation && !avatarError && isOrganizationAvatar")
 
     .user-avatar__error(*ngIf="avatarError")
       div

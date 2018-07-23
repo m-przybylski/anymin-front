@@ -11,6 +11,7 @@ import { ProfileLinksComponent } from './components/profile-links/profile-links.
 import { AvatarUploaderComponent } from './components/basic-profile-data/avatar-uploader/avatar-uploader.component';
 import { AvatarUploaderDirective } from './components/basic-profile-data/avatar-uploader/avatar-uploader.directive';
 import { CreateOrganizationModalComponent } from './create-organization/create-organization.component';
+import { CreateOrganizationModalComponentService } from './create-organization/create-organization.component.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { CreateOrganizationModalComponent } from './create-organization/create-o
   ],
   providers: [
     EditProfileModalComponentService,
+    CreateOrganizationModalComponentService,
     UploaderService,
   ],
   declarations: [

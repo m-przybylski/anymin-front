@@ -20,7 +20,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
 
   @Input()
-  public avatarToken?: string;
+  public avatarUrl?: string;
 
   @Input()
   public userVisibility?: GetExpertVisibility.VisibilityEnum;

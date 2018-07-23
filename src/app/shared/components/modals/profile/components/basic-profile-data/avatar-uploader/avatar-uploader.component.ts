@@ -27,6 +27,9 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   @Input()
   public isRequired = false;
 
+  @Input()
+  public isOrganizationAvatar = false;
+
   public isError = false;
   public readonly avatarSize = AvatarSizeEnum.X_156;
 

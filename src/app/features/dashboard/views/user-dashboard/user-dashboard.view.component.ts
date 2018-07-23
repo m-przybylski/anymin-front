@@ -7,10 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-dashboard.view.component.sass']
 })
 export class UserDashboardComponent {
-
-  public readonly isCompany = false;
-
-  constructor() {
-  }
-
+  public isExpertNavVisible = true;
 }
