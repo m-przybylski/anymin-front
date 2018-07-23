@@ -24,10 +24,6 @@ export class ActiveCallBarComponentController implements ng.IController, ng.IOnI
     this.ngUnsubscribe.complete();
   }
 
-  public pullCall = (): void => {
-    this.activeCallBarService.pullCall();
-  }
-
   private hideCallBar = (): void => {
     this.isCallPendingOnOtherDevice = false;
   }

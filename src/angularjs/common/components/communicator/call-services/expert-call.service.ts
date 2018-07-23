@@ -19,18 +19,20 @@ import { PullableCall } from '../models/pullable-call';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
-import { UpgradeService } from '../../../services/upgrade/upgrade.service';
+import EndReason = callEvents.EndReason;
+import { ReplaySubject } from 'rxjs/Rx';
 
 export class ExpertCallService {
 
   public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
-    'RatelApi', 'communicatorService', 'logger', 'upgradeService', 'callFactory',
+    'RatelApi', 'communicatorService', 'logger', 'callFactory',
     'eventsService', 'sessionServiceWrapper'];
 
   private readonly newCallEvent = new Subject<CurrentExpertCall>();
-  private readonly pullableCallEvent = new Subject<PullableCall>();
+  private readonly pullableCallEvent = new ReplaySubject<PullableCall>(1);
   private readonly callRejectedEvent = new Subject<void>();
   private navigatorWrapper = new NavigatorWrapper();
+  private callAnsweredOnOtherDeviceEvent$ = new Subject<void>();
 
   constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
               private modalsService: ModalsService,
@@ -38,7 +40,6 @@ export class ExpertCallService {
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService,
               private logger: LoggerService,
-              private upgradeService: UpgradeService,
               private callFactory: CallFactory,
               eventsService: EventsService,
               sessionServiceWrapper: SessionServiceWrapper) {
@@ -66,37 +67,10 @@ export class ExpertCallService {
     return this.pullableCallEvent;
   }
 
-  private getCallMessages = (call: Call): ng.IPromise<ReadonlyArray<callEvents.CallEvent>> =>
-    this.upgradeService.toIPromise(call.getMessages())
-
-  private handlePullableCall = (session: Session, call: BusinessCall): void => {
+  private handlePullableCall = (call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
-    const pullCallback = (): Promise<CurrentExpertCall> => {
-      this.logger.debug('ExpertCallService: PULLING');
-
-      return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(localStream =>
-        this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
-
-          const currentExpertCall = this.callFactory.createExpertCall(call, expertSueDetails);
-
-          return this.getCallMessages(call).then(callMsgs =>
-            this.upgradeService.toIPromise(currentExpertCall.pull(localStream.getAudioTracks(), callMsgs)
-              .then(() => {
-                // FIXME unsubscribe when call end or taken.
-                currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-                currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
-                this.logger.debug('ExpertCallService: Call was pulled successfully, emitting new call');
-                this.newCallEvent.next(currentExpertCall);
-
-                return currentExpertCall;
-              }))
-          );
-        })
-      );
-    };
-
-    this.pullableCallEvent.next(new PullableCall(pullCallback, call));
+    this.pullableCallEvent.next(new PullableCall(call));
   }
 
   private checkPullableCalls = (connected: IConnected): void => {
@@ -109,7 +83,7 @@ export class ExpertCallService {
       const activeCall = activeCalls[0];
       if (activeCall) {
         if (BusinessCall.isBusiness(activeCall)) {
-          this.handlePullableCall(connected.session, activeCall);
+          this.handlePullableCall(activeCall);
         } else {
           this.logger.warn('ActiveCallBarService: Abnormal state - Active call is not BusinessCall, aborting');
         }
@@ -127,14 +101,14 @@ export class ExpertCallService {
       }
       const incomingCall = incomingCalls[0];
       if (incomingCall) {
-        this.onExpertCallIncoming(connected.session, incomingCall);
+        this.onExpertCallIncoming(incomingCall);
       }
     }, (err) => this.logger.warn('ExpertCallService: Could not load incoimg calls after successful connection', err));
   }
 
-  private onExpertCallIncoming = (session: Session, call: Call): void => {
+  private onExpertCallIncoming = (call: Call): void => {
     if (BusinessCall.isBusiness(call)) {
-      this.onExpertBusinessCallIncoming(session, call);
+      this.onExpertBusinessCallIncoming(call);
     } else {
       this.logger.error('ExpertCallService: Incoming call was not of BusinessCall type, rejecting', call);
       call.reject(CallReason.CallRejected).then(
@@ -145,17 +119,17 @@ export class ExpertCallService {
 
   private onExpertCallIdIncoming = (session: Session, callId: protocol.ID): Promise<void> =>
     session.chat.getCall(callId).then(
-      call => this.onExpertCallIncoming(session, call),
+      call => this.onExpertCallIncoming(call),
       err => this.logger.error('ExpertCallService: Can not leave unsupported call invitation', err))
 
-  private onExpertBusinessCallIncoming = (session: Session, call: BusinessCall): void => {
+  private onExpertBusinessCallIncoming = (call: BusinessCall): void => {
     this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
 
       this.soundsService.callIncomingSound().play();
 
       const callingModal = this.modalsService.createIncomingCallModal(
         expertSueDetails,
-        (modal) => this.handleAnswerCallInvitation(modal, expertSueDetails, session, call),
+        (modal) => this.handleAnswerCallInvitation(modal, expertSueDetails, call),
         (modal) => this.rejectCallInvitation(modal, call)
       );
 
@@ -171,9 +145,11 @@ export class ExpertCallService {
         .subscribe(left => this.handleClientLeftBeforeAnswering(left, expertSueDetails, callingModal));
       // Call was answered on the other device
       call.activeDevice$.subscribe(active =>
-        this.handleCallAnsweredOnOtherDevice(active, callingModal, session, call));
+        this.handleCallAnsweredOnOtherDevice(active, callingModal, call));
       // Client ended the call when calling
       call.end$.pipe(takeUntil(this.callRejectedEvent))
+        .pipe(takeUntil(this.newCallEvent))
+        .pipe(takeUntil(this.callAnsweredOnOtherDeviceEvent$))
         .subscribe(end => this.handleCallEndedBeforeAnswering(end, callingModal));
 
     }, (err) => {
@@ -217,18 +193,18 @@ export class ExpertCallService {
 
   private handleCallAnsweredOnOtherDevice = (callActiveDevice: callEvents.CallHandledOnDevice,
                                              callingModal: ng.ui.bootstrap.IModalInstanceService,
-                                             session: Session,
                                              call: BusinessCall): void => {
+    this.callAnsweredOnOtherDeviceEvent$.next();
     this.logger.debug('ExpertCallService: Call was answered on other device', callActiveDevice);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
-    this.handlePullableCall(session, call);
+    this.handlePullableCall(call);
   }
 
   private handleCallEndedBeforeAnswering = (callEnd: callEvents.Ended,
                                             callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
     this.logger.debug('ExpertCallService: Call was ended before expert answer', callEnd);
-    if (callEnd.reason !== 'rejected') {
+    if (callEnd.reason !== EndReason.CallRejected) {
       callingModal.closed.then(this.showMissedCallAlert);
     }
     callingModal.close();
@@ -239,7 +215,6 @@ export class ExpertCallService {
 
   private handleAnswerCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance,
                                         incomingCallDetails: GetExpertSueDetails,
-                                        session: Session,
                                         call: BusinessCall): void => {
     this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
@@ -253,7 +228,7 @@ export class ExpertCallService {
           () => {
             // FIXME unsubscribe when call end or taken.
             currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-            currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(session, call));
+            currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(call));
             this.newCallEvent.next(currentExpertCall);
             this.soundsService.callIncomingSound().stop();
             callingModal.close();
