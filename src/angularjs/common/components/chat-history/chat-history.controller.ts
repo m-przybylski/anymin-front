@@ -56,7 +56,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.chatMessages = messages.items
       .filter(m => ChatHistoryComponentController.isCustomMessageSent(m))
       .map(m => m as roomEvents.CustomMessageSent)
-      .filter(message => message.tag === 'MESSAGE');
+      .filter(message => message.tag === 'room_custom_message_sent');
     this.isChatHistory = this.chatMessages.length > 0;
     this.isError = false;
     this.chatMessages.forEach((message) => {
