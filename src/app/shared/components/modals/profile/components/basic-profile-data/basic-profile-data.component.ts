@@ -3,13 +3,13 @@ import {
   Component, Input, OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { EditProfileModalComponentService } from '../edit-profile.component.service';
-import { Config } from '../../../../../../config';
+import { EditProfileModalComponentService } from '../../edit-profile/edit-profile.component.service';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService, LoggerFactory, LoggerService  } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
+import { Config } from '../../../../../../../config';
 
 @Component({
   selector: 'plat-basic-profile-data',

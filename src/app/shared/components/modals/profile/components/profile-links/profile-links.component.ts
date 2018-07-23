@@ -5,12 +5,13 @@ import {
 } from '@angular/core';
 import { Animations, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { ProfileLinksComponentService } from './profile-links.component.service';
 import {
   CommonSettingsService
 }
-  from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { ProfileLinksComponentService } from './profile-links.component.service';
-import { InputAddItemComponentStatusEnum } from '../../../inputs/input-add-item/input-add-item.component';
+  from '../../../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { InputAddItemComponentStatusEnum } from '../../../../inputs/input-add-item/input-add-item.component';
 
 export interface ILinkList {
   link: string;

@@ -47,7 +47,7 @@
 
         li.menu-list__row
           span.icon.icon-organization
-          span.option-title([translate]="'NAVBAR_USER_MENU.CREATE_COMPANY'")
+          span.option-title((click)="openCreateOrganizationModal()", [translate]="'NAVBAR_USER_MENU.CREATE_COMPANY'")
 
     li.menu-list__section
       ul

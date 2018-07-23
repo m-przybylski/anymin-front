@@ -7,13 +7,19 @@ import { Animations } from '@anymind-ng/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { NavbarMenuService }
-from '../../../services/navbar-menu-service/navbar-menu.service';
+import {
+  NavbarMenuService
+}
+  from '../../../services/navbar-menu-service/navbar-menu.service';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
-import { EditProfileModalComponent } from '../edit-profile/edit-profile.component';
+import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
+import {
+  CreateOrganizationModalComponent
+}
+  from '../../modals/profile/create-organization/create-organization.component';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -54,6 +60,9 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
   public logout = (): void => {
     this.navbarMenuService.logout();
   }
+
+  public openCreateOrganizationModal = (): NgbModalRef =>
+    this.modalService.open(CreateOrganizationModalComponent)
 
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', (err));

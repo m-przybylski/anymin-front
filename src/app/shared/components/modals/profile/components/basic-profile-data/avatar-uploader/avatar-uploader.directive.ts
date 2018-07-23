@@ -1,12 +1,12 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Config } from '../../../../../../../config';
 import { ImageCropModalComponent } from '../image-crop/image-crop.component';
 import {
   ContentHeightAnimationService
 }
-  from '../../../../../services/animation/content-height/content-height.animation.service';
+  from '../../../../../../services/animation/content-height/content-height.animation.service';
+import { Config } from '../../../../../../../../config';
 
 @Directive({
   selector: '[appAvatarUploader]'

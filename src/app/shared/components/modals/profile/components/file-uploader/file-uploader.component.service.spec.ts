@@ -5,7 +5,7 @@ import {
   IFileValidationValues
 } from './file-uploader.component.service';
 import { FilesService } from '@anymind-ng/api';
-import { FileCategoryEnum } from '../../services/uploader/file-type-checker';
+import { FileCategoryEnum } from '../../../../../services/uploader/file-type-checker';
 
 class File {
   constructor(public size: number,

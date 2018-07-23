@@ -1,16 +1,16 @@
 // tslint:disable:no-implicit-dependencies
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { UploaderService } from '../../../../../services/uploader/uploader.service';
 import { CropDetails } from '@anymind-ng/api/model/cropDetails';
 import { PostFileDetails } from '@anymind-ng/api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditProfileModalComponentService } from '../../edit-profile.component.service';
-import { ModalContainerWidthEnum } from '../../../../modals/modal/modal.component';
+import { EditProfileModalComponentService } from '../../../edit-profile/edit-profile.component.service';
 import { Alerts, AlertService, WindowRef, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Croppie from 'croppie';
-import { Config } from '../../../../../../../config';
-import { PreloaderContentSizeEnum } from '../../../../preloader/preloader-container.component';
+import { ModalContainerWidthEnum } from '../../../../modal/modal.component';
+import { PreloaderContentSizeEnum } from '../../../../../preloader/preloader-container.component';
+import { Config } from '../../../../../../../../config';
+import { UploaderService } from '../../../../../../services/uploader/uploader.service';
 
 export interface IImageCropData {
   imgSrc: string;

@@ -7,16 +7,16 @@ import { PostFileDetails } from '@anymind-ng/api';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
 import { Subject } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { IUploadFileInfo, UploaderService } from '../../services/uploader/uploader.service';
+import { IUploadFileInfo, UploaderService } from '../../../../../services/uploader/uploader.service';
 import {
   FileStatus,
   FileUploaderComponentService,
   IFileValidationValues
 } from './file-uploader.component.service';
-import { Animations } from '../../animations/animations';
+import { Animations } from '../../../../../animations/animations';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FileCategoryEnum } from '../../services/uploader/file-type-checker';
-import { CommonConfig } from '../../../../common-config';
+import { FileCategoryEnum } from '../../../../../services/uploader/file-type-checker';
+import { CommonConfig } from '../../../../../../../common-config';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 
 interface IFileInfo {
