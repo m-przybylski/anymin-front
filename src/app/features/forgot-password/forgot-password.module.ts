@@ -21,6 +21,10 @@ import {
   SetNewPasswordFromEmailViewGuard
 } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
+import {
+  SetNewPasswordFromEmailViewResolver
+}
+  from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,8 @@ import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.modu
     ForgotPasswordGuard,
     VerifiedCodeService,
     SetNewPasswordFromMsisdnViewGuard,
-    SetNewPasswordFromEmailViewGuard
+    SetNewPasswordFromEmailViewGuard,
+    SetNewPasswordFromEmailViewResolver
   ],
   imports: [
     CommonModule,

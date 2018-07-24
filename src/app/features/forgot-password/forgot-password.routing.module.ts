@@ -16,6 +16,10 @@ import {
   SetNewPasswordFromEmailViewGuard
 } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
 import { MsisdnGuard } from '../../shared/guards/msisdn/msisdn.guard';
+import {
+  SetNewPasswordFromEmailViewResolver
+}
+  from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
 
 const routes: Routes = [
   {
@@ -23,28 +27,34 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: '/'
   },
-  { path: ':msisdn',
+  {
+    path: ':msisdn',
     pathMatch: 'full',
     canActivate: [MsisdnGuard, ForgotPasswordGuard]
   },
-  { path: 'pin-code/:msisdn',
+  {
+    path: 'pin-code/:msisdn',
     component: ForgotPasswordPinCodeViewComponent,
     canActivate: [MsisdnGuard]
   },
-  { path: 'email/:msisdn',
+  {
+    path: 'email/:msisdn',
     component: EmailViewComponent,
-    canActivate: [MsisdnGuard]},
+    canActivate: [MsisdnGuard]
+  },
   {
     path: 'email/set-new-password/:token',
     component: SetNewPasswordFromEmailViewComponent,
-    canActivate: [SetNewPasswordFromEmailViewGuard]
+    canActivate: [SetNewPasswordFromEmailViewGuard],
+    resolve: {
+      msisdn: SetNewPasswordFromEmailViewResolver
+    }
   },
   {
     path: 'set-new-password/:msisdn',
     component: SetNewPasswordFromMsisdnViewComponent,
     canActivate: [MsisdnGuard, SetNewPasswordFromMsisdnViewGuard]
   }
-
 ];
 
 @NgModule({

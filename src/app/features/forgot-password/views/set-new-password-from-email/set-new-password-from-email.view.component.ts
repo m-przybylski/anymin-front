@@ -25,7 +25,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
   public readonly passwordControlName = 'password';
   public readonly setPasswordFormId = 'passwordForm';
 
-  public token: string;
+  public msisdn: string;
   public setPasswordForm: FormGroup;
   public isRequestPending = false;
   public isInputInitialFocused = true;
@@ -44,10 +44,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.setPasswordForm = new FormGroup({});
-
-    this.route.params.subscribe(params => {
-      this.token = params.token;
-    });
+    this.msisdn = this.route.snapshot.data.msisdn;
   }
 
   public ngOnDestroy(): void {
@@ -59,7 +56,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
     if (setPasswordForm.valid) {
       this.isRequestPending = true;
       const password = setPasswordForm.controls[this.passwordControlName].value;
-      this.setNewPasswordFromEmailService.handleNewPassword(this.token, password)
+      this.setNewPasswordFromEmailService.handleNewPassword(password)
         .pipe(finalize(() => {
           this.isRequestPending = false;
         }))
@@ -87,7 +84,11 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
         break;
 
       case SetNewPasswordFromEmailStatus.ERROR:
-        this.logger.warn('Handled error status when set new password from email', status);
+        this.logger.info('Handled error status when set new password from email', status);
+        break;
+
+      case SetNewPasswordFromEmailStatus.SUCCESS:
+        this.logger.info('Handled success status when set new password from email', status);
         break;
 
       default:
