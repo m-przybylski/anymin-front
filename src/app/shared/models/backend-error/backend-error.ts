@@ -19,6 +19,7 @@ export enum BackendErrors {
   CannotFindEmailToken = 323,
   PincodeSentTooRecently = 332,
   CreateAnotherPinCodeTokenRecently = 333,
+  EmailAlreadyExists = 334,
   MsisdnVerificationTokenIncorrect = 343,
   TooManyMsisdnTokenAttempts = 344,
   ToManyIncorrectPasswordAttempts = 345,

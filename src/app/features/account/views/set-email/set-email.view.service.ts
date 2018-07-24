@@ -18,6 +18,7 @@ import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/
 export enum SetEmailStatus {
   SUCCESS,
   INVALID,
+  ALREADY_EXIST,
   ERROR
 }
 
@@ -47,6 +48,9 @@ export class SetEmailViewService {
       switch (error.code) {
         case BackendErrors.IncorrectValidation:
           return of(SetEmailStatus.INVALID);
+
+        case BackendErrors.EmailAlreadyExists:
+          return of(SetEmailStatus.ALREADY_EXIST);
 
         default:
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
