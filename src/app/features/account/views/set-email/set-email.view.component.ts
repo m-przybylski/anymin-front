@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { FormUtilsService, InputEmailComponent, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { SetEmailViewService, SetEmailStatus } from './set-email.view.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -62,13 +62,17 @@ export class SetEmailViewComponent implements OnInit, OnDestroy {
         this.displayIncorrectEmailError();
         break;
 
-        case SetEmailStatus.SUCCESS:
-          this.logger.warn('Handled succes email status');
-          break;
+      case SetEmailStatus.ALREADY_EXIST:
+        this.displayAlreadyExistEmailError();
+        break;
 
-        case SetEmailStatus.ERROR:
-          this.logger.warn('Handled error email status');
-          break;
+      case SetEmailStatus.SUCCESS:
+        this.logger.warn('Handled succes email status');
+        break;
+
+      case SetEmailStatus.ERROR:
+        this.logger.warn('Handled error email status');
+        break;
 
       default:
         this.logger.error('SetEmailViewComponent error when handling email status');
@@ -76,7 +80,14 @@ export class SetEmailViewComponent implements OnInit, OnDestroy {
   }
 
   private displayIncorrectEmailError = (): void => {
-    this.setEmailForm.controls[this.emailControlName].setErrors({[SetEmailStatus.INVALID]: true});
+    this.setEmailForm.controls[this.emailControlName].setErrors({[InputEmailComponent.InputEmailErrors.invalid]: true});
     this.formUtils.validateAllFormFields(this.setEmailForm);
   }
+
+  private displayAlreadyExistEmailError = (): void => {
+    this.setEmailForm.controls[this.emailControlName]
+      .setErrors({[InputEmailComponent.InputEmailErrors.alreadyExists]: true});
+    this.formUtils.validateAllFormFields(this.setEmailForm);
+  }
+
 }
