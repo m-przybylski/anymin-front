@@ -41,6 +41,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public clientReportMessage = '';
   public isSendingClientReport = false;
   public isClientReportSent = false;
+  public isTechnicalProblemsSent = false;
   public isSubmitted = false;
 
   public radioModel?: GetTechnicalProblem.ProblemTypeEnum;
@@ -93,11 +94,12 @@ export class ConsultationSummaryExpertController implements ng.IController {
     if (this.radioModel) {
       this.consultationSummaryExpertService.sendTechnicalProblems(this.sueId, this.radioModel,
         this.technicalProblemsDescription).then(() => {
-        this.onModalClose();
         this.topAlertService.success({
           message: this.translatorService.translate('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_EXPERT.SUCCESS_MESSAGE'),
           timeout: 2
         });
+        this.isTechnicalProblemsSent = true;
+        this.onTechnicalProblemsCancel();
       }).catch((error) => {
         this.errorHandler.handleServerError(error);
       });
@@ -126,6 +128,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
         timeout: 2
       });
       this.isClientReportSent = true;
+      this.onReportClientCancel();
     }).catch((error) => {
       this.errorHandler.handleServerError(error, 'Can not send report client');
     }).finally(() => {

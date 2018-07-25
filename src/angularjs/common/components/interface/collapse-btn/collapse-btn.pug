@@ -1,7 +1,10 @@
 .collapse-btn(data-ng-style="$ctrl.stylesObject")
   .btn-collapse.btn
     .collapse-btn-wrapper
-      .btn.collapse-btn-header(data-ng-click="$ctrl.collapseToggle()")
+      .btn.collapse-btn-header(
+        data-ng-click="$ctrl.collapseToggle()"
+        data-ng-class="{'collapse-btn-header--disabled': $ctrl.isDisabled}"
+      )
         div
           span {{ $ctrl.title | translate }}
 
