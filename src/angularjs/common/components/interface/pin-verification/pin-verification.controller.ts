@@ -8,10 +8,10 @@ export class PinVerificationComponentController implements ng.IController, IPinV
 
   public onSendPinAgain: () => void;
   public onCompletePinInputs: (token: string, callback: () => void) => void;
-  public isButtonDisable = false;
   public counter = 0;
   public pinInputModels: string[] = [];
   public isPinInCorrect = false;
+  public isButtonDisabled: boolean;
 
   private static readonly disableSendButtonInSeconds = 30;
   private static readonly validPinLength = 4;
@@ -19,11 +19,12 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   public static $inject = ['$interval'];
 
     constructor(private $interval: ng.IIntervalService) {
-
-  }
+      this.isButtonDisabled = true;
+      this.blockSendButtonForTime(PinVerificationComponentController.disableSendButtonInSeconds);
+    }
 
   public sendPinAgain = (): void => {
-    this.isButtonDisable = true;
+    this.isButtonDisabled = true;
     this.blockSendButtonForTime(PinVerificationComponentController.disableSendButtonInSeconds);
     this.onSendPinAgain();
   }
@@ -45,7 +46,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
     this.$interval(() => {
       this.counter--;
       if (this.counter === 0) {
-        this.isButtonDisable = false;
+        this.isButtonDisabled = false;
       }
     }, intervalTime, seconds);
   }

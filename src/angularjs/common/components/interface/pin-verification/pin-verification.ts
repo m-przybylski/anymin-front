@@ -10,6 +10,8 @@ import autoFocus from '../../../directives/auto-focus/auto-focus';
 export interface IPinVerificationComponentBindings {
   onSendPinAgain: () => void;
   onCompletePinInputs: (token: string, callback: () => void) => void;
+  // tslint:disable-next-line:no-mixed-interface
+  isButtonDisabled: boolean;
 }
 
 const pinVerificationModule = angular.module('profitelo.components.interface.pin-verification', [
