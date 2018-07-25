@@ -25,10 +25,11 @@
               span(data-translate="COMMUNICATOR.MODALS.INCOME")
             .details-tab-content
               span(data-ng-bind-html="vm.profit | money")
-      
+
       collapse-btn.technical-problems(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
       data-collapse-stream="vm.hideTechnicalProblems$"
+      data-is-disabled="vm.isTechnicalProblemsSent"
       )
         form(novalidate)
           radio-btn-textarea(
@@ -55,7 +56,7 @@
 
       collapse-btn.report-client(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
-      data-ng-hide="vm.isClientReportSent"
+      data-is-disabled="vm.isClientReportSent"
       data-collapse-stream="vm.hideReportClient$"
       )
         preloader-container(

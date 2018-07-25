@@ -30,8 +30,10 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
   };
 
   this.collapseToggle = (): void => {
-    this.isCollapsed = !this.isCollapsed;
-    updateStylesObject();
+    if (!this.isDisabled) {
+      this.isCollapsed = !this.isCollapsed;
+      updateStylesObject();
+    }
   };
 
   this.$doCheck = (): void => {
@@ -80,7 +82,8 @@ const component = {
   bindings: {
     title: '@',
     collapseIcon: '@',
-    collapseStream: '<'
+    collapseStream: '<',
+    isDisabled: '<'
   }
 };
 
