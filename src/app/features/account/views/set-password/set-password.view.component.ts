@@ -64,11 +64,11 @@ export class SetPasswordViewComponent implements OnInit, OnDestroy {
         break;
 
       case SetPasswordStatus.SUCCESS:
-        this.logger.warn('Handled SUCCESS status when set password');
+        this.logger.info('Handled SUCCESS status when set password');
         break;
 
       case SetPasswordStatus.ERROR:
-        this.logger.warn('Handled ERROR status when set password');
+        this.logger.info('Handled ERROR status when set password');
         break;
 
       default:

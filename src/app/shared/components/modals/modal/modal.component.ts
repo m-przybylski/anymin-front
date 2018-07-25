@@ -41,7 +41,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   public onBackwardClick?: () => void;
 
   @Input()
-  public modalContainerClass?: ModalContainerWidthEnum;
+  public modalContainerClass?: ModalContainerWidthEnum = ModalContainerWidthEnum.MEDIUM_WIDTH;
 
   @Input()
   public isCloseButtonVisible ? = true;
@@ -52,7 +52,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(ModalAnimationComponentDirective)
   public onChangeModalContent: ModalAnimationComponentDirective;
 
-  public isLoading = true;
+  public isLoading = false;
   public isPending = true;
 
   private logger: LoggerService;
@@ -74,9 +74,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngOnInit(): void {
     this.setModalContainerWidth();
-    if (!this.modalContainerClass) {
-      this.modalContainerClass = ModalContainerWidthEnum.MEDIUM_WIDTH;
-    }
 
     if (this.modalContainerClass === ModalContainerWidthEnum.CROPP_WIDTH) {
       this.isLoading = false;
@@ -91,7 +88,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.modalAnimationComponentService.onModalContentChange()
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(onChange => this.callAnonimationOnChangeModalContent(onChange),
+      .subscribe(onChange => this.callAnimationOnChangeModalContent(onChange),
         (err) => this.handleModalAnimationServiceError(err, 'Can not get on change value'));
   }
 
@@ -131,12 +128,11 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private callAnimationOnRequest = (isPending: boolean): void => {
-    this.createPreloader();
     this.onPendingRequest.onResponse();
-    this.isPending = isPending;
+    this.isLoading = isPending;
   }
 
-  private callAnonimationOnChangeModalContent = (isPending: boolean): void => {
+  private callAnimationOnChangeModalContent = (isPending: boolean): void => {
     this.createPreloader();
     this.onChangeModalContent.onChangeModalContent();
     this.isPending = isPending;

@@ -1,0 +1,38 @@
+.pin-verification-component
+  .modal-form
+    form(
+      [id]="pinVerificationFormId",
+      [formGroup]="pinVerificationForm",
+      novalidate,
+      (ngSubmit)="onFormSubmit(pinVerificationForm)"
+    )
+
+      .modal-form__row--small
+        am-core-input-pin-code(
+          label="DASHBOARD.SETTINGS.PIN_VERIFICATION.LABEL",
+          placeholder="DASHBOARD.SETTINGS.PIN_VERIFICATION.PLACEHOLDER",
+          [form]="pinVerificationForm",
+          [controlName]="pinControlName",
+          errorTextKey="LOGIN.PIN_CODE.ENTER_CODE.VALIDATION_MESSAGE",
+          [isDisabled]="isRequestPending",
+          [initialFocus]="true"
+        )
+
+      am-core-submit-button(
+        titleText="DASHBOARD.SETTINGS.PIN_VERIFICATION.SUBMIT_BUTTON",
+        [formName]="pinVerificationFormId",
+        [isLoading]="isRequestPending"
+      )
+
+    .send-again
+      p([translate]="'DASHBOARD.SETTINGS.PIN_VERIFICATION.NO_SMS_CODE'")
+      p(
+        *ngIf="isCountingDown()",
+        [translate]="'LOGIN.PIN_CODE.SEND_AGAIN.COUNTER'",
+        [translateParams]="{seconds: timeLeft}"
+      )
+      a.send-again__link(
+        *ngIf="!isCountingDown()",
+        (click)="resendPinCode()",
+        [translate]="'DASHBOARD.SETTINGS.PIN_VERIFICATION.SEND_AGAIN'"
+      )
