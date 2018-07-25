@@ -22,14 +22,14 @@
             div.invitation
               .profile-preview
                 .thumb.x48
-                  user-avatar(data-image-token="invitation.organizationDetails.logo")
+                  user-avatar(data-image-token="invitation.profile.organizationDetails.logo")
               div.details
                 span.information(data-translate="DASHBOARD.MENU.NOTIFICATIONS.INVITATION_FROM")
-                span.organization-name {{ invitation.organizationDetails.name }}
+                span.organization-name {{ invitation.profile.organizationDetails.name }}
                 span.information(data-translate="DASHBOARD.MENU.NOTIFICATIONS.INVITATION_TO")
                 ul.service-list
-                  li.service(data-ng-repeat="service in invitation.services ")
-                    p.service-name {{ service.name }}
+                  li.service(data-ng-repeat="singleService in invitation.services ")
+                    p.service-name {{ singleService.service.name }}
 
         ul.ng-hide(data-ng-show="!$ctrl.areInvitations")
           li.notifications-menu-row.no-invitations
