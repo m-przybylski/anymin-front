@@ -67,3 +67,6 @@ coverage/
 
 lintdisable.py
 lint.txt
+
+wallaby.conf.js
+src/wallabyTest.ts
