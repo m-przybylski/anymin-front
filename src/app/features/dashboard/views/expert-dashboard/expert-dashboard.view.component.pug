@@ -1,0 +1,16 @@
+plat-navbar
+.wrapper
+  .container
+    plat-expert-dashboard-header(
+      [avatarToken]='avatarToken',
+      [name]='name',
+      [links]='links',
+      [description]='description',
+      [isOwnProfile]='isOwnProfile',
+    )
+.container
+  h2.header-text KONSULTACJE
+  plat-expert-dashboard-consultations(
+    [consultations]='consultations',
+    [isOwnProfile]='isOwnProfile',
+  )

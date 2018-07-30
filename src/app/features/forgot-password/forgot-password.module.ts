@@ -8,48 +8,29 @@ import { EmailViewComponent } from './views/email/email.view.component';
 import { ForgotPasswordPinCodeViewComponent } from './views/pin-code/pin-code.view.component';
 import { ForgotPasswordGuard } from './forgot-password.guard';
 import { VerifiedCodeService } from './verified-code.service';
-import {
-  SetNewPasswordFromEmailViewComponent
-} from './views/set-new-password-from-email/set-new-password-from-email.view.component';
-import {
-  SetNewPasswordFromMsisdnViewComponent
-} from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.component';
-import {
-  SetNewPasswordFromMsisdnViewGuard
-} from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard';
-import {
-  SetNewPasswordFromEmailViewGuard
-} from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
+import { SetNewPasswordFromEmailViewComponent } from './views/set-new-password-from-email/set-new-password-from-email.view.component';
+import { SetNewPasswordFromMsisdnViewComponent } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.component';
+import { SetNewPasswordFromMsisdnViewGuard } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard';
+import { SetNewPasswordFromEmailViewGuard } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
-import {
-  SetNewPasswordFromEmailViewResolver
-}
-  from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
+import { SetNewPasswordFromEmailViewResolver } from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
 
 @NgModule({
   declarations: [
     SetNewPasswordFromEmailViewComponent,
     SetNewPasswordFromMsisdnViewComponent,
     ForgotPasswordPinCodeViewComponent,
-    EmailViewComponent
+    EmailViewComponent,
   ],
   providers: [
     ForgotPasswordGuard,
     VerifiedCodeService,
     SetNewPasswordFromMsisdnViewGuard,
     SetNewPasswordFromEmailViewGuard,
-    SetNewPasswordFromEmailViewResolver
+    SetNewPasswordFromEmailViewResolver,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ForgotPasswordRoutingModule,
-    SharedModule,
-    AngularJsProvidersModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, ForgotPasswordRoutingModule, SharedModule, AngularJsProvidersModule],
 })
 export class ForgotPasswordModule {
-
-  constructor() {
-  }
+  constructor() {}
 }

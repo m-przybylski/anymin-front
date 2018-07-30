@@ -7,59 +7,48 @@ import { Animations } from '@anymind-ng/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import {
-  NavbarMenuService
-}
-  from '../../../services/navbar-menu-service/navbar-menu.service';
+import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
-import {
-  CreateOrganizationModalComponent
-}
-  from '../../modals/profile/create-organization/create-organization.component';
+import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
 
 @Component({
   selector: 'plat-navbar-user-menu',
   templateUrl: './navbar-user-menu.component.html',
   styleUrls: ['./navbar-user-menu.component.sass'],
-  animations: Animations.slideInOut
+  animations: Animations.slideInOut,
 })
-
 export class NavbarUserMenuComponent implements OnInit, OnDestroy {
+  @Input() public isCompany: boolean;
 
-  @Input()
-  public isCompany: boolean;
+  @Input() public isExpert: boolean;
 
-  @Input()
-  public isExpert: boolean;
+  @Input() public clientName: string;
 
-  @Input()
-  public clientName: string;
+  @Input() public avatarUrl: string;
 
-  @Input()
-  public avatarUrl: string;
-
-  @Input()
-  public companyAvatarUrl: string;
+  @Input() public companyAvatarUrl: string;
 
   public readonly avatarSize48 = AvatarSizeEnum.X_48;
   public isMenuVisible: boolean;
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private modalService: NgbModal,
-              private loggerFactory: LoggerFactory,
-              private navbarMenuService: NavbarMenuService) {
-  }
+  constructor(
+    private modalService: NgbModal,
+    private loggerFactory: LoggerFactory,
+    private navbarMenuService: NavbarMenuService,
+  ) {}
 
   public ngOnInit(): void {
     this.logger = this.loggerFactory.createLoggerService('NavbarUserMenuComponent');
-    this.navbarMenuService.getVisibility$()
+    this.navbarMenuService
+      .getVisibility$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(this.handleError))
-      .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
+      .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
   }
 
   public ngOnDestroy(): void {
@@ -68,21 +57,20 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
   }
 
   public openEditProfileModal = (): boolean =>
-    this.modalService.open(EditProfileModalComponent).componentInstance.isExpertForm = false
+    (this.modalService.open(EditProfileModalComponent).componentInstance.isExpertForm = false);
 
-  public openEditProfileAsExpertModal = (): NgbModalRef =>
-    this.modalService.open(EditProfileModalComponent)
+  public openEditProfileAsExpertModal = (): NgbModalRef => this.modalService.open(EditProfileModalComponent);
 
   public onOrganizationProfileSwitch = (e: Event): void => e.stopPropagation();
 
   public logout = (): void => {
     this.navbarMenuService.logout();
-  }
+  };
 
   public openCreateOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
 
   private handleError = (err: any): Observable<boolean> => {
-    this.logger.warn('failure when try to change navbar menu visibility, ', (err));
+    this.logger.warn('failure when try to change navbar menu visibility, ', err);
     return of(false);
-  }
+  };
 }

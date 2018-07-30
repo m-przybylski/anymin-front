@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RouterPaths } from '../../shared/routes/routes';
 import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
-import {
-  CompanyActivitiesComponent
-} from './views/company-dashboard/company-activities/company-activities.view.component';
+import { CompanyActivitiesComponent } from './views/company-dashboard/company-activities/company-activities.view.component';
 import { ClientActivitiesComponent } from './views/user-dashboard/client-activities/client-activities.view.component';
 import { EmployeesComponent } from './views/company-dashboard/employees/employees.view.component';
 import { ExpertActivitiesComponent } from './views/user-dashboard/expert-activities/expert-activities.view.component';
@@ -12,6 +11,9 @@ import { CompanyDashboardComponent } from './views/company-dashboard/company-das
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
+import { ExpertDashboardComponent } from './views/expert-dashboard/expert-dashboard.view.component';
+import { ExpertDashboardResolverService } from './views/expert-dashboard/expert-dashboard-resolver.service';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -24,12 +26,24 @@ const routes: Routes = [
       ]
   },
   {
-    path: 'company', component: CompanyDashboardComponent, children: [
-      {path: 'employees', component: EmployeesComponent},
-      {path: 'activities', component: CompanyActivitiesComponent}
+    path: 'company',
+    component: CompanyDashboardComponent,
+    children: [
+      { path: 'employees', component: EmployeesComponent },
+      { path: 'activities', component: CompanyActivitiesComponent },
     ],
-    canActivate: [CompanyDashboardViewGuard]
-  }
+    canActivate: [CompanyDashboardViewGuard],
+  },
+  {
+    path: RouterPaths.dashboard.expert.getName,
+    resolve: { expert: ExpertDashboardResolverService },
+    component: ExpertDashboardComponent,
+    children: [],
+  },
+  {
+    path: RouterPaths.dashboard.notfound.getName,
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({
@@ -43,5 +57,4 @@ const routes: Routes = [
     CompanyDashboardViewGuard
   ]
 })
-export class DashboardRoutingModule {
-}
+export class DashboardRoutingModule {}

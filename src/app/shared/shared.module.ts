@@ -3,8 +3,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
 import {
-  CommunicatorModule, CommunicatorService,
-  CommunicatorSessionService, AnymindComponentsModule
+  CommunicatorModule,
+  CommunicatorService,
+  CommunicatorSessionService,
+  AnymindComponentsModule,
 } from '@anymind-ng/core';
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
@@ -27,20 +29,13 @@ import { LocalStorageWrapperService } from './services/local-storage/local-stora
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
 import { InputSetPasswordComponent } from './components/inputs/input-set-password/input-set-password.component';
 import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.service';
-import {
-  ContentHeightAnimateDirective
-}
-  from './directives/animation/content-height/content-height.animation.directive';
+import { ContentHeightAnimateDirective } from './directives/animation/content-height/content-height.animation.directive';
 import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
-import {
-  UserNavigationUnderlineDirective
-} from './components/navbar/user-navigation/user-navigation-underline.directive';
+import { UserNavigationUnderlineDirective } from './components/navbar/user-navigation/user-navigation-underline.directive';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
-import {
-  NavbarUserAvatarComponent
-} from './components/navbar/navbar-user-avatar/navbar-user-avatar.component';
+import { NavbarUserAvatarComponent } from './components/navbar/navbar-user-avatar/navbar-user-avatar.component';
 import { NavbarUserMenuComponent } from './components/navbar/navbar-user-menu/navbar-user-menu.component';
 import { NavbarCompanyMenuComponent } from './components/navbar/navbar-company-menu/navbar-company-menu.component';
 import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-menu/navbar-expert-menu.component';
@@ -52,14 +47,12 @@ import { ConsultationTagsComponent } from './components/consultation-tags/consul
 import { ConsultationPriceComponent } from './components/consultation-price/consultation-price.component';
 import { InputTagsComponent } from './components/consultation-tags/input-tags/input-tags.component';
 import { DropdownListComponent } from './components/dropdown/dropdown/dropdown-list/dropdown-list.component';
-import {
-  ScrollToElementDirective
-}
-  from './components/dropdown/dropdown/dropdown-list/scroll-to-element.directive';
+import { ScrollToElementDirective } from './components/dropdown/dropdown/dropdown-list/scroll-to-element.directive';
 import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
 import { OnElementClickDirective } from './components/dropdown/dropdown/on-element-click.directive';
 import { InputAddItemComponent } from './components/inputs/input-add-item/input-add-item.component';
 import { ValidationDirective } from './directives/validation/validation.directive';
+import { ProfileLinksComponentService } from './components/modals/profile/components/profile-links/profile-links.component.service';
 
 @NgModule({
   imports: [
@@ -70,36 +63,22 @@ import { ValidationDirective } from './directives/validation/validation.directiv
     NgbModule,
     TranslateModule.forChild(),
     AnymindComponentsModule,
-    RouterModule
+    RouterModule,
   ],
   declarations: [
-    LoginBackgroundComponent,
-    LoginContentComponent,
-    LoginMobileFooterComponent,
     DropdownPrimaryDirective,
     RadioButtonDirective,
     WidgetGeneratorComponent,
-    InputSetPasswordComponent,
-    ContentHeightAnimateDirective,
-    NavbarComponent,
     UserNavigationComponent,
     UserNavigationUnderlineDirective,
     NavbarUserAvatarComponent,
-    UserAvatarComponent,
     NavbarUserMenuComponent,
     NavbarCompanyMenuComponent,
     NavbarExpertMenuComponent,
-    InputSwitchComponent,
-    PreloaderContainerComponent,
-    ConsultationTagsComponent,
-    ConsultationPriceComponent,
-    InputTagsComponent,
-    DropdownListComponent,
     ScrollToElementDirective,
-    DropdownComponent,
     OnElementClickDirective,
     InputAddItemComponent,
-    ValidationDirective
+    ValidationDirective,
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -120,7 +99,7 @@ import { ValidationDirective } from './directives/validation/validation.directiv
     DropdownListComponent,
     DropdownComponent,
     InputAddItemComponent,
-    ValidationDirective
+    ValidationDirective,
   ],
   providers: [
     EventsServiceProvider,
@@ -137,9 +116,8 @@ import { ValidationDirective } from './directives/validation/validation.directiv
     PinCodeTimerService,
     ContentHeightAnimationService,
     NavbarMenuService,
-    UserNavigationComponentService
-  ]
+    UserNavigationComponentService,
+    ProfileLinksComponentService,
+  ],
 })
-
-export class SharedModule {
-}
+export class SharedModule {}

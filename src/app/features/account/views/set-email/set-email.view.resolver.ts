@@ -7,11 +7,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class SetEmailViewResolver implements Resolve<string> {
-
-  constructor(private userService: UserSessionService,
-              private logger: LoggerService,
-              private alertService: AlertService) {
-  }
+  constructor(
+    private userService: UserSessionService,
+    private logger: LoggerService,
+    private alertService: AlertService,
+  ) {}
 
   public resolve = (): Promise<string> =>
     this.userService.getSession(true)
@@ -22,14 +22,13 @@ export class SetEmailViewResolver implements Resolve<string> {
     const err = httpError.error;
 
     if (isBackendError(err)) {
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        this.logger.error('SetEmailViewResolver unhandled backend status when getting session ', httpError);
+      this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+      this.logger.error('SetEmailViewResolver unhandled backend status when getting session ', httpError);
     } else {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       this.logger.warn('SetEmailViewResolver: error when getting session', httpError);
     }
 
     throw httpError;
-  }
-
+  };
 }

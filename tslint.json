@@ -1,12 +1,9 @@
 {
-  "extends": [
-    "tslint-immutable"
-  ],
+  "extends": ["tslint-immutable", "tslint-config-prettier"],
   "rules": {
     "typedef": [true, "call-signature", "arrow-call-signature"],
     "class-name": true,
     "comment-format": [true, "check-space"],
-    "trailing-comma": true,
     "indent": [true, "spaces"],
     "no-duplicate-variable": true,
     "no-eval": true,
@@ -20,7 +17,13 @@
     "curly": true,
     "cyclomatic-complexity": [true, 6],
     "deprecation": true,
-    "import-blacklist": [true, "lodash", "rxjs/Observable", "rxjs/ReplaySubject", "rxjs/Subscription"],
+    "import-blacklist": [
+      true,
+      "lodash",
+      "rxjs/Observable",
+      "rxjs/ReplaySubject",
+      "rxjs/Subscription"
+    ],
     "encoding": true,
     "eofline": true,
     "forin": true,
@@ -29,31 +32,34 @@
     "label-position": true,
     "linebreak-style": [true, "LF"],
     "member-access": [true, "check-accessor"],
-    "member-ordering": [true, {"order": [
-      "public-static-field",
-      "protected-static-field",
-      "private-static-field",
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "public-static-field",
+          "protected-static-field",
+          "private-static-field",
 
-      "public-instance-field",
-      "protected-instance-field",
-      "private-instance-field",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
 
-      "public-constructor",
-      "public-static-method",
-      "public-instance-method",
+          "public-constructor",
+          "public-static-method",
+          "public-instance-method",
 
-      "protected-constructor",
-      "protected-static-method",
-      "protected-instance-method",
+          "protected-constructor",
+          "protected-static-method",
+          "protected-instance-method",
 
-      "private-constructor",
-      "private-static-method",
-      "private-instance-method"
-      ]}
+          "private-constructor",
+          "private-static-method",
+          "private-instance-method"
+        ]
+      }
     ],
     "new-parens": true,
     "newline-before-return": true,
-    // "no-angle-bracket-type-assertion": true,
     "no-any": true,
     "no-bitwise": true,
     "no-arg": true,
@@ -89,100 +95,76 @@
     "no-sparse-arrays": true,
     "no-string-literal": true,
     "no-string-throw": true,
-    // "no-submodule-imports": true,
     "no-switch-case-fall-through": true,
     "no-this-assignment": true,
     "no-unbound-method": true,
     "no-unnecessary-callback-wrapper": true,
-    // "no-unnecessary-class": true,
     "no-unnecessary-initializer": true,
     "no-unnecessary-qualifier": true,
     "no-unnecessary-type-assertion": true,
-    // "no-unsafe-any": true,
     "no-unsafe-finally": true,
     "no-unused-expression": true,
     "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-requires": true,
-    // "no-void-expression": true,
     "number-literal-format": true,
-    // "object-literal-sort-keys": true,
     "one-variable-per-declaration": true,
     "only-arrow-functions": true,
-    // "ordered-imports": true,
     "prefer-conditional-expression": true,
     "prefer-for-of": true,
     "prefer-method-signature": true,
     "prefer-object-spread": true,
     "prefer-switch": true,
     "prefer-template": true,
-    // "promise-function-async": true,
     "radix": true,
     "return-undefined": true,
     "space-before-function-paren": false,
     "space-within-parens": true,
-    "strict-boolean-expressions": true,
     "strict-type-predicates": true,
     "switch-default": true,
     "switch-final-break": true,
-    // "type-literal-delimiter": true,
-    "typeof-compare": true,
     "unified-signatures": true,
     "use-default-type-parameter": true,
     "use-isnan": true,
-    "ban-types": [true, ["String", "Use string instead."],
-      ["Function"], ["Number", "Use number instead."],
-      ["Boolean", "Use boolean instead."]],
+    "ban-types": [
+      true,
+      ["String", "Use string instead."],
+      ["Function"],
+      ["Number", "Use number instead."],
+      ["Boolean", "Use boolean instead."]
+    ],
     "one-line": [true, "check-open-brace", "check-whitespace"],
     "quotemark": [true, "single"],
-    "semicolon": true,
     "no-debugger": true,
     "import-spacing": false,
     "no-consecutive-blank-lines": true,
     "max-classes-per-file": [true, 1],
     "max-file-line-count": [true, 250],
     "restrict-plus-operands": true,
-    "max-line-length": [true, 120],
+    "max-line-length": [true, { "limit": 120, "ignore-pattern": "^import" }],
     "no-magic-numbers": true,
     "array-type": [true, "array"],
     "object-literal-shorthand": true,
     "object-literal-key-quotes": [true, "as-needed"],
-    "arrow-return-shorthand": [true, "multiline"],
     "interface-name": true,
     "prefer-const": true,
     "triple-equals": [true, "allow-null-check"],
-    "typedef-whitespace": [true, {
-      "call-signature": "nospace",
-      "index-signature": "nospace",
-      "parameter": "nospace",
-      "property-declaration": "nospace",
-      "variable-declaration": "nospace"
-    }],
-    "variable-name": [true, "ban-keywords"],
-    "whitespace": [true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type",
-      "check-module"
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
     ],
-    // tslint-immutable
-    // Recommended built-in rules
+    "variable-name": [true, "ban-keywords"],
     "no-parameter-reassignment": true,
-
-    // Immutability rules
-    // "readonly-keyword": true, // Impossible for angular
-    "readonly-array": true,
+    "readonly-array": false,
     "no-let": true,
-    // "no-object-mutation": true, // Impossible for angular
     "no-delete": true,
-    // "no-method-signature": true,
-
-    // Functional style rules
     "no-mixed-interface": true,
-    // "no-expression-statement": true,
-    // "no-if-statement": true,
     "no-loop-statement": true
   }
 }

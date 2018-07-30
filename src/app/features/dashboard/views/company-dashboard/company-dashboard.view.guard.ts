@@ -5,19 +5,20 @@ import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/
 
 @Injectable()
 export class CompanyDashboardViewGuard implements CanActivate {
-
   private logger: LoggerService;
 
-  constructor(private router: Router,
-              private alertService: AlertService,
-              private userSessionService: UserSessionService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private userSessionService: UserSessionService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('CompanyDashboardViewGuard');
   }
 
   public canActivate = (): Promise<boolean> =>
-    this.userSessionService.getSession().then((session) => {
-      if (session.account.isCompany) {
+    this.userSessionService.getSession().then(session => {
+      if (session.account !== undefined && session.account.isCompany) {
         this.logger.info('User has company profile, allowing access');
 
         return true;
@@ -32,5 +33,5 @@ export class CompanyDashboardViewGuard implements CanActivate {
 
         return false;
       }
-    })
+    });
 }

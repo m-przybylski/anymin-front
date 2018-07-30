@@ -12,10 +12,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
-import {
-  CreateOrganizationModalComponent
-}
-  from '../../modals/profile/create-organization/create-organization.component';
+import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
 import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 
 @Component({
@@ -43,9 +40,11 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private modalService: NgbModal,
-              private navbarMenuService: NavbarMenuService,
-              private loggerFactory: LoggerFactory) {
+  constructor(
+    private modalService: NgbModal,
+    private navbarMenuService: NavbarMenuService,
+    private loggerFactory: LoggerFactory,
+  ) {
     this.logger = this.loggerFactory.createLoggerService('NavbarCompanyMenuComponent');
   }
 
@@ -70,10 +69,10 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
 
   public logout = (): void => {
     this.navbarMenuService.logout();
-  }
+  };
 
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', err);
     return of(false);
-  }
+  };
 }

@@ -2,15 +2,18 @@ import { async, TestBed } from '@angular/core/testing';
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  FormUtilsService, LoggerFactory, LoggerService,
-  AnymindComponentsModule, AnymindComponentsCoreModule, AlertService, InputPinCodeErrorsEnum, Alerts
+  FormUtilsService,
+  LoggerFactory,
+  LoggerService,
+  AnymindComponentsModule,
+  AnymindComponentsCoreModule,
+  AlertService,
+  InputPinCodeErrorsEnum,
+  Alerts,
 } from '@anymind-ng/core';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
 import { LoginBackgroundComponent } from '../../../../shared/components/login-background/login-background.component';
-import
-{
-  LoginMobileFooterComponent
-} from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
+import { LoginMobileFooterComponent } from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { PinCodeViewComponent } from './pin-code.view.component';
 import { PinCodeServiceStatus, PinCodeViewService } from './pin-code.view.service';
@@ -24,48 +27,44 @@ import { getCoreConfig } from '../../../../core/factories/core-config/core-confi
 // tslint:disable:no-unbound-method
 // tslint:disable:max-file-line-count
 describe('Component: Login PinCodeViewComponent', () => {
-
   const mockPhoneNumber = '+48555555555';
   const mockTimeLeft = 30;
-  const mockPinCodeViewService = createSpyObj('PinCodeViewService',
-    ['handleRegistration']);
+  const mockPinCodeViewService = createSpyObj('PinCodeViewService', ['handleRegistration']);
   const logger: LoggerService = new LoggerService(1);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
-        {provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['snapshot', 'params', 'queryParams'])},
-        {provide: RegistrationService, useValue: createSpyObj('RegistrationService', ['requestVerificationRoute'])},
-        {provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert'])},
-        {provide: PinCodeTimerService, useValue: createSpyObj('PinCodeTimerService', ['getTimeLeft$'])},
+        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+        { provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['snapshot', 'params', 'queryParams']) },
+        { provide: RegistrationService, useValue: createSpyObj('RegistrationService', ['requestVerificationRoute']) },
+        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
+        { provide: PinCodeTimerService, useValue: createSpyObj('PinCodeTimerService', ['getTimeLeft$']) },
         {
-          provide: FormUtilsService, useValue: createSpyObj('FormUtilsService', ['validateAllFormFields',
-          'isFieldInvalid'])
-        }],
-      declarations: [
-        PinCodeViewComponent,
-        LoginContentComponent,
-        LoginBackgroundComponent,
-        LoginMobileFooterComponent
+          provide: FormUtilsService,
+          useValue: createSpyObj('FormUtilsService', ['validateAllFormFields', 'isFieldInvalid']),
+        },
       ],
+      declarations: [PinCodeViewComponent, LoginContentComponent, LoginBackgroundComponent, LoginMobileFooterComponent],
       imports: [
         AnymindComponentsCoreModule.forRoot(getCoreConfig),
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,
-        FormsModule
-      ]
+        FormsModule,
+      ],
     })
       .overrideComponent(PinCodeViewComponent, {
         set: {
           providers: [
             {
-              provide: PinCodeViewService, useValue: mockPinCodeViewService
-            }
-          ]
-        }
-      }).compileComponents();
+              provide: PinCodeViewService,
+              useValue: mockPinCodeViewService,
+            },
+          ],
+        },
+      })
+      .compileComponents();
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
   }));
 
@@ -78,14 +77,14 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
     spyOn(logger, 'info');
@@ -105,14 +104,14 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
     mockPinCodeViewService.handleRegistration.and.returnValue(of(PinCodeServiceStatus.SUCCESS));
@@ -134,14 +133,14 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
     mockPinCodeViewService.handleRegistration.and.returnValue(of(PinCodeServiceStatus.ERROR));
@@ -163,14 +162,14 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
     mockPinCodeViewService.handleRegistration.and.returnValue(of(PinCodeServiceStatus.ERROR));
@@ -193,14 +192,14 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
     mockPinCodeViewService.handleRegistration.and.returnValue(of(PinCodeServiceStatus.INVALID));
@@ -212,8 +211,9 @@ describe('Component: Login PinCodeViewComponent', () => {
     component.onFormSubmit(component.pinCodeForm);
 
     expect(mockFormUtilsService.validateAllFormFields).toHaveBeenCalledWith(component.pinCodeForm);
-    expect(component.pinCodeForm.controls[component.pinCodeControlName]
-      .getError(InputPinCodeErrorsEnum.IncorrectPinCode)).toBeTruthy();
+    expect(
+      component.pinCodeForm.controls[component.pinCodeControlName].getError(InputPinCodeErrorsEnum.IncorrectPinCode),
+    ).toBeTruthy();
   });
 
   it('should submit the form and display can not find token validation', () => {
@@ -225,14 +225,14 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
     mockPinCodeViewService.handleRegistration.and.returnValue(of(PinCodeServiceStatus.CAN_NOT_FIND_MSISDN_TOKEN));
@@ -244,8 +244,9 @@ describe('Component: Login PinCodeViewComponent', () => {
     component.onFormSubmit(component.pinCodeForm);
 
     expect(mockFormUtilsService.validateAllFormFields).toHaveBeenCalledWith(component.pinCodeForm);
-    expect(component.pinCodeForm.controls[component.pinCodeControlName]
-      .getError(InputPinCodeErrorsEnum.IncorrectPinCode)).toBeTruthy();
+    expect(
+      component.pinCodeForm.controls[component.pinCodeControlName].getError(InputPinCodeErrorsEnum.IncorrectPinCode),
+    ).toBeTruthy();
   });
 
   it('should submit the form and display incorrect msisdn validation', () => {
@@ -257,18 +258,19 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
-    mockPinCodeViewService.handleRegistration.and
-      .returnValue(of(PinCodeServiceStatus.MSISDN_VERIFICATION_TOKEN_INCORRECT));
+    mockPinCodeViewService.handleRegistration.and.returnValue(
+      of(PinCodeServiceStatus.MSISDN_VERIFICATION_TOKEN_INCORRECT),
+    );
     spyOn(logger, 'info');
 
     component.ngOnInit();
@@ -277,8 +279,9 @@ describe('Component: Login PinCodeViewComponent', () => {
     component.onFormSubmit(component.pinCodeForm);
 
     expect(mockFormUtilsService.validateAllFormFields).toHaveBeenCalledWith(component.pinCodeForm);
-    expect(component.pinCodeForm.controls[component.pinCodeControlName]
-      .getError(InputPinCodeErrorsEnum.IncorrectPinCode)).toBeTruthy();
+    expect(
+      component.pinCodeForm.controls[component.pinCodeControlName].getError(InputPinCodeErrorsEnum.IncorrectPinCode),
+    ).toBeTruthy();
   });
 
   it('should submit the form and display too many attempts validation', () => {
@@ -290,18 +293,17 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
-    mockPinCodeViewService.handleRegistration.and
-      .returnValue(of(PinCodeServiceStatus.TOO_MANY_MSISDN_TOKEN_ATTEMPTS));
+    mockPinCodeViewService.handleRegistration.and.returnValue(of(PinCodeServiceStatus.TOO_MANY_MSISDN_TOKEN_ATTEMPTS));
     spyOn(logger, 'info');
 
     component.ngOnInit();
@@ -310,8 +312,11 @@ describe('Component: Login PinCodeViewComponent', () => {
     component.onFormSubmit(component.pinCodeForm);
 
     expect(mockFormUtilsService.validateAllFormFields).toHaveBeenCalledWith(component.pinCodeForm);
-    expect(component.pinCodeForm.controls[component.pinCodeControlName]
-      .getError(InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts)).toBeTruthy();
+    expect(
+      component.pinCodeForm.controls[component.pinCodeControlName].getError(
+        InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts,
+      ),
+    ).toBeTruthy();
   });
 
   it('should submit the form and display alert because unhandled backend status', () => {
@@ -323,18 +328,17 @@ describe('Component: Login PinCodeViewComponent', () => {
 
     route.snapshot = {
       data: {
-        registrationSession: {}
-      }
+        registrationSession: {},
+      },
     };
     route.params = of({
-      msisdn: mockPhoneNumber
+      msisdn: mockPhoneNumber,
     });
     route.queryParams = of({
-      noPasswordRegistrationStatus: true
+      noPasswordRegistrationStatus: true,
     });
     pinCodeTimerService.getTimeLeft$.and.returnValue(of(mockTimeLeft));
-    mockPinCodeViewService.handleRegistration.and
-      .returnValue(of({}));
+    mockPinCodeViewService.handleRegistration.and.returnValue(of({}));
     spyOn(logger, 'info');
 
     component.ngOnInit();

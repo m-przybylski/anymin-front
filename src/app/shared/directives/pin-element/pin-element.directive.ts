@@ -1,19 +1,14 @@
 // tslint:disable:prefer-template
-import {
-  AfterContentInit, Directive, ElementRef, HostListener, Input
-} from '@angular/core';
+import { AfterContentInit, Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[pinElement]'
+  selector: '[pinElement]',
 })
-
 export class PinElementDirective implements AfterContentInit {
-
   private static readonly offsetTop = 48;
   private pinElement: HTMLElement;
 
-  @Input('pinElement')
-  private pinElementClassName: string;
+  @Input('pinElement') private pinElementClassName: string;
 
   constructor(private element: ElementRef) {}
 
@@ -24,7 +19,7 @@ export class PinElementDirective implements AfterContentInit {
     } else {
       this.pinElement.classList.remove(this.pinElementClassName + '--fixed');
     }
-  }
+  };
 
   public ngAfterContentInit(): void {
     this.pinElement = this.element.nativeElement.querySelector('.' + this.pinElementClassName);

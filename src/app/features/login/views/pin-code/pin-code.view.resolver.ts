@@ -12,22 +12,22 @@ import { EMPTY } from 'rxjs';
 
 @Injectable()
 export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
-
   private logger: LoggerService;
 
-  constructor(private registrationService: RegistrationService,
-              private router: Router,
-              private alertService: AlertService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private registrationService: RegistrationService,
+    private router: Router,
+    private alertService: AlertService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('PinCodeViewResolver');
   }
 
   public resolve = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<GetRegistrationSession> =>
-    this.requestPinCode(route.params.msisdn)
-      .pipe(catchError(this.handlePinCodeError))
+    this.requestPinCode(route.params.msisdn).pipe(catchError(this.handlePinCodeError));
 
   private requestPinCode = (msisdn: string): Observable<GetRegistrationSession> =>
-    this.registrationService.requestVerificationRoute({msisdn})
+    this.registrationService.requestVerificationRoute({ msisdn });
 
   private handlePinCodeError = (httpError: HttpErrorResponse): Observable<GetRegistrationSession> => {
     const err = httpError.error;
@@ -58,5 +58,5 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
     }
 
     return EMPTY;
-  }
+  };
 }

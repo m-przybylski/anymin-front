@@ -9,42 +9,30 @@ export interface IDropdownComponent {
 @Component({
   selector: 'plat-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.sass']
+  styleUrls: ['./dropdown.component.sass'],
 })
 export class DropdownComponent implements OnInit {
+  @Input('label') public labelTrKey: string;
 
-  @Input('label')
-  public labelTrKey: string;
+  @Input('placeholder') public placeholderTrKey: string;
 
-  @Input('placeholder')
-  public placeholderTrKey: string;
+  @Input() public controlName: string;
 
-  @Input()
-  public controlName: string;
+  @Input() public form: FormGroup;
 
-  @Input()
-  public form: FormGroup;
+  @Input() public isRequired? = false;
 
-  @Input()
-  public isRequired ? = false;
+  @Input() public isDisabled? = false;
 
-  @Input()
-  public isDisabled ? = false;
+  @Input() public dropdownItems: ReadonlyArray<IDropdownComponent>;
 
-  @Input()
-  public dropdownItems: ReadonlyArray<IDropdownComponent>;
+  @Input() public isDropdownListVisible = false;
 
-  @Input()
-  public isDropdownListVisible = false;
+  @Input() public isDropdownListOnly = false;
 
-  @Input()
-  public isDropdownListOnly = false;
+  @Output() public onSelectItemEmiter = new EventEmitter<IDropdownComponent>();
 
-  @Output()
-  public onSelectItemEmiter = new EventEmitter<IDropdownComponent>();
-
-  @Output()
-  public onCloseEmiter ? = new EventEmitter<boolean>(true);
+  @Output() public onCloseEmiter? = new EventEmitter<boolean>(true);
 
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', []));
@@ -52,7 +40,7 @@ export class DropdownComponent implements OnInit {
 
   public onClickDropdown = (): void => {
     this.isDropdownListVisible = !this.isDropdownListVisible;
-  }
+  };
 
   public onSelectItem = (value: IDropdownComponent): void => {
     if (this.isDropdownListOnly) {
@@ -63,17 +51,16 @@ export class DropdownComponent implements OnInit {
 
     this.isDropdownListVisible = false;
     this.placeholderTrKey = value.name;
-  }
+  };
 
   public onToggleDropdown = (isVisible: boolean): void => {
     this.isDropdownListVisible = isVisible;
     this.onCloseDropdownList(isVisible);
-  }
+  };
 
   public onCloseDropdownList = (isVisible: boolean): void => {
     if (this.onCloseEmiter) {
       this.onCloseEmiter.emit(isVisible);
     }
-  }
-
+  };
 }

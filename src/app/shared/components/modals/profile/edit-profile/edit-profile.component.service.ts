@@ -1,7 +1,5 @@
 import { ReplaySubject } from 'rxjs';
-import {
-  AccountService, GetProfile, GetSession, ProfileService, PutGeneralSettings
-} from '@anymind-ng/api';
+import { AccountService, GetProfile, GetSession, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
@@ -14,40 +12,41 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 
 @Injectable()
 export class EditProfileModalComponentService {
-
   private value$ = new ReplaySubject<string>();
   private avatarUrl$ = new ReplaySubject<string>();
   private logger: LoggerService;
 
-  constructor(private profileService: ProfileService,
-              private accountService: AccountService,
-              private userSessionService: UserSessionService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private profileService: ProfileService,
+    private accountService: AccountService,
+    private userSessionService: UserSessionService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('EditProfileModalComponentService');
   }
 
-  public getPreviousValue$ = (): ReplaySubject<string> =>
-    this.value$
+  public getPreviousValue$ = (): ReplaySubject<string> => this.value$;
 
-  public getPreviousAvatarSrc = (): ReplaySubject<string> =>
-    this.avatarUrl$
+  public getPreviousAvatarSrc = (): ReplaySubject<string> => this.avatarUrl$;
 
   public getSession = (): Observable<GetSessionWithAccount> =>
     fromPromise(this.userSessionService.getSession())
 
   public getProfileDetails = (): Observable<GetProfileWithDocuments> =>
-    fromPromise(this.userSessionService.getSession())
-      .pipe(mergeMap((session: GetSession) => this.getProfileRoute(session.accountId)))
+    fromPromise(this.userSessionService.getSession()).pipe(
+      mergeMap((session: GetSession) => this.getProfileRoute(session.accountId)),
+    );
 
   public createClientProfile = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
     this.accountService.putGeneralSettingsRoute({
-        isAnonymous: false, nickname: formData.nickname, avatar: formData.avatar
-      })
+      isAnonymous: false,
+      nickname: formData.nickname,
+      avatar: formData.avatar,
+    });
 
   public createExpertProfile = (data: PutExpertDetails): Observable<GetProfile> =>
-    this.profileService.putExpertProfileRoute(data)
+    this.profileService.putExpertProfileRoute(data);
 
   private getProfileRoute = (accountId: string): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(accountId)
-
+    this.profileService.getProfileRoute(accountId);
 }

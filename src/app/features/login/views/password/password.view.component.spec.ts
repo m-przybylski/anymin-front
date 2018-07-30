@@ -2,16 +2,10 @@
 import { async, TestBed } from '@angular/core/testing';
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  FormUtilsService,
-  AnymindComponentsModule, AnymindComponentsCoreModule
-} from '@anymind-ng/core';
+import { FormUtilsService, AnymindComponentsModule, AnymindComponentsCoreModule } from '@anymind-ng/core';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
 import { LoginBackgroundComponent } from '../../../../shared/components/login-background/login-background.component';
-import
-{
-  LoginMobileFooterComponent
-} from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
+import { LoginMobileFooterComponent } from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PasswordViewComponent } from './password.view.component';
@@ -25,7 +19,6 @@ import { getCoreConfig } from '../../../../core/factories/core-config/core-confi
 // tslint:disable:no-floating-promises
 // tslint:disable:no-unbound-method
 describe('Component: PasswordViewComponent', () => {
-
   const logger: LoggerService = new LoggerService(1);
 
   beforeEach(async(() => {
@@ -34,7 +27,7 @@ describe('Component: PasswordViewComponent', () => {
         PasswordViewComponent,
         LoginContentComponent,
         LoginBackgroundComponent,
-        LoginMobileFooterComponent
+        LoginMobileFooterComponent,
       ],
       imports: [
         AnymindComponentsCoreModule.forRoot(getCoreConfig),
@@ -42,20 +35,20 @@ describe('Component: PasswordViewComponent', () => {
         BrowserModule,
         ReactiveFormsModule,
         FormsModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       providers: [
-        {provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['params'])},
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
+        { provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['params']) },
+        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
         {
-          provide: FormUtilsService, useValue: createSpyObj('FormUtilsService', ['validateAllFormFields',
-          'isFieldInvalid'])
+          provide: FormUtilsService,
+          useValue: createSpyObj('FormUtilsService', ['validateAllFormFields', 'isFieldInvalid']),
         },
         {
-          provide: PasswordViewService, useValue: createSpyObj('PasswordViewService',
-          ['login'])
-        }
-      ]
+          provide: PasswordViewService,
+          useValue: createSpyObj('PasswordViewService', ['login']),
+        },
+      ],
     }).compileComponents();
 
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
@@ -66,7 +59,7 @@ describe('Component: PasswordViewComponent', () => {
     const component = componentFixture.componentInstance;
     const route = TestBed.get(ActivatedRoute);
     const mockMsisdnParam = '+48555555555';
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
 
     component.ngOnInit();
     componentFixture.whenStable().then(() => {
@@ -80,7 +73,7 @@ describe('Component: PasswordViewComponent', () => {
     const formsUtils = TestBed.get(FormUtilsService);
     const route = TestBed.get(ActivatedRoute);
     const mockMsisdnParam = '+48555555555';
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
 
     component.ngOnInit();
     componentFixture.detectChanges();
@@ -96,7 +89,7 @@ describe('Component: PasswordViewComponent', () => {
     const mockPasswordService = TestBed.get(PasswordViewService);
 
     mockPasswordService.login.and.returnValue(Promise.resolve(PasswordLoginStatus.SUCCESS));
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
     spyOn(logger, 'warn');
 
     component.ngOnInit();
@@ -117,7 +110,7 @@ describe('Component: PasswordViewComponent', () => {
     const mockPasswordService = TestBed.get(PasswordViewService);
 
     mockPasswordService.login.and.returnValue(Promise.resolve(PasswordLoginStatus.SUCCESS_WITH_INVITATION));
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
     spyOn(logger, 'warn');
 
     component.ngOnInit();
@@ -126,8 +119,10 @@ describe('Component: PasswordViewComponent', () => {
     component.onFormSubmit(component.passwordForm);
 
     componentFixture.whenStable().then(() => {
-      expect(logger.warn)
-        .toHaveBeenCalledWith('Handled password login status ', PasswordLoginStatus.SUCCESS_WITH_INVITATION);
+      expect(logger.warn).toHaveBeenCalledWith(
+        'Handled password login status ',
+        PasswordLoginStatus.SUCCESS_WITH_INVITATION,
+      );
     });
   }));
 
@@ -139,7 +134,7 @@ describe('Component: PasswordViewComponent', () => {
     const mockPasswordService = TestBed.get(PasswordViewService);
 
     mockPasswordService.login.and.returnValue(Promise.resolve(PasswordLoginStatus.ERROR));
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
     spyOn(logger, 'warn');
 
     component.ngOnInit();
@@ -148,8 +143,7 @@ describe('Component: PasswordViewComponent', () => {
     component.onFormSubmit(component.passwordForm);
 
     componentFixture.whenStable().then(() => {
-      expect(logger.warn)
-        .toHaveBeenCalledWith('Handled password login status ', PasswordLoginStatus.ERROR);
+      expect(logger.warn).toHaveBeenCalledWith('Handled password login status ', PasswordLoginStatus.ERROR);
     });
   }));
 
@@ -162,7 +156,7 @@ describe('Component: PasswordViewComponent', () => {
     const formsUtils = TestBed.get(FormUtilsService);
 
     mockPasswordService.login.and.returnValue(Promise.resolve(PasswordLoginStatus.WRONG_PASSWORD));
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
     spyOn(logger, 'warn');
 
     component.ngOnInit();
@@ -170,8 +164,11 @@ describe('Component: PasswordViewComponent', () => {
     component.passwordForm.controls[component.passwordControlName].setValue('WrongPassword123');
     component.onFormSubmit(component.passwordForm);
     componentFixture.whenStable().then(() => {
-      expect(component.passwordForm.controls[component.passwordControlName]
-        .getError(InputPasswordErrorsEnum.IncorrectPassword)).toBeTruthy();
+      expect(
+        component.passwordForm.controls[component.passwordControlName].getError(
+          InputPasswordErrorsEnum.IncorrectPassword,
+        ),
+      ).toBeTruthy();
       expect(formsUtils.validateAllFormFields).toHaveBeenCalledWith(component.passwordForm);
     });
   }));
@@ -185,7 +182,7 @@ describe('Component: PasswordViewComponent', () => {
     const formsUtils = TestBed.get(FormUtilsService);
 
     mockPasswordService.login.and.returnValue(Promise.resolve(PasswordLoginStatus.TOO_MANY_ATTEMPTS));
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
     spyOn(logger, 'warn');
 
     component.ngOnInit();
@@ -193,8 +190,11 @@ describe('Component: PasswordViewComponent', () => {
     component.passwordForm.controls[component.passwordControlName].setValue('Admin123');
     component.onFormSubmit(component.passwordForm);
     componentFixture.whenStable().then(() => {
-      expect(component.passwordForm.controls[component.passwordControlName]
-        .getError(InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts)).toBeTruthy();
+      expect(
+        component.passwordForm.controls[component.passwordControlName].getError(
+          InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts,
+        ),
+      ).toBeTruthy();
       expect(formsUtils.validateAllFormFields).toHaveBeenCalledWith(component.passwordForm);
     });
   }));
@@ -207,7 +207,7 @@ describe('Component: PasswordViewComponent', () => {
     const mockPasswordService = TestBed.get(PasswordViewService);
 
     mockPasswordService.login.and.returnValue(Promise.resolve());
-    route.params = of({msisdn: mockMsisdnParam});
+    route.params = of({ msisdn: mockMsisdnParam });
     spyOn(logger, 'error');
 
     component.ngOnInit();
@@ -215,8 +215,7 @@ describe('Component: PasswordViewComponent', () => {
     component.passwordForm.controls[component.passwordControlName].setValue('Admin123');
     component.onFormSubmit(component.passwordForm);
     componentFixture.whenStable().then(() => {
-      expect(logger.error)
-        .toHaveBeenCalledWith('Unhandled PasswordLoginStatus', undefined);
+      expect(logger.error).toHaveBeenCalledWith('Unhandled PasswordLoginStatus', undefined);
     });
   }));
 });

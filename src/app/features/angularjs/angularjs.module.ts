@@ -5,15 +5,9 @@ import { AngularJsComponent } from './angularjs.component';
 import { AngularJsRoutingModule } from './angularjs.routing.module';
 
 @NgModule({
-  declarations: [
-    AngularJsComponent
-  ],
-  imports: [
-    AngularJsProvidersModule,
-    AngularJsRoutingModule
-  ]
+  declarations: [AngularJsComponent],
+  imports: [AngularJsProvidersModule, AngularJsRoutingModule],
 })
 export class AngularJsModule {
-  constructor() {
-  }
+  constructor() {}
 }

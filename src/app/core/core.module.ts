@@ -22,7 +22,7 @@ import { getCoreConfig } from './factories/core-config/core-config.facotry';
     ApiModule.forRoot(ApiConfigurationFactory),
     LoggerModule.forRoot(Config.logLevel),
     NgbModule.forRoot(),
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
   ],
   providers: [
     ApiKeyService,
@@ -31,10 +31,8 @@ import { getCoreConfig } from './factories/core-config/core-config.facotry';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptor,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class CoreModule {
-
-}
+export class CoreModule {}

@@ -6,17 +6,10 @@ import { SharedModule } from './shared/shared.module';
 
 // tslint:disable:no-floating-promises
 describe('AppComponent', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        SharedModule,
-        RouterTestingModule,
-        CoreModule
-      ]
+      declarations: [AppComponent],
+      imports: [SharedModule, RouterTestingModule, CoreModule],
     }).compileComponents();
   }));
 

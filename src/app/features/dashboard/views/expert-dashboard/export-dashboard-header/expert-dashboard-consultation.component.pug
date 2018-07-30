@@ -1,0 +1,5 @@
+.add-consultation(*ngIf='isOwnProfile')
+  button(plat-flat-fab color='primary')
+    span(plat-icon iconClass='add-16')
+  span.add-consultation-text Dodaj konsultację
+plat-consultation-row(*ngFor='let consultation of consultations', [consultation]='consultation')

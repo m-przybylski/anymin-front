@@ -1,0 +1,16 @@
+.consultation-layout
+  .consultation-layout-for(*ngIf='company')
+    span.consultation-layout-for-head Dla
+    span.consultation-layout-for-company {{company}}
+  .consultation-layout-header {{header}}
+  .consultation-layout-footer
+    plat-consultation-stat(
+      [usageCounter]='usageCounter',
+      [commentCounter]='commentCounter',
+      [rating]='rating',
+    )
+  .consultation-layout-price
+    .consultation-amount
+      span {{price | moneyToString}}/min
+      button(plat-icon-button, color='primary').consultation-amount-button
+        span(plat-icon iconClass='arrow-right')

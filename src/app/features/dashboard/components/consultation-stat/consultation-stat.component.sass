@@ -1,0 +1,23 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/rwd"
+
+.stat-row
+  font-size: 14px
+  line-height: 24px
+  display: flex
+  flex-direction: row
+  align-items: center
+  color: $c-label
+.stat-item
+  &-icon
+    font-size: 1.25em
+    margin-left: 8px
+  &-icon:nth-child(1)
+    margin-left: 0px
+  &-number
+    margin-left: 2px
+  &-desc
+    display: none
+    margin-left: 4px
+    +mdm
+      display: inline

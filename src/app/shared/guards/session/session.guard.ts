@@ -9,30 +9,32 @@ import { Alerts, AlertService } from '@anymind-ng/core';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-
   private logger: LoggerService;
 
-  constructor(private userSessionService: UserSessionService,
-              private alertService: AlertService,
-              private router: Router,
-              loggerFactory: LoggerFactory) {
-
+  constructor(
+    private userSessionService: UserSessionService,
+    private alertService: AlertService,
+    private router: Router,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('SessionGuard');
   }
 
   public canActivate = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> =>
-    this.userSessionService.getSession().then(() => {
-      this.logger.info('user has session, allowing');
-      return true;
-    }, () => {
-      this.logger.warn('user does not have session, redirecting to /login');
-      this.router.navigate(['/login']).then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Can not redirect to login');
-        }
-      });
-      return false;
-    })
-
+    this.userSessionService.getSession().then(
+      () => {
+        this.logger.info('user has session, allowing');
+        return true;
+      },
+      () => {
+        this.logger.warn('user does not have session, redirecting to /login');
+        this.router.navigate(['/login']).then(isRedirectSuccessful => {
+          if (!isRedirectSuccessful) {
+            this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+            this.logger.warn('Can not redirect to login');
+          }
+        });
+        return false;
+      },
+    );
 }

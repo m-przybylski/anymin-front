@@ -6,11 +6,9 @@ import { InputPasswordErrorsEnum, FormUtilsService, LoggerFactory, LoggerService
 
 @Component({
   templateUrl: './password.view.html',
-  styleUrls: ['./password.view.component.sass']
+  styleUrls: ['./password.view.component.sass'],
 })
-
 export class PasswordViewComponent implements OnInit {
-
   public readonly passwordFormId = 'passwordForm';
   public readonly passwordControlName = 'password';
 
@@ -21,10 +19,12 @@ export class PasswordViewComponent implements OnInit {
 
   private logger: LoggerService;
 
-  constructor(private formUtils: FormUtilsService,
-              private passwordService: PasswordViewService,
-              private route: ActivatedRoute,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private formUtils: FormUtilsService,
+    private passwordService: PasswordViewService,
+    private route: ActivatedRoute,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('PasswordViewComponent');
   }
 
@@ -41,19 +41,19 @@ export class PasswordViewComponent implements OnInit {
       this.isRequestPending = true;
       const password = passwordForm.value[this.passwordControlName];
 
-      this.passwordService.login(this.msisdn, password)
-        .then((status) => {
+      this.passwordService
+        .login(this.msisdn, password)
+        .then(status => {
           this.isRequestPending = false;
           this.handlePasswordStatus(status);
         })
         .catch(() => {
           this.isRequestPending = false;
         });
-    }
-    else {
+    } else {
       this.formUtils.validateAllFormFields(passwordForm);
     }
-  }
+  };
 
   private handlePasswordStatus = (status: PasswordLoginStatus): void => {
     switch (status) {
@@ -80,17 +80,19 @@ export class PasswordViewComponent implements OnInit {
       default:
         this.logger.error('Unhandled PasswordLoginStatus', status);
     }
-  }
+  };
 
   private displayIncorrectPasswordError = (): void => {
-    this.passwordForm.controls[this.passwordControlName]
-      .setErrors({[InputPasswordErrorsEnum.IncorrectPassword]: true});
+    this.passwordForm.controls[this.passwordControlName].setErrors({
+      [InputPasswordErrorsEnum.IncorrectPassword]: true,
+    });
     this.formUtils.validateAllFormFields(this.passwordForm);
-  }
+  };
 
   private displayTooManyUnsuccessfulAttemptsError = (): void => {
-    this.passwordForm.controls[this.passwordControlName]
-      .setErrors({[InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts]: true});
+    this.passwordForm.controls[this.passwordControlName].setErrors({
+      [InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts]: true,
+    });
     this.formUtils.validateAllFormFields(this.passwordForm);
-  }
+  };
 }

@@ -1,5 +1,5 @@
 // tslint:disable:strict-boolean-expressions
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
@@ -7,33 +7,27 @@ export enum AvatarSizeEnum {
   X_24,
   X_32,
   X_48,
-  X_156
+  X_156,
 }
 
 @Component({
   selector: 'plat-user-avatar',
   templateUrl: './user-avatar.component.html',
-  styleUrls: ['./user-avatar.component.sass']
+  styleUrls: ['./user-avatar.component.sass'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserAvatarComponent implements OnInit {
+  @Input() public avatarSize: AvatarSizeEnum;
 
-  @Input()
-  public avatarSize: AvatarSizeEnum;
+  @Input() public avatarToken?: string;
 
-  @Input()
-  public avatarToken?: string;
+  @Input() public avatarUrl?: string;
 
-  @Input()
-  public avatarUrl?: string;
+  @Input() public avatarError? = false;
 
-  @Input()
-  public avatarError ? = false;
+  @Input() public avatarErrorValidation = false;
 
-  @Input()
-  public avatarErrorValidation = false;
-
-  @Input()
-  public isOrganizationAvatar = false;
+  @Input() public isOrganizationAvatar = false;
 
   private commonConfig: ConfigDEFAULT;
 
@@ -64,9 +58,8 @@ export class UserAvatarComponent implements OnInit {
       default:
         return 'user-avatar--x48';
     }
-  }
+  };
 
   private resolveFileUrl = (avatarToken: string): string =>
-    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', avatarToken)
-
+    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', avatarToken);
 }

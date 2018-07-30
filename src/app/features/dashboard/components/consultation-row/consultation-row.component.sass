@@ -1,0 +1,65 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/rwd"
+
+\:host
+  display: block
+  margin: 0 -12px
+  padding: 20px 12px
+  margin-bottom: 4px
+  background-color: #fff
+  +mdm
+    margin-left: -24px
+    margin-right: -24px
+    padding-left: 24px
+    padding-right: 24px
+  +lgm
+    margin-left: 0px
+    margin-right: 0px
+
+\:host:nth-last-child(1)
+  margin-bottom: 0px
+
+
+.consultation-layout
+  display: flex
+  flex-direction: column
+  position: relative
+  &-for
+    font-size: 14px
+    line-height: 24px
+    margin-bottom: 12px
+    &-head
+      color: $c-label
+    &-company
+      margin-left: 4px
+      font-weight: 500
+      color: $c-primary
+  &-header
+    font-size: 14px
+    line-height: 20px
+    margin-bottom: 12px
+    +mdm
+      font-size: 18px
+      line-height: 24px
+  &-price
+    display: none
+    position: absolute
+    right: 0px
+    font-size: 14px
+    line-height: 24px
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    +mdm
+      justify-content: center
+      font-size: 18px
+.consultation-amount
+  display: flex
+  flex-direction: row
+  align-items: center
+  &-button
+    display: none
+    margin-left: 16px
+    +mdm
+      display: flex

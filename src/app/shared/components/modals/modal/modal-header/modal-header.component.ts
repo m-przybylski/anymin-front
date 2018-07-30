@@ -5,32 +5,24 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'plat-modal-header',
   templateUrl: './modal-header.component.html',
-  styleUrls: ['./modal-header.component.sass']
+  styleUrls: ['./modal-header.component.sass'],
 })
 export class ModalHeaderComponent {
+  @Input() public titleTrHeader?: string;
 
-  @Input()
-  public titleTrHeader?: string;
+  @Input() public onBackwardClick?: () => void;
 
-  @Input()
-  public onBackwardClick?: () => void;
+  @Input() public isBackwardVisible = false;
 
-  @Input()
-  public isBackwardVisible = false;
+  @Input() public isCloseButtonVisible? = true;
 
-  @Input()
-  public isCloseButtonVisible ? = true;
+  constructor(public activeModal: NgbActiveModal) {}
 
-  constructor(public activeModal: NgbActiveModal) {
-  }
-
-  public onModalClose = (): void =>
-    this.activeModal.close()
+  public onModalClose = (): void => this.activeModal.close();
 
   public onBackClick = (): void => {
     if (this.onBackwardClick) {
       this.onBackwardClick();
     }
-  }
-
+  };
 }
