@@ -1,6 +1,6 @@
 .user-navigation
   ul.user-navigation__list.user-navigation__list--company(
-  *ngIf="isCompany; else userMenu")
+  *ngIf="isCompany && !isExpertNavVisible; else userMenu")
     li(routerLinkActive="active", #listElement)
       a(routerLink="/dashboard/company/activities")
         span {{ "NAVBAR.COMPANY_ACTIVITIES" | translate }}
@@ -10,7 +10,7 @@
 
   ng-template(#userMenu)
     ul.user-navigation__list.user-navigation__list--expert
-      li([hidden]="!isUserExpert", routerLinkActive="active", #listElement)
+      li([hidden]="!isExpert", routerLinkActive="active", #listElement)
         a(routerLink="/dashboard/user/expert-activities")
           span {{ "NAVBAR.EXPERT_ACTIVITIES" | translate }}
       li(routerLinkActive="active", #listElement)
@@ -33,6 +33,31 @@
       a
         span.icon.icon-bell
     li
-      plat-navbar-user-avatar()
-        plat-navbar-user-menu(*ngIf="!isUserExpert")
-        plat-navbar-expert-menu(*ngIf="isUserExpert")
+      plat-navbar-user-avatar(
+        [avatarUrl]="(isExpertNavVisible) ? expertAvatar : companyLogo"
+      )
+        plat-navbar-user-menu(
+          *ngIf="!isExpert && isExpertNavVisible",
+          [clientName]="clientName",
+          [avatarUrl]="expertAvatar",
+          [isCompany]="isCompany",
+          [isExpert]="isExpert",
+          [companyAvatarUrl]="companyLogo",
+          )
+
+        plat-navbar-expert-menu(
+          *ngIf="isExpert && isExpertNavVisible",
+          [avatarUrl]="expertAvatar",
+          [expertName]="expertName",
+          [companyAvatarUrl]="companyLogo",
+          [isExpert]="isExpert",
+          [isCompany]="isCompany"
+        )
+
+        plat-navbar-company-menu(
+          *ngIf="isCompany && !isExpertNavVisible",
+          [companyName]="companyName",
+          [companyAvatarUrl]="companyLogo",
+          [expertAvatarUrl]="expertAvatar",
+          [isExpert]="isExpert"
+        )

@@ -11,23 +11,26 @@ import { FavouritesComponent } from './views/user-dashboard/favourites/favourite
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
+import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
+import { UserDashboardViewGuard } from './views/user-dashboard/user-dashboard.view.guard';
 
 const routes: Routes = [
-
   {
     path: 'user', component: UserDashboardComponent, children: [
-    {path: 'discover', component: DiscoverComponent},
-    {path: 'client-activities', component: ClientActivitiesComponent},
-    {path: 'expert-activities', component: ExpertActivitiesComponent},
-    {path: 'favourites', component: FavouritesComponent},
-    {path: 'settings', component: SettingsViewComponent}
-  ]
+      {path: 'discover', component: DiscoverComponent},
+      {path: 'client-activities', component: ClientActivitiesComponent},
+      {path: 'expert-activities', component: ExpertActivitiesComponent},
+      {path: 'favourites', component: FavouritesComponent},
+      {path: 'settings', component: SettingsViewComponent}
+      ],
+    canActivate: [UserDashboardViewGuard]
   },
   {
     path: 'company', component: CompanyDashboardComponent, children: [
-    {path: 'employees', component: EmployeesComponent},
-    {path: 'activities', component: CompanyActivitiesComponent}
-  ]
+      {path: 'employees', component: EmployeesComponent},
+      {path: 'activities', component: CompanyActivitiesComponent}
+    ],
+    canActivate: [CompanyDashboardViewGuard]
   }
 ];
 
@@ -37,6 +40,10 @@ const routes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    CompanyDashboardViewGuard,
+    UserDashboardViewGuard
   ]
 })
 export class DashboardRoutingModule {

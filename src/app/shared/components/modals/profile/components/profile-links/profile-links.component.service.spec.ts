@@ -76,4 +76,46 @@ describe('ProfileLinksComponentService', () => {
       service.unifyLinkProtocol(value);
       expect(service.unifyLinkProtocol(value)).toBeFalsy();
     }));
+
+  it('expect crop facebook link to create short link ', inject([ProfileLinksComponentService],
+    (service: ProfileLinksComponentService) => {
+      const value = 'https://www.facebook.com/jan.kowalski';
+      expect(service.cropSocialMediaLinkAsName(value)).toEqual(
+        { url: 'jan.kowalski', icon: 'icon icon-facebook' });
+    }));
+
+  it('expect crop incorrect facebook link to create short link ', inject([ProfileLinksComponentService],
+    (service: ProfileLinksComponentService) => {
+      const value = 'https://www.facebook.coma/jan.kowalski';
+      expect(service.cropSocialMediaLinkAsName(value)).toEqual(
+        { url: '', icon: '' });
+    }));
+
+  it('expect crop twitter link to create short link ', inject([ProfileLinksComponentService],
+    (service: ProfileLinksComponentService) => {
+      const value = 'https://www.twitter.com/jan.kowalski';
+      expect(service.cropSocialMediaLinkAsName(value)).toEqual(
+        { url: 'jan.kowalski', icon: 'icon icon-twitter' });
+    }));
+
+  it('expect crop linkedin link to create short link ', inject([ProfileLinksComponentService],
+    (service: ProfileLinksComponentService) => {
+      const value = 'https://www.linkedin.com/in/jan.kowalski';
+      expect(service.cropSocialMediaLinkAsName(value)).toEqual(
+        { url: 'jan.kowalski', icon: 'icon icon-linkedin' });
+    }));
+
+  it('should check if is social link when correct value', inject([ProfileLinksComponentService],
+    (service: ProfileLinksComponentService) => {
+      const value = 'https://www.facebook.com/jan.kowalski';
+      service.isSocialLink(value);
+      expect(service.isSocialLink(value)).toBeTruthy();
+    }));
+
+  it('should check if is social link when incorrect value', inject([ProfileLinksComponentService],
+    (service: ProfileLinksComponentService) => {
+      const value = 'https://facebook.pl';
+      service.isSocialLink(value);
+      expect(service.isSocialLink(value)).toBeFalsy();
+    }));
 });

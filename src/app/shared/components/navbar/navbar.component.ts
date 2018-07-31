@@ -9,9 +9,5 @@ import { Component, Input } from '@angular/core';
 export class NavbarComponent {
 
   @Input()
-  public isCompany: boolean;
-
-  constructor() {
-  }
-
+  public isExpertNavVisible: boolean;
 }

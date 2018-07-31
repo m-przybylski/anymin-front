@@ -8,13 +8,13 @@
     li.menu-list__header
       .menu-list__user-information
         plat-user-avatar(
-          [avatarSize]="avatarSize48",
-          [avatarToken]="expertAvatarToken"
+        [avatarSize]="avatarSize32",
+        [avatarUrl]="avatarUrl"
         )
         .user-name-container
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.LOGGED_AS'")
           span.user-name-container__user-name {{ expertName }}
-      a.button.button--link((click)="openEditProfileModal()", [translate]="'NAVBAR_USER_MENU.EDIT'")
+      a.button.button--link(*ngIf="isExpert", (click)="openEditProfileModal()", [translate]="'NAVBAR_USER_MENU.SHOW'")
 
     li.menu-list__section
       ul
@@ -56,7 +56,7 @@
       ul
         li.menu-list__row
           span.icon.icon-organization
-          span.option-title((click)="openCreateModal()", [translate]="'NAVBAR_USER_MENU.CREATE_COMPANY'")
+          span.option-title((click)="openCreateOrganizationModal()", [translate]="'NAVBAR_USER_MENU.CREATE_COMPANY'")
 
     li.menu-list__section
       ul
@@ -74,9 +74,9 @@
 
     li.menu-list__section.menu-list__section--switch-account(*ngIf="isCompany")
       ul
-        li.menu-list__row
+        li.menu-list__row((click)="onOrganizationProfileSwitch($event)", [routerLink]="['/dashboard/company/activities']")
           plat-user-avatar(
-            [avatarSize]="avatarSize32",
-            [avatarToken]="companyAvatarToken"
+          [avatarSize]="avatarSize32",
+          [avatarUrl]="companyAvatarUrl"
           )
           span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_ORGANIZATION'")

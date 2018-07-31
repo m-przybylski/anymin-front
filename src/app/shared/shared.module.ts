@@ -47,7 +47,7 @@ import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-men
 import { InputSwitchComponent } from './components/inputs/input-switch/input-switch.component';
 import { NavbarMenuService } from './services/navbar-menu-service/navbar-menu.service';
 import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
-import { NavbarComponentService } from './components/navbar/navbar.component.service';
+import { UserNavigationComponentService } from './components/navbar/user-navigation/user-navigation.component.service';
 import { ConsultationTagsComponent } from './components/consultation-tags/consultation-tags.component';
 import { ConsultationPriceComponent } from './components/consultation-price/consultation-price.component';
 import { InputTagsComponent } from './components/consultation-tags/input-tags/input-tags.component';
@@ -134,7 +134,7 @@ import { InputAddItemComponent } from './components/inputs/input-add-item/input-
     PinCodeTimerService,
     ContentHeightAnimationService,
     NavbarMenuService,
-    NavbarComponentService
+    UserNavigationComponentService
   ]
 })
 

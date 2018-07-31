@@ -44,13 +44,13 @@ export class NavbarMenuService {
     this.userSessionService.getSession()
       .then((session) => {
         if (session.account) {
-          isCompany = session.account.isExpert;
+          isCompany = session.account.isCompany;
         } else {
           isCompany = false;
         }
-      }, () => {
-        this.logger.warn('failure when try to get session');
-      });
+      }).catch((err) => {
+        this.logger.warn('failure when try to get session', err);
+    });
     return isCompany;
   }
 

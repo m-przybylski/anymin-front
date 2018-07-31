@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { DropdownComponent, IDropdownComponent } from './dropdown.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
 import { BrowserModule } from '@angular/platform-browser';
 import { AnymindComponentsCoreModule, AnymindComponentsModule } from '@anymind-ng/core';
@@ -65,5 +65,25 @@ describe('Component: DropdownComponent', () => {
     spyOn(component.onSelectItemEmiter, 'emit');
     component.onSelectItem(mockValue);
     expect(component.onSelectItemEmiter.emit).toHaveBeenCalledWith(mockValue);
+  });
+
+  it('should call onSelectItem when dropdown not list only', () => {
+    const mockValue: IDropdownComponent = {
+      name: 'Jan'
+    };
+    const fixture = TestBed.createComponent(DropdownComponent);
+    const component = fixture.componentInstance;
+    component.form = new FormGroup({});
+    component.controlName = 'controlName';
+    component.form.addControl(component.controlName, new FormControl());
+    component.isDropdownListOnly = false;
+
+    component.form.controls[component.controlName].setValue(mockValue.name);
+
+    spyOn(component.form.controls[component.controlName], 'setValue');
+    component.onSelectItem(mockValue);
+    expect(component.form.controls[component.controlName].setValue).toHaveBeenCalledWith(mockValue.name);
+    expect(component.isDropdownListVisible).toBe(false);
+    expect(component.placeholderTrKey).toBe(mockValue.name);
   });
 });
