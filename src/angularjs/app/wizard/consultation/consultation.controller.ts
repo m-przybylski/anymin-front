@@ -36,7 +36,7 @@ export class ConsultationController implements ng.IController {
   public tagsInputValue: string[] = [];
   public priceAmountInputValue = '1,00';
   public invitationsInputValue: string[] = [];
-  public isOwnerEmployee = false;
+  public isOwnerEmployee = true;
   public languagesList: ILanguagesList[];
   public languageInputValue: ILanguagesList;
   public descriptionInputValue = '';
