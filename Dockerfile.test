@@ -1,4 +1,4 @@
-FROM eu.gcr.io/dev-country-188109/ubuntu-node-base-test:10.4.1
+FROM eu.gcr.io/dev-country-188109/profitelo-frontend:test
 MAINTAINER loord igor.gerasimow@ratel.io
 
 # prepare dir for cache
