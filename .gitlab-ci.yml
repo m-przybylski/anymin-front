@@ -18,25 +18,11 @@ test-prepare-code:
   tags:
     - shell
 
-test-run:
-  stage: test-run
-  except:
-    - develop
-  script:
-    - docker run -i $CONTAINER_TEST_IMAGE_URL /bin/sh -c 'npm install && npm run ci-test' && docker rmi -f $CONTAINER_TEST_IMAGE_URL
-  tags:
-    - shell
-
-
-build-push-release-image:
+build-release-image:
+  when: manual
   stage: build-push-release-image
   script:
-    - docker build --no-cache -t $CONTAINER_RELEASE_IMAGE_URL -f Dockerfile.build .
-    - docker push $CONTAINER_RELEASE_IMAGE_URL
-  only:
-    - develop
-  after_script:
-    - docker rm $CONTAINER_RELEASE_IMAGE_URL
+    - docker run -i $CONTAINER_TEST_IMAGE_URL /bin/sh -c 'npm install && npm run ci-test' && docker rmi -f $CONTAINER_TEST_IMAGE_URL
   tags:
     - shell
 
