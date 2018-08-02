@@ -1,8 +1,6 @@
 stages:
   - test-prepare-code
   - test-run
-  - build-push-release-image
-  - release-deploy
 
 variables:
   # Update from $CI_COMMIT_SHA to $CI_PIPELINE_IID when gitlab > v.11
@@ -33,10 +31,8 @@ release-deploy:
     - helm init --service-account default
     - git clone git@git.contactis.pl:itelo/anymind-deployment.git /opt/anymind/deploy
   script:
-    - cd /opt/anymind/deploy/
-    - helm del --purge am-dev-frontend
-    - helm install --wait --name am-dev-frontend am-frontend/helm/ -f am-frontend/helm/values-dev.yaml --set image.repository=eu.gcr.io/dev-country-188109/profitelo-frontend,image.tag=dev-$CI_COMMIT_SHA
-  only:
-    - develop
+    - docker run -i $CONTAINER_TEST_IMAGE /bin/sh -c 'npm run ci-test'
+  after_script:
+    - docker rm $CONTAINER_TEST_IMAGE
   tags:
-    - deathstar-anymind-helm-0
+    - shell

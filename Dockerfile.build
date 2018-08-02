@@ -8,7 +8,7 @@ ARG branch=stage
 ARG common=master
 
 # build env
-ARG env=build-dev
+ARG env=build-stage
 
 RUN git clone git@git.contactis.pl:itelo/profitelo-frontend.git /profitelo-frontend -b $branch
 
