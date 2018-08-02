@@ -2,8 +2,8 @@
 import { CanActivate, Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { GetSession } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class SetPasswordViewGuard implements CanActivate {
@@ -32,8 +32,7 @@ export class SetPasswordViewGuard implements CanActivate {
       }
     )
 
-  private hasUserPassword = (session: GetSession): boolean => {
-    const userAccount = session.account;
-    return userAccount !== undefined && userAccount.hasPassword;
-  }
+  private hasUserPassword = (sessionWithAccount: GetSessionWithAccount): boolean =>
+    sessionWithAccount.account.hasPassword
+
 }

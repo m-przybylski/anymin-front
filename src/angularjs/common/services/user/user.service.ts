@@ -4,8 +4,8 @@ import * as angular from 'angular';
 import { AccountDetails } from 'profitelo-api-ng/model/models';
 import { SessionServiceWrapper } from '../session/session.service';
 import { EventsService } from '../events/events.service';
-import { GetSession } from 'profitelo-api-ng/model/GetSession';
 import { LoginCredentials } from '@anymind-ng/api';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 export class UserService {
 
@@ -28,7 +28,7 @@ export class UserService {
     this.eventsService.emit('logout');
   })
 
-  public login = (loginDetails: LoginCredentials): ng.IPromise<GetSession> =>
+  public login = (loginDetails: LoginCredentials): ng.IPromise<GetSessionWithAccount> =>
     this.sessionServiceWrapper.login(loginDetails).then((session) => {
       this.eventsService.emit('login');
 

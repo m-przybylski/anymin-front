@@ -1,6 +1,4 @@
-import {
-  GetSession, ProfileService, ServiceService,
-} from '@anymind-ng/api';
+import { ProfileService, ServiceService, } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
@@ -11,6 +9,7 @@ import { UserSessionService } from '../../../../../core/services/user-session/us
 import { GetService } from '@anymind-ng/api/model/getService';
 import { PutOrganizationDetails } from '@anymind-ng/api/model/putOrganizationDetails';
 import { GetProfile } from '@anymind-ng/api/model/getProfile';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class CreateOrganizationModalComponentService {
@@ -26,12 +25,12 @@ export class CreateOrganizationModalComponentService {
 
   public getProfileDetails = (): Observable<GetProfileWithDocuments> =>
     fromPromise(this.userSessionService.getSession())
-      .pipe(mergeMap((session: GetSession) => this.getProfile(session.accountId)))
+      .pipe(mergeMap((session: GetSessionWithAccount) => this.getProfile(session.account.id)))
 
   public getProfileService = (accountId: string): Observable<ReadonlyArray<GetService>> =>
     this.serviceService.getProfileServicesRoute(accountId)
 
-  public getSession = (): Observable<GetSession> =>
+  public getSession = (): Observable<GetSessionWithAccount> =>
     fromPromise(this.userSessionService.getSession())
 
   public createOrganizationProfile = (data: PutOrganizationDetails): Observable<GetProfile> =>

@@ -12,12 +12,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrganizationModalComponentService } from './create-organization.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { HttpErrorResponse } from '@angular/common/http';
-import { GetSession, PutOrganizationDetails } from '@anymind-ng/api';
+import { PutOrganizationDetails } from '@anymind-ng/api';
 import { UserNavigationComponentService } from '../../../navbar/user-navigation/user-navigation.component.service';
 import { Subject } from 'rxjs/index';
 import { takeUntil } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
 import { EditProfileModalComponentService } from '../edit-profile/edit-profile.component.service';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Component({
   selector: 'app-create-organization',
@@ -105,12 +106,10 @@ export class CreateOrganizationModalComponent implements OnInit {
     }
   }
 
-  private adjustProfileDetails = (session: GetSession): void => {
-    if (session.account !== undefined) {
-      this.isExpert = session.account.isExpert;
-      this.isCompany = session.account.isCompany;
-    }
-    (this.isCompany) ? this.assignOrganizationDetails() : this.checkExpertConsultationsLength(session.accountId);
+  private adjustProfileDetails = (session: GetSessionWithAccount): void => {
+    this.isExpert = session.account.isExpert;
+    this.isCompany = session.account.isCompany;
+    (this.isCompany) ? this.assignOrganizationDetails() : this.checkExpertConsultationsLength(session.account.id);
   }
 
   private sendOrganizationProfile = (): void => {

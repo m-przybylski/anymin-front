@@ -5,11 +5,12 @@ import {
 } from '@angular/core';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
-import { GetProfileWithDocuments, GetSession } from '@anymind-ng/api';
+import { GetProfileWithDocuments } from '@anymind-ng/api';
 import { UserNavigationComponentService } from './user-navigation.component.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { takeUntil } from 'rxjs/operators';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Component({
   selector: 'plat-user-navigation',
@@ -61,11 +62,9 @@ export class UserNavigationComponent implements OnInit, OnDestroy, AfterViewChec
   }
 
   public ngOnInit(): void {
-    this.userSessionService.getSession().then((session) => {
-      if (session.account !== undefined) {
-        this.isCompany = session.account.isCompany;
-        this.isExpert = session.account.isExpert;
-      }
+    this.userSessionService.getSession().then(session => {
+      this.isCompany = session.account.isCompany;
+      this.isExpert = session.account.isExpert;
 
       this.assignClientNavigationDetails(session);
 
@@ -93,24 +92,22 @@ export class UserNavigationComponent implements OnInit, OnDestroy, AfterViewChec
       }, (err) => this.handleNavbarComponentServiceError(err, 'Can not subscribe on update profile'));
   }
 
-  private assignProfileDetails = (session: GetSession): void => {
-    this.navbarComponentService.getProfileDetails(session)
+  private assignProfileDetails = (sessionWithAccount: GetSessionWithAccount): void => {
+    this.navbarComponentService.getProfileDetails(sessionWithAccount)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(profileDetails => {
-        if (session.account !== undefined) {
-          this.isCompany = session.account.isCompany;
-          this.isExpert = session.account.isExpert;
-        }
+        this.isCompany = sessionWithAccount.account.isCompany;
+        this.isExpert = sessionWithAccount.account.isExpert;
         this.assignUserNavigationDetails(profileDetails);
       }, (err) => this.handleNavbarComponentServiceError(err, 'Can not get profileDetails'));
   }
 
-  private assignClientNavigationDetails = (session: GetSession): void => {
-    if (session.account !== undefined && typeof session.account.settings.nickname !== 'undefined') {
-      this.clientName = session.account.settings.nickname;
+  private assignClientNavigationDetails = (sessionWithAccount: GetSessionWithAccount): void => {
+    if (typeof sessionWithAccount.account.settings.nickname !== 'undefined') {
+      this.clientName = sessionWithAccount.account.settings.nickname;
     }
-    if (session.account !== undefined && typeof session.account.settings.avatar !== 'undefined') {
-      this.expertAvatar = session.account.settings.avatar;
+    if (typeof sessionWithAccount.account.settings.avatar !== 'undefined') {
+      this.expertAvatar = sessionWithAccount.account.settings.avatar;
     }
   }
 

@@ -23,8 +23,8 @@ export class SessionDeletedService {
   }
 
   private onSessionDeleted = (sessionDeleted: ISessionDeleted): void => {
-    this.sessionServiceWrapper.getSession().then((session) => {
-      if (sessionDeleted.removedSessionApiKey === session.apiKey) {
+    this.sessionServiceWrapper.getSession().then((sessionWithAccount) => {
+      if (sessionDeleted.removedSessionApiKey === sessionWithAccount.session.apiKey) {
         this.eventsService.emit('remote-session-deleted');
       }
     }, (error) => {
