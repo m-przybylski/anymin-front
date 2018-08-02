@@ -1,0 +1,107 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../../template/core/partials/grid"
+
+=size($width-height)
+  width: $width-height
+  height: $width-height
+  img
+    width: $width-height
+    height: $width-height
+
+=avatar-padding($padding)
+  padding: 0 $padding $padding 0
+
+.expert-layout
+  position: relative
+
+  div.user-avatar
+
+    +size(96px)
+
+    +mdm
+
+      +size(128px)
+
+    +lgm
+
+      +size(156px)
+
+.expert-layout
+  margin: 24px 8px 8px 8px
+  display: flex
+  flex-direction: column
+
+  +xsm
+    margin: 24px 0 0 0
+
+  +smm
+    margin: 24px 8px 8px 8px
+    flex-direction: row
+
+  +mdm
+    margin: 32px 0 0 0
+
+  +lgm
+    margin-top: 48px
+
+  &__avatar
+    display: block
+    +avatar-padding(16px)
+
+    +mdm
+      +avatar-padding(32px)
+
+    +lgm
+      +avatar-padding(48px)
+
+  &__content
+    flex-grow: 1
+    padding: 0 0 24px
+
+    +mdm
+      padding: 0 0 32px
+
+    +lgm
+      padding: 0 0 48px
+
+  &__details
+    margin: 0 0 16px
+
+    &-name-wrapper
+      display: flex
+      justify-content: space-between
+      margin: 0 0 4px
+
+    &-name
+
+      +h6
+      font-weight: 700
+
+      +smm
+        +h4
+        font-weight: 700
+
+    &-available
+
+      +caption
+
+  &__icons
+    position: absolute
+    top: 0
+    right: 0
+    display: flex
+    align-items: flex-start
+
+    +smm
+      position: static
+
+    &-button + &-button
+      margin-left: 8px
+
+
+plat-expandable-panel
+  display: block
+  margin-bottom: 8px
+plat-expert-availability
+  display: block
+  margin-left: -4px

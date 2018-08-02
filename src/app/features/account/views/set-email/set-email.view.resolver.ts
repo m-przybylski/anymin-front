@@ -14,9 +14,10 @@ export class SetEmailViewResolver implements Resolve<string> {
   ) {}
 
   public resolve = (): Promise<string> =>
-    this.userService.getSession(true)
+    this.userService
+      .getSession(true)
       .then(session => session.account.id)
-      .catch(this.handleGetSessionError)
+      .catch(this.handleGetSessionError);
 
   private handleGetSessionError = (httpError: HttpErrorResponse): string => {
     const err = httpError.error;

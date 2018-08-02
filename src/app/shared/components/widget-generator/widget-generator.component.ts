@@ -52,12 +52,10 @@ export class WidgetGeneratorComponent implements OnInit {
   public ngOnInit(): void {
     this.userSessionService.getSession().then(
       session => {
-        if (typeof session.account !== 'undefined') {
-          this.isCompany = session.account.isCompany;
-          session.account.isCompany
-            ? this.getCompanyInitializeData(session.account.id)
-            : this.getExpertInitializeData(session.account.id);
-        }
+        this.isCompany = session.account.isCompany;
+        session.account.isCompany
+          ? this.getCompanyInitializeData(session.account.id)
+          : this.getExpertInitializeData(session.account.id);
       },
       error => {
         this.logger.error(error);

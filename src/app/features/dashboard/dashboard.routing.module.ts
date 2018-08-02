@@ -17,13 +17,15 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: 'user', component: UserDashboardComponent, children: [
-      {path: 'discover', component: DiscoverComponent},
-      {path: 'client-activities', component: ClientActivitiesComponent},
-      {path: 'expert-activities', component: ExpertActivitiesComponent},
-      {path: 'favourites', component: FavouritesComponent},
-      {path: 'settings', component: SettingsViewComponent}
-      ]
+    path: 'user',
+    component: UserDashboardComponent,
+    children: [
+      { path: 'discover', component: DiscoverComponent },
+      { path: 'client-activities', component: ClientActivitiesComponent },
+      { path: 'expert-activities', component: ExpertActivitiesComponent },
+      { path: 'favourites', component: FavouritesComponent },
+      { path: 'settings', component: SettingsViewComponent },
+    ],
   },
   {
     path: 'company',
@@ -38,6 +40,7 @@ const routes: Routes = [
     path: RouterPaths.dashboard.expert.getName,
     resolve: { expert: ExpertDashboardResolverService },
     component: ExpertDashboardComponent,
+    runGuardsAndResolvers: 'always',
     children: [],
   },
   {
@@ -47,14 +50,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  exports: [
-    RouterModule
-  ],
-  providers: [
-    CompanyDashboardViewGuard
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: [CompanyDashboardViewGuard],
 })
 export class DashboardRoutingModule {}

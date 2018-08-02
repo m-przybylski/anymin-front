@@ -1,11 +1,10 @@
-const replace = (pathToReplace: string, params: { [key: string]: string }): string =>
-  Object.keys(params)
-    .map(key => `:${key}`)
-    .reduce((newPath, key) => newPath.replace(key, params[key.substr(1)]), pathToReplace);
+export class RouterHelpers {
+  public static replaceParams = (pathToReplace: string, params: { [key: string]: string }): string =>
+    Object.keys(params)
+      .map(key => `:${key}`)
+      .reduce((newPath, key) => newPath.replace(key, params[key.substr(1)]), pathToReplace);
+}
 export const RouterPaths = {
-  helper: {
-    replaceParams: replace,
-  },
   dashboard: {
     asPath: 'dashboard',
     getName: 'dashboard',

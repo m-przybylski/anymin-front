@@ -1,4 +1,3 @@
-// tslint:disable:no-implicit-dependencies
 import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
 import { UploaderService } from '../../../services/uploader/uploader.service';

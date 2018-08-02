@@ -30,13 +30,14 @@ export class ChangeNumberComponent implements OnInit {
 
   public ngOnInit(): void {
     this.changeNumberForm = new FormGroup({});
-    this.userService.getSession().then((user) => {
-      this.userPhoneNumber = user.account.msisdn.slice(this.msisdnLength);
-      this.changeNumberForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
-      this.changeNumberForm.controls[this.msisdnControlName].setValue(this.userPhoneNumber);
-    }).catch(() => {
-
-    });
+    this.userService
+      .getSession()
+      .then(user => {
+        this.userPhoneNumber = user.account.msisdn.slice(this.msisdnLength);
+        this.changeNumberForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
+        this.changeNumberForm.controls[this.msisdnControlName].setValue(this.userPhoneNumber);
+      })
+      .catch(() => {});
   }
 
   private onMsisdnChange = (msisdn: string): void => {

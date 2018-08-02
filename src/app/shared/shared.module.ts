@@ -53,7 +53,31 @@ import { OnElementClickDirective } from './components/dropdown/dropdown/on-eleme
 import { InputAddItemComponent } from './components/inputs/input-add-item/input-add-item.component';
 import { ValidationDirective } from './directives/validation/validation.directive';
 import { ProfileLinksComponentService } from './components/modals/profile/components/profile-links/profile-links.component.service';
+import { IconComponent } from './components/icon/icon';
+import { ButtonComponent } from './components/buttons/button';
+import { ExpandablePanelComponent } from './components/expandable-panel/expandable-panel.component';
 
+const EXPORTS = [
+  LoginBackgroundComponent,
+  LoginContentComponent,
+  LoginMobileFooterComponent,
+  InputSetPasswordComponent,
+  ContentHeightAnimateDirective,
+  NavbarComponent,
+  UserAvatarComponent,
+  PreloaderContainerComponent,
+  ConsultationTagsComponent,
+  ConsultationPriceComponent,
+  InputTagsComponent,
+  InputSwitchComponent,
+  DropdownListComponent,
+  DropdownComponent,
+  InputAddItemComponent,
+  ValidationDirective,
+  IconComponent,
+  ButtonComponent,
+  ExpandablePanelComponent,
+];
 @NgModule({
   imports: [
     FormsModule,
@@ -77,30 +101,10 @@ import { ProfileLinksComponentService } from './components/modals/profile/compon
     NavbarExpertMenuComponent,
     ScrollToElementDirective,
     OnElementClickDirective,
-    InputAddItemComponent,
-    ValidationDirective,
+    EXPORTS,
   ],
   entryComponents: [WidgetGeneratorComponent],
-  exports: [
-    AnymindComponentsModule,
-    TranslateModule,
-    LoginBackgroundComponent,
-    LoginContentComponent,
-    LoginMobileFooterComponent,
-    InputSetPasswordComponent,
-    ContentHeightAnimateDirective,
-    NavbarComponent,
-    UserAvatarComponent,
-    PreloaderContainerComponent,
-    ConsultationTagsComponent,
-    ConsultationPriceComponent,
-    InputTagsComponent,
-    InputSwitchComponent,
-    DropdownListComponent,
-    DropdownComponent,
-    InputAddItemComponent,
-    ValidationDirective,
-  ],
+  exports: [AnymindComponentsModule, TranslateModule, EXPORTS],
   providers: [
     EventsServiceProvider,
     CommunicatorService,

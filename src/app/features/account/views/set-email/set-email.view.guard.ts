@@ -36,6 +36,5 @@ export class SetEmailViewGuard implements CanActivate {
     });
 
   private hasUserEmail = (sessionWithAccount: GetSessionWithAccount): boolean =>
-    sessionWithAccount.account.email !== undefined || sessionWithAccount.account.unverifiedEmail !== undefined
-
+    sessionWithAccount.account.email !== undefined || sessionWithAccount.account.unverifiedEmail !== undefined;
 }

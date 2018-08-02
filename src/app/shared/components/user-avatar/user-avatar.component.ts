@@ -1,5 +1,5 @@
 // tslint:disable:strict-boolean-expressions
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
@@ -16,10 +16,13 @@ export enum AvatarSizeEnum {
   styleUrls: ['./user-avatar.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UserAvatarComponent implements OnInit {
+export class UserAvatarComponent {
   @Input() public avatarSize: AvatarSizeEnum;
 
-  @Input() public avatarToken?: string;
+  @Input()
+  public set avatarToken(value: string | undefined) {
+    this.avatarUrl = typeof value !== 'undefined' && value !== '' ? this.resolveFileUrl(value) : undefined;
+  }
 
   @Input() public avatarUrl?: string;
 
@@ -33,12 +36,6 @@ export class UserAvatarComponent implements OnInit {
 
   constructor() {
     this.commonConfig = CommonConfig.getCommonConfig();
-  }
-
-  public ngOnInit(): void {
-    if (this.avatarToken) {
-      this.avatarUrl = this.resolveFileUrl(this.avatarToken);
-    }
   }
 
   public setAvatarClass = (): string => {

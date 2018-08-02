@@ -14,8 +14,8 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutOrganizationDetails } from '@anymind-ng/api';
 import { UserNavigationComponentService } from '../../../navbar/user-navigation/user-navigation.component.service';
-import { Subject } from 'rxjs/index';
-import { takeUntil } from 'rxjs/internal/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { EditProfileModalComponentService } from '../edit-profile/edit-profile.component.service';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
@@ -48,7 +48,7 @@ export class CreateOrganizationModalComponent implements OnInit {
 
   public isExpert: boolean;
   public isCompany: boolean;
-  public avatarUrl: string;
+  public avatarToken: string;
 
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
@@ -172,7 +172,7 @@ export class CreateOrganizationModalComponent implements OnInit {
       );
       this.profileLinksList = companyProfileDetails.profile.organizationDetails.links;
       this.profileDocumentsList = companyProfileDetails.organizationDocuments;
-      this.avatarUrl = companyProfileDetails.profile.organizationDetails.logo;
+      this.avatarToken = companyProfileDetails.profile.organizationDetails.logo;
       this.fileUploadTokensList = companyProfileDetails.organizationDocuments.map(file => file.token);
     }
   };

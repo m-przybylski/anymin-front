@@ -75,7 +75,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
           this.isRequestPending = false;
           this.alertService.pushSuccessAlert(Alerts.CreateConsultationSuccess);
           this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
-          this.activeModal.close();
+          this.activeModal.close(true);
         });
     } else {
       this.formUtils.validateAllFormFields(this.createConsultationForm);

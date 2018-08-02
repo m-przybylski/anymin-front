@@ -27,9 +27,9 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
 
   @Input() public clientName: string;
 
-  @Input() public avatarUrl: string;
+  @Input() public avatarToken: string;
 
-  @Input() public companyAvatarUrl: string;
+  @Input() public companyAvatarToken: string;
 
   public readonly avatarSize48 = AvatarSizeEnum.X_48;
   public isMenuVisible: boolean;

@@ -10,13 +10,12 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs';
-import { GetProfileWithDocuments } from '@anymind-ng/api';
+import { Subject, throwError } from 'rxjs';
+import { GetProfileWithDocuments, GetSessionWithAccount } from '@anymind-ng/api';
 import { UserNavigationComponentService } from './user-navigation.component.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { takeUntil } from 'rxjs/operators';
-import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { takeUntil, catchError, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'plat-user-navigation',
@@ -66,9 +65,10 @@ export class UserNavigationComponent implements OnInit, OnDestroy, AfterViewChec
   }
 
   public ngOnInit(): void {
-    this.userSessionService.getSession().then(session => {
-      this.isCompany = session.account.isCompany;
-      this.isExpert = session.account.isExpert;
+    this.userSessionService.getSession().then(
+      session => {
+        this.isCompany = session.account.isCompany;
+        this.isExpert = session.account.isExpert;
 
         this.assignClientNavigationDetails(session);
 
@@ -81,45 +81,49 @@ export class UserNavigationComponent implements OnInit, OnDestroy, AfterViewChec
 
     this.navbarComponentService
       .onUpdateUserProfile()
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(
+        takeUntil(this.ngUnsubscribe$),
+        switchMap(() => this.navbarComponentService.updateSession()),
+      )
       .subscribe(
-        () => {
-          this.navbarComponentService
-            .updateSession()
-            .pipe(takeUntil(this.ngUnsubscribe$))
-            .subscribe(session => this.assignProfileDetails(session));
+        (session: GetSessionWithAccount) => {
+          this.assignProfileDetails(session);
         },
         err => this.handleNavbarComponentServiceError(err, 'Can not subscribe isExpertProfileCreated$ event'),
       );
 
     this.navbarComponentService
       .onUpdateClientProfile$()
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(
+        takeUntil(this.ngUnsubscribe$),
+        catchError(err => {
+          this.handleNavbarComponentServiceError(err, 'Can not subscribe on update profile');
+
+          return throwError(err);
+        }),
+        switchMap(() => this.navbarComponentService.updateSession()),
+      )
       .subscribe(
-        () => {
-          this.navbarComponentService
-            .updateSession()
-            .pipe(takeUntil(this.ngUnsubscribe$))
-            .subscribe(
-              session => {
-                this.assignClientNavigationDetails(session);
-              },
-              err => this.handleNavbarComponentServiceError(err, 'Can not update session when updating profile'),
-            );
+        (session: GetSessionWithAccount) => {
+          this.assignClientNavigationDetails(session);
         },
-        err => this.handleNavbarComponentServiceError(err, 'Can not subscribe on update profile'),
+        err => this.handleNavbarComponentServiceError(err, 'Can not update session when updating profile'),
       );
   }
 
   private assignProfileDetails = (sessionWithAccount: GetSessionWithAccount): void => {
-    this.navbarComponentService.getProfileDetails(sessionWithAccount)
+    this.navbarComponentService
+      .getProfileDetails(sessionWithAccount)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(profileDetails => {
-        this.isCompany = sessionWithAccount.account.isCompany;
-        this.isExpert = sessionWithAccount.account.isExpert;
-        this.assignUserNavigationDetails(profileDetails);
-      }, (err) => this.handleNavbarComponentServiceError(err, 'Can not get profileDetails'));
-  }
+      .subscribe(
+        profileDetails => {
+          this.isCompany = sessionWithAccount.account.isCompany;
+          this.isExpert = sessionWithAccount.account.isExpert;
+          this.assignUserNavigationDetails(profileDetails);
+        },
+        err => this.handleNavbarComponentServiceError(err, 'Can not get profileDetails'),
+      );
+  };
 
   private assignClientNavigationDetails = (sessionWithAccount: GetSessionWithAccount): void => {
     if (typeof sessionWithAccount.account.settings.nickname !== 'undefined') {

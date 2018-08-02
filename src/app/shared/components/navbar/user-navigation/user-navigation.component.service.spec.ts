@@ -47,19 +47,19 @@ describe('UserNavigationComponentService', () => {
         doesMsisdnMatchCountry: true,
         hasMobilePin: true,
         settings: {
-          isAnonymous: false
+          isAnonymous: false,
         },
         currency: 'PLN',
         countryISO: 'pl',
-        protectedViews: ['']
+        protectedViews: [''],
       },
       session: {
         accountId: 'id',
         apiKey: 'apiKey',
         ipAddress: '0.0.0.0',
         isExpired: false,
-        lastActivityAt: new Date()
-      }
+        lastActivityAt: new Date(),
+      },
     };
 
     service.getProfileDetails(session);

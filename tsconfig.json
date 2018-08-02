@@ -3,6 +3,7 @@
     "outDir": "./dist/out-tsc",
     "noImplicitAny": true,
     "target": "es5",
+    "downlevelIteration": true,
     "noEmitOnError": false,
     "sourceMap": true,
     "moduleResolution": "node",

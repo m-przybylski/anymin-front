@@ -17,10 +17,16 @@ export class ExpertDashboardResolverService implements Resolve<IExpertDashboardR
     const session$ = from(this.userSessionService.getSession());
     const expertProfile$ = this.views.getWebExpertProfileRoute(expertId);
 
+    /**
+     * Retrive data from both session service
+     * and expertProfile endpoint
+     * Based on session service system detects if expert
+     * and logged user is the same
+     */
     return forkJoin(expertProfile$, session$).pipe(
       map(([expertProfile, session]) => ({
         expertProfile,
-        isOwnProfile: session.accountId === expertProfile.expertProfile.id,
+        isOwnProfile: session.account.id === expertProfile.expertProfile.id,
       })),
       catchError((error: HttpErrorResponse) => {
         if (error.status === httpCodes.notFound) {

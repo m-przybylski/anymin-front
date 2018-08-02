@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EmploymentWithService } from '@anymind-ng/api';
 
 @Component({
@@ -9,4 +9,10 @@ import { EmploymentWithService } from '@anymind-ng/api';
 export class ExpertDashboardConsultationsComponent {
   @Input() public consultations: EmploymentWithService[];
   @Input() public isOwnProfile: boolean;
+
+  @Output() public addConsultation = new EventEmitter();
+
+  public add(): void {
+    this.addConsultation.emit();
+  }
 }

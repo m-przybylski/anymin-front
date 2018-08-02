@@ -15,8 +15,8 @@ import { UserNavigationComponentService } from '../../../navbar/user-navigation/
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import { takeUntil } from 'rxjs/internal/operators';
-import { Subject } from 'rxjs/index';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
@@ -73,11 +73,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.isOpenAsExpert = this.isExpertForm;
     this.editProfileModalComponentService
       .getSession()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(
-        session => this.adjustProfileDetails(session),
-        err => this.handleResponseError(err, 'Can not get session'),
-      );
+      .subscribe(this.adjustProfileDetails, err => this.handleResponseError(err, 'Can not get session'));
 
     this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
     this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
@@ -172,6 +168,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
         profileDetails => {
           this.setExpertFormValues(profileDetails);
           this.isPending = false;
+          this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
           this.navbarComponentService.onUpdateClientProfile$().next(true);
         },
         err => this.handleResponseError(err, 'Can not get expert file profile'),
@@ -261,6 +258,6 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.isInputDisabled = false;
   };
 
-  private onModalClose = (): void => this.activeModal.close();
+  private onModalClose = (): void => this.activeModal.close(true);
   // tslint:disable-next-line:max-file-line-count
 }

@@ -25,9 +25,8 @@ export class UserNavigationComponentService {
 
   public onUpdateClientProfile$ = (): Subject<boolean> => this.isClientProfileUpdated;
 
-  public updateSession = (): Observable<GetSessionWithAccount> =>
-    fromPromise(this.userSessionService.getSession(true))
+  public updateSession = (): Observable<GetSessionWithAccount> => fromPromise(this.userSessionService.getSession(true));
 
   public getProfileDetails = (sessionWithAccount: GetSessionWithAccount): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(sessionWithAccount.account.id)
+    this.profileService.getProfileRoute(sessionWithAccount.account.id);
 }

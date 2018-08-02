@@ -18,7 +18,7 @@ export interface IImageCropData {
 }
 
 @Component({
-  selector: 'app-image-crop',
+  selector: 'plat-image-crop',
   templateUrl: './image-crop.component.html',
   styleUrls: ['./image-crop.component.sass'],
 })
@@ -107,7 +107,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
         croppingDetails: croppieCords,
       })
       .then(response => {
-        this.editProfileModalComponentService.getPreviousAvatarSrc().next(response.previews[0]);
+        this.editProfileModalComponentService.getPreviousAvatarSrc().next(response.token);
         this.isPending = false;
         this.onModalClose();
       })

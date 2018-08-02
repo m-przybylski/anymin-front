@@ -5,10 +5,18 @@ import { CommonModule } from '@angular/common';
 import { ConsultationRowComponent } from './consultation-row/consultation-row.component';
 import { ConsultationStatComponent } from './consultation-stat/consultation-stat.component';
 import { AnymindComponentsModule } from '@anymind-ng/core';
-const COMPONENTS = [SocialLinksComponent, ConsultationRowComponent, ConsultationStatComponent];
+import { EmptyNumberPipe } from './pipes/empty-number.pipe';
+import { ExpertAvailabilityComponent } from './expert-availability/expert-availablitiy.component';
+
+const COMPONENTS = [
+  SocialLinksComponent,
+  ConsultationRowComponent,
+  ConsultationStatComponent,
+  ExpertAvailabilityComponent,
+];
 @NgModule({
   imports: [CommonModule, SharedModule, AnymindComponentsModule],
-  declarations: [COMPONENTS],
+  declarations: [COMPONENTS, EmptyNumberPipe],
   exports: [COMPONENTS],
 })
 export class DashboardComponentsModule {}

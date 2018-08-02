@@ -1,6 +1,10 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
 
+%display
+  display: inline-block
+
 %outline-button
+  @extend %display
   border: solid 1px $c-placeholder
   border-radius: 20px
   background-color: transparent
@@ -14,6 +18,7 @@
 %font-size-14
   font-size: 14px
   line-height: 24px
+  font-weight: 500
 
 %icon-button
   width: 40px
@@ -46,6 +51,7 @@
   border-color: transparent
 
 .plat-mini-flat-fab
+  @extend %display
   display: inline-block
   background-color: transparent
   width: 24px

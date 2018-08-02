@@ -1,5 +1,5 @@
-plat-navbar
-.wrapper
+plat-navbar([isExpertNavVisible]='true')
+.expert-dashboard-layout
   .container
     plat-expert-dashboard-header(
       [avatarToken]='avatarToken',
@@ -7,10 +7,13 @@ plat-navbar
       [links]='links',
       [description]='description',
       [isOwnProfile]='isOwnProfile',
+      [expertId]='expertId',
+      (editProfile)='editProfile()'
     )
 .container
-  h2.header-text KONSULTACJE
+  h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
   plat-expert-dashboard-consultations(
     [consultations]='consultations',
     [isOwnProfile]='isOwnProfile',
+    (addConsultation)='addConsultation()'
   )

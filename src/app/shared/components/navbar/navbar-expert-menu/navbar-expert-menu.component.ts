@@ -16,7 +16,7 @@ import { CreateCompanyConsultationModalComponent } from '../../modals/create-com
 import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { Router } from '@angular/router';
-import { RouterPaths } from '../../../routes/routes';
+import { RouterPaths, RouterHelpers } from '../../../routes/routes';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
@@ -31,9 +31,9 @@ export class NavbarExpertMenuComponent implements OnInit {
 
   @Input() public isCompany: boolean;
 
-  @Input() public avatarUrl: string;
+  @Input() public avatarToken: string;
 
-  @Input() public companyAvatarUrl?: string;
+  @Input() public companyAvatarToken?: string;
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
   public isMenuVisible: boolean;
@@ -58,12 +58,12 @@ export class NavbarExpertMenuComponent implements OnInit {
       .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
   }
 
-  public openEditProfileModal = (): void => {
+  public navigateToExpertProfile = (): void => {
     this.userSessionService
       .getSession()
       .then(session => {
-        const route = RouterPaths.helper.replaceParams(RouterPaths.dashboard.expert.asPath, {
-          [RouterPaths.dashboard.expert.params.expertId]: session.accountId,
+        const route = RouterHelpers.replaceParams(RouterPaths.dashboard.expert.asPath, {
+          [RouterPaths.dashboard.expert.params.expertId]: session.account.id,
         });
         return this.router.navigate([route]);
       })

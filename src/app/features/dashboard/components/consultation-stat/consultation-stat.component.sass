@@ -1,23 +1,31 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
-@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/rwd"
+@import "../../../../template/core/partials/grid"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
 
-.stat-row
-  font-size: 14px
-  line-height: 24px
+.consultation-stat-row
+  +subtitle-small
   display: flex
   flex-direction: row
   align-items: center
   color: $c-label
+
 .stat-item
   &-icon
-    font-size: 1.25em
+    font-size: 18px
     margin-left: 8px
+
   &-icon:nth-child(1)
     margin-left: 0px
+
   &-number
     margin-left: 2px
+
+    +smm
+      display: none
+
   &-desc
     display: none
-    margin-left: 4px
-    +mdm
+
+    +smm
+      margin-left: 4px
       display: inline

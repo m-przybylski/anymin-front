@@ -1,14 +1,10 @@
-// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations } from '@anymind-ng/core';
-import { Subject } from 'rxjs';
+import { Animations, LoggerService, LoggerFactory } from '@anymind-ng/core';
+import { Subject, Observable, of } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
@@ -26,9 +22,7 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
 
   @Input() public companyAvatarToken: string;
 
-  @Input() public companyAvatarUrl: string;
-
-  @Input() public expertAvatarUrl?: string;
+  @Input() public expertAvatarToken?: string;
 
   @Input() public isExpert: boolean;
 

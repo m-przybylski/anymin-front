@@ -32,6 +32,5 @@ export class SetPasswordViewGuard implements CanActivate {
     });
 
   private hasUserPassword = (sessionWithAccount: GetSessionWithAccount): boolean =>
-    sessionWithAccount.account.hasPassword
-
+    sessionWithAccount.account.hasPassword;
 }

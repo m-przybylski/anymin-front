@@ -9,12 +9,12 @@ import { Subject } from 'rxjs';
 import { AvatarSizeEnum } from '../../../../../user-avatar/user-avatar.component';
 
 @Component({
-  selector: 'app-avatar-uploader',
+  selector: 'plat-avatar-uploader',
   templateUrl: './avatar-uploader.component.html',
   styleUrls: ['./avatar-uploader.component.sass'],
 })
 export class AvatarUploaderComponent implements OnDestroy, OnInit {
-  @Input() public avatarUrl: string;
+  @Input() public avatarToken: string;
 
   @Input() public controlName: string;
 
@@ -50,8 +50,8 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
       .getPreviousAvatarSrc()
       .pipe(catchError(err => of(this.handleGetPrevoiusUrlAvatarError(err))))
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((avatarSrc: string) => {
-        this.setAvatarUrl(avatarSrc);
+      .subscribe((avatar: string) => {
+        this.setAvatarToken(avatar);
       });
   }
 
@@ -78,8 +78,8 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
   };
 
-  private setAvatarUrl = (avatarSrc: string): void => {
-    this.avatarUrl = avatarSrc;
-    this.form.controls[this.controlName].setValue(avatarSrc);
+  private setAvatarToken = (avatarToken: string): void => {
+    this.avatarToken = avatarToken;
+    this.form.controls[this.controlName].setValue(avatarToken);
   };
 }

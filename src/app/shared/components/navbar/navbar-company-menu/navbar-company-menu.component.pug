@@ -9,7 +9,7 @@
       .menu-list__user-information
         plat-user-avatar(
         [avatarSize]="avatarSize48",
-        [avatarUrl]="companyAvatarUrl"
+        [avatarToken]="companyAvatarToken"
         )
         .user-name-container
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.LOGGED_AS'")
@@ -57,7 +57,7 @@
         li.menu-list__row((click)="onExpertProfileSwitch($event)", [routerLink]="['/dashboard/user/discover']")
           plat-user-avatar(
           [avatarSize]="avatarSize32",
-          [avatarUrl]="expertAvatarUrl"
+          [avatarToken]="expertAvatarToken"
           )
           span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_EXPERT'")
 
@@ -66,6 +66,6 @@
         li.menu-list__row((click)="onExpertProfileSwitch($event)", [routerLink]="['/dashboard/user/discover']")
           plat-user-avatar(
           [avatarSize]="avatarSize32",
-          [avatarUrl]="expertAvatarUrl"
+          [avatarToken]="expertAvatarToken"
           )
           span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_CLIENT'")

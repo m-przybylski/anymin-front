@@ -2,25 +2,19 @@ FROM eu.gcr.io/dev-country-188109/profitelo-nginx:base
 MAINTAINER loord igor.gerasimow@ratel.io
 
 #name of app branch
-ARG branch=stage
+ARG branch=develop
 
 #name of common-config branch
 ARG common=master
 
 # build env
-ARG env=build-stage
+ARG env=build-dev
 
 RUN git clone git@git.contactis.pl:itelo/profitelo-frontend.git /profitelo-frontend -b $branch
 
 WORKDIR /profitelo-frontend
 
-#RUN git submodule update --init --recursive
-
-RUN mkdir /common-config && git clone git@git.contactis.pl:itelo/common-config.git -b $common /common-config
-
-RUN mkdir -p /profitelo-frontend/src/main/resources/common-config && cp -r /common-config/*.json /profitelo-frontend/lib/common-config/submodule
-
-ENV PROFITELO_ENV=$env
+RUN git submodule update --init --recursive
 
 RUN npm install && npm run ci-deploy
 

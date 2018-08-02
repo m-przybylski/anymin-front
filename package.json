@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "node lib/version/version.js",
     "ng": "ng",
-    "start": "npm run pug-watch | ng serve  --proxy-config proxy.conf.js",
+    "start": "npm run pug-watch | ng serve --proxy-config proxy.conf.js",
     "serve": "npm run start",
     "start-mobile": "pug src/app --doctype html --watch | ng serve --live-reload false  --proxy-config proxy.conf.js",
     "serve-mobile": "npm run start-mobile",
@@ -33,9 +33,13 @@
   "lint-staged": {
     "*.ts": [
       "npm run pretty",
-      "npm run lint",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
   },
   "private": true,
   "dependencies": {

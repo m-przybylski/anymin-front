@@ -1,10 +1,10 @@
-.stat-row
+.consultation-stat-row
   span(plat-icon iconClass='headphone').stat-item-icon
-  span.stat-item-number {{usageCounter || '-'}}
-  span.stat-item-desc połączen
+  span.stat-item-number {{usageCounter | emptyNumber}}
+  span.stat-item-desc {{usageCounter | i18nPlural:callsMapping | translate:{value:usageCounter} }}
   span(plat-icon iconClass='comments').stat-item-icon
-  span.stat-item-number {{commentCounter || '-'}}
-  span.stat-item-desc ocen
+  span.stat-item-number {{commentCounter| emptyNumber}}
+  span.stat-item-desc {{commentCounter | i18nPlural:commentMapping | translate:{value:commentCounter} }}
   span(plat-icon iconClass='satisfaction').stat-item-icon
-  span.stat-item-number {{rating || '-'}}
-  span.stat-item-desc pozytywnych
+  span.stat-item-number {{rating | emptyNumber}}
+  span.stat-item-desc {{rating | emptyNumber | i18nPlural:ratingMapping | translate:{value:rating} }}

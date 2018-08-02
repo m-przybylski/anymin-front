@@ -13,9 +13,10 @@ export class SetPasswordViewResolver implements Resolve<string> {
   ) {}
 
   public resolve = (): Promise<string> =>
-    this.userService.getSession(true)
+    this.userService
+      .getSession(true)
       .then(session => session.account.id)
-      .catch(this.handleGetSessionError)
+      .catch(this.handleGetSessionError);
 
   private handleGetSessionError = (error: HttpErrorResponse): string => {
     this.logger.warn('SetPasswordViewResolver: error when getting session', error);

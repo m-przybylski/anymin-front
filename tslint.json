@@ -8,7 +8,6 @@
     "no-duplicate-variable": true,
     "no-eval": true,
     "no-internal-module": true,
-    "no-trailing-whitespace": true,
     "no-var-keyword": true,
     "await-promise": true,
     "ban-comma-operator": true,
@@ -25,7 +24,6 @@
       "rxjs/Subscription"
     ],
     "encoding": true,
-    "eofline": true,
     "forin": true,
     "interface-over-type-literal": true,
     "jsdoc-format": true,
@@ -133,8 +131,6 @@
       ["Number", "Use number instead."],
       ["Boolean", "Use boolean instead."]
     ],
-    "one-line": [true, "check-open-brace", "check-whitespace"],
-    "quotemark": [true, "single"],
     "no-debugger": true,
     "import-spacing": false,
     "no-consecutive-blank-lines": true,

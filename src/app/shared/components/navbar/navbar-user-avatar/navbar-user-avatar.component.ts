@@ -1,14 +1,11 @@
-// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Subject } from 'rxjs';
 import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 @Component({
@@ -18,8 +15,6 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 })
 export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
   @Input() public avatarToken?: string;
-
-  @Input() public avatarUrl?: string;
 
   @Input() public userVisibility?: GetExpertVisibility.VisibilityEnum;
 

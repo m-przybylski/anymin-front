@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AnymindComponentsCoreModule } from '@anymind-ng/core';
 import { getCoreConfig } from './factories/core-config/core-config.facotry';
+import { LongPollingService } from './services/long-polling/long-polling.service';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { getCoreConfig } from './factories/core-config/core-config.facotry';
     ApiKeyService,
     EventsServiceProvider,
     UserSessionService,
+    LongPollingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptor,

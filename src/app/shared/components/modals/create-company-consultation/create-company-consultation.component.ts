@@ -2,7 +2,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
-import { EMPTY } from 'rxjs/index';
+import { EMPTY } from 'rxjs';
 import { Config } from '../../../../../config';
 import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
@@ -88,7 +88,7 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
           this.isRequestPending = false;
           this.alertService.pushSuccessAlert(Alerts.CreateConsultationSuccess);
           this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
-          this.activeModal.close();
+          this.activeModal.close(true);
         });
     } else {
       this.formUtils.validateAllFormFields(this.createConsultationForm);

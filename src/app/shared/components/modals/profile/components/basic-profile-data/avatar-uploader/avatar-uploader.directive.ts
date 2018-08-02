@@ -36,7 +36,7 @@ export class AvatarUploaderDirective {
             file: event.target.files[0],
           };
         };
-        reader.onerror = (err: ErrorEvent): void => {
+        reader.onerror = (err): void => {
           this.logger.error('Can not read file', err);
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         };
