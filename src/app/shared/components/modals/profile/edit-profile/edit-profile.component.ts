@@ -10,7 +10,6 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
-import { GetSession } from '@anymind-ng/api';
 import { ConfigDEFAULT } from '../../../../../../../generated_modules/common-config/common-config.default';
 import { CommonConfig } from '../../../../../../common-config';
 import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
@@ -21,6 +20,7 @@ import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
 import { takeUntil } from 'rxjs/internal/operators';
 import { Subject } from 'rxjs/index';
 import { Router } from '@angular/router';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
@@ -136,11 +136,9 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.fileUploadTokensList = tokenList;
   }
 
-  private adjustProfileDetails = (session: GetSession): void => {
-    if (session.account !== undefined) {
+  private adjustProfileDetails = (session: GetSessionWithAccount): void => {
       this.isExpert = session.account.isExpert;
       this.isCompany = session.account.isCompany;
-    }
     (this.isExpert) ? this.assignExpertProfileDetails() : this.assignClientProfileDetils(session);
   }
 
@@ -153,7 +151,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       }, (err) => this.handleResponseError(err, 'Can not set client profile'));
   }
 
-  private assignClientProfileDetils = (session: GetSession): void => {
+  private assignClientProfileDetils = (session: GetSessionWithAccount): void => {
     this.isPending = false;
     this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
     (this.isExpertForm) ? this.setClientFormValuesAsExpert(session) : this.setClientFormValues(session);
@@ -170,9 +168,9 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       }, (err) => this.handleResponseError(err, 'Can not get expert file profile'));
   }
 
-  private setClientFormValues = (accountDetails: GetSession): void => {
-    if (accountDetails.account !== undefined && (typeof accountDetails.account.settings.nickname !== 'undefined' ||
-        typeof accountDetails.account.settings.avatar !== 'undefined')) {
+  private setClientFormValues = (accountDetails: GetSessionWithAccount): void => {
+    if (typeof accountDetails.account.settings.nickname !== 'undefined' ||
+        typeof accountDetails.account.settings.avatar !== 'undefined') {
       this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails.account.settings.nickname);
       this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails.account.settings.avatar);
       this.editProfileModalComponentService.getPreviousAvatarSrc()
@@ -180,9 +178,9 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setClientFormValuesAsExpert = (accountDetails: GetSession): void => {
-    if (accountDetails.account !== undefined && (typeof accountDetails.account.settings.nickname !== 'undefined' ||
-        typeof accountDetails.account.settings.avatar !== 'undefined')) {
+  private setClientFormValuesAsExpert = (accountDetails: GetSessionWithAccount): void => {
+    if (typeof accountDetails.account.settings.nickname !== 'undefined' ||
+        typeof accountDetails.account.settings.avatar !== 'undefined') {
       this.expertNameForm.controls[this.expertFormControlName].setValue(accountDetails.account.settings.nickname);
       this.expertNameForm.controls[this.expertFormControlAvatar].setValue(accountDetails.account.settings.avatar);
       this.editProfileModalComponentService.getPreviousAvatarSrc()

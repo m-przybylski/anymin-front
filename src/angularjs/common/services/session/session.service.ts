@@ -3,10 +3,10 @@
 // tslint:disable:no-delete
 import { UserSessionService } from '../../../../app/core/services/user-session/user-session.service';
 import { Config } from '../../../../config';
-import { GetSession } from 'profitelo-api-ng/model/models';
 import { EventsService } from '../events/events.service';
 import { UpgradeService } from '../upgrade/upgrade.service';
 import { LoginCredentials } from '@anymind-ng/api';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 // tslint:disable:member-ordering
 export class SessionServiceWrapper {
@@ -30,15 +30,15 @@ export class SessionServiceWrapper {
   public logout = (): ng.IPromise<void> =>
     this.upgradeService.toIPromise(this.userSessionService.logout()).then(this.onSuccessLogout)
 
-  public login = (loginDetails: LoginCredentials): ng.IPromise<GetSession> =>
+  public login = (loginDetails: LoginCredentials): ng.IPromise<GetSessionWithAccount> =>
     this.upgradeService.toIPromise(this.userSessionService.login(loginDetails)).then(this.onSuccessLogin)
 
-  public getSession = (force = false): ng.IPromise<GetSession> =>
+  public getSession = (force = false): ng.IPromise<GetSessionWithAccount> =>
     this.upgradeService.toIPromise(this.userSessionService.getSession(force)).then(this.onSuccessLogin)
 
-  private onSuccessLogin = (session: GetSession): GetSession => {
-    this.setApiKeyHeader(session.apiKey);
-    return session;
+  private onSuccessLogin = (sessionWithAccount: GetSessionWithAccount): GetSessionWithAccount => {
+    this.setApiKeyHeader(sessionWithAccount.session.apiKey);
+    return sessionWithAccount;
   }
 
   private onSuccessLogout = (): void => {

@@ -10,6 +10,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { mergeMap } from 'rxjs/operators';
 import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class EditProfileModalComponentService {
@@ -31,7 +32,7 @@ export class EditProfileModalComponentService {
   public getPreviousAvatarSrc = (): ReplaySubject<string> =>
     this.avatarUrl$
 
-  public getSession = (): Observable<GetSession> =>
+  public getSession = (): Observable<GetSessionWithAccount> =>
     fromPromise(this.userSessionService.getSession())
 
   public getProfileDetails = (): Observable<GetProfileWithDocuments> =>

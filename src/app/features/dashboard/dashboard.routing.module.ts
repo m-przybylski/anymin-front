@@ -12,7 +12,6 @@ import { CompanyDashboardComponent } from './views/company-dashboard/company-das
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
-import { UserDashboardViewGuard } from './views/user-dashboard/user-dashboard.view.guard';
 
 const routes: Routes = [
   {
@@ -22,8 +21,7 @@ const routes: Routes = [
       {path: 'expert-activities', component: ExpertActivitiesComponent},
       {path: 'favourites', component: FavouritesComponent},
       {path: 'settings', component: SettingsViewComponent}
-      ],
-    canActivate: [UserDashboardViewGuard]
+      ]
   },
   {
     path: 'company', component: CompanyDashboardComponent, children: [
@@ -42,8 +40,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    CompanyDashboardViewGuard,
-    UserDashboardViewGuard
+    CompanyDashboardViewGuard
   ]
 })
 export class DashboardRoutingModule {

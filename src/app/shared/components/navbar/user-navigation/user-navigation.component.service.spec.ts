@@ -3,8 +3,9 @@ import { TestBed, inject } from '@angular/core/testing';
 import { LoggerFactory } from '@anymind-ng/core';
 import createSpyObj = jasmine.createSpyObj;
 import { UserNavigationComponentService } from './user-navigation.component.service';
-import { GetSession, ProfileService } from '@anymind-ng/api';
+import { ProfileService } from '@anymind-ng/api';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 describe('UserNavigationComponentService', () => {
   beforeEach(() => {
@@ -36,16 +37,35 @@ describe('UserNavigationComponentService', () => {
   it('should get user profile', () => {
     const service = TestBed.get(UserNavigationComponentService);
     const profileService = TestBed.get(ProfileService);
-    const session: GetSession = {
-      accountId: 'accountId',
-      apiKey: 'apikey',
-      ipAddress: 'ip',
-      country: 'country',
-      isExpired: false,
-      lastActivityAt: new Date(),
+    const session: GetSessionWithAccount = {
+      account: {
+        id: 'id',
+        msisdn: '+48555555555',
+        registeredAt: new Date(),
+        isBlocked: false,
+        hasPassword: true,
+        isClientCompany: true,
+        isCompany: true,
+        isExpert: true,
+        doesMsisdnMatchCountry: true,
+        hasMobilePin: true,
+        settings: {
+          isAnonymous: false
+        },
+        currency: 'PLN',
+        countryISO: 'pl',
+        protectedViews: ['']
+      },
+      session: {
+        accountId: 'id',
+        apiKey: 'apiKey',
+        ipAddress: '0.0.0.0',
+        isExpired: false,
+        lastActivityAt: new Date()
+      }
     };
 
     service.getProfileDetails(session);
-    expect(profileService.getProfileRoute).toHaveBeenCalledWith(session.accountId);
+    expect(profileService.getProfileRoute).toHaveBeenCalledWith(session.account.id);
   });
 });

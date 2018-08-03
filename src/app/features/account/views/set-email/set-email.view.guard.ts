@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { GetSession } from '@anymind-ng/api';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class SetEmailViewGuard implements CanActivate {
@@ -34,10 +34,7 @@ export class SetEmailViewGuard implements CanActivate {
       }
     })
 
-  private hasUserEmail = (session: GetSession): boolean => {
-    const userAccount = session.account;
-    return userAccount !== undefined && userAccount.email !== undefined
-      || userAccount !== undefined && userAccount.unverifiedEmail !== undefined;
-  }
+  private hasUserEmail = (sessionWithAccount: GetSessionWithAccount): boolean =>
+    sessionWithAccount.account.email !== undefined || sessionWithAccount.account.unverifiedEmail !== undefined
 
 }

@@ -1,14 +1,15 @@
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
-import { GetSession, LoginCredentials, SessionService } from '@anymind-ng/api';
+import { LoginCredentials, SessionService } from '@anymind-ng/api';
 import { ApiKeyService } from '../api-key/api-key.service';
 import { EventsService } from '../../../../angularjs/common/services/events/events.service';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class UserSessionService {
 
-  private sessionCache?: Promise<GetSession>;
+  private sessionCache?: Promise<GetSessionWithAccount>;
 
   private readonly unauthorizedCode = 401;
 
@@ -21,7 +22,7 @@ export class UserSessionService {
     this.sessionService.logoutCurrentRoute()
       .toPromise().then(this.onSuccessLogout, this.onFailureLogout)
 
-  public login = (loginDetails: LoginCredentials): Promise<GetSession> =>
+  public login = (loginDetails: LoginCredentials): Promise<GetSessionWithAccount> =>
     this.sessionService.login(loginDetails).toPromise().then((session) => {
       this.eventsService.emit('login');
 
@@ -31,7 +32,7 @@ export class UserSessionService {
   public isLoggedIn = (): boolean =>
     typeof this.sessionCache !== 'undefined'
 
-  public getSession = (force = false): Promise<GetSession> => {
+  public getSession = (force = false): Promise<GetSessionWithAccount> => {
     if (force) {
       this.sessionCache = this.getSessionFromBackend();
       return this.sessionCache;
@@ -46,16 +47,16 @@ export class UserSessionService {
     }
   }
 
-  private getSessionFromBackend = (): Promise<GetSession> => {
+  private getSessionFromBackend = (): Promise<GetSessionWithAccount> => {
     this.sessionCache = this.sessionService.checkRoute().toPromise().then(this.onSuccessLogin);
     return this.sessionCache;
   }
 
-  private onSuccessLogin = (session: GetSession): GetSession => {
-    this.sessionCache = Promise.resolve(session);
-    this.authService.setApiKey(session.apiKey);
+  private onSuccessLogin = (sessionWithAccount: GetSessionWithAccount): GetSessionWithAccount => {
+    this.sessionCache = Promise.resolve(sessionWithAccount);
+    this.authService.setApiKey(sessionWithAccount.session.apiKey);
 
-    return session;
+    return sessionWithAccount;
   }
 
   private onSuccessLogout = (): void => {

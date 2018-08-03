@@ -27,6 +27,7 @@ import topAlertModule from '../../../../common/services/top-alert/top-alert';
 import { TranslatorService } from '../../../../common/services/translator/translator.service';
 import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
 import { ISessionDeleted } from '../../../../common/services/session-deleted/session-deleted.service';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 interface ISession {
   device: string;
@@ -143,7 +144,7 @@ angular.module('profitelo.controller.dashboard.settings.security', [
       controllerAs: 'vm',
       resolve: {
         currentSession: ['sessionServiceWrapper',
-          (sessionServiceWrapper: SessionServiceWrapper): ng.IPromise<GetSession> =>
+          (sessionServiceWrapper: SessionServiceWrapper): ng.IPromise<GetSessionWithAccount> =>
             sessionServiceWrapper.getSession(true)],
         sessionsData: ['securitySettingsResolver',
           (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>

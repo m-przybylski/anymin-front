@@ -1,10 +1,11 @@
 import { Observable, Subject } from 'rxjs/Rx';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { fromPromise } from 'rxjs/observable/fromPromise';
-import { GetSession, ProfileService } from '@anymind-ng/api';
+import { ProfileService } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { Injectable } from '@angular/core';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class UserNavigationComponentService {
@@ -24,9 +25,9 @@ export class UserNavigationComponentService {
   public onUpdateClientProfile$ = (): Subject<boolean> =>
     this.isClientProfileUpdated
 
-  public updateSession = (): Observable<GetSession> =>
+  public updateSession = (): Observable<GetSessionWithAccount> =>
     fromPromise(this.userSessionService.getSession(true))
 
-  public getProfileDetails = (session: GetSession): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(session.accountId)
+  public getProfileDetails = (sessionWithAccount: GetSessionWithAccount): Observable<GetProfileWithDocuments> =>
+    this.profileService.getProfileRoute(sessionWithAccount.account.id)
 }

@@ -2,9 +2,9 @@ import * as angular from 'angular'
 import sessionDeletedModule from './session-deleted'
 import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websocket.service'
 import {ISessionDeleted, SessionDeletedService} from './session-deleted.service'
-import {GetSession} from 'profitelo-api-ng/model/models'
 import {EventsService} from '../events/events.service'
 import {SessionServiceWrapper} from '../session/session.service';
+import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 describe('Unit testing: profitelo.services.sessionDeletedService >', () => {
   describe('for profitelo.services.sessionDeletedService >', () => {
@@ -42,8 +42,32 @@ describe('Unit testing: profitelo.services.sessionDeletedService >', () => {
 
     it('should not delete current session ', () => {
       inject(($q: ng.IQService, $rootScope: angular.IRootScopeService) => {
-        const mockSession: GetSession = <any>{
-          apiKey: '123456'
+        const mockSession: GetSessionWithAccount = {
+          account: {
+            id: 'id',
+            msisdn: '+48555555555',
+            registeredAt: new Date(),
+            isBlocked: false,
+            hasPassword: true,
+            isClientCompany: true,
+            isCompany: true,
+            isExpert: true,
+            doesMsisdnMatchCountry: true,
+            hasMobilePin: true,
+            settings: {
+              isAnonymous: false
+            },
+            currency: 'PLN',
+            countryISO: 'pl',
+            protectedViews: ['']
+          },
+          session: {
+            accountId: 'id',
+            apiKey: 'apiKey',
+            ipAddress: '0.0.0.0',
+            isExpired: false,
+            lastActivityAt: new Date()
+          }
         }
         sessionServiceWrapper.getSession.and.callFake(() => $q.resolve(mockSession))
         sessionDeletedService.init()
@@ -56,13 +80,37 @@ describe('Unit testing: profitelo.services.sessionDeletedService >', () => {
 
     it('should delete current session ', () => {
       inject(($q: ng.IQService, $rootScope: angular.IRootScopeService) => {
-        const mockSession: GetSession = <any>{
-          apiKey: '123456'
+        const mockSession: GetSessionWithAccount = {
+          account: {
+            id: 'id',
+            msisdn: '+48555555555',
+            registeredAt: new Date(),
+            isBlocked: false,
+            hasPassword: true,
+            isClientCompany: true,
+            isCompany: true,
+            isExpert: true,
+            doesMsisdnMatchCountry: true,
+            hasMobilePin: true,
+            settings: {
+              isAnonymous: false
+            },
+            currency: 'PLN',
+            countryISO: 'pl',
+            protectedViews: ['']
+          },
+          session: {
+            accountId: 'id',
+            apiKey: 'apiKey',
+            ipAddress: '0.0.0.0',
+            isExpired: false,
+            lastActivityAt: new Date()
+          }
         }
         sessionServiceWrapper.getSession.and.callFake(() => $q.resolve(mockSession))
         sessionDeletedService.init()
         expect(sessionDeletedCallBack).toBeDefined()
-        sessionDeletedCallBack({removedSessionApiKey: mockSession.apiKey})
+        sessionDeletedCallBack({removedSessionApiKey: mockSession.session.apiKey})
         $rootScope.$apply()
         expect(eventsService.emit).toHaveBeenCalledWith('remote-session-deleted')
       })

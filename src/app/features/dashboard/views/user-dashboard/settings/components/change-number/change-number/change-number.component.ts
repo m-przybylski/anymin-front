@@ -37,12 +37,9 @@ export class ChangeNumberComponent implements OnInit {
   public ngOnInit(): void {
     this.changeNumberForm = new FormGroup({});
     this.userService.getSession().then((user) => {
-      const account = user.account;
-      if (typeof account !== 'undefined') {
-        this.userPhoneNumber = account.msisdn.slice(this.msisdnLength);
-        this.changeNumberForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
-        this.changeNumberForm.controls[this.msisdnControlName].setValue(this.userPhoneNumber);
-      }
+      this.userPhoneNumber = user.account.msisdn.slice(this.msisdnLength);
+      this.changeNumberForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
+      this.changeNumberForm.controls[this.msisdnControlName].setValue(this.userPhoneNumber);
     }).catch(() => {
 
     });
