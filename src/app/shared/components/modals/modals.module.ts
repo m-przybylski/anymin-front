@@ -21,6 +21,7 @@ from '../../../features/dashboard/views/user-dashboard/settings/components/passw
 import { PinVerificationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/pin-verification/pin-verification.component';
 import { SetNewPasswordComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/set-new-password/set-new-password.component';
 import { EmailConfirmationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
+import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/change-email/change-email.view.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { EmailConfirmationComponent } from '../../../features/dashboard/views/us
     SetNewPasswordComponent,
     EmailConfirmationComponent,
     PasswordSettingsViewComponent,
+    ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent
   ],
@@ -44,6 +46,7 @@ import { EmailConfirmationComponent } from '../../../features/dashboard/views/us
     SetNewPasswordComponent,
     EmailConfirmationComponent,
     PasswordSettingsViewComponent,
+    ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent
   ],

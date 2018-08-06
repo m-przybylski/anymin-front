@@ -1725,7 +1725,13 @@
   "DASHBOARD.SETTINGS.SET_PASSWORD.SUBMIT_BUTTON":"Zapisz",
   "DASHBOARD.SETTINGS.EMAIL_CONFIRMATION.TITLE":"Potwierdzenie",
   "DASHBOARD.SETTINGS.EMAIL_CONFIRMATION.DESCRIPTION":"Sprawdź swoją skrzynkę pocztową",
-  "DASHBOARD.SETTINGS.EMAIL_CONFIRMATION.SUB_DESCRIPTION":"Wysłaliśmy Ci link do zmiany hasła"
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.HEADER":"Adres e-mail",
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.LABEL":"Twój adres e-mail:",
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.PLACEHOLDER":"Wpisz nowy adres e-mail",
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.SUBMIT_BUTTON":"Zapisz",
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.HEADER":"Potwierdzenie",
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.TITLE":"Sprawdź swoją skrzynkę,<br>wysłaliśmy Ci link do weryfikacji adresu.",
+  "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE":"Dopóki nie zweryfikujesz nowego adresu,<br>będziesz otrzymywać wszystkie wiadomości<br>na poprzedni adres e-mail."
 }
 
 
