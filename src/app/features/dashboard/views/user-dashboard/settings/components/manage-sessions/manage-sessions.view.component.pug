@@ -1,0 +1,50 @@
+plat-modal-component.manage-sessions(
+  [modalTrTitleHeader]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.TITLE'",
+  [modalContainerClass]="modalWidth"
+)
+
+  ul(contentHeightAnimation)
+    li.session-row(
+      *ngFor="let session of activeSessions",
+      [@fadeOut]
+    )
+      ng-container([ngSwitch]="session.device")
+        div.session-container(*ngSwitchCase="deviceTypes.DESKTOP")
+          span.icon.icon-stroke-computer
+          div.session-container__information
+            p.information__device {{ 'DASHBOARD.SETTINGS.MANAGE_SESSIONS.DESKTOP_DEVICE' | translate }}
+              span.information__device(
+                *ngIf="session.isCurrentSession",
+                [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.DEVICE_IN_USE'"
+              )
+            p.information__session {{ session.details }}
+          span.button.button--tertiary(
+            (click)="onLogoutSession(session.apiKey)",
+            [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON'"
+          )
+
+        div.session-container(*ngSwitchCase="deviceTypes.MOBILE")
+          span.icon.icon-stroke-cellphone
+          div.session-container__information
+            p.information__device {{ 'DASHBOARD.SETTINGS.MANAGE_SESSIONS.MOBILE_DEVICE' | translate }}
+              span.information__device(*ngIf="session.isCurrentSession",
+                [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.DEVICE_IN_USE'"
+              )
+            p.information__session {{ session.details }}
+          span.button.button--tertiary(
+            (click)="onLogoutSession(session.apiKey)",
+            [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON'"
+          )
+
+        div.session-container(*ngSwitchCase="deviceTypes.UNKNOWN")
+          span.icon.icon-questionmark
+          div.session-container__information
+            p.information__device {{ 'DASHBOARD.SETTINGS.MANAGE_SESSIONS.UNKNOWN_DEVICE' | translate }}
+              span.information__device(*ngIf="session.isCurrentSession",
+                [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.DEVICE_IN_USE'"
+              )
+            p.information__session {{ session.details }}
+          span.button.button--tertiary(
+            (click)="onLogoutSession(session.apiKey)",
+            [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON'"
+          )

@@ -46,7 +46,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     'translatorService', '$location', 'sessionsData', 'profiteloWebsocket'];
 
   constructor(private modalsService: ModalsService,
-              private currentSession: GetSession,
+              private currentSession: GetSessionWithAccount,
               private SessionApi: SessionApi,
               private userService: UserService,
               private topAlertService: TopAlertService,
@@ -83,7 +83,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
 
       return {
         device: deviceType(),
-        status: currentSession.apiKey === session.apiKey,
+        status: currentSession.session.apiKey === session.apiKey,
         city: session.city,
         system: String(session.userAgent),
         apiKey: session.apiKey
@@ -95,7 +95,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
   }
 
   public removeSession = (apiKey: string): void => {
-    if (this.currentSession.apiKey !== apiKey) {
+    if (this.currentSession.session.apiKey !== apiKey) {
       this.SessionApi.logoutRoute(apiKey).then(() => {
         _.remove(this.sessions, session => session.apiKey === apiKey);
       }, (error) => {
@@ -112,7 +112,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     }
   }
 
-  public checkIsCurrentSession = (apiKey: string): boolean => apiKey === this.currentSession.apiKey;
+  public checkIsCurrentSession = (apiKey: string): boolean => apiKey === this.currentSession.session.apiKey;
 
   public openSecurityChangePasswordSettingsModal = (): void => {
     this.modalsService.createSecurityChangePasswordSettingsModal();

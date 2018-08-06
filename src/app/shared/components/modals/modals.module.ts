@@ -25,6 +25,7 @@ import { EmployeesInviteModalComponent } from './employees-invite/employees-invi
 import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/change-email/change-email.view.component';
 import { CsvUploaderComponent } from './employees-invite/csv-uploader/csv-uploader.component';
 import { CsvUploaderDirective } from './employees-invite/csv-uploader/csv-uploader.directive';
+import { ManageSessionsViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/manage-sessions/manage-sessions.view.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CsvUploaderDirective } from './employees-invite/csv-uploader/csv-upload
     PinVerificationComponent,
     SetNewPasswordComponent,
     EmailConfirmationComponent,
+    ManageSessionsViewComponent,
     PasswordSettingsViewComponent,
     ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
@@ -53,6 +55,7 @@ import { CsvUploaderDirective } from './employees-invite/csv-uploader/csv-upload
     EmailConfirmationComponent,
     PasswordSettingsViewComponent,
     ChangeEmailViewComponent,
+    ManageSessionsViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent,
     EmployeesInviteModalComponent

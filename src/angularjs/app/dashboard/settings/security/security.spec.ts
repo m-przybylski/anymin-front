@@ -34,7 +34,9 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
               apiKey: 'kkkkklllaaaa'
             }],
           currentSession: {
-            apiKey: 'someApiKey'
+            session: {
+              apiKey: 'someApiKey'
+            }
           }
         })
       })
