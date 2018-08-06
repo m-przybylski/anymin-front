@@ -43,7 +43,7 @@
       {
         "type": "initial",
         "maximumWarning": "6500kb",
-        "maximumError": "7000kb"
+        "maximumError": "7500kb"
       }]
     }
   ],
