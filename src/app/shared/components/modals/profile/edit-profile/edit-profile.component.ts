@@ -139,7 +139,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   private adjustProfileDetails = (session: GetSessionWithAccount): void => {
       this.isExpert = session.account.isExpert;
       this.isCompany = session.account.isCompany;
-    (this.isExpert) ? this.assignExpertProfileDetails() : this.assignClientProfileDetils(session);
+    (this.isExpert) ? this.assignExpertProfileDetails() : this.assignClientProfileDetails(session);
   }
 
   private sendClientProfile = (data: PutGeneralSettings): void => {
@@ -151,19 +151,19 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       }, (err) => this.handleResponseError(err, 'Can not set client profile'));
   }
 
-  private assignClientProfileDetils = (session: GetSessionWithAccount): void => {
+  private assignClientProfileDetails = (session: GetSessionWithAccount): void => {
     this.isPending = false;
     this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
     (this.isExpertForm) ? this.setClientFormValuesAsExpert(session) : this.setClientFormValues(session);
   }
 
   private assignExpertProfileDetails = (): void => {
+    this.modalAnimationComponentService.isPendingRequest().next(true);
     this.editProfileModalComponentService.getProfileDetails()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((profileDetails) => {
         this.setExpertFormValues(profileDetails);
         this.isPending = false;
-        this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
         this.navbarComponentService.onUpdateClientProfile$().next(true);
       }, (err) => this.handleResponseError(err, 'Can not get expert file profile'));
   }

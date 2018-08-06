@@ -123,17 +123,18 @@ export class CreateOrganizationModalComponent implements OnInit {
   }
 
   private assignOrganizationDetails = (): void => {
+    this.modalAnimationComponentService.isPendingRequest().next(true);
     this.createOrganizationModalComponentService.getProfileDetails()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((companyProfileDetails) => {
         this.setCompanyFormValues(companyProfileDetails);
         this.checkExpertConsultationsLength(companyProfileDetails.profile.id);
         this.isPending = false;
-        this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
       }, (err) => this.handleResponseError(err, 'Can not get user session'));
   }
 
   private checkExpertConsultationsLength = (accountId: string): void => {
+    this.modalAnimationComponentService.isPendingRequest().next(true);
     this.createOrganizationModalComponentService.getProfileService(accountId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((consultations) => {

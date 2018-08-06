@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeNumberComponent } from './components/change-number/change-number/change-number.component';
+import { PasswordSettingsViewComponent } from './components/password-settings/password-settings.view.component';
 
 @Component({
   selector: 'plat-settings',
@@ -15,4 +16,9 @@ export class SettingsViewComponent {
   public openChangeNumberModal = (): void => {
     this.ngbModalService.open(ChangeNumberComponent);
   }
+
+  public openChangePasswordModal = (): void => {
+    this.ngbModalService.open(PasswordSettingsViewComponent);
+  }
+
 }

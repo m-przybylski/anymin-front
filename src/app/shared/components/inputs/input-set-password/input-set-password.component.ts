@@ -8,7 +8,8 @@ import {
   from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 
 export enum InputSetPasswordErrors {
-  IncorrectPassword = 'IncorrectPassword'
+  IncorrectPassword = 'incorrectPassword',
+  DuplicatedPassword = 'duplicatedPassword',
 }
 
 @Component({
@@ -36,11 +37,7 @@ export class InputSetPasswordComponent {
   @Input()
   public initialFocus = false;
 
-  public readonly textType = 'text';
-  public readonly passwordType = 'password';
-
   public isFocused = false;
-  public currentAttribute: string = this.passwordType;
 
   constructor(public formUtils: FormUtilsService,
               private commonSettingService: CommonSettingsService) {
@@ -48,13 +45,18 @@ export class InputSetPasswordComponent {
 
   public ngOnInit(): void {
     this.formGroup.addControl(this.controlName, new FormControl('', [
-      Validators.required
+      Validators.required, Validators.pattern(this.commonSettingService.localSettings.passwordPattern)
     ]));
   }
 
-  public isIncorrectPassword = (): boolean => {
+  public isIncorrectPasswordError = (): boolean => {
     const errors: ValidationErrors | null = this.formGroup.controls[this.controlName].errors;
-    return this.isFieldInvalid() && errors && errors[InputSetPasswordErrors.IncorrectPassword];
+    return this.isFieldInvalid() && errors && (errors.pattern || errors[InputSetPasswordErrors.IncorrectPassword]);
+  }
+
+  public isDuplicatePasswordError = (): boolean => {
+    const errors: ValidationErrors | null = this.formGroup.controls[this.controlName].errors;
+    return this.isFieldInvalid() && errors && errors[InputSetPasswordErrors.DuplicatedPassword];
   }
 
   public isRequiredError = (): void => {
@@ -71,14 +73,6 @@ export class InputSetPasswordComponent {
 
   public onBlur = (): void => {
     this.isFocused = false;
-  }
-
-  public displayPassword = (): void => {
-    this.currentAttribute = this.textType;
-  }
-
-  public hidePassword = (): void => {
-    this.currentAttribute = this.passwordType;
   }
 
   public isPasswordPassRegexp = (): boolean =>

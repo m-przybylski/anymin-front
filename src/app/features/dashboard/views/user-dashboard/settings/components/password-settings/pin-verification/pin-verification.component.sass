@@ -1,0 +1,28 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../../../../../shared/components/modals/modal/modal.component"
+
+.pin-verification-component
+  text-align:  center
+
+  .modal-component
+    &__content
+      &__header
+        justify-content: center
+        margin: 0 0 32px
+
+  am-core-submit-button
+    margin: 0 0 24px
+
+  .send-again
+    margin: 24px 0 0
+
+    p
+      +subtitle-small
+      font-weight: 400
+      color: $c-text-secondary
+
+    &__link
+      +button-small
+      font-weight: 500
+      color: $c-primary
