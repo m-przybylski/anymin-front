@@ -1,0 +1,36 @@
+plat-modal-component.change-email(
+  [modalTrTitleHeader]="headerTrKey",
+  [modalContainerClass]="modalWidth"
+)
+
+  .modal-form(*ngIf="!isEmailChanged; else emailConfirmation")
+    form(
+      [id]="changeEmailFormId",
+      [formGroup]="changeEmailForm",
+      novalidate,
+      (ngSubmit)="onFormSubmit(changeEmailForm)"
+    )
+
+      .modal-form__row--small
+        am-core-input-email(
+          label="DASHBOARD.SETTINGS.CHANGE_EMAIL.LABEL",
+          placeholder="DASHBOARD.SETTINGS.CHANGE_EMAIL.PLACEHOLDER",
+          [form]="changeEmailForm",
+          [controlName]="emailControlName",
+          [isDisabled]="isRequestPending",
+          [isRequired]="true",
+          [initialFocus]="true"
+        )
+
+      am-core-submit-button(
+        titleText="DASHBOARD.SETTINGS.CHANGE_EMAIL.SUBMIT_BUTTON",
+        [formName]="changeEmailFormId",
+        [isLoading]="isRequestPending"
+      )
+
+  ng-template(#emailConfirmation)
+    am-core-content-default(
+      imgName="message-send",
+      titleText="DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.TITLE",
+      descriptionText="DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE"
+    )
