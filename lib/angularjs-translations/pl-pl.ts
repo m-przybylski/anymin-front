@@ -1740,9 +1740,12 @@ import "angular-translate"
             "DASHBOARD.SETTINGS.CHANGE_EMAIL.PLACEHOLDER":"Wpisz nowy adres e-mail",
             "DASHBOARD.SETTINGS.CHANGE_EMAIL.SUBMIT_BUTTON":"Zapisz",
             "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.HEADER":"Potwierdzenie",
-          "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.TITLE":"Sprawdź swoją skrzynkę,<br>wysłaliśmy Ci link do weryfikacji adresu.",
-          "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE":"Dopóki nie zweryfikujesz nowego adresu,<br>będziesz otrzymywać wszystkie wiadomości<br>na poprzedni adres e-mail."
-        })
+            "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.TITLE":"Sprawdź swoją skrzynkę,<br>wysłaliśmy Ci link do weryfikacji adresu.",
+            "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE":"Dopóki nie zweryfikujesz nowego adresu,<br>będziesz otrzymywać wszystkie wiadomości<br>na poprzedni adres e-mail.",
+			"UNSUPPORTED.HEADER":"Niestety, Twoja przeglądarka i/lub system operacyjny nie jest wspierany przez AnyMind",
+  			"UNSUPPORTED.PARAGRAPH":"Listę obsługiwanych przeglądarek oraz systemów możesz sprawdzić w naszym centrum pomocy.",
+  			"UNSUPPORTED.ICON_DESCRIPTION":"Wymagania techniczne AnyMind"
+		})
     }])
 })(angular);
 
