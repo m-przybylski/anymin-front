@@ -96,8 +96,8 @@ export const angularjsModule = angular.module('profitelo', [
   .run(['$rootScope', '$log', 'permissionService', '$anchorScroll',
     'sessionServiceWrapper', '$urlRouter', '$state', 'topAlertService', 'sessionDeletedService',
     'profiteloWebsocket', AppRunFunction])
-  .config(['$urlRouterProvider', '$httpProvider', '$stateProvider', '$translateProvider',
+  .config(['$urlRouterProvider', '$stateProvider', '$translateProvider',
     '$locationProvider', '$animateProvider', 'tmhDynamicLocaleProvider', AppConfigFunction])
   .controller('AppComponentController', ['InterfaceLanguageService', AppComponentController])
-  .constant('apiUrl', CommonConfig.getCommonConfig().urls.backend)
+  .constant('apiUrl', window.location.origin)
   .service('upgradeService', UpgradeService);

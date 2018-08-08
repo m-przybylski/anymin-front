@@ -43,7 +43,7 @@ export class UploaderService {
 
   constructor(private FilesService: FilesService) {
     this.commonConfig = CommonConfig.getCommonConfig();
-    this.filesUrl = this.commonConfig.urls.files;
+    this.filesUrl = window.location.origin;
     this.uploadFileUrl = this.commonConfig.urls['file-upload'];
   }
 

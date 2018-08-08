@@ -5,7 +5,7 @@ import { AppComponentController } from './app.controller';
 import { StateProvider } from '@uirouter/angularjs';
 import { Config } from '../../config';
 
-export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
+export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider,
                                   $stateProvider: StateProvider,
                                   $translateProvider: ng.translate.ITranslateProvider,
                                   $locationProvider: ng.ILocationProvider,
@@ -23,8 +23,6 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     $urlRouterProvider
       .otherwise('/home');
   }
-
-  $httpProvider.defaults.withCredentials = true;
 
   $animateProvider.classNameFilter(/animation/);
 

@@ -10,7 +10,7 @@ export class CommonSettingsService {
   private readonly validation = this.commonConfigData.validation;
   private readonly urls = this.commonConfigData.urls;
   public readonly links = {
-    imageUrl: this.urls.files + this.urls['file-download'],
+    imageUrl: window.location.origin + this.urls['file-download'],
     zendeskAllowMediaUrl: this.urls.zendesk + 'hc/pl/articles/115002692852-' +
     '-Moja-przegl%C4%85darka-nie-ma-dost%C4%99pu-do-kamery-i-mikrofonu-jak-to-naprawi%C4%87-',
     widgetSdk: this.commonConfigData.urls['widget-sdk'],
