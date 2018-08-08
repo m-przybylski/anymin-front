@@ -67,7 +67,6 @@
     "no-empty": true,
     "no-empty-interface": true,
     "no-for-in-array": true,
-    "no-implicit-dependencies": true,
     "no-import-side-effect": true,
     "no-inferrable-types": true,
     "no-inferred-empty-object-type": true,

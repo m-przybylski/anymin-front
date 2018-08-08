@@ -11,6 +11,7 @@ import { AccountRoutingModule } from './account.routing.module';
 import { SetEmailViewGuard } from './views/set-email/set-email.view.guard';
 import { SetPasswordViewGuard } from './views/set-password/set-password.view.guard';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
+import { InputsModule } from '../../shared/components/inputs/inputs.module';
 
 @NgModule({
   imports: [
@@ -19,17 +20,10 @@ import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.modu
     AccountRoutingModule,
     SharedModule,
     TranslateModule,
-    AngularJsProvidersModule
+    InputsModule,
+    AngularJsProvidersModule,
   ],
-  providers: [
-    SetEmailViewResolver,
-    SetPasswordViewResolver,
-    SetEmailViewGuard,
-    SetPasswordViewGuard
-  ],
-  declarations: [
-    SetPasswordViewComponent,
-    SetEmailViewComponent
-  ]
+  providers: [SetEmailViewResolver, SetPasswordViewResolver, SetEmailViewGuard, SetPasswordViewGuard],
+  declarations: [SetPasswordViewComponent, SetEmailViewComponent],
 })
-export class AccountModule { }
+export class AccountModule {}

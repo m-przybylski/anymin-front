@@ -1,18 +1,12 @@
-// tslint:disable:no-duplicate-imports
-// tslint:disable:no-any
-// tslint:disable:newline-before-return
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations } from '@anymind-ng/core';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs';
+import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Subject, of, Observable } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProfileModalComponent } from '../../modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
+import { NavbarMenuService } from '../navbar-menu-service/navbar-menu.service';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -74,8 +68,10 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
 
   public openCreateOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
 
+  // tslint:disable-next-line:no-any
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', err);
+
     return of(false);
   };
 }

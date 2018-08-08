@@ -5,7 +5,7 @@ import { PhoneNumberUnifyService } from './phone-number-unify.service';
 describe('PhoneNumberUnifyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PhoneNumberUnifyService]
+      providers: [PhoneNumberUnifyService],
     });
   });
 

@@ -12,9 +12,11 @@ import { AvatarUploaderComponent } from './components/basic-profile-data/avatar-
 import { AvatarUploaderDirective } from './components/basic-profile-data/avatar-uploader/avatar-uploader.directive';
 import { CreateOrganizationModalComponent } from './create-organization/create-organization.component';
 import { CreateOrganizationModalComponentService } from './create-organization/create-organization.component.service';
+import { InputsModule } from '../../inputs/inputs.module';
+import { UserAvatarModule } from '../../user-avatar/user-avatar.module';
 
 @NgModule({
-  imports: [ModalsModule],
+  imports: [ModalsModule, InputsModule, UserAvatarModule],
   entryComponents: [CreateProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
   providers: [CreateProfileModalComponentService, CreateOrganizationModalComponentService, UploaderService],
   declarations: [

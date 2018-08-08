@@ -27,22 +27,10 @@ import { CommonSettingsService } from '../../angularjs/common/services/common-se
 import { MsisdnGuard } from './guards/msisdn/msisdn.guard';
 import { LocalStorageWrapperService } from './services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
-import { InputSetPasswordComponent } from './components/inputs/input-set-password/input-set-password.component';
 import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.service';
 import { ContentHeightAnimateDirective } from './directives/animation/content-height/content-height.animation.directive';
 import { ContentHeightAnimationService } from './services/animation/content-height/content-height.animation.service';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { UserNavigationComponent } from './components/navbar/user-navigation/user-navigation.component';
-import { UserNavigationUnderlineDirective } from './components/navbar/user-navigation/user-navigation-underline.directive';
-import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
-import { NavbarUserAvatarComponent } from './components/navbar/navbar-user-avatar/navbar-user-avatar.component';
-import { NavbarUserMenuComponent } from './components/navbar/navbar-user-menu/navbar-user-menu.component';
-import { NavbarCompanyMenuComponent } from './components/navbar/navbar-company-menu/navbar-company-menu.component';
-import { NavbarExpertMenuComponent } from './components/navbar/navbar-expert-menu/navbar-expert-menu.component';
-import { InputSwitchComponent } from './components/inputs/input-switch/input-switch.component';
-import { NavbarMenuService } from './services/navbar-menu-service/navbar-menu.service';
 import { PreloaderContainerComponent } from './components/preloader/preloader-container.component';
-import { UserNavigationComponentService } from './components/navbar/user-navigation/user-navigation.component.service';
 import { ConsultationTagsComponent } from './components/consultation-tags/consultation-tags.component';
 import { ConsultationPriceComponent } from './components/consultation-price/consultation-price.component';
 import { InputTagsComponent } from './components/consultation-tags/input-tags/input-tags.component';
@@ -50,13 +38,13 @@ import { DropdownListComponent } from './components/dropdown/dropdown/dropdown-l
 import { ScrollToElementDirective } from './components/dropdown/dropdown/dropdown-list/scroll-to-element.directive';
 import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
 import { OnElementClickDirective } from './components/dropdown/dropdown/on-element-click.directive';
-import { InputAddItemComponent } from './components/inputs/input-add-item/input-add-item.component';
 import { ValidationDirective } from './directives/validation/validation.directive';
 import { ProfileLinksComponentService } from './components/modals/profile/components/profile-links/profile-links.component.service';
 import { PhoneNumberUnifyService } from './services/phone-number-unify/phone-number-unify.service';
-import { ButtonComponent } from './components/buttons/button';
-import { IconComponent } from './components/icon/icon';
 import { ExpandablePanelComponent } from './components/expandable-panel/expandable-panel.component';
+import { UserAvatarModule } from './components/user-avatar/user-avatar.module';
+import { IconModule, ButtonModule } from './components/atomic-components/';
+import { InputsModule } from './components/inputs/inputs.module';
 
 @NgModule({
   imports: [
@@ -68,6 +56,10 @@ import { ExpandablePanelComponent } from './components/expandable-panel/expandab
     TranslateModule.forChild(),
     AnymindComponentsModule,
     RouterModule,
+    UserAvatarModule,
+    IconModule,
+    ButtonModule,
+    InputsModule,
   ],
   declarations: [
     LoginBackgroundComponent,
@@ -76,17 +68,7 @@ import { ExpandablePanelComponent } from './components/expandable-panel/expandab
     DropdownPrimaryDirective,
     RadioButtonDirective,
     WidgetGeneratorComponent,
-    InputSetPasswordComponent,
     ContentHeightAnimateDirective,
-    NavbarComponent,
-    UserNavigationComponent,
-    UserNavigationUnderlineDirective,
-    NavbarUserAvatarComponent,
-    UserAvatarComponent,
-    NavbarUserMenuComponent,
-    NavbarCompanyMenuComponent,
-    NavbarExpertMenuComponent,
-    InputSwitchComponent,
     PreloaderContainerComponent,
     ConsultationTagsComponent,
     ConsultationPriceComponent,
@@ -95,10 +77,7 @@ import { ExpandablePanelComponent } from './components/expandable-panel/expandab
     ScrollToElementDirective,
     DropdownComponent,
     OnElementClickDirective,
-    InputAddItemComponent,
     ValidationDirective,
-    ButtonComponent,
-    IconComponent,
     ExpandablePanelComponent,
   ],
   entryComponents: [WidgetGeneratorComponent],
@@ -108,21 +87,14 @@ import { ExpandablePanelComponent } from './components/expandable-panel/expandab
     LoginBackgroundComponent,
     LoginContentComponent,
     LoginMobileFooterComponent,
-    InputSetPasswordComponent,
     ContentHeightAnimateDirective,
-    NavbarComponent,
-    UserAvatarComponent,
     PreloaderContainerComponent,
     ConsultationTagsComponent,
     ConsultationPriceComponent,
     InputTagsComponent,
-    InputSwitchComponent,
     DropdownListComponent,
     DropdownComponent,
-    InputAddItemComponent,
     ValidationDirective,
-    ButtonComponent,
-    IconComponent,
     ExpandablePanelComponent,
   ],
   providers: [
@@ -139,8 +111,6 @@ import { ExpandablePanelComponent } from './components/expandable-panel/expandab
     RegistrationInvitationService,
     PinCodeTimerService,
     ContentHeightAnimationService,
-    NavbarMenuService,
-    UserNavigationComponentService,
     ProfileLinksComponentService,
     PhoneNumberUnifyService,
   ],

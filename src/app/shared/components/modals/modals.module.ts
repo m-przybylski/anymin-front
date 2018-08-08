@@ -10,14 +10,10 @@ import { ModalComponent } from './modal/modal.component';
 import { ModalHeaderComponent } from './modal/modal-header/modal-header.component';
 import { ModalAnimationComponentDirective } from './modal/animation/modal-animation.component.directive';
 import { ModalAnimationComponentService } from './modal/animation/modal-animation.animation.service';
-import { CreateExpertConsultationModalComponent }
-from './create-expert-consultation/create-expert-consultation.component';
-import { CreateCompanyConsultationModalComponent }
-from './create-company-consultation/create-company-consultation.component';
-import { ChangePasswordComponent }
-from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/change-password/change-password.component';
-import { PasswordSettingsViewComponent }
-from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/password-settings.view.component';
+import { CreateExpertConsultationModalComponent } from './create-expert-consultation/create-expert-consultation.component';
+import { CreateCompanyConsultationModalComponent } from './create-company-consultation/create-company-consultation.component';
+import { ChangePasswordComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/change-password/change-password.component';
+import { PasswordSettingsViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/password-settings.view.component';
 import { PinVerificationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/pin-verification/pin-verification.component';
 import { SetNewPasswordComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/set-new-password/set-new-password.component';
 import { EmailConfirmationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
@@ -26,6 +22,8 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
 import { CsvUploaderComponent } from './employees-invite/csv-uploader/csv-uploader.component';
 import { CsvUploaderDirective } from './employees-invite/csv-uploader/csv-uploader.directive';
 import { ManageSessionsViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/manage-sessions/manage-sessions.view.component';
+import { InputsModule } from '../inputs/inputs.module';
+import { UserAvatarModule } from '../user-avatar/user-avatar.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +43,7 @@ import { ManageSessionsViewComponent } from '../../../features/dashboard/views/u
     CreateCompanyConsultationModalComponent,
     EmployeesInviteModalComponent,
     CsvUploaderComponent,
-    CsvUploaderDirective
+    CsvUploaderDirective,
   ],
   entryComponents: [
     ChangeNumberComponent,
@@ -58,15 +56,10 @@ import { ManageSessionsViewComponent } from '../../../features/dashboard/views/u
     ManageSessionsViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent,
-    EmployeesInviteModalComponent
+    EmployeesInviteModalComponent,
   ],
   providers: [ModalAnimationComponentService],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, SharedModule, FormsModule, InputsModule, UserAvatarModule, ReactiveFormsModule],
   exports: [
     CommonModule,
     SharedModule,
@@ -76,11 +69,9 @@ import { ManageSessionsViewComponent } from '../../../features/dashboard/views/u
     ModalHeaderComponent,
     PinElementDirective,
     CsvUploaderComponent,
-    CsvUploaderDirective
-  ]
+    CsvUploaderDirective,
+  ],
 })
 export class ModalsModule {
-
-  constructor() {
-  }
+  constructor() {}
 }

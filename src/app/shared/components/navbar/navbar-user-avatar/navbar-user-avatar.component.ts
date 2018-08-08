@@ -1,15 +1,10 @@
-// tslint:disable:no-duplicate-imports
-// tslint:disable:no-any
-// tslint:disable:newline-before-return
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Subject } from 'rxjs';
-import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
+import { Subject, of, Observable } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { NavbarMenuService } from '../navbar-menu-service/navbar-menu.service';
 
 @Component({
   selector: 'plat-navbar-user-avatar',
@@ -64,8 +59,10 @@ export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
     this.navbarMenuService.getVisibility$().next(this.isMenuVisible);
   };
 
+  // tslint:disable-next-line:no-any
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', err);
+
     return of(false);
   };
 }

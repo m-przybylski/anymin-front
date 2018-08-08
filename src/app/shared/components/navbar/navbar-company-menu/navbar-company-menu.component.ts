@@ -1,21 +1,15 @@
-// tslint:disable:no-duplicate-imports
-// tslint:disable:no-any
-// tslint:disable:newline-before-return
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations } from '@anymind-ng/core';
-import { Subject } from 'rxjs';
+import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Observable, of, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { CreateProfileModalComponent } from '../../modals/profile/create-profile/create-profile.component';
-import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { RouterHelpers, RouterPaths } from '../../../routes/routes';
 import { Router } from '@angular/router';
+import { NavbarMenuService } from '../navbar-menu-service/navbar-menu.service';
 
 @Component({
   selector: 'plat-navbar-company-menu',
@@ -69,6 +63,7 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
         const route = RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
           [RouterPaths.dashboard.company.profile.params.profileId]: session.account.id,
         });
+
         return this.router.navigate([route]);
       })
       .then(() => {
@@ -91,8 +86,10 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
     this.navbarMenuService.logout();
   };
 
+  // tslint:disable-next-line:no-any
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', err);
+
     return of(false);
   };
 }

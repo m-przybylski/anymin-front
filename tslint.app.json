@@ -2,8 +2,8 @@
   "extends": "./tslint.json",
   "rules": {
     "no-floating-promises": true,
-    "no-unbound-method": true,
     "no-any": true,
-    "no-let": true
+    "no-let": true,
+    "no-unbound-method": true
   }
 }

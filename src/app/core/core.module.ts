@@ -13,6 +13,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getCoreConfig } from './factories/core-config/core-config.facotry';
 import { LongPollingService } from './services/long-polling/long-polling.service';
 import { LoginHelperService } from '../features/login/services/login-helper.service';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { LoginEffects } from './effects/login.effects';
+import { SessionEffects } from './effects/session.effects';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -27,6 +32,8 @@ export function getLogLevel(): LogLevel {
     LoggerModule.forRoot(getLogLevel),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
+    StoreModule.forFeature('core', reducers),
+    EffectsModule.forFeature([LoginEffects, SessionEffects]),
   ],
   providers: [
     ApiKeyService,

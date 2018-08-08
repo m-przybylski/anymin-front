@@ -1,12 +1,9 @@
 // tslint:disable:no-let
-// tslint:disable:strict-boolean-expressions
-// tslint:disable:prefer-conditional-expression
-// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { UserSessionService } from '../../../core/services/user-session/user-session.service';
 import { Router } from '@angular/router';
+import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 
 @Injectable()
 export class NavbarMenuService {
@@ -29,16 +26,13 @@ export class NavbarMenuService {
     let isExpert = false;
     this.userSessionService.getSession().then(
       session => {
-        if (session.account) {
-          isExpert = session.isExpert;
-        } else {
-          isExpert = false;
-        }
+        isExpert = session.isExpert;
       },
       () => {
         this.logger.warn('failure when try to get session');
       },
     );
+
     return isExpert;
   };
 
@@ -47,15 +41,12 @@ export class NavbarMenuService {
     this.userSessionService
       .getSession()
       .then(session => {
-        if (session.account) {
-          isCompany = session.isCompany;
-        } else {
-          isCompany = false;
-        }
+        isCompany = session.isCompany;
       })
       .catch(err => {
         this.logger.warn('failure when try to get session', err);
       });
+
     return isCompany;
   };
 

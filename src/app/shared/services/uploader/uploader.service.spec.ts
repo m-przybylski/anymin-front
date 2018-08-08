@@ -6,13 +6,12 @@ import FileTypeEnum = PostFileDetails.FileTypeEnum;
 import { of } from 'rxjs/observable/of';
 
 describe('Service: UploaderService', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         UploaderService,
-        {provide: FilesService, useValue: createSpyObj('FilesService', ['createFileTokenRoute'])},
-      ]
+        { provide: FilesService, useValue: createSpyObj('FilesService', ['createFileTokenRoute']) },
+      ],
     });
   });
 
@@ -21,7 +20,7 @@ describe('Service: UploaderService', () => {
     const filesService = TestBed.get(FilesService);
     const fileDetails: PostFileDetails = {
       croppingDetails: undefined,
-      fileType: FileTypeEnum.PROFILE
+      fileType: FileTypeEnum.PROFILE,
     };
     const uploadedFileResponse: IUploadFileInfo = {
       token: 'token',
@@ -30,7 +29,7 @@ describe('Service: UploaderService', () => {
       contentType: 'type',
       size: 123,
       previews: ['preview'],
-      name: 'name'
+      name: 'name',
     };
     const file: File = new File([], 'fileName');
     filesService.createFileTokenRoute.and.returnValue(of());
@@ -43,12 +42,11 @@ describe('Service: UploaderService', () => {
     const uploaderService = TestBed.get(UploaderService);
     const fileDetails: PostFileDetails = {
       croppingDetails: undefined,
-      fileType: FileTypeEnum.PROFILE
+      fileType: FileTypeEnum.PROFILE,
     };
     const file = {};
     uploaderService.uploadFile(file, fileDetails).catch((error: string) => {
       expect(error).toEqual('Expected File, got object');
     });
   });
-
 });
