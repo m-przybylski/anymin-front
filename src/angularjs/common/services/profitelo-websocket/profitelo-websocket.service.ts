@@ -12,7 +12,6 @@ import {
 }
   from '../../components/navbar/navbar-expert-visibility/navbar-expert-visibility.service';
 import { Config } from '../../../../config';
-import { CommonConfig } from '../../../../common-config';
 
 // tslint:disable:member-ordering
 export class ProfiteloWebsocketService {
@@ -39,7 +38,8 @@ export class ProfiteloWebsocketService {
               private eventsService: EventsService,
               private $timeout: ng.ITimeoutService,
               private $rootScope: ng.IRootScopeService) {
-    this.wsEndpoint = CommonConfig.getCommonConfig().urls.ws + '/ws/register';
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    this.wsEndpoint = `${protocol}//${window.location.host}/api/ws/register`;
     this.eventsService.on('login', this.connectWebsocket);
     this.eventsService.on('logout', this.disconnectWebsocket);
   }

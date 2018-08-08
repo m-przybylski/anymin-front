@@ -67,6 +67,6 @@ export class UserAvatarComponent implements OnInit {
   }
 
   private resolveFileUrl = (avatarToken: string): string =>
-    this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', avatarToken)
+    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', avatarToken)
 
 }

@@ -42,7 +42,7 @@ export class UploaderService {
   }
 
   private getUploadUrl = (fileId: string): string =>
-    this.urls.files + this.urls['file-upload'].replace('%s', fileId)
+    window.location.origin + this.urls['file-upload'].replace('%s', fileId)
 
   private scheduleUpload = (): ng.IPromise<void> =>
     this.$timeout(this.processUpload)
