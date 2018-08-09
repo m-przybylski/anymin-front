@@ -4,17 +4,15 @@
 @import "../../../../template/core/partials/partials"
 
 .modal-component
-	background: $c-white
 	animation: fadeInY 0.3s
 	animation-fill-mode: forwards
 	height: 100vh
 
 	+smm
 		height: auto
-		background: none
 
 	&__scroll
-		overflow: scroll
+		overflow: auto
 		max-height: 100vh
 
 		+smm
@@ -110,8 +108,7 @@
 		border-radius: 8px
 
 		+smm
-      &:not(.modal-component__container--small)
-        width: calc(100% - 48px)
+      width: calc(100% - 48px)
 
 		+mdm
 			width: $s-modal-container-medium
@@ -135,7 +132,7 @@
 			.modal-component__content
 				padding: $s-modal-header 0 0
 
-			+mdm
+			+xsm
 				width: $s-modal-container-crop
 
 	&__content
