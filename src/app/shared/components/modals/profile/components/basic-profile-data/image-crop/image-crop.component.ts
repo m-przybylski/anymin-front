@@ -21,7 +21,6 @@ export interface IImageCropData {
   selector: 'app-image-crop',
   templateUrl: './image-crop.component.html',
   styleUrls: ['./image-crop.component.sass']
-
 })
 export class ImageCropModalComponent implements OnInit, OnDestroy {
 
