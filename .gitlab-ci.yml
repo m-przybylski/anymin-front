@@ -1,5 +1,5 @@
 stages:
-  - test-prepare
+  - test-prepare-code
   - test-run
   - build-push-release-image
   - release-deploy
@@ -8,19 +8,13 @@ variables:
   # Update from $CI_COMMIT_SHA to $CI_PIPELINE_IID when gitlab > v.11
   CONTAINER_TEST_IMAGE_URL: eu.gcr.io/dev-country-188109/profitelo-frontend:test-$CI_COMMIT_SHA
   CONTAINER_RELEASE_IMAGE_URL: eu.gcr.io/dev-country-188109/profitelo-frontend:dev-$CI_COMMIT_SHA
-  KUBECONFIG: /opt/anymind/kube/config
-  PROD_NAMESPACE: default
-  DEMO_NAMESPACE: default
-  STAGE_NAMESPACE: stage
-  DEV_NAMESPACE: dev
-  PROJECT: profitelo-frontend
 
-test-prepare:
-  stage: test-prepare
+test-prepare-code:
+  stage: test-prepare-code
   except:
     - develop
   script:
-    - docker build --no-cache -t $CONTAINER_TEST_IMAGE_URL -f Dockerfile.test . --build-arg branch=$CI_COMMIT_REF_NAME
+    - docker build --no-cache -t $CONTAINER_TEST_IMAGE_URL -f Dockerfile.test .
   tags:
     - shell
 
@@ -29,7 +23,7 @@ test-run:
   except:
     - develop
   script:
-    - docker run -i $CONTAINER_TEST_IMAGE_URL /bin/sh -c 'npm run ci-test' && docker rmi -f $CONTAINER_TEST_IMAGE_URL
+    - docker run -i $CONTAINER_TEST_IMAGE_URL /bin/sh -c 'npm install && npm run ci-test' && docker rmi -f $CONTAINER_TEST_IMAGE_URL
   tags:
     - shell
 
