@@ -14,8 +14,7 @@ scrollToElementDirective,
     )
       .dropdown-list__item__handler
         plat-user-avatar(
-        *ngIf="item.avatar",
         [avatarSize]="avatarSize",
-        [avatarUrl]="item.avatar",
+        [avatarToken]="item.avatar",
         )
         span {{ item.name }}

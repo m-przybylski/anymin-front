@@ -21,6 +21,7 @@ from '../../../features/dashboard/views/user-dashboard/settings/components/passw
 import { PinVerificationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/pin-verification/pin-verification.component';
 import { SetNewPasswordComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/set-new-password/set-new-password.component';
 import { EmailConfirmationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
+import { EmployeesInviteModalComponent } from './employees-invite/employees-invite.component';
 import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/change-email/change-email.view.component';
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     PasswordSettingsViewComponent,
     ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
-    CreateCompanyConsultationModalComponent
+    CreateCompanyConsultationModalComponent,
+    EmployeesInviteModalComponent
   ],
   entryComponents: [
     ChangeNumberComponent,
@@ -48,7 +50,8 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     PasswordSettingsViewComponent,
     ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
-    CreateCompanyConsultationModalComponent
+    CreateCompanyConsultationModalComponent,
+    EmployeesInviteModalComponent
   ],
   providers: [ModalAnimationComponentService],
   imports: [

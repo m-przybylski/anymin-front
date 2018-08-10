@@ -8,13 +8,14 @@
 				span.input__required-asterix(*ngIf="isRequired") *
 
 			input(
+			platValidation,
+			(onBlur)="onBlur()",
+			(keydown.enter)="onEnter(ngModel)",
 			[formControlName]="controlName",
 			(focus)="onFocus()",
-			(blur)="onBlur()",
 			placeholder="{{placeholderTrKey | translate}}",
 			type="text",
 			[(ngModel)]="ngModel",
-			(keydown)="onKeyDown($event)",
 			(change)="onInputChange"
 			)
 
@@ -26,11 +27,6 @@
 
 	.input__alert
 		am-core-validation-alert(
-		[isVisible]="isCustomValidationInvalid()",
-		[validationTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.ERROR.LINK_EXIST'"
-		)
-
-		am-core-validation-alert(
-		[isVisible]="isFieldValueInvalid()",
-		[validationTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.ERROR.INVALID'"
+		[isVisible]="!formGroup.valid",
+		[validationTextKey]="isCustomValidationInvalid()"
 		)

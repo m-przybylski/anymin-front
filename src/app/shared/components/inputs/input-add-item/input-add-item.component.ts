@@ -1,19 +1,25 @@
 // tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
-import { Component, HostListener, Input } from '@angular/core';
+// tslint:disable:no-null-keyword
+
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
-import { Config } from '../../../../../config';
 
-export enum InputAddItemComponentStatusEnum {
-  ValueExist = 'ValueExist',
-  IncorrectValue = 'IncorrectValue'
+export interface IValidatorsErrorMsg {
+  [key: string]: string;
+}
+
+export enum AddItemTypeEnum {
+  INCORRECT_VALUE,
+  VALUE_ADDED
 }
 
 @Component({
-  selector: 'plat-input-link',
+  selector: 'plat-add-item',
   templateUrl: './input-add-item.component.html',
   styleUrls: ['./input-add-item.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputAddItemComponent {
 
@@ -38,14 +44,25 @@ export class InputAddItemComponent {
   @Input()
   public onChange?: (value: string) => void;
 
+  @Output()
+  public onEnterClick?: EventEmitter<string> = new EventEmitter<string>();
+
   @Input()
   public isDisabled = false;
 
   @Input()
   public isChangeOnSubmit = true;
 
+  @Input()
+  public isValidationVisibleOnBlur ? = false;
+
   public ngModel = '';
   public isFocused = false;
+
+  private readonly errorsMsg: IValidatorsErrorMsg = {
+    pattern: 'VALIDATOR.ERROR.PATTERN',
+    required: 'VALIDATOR.ERROR.REQUIRED'
+  };
 
   constructor(public formUtils: FormUtilsService) {
   }
@@ -64,44 +81,40 @@ export class InputAddItemComponent {
   public isFieldInvalid = (): boolean =>
     this.formUtils.isFieldInvalid(this.formGroup, this.controlName)
 
-  public isCustomValidationInvalid = (): boolean => {
+  public isCustomValidationInvalid = (): string => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
-    if (controlErrors !== null) {
-      return this.formGroup.controls[this.controlName].value.length > 0 &&
-        controlErrors[InputAddItemComponentStatusEnum.ValueExist];
-    } else {
-      return false;
-    }
-  }
+    if (controlErrors !== null && this.formGroup.controls[this.controlName].value.length > 0) {
+      const errorCode = Object.keys(controlErrors)[0];
 
-  public isFieldValueInvalid = (): boolean => {
-    const controlErrors = this.formGroup.controls[this.controlName].errors;
-    if (controlErrors !== null) {
-      return this.formGroup.controls[this.controlName].value.length > 0 &&
-        controlErrors[InputAddItemComponentStatusEnum.IncorrectValue];
+      return Object.keys(this.errorsMsg).includes((errorCode)) ? this.errorsMsg[errorCode] : errorCode;
     } else {
-      return false;
-    }
-  }
 
-  public onFocus = (): void => {
-    this.isFocused = true;
+      return '';
+    }
   }
 
   public onBlur = (): void => {
-    this.isFocused = false;
-  }
-
-  public onKeyDown = (event: KeyboardEvent): void => {
-    if (event.keyCode === Config.keyboardCodes.enter && this.onChange !== undefined) {
-      this.onChange(this.formGroup.controls[this.controlName].value);
-      this.isCustomValidationInvalid();
+    if (!this.isValidationVisibleOnBlur) {
+      this.formGroup.controls[this.controlName].setValidators(this.getValidators());
+      this.formGroup.controls[this.controlName].updateValueAndValidity();
+      this.isFocused = false;
     }
   }
 
-  public onAddLinkClick = (): void => {
+  public onFocus = (): boolean => this.isFocused = true;
+
+  public onAddLinkClick = (): void =>
+    this.onAddItem()
+
+  public onEnter = (): void =>
+    this.onAddItem()
+
+  private onAddItem = (): void => {
     if (this.onChange !== undefined) {
       this.onChange(this.formGroup.controls[this.controlName].value);
+    }
+    if (this.onEnterClick !== undefined) {
+      this.onEnterClick.emit(this.formGroup.controls[this.controlName].value);
     }
   }
 
@@ -113,5 +126,4 @@ export class InputAddItemComponent {
 
   private getPatternValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
     this.pattern ? [...arr, Validators.pattern(this.pattern)] : arr
-
 }

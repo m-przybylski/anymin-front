@@ -7,7 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./discover.view.component.sass']
 })
 export class DiscoverComponent {
-
-  constructor() {
-  }
 }
