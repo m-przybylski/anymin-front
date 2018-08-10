@@ -1,29 +1,22 @@
-// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Subject } from 'rxjs';
-import { NavbarMenuService }
-from '../../../services/navbar-menu-service/navbar-menu.service';
+import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 @Component({
   selector: 'plat-navbar-user-avatar',
   templateUrl: './navbar-user-avatar.component.html',
-  styleUrls: ['./navbar-user-avatar.component.sass']
+  styleUrls: ['./navbar-user-avatar.component.sass'],
 })
 export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
+  @Input() public avatarToken?: string;
 
-  @Input()
-  public avatarUrl?: string;
-
-  @Input()
-  public userVisibility?: GetExpertVisibility.VisibilityEnum;
+  @Input() public userVisibility?: GetExpertVisibility.VisibilityEnum;
 
   public readonly avatarSize = AvatarSizeEnum.X_48;
   public visibilityStatusEnum: typeof GetExpertVisibility.VisibilityEnum = GetExpertVisibility.VisibilityEnum;
@@ -32,18 +25,20 @@ export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private navbarMenuService: NavbarMenuService,
-              private element: ElementRef,
-              private loggerFactory: LoggerFactory) {
-  }
+  constructor(
+    private navbarMenuService: NavbarMenuService,
+    private element: ElementRef,
+    private loggerFactory: LoggerFactory,
+  ) {}
 
   public ngOnInit(): void {
     this.logger = this.loggerFactory.createLoggerService('NavbarUserAvatarComponent');
 
-    this.navbarMenuService.getVisibility$()
+    this.navbarMenuService
+      .getVisibility$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(this.handleError))
-      .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
+      .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
   }
 
   public ngOnDestroy(): void {
@@ -62,11 +57,10 @@ export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
   public toggleMenuVisibility = (): void => {
     this.isMenuVisible = !this.isMenuVisible;
     this.navbarMenuService.getVisibility$().next(this.isMenuVisible);
-  }
+  };
 
   private handleError = (err: any): Observable<boolean> => {
-    this.logger.warn('failure when try to change navbar menu visibility, ', (err));
+    this.logger.warn('failure when try to change navbar menu visibility, ', err);
     return of(false);
-  }
-
+  };
 }

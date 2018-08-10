@@ -2,16 +2,16 @@
 // tslint:disable:newline-before-return
 import { IInvitationObject } from '../../../../angularjs/app/invitations/invitation.interface';
 import { LocalStorageWrapperService } from '../local-storage/local-storage.service';
-import { LoggerService, Alerts, AlertService  } from '@anymind-ng/core';
+import { LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class RegistrationInvitationService {
-
-  constructor(private logger: LoggerService,
-              private localStorageWrapperService: LocalStorageWrapperService,
-              private alertService: AlertService) {
-  }
+  constructor(
+    private logger: LoggerService,
+    private localStorageWrapperService: LocalStorageWrapperService,
+    private alertService: AlertService,
+  ) {}
 
   public getInvitationObject = (): IInvitationObject | undefined => {
     const stringifyInvitationObject = this.localStorageWrapperService.getItem('invitation');
@@ -25,5 +25,5 @@ export class RegistrationInvitationService {
       }
     }
     return undefined;
-  }
+  };
 }

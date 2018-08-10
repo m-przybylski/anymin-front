@@ -7,15 +7,12 @@ import { CommonConfig } from '../../../../../common-config';
 
 @Injectable()
 export class CreateCompanyConsultationService {
-
   private readonly moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
 
-  constructor(private serviceService: ServiceService) {
-  }
+  constructor(private serviceService: ServiceService) {}
 
   public createService = (service: PostService): Observable<GetService> =>
-    this.serviceService.postServiceRoute(service)
+    this.serviceService.postServiceRoute(service);
 
   public getCompanyProfit = (value: number, commission: number): number => (value / this.moneyDivider) * commission;
-
 }

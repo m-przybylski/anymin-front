@@ -8,12 +8,12 @@ import { Alerts, AlertService } from '@anymind-ng/core';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate {
-
-  constructor(private userSessionService: UserSessionService,
-              private alertService: AlertService,
-              private logger: LoggerService,
-              private router: Router) {
-  }
+  constructor(
+    private userSessionService: UserSessionService,
+    private alertService: AlertService,
+    private logger: LoggerService,
+    private router: Router,
+  ) {}
 
   public canActivate = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> =>
     this.userSessionService.getSession().then(() => {
@@ -26,6 +26,5 @@ export class AnonymousGuard implements CanActivate {
       });
 
       return false;
-    }, () => true)
-
+    }, () => true);
 }

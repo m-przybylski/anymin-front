@@ -21,24 +21,11 @@ import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.modu
     PasswordViewComponent,
     PinCodeViewComponent,
     LimitedAccessViewComponent,
-    BlockedViewComponent
+    BlockedViewComponent,
   ],
-  providers: [
-    PhoneNumberViewService,
-    PasswordViewService,
-    PinCodeViewService,
-    PinCodeViewResolver
-  ],
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    LoginRoutingModule,
-    SharedModule,
-    AngularJsProvidersModule
-  ]
+  providers: [PhoneNumberViewService, PasswordViewService, PinCodeViewService, PinCodeViewResolver],
+  imports: [ReactiveFormsModule, CommonModule, LoginRoutingModule, SharedModule, AngularJsProvidersModule],
 })
 export class LoginModule {
-
-  constructor() {
-  }
+  constructor() {}
 }

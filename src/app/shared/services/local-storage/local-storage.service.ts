@@ -5,7 +5,6 @@ export type LocalStorageKeyName = 'invitation' | 'accepted-consultations';
 
 @Injectable()
 export class LocalStorageWrapperService {
-
   constructor() {}
 
   public setItem = (key: LocalStorageKeyName, value: string): void => localStorage.setItem(key, value);

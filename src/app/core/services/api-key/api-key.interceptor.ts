@@ -1,12 +1,7 @@
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-any
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Config } from '../../../../config';
 import { ApiKeyService } from './api-key.service';
@@ -17,7 +12,6 @@ interface IHeaders {
 
 @Injectable()
 export class ApiKeyInterceptor implements HttpInterceptor {
-
   constructor(private apiKeyService: ApiKeyService) {}
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -33,11 +27,10 @@ export class ApiKeyInterceptor implements HttpInterceptor {
     }
 
     return headers;
-  }
+  };
 
   private getRequestWithAuthHeaders = <T>(request: HttpRequest<T>): HttpRequest<T> =>
     request.clone({
-      setHeaders: this.getAuthHeaders()
-    })
-
+      setHeaders: this.getAuthHeaders(),
+    });
 }

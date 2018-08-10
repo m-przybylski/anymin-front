@@ -12,35 +12,31 @@ const routes: Routes = [
   {
     path: '',
     component: PhoneNumberViewComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
-  { path: 'pin-code/:msisdn',
+  {
+    path: 'pin-code/:msisdn',
     canActivate: [MsisdnGuard],
     resolve: { registrationSession: PinCodeViewResolver },
-    component: PinCodeViewComponent
+    component: PinCodeViewComponent,
   },
   {
     path: 'password/:msisdn',
     canActivate: [MsisdnGuard],
-    component: PasswordViewComponent
+    component: PasswordViewComponent,
   },
   {
     path: 'limited-access',
-    component: LimitedAccessViewComponent
+    component: LimitedAccessViewComponent,
   },
   {
     path: 'blocked',
-    component: BlockedViewComponent
-  }
+    component: BlockedViewComponent,
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class LoginRoutingModule {
-}
+export class LoginRoutingModule {}

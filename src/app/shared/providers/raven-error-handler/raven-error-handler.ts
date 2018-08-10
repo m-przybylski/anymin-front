@@ -5,11 +5,8 @@ import { Config } from '../../../../config';
 import { CommonConfig } from '../../../../common-config';
 
 export class RavenErrorHandler implements ErrorHandler {
-
   constructor() {
-    Raven
-      .config(Config.sentry.url, Config.sentry.options)
-      .install();
+    Raven.config(Config.sentry.url, Config.sentry.options).install();
   }
 
   public handleError(err: any): void {
@@ -30,9 +27,8 @@ export class RavenErrorHandler implements ErrorHandler {
         return `Was not able to stringify error: ${err}, exception: ${ex}`;
       }
     }
-  }
+  };
 
   private static isSentryEnabled = (): boolean =>
-    Config.sentry.enabledEnvironments.includes(CommonConfig.getCommonConfig().environment)
-
+    Config.sentry.enabledEnvironments.includes(CommonConfig.getCommonConfig().environment);
 }

@@ -8,8 +8,12 @@ import { RecoverPasswordService } from '@anymind-ng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
 import {
-  Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum, LoggerFactory,
-  LoggerService
+  Alerts,
+  AlertService,
+  FormUtilsService,
+  InputPinCodeErrorsEnum,
+  LoggerFactory,
+  LoggerService,
 } from '@anymind-ng/core';
 
 export interface IPinVerificationStatus {
@@ -21,15 +25,12 @@ export interface IPinVerificationStatus {
   selector: 'plat-pin-verification',
   templateUrl: './pin-verification.component.html',
   styleUrls: ['./pin-verification.component.sass'],
-  providers: [PinVerificationComponentService]
+  providers: [PinVerificationComponentService],
 })
 export class PinVerificationComponent implements OnInit, OnDestroy {
+  @Input() public msisdn: string;
 
-  @Input()
-  public msisdn: string;
-
-  @Output()
-  public pinVerificationEmitter$: EventEmitter<IPinVerificationStatus> = new EventEmitter();
+  @Output() public pinVerificationEmitter$: EventEmitter<IPinVerificationStatus> = new EventEmitter();
 
   public readonly pinVerificationFormId = 'pinVerificationForm';
   public readonly pinControlName = 'token';
@@ -41,13 +42,14 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private pinCodeTimer: PinCodeTimerService,
-              private recoverPasswordService: RecoverPasswordService,
-              private alertService: AlertService,
-              private formUtils: FormUtilsService,
-              private pinVerificationComponentService: PinVerificationComponentService,
-              private loggerFactory: LoggerFactory) {
-  }
+  constructor(
+    private pinCodeTimer: PinCodeTimerService,
+    private recoverPasswordService: RecoverPasswordService,
+    private alertService: AlertService,
+    private formUtils: FormUtilsService,
+    private pinVerificationComponentService: PinVerificationComponentService,
+    private loggerFactory: LoggerFactory,
+  ) {}
 
   public ngOnInit(): void {
     this.pinVerificationForm = new FormGroup({});
@@ -64,8 +66,9 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
     if (pinVerificationForm.valid) {
       const token: string = pinVerificationForm.value[this.pinControlName];
       this.isRequestPending = true;
-      this.pinVerificationComponentService.checkPinToken(token, this.msisdn)
-        .pipe(finalize(() => this.isRequestPending = false))
+      this.pinVerificationComponentService
+        .checkPinToken(token, this.msisdn)
+        .pipe(finalize(() => (this.isRequestPending = false)))
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(status => {
           this.handlePinTokenStatus(status);
@@ -73,30 +76,32 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
     } else {
       this.formUtils.validateAllFormFields(pinVerificationForm);
     }
-  }
+  };
 
   public isCountingDown = (): boolean => this.timeLeft > 0;
 
   public resendPinCode = (): void => {
     this.startPinCodeTimer();
-    this.recoverPasswordService.postRecoverPasswordRoute({msisdn: this.msisdn})
+    this.recoverPasswordService
+      .postRecoverPasswordRoute({ msisdn: this.msisdn })
       .pipe(catchError(this.handleResendPinCodeError))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe();
-  }
+  };
 
   private startPinCodeTimer = (): void => {
-    this.pinCodeTimer.getTimeLeft$()
+    this.pinCodeTimer
+      .getTimeLeft$()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(timeLeft => this.timeLeft = timeLeft);
-  }
+      .subscribe(timeLeft => (this.timeLeft = timeLeft));
+  };
 
   private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('error when try to recover password', httpError);
 
     return of();
-  }
+  };
 
   // tslint:disable:cyclomatic-complexity
   private handlePinTokenStatus = (status: RecoverPasswordStatus): void => {
@@ -125,25 +130,26 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('Unhandled backed error', status);
     }
-  }
+  };
 
   private handleSuccessPinTokenStatus = (): void => {
     this.pinVerificationEmitter$.emit({
       status: RecoverPasswordStatus.SUCCESS,
-      token: this.pinVerificationForm.value[this.pinControlName]
+      token: this.pinVerificationForm.value[this.pinControlName],
     });
-  }
+  };
 
   private displayIncorrectPinTokenError = (): void => {
-    this.pinVerificationForm.controls[this.pinControlName]
-      .setErrors({[InputPinCodeErrorsEnum.IncorrectPinCode]: true});
+    this.pinVerificationForm.controls[this.pinControlName].setErrors({
+      [InputPinCodeErrorsEnum.IncorrectPinCode]: true,
+    });
     this.formUtils.validateAllFormFields(this.pinVerificationForm);
-  }
+  };
 
   private displayIncorrectTooManyAttemptsError = (): void => {
-    this.pinVerificationForm.controls[this.pinControlName]
-      .setErrors({[InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts]: true});
+    this.pinVerificationForm.controls[this.pinControlName].setErrors({
+      [InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts]: true,
+    });
     this.formUtils.validateAllFormFields(this.pinVerificationForm);
-  }
-
+  };
 }

@@ -10,7 +10,6 @@ import { UserAvatarComponent } from '../../user-avatar/user-avatar.component';
 import { EventEmitter } from '@angular/core';
 
 describe('Component: DropdownComponent', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DropdownComponent, DropdownListComponent, UserAvatarComponent],
@@ -19,8 +18,8 @@ describe('Component: DropdownComponent', () => {
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,
-        FormsModule
-      ]
+        FormsModule,
+      ],
     });
   });
 
@@ -56,7 +55,7 @@ describe('Component: DropdownComponent', () => {
 
   it('should call onSelectItem when dropdown list only', () => {
     const mockValue: IDropdownComponent = {
-      name: 'Jan'
+      name: 'Jan',
     };
     const fixture = TestBed.createComponent(DropdownComponent);
     const component = fixture.componentInstance;
@@ -69,7 +68,7 @@ describe('Component: DropdownComponent', () => {
 
   it('should call onSelectItem when dropdown not list only', () => {
     const mockValue: IDropdownComponent = {
-      name: 'Jan'
+      name: 'Jan',
     };
     const fixture = TestBed.createComponent(DropdownComponent);
     const component = fixture.componentInstance;

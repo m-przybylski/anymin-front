@@ -1,0 +1,61 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../template/core/partials/grid"
+
+.consultation-layout
+  display: flex
+  justify-content: space-between
+  align-items: center
+  position: relative
+
+  &__for
+    +subtitle-small
+    margin-bottom: 12px
+
+    &-caption
+      color: $c-label
+
+    &-company
+      margin-left: 4px
+      font-weight: 500
+      color: $c-primary
+
+  &__header
+    +paragraph-small
+    margin-bottom: 12px
+
+    +smm
+      +h6
+
+  &__price
+    +button-small
+    font-weight: 500
+    position: absolute
+    right: 0
+    bottom: 0
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+
+    +smm
+      +h6
+
+    +mdm
+      position: static
+      justify-content: center
+
+  &__amount
+    display: flex
+    flex-direction: row
+    align-items: center
+
+    &__currency
+      margin: 0 0 0 4px
+      font-weight: 400
+
+    &-button
+      display: none
+
+      +mdm
+        margin-left: 16px
+        display: flex

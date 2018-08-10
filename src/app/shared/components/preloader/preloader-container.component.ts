@@ -4,28 +4,23 @@ import { Animations } from '@anymind-ng/core';
 
 export enum PreloaderContentSizeEnum {
   FULL_CONTENT,
-  NONE
+  NONE,
 }
 
 @Component({
   selector: 'plat-preloader-container',
   templateUrl: './preloader-container.component.html',
   styleUrls: ['./preloader-container.component.sass'],
-  animations: Animations.preloaderAlertAnimation
+  animations: Animations.preloaderAlertAnimation,
 })
-
 export class PreloaderContainerComponent {
-  @Input()
-  public contentSizeClass?: PreloaderContentSizeEnum;
+  @Input() public contentSizeClass?: PreloaderContentSizeEnum;
 
-  @Input()
-  public isLoading = true;
+  @Input() public isLoading = true;
 
-  @Input()
-  public trMessage?: string;
+  @Input() public trMessage?: string;
 
   public preloaderClass: typeof PreloaderContentSizeEnum = PreloaderContentSizeEnum;
 
-  constructor() {
-  }
+  constructor() {}
 }

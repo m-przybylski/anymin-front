@@ -4,16 +4,14 @@ import { ModalAnimationComponentService } from './modal-animation.animation.serv
 import { takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: '[modalAnimationComponent]'
+  selector: '[modalAnimationComponent]',
 })
 export class ModalAnimationComponentDirective implements OnDestroy, AfterViewInit {
   private currentHeight: string;
   private prevHeight: string;
   private ngUnsubscribe$ = new ReplaySubject<string>(1);
 
-  constructor(private element: ElementRef,
-              private modalAnimationComponentService: ModalAnimationComponentService) {
-  }
+  constructor(private element: ElementRef, private modalAnimationComponentService: ModalAnimationComponentService) {}
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
@@ -22,11 +20,11 @@ export class ModalAnimationComponentDirective implements OnDestroy, AfterViewIni
 
   public onChangeModalContent = (): void => {
     this.modalAnimationComponentService.getPreviousHeight$().next(this.prevHeight);
-  }
+  };
 
   public onResponse = (): void => {
     this.createAnimationOnEvent();
-  }
+  };
 
   public ngAfterViewInit(): void {
     this.currentHeight = this.getElementHeight();
@@ -34,12 +32,12 @@ export class ModalAnimationComponentDirective implements OnDestroy, AfterViewIni
     this.prevHeight = this.currentHeight;
   }
 
-  private getElementHeight = (): string =>
-    this.element.nativeElement.clientHeight
+  private getElementHeight = (): string => this.element.nativeElement.clientHeight;
 
   private createAnimationOnEvent = (): void => {
-    this.modalAnimationComponentService.getPreviousHeight$()
+    this.modalAnimationComponentService
+      .getPreviousHeight$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe();
-  }
+  };
 }

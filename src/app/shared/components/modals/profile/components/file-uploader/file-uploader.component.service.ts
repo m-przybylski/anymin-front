@@ -11,7 +11,7 @@ export enum FileStatus {
   UPLOAD_FAILURE,
   INVALID_COUNT,
   INVALID_SIZE,
-  INVALID_TYPE
+  INVALID_TYPE,
 }
 
 export interface IFileValidationValues {
@@ -22,15 +22,15 @@ export interface IFileValidationValues {
 
 @Injectable()
 export class FileUploaderComponentService {
-
   constructor(private FilesService: FilesService) {}
 
-  public getFileInformation = (token: string): Observable<GetFileInfo> =>
-    this.FilesService.fileInfoRoute(token)
+  public getFileInformation = (token: string): Observable<GetFileInfo> => this.FilesService.fileInfoRoute(token);
 
-  public getFileErrorStatus = (file: File,
-                               currentUserFilesCount: number,
-                               validationValues: IFileValidationValues): FileStatus => {
+  public getFileErrorStatus = (
+    file: File,
+    currentUserFilesCount: number,
+    validationValues: IFileValidationValues,
+  ): FileStatus => {
     if (!this.isFilesCountValid(currentUserFilesCount, validationValues.maxFilesCount)) {
       return FileStatus.INVALID_COUNT;
     }
@@ -41,12 +41,10 @@ export class FileUploaderComponentService {
       return FileStatus.INVALID_SIZE;
     }
     return FileStatus.VALID;
-  }
+  };
 
   private isFilesCountValid = (currentUserFilesCount: number, maxFilesCount: number): boolean =>
-    currentUserFilesCount < maxFilesCount
+    currentUserFilesCount < maxFilesCount;
 
-  private isFileSizeValid = (fileSize: number, maxFileSize: number): boolean =>
-    fileSize <= maxFileSize
-
+  private isFileSizeValid = (fileSize: number, maxFileSize: number): boolean => fileSize <= maxFileSize;
 }

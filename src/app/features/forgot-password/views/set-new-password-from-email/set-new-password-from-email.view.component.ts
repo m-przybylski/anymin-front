@@ -5,23 +5,18 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import {
   SetNewPasswordFromEmailStatus,
-  SetNewPasswordFromEmailViewService
+  SetNewPasswordFromEmailViewService,
 } from './set-new-password-from-email.view.service';
-import {
-  InputSetPasswordErrors
-}
-  from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
+import { InputSetPasswordErrors } from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'set-password',
   templateUrl: './set-new-password-from-email.view.component.html',
   styleUrls: ['./set-new-password-from-email.view.component.sass'],
-  providers: [SetNewPasswordFromEmailViewService]
+  providers: [SetNewPasswordFromEmailViewService],
 })
-
 export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
-
   public readonly passwordControlName = 'password';
   public readonly setPasswordFormId = 'passwordForm';
 
@@ -33,12 +28,14 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private alertService: AlertService,
-              private setNewPasswordFromEmailService: SetNewPasswordFromEmailViewService,
-              private formUtils: FormUtilsService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService,
+    private setNewPasswordFromEmailService: SetNewPasswordFromEmailViewService,
+    private formUtils: FormUtilsService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewComponent');
   }
 
@@ -56,16 +53,19 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
     if (setPasswordForm.valid) {
       this.isRequestPending = true;
       const password = setPasswordForm.controls[this.passwordControlName].value;
-      this.setNewPasswordFromEmailService.handleNewPassword(password)
-        .pipe(finalize(() => {
-          this.isRequestPending = false;
-        }))
+      this.setNewPasswordFromEmailService
+        .handleNewPassword(password)
+        .pipe(
+          finalize(() => {
+            this.isRequestPending = false;
+          }),
+        )
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleSetNewPasswordStatus);
     } else {
       this.formUtils.validateAllFormFields(setPasswordForm);
     }
-  }
+  };
 
   private handleSetNewPasswordStatus = (status: SetNewPasswordFromEmailStatus): void => {
     switch (status) {
@@ -95,11 +95,12 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
         this.logger.error('Unhandled status when set new password from email', status);
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
-  }
+  };
 
   private displayIncorrectPasswordError = (): void => {
-    this.setPasswordForm.controls[this.passwordControlName]
-      .setErrors({[InputSetPasswordErrors.IncorrectPassword]: true});
+    this.setPasswordForm.controls[this.passwordControlName].setErrors({
+      [InputSetPasswordErrors.IncorrectPassword]: true,
+    });
     this.formUtils.validateAllFormFields(this.setPasswordForm);
-  }
+  };
 }

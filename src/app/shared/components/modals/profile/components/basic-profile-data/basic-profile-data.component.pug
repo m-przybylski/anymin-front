@@ -1,12 +1,12 @@
 .basic-profile-data
   .basic-profile-data__content
     .crop-photo
-      app-avatar-uploader(
+      plat-avatar-uploader(
       [form]="form",
       [controlName]="avatarControlName",
       [isRequired]="isRequired",
       [isOrganizationAvatar]="isOrganizationAvatar",
-      [avatarUrl]="avatarUrl"
+      [avatarToken]="avatarToken"
       )
 
     am-core-input-text(

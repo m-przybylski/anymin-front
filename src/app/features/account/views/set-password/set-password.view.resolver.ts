@@ -6,20 +6,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class SetPasswordViewResolver implements Resolve<string> {
-
-  constructor(private userService: UserSessionService,
-              private logger: LoggerService,
-              private alertService: AlertService) {}
+  constructor(
+    private userService: UserSessionService,
+    private logger: LoggerService,
+    private alertService: AlertService,
+  ) {}
 
   public resolve = (): Promise<string> =>
-    this.userService.getSession(true)
+    this.userService
+      .getSession(true)
       .then(session => session.account.id)
-      .catch(this.handleGetSessionError)
+      .catch(this.handleGetSessionError);
 
   private handleGetSessionError = (error: HttpErrorResponse): string => {
     this.logger.warn('SetPasswordViewResolver: error when getting session', error);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     throw error;
-  }
-
+  };
 }

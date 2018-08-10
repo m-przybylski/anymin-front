@@ -1,0 +1,46 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../../template/core/partials/grid"
+
+=adjust-container-for-row
+  margin: 0 -4px 4px -4px
+  padding: 20px 12px
+
+  +xsm
+    margin: 0 -12px 4px -12px
+
+  +smm
+    margin: 0 -16px 4px -16px
+    padding: 20px 24px
+
+  +mdm
+    margin: 0 0 4px 0
+
+
+.expert-dashboard-consultation-row
+
+  &__add-consultation
+
+    +adjust-container-for-row
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 88px
+    border-radius: 4px
+    background-color: $c-white
+
+
+  &__text
+
+    +button-small
+    margin: 0 0 0 16px
+
+  &__row
+
+    +adjust-container-for-row
+    display: block
+    border-radius: 4px
+    background-color: $c-white
+
+  &:nth-last-child(1)
+    margin-bottom: 0px

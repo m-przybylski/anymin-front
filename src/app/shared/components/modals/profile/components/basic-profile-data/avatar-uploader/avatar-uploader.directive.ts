@@ -2,26 +2,23 @@ import { Directive, HostListener, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ImageCropModalComponent } from '../image-crop/image-crop.component';
-import {
-  ContentHeightAnimationService
-}
-  from '../../../../../../services/animation/content-height/content-height.animation.service';
+import { ContentHeightAnimationService } from '../../../../../../services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../../../../config';
 
 @Directive({
-  selector: '[appAvatarUploader]'
+  selector: '[appAvatarUploader]',
 })
 export class AvatarUploaderDirective {
-
-  @Input()
-  public onAvatarError: (isError: boolean) => void;
+  @Input() public onAvatarError: (isError: boolean) => void;
   private logger: LoggerService;
   private isError = false;
 
-  constructor(private modalService: NgbModal,
-              private alertService: AlertService,
-              private contentHeightService: ContentHeightAnimationService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private modalService: NgbModal,
+    private alertService: AlertService,
+    private contentHeightService: ContentHeightAnimationService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('AvatarUploaderDirective');
   }
 
@@ -36,10 +33,10 @@ export class AvatarUploaderDirective {
         reader.onload = (): void => {
           this.modalService.open(ImageCropModalComponent).componentInstance.cropModalData = {
             imgSrc: reader.result,
-            file: event.target.files[0]
+            file: event.target.files[0],
           };
         };
-        reader.onerror = (err: ErrorEvent): void => {
+        reader.onerror = (err): void => {
           this.logger.error('Can not read file', err);
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         };
@@ -52,12 +49,12 @@ export class AvatarUploaderDirective {
       this.logger.warn('Too big file');
       this.alertService.pushDangerAlert('EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_BIG_SIZE');
     }
-  }
+  };
 
   @HostListener('click', ['$event'])
   public inputClick = (event: HTMLSelectElement): void => {
     if (event.target.value) {
       event.target.value = '';
     }
-  }
+  };
 }

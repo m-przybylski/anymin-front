@@ -6,70 +6,75 @@ import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Animations } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import {
-  NavbarMenuService
-}
-  from '../../../services/navbar-menu-service/navbar-menu.service';
+import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
-import {
-  CreateCompanyConsultationModalComponent
-}
-  from '../../modals/create-company-consultation/create-company-consultation.component';
-import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
-import {
-  CreateOrganizationModalComponent
-}
-  from '../../modals/profile/create-organization/create-organization.component';
+import { CreateCompanyConsultationModalComponent } from '../../modals/create-company-consultation/create-company-consultation.component';
+import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
+import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
+import { Router } from '@angular/router';
+import { RouterPaths, RouterHelpers } from '../../../routes/routes';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
   templateUrl: './navbar-expert-menu.component.html',
   styleUrls: ['./navbar-expert-menu.component.sass'],
-  animations: Animations.slideInOut
+  animations: Animations.slideInOut,
 })
-
 export class NavbarExpertMenuComponent implements OnInit {
+  @Input() public expertName: string;
 
-  @Input()
-  public isExpert: boolean;
+  @Input() public isExpert: boolean;
 
-  @Input()
-  public isCompany: boolean;
+  @Input() public isCompany: boolean;
 
-  @Input()
-  public expertName: string;
+  @Input() public avatarToken: string;
 
-  @Input()
-  public avatarUrl: string;
-
-  @Input()
-  public companyAvatarUrl?: string;
+  @Input() public companyAvatarToken?: string;
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
   public isMenuVisible: boolean;
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private modalService: NgbModal,
-              private navbarMenuService: NavbarMenuService,
-              private loggerFactory: LoggerFactory) {
-  }
+  constructor(
+    private modalService: NgbModal,
+    private navbarMenuService: NavbarMenuService,
+    private loggerFactory: LoggerFactory,
+    private userSessionService: UserSessionService,
+    private router: Router,
+  ) {}
 
   public ngOnInit(): void {
     this.logger = this.loggerFactory.createLoggerService('NavbarExpertMenuComponent');
 
-    this.navbarMenuService.getVisibility$()
+    this.navbarMenuService
+      .getVisibility$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(this.handleError))
-      .subscribe(isMenuVisible => this.isMenuVisible = isMenuVisible);
+      .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
   }
 
-  public openEditProfileModal = (): NgbModalRef =>
-    this.modalService.open(EditProfileModalComponent)
+  public navigateToExpertProfile = (): void => {
+    this.userSessionService
+      .getSession()
+      .then(session => {
+        const route = RouterHelpers.replaceParams(RouterPaths.dashboard.expert.asPath, {
+          [RouterPaths.dashboard.expert.params.expertId]: session.account.id,
+        });
+        return this.router.navigate([route]);
+      })
+      .then(() => {
+        this.logger.debug('Navigation success');
+      })
+      .catch(err => {
+        this.logger.error(err);
+      });
+  };
+  // this.modalService.open(EditProfileModalComponent)
 
   public openCreateOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
 
@@ -80,20 +85,18 @@ export class NavbarExpertMenuComponent implements OnInit {
 
   public logout = (): void => {
     this.navbarMenuService.logout();
-  }
+  };
 
   public onOrganizationProfileSwitch = (e: Event): void => e.stopPropagation();
 
   public onInputSwitchClick = (e: Event): void => {
     e.stopPropagation();
-  }
+  };
 
-  public openCreateModal = (): NgbModalRef =>
-    this.modalService.open(CreateCompanyConsultationModalComponent)
+  public openCreateModal = (): NgbModalRef => this.modalService.open(CreateCompanyConsultationModalComponent);
 
   private handleError = (err: any): Observable<boolean> => {
-    this.logger.warn('failure when try to change navbar menu visibility, ', (err));
+    this.logger.warn('failure when try to change navbar menu visibility, ', err);
     return of(false);
-  }
-
+  };
 }

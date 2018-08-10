@@ -14,26 +14,21 @@ const routes: Routes = [
     canActivate: [SetPasswordViewGuard],
     component: SetPasswordViewComponent,
     resolve: {
-      accountId: SetPasswordViewResolver
-    }
+      accountId: SetPasswordViewResolver,
+    },
   },
   {
     path: 'set-email',
     canActivate: [SetEmailViewGuard],
     component: SetEmailViewComponent,
     resolve: {
-      accountId: SetEmailViewResolver
-    }
-  }
+      accountId: SetEmailViewResolver,
+    },
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class AccountRoutingModule {
-}
+export class AccountRoutingModule {}

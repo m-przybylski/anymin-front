@@ -10,15 +10,16 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class NavbarMenuService {
-
   private logger: LoggerService;
   private initialMenuVisibility = false;
   private visibility$ = new BehaviorSubject<boolean>(this.initialMenuVisibility);
 
-  constructor(private userSessionService: UserSessionService,
-              private loggerFactory: LoggerFactory,
-              private router: Router,
-              private alertService: AlertService) {
+  constructor(
+    private userSessionService: UserSessionService,
+    private loggerFactory: LoggerFactory,
+    private router: Router,
+    private alertService: AlertService,
+  ) {
     this.logger = this.loggerFactory.createLoggerService('NavbarMenuService');
   }
 
@@ -26,37 +27,41 @@ export class NavbarMenuService {
 
   public hasUserExpertProfile = (): boolean => {
     let isExpert = false;
-    this.userSessionService.getSession()
-      .then((session) => {
+    this.userSessionService.getSession().then(
+      session => {
         if (session.account) {
           isExpert = session.account.isExpert;
         } else {
           isExpert = false;
         }
-      }, () => {
+      },
+      () => {
         this.logger.warn('failure when try to get session');
-      });
+      },
+    );
     return isExpert;
-  }
+  };
 
   public hasUserCompanyProfile = (): boolean => {
     let isCompany = false;
-    this.userSessionService.getSession()
-      .then((session) => {
+    this.userSessionService
+      .getSession()
+      .then(session => {
         if (session.account) {
           isCompany = session.account.isCompany;
         } else {
           isCompany = false;
         }
-      }).catch((err) => {
+      })
+      .catch(err => {
         this.logger.warn('failure when try to get session', err);
-    });
+      });
     return isCompany;
-  }
+  };
 
   public logout = (): void => {
-    this.userSessionService.logout()
-      .then(() => {
+    this.userSessionService.logout().then(
+      () => {
         this.router.navigate(['/login']).then(isRedirectSuccessful => {
           if (!isRedirectSuccessful) {
             this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -64,9 +69,10 @@ export class NavbarMenuService {
           }
         });
         this.alertService.pushSuccessAlert(Alerts.UserLoggedOut);
-      }, () => {
+      },
+      () => {
         this.logger.log('handle logout failure');
-      });
-  }
-
+      },
+    );
+  };
 }
