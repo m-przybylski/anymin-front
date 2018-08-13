@@ -1,6 +1,0 @@
-.expert-dashboard-consultation-row
-  .expert-dashboard-consultation-row__add-consultation(*ngIf='isOwnProfile')
-    button(plat-flat-fab color='primary', (click)='add()')
-      span(plat-icon iconClass='add-16')
-    span.expert-dashboard-consultation-row__text {{'EXPERT_DASHBOARD.ADD_CONSULTATION' | translate}}
-  plat-consultation-row.expert-dashboard-consultation-row__row(*ngFor='let consultation of consultations', [consultation]='consultation')

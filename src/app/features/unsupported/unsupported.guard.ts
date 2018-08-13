@@ -6,7 +6,11 @@ import { BrowserUtils } from 'ratel-sdk-js';
 
 @Injectable()
 export class UnsupportedGuard implements CanActivate {
-  constructor(private router: Router, private logger: LoggerService, private alertService: AlertService) {}
+
+  constructor(private router: Router,
+              private logger: LoggerService,
+              private alertService: AlertService) {
+  }
 
   public canActivate(): boolean {
     if (BrowserUtils.isBrowserSupported(true)) {

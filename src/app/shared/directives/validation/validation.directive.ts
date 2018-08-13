@@ -3,11 +3,14 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { AbstractControl } from '@angular/forms/src/model';
 
-@Directive({ selector: '[platValidation]' })
+@Directive({selector: '[platValidation]'})
 export class ValidationDirective {
-  @Output() public onBlur = new EventEmitter(true);
 
-  @Output() public onFocus = new EventEmitter(true);
+  @Output()
+  public onBlur = new EventEmitter(true);
+
+  @Output()
+  public onFocus = new EventEmitter(true);
 
   public get formControl(): AbstractControl | null {
     return this.ngControl.control;
@@ -15,7 +18,8 @@ export class ValidationDirective {
 
   private isFocused = false;
 
-  constructor(private ngControl: NgControl) {}
+  constructor(private ngControl: NgControl) {
+  }
 
   @HostListener('input', ['$event'])
   public onChangeEvent = (): void => {
@@ -23,13 +27,13 @@ export class ValidationDirective {
       this.formControl.setValidators(null);
       this.formControl.updateValueAndValidity();
     }
-  };
+  }
 
   @HostListener('focus')
   public onFocusEvent = (): void => {
     this.onFocus.emit();
     this.isFocused = true;
-  };
+  }
 
   @HostListener('blur')
   public onBlurEvent = (): void => {
@@ -37,5 +41,5 @@ export class ValidationDirective {
       this.onBlur.emit();
     }
     this.isFocused = false;
-  };
+  }
 }

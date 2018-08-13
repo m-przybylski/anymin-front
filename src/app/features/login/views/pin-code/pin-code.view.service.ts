@@ -1,6 +1,6 @@
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
-import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService,  Alerts, AlertService } from '@anymind-ng/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { RegistrationService } from '@anymind-ng/api';
@@ -19,36 +19,36 @@ export enum PinCodeServiceStatus {
   MSISDN_VERIFICATION_TOKEN_INCORRECT,
   CAN_NOT_FIND_MSISDN_TOKEN,
   TOO_MANY_MSISDN_TOKEN_ATTEMPTS,
-  CREATE_MSISDN_TOKEN_TOO_RECENTLY,
+  CREATE_MSISDN_TOKEN_TOO_RECENTLY
 }
 
 @Injectable()
 export class PinCodeViewService {
+
   private logger: LoggerService;
   private msisdn: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private alertService: AlertService,
-    private userSessionService: UserSessionService,
-    private registrationService: RegistrationService,
-    private eventsService: EventsService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private alertService: AlertService,
+              private userSessionService: UserSessionService,
+              private registrationService: RegistrationService,
+              private eventsService: EventsService,
+              loggerFactory: LoggerFactory) {
+
     this.logger = loggerFactory.createLoggerService('PinCodeViewService');
 
     this.route.params.subscribe(params => {
       this.msisdn = params.msisdn;
     });
+
   }
 
   public handleRegistration = (sessionId: string, token: string): Observable<PinCodeServiceStatus> =>
-    this.registrationService
-      .confirmVerificationRoute({ sessionId, token })
+    this.registrationService.confirmVerificationRoute({sessionId, token})
       .pipe(mergeMap(() => fromPromise(this.purgeSessionCache())))
       .pipe(tap(this.redirectToSetPassword))
-      .pipe(catchError(err => of(this.handleCheckPinCodeError(err))));
+      .pipe(catchError((err) => of(this.handleCheckPinCodeError(err))))
 
   // tslint:disable:cyclomatic-complexity
   private handleCheckPinCodeError = (err: HttpErrorResponse): PinCodeServiceStatus => {
@@ -86,20 +86,22 @@ export class PinCodeViewService {
       this.logger.warn('Error when handling pin code', error);
       return PinCodeServiceStatus.ERROR;
     }
-  };
+  }
 
   private purgeSessionCache = (): Promise<PinCodeServiceStatus> =>
     this.userSessionService.getSession(true).then(() => {
       this.eventsService.emit('login');
 
       return PinCodeServiceStatus.SUCCESS;
-    });
+    })
 
   private redirectToSetPassword = (): Promise<void> =>
-    this.router.navigate(['/account/set-password']).then(isRedirectSuccessful => {
-      if (!isRedirectSuccessful) {
-        this.logger.warn('Error when redirect to account/set-password');
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-      }
-    });
+    this.router.navigate(['/account/set-password'])
+      .then(isRedirectSuccessful => {
+        if (!isRedirectSuccessful) {
+          this.logger.warn('Error when redirect to account/set-password');
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        }
+      })
+
 }

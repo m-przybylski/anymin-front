@@ -3,21 +3,23 @@ import { TestBed, inject } from '@angular/core/testing';
 import { EmployeesInviteService } from './employees-invite.service';
 import { EmploymentService, InvitationService, ServiceService } from '@anymind-ng/api';
 import createSpyObj = jasmine.createSpyObj;
-import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
+import {
+  CommonSettingsService
+}
+  from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 
 describe('EmployeesInviteService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        EmployeesInviteService,
+      providers: [EmployeesInviteService,
         CommonSettingsService,
-        { provide: EmploymentService, useValue: createSpyObj('EmploymentService', ['getEmployeesRoute']) },
+        {provide: EmploymentService, useValue: createSpyObj('EmploymentService', ['getEmployeesRoute'])},
         {
           provide: ServiceService,
-          useValue: createSpyObj('ServiceService', ['postServiceInvitationsRoute', 'getServiceRoute']),
+          useValue: createSpyObj('ServiceService', ['postServiceInvitationsRoute', 'getServiceRoute'])
         },
-        { provide: InvitationService, useValue: createSpyObj('InvitationService', ['postInvitationRoute']) },
-      ],
+        {provide: InvitationService, useValue: createSpyObj('InvitationService', ['postInvitationRoute'])},
+      ]
     });
   });
 
@@ -38,7 +40,7 @@ describe('EmployeesInviteService', () => {
     const serviceId = 'a8144dee-5266-4873-ae23-ec6c567521cf';
 
     service.getInvitations(serviceId);
-    expect(serviceService.postServiceInvitationsRoute).toHaveBeenCalledWith({ serviceIds: [serviceId] });
+    expect(serviceService.postServiceInvitationsRoute).toHaveBeenCalledWith({serviceIds: [serviceId]});
   });
 
   it('should get consulation details', () => {
@@ -56,11 +58,9 @@ describe('EmployeesInviteService', () => {
     const serviceId = 'a8144dee-5266-4873-ae23-ec6c567521cf';
 
     const inviationData = {
-      invitations: [
-        {
-          serviceId,
-        },
-      ],
+      invitations: [{
+        serviceId
+      }]
     };
 
     service.postInvitation(inviationData);

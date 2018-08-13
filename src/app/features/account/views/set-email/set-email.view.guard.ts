@@ -7,19 +7,18 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 
 @Injectable()
 export class SetEmailViewGuard implements CanActivate {
+
   private logger: LoggerService;
 
-  constructor(
-    private router: Router,
-    private alertService: AlertService,
-    private userSessionService: UserSessionService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private router: Router,
+              private alertService: AlertService,
+              private userSessionService: UserSessionService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetEmailViewGuard');
   }
 
   public canActivate = (): Promise<boolean> =>
-    this.userSessionService.getSession().then(session => {
+    this.userSessionService.getSession().then((session) => {
       if (this.hasUserEmail(session)) {
         this.logger.info('user has email, redirecting to dashboard');
         this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
@@ -33,8 +32,9 @@ export class SetEmailViewGuard implements CanActivate {
         this.logger.info('user has no email, allowing access');
         return true;
       }
-    });
+    })
 
   private hasUserEmail = (sessionWithAccount: GetSessionWithAccount): boolean =>
-    sessionWithAccount.account.email !== undefined || sessionWithAccount.account.unverifiedEmail !== undefined;
+    sessionWithAccount.account.email !== undefined || sessionWithAccount.account.unverifiedEmail !== undefined
+
 }

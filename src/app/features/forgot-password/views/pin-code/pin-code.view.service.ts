@@ -18,20 +18,20 @@ export enum ForgotPasswordPinCodeServiceStatus {
   INVALID,
   VERIFICATION_TOKEN_INCORRECT,
   CAN_NOT_FIND_TOKEN,
-  TO_MANY_ATTEMPTS,
+  TO_MANY_ATTEMPTS
 }
 
 @Injectable()
 export class ForgotPasswordPinCodeViewService {
+
   private msisdn: string;
   private logger: LoggerService;
 
-  constructor(
-    private route: ActivatedRoute,
-    private alertService: AlertService,
-    private recoverPasswordService: RecoverPasswordService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private route: ActivatedRoute,
+              private alertService: AlertService,
+              private recoverPasswordService: RecoverPasswordService,
+              loggerFactory: LoggerFactory) {
+
     this.route.params.subscribe(params => {
       this.msisdn = params.msisdn;
     });
@@ -40,13 +40,12 @@ export class ForgotPasswordPinCodeViewService {
   }
 
   public checkPinCode = (token: string): Observable<ForgotPasswordPinCodeServiceStatus> =>
-    this.recoverPasswordService
-      .postRecoverPasswordVerifyMsisdnRoute({
-        token,
-        msisdn: this.msisdn,
-      })
+    this.recoverPasswordService.postRecoverPasswordVerifyMsisdnRoute({
+      token,
+      msisdn: this.msisdn
+    })
       .pipe(map(() => ForgotPasswordPinCodeServiceStatus.SUCCESS))
-      .pipe(catchError(err => of(this.handleCheckPinCodeError(err))));
+      .pipe(catchError((err) => of(this.handleCheckPinCodeError(err))))
 
   private handleCheckPinCodeError = (err: HttpErrorResponse): ForgotPasswordPinCodeServiceStatus => {
     const error = err.error;
@@ -75,5 +74,6 @@ export class ForgotPasswordPinCodeViewService {
       this.logger.warn('error when checking pin code', error);
       return ForgotPasswordPinCodeServiceStatus.ERROR;
     }
-  };
+  }
+
 }

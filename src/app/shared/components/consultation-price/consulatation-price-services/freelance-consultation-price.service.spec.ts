@@ -2,13 +2,16 @@ import { TestBed } from '@angular/core/testing';
 import { FreelanceConsultationPriceService } from './freelance-consultation-price.service';
 
 describe('Service: FreelanceConsultationPriceService', () => {
+
   const tax = 0.23;
   const commission = 0.15;
   const freelanceConsultationPriceService = new FreelanceConsultationPriceService(tax, commission);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FreelanceConsultationPriceService],
+      providers: [
+        FreelanceConsultationPriceService
+      ]
     });
   });
 
@@ -44,4 +47,5 @@ describe('Service: FreelanceConsultationPriceService', () => {
     const expectedValue = 8.68;
     expect(freelanceConsultationPriceService.getGrossPrice(value)).toEqual(expectedValue);
   });
+
 });

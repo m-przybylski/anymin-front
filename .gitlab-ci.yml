@@ -31,7 +31,7 @@ test-run:
 build-push-release-image:
   stage: build-push-release-image
   script:
-    - docker build --no-cache -t $CONTAINER_RELEASE_IMAGE_URL -f Dockerfile.build .
+    - docker build --no-cache -t $CONTAINER_RELEASE_IMAGE_URL -f Dockerfile.build . 
     - docker push $CONTAINER_RELEASE_IMAGE_URL
   only:
     - develop

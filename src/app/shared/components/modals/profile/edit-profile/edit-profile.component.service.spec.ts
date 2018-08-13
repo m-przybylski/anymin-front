@@ -9,28 +9,32 @@ import { EditProfileModalComponentService } from './edit-profile.component.servi
 describe('EditProfileModalComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        EditProfileModalComponentService,
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+      providers: [EditProfileModalComponentService,
+        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {
-          provide: ProfileService,
-          useValue: createSpyObj('ProfileService', ['putExpertProfileRoute', 'getProfileRoute']),
+          provide: ProfileService, useValue: createSpyObj('ProfileService', [
+              'putExpertProfileRoute', 'getProfileRoute'
+            ]
+          )
         },
-        { provide: AccountService, useValue: createSpyObj('AccountService', ['putGeneralSettingsRoute']) },
-        { provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession']) },
-      ],
+        {provide: AccountService, useValue: createSpyObj('AccountService', ['putGeneralSettingsRoute'])},
+        {provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession'])},
+      ]
     });
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {},
-      error: (): void => {},
+      warn: (): void => {
+      },
+      error: (): void => {
+      }
     });
   });
 
-  it('should be created', inject([EditProfileModalComponentService], (service: EditProfileModalComponentService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject([EditProfileModalComponentService],
+    (service: EditProfileModalComponentService) => {
+      expect(service).toBeTruthy();
+    }));
 
-  it('should getPreviousValue$', done => {
+  it('should getPreviousValue$',  (done) => {
     const service = TestBed.get(EditProfileModalComponentService);
     service.value$.next('asd');
     service.getPreviousValue$().subscribe((value: string) => {
@@ -39,7 +43,7 @@ describe('EditProfileModalComponentService', () => {
     });
   });
 
-  it('should get previous avatar src value', done => {
+  it('should get previous avatar src value',  (done) => {
     const service = TestBed.get(EditProfileModalComponentService);
     service.avatarUrl$.next('/images/foto.png');
     service.getPreviousAvatarSrc().subscribe((value: string) => {
@@ -56,7 +60,7 @@ describe('EditProfileModalComponentService', () => {
       avatar: 'avaar',
       description: 'description',
       files: [],
-      links: [],
+      links: []
     };
 
     service.createExpertProfile(expertDetailsObject);
@@ -69,10 +73,11 @@ describe('EditProfileModalComponentService', () => {
     const clientDetailsObject: PutGeneralSettings = {
       isAnonymous: false,
       nickname: 'nick',
-      avatar: 'avatar',
+      avatar: 'avatar'
     };
 
     service.createClientProfile(clientDetailsObject);
     expect(accountService.putGeneralSettingsRoute).toHaveBeenCalledWith(clientDetailsObject);
   });
+
 });

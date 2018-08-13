@@ -8,32 +8,35 @@ import { SearchService } from '@anymind-ng/api';
 describe('ConsultationTagsComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ConsultationTagsComponentService,
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+      providers: [ConsultationTagsComponentService,
+        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {
-          provide: SearchService,
-          useValue: createSpyObj('SearchService', ['postTagsSuggestionsRoute']),
+          provide: SearchService, useValue: createSpyObj('SearchService', ['postTagsSuggestionsRoute'
+            ]
+          )
         },
-      ],
+      ]
     });
 
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {},
-      error: (): void => {},
+      warn: (): void => {
+      },
+      error: (): void => {
+      }
     });
   });
 
-  it('should be created', inject([ConsultationTagsComponentService], (service: ConsultationTagsComponentService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject([ConsultationTagsComponentService],
+    (service: ConsultationTagsComponentService) => {
+      expect(service).toBeTruthy();
+    }));
 
   it('should get suggested tags', () => {
     const service = TestBed.get(ConsultationTagsComponentService);
     const searchService = TestBed.get(SearchService);
     const query = {
       query: 'query',
-      tags: ['tag'],
+      tags: ['tag']
     };
     service.getSuggestedTags(query);
     expect(searchService.postTagsSuggestionsRoute).toHaveBeenCalledWith(query);

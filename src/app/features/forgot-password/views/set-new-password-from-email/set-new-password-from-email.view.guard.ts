@@ -5,9 +5,14 @@ import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
 
 @Injectable()
 export class SetNewPasswordFromEmailViewGuard implements CanActivate {
-  constructor(private router: Router, private logger: LoggerService, private alertService: AlertService) {}
+
+  constructor(private router: Router,
+              private logger: LoggerService,
+              private alertService: AlertService) {
+  }
 
   public canActivate(route: ActivatedRouteSnapshot): boolean {
+
     if (this.isTokenValid(route)) {
       return true;
     } else {
@@ -22,5 +27,6 @@ export class SetNewPasswordFromEmailViewGuard implements CanActivate {
   }
 
   private isTokenValid = (route: ActivatedRouteSnapshot): boolean =>
-    typeof route.params.token === 'string' && route.params.token.length > 0;
+    typeof route.params.token === 'string' && route.params.token.length > 0
+
 }

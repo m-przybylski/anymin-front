@@ -10,19 +10,21 @@ import createSpyObj = jasmine.createSpyObj;
               <li id="item_1"></li>
               <li id="item_2"></li>
           </ul>
-      </div>`,
+      </div>`
 })
-class TestDirectiveComponent {}
+
+class TestDirectiveComponent {
+}
 
 describe('Directive: ScrollToElementDirective', () => {
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestDirectiveComponent, ScrollToElementDirective],
       providers: [
         {
-          provide: ElementRef,
-          useValue: createSpyObj('ElementRef', ['element']),
-        },
+          provide: ElementRef, useValue: createSpyObj('ElementRef', ['element'])
+        }
       ],
     });
   });

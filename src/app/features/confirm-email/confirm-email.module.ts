@@ -4,9 +4,15 @@ import { ConfirmEmailComponent } from './confirm-email.component';
 import { ConfirmEmailGuard } from './confirm-email.guard';
 
 @NgModule({
-  declarations: [ConfirmEmailComponent],
-  providers: [ConfirmEmailGuard],
+  declarations: [
+    ConfirmEmailComponent
+  ],
+  providers: [
+    ConfirmEmailGuard
+  ]
 })
 export class ConfirmEmailModule {
-  constructor() {}
+
+  constructor() {
+  }
 }

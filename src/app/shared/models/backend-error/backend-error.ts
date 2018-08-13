@@ -26,5 +26,5 @@ export enum BackendErrors {
   TooManyMsisdnTokenAttempts = 344,
   ToManyIncorrectPasswordAttempts = 345,
   MsisdnBlocked = 346,
-  MissingTokenModelId = 408,
+  MissingTokenModelId = 408
 }

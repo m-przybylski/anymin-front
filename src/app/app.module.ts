@@ -12,11 +12,26 @@ import { RavenErrorHandler } from './shared/providers/raven-error-handler/raven-
 import { ConfirmEmailModule } from './features/confirm-email/confirm-email.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [RouterModule, BrowserModule, AppRoutingModule, CoreModule, SharedModule, ConfirmEmailModule, UpgradeModule],
-  providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }, AngularJsBootstrapSingletonService],
-  bootstrap: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    RouterModule,
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    SharedModule,
+    ConfirmEmailModule,
+    UpgradeModule
+  ],
+  providers: [
+    { provide: ErrorHandler, useClass: RavenErrorHandler },
+    AngularJsBootstrapSingletonService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {}
+
+  constructor() {
+  }
 }

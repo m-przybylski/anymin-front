@@ -10,30 +10,31 @@ import { CreateOrganizationModalComponentService } from './create-organization.c
 describe('CreateOrganizationModalComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        CreateOrganizationModalComponentService,
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+      providers: [CreateOrganizationModalComponentService,
+        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
         {
-          provide: ProfileService,
-          useValue: createSpyObj('ProfileService', ['putOrganizationProfileRoute', 'getProfileRoute']),
+          provide: ProfileService, useValue: createSpyObj('ProfileService', [
+              'putOrganizationProfileRoute', 'getProfileRoute'
+            ]
+          )
         },
-        { provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession']) },
-        { provide: ServiceService, useValue: createSpyObj('ServiceService', ['getProfileServicesRoute']) },
-      ],
+        {provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession'])},
+        {provide: ServiceService, useValue: createSpyObj('ServiceService', ['getProfileServicesRoute'])},
+      ]
     });
 
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {},
-      error: (): void => {},
+      warn: (): void => {
+      },
+      error: (): void => {
+      }
     });
   });
 
-  it('should be created', inject(
-    [CreateOrganizationModalComponentService],
+  it('should be created', inject([CreateOrganizationModalComponentService],
     (service: CreateOrganizationModalComponentService) => {
       expect(service).toBeTruthy();
-    },
-  ));
+    }));
 
   it('should get orgnization profile', () => {
     const service = TestBed.get(CreateOrganizationModalComponentService);
@@ -52,7 +53,7 @@ describe('CreateOrganizationModalComponentService', () => {
       logo: 'logo',
       description: 'description',
       files: [],
-      links: [],
+      links: []
     };
 
     service.createOrganizationProfile(clientDetailsObject);

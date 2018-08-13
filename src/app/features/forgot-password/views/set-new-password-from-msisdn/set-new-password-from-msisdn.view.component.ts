@@ -7,18 +7,23 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import {
   SetNewPasswordFromMsisdnViewService,
-  SetNewPasswordFromMsisdnStatus,
+  SetNewPasswordFromMsisdnStatus
 } from './set-new-password-from-msisdn.view.service';
-import { InputSetPasswordErrors } from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
+import {
+  InputSetPasswordErrors
+}
+  from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'set-new-password-from-msisdn',
   templateUrl: './set-new-password-from-msisdn.view.component.html',
   styleUrls: ['./set-new-password-from-msisdn.view.component.sass'],
-  providers: [SetNewPasswordFromMsisdnViewService],
+  providers: [SetNewPasswordFromMsisdnViewService]
 })
+
 export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy {
+
   public readonly passwordControlName = 'password';
   public readonly setPasswordFormId = 'passwordForm';
 
@@ -31,14 +36,12 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private tokenService: VerifiedCodeService,
-    private setNewPasswordFromMsisdnService: SetNewPasswordFromMsisdnViewService,
-    private formUtils: FormUtilsService,
-    private alertService: AlertService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private route: ActivatedRoute,
+              private tokenService: VerifiedCodeService,
+              private setNewPasswordFromMsisdnService: SetNewPasswordFromMsisdnViewService,
+              private formUtils: FormUtilsService,
+              private alertService: AlertService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromMsisdnViewComponent');
   }
 
@@ -61,14 +64,11 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
       if (this.token) {
         this.isRequestPending = true;
         const password = setPasswordForm.controls[this.passwordControlName].value;
-        this.setNewPasswordFromMsisdnService
-          .handleNewPassword(this.msisdn, this.token, password)
-          .pipe(
-            finalize(() => {
-              this.tokenService.unsetVerifiedCode();
-              this.isRequestPending = false;
-            }),
-          )
+        this.setNewPasswordFromMsisdnService.handleNewPassword(this.msisdn, this.token, password)
+          .pipe(finalize(() => {
+            this.tokenService.unsetVerifiedCode();
+            this.isRequestPending = false;
+          }))
           .pipe(takeUntil(this.ngUnsubscribe$))
           .subscribe(this.handleSetNewPasswordStatus);
       } else {
@@ -78,7 +78,7 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
     } else {
       this.formUtils.validateAllFormFields(setPasswordForm);
     }
-  };
+  }
 
   private handleSetNewPasswordStatus = (status: SetNewPasswordFromMsisdnStatus): void => {
     switch (status) {
@@ -101,12 +101,11 @@ export class SetNewPasswordFromMsisdnViewComponent implements OnInit, OnDestroy 
       default:
         this.logger.error('Unhandled password status ', status);
     }
-  };
+  }
 
   private displayIncorrectPasswordError = (): void => {
-    this.setPasswordForm.controls[this.passwordControlName].setErrors({
-      [InputSetPasswordErrors.IncorrectPassword]: true,
-    });
+    this.setPasswordForm.controls[this.passwordControlName]
+      .setErrors({[InputSetPasswordErrors.IncorrectPassword]: true});
     this.formUtils.validateAllFormFields(this.setPasswordForm);
-  };
+  }
 }

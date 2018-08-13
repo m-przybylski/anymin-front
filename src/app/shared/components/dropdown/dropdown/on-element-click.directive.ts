@@ -1,12 +1,15 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({
-  selector: '[onElementClickDirective]',
+  selector: '[onElementClickDirective]'
 })
 export class OnElementClickDirective {
-  @Output() public isClickedElement = new EventEmitter<boolean>();
 
-  constructor(private element: ElementRef) {}
+  @Output()
+  public isClickedElement = new EventEmitter<boolean>();
+
+  constructor(private element: ElementRef) {
+  }
 
   @HostListener('document:click', ['$event'])
   public handleClick(event: Event): void {
