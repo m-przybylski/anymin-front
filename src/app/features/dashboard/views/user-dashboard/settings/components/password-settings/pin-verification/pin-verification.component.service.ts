@@ -12,29 +12,27 @@ export enum RecoverPasswordStatus {
   ERROR,
   INVALID_TOKEN,
   CAN_NOT_FIND_TOKEN,
-  TOO_MANY_ATTEMPTS,
+  TOO_MANY_ATTEMPTS
 }
 
 @Injectable()
 export class PinVerificationComponentService {
+
   private logger: LoggerService;
 
-  constructor(
-    private alertService: AlertService,
-    private recoverPasswordService: RecoverPasswordService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private alertService: AlertService,
+              private recoverPasswordService: RecoverPasswordService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('PinVerificationComponentService');
   }
 
   public checkPinToken = (token: string, msisdn: string): Observable<RecoverPasswordStatus> =>
-    this.recoverPasswordService
-      .postRecoverPasswordVerifyMsisdnRoute({
-        token,
-        msisdn,
-      })
+    this.recoverPasswordService.postRecoverPasswordVerifyMsisdnRoute({
+      token,
+      msisdn
+    })
       .pipe(map(() => RecoverPasswordStatus.SUCCESS))
-      .pipe(catchError(err => of(this.handleError(err))));
+      .pipe(catchError((err) => of(this.handleError(err))))
 
   private handleError = (err: HttpErrorResponse): RecoverPasswordStatus => {
     const error = err.error;
@@ -65,5 +63,6 @@ export class PinVerificationComponentService {
 
       return RecoverPasswordStatus.ERROR;
     }
-  };
+  }
+
 }

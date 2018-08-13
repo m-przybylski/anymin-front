@@ -5,7 +5,15 @@ import { UnsupportedRoutingModule } from './unsupported.routing';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  imports: [UnsupportedRoutingModule, SharedModule, CommonModule],
-  declarations: [UnsupportedComponent],
+  imports: [
+    UnsupportedRoutingModule,
+    SharedModule,
+    CommonModule
+  ],
+  declarations: [
+    UnsupportedComponent
+  ]
 })
-export class UnsupportedModule {}
+
+export class UnsupportedModule {
+}

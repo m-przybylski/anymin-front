@@ -34,22 +34,22 @@
         span.icon.icon-bell
     li
       plat-navbar-user-avatar(
-        [avatarToken]="(isExpertNavVisible) ? expertAvatar : companyLogo"
+        [avatarUrl]="(isExpertNavVisible) ? expertAvatar : companyLogo"
       )
         plat-navbar-user-menu(
           *ngIf="!isExpert && isExpertNavVisible",
           [clientName]="clientName",
-          [avatarToken]="expertAvatar",
+          [avatarUrl]="expertAvatar",
           [isCompany]="isCompany",
           [isExpert]="isExpert",
-          [companyAvatarToken]="companyLogo",
+          [companyAvatarUrl]="companyLogo",
           )
 
         plat-navbar-expert-menu(
           *ngIf="isExpert && isExpertNavVisible",
-          [avatarToken]="expertAvatar",
+          [avatarUrl]="expertAvatar",
           [expertName]="expertName",
-          [companyAvatarToken]="companyLogo",
+          [companyAvatarUrl]="companyLogo",
           [isExpert]="isExpert",
           [isCompany]="isCompany"
         )
@@ -57,7 +57,7 @@
         plat-navbar-company-menu(
           *ngIf="isCompany && !isExpertNavVisible",
           [companyName]="companyName",
-          [companyAvatarToken]="companyLogo",
-          [expertAvatarToken]="expertAvatar",
+          [companyAvatarUrl]="companyLogo",
+          [expertAvatarUrl]="expertAvatar",
           [isExpert]="isExpert"
         )

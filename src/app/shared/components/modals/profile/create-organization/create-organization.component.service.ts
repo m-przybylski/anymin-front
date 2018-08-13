@@ -1,4 +1,4 @@
-import { ProfileService, ServiceService } from '@anymind-ng/api';
+import { ProfileService, ServiceService, } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
@@ -13,30 +13,30 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 
 @Injectable()
 export class CreateOrganizationModalComponentService {
+
   private logger: LoggerService;
 
-  constructor(
-    private profileService: ProfileService,
-    private serviceService: ServiceService,
-    private userSessionService: UserSessionService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private profileService: ProfileService,
+              private serviceService: ServiceService,
+              private userSessionService: UserSessionService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('CreateOrganizationModalComponentService');
   }
 
   public getProfileDetails = (): Observable<GetProfileWithDocuments> =>
-    fromPromise(this.userSessionService.getSession()).pipe(
-      mergeMap((session: GetSessionWithAccount) => this.getProfile(session.account.id)),
-    );
+    fromPromise(this.userSessionService.getSession())
+      .pipe(mergeMap((session: GetSessionWithAccount) => this.getProfile(session.account.id)))
 
   public getProfileService = (accountId: string): Observable<ReadonlyArray<GetService>> =>
-    this.serviceService.getProfileServicesRoute(accountId);
+    this.serviceService.getProfileServicesRoute(accountId)
 
-  public getSession = (): Observable<GetSessionWithAccount> => fromPromise(this.userSessionService.getSession());
+  public getSession = (): Observable<GetSessionWithAccount> =>
+    fromPromise(this.userSessionService.getSession())
 
   public createOrganizationProfile = (data: PutOrganizationDetails): Observable<GetProfile> =>
-    this.profileService.putOrganizationProfileRoute(data);
+    this.profileService.putOrganizationProfileRoute(data)
 
   private getProfile = (accountId: string): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(accountId);
+    this.profileService.getProfileRoute(accountId)
+
 }

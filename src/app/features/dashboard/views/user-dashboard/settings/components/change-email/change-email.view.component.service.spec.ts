@@ -9,6 +9,7 @@ import { _throw } from 'rxjs/observable/throw';
 import { BackendErrors } from '../../../../../../../shared/models/backend-error/backend-error';
 
 describe('Service: ChangeEmailViewComponentService', () => {
+
   const mockNewEmail = 'new@email.com';
   const logger: LoggerService = new LoggerService(1);
 
@@ -18,15 +19,15 @@ describe('Service: ChangeEmailViewComponentService', () => {
         ChangeEmailViewComponentService,
         {
           provide: AccountService,
-          useValue: createSpyObj('AccountService', ['patchUpdateAccountRoute']),
+          useValue: createSpyObj('AccountService', ['patchUpdateAccountRoute'])
         },
         {
           provide: UserSessionService,
-          useValue: createSpyObj('UserSessionService', ['getSession']),
+          useValue: createSpyObj('UserSessionService', ['getSession'])
         },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
-      ],
+        {provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert'])},
+        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
+      ]
     });
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
     TestBed.get(UserSessionService).getSession.and.returnValue(Promise.resolve({}));
@@ -38,80 +39,82 @@ describe('Service: ChangeEmailViewComponentService', () => {
 
     mockAccountService.patchUpdateAccountRoute.and.returnValue(of({}));
 
-    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
-      expect(status).toEqual(ChangeEmailStatusEnum.SUCCESS);
-    });
+    changeEmailViewComponentService.changeEmail(mockNewEmail)
+      .subscribe((status: ChangeEmailStatusEnum) => {
+        expect(status).toEqual(ChangeEmailStatusEnum.SUCCESS);
+      });
   });
 
   it('should return INVALID status when try to set email with backend error IncorrectValidation', () => {
     const mockAccountService = TestBed.get(AccountService);
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    mockAccountService.patchUpdateAccountRoute.and.returnValue(
-      _throw({
-        error: {
-          code: BackendErrors.IncorrectValidation,
-          error: {},
-          message: 'errorMessage',
-        },
-      }),
-    );
+    mockAccountService.patchUpdateAccountRoute.and.returnValue(_throw({
+      error: {
+        code: BackendErrors.IncorrectValidation,
+        error: {},
+        message: 'errorMessage'
+      }
+    }));
 
-    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
-      expect(status).toEqual(ChangeEmailStatusEnum.INVALID);
-    });
+    changeEmailViewComponentService.changeEmail(mockNewEmail)
+      .subscribe((status: ChangeEmailStatusEnum) => {
+        expect(status).toEqual(ChangeEmailStatusEnum.INVALID);
+      });
   });
 
   it('should return ALREADY_EXIST status when try to set email with backend error EmailAlreadyExists', () => {
     const mockAccountService = TestBed.get(AccountService);
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    mockAccountService.patchUpdateAccountRoute.and.returnValue(
-      _throw({
-        error: {
-          code: BackendErrors.EmailAlreadyExists,
-          error: {},
-          message: 'errorMessage',
-        },
-      }),
-    );
+    mockAccountService.patchUpdateAccountRoute.and.returnValue(_throw({
+      error: {
+        code: BackendErrors.EmailAlreadyExists,
+        error: {},
+        message: 'errorMessage'
+      }
+    }));
 
-    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
-      expect(status).toEqual(ChangeEmailStatusEnum.ALREADY_EXIST);
-    });
+    changeEmailViewComponentService.changeEmail(mockNewEmail)
+      .subscribe((status: ChangeEmailStatusEnum) => {
+        expect(status).toEqual(ChangeEmailStatusEnum.ALREADY_EXIST);
+      });
   });
 
-  it('should return ERROR status and show danger alert when try to set email with unhandled backend error', () => {
-    const mockAccountService = TestBed.get(AccountService);
-    const mockAlertService = TestBed.get(AlertService);
-    const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
+  it('should return ERROR status and show danger alert when try to set email with unhandled backend error',
+    () => {
+      const mockAccountService = TestBed.get(AccountService);
+      const mockAlertService = TestBed.get(AlertService);
+      const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    mockAccountService.patchUpdateAccountRoute.and.returnValue(
-      _throw({
+      mockAccountService.patchUpdateAccountRoute.and.returnValue(_throw({
         error: {
           code: 1,
           error: {},
-          message: 'errorMessage',
-        },
-      }),
-    );
+          message: 'errorMessage'
+        }
+      }));
 
-    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
-      expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-      expect(status).toEqual(ChangeEmailStatusEnum.ERROR);
+      changeEmailViewComponentService.changeEmail(mockNewEmail)
+        .subscribe((status: ChangeEmailStatusEnum) => {
+          expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+          expect(status).toEqual(ChangeEmailStatusEnum.ERROR);
+        });
     });
-  });
 
-  it('should return ERROR status and show danger alert when try to set email with not backend error', () => {
-    const mockAccountService = TestBed.get(AccountService);
-    const mockAlertService = TestBed.get(AlertService);
-    const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
+  it('should return ERROR status and show danger alert when try to set email with not backend error',
+    () => {
+      const mockAccountService = TestBed.get(AccountService);
+      const mockAlertService = TestBed.get(AlertService);
+      const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    mockAccountService.patchUpdateAccountRoute.and.returnValue(_throw({}));
+      mockAccountService.patchUpdateAccountRoute.and.returnValue(_throw({}));
 
-    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
-      expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-      expect(status).toEqual(ChangeEmailStatusEnum.ERROR);
+      changeEmailViewComponentService.changeEmail(mockNewEmail)
+        .subscribe((status: ChangeEmailStatusEnum) => {
+          expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+          expect(status).toEqual(ChangeEmailStatusEnum.ERROR);
+        });
     });
-  });
+
 });

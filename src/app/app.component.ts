@@ -12,10 +12,11 @@ const englishTranslations = require('../../lib/angular-translations/en-us.json')
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  constructor(private logger: LoggerService, translate: TranslateService) {
+  constructor(private logger: LoggerService,
+              translate: TranslateService) {
     this.printVersion();
 
     translate.setTranslation('pl', polishTranslations);
@@ -31,5 +32,6 @@ export class AppComponent {
 
   private printVersion = (): void => {
     this.logger.info(`Application Version: ${VERSION.hash}`, VERSION);
-  };
+  }
+
 }

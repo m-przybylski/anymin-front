@@ -9,9 +9,10 @@ import { Subject } from 'rxjs';
 @Component({
   templateUrl: './set-email.view.component.html',
   styleUrls: ['./set-email.view.component.sass'],
-  providers: [SetEmailViewService],
+  providers: [SetEmailViewService]
 })
 export class SetEmailViewComponent implements OnInit, OnDestroy {
+
   public readonly setEmailFormId = 'setEmailForm';
   public readonly emailControlName = 'email';
 
@@ -24,12 +25,10 @@ export class SetEmailViewComponent implements OnInit, OnDestroy {
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(
-    private setEmailService: SetEmailViewService,
-    private formUtils: FormUtilsService,
-    private route: ActivatedRoute,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private setEmailService: SetEmailViewService,
+              private formUtils: FormUtilsService,
+              private route: ActivatedRoute,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetEmailViewComponent');
   }
 
@@ -48,15 +47,14 @@ export class SetEmailViewComponent implements OnInit, OnDestroy {
       this.isRequestPending = true;
       const email = setEmailForm.value[this.emailControlName];
 
-      this.setEmailService
-        .setEmail(this.accountId, email)
-        .pipe(finalize(() => (this.isRequestPending = false)))
+      this.setEmailService.setEmail(this.accountId, email)
+        .pipe(finalize(() => this.isRequestPending = false))
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleSetEmailStatus);
     } else {
       this.formUtils.validateAllFormFields(setEmailForm);
     }
-  };
+  }
 
   private handleSetEmailStatus = (status: SetEmailStatus): void => {
     switch (status) {
@@ -79,19 +77,17 @@ export class SetEmailViewComponent implements OnInit, OnDestroy {
       default:
         this.logger.error('SetEmailViewComponent error when handling email status');
     }
-  };
+  }
 
   private displayIncorrectEmailError = (): void => {
-    this.setEmailForm.controls[this.emailControlName].setErrors({
-      [InputEmailComponent.InputEmailErrors.invalid]: true,
-    });
+    this.setEmailForm.controls[this.emailControlName].setErrors({[InputEmailComponent.InputEmailErrors.invalid]: true});
     this.formUtils.validateAllFormFields(this.setEmailForm);
-  };
+  }
 
   private displayAlreadyExistEmailError = (): void => {
-    this.setEmailForm.controls[this.emailControlName].setErrors({
-      [InputEmailComponent.InputEmailErrors.alreadyExists]: true,
-    });
+    this.setEmailForm.controls[this.emailControlName]
+      .setErrors({[InputEmailComponent.InputEmailErrors.alreadyExists]: true});
     this.formUtils.validateAllFormFields(this.setEmailForm);
-  };
+  }
+
 }

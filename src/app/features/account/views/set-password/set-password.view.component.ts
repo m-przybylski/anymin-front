@@ -3,15 +3,19 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SetPasswordViewService, SetPasswordStatus } from './set-password.view.service';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { InputSetPasswordErrors } from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
+import {
+  InputSetPasswordErrors
+}
+  from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { LoggerFactory, LoggerService, FormUtilsService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './set-password.view.component.html',
-  providers: [SetPasswordViewService],
+  providers: [SetPasswordViewService]
 })
 export class SetPasswordViewComponent implements OnInit, OnDestroy {
+
   public readonly setPasswordFormId = 'setPasswordForm';
   public readonly passwordControlName = 'password';
 
@@ -23,12 +27,10 @@ export class SetPasswordViewComponent implements OnInit, OnDestroy {
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private setPasswordService: SetPasswordViewService,
-    private formUtils: FormUtilsService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private route: ActivatedRoute,
+              private setPasswordService: SetPasswordViewService,
+              private formUtils: FormUtilsService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetPasswordViewComponent');
   }
 
@@ -46,15 +48,14 @@ export class SetPasswordViewComponent implements OnInit, OnDestroy {
     if (setPasswordForm.valid) {
       this.isRequestPending = true;
       const password = setPasswordForm.value[this.passwordControlName];
-      this.setPasswordService
-        .setPassword(this.accountId, password)
-        .pipe(finalize(() => (this.isRequestPending = false)))
+      this.setPasswordService.setPassword(this.accountId, password)
+        .pipe(finalize(() => this.isRequestPending = false))
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleSetPasswordStatus);
     } else {
       this.formUtils.validateAllFormFields(setPasswordForm);
     }
-  };
+  }
 
   private handleSetPasswordStatus = (status: SetPasswordStatus): void => {
     switch (status) {
@@ -73,12 +74,12 @@ export class SetPasswordViewComponent implements OnInit, OnDestroy {
       default:
         this.logger.error('Unhandled set password status', status);
     }
-  };
+  }
 
   private displayIncorrectPasswordError = (): void => {
-    this.setPasswordForm.controls[this.passwordControlName].setErrors({
-      [InputSetPasswordErrors.IncorrectPassword]: true,
-    });
+    this.setPasswordForm.controls[this.passwordControlName]
+      .setErrors({[InputSetPasswordErrors.IncorrectPassword]: true});
     this.formUtils.validateAllFormFields(this.setPasswordForm);
-  };
+  }
+
 }

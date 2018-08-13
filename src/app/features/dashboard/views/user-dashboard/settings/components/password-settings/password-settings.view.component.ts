@@ -10,15 +10,16 @@ enum ChangePasswordModalStepEnum {
   CHANGE_PASSWORD,
   PIN_VERIFICATION,
   SET_NEW_PASSWORD,
-  EMAIL_CONFIRMATION,
+  EMAIL_CONFIRMATION
 }
 
 @Component({
   selector: 'plat-password-settings',
   templateUrl: './password-settings.view.component.html',
-  styleUrls: ['./password-settings.view.component.sass'],
+  styleUrls: ['./password-settings.view.component.sass']
 })
 export class PasswordSettingsViewComponent {
+
   public readonly modalWidth = ModalContainerWidthEnum.SMALL_WIDTH;
   public readonly modalSteps: typeof ChangePasswordModalStepEnum = ChangePasswordModalStepEnum;
   public modalStep: ChangePasswordModalStepEnum = ChangePasswordModalStepEnum.CHANGE_PASSWORD;
@@ -30,15 +31,13 @@ export class PasswordSettingsViewComponent {
     changePassword: 'DASHBOARD.SETTINGS.CHANGE_PASSWORD.TITLE',
     pinVerification: 'DASHBOARD.SETTINGS.PIN_VERIFICATION.TITLE',
     setPassword: 'DASHBOARD.SETTINGS.SET_PASSWORD.TITLE',
-    emailConfirmation: 'DASHBOARD.SETTINGS.EMAIL_CONFIRMATION.TITLE',
+    emailConfirmation: 'DASHBOARD.SETTINGS.EMAIL_CONFIRMATION.TITLE'
   };
   private logger: LoggerService;
 
-  constructor(
-    private alertService: AlertService,
-    private userSessionService: UserSessionService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private alertService: AlertService,
+              private userSessionService: UserSessionService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('PasswordSettingsViewComponent');
     this.modalHeaderTrKey = this.modalHeaderTranslations.changePassword;
     this.getUserMsisdn();
@@ -60,7 +59,7 @@ export class PasswordSettingsViewComponent {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('unhandled password recover method', recoverMethod);
     }
-  };
+  }
 
   public onPinVerification = (pinVerification: IPinVerificationStatus): void => {
     if (pinVerification.status === RecoverPasswordStatus.SUCCESS) {
@@ -71,20 +70,20 @@ export class PasswordSettingsViewComponent {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       this.logger.error('unhandled pin verification status', status);
     }
-  };
+  }
 
   public onGoBack = (): void => {
     this.modalStep = ChangePasswordModalStepEnum.CHANGE_PASSWORD;
-  };
+  }
 
   private getUserMsisdn = (): void => {
-    this.userSessionService
-      .getSession()
+    this.userSessionService.getSession()
       .then(session => {
         this.msisdn = session.account.msisdn;
       })
       .catch(err => {
         this.logger.warn('error when try to get session', err);
       });
-  };
+  }
+
 }

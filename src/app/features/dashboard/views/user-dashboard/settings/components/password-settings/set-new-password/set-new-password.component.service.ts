@@ -11,57 +11,58 @@ export enum SetNewPasswordStatusEnum {
   SUCCESS,
   INVALID,
   NO_TOKEN,
-  ERROR,
+  ERROR
 }
 
 @Injectable()
 export class SetNewPasswordComponentService {
+
   private logger: LoggerService;
 
-  constructor(
-    private recoverPasswordService: RecoverPasswordService,
-    private alertService: AlertService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private recoverPasswordService: RecoverPasswordService,
+              private alertService: AlertService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordComponentService');
   }
 
-  public setNewPassword = (msisdn: string, token: string, password: string): Observable<SetNewPasswordStatusEnum> =>
-    this.recoverPasswordService
-      .putRecoverPasswordMsisdnRoute({ msisdn, token, password })
-      .pipe(map(this.handleChangePassword))
-      .pipe(catchError(this.handleChangePasswordError));
+  public setNewPassword =
+    (msisdn: string, token: string, password: string): Observable<SetNewPasswordStatusEnum> =>
+      this.recoverPasswordService.putRecoverPasswordMsisdnRoute({msisdn, token, password})
+        .pipe(map(this.handleChangePassword))
+        .pipe(catchError(this.handleChangePasswordError))
 
-  private handleChangePasswordError = (httpError: HttpErrorResponse): Observable<SetNewPasswordStatusEnum> => {
-    const err = httpError.error;
+  private handleChangePasswordError =
+    (httpError: HttpErrorResponse): Observable<SetNewPasswordStatusEnum> => {
+      const err = httpError.error;
 
-    if (isBackendError(err)) {
-      switch (err.code) {
-        case BackendErrors.IncorrectValidation:
-          return of(SetNewPasswordStatusEnum.INVALID);
+      if (isBackendError(err)) {
+        switch (err.code) {
+          case BackendErrors.IncorrectValidation:
+            return of(SetNewPasswordStatusEnum.INVALID);
 
-        case BackendErrors.CannotFindMsisdnToken:
-          this.alertService.pushDangerAlert(Alerts.CannotFindMsisdnToken);
+          case BackendErrors.CannotFindMsisdnToken:
+            this.alertService.pushDangerAlert(Alerts.CannotFindMsisdnToken);
 
-          return of(SetNewPasswordStatusEnum.NO_TOKEN);
+            return of(SetNewPasswordStatusEnum.NO_TOKEN);
 
-        default:
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-          this.logger.error('unhandled backend error when try to recover password', err);
+          default:
+            this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+            this.logger.error('unhandled backend error when try to recover password', err);
 
-          return of(SetNewPasswordStatusEnum.ERROR);
+            return of(SetNewPasswordStatusEnum.ERROR);
+        }
+      } else {
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+        this.logger.warn('Error when try to recover password', httpError);
+
+        return of(SetNewPasswordStatusEnum.ERROR);
       }
-    } else {
-      this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-      this.logger.warn('Error when try to recover password', httpError);
-
-      return of(SetNewPasswordStatusEnum.ERROR);
     }
-  };
 
   private handleChangePassword = (): SetNewPasswordStatusEnum => {
     this.alertService.pushSuccessAlert(Alerts.ChangePasswordSuccess);
 
     return SetNewPasswordStatusEnum.SUCCESS;
-  };
+  }
+
 }

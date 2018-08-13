@@ -1,3 +1,4 @@
+// tslint:disable:no-implicit-dependencies
 import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
 import { UploaderService } from '../../../services/uploader/uploader.service';
@@ -13,9 +14,19 @@ import { CreateOrganizationModalComponent } from './create-organization/create-o
 import { CreateOrganizationModalComponentService } from './create-organization/create-organization.component.service';
 
 @NgModule({
-  imports: [ModalsModule],
-  entryComponents: [EditProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
-  providers: [EditProfileModalComponentService, CreateOrganizationModalComponentService, UploaderService],
+  imports: [
+    ModalsModule
+  ],
+  entryComponents: [
+    EditProfileModalComponent,
+    CreateOrganizationModalComponent,
+    ImageCropModalComponent
+  ],
+  providers: [
+    EditProfileModalComponentService,
+    CreateOrganizationModalComponentService,
+    UploaderService,
+  ],
   declarations: [
     BasicProfileDataComponent,
     EditProfileModalComponent,
@@ -24,7 +35,8 @@ import { CreateOrganizationModalComponentService } from './create-organization/c
     ImageCropModalComponent,
     AvatarUploaderComponent,
     AvatarUploaderDirective,
-    FileUploaderComponent,
-  ],
+    FileUploaderComponent
+  ]
 })
-export class ProfileModalModule {}
+export class ProfileModalModule {
+}

@@ -9,28 +9,27 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
+
   private logger: LoggerService;
 
-  constructor(
-    private router: Router,
-    private recoverPasswordService: RecoverPasswordService,
-    private alertService: AlertService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private router: Router,
+              private recoverPasswordService: RecoverPasswordService,
+              private alertService: AlertService,
+              loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewResolver');
   }
 
   public resolve = (route: ActivatedRouteSnapshot): Observable<string> =>
-    this.recoverPasswordService
-      .postRecoverPasswordVerifyEmailRoute({ token: route.params.token })
+    this.recoverPasswordService.postRecoverPasswordVerifyEmailRoute({token: route.params.token})
       .pipe(map(response => response.msisdn))
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError))
 
   private handleError = (httpError: HttpErrorResponse): Observable<string> => {
     const err = httpError.error;
 
     if (isBackendError(err)) {
       switch (err.code) {
+
         case BackendErrors.IncorrectRequest:
           this.handleBackendError(err);
 
@@ -57,6 +56,7 @@ export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
           this.logger.error('Unhandled backend recover password verify email error', httpError);
 
           return of();
+
       }
     } else {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
@@ -65,7 +65,7 @@ export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
 
       return of();
     }
-  };
+  }
 
   private redirectToLogin = (): Observable<void> => {
     this.router.navigate(['/login']).then(isRedirectSuccessful => {
@@ -76,11 +76,12 @@ export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
     });
 
     return of();
-  };
+  }
 
   private handleBackendError = (error: BackendError): void => {
     this.logger.warn('error when try to r recover password verify email', error);
     this.alertService.pushDangerAlert(Alerts.CannotFindEmailToken);
     this.redirectToLogin();
-  };
+  }
+
 }

@@ -1744,28 +1744,7 @@
   "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE":"Dopóki nie zweryfikujesz nowego adresu,<br>będziesz otrzymywać wszystkie wiadomości<br>na poprzedni adres e-mail.",
   "UNSUPPORTED.HEADER":"Niestety, Twoja przeglądarka i/lub system operacyjny nie jest wspierany przez AnyMind",
   "UNSUPPORTED.PARAGRAPH":"Listę obsługiwanych przeglądarek oraz systemów możesz sprawdzić w naszym centrum pomocy.",
-  "UNSUPPORTED.ICON_DESCRIPTION":"Wymagania techniczne AnyMind",
-  "EXPERT_DASHBOARD.CONSULTATIONS_CAPTION": "KONSULTACJE",
-  "EXPERT_DASHBOARD.ATTACHMENTS_BUTTON": "Zobacz załączniki ({{value}})",
-  "EXPERT_DASHBOARD.EDIT":"Edytuj",
-  "EXPERT_DASHBOARD.ADD_CONSULTATION": "Dodaj konsultację",
-  "EXPERT_VIEW.STATUS.AVAILABLE": "Dostępny",
-  "EXPERT_VIEW.STATUS.BUSY": "Zajęty",
-  "EXPERT_VIEW.STATUS.UNAVAILABLE": "Niedostępny",
-  "CONSULTATION_INFO.CONSULTATION_ROW.FOR_COMPONANY": "Dla",
-  "CONSULTATION_INFO.CONSULTATION_ROW.MINUTE": "zł/min",
-  "CONSULTATION_INFO.CONSULTATION_ROW.CALLS.none": "Brak połączeń",
-  "CONSULTATION_INFO.CONSULTATION_ROW.CALLS.single":"{{value}} połączenie",
-  "CONSULTATION_INFO.CONSULTATION_ROW.CALLS.few": "{{value}} połączenia",
-  "CONSULTATION_INFO.CONSULTATION_ROW.CALLS.many": "{{value}} połączeń",
-  "CONSULTATION_INFO.CONSULTATION_ROW.CALLS.other": "{{value}} połączeń",
-  "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.none": "Brak ocen",
-  "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.single": "{{value}} ocen",
-  "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.few": "{{value}} ocen",
-  "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.many": "{{value}} ocen",
-  "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.other": "{{value}} ocen",
-  "CONSULTATION_INFO.CONSULTATION_ROW.RATING.none": "Brak pozytywnych",
-  "CONSULTATION_INFO.CONSULTATION_ROW.RATING.other": "{{value}}% pozytywnych"
+  "UNSUPPORTED.ICON_DESCRIPTION":"Wymagania techniczne AnyMind"
 }
 
 

@@ -2,9 +2,10 @@ import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-  selector: 'radio-btn',
+  selector: 'radio-btn'
 })
 export class RadioButtonDirective extends UpgradeComponent {
+
   @Input() public ngModel: string;
   @Input() public value: string;
   @Input() public id: string;

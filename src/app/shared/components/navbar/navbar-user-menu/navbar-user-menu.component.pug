@@ -9,7 +9,7 @@
       .menu-list__user-information
         plat-user-avatar(
         [avatarSize]="avatarSize48",
-        [avatarToken]="avatarToken"
+        [avatarUrl]="avatarUrl"
         )
         .user-name-container
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.WELCOME'")
@@ -68,6 +68,6 @@
         li.menu-list__row((click)="onOrganizationProfileSwitch($event)", [routerLink]="['/dashboard/company/activities']")
           plat-user-avatar(
           [avatarSize]="avatarSize32",
-          [avatarToken]="companyAvatarToken"
+          [avatarUrl]="companyAvatarUrl"
           )
           span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_ORGANIZATION'")

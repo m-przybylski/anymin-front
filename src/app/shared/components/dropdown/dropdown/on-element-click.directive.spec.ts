@@ -4,25 +4,28 @@ import createSpyObj = jasmine.createSpyObj;
 import { OnElementClickDirective } from './on-element-click.directive';
 
 @Component({
-  template: `
+  template:
+      `
       <div onElementClickDirective style="height: 200px;">
           <ul>
               <li id="item_1"></li>
               <li id="item_2"></li>
           </ul>
-      </div>`,
+      </div>`
 })
-class TestDirectiveComponent {}
+
+class TestDirectiveComponent {
+}
 
 describe('Directive: OnElementClickDirective', () => {
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestDirectiveComponent, OnElementClickDirective],
       providers: [
         {
-          provide: ElementRef,
-          useValue: createSpyObj('ElementRef', ['element']),
-        },
+          provide: ElementRef, useValue: createSpyObj('ElementRef', ['element'])
+        }
       ],
     });
   });

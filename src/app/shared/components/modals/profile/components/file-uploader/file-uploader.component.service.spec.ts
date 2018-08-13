@@ -1,20 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import createSpyObj = jasmine.createSpyObj;
-import { FileStatus, FileUploaderComponentService, IFileValidationValues } from './file-uploader.component.service';
+import {
+  FileStatus, FileUploaderComponentService,
+  IFileValidationValues
+} from './file-uploader.component.service';
 import { FilesService } from '@anymind-ng/api';
 import { FileCategoryEnum } from '../../../../../services/uploader/file-type-checker';
 
 class File {
-  constructor(public size: number, public type: string) {}
+  constructor(public size: number,
+              public type: string) {}
 }
 
 describe('Service: FileUploaderComponentService', () => {
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         FileUploaderComponentService,
-        { provide: FilesService, useValue: createSpyObj('FilesService', ['fileInfoRoute']) },
-      ],
+        {provide: FilesService, useValue: createSpyObj('FilesService', ['fileInfoRoute'])},
+      ]
     });
   });
 
@@ -26,11 +31,10 @@ describe('Service: FileUploaderComponentService', () => {
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
       maxFilesCount: 15,
-      fileCategory: FileCategoryEnum.EXPERT_FILE,
+      fileCategory: FileCategoryEnum.EXPERT_FILE
     };
-    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues)).toEqual(
-      FileStatus.INVALID_COUNT,
-    );
+    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues))
+      .toEqual(FileStatus.INVALID_COUNT);
   });
 
   it('should return INVALID_TYPE status on file validation', () => {
@@ -40,11 +44,10 @@ describe('Service: FileUploaderComponentService', () => {
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
       maxFilesCount: 15,
-      fileCategory: FileCategoryEnum.EXPERT_FILE,
+      fileCategory: FileCategoryEnum.EXPERT_FILE
     };
-    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues)).toEqual(
-      FileStatus.INVALID_TYPE,
-    );
+    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues))
+      .toEqual(FileStatus.INVALID_TYPE);
   });
 
   it('should return INVALID_SIZE status on file validation', () => {
@@ -55,11 +58,10 @@ describe('Service: FileUploaderComponentService', () => {
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
       maxFilesCount: 15,
-      fileCategory: FileCategoryEnum.EXPERT_FILE,
+      fileCategory: FileCategoryEnum.EXPERT_FILE
     };
-    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues)).toEqual(
-      FileStatus.INVALID_SIZE,
-    );
+    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues))
+      .toEqual(FileStatus.INVALID_SIZE);
   });
 
   it('should return VALID status on file validation', () => {
@@ -70,11 +72,10 @@ describe('Service: FileUploaderComponentService', () => {
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
       maxFilesCount: 15,
-      fileCategory: FileCategoryEnum.EXPERT_FILE,
+      fileCategory: FileCategoryEnum.EXPERT_FILE
     };
-    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues)).toEqual(
-      FileStatus.VALID,
-    );
+    expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues))
+      .toEqual(FileStatus.VALID);
   });
 
   it('should call get file information', () => {
@@ -83,4 +84,5 @@ describe('Service: FileUploaderComponentService', () => {
     fileUploaderComponentService.getFileInformation();
     expect(filesService.fileInfoRoute).toHaveBeenCalled();
   });
+
 });

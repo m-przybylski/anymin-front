@@ -2,6 +2,7 @@
 import { Config } from 'ratel-sdk-js';
 
 export function CommunicatorConfigFactory(): Config {
+
   const ratelUrl = new URL(`${window.location.origin}/briefcase`);
   const chatUrl = new URL(`${window.location.origin}/artichoke`);
 
@@ -22,18 +23,16 @@ export function CommunicatorConfigFactory(): Config {
         negotiationNeededDisabled: true,
         iceTransportPolicy: 'all',
         bundlePolicy: 'max-bundle',
-        iceServers: [
-          {
-            urls: [
-              'turn:turn.anymind.com:443?transport=udp',
-              'turn:turn.anymind.com:443?transport=tcp',
-              'stun:turn.anymind.com:443',
-            ],
-            username: 'test123',
-            credential: 'test456',
-          },
-        ],
-      },
-    },
+        iceServers: [{
+          urls: [
+            'turn:turn.anymind.com:443?transport=udp',
+            'turn:turn.anymind.com:443?transport=tcp',
+            'stun:turn.anymind.com:443'
+          ],
+          username: 'test123',
+          credential: 'test456'
+        }]
+      }
+    }
   };
 }

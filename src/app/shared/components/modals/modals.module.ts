@@ -10,10 +10,14 @@ import { ModalComponent } from './modal/modal.component';
 import { ModalHeaderComponent } from './modal/modal-header/modal-header.component';
 import { ModalAnimationComponentDirective } from './modal/animation/modal-animation.component.directive';
 import { ModalAnimationComponentService } from './modal/animation/modal-animation.animation.service';
-import { CreateExpertConsultationModalComponent } from './create-expert-consultation/create-expert-consultation.component';
-import { CreateCompanyConsultationModalComponent } from './create-company-consultation/create-company-consultation.component';
-import { ChangePasswordComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/change-password/change-password.component';
-import { PasswordSettingsViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/password-settings.view.component';
+import { CreateExpertConsultationModalComponent }
+from './create-expert-consultation/create-expert-consultation.component';
+import { CreateCompanyConsultationModalComponent }
+from './create-company-consultation/create-company-consultation.component';
+import { ChangePasswordComponent }
+from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/change-password/change-password.component';
+import { PasswordSettingsViewComponent }
+from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/password-settings.view.component';
 import { PinVerificationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/pin-verification/pin-verification.component';
 import { SetNewPasswordComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/set-new-password/set-new-password.component';
 import { EmailConfirmationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
@@ -35,7 +39,7 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent,
-    EmployeesInviteModalComponent,
+    EmployeesInviteModalComponent
   ],
   entryComponents: [
     ChangeNumberComponent,
@@ -47,10 +51,15 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent,
-    EmployeesInviteModalComponent,
+    EmployeesInviteModalComponent
   ],
   providers: [ModalAnimationComponentService],
-  imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   exports: [
     CommonModule,
     SharedModule,
@@ -58,9 +67,11 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     ReactiveFormsModule,
     ModalComponent,
     ModalHeaderComponent,
-    PinElementDirective,
-  ],
+    PinElementDirective
+  ]
 })
 export class ModalsModule {
-  constructor() {}
+
+  constructor() {
+  }
 }

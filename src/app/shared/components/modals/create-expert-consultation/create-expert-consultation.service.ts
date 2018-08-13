@@ -6,8 +6,11 @@ import { PostService } from '@anymind-ng/api/model/postService';
 
 @Injectable()
 export class CreateExpertConsultationModalService {
-  constructor(private serviceService: ServiceService) {}
+
+  constructor(private serviceService: ServiceService) {
+  }
 
   public createService = (service: PostService): Observable<GetService> =>
-    this.serviceService.postServiceRoute(service);
+    this.serviceService.postServiceRoute(service)
+
 }

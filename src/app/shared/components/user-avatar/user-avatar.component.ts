@@ -1,5 +1,5 @@
 // tslint:disable:strict-boolean-expressions
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonConfig } from '../../../../common-config';
 import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
@@ -7,35 +7,44 @@ export enum AvatarSizeEnum {
   X_24,
   X_32,
   X_48,
-  X_156,
+  X_156
 }
 
 @Component({
   selector: 'plat-user-avatar',
   templateUrl: './user-avatar.component.html',
-  styleUrls: ['./user-avatar.component.sass'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./user-avatar.component.sass']
 })
-export class UserAvatarComponent {
-  @Input() public avatarSize: AvatarSizeEnum;
+export class UserAvatarComponent implements OnInit {
 
   @Input()
-  public set avatarToken(value: string | undefined) {
-    this.avatarUrl = typeof value !== 'undefined' && value !== '' ? this.resolveFileUrl(value) : undefined;
-  }
+  public avatarSize: AvatarSizeEnum;
 
-  @Input() public avatarUrl?: string;
+  @Input()
+  public avatarToken?: string;
 
-  @Input() public avatarError? = false;
+  @Input()
+  public avatarUrl?: string;
 
-  @Input() public avatarErrorValidation = false;
+  @Input()
+  public avatarError ? = false;
 
-  @Input() public isOrganizationAvatar = false;
+  @Input()
+  public avatarErrorValidation = false;
+
+  @Input()
+  public isOrganizationAvatar = false;
 
   private commonConfig: ConfigDEFAULT;
 
   constructor() {
     this.commonConfig = CommonConfig.getCommonConfig();
+  }
+
+  public ngOnInit(): void {
+    if (this.avatarToken) {
+      this.avatarUrl = this.resolveFileUrl(this.avatarToken);
+    }
   }
 
   public setAvatarClass = (): string => {
@@ -55,8 +64,9 @@ export class UserAvatarComponent {
       default:
         return 'user-avatar--x48';
     }
-  };
+  }
 
   private resolveFileUrl = (avatarToken: string): string =>
-    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', avatarToken);
+    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', avatarToken)
+
 }

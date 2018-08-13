@@ -1,14 +1,21 @@
+// tslint:disable:no-duplicate-imports
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations, LoggerService, LoggerFactory } from '@anymind-ng/core';
-import { Subject, Observable, of } from 'rxjs';
+import { Animations } from '@anymind-ng/core';
+import { Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
-import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
+import {
+  CreateOrganizationModalComponent
+}
+  from '../../modals/profile/create-organization/create-organization.component';
 import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 
 @Component({
@@ -22,7 +29,9 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
 
   @Input() public companyAvatarToken: string;
 
-  @Input() public expertAvatarToken?: string;
+  @Input() public companyAvatarUrl: string;
+
+  @Input() public expertAvatarUrl?: string;
 
   @Input() public isExpert: boolean;
 
@@ -34,11 +43,9 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(
-    private modalService: NgbModal,
-    private navbarMenuService: NavbarMenuService,
-    private loggerFactory: LoggerFactory,
-  ) {
+  constructor(private modalService: NgbModal,
+              private navbarMenuService: NavbarMenuService,
+              private loggerFactory: LoggerFactory) {
     this.logger = this.loggerFactory.createLoggerService('NavbarCompanyMenuComponent');
   }
 
@@ -63,10 +70,10 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
 
   public logout = (): void => {
     this.navbarMenuService.logout();
-  };
+  }
 
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', err);
     return of(false);
-  };
+  }
 }

@@ -19,9 +19,17 @@ import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.modu
     AccountRoutingModule,
     SharedModule,
     TranslateModule,
-    AngularJsProvidersModule,
+    AngularJsProvidersModule
   ],
-  providers: [SetEmailViewResolver, SetPasswordViewResolver, SetEmailViewGuard, SetPasswordViewGuard],
-  declarations: [SetPasswordViewComponent, SetEmailViewComponent],
+  providers: [
+    SetEmailViewResolver,
+    SetPasswordViewResolver,
+    SetEmailViewGuard,
+    SetPasswordViewGuard
+  ],
+  declarations: [
+    SetPasswordViewComponent,
+    SetEmailViewComponent
+  ]
 })
-export class AccountModule {}
+export class AccountModule { }
