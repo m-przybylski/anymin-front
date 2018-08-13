@@ -115,7 +115,7 @@ export class CsvUploaderComponent implements OnInit {
     });
   }
 
-  public isCustomValidationInvalid = (): string => {
+  public showValidationAlert = (): string => {
     const controlErrors = this.form.controls[this.controlName].errors;
     if (controlErrors !== null) {
       const errorCode = Object.keys(controlErrors)[0];
