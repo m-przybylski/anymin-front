@@ -11,7 +11,6 @@ import {
   CommonSettingsService
 }
   from '../../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { AddItemTypeEnum } from '../../../../inputs/input-add-item/input-add-item.component';
 
 export interface ILinkList {
   link: string;
@@ -69,15 +68,16 @@ export class ProfileLinksComponent implements OnInit {
     this.isInputValueCorrect(inputValue)
 
   public isInputValueCorrect = (value: string): void => {
-    if (this.form.controls[this.controlName].valid) {
+    if (this.form.controls[this.controlName].valid && this.urlPattern.test(value)) {
       if (this.isValueExist(this.unifyLinkProtocol(value))) {
-        this.form.controls[this.controlName].setErrors({[AddItemTypeEnum.VALUE_ADDED]: true});
+        this.form.controls[this.controlName]
+          .setErrors({'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.VALIDATION.VALUE_EXIST': true});
         this.formUtils.isFieldInvalid(this.form, this.controlName);
       } else {
         this.addElement(this.unifyLinkProtocol(value));
       }
     } else {
-      this.form.controls[this.controlName].setErrors({[AddItemTypeEnum.INCORRECT_VALUE]: true});
+      this.form.controls[this.controlName].setErrors({'VALIDATOR.ERROR.PATTERN': true});
       this.formUtils.isFieldInvalid(this.form, this.controlName);
     }
   }

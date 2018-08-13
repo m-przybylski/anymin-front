@@ -56,7 +56,8 @@ export class InputAddItemComponent {
   @Input()
   public isValidationVisibleOnBlur ? = false;
 
-  public ngModel = '';
+  public inputValue = '';
+
   public isFocused = false;
 
   private readonly errorsMsg: IValidatorsErrorMsg = {
@@ -81,7 +82,7 @@ export class InputAddItemComponent {
   public isFieldInvalid = (): boolean =>
     this.formUtils.isFieldInvalid(this.formGroup, this.controlName)
 
-  public isCustomValidationInvalid = (): string => {
+  public showValidationAlert = (): string => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
     if (controlErrors !== null && this.formGroup.controls[this.controlName].value.length > 0) {
       const errorCode = Object.keys(controlErrors)[0];

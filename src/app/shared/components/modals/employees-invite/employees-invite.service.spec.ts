@@ -7,6 +7,7 @@ import {
   CommonSettingsService
 }
   from '../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { PhoneNumberUnifyService } from '../../../services/phone-number-unify/phone-number-unify.service';
 
 describe('EmployeesInviteService', () => {
   beforeEach(() => {
@@ -19,6 +20,7 @@ describe('EmployeesInviteService', () => {
           useValue: createSpyObj('ServiceService', ['postServiceInvitationsRoute', 'getServiceRoute'])
         },
         {provide: InvitationService, useValue: createSpyObj('InvitationService', ['postInvitationRoute'])},
+        {provide: PhoneNumberUnifyService, useValue: createSpyObj('PhoneNumberUnifyService', ['unifyPhoneNumber'])},
       ]
     });
   });

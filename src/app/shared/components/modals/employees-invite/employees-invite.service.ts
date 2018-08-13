@@ -1,4 +1,3 @@
-// tslint:disable:readonly-array
 
 import { Injectable } from '@angular/core';
 import { EmploymentService, InvitationService, ServiceService } from '@anymind-ng/api';
@@ -11,14 +10,17 @@ import {
 }
   from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { GetService } from '@anymind-ng/api/model/getService';
-import { Subject } from 'rxjs/index';
-import { takeUntil } from 'rxjs/internal/operators';
+import { filter, map } from 'rxjs/operators';
+import { PhoneNumberUnifyService } from '../../../services/phone-number-unify/phone-number-unify.service';
+import { IEmployeesInviteComponent } from './employees-invite.component';
+import { isValidNumber } from 'libphonenumber-js';
 
 export enum EmployeeInvitationTypeEnum {
   IS_EMAIL,
   IS_MSIDN,
   IS_PENDING,
   IS_ALREADY_ADDED,
+  MAX_LENGTH_REACHED,
   INVALID
 }
 
@@ -29,23 +31,24 @@ export interface IEmployeesPendingInvitation {
 
 @Injectable()
 export class EmployeesInviteService {
+  private employeesWithPendingInvitaitons: ReadonlyArray<IEmployeesPendingInvitation> = [];
   private emailPattern: RegExp;
-  private phoneNumberPattern: RegExp;
-  private employeesWithPendingInvitaitons: IEmployeesPendingInvitation[] = [];
-  private ngUnsubscribe = new Subject<void>();
+  private maxInvitationLength: number;
+  private invitedEmployeeList: ReadonlyArray<IEmployeesInviteComponent> = [];
 
   constructor(private employmentService: EmploymentService,
               private serviceService: ServiceService,
+              private phoneNumberUnifyService: PhoneNumberUnifyService,
               private invitationService: InvitationService,
               commonSettingsService: CommonSettingsService) {
-    this.phoneNumberPattern = commonSettingsService.localSettings.phoneNumberPattern;
     this.emailPattern = commonSettingsService.localSettings.emailPattern;
+    this.maxInvitationLength = commonSettingsService.localSettings.consultationInvitationsMaxCount;
   }
 
-  public getEmployeeList = (): Observable<ExpertProfileWithEmployments[]> =>
+  public getEmployeeList = (): Observable<ReadonlyArray<ExpertProfileWithEmployments>> =>
     this.employmentService.getEmployeesRoute()
 
-  public getInvitations = (serviceId: string): Observable<GetServiceWithInvitations[]> =>
+  public getInvitations = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>
     this.serviceService.postServiceInvitationsRoute({serviceIds: [serviceId]})
 
   public getConsultationDetails = (serviceId: string): Observable<GetService> =>
@@ -55,9 +58,12 @@ export class EmployeesInviteService {
     this.invitationService.postInvitationRoute(data)
 
   public checkInvitationType = (value: string): EmployeeInvitationTypeEnum => {
-    if (this.isInvitationPending(value)) {
+    if (this.isMaxLengthInvitationReached()) {
+      return EmployeeInvitationTypeEnum.MAX_LENGTH_REACHED;
+    } else if (this.isInvitationPending(value) ||
+      this.isInvitationPending(this.phoneNumberUnifyService.unifyPhoneNumber(value))) {
       return EmployeeInvitationTypeEnum.IS_PENDING;
-    } else if (this.isValuePhoneNumber(value)) {
+    } else if (isValidNumber(this.phoneNumberUnifyService.unifyPhoneNumber(value))) {
       return EmployeeInvitationTypeEnum.IS_MSIDN;
     } else if (this.isValueEmailAddress(value)) {
       return EmployeeInvitationTypeEnum.IS_EMAIL;
@@ -66,19 +72,44 @@ export class EmployeesInviteService {
     }
   }
 
-  public checkPendingInvitations = (serviceId: string): void => {
+  public setInvitedEmployeeList = (employeeList: ReadonlyArray<IEmployeesInviteComponent>):
+    ReadonlyArray<IEmployeesInviteComponent> => this.invitedEmployeeList = employeeList
+
+  public checkPendingInvitations = (serviceId: string): Observable<ReadonlyArray<string>> =>
     this.getInvitations(serviceId)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((serviceWithInvitation) => {
-        this.employeesWithPendingInvitaitons = serviceWithInvitation[0].invitations
-          .filter(item => item.status === 'NEW').map(item => ({
-            email: item.email,
-            msisdn: item.msisdn
-          }));
-      });
+      .pipe(
+        map(services => services.find(service => service.service.id === serviceId)),
+        filter(service => typeof service !== 'undefined'),
+        map((status: GetServiceWithInvitations) => {
+          this.employeesWithPendingInvitaitons = this.getUnAcceptedInvitations(status);
+
+          return this.employeesWithPendingInvitaitons;
+        }),
+        map((invitations: ReadonlyArray<IEmployeesPendingInvitation>) =>
+          invitations.reduce((contactList, contact) => [...contactList, this.getStringValue(contact)], []))
+      )
+
+  private getStringValue = (item: {email?: string; msisdn?: string}): string => {
+    if (typeof item.email !== 'undefined') {
+      return item.email;
+    }
+    if (typeof item.msisdn !== 'undefined') {
+      return item.msisdn;
+    }
+
+    return '';
   }
 
-  private isValuePhoneNumber = (value: string): boolean => this.phoneNumberPattern.test(value);
+  private getUnAcceptedInvitations = (serviceWithInvitation: GetServiceWithInvitations):
+    ReadonlyArray<IEmployeesPendingInvitation> =>
+    serviceWithInvitation.invitations
+      .filter(item => item.status === 'NEW')
+      .map(item => ({
+          email: item.email,
+          msisdn: item.msisdn
+        }))
+
+  private isMaxLengthInvitationReached = (): boolean => this.invitedEmployeeList.length >= this.maxInvitationLength;
   private isValueEmailAddress = (value: string): boolean => this.emailPattern.test(value);
   private isInvitationPending = (value: string): boolean => this.employeesWithPendingInvitaitons
     .filter(item => item.email === value || item.msisdn === value).length > 0

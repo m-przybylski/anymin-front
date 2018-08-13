@@ -60,6 +60,9 @@ import { DropdownComponent } from './components/dropdown/dropdown/dropdown.compo
 import { OnElementClickDirective } from './components/dropdown/dropdown/on-element-click.directive';
 import { InputAddItemComponent } from './components/inputs/input-add-item/input-add-item.component';
 import { ValidationDirective } from './directives/validation/validation.directive';
+import { ProfileLinksComponentService }
+  from './components/modals/profile/components/profile-links/profile-links.component.service';
+import { PhoneNumberUnifyService } from './services/phone-number-unify/phone-number-unify.service';
 
 @NgModule({
   imports: [
@@ -137,8 +140,10 @@ import { ValidationDirective } from './directives/validation/validation.directiv
     PinCodeTimerService,
     ContentHeightAnimationService,
     NavbarMenuService,
-    UserNavigationComponentService
-  ]
+    UserNavigationComponentService,
+    ProfileLinksComponentService,
+    PhoneNumberUnifyService,
+  ],
 })
 
 export class SharedModule {

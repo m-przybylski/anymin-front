@@ -15,7 +15,7 @@
 			(focus)="onFocus()",
 			placeholder="{{placeholderTrKey | translate}}",
 			type="text",
-			[(ngModel)]="ngModel",
+			[(ngModel)]="inputValue",
 			(change)="onInputChange"
 			)
 
@@ -28,5 +28,5 @@
 	.input__alert
 		am-core-validation-alert(
 		[isVisible]="!formGroup.valid",
-		[validationTextKey]="isCustomValidationInvalid()"
+		[validationTextKey]="showValidationAlert()"
 		)

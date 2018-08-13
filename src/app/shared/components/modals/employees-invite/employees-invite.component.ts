@@ -5,7 +5,9 @@ import {
   Output
 } from '@angular/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
-import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
+import {
+  EmployeeInvitationTypeEnum, EmployeesInviteService
+} from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
 import { FormGroup } from '@angular/forms';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
@@ -19,6 +21,7 @@ import {
   from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PhoneNumberUnifyService } from '../../../services/phone-number-unify/phone-number-unify.service';
 
 export interface IEmployeesInviteComponent {
   name: string;
@@ -38,14 +41,16 @@ export interface IEmployeesInviteComponent {
 })
 export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public readonly avatarSize = AvatarSizeEnum.X_24;
-  public emailPattern: RegExp;
+  public readonly emailPattern: RegExp;
   public inviteEmployeesFormGroupName = new FormGroup({});
-  public inviteEmployeesControlName = 'inviteEmployeesControl';
+  public readonly inviteEmployeesControlName = 'inviteEmployeesControl';
+  public readonly csvControlName = 'csvControlName';
   public isDropdownListVisible = false;
   public invitedEmployeeList: IEmployeesInviteComponent[] = [];
   public filteredItems: IEmployeesInviteComponent[] = [];
   public isChangeOnSubmit = false;
   public serviceName = '';
+  public usedContactList: ReadonlyArray<string> = [];
 
   @Input()
   public serviceId: string;
@@ -53,7 +58,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   @Output()
   public linksListEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
 
-  private dropdownItems: IEmployeesInviteComponent[] = [];
+  private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
   private employeesConsultationList: IEmployeesInviteComponent[] = [];
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
@@ -63,6 +68,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
               private employeesInviteService: EmployeesInviteService,
               private formUtils: FormUtilsService,
               private activeModal: NgbActiveModal,
+              private phoneNumberUnifyService: PhoneNumberUnifyService,
               commonSettingsService: CommonSettingsService,
               loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('EmployeesInviteModalComponent');
@@ -77,7 +83,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     this.employeesInviteService.getEmployeeList()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can not get employees list')))
-      .subscribe((response) => {
+      .subscribe((response: ReadonlyArray<ExpertProfileWithEmployments>) => {
         this.dropdownItems = response.filter(item => item.employments[0]).map((employeeProfile) => ({
           name: employeeProfile.expertProfile.name,
           avatar: employeeProfile.expertProfile.avatar,
@@ -96,7 +102,11 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(serviceDetails => this.serviceName = serviceDetails.name);
 
-    this.employeesInviteService.checkPendingInvitations(this.serviceId);
+    this.employeesInviteService.checkPendingInvitations(this.serviceId)
+      .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can not get unaccepted invites')))
+      .subscribe((invite: string[]) => {
+      this.usedContactList = invite;
+    });
   }
 
   public onClickSend = (formGroup: FormGroup): void => {
@@ -106,7 +116,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         .pipe(catchError((err) => this.handleGetEmployeeListError(err, 'Can no send invitations')))
         .subscribe(() => {
           this.alertService.pushSuccessAlert('INVITE_EMPLOYEES.ALERT.SUCCESS');
-          this.activeModal.close(true);
+          this.activeModal.close();
         });
     }
   }
@@ -115,6 +125,12 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     (!this.isDropdownListVisible) ?
       this.addEmployeeInvitationByType(
         this.employeesInviteService.checkInvitationType(value.toLowerCase()), value.toLowerCase()) : void 0
+
+  public onCSVupload = (employeesContact: string[]): void => {
+    employeesContact.forEach(value => {
+      this.addEmployeeInvitationByType(this.employeesInviteService.checkInvitationType(value), value);
+    });
+  }
 
   public onSelectItem = (expertProfile: IEmployeesInviteComponent): void => {
     this.addEmployee(expertProfile);
@@ -131,15 +147,20 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
 
   public onDeleteClick = (deleteItem: IEmployeesInviteComponent): void => {
     this.invitedEmployeeList = this.invitedEmployeeList.filter(item => item !== deleteItem);
+    this.usedContactList = this.usedContactList.filter(item => item !== deleteItem.name);
+
     if (deleteItem.employeeId !== undefined) {
-      this.dropdownItems.push(deleteItem);
+      this.dropdownItems = [...this.dropdownItems, deleteItem];
     }
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   private addEmployeeInvitationByType = (invitationType: EmployeeInvitationTypeEnum, value: string): void => {
     switch (invitationType) {
       case EmployeeInvitationTypeEnum.IS_MSIDN:
-        this.addEmployee({serviceId: this.serviceId, name: value, msisdn: `+48${value}`});
+        const unifyPhoneNumber = this.phoneNumberUnifyService.unifyPhoneNumber(value);
+        const prettyPhoneNumber = this.phoneNumberUnifyService.getPrettyPhoneNumber(value);
+        this.addEmployee({serviceId: this.serviceId, name: prettyPhoneNumber, msisdn: unifyPhoneNumber});
         break;
 
       case EmployeeInvitationTypeEnum.IS_EMAIL:
@@ -147,21 +168,19 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         break;
 
       case EmployeeInvitationTypeEnum.IS_PENDING:
-        this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName]
-          .setErrors({'INVITE_EMPLOYEES.ERROR.VALUE_EXIST': true});
-        this.formUtils.isFieldInvalid(this.inviteEmployeesFormGroupName, this.inviteEmployeesControlName);
+        this.setEmployeesInvitationError({'INVITE_EMPLOYEES.ERROR.VALUE_EXIST': true});
         break;
 
       case EmployeeInvitationTypeEnum.INVALID:
-        this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName]
-          .setErrors({'INVITE_EMPLOYEES.ERROR.INCORRECT_VALUE': true});
-        this.formUtils.isFieldInvalid(this.inviteEmployeesFormGroupName, this.inviteEmployeesControlName);
+        this.setEmployeesInvitationError({'INVITE_EMPLOYEES.ERROR.INCORRECT_VALUE': true});
         break;
 
       case EmployeeInvitationTypeEnum.IS_ALREADY_ADDED:
-        this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName]
-          .setErrors({'INVITE_EMPLOYEES.ERROR.VALUE_ADDED': true});
-        this.formUtils.isFieldInvalid(this.inviteEmployeesFormGroupName, this.inviteEmployeesControlName);
+        this.setEmployeesInvitationError({'INVITE_EMPLOYEES.ERROR.VALUE_ADDED': true});
+        break;
+
+      case EmployeeInvitationTypeEnum.MAX_LENGTH_REACHED:
+        this.setEmployeesInvitationError({'INVITE_EMPLOYEES.ERROR.LIMIT_REACHED': true});
         break;
 
       default:
@@ -169,17 +188,21 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private setEmployeesInvitationError = (errorMsg: {[key: string]: boolean}): void => {
+    this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName]
+      .setErrors(errorMsg);
+    this.formUtils.isFieldInvalid(this.inviteEmployeesFormGroupName, this.inviteEmployeesControlName);
+  }
+
   private adjustEmployeeInvitationObject = (): PostInvitation[] =>
     this.invitedEmployeeList.map(item => ({
-      serviceId: this.serviceId,
-      email: item.email,
-      msisdn: item.msisdn,
-      employeeId: item.employeeId
-    }))
+      serviceId: this.serviceId, email: item.email, msisdn: item.msisdn, employeeId: item.employeeId}))
 
   private addEmployee = (expertProfile: IEmployeesInviteComponent): void => {
     if (!this.isValueExist(expertProfile.name)) {
       this.invitedEmployeeList = [...this.invitedEmployeeList, expertProfile];
+      this.usedContactList = [...this.usedContactList, expertProfile.name];
+      this.employeesInviteService.setInvitedEmployeeList(this.invitedEmployeeList);
       this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName].setValue('');
     } else {
       this.addEmployeeInvitationByType(EmployeeInvitationTypeEnum.IS_ALREADY_ADDED, expertProfile.name);

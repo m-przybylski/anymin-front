@@ -10,8 +10,12 @@
 				margin: 0 0 48px
 				
 				span
-					+h4
+					+h6
 					font-weight: 700
+					
+					+smm
+						+h4
+						font-weight: 700
 
 	&__list
 		+smm
@@ -40,6 +44,8 @@
 			align-items: center
 
 	&__list
+		margin: 0 0 48px
+		
 		+smm
 			display: flex
 			flex-wrap: wrap
@@ -74,9 +80,15 @@
 			&:hover
 				color: $c-secondary
 
+	.dropdown__handler
+		margin: 0 0 8px
+		
 	.modal-component
 		&__action
 			&--invite-employees
 				display: flex
 				justify-content: center
 				
+.csv-uploader
+	margin: 0 0 24px
+		
