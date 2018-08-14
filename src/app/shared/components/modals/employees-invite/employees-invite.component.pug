@@ -34,9 +34,18 @@ plat-modal-component(
         (onSelectItemEmiter)="onSelectItem($event)",
         (onCloseEmiter)="onCloseDrodpown($event)",
         [isDropdownListOnly]="true"
-          )
+        )
 
-      .invite-employees__list
+      .csv-uploader
+        plat-csv-uploader(
+          [form]="inviteEmployeesFormGroupName",
+          [controlName]="csvControlName",
+          (onUploadFile)="onCSVupload($event)",
+          [addedItems]="usedContactList",
+          [invitedEmployeeLength]="invitedEmployeeList.length"
+        )
+
+      .invite-employees__list(*ngIf="invitedEmployeeList.length > 0")
         .invite-employees__list__item(*ngFor="let employee of invitedEmployeeList", [@animation])
           .invite-employees__content
             .invite-employees__avatar

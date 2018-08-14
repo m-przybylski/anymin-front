@@ -23,6 +23,8 @@ import { SetNewPasswordComponent } from '../../../features/dashboard/views/user-
 import { EmailConfirmationComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
 import { EmployeesInviteModalComponent } from './employees-invite/employees-invite.component';
 import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user-dashboard/settings/components/change-email/change-email.view.component';
+import { CsvUploaderComponent } from './employees-invite/csv-uploader/csv-uploader.component';
+import { CsvUploaderDirective } from './employees-invite/csv-uploader/csv-uploader.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     ChangeEmailViewComponent,
     CreateExpertConsultationModalComponent,
     CreateCompanyConsultationModalComponent,
-    EmployeesInviteModalComponent
+    EmployeesInviteModalComponent,
+    CsvUploaderComponent,
+    CsvUploaderDirective
   ],
   entryComponents: [
     ChangeNumberComponent,
@@ -67,7 +71,9 @@ import { ChangeEmailViewComponent } from '../../../features/dashboard/views/user
     ReactiveFormsModule,
     ModalComponent,
     ModalHeaderComponent,
-    PinElementDirective
+    PinElementDirective,
+    CsvUploaderComponent,
+    CsvUploaderDirective
   ]
 })
 export class ModalsModule {
