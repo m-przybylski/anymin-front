@@ -75,7 +75,7 @@ export class ServiceFormModalController implements ng.IController {
     name: 'Polish',
     value: 'pl'
   };
-  private serviceWithOwnerProfile: ServiceWithOwnerProfile;
+  private serviceWithOwnerProfile: GetService;
 
   public static $inject = ['$uibModalInstance', 'translatorService', 'userService', 'ServiceApi',
     '$scope', 'errorHandler', 'languagesService', 'EmploymentApi', '$q', 'CommonSettingsService', 'ViewsApi'];
@@ -279,17 +279,17 @@ export class ServiceFormModalController implements ng.IController {
   }
 
   private onGetEmployments = (employments: ExpertProfileWithEmployments[]): void => {
-    if (this.serviceDetails && !this.isGetServiceModel(this.serviceDetails)) {
+    if (this.serviceDetails && this.isGetServiceModel(this.serviceDetails)) {
       this.serviceWithOwnerProfile = this.serviceDetails;
     }
     const serviceOwnerEmployments: ExpertProfileWithEmployments | undefined =
       _.find<ExpertProfileWithEmployments>(employments, (employment) =>
-        this.serviceWithOwnerProfile && this.serviceWithOwnerProfile.ownerProfile &&
-        employment.expertProfile.id === this.serviceWithOwnerProfile.ownerProfile.id);
-
-    if (serviceOwnerEmployments)
+        this.serviceWithOwnerProfile && this.serviceWithOwnerProfile.ownerId &&
+        employment.expertProfile.id === this.serviceWithOwnerProfile.ownerId);
+    if (serviceOwnerEmployments) {
       this.isOwnerEmployee = _.find(serviceOwnerEmployments.employments || [], (employment) =>
         (this.serviceDetails && this.serviceDetails.id === employment.serviceId)) !== undefined;
+    }
   }
 
   private isGetServiceModel(serviceDetails: ServiceWithOwnerProfile | GetService): serviceDetails is GetService {

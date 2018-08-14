@@ -13,6 +13,9 @@ import {
 } from 'profitelo-api-ng/model/models';
 import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
 import { GetService } from 'profitelo-api-ng/model/GetService';
+import { AccountDetails } from '@anymind-ng/api';
+// tslint:disable-next-line:import-blacklist
+import * as _ from 'lodash';
 
 // tslint:disable:member-ordering
 export class DashboardExpertManageProfileController {
@@ -39,7 +42,7 @@ export class DashboardExpertManageProfileController {
 
   public getExpertProfile = (): void => {
     this.userService.getUser().then((user) => {
-      if (user.isExpert) {
+      if (user.isExpert && !user.isCompany) {
         this.ViewsApi.getWebExpertProfileRoute(user.id)
           .then(response => {
             this.isLoading = false;
@@ -56,7 +59,7 @@ export class DashboardExpertManageProfileController {
         this.ViewsApi.getWebOrganizationProfileRoute(user.id)
           .then(response => {
             this.isLoading = false;
-            this.onGetOrganizationProfile(response);
+            this.onGetOrganizationProfile(response, user);
           })
           .catch(error => {
             this.isLoading = false;
@@ -91,13 +94,41 @@ export class DashboardExpertManageProfileController {
     ).map(employment => employment.serviceDetails);
   }
 
-  private onGetOrganizationProfile = (organizationDetails: OrganizationProfileView): void => {
-    this.organizationProfile = organizationDetails.organizationProfile;
-    this.organizationName = this.organizationProfile.name;
-    this.organizationLogo = this.organizationProfile.logo;
-    this.services = organizationDetails.services.filter(service =>
-      service.service.deletedAt === undefined
-    ).map(serviceWithEmployments => serviceWithEmployments.service);
+  private onGetOrganizationProfile = (organizationDetails: OrganizationProfileView, user: AccountDetails): void => {
+    if (user.isExpert) {
+      this.ViewsApi.getWebExpertProfileRoute(user.id)
+        .then(expertProfile => {
+          this.isLoading = false;
+          this.organizationProfile = organizationDetails.organizationProfile;
+          this.organizationName = this.organizationProfile.name;
+          this.organizationLogo = this.organizationProfile.logo;
+          this.expertProfile = expertProfile.expertProfile;
+          this.expertName = this.expertProfile.name;
+          this.expertAvatar = this.expertProfile.avatar;
+          const expertServices = expertProfile.employments.filter(employment =>
+            employment.serviceDetails.deletedAt === undefined
+          ).map(employment => employment.serviceDetails);
+          const organizationServices = organizationDetails.services.filter(service =>
+            service.service.deletedAt === undefined
+          ).map(serviceWithEmployments => serviceWithEmployments.service);
+
+          this.services = [...organizationServices,
+              ..._.flatMap(_.differenceBy(expertServices, organizationServices, 'id'))] as GetService[];
+        })
+        .catch(error => {
+          this.isLoading = false;
+          this.isError = true;
+          this.errorHandler.handleServerError(error,
+            'Can not load expert profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
+        });
+    } else {
+      this.organizationProfile = organizationDetails.organizationProfile;
+      this.organizationName = this.organizationProfile.name;
+      this.organizationLogo = this.organizationProfile.logo;
+      this.services = organizationDetails.services.filter(service =>
+        service.service.deletedAt === undefined
+      ).map(serviceWithEmployments => serviceWithEmployments.service);
+    }
   }
 
 }
