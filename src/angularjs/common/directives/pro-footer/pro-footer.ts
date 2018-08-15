@@ -4,7 +4,6 @@
 import * as angular from 'angular';
 import { IDirective } from 'angular';
 import { Config } from '../../../../config';
-import { CommonConfig } from '../../../../common-config';
 
 interface IProFooterScope extends ng.IScope {
   googlePlayUrl: string;
@@ -22,11 +21,11 @@ interface IProFooterScope extends ng.IScope {
     function linkFunction(scope: IProFooterScope): void {
       scope.googlePlayUrl = Config.googlePlayProfile.url;
       scope.isPlatformForExpert = Config.isPlatformForExpert;
-      scope.zendeskUrl = CommonConfig.getCommonConfig().urls.zendesk;
-      scope.anymindBlogUrl = CommonConfig.getCommonConfig().urls['widget-blog'];
-      scope.termsOfServiceUrl = CommonConfig.getCommonConfig().urls['terms-of-service'];
-      scope.privacyPolicyUrl = CommonConfig.getCommonConfig().urls['privacy-policy'];
-      scope.helpMailUrl = CommonConfig.getCommonConfig().config['help-mail'];
+      scope.zendeskUrl = 'https://anymind.zendesk.com/';
+      scope.anymindBlogUrl = 'https://anymind-widget.com/blog/';
+      scope.termsOfServiceUrl = 'https://anymind.com/regulamin/';
+      scope.privacyPolicyUrl = 'https://anymind.com/polityka-prywatnosci/';
+      scope.helpMailUrl = 'hello@anymind.com';
     }
 
     return {

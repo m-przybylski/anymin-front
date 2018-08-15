@@ -2,7 +2,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
-import { CommonConfig } from '../../../../../common-config';
 import { Config } from '../../../../../config';
 
 interface IErrors {
@@ -58,7 +57,7 @@ export class InputTagsComponent implements OnInit {
   public currentTagsCount: number;
 
   public isFocused = false;
-  private readonly minValidTagsCount = CommonConfig.getCommonConfig().validation.consultation['tags-min-count'];
+  private readonly minValidTagsCount = 3;
 
   constructor(public formUtils: FormUtilsService) {
   }

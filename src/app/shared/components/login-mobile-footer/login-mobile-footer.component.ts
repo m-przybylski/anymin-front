@@ -1,6 +1,5 @@
 // tslint:disable:no-empty
 import { Component } from '@angular/core';
-import { CommonConfig } from '../../../../common-config';
 
 @Component({
   selector: 'plat-login-mobile-footer',
@@ -10,7 +9,7 @@ import { CommonConfig } from '../../../../common-config';
 
 export class LoginMobileFooterComponent {
 
-  private readonly googlePlayStoreUrl = CommonConfig.getCommonConfig().urls['play-store'];
+  private readonly googlePlayStoreUrl = 'https://play.google.com/store/apps/details?id=com.anymind.app';
 
   constructor() {}
 

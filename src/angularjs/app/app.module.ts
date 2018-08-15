@@ -43,13 +43,13 @@ import { UpgradeService } from '../common/services/upgrade/upgrade.service';
 import loggerModule from '../common/services/logger/logger';
 import { Config } from '../../config';
 import * as Raven from 'raven-js';
-import { CommonConfig } from '../../common-config';
+import { EnvironmentService } from '../../app/core/services/environment/environment.service';
 const ngRaven = require('raven-js/plugins/angular');
 
 Raven
   .config(Config.sentry.url, Config.sentry.options)
   .addPlugin(ngRaven, angular)
-  .setShouldSendCallback(() => Config.sentry.enabledEnvironments.includes(CommonConfig.getCommonConfig().environment))
+  .setShouldSendCallback(() => Config.sentry.enabledEnvironments.includes(EnvironmentService.get()))
   .install();
 
 export const angularjsModule = angular.module('profitelo', [

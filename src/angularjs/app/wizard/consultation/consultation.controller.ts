@@ -14,7 +14,6 @@ import { TranslatorService } from '../../../common/services/translator/translato
 import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 import { Config } from '../../../../config';
 import { StateService, StateParams } from '@uirouter/angularjs';
-import { CommonConfig } from '../../../../common-config';
 
 export interface IConsultationStateParams extends StateParams {
   service: GetWizardService;
@@ -52,7 +51,7 @@ export class ConsultationController implements ng.IController {
 
   private isExpert: boolean;
   private currentEditServiceIndex = -1;
-  private moneyDivider: number;
+  private moneyDivider = 100;
   private defaultLanguageISO = '';
   private consultationNamePattern: RegExp;
   private consultationDescriptionPattern: RegExp;
@@ -80,8 +79,6 @@ export class ConsultationController implements ng.IController {
               private CommonSettingsService: CommonSettingsService) {
 
     this.languagesList = this.languagesService.languagesList;
-
-    this.moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
 
     this.assignValidationValues();
 

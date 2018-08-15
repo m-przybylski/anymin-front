@@ -2,26 +2,23 @@
 // tslint:disable:prefer-template
 // tslint:disable:no-empty
 // tslint:disable:member-ordering
-import { CommonConfig } from '../../../../common-config';
+// tslint:disable:max-line-length
+import { LanguagesService } from '../languages/languages.service';
 
 export class CommonSettingsService {
-
-  private readonly commonConfigData = CommonConfig.getCommonConfig();
-  private readonly validation = this.commonConfigData.validation;
-  private readonly urls = this.commonConfigData.urls;
   public readonly links = {
-    imageUrl: window.location.origin + this.urls['file-download'],
-    zendeskAllowMediaUrl: this.urls.zendesk + 'hc/pl/articles/115002692852-' +
+    imageUrl: `${window.location.origin}/files/%s/download`,
+    zendeskAllowMediaUrl: 'https://anymind.zendesk.com/hc/pl/articles/115002692852-' +
     '-Moja-przegl%C4%85darka-nie-ma-dost%C4%99pu-do-kamery-i-mikrofonu-jak-to-naprawi%C4%87-',
-    widgetSdk: this.commonConfigData.urls['widget-sdk'],
-    widget: this.commonConfigData.urls.widget,
+    widgetSdk: `${window.location.origin}/sdk/widget-sdk.js`,
+    widget: `${window.location.origin}/widget`,
     assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL'
   };
   public readonly errorCodes = {
     notAllowedToLogin: 108,
     illegalArgument: 105
   };
-  public readonly languages = this.commonConfigData.config['supported-languages'];
+  public readonly languages = LanguagesService.languages;
   public readonly localSettings = {
     amountMultiplier: 100,
     alphabetPattern: '^[A-Za-z\\u00AA\\u00B5\\u00BA\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02C1\\u02C6-\\' +
@@ -68,27 +65,27 @@ export class CommonSettingsService {
     'uFB1D\\uFB1F-\\uFB28\\uFB2A-\\uFB36\\uFB38-\\uFB3C\\uFB3E\\uFB40\\uFB41\\uFB43\\uFB44\\uFB46-\\uFBB1\\' +
     'uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF21-\\uFF3A\\' +
     'uFF41-\\uFF5A\\uFF66-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC- ]+$',
-    countryCodes: this.commonConfigData.config['country-codes'],
-    passwordPattern: new RegExp(this.validation.password.regex.replace(/\\\\/g, '\\')),
-    pinPattern: new RegExp(this.validation.pin.regex),
-    profileNamePattern: new RegExp(this.validation.profile.name.regex.replace(/\\\\/g, '\\')),
-    profileDescriptionPattern: new RegExp(this.validation.profile.description.regex.replace(/\\\\/g, '\\')),
-    profileAvatarSize: this.validation.profile['avatar-size'],
-    profileDocumentSize: this.validation.profile['document-size'],
-    profileDocumentsCount: this.validation.profile['documents-count'],
-    consultationNamePattern: new RegExp(this.validation.consultation.name.regex.replace(/\\\\/g, '\\')),
-    consultationDescriptionPattern: new RegExp(this.validation.consultation.description.regex.replace(/\\\\/g, '\\')),
-    consultationTagsMinCount: this.validation.consultation['tags-min-count'],
-    consultationTagsMaxCount: this.validation.consultation['tags-max-count'],
-    consultationMaxTagWords: this.validation.consultation['tag-max-words-count'],
-    consultationMinTagLength: this.validation.consultation['tag-min-length'],
-    consultationMaxTagLength: this.validation.consultation['tag-max-length'],
-    consultationPriceMin: this.validation.consultation['price-min'],
-    consultationPriceMax: this.validation.consultation['price-max'],
-    consultationInvitationsMinCount: this.validation.consultation['invitations-min-count'],
-    consultationInvitationsMaxCount: this.validation.consultation['invitations-max-count'],
-    commentPattern: new RegExp(this.validation.comment.regex.replace(/\\\\/g, '\\')),
-    tagPattern: new RegExp(this.validation.consultation.tag.regex.replace(/\\\\/g, '\\')),
+    countryCodes: ['+48'],
+    passwordPattern: new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[ !"#$%&\'()*+,-./:;<=>?@[\\\\]^_`{|}~])).{8,64}$'.replace(/\\\\/g, '\\')),
+    pinPattern: new RegExp('[0-9]{4}'),
+    profileNamePattern: new RegExp('[^\\n]{3,150}'.replace(/\\\\/g, '\\')),
+    profileDescriptionPattern: new RegExp('[\\s\\S]{15,600}'.replace(/\\\\/g, '\\')),
+    profileAvatarSize: 30000000,
+    profileDocumentSize: 30000000,
+    profileDocumentsCount: 20,
+    consultationNamePattern: new RegExp('[^\\n]{3,350}'.replace(/\\\\/g, '\\')),
+    consultationDescriptionPattern: new RegExp('[\\s\\S]{3,600}'.replace(/\\\\/g, '\\')),
+    consultationTagsMinCount: 3,
+    consultationTagsMaxCount: 20,
+    consultationMaxTagWords: 5,
+    consultationMinTagLength: 2,
+    consultationMaxTagLength: 50,
+    consultationPriceMin: 100,
+    consultationPriceMax: 9900,
+    consultationInvitationsMinCount: 1,
+    consultationInvitationsMaxCount: 100,
+    commentPattern: new RegExp('[\\s\\S]{0,600}'.replace(/\\\\/g, '\\')),
+    tagPattern: new RegExp('([^A-Z\\s]+[ ]?)+[^A-Z\\s]+'.replace(/\\\\/g, '\\')),
     smsCodePattern: /^[0-9]{4}$/,
     phonePattern: /^\+?\d+(\s\d+)*$/,
     phoneNumberPattern: /^[0-9]{9}$/,

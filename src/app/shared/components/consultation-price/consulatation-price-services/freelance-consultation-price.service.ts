@@ -1,20 +1,14 @@
-import { CommonConfig } from '../../../../../common-config';
-import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
 import { IConsultationPriceComponentService } from './consultation-price-component-service.interface';
 
 export class FreelanceConsultationPriceService implements IConsultationPriceComponentService {
 
-  private readonly commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
   private readonly mathRoundHelper = 100;
-  private minValidNettPrice: number;
-  private grossMaxValidPrice: number;
-  private moneyDivider: number;
+  private minValidNettPrice = 100;
+  private grossMaxValidPrice = 9900;
+  private moneyDivider = 100;
 
   constructor(private tax: number,
               private commission: number) {
-    this.minValidNettPrice = this.commonConfig.validation.consultation['price-min'];
-    this.grossMaxValidPrice = this.commonConfig.validation.consultation['price-max'];
-    this.moneyDivider = this.commonConfig.config.moneyDivider;
   }
 
   public getPriceWithoutCommission = (value: number): number => {

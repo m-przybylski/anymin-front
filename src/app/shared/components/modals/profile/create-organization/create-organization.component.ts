@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigDEFAULT } from '../../../../../../../generated_modules/common-config/common-config.default';
-import { CommonConfig } from '../../../../../../common-config';
 import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
@@ -35,14 +33,13 @@ export class CreateOrganizationModalComponent implements OnInit {
   public readonly profileLinksFormControl = 'profileLinksFormControl';
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   public isInputDisabled = false;
-  public maxValidFileSize: number;
-  public maxValidFilesCount: number;
+  public maxValidFileSize = 30000000;
+  public maxValidFilesCount = 20;
   public isPending = true;
   public isFileUploading = false;
   public fileUploadTokensList: ReadonlyArray<string>;
   public profileLinksList: ReadonlyArray<string> = [];
   public linksList: ReadonlyArray<string> = [];
-  public commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isProfileHasConsultations = false;
 
@@ -78,9 +75,6 @@ export class CreateOrganizationModalComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(session => this.adjustProfileDetails(session),
         (err) => this.handleResponseError(err, 'Can not get session'));
-
-    this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
-    this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
   }
 
   public onUploadingFile = (isUploading: boolean): void => {

@@ -30,7 +30,6 @@ import inputModule from '../../../../interface/input/input';
 import chooseBankModule from '../../choose-bank/choose-bank';
 import { StateService } from '@uirouter/angularjs';
 import uiRouter from '@uirouter/angularjs';
-import { CommonConfig } from '../../../../../../../common-config';
 // tslint:disable:no-use-before-declare
 // tslint:disable:strict-type-predicates
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: StateService,
@@ -97,7 +96,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 
       this.sendPaymentObject = {
         email: this.emailModel,
-        continueUrl: CommonConfig.getCommonConfig().urls.frontend + '/dashboard/client/activities',
+        continueUrl: `${window.location.origin}/dashboard/client/activities`,
         payment: {
           amount: this.amountMethodModal.amountModel.cashAmount,
           paymentCountryId: this.paymentCountryId,

@@ -13,7 +13,6 @@ import { ModalsService } from '../../../../services/modals/modals.service';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { StateService } from '@uirouter/angularjs';
-import { CommonConfig } from '../../../../../../common-config';
 
 export interface IPrecallModalControllerScope extends ng.IScope {
   service: GetService;
@@ -44,7 +43,7 @@ export class PrecallModalController implements ng.IController {
   public mediaStream?: MediaStream;
   private prepaidCallLimitModel: number;
   private prepaidValue: string;
-  private moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
+  private moneyDivider = 100;
   private consultationPrice: number;
 
   public onModalClose = (): void => {

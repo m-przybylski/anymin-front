@@ -12,7 +12,6 @@ import { EMPTY } from 'rxjs/index';
 import { Observable } from 'rxjs/Rx';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
-import { CommonConfig } from '../../../../../common-config';
 import { EmployeesInviteModalComponent } from '../employees-invite/employees-invite.component';
 import { GetService } from '@anymind-ng/api';
 
@@ -41,7 +40,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
 
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
-  private readonly anyMindCommission: number = CommonConfig.getCommonConfig().config.commissions.default.internal;
+  private readonly anyMindCommission = 0.15;
   private readonly percentDivider = 100;
   private loggerService: LoggerService;
   private selectedTags: PostServiceTag[] = [];

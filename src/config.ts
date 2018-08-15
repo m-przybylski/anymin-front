@@ -1,6 +1,6 @@
 import { LogLevel } from '@anymind-ng/core';
 import { VERSION } from '../generated_modules/version/version';
-import { CommonConfig } from './common-config';
+import { Environment, EnvironmentService } from './app/core/services/environment/environment.service';
 
 export class Config {
 
@@ -61,11 +61,11 @@ export class Config {
   public static readonly sentry = {
     url: 'https://d5b6e4ad5fa6423e8df0e2225cb79fa3@sentry.io/286340',
     enabledEnvironments: [
-      'prod', 'demo'
+      Environment.PRODUCTION, Environment.DEMO
     ],
     options: {
       release: VERSION.hash,
-      environment: CommonConfig.getCommonConfig().environment,
+      environment: EnvironmentService.get(),
       extra: VERSION.version
     }
   };

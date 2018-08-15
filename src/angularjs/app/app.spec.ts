@@ -5,7 +5,6 @@ import {IRootScopeService} from '../common/services/root-scope/root-scope.servic
 import {angularjsModule} from './app.module';
 import {StateService} from '@uirouter/angularjs';
 import loggerMockModule from '../common/services/logger/logger.mock';
-import { CommonConfig } from '../../common-config';
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -16,7 +15,6 @@ describe('Unit tests: app>', () => {
 
     let _httpBackend: ng.IHttpBackendService
     let _state: StateService
-    let _commonConfigData
     let _RatelApiMock: RatelApiMock
     let _SessionApiMock: SessionApiMock
     let _ServiceApiMock: ServiceApiMock
@@ -49,8 +47,6 @@ describe('Unit tests: app>', () => {
         _RatelApiMock = RatelApiMock
         _SessionApiMock = SessionApiMock
         _ServiceApiMock = ServiceApiMock
-
-        _commonConfigData = CommonConfig.getCommonConfig()
 
         AppController = $controller('AppComponentController', {
           $scope: $scope,

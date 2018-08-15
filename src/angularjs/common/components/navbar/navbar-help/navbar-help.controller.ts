@@ -7,7 +7,6 @@ import { HelpdeskService } from '../../../services/helpdesk/helpdesk.service';
 import { ISearchArticle } from '../../../services/helpdesk/search-article.interface';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { CommonConfig } from '../../../../../common-config';
 // tslint:disable:member-ordering
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
@@ -42,7 +41,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
   }
 
   public $onInit(): void {
-    this.zendeskUrl = CommonConfig.getCommonConfig().urls.zendesk;
+    this.zendeskUrl = 'https://anymind.zendesk.com/';
   }
 
   public onHelpSearchInputChange = (): void => {

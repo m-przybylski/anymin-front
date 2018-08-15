@@ -2,7 +2,7 @@
 import { ErrorHandler } from '@angular/core';
 import * as Raven from 'raven-js';
 import { Config } from '../../../../config';
-import { CommonConfig } from '../../../../common-config';
+import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 export class RavenErrorHandler implements ErrorHandler {
 
@@ -33,6 +33,6 @@ export class RavenErrorHandler implements ErrorHandler {
   }
 
   private static isSentryEnabled = (): boolean =>
-    Config.sentry.enabledEnvironments.includes(CommonConfig.getCommonConfig().environment)
+    Config.sentry.enabledEnvironments.includes(EnvironmentService.get())
 
 }

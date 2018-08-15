@@ -8,9 +8,7 @@
 import { FileIdDto, PostFileDetails, FilesService } from '@anymind-ng/api';
 import { FileUploader } from './uploader';
 import { Observable } from 'rxjs';
-import { CommonConfig } from '../../../../common-config';
 import { Injectable } from '@angular/core';
-import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export interface IUploadFileInfo {
@@ -35,16 +33,10 @@ export interface IFileObject {
 export class UploaderService {
 
   private fileObjectsToUpload: IFileObject[] = [];
-  private commonConfig: ConfigDEFAULT;
-  private filesUrl: string;
-  private uploadFileUrl: string;
   private currentlyUploadedFile: IFileObject;
   private isFileUploadInProgress = false;
 
   constructor(private FilesService: FilesService) {
-    this.commonConfig = CommonConfig.getCommonConfig();
-    this.filesUrl = window.location.origin;
-    this.uploadFileUrl = this.commonConfig.urls['file-upload'];
   }
 
   public uploadFile = (file: File,
@@ -68,7 +60,7 @@ export class UploaderService {
   }
 
   private getUploadUrl = (fileId: string): string =>
-    this.filesUrl + this.uploadFileUrl.replace('%s', fileId)
+    `${window.location.origin}/files/${fileId}/upload`
 
   private onFileUploadEnd = (): void => {
     this.isFileUploadInProgress = false;

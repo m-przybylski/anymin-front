@@ -5,6 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
+import { EnvironmentService } from './core/services/environment/environment.service';
 const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 const englishTranslations = require('../../lib/angular-translations/en-us.json');
 
@@ -18,6 +19,7 @@ export class AppComponent {
   constructor(private logger: LoggerService,
               translate: TranslateService) {
     this.printVersion();
+    this.printEnvironment();
 
     translate.setTranslation('pl', polishTranslations);
     translate.setTranslation('en', englishTranslations);
@@ -31,7 +33,11 @@ export class AppComponent {
   }
 
   private printVersion = (): void => {
-    this.logger.info(`Application Version: ${VERSION.hash}`, VERSION);
+    this.logger.info(`Application version: ${VERSION.hash}`, VERSION);
+  }
+
+  private printEnvironment = (): void => {
+    this.logger.info(`Application environment: ${EnvironmentService.get()}`);
   }
 
 }
