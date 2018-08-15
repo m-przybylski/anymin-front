@@ -7,7 +7,7 @@ import { ISearchFiltersComponentBindings } from './search-filters';
 import { IPrimaryDropdownListElement } from '../../interface/dropdown-primary/dropdown-primary';
 import { TranslatorService } from '../../../services/translator/translator.service';
 import { StateService } from '@uirouter/angularjs';
-import { CommonConfig } from '../../../../../common-config';
+import { LanguagesService } from '../../../services/languages/languages.service';
 
 // tslint:disable:member-ordering
 export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
@@ -26,7 +26,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   public minPrice = 0;
 
   public maxPrice = 20;
-  private moneyDivider: number;
+  private moneyDivider = 100;
   private static readonly mobileWidth = 768;
 
   public $onInit = (): void => {
@@ -53,15 +53,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
               private $window: ng.IWindowService,
               private $state: StateService) {
 
-    this.moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
-
-    const languages: {
-      shortcut: string,
-      name: string,
-      'native-name': string
-    }[] = CommonConfig.getCommonConfig().config['supported-languages'];
-
-    this.languagesList = languages.map((lng) =>
+    this.languagesList = LanguagesService.languages.map((lng) =>
       ({
         name: this.translatorService.translate('SEARCH.LANGUAGE.' + lng.name),
         value: lng.shortcut

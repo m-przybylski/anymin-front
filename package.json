@@ -15,18 +15,16 @@
     "test-single": "npm run pug && ng test --single-run --code-coverage",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
-    "common-config": "node lib/common-config/generator.js && npm run env",
-    "cc": "npm run common-config",
-    "ci-test": "npm run cc && npm run postinstall && npm run lint && npm run test-single",
-    "ci-deploy": "npm run cc && npm run build",
+    "ci-test": "npm run env && npm run postinstall && npm run lint && npm run test-single",
+    "ci-deploy": "npm run env && npm run build",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "pug": "pug src --doctype html",
     "pug-watch": "pug src --doctype html --watch",
     "env": "node lib/environment/environment.js",
-    "env-stage": "npm run env build-stage",
-    "env-dev": "npm run env build-dev",
-    "env-demo": "npm run env build-demo",
-    "env-prod": "npm run env build-prod"
+    "env-staging": "npm run env staging",
+    "env-development": "npm run env development",
+    "env-demo": "npm run env demo",
+    "env-production": "npm run env production"
   },
   "pre-commit": [
     "lint"
@@ -127,7 +125,6 @@
     "codelyzer": "^4.0.1",
     "fs-walk": "0.0.1",
     "git-describe": "^4.0.2",
-    "handlebars": "^4.0.6",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",

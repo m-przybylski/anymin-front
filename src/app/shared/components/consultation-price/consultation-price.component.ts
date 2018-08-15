@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
-import { CommonConfig } from '../../../../common-config';
 import { DefaultConsultationPriceService } from './consulatation-price-services/default-consultation-price.service';
 import { FreelanceConsultationPriceService } from './consulatation-price-services/freelance-consultation-price.service';
 import {
@@ -41,10 +39,10 @@ export class ConsultationPriceComponent implements OnInit {
   public isDisabled ? = false;
 
   @Input()
-  public taxValue: number;
+  public taxValue = 0.23;
 
   @Input()
-  public commission: number;
+  public commission = 0.15;
 
   @Input()
   public set isFreelanceService(isFreelance: boolean) {
@@ -62,15 +60,8 @@ export class ConsultationPriceComponent implements OnInit {
   public grossMinValidPrice: number;
   public grossMaxValidPrice: number;
 
-  private readonly commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
   private readonly lastButOneIndex = 2;
   private consultationPriceComponentService: IConsultationPriceComponentService;
-
-  constructor() {
-    this.taxValue = this.commonConfig.config.taxes.vat.pl;
-    this.commission = this.commonConfig.config.commissions.default.internal;
-
-  }
 
   public ngOnInit(): void {
     this.form.addControl(this.nettControlName, new FormControl());
@@ -125,7 +116,8 @@ export class ConsultationPriceComponent implements OnInit {
     this.minValidPriceWithoutCommission = this.consultationPriceComponentService.getMinValidPriceWithoutCommission();
     this.maxValidPriceWithoutCommission = this.consultationPriceComponentService.getMaxValidPriceWithoutCommission();
     this.grossMinValidPrice = this.consultationPriceComponentService.getMinGrossValidPrice();
-    this.grossMaxValidPrice = this.commonConfig.validation.consultation['price-max'];
+    const grossMaxValidPrice = 9900;
+    this.grossMaxValidPrice = grossMaxValidPrice;
   }
 
 }

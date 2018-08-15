@@ -5,7 +5,6 @@
 // tslint:disable:no-any
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
-import { CommonConfig } from '../../../../common-config';
 
 export interface ISocialUrl {
   iconClass: string;
@@ -15,8 +14,6 @@ export interface ISocialUrl {
 
 // tslint:disable:member-ordering
 export class UrlService {
-
-  private commonConfig = CommonConfig.getCommonConfig();
 
   public static $inject = ['CommonSettingsService'];
 
@@ -40,5 +37,5 @@ export class UrlService {
   }
 
   public resolveFileUrl = (fileId: string): string =>
-    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', fileId)
+    `${window.location.origin}/files/${fileId}/download`
 }

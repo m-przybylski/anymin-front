@@ -1,7 +1,5 @@
 // tslint:disable:readonly-array
 import { Injectable } from '@angular/core';
-import { CommonConfig } from '../../../../common-config';
-import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 import { Observable } from 'rxjs';
 import { SearchService, GetSuggestedTags, PostSuggestTags } from '@anymind-ng/api';
 
@@ -17,14 +15,13 @@ export enum TagValidationStatus {
 @Injectable()
 export class ConsultationTagsComponentService {
 
-  private readonly commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
-  private readonly maxValidTagsCount = this.commonConfig.validation.consultation['tags-max-count'];
-  private readonly minValidTagsCount = this.commonConfig.validation.consultation['tags-min-count'];
-  private readonly maxValidTagWords = this.commonConfig.validation.consultation['tag-max-words-count'];
-  private readonly minValidTagLength = this.commonConfig.validation.consultation['tag-min-length'];
-  private readonly maxValidTagLength = this.commonConfig.validation.consultation['tag-max-length'];
+  private readonly maxValidTagsCount = 20;
+  private readonly minValidTagsCount = 3;
+  private readonly maxValidTagWords = 5;
+  private readonly minValidTagLength = 2;
+  private readonly maxValidTagLength = 50;
   private readonly tagRegex =
-    new RegExp(this.commonConfig.validation.consultation.tag.regex.replace(/\\\\/g, '\\'));
+    new RegExp('([^A-Z\\s]+[ ]?)+[^A-Z\\s]+'.replace(/\\\\/g, '\\'));
 
   constructor(private searchService: SearchService) {
   }

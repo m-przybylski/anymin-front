@@ -1,6 +1,5 @@
 // tslint:disable:readonly-array
 import { CookieNotificationService } from './cookie-notification.service';
-import { CommonConfig } from '../../../../common-config';
 
 interface ICookieHref {
   hrefUrl: string;
@@ -16,7 +15,7 @@ export class CookieNotificationComponentController implements ng.IController {
     constructor(private cookieNotificationService: CookieNotificationService) {
 
     this.cookieTranslationHref = {
-      hrefUrl: CommonConfig.getCommonConfig().urls['privacy-policy']
+      hrefUrl: 'https://anymind.com/polityka-prywatnosci/'
     };
   }
 

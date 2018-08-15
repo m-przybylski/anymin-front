@@ -1,7 +1,5 @@
 // tslint:disable:strict-boolean-expressions
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonConfig } from '../../../../common-config';
-import { ConfigDEFAULT } from '../../../../../generated_modules/common-config/common-config.default';
 
 export enum AvatarSizeEnum {
   X_24,
@@ -35,12 +33,6 @@ export class UserAvatarComponent implements OnInit {
   @Input()
   public isOrganizationAvatar = false;
 
-  private commonConfig: ConfigDEFAULT;
-
-  constructor() {
-    this.commonConfig = CommonConfig.getCommonConfig();
-  }
-
   public ngOnInit(): void {
     if (this.avatarToken) {
       this.avatarUrl = this.resolveFileUrl(this.avatarToken);
@@ -67,6 +59,6 @@ export class UserAvatarComponent implements OnInit {
   }
 
   private resolveFileUrl = (avatarToken: string): string =>
-    window.location.origin + this.commonConfig.urls['file-download'].replace('%s', avatarToken)
+    `${window.location.origin}/files/${avatarToken}/download`
 
 }

@@ -10,8 +10,6 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
-import { ConfigDEFAULT } from '../../../../../../../generated_modules/common-config/common-config.default';
-import { CommonConfig } from '../../../../../../common-config';
 import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
 import { UserNavigationComponentService } from '../../../navbar/user-navigation/user-navigation.component.service';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
@@ -38,15 +36,14 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   public clientNameForm = new FormGroup({});
   public expertNameForm = new FormGroup({});
   public isFileUploading: boolean;
-  public maxValidFileSize: number;
-  public maxValidFilesCount: number;
+  public maxValidFileSize = 30000000;
+  public maxValidFilesCount = 20;
   public profileDetails: GetProfileWithDocuments;
   public fileUploadTokensList: ReadonlyArray<string>;
   public linksList: ReadonlyArray<string> = [];
   public profileLinksList: ReadonlyArray<string> = [];
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   public isPending = true;
-  public commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isInputDisabled = false;
   public isOpenAsExpert: boolean;
@@ -76,9 +73,6 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(session => this.adjustProfileDetails(session),
         (err) => this.handleResponseError(err, 'Can not get session'));
-
-    this.maxValidFileSize = this.commonConfig.validation.profile['document-size'];
-    this.maxValidFilesCount = this.commonConfig.validation.profile['documents-count'];
   }
 
   public ngOnDestroy(): void {

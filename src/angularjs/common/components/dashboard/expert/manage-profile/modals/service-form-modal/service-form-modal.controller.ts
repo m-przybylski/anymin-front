@@ -25,7 +25,6 @@ import { ILanguage, LanguagesService } from '../../../../../../services/language
 import { TranslatorService } from '../../../../../../services/translator/translator.service';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { Config } from '../../../../../../../../config';
-import { CommonConfig } from '../../../../../../../../common-config';
 import { ServiceWithOwnerProfile } from '@anymind-ng/api';
 import { ViewsApi } from 'profitelo-api-ng/api/ViewsApi';
 
@@ -58,7 +57,7 @@ export class ServiceFormModalController implements ng.IController {
   public isPlatformForExpert = Config.isPlatformForExpert;
   public isPriceAmountValid = true;
 
-  private moneyDivider: number;
+  private moneyDivider = 100;
   private currency: string;
   private defaultLanguageISO = '';
   private onModalCloseCallback: () => void;
@@ -93,8 +92,6 @@ export class ServiceFormModalController implements ng.IController {
               private ViewsApi: ViewsApi) {
 
     this.languagesList = this.languagesService.languagesList;
-
-    this.moneyDivider = CommonConfig.getCommonConfig().config.moneyDivider;
 
     this.assignValidationValues();
   }

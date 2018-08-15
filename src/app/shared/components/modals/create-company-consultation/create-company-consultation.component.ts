@@ -12,8 +12,6 @@ import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { catchError } from 'rxjs/internal/operators';
 import { CreateCompanyConsultationService } from './create-company-consultation.service';
-import { CommonConfig } from '../../../../../common-config';
-import { ConfigDEFAULT } from '../../../../../../generated_modules/common-config/common-config.default';
 import { EmployeesInviteModalComponent } from '../employees-invite/employees-invite.component';
 import { GetService } from '@anymind-ng/api';
 
@@ -48,10 +46,9 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
     employeeConsultation: 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.NET_PRICE_LABEL',
     freelanceConsultation: 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.FREELANCER_NET_PRICE_LABEL',
   };
-  private readonly commonConfig: ConfigDEFAULT = CommonConfig.getCommonConfig();
-  private readonly freelanceConsultationAnyMindCommission = this.commonConfig.config.commissions.freelance.internal;
-  private readonly freelanceConsultationCompanyCommission = this.commonConfig.config.commissions.freelance.organization;
-  private readonly employeeServiceAnyMindCommission = this.commonConfig.config.commissions.default.internal;
+  private readonly freelanceConsultationAnyMindCommission = 0.2;
+  private readonly freelanceConsultationCompanyCommission = 0.1;
+  private readonly employeeServiceAnyMindCommission = 0.15;
   private readonly percentDivider = 100;
   private readonly numberPrecision = 2;
   private loggerService: LoggerService;
