@@ -1,0 +1,30 @@
+replicaCount: 2
+
+image:
+  repository: eu.gcr.io/dev-country-188109/profitelo-frontend
+  tag: demo
+  pullPolicy: Always
+
+service:
+  name: frontend
+  type: ClusterIP
+  ports:
+    http: 80
+
+resources: {}
+
+ingress:
+  name: demo-frontend.anymind.com
+  hosts: demo.anymind.com
+  host: demo.anymind.com
+  secretName: demo.anymind.com
+  path: /
+  serviceName: frontend
+
+namespace: default
+
+frontend:
+  DEPLOY_TYPE: demo
+  LOG_TAG: demo
+  LOGSTASH_URL: logging.europe-west3-a.c.dev-country-188109.internal:5000
+  PROFITELO_ENV: build-demo

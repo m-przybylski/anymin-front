@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  repository: eu.gcr.io/dev-country-188109/profitelo-frontend
+  tag: stage
+  pullPolicy: Always
+
+service:
+  name: frontend
+  type: ClusterIP
+  ports:
+    http: 80
+
+resources: {}
+
+ingress:
+  name: stage.anymind.com
+  hosts: stage.anymind.com
+  host: stage.anymind.com
+  secretName: stage.anymind.com
+  path: /
+  serviceName: frontend
+
+namespace: stage
+
+frontend:
+  DEPLOY_TYPE: stage
+  LOG_TAG: stage
+  LOGSTASH_URL: logstash.anymind.com:5000
+  PROFITELO_ENV: build-stage

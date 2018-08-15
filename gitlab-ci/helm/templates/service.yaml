@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ template "frontend.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.ports.http }}
+      targetPort: {{ .Values.service.ports.http }}
+      protocol: TCP
+      name: frontend-https
+  selector:
+    app: {{ template "frontend.name" . }}
+    release: {{ .Release.Name }}

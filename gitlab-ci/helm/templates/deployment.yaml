@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ template "frontend.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "frontend.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.ports.http }}
+          env:
+            - name: DEPLOY_TYPE
+              value: {{ .Values.frontend.DEPLOY_TYPE | quote}}
+            - name: LOG_TAG
+              value: {{ .Values.frontend.LOG_TAG | quote}}
+            - name: LOGSTASH_URL
+              value: {{ .Values.frontend.LOGSTASH_URL | quote}}
+            - name: WIDGET_ENV
+              value: {{ .Values.frontend.WIDGET_ENV | quote}}
+          volumeMounts:
+            - name: frontend-anymind-com-conf
+              mountPath: /etc/nginx/conf.d/frontend.anymind.com.conf
+              subPath: frontend.anymind.com.conf
+              readOnly: false
+            
+      volumes:
+        - name: frontend-anymind-com-conf
+          configMap:
+            name: frontend.anymind.com.conf
