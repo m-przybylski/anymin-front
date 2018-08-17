@@ -71,7 +71,8 @@ export class Config {
   };
 
   public static readonly googlePlayProfile = {
-    url: 'https://play.google.com/apps/testing/com.anymind.app'
+    urlProd: 'https://play.google.com/apps/testing/com.anymind.app',
+    urlDemo: 'https://play.google.com/apps/testing/com.anymind.demo'
   };
 
   public static readonly assetsUrl = {

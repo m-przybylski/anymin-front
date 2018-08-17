@@ -4,6 +4,7 @@
 import * as angular from 'angular';
 import { IDirective } from 'angular';
 import { Config } from '../../../../config';
+import { Environment } from '../../../../app/core/services/environment/environment.service';
 
 interface IProFooterScope extends ng.IScope {
   googlePlayUrl: string;
@@ -15,11 +16,13 @@ interface IProFooterScope extends ng.IScope {
   helpMailUrl: string;
 }
 
-(function(): void {
+(function (): void {
   function proFooter(): IDirective<ng.IScope> {
 
     function linkFunction(scope: IProFooterScope): void {
-      scope.googlePlayUrl = Config.googlePlayProfile.url;
+      scope.googlePlayUrl =
+        window.location.origin === Environment.PRODUCTION ?
+          Config.googlePlayProfile.urlProd : Config.googlePlayProfile.urlDemo;
       scope.isPlatformForExpert = Config.isPlatformForExpert;
       scope.zendeskUrl = 'https://anymind.zendesk.com/';
       scope.anymindBlogUrl = 'https://anymind-widget.com/blog/';
@@ -39,6 +42,6 @@ interface IProFooterScope extends ng.IScope {
   angular.module('profitelo.directives.pro-footer', [
     'pascalprecht.translate'
   ])
-  .directive('proFooter', [proFooter]);
+    .directive('proFooter', [proFooter]);
 
 }());
