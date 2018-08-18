@@ -35,7 +35,8 @@ import "angular-translate"
         		"ALERT.SOMETHING_WENT_WRONG":"Coś poszło nie tak, spróbuj ponownie później.",
         		"ALERT.SOMETHING_WENT_WRONG_REDIRECT":"Wystąpił błąd, nie możesz zostać przekierowany na stronę",
         		"ALERT.TO_MANY_ATTEMPTS":"Za dużo niepoprawnych prób. Spróbuj ponownie za około 1 min.",
-        		"APP.BROWSER.FIREFOX":"Firefox",
+            "ALERT.SESSION_LOGGED_OUT.SUCCESS":"Sesja została wylogowana.",
+            "APP.BROWSER.FIREFOX":"Firefox",
         		"APP.BROWSER.SUPPORT.CHROME":"Chrome",
         		"APP.BROWSER.SUPPORT.INSTRUCTION":"Jeśli chcesz wykonywać połączenia, użyyj jednej z poniższych przeglądarek:",
         		"APP.BROWSER.SUPPORT.NO_ANGULAR_SUPPORTED":"Upss, Twoja przeglądarka nie obsługuje technologii Profitelo",
@@ -1762,10 +1763,16 @@ import "angular-translate"
             "DASHBOARD.SETTINGS.CHANGE_EMAIL.SUBMIT_BUTTON":"Zapisz",
             "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.HEADER":"Potwierdzenie",
             "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.TITLE":"Sprawdź swoją skrzynkę,<br>wysłaliśmy Ci link do weryfikacji adresu.",
-		    "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE":"Dopóki nie zweryfikujesz nowego adresu,<br>będziesz otrzymywać wszystkie wiadomości<br>na poprzedni adres e-mail.",
-		    "UNSUPPORTED.HEADER":"Niestety, Twoja przeglądarka i/lub system operacyjny nie jest wspierany przez AnyMind",
-  			"UNSUPPORTED.PARAGRAPH":"Listę obsługiwanych przeglądarek oraz systemów możesz sprawdzić w naszym centrum pomocy.",
-  			"UNSUPPORTED.ICON_DESCRIPTION":"Wymagania techniczne AnyMind"
+            "DASHBOARD.SETTINGS.CHANGE_EMAIL.CONFIRMATION.SUB_TITLE":"Dopóki nie zweryfikujesz nowego adresu,<br>będziesz otrzymywać wszystkie wiadomości<br>na poprzedni adres e-mail.",
+            "UNSUPPORTED.HEADER":"Niestety, Twoja przeglądarka i/lub system operacyjny nie jest wspierany przez AnyMind",
+            "UNSUPPORTED.PARAGRAPH":"Listę obsługiwanych przeglądarek oraz systemów możesz sprawdzić w naszym centrum pomocy.",
+            "UNSUPPORTED.ICON_DESCRIPTION":"Wymagania techniczne AnyMind",
+            "DASHBOARD.SETTINGS.MANAGE_SESSIONS.TITLE":"Aktywne sesje",
+            "DASHBOARD.SETTINGS.MANAGE_SESSIONS.DESKTOP_DEVICE":"Komputer",
+            "DASHBOARD.SETTINGS.MANAGE_SESSIONS.MOBILE_DEVICE":"Urządzenie mobile",
+            "DASHBOARD.SETTINGS.MANAGE_SESSIONS.UNKNOWN_DEVICE":"Nierozpoznane urządzenie",
+            "DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON":"Wyloguj",
+            "DASHBOARD.SETTINGS.MANAGE_SESSIONS.DEVICE_IN_USE":" - w użyciu"
         })
     }])
 })(angular);

@@ -4,223 +4,226 @@
 @import "../../../../template/core/partials/partials"
 
 .modal-component
-	animation: fadeInY 0.3s
-	animation-fill-mode: forwards
-	height: 100vh
+  background: $c-white
+  animation: fadeInY 0.3s
+  animation-fill-mode: forwards
+  height: 100vh
 
-	+smm
-		height: auto
+  +smm
+    background: none
+    height: auto
 
-	&__scroll
-		overflow: auto
-		max-height: 100vh
+  &__scroll
+    overflow: auto
+    max-height: 100vh
 
-		+smm
-			padding: 48px 0
+    +smm
+      padding: 48px 0
 
-	&__header
-		height: $s-modal-header
-		background: $c-white
-		display: flex
-		justify-content: space-between
-		align-items: center
-		box-shadow: 0 1px 2px 0 $c-boxshadow-header-modal
-		margin: auto
-		position: fixed
-		width: inherit
-		left: inherit
-		top: 0
-		border-radius: 8px 8px 0 0
-		z-index: $z-index-1000
+  &__header
+    height: $s-modal-header
+    background: $c-white
+    display: flex
+    justify-content: space-between
+    align-items: center
+    box-shadow: 0 1px 2px 0 $c-boxshadow-header-modal
+    margin: auto
+    position: fixed
+    width: inherit
+    left: inherit
+    top: 0
+    border-radius: 8px 8px 0 0
+    z-index: $z-index-1000
 
-		+smm
-			position: absolute
-			left: 0
-			top: 0
-			width: 100%
+    +smm
+      position: absolute
+      left: 0
+      top: 0
+      width: 100%
 
-		&__nav
-			position: absolute
-			top: 0
-			width: 56px
-			height: 56px
-			display: flex
-			align-items: center
-			justify-content: center
-			z-index: $z-index-100
+    &__nav
+      position: absolute
+      top: 0
+      width: 56px
+      height: 56px
+      display: flex
+      align-items: center
+      justify-content: center
+      z-index: $z-index-100
 
-			&:first-of-type
-				left: 0
+      &:first-of-type
+        left: 0
 
-			&:last-of-type
-				right: 0
+      &:last-of-type
+        right: 0
 
-			a
-				height: 24px
-				max-height: 24px
-				width: 24px
-				max-width: 24px
-				overflow: hidden
-				cursor: pointer
-				padding: 0
+      a
+        height: 24px
+        max-height: 24px
+        width: 24px
+        max-width: 24px
+        overflow: hidden
+        cursor: pointer
+        padding: 0
 
-			.icon
-				border-radius: 50%
-				display: flex
-				align-items: center
-				justify-content: center
-				background: $c-lines
-				transition: background-color 0.1s ease-in
+      .icon
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        background: $c-lines
+        transition: background-color 0.1s ease-in
 
-				&:hover
-					background: $c-text-secondary
+        &:hover
+          background: $c-text-secondary
 
-					&::before
-						color: $c-white
+          &::before
+            color: $c-white
 
-				&::before
-					transition: color 0.1s ease-in
-					color: $c-text-secondary
+        &::before
+          transition: color 0.1s ease-in
+          color: $c-text-secondary
 
-		&--fixed
-			border-radius: 8px 8px 0 0
-			position: fixed
-			width: inherit
-			left: inherit
-			top: 0
+    &--fixed
+      border-radius: 8px 8px 0 0
+      position: fixed
+      width: inherit
+      left: inherit
+      top: 0
 
-		&__title
-			+subtitle
-			text-align: center
-			flex: 1
+    &__title
+      +subtitle
+      text-align: center
+      flex: 1
 
-			p
-				+subtitle
+      p
+        +subtitle
 
-	&__container
-		box-shadow: 0 16px 24px 0 $c-lines
-		overflow: hidden
-		background: $c-white
-		margin: 0 auto
-		display: block
-		position: relative
-		width: 100%
-		border-radius: 8px
+  &__container
+    box-shadow: 0 16px 24px 0 $c-lines
+    overflow: hidden
+    background: $c-white
+    margin: 0 auto
+    display: block
+    position: relative
+    width: 100%
+    border-radius: 8px
 
-		+smm
-      width: calc(100% - 48px)
+    +smm
+      &:not(.modal-component__container--small)
+        width: calc(100% - 48px)
 
-		+mdm
-			width: $s-modal-container-medium
+    +mdm
+      width: $s-modal-container-medium
 
-		+lgm
-			width: $s-modal-container-big
+    +lgm
+      width: $s-modal-container-big
 
-		&--big
-			+lgm
-				width: $s-modal-container-big
+    &--big
+      +lgm
+        width: $s-modal-container-big
 
-		&--medium
-			+mdm
-				width: $s-modal-container-medium
+    &--medium
+      +mdm
+        width: $s-modal-container-medium
 
-		&--small
-			+smm
-				width: $s-modal-container-small
+    &--small
+      +smm
+        width: $s-modal-container-small
 
-		&--cropp
-			.modal-component__content
-				padding: $s-modal-header 0 0
+    &--cropp
+      .modal-component__content
+        padding: $s-modal-header 0 0
 
-			+xsm
-				width: $s-modal-container-crop
+      +xsm
+        width: $s-modal-container-crop
 
-	&__content
-		overflow: hidden
-		position: relative
-		min-height: 128px
-		padding: 48px + $s-modal-header 16px 48px
+  &__content
+    overflow: hidden
+    position: relative
+    min-height: 128px
+    padding: 48px + $s-modal-header 16px 48px
 
-		+smm
-			padding: 48px + $s-modal-header 48px 48px
+    +smm
+      padding: 48px + $s-modal-header 48px 48px
 
-		&--loading
-			&::before
-				content: ""
-				position: absolute
-				left: 0
-				top: calc(#{$s-modal-header} + 1px)
-				right: 0
-				bottom: 0
-				z-index: $z-index-1000
-				background: $c-white
-				display: flex
-				align-items: center
-				justify-content: center
-				height: calc(100% - #{$s-modal-header} - 1px)
+    &--loading
+      &::before
+        content: ""
+        position: absolute
+        left: 0
+        top: calc(#{$s-modal-header} + 1px)
+        right: 0
+        bottom: 0
+        z-index: $z-index-1000
+        background: $c-white
+        display: flex
+        align-items: center
+        justify-content: center
+        height: calc(100% - #{$s-modal-header} - 1px)
 
-			&::after
-				content: "\eabb"
-				font-family: 'icons'
-				font-size: $f-icon-24
-				color: $c-primary
-				z-index: $z-index-1000
-				position: absolute
-				left: 0
-				top: $s-modal-header
-				right: 0
-				bottom: 0
-				margin: auto
-				width: 24px
-				height: 24px
-				animation: 0.6s linear rotate360Deg infinite
+      &::after
+        content: "\eabb"
+        font-family: 'icons'
+        font-size: $f-icon-24
+        color: $c-primary
+        z-index: $z-index-1000
+        position: absolute
+        left: 0
+        top: $s-modal-header
+        right: 0
+        bottom: 0
+        margin: auto
+        width: 24px
+        height: 24px
+        animation: 0.6s linear rotate360Deg infinite
 
-		&__header
-			margin: 0 0 24px
-			display: flex
-			align-items: center
+    &__header
+      margin: 0 0 24px
+      display: flex
+      align-items: center
 
-			am-core-tooltip
-				display: inline-block
-				vertical-align: middle
+      am-core-tooltip
+        display: inline-block
+        vertical-align: middle
 
-			> span
-				+h6
+      > span
+        +h6
 
-				span
-					color: $c-label
+        span
+          color: $c-label
 
-	&__handler
-		+smm
-			display: flex
-			align-items: center
-			justify-content: flex-start
+  &__handler
+    +smm
+      display: flex
+      align-items: center
+      justify-content: flex-start
 
-	&__action
-		text-align: center
-		margin: 48px 0 0
+  &__action
+    text-align: center
+    margin: 48px 0 0
 
-		> *
-			margin: 0 0 24px
+    > *
+      margin: 0 0 24px
 
-		+smm
-			display: flex
-			align-items: center
-			justify-content: space-between
+    +smm
+      display: flex
+      align-items: center
+      justify-content: space-between
 
-			> *
-				margin: initial
+      > *
+        margin: initial
 
 .modal-form
-	animation: none
-	border: 0
+  animation: none
+  border: 0
 
-	&__row
-		display: block
-		margin: 0 0 48px
+  &__row
+    display: block
+    margin: 0 0 48px
 
-		&--small
-			margin: 0 0 24px
+    &--small
+      margin: 0 0 24px
 
 .create-consultation
   &__submit-button-container

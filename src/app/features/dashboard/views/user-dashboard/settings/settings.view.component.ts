@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeNumberComponent } from './components/change-number/change-number/change-number.component';
 import { PasswordSettingsViewComponent } from './components/password-settings/password-settings.view.component';
 import { ChangeEmailViewComponent } from './components/change-email/change-email.view.component';
+import { ManageSessionsViewComponent } from './components/manage-sessions/manage-sessions.view.component';
 
 @Component({
   selector: 'plat-settings',
@@ -24,6 +25,10 @@ export class SettingsViewComponent {
 
   public openChangeEmailModal = (): void => {
     this.ngbModalService.open(ChangeEmailViewComponent);
+  }
+
+  public openManageSessionsModal = (): void => {
+    this.ngbModalService.open(ManageSessionsViewComponent);
   }
 
 }
