@@ -1,16 +1,14 @@
-FROM eu.gcr.io/dev-country-188109/profitelo-nginx:base
+FROM eu.gcr.io/dev-country-188109/ubuntu-node-base-test:10.4.1 AS build-env
 MAINTAINER loord igor.gerasimow@ratel.io
 
 ADD . /project
-
 WORKDIR /project
-
+USER root
 RUN npm install && npm run ci-deploy
 
-RUN mv /project/dist /dist
 
-RUN rm -rf /project
-
-RUN chown -R nginx:nginx /dist
+## Dist lightweight container ##
+FROM nginx:alpine
+COPY --from=build-env /project/dist /dist
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
