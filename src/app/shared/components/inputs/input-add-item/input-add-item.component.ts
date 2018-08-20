@@ -12,17 +12,16 @@ export interface IValidatorsErrorMsg {
 
 export enum AddItemTypeEnum {
   INCORRECT_VALUE,
-  VALUE_ADDED
+  VALUE_ADDED,
 }
 
 @Component({
   selector: 'plat-add-item',
   templateUrl: './input-add-item.component.html',
   styleUrls: ['./input-add-item.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputAddItemComponent {
-
   @Input('label')
   public labelTrKey: string;
 
@@ -36,7 +35,7 @@ export class InputAddItemComponent {
   public formGroup: FormGroup;
 
   @Input()
-  public isRequired ? = false;
+  public isRequired = false;
 
   @Input()
   public pattern?: RegExp;
@@ -54,7 +53,7 @@ export class InputAddItemComponent {
   public isChangeOnSubmit = true;
 
   @Input()
-  public isValidationVisibleOnBlur ? = false;
+  public isValidationVisibleOnBlur = false;
 
   public inputValue = '';
 
@@ -62,37 +61,34 @@ export class InputAddItemComponent {
 
   private readonly errorsMsg: IValidatorsErrorMsg = {
     pattern: 'VALIDATOR.ERROR.PATTERN',
-    required: 'VALIDATOR.ERROR.REQUIRED'
+    required: 'VALIDATOR.ERROR.REQUIRED',
   };
 
-  constructor(public formUtils: FormUtilsService) {
-  }
+  constructor(public formUtils: FormUtilsService) {}
 
   @HostListener('input', ['$event'])
   public onInputChange = (): void => {
     if (typeof this.onChange === 'function' && !this.isChangeOnSubmit) {
       this.onChange(this.formGroup.controls[this.controlName].value);
     }
-  }
+  };
 
   public ngOnInit(): void {
     this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid = (): boolean =>
-    this.formUtils.isFieldInvalid(this.formGroup, this.controlName)
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 
   public showValidationAlert = (): string => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
     if (controlErrors !== null && this.formGroup.controls[this.controlName].value.length > 0) {
       const errorCode = Object.keys(controlErrors)[0];
 
-      return Object.keys(this.errorsMsg).includes((errorCode)) ? this.errorsMsg[errorCode] : errorCode;
+      return Object.keys(this.errorsMsg).includes(errorCode) ? this.errorsMsg[errorCode] : errorCode;
     } else {
-
       return '';
     }
-  }
+  };
 
   public onBlur = (): void => {
     if (!this.isValidationVisibleOnBlur) {
@@ -100,15 +96,13 @@ export class InputAddItemComponent {
       this.formGroup.controls[this.controlName].updateValueAndValidity();
       this.isFocused = false;
     }
-  }
+  };
 
-  public onFocus = (): boolean => this.isFocused = true;
+  public onFocus = (): boolean => (this.isFocused = true);
 
-  public onAddLinkClick = (): void =>
-    this.onAddItem()
+  public onAddLinkClick = (): void => this.onAddItem();
 
-  public onEnter = (): void =>
-    this.onAddItem()
+  public onEnter = (): void => this.onAddItem();
 
   private onAddItem = (): void => {
     if (this.onChange !== undefined) {
@@ -117,14 +111,13 @@ export class InputAddItemComponent {
     if (this.onEnterClick !== undefined) {
       this.onEnterClick.emit(this.formGroup.controls[this.controlName].value);
     }
-  }
+  };
 
-  private getValidators = (): ValidatorFn[] =>
-    this.getRequiredValidator(this.getPatternValidator([]))
+  private getValidators = (): ValidatorFn[] => this.getRequiredValidator(this.getPatternValidator([]));
 
   private getRequiredValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.isRequired ? [...arr, Validators.required] : arr
+    this.isRequired ? [...arr, Validators.required.bind(this)] : arr;
 
   private getPatternValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.pattern ? [...arr, Validators.pattern(this.pattern)] : arr
+    this.pattern ? [...arr, Validators.pattern(this.pattern)] : arr;
 }

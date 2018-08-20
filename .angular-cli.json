@@ -22,9 +22,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.sass"
-      ],
+      "styles": ["styles.sass"],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js",
@@ -35,16 +33,18 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       },
-      "budgets": [{
-        "type": "allScript",
-        "maximumWarning": "8500kb",
-        "maximumError": "9500kb"
-      },
-      {
-        "type": "initial",
-        "maximumWarning": "6500kb",
-        "maximumError": "7500kb"
-      }]
+      "budgets": [
+        {
+          "type": "allScript",
+          "maximumWarning": "8500kb",
+          "maximumError": "9500kb"
+        },
+        {
+          "type": "initial",
+          "maximumWarning": "6500kb",
+          "maximumError": "7500kb"
+        }
+      ]
     }
   ],
   "e2e": {
@@ -55,26 +55,17 @@
   "lint": [
     {
       "project": "src/tsconfig.app.json",
-      "exclude": [
-        "**/node_modules/**",
-        "**/angularjs/**/*.spec.ts",
-        "**/generated_modules/**"
-      ]
+      "tslintConfig": "./tslint.app.json",
+      "exclude": ["**/node_modules/**", "**/angularjs/**/*.ts", "**/generated_modules/**"]
     },
     {
       "project": "src/tsconfig.spec.json",
-      "exclude": [
-        "**/node_modules/**",
-        "**/angularjs/**/*.spec.ts",
-        "**/generated_modules/**"
-      ]
+      "tslintConfig": "./tslint.spec.json",
+      "exclude": ["**/node_modules/**", "**/angularjs/**/*.ts", "**/generated_modules/**"]
     },
     {
       "project": "e2e/tsconfig.e2e.json",
-      "exclude": [
-        "**/node_modules/**",
-        "**/generated_modules/**"
-      ]
+      "exclude": ["**/node_modules/**", "**/generated_modules/**"]
     }
   ],
   "test": {
@@ -84,7 +75,6 @@
   },
   "defaults": {
     "styleExt": "sass",
-    "component": {
-    }
+    "component": {}
   }
 }

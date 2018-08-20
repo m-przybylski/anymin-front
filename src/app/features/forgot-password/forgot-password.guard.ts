@@ -1,33 +1,29 @@
-// tslint:disable:prefer-template
-// tslint:disable:no-duplicate-imports
-// tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
+import { PostRecoverPassword, RecoverPasswordService, GetRecoverMethod } from '@anymind-ng/api';
 import { BackendErrors, isBackendError } from '../../shared/models/backend-error/backend-error';
-import { Alerts, AlertService } from '@anymind-ng/core';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { GetRecoverMethod } from '@anymind-ng/api';
 
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { _throw } from 'rxjs/observable/throw';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class ForgotPasswordGuard implements CanActivate {
-
   private logger: LoggerService;
 
-  constructor(private router: Router,
-              private alertService: AlertService,
-              private recoverPasswordService: RecoverPasswordService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private recoverPasswordService: RecoverPasswordService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('ForgotPasswordGuard');
   }
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.recoverPasswordService.postRecoverPasswordRoute({msisdn: route.params.msisdn})
+    return this.recoverPasswordService
+      .postRecoverPasswordRoute({ msisdn: route.params.msisdn })
       .pipe(tap(getRecoverMethod => this.redirect(getRecoverMethod.method, route.params.msisdn)))
       .pipe(catchError(this.handleError))
       .pipe(map(() => false));
@@ -36,36 +32,42 @@ export class ForgotPasswordGuard implements CanActivate {
   private redirect = (methodType: PostRecoverPassword.MethodEnum, msisdn: string): void => {
     switch (methodType) {
       case PostRecoverPassword.MethodEnum.EMAIL:
-        this.router.navigate(['/forgot-password/email/' + msisdn])
+        this.router
+          .navigate([`/forgot-password/email/${msisdn}`])
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
               this.logger.warn('Can not redirect to forgot-password/email by method: ', methodType);
             }
-          });
+          })
+          .catch(this.logger.error.bind(this));
         break;
 
       case PostRecoverPassword.MethodEnum.SMS:
-        this.router.navigate(['/forgot-password/pin-code/' + msisdn])
+        this.router
+          .navigate([`/forgot-password/pin-code/${msisdn}`])
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
               this.logger.warn('Can not redirect to forgot-password/pin-code by method: ', methodType);
             }
-          });
+          })
+          .catch(this.logger.error.bind(this));
         break;
 
       default:
         this.logger.error('unhandled recover password method ', methodType);
-        this.router.navigate(['/login'])
+        this.router
+          .navigate(['/login'])
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
               this.logger.warn('Can not redirect to login by method: ', methodType);
             }
-          });
+          })
+          .catch(this.logger.error.bind(this));
     }
-  }
+  };
 
   private handleError = (httpError: HttpErrorResponse): Observable<GetRecoverMethod> => {
     const err = httpError.error;
@@ -82,18 +84,22 @@ export class ForgotPasswordGuard implements CanActivate {
 
         default:
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-          this.router.navigate(['/login']).then(isRedirectSuccessful => {
-            if (!isRedirectSuccessful) {
-              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Can not redirect to login', err);
-            }
-          });
+          this.router
+            .navigate(['/login'])
+            .then(isRedirectSuccessful => {
+              if (!isRedirectSuccessful) {
+                this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+                this.logger.warn('Can not redirect to login', err);
+              }
+            })
+            .catch(this.logger.error.bind(this));
           this.logger.error('Unhandled backend pin code error', err);
       }
     } else {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       this.logger.warn('ForgotPasswordGuard: error when resolving method', err);
     }
-    return _throw(err);
-  }
+
+    return throwError(err);
+  };
 }
