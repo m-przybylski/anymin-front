@@ -1,0 +1,18 @@
+.consultation-layout
+  .consultation-layout__wrapper
+    .consultation-layout__for(*ngIf='company')
+      span.consultation-layout__for-caption {{'CONSULTATION_INFO.CONSULTATION_ROW.FOR_COMPONANY' | translate}}
+      span.consultation-layout__for-company {{company}}
+    .consultation-layout__header {{header}}
+    .consultation-layout__footer
+      plat-consultation-stat(
+        [usageCounter]='usageCounter',
+        [commentCounter]='commentCounter',
+        [rating]='rating',
+      )
+  .consultation-layout__price
+    .consultation-layout__amount
+      span {{price | moneyToAmount}}
+        span.consultation-layout__amount__currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
+      a(plat-icon-button, color='primary').consultation-layout__amount-button
+        span(plat-icon iconClass='arrow-right')

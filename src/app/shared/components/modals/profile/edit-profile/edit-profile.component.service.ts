@@ -1,5 +1,5 @@
 import { ReplaySubject } from 'rxjs';
-import { AccountService, GetProfile, GetSession, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
+import { AccountService, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
@@ -33,7 +33,7 @@ export class EditProfileModalComponentService {
 
   public getProfileDetails = (): Observable<GetProfileWithDocuments> =>
     fromPromise(this.userSessionService.getSession()).pipe(
-      mergeMap((session: GetSession) => this.getProfileRoute(session.accountId)),
+      mergeMap((session: GetSessionWithAccount) => this.getProfileRoute(session.account.id)),
     );
 
   public createClientProfile = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>

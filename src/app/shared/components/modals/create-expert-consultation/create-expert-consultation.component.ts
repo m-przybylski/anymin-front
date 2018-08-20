@@ -19,10 +19,9 @@ import { GetService } from '@anymind-ng/api';
   selector: 'plat-create-expert-consultation',
   templateUrl: './create-expert-consultation.component.html',
   styleUrls: ['./create-expert-consultation.component.sass'],
-  providers: [CreateExpertConsultationModalService]
+  providers: [CreateExpertConsultationModalService],
 })
 export class CreateExpertConsultationModalComponent implements OnInit, AfterViewInit {
-
   public readonly formId = 'createExpertConsultation';
   public readonly nameControlName = 'name';
   public readonly descriptionControlName = 'description';
@@ -45,13 +44,15 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
   private loggerService: LoggerService;
   private selectedTags: PostServiceTag[] = [];
 
-  constructor(private formUtils: FormUtilsService,
-              private createExpertConsultationModalService: CreateExpertConsultationModalService,
-              private alertService: AlertService,
-              private modalService: NgbModal,
-              private activeModal: NgbActiveModal,
-              private modalAnimationComponentService: ModalAnimationComponentService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private formUtils: FormUtilsService,
+    private createExpertConsultationModalService: CreateExpertConsultationModalService,
+    private alertService: AlertService,
+    private modalService: NgbModal,
+    private activeModal: NgbActiveModal,
+    private modalAnimationComponentService: ModalAnimationComponentService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.loggerService = loggerFactory.createLoggerService('CreateExpertConsultationModalComponent');
   }
 
@@ -66,22 +67,23 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
   public onFormSubmit = (): void => {
     if (this.createConsultationForm.valid) {
       this.isRequestPending = true;
-      this.createExpertConsultationModalService.createService(this.getServiceModel())
+      this.createExpertConsultationModalService
+        .createService(this.getServiceModel())
         .pipe(catchError(this.handleCreateServiceError))
         .subscribe((serviceDetails: GetService) => {
           this.isRequestPending = false;
           this.alertService.pushSuccessAlert(Alerts.CreateConsultationSuccess);
           this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
-          this.activeModal.close();
+          this.activeModal.close(true);
         });
     } else {
       this.formUtils.validateAllFormFields(this.createConsultationForm);
     }
-  }
+  };
 
   public onSelectedTag = (tagsNames: string[]): void => {
-    this.selectedTags = tagsNames.map(tagName => ({name: tagName}));
-  }
+    this.selectedTags = tagsNames.map(tagName => ({ name: tagName }));
+  };
 
   public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.percentDivider}%`;
 
@@ -94,11 +96,11 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     description: this.createConsultationForm.controls[this.descriptionControlName].value,
     price: {
       amount: this.createConsultationForm.controls[this.nettPriceControlName].value,
-      currency: this.polishCurrency
+      currency: this.polishCurrency,
     },
     tags: this.selectedTags,
-    language: this.polandISOcode
-  })
+    language: this.polandISOcode,
+  });
 
   private handleCreateServiceError = (error: HttpErrorResponse): Observable<void> => {
     this.isRequestPending = false;
@@ -106,6 +108,5 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     this.loggerService.warn('error when try to create service', error);
 
     return EMPTY;
-  }
-
+  };
 }
