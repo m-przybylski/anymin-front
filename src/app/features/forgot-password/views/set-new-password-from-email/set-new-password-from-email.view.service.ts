@@ -11,62 +11,60 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
-import {
-  RegistrationInvitationService
-}
-  from '../../../../shared/services/registration-invitation/registration-invitation.service';
+import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 
 export enum SetNewPasswordFromEmailStatus {
   SUCCESS,
   INVALID,
   NO_TOKEN,
-  ERROR
+  ERROR,
 }
 
 @Injectable()
 export class SetNewPasswordFromEmailViewService {
-
   private logger: LoggerService;
   private msisdn: string;
   private token: string;
 
-  constructor(private router: Router,
-              private userSessionService: UserSessionService,
-              private recoverPasswordService: RecoverPasswordService,
-              private alertService: AlertService,
-              private route: ActivatedRoute,
-              private localStorageWrapperService: LocalStorageWrapperService,
-              private registrationInvitationService: RegistrationInvitationService,
-              loggerFactory: LoggerFactory) {
-
+  constructor(
+    private router: Router,
+    private userSessionService: UserSessionService,
+    private recoverPasswordService: RecoverPasswordService,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private localStorageWrapperService: LocalStorageWrapperService,
+    private registrationInvitationService: RegistrationInvitationService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewService');
     this.msisdn = this.route.snapshot.data.msisdn;
     this.token = this.route.snapshot.params.token;
   }
 
   public handleNewPassword = (password: string): Observable<SetNewPasswordFromEmailStatus> =>
-    this.recoverPasswordService.putRecoverPasswordEmailRoute({token: this.token, password})
+    this.recoverPasswordService
+      .putRecoverPasswordEmailRoute({ token: this.token, password })
       .pipe(mergeMap(() => fromPromise(this.login(this.msisdn, password))))
       .pipe(mergeMap(this.determinateRedirectPath))
-      .pipe(catchError((err) => of(this.handleSetNewPasswordError(err))))
+      .pipe(catchError(err => of(this.handleSetNewPasswordError(err))));
 
   private login = (msisdn: string, password: string): Promise<SetNewPasswordFromEmailStatus> =>
-    this.userSessionService.login({msisdn, password}).then(() => SetNewPasswordFromEmailStatus.SUCCESS)
+    this.userSessionService.login({ msisdn, password }).then(() => SetNewPasswordFromEmailStatus.SUCCESS);
 
   private redirectToDashboard = (): Promise<SetNewPasswordFromEmailStatus> =>
-    this.router.navigate(['/dashboard/expert/activities'])
-      .then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Error when redirect to dashboard/expert/activities');
-          return SetNewPasswordFromEmailStatus.ERROR;
-        } else {
-          return SetNewPasswordFromEmailStatus.SUCCESS;
-        }
-      })
+    this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
+      if (!isRedirectSuccessful) {
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        this.logger.warn('Error when redirect to dashboard/expert/activities');
+        return SetNewPasswordFromEmailStatus.ERROR;
+      } else {
+        return SetNewPasswordFromEmailStatus.SUCCESS;
+      }
+    });
 
   private redirectToInvitations = (token: string): Promise<SetNewPasswordFromEmailStatus> =>
-    this.router.navigate([`/invitations/${token}`])
+    this.router
+      .navigate([`/invitations/${token}`])
       .then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
           this.localStorageWrapperService.removeItem('invitation');
@@ -77,14 +75,16 @@ export class SetNewPasswordFromEmailViewService {
           return SetNewPasswordFromEmailStatus.SUCCESS;
         }
       })
+      .catch(this.logger.error.bind(this));
 
   private determinateRedirectPath = (): Promise<SetNewPasswordFromEmailStatus> => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
     this.alertService.pushSuccessAlert(Alerts.ChangePasswordSuccess);
 
     return invitationObject !== void 0 && invitationObject.token !== void 0
-      ? this.redirectToInvitations(invitationObject.token) : this.redirectToDashboard();
-  }
+      ? this.redirectToInvitations(invitationObject.token)
+      : this.redirectToDashboard();
+  };
 
   private handleSetNewPasswordError = (httpError: HttpErrorResponse): SetNewPasswordFromEmailStatus => {
     const error = httpError.error;
@@ -111,5 +111,5 @@ export class SetNewPasswordFromEmailViewService {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       return SetNewPasswordFromEmailStatus.ERROR;
     }
-  }
+  };
 }

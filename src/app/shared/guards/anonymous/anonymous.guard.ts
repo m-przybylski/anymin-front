@@ -8,24 +8,29 @@ import { Alerts, AlertService } from '@anymind-ng/core';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate {
-
-  constructor(private userSessionService: UserSessionService,
-              private alertService: AlertService,
-              private logger: LoggerService,
-              private router: Router) {
-  }
+  constructor(
+    private userSessionService: UserSessionService,
+    private alertService: AlertService,
+    private logger: LoggerService,
+    private router: Router,
+  ) {}
 
   public canActivate = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> =>
-    this.userSessionService.getSession().then(() => {
-      this.logger.info('AnonymousGuard: user has session, redirecting to dashboard');
-      this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('AnonymousGuard can not redirect to dashboard/expert/activities');
-        }
-      });
+    this.userSessionService.getSession().then(
+      () => {
+        this.logger.info('AnonymousGuard: user has session, redirecting to dashboard');
+        this.router
+          .navigate(['/dashboard/expert/activities'])
+          .then(isRedirectSuccessful => {
+            if (!isRedirectSuccessful) {
+              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+              this.logger.warn('AnonymousGuard can not redirect to dashboard/expert/activities');
+            }
+          })
+          .catch(this.logger.error.bind(this));
 
-      return false;
-    }, () => true)
-
+        return false;
+      },
+      () => true,
+    );
 }

@@ -5,28 +5,25 @@ import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
 
 @Injectable()
 export class SetNewPasswordFromEmailViewGuard implements CanActivate {
-
-  constructor(private router: Router,
-              private logger: LoggerService,
-              private alertService: AlertService) {
-  }
+  constructor(private router: Router, private logger: LoggerService, private alertService: AlertService) {}
 
   public canActivate(route: ActivatedRouteSnapshot): boolean {
-
     if (this.isTokenValid(route)) {
       return true;
     } else {
-      this.router.navigate(['/login']).then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Can not redirect to login');
-        }
-      });
+      this.router
+        .navigate(['/login'])
+        .then(isRedirectSuccessful => {
+          if (!isRedirectSuccessful) {
+            this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+            this.logger.warn('Can not redirect to login');
+          }
+        })
+        .catch(this.logger.error.bind(this));
       return false;
     }
   }
 
   private isTokenValid = (route: ActivatedRouteSnapshot): boolean =>
-    typeof route.params.token === 'string' && route.params.token.length > 0
-
+    typeof route.params.token === 'string' && route.params.token.length > 0;
 }

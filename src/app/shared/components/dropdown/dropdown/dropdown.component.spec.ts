@@ -10,7 +10,6 @@ import { UserAvatarComponent } from '../../user-avatar/user-avatar.component';
 import { EventEmitter } from '@angular/core';
 
 describe('Component: DropdownComponent', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DropdownComponent, DropdownListComponent, UserAvatarComponent],
@@ -19,8 +18,8 @@ describe('Component: DropdownComponent', () => {
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,
-        FormsModule
-      ]
+        FormsModule,
+      ],
     });
   });
 
@@ -49,27 +48,27 @@ describe('Component: DropdownComponent', () => {
     component.onCloseEmiter = new EventEmitter<boolean>();
     const isVisible = false;
 
-    spyOn(component.onCloseEmiter, 'emit');
+    const spy = spyOn(component.onCloseEmiter, 'emit');
     component.onCloseDropdownList(isVisible);
-    expect(component.onCloseEmiter.emit).toHaveBeenCalledWith(isVisible);
+    expect(spy).toHaveBeenCalledWith(isVisible);
   });
 
   it('should call onSelectItem when dropdown list only', () => {
     const mockValue: IDropdownComponent = {
-      name: 'Jan'
+      name: 'Jan',
     };
     const fixture = TestBed.createComponent(DropdownComponent);
     const component = fixture.componentInstance;
     component.isDropdownListOnly = true;
 
-    spyOn(component.onSelectItemEmiter, 'emit');
+    const spy = spyOn(component.onSelectItemEmiter, 'emit');
     component.onSelectItem(mockValue);
-    expect(component.onSelectItemEmiter.emit).toHaveBeenCalledWith(mockValue);
+    expect(spy).toHaveBeenCalledWith(mockValue);
   });
 
   it('should call onSelectItem when dropdown not list only', () => {
     const mockValue: IDropdownComponent = {
-      name: 'Jan'
+      name: 'Jan',
     };
     const fixture = TestBed.createComponent(DropdownComponent);
     const component = fixture.componentInstance;
@@ -80,9 +79,9 @@ describe('Component: DropdownComponent', () => {
 
     component.form.controls[component.controlName].setValue(mockValue.name);
 
-    spyOn(component.form.controls[component.controlName], 'setValue');
+    const spy = spyOn(component.form.controls[component.controlName], 'setValue');
     component.onSelectItem(mockValue);
-    expect(component.form.controls[component.controlName].setValue).toHaveBeenCalledWith(mockValue.name);
+    expect(spy).toHaveBeenCalledWith(mockValue.name);
     expect(component.isDropdownListVisible).toBe(false);
     expect(component.placeholderTrKey).toBe(mockValue.name);
   });
