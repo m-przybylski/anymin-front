@@ -3,14 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { PasswordLoginStatus, PasswordViewService } from './password.view.service';
 import { ActivatedRoute } from '@angular/router';
 import { InputPasswordErrorsEnum, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoginHelperService } from '../../services/login-helper.service';
 
 @Component({
   templateUrl: './password.view.html',
-  styleUrls: ['./password.view.component.sass']
+  styleUrls: ['./password.view.component.sass'],
 })
-
 export class PasswordViewComponent implements OnInit {
-
   public readonly passwordFormId = 'passwordForm';
   public readonly passwordControlName = 'password';
 
@@ -21,19 +20,19 @@ export class PasswordViewComponent implements OnInit {
 
   private logger: LoggerService;
 
-  constructor(private formUtils: FormUtilsService,
-              private passwordService: PasswordViewService,
-              private route: ActivatedRoute,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private formUtils: FormUtilsService,
+    private passwordService: PasswordViewService,
+    private route: ActivatedRoute,
+    private helper: LoginHelperService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('PasswordViewComponent');
   }
 
   public ngOnInit(): void {
     this.passwordForm = new FormGroup({});
-
-    this.route.params.subscribe(params => {
-      this.msisdn = params.msisdn;
-    });
+    this.msisdn = this.helper.addPlusToPhoneNumber(this.route.snapshot.params.msisdn);
   }
 
   public onFormSubmit = (passwordForm: FormGroup): void => {
@@ -41,19 +40,19 @@ export class PasswordViewComponent implements OnInit {
       this.isRequestPending = true;
       const password = passwordForm.value[this.passwordControlName];
 
-      this.passwordService.login(this.msisdn, password)
-        .then((status) => {
+      this.passwordService
+        .login(this.msisdn, password)
+        .then(status => {
           this.isRequestPending = false;
           this.handlePasswordStatus(status);
         })
         .catch(() => {
           this.isRequestPending = false;
         });
-    }
-    else {
+    } else {
       this.formUtils.validateAllFormFields(passwordForm);
     }
-  }
+  };
 
   private handlePasswordStatus = (status: PasswordLoginStatus): void => {
     switch (status) {
@@ -80,17 +79,19 @@ export class PasswordViewComponent implements OnInit {
       default:
         this.logger.error('Unhandled PasswordLoginStatus', status);
     }
-  }
+  };
 
   private displayIncorrectPasswordError = (): void => {
-    this.passwordForm.controls[this.passwordControlName]
-      .setErrors({[InputPasswordErrorsEnum.IncorrectPassword]: true});
+    this.passwordForm.controls[this.passwordControlName].setErrors({
+      [InputPasswordErrorsEnum.IncorrectPassword]: true,
+    });
     this.formUtils.validateAllFormFields(this.passwordForm);
-  }
+  };
 
   private displayTooManyUnsuccessfulAttemptsError = (): void => {
-    this.passwordForm.controls[this.passwordControlName]
-      .setErrors({[InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts]: true});
+    this.passwordForm.controls[this.passwordControlName].setErrors({
+      [InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts]: true,
+    });
     this.formUtils.validateAllFormFields(this.passwordForm);
-  }
+  };
 }

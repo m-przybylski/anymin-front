@@ -5,59 +5,54 @@ import { PhoneNumberViewService } from './phone-number.view.service';
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  FormUtilsService, LoggerFactory,
-  AnymindComponentsModule, AnymindComponentsCoreModule
+  FormUtilsService,
+  LoggerFactory,
+  AnymindComponentsModule,
+  AnymindComponentsCoreModule,
 } from '@anymind-ng/core';
-import
-{
-  CommonSettingsService
-} from '../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
 import { LoginBackgroundComponent } from '../../../../shared/components/login-background/login-background.component';
-import
-{
-  LoginMobileFooterComponent
-} from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
+import { LoginMobileFooterComponent } from '../../../../shared/components/login-mobile-footer/login-mobile-footer.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
 import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
+import { LoginHelperService } from '../../services/login-helper.service';
 
 // tslint:disable:no-floating-promises
 describe('Component: PhoneNumberViewComponent', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         PhoneNumberViewComponent,
         LoginContentComponent,
         LoginBackgroundComponent,
-        LoginMobileFooterComponent
+        LoginMobileFooterComponent,
       ],
       imports: [
         AnymindComponentsCoreModule.forRoot(getCoreConfig),
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
       ],
       providers: [
+        LoginHelperService,
         CommonSettingsService,
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
+        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
         {
-          provide: FormUtilsService, useValue: createSpyObj('FormUtilsService', ['validateAllFormFields',
-            'isFieldInvalid'])
+          provide: FormUtilsService,
+          useValue: createSpyObj('FormUtilsService', ['validateAllFormFields', 'isFieldInvalid']),
         },
         {
-          provide: PhoneNumberViewService, useValue: createSpyObj('PhoneNumberViewService',
-            ['getPhoneNumberFromInvitation', 'handlePhoneNumber'])
-        }
-      ]
+          provide: PhoneNumberViewService,
+          useValue: createSpyObj('PhoneNumberViewService', ['getPhoneNumberFromInvitation', 'handlePhoneNumber']),
+        },
+      ],
     }).compileComponents();
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {
-      },
-      error: (): void => {
-      }
+      warn: (): void => {},
+      error: (): void => {},
     });
   }));
 
@@ -91,5 +86,4 @@ describe('Component: PhoneNumberViewComponent', () => {
     component.onFormSubmit(component.msisdnForm);
     expect(component.msisdnForm.valid).toBeTruthy();
   });
-
 });

@@ -3,21 +3,17 @@
 import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PhoneNumberServiceStatus, PhoneNumberViewService } from './phone-number.view.service';
-import { FormUtilsService, InputPhoneNumberService, LoggerFactory, LoggerService  } from '@anymind-ng/core';
+import { FormUtilsService, InputPhoneNumberService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { finalize, takeUntil } from 'rxjs/operators';
-import {
-  CommonSettingsService
-} from '../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './phone-number.view.component.html',
   styleUrls: ['./phone-number.view.component.sass'],
-  providers: [CommonSettingsService]
+  providers: [CommonSettingsService],
 })
-
 export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDestroy {
-
   public readonly msisdnFormId = 'msisdnForm';
   public readonly msisdnControlName = 'msisdn';
 
@@ -30,17 +26,19 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private loginService: PhoneNumberViewService,
-              private formUtils: FormUtilsService,
-              private CommonSettingsService: CommonSettingsService,
-              private inputPhoneNumber: InputPhoneNumberService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private loginService: PhoneNumberViewService,
+    private formUtils: FormUtilsService,
+    private CommonSettingsService: CommonSettingsService,
+    private inputPhoneNumber: InputPhoneNumberService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('PhoneNumberViewComponent');
   }
 
   public ngOnInit(): void {
     this.msisdnForm = new FormGroup({
-      [this.msisdnControlName]: new FormControl()
+      [this.msisdnControlName]: new FormControl(),
     });
   }
 
@@ -48,11 +46,12 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
     const invitePhoneNumber = this.loginService.getPhoneNumberFromInvitation();
 
     this.msisdnForm.controls[this.msisdnControlName].setValidators(
-      this.inputPhoneNumber.getValidators(this.msisdnPrefix, this.isInputRequired));
+      this.inputPhoneNumber.getValidators(this.msisdnPrefix, this.isInputRequired),
+    );
 
     if (invitePhoneNumber) {
       this.msisdnForm.setValue({
-        [this.msisdnControlName]: invitePhoneNumber
+        [this.msisdnControlName]: invitePhoneNumber,
       });
     }
   }
@@ -66,14 +65,15 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
     if (msisdnForm.valid) {
       this.isRequestPending = true;
       const phoneNumber = this.msisdnPrefix.concat(msisdnForm.value[this.msisdnControlName].toString());
-      this.loginService.handlePhoneNumber(phoneNumber)
-        .pipe(finalize(() => this.isRequestPending = false))
+      this.loginService
+        .handlePhoneNumber(phoneNumber)
+        .pipe(finalize(() => (this.isRequestPending = false)))
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleRegistrationStatus);
     } else {
       this.formUtils.validateAllFormFields(msisdnForm);
     }
-  }
+  };
 
   private handleRegistrationStatus = (status: PhoneNumberServiceStatus): void => {
     switch (status) {
@@ -82,7 +82,7 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
         break;
 
       case PhoneNumberServiceStatus.SUCCESS:
-        this.logger.warn('Msisdn handled properly (success)');
+        this.logger.debug('Msisdn handled properly (success)');
         break;
 
       case PhoneNumberServiceStatus.ERROR:
@@ -92,10 +92,10 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
       default:
         this.logger.error('Unhandled phone number registration status', status);
     }
-  }
+  };
 
   private displayIncorrectMsisdnError = (): void => {
-    this.msisdnForm.controls[this.msisdnControlName].setErrors({[PhoneNumberServiceStatus.MSISDN_INVALID]: true});
+    this.msisdnForm.controls[this.msisdnControlName].setErrors({ [PhoneNumberServiceStatus.MSISDN_INVALID]: true });
     this.formUtils.validateAllFormFields(this.msisdnForm);
-  }
+  };
 }
