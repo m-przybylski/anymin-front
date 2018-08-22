@@ -18,7 +18,7 @@ export class CompanyDashboardViewGuard implements CanActivate {
 
   public canActivate = (): Promise<boolean> =>
     this.userSessionService.getSession().then(session => {
-      if (session.account.isCompany) {
+      if (session.isCompany) {
         this.logger.info('User has company profile, allowing access');
 
         return true;

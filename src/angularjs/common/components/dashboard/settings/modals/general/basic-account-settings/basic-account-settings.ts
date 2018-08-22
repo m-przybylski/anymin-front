@@ -52,9 +52,9 @@ export interface IBasicAccountSettingsControllerScope extends ng.IScope {
   removePhoto: () => void;
   $parent: IBasicAccountSettingsControllerParentScope;
   generalSettingsObject: {
-    isNotAnonymous: boolean,
-    nickname?: string,
-    avatar?: string
+    isNotAnonymous: boolean;
+    nickname?: string;
+    avatar?: string;
   };
   avatarPreview: string;
   isUploadInProgress: boolean;
@@ -68,7 +68,6 @@ interface ISaveCrop {
 
 // tslint:disable:member-ordering
 export class BasicAccountSettingsController implements ng.IController {
-
   public isFileFormatValidError = false;
   public isFileSizeError = false;
 
@@ -78,18 +77,27 @@ export class BasicAccountSettingsController implements ng.IController {
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
   private maxValidAvatarSize = this.CommonSettingsService.localSettings.profileAvatarSize;
 
-  public static $inject = ['$scope', 'AccountApi', 'CommonSettingsService', 'errorHandler', '$uibModalInstance',
-    'userService', 'uploaderFactory', 'urlService'];
+  public static $inject = [
+    '$scope',
+    'AccountApi',
+    'CommonSettingsService',
+    'errorHandler',
+    '$uibModalInstance',
+    'userService',
+    'uploaderFactory',
+    'urlService',
+  ];
 
-    constructor(private $scope: IBasicAccountSettingsControllerScope,
-              private AccountApi: AccountApi,
-              private CommonSettingsService: CommonSettingsService,
-              private errorHandler: ErrorHandlerService,
-              $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              userService: UserService,
-              uploaderFactory: UploaderFactory,
-              urlService: UrlService) {
-
+  constructor(
+    private $scope: IBasicAccountSettingsControllerScope,
+    private AccountApi: AccountApi,
+    private CommonSettingsService: CommonSettingsService,
+    private errorHandler: ErrorHandlerService,
+    $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    userService: UserService,
+    uploaderFactory: UploaderFactory,
+    urlService: UrlService,
+  ) {
     $scope.isNavbar = true;
     $scope.isFullscreen = true;
     $scope.isUserUploadImage = false;
@@ -98,37 +106,40 @@ export class BasicAccountSettingsController implements ng.IController {
     this.uploader = uploaderFactory.getInstance();
 
     userService.getUser().then(user => {
-      const userBasicSettings = user.settings;
+      const userBasicSettings = user.details;
 
       this.$scope.generalSettingsObject = {
-        isNotAnonymous: !userBasicSettings.isAnonymous,
+        isNotAnonymous: !user.isAnonymous,
         nickname: userBasicSettings.nickname,
-        avatar: userBasicSettings.avatar
+        avatar: userBasicSettings.avatar,
       };
 
       $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar || '');
     });
 
     this.$scope.submitBasicSettings = (): void => {
-
       this.AccountApi.putGeneralSettingsRoute({
-        isAnonymous: !$scope.generalSettingsObject.isNotAnonymous,
         nickname: $scope.generalSettingsObject.nickname,
-        avatar: $scope.generalSettingsObject.avatar
-      }).then(_res => {
-        $scope.$parent.callback(() => {
-          $uibModalInstance.dismiss('cancel');
-        });
-      }, (err) => {
-        this.errorHandler.handleServerError(err);
-        throw new Error('Can not patch user account: ' + String(err));
-      });
+        avatar: $scope.generalSettingsObject.avatar,
+      }).then(
+        _res => {
+          $scope.$parent.callback(() => {
+            $uibModalInstance.dismiss('cancel');
+          });
+        },
+        err => {
+          this.errorHandler.handleServerError(err);
+          throw new Error('Can not patch user account: ' + String(err));
+        },
+      );
     };
 
     $scope.addPhoto = (imagePath: string, file: File, callback: () => void): void => {
-      if (imagePath.length > 0
-        && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)
-        && this.isFileSizeValid(file)) {
+      if (
+        imagePath.length > 0 &&
+        FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR) &&
+        this.isFileSizeValid(file)
+      ) {
         $scope.imageSource = imagePath;
         $scope.isUserUploadImage = true;
         this.uploadedFile = file;
@@ -155,24 +166,24 @@ export class BasicAccountSettingsController implements ng.IController {
           x: Number(data.points[0]),
           y: Number(data.points[1]),
           width: squareSideLength,
-          height: squareSideLength
+          height: squareSideLength,
         },
-        fileType: FileTypeEnum.PROFILE
+        fileType: FileTypeEnum.PROFILE,
       };
       this.$scope.isUploadInProgress = true;
-      this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
-      .then(this.onFileUpload, this.onFileUploadError);
+      this.uploader
+        .uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
+        .then(this.onFileUpload, this.onFileUploadError);
 
       this.$scope.isUserUploadImage = false;
     };
 
-    $scope.onModalClose = (): void =>
-      $uibModalInstance.dismiss('cancel');
+    $scope.onModalClose = (): void => $uibModalInstance.dismiss('cancel');
 
     $scope.isNicknameValid = (): boolean =>
-      $scope.generalSettingsObject.nickname ?
-        this.profileNamePattern.test($scope.generalSettingsObject.nickname) :
-        false;
+      $scope.generalSettingsObject.nickname
+        ? this.profileNamePattern.test($scope.generalSettingsObject.nickname)
+        : false;
   }
 
   private onUploadProgess = (): void => {};
@@ -183,31 +194,31 @@ export class BasicAccountSettingsController implements ng.IController {
     this.$scope.isUploadInProgress = false;
     this.$scope.imageSource = '';
     this.clearFormAfterCropping();
-  }
+  };
 
   private onFileUploadError = (err: any): void => {
     this.errorHandler.handleServerError(err);
     this.$scope.isUploadInProgress = false;
     throw new Error('Can not upload file: ' + String(err));
-  }
+  };
 
   private isFileSizeValid = (file: File): boolean => file.size <= this.maxValidAvatarSize;
-
 }
 
-angular.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings', [
-  'ui.bootstrap',
-  userModule,
-  urlModule,
-  uploaderModule,
-  apiModule,
-  'profitelo.components.interface.preloader',
-  'profitelo.components.interface.image-crop',
-  'profitelo.directives.interface.local-avatar-uploader',
-  'profitelo.directives.interface.scrollable',
-  checkboxModule,
-  errorHandlerModule,
-  inputModule,
-  commonSettingsModule
-])
-.controller('basicAccountSettingsController', BasicAccountSettingsController);
+angular
+  .module('profitelo.components.dashboard.settings.modals.general.basic-account-settings', [
+    'ui.bootstrap',
+    userModule,
+    urlModule,
+    uploaderModule,
+    apiModule,
+    'profitelo.components.interface.preloader',
+    'profitelo.components.interface.image-crop',
+    'profitelo.directives.interface.local-avatar-uploader',
+    'profitelo.directives.interface.scrollable',
+    checkboxModule,
+    errorHandlerModule,
+    inputModule,
+    commonSettingsModule,
+  ])
+  .controller('basicAccountSettingsController', BasicAccountSettingsController);

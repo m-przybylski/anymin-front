@@ -5,21 +5,19 @@ import { ModalsService } from '../../../../common/services/modals/modals.service
 import { ExpertProfileView } from 'profitelo-api-ng/model/models';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
-import { UserService } from '../../../../common/services/user/user.service';
+import { IExtendedAccount, UserService } from '../../../../common/services/user/user.service';
 import {
   ExpertProfileWithDocuments,
   OrganizationProfileView,
-  ServiceWithOwnerProfile
+  ServiceWithOwnerProfile,
 } from 'profitelo-api-ng/model/models';
 import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
 import { GetService } from 'profitelo-api-ng/model/GetService';
-import { AccountDetails } from '@anymind-ng/api';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 
 // tslint:disable:member-ordering
 export class DashboardExpertManageProfileController {
-
   public isLoading = true;
   public isError = false;
   public expertName: string;
@@ -33,15 +31,17 @@ export class DashboardExpertManageProfileController {
 
   public static $inject = ['modalsService', 'ViewsApi', 'errorHandler', 'userService'];
 
-  constructor(private modalsService: ModalsService,
-              private ViewsApi: ViewsApi,
-              private errorHandler: ErrorHandlerService,
-              private userService: UserService) {
+  constructor(
+    private modalsService: ModalsService,
+    private ViewsApi: ViewsApi,
+    private errorHandler: ErrorHandlerService,
+    private userService: UserService,
+  ) {
     this.getExpertProfile();
   }
 
   public getExpertProfile = (): void => {
-    this.userService.getUser().then((user) => {
+    this.userService.getUser().then(user => {
       if (user.isExpert && !user.isCompany) {
         this.ViewsApi.getWebExpertProfileRoute(user.id)
           .then(response => {
@@ -51,8 +51,11 @@ export class DashboardExpertManageProfileController {
           .catch(error => {
             this.isLoading = false;
             this.isError = true;
-            this.errorHandler.handleServerError(error,
-              'Can not load expert profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
+            this.errorHandler.handleServerError(
+              error,
+              'Can not load expert profile',
+              'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE',
+            );
           });
       }
       if (user.isCompany) {
@@ -64,37 +67,38 @@ export class DashboardExpertManageProfileController {
           .catch(error => {
             this.isLoading = false;
             this.isError = true;
-            this.errorHandler.handleServerError(error,
-              'Can not load company profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
+            this.errorHandler.handleServerError(
+              error,
+              'Can not load company profile',
+              'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE',
+            );
           });
       }
     });
-  }
+  };
 
   public editCompanyProfile = (): void => {
-    this.modalsService.createManageProfileEditProfileModal(
-      this.organizationProfile, this.getExpertProfile);
-  }
+    this.modalsService.createManageProfileEditProfileModal(this.organizationProfile, this.getExpertProfile);
+  };
 
   public editExpertProfile = (): void => {
-    this.modalsService.createManageProfileEditProfileModal(
-      this.expertProfile, this.getExpertProfile);
-  }
+    this.modalsService.createManageProfileEditProfileModal(this.expertProfile, this.getExpertProfile);
+  };
 
   public openServiceFormModal = (): void => {
     this.modalsService.createServiceFormModal(this.getExpertProfile);
-  }
+  };
 
   private onGetExpertProfile = (expertProfile: ExpertProfileView): void => {
     this.expertProfile = expertProfile.expertProfile;
     this.expertName = this.expertProfile.name;
     this.expertAvatar = this.expertProfile.avatar;
-    this.services = expertProfile.employments.filter(employment =>
-      employment.serviceDetails.deletedAt === undefined
-    ).map(employment => employment.serviceDetails);
-  }
+    this.services = expertProfile.employments
+      .filter(employment => employment.serviceDetails.deletedAt === undefined)
+      .map(employment => employment.serviceDetails);
+  };
 
-  private onGetOrganizationProfile = (organizationDetails: OrganizationProfileView, user: AccountDetails): void => {
+  private onGetOrganizationProfile = (organizationDetails: OrganizationProfileView, user: IExtendedAccount): void => {
     if (user.isExpert) {
       this.ViewsApi.getWebExpertProfileRoute(user.id)
         .then(expertProfile => {
@@ -105,30 +109,34 @@ export class DashboardExpertManageProfileController {
           this.expertProfile = expertProfile.expertProfile;
           this.expertName = this.expertProfile.name;
           this.expertAvatar = this.expertProfile.avatar;
-          const expertServices = expertProfile.employments.filter(employment =>
-            employment.serviceDetails.deletedAt === undefined
-          ).map(employment => employment.serviceDetails);
-          const organizationServices = organizationDetails.services.filter(service =>
-            service.service.deletedAt === undefined
-          ).map(serviceWithEmployments => serviceWithEmployments.service);
+          const expertServices = expertProfile.employments
+            .filter(employment => employment.serviceDetails.deletedAt === undefined)
+            .map(employment => employment.serviceDetails);
+          const organizationServices = organizationDetails.services
+            .filter(service => service.service.deletedAt === undefined)
+            .map(serviceWithEmployments => serviceWithEmployments.service);
 
-          this.services = [...organizationServices,
-              ..._.flatMap(_.differenceBy(expertServices, organizationServices, 'id'))] as GetService[];
+          this.services = [
+            ...organizationServices,
+            ..._.flatMap(_.differenceBy(expertServices, organizationServices, 'id')),
+          ] as GetService[];
         })
         .catch(error => {
           this.isLoading = false;
           this.isError = true;
-          this.errorHandler.handleServerError(error,
-            'Can not load expert profile', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE');
+          this.errorHandler.handleServerError(
+            error,
+            'Can not load expert profile',
+            'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.GET_DATA_ERROR_MESSAGE',
+          );
         });
     } else {
       this.organizationProfile = organizationDetails.organizationProfile;
       this.organizationName = this.organizationProfile.name;
       this.organizationLogo = this.organizationProfile.logo;
-      this.services = organizationDetails.services.filter(service =>
-        service.service.deletedAt === undefined
-      ).map(serviceWithEmployments => serviceWithEmployments.service);
+      this.services = organizationDetails.services
+        .filter(service => service.service.deletedAt === undefined)
+        .map(serviceWithEmployments => serviceWithEmployments.service);
     }
-  }
-
+  };
 }

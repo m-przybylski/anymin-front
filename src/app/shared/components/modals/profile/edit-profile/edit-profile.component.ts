@@ -101,7 +101,6 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     if (clientNameForm.valid && !this.isPending) {
       this.isInputDisabled = true;
       this.sendClientProfile({
-        isAnonymous: false,
         nickname: clientNameForm.controls[this.clientFormControlName].value,
         avatar: clientNameForm.controls[this.clientFormControlAvatar].value,
       });
@@ -135,8 +134,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   };
 
   private adjustProfileDetails = (session: GetSessionWithAccount): void => {
-    this.isExpert = session.account.isExpert;
-    this.isCompany = session.account.isCompany;
+    this.isExpert = session.isExpert;
+    this.isCompany = session.isCompany;
     this.isExpert ? this.assignExpertProfileDetails() : this.assignClientProfileDetails(session);
   };
 
@@ -176,23 +175,23 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   private setClientFormValues = (accountDetails: GetSessionWithAccount): void => {
     if (
-      typeof accountDetails.account.settings.nickname !== 'undefined' ||
-      typeof accountDetails.account.settings.avatar !== 'undefined'
+      typeof accountDetails.account.details.nickname !== 'undefined' ||
+      typeof accountDetails.account.details.avatar !== 'undefined'
     ) {
-      this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails.account.settings.nickname);
-      this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails.account.settings.avatar);
-      this.editProfileModalComponentService.getPreviousAvatarSrc().next(accountDetails.account.settings.avatar);
+      this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails.account.details.nickname);
+      this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails.account.details.avatar);
+      this.editProfileModalComponentService.getPreviousAvatarSrc().next(accountDetails.account.details.avatar);
     }
   };
 
   private setClientFormValuesAsExpert = (accountDetails: GetSessionWithAccount): void => {
     if (
-      typeof accountDetails.account.settings.nickname !== 'undefined' ||
-      typeof accountDetails.account.settings.avatar !== 'undefined'
+      typeof accountDetails.account.details.nickname !== 'undefined' ||
+      typeof accountDetails.account.details.avatar !== 'undefined'
     ) {
-      this.expertNameForm.controls[this.expertFormControlName].setValue(accountDetails.account.settings.nickname);
-      this.expertNameForm.controls[this.expertFormControlAvatar].setValue(accountDetails.account.settings.avatar);
-      this.editProfileModalComponentService.getPreviousAvatarSrc().next(accountDetails.account.settings.avatar);
+      this.expertNameForm.controls[this.expertFormControlName].setValue(accountDetails.account.details.nickname);
+      this.expertNameForm.controls[this.expertFormControlAvatar].setValue(accountDetails.account.details.avatar);
+      this.editProfileModalComponentService.getPreviousAvatarSrc().next(accountDetails.account.details.avatar);
     }
   };
 
@@ -228,7 +227,6 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
           this.navbarComponentService.onUpdateUserProfile().next(true);
           this.navbarComponentService.onUpdateClientProfile$().next(true);
           this.sendClientProfile({
-            isAnonymous: false,
             nickname: this.expertNameForm.controls[this.expertFormControlName].value,
             avatar: this.expertNameForm.controls[this.expertFormControlAvatar].value,
           });

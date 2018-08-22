@@ -1,193 +1,171 @@
-import * as angular from 'angular'
-import { ModalsService } from './modals.service'
-import modalsModule from './modals'
-import dialogModule from '../dialog/dialog'
-import { DialogService } from '../dialog/dialog.service'
-import {
-  GetExpertSueDetails, GetClientActivity, GetProfile,
-  GetService
-} from 'profitelo-api-ng/model/models'
+import * as angular from 'angular';
+import { ModalsService } from './modals.service';
+import modalsModule from './modals';
+import dialogModule from '../dialog/dialog';
+import { DialogService } from '../dialog/dialog.service';
+import { GetExpertSueDetails, GetClientActivity, GetProfile, GetService } from 'profitelo-api-ng/model/models';
 
 describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
-
-    let modalsService: ModalsService
+    let modalsService: ModalsService;
 
     beforeEach(() => {
-      angular.mock.module(modalsModule)
-      angular.mock.module(dialogModule)
-    })
+      angular.mock.module(modalsModule);
+      angular.mock.module(dialogModule);
+    });
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
-      modalsService = $injector.get<ModalsService>('modalsService')
-    }))
+      modalsService = $injector.get<ModalsService>('modalsService');
+    }));
 
     it('should have a dummy test', () => {
-      expect(true).toBeTruthy()
-    })
+      expect(true).toBeTruthy();
+    });
 
     it('should create IncomingCallModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createIncomingCallModal(<GetExpertSueDetails>{}, () => {
-      }, () => {
-      })
+      modalsService.createIncomingCallModal(<GetExpertSueDetails>{}, () => {}, () => {});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create NoFundsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createNoFundsModal(() => {
-      }, () => {
-      })
+      modalsService.createNoFundsModal(() => {}, () => {});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create ServiceUnavailableModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createServiceUnavailableModal(() => {
-      }, () => {
-      })
+      modalsService.createServiceUnavailableModal(() => {}, () => {});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createExpertConsultationSummaryModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createExpertConsultationSummaryModal(<any>{})
+      modalsService.createExpertConsultationSummaryModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createClientSUEActivityDetailsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createClientSUEActivityDetailsModal(<any>{})
+      modalsService.createClientSUEActivityDetailsModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createClientComplainReportModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createClientComplainReportModal()
+      modalsService.createClientComplainReportModal();
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createGeneralPhoneSettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createGeneralPhoneSettingsModal(<any>{})
+      modalsService.createGeneralPhoneSettingsModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createBasicAccountSettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createBasicAccountSettingsModal(<any>{})
+      modalsService.createBasicAccountSettingsModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createGeneralPhoneSettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createGeneralPhoneSettingsModal(<any>{})
+      modalsService.createGeneralPhoneSettingsModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createGeneralEmailSettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createGeneralEmailSettingsModal(<any>{})
+      modalsService.createGeneralEmailSettingsModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createGeneralCountrySettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createGeneralCountrySettingsModal(<any>{})
+      modalsService.createGeneralCountrySettingsModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createSecurityChangePasswordSettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createSecurityChangePasswordSettingsModal()
+      modalsService.createSecurityChangePasswordSettingsModal();
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
-
-    it('should create createSecurityPinSecuritySettingsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-
-      modalsService.createSecurityPinSecuritySettingsModal()
-
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createAddPaymentMethodControllerModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createAddPaymentMethodControllerModal(<any>{})
+      modalsService.createAddPaymentMethodControllerModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should create createEditCompanyInvoiceControllerModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createEditCompanyInvoiceControllerModal(<any>{})
+      modalsService.createEditCompanyInvoiceControllerModal(<any>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
-
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should open client charge details modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createClientChargeDetailsModal(<GetClientActivity>{})
+      modalsService.createClientChargeDetailsModal(<GetClientActivity>{});
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should open consultation modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog');
 
-      modalsService.createConsultationModal()
+      modalsService.createConsultationModal();
 
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should open consultation form modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-      modalsService.createServiceFormModal(() => {
-      }, <any>{})
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      spyOn(dialogService, 'openDialog');
+      modalsService.createServiceFormModal(() => {}, <any>{});
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should open expert invite employees modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-      modalsService.createExpertInviteEmployeesModal(() => {
-      })
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
+      spyOn(dialogService, 'openDialog');
+      modalsService.createExpertInviteEmployeesModal(() => {});
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
 
     it('should open precall modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog')
-      modalsService.createPrecallModal(<GetService>{}, <GetProfile>{}, <MediaStream>{})
-      expect(dialogService.openDialog).toHaveBeenCalled()
-    }))
-
-  })
-})
+      spyOn(dialogService, 'openDialog');
+      modalsService.createPrecallModal(<GetService>{}, <GetProfile>{}, <MediaStream>{});
+      expect(dialogService.openDialog).toHaveBeenCalled();
+    }));
+  });
+});
