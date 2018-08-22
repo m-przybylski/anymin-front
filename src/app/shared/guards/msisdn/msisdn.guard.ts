@@ -1,26 +1,22 @@
+// tslint:disable:no-var-requires
+// tslint:disable:no-require-imports
+// tslint:disable:newline-before-return
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { isValidNumber } from 'libphonenumber-js';
-import { LoginHelperService } from '../../../features/login/services/login-helper.service';
+const phonenumbers = require('libphonenumber-js');
 
 @Injectable()
 export class MsisdnGuard implements CanActivate {
   private logger: LoggerService;
 
-  constructor(
-    private router: Router,
-    private helper: LoginHelperService,
-    private alertService: AlertService,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private router: Router, private alertService: AlertService, loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('MsisdnGuard');
   }
 
   public canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (isValidNumber(this.helper.addPlusToPhoneNumber(route.params.msisdn))) {
+    if (phonenumbers.isValidNumber(route.params.msisdn)) {
       this.logger.debug('allow to access');
-
       return true;
     } else {
       this.router
@@ -33,7 +29,6 @@ export class MsisdnGuard implements CanActivate {
         })
         .catch(this.logger.error.bind(this));
       this.logger.warn('not allow to access');
-
       return false;
     }
   }
