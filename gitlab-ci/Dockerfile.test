@@ -1,15 +1,15 @@
 FROM eu.gcr.io/dev-country-188109/ubuntu-node-base-test:10.4.1
 MAINTAINER loord igor.gerasimow@ratel.io
 
-# prepare dir for cache
-RUN mkdir /home/chrome/.npm
-
-ADD . /home/chrome/profitelo-frontend
+ADD . /home/chrome/project
 
 USER root
-RUN chown chrome -R /home/chrome/profitelo-frontend
+RUN chown chrome -R /home/chrome/project
 USER chrome
 
-WORKDIR /home/chrome/profitelo-frontend
+WORKDIR /home/chrome/project
 
 RUN git submodule update --init --recursive
+
+# After run to use npm cache #
+CMD npm install && npm run ci-test
