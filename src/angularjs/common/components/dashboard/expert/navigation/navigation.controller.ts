@@ -11,7 +11,6 @@ import { Config } from '../../../../../../config';
 
 // tslint:disable:member-ordering
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
-
   private static readonly loaderDelay = 500;
   public expertBalance: MoneyDto;
   public isLoading = true;
@@ -20,32 +19,34 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
 
   public static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'profiteloWebsocket'];
 
-    constructor(FinancesApi: FinancesApi,
-              userService: UserService,
-              errorHandler: ErrorHandlerService,
-              promiseService: PromiseService,
-              profiteloWebsocket: ProfiteloWebsocketService) {
-
-    userService.getUser().then((account) => {
+  constructor(
+    FinancesApi: FinancesApi,
+    userService: UserService,
+    errorHandler: ErrorHandlerService,
+    promiseService: PromiseService,
+    profiteloWebsocket: ProfiteloWebsocketService,
+  ) {
+    userService.getUser().then(account => {
       this.isCompany = account.isCompany;
     });
 
-    profiteloWebsocket.onProfileCallProfit((data) => {
+    profiteloWebsocket.onProfileCallProfit(data => {
       this.expertBalance = data.balanceAfter;
     });
 
-    profiteloWebsocket.onProfileCallRefund((data) => {
+    profiteloWebsocket.onProfileCallRefund(data => {
       this.expertBalance = data.balanceAfter;
     });
 
-    promiseService.setMinimalDelay(FinancesApi.getProfileBalanceRoute(),
-      ExpertNavigationComponentController.loaderDelay).then((value) => {
-      this.expertBalance = value;
-      this.isLoading = false;
-    }).catch((error) => {
-      errorHandler.handleServerError(error);
-      this.isLoading = false;
-    });
-
+    promiseService
+      .setMinimalDelay(FinancesApi.getProfileBalanceRoute1(), ExpertNavigationComponentController.loaderDelay)
+      .then(value => {
+        this.expertBalance = value;
+        this.isLoading = false;
+      })
+      .catch(error => {
+        errorHandler.handleServerError(error);
+        this.isLoading = false;
+      });
   }
 }

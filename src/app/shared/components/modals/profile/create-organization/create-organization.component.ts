@@ -105,8 +105,8 @@ export class CreateOrganizationModalComponent implements OnInit {
   };
 
   private adjustProfileDetails = (session: GetSessionWithAccount): void => {
-    this.isExpert = session.account.isExpert;
-    this.isCompany = session.account.isCompany;
+    this.isExpert = session.isExpert;
+    this.isCompany = session.isCompany;
     this.isCompany ? this.assignOrganizationDetails() : this.checkExpertConsultationsLength(session.account.id);
   };
 

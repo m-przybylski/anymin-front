@@ -10,33 +10,31 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 describe('UserNavigationComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [UserNavigationComponentService,
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
+      providers: [
+        UserNavigationComponentService,
+        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
         {
-          provide: ProfileService, useValue: createSpyObj('ProfileService', ['getProfileRoute'
-            ]
-          )
+          provide: ProfileService,
+          useValue: createSpyObj('ProfileService', ['getProfileRoute']),
         },
-        {provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession'])},
-      ]
+        { provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession']) },
+      ],
     });
 
     TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {
-      },
-      error: (): void => {
-      }
+      warn: (): void => {},
+      error: (): void => {},
     });
   });
 
-  it('should be created', inject([UserNavigationComponentService],
-    (service: UserNavigationComponentService) => {
-      expect(service).toBeTruthy();
-    }));
+  it('should be created', inject([UserNavigationComponentService], (service: UserNavigationComponentService) => {
+    expect(service).toBeTruthy();
+  }));
 
   it('should get user profile', () => {
     const service = TestBed.get(UserNavigationComponentService);
     const profileService = TestBed.get(ProfileService);
+
     const session: GetSessionWithAccount = {
       account: {
         id: 'id',
@@ -45,24 +43,22 @@ describe('UserNavigationComponentService', () => {
         isBlocked: false,
         hasPassword: true,
         isClientCompany: true,
-        isCompany: true,
-        isExpert: true,
-        doesMsisdnMatchCountry: true,
-        hasMobilePin: true,
-        settings: {
-          isAnonymous: false
+        isAnonymous: false,
+        details: {
+          clientId: 'sdasdasd',
         },
         currency: 'PLN',
         countryISO: 'pl',
-        protectedViews: ['']
       },
       session: {
         accountId: 'id',
         apiKey: 'apiKey',
         ipAddress: '0.0.0.0',
         isExpired: false,
-        lastActivityAt: new Date()
-      }
+        lastActivityAt: new Date(),
+      },
+      isCompany: true,
+      isExpert: false,
     };
 
     service.getProfileDetails(session);

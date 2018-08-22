@@ -30,7 +30,7 @@ export class NavbarMenuService {
     this.userSessionService.getSession().then(
       session => {
         if (session.account) {
-          isExpert = session.account.isExpert;
+          isExpert = session.isExpert;
         } else {
           isExpert = false;
         }
@@ -48,7 +48,7 @@ export class NavbarMenuService {
       .getSession()
       .then(session => {
         if (session.account) {
-          isCompany = session.account.isCompany;
+          isCompany = session.isCompany;
         } else {
           isCompany = false;
         }
