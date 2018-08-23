@@ -1,0 +1,13 @@
+.consultation-layout
+  .consultation-layout__wrapper
+    .consultation-layout__header {{header}}
+    .consultation-layout__footer
+      plat-consultation-experts(
+        [expertAvatarTokenList]='expertAvatarTokenList',
+      )
+  .consultation-layout__price
+    .consultation-layout__amount
+      span {{price | moneyToAmount}}
+        span.consultation-layout__amount__currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
+      a(plat-icon-button, color='primary').consultation-layout__amount-button
+        span(plat-icon iconClass='arrow-right')

@@ -12,8 +12,10 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
-import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
 import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
+import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
+import { RouterHelpers, RouterPaths } from '../../../routes/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'plat-navbar-company-menu',
@@ -46,6 +48,8 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private navbarMenuService: NavbarMenuService,
     private loggerFactory: LoggerFactory,
+    private router: Router,
+    private userSessionService: UserSessionService,
   ) {
     this.logger = this.loggerFactory.createLoggerService('NavbarCompanyMenuComponent');
   }
@@ -58,8 +62,22 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
       .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
   }
 
-  public openEditOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
-
+  public navigateToOrganizationProfile = (): void => {
+    this.userSessionService
+      .getSession()
+      .then(session => {
+        const route = RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
+          [RouterPaths.dashboard.company.profile.params.profileId]: session.account.id,
+        });
+        return this.router.navigate([route]);
+      })
+      .then(() => {
+        this.logger.debug('Navigation success');
+      })
+      .catch(err => {
+        this.logger.error(err);
+      });
+  };
   public openEditProfileModal = (): NgbModalRef => this.modalService.open(EditProfileModalComponent);
 
   public ngOnDestroy(): void {
