@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: eu.gcr.io/dev-country-188109/profitelo-frontend

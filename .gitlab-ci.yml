@@ -46,6 +46,7 @@ deploy-dev:
     - helm install --wait --name am-dev-frontend helm/ -f helm/values-dev.yaml --set image.repository=eu.gcr.io/dev-country-188109/profitelo-frontend,image.tag=release-$CI_COMMIT_SHA
   only:
     - master
+  when: manual
   tags:
     - deathstar-anymind-helm-0
 
@@ -63,7 +64,6 @@ deploy-stage:
     - helm install --wait --name am-stage-frontend helm/ -f helm/values-stage.yaml --set image.repository=eu.gcr.io/dev-country-188109/profitelo-frontend,image.tag=release-$CI_COMMIT_SHA
   only:
     - master
-  when: manual
   tags:
     - deathstar-anymind-helm-0
 
