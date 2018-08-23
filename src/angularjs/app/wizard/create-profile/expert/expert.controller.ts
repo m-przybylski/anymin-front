@@ -19,13 +19,14 @@ export class ExpertController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
     isExpert: false,
     isCompany: false,
-    isSummary: false
+    isSummary: false,
+    services: [],
   };
   public nameModel: string | undefined = '';
   public avatarModel?: string;
   public descriptionModel: string | undefined = '';
-  public filesModel?: string[] = [];
-  public linksModel?: string[] = [];
+  public filesModel: string[] = [];
+  public linksModel: string[] = [];
   public progressStyle: IProgressStyle;
   public progressBarTittle = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
   public isSubmitted = false;
@@ -37,10 +38,12 @@ export class ExpertController implements ng.IController {
 
   public static $inject = ['WizardApi', '$state', 'CommonSettingsService', 'wizardProfile'];
 
-    constructor(private WizardApi: WizardApi,
-              private $state: StateService,
-              private CommonSettingsService: CommonSettingsService,
-              private wizardProfile?: GetWizardProfile) {
+  constructor(
+    private WizardApi: WizardApi,
+    private $state: StateService,
+    private CommonSettingsService: CommonSettingsService,
+    private wizardProfile?: GetWizardProfile,
+  ) {
     this.assignValidationValues();
   }
 
@@ -58,13 +61,14 @@ export class ExpertController implements ng.IController {
     }
 
     this.currentWizardState.isExpert = true;
-    if (!this.wizardProfile || this.wizardProfile.isCompany && !this.wizardProfile.isSummary) {
+    if (!this.wizardProfile || (this.wizardProfile.isCompany && !this.wizardProfile.isSummary)) {
       this.currentWizardState.isCompany = false;
     }
-    this.progressBarTittle = this.currentWizardState.isCompany ?
-      'WIZARD.STEP.EXPERT_AS_COMPANY.PROGRESSBAR.TITLE' : 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
+    this.progressBarTittle = this.currentWizardState.isCompany
+      ? 'WIZARD.STEP.EXPERT_AS_COMPANY.PROGRESSBAR.TITLE'
+      : 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE';
     this.saveWizardState(this.currentWizardState);
-  }
+  };
 
   public onGoBack = (): void => {
     if (this.wizardProfile && !this.wizardProfile.isSummary) {
@@ -76,7 +80,7 @@ export class ExpertController implements ng.IController {
     } else {
       this.goToSummary();
     }
-  }
+  };
 
   public saveSteps = (): void => {
     const wizardExpertModel: PartialExpertDetails = {
@@ -84,14 +88,14 @@ export class ExpertController implements ng.IController {
       avatar: this.avatarModel,
       description: this.descriptionModel,
       files: this.filesModel,
-      links: this.linksModel
+      links: this.linksModel,
     };
 
     if (this.checkIsAnyStepModelChange(wizardExpertModel)) {
       this.currentWizardState.expertDetailsOption = angular.copy(wizardExpertModel);
       this.saveWizardState(this.currentWizardState);
     }
-  }
+  };
 
   public goToSummary = (): void => {
     if (this.checkIsFormValid()) {
@@ -108,42 +112,42 @@ export class ExpertController implements ng.IController {
     } else {
       this.isSubmitted = true;
     }
-  }
+  };
 
-  public checkIsNameInputValid = (): boolean => this.nameModel ?
-    this.profileNamePattern.test(this.nameModel) : false
+  public checkIsNameInputValid = (): boolean => (this.nameModel ? this.profileNamePattern.test(this.nameModel) : false);
 
   public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0);
 
-  public checkIsProfileDescriptionValid = (): boolean => this.descriptionModel ?
-    this.profileDescriptionPattern.test(this.descriptionModel) : false
+  public checkIsProfileDescriptionValid = (): boolean =>
+    this.descriptionModel ? this.profileDescriptionPattern.test(this.descriptionModel) : false;
 
   public checkIsFileUploadValid = (): boolean => this.isUploading;
 
   public onUploadingFile = (status: boolean): void => {
     this.isUploading = status;
-  }
+  };
 
   public checkIsFormValid = (): boolean =>
-    !!(this.currentWizardState.expertDetailsOption
-      && this.checkIsNameInputValid()
-      && this.checkIsAvatarValid()
-      && this.checkIsProfileDescriptionValid()
-      && this.checkIsFileUploadValid())
+    !!(
+      this.currentWizardState.expertDetailsOption &&
+      this.checkIsNameInputValid() &&
+      this.checkIsAvatarValid() &&
+      this.checkIsProfileDescriptionValid() &&
+      this.checkIsFileUploadValid()
+    );
 
   private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> =>
-    this.WizardApi.putWizardProfileRoute(wizardState)
-    .catch((error) => {
+    this.WizardApi.putWizardProfileRoute(wizardState).catch(error => {
       throw new Error('Can not save profile steps' + String(error));
-    })
+    });
 
   private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails): boolean =>
-    !this.currentWizardState.expertDetailsOption
-      || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
+    !this.currentWizardState.expertDetailsOption ||
+    !_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel);
 
   private assignValidationValues = (): void => {
     const localSettings = this.CommonSettingsService.localSettings;
     this.profileNamePattern = localSettings.profileNamePattern;
     this.profileDescriptionPattern = localSettings.profileDescriptionPattern;
-  }
+  };
 }

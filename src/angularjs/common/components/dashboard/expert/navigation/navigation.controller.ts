@@ -41,7 +41,7 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
     promiseService
       .setMinimalDelay(FinancesApi.getProfileBalanceRoute1(), ExpertNavigationComponentController.loaderDelay)
       .then(value => {
-        this.expertBalance = value;
+        this.expertBalance = value.balance;
         this.isLoading = false;
       })
       .catch(error => {

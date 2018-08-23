@@ -8,57 +8,69 @@ import precallModalModule from './precall';
 import { PaymentsApiMock, FinancesApiMock } from 'profitelo-api-ng/api/api';
 
 describe('Testing Controller: precallModalController', () => {
-
   let precallModalController: PrecallModalController;
   let scope: IPrecallModalControllerScope;
   let PaymentsApiMock: PaymentsApiMock;
   let FinancesApiMock: FinancesApiMock;
   let $state: StateService;
-  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance = jasmine.createSpyObj('$uibModalInstance', [
+    'close',
+    'dismiss',
+  ]);
 
   beforeEach(() => {
     angular.mock.module(precallModalModule);
     angular.mock.module(modalsModule);
   });
 
-  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-    $provide.value('apiUrl', 'awesomeURL');
-  }));
+  beforeEach(
+    angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeURL');
+    }),
+  );
 
   beforeEach(() => {
     angular.mock.module(modalsModule);
 
-    inject(($rootScope: any,
-            $controller: ng.IControllerService,
-            _$httpBackend_: ng.IHttpBackendService,
-            _ViewsApi_: ViewsApi,
-            _modalsService_: ModalsService,
-            _FinancesApiMock_: FinancesApiMock,
-            _PaymentsApiMock_: PaymentsApiMock
-            ) => {
+    inject(
+      (
+        $rootScope: any,
+        $controller: ng.IControllerService,
+        _$httpBackend_: ng.IHttpBackendService,
+        _ViewsApi_: ViewsApi,
+        _modalsService_: ModalsService,
+        _FinancesApiMock_: FinancesApiMock,
+        _PaymentsApiMock_: PaymentsApiMock,
+      ) => {
+        scope = <IPrecallModalControllerScope>$rootScope.$new();
+        PaymentsApiMock = _PaymentsApiMock_;
+        FinancesApiMock = _FinancesApiMock_;
+        $state = <StateService>{
+          go: (_to: string): TransitionPromise => <any>Promise.resolve(<any>{}),
+        };
 
-      scope = <IPrecallModalControllerScope>$rootScope.$new();
-      PaymentsApiMock = _PaymentsApiMock_;
-      FinancesApiMock = _FinancesApiMock_;
-      $state = <StateService>{
-        go: (_to: string): TransitionPromise => <any>Promise.resolve(<any>{})
-      };
-
-      precallModalController = $controller<PrecallModalController>('precallModalController', {
-        $scope: scope,
-        $uibModalInstance,
-        ViewsApi: _ViewsApi_,
-        modalsService: _modalsService_,
-        $state
-      });
-    });
+        precallModalController = $controller<PrecallModalController>('precallModalController', {
+          $scope: scope,
+          $uibModalInstance,
+          ViewsApi: _ViewsApi_,
+          modalsService: _modalsService_,
+          $state,
+        });
+      },
+    );
 
     PaymentsApiMock.getCreditCardsRoute(500);
     FinancesApiMock.getClientBalanceRoute(200, {
-      amount: 6000,
-      currency: 'PLN'
+      accountBalance: {
+        amount: 6000,
+        currency: 'PLN',
+      },
+      promoCodeBalance: {
+        amount: 6000,
+        currency: 'PLN',
+      },
     });
+
     precallModalController.$onInit();
   });
 
@@ -71,15 +83,14 @@ describe('Testing Controller: precallModalController', () => {
     expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel');
   });
 
-  it('should open Add-payment-method modal and close Precall modal',
-    inject((modalsService: ModalsService) => {
-
+  it('should open Add-payment-method modal and close Precall modal', inject((modalsService: ModalsService) => {
     spyOn(modalsService, 'createAddPaymentMethodControllerModal');
     precallModalController.addNewPaymentMethod();
 
     expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel');
-    expect(modalsService.createAddPaymentMethodControllerModal)
-    .toHaveBeenCalledWith(precallModalController.onModalClose);
+    expect(modalsService.createAddPaymentMethodControllerModal).toHaveBeenCalledWith(
+      precallModalController.onModalClose,
+    );
   }));
 
   it('should redirect to app.charge-account state and close Precall modal', () => {
@@ -101,5 +112,4 @@ describe('Testing Controller: precallModalController', () => {
     precallModalController.onPriceChange('sda');
     expect(precallModalController.isPriceInputValid).toBe(false);
   });
-
 });
