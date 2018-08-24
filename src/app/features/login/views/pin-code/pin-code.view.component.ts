@@ -13,13 +13,13 @@ import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { Subject } from 'rxjs';
+import { LoginHelperService } from '../../services/login-helper.service';
 
 @Component({
   templateUrl: './pin-code.view.html',
-  styleUrls: ['./pin-code.view.component.sass']
+  styleUrls: ['./pin-code.view.component.sass'],
 })
 export class PinCodeViewComponent implements OnInit, OnDestroy {
-
   public readonly pinCodeFormId = 'pinCodeForm';
   public readonly pinCodeControlName = 'pinCode';
   public readonly termsOfServiceControlName = 'termsOfService';
@@ -37,32 +37,26 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
   private registrationSession: GetRegistrationSession;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute,
-              private pinCodeService: PinCodeViewService,
-              private formUtils: FormUtilsService,
-              private registrationService: RegistrationService,
-              private alertService: AlertService,
-              private pinCodeTimer: PinCodeTimerService,
-              loggerFactory: LoggerFactory) {
-
+  constructor(
+    private route: ActivatedRoute,
+    private pinCodeService: PinCodeViewService,
+    private formUtils: FormUtilsService,
+    private registrationService: RegistrationService,
+    private alertService: AlertService,
+    private pinCodeTimer: PinCodeTimerService,
+    private helper: LoginHelperService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('PinCodeViewComponent');
-
   }
 
   public ngOnInit(): void {
     this.registrationSession = this.route.snapshot.data.registrationSession;
-
+    this.msisdn = this.helper.addPlusToPhoneNumber(this.route.snapshot.params.msisdn);
+    this.isUserRegisteredWithoutPassword = this.route.snapshot.queryParams.noPasswordRegistrationStatus;
     this.logger.info('registration session', this.registrationSession);
 
     this.pinCodeForm = new FormGroup({});
-
-    this.route.params.subscribe(params => {
-      this.msisdn = params.msisdn;
-    });
-
-    this.route.queryParams.subscribe(params => {
-      this.isUserRegisteredWithoutPassword = params.noPasswordRegistrationStatus;
-    });
 
     this.startPinCodeTimer();
   }
@@ -76,38 +70,41 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
     if (pinCodeForm.valid) {
       this.isRequestPending = true;
       const pinCode = pinCodeForm.value[this.pinCodeControlName];
-      this.pinCodeService.handleRegistration(this.registrationSession.sessionId, pinCode)
-        .pipe(finalize(() => this.isRequestPending = false))
+      this.pinCodeService
+        .handleRegistration(this.registrationSession.sessionId, pinCode)
+        .pipe(finalize(() => (this.isRequestPending = false)))
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleCheckPinCodeStatus);
     } else {
       this.formUtils.validateAllFormFields(pinCodeForm);
     }
-  }
+  };
 
   public isCountingDown = (): boolean => this.timeLeft > 0;
 
   public resendPinCode = (): void => {
     this.startPinCodeTimer();
-    this.registrationService.requestVerificationRoute({msisdn: this.msisdn})
+    this.registrationService
+      .requestVerificationRoute({ msisdn: this.msisdn })
       .pipe(catchError(this.handleResendPinCodeError))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((registrationSession: GetRegistrationSession) => {
         this.registrationSession.sessionId = registrationSession.sessionId;
       });
-  }
+  };
 
   private startPinCodeTimer = (): void => {
-    this.pinCodeTimer.getTimeLeft$()
+    this.pinCodeTimer
+      .getTimeLeft$()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(timeLeft => this.timeLeft = timeLeft);
-  }
+      .subscribe(timeLeft => (this.timeLeft = timeLeft));
+  };
 
   private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('error when resolving pin-code', httpError);
     return of();
-  }
+  };
 
   // tslint:disable:cyclomatic-complexity
   private handleCheckPinCodeStatus = (status: PinCodeServiceStatus): void => {
@@ -144,16 +141,15 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('Unhandled backend pin code status', status);
     }
-  }
+  };
 
   private displayIncorrectPinCodeError = (pinCodeForm: FormGroup, pinCodeControlName: string): void => {
-    pinCodeForm.controls[pinCodeControlName].setErrors({[InputPinCodeErrorsEnum.IncorrectPinCode]: true});
+    pinCodeForm.controls[pinCodeControlName].setErrors({ [InputPinCodeErrorsEnum.IncorrectPinCode]: true });
     this.formUtils.validateAllFormFields(pinCodeForm);
-  }
+  };
 
   private displayIncorrectTooManyAttemptsError = (pinCodeForm: FormGroup, pinCodeControlName: string): void => {
-    pinCodeForm.controls[pinCodeControlName].setErrors({[InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts]: true});
+    pinCodeForm.controls[pinCodeControlName].setErrors({ [InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts]: true });
     this.formUtils.validateAllFormFields(pinCodeForm);
-  }
-
+  };
 }

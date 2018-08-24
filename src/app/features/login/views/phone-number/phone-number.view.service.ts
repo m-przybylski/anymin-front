@@ -8,6 +8,7 @@ import { RegistrationInvitationService } from '../../../../shared/services/regis
 import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
+import { LoginHelperService } from '../../services/login-helper.service';
 
 export enum PhoneNumberServiceStatus {
   SUCCESS,
@@ -25,16 +26,17 @@ export class PhoneNumberViewService {
     private router: Router,
     private alertService: AlertService,
     private registrationInvitationService: RegistrationInvitationService,
+    private helper: LoginHelperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('PhoneNumberViewService');
   }
 
   public handlePhoneNumber = (msisdn: string): Observable<PhoneNumberServiceStatus> =>
-    this.registrationService
-      .checkRegistrationStatusRoute(msisdn)
-      .pipe(map(status => this.handleRegistrationStatus(msisdn, status.status)))
-      .pipe(catchError(this.handleRegistrationStatusError));
+    this.registrationService.checkRegistrationStatusRoute(msisdn).pipe(
+      map(status => this.handleRegistrationStatus(msisdn, status.status)),
+      catchError(this.handleRegistrationStatusError),
+    );
 
   public getPhoneNumberFromInvitation = (): string | undefined => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
@@ -51,7 +53,7 @@ export class PhoneNumberViewService {
     switch (status) {
       case GetRegistrationStatus.StatusEnum.REGISTERED:
         this.router
-          .navigate(['/login/password', msisdn])
+          .navigate(['/login/password', this.helper.trimPhoneNumber(msisdn)])
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -64,7 +66,7 @@ export class PhoneNumberViewService {
 
       case GetRegistrationStatus.StatusEnum.UNREGISTERED:
         this.router
-          .navigate(['/login/pin-code', msisdn])
+          .navigate(['/login/pin-code', this.helper.trimPhoneNumber(msisdn)])
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -77,7 +79,9 @@ export class PhoneNumberViewService {
 
       case GetRegistrationStatus.StatusEnum.NOPASSWORD:
         this.router
-          .navigate(['/login/pin-code', msisdn], { queryParams: { noPasswordRegistrationStatus: true } })
+          .navigate(['/login/pin-code', this.helper.trimPhoneNumber(msisdn)], {
+            queryParams: { noPasswordRegistrationStatus: true },
+          })
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
