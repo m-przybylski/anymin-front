@@ -1,11 +1,8 @@
-// tslint:disable:no-empty
 import { NgModule } from '@angular/core';
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
-import {
-  CompanyActivitiesComponent
-} from './views/company-dashboard/company-activities/company-activities.view.component';
+import { CompanyActivitiesComponent } from './views/company-dashboard/company-activities/company-activities.view.component';
 import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
 import { ClientActivitiesComponent } from './views/user-dashboard/client-activities/client-activities.view.component';
 import { EmployeesComponent } from './views/company-dashboard/employees/employees.view.component';
@@ -14,15 +11,13 @@ import { FavouritesComponent } from './views/user-dashboard/favourites/favourite
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
-import {
-  SettingOptionComponent
-} from './views/user-dashboard/settings/components/setting-option/setting-option.component';
+import { SettingOptionComponent } from './views/user-dashboard/settings/components/setting-option/setting-option.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {
-  SmsConfirmationComponent
-} from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
+import { SmsConfirmationComponent } from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
 import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
+import { NotFoundComponent } from './views/not-found/not-found.component';
+import { ExpertDashboardModule } from './views/expert-dashboard/expert-dashboard.module';
 
 @NgModule({
   declarations: [
@@ -36,8 +31,8 @@ import { ProfileModalModule } from '../../shared/components/modals/profile/profi
     FavouritesComponent,
     SettingsViewComponent,
     SettingOptionComponent,
-    SmsConfirmationComponent
-
+    SmsConfirmationComponent,
+    NotFoundComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -45,11 +40,8 @@ import { ProfileModalModule } from '../../shared/components/modals/profile/profi
     SharedModule,
     AngularJsProvidersModule,
     DashboardRoutingModule,
-    ProfileModalModule
-  ]
+    ProfileModalModule,
+    ExpertDashboardModule,
+  ],
 })
-export class DashboardModule {
-
-  constructor() {
-  }
-}
+export class DashboardModule {}

@@ -167,6 +167,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
         profileDetails => {
           this.setExpertFormValues(profileDetails);
           this.isPending = false;
+          this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
           this.navbarComponentService.onUpdateClientProfile$().next(true);
         },
         err => this.handleResponseError(err, 'Can not get expert file profile'),
@@ -258,5 +259,5 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.isInputDisabled = false;
   };
 
-  private onModalClose = (): void => this.activeModal.close();
+  private onModalClose = (): void => this.activeModal.close(true);
 }

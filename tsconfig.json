@@ -7,10 +7,7 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "declaration": false,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -20,10 +17,9 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types" : [
+    "downlevelIteration": true,
+    "typeRoots": ["node_modules/@types"],
+    "types": [
       "angular",
       "angular-animate",
       "angular-cookies",

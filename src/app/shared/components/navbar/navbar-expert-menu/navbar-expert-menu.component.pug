@@ -14,7 +14,7 @@
         .user-name-container
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.LOGGED_AS'")
           span.user-name-container__user-name {{ expertName }}
-      a.button.button--link(*ngIf="isExpert", (click)="openEditProfileModal()", [translate]="'NAVBAR_USER_MENU.SHOW'")
+      a.button.button--link(*ngIf="isExpert", (click)="navigateToExpertProfile()", [translate]="'NAVBAR_USER_MENU.SHOW'")
 
     li.menu-list__section
       ul

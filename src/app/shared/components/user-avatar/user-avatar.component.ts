@@ -1,20 +1,20 @@
 // tslint:disable:strict-boolean-expressions
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 export enum AvatarSizeEnum {
   X_24,
   X_32,
   X_48,
-  X_156
+  X_156,
 }
 
 @Component({
   selector: 'plat-user-avatar',
   templateUrl: './user-avatar.component.html',
-  styleUrls: ['./user-avatar.component.sass']
+  styleUrls: ['./user-avatar.component.sass'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserAvatarComponent implements OnInit {
-
   @Input()
   public avatarSize: AvatarSizeEnum;
 
@@ -25,7 +25,7 @@ export class UserAvatarComponent implements OnInit {
   public avatarUrl?: string;
 
   @Input()
-  public avatarError ? = false;
+  public avatarError = false;
 
   @Input()
   public avatarErrorValidation = false;
@@ -56,9 +56,7 @@ export class UserAvatarComponent implements OnInit {
       default:
         return 'user-avatar--x48';
     }
-  }
+  };
 
-  private resolveFileUrl = (avatarToken: string): string =>
-    `${window.location.origin}/files/${avatarToken}/download`
-
+  private resolveFileUrl = (avatarToken: string): string => `${window.location.origin}/files/${avatarToken}/download`;
 }
