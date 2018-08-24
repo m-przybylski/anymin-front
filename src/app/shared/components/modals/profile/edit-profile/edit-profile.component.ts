@@ -14,10 +14,11 @@ import { UserNavigationComponentService } from '../../../navbar/user-navigation/
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import { takeUntil } from 'rxjs/internal/operators';
-import { Subject } from 'rxjs/index';
+import { takeUntil } from 'rxjs/operators';
+import { Subject, from } from 'rxjs';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
 
 @Component({
   styleUrls: ['./edit-profile.component.sass'],
@@ -62,6 +63,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     private navbarComponentService: UserNavigationComponentService,
     private editProfileModalComponentService: EditProfileModalComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
+    private userSessionService: UserSessionService,
     private router: Router,
     loggerFactory: LoggerFactory,
   ) {
@@ -70,8 +72,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isOpenAsExpert = this.isExpertForm;
-    this.editProfileModalComponentService
-      .getSession()
+    from(this.userSessionService.getSession())
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         session => this.adjustProfileDetails(session),
@@ -81,8 +82,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.modalAnimationComponentService.getPreviousHeight$().next('inherit');
-    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
-    this.editProfileModalComponentService.getPreviousValue$().next('');
+    this.editProfileModalComponentService.setAvatarToken('');
+    this.editProfileModalComponentService.setUserName('');
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
@@ -181,7 +182,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     ) {
       this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails.account.details.nickname);
       this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails.account.details.avatar);
-      this.editProfileModalComponentService.getPreviousAvatarSrc().next(accountDetails.account.details.avatar);
+      this.editProfileModalComponentService.setAvatarToken(accountDetails.account.details.avatar);
     }
   };
 
@@ -192,7 +193,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     ) {
       this.expertNameForm.controls[this.expertFormControlName].setValue(accountDetails.account.details.nickname);
       this.expertNameForm.controls[this.expertFormControlAvatar].setValue(accountDetails.account.details.avatar);
-      this.editProfileModalComponentService.getPreviousAvatarSrc().next(accountDetails.account.details.avatar);
+      this.editProfileModalComponentService.setAvatarToken(accountDetails.account.details.avatar);
     }
   };
 
@@ -206,7 +207,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       this.profileLinksList = profileDetails.profile.expertDetails.links;
       this.profileDocumentsList = profileDetails.expertDocuments;
       this.fileUploadTokensList = profileDetails.expertDocuments.map(file => file.token);
-      this.editProfileModalComponentService.getPreviousAvatarSrc().next(profileDetails.profile.expertDetails.avatar);
+      this.editProfileModalComponentService.setAvatarToken(profileDetails.profile.expertDetails.avatar);
     }
   };
 

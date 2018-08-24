@@ -1,19 +1,16 @@
-import { ReplaySubject } from 'rxjs';
-import { AccountService, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
+import { ReplaySubject, Observable, from } from 'rxjs';
+import { AccountService, GetProfile, GetSession, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Observable } from 'rxjs/Rx';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import { mergeMap } from 'rxjs/operators';
 import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Injectable()
 export class EditProfileModalComponentService {
-  private value$ = new ReplaySubject<string>();
-  private avatarUrl$ = new ReplaySubject<string>();
+  private userName$ = new ReplaySubject<string>();
+  private avatarToken$ = new ReplaySubject<string>();
   private logger: LoggerService;
 
   constructor(
@@ -25,15 +22,24 @@ export class EditProfileModalComponentService {
     this.logger = loggerFactory.createLoggerService('EditProfileModalComponentService');
   }
 
-  public getPreviousValue$ = (): ReplaySubject<string> => this.value$;
+  public get avatarToken(): Observable<string> {
+    return this.avatarToken$.asObservable();
+  }
 
-  public getPreviousAvatarSrc = (): ReplaySubject<string> => this.avatarUrl$;
+  public setAvatarToken(token: string | undefined): void {
+    this.avatarToken$.next(token ? token : '');
+  }
+  public get userName(): Observable<string> {
+    return this.userName$.asObservable();
+  }
 
-  public getSession = (): Observable<GetSessionWithAccount> => fromPromise(this.userSessionService.getSession());
+  public setUserName(userName: string): void {
+    this.userName$.next(userName);
+  }
 
   public getProfileDetails = (): Observable<GetProfileWithDocuments> =>
-    fromPromise(this.userSessionService.getSession()).pipe(
-      mergeMap((session: GetSessionWithAccount) => this.getProfileRoute(session.account.id)),
+    from(this.userSessionService.getSession()).pipe(
+      mergeMap((session: GetSession) => this.getProfileRoute(session.accountId)),
     );
 
   public createClientProfile = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
