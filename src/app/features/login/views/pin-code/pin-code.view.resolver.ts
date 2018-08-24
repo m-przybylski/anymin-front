@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
+import { LoginHelperService } from '../../services/login-helper.service';
 
 @Injectable()
 export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
@@ -15,13 +16,16 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
     private registrationService: RegistrationService,
     private router: Router,
     private alertService: AlertService,
+    private helper: LoginHelperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('PinCodeViewResolver');
   }
 
   public resolve = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<GetRegistrationSession> =>
-    this.requestPinCode(route.params.msisdn).pipe(catchError(this.handlePinCodeError));
+    this.requestPinCode(this.helper.addPlusToPhoneNumber(route.params.msisdn)).pipe(
+      catchError(this.handlePinCodeError),
+    );
 
   private requestPinCode = (msisdn: string): Observable<GetRegistrationSession> =>
     this.registrationService.requestVerificationRoute({ msisdn });
