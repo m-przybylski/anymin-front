@@ -2,10 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { EditProfileModalComponentService } from '../../../edit-profile/edit-profile.component.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { of } from 'rxjs/observable/of';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { AvatarSizeEnum } from '../../../../../user-avatar/user-avatar.component';
 
 @Component({
@@ -15,7 +14,7 @@ import { AvatarSizeEnum } from '../../../../../user-avatar/user-avatar.component
 })
 export class AvatarUploaderComponent implements OnDestroy, OnInit {
   @Input()
-  public avatarUrl: string;
+  public avatarToken: string;
 
   @Input()
   public controlName: string;
@@ -32,8 +31,8 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   public isError = false;
   public readonly avatarSize = AvatarSizeEnum.X_156;
 
-  private ngUnsubscribe = new Subject<string>();
   private logger: LoggerService;
+  private destroyed$ = new Subject<void>();
 
   constructor(
     private formUtils: FormUtilsService,
@@ -47,12 +46,13 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', this.isRequired ? Validators.required.bind(this) : []));
 
-    this.editProfileModalComponentService
-      .getPreviousAvatarSrc()
-      .pipe(catchError(err => of(this.handleGetPrevoiusUrlAvatarError(err))))
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((avatarSrc: string) => {
-        this.setAvatarUrl(avatarSrc);
+    this.editProfileModalComponentService.avatarToken
+      .pipe(
+        catchError(err => of(this.handleGetPrevoiusUrlAvatarError(err))),
+        takeUntil(this.destroyed$),
+      )
+      .subscribe((avatarToken: string) => {
+        this.setAvatarToken(avatarToken);
       });
   }
 
@@ -63,15 +63,15 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   };
 
   public ngOnDestroy(): void {
-    this.editProfileModalComponentService.getPreviousAvatarSrc().next(this.form.controls[this.controlName].value);
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.editProfileModalComponentService.setAvatarToken(this.form.controls[this.controlName].value);
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   public onClickClear = (): void => {
     this.isError = false;
     this.form.controls[this.controlName].setValue('');
-    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
+    this.editProfileModalComponentService.setAvatarToken('');
   };
 
   private handleGetPrevoiusUrlAvatarError = (httpError: HttpErrorResponse): void => {
@@ -79,8 +79,8 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
   };
 
-  private setAvatarUrl = (avatarSrc: string): void => {
-    this.avatarUrl = avatarSrc;
-    this.form.controls[this.controlName].setValue(avatarSrc);
+  private setAvatarToken = (avatarToken: string): void => {
+    this.avatarToken = avatarToken;
+    this.form.controls[this.controlName].setValue(avatarToken);
   };
 }

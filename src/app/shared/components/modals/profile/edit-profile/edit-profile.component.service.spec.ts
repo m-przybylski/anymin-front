@@ -30,26 +30,8 @@ describe('EditProfileModalComponentService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should getPreviousValue$', done => {
-    const service = TestBed.get(EditProfileModalComponentService);
-    service.value$.next('asd');
-    service.getPreviousValue$().subscribe((value: string) => {
-      expect(value).toBe('asd');
-      done();
-    });
-  });
-
-  it('should get previous avatar src value', done => {
-    const service = TestBed.get(EditProfileModalComponentService);
-    service.avatarUrl$.next('/images/foto.png');
-    service.getPreviousAvatarSrc().subscribe((value: string) => {
-      expect(value).toBe('/images/foto.png');
-      done();
-    });
-  });
-
   it('should create expert profile', () => {
-    const service = TestBed.get(EditProfileModalComponentService);
+    const service: EditProfileModalComponentService = TestBed.get(EditProfileModalComponentService);
     const profileService = TestBed.get(ProfileService);
     const expertDetailsObject: PutExpertDetails = {
       name: 'name',
@@ -64,7 +46,7 @@ describe('EditProfileModalComponentService', () => {
   });
 
   it('should create client profile', () => {
-    const service = TestBed.get(EditProfileModalComponentService);
+    const service: EditProfileModalComponentService = TestBed.get(EditProfileModalComponentService);
     const accountService = TestBed.get(AccountService);
     const clientDetailsObject: PutGeneralSettings = {
       nickname: 'nick',

@@ -35,10 +35,10 @@ export class NavbarExpertMenuComponent implements OnInit {
   public expertName: string;
 
   @Input()
-  public avatarUrl: string;
+  public avatarToken: string;
 
   @Input()
-  public companyAvatarUrl?: string;
+  public companyAvatarToken?: string;
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
   public isMenuVisible: boolean;

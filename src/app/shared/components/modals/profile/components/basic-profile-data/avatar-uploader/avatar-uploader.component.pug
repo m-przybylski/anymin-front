@@ -3,16 +3,16 @@
 
   plat-user-avatar(
   [avatarSize]="avatarSize",
-  [avatarUrl]="avatarUrl",
+  [avatarToken]="avatarToken",
   [avatarError]="isError",
   [avatarErrorValidation]="isFieldInvalid()",
   [isOrganizationAvatar]="isOrganizationAvatar"
   )
 
-  .avatar-uploader__button.avatar-uploader__button--add(*ngIf="!avatarUrl")
+  .avatar-uploader__button.avatar-uploader__button--add(*ngIf="!avatarToken")
     label
       input(type='file', appAvatarUploader, [onAvatarError]="onError", #appAvatarUploader, accept="image/png, image/jpeg")
       span.icon.icon-add
 
-  .avatar-uploader__button.avatar-uploader__button--remove((click)="onClickClear()", *ngIf="avatarUrl")
+  .avatar-uploader__button.avatar-uploader__button--remove((click)="onClickClear()", *ngIf="avatarToken")
     span.icon.icon-trash

@@ -1,5 +1,5 @@
 // tslint:disable:strict-boolean-expressions
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 export enum AvatarSizeEnum {
   X_24,
@@ -14,15 +14,14 @@ export enum AvatarSizeEnum {
   styleUrls: ['./user-avatar.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UserAvatarComponent implements OnInit {
+export class UserAvatarComponent {
   @Input()
   public avatarSize: AvatarSizeEnum;
 
   @Input()
-  public avatarToken?: string;
-
-  @Input()
-  public avatarUrl?: string;
+  public set avatarToken(value: string) {
+    this.avatarUrl = value ? this.resolveFileUrl(value) : '';
+  }
 
   @Input()
   public avatarError = false;
@@ -33,11 +32,7 @@ export class UserAvatarComponent implements OnInit {
   @Input()
   public isOrganizationAvatar = false;
 
-  public ngOnInit(): void {
-    if (this.avatarToken) {
-      this.avatarUrl = this.resolveFileUrl(this.avatarToken);
-    }
-  }
+  public avatarUrl?: string;
 
   public setAvatarClass = (): string => {
     switch (this.avatarSize) {

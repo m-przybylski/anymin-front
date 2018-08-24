@@ -15,7 +15,6 @@ import { UserNavigationComponentService } from '../../../navbar/user-navigation/
 import { Subject } from 'rxjs/index';
 import { takeUntil } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
-import { EditProfileModalComponentService } from '../edit-profile/edit-profile.component.service';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 
 @Component({
@@ -45,7 +44,7 @@ export class CreateOrganizationModalComponent implements OnInit {
 
   public isExpert: boolean;
   public isCompany: boolean;
-  public avatarUrl: string;
+  public avatarToken: string;
 
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
@@ -55,7 +54,6 @@ export class CreateOrganizationModalComponent implements OnInit {
     private alertService: AlertService,
     private formUtils: FormUtilsService,
     private router: Router,
-    private editProfileModalComponentService: EditProfileModalComponentService,
     private navbarComponentService: UserNavigationComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private createOrganizationModalComponentService: CreateOrganizationModalComponentService,
@@ -66,8 +64,6 @@ export class CreateOrganizationModalComponent implements OnInit {
 
   public ngOnDestroy(): void {
     this.modalAnimationComponentService.getPreviousHeight$().next('inherit');
-    this.editProfileModalComponentService.getPreviousAvatarSrc().next('');
-    this.editProfileModalComponentService.getPreviousValue$().next('');
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
@@ -166,7 +162,7 @@ export class CreateOrganizationModalComponent implements OnInit {
       );
       this.profileLinksList = companyProfileDetails.profile.organizationDetails.links;
       this.profileDocumentsList = companyProfileDetails.organizationDocuments;
-      this.avatarUrl = companyProfileDetails.profile.organizationDetails.logo;
+      this.avatarToken = companyProfileDetails.profile.organizationDetails.logo;
       this.fileUploadTokensList = companyProfileDetails.organizationDocuments.map(file => file.token);
     }
   };
