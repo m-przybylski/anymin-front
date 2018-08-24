@@ -1,7 +1,7 @@
 stages:
   - test
-  - build-push-release-image
-  - deploy
+  - build-release
+  - deploy-release
 
 variables:
   CONTAINER_TEST_IMAGE: profitelo-frontend:test-$CI_PIPELINE_IID
@@ -20,38 +20,20 @@ test:
     - shell
 
 
-build-push-release-image:
-  stage: build-push-release-image
+build-release:
+  stage: build-release
   script:
     - docker build --no-cache -t $CONTAINER_RELEASE_IMAGE_URL -f gitlab-ci/Dockerfile.build .
     - docker push $CONTAINER_RELEASE_IMAGE_URL
   only:
     - master
   after_script:
-    - docker rm $CONTAINER_RELEASE_IMAGE_URL
+    - docker rmi -f $CONTAINER_RELEASE_IMAGE_URL
   tags:
     - shell
 
-deploy-dev:
-  stage: deploy
-  environment:
-    name: development
-    url: https://dev.anymind.com
-  before_script:
-    - kubectl config use-context admin-cluster.local
-    - helm init --service-account default
-    - cd gitlab-ci
-  script:
-    - helm del --purge am-dev-frontend
-    - helm install --wait --name am-dev-frontend helm/ -f helm/values-dev.yaml --set image.repository=eu.gcr.io/dev-country-188109/profitelo-frontend,image.tag=release-$CI_COMMIT_SHA
-  only:
-    - master
-  when: manual
-  tags:
-    - deathstar-anymind-helm-0
-
-deploy-stage:
-  stage: deploy
+stage-deploy:
+  stage: deploy-release
   environment:
     name: staging
     url: https://stage.anymind.com
@@ -67,8 +49,8 @@ deploy-stage:
   tags:
     - deathstar-anymind-helm-0
 
-deploy-demo:
-  stage: deploy
+demo-deploy:
+  stage: deploy-release
   environment:
     name: demo
     url: https://demo.anymind.com
@@ -85,8 +67,8 @@ deploy-demo:
   tags:
     - deathstar-anymind-helm-0
 
-deploy-prod:
-  stage: deploy
+prod-deploy:
+  stage: deploy-release
   environment:
     name: production
     url: https://app.anymind.com
