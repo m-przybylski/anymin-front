@@ -12,8 +12,10 @@ import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.vi
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
 import { ExpertDashboardComponent } from './views/expert-dashboard/expert-dashboard.view.component';
-import { ExpertDashboardResolverService } from './views/expert-dashboard/expert-dashboard-resolver.service';
+import { ExpertDashboardResolverService } from './views/expert-dashboard/services/expert-dashboard-resolver.service';
 import { NotFoundComponent } from './views/not-found/not-found.component';
+import { CompanyProfileComponent } from './views/company-dashboard/company-profile/company-profile.view.component';
+import { CompanyProfileResolverService } from './views/company-dashboard/services/company-profile-resolver.service';
 
 const routes: Routes = [
   {
@@ -28,13 +30,18 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'company',
+    path: RouterPaths.dashboard.company.getName,
     component: CompanyDashboardComponent,
     children: [
-      { path: 'employees', component: EmployeesComponent },
-      { path: 'activities', component: CompanyActivitiesComponent },
+      { path: 'employees', component: EmployeesComponent, canActivate: [CompanyDashboardViewGuard] },
+      { path: 'activities', component: CompanyActivitiesComponent, canActivate: [CompanyDashboardViewGuard] },
+      {
+        path: RouterPaths.dashboard.company.profile.getName,
+        component: CompanyProfileComponent,
+        runGuardsAndResolvers: 'always',
+        resolve: { company: CompanyProfileResolverService },
+      },
     ],
-    canActivate: [CompanyDashboardViewGuard],
   },
   {
     path: RouterPaths.dashboard.expert.getName,

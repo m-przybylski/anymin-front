@@ -15,6 +15,17 @@ export const RouterPaths = {
         expertId: 'expertId',
       },
     },
+    company: {
+      asPath: 'dashboard/company',
+      getName: 'company',
+      profile: {
+        asPath: 'dashboard/company/profile/:profileId',
+        getName: 'profile/:profileId',
+        params: {
+          profileId: 'profileId',
+        },
+      },
+    },
     notfound: {
       asPath: 'dashboard/not-found',
       getName: 'not-found',

@@ -89,7 +89,7 @@ export class CreateOrganizationModalComponent implements OnInit {
 
   public onAddProfileLink = (links: ReadonlyArray<string>): ReadonlyArray<string> => (this.linksList = links);
 
-  public onModalClose = (): void => this.activeModal.close();
+  public onModalClose = (): void => this.activeModal.close(true);
 
   public onCreateOrganizationProfile = (formGroup: FormGroup): void => {
     if (formGroup.valid && !this.isPending) {

@@ -19,10 +19,9 @@ import { GetService } from '@anymind-ng/api';
   selector: 'plat-create-company-consultation',
   templateUrl: './create-company-consultation.component.html',
   styleUrls: ['./create-company-consultation.component.sass'],
-  providers: [CreateCompanyConsultationService]
+  providers: [CreateCompanyConsultationService],
 })
 export class CreateCompanyConsultationModalComponent implements OnInit, AfterViewInit {
-
   public readonly formId = 'createExpertConsultation';
   public readonly nameControlName = 'name';
   public readonly descriptionControlName = 'description';
@@ -55,13 +54,15 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   private selectedTags: PostServiceTag[] = [];
   private anyMindCommission: number;
 
-  constructor(private formUtils: FormUtilsService,
-              private createCompanyConsultationService: CreateCompanyConsultationService,
-              private alertService: AlertService,
-              private modalService: NgbModal,
-              private activeModal: NgbActiveModal,
-              private modalAnimationComponentService: ModalAnimationComponentService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private formUtils: FormUtilsService,
+    private createCompanyConsultationService: CreateCompanyConsultationService,
+    private alertService: AlertService,
+    private modalService: NgbModal,
+    private activeModal: NgbActiveModal,
+    private modalAnimationComponentService: ModalAnimationComponentService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.loggerService = loggerFactory.createLoggerService('CreateExpertConsultationModalComponent');
   }
 
@@ -77,22 +78,23 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   public onFormSubmit = (): void => {
     if (this.createConsultationForm.valid) {
       this.isRequestPending = true;
-      this.createCompanyConsultationService.createService(this.getServiceModel())
+      this.createCompanyConsultationService
+        .createService(this.getServiceModel())
         .pipe(catchError(this.handleCreateServiceError))
         .subscribe((serviceDetails: GetService) => {
           this.isRequestPending = false;
           this.alertService.pushSuccessAlert(Alerts.CreateConsultationSuccess);
           this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
-          this.activeModal.close();
+          this.activeModal.close(true);
         });
     } else {
       this.formUtils.validateAllFormFields(this.createConsultationForm);
     }
-  }
+  };
 
   public onSelectedTag = (tagsNames: string[]): void => {
-    this.selectedTags = tagsNames.map(tagName => ({name: tagName}));
-  }
+    this.selectedTags = tagsNames.map(tagName => ({ name: tagName }));
+  };
 
   public onEmployeeConsultation = (): void => {
     if (!this.isRequestPending) {
@@ -102,29 +104,33 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
       this.labelTrKey = this.labelTranslations.employeeConsultation;
       this.clearPriceInputs();
     }
-  }
+  };
 
   public onFreelanceConsultation = (): void => {
     if (!this.isRequestPending) {
       this.isFreelance = true;
       this.anyMindCommission = this.freelanceConsultationAnyMindCommission;
-      this.totalCommission =
-        parseFloat((this.freelanceConsultationAnyMindCommission + this.freelanceConsultationCompanyCommission)
-          .toFixed(this.numberPrecision));
+      this.totalCommission = parseFloat(
+        (this.freelanceConsultationAnyMindCommission + this.freelanceConsultationCompanyCommission).toFixed(
+          this.numberPrecision,
+        ),
+      );
       this.labelTrKey = this.labelTranslations.freelanceConsultation;
       this.clearPriceInputs();
     }
-  }
+  };
 
   public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.percentDivider}%`;
 
   public getCompanyProfitForUI = (): string => {
     const nett = this.createConsultationForm.controls[this.nettPriceControlName].value;
-    const companyProfit =
-      this.createCompanyConsultationService.getCompanyProfit(nett, this.freelanceConsultationCompanyCommission);
+    const companyProfit = this.createCompanyConsultationService.getCompanyProfit(
+      nett,
+      this.freelanceConsultationCompanyCommission,
+    );
 
     return `${companyProfit.toPrecision(this.numberPrecision)} zł`;
-  }
+  };
 
   private getServiceModel = (): PostService => ({
     // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-363
@@ -135,11 +141,11 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
     description: this.createConsultationForm.controls[this.descriptionControlName].value,
     price: {
       amount: this.createConsultationForm.controls[this.nettPriceControlName].value,
-      currency: this.polishCurrency
+      currency: this.polishCurrency,
     },
     tags: this.selectedTags,
-    language: this.polandISOcode
-  })
+    language: this.polandISOcode,
+  });
 
   private handleCreateServiceError = (error: HttpErrorResponse): Observable<void> => {
     this.isRequestPending = false;
@@ -147,18 +153,17 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
     this.loggerService.warn('error when try to create service', error);
 
     return EMPTY;
-  }
+  };
 
   private clearPriceInputs = (): void => {
     this.createConsultationForm.controls[this.nettPriceControlName].reset('');
     this.createConsultationForm.controls[this.priceWithoutCommissionControlName].reset('');
     this.createConsultationForm.controls[this.grossPriceControlName].reset('');
-  }
+  };
 
   private assignInitialData = (): void => {
     this.totalCommission = this.employeeServiceAnyMindCommission;
     this.anyMindCommission = this.employeeServiceAnyMindCommission;
     this.labelTrKey = this.labelTranslations.employeeConsultation;
-  }
-
+  };
 }

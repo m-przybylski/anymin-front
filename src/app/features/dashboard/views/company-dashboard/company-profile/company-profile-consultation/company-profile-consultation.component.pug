@@ -1,0 +1,6 @@
+.company-profile-consultation-row
+  a.company-profile-consultation-row__add-consultation(*ngIf='isOwnProfile', (click)='add()')
+    span(plat-flat-fab color='primary')
+      span(plat-icon iconClass='add')
+    span.company-profile-consultation-row__text {{'EXPERT_DASHBOARD.ADD_CONSULTATION' | translate}}
+  plat-consultation-company-row.company-profile-consultation-row__row(*ngFor='let consultation of consultations', [consultation]='consultation')

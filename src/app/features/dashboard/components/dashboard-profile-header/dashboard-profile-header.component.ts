@@ -1,13 +1,13 @@
 import { Component, Input, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
-import { AvatarSizeEnum } from '../../../../../shared/components/user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '../../../../shared/components/user-avatar/user-avatar.component';
 
 @Component({
-  selector: 'plat-expert-dashboard-header',
-  templateUrl: './expert-dashboard-header.component.html',
-  styleUrls: ['./expert-dashboard-header.component.sass'],
+  selector: 'plat-dashboard-profile-header',
+  templateUrl: './dashboard-profile-header.component.html',
+  styleUrls: ['./dashboard-profile-header.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ExpertDashboardHeaderComponent {
+export class DashboardProfileHeaderComponent {
   @Input()
   public avatarToken: string;
   @Input()

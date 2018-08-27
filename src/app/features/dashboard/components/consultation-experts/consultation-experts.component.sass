@@ -1,0 +1,36 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../template/core/partials/grid"
+
+%icon-text
+  +subtitle-small
+  display: flex
+  color: $c-label
+  span + span
+    margin: 0 0 0 4px
+
+.consultation-experts-layout
+
+  &__list
+    display: flex
+
+  &__list-item
+
+    &--multiple
+      @extend %icon-text
+      margin: 0 0 0 12px
+
+      +mdm
+        margin: 0 0 0 16px
+
+      &-text
+        display: none
+
+        +smm
+          display: inline
+
+    &--none
+      @extend %icon-text
+
+  &__list-item + &__list-item
+    margin: 0 0 0 4px
