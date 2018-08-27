@@ -1,4 +1,4 @@
-import { selectorBuilder, ButtonComponent } from './button';
+import { ButtonComponent } from './button';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -9,13 +9,6 @@ import { By } from '@angular/platform-browser';
 class DummyComponent {}
 
 describe('ButtonComponent', () => {
-  const someArray: ReadonlyArray<string> = ['something1', 'something2'];
-  const result = 'button[something1], [something1], button[something2], [something2]';
-
-  it('should build selector', () => {
-    expect(selectorBuilder(someArray)).toEqual(result);
-  });
-
   describe('with template', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({

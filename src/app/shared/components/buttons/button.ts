@@ -10,23 +10,19 @@ const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-flat-fab',
 ];
 
-const buttonMapper = (className: string): string => `button[${className}]`;
-const plainMapper = (className: string): string => `[${className}]`;
-const combainetMapper = (className: string): string =>
-  [buttonMapper, plainMapper].map(mapper => mapper(className)).join(', ');
-
-// tslint:disable-next-line:only-arrow-functions
-export function selectorBuilder(attributes: ReadonlyArray<string>): string {
-  return attributes.map(combainetMapper).join(', ');
-}
-
 class ButtonBase {
   constructor(public elementRef: ElementRef, public renderer: Renderer2) {}
 }
 
 const ButtonMixinBase = mixinColor(ButtonBase);
 @Component({
-  selector: selectorBuilder(BUTTON_ATTRIBUTES),
+  selector: `button[plat-icon-button], button[plat-stroked-button],
+             button[plat-button], button[plat-mini-flat-fab],
+             button[plat-flat-fab],
+             [plat-icon-button], [plat-stroked-button],
+             [plat-button], [plat-mini-flat-fab],
+             [plat-flat-fab],
+             `,
   templateUrl: './button.html',
   styleUrls: ['./button.sass'],
   inputs: ['color'],
