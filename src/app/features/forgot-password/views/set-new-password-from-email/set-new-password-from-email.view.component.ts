@@ -9,6 +9,7 @@ import {
 } from './set-new-password-from-email.view.service';
 import { InputSetPasswordErrors } from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
+import { LoginHelperService } from '../../../login/services/login-helper.service';
 
 @Component({
   selector: 'set-password',
@@ -34,6 +35,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private setNewPasswordFromEmailService: SetNewPasswordFromEmailViewService,
     private formUtils: FormUtilsService,
+    private helper: LoginHelperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewComponent');
@@ -41,7 +43,7 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.setPasswordForm = new FormGroup({});
-    this.msisdn = this.route.snapshot.data.msisdn;
+    this.msisdn = this.helper.addPlusToPhoneNumber(this.route.snapshot.params.msisdn);
   }
 
   public ngOnDestroy(): void {

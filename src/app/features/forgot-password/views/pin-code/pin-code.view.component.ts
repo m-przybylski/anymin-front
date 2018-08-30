@@ -14,19 +14,19 @@ import { ForgotPasswordPinCodeViewService, ForgotPasswordPinCodeServiceStatus } 
 import { HttpErrorResponse } from '@angular/common/http';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { Subject } from 'rxjs';
+import { LoginHelperService } from '../../../login/services/login-helper.service';
 
 @Component({
   templateUrl: './pin-code.view.component.html',
   providers: [ForgotPasswordPinCodeViewService],
-  styleUrls: ['./pin-code.view.component.sass']
+  styleUrls: ['./pin-code.view.component.sass'],
 })
-
 export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
-
   public readonly pinCodeFormId = 'pinCodeForm';
   public readonly pinCodeControlName = 'pinCode';
 
   public msisdn: string;
+  public trimedMsisdn: string;
   public pinCodeForm: FormGroup;
   public isRequestPending = false;
   public timeLeft: number;
@@ -34,24 +34,23 @@ export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute,
-              private formUtils: FormUtilsService,
-              private forgotPasswordService: ForgotPasswordPinCodeViewService,
-              private pinCodeTimer: PinCodeTimerService,
-              private recoverPasswordService: RecoverPasswordService,
-              private logger: LoggerService,
-              private router: Router,
-              private alertService: AlertService,
-              private tokenService: VerifiedCodeService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private formUtils: FormUtilsService,
+    private forgotPasswordService: ForgotPasswordPinCodeViewService,
+    private pinCodeTimer: PinCodeTimerService,
+    private recoverPasswordService: RecoverPasswordService,
+    private logger: LoggerService,
+    private router: Router,
+    private helper: LoginHelperService,
+    private alertService: AlertService,
+    private tokenService: VerifiedCodeService,
+  ) {}
 
   public ngOnInit(): void {
     this.pinCodeForm = new FormGroup({});
-
-    this.route.params.subscribe(params => {
-      this.msisdn = params.msisdn;
-    });
-
+    this.msisdn = this.helper.addPlusToPhoneNumber(this.route.snapshot.params.msisdn);
+    this.trimedMsisdn = this.helper.trimPhoneNumber(this.route.snapshot.params.msisdn);
     this.startPinCodeTimer();
   }
 
@@ -59,27 +58,29 @@ export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
     if (pinCodeForm.valid) {
       const token: string = pinCodeForm.value[this.pinCodeControlName];
       this.isRequestPending = true;
-      this.forgotPasswordService.checkPinCode(token)
-        .pipe(finalize(() => this.isRequestPending = false))
+      this.forgotPasswordService
+        .checkPinCode(token)
+        .pipe(finalize(() => (this.isRequestPending = false)))
         .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe((status) => {
+        .subscribe(status => {
           this.handleCheckPinCodeStatus(status);
           this.tokenService.setVerifiedCode(token);
         });
     } else {
       this.formUtils.validateAllFormFields(pinCodeForm);
     }
-  }
+  };
 
   public isCountingDown = (): boolean => this.timeLeft > 0;
 
   public resendPinCode = (): void => {
     this.startPinCodeTimer();
-    this.recoverPasswordService.postRecoverPasswordRoute({msisdn: this.msisdn})
+    this.recoverPasswordService
+      .postRecoverPasswordRoute({ msisdn: this.msisdn })
       .pipe(catchError(this.handleResendPinCodeError))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe();
-  }
+  };
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
@@ -87,24 +88,25 @@ export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
   }
 
   private redirectToSetNewPassword = (): Promise<void> =>
-    this.router.navigate(['/forgot-password/set-new-password', this.msisdn]).then(isRedirectSuccessful => {
+    this.router.navigate(['/forgot-password/set-new-password', this.trimedMsisdn]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.warn('Can not redirect to forgot-password/set-new-password');
       }
-    })
+    });
 
   private startPinCodeTimer = (): void => {
-    this.pinCodeTimer.getTimeLeft$()
+    this.pinCodeTimer
+      .getTimeLeft$()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(timeLeft => this.timeLeft = timeLeft);
-  }
+      .subscribe(timeLeft => (this.timeLeft = timeLeft));
+  };
 
   private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('ForgotPasswordComponent: error when resolving pin-code', httpError);
     return of();
-  }
+  };
 
   // tslint:disable:cyclomatic-complexity
   private handleCheckPinCodeStatus = (status: ForgotPasswordPinCodeServiceStatus): void => {
@@ -132,16 +134,15 @@ export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('Unhandled backed error', status);
     }
-  }
+  };
 
   private displayIncorrectPinCodeError = (pinCodeForm: FormGroup, pinCodeControlName: string): void => {
-    pinCodeForm.controls[pinCodeControlName].setErrors({[InputPinCodeErrorsEnum.IncorrectPinCode]: true});
+    pinCodeForm.controls[pinCodeControlName].setErrors({ [InputPinCodeErrorsEnum.IncorrectPinCode]: true });
     this.formUtils.validateAllFormFields(pinCodeForm);
-  }
+  };
 
   private displayIncorrectTooManyAttemptsError = (pinCodeForm: FormGroup, pinCodeControlName: string): void => {
-    pinCodeForm.controls[pinCodeControlName].setErrors({[InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts]: true});
+    pinCodeForm.controls[pinCodeControlName].setErrors({ [InputPinCodeErrorsEnum.ToManyUnsuccessfulAttempts]: true });
     this.formUtils.validateAllFormFields(pinCodeForm);
-  }
-
+  };
 }
