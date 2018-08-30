@@ -67,8 +67,8 @@ export class NavbarExpertMenuComponent implements OnInit {
     this.userSessionService
       .getSession()
       .then(session => {
-        const route = RouterHelpers.replaceParams(RouterPaths.dashboard.expert.asPath, {
-          [RouterPaths.dashboard.expert.params.expertId]: session.account.id,
+        const route = RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
+          [RouterPaths.dashboard.user.profile.params.expertId]: session.account.id,
         });
         return this.router.navigate([route]);
       })

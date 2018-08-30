@@ -1,4 +1,3 @@
-plat-navbar([isExpertNavVisible]='true')
 .expert-dashboard-layout
   .container
     plat-dashboard-profile-header(
@@ -8,6 +7,7 @@ plat-navbar([isExpertNavVisible]='true')
       [description]='description',
       [isOwnProfile]='isOwnProfile',
       [expertId]='expertId',
+      [isLogged]='isLogged',
       (editProfile)='editProfile()'
     )
 .container

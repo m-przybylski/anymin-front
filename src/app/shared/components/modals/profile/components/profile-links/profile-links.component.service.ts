@@ -47,9 +47,9 @@ export class ProfileLinksComponentService {
     };
 
     let shortLink: IShortLink = {
-      icon: 'icon icon-dribbble',
+      icon: 'icon icon-www',
       url: 'link',
-      iconName: 'dribbble',
+      iconName: 'www',
     };
 
     if (link.includes(socialMediaLinks.facebook.url)) {

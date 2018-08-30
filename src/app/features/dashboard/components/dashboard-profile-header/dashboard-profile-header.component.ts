@@ -22,6 +22,8 @@ export class DashboardProfileHeaderComponent {
   public attachments: ReadonlyArray<string> = [];
   @Input()
   public expertId: string;
+  @Input()
+  public isLogged = false;
 
   @Output()
   public editProfile: EventEmitter<void> = new EventEmitter();
