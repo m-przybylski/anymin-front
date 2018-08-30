@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getCoreConfig } from './factories/core-config/core-config.facotry';
 import { LongPollingService } from './services/long-polling/long-polling.service';
+import { LoginHelperService } from '../features/login/services/login-helper.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { LongPollingService } from './services/long-polling/long-polling.service
     EventsServiceProvider,
     UserSessionService,
     LongPollingService,
+    LoginHelperService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptor,

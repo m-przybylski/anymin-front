@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { LoginHelperService } from '../login/services/login-helper.service';
 
 @Injectable()
 export class ForgotPasswordGuard implements CanActivate {
@@ -16,6 +17,7 @@ export class ForgotPasswordGuard implements CanActivate {
     private router: Router,
     private alertService: AlertService,
     private recoverPasswordService: RecoverPasswordService,
+    private helper: LoginHelperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ForgotPasswordGuard');
@@ -23,8 +25,12 @@ export class ForgotPasswordGuard implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.recoverPasswordService
-      .postRecoverPasswordRoute({ msisdn: route.params.msisdn })
-      .pipe(tap(getRecoverMethod => this.redirect(getRecoverMethod.method, route.params.msisdn)))
+      .postRecoverPasswordRoute({ msisdn: this.helper.addPlusToPhoneNumber(route.params.msisdn) })
+      .pipe(
+        tap(getRecoverMethod =>
+          this.redirect(getRecoverMethod.method, this.helper.trimPhoneNumber(route.params.msisdn)),
+        ),
+      )
       .pipe(catchError(this.handleError))
       .pipe(map(() => false));
   }

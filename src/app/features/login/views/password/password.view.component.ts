@@ -15,6 +15,7 @@ export class PasswordViewComponent implements OnInit {
 
   public passwordForm: FormGroup;
   public msisdn: string;
+  public trimedMsisdn: string;
   public isRequestPending = false;
   public isInputInitialFocused = true;
 
@@ -32,6 +33,7 @@ export class PasswordViewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.passwordForm = new FormGroup({});
+    this.trimedMsisdn = this.route.snapshot.params.msisdn;
     this.msisdn = this.helper.addPlusToPhoneNumber(this.route.snapshot.params.msisdn);
   }
 
