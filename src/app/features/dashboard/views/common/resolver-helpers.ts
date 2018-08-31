@@ -1,4 +1,4 @@
-import { forkJoin, Observable, throwError } from 'rxjs';
+import { forkJoin, Observable, throwError, of } from 'rxjs';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -23,10 +23,22 @@ export const mapData = <T>(
   router: Router,
   destinationNotFoundRoute = 'not-found',
 ): Observable<IExpertCompanyDashboardResolverData<T>> =>
-  forkJoin(data$, session$).pipe(
+  forkJoin(
+    data$,
+    session$.pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === httpCodes.unauthorized) {
+          return of({ account: { id: undefined } });
+        }
+
+        return throwError(error);
+      }),
+    ),
+  ).pipe(
     map(([data, session]) => ({
       profile: data,
       isOwnProfile: session.account.id === getOwnerId(data),
+      isLogged: session.account.id !== undefined,
     })),
     catchError((error: HttpErrorResponse) => {
       if (error.status === httpCodes.notFound) {
@@ -40,4 +52,5 @@ export const mapData = <T>(
 export interface IExpertCompanyDashboardResolverData<T> {
   profile: T;
   isOwnProfile: boolean;
+  isLogged: boolean;
 }

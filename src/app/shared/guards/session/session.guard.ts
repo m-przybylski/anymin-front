@@ -1,14 +1,10 @@
-// tslint:disable:no-duplicate-imports
-// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, Router } from '@angular/router';
+import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { UserSessionService } from '../../../core/services/user-session/user-session.service';
-import { Alerts, AlertService } from '@anymind-ng/core';
 
 @Injectable()
-export class SessionGuard implements CanActivate {
+export class SessionGuard implements CanActivate, CanLoad {
   private logger: LoggerService;
 
   constructor(
@@ -20,23 +16,31 @@ export class SessionGuard implements CanActivate {
     this.logger = loggerFactory.createLoggerService('SessionGuard');
   }
 
-  public canActivate = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> =>
+  public canLoad = (_route: Route): Promise<boolean> => this.can();
+
+  public canActivate = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> => this.can();
+
+  public can = (): Promise<boolean> =>
     this.userSessionService.getSession().then(
       () => {
         this.logger.info('user has session, allowing');
+
         return true;
       },
       () => {
         this.logger.warn('user does not have session, redirecting to /login');
-        this.router
-          .navigate(['/login'])
-          .then(isRedirectSuccessful => {
-            if (!isRedirectSuccessful) {
-              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Can not redirect to login');
-            }
-          })
-          .catch(this.logger.error.bind(this));
+        setTimeout(() => {
+          this.router
+            .navigate(['/login'])
+            .then(isRedirectSuccessful => {
+              if (!isRedirectSuccessful) {
+                this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+                this.logger.warn('Can not redirect to login');
+              }
+            })
+            .catch(this.logger.error.bind(this));
+        }, 0);
+
         return false;
       },
     );

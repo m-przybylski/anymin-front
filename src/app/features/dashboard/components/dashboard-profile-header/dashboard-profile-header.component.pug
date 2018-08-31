@@ -6,7 +6,7 @@
     .expert-layout__details
       .expert-layout__details-name-wrapper
         span.expert-layout__details-name {{name}}
-        .expert-layout__icons
+        .expert-layout__icons(*ngIf='isLogged')
           a.expert-layout__icons-button(plat-icon-button)
             span(plat-icon iconClass='share')
           a(*ngIf='isOwnProfile; else likeButton',plat-stroked-button, (click)='editProfileClick()').expert-layout__icons-button {{'EXPERT_DASHBOARD.EDIT' | translate}}

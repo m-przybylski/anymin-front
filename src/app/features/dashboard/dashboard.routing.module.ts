@@ -11,48 +11,46 @@ import { CompanyDashboardComponent } from './views/company-dashboard/company-das
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
-import { ExpertDashboardComponent } from './views/expert-dashboard/expert-dashboard.view.component';
-import { ExpertDashboardResolverService } from './views/expert-dashboard/services/expert-dashboard-resolver.service';
 import { NotFoundComponent } from './views/not-found/not-found.component';
-import { CompanyProfileComponent } from './views/company-dashboard/company-profile/company-profile.view.component';
-import { CompanyProfileResolverService } from './views/company-dashboard/services/company-profile-resolver.service';
+import { SessionGuard } from '../../shared/guards/session/session.guard';
 
 const routes: Routes = [
   {
-    path: 'user',
-    component: UserDashboardComponent,
+    path: '',
+    canActivate: [SessionGuard],
     children: [
-      { path: 'discover', component: DiscoverComponent },
-      { path: 'client-activities', component: ClientActivitiesComponent },
-      { path: 'expert-activities', component: ExpertActivitiesComponent },
-      { path: 'favourites', component: FavouritesComponent },
-      { path: 'settings', component: SettingsViewComponent },
-    ],
-  },
-  {
-    path: RouterPaths.dashboard.company.getName,
-    component: CompanyDashboardComponent,
-    children: [
-      { path: 'employees', component: EmployeesComponent, canActivate: [CompanyDashboardViewGuard] },
-      { path: 'activities', component: CompanyActivitiesComponent, canActivate: [CompanyDashboardViewGuard] },
       {
-        path: RouterPaths.dashboard.company.profile.getName,
-        component: CompanyProfileComponent,
-        runGuardsAndResolvers: 'always',
-        resolve: { company: CompanyProfileResolverService },
+        path: RouterPaths.dashboard.user.getName,
+        component: UserDashboardComponent,
+        children: [
+          { path: 'discover', component: DiscoverComponent },
+          { path: 'client-activities', component: ClientActivitiesComponent },
+          { path: 'expert-activities', component: ExpertActivitiesComponent },
+          { path: 'favourites', component: FavouritesComponent },
+          { path: 'settings', component: SettingsViewComponent },
+          {
+            path: RouterPaths.dashboard.user.profile.getName,
+            loadChildren: './views/user-dashboard/expert-dashboard/expert-dashboard.module#ExpertDashboardModule',
+          },
+        ],
+      },
+      {
+        path: RouterPaths.dashboard.company.getName,
+        component: CompanyDashboardComponent,
+        children: [
+          { path: 'employees', component: EmployeesComponent, canActivate: [CompanyDashboardViewGuard] },
+          { path: 'activities', component: CompanyActivitiesComponent, canActivate: [CompanyDashboardViewGuard] },
+          {
+            path: RouterPaths.dashboard.company.profile.getName,
+            loadChildren: './views/company-dashboard/company-profile/company-profile.module#CompanyProfileModule',
+          },
+        ],
+      },
+      {
+        path: '**',
+        component: NotFoundComponent,
       },
     ],
-  },
-  {
-    path: RouterPaths.dashboard.expert.getName,
-    resolve: { expert: ExpertDashboardResolverService },
-    component: ExpertDashboardComponent,
-    runGuardsAndResolvers: 'always',
-    children: [],
-  },
-  {
-    path: RouterPaths.dashboard.notfound.getName,
-    component: NotFoundComponent,
   },
 ];
 

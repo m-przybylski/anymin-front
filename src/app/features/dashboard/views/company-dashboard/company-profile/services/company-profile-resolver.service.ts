@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ViewsService, OrganizationProfileView, GetProfileWithDocuments, ProfileService } from '@anymind-ng/api';
 import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
+import { UserSessionService } from '../../../../../../core/services/user-session/user-session.service';
 import { Observable, from, forkJoin } from 'rxjs';
-import { mapData, IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
+import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 
 @Injectable()
 export class CompanyProfileResolverService

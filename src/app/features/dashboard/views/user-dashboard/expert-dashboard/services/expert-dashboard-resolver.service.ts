@@ -2,9 +2,9 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@a
 import { Injectable } from '@angular/core';
 import { ViewsService, ExpertProfileView } from '@anymind-ng/api';
 import { Observable, from } from 'rxjs';
-import { RouterPaths } from '../../../../../shared/routes/routes';
-import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
-import { mapData, IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
+import { RouterPaths } from '../../../../../../shared/routes/routes';
+import { UserSessionService } from '../../../../../../core/services/user-session/user-session.service';
+import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 
 @Injectable()
 export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDashboardResolverData<ExpertProfileView>> {
@@ -15,7 +15,7 @@ export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDas
     _state: RouterStateSnapshot,
   ): Observable<IExpertCompanyDashboardResolverData<ExpertProfileView>> {
     /** get expert id from route */
-    const expertId = route.paramMap.get(RouterPaths.dashboard.expert.params.expertId) as string;
+    const expertId = route.paramMap.get(RouterPaths.dashboard.user.profile.params.expertId) as string;
     /** get session to resolve logged user */
     const session$ = from(this.userSessionService.getSession());
     /** get expert profile from backend */

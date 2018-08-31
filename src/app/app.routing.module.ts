@@ -5,6 +5,8 @@ import { SessionGuard } from './shared/guards/session/session.guard';
 import { AnonymousGuard } from './shared/guards/anonymous/anonymous.guard';
 import { ConfirmEmailComponent } from './features/confirm-email/confirm-email.component';
 import { ConfirmEmailGuard } from './features/confirm-email/confirm-email.guard';
+import { RouterPaths, RouterPathsToken } from './shared/routes/routes';
+import { ProfileGuard } from './shared/guards/profile/profile.guard';
 
 const appRoutes: Routes = [
   {
@@ -20,13 +22,18 @@ const appRoutes: Routes = [
         loadChildren: './features/forgot-password/forgot-password.module#ForgotPasswordModule',
       },
       { path: 'account', canActivate: [SessionGuard], loadChildren: './features/account/account.module#AccountModule' },
-      {
-        path: 'dashboard',
-        canActivate: [SessionGuard],
-        loadChildren: './features/dashboard/dashboard.module#DashboardModule',
-      },
       // required by AngularJS
       { path: 'dashboard/expert/activities', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
+      {
+        path: 'dashboard',
+        canActivate: [ProfileGuard],
+        loadChildren: './features/dashboard/dashboard.module#DashboardModule',
+      },
+      {
+        path: RouterPaths.browse.getName,
+        canActivate: [ProfileGuard],
+        loadChildren: './features/browse/browse.module#BrowseModule',
+      },
     ],
   },
   { path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule' },
@@ -35,6 +42,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false, onSameUrlNavigation: 'reload' })],
+  providers: [ProfileGuard, { provide: RouterPathsToken, useValue: RouterPaths }],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

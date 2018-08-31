@@ -104,9 +104,9 @@ describe('ProfileLinksComponentService', () => {
     (service: ProfileLinksComponentService) => {
       const value = 'https://www.facebook.coma/jan.kowalski';
       const shortLink = {
-        icon: 'icon icon-dribbble',
+        icon: 'icon icon-www',
         url: 'link',
-        iconName: 'dribbble',
+        iconName: 'www',
       };
       expect(service.cropSocialMediaLinkAsName(value)).toEqual(shortLink);
     },

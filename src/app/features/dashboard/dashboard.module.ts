@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 import { SmsConfirmationComponent } from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
 import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
 import { NotFoundComponent } from './views/not-found/not-found.component';
-import { ExpertDashboardModule } from './views/expert-dashboard/expert-dashboard.module';
 import { CompanyDashboardModule } from './views/company-dashboard/company-dashboard.module';
 
 @NgModule({
@@ -32,13 +31,12 @@ import { CompanyDashboardModule } from './views/company-dashboard/company-dashbo
     NotFoundComponent,
   ],
   imports: [
+    AngularJsProvidersModule,
     ReactiveFormsModule,
     CommonModule,
     SharedModule,
-    AngularJsProvidersModule,
     DashboardRoutingModule,
     ProfileModalModule,
-    ExpertDashboardModule,
     CompanyDashboardModule,
   ],
 })

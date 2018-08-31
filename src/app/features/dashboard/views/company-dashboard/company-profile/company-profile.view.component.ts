@@ -6,7 +6,7 @@ import { ServiceWithEmployments } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
 import { CreateOrganizationModalComponent } from '../../../../../shared/components/modals/profile/create-organization/create-organization.component';
 import { CreateCompanyConsultationModalComponent } from '../../../../../shared/components/modals/create-company-consultation/create-company-consultation.component';
-import { OrganizationProfile } from '../services/company-profile-resolver.service';
+import { OrganizationProfile } from './services/company-profile-resolver.service';
 
 @Component({
   templateUrl: 'company-profile.view.component.html',
@@ -17,6 +17,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   public name: string;
   public description: string;
   public isOwnProfile: boolean;
+  public isLogged: boolean;
   public consultations: ReadonlyArray<ServiceWithEmployments>;
   public links: ReadonlyArray<string>;
 
@@ -34,6 +35,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
         this.description = consultations.organizationProfile.description;
         this.isOwnProfile = data.isOwnProfile;
         this.consultations = consultations.services;
+        this.isLogged = data.isLogged;
         if (typeof profile.profile.organizationDetails !== 'undefined') {
           this.links = profile.profile.organizationDetails.links;
         }
