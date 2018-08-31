@@ -33,6 +33,7 @@ export class UserAvatarComponent {
   public isOrganizationAvatar = false;
 
   public avatarUrl?: string;
+  public loaded = false;
 
   public setAvatarClass = (): string => {
     switch (this.avatarSize) {

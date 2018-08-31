@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AnymindComponentsCoreModule, AnymindComponentsModule } from '@anymind-ng/core';
 import { DropdownListComponent } from './dropdown-list/dropdown-list.component';
 import { UserAvatarComponent } from '../../user-avatar/user-avatar.component';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('Component: DropdownComponent', () => {
   beforeEach(() => {
@@ -20,6 +20,7 @@ describe('Component: DropdownComponent', () => {
         ReactiveFormsModule,
         FormsModule,
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
