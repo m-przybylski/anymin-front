@@ -225,7 +225,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       .createExpertProfile(this.assignExpertFormDetailsObject())
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
-        () => {
+        val => {
           this.navbarComponentService.onUpdateUserProfile().next(true);
           this.navbarComponentService.onUpdateClientProfile$().next(true);
           this.sendClientProfile({
@@ -233,16 +233,16 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
             avatar: this.expertNameForm.controls[this.expertFormControlAvatar].value,
           });
           !this.isExpert && this.router.url !== '/dashboard/user/discover'
-            ? this.redirectToExpertState()
+            ? this.redirectToExpertState(val.id)
             : this.onModalClose();
         },
         err => this.handleResponseError(err, 'Can not create expert profile'),
       );
   };
 
-  private redirectToExpertState = (): void => {
+  private redirectToExpertState = (val: string): void => {
     this.router
-      .navigate(['/dashboard/user/discover'])
+      .navigate([`dashboard/user/profile/${val}`])
       .then(isRedirectSuccessful => {
         this.onModalClose();
         if (!isRedirectSuccessful) {

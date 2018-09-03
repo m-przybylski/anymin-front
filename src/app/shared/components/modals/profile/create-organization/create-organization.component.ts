@@ -111,9 +111,9 @@ export class CreateOrganizationModalComponent implements OnInit {
       .createOrganizationProfile(this.assignFormValues())
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
-        () => {
+        val => {
           this.navbarComponentService.onUpdateUserProfile().next(true);
-          !this.isCompany ? this.redirectToOrganizationState() : this.onModalClose();
+          !this.isCompany ? this.redirectToOrganizationState(val.id) : this.onModalClose();
         },
         err => this.handleResponseError(err, 'Can not send company profile'),
       );
@@ -167,9 +167,9 @@ export class CreateOrganizationModalComponent implements OnInit {
     }
   };
 
-  private redirectToOrganizationState = (): void => {
+  private redirectToOrganizationState = (id: string): void => {
     this.router
-      .navigate(['/dashboard/company/activities'])
+      .navigate([`/dashboard/company/profile/${id}`])
       .then(isRedirectSuccessful => {
         this.onModalClose();
         if (!isRedirectSuccessful) {
