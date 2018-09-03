@@ -31,6 +31,10 @@ const routes: Routes = [
             path: RouterPaths.dashboard.user.profile.getName,
             loadChildren: './views/user-dashboard/expert-dashboard/expert-dashboard.module#ExpertDashboardModule',
           },
+          {
+            path: RouterPaths.dashboard.user.invitations.getName,
+            loadChildren: './views/user-dashboard/invitations/invitations.module#InvitationsModule',
+          },
         ],
       },
       {

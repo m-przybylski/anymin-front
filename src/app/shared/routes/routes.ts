@@ -20,6 +20,10 @@ export const RouterPaths = {
           expertId: 'expertId',
         },
       },
+      invitations: {
+        asPath: 'dashboard/user/invitations',
+        getName: 'invitations',
+      },
     },
     company: {
       asPath: 'dashboard/company',

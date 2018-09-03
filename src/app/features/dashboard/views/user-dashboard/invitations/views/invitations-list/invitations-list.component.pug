@@ -1,0 +1,23 @@
+.container
+  .invitations-list-layout(*ngIf='invitations.length; else emptyList')
+    span.invitations-list-layout__header {{ 'INVITATIONS.HEADER' | translate }}
+    ul.invitations-list-layout__list
+      li.invitations-list-layout__list-item(*ngFor='let invite of invitations')
+        plat-invitations-list-item(
+        [date]='invite.inviteDate',
+        [avatarToken]='invite.serviceOwnerAvatarToken',
+        [ownerName]='invite.serviceOwnerName',
+        [consultationDesc]='invite.serviceName',
+        [isVisited]='invite.isVisited'
+      )
+ng-template(#emptyList)
+  .invitations-empty-layout
+    am-core-image-display.invitations-empty-layout__image(
+      imgName="invites",
+      altDescription="invites",
+    )
+    header.invitations-empty-layout__header {{'INVITATIONS.EMPTY_HEADER' | translate }}
+    .invitations-empty-layout__description
+      span.invitations-empty-layout__description--one {{ 'INVITATIONS.EMPTY_DESCRIPTION_ONE' | translate }}
+      span.invitations-empty-layout__description--two {{ 'INVITATIONS.EMPTY_DESCRIPTION_TWO' | translate }}
+        a.invitations-empty-layout__description-link {{ 'INVITATIONS.EMPTY_LINK' | translate }}.

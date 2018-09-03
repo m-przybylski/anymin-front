@@ -10,7 +10,7 @@ describe('ProfileGuard', () => {
   let userSessionService: UserSessionService;
   let loggerFactory: any;
   let router: Router;
-  const routerConfig = {
+  const routerConfig: any = {
     dashboard: {
       asPath: 'dashboard',
       getName: 'dashboard',
