@@ -1,0 +1,20 @@
+plat-modal-component(
+  [modalTrTitleHeader]="modalHeaderTrKey",
+  [modalContainerClass]="modalWidth",
+  [isBackwardVisible]="modalStep === modalSteps.PIN_VERIFICATION",
+  [onBackwardClick]="onGoBack"
+)
+
+  ng-container([ngSwitch]="modalStep")
+
+    plat-change-msisdn(
+      *ngSwitchCase="modalSteps.CHANGE_MSISDN",
+      (msisdnVerificationStatusChange)="onMsisdnVerificationStatus($event)"
+    )
+
+    plat-pin-verification(
+      *ngSwitchCase="modalSteps.PIN_VERIFICATION",
+      [verificationPurpose]="pinVerificationPurpose",
+      [msisdn]="newUserMsisdn",
+      (pinVerificationEmitter$)="onPinVerification($event)",
+    )

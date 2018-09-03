@@ -22,6 +22,7 @@ export enum BackendErrors {
   CreateAnotherPinCodeTokenRecently = 333,
   EmailAlreadyExists = 334,
   AccountAlreadyExists = 335,
+  MsisdnIsNotValid = 340,
   MsisdnVerificationTokenIncorrect = 343,
   TooManyMsisdnTokenAttempts = 344,
   ToManyIncorrectPasswordAttempts = 345,

@@ -8,16 +8,14 @@ import { EmployeesComponent } from './views/company-dashboard/employees/employee
 import { ExpertActivitiesComponent } from './views/user-dashboard/expert-activities/expert-activities.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
-import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
-import { SettingOptionComponent } from './views/user-dashboard/settings/components/setting-option/setting-option.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SmsConfirmationComponent } from './views/user-dashboard/settings/components/change-number/sms-confirmation/sms-confirmation.component';
 import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { CompanyDashboardModule } from './views/company-dashboard/company-dashboard.module';
 import { NavbarModule } from '../../shared/components/navbar/navbar.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
+import { SettingsModule } from '@platform/features/dashboard/views/user-dashboard/settings/settings.module';
 
 @NgModule({
   declarations: [
@@ -27,9 +25,6 @@ import { InputsModule } from '../../shared/components/inputs/inputs.module';
     EmployeesComponent,
     ExpertActivitiesComponent,
     FavouritesComponent,
-    SettingsViewComponent,
-    SettingOptionComponent,
-    SmsConfirmationComponent,
     NotFoundComponent,
   ],
   imports: [
@@ -42,6 +37,7 @@ import { InputsModule } from '../../shared/components/inputs/inputs.module';
     ProfileModalModule,
     InputsModule,
     CompanyDashboardModule,
+    SettingsModule
   ],
 })
 export class DashboardModule {}

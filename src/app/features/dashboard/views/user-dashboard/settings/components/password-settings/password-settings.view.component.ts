@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ModalContainerWidthEnum } from '../../../../../../../shared/components/modals/modal/modal.component';
 import { PostRecoverPassword } from '@anymind-ng/api';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { RecoverPasswordStatus } from './pin-verification/pin-verification.component.service';
-import { IPinVerificationStatus } from './pin-verification/pin-verification.component';
+import { PinVerificationStatus } from '../pin-verification/pin-verification.component.service';
+import { IPinVerificationStatus, PinVerificationPurposeEnum } from '../pin-verification/pin-verification.component';
 import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
 
 enum ChangePasswordModalStepEnum {
@@ -26,6 +26,7 @@ export class PasswordSettingsViewComponent {
   public modalHeaderTrKey: string;
   public pinToken: string;
   public msisdn: string;
+  public pinVerificationPurpose: PinVerificationPurposeEnum = PinVerificationPurposeEnum.PASSWORD_CHANGE;
 
   private readonly modalHeaderTranslations = {
     changePassword: 'DASHBOARD.SETTINGS.CHANGE_PASSWORD.TITLE',
@@ -62,7 +63,7 @@ export class PasswordSettingsViewComponent {
   }
 
   public onPinVerification = (pinVerification: IPinVerificationStatus): void => {
-    if (pinVerification.status === RecoverPasswordStatus.SUCCESS) {
+    if (pinVerification.status === PinVerificationStatus.SUCCESS) {
       this.modalStep = ChangePasswordModalStepEnum.SET_NEW_PASSWORD;
       this.pinToken = pinVerification.token;
       this.modalHeaderTrKey = this.modalHeaderTranslations.setPassword;

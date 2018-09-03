@@ -3,7 +3,9 @@
 import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PhoneNumberServiceStatus, PhoneNumberViewService } from './phone-number.view.service';
-import { FormUtilsService, InputPhoneNumberService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import {
+  FormUtilsService, InputPhoneNumberService, LoggerFactory, LoggerService, inputPhoneNumberErrorMessages
+} from '@anymind-ng/core';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { Subject } from 'rxjs';
@@ -95,7 +97,8 @@ export class PhoneNumberViewComponent implements OnInit, AfterContentInit, OnDes
   };
 
   private displayIncorrectMsisdnError = (): void => {
-    this.msisdnForm.controls[this.msisdnControlName].setErrors({ [PhoneNumberServiceStatus.MSISDN_INVALID]: true });
+    this.msisdnForm.controls[this.msisdnControlName]
+      .setErrors({ [inputPhoneNumberErrorMessages.invalid]: true });
     this.formUtils.validateAllFormFields(this.msisdnForm);
   };
 }

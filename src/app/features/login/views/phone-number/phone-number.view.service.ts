@@ -138,6 +138,9 @@ export class PhoneNumberViewService {
         case BackendErrors.IncorrectValidation:
           return of(PhoneNumberServiceStatus.MSISDN_INVALID);
 
+        case BackendErrors.MsisdnIsNotValid:
+          return of(PhoneNumberServiceStatus.MSISDN_INVALID);
+
         default:
           this.logger.error('Error when handling phone number', err);
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);

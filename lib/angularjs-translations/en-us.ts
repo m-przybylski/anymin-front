@@ -1314,6 +1314,8 @@ import 'angular-translate';
         'INPUT_PASSWORD.INCORRECT_PASSWORD_VALIDATION_ERROR': 'Niepoprawne hasło',
         'INPUT_PASSWORD.UNSUCCESSFUL_ATTEMPTS_VALIDATION_ERROR': 'Przekroczono liczbę prób. Odczekaj i wyślij ponownie',
         'INPUT_PHONE_NUMBER.INCORRECT_PHONE_NUMBER_VALIDATION_ERROR': 'Błędny numer telefonu.',
+        "INPUT_PHONE_NUMBER.BLOCKED_PHONE_NUMBER_ERROR": "Numer telefonu zablokowany.",
+        "INPUT_PHONE_NUMBER.ALREADY_EXISTS_PHONE_NUMBER_ERROR": "Numer telefonu jest już zarejestrowany.",
         'INPUT_PIN_CODE.INCORRECT_PIN_CODE_VALIDATION_ERROR': 'Niepoprawny kod SMS',
         'INPUT_PIN_CODE.UNSUCCESSFUL_ATTEMPTS_VALIDATION_ERROR': 'Przekroczono liczbę prób. Odczekaj i wyślij ponownie',
         'INPUT_SET_PASSWORD.INVALID_PASSWORD_ERROR': 'Hasło nie spełnia wymagań',
