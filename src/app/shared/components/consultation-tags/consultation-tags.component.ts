@@ -21,10 +21,9 @@ interface ISuggestedTagsQuery {
   templateUrl: './consultation-tags.component.html',
   styleUrls: ['./consultation-tags.component.sass'],
   animations: Animations.addItemAnimation,
-  providers: [ConsultationTagsComponentService]
+  providers: [ConsultationTagsComponentService],
 })
 export class ConsultationTagsComponent implements OnInit, OnDestroy {
-
   @Input('label')
   public labelTrKey: string;
 
@@ -55,8 +54,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   @Output()
   public selectedTagsEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
 
-  // TODO make it as empty array - it is mocked because of search / suggested tags issue
-  public suggestedTags: string[] = ['suggested1', 'suggested2', 'suggested3'];
+  public suggestedTags: string[] = [];
   public selectedTags: string[] = [];
   public validationErrorTrKey: string;
 
@@ -66,30 +64,34 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
     invalidMaxTagsCount: 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAGS_COUNT',
     invalidMinTagsCount: 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_MIN_TAGS_COUNT',
     invalidValue: 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAG_NAME',
-    duplicated: 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAG_DUPLICATED'
+    duplicated: 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_TAG_DUPLICATED',
   };
   private readonly updateSuggestedTagsQueryDelay = 1000;
   private readonly suggestedTagsCount = 7;
   private ngUnsubscribe$ = new Subject<void>();
   private suggestedTagsQuery: ISuggestedTagsQuery = {
     name: '',
-    description: ''
+    description: '',
   };
   private suggestedTagsQuery$: Observable<ISuggestedTagsQuery>;
   private loggerService: LoggerService;
 
-  constructor(private consultationTagsComponentService: ConsultationTagsComponentService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private consultationTagsComponentService: ConsultationTagsComponentService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.loggerService = loggerFactory.createLoggerService('ConsultationTagsComponent');
   }
 
   public ngOnInit(): void {
     this.selectedTags = [...this.tagNames];
 
-    const titleValueChanges$ = this.form.controls[this.nameControlName].valueChanges
-      .pipe(map(value => (this.suggestedTagsQuery.name = value)));
-    const descriptionValueChanges$ = this.form.controls[this.descriptionControlName].valueChanges
-      .pipe(map(value => (this.suggestedTagsQuery.description = value)));
+    const titleValueChanges$ = this.form.controls[this.nameControlName].valueChanges.pipe(
+      map(value => (this.suggestedTagsQuery.name = value)),
+    );
+    const descriptionValueChanges$ = this.form.controls[this.descriptionControlName].valueChanges.pipe(
+      map(value => (this.suggestedTagsQuery.description = value)),
+    );
     this.suggestedTagsQuery$ = merge(titleValueChanges$, descriptionValueChanges$);
     this.suggestedTagsQuery$
       .pipe(debounceTime(this.updateSuggestedTagsQueryDelay))
@@ -109,97 +111,107 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
     const tagStatus = this.consultationTagsComponentService.getTagValidationStatus(tagLowerCase, this.selectedTags);
     switch (tagStatus) {
       case TagValidationStatus.INVALID_LENGTH:
-        this.displayInvalidTagError(InputTagsComponent.inputTagErrors.invalidLength,
-          this.validationErrorTranslations.invalidLength);
+        this.displayInvalidTagError(
+          InputTagsComponent.inputTagErrors.invalidLength,
+          this.validationErrorTranslations.invalidLength,
+        );
         break;
 
       case TagValidationStatus.INVALID_PATTERN:
-        this.displayInvalidTagError(InputTagsComponent.inputTagErrors.invalidPattern,
-          this.validationErrorTranslations.invalidValue);
+        this.displayInvalidTagError(
+          InputTagsComponent.inputTagErrors.invalidPattern,
+          this.validationErrorTranslations.invalidValue,
+        );
         break;
 
       case TagValidationStatus.DUPLICATED:
-        this.displayInvalidTagError(InputTagsComponent.inputTagErrors.duplicated,
-          this.validationErrorTranslations.duplicated);
+        this.displayInvalidTagError(
+          InputTagsComponent.inputTagErrors.duplicated,
+          this.validationErrorTranslations.duplicated,
+        );
         break;
 
       case TagValidationStatus.INVALID_WORDS_COUNT:
-        this.displayInvalidTagError(InputTagsComponent.inputTagErrors.invalidWordsCount,
-          this.validationErrorTranslations.invalidWordsCount);
+        this.displayInvalidTagError(
+          InputTagsComponent.inputTagErrors.invalidWordsCount,
+          this.validationErrorTranslations.invalidWordsCount,
+        );
         break;
 
       case TagValidationStatus.INVALID_MAX_COUNT:
-        this.displayInvalidTagError(InputTagsComponent.inputTagErrors.invalidMaxCount,
-          this.validationErrorTranslations.invalidMaxTagsCount);
+        this.displayInvalidTagError(
+          InputTagsComponent.inputTagErrors.invalidMaxCount,
+          this.validationErrorTranslations.invalidMaxTagsCount,
+        );
         break;
 
       default:
         this.addTag(tagLowerCase);
     }
-  }
+  };
 
   public removeSelectedTag = (tag: string): void => {
     if (this.isDisabled !== undefined && !this.isDisabled) {
       this.selectedTags = this.selectedTags.filter(item => item !== tag);
       this.selectedTagsEmitter$.emit(this.selectedTags);
-      // this.updateSuggestedTags();
+      this.updateSuggestedTags();
       this.checkTagsCount();
     }
-  }
+  };
 
   public handleSuggestedTag = (tag: string): void => {
     if (this.isDisabled !== undefined && !this.isDisabled) {
       this.suggestedTags = this.suggestedTags.filter(item => item !== tag);
       this.addTag(tag);
     }
-  }
+  };
 
-  public areSelectedTags = (): boolean =>
-    this.selectedTags.length > 0
+  public areSelectedTags = (): boolean => this.selectedTags.length > 0;
 
-  public areSuggestedTags = (): boolean =>
-    this.suggestedTags.length > 0
+  public areSuggestedTags = (): boolean => this.suggestedTags.length > 0;
 
   private addTag = (tag: string): void => {
     this.selectedTags.push(tag);
     this.selectedTagsEmitter$.emit(this.selectedTags);
-    // this.updateSuggestedTags();
+    this.updateSuggestedTags();
     this.checkTagsCount();
-  }
+  };
 
   private checkTagsCount = (): void => {
     // tslint:disable-next-line:no-null-keyword
     this.form.controls[this.controlName].setErrors(null);
     if (this.consultationTagsComponentService.isTagsMinCountInvalid(this.selectedTags)) {
-      this.displayInvalidTagError(InputTagsComponent.inputTagErrors.invalidMinCount,
-        this.validationErrorTranslations.invalidMinTagsCount);
+      this.displayInvalidTagError(
+        InputTagsComponent.inputTagErrors.invalidMinCount,
+        this.validationErrorTranslations.invalidMinTagsCount,
+      );
     }
-  }
+  };
 
   private displayInvalidTagError = (errorType: string, errorTrKey: string): void => {
     this.validationErrorTrKey = errorTrKey;
-    this.form.controls[this.controlName].setErrors({[errorType]: true});
+    this.form.controls[this.controlName].setErrors({ [errorType]: true });
     this.form.controls[this.controlName].markAsTouched();
-  }
+  };
 
   private updateSuggestedTags = (): void => {
-    this.consultationTagsComponentService.getSuggestedTags({
-      description: this.suggestedTagsQuery.description,
-      query: this.suggestedTagsQuery.name,
-      tags: this.selectedTags,
-      count: this.suggestedTagsCount
-    })
+    this.consultationTagsComponentService
+      .getSuggestedTags({
+        description: this.suggestedTagsQuery.description,
+        query: this.suggestedTagsQuery.name,
+        tags: this.selectedTags,
+        count: this.suggestedTagsCount,
+      })
       .pipe(catchError(this.handleGetSuggestedTagsError))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(response => {
         this.suggestedTags = response.tags;
       });
-  }
+  };
 
   private handleGetSuggestedTagsError = (error: HttpErrorResponse): Observable<GetSuggestedTags> => {
     this.loggerService.warn('Error when try to get suggested tags', error);
 
     return EMPTY;
-  }
-
+  };
 }
