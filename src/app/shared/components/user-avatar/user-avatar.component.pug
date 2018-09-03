@@ -1,8 +1,9 @@
 .user-avatar([ngClass]="setAvatarClass()")
-  img.user-avatar__img(src="{{ avatarUrl }}", *ngIf="avatarUrl; else iconAvatar", imageBroken)
+  ng-container(*ngIf="avatarUrl; else iconAvatar")
+    span.icon--profile(*ngIf='!loaded', plat-icon, [iconClass]='isOrganizationAvatar ? "organization" : "avatar"')
+    img.user-avatar__img([src]="avatarUrl", (load)='loaded = true', [ngClass]='{ "user-avatar__img--empty": !loaded, "user-avatar__img--loaded": loaded }', imageBroken)
   ng-template(#iconAvatar)
-    span.icon.icon--profile.icon-avatar(*ngIf="!avatarErrorValidation && !avatarError && !isOrganizationAvatar")
-    span.icon.icon--profile.icon-organization(*ngIf="!avatarErrorValidation && !avatarError && isOrganizationAvatar")
+    span.icon--profile(plat-icon, *ngIf="!avatarErrorValidation && !avatarError", [iconClass]='isOrganizationAvatar ? "organization" : "avatar"')
 
     .user-avatar__error(*ngIf="avatarError")
       div

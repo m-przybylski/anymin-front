@@ -7,9 +7,9 @@ import { DropdownListComponent } from './dropdown-list.component';
 import { getCoreConfig } from '../../../../../core/factories/core-config/core-config.facotry';
 import { UserAvatarComponent } from '../../../user-avatar/user-avatar.component';
 import { ScrollToElementDirective } from './scroll-to-element.directive';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('Component: DropdownListComponent', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DropdownListComponent, UserAvatarComponent, ScrollToElementDirective],
@@ -18,8 +18,9 @@ describe('Component: DropdownListComponent', () => {
         AnymindComponentsModule,
         BrowserModule,
         ReactiveFormsModule,
-        FormsModule
-      ]
+        FormsModule,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -35,10 +36,14 @@ describe('Component: DropdownListComponent', () => {
     const fixture = TestBed.createComponent(DropdownListComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    component.dropdownItems = [{name: 'name', avatar: 'aa'}, {name: 'name', avatar: 'aa'}, {
-      name: 'name',
-      avatar: 'aa'
-    }];
+    component.dropdownItems = [
+      { name: 'name', avatar: 'aa' },
+      { name: 'name', avatar: 'aa' },
+      {
+        name: 'name',
+        avatar: 'aa',
+      },
+    ];
     component.selectedItemIndex = 0;
     const indexNumber = 1;
     component.onMouseSelect(indexNumber);
@@ -48,7 +53,7 @@ describe('Component: DropdownListComponent', () => {
   it('should call onItemClicked', () => {
     const fixture = TestBed.createComponent(DropdownListComponent);
     const component = fixture.componentInstance;
-    component.dropdownItems = [{name: 'name', avatar: 'aa'}];
+    component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
     const indexNumber = 3;
     spyOn(component, 'selectItem');
@@ -61,7 +66,7 @@ describe('Component: DropdownListComponent', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.dropdownItems = [{name: 'name', avatar: 'aa'}];
+    component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
     spyOn(component, 'selectItem');
 

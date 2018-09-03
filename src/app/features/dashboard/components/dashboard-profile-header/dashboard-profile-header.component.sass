@@ -4,9 +4,13 @@
 =size($width-height)
   width: $width-height
   height: $width-height
-  img
+  img, span
     width: $width-height
     height: $width-height
+  span.icon-organization
+    font-size: calc(#{$width-height} * 0.75)
+  span.icon-avatar
+    font-size: $width-height
 
 =avatar-padding($padding)
   padding: 0 $padding $padding 0
