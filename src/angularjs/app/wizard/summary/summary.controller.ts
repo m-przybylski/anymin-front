@@ -22,6 +22,7 @@ import { StateService } from '@uirouter/angularjs';
 import { TopAlertService } from '../../../common/services/top-alert/top-alert.service';
 import { TranslatorService } from '../../../common/services/translator/translator.service';
 import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
+import { BackendErrors, isBackendError } from '../../../../app/shared/models/backend-error/backend-error';
 
 // tslint:disable:member-ordering
 // tslint:disable:strict-type-predicates
@@ -168,15 +169,29 @@ export class SummaryController implements ng.IController {
             }
           });
         },
-        error => {
-          this.errorHandler.handleServerError(error);
+        _error => {
+          const error = _error.data;
+          if (isBackendError(error)) {
+            switch (error.code) {
+              case BackendErrors.MissingPermissionForCreatingFreeConsultation:
+                this.errorHandler.handleServerError(
+                  error,
+                  'Can not save consultation',
+                  'INTERFACE.MISSING_PERMISSION_FOR_FREE_CONSULTATION',
+                );
+                break;
+              default:
+                this.errorHandler.handleServerError(error);
+            }
+          } else {
+            this.errorHandler.handleServerError(error);
+          }
         },
       );
     } else {
       this.isWizardInvalid = true;
     }
   };
-
   private redirectToDashboardActivities = (): void => {
     this.$state.go('app.dashboard.expert.activities');
   };
