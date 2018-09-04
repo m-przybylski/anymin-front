@@ -10,10 +10,10 @@ import { PostFileDetails } from 'profitelo-api-ng/model/models';
 import { FileTypeChecker, FileCategoryEnum } from '../../classes/file-type-checker/file-type-checker';
 import { CommonSettingsService } from '../../services/common-settings/common-settings.service';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
+import { LoggerService } from '@anymind-ng/core';
 
 // tslint:disable:member-ordering
 export class AvatarUploaderComponentController implements IAvatarUploaderComponentBindings, ng.IController {
-
   public uploadedFile: File;
   public isUserUploadImage = false;
   public imageSource: string;
@@ -31,18 +31,23 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
   private clearFormAfterCropping: () => void;
   private maxValidAvatarSize = this.CommonSettingsService.localSettings.profileAvatarSize;
 
-  public static $inject = ['$scope', 'CommonSettingsService', 'uploaderFactory'];
+  public static $inject = ['$scope', 'CommonSettingsService', 'logger', 'uploaderFactory'];
 
-    constructor(private $scope: ng.IScope,
-              private CommonSettingsService: CommonSettingsService,
-              uploaderFactory: UploaderFactory) {
+  constructor(
+    private $scope: ng.IScope,
+    private CommonSettingsService: CommonSettingsService,
+    private logger: LoggerService,
+    uploaderFactory: UploaderFactory,
+  ) {
     this.uploader = uploaderFactory.getInstance();
   }
 
   public addPhoto = (imagePath: string, file: File, callback: () => void): void => {
-    if (imagePath.length > 0
-      && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)
-      && this.isFileSizeValid(file)) {
+    if (
+      imagePath.length > 0 &&
+      FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR) &&
+      this.isFileSizeValid(file)
+    ) {
       this.imageSource = imagePath;
       this.isUserUploadImage = true;
       this.uploadedFile = file;
@@ -56,19 +61,19 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
     this.isFileSizeError = !this.isFileSizeValid(file);
 
     this.$scope.$apply();
-  }
+  };
 
   public onFocus = (): void => {
     this.isFocus = true;
-  }
+  };
 
   public onBlur = (): void => {
     this.isFocus = false;
-  }
+  };
 
   public removePhoto = (): void => {
     this.avatarToken = void 0;
-  }
+  };
 
   public saveCrop = (data: any): void => {
     const indexOfSecondXPoint = 2;
@@ -78,17 +83,18 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
         x: Number(data.points[0]),
         y: Number(data.points[1]),
         width: squareSideLength,
-        height: squareSideLength
+        height: squareSideLength,
       },
-      fileType: FileTypeEnum.PROFILE
+      fileType: FileTypeEnum.PROFILE,
     };
     this.isLoading = true;
     this.isUploadInProgress = true;
-    this.uploader.uploadFile(this.uploadedFile, postFileDetails, () => {})
-    .then(this.onFileUpload, this.onFileUploadError);
+    this.uploader
+      .uploadFile(this.uploadedFile, postFileDetails, () => {})
+      .then(this.onFileUpload, this.onFileUploadError);
 
     this.isUserUploadImage = false;
-  }
+  };
 
   private onFileUpload = (res: any): void => {
     this.isLoading = false;
@@ -98,14 +104,13 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
     this.clearFormAfterCropping();
     this.isFocus = true;
     this.isFileUploadError = false;
-  }
+  };
 
   private onFileUploadError = (err: any): void => {
     this.isLoading = false;
     this.isFileUploadError = true;
-    throw new Error('Can not upload file: ' + String(err));
-  }
+    this.logger.warn('Can not upload file: ' + String(err));
+  };
 
   private isFileSizeValid = (file: File): boolean => file.size <= this.maxValidAvatarSize;
-
 }
