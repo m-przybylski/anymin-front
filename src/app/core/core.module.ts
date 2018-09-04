@@ -6,7 +6,7 @@ import { ApiModule } from '@anymind-ng/api';
 import { ApiConfigurationFactory } from './factories/api-configuration/api-configuration.factory';
 import { ApiKeyService } from './services/api-key/api-key.service';
 import { ApiKeyInterceptor } from './services/api-key/api-key.interceptor';
-import { LoggerModule, AnymindComponentsCoreModule } from '@anymind-ng/core';
+import { LoggerModule, AnymindComponentsCoreModule, LogLevel } from '@anymind-ng/core';
 import { Config } from '../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,12 +14,17 @@ import { getCoreConfig } from './factories/core-config/core-config.facotry';
 import { LongPollingService } from './services/long-polling/long-polling.service';
 import { LoginHelperService } from '../features/login/services/login-helper.service';
 
+// tslint:disable-next-line:only-arrow-functions
+export function getLogLevel(): LogLevel {
+  return Config.logLevel;
+}
+
 @NgModule({
   imports: [
     HttpClientModule,
     AnymindComponentsCoreModule.forRoot(getCoreConfig),
     ApiModule.forRoot(ApiConfigurationFactory),
-    LoggerModule.forRoot(() => Config.logLevel),
+    LoggerModule.forRoot(getLogLevel),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
   ],
