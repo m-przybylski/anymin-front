@@ -19,7 +19,7 @@ import { LoginHelperService } from '../features/login/services/login-helper.serv
     HttpClientModule,
     AnymindComponentsCoreModule.forRoot(getCoreConfig),
     ApiModule.forRoot(ApiConfigurationFactory),
-    LoggerModule.forRoot(Config.logLevel),
+    LoggerModule.forRoot(() => Config.logLevel),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
   ],
