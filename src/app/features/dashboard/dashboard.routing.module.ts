@@ -11,7 +11,6 @@ import { CompanyDashboardComponent } from './views/company-dashboard/company-das
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
-import { NotFoundComponent } from './views/not-found/not-found.component';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 
 const routes: Routes = [
@@ -45,10 +44,6 @@ const routes: Routes = [
             loadChildren: './views/company-dashboard/company-profile/company-profile.module#CompanyProfileModule',
           },
         ],
-      },
-      {
-        path: '**',
-        component: NotFoundComponent,
       },
     ],
   },
