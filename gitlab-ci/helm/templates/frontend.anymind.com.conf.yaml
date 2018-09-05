@@ -7,23 +7,36 @@ data:
   frontend.anymind.com.conf: |
     server {
 
-    listen 80 default_server;
+      listen 80 default_server;
 
-    client_max_body_size 100M;
-    gzip on;
-
-    location / {
-      root /dist;
-      try_files $uri /index.html;
-
+      client_max_body_size 100M;
       gzip on;
-      gzip_disable "msie6";
+      root /dist;
 
-      gzip_vary on;
-      gzip_proxied any;
-      gzip_comp_level 6;
-      gzip_buffers 16 8k;
-      gzip_http_version 1.1;
-      gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+      location / {
+        try_files $uri @index;
+
+        gzip on;
+        gzip_disable "msie6";
+
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
       }
+
+      location @index {
+        try_files /index.html =404;
+
+        ## Disable cache for index.html ##
+        add_header Last-Modified $date_gmt;
+        add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+        expires off;
+        etag off;
+        if_modified_since off;
+        proxy_no_cache 1;
+        proxy_cache_bypass 1;
       }
+    }
