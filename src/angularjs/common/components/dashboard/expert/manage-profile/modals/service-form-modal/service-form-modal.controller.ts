@@ -32,6 +32,7 @@ import { CommonSettingsService } from '../../../../../../services/common-setting
 import { Config } from '../../../../../../../../config';
 import { ServiceWithOwnerProfile } from '@anymind-ng/api';
 import { ViewsApi } from 'profitelo-api-ng/api/ViewsApi';
+import { BackendErrors, isBackendError } from '../../../../../../../../app/shared/models/backend-error/backend-error';
 
 export interface IServiceFormModalScope extends ng.IScope {
   onModalCloseCallback: () => void;
@@ -328,13 +329,24 @@ export class ServiceFormModalController implements ng.IController {
     this.consultationTags = serviceDetails.tags.map(tag => tag.name);
   };
 
-  private onReject = (error: any): void => {
+  private onReject = (_error: any): void => {
     this.isLoading = false;
-    this.errorHandler.handleServerError(
-      error,
-      'Can not save consultation',
-      'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE',
-    );
+    const error = _error.data;
+    if (isBackendError(error)) {
+      switch (error.code) {
+        case BackendErrors.MissingPermissionForCreatingFreeConsultation:
+          this.errorHandler.handleServerError(
+            error,
+            'Can not save consultation',
+            'INTERFACE.MISSING_PERMISSION_FOR_FREE_CONSULTATION',
+          );
+          break;
+        default:
+          this.errorHandler.handleServerError(error);
+      }
+    } else {
+      this.errorHandler.handleServerError(error);
+    }
   };
 
   private assignValidationValues = (): void => {
