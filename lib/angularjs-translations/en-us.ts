@@ -1080,7 +1080,7 @@ import 'angular-translate';
         'DASHBOARD.SETTINGS.CHANGE_NUMBER.TITLE': 'Numer telefonu',
         'DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON': 'Potwierdź kodem SMS',
         'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE': 'Numer telefonu',
-        'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOLTIP': 'Tooltip edycja numery telefonu',
+        'DASHBOARD.SETTINGS.CHANGE_ANONYMITY_TITLE.TOOLTIP': 'Tooltip anonimowość',
         'DASHBOARD.SETTINGS.CHANGE_PASSWORD_DESCRIPTION':
           'Dobrze jest użyć silnego hasła, którego nie używasz nigdzie indziej',
         'DASHBOARD.SETTINGS.CHANGE_PASSWORD_TITLE': 'Zmień hasło',

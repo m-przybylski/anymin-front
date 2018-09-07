@@ -12,6 +12,7 @@ import { SettingOptionComponent } from '@platform/features/dashboard/views/user-
 import { ModalsModule } from '@platform/shared/components/modals/modals.module';
 import { ChangeMsisdnComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/msisdn-settings/change-msisdn/change-msisdn.component';
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
+import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
     SetNewPasswordComponent,
     PinVerificationComponent,
     SettingOptionComponent,
-    ChangeMsisdnComponent
+    ChangeMsisdnComponent,
+    ChangeAnonymityComponent
   ],
   declarations: [
     ChangeEmailViewComponent,
@@ -41,7 +43,8 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
     SetNewPasswordComponent,
     PinVerificationComponent,
     SettingOptionComponent,
-    ChangeMsisdnComponent
+    ChangeMsisdnComponent,
+    ChangeAnonymityComponent
   ],
   providers: [],
   entryComponents: [
@@ -49,7 +52,6 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
     PasswordSettingsViewComponent
-
   ]
 })
 

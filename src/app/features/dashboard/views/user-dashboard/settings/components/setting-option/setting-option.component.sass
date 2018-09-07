@@ -1,32 +1,26 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
 
 \:host
-	display: block
+  display: block
 
 .setting-option
-	padding: 20px 48px
-	background-color: $c-white
-	display: flex
-	justify-content: space-between
-	border-radius: 4px
+  padding: 20px 24px
+  background-color: $c-white
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-radius: 4px
+  max-width: 840px
 
-	&__left
+  &__left
 		.description-container
-			&__title
-				+h6
-				font-weight: 500
+      &__title-container
+        display: flex
 
-			&__description
-				+subtitle-small
-				color: $c-text-secondary
+      &__title
+        +subtitle
+        font-weight: 500
 
-	&__right
-		button
-			height: 40px
-			border: 1px solid rgba(44,47,52,0.15)
-
-			span
-				+button-small
-				color: $c-text-primary
-				text-transform: none
-
+      &__description
+        +subtitle-small
+        color: $c-text-secondary

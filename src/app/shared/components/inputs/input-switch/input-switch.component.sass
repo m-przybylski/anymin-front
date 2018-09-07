@@ -4,16 +4,23 @@
 .input-switch
   display: flex
   align-items: center
-  
+
   &__status-text
-    +label
+    +button-small
+    font-size: 14px
     margin: 0 16px 0 0
-    
+
+    &--disabled
+      color: $c-placeholder
+
   &__label
     display: flex
     align-items: center
     cursor: pointer
     height: 20px
+
+    &--disabled
+      cursor: default
 
   &__switcher-container
     position: relative
@@ -30,9 +37,12 @@
         &:before
           transform: translateX(20px)
 
+      &:checked + .input-switch__switcher--disabled
+        background-color: $c-lines
+
   &__switcher
     position: absolute
-    border-radius: 34px
+    border-radius: 10px
     top: 0
     left: 0
     right: 0
@@ -45,14 +55,21 @@
       content: ""
       height: 20px
       width: 20px
+      border: 2px solid $c-label
       border-radius: 50%
       left: -2px
       bottom: -6px
       background-color: $c-white
-      box-shadow: 0 1px 6px 0 $c-placeholder
       transition: 0.3s
+
+    &--disabled
+      &:before
+        border-color: $c-lines
 
   &__label-text
     +button-small
     color: $c-text-secondary
     margin: 0 0 0 16px
+
+    &--disabled
+      color: $c-placeholder
