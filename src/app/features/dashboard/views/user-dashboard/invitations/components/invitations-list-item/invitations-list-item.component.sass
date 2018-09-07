@@ -1,0 +1,106 @@
+// all color variables
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+// all font sizes are here
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+// breakpoints for containers
+@import '../.../../../../../../../../template/core/partials/grid'
+
+=avatar-size($width-height)
+  width: $width-height
+  height: $width-height
+
+  img, span
+    width: $width-height
+    height: $width-height
+    min-width: $width-height
+    min-height: $width-height
+
+  span.icon-organization
+      font-size: calc(#{$width-height} * 0.75)
+
+.invitations-list-item
+  display: flex
+  flex-direction: column
+  position: relative
+  align-items: flex-start
+  border-radius: 4px
+  background-color: $c-white
+  padding: 24px 12px 20px 56px
+  margin: 0 -4px
+
+  +xsm
+    margin: 0 -12px
+
+  +smm
+    align-items: center
+    flex-direction: row
+    padding: 20px 16px
+    margin: 0 -16px
+
+  +mdm
+    padding: 24px
+    margin: 0px
+
+  &--visited
+    background-color: $c-half-white
+
+  &__date
+    +caption
+    color: $c-label
+    font-weight: 500
+    order: 1
+
+    +smm
+      order: 0
+
+  &__avatar
+    position: absolute
+    top: 20px
+    left: 12px
+
+    +smm
+      position: static
+      margin: 0 24px 0 19px
+
+    +mdm
+      margin: 0 32px 0 30px
+
+    div.user-avatar
+      +avatar-size(32px)
+
+      +smm
+        +avatar-size(40px)
+
+  &__details
+    display: flex
+    flex-direction: column
+    flex-grow: 1
+
+    +mdm
+      flex-direction: row
+      align-items: center
+
+    &-owner
+      +button-small
+      margin: 0 0 8px 0
+
+      +mdm
+        min-width: 156px
+        max-width: 156px
+        overflow: hidden
+        margin: 0 8px 0 0
+        white-space: nowrap
+        text-overflow: ellipsis
+
+      +lgm
+        min-width: 230px
+        max-width: 230px
+
+    &-description
+      +subtitle-small
+      color: $c-text-secondary
+      margin: 0 0 8px 0
+
+      +smm
+        margin: 0
+

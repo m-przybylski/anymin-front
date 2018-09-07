@@ -1,0 +1,7 @@
+.invitations-list-item([ngClass]="{'invitations-list-item--visited': isVisited }")
+  span.invitations-list-item__date {{date | date:'dd.MM.yyyy'}}
+  .invitations-list-item__avatar
+    plat-user-avatar([avatarToken]='avatarToken', isOrganizationAvatar='true')
+  .invitations-list-item__details
+    span.invitations-list-item__details-owner {{ownerName}}
+    span.invitations-list-item__details-description {{consultationDesc}}

@@ -1,0 +1,75 @@
+// all color variables
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+// all font sizes are here
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+// breakpoints for containers
+@import '../.../../../../../../../../template/core/partials/grid'
+
+
+=row-paddings
+  padding: 24px 12px
+
+  +smm
+    padding: 20px 16px
+
+  +mdm
+    padding: 32px 24px
+
+.invitations-list-layout
+  +smm
+    padding: 24px 0 0 0
+
+  &__header
+    +h6
+    font-weight: 500
+    display: block
+    padding: 24px 8px
+
+    +smm
+      +h5
+      font-weight: 500
+      padding: 24px 16px
+
+  &__list-item
+    margin: 0 0 4px 0
+
+    &:nth-last-child(1)
+      margin: 0 0 24px 0
+
+.invitations-empty-layout
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  margin: 20px auto 0 auto
+  min-width: 304px
+  max-width: 343px
+  min-height: calc(100vh - 56px)
+
+  @media (min-height: 672px)
+    margin-top: 0px
+
+  +xsm
+    min-height: calc(100vh - 80px)
+
+  +smm
+    max-width: 639px
+
+  &__header
+    +h5
+    margin: 16px 0
+    text-align: center
+
+    +smm
+      +h4
+      margin: 24px 0
+
+  &__description
+    +subtitle-small
+    padding: 0 14px
+    text-align: center
+
+    +smm
+      display: flex
+      flex-direction: column
+      padding: 0

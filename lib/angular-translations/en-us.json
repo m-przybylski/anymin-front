@@ -1784,5 +1784,10 @@
   "CONSULTATION_INFO.CONSULTATION_ROW.RATING.none": "Brak pozytywnych",
   "CONSULTATION_INFO.CONSULTATION_ROW.RATING.other": "{{value}}% pozytywnych",
   "CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.NO_JOINS": "Nikt jeszcze nie dołączył",
-  "CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.OTHERS": "innych konsultantów"
+  "CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.OTHERS": "innych konsultantów",
+  "INVITATIONS.HEADER": "Zaproszenia do konsultacji",
+  "INVITATIONS.EMPTY_HEADER": "Tu powinny być zaproszenia…",
+  "INVITATIONS.EMPTY_DESCRIPTION_ONE": "…do rozmawiania w ramach konsultacji należących do organizacji.",
+  "INVITATIONS.EMPTY_DESCRIPTION_TWO": " Możesz dowiedzieć się więcej o pracownikach i organizacjach w AnyMind, w ",
+  "INVITATIONS.EMPTY_LINK": "tym artykule"
 }

@@ -15,6 +15,7 @@
     "app/features/dashboard/dashboard.module.ts",
     "app/features/dashboard/views/company-dashboard/company-profile/company-profile.module.ts",
     "app/features/dashboard/views/user-dashboard/expert-dashboard/expert-dashboard.module.ts",
+    "app/features/dashboard/views/user-dashboard/invitations/invitations.module.ts",
     "app/features/angularjs/angularjs.module.ts",
     "app/features/browse/browse.module.ts",
     "angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts",
