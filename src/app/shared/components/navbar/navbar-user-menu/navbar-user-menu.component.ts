@@ -11,7 +11,7 @@ import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
+import { CreateProfileModalComponent } from '../../modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
 
 @Component({
@@ -62,9 +62,9 @@ export class NavbarUserMenuComponent implements OnInit, OnDestroy {
   }
 
   public openEditProfileModal = (): boolean =>
-    (this.modalService.open(EditProfileModalComponent).componentInstance.isExpertForm = false);
+    (this.modalService.open(CreateProfileModalComponent).componentInstance.isExpertForm = false);
 
-  public openEditProfileAsExpertModal = (): NgbModalRef => this.modalService.open(EditProfileModalComponent);
+  public openEditProfileAsExpertModal = (): NgbModalRef => this.modalService.open(CreateProfileModalComponent);
 
   public onOrganizationProfileSwitch = (e: Event): void => e.stopPropagation();
 

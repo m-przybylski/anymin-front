@@ -4,7 +4,7 @@ import { CreateExpertConsultationModalService } from './create-expert-consultati
 import { FormGroup } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Config } from '../../../../../config';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { catchError } from 'rxjs/internal/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
@@ -12,8 +12,6 @@ import { EMPTY } from 'rxjs/index';
 import { Observable } from 'rxjs/Rx';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
-import { EmployeesInviteModalComponent } from '../employees-invite/employees-invite.component';
-import { GetService } from '@anymind-ng/api';
 
 @Component({
   selector: 'plat-create-expert-consultation',
@@ -48,7 +46,6 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     private formUtils: FormUtilsService,
     private createExpertConsultationModalService: CreateExpertConsultationModalService,
     private alertService: AlertService,
-    private modalService: NgbModal,
     private activeModal: NgbActiveModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
@@ -70,10 +67,9 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
       this.createExpertConsultationModalService
         .createService(this.getServiceModel())
         .pipe(catchError(this.handleCreateServiceError))
-        .subscribe((serviceDetails: GetService) => {
+        .subscribe(() => {
           this.isRequestPending = false;
           this.alertService.pushSuccessAlert(Alerts.CreateConsultationSuccess);
-          this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
           this.activeModal.close(true);
         });
     } else {

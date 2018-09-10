@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
-import { EditProfileModalComponent } from '../../modals/profile/edit-profile/edit-profile.component';
+import { CreateProfileModalComponent } from '../../modals/profile/create-profile/create-profile.component';
 import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { RouterHelpers, RouterPaths } from '../../../routes/routes';
@@ -78,7 +78,7 @@ export class NavbarCompanyMenuComponent implements OnInit, OnDestroy {
         this.logger.error(err);
       });
   };
-  public openEditProfileModal = (): NgbModalRef => this.modalService.open(EditProfileModalComponent);
+  public openEditProfileModal = (): NgbModalRef => this.modalService.open(CreateProfileModalComponent);
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();

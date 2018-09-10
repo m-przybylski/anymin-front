@@ -2,7 +2,7 @@ import { Component, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvatarSizeEnum } from '../../../../../shared/components/user-avatar/user-avatar.component';
 import { EmploymentWithService, ExpertProfileView } from '@anymind-ng/api';
-import { EditProfileModalComponent } from '../../../../../shared/components/modals/profile/edit-profile/edit-profile.component';
+import { CreateProfileModalComponent } from '../../../../../shared/components/modals/profile/create-profile/create-profile.component';
 import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { CreateExpertConsultationModalComponent } from '../../../../../shared/components/modals/create-expert-consultation/create-expert-consultation.component';
@@ -46,7 +46,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public editProfile = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModal(EditProfileModalComponent);
+    const changed: boolean | undefined = await this.openModal(CreateProfileModalComponent);
     this.realoadIfNeeded(changed);
   };
   /**

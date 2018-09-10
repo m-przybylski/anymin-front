@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { EditProfileModalComponentService } from '../../../edit-profile/edit-profile.component.service';
+import { CreateProfileModalComponentService } from '../../../create-profile/create-profile.component.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError, takeUntil } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   constructor(
     private formUtils: FormUtilsService,
     private alertService: AlertService,
-    private editProfileModalComponentService: EditProfileModalComponentService,
+    private createProfileModalComponentService: CreateProfileModalComponentService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('AvatarUploaderComponent');
@@ -46,7 +46,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', this.isRequired ? Validators.required.bind(this) : []));
 
-    this.editProfileModalComponentService.avatarToken
+    this.createProfileModalComponentService.avatarToken
       .pipe(
         catchError(err => of(this.handleGetPrevoiusUrlAvatarError(err))),
         takeUntil(this.destroyed$),
@@ -63,7 +63,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   };
 
   public ngOnDestroy(): void {
-    this.editProfileModalComponentService.setAvatarToken(this.form.controls[this.controlName].value);
+    this.createProfileModalComponentService.setAvatarToken(this.form.controls[this.controlName].value);
     this.destroyed$.next();
     this.destroyed$.complete();
   }
@@ -71,7 +71,7 @@ export class AvatarUploaderComponent implements OnDestroy, OnInit {
   public onClickClear = (): void => {
     this.isError = false;
     this.form.controls[this.controlName].setValue('');
-    this.editProfileModalComponentService.setAvatarToken('');
+    this.createProfileModalComponentService.setAvatarToken('');
   };
 
   private handleGetPrevoiusUrlAvatarError = (httpError: HttpErrorResponse): void => {

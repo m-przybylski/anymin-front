@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
 import { UploaderService } from '../../../services/uploader/uploader.service';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { EditProfileModalComponent } from './edit-profile/edit-profile.component';
+import { CreateProfileModalComponent } from './create-profile/create-profile.component';
 import { ImageCropModalComponent } from './components/basic-profile-data/image-crop/image-crop.component';
-import { EditProfileModalComponentService } from './edit-profile/edit-profile.component.service';
+import { CreateProfileModalComponentService } from './create-profile/create-profile.component.service';
 import { BasicProfileDataComponent } from './components/basic-profile-data/basic-profile-data.component';
 import { ProfileLinksComponent } from './components/profile-links/profile-links.component';
 import { AvatarUploaderComponent } from './components/basic-profile-data/avatar-uploader/avatar-uploader.component';
@@ -14,29 +14,18 @@ import { CreateOrganizationModalComponent } from './create-organization/create-o
 import { CreateOrganizationModalComponentService } from './create-organization/create-organization.component.service';
 
 @NgModule({
-  imports: [
-    ModalsModule
-  ],
-  entryComponents: [
-    EditProfileModalComponent,
-    CreateOrganizationModalComponent,
-    ImageCropModalComponent
-  ],
-  providers: [
-    EditProfileModalComponentService,
-    CreateOrganizationModalComponentService,
-    UploaderService,
-  ],
+  imports: [ModalsModule],
+  entryComponents: [CreateProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
+  providers: [CreateProfileModalComponentService, CreateOrganizationModalComponentService, UploaderService],
   declarations: [
     BasicProfileDataComponent,
-    EditProfileModalComponent,
+    CreateProfileModalComponent,
     CreateOrganizationModalComponent,
     ProfileLinksComponent,
     ImageCropModalComponent,
     AvatarUploaderComponent,
     AvatarUploaderDirective,
-    FileUploaderComponent
-  ]
+    FileUploaderComponent,
+  ],
 })
-export class ProfileModalModule {
-}
+export class ProfileModalModule {}

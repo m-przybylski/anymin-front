@@ -4,13 +4,13 @@ import { LoggerFactory } from '@anymind-ng/core';
 import createSpyObj = jasmine.createSpyObj;
 import { AccountService, ProfileService, PutExpertDetails, PutGeneralSettings } from '@anymind-ng/api';
 import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
-import { EditProfileModalComponentService } from './edit-profile.component.service';
+import { CreateProfileModalComponentService } from './create-profile.component.service';
 
-describe('EditProfileModalComponentService', () => {
+describe('CreateProfileModalComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        EditProfileModalComponentService,
+        CreateProfileModalComponentService,
         { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
         {
           provide: ProfileService,
@@ -26,12 +26,15 @@ describe('EditProfileModalComponentService', () => {
     });
   });
 
-  it('should be created', inject([EditProfileModalComponentService], (service: EditProfileModalComponentService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject(
+    [CreateProfileModalComponentService],
+    (service: CreateProfileModalComponentService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 
   it('should create expert profile', () => {
-    const service: EditProfileModalComponentService = TestBed.get(EditProfileModalComponentService);
+    const service: CreateProfileModalComponentService = TestBed.get(CreateProfileModalComponentService);
     const profileService = TestBed.get(ProfileService);
     const expertDetailsObject: PutExpertDetails = {
       name: 'name',
@@ -46,7 +49,7 @@ describe('EditProfileModalComponentService', () => {
   });
 
   it('should create client profile', () => {
-    const service: EditProfileModalComponentService = TestBed.get(EditProfileModalComponentService);
+    const service: CreateProfileModalComponentService = TestBed.get(CreateProfileModalComponentService);
     const accountService = TestBed.get(AccountService);
     const clientDetailsObject: PutGeneralSettings = {
       nickname: 'nick',

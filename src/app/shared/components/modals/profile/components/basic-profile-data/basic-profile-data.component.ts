@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { EditProfileModalComponentService } from '../../edit-profile/edit-profile.component.service';
+import { CreateProfileModalComponentService } from '../../create-profile/create-profile.component.service';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
@@ -47,7 +47,7 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
   private ngUnsubscribe = new Subject<string>();
 
   constructor(
-    private editProfileModalComponentService: EditProfileModalComponentService,
+    private createProfileModalComponentService: CreateProfileModalComponentService,
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
@@ -55,14 +55,14 @@ export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
   }
 
   public ngAfterContentInit(): void {
-    this.editProfileModalComponentService.userName
+    this.createProfileModalComponentService.userName
       .pipe(catchError(err => of(this.handleGetPrevoiusValueError(err))))
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(this.setPreviousUserNameValue);
   }
 
   public ngOnDestroy(): void {
-    this.editProfileModalComponentService.setUserName(this.form.controls[this.profileNameControlName].value);
+    this.createProfileModalComponentService.setUserName(this.form.controls[this.profileNameControlName].value);
     this.form.reset();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
