@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@
 import { CropDetails } from '@anymind-ng/api/model/cropDetails';
 import { PostFileDetails } from '@anymind-ng/api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditProfileModalComponentService } from '../../../edit-profile/edit-profile.component.service';
+import { CreateProfileModalComponentService } from '../../../create-profile/create-profile.component.service';
 import { Alerts, AlertService, WindowRef, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Croppie from 'croppie';
@@ -42,7 +42,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
     private uploaderService: UploaderService,
     private alertService: AlertService,
     private windowRef: WindowRef,
-    private editProfileModalComponentService: EditProfileModalComponentService,
+    private createProfileModalComponentService: CreateProfileModalComponentService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ImageCropModalComponent');
@@ -108,7 +108,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
         croppingDetails: croppieCords,
       })
       .then(response => {
-        this.editProfileModalComponentService.setAvatarToken(response.token);
+        this.createProfileModalComponentService.setAvatarToken(response.token);
         this.isPending = false;
         this.onModalClose();
       })

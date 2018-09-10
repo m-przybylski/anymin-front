@@ -8,7 +8,7 @@ import { UserSessionService } from '../../../../../core/services/user-session/us
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
 
 @Injectable()
-export class EditProfileModalComponentService {
+export class CreateProfileModalComponentService {
   private userName$ = new ReplaySubject<string>();
   private avatarToken$ = new ReplaySubject<string>();
   private logger: LoggerService;
@@ -19,7 +19,7 @@ export class EditProfileModalComponentService {
     private userSessionService: UserSessionService,
     loggerFactory: LoggerFactory,
   ) {
-    this.logger = loggerFactory.createLoggerService('EditProfileModalComponentService');
+    this.logger = loggerFactory.createLoggerService('CreateProfileModalComponentService');
   }
 
   public get avatarToken(): Observable<string> {
