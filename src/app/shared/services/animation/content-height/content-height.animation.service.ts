@@ -2,13 +2,9 @@
 import { ReplaySubject } from 'rxjs';
 
 export class ContentHeightAnimationService {
-
   private height$ = new ReplaySubject<string>(1);
 
-  constructor() {
-  }
+  constructor() {}
 
-  public getPreviousHeight$ = (): ReplaySubject<string> =>
-    this.height$
-
+  public getPreviousHeight$ = (): ReplaySubject<string> => this.height$;
 }

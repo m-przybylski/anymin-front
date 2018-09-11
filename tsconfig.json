@@ -18,6 +18,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "downlevelIteration": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@platform/*": ["app/*"]
+    },
     "typeRoots": ["node_modules/@types"],
     "types": [
       "angular",

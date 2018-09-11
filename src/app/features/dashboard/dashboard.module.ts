@@ -16,6 +16,8 @@ import { SmsConfirmationComponent } from './views/user-dashboard/settings/compon
 import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { CompanyDashboardModule } from './views/company-dashboard/company-dashboard.module';
+import { NavbarModule } from '../../shared/components/navbar/navbar.module';
+import { InputsModule } from '../../shared/components/inputs/inputs.module';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import { CompanyDashboardModule } from './views/company-dashboard/company-dashbo
   imports: [
     AngularJsProvidersModule,
     ReactiveFormsModule,
+    NavbarModule,
     CommonModule,
     SharedModule,
     DashboardRoutingModule,
     ProfileModalModule,
+    InputsModule,
     CompanyDashboardModule,
   ],
 })

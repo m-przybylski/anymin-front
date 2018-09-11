@@ -44,16 +44,24 @@
     {
       "project": "src/tsconfig.app.json",
       "tslintConfig": "./tslint.app.json",
-      "exclude": ["**/node_modules/**", "**/angularjs/**/*.ts", "**/generated_modules/**"]
+      "exclude": [
+        "**/node_modules/**",
+        "**/angularjs/**/*.ts",
+        "**/generated_modules/**",
+        "**/*actions.ts",
+        "**/*.spec.ts"
+      ]
+    },
+    {
+      "project": "src/tsconfig.app.json",
+      "tslintConfig": "./tslint.actions.app.json",
+      "files": ["**/*.actions.ts"]
     },
     {
       "project": "src/tsconfig.spec.json",
       "tslintConfig": "./tslint.spec.json",
+      "files": ["**/*.spec.ts"],
       "exclude": ["**/node_modules/**", "**/angularjs/**/*.ts", "**/generated_modules/**"]
-    },
-    {
-      "project": "e2e/tsconfig.e2e.json",
-      "exclude": ["**/node_modules/**", "**/generated_modules/**"]
     }
   ],
   "test": {

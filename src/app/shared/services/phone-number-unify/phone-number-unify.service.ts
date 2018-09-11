@@ -3,16 +3,15 @@ import { formatNumber, CountryCode } from 'libphonenumber-js';
 
 @Injectable()
 export class PhoneNumberUnifyService {
-
   private country: CountryCode = 'PL';
   private prefixNumber = '48';
   private prefix = '+48';
 
   public unifyPhoneNumber = (phoneNumber: string): string =>
-    this.getPrefixPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)))
+    this.getPrefixPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)));
 
   public getPrettyPhoneNumber = (phoneNumber: string): string =>
-    this.makePreatyPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)))
+    this.makePreatyPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)));
 
   private getNumberWithoutPrefix = (phonenumber: string): string => {
     // tslint:disable:no-magic-numbers
@@ -29,16 +28,14 @@ export class PhoneNumberUnifyService {
     } else {
       return phonenumber;
     }
-  }
+  };
 
-  private getPrefixPhoneNumber = (phoneNumber: string): string =>
-    `${this.prefix}${phoneNumber}`
+  private getPrefixPhoneNumber = (phoneNumber: string): string => `${this.prefix}${phoneNumber}`;
 
   private makePreatyPhoneNumber = (phoneNumber: string): string =>
-    `${this.prefix} ${this.formatPhoneNumber(phoneNumber)}`
+    `${this.prefix} ${this.formatPhoneNumber(phoneNumber)}`;
 
   private formatPhoneNumber = (phoneNumber: string): string => formatNumber(phoneNumber, this.country, 'National');
 
-  private deleteIncorrectPhoneSigns = (value: string): string =>
-    value.replace(/ /g, '').replace(/-/g, '')
+  private deleteIncorrectPhoneSigns = (value: string): string => value.replace(/ /g, '').replace(/-/g, '');
 }

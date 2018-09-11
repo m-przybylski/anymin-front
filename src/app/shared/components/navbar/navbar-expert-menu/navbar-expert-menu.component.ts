@@ -1,15 +1,8 @@
-// tslint:disable:no-duplicate-imports
-// tslint:disable:no-any
-// tslint:disable:newline-before-return
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations } from '@anymind-ng/core';
-import { Subject } from 'rxjs';
+import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { NavbarMenuService } from '../../../services/navbar-menu-service/navbar-menu.service';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Observable, of, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { CreateCompanyConsultationModalComponent } from '../../modals/create-company-consultation/create-company-consultation.component';
@@ -17,6 +10,7 @@ import { CreateOrganizationModalComponent } from '../../modals/profile/create-or
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { RouterHelpers, RouterPaths } from '../../../routes/routes';
 import { Router } from '@angular/router';
+import { NavbarMenuService } from '../navbar-menu-service/navbar-menu.service';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
@@ -70,6 +64,7 @@ export class NavbarExpertMenuComponent implements OnInit {
         const route = RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
           [RouterPaths.dashboard.user.profile.params.expertId]: session.account.id,
         });
+
         return this.router.navigate([route]);
       })
       .then(() => {
@@ -99,8 +94,10 @@ export class NavbarExpertMenuComponent implements OnInit {
 
   public openCreateModal = (): NgbModalRef => this.modalService.open(CreateCompanyConsultationModalComponent);
 
+  // tslint:disable-next-line:no-any
   private handleError = (err: any): Observable<boolean> => {
     this.logger.warn('failure when try to change navbar menu visibility, ', err);
+
     return of(false);
   };
 }

@@ -1,47 +1,45 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, Router } from '@angular/router';
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { UserSessionService } from '../../../core/services/user-session/user-session.service';
+import { CanActivate } from '@angular/router';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Store, select } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
+import { SessionActions, AuthActions } from '@platform/core/actions';
+import { filter, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class SessionGuard implements CanActivate, CanLoad {
+export class SessionGuard implements CanActivate {
   private logger: LoggerService;
 
-  constructor(
-    private userSessionService: UserSessionService,
-    private alertService: AlertService,
-    private router: Router,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private store: Store<fromCore.IState>, loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('SessionGuard');
   }
 
-  public canLoad = (_route: Route): Promise<boolean> => this.can();
+  public canActivate = (): Observable<boolean> => this.isLoggedIn();
 
-  public canActivate = (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> => this.can();
+  public isLoggedIn = (): Observable<boolean> =>
+    this.store.pipe(
+      select(fromCore.getLoggedIn),
+      map(isLoggedIn => {
+        if (isLoggedIn.isPending) {
+          return undefined;
+        }
+        if (!isLoggedIn.isFromBackend) {
+          this.store.dispatch(new SessionActions.FetchSessionAction());
 
-  public can = (): Promise<boolean> =>
-    this.userSessionService.getSession().then(
-      () => {
-        this.logger.info('user has session, allowing');
+          return undefined;
+        }
 
-        return true;
-      },
-      () => {
-        this.logger.warn('user does not have session, redirecting to /login');
-        setTimeout(() => {
-          this.router
-            .navigate(['/login'])
-            .then(isRedirectSuccessful => {
-              if (!isRedirectSuccessful) {
-                this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-                this.logger.warn('Can not redirect to login');
-              }
-            })
-            .catch(this.logger.error.bind(this));
-        }, 0);
+        return isLoggedIn.isLoggedIn;
+      }),
+      filter(result => typeof result !== 'undefined'),
+      map((canActivate: boolean) => {
+        if (!canActivate) {
+          this.store.dispatch(new AuthActions.LoginRedirectAction());
+        }
 
-        return false;
-      },
+        return canActivate;
+      }),
+      take(1),
     );
 }

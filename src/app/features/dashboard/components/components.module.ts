@@ -10,9 +10,11 @@ import { ExpertAvailabilityComponent } from './expert-availability/expert-availa
 import { DashboardProfileHeaderComponent } from './dashboard-profile-header/dashboard-profile-header.component';
 import { ConsultationCompanyRowComponent } from './consultation-company-row/consultation-company-row.component';
 import { ConsultationExpertsComponent } from './consultation-experts/consultation-experts.component';
+import { IconModule, ButtonModule } from '../../../shared/components/atomic-components/index';
+import { UserAvatarModule } from '../../../shared/components/user-avatar/user-avatar.module';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, AnymindComponentsModule],
+  imports: [CommonModule, SharedModule, AnymindComponentsModule, IconModule, ButtonModule, UserAvatarModule],
   declarations: [
     SocialLinksComponent,
     ConsultationRowComponent,
@@ -31,6 +33,8 @@ import { ConsultationExpertsComponent } from './consultation-experts/consultatio
     ConsultationStatComponent,
     ExpertAvailabilityComponent,
     DashboardProfileHeaderComponent,
+    IconModule,
+    ButtonModule,
   ],
 })
 export class DashboardComponentsModule {}

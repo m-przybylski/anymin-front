@@ -3,7 +3,7 @@
 // tslint:disable:no-empty
 export enum FileCategoryEnum {
   AVATAR,
-  EXPERT_FILE
+  EXPERT_FILE,
 }
 
 interface IValidFileTypes {
@@ -11,16 +11,15 @@ interface IValidFileTypes {
 }
 
 export class FileTypeChecker {
-
   private static readonly validFileTypes: IValidFileTypes = {
     [FileCategoryEnum.AVATAR]: ['image/png', 'image/jpeg'],
-    [FileCategoryEnum.EXPERT_FILE]: ['application/pdf', 'image/png', 'image/jpeg']
+    [FileCategoryEnum.EXPERT_FILE]: ['application/pdf', 'image/png', 'image/jpeg'],
   };
 
   constructor() {}
 
   public static isFileFormatValid = (file: File, fileCategoryEnum: FileCategoryEnum): boolean =>
-    file && FileTypeChecker.validFileTypes[fileCategoryEnum].length > 0 &&
-      FileTypeChecker.validFileTypes[fileCategoryEnum].indexOf(file.type) !== -1
-
+    file &&
+    FileTypeChecker.validFileTypes[fileCategoryEnum].length > 0 &&
+    FileTypeChecker.validFileTypes[fileCategoryEnum].indexOf(file.type) !== -1;
 }
