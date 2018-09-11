@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+// tslint:disable:readonly-array
+import { AfterViewInit, Component, OnInit, Inject } from '@angular/core';
 import { CreateExpertConsultationModalService } from './create-expert-consultation.service';
 import { FormGroup } from '@angular/forms';
-import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { Config } from '../../../../../config';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { catchError } from 'rxjs/operators';
@@ -10,6 +11,8 @@ import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { EMPTY, Observable } from 'rxjs';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
+import { Logger } from '@platform/core/logger';
+import { COMMISSION, ICommission } from '@platform/core/commission';
 
 @Component({
   selector: 'plat-create-expert-consultation',
@@ -17,7 +20,7 @@ import { ModalAnimationComponentService } from '../modal/animation/modal-animati
   styleUrls: ['./create-expert-consultation.component.sass'],
   providers: [CreateExpertConsultationModalService],
 })
-export class CreateExpertConsultationModalComponent implements OnInit, AfterViewInit {
+export class CreateExpertConsultationModalComponent extends Logger implements OnInit, AfterViewInit {
   public readonly formId = 'createExpertConsultation';
   public readonly nameControlName = 'name';
   public readonly descriptionControlName = 'description';
@@ -35,10 +38,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
 
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
-  private readonly anyMindCommission = 0.15;
-  private readonly percentDivider = 100;
-  private loggerService: LoggerService;
-  private selectedTags: ReadonlyArray<PostServiceTag> = [];
+  private selectedTags: PostServiceTag[] = [];
 
   constructor(
     private formUtils: FormUtilsService,
@@ -46,9 +46,10 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     private alertService: AlertService,
     private activeModal: NgbActiveModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
+    @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
   ) {
-    this.loggerService = loggerFactory.createLoggerService('CreateExpertConsultationModalComponent');
+    super(loggerFactory);
   }
 
   public ngAfterViewInit(): void {
@@ -79,7 +80,8 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     this.selectedTags = tagsNames.map(tagName => ({ name: tagName }));
   };
 
-  public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.percentDivider}%`;
+  public getCommissionValueForUI = (): string =>
+    `${this.commissionConfig.employeeServiceAnyMindCommission * this.commissionConfig.percentDivider}%`;
 
   private getServiceModel = (): PostService => ({
     // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-363

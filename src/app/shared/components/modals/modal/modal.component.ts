@@ -11,10 +11,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export enum ModalContainerTypeEnum {
-  SMALL_WIDTH,
-  MEDIUM_WIDTH,
-  CROPP_WIDTH,
-  NO_PADDING,
+  SMALL_WIDTH = 'SMALL_WIDTH',
+  MEDIUM_WIDTH = 'MEDIUM_WIDTH',
+  CROPP_WIDTH = 'CROPP_WIDTH',
+  NO_PADDING = 'NO_PADDING',
 }
 
 @Component({

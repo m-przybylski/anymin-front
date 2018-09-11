@@ -1,14 +1,16 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
-import { take, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { EmploymentWithService, GetComment, GetService } from '@anymind-ng/api';
+import { take, filter } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
+import { EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
 import { ExpertProfileView } from '@anymind-ng/api/model/expertProfileView';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { IConsultationFooterData } from './consultation-footer-wrapper/consultation-footer-wrapper.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'plat-consultation-details-view',
@@ -16,7 +18,7 @@ import * as fromCore from '@platform/core/reducers';
   styleUrls: ['./consultation-details.view.component.sass'],
   providers: [ConsultationDetailsViewService],
 })
-export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
+export class ConsultationDetailsViewComponent implements OnInit {
   public readonly avatarSize96: AvatarSizeEnum = AvatarSizeEnum.X_96;
   public readonly modalType: ModalContainerTypeEnum = ModalContainerTypeEnum.NO_PADDING;
 
@@ -39,6 +41,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   public isPending = true;
   public accountId: string;
   public isOwner: boolean;
+  public footerData: IConsultationFooterData;
 
   @Input()
   public serviceId: string;
@@ -46,36 +49,28 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   @Input()
   public expertId: string;
 
-  private ngUnsubscribe$ = new Subject<void>();
-
   constructor(
     private store: Store<fromCore.IState>,
     private consultationDetailsViewService: ConsultationDetailsViewService,
     private modalAnimationComponentService: ModalAnimationComponentService,
+    private activeModal: NgbActiveModal,
   ) {}
 
-  public ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-  }
-
   public ngOnInit(): void {
-    this.store
-      .pipe(
+    forkJoin(
+      this.store.pipe(
         select(fromCore.getSession),
+        filter(session => typeof session !== 'undefined'),
         take(1),
-      )
-      .subscribe(session => {
-        if (typeof session !== 'undefined') {
-          this.accountId = session.account.id;
-        }
-      });
-
-    this.consultationDetailsViewService.getServicesTagList(this.serviceId).subscribe(tags => (this.tagList = tags));
-
-    this.consultationDetailsViewService
-      .getServiceDetails(this.serviceId, this.expertId)
-      .subscribe(response => this.assignExpertConsultationDetails(response));
+      ) as Observable<GetSessionWithAccount>,
+      this.consultationDetailsViewService.getServicesTagList(this.serviceId),
+      this.consultationDetailsViewService.getServiceDetails(this.serviceId, this.expertId),
+    ).subscribe(([getSession, tags, getServiceDetails]) => {
+      this.accountId = getSession.account.id;
+      this.tagList = tags;
+      this.footerData = this.buildFooterData(this.accountId, getServiceDetails);
+      this.assignExpertConsultationDetails(getServiceDetails);
+    });
   }
 
   public onAddAnswer = (commentsList: GetComment): ReadonlyArray<GetComment> =>
@@ -91,7 +86,6 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
 
     this.consultationDetailsViewService
       .getComments(this.employeementId, commentLimitLength.toString(), commentOffset.toString())
-      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((commentsList: ReadonlyArray<GetComment>) => {
         this.ifMaxCommentsLengthReached = commentsList.length < commentLimitLength;
         this.isCommentsRequestPending = false;
@@ -102,18 +96,48 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       });
   };
 
-  private assignServiceDetails = (serviceDetails: GetService): void => {
-    this.serviceName = serviceDetails.name;
-    this.serviceDescription = serviceDetails.description;
-    this.registeredAt = serviceDetails.createdAt;
+  public onEditConsultationClick = (): void => {
+    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+  };
+  public onRemoveConsultationClick = (): void => {
+    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+  };
+  public onCallConsultationClick = (): void => {
+    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+  };
+  public onNotifyConsultationClick = (): void => {
+    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+  };
+  public onLeaveConsultationClick = (): void => {
+    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+  };
+  public onInviteConsultationClick = (): void => {
+    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
   };
 
+  private buildFooterData = (userId: string, getServiceDetails: IConsultationDetails): IConsultationFooterData => ({
+    userId,
+    ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
+    expertsIdList: getServiceDetails.expertIds,
+    // TODO: implement it. For the moment hardcoded
+    isExpertAvailable: true,
+    isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
+    defaultPayment: getServiceDetails.payment,
+    accountBalande: getServiceDetails.balance,
+    price: {
+      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.grossPrice,
+      price: getServiceDetails.getServiceWithEmployees.serviceDetails.netPrice,
+    },
+  });
   private assignExpertConsultationDetails = ({
     expertDetails,
     expertProfileViewDetails,
-    getService,
+    getServiceWithEmployees,
   }: IConsultationDetails): void => {
-    this.assignServiceDetails(getService);
+    this.serviceName = getServiceWithEmployees.serviceDetails.name;
+    this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
+    this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
+
     if (expertDetails.profile.organizationDetails !== undefined) {
       this.companyName = expertDetails.profile.organizationDetails.name;
       this.companyLogo = expertDetails.profile.organizationDetails.logo;

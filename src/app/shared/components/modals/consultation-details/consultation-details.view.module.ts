@@ -13,6 +13,8 @@ import { ConsultationDetailsComponent } from './consultation-details/consultatio
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import { ModalComponentsModule } from '../modal/modal.components.module';
 import { ConsultationFooterComponent } from './consultation-footer/consultation-footer.component';
+import { ConsultationFooterWrapperComponent } from './consultation-footer-wrapper/consultation-footer-wrapper.component';
+import { CreditCardPipe } from './consultation-footer-wrapper/payment-card.pipe';
 
 @NgModule({
   imports: [
@@ -34,8 +36,10 @@ import { ConsultationFooterComponent } from './consultation-footer/consultation-
     DateDurationPipe,
     ConsultationDetailsComponent,
     ConsultationFooterComponent,
+    ConsultationFooterWrapperComponent,
+    CreditCardPipe,
   ],
-  exports: [ConsultationDetailsComponent, ConsultationFooterComponent],
+  exports: [ConsultationDetailsComponent, ConsultationFooterComponent, ConsultationFooterWrapperComponent],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

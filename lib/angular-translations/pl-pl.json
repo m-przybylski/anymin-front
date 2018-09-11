@@ -1863,5 +1863,21 @@
   "DASHBOARD_ACTIVITY.PAYOUT_TITLE_OCTOBER": "Wypłata za październik {{year}}",
   "DASHBOARD_ACTIVITY.PAYOUT_TITLE_NOVEMBER": "Wypłata za listopad {{year}}",
   "DASHBOARD_ACTIVITY.PAYOUT_TITLE_DECEMBER": "Wypłata za grudzień {{year}}",
-  "DASHBOARD_ACTIVITY.REFUND_TITLE": "Zwrot dla klienta"
+  "DASHBOARD_ACTIVITY.REFUND_TITLE": "Zwrot dla klienta",
+  "CONSULTATION_DETAILS.FOOTER.CALL": "Zadzwoń",
+  "CONSULTATION_DETAILS.FOOTER.NOTIFY": "Powiadom",
+  "CONSULTATION_DETAILS.FOOTER.EDIT": "Edytuj",
+  "CONSULTATION_DETAILS.FOOTER.REMOVE": "Usuń",
+  "CONSULTATION_DETAILS.FOOTER.LEAVE": "Opuść konsultacje",
+  "CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE": "Pierwsza minuta jest darmowa.",
+  "CONSULTATION_DETAILS.FOOTER.NA_1": "Konsultant nie jest w tym momencie dostępny.",
+  "CONSULTATION_DETAILS.FOOTER.NA_2": "Jeśli chcesz, możemy wysłać Ci powiadomienie, gdy znów się pojawi.",
+  "CONSULTATION_DETAILS.FOOTER.CARD": "Meteda płatności {{value}}",
+  "CONSULTATION_DETAILS.FOOTER.ACCOUNT": "Płatkość konto",
+  "CONSULTATION_DETAILS.FOOTER.TOP-UP": "Doładuj konto.",
+  "CONSULTATION_DETAILS.FOOTER.TALKLAST": "Wystarczy na {{ duration }} min rozmowy ",
+  "CONSULTATION_DETAILS.FOOTER.SELECTEXPERT": "Wybierz konsultanta, aby wykonać połączenie.",
+  "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_1": "<strong>{{ price }} zł/min</strong> to kwota netto, którą zarobisz na tej konsultacji.",
+  "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_2": "Niezależny konsultant zarobi <strong>{{ price }} zł/min</strong> netto.",
+  "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_3": "Klient zobaczy <strong>{{ price }} zł/min</strong> brutto."
 }

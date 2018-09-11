@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import { EmploymentService, ProfileService, ServiceService, ViewsService } from '@anymind-ng/api';
-import { GetService } from '@anymind-ng/api/model/getService';
+import {
+  EmploymentService,
+  ProfileService,
+  ServiceService,
+  ViewsService,
+  GetServiceWithEmployees,
+  GetProfileWithDocuments,
+  ExpertProfileView,
+  GetComment,
+  PaymentsService,
+  DefaultCreditCard,
+  FinancesService,
+} from '@anymind-ng/api';
 import { Observable, forkJoin } from 'rxjs';
-import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
-import { ExpertProfileView } from '@anymind-ng/api/model/expertProfileView';
-import { GetComment } from '@anymind-ng/api/model/getComment';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, filter } from 'rxjs/operators';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 export class ConsultationDetailsViewService {
@@ -14,28 +23,50 @@ export class ConsultationDetailsViewService {
     private profileService: ProfileService,
     private viewsService: ViewsService,
     private employmentService: EmploymentService,
+    private paymentsService: PaymentsService,
+    private financesService: FinancesService,
   ) {}
 
   public getServiceDetails = (serviceId: string, employeeId: string): Observable<IConsultationDetails> =>
-    this.serviceService.getServiceRoute(serviceId).pipe(
-      switchMap(getService =>
-        forkJoin(
-          this.profileService.getProfileRoute(getService.ownerId),
-          this.viewsService.getWebExpertProfileRoute(employeeId),
-        ).pipe(
-          map(
-            ([expertDetails, expertProfileViewDetails]: [
-              GetProfileWithDocuments,
-              ExpertProfileView
-            ]): IConsultationDetails => ({
-              expertDetails,
-              expertProfileViewDetails,
-              getService,
-            }),
+    this.serviceService
+      .postServiceWithEmployeesRoute({ serviceIds: [serviceId] })
+      .pipe(
+        map(getServiceWithEmployeesList =>
+          getServiceWithEmployeesList.filter(
+            getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === serviceId,
           ),
         ),
-      ),
-    );
+        filter(getServiceWithEmployeesList => getServiceWithEmployeesList.length > 0),
+        map(getServiceWithEmployeesList => getServiceWithEmployeesList[0]),
+      )
+      .pipe(
+        switchMap(getServiceWithEmployees =>
+          forkJoin(
+            this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
+            this.viewsService.getWebExpertProfileRoute(employeeId),
+            this.paymentsService.getDefaultPaymentMethodRoute(),
+            this.financesService.getClientBalanceRoute().pipe(
+              map(balance => ({
+                amount: balance.accountBalance.amount + balance.promoCodeBalance.amount,
+                currency: balance.accountBalance.currency,
+              })),
+            ),
+          ).pipe(
+            map(
+              ([expertDetails, expertProfileViewDetails, payment, balance]): IConsultationDetails => ({
+                expertDetails,
+                expertProfileViewDetails,
+                getServiceWithEmployees,
+                expertIds: getServiceWithEmployees.employeesDetails.map(
+                  employeesDetails => employeesDetails.employeeProfile.id,
+                ),
+                payment,
+                balance,
+              }),
+            ),
+          ),
+        ),
+      );
 
   public getServicesTagList = (serviceId: string): Observable<ReadonlyArray<string>> =>
     this.serviceService
@@ -72,10 +103,17 @@ export class ConsultationDetailsViewService {
     commentsList: ReadonlyArray<GetComment>,
     commentsConsultation: ReadonlyArray<GetComment>,
   ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
+
+  public editConsultation = (consultationId: string, modal: NgbActiveModal): void => {
+    modal.close(consultationId);
+  };
 }
 
 export interface IConsultationDetails {
   expertDetails: GetProfileWithDocuments;
   expertProfileViewDetails: ExpertProfileView;
-  getService: GetService;
+  getServiceWithEmployees: GetServiceWithEmployees;
+  expertIds: ReadonlyArray<string>;
+  payment: DefaultCreditCard;
+  balance: { amount: number; currency: string };
 }

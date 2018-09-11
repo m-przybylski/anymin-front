@@ -5,7 +5,6 @@ import { mixinColor, ICanColor } from '../common/collor';
 const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-icon-button',
   'plat-stroked-button',
-  'plat-button',
   'plat-mini-flat-fab',
   'plat-flat-fab',
   'plat-flat',

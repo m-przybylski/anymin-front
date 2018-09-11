@@ -1,0 +1,79 @@
+plat-consultation-footer
+  //left part of the screen
+  .consultation-footer__left-price(*ngIf='leftPanel === "showAmount"')
+    .consultation-footer__price-wrapper
+      span.consultation-footer__price-money {{ grossPrice }}
+      span.consultation-footer__price-currency zł/min
+  //middle part of the screen
+  .consultation-footer__left-text([ngSwitch]='middlePanel')
+    span.consultation-footer__text(*ngSwitchCase='"freeMinute"')
+      span(plat-icon iconClass='information')
+      p {{"CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE" | translate}}
+    span.consultation-footer__text(*ngSwitchCase='"notAvailable"')
+      span(plat-icon iconClass='information')
+      span
+        p {{"CONSULTATION_DETAILS.FOOTER.NA_1" | translate}}
+        p {{"CONSULTATION_DETAILS.FOOTER.NA_2" | translate}}
+    span.consultation-footer__text(*ngSwitchCase='"paymentCard"')
+      span(plat-icon iconClass='payment-card')
+      p {{"CONSULTATION_DETAILS.FOOTER.CARD" |translate: {value: defaultPayment?.card | creditCard} }}
+    span.consultation-footer__text(*ngSwitchCase='"paymentAnyMind"')
+      span(plat-icon iconClass='wallet')
+      p
+        | {{"CONSULTATION_DETAILS.FOOTER.ACCOUNT" | translate }}
+        strong AnyMind
+        | : {{ balance }} zł.
+        span(*ngIf='duration') {{"CONSULTATION_DETAILS.FOOTER.TALKLAST" | translate:{duration: duration} }}
+        a {{"CONSULTATION_DETAILS.FOOTER.TOPUP" | translate}}
+    span.consultation-footer__text(*ngSwitchCase='"isFreelance"')
+      span(plat-icon iconClass='information')
+      p
+        span
+          strong {{price}} zł/min
+          | {{"INVITE_ACCEPT_REJECT.FREELANCE" | translate}}
+          strong {{grossPrice}} zł/min
+          | .
+    span.consultation-footer__text(*ngSwitchCase='"isOrganization"')
+      span(plat-icon iconClass='information')
+      p
+        | {{"INVITE_ACCEPT_REJECT.ORGANIZATION" | translate}}
+        a {{"INVITE_ACCEPT_REJECT.ORGANIZATION.FIND_MORE" | translate }}
+    span.consultation-footer__text(*ngSwitchCase='"pickExpert"')
+      span(plat-icon iconClass='information')
+      p {{ "CONSULTATION_DETAILS.FOOTER.SELECTEXPERT" | translate }}
+    span.consultation-footer__text(*ngSwitchCase='"isOrganizationEdit"')
+      span(plat-icon iconClass='information')
+      span
+        p(innerHtml='{{"CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_1" | translate: { price: organizationPrice } }}')
+        p(innerHtml='{{"CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_2" | translate: { price: expertPrice } }}')
+        p(innerHtml='{{"CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_3" | translate: { price: grossPrice } }}')
+  //right part of the screen
+  .consultation-footer__right([ngSwitch]='rightPanel')
+    a(plat-large-icon-button, color='success', *ngSwitchCase='"canCall"')
+      span(plat-icon iconClass='headphone')
+      span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+    a(plat-large-icon-button color='success', *ngSwitchCase='"canNotify"')
+      span(plat-icon iconClass='bell')
+      span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
+    .consultation-footer__right(*ngSwitchCase='"canEdit"')
+      a.consultation-footer__right-button((click)='onClick(removeConsultationClick)', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.REMOVE" | translate}}
+      a.consultation-footer__right-button((click)='onClick(editConsultationClick)', plat-button color='primary') {{"CONSULTATION_DETAILS.FOOTER.EDIT" | translate}}
+    div(*ngSwitchCase='"canLeave"')
+      a((click)='onClick(leaveConsultationClick)', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.LEAVE" | translate}}
+    span(*ngSwitchdefault)
+  //right panel on the screen on mobile
+  .consultation-footer__right--mobile([ngSwitch]='rightPanel')
+    a(plat-large-icon-button color='success', *ngSwitchCase='"canCall"', (click)='onClick(callConsultationClick)')
+      span(plat-icon iconClass='headphone')
+      span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+    a(plat-large-icon-button color='success', *ngSwitchCase='"canNotify"', (click)='onClick(notifyConsultationClick)')
+      span(plat-icon iconClass='bell')
+      span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
+    .consultation-footer__right(*ngSwitchCase='"canEdit"')
+      a.consultation-footer__right-button((click)='onClick(removeConsultationClick)', plat-icon-button color='secondary')
+        span(plat-icon iconClass='clear')
+      a.consultation-footer__right-button((click)='onClick(editConsultationClick)', plat-flat-fab color='primary')
+        span(plat-icon iconClass='stroke-edit')
+    div(*ngSwitchCase='"canLeave"')
+      a((click)='onClick(leaveConsultationClick)', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.LEAVE" | translate}}
+    span(*ngSwitchdefault)

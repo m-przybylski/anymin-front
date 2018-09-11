@@ -7,6 +7,7 @@ import { ModalAnimationComponentService } from '../../modal/animation/modal-anim
 import { finalize } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
 import { MoneyToAmount, LoggerFactory } from '@anymind-ng/core';
+import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -17,6 +18,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   public isFreelance: boolean;
   public price: string;
   public grossPrice: string;
+  public avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_96;
 
   // consultation
   public avatarToken: string;

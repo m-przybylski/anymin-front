@@ -1,6 +1,7 @@
 plat-modal-component(
 [modalTrTitleHeader]="'CONSULTATION_DETAILS.MODAL.TITLE'",
 [modalContainerClass]="modalType"
+hasFooter="true"
 )
   div(*ngIf="!isPending", contentHeightAnimation)
     plat-consultation-details(
@@ -35,3 +36,12 @@ plat-modal-component(
       .consultation-comments__actions(*ngIf="!ifMaxCommentsLengthReached")
         a.button.button--tertiary((click)="onLoadMoreComments()")
           span {{ "CONSULTATION_DETAILS.BUTTON.MORE.TITLE" | translate }}
+  .modal-component__footer(*ngIf="footerData")
+    plat-consultation-footer-wrapper([payload]="footerData",
+      (editConsultationClick)="onEditConsultationClick()",
+      (removeConsultationClick)="onRemoveConsultationClick()",
+      (callConsultationClick)="onCallConsultationClick()",
+      (notifyConsultationClick)="onNotifyConsultationClick()",
+      (leaveConsultationClick)="onLeaveConsultationClick()",
+      (inviteConsultationClick)="onInviteConsultationClick()",
+    )
