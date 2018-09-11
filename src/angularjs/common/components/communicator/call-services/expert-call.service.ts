@@ -3,8 +3,12 @@
 // tslint:disable:deprecation
 // tslint:disable:max-file-line-count
 import {
-  CommunicatorService, IConnected, CurrentExpertCall, CallFactory,
-  NavigatorWrapper, LoggerService
+  CommunicatorService,
+  IConnected,
+  CurrentExpertCall,
+  CallFactory,
+  NavigatorWrapper,
+  LoggerService,
 } from '@anymind-ng/core';
 import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
@@ -23,10 +27,17 @@ import EndReason = callEvents.EndReason;
 import { ReplaySubject } from 'rxjs/Rx';
 
 export class ExpertCallService {
-
-  public static $inject = ['ServiceUsageEventApi', 'modalsService', 'soundsService',
-    'RatelApi', 'communicatorService', 'logger', 'callFactory',
-    'eventsService', 'sessionServiceWrapper'];
+  public static $inject = [
+    'ServiceUsageEventApi',
+    'modalsService',
+    'soundsService',
+    'RatelApi',
+    'communicatorService',
+    'logger',
+    'callFactory',
+    'eventsService',
+    'sessionServiceWrapper',
+  ];
 
   private readonly newCallEvent = new Subject<CurrentExpertCall>();
   private readonly pullableCallEvent = new ReplaySubject<PullableCall>(1);
@@ -34,24 +45,31 @@ export class ExpertCallService {
   private navigatorWrapper = new NavigatorWrapper();
   private callAnsweredOnOtherDeviceEvent$ = new Subject<void>();
 
-  constructor(private ServiceUsageEventApi: ServiceUsageEventApi,
-              private modalsService: ModalsService,
-              private soundsService: SoundsService,
-              private RatelApi: RatelApi,
-              private communicatorService: CommunicatorService,
-              private logger: LoggerService,
-              private callFactory: CallFactory,
-              eventsService: EventsService,
-              sessionServiceWrapper: SessionServiceWrapper) {
+  constructor(
+    private ServiceUsageEventApi: ServiceUsageEventApi,
+    private modalsService: ModalsService,
+    private soundsService: SoundsService,
+    private RatelApi: RatelApi,
+    private communicatorService: CommunicatorService,
+    private logger: LoggerService,
+    private callFactory: CallFactory,
+    eventsService: EventsService,
+    sessionServiceWrapper: SessionServiceWrapper,
+  ) {
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkIncomingCalls);
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkPullableCalls);
-    communicatorService.callInvitationEvent$.subscribe(
-      (inv) => this.onExpertCallIdIncoming(inv.session, inv.callInvitation.callId));
+    communicatorService.callInvitationEvent$.subscribe(inv =>
+      this.onExpertCallIdIncoming(inv.session, inv.callInvitation.callId),
+    );
 
-    sessionServiceWrapper.getSession().then(() => communicatorService.authenticate().subscribe());
+    sessionServiceWrapper
+      .getSession()
+      .then(sessionAccount =>
+        communicatorService.authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey).subscribe(),
+      );
     eventsService.on('login', () => {
-      sessionServiceWrapper.getSession(true).then(() => {
-        communicatorService.authenticate().subscribe();
+      sessionServiceWrapper.getSession(true).then(sessionAccount => {
+        communicatorService.authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey).subscribe();
       });
     });
     eventsService.on('logout', () => {
@@ -71,157 +89,191 @@ export class ExpertCallService {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
     this.pullableCallEvent.next(new PullableCall(call));
-  }
+  };
 
   private checkPullableCalls = (connected: IConnected): void => {
-    connected.session.chat.getActiveCalls().then((activeCalls) => {
-      this.logger.debug('ExpertCallService: Received active calls', activeCalls);
-      if (activeCalls.length > Config.communicator.maxSimultaneousCallsCount) {
-        this.logger.debug('ExpertCallService: Abnormal state - received more than 1 active calls, choosing first',
-          activeCalls);
-      }
-      const activeCall = activeCalls[0];
-      if (activeCall) {
-        if (BusinessCall.isBusiness(activeCall)) {
-          this.handlePullableCall(activeCall);
-        } else {
-          this.logger.warn('ActiveCallBarService: Abnormal state - Active call is not BusinessCall, aborting');
+    connected.session.chat.getActiveCalls().then(
+      activeCalls => {
+        this.logger.debug('ExpertCallService: Received active calls', activeCalls);
+        if (activeCalls.length > Config.communicator.maxSimultaneousCallsCount) {
+          this.logger.debug(
+            'ExpertCallService: Abnormal state - received more than 1 active calls, choosing first',
+            activeCalls,
+          );
         }
-      }
-    }, (err) => this.logger.warn('ActiveCallBarService: Could not get active calls', err));
-  }
+        const activeCall = activeCalls[0];
+        if (activeCall) {
+          if (BusinessCall.isBusiness(activeCall)) {
+            this.handlePullableCall(activeCall);
+          } else {
+            this.logger.warn('ActiveCallBarService: Abnormal state - Active call is not BusinessCall, aborting');
+          }
+        }
+      },
+      err => this.logger.warn('ActiveCallBarService: Could not get active calls', err),
+    );
+  };
 
   private checkIncomingCalls = (connected: IConnected): void => {
     this.logger.debug('ExpertCallService: Reconnected, checking incoming calls');
-    connected.session.chat.getCallsWithPendingInvitations().then((incomingCalls) => {
-      this.logger.debug('ExpertCallService: Received incoming calls', incomingCalls);
-      if (incomingCalls.length > Config.communicator.maxSimultaneousCallsCount) {
-        this.logger.debug('ExpertCallService: Abnormal state - received more incoming calls than 1, choosing first',
-          incomingCalls);
-      }
-      const incomingCall = incomingCalls[0];
-      if (incomingCall) {
-        this.onExpertCallIncoming(incomingCall);
-      }
-    }, (err) => this.logger.warn('ExpertCallService: Could not load incoimg calls after successful connection', err));
-  }
+    connected.session.chat.getCallsWithPendingInvitations().then(
+      incomingCalls => {
+        this.logger.debug('ExpertCallService: Received incoming calls', incomingCalls);
+        if (incomingCalls.length > Config.communicator.maxSimultaneousCallsCount) {
+          this.logger.debug(
+            'ExpertCallService: Abnormal state - received more incoming calls than 1, choosing first',
+            incomingCalls,
+          );
+        }
+        const incomingCall = incomingCalls[0];
+        if (incomingCall) {
+          this.onExpertCallIncoming(incomingCall);
+        }
+      },
+      err => this.logger.warn('ExpertCallService: Could not load incoimg calls after successful connection', err),
+    );
+  };
 
   private onExpertCallIncoming = (call: Call): void => {
     if (BusinessCall.isBusiness(call)) {
       this.onExpertBusinessCallIncoming(call);
     } else {
       this.logger.error('ExpertCallService: Incoming call was not of BusinessCall type, rejecting', call);
-      call.reject(CallReason.CallRejected).then(
-        () => this.logger.debug('ExpertCallService: Unsupported call invitation leave successful'),
-        (err) => this.logger.error('ExpertCallService: Can not leave unsupported call invitation', err));
+      call
+        .reject(CallReason.CallRejected)
+        .then(
+          () => this.logger.debug('ExpertCallService: Unsupported call invitation leave successful'),
+          err => this.logger.error('ExpertCallService: Can not leave unsupported call invitation', err),
+        );
     }
-  }
+  };
 
   private onExpertCallIdIncoming = (session: Session, callId: protocol.ID): Promise<void> =>
-    session.chat.getCall(callId).then(
-      call => this.onExpertCallIncoming(call),
-      err => this.logger.error('ExpertCallService: Can not leave unsupported call invitation', err))
-
-  private onExpertBusinessCallIncoming = (call: BusinessCall): void => {
-    this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then((expertSueDetails) => {
-
-      this.soundsService.callIncomingSound().play();
-
-      const callingModal = this.modalsService.createIncomingCallModal(
-        expertSueDetails,
-        (modal) => this.handleAnswerCallInvitation(modal, expertSueDetails, call),
-        (modal) => this.rejectCallInvitation(modal, call)
+    session.chat
+      .getCall(callId)
+      .then(
+        call => this.onExpertCallIncoming(call),
+        err => this.logger.error('ExpertCallService: Can not leave unsupported call invitation', err),
       );
 
-      this.communicatorService.connectionLostEvent$
-        .pipe(first())
-        .subscribe(() => this.handleConnectionLostWhileCallIncoming(callingModal));
+  private onExpertBusinessCallIncoming = (call: BusinessCall): void => {
+    this.ServiceUsageEventApi.getSueDetailsForExpertRoute(call.id).then(
+      expertSueDetails => {
+        this.soundsService.callIncomingSound().play();
 
-      // FIXME unsubscribe when answered
-      // Client went offline when calling
-      call.offline$.subscribe(offline => this.handleClientWentOfflineBeforeAnswering(offline, call, callingModal));
-      // Client timeouted when calling
-      call.left$.pipe(takeUntil(this.callRejectedEvent))
-        .subscribe(left => this.handleClientLeftBeforeAnswering(left, expertSueDetails, callingModal));
-      // Call was answered on the other device
-      call.activeDevice$.subscribe(active =>
-        this.handleCallAnsweredOnOtherDevice(active, callingModal, call));
-      // Client ended the call when calling
-      call.end$.pipe(takeUntil(this.callRejectedEvent))
-        .pipe(takeUntil(this.newCallEvent))
-        .pipe(takeUntil(this.callAnsweredOnOtherDeviceEvent$))
-        .subscribe(end => this.handleCallEndedBeforeAnswering(end, callingModal));
+        const callingModal = this.modalsService.createIncomingCallModal(
+          expertSueDetails,
+          modal => this.handleAnswerCallInvitation(modal, expertSueDetails, call),
+          modal => this.rejectCallInvitation(modal, call),
+        );
 
-    }, (err) => {
-      if (err.status === httpCodes.unauthorized) {
-        this.logger.error('ExpertCallService: Unauthorized to get incoming call details', call, err);
-      } else {
-        this.logger.error('ExpertCallService: Error when getting incoming call details, rejecting the call', call, err);
-        call.reject(CallReason.CallRejected);
-      }
-    });
-  }
+        this.communicatorService.connectionLostEvent$
+          .pipe(first())
+          .subscribe(() => this.handleConnectionLostWhileCallIncoming(callingModal));
+
+        // FIXME unsubscribe when answered
+        // Client went offline when calling
+        call.offline$.subscribe(offline => this.handleClientWentOfflineBeforeAnswering(offline, call, callingModal));
+        // Client timeouted when calling
+        call.left$
+          .pipe(takeUntil(this.callRejectedEvent))
+          .subscribe(left => this.handleClientLeftBeforeAnswering(left, expertSueDetails, callingModal));
+        // Call was answered on the other device
+        call.activeDevice$.subscribe(active => this.handleCallAnsweredOnOtherDevice(active, callingModal, call));
+        // Client ended the call when calling
+        call.end$
+          .pipe(takeUntil(this.callRejectedEvent))
+          .pipe(takeUntil(this.newCallEvent))
+          .pipe(takeUntil(this.callAnsweredOnOtherDeviceEvent$))
+          .subscribe(end => this.handleCallEndedBeforeAnswering(end, callingModal));
+      },
+      err => {
+        if (err.status === httpCodes.unauthorized) {
+          this.logger.error('ExpertCallService: Unauthorized to get incoming call details', call, err);
+        } else {
+          this.logger.error(
+            'ExpertCallService: Error when getting incoming call details, rejecting the call',
+            call,
+            err,
+          );
+          call.reject(CallReason.CallRejected);
+        }
+      },
+    );
+  };
 
   private handleConnectionLostWhileCallIncoming = (callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
     this.soundsService.callIncomingSound().stop();
     callingModal.close();
-  }
+  };
 
-  private handleClientWentOfflineBeforeAnswering = (offlineEvent: callEvents.DeviceOffline,
-                                                    call: BusinessCall,
-                                                    callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+  private handleClientWentOfflineBeforeAnswering = (
+    offlineEvent: callEvents.DeviceOffline,
+    call: BusinessCall,
+    callingModal: ng.ui.bootstrap.IModalInstanceService,
+  ): void => {
     this.logger.debug('ExpertCallService: Client went offline when calling, rejecting call', offlineEvent);
     call.reject(CallReason.CallRejected);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
-    this.soundsService.playCallRejected().catch(
-      (err) => this.logger.warn('ExpertCallService: could not play rejected sound', err));
-  }
+    this.soundsService
+      .playCallRejected()
+      .catch(err => this.logger.warn('ExpertCallService: could not play rejected sound', err));
+  };
 
-  private handleClientLeftBeforeAnswering = (callLeft: callEvents.Left,
-                                             incomingCallDetails: GetExpertSueDetails,
-                                             callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+  private handleClientLeftBeforeAnswering = (
+    callLeft: callEvents.Left,
+    incomingCallDetails: GetExpertSueDetails,
+    callingModal: ng.ui.bootstrap.IModalInstanceService,
+  ): void => {
     this.logger.debug('ExpertCallService: Client left from call invitation, ending call', callLeft);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
-    this.soundsService.playCallRejected().catch(
-      (err) => this.logger.warn('ExpertCallService: could not play rejected sound', err));
+    this.soundsService
+      .playCallRejected()
+      .catch(err => this.logger.warn('ExpertCallService: could not play rejected sound', err));
     this.RatelApi.postRatelStopCallRoute(incomingCallDetails.sueId).then(
       () => this.logger.debug('ExpertCallService: Call ended successfully'),
-      (err) => this.logger.warn('ExpertCallService: Cannot end the call', err));
-  }
+      err => this.logger.warn('ExpertCallService: Cannot end the call', err),
+    );
+  };
 
-  private handleCallAnsweredOnOtherDevice = (callActiveDevice: callEvents.CallHandledOnDevice,
-                                             callingModal: ng.ui.bootstrap.IModalInstanceService,
-                                             call: BusinessCall): void => {
+  private handleCallAnsweredOnOtherDevice = (
+    callActiveDevice: callEvents.CallHandledOnDevice,
+    callingModal: ng.ui.bootstrap.IModalInstanceService,
+    call: BusinessCall,
+  ): void => {
     this.callAnsweredOnOtherDeviceEvent$.next();
     this.logger.debug('ExpertCallService: Call was answered on other device', callActiveDevice);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
     this.handlePullableCall(call);
-  }
+  };
 
-  private handleCallEndedBeforeAnswering = (callEnd: callEvents.Ended,
-                                            callingModal: ng.ui.bootstrap.IModalInstanceService): void => {
+  private handleCallEndedBeforeAnswering = (
+    callEnd: callEvents.Ended,
+    callingModal: ng.ui.bootstrap.IModalInstanceService,
+  ): void => {
     this.logger.debug('ExpertCallService: Call was ended before expert answer', callEnd);
     if (callEnd.reason !== EndReason.CallRejected) {
       callingModal.closed.then(this.showMissedCallAlert);
     }
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
-    this.soundsService.playCallRejected().catch(
-      (err) => this.logger.warn('ExpertCallService: could not play rejected sound', err));
-  }
+    this.soundsService
+      .playCallRejected()
+      .catch(err => this.logger.warn('ExpertCallService: could not play rejected sound', err));
+  };
 
-  private handleAnswerCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance,
-                                        incomingCallDetails: GetExpertSueDetails,
-                                        call: BusinessCall): void => {
+  private handleAnswerCallInvitation = (
+    callingModal: ng.ui.bootstrap.IModalServiceInstance,
+    incomingCallDetails: GetExpertSueDetails,
+    call: BusinessCall,
+  ): void => {
     this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       localStream => {
-
         const currentMediaTracks = localStream.getTracks();
-        currentMediaTracks.filter(track => track.kind === 'video')
-          .forEach(track => track.enabled = false);
+        currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
 
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
         currentExpertCall.answer(currentMediaTracks).then(
@@ -233,18 +285,18 @@ export class ExpertCallService {
             this.soundsService.callIncomingSound().stop();
             callingModal.close();
           },
-          (err) => {
+          err => {
             this.soundsService.callIncomingSound().stop();
             callingModal.close();
             this.logger.error('ExpertCallService: Could not answer the call', err);
-          }
+          },
         );
       },
-      (err) => this.logger.warn('ExpertCallService: Could not get user media', err));
-  }
+      err => this.logger.warn('ExpertCallService: Could not get user media', err),
+    );
+  };
 
-  private rejectCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance,
-                                  call: BusinessCall): void => {
+  private rejectCallInvitation = (callingModal: ng.ui.bootstrap.IModalServiceInstance, call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Rejecting call invitation', call);
     // Clear callbacks registered in `incoming` state
     this.callRejectedEvent.next();
@@ -253,27 +305,33 @@ export class ExpertCallService {
       () => {
         this.soundsService.callIncomingSound().stop();
         callingModal.close();
-        this.soundsService.playCallRejected().then(
-          () => this.logger.debug('ExpertCallService: Played call rejected'),
-          (err) => this.logger.warn('ExpertCallService: could not play call rejected', err));
+        this.soundsService
+          .playCallRejected()
+          .then(
+            () => this.logger.debug('ExpertCallService: Played call rejected'),
+            err => this.logger.warn('ExpertCallService: could not play call rejected', err),
+          );
         this.logger.debug('ExpertCallService: Call was successfully rejected');
       },
-      (err) => {
+      err => {
         this.soundsService.callIncomingSound().stop();
         callingModal.close();
         this.logger.error('ExpertCallService: Error when rejecting the call', err);
-      });
-  }
+      },
+    );
+  };
 
   private onAnsweredCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     this.modalsService.createExpertConsultationSummaryModal(currentExpertCall.getSueId());
-    this.soundsService.playCallEnded().then(
-      () => this.logger.debug('ExpertCallService: call end sound played'),
-      (err) => this.logger.warn('ExpertCallService: Cannot play call end sound', err)
-    );
-  }
+    this.soundsService
+      .playCallEnded()
+      .then(
+        () => this.logger.debug('ExpertCallService: call end sound played'),
+        err => this.logger.warn('ExpertCallService: Cannot play call end sound', err),
+      );
+  };
 
   private showMissedCallAlert = (): void => {
     this.modalsService.createInfoAlertModal('COMMUNICATOR.MISSED_CALL_ALERT_MESSAGE');
-  }
+  };
 }
