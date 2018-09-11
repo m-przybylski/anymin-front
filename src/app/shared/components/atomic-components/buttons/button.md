@@ -12,7 +12,6 @@ Selectors: `[plat-button]`, `[plat-icon-button]`, `[plat-stroked-button]`, `[pla
 | plat-mini-flat-fab        | floated square button without border |
 | plat-button               | regural button                       |
 | plat-large-button         | large button                         |
-| plat-flat                 | flat filled button                   |
 | plat-stroked-large-button | large stroked button                 |
 
 Properties

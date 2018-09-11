@@ -184,7 +184,7 @@ describe('ConsultationFooterWrapperComponent', () => {
             currency: 'PLN',
           },
         },
-        accountBalande: {
+        accountBalance: {
           amount: 1000,
           currency: 'PLN',
         },
@@ -222,7 +222,7 @@ describe('ConsultationFooterWrapperComponent', () => {
             currency: 'PLN',
           },
         },
-        accountBalande: {
+        accountBalance: {
           amount: 1000,
           currency: 'PLN',
         },

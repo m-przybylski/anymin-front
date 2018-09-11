@@ -9,7 +9,7 @@ import { throwError, Observable, forkJoin } from 'rxjs';
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
 
 @Injectable()
-export class AcceptRejectInvitatioService extends Logger {
+export class AcceptRejectInvitationService extends Logger {
   constructor(
     private invitationService: InvitationService,
     private alertService: AlertService,
@@ -44,23 +44,23 @@ export class AcceptRejectInvitatioService extends Logger {
 
   /**
    * Accepts invitation. endpoint envolved
-   * POST /api/invitations/{invitataionId}/accept
+   * POST /api/invitations/{invitationId}/accept
    * @param invitationId id of invitation to be accepted
    * @param activeModal modal to be closed
    * @returns Cold observable. Once subscribed triggers accept
    */
-  public acceptInvitation = (invitataionId: string, activeModal: NgbActiveModal): Observable<void> =>
-    this.acceptRejectInvitation('ACCEPT')(invitataionId, activeModal);
+  public acceptInvitation = (invitationId: string, activeModal: NgbActiveModal): Observable<void> =>
+    this.acceptRejectInvitation('ACCEPT')(invitationId, activeModal);
 
   /**
    * Rejects invitation. endpoint envolved
-   * POST /api/invitations/{invitataionId}/reject
+   * POST /api/invitations/{invitationId}/reject
    * @param invitationId id of invitation to be rejected
    * @param activeModal modal to be closed
    * @returns Cold observable. Once subscribed triggers rejection
    */
-  public rejectInvitation = (invitataionId: string, activeModal: NgbActiveModal): Observable<void> =>
-    this.acceptRejectInvitation('REJECT')(invitataionId, activeModal);
+  public rejectInvitation = (invitationId: string, activeModal: NgbActiveModal): Observable<void> =>
+    this.acceptRejectInvitation('REJECT')(invitationId, activeModal);
 
   public markInvitationAsRead = (invitation: string): Observable<void> =>
     this.invitationService.postInvitationsDisplayedRoute(invitation);
@@ -78,7 +78,7 @@ export class AcceptRejectInvitatioService extends Logger {
 
   private acceptRejectInvitation = (
     task: 'ACCEPT' | 'REJECT',
-  ): ((invitataionId: string, activeModal: NgbActiveModal) => Observable<void>) => {
+  ): ((invitationId: string, activeModal: NgbActiveModal) => Observable<void>) => {
     /**
      * bind is required so the service has a context of execution.
      */
@@ -87,10 +87,10 @@ export class AcceptRejectInvitatioService extends Logger {
         ? this.invitationService.postInvitationAcceptRoute.bind(this.invitationService)
         : this.invitationService.postInvitationRejectRoute.bind(this.invitationService);
 
-    return (invitataionId: string, activeModal: NgbActiveModal): Observable<void> =>
-      acceptReject(invitataionId).pipe(
+    return (invitationId: string, activeModal: NgbActiveModal): Observable<void> =>
+      acceptReject(invitationId).pipe(
         tap(() => {
-          activeModal.close(invitataionId);
+          activeModal.close(invitationId);
           this.alertService.pushSuccessAlert(`INVITE_ACCEPT_REJECT.${task}.SUCCESS`);
         }),
         catchError((error: HttpErrorResponse) => {

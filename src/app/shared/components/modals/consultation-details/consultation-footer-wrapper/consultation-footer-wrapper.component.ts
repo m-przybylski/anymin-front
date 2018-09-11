@@ -56,7 +56,7 @@ export class ConsultationFooterWrapperComponent extends Logger {
     this.expertsIdList = value.expertsIdList;
     this.isFreelance = value.isFreelance;
     this.defaultPayment = value.defaultPayment;
-    this.balance = this.pipe.transform(value.accountBalande);
+    this.balance = this.pipe.transform(value.accountBalance);
     if (value.price !== undefined) {
       this.grossPrice = this.pipe.transform(value.price.grossPrice);
       this.price = this.pipe.transform(value.price.price);
@@ -73,7 +73,7 @@ export class ConsultationFooterWrapperComponent extends Logger {
         currency: value.price.price.currency,
       });
       this.duration = value.price.grossPrice.amount
-        ? Math.floor(value.accountBalande.amount / value.price.grossPrice.amount)
+        ? Math.floor(value.accountBalance.amount / value.price.grossPrice.amount)
         : 0;
     }
   }
@@ -168,5 +168,5 @@ export interface IConsultationFooterData {
     price: MoneyDto;
   };
   defaultPayment: DefaultCreditCard;
-  accountBalande: { amount: number; currency: string };
+  accountBalance: { amount: number; currency: string };
 }

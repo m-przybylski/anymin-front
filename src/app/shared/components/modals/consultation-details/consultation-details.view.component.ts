@@ -123,7 +123,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     isExpertAvailable: true,
     isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
     defaultPayment: getServiceDetails.payment,
-    accountBalande: getServiceDetails.balance,
+    accountBalance: getServiceDetails.balance,
     price: {
       grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.grossPrice,
       price: getServiceDetails.getServiceWithEmployees.serviceDetails.netPrice,

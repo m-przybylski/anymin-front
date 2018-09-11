@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { INVITATION } from './services/accept-reject-invitation';
-import { AcceptRejectInvitatioService } from './services/accept-reject-invitation.service';
+import { AcceptRejectInvitationService } from './services/accept-reject-invitation.service';
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
@@ -12,7 +12,7 @@ import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-ava
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
   styleUrls: ['accept-reject-invitation.component.sass'],
-  providers: [AcceptRejectInvitatioService],
+  providers: [AcceptRejectInvitationService],
 })
 export class AcceptRejectInvitationModalComponent extends Logger implements OnInit {
   public isFreelance: boolean;
@@ -31,7 +31,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   constructor(
     @Inject(INVITATION) public invitation: IInvitation,
     private activeModal: NgbActiveModal,
-    private acceptRejectInvitatioService: AcceptRejectInvitatioService,
+    private acceptRejectInvitationService: AcceptRejectInvitationService,
     private loader: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
   ) {
@@ -41,9 +41,9 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   public ngOnInit(): void {
     this.loader.startLoadingAnimation();
     if (!this.invitation.isVisited) {
-      this.acceptRejectInvitatioService.markInvitationAsRead(this.invitation.id).subscribe();
+      this.acceptRejectInvitationService.markInvitationAsRead(this.invitation.id).subscribe();
     }
-    this.acceptRejectInvitatioService
+    this.acceptRejectInvitationService
       .getInvitationDetails(this.invitation)
       .pipe(finalize(() => this.loader.stopLoadingAnimation()))
       .subscribe(data => {
@@ -57,10 +57,10 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
       });
   }
   public onRejectClicked = (): void => {
-    this.acceptRejectInvitatioService.rejectInvitation(this.invitation.id, this.activeModal).subscribe();
+    this.acceptRejectInvitationService.rejectInvitation(this.invitation.id, this.activeModal).subscribe();
   };
 
   public onAcceptClicked = (): void => {
-    this.acceptRejectInvitatioService.acceptInvitation(this.invitation.id, this.activeModal).subscribe();
+    this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal).subscribe();
   };
 }
