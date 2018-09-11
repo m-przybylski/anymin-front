@@ -4,6 +4,7 @@ import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { UserSessionService } from '../../../../../../core/services/user-session/user-session.service';
 import { Observable, from, forkJoin } from 'rxjs';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CompanyProfileResolverService
@@ -20,7 +21,11 @@ export class CompanyProfileResolverService
     /** get information who is logged */
     const session$ = from(this.userSessionService.getSession());
     /** get data from backend - organization profile - consultataions */
-    const organizationDetails$ = this.views.getWebOrganizationProfileRoute(profileId);
+    const organizationDetails$ = this.views
+      .getWebOrganizationProfileRoute(profileId)
+      .pipe(
+        map(data => ({ ...data, services: data.services.filter(service => service.service.deletedAt === undefined) })),
+      );
     /** get data from backend - organization details - name, desc, logo, links */
     const profileDetails$ = this.profileService.getProfileRoute(profileId);
 
