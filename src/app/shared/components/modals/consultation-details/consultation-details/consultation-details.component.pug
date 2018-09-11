@@ -16,7 +16,7 @@
 			.user-details__data
 				.user-details__data__name(*ngIf="expertName")
 					p {{ expertName }}
-						span.for dla
+						span.for(*ngIf="companyName") dla
 						span {{ companyName }}
 
 				.user-details__data__availbility(*ngIf="expertId")
@@ -50,5 +50,5 @@
 				span.count {{ commentCounter }}
 				span.text {{ 'CONSULTATION_DETAILS.STATISTICS.COMMENTS.POSITIVE' | translate }}
 
-	.consultation-details__tags(*ngIf="tagList[0]")
+	.consultation-details__tags(*ngIf="tagList.length")
 		plat-tag-list([itemList]="tagList")

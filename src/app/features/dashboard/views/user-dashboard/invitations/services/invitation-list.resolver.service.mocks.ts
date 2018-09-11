@@ -1,4 +1,5 @@
 // tslint:disable:max-line-length
+// tslint:disable:max-file-line-count
 export const invitationsMock: ReadonlyArray<any> = [
   {
     id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
@@ -57,18 +58,24 @@ export const invitationsMock3: ReadonlyArray<any> = [
 ];
 export const invitationsMock4: ReadonlyArray<any> = [
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     status: 'NEW',
     createdAt: new Date('2018-08-26T08:02:45.409Z'),
   },
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     status: 'NEW',
     createdAt: new Date('2018-08-27T08:02:42.409Z'),
   },
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     status: 'NEW',
@@ -108,6 +115,40 @@ export const invitationsMock5: ReadonlyArray<any> = [
     createdAt: new Date('2018-09-12T08:02:42.409Z'),
   },
 ];
+
+export const invitationsMock6: ReadonlyArray<any> = [
+  {
+    serviceName: 'Bum, bum, bum',
+    serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    status: 'DELETED',
+    createdAt: new Date('2018-08-26T08:02:45.409Z'),
+  },
+  {
+    serviceName: 'Bum, bum, bum',
+    serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    status: 'ACCEPTED',
+    createdAt: new Date('2018-08-27T08:02:42.409Z'),
+  },
+  {
+    serviceName: 'Bum, bum, bum',
+    serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    status: 'REJECTED',
+    createdAt: new Date('2018-09-12T08:02:42.409Z'),
+  },
+  {
+    serviceName: 'Bum, bum, bum',
+    serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    status: 'ACCEPTED',
+    createdAt: new Date('2018-09-12T08:02:42.409Z'),
+  },
+  {
+    serviceName: 'Bum, bum, bum',
+    serviceOwnerId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    status: 'DELETED',
+    createdAt: new Date('2018-09-12T08:02:42.409Z'),
+  },
+];
+
 export const profileMap = new Map<string, any>([
   [
     'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
@@ -181,7 +222,9 @@ export const profileMap = new Map<string, any>([
 
 export const result: any = [
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
     inviteDate: new Date('2018-08-27T08:02:42.409Z'),
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerName: 'Salta ,salta',
     serviceOwnerAvatarToken: '3759ae044d9e400591d104e254c58f89',
@@ -189,7 +232,9 @@ export const result: any = [
     isVisited: false,
   },
   {
+    id: '473e64f2-3540-4925-bf54-dfe4ea4bfd15',
     inviteDate: new Date('2018-08-26T11:55:44.119Z'),
+    serviceId: '75d15bc1-0520-43af-9180-b538e5e4f8f3',
     serviceName: 'JUPI',
     serviceOwnerName: 'Salta ,salta',
     serviceOwnerAvatarToken: '3759ae044d9e400591d104e254c58f89',
@@ -200,6 +245,8 @@ export const result: any = [
 
 export const result3: any = [
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerName: '',
     serviceOwnerAvatarToken: '',
@@ -211,6 +258,8 @@ export const result3: any = [
 
 export const result4: any = [
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerName: 'Salta ,salta',
     serviceOwnerAvatarToken: '3759ae044d9e400591d104e254c58f89',
@@ -219,6 +268,8 @@ export const result4: any = [
     isVisited: false,
   },
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerName: 'Salta ,salta',
     serviceOwnerAvatarToken: '3759ae044d9e400591d104e254c58f89',
@@ -227,6 +278,8 @@ export const result4: any = [
     isVisited: false,
   },
   {
+    id: 'f9e40393-88ff-461a-9772-e62574ce33c5',
+    serviceId: 'e6e0a29a-bd56-460d-8320-58390092070f',
     serviceName: 'Bum, bum, bum',
     serviceOwnerName: 'Salta ,salta',
     serviceOwnerAvatarToken: '3759ae044d9e400591d104e254c58f89',
@@ -235,3 +288,5 @@ export const result4: any = [
     isVisited: false,
   },
 ];
+
+export const result6: any = [];

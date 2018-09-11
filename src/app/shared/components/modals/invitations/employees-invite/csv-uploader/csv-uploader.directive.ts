@@ -6,7 +6,7 @@ import { ParseError, ParseResult } from 'papaparse';
 const Papa = require('papaparse');
 
 @Directive({
-  selector: '[csvUploader]'
+  selector: '[csvUploader]',
 })
 export class CsvUploaderDirective {
   @Input()
@@ -17,8 +17,7 @@ export class CsvUploaderDirective {
 
   private logger: LoggerService;
 
-  constructor(private alertService: AlertService,
-              loggerFactory: LoggerFactory) {
+  constructor(private alertService: AlertService, loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('CsvUploaderDirective');
   }
 
@@ -32,7 +31,7 @@ export class CsvUploaderDirective {
             complete: (result: ParseResult): void => {
               this.onLoadFile(result.data);
               this.showCSVstatus(result.errors);
-            }
+            },
           });
         };
         reader.onerror = (err: ErrorEvent): void => {
@@ -46,5 +45,5 @@ export class CsvUploaderDirective {
       this.logger.warn('No file');
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
-  }
+  };
 }

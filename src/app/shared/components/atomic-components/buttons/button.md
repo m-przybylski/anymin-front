@@ -11,6 +11,7 @@ Selectors: `[plat-icon-button]`, `[plat-stroked-button]`, `[plat-button]`, `[pla
 | plat-flat-fab       | floating rounded button with color   |
 | plat-mini-flat-fab  | floated square button without border |
 | plat-button         | button without border                |
+| plat-flat           | flat filled button                   |
 
 Properties
 

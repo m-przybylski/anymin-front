@@ -1818,5 +1818,15 @@
   "INVITATIONS.EMPTY_DESCRIPTION_ONE": "…do rozmawiania w ramach konsultacji należących do organizacji.",
   "INVITATIONS.EMPTY_DESCRIPTION_TWO": " Możesz dowiedzieć się więcej o pracownikach i organizacjach w AnyMind, w ",
   "INVITATIONS.EMPTY_LINK": "tym artykule",
-  "LOGIN.PIN_CODE.RODO_POLICY": "Administratorem danych osobowych jest Itelo Sp. z o. o. z siedzibą w Krakowie. Osobą do kontaktu w sprawach związanych z przetwarzaniem danych osobowych jest Anna Ryś. Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenia usług dostępnych w Serwisie [na podstawie art. 6 ust. 1 lit. b) RODO oraz w celu marketingu produktów lub usług  Spółki na podstawie art. 6 ust. 1 lit. f) RODO tj. prawnie uzasadnionych interesów realizowanych przez Spółkę. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>."
+  "LOGIN.PIN_CODE.RODO_POLICY": "Administratorem danych osobowych jest Itelo Sp. z o. o. z siedzibą w Krakowie. Osobą do kontaktu w sprawach związanych z przetwarzaniem danych osobowych jest Anna Ryś. Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenia usług dostępnych w Serwisie [na podstawie art. 6 ust. 1 lit. b) RODO oraz w celu marketingu produktów lub usług  Spółki na podstawie art. 6 ust. 1 lit. f) RODO tj. prawnie uzasadnionych interesów realizowanych przez Spółkę. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>.",
+  "ACCEPT_REJECT_INVITATION.ACCEPT": "Akceptuj",
+  "ACCEPT_REJECT_INVITATION.REJECT": "Odrzuć",
+  "INVITE_ACCEPT_REJECT.HEADER": "Zaproszenie do konsultacji",
+  "INVITE_ACCEPT_REJECT.ACCEPT.SUCCESS": "Konsultacja została zaakceptowana!",
+  "INVITE_ACCEPT_REJECT.REJECT.SUCCESS": "Konsultacja została odrzucona!",
+  "INVITE_ACCEPT_REJECT.ACCEPT.FAILURE": "Błąd podczas akceptowania konsultacji.",
+  "INVITE_ACCEPT_REJECT.REJECT.FAILURE": "Błąd podczas odrzucania konsultacji.",
+  "INVITE_ACCEPT_REJECT.FREELANCE": " to kwota netto, którą zarobisz na tej konsultacji. Klient zobaczy brutto ",
+  "INVITE_ACCEPT_REJECT.ORGANIZATION": "Zarobione przez Ciebie środki trafiają na konto właściciela konsultacji, a rozliczysz się z nim indywidualnie.",
+  "INVITE_ACCEPT_REJECT.ORGANIZATION.FIND_MORE": "Dowiedz się więcej na temat konsultacji pracowniczej"
 }

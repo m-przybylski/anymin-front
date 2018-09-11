@@ -4,11 +4,13 @@
     ul.invitations-list-layout__list
       li.invitations-list-layout__list-item(*ngFor='let invite of invitations')
         plat-invitations-list-item(
+        [id]='invite.id',
         [date]='invite.inviteDate',
         [avatarToken]='invite.serviceOwnerAvatarToken',
         [ownerName]='invite.serviceOwnerName',
         [consultationDesc]='invite.serviceName',
-        [isVisited]='invite.isVisited'
+        [isVisited]='invite.isVisited',
+        (invitatonClicked)='onInvitatonClicked($event)'
       )
 ng-template(#emptyList)
   .invitations-empty-layout

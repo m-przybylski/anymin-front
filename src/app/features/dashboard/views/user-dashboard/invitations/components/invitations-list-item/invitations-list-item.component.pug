@@ -1,4 +1,4 @@
-.invitations-list-item([ngClass]="{'invitations-list-item--visited': isVisited }")
+.invitations-list-item([ngClass]="{'invitations-list-item--visited': isVisited }", (click)="onInvitationClicked(id)")
   span.invitations-list-item__date {{date | date:'dd.MM.yyyy'}}
   .invitations-list-item__avatar
     plat-user-avatar([avatarToken]='avatarToken', isOrganizationAvatar='true')

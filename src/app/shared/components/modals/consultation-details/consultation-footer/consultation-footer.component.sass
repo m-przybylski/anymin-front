@@ -1,0 +1,60 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import '../.../../../../../../template/core/partials/grid'
+
+.consultation-footer
+  display: flex
+  align-items: center
+  position: relative
+  padding:
+
+  &__left
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+
+    +smm
+      flex-direction: row
+      align-items: center
+
+    &-price
+      min-height: 64px
+      margin: 0 0 16px 0
+      display: inline-block
+      flex-shrink: 0
+      display: inline-block
+      color: $c-white
+      border-bottom: 1px solid rgba($c-white, 0.15)
+
+      +smm
+        min-height: auto
+        margin: 0
+        border-bottom-width: 0px
+
+    &-text
+      color: $c-half-white
+
+  &__right
+    display: none
+
+    +xsm
+      flex-shrink: 0
+      display: flex
+      flex-direction: row
+      position: absolute
+      top: 0
+      right: 0
+
+    +smm
+      position: static
+
+    &--mobile
+      flex-shrink: 0
+      display: flex
+      flex-direction: row
+      position: absolute
+      top: 0
+      right: 0
+
+      +xsm
+        display: none

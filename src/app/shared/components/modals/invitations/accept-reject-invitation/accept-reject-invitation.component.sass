@@ -1,0 +1,71 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import '../.../../../../../../template/core/partials/grid'
+
+
+.accept-reject-invitation-content
+  margin: 0 -16px
+
+  +smm
+    margin: 0 -48px
+
+.accept-reject-invitation
+
+  &__billing-detail
+
+    &-price
+      display: inline-block
+      margin: 0 0 24px 0
+
+      +smm
+        padding: 0 24px 0 0
+        margin: 0 24px 0 0
+        border-right: 1px solid rgba($c-white, 0.15)
+
+      &-money
+        +h4
+        font-weight: 300
+
+      &-currency
+        color: $c-half-white
+
+        +smm
+          display: none
+
+    &-text
+      display: inline-flex
+      align-items: center
+      padding: 0 10px 0 0
+
+      span
+        margin: 0 12px 0 0
+
+      p
+        +caption
+
+        strong
+          font-weight: 700
+        a
+          +caption
+          color: $c-white
+          margin: 0
+          font-weight: 700
+          display: block
+
+          +mdm
+            display: inline
+
+  &__buttons
+    +xsm
+      display: flex
+      flex-direction: row
+
+    &--mobile
+      display: flex
+      flex-direction: row
+
+    &-button
+      margin: 0 0 0 16px
+
+      &:nth-child(1)
+        margin: 0
