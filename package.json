@@ -22,7 +22,6 @@
     "pug-watch": "pug src --doctype html --watch",
     "env": "node lib/environment/environment.js",
     "env-staging": "npm run env staging",
-    "env-development": "npm run env development",
     "env-demo": "npm run env demo",
     "env-production": "npm run env production"
   },
@@ -51,7 +50,7 @@
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
     "@anymind-ng/api": "0.0.45",
-    "@anymind-ng/core": "^0.3.31",
+    "@anymind-ng/core": "^0.4.0",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",
     "@ngrx/effects": "^6.1.0",
     "@ngrx/entity": "^6.1.0",
