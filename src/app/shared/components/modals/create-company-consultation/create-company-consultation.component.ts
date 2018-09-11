@@ -135,8 +135,8 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   private getServiceModel = (): PostService => ({
     // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-363
     invitations: [],
-    isOwnerEmployee: true,
-    isFreelance: false,
+    isOwnerEmployee: false,
+    isFreelance: this.isFreelance,
     name: this.createConsultationForm.controls[this.nameControlName].value,
     description: this.createConsultationForm.controls[this.descriptionControlName].value,
     price: {
