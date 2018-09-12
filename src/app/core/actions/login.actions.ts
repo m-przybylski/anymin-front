@@ -5,10 +5,11 @@ export enum AuthActionTypes {
   Login = '[auth] Login',
   LoginError = '[auth] Login error',
   LoginSuccess = '[auth] Login success',
-  LoginRedirect = '[auth] Login redirect',
   Logout = '[auth] Logout',
   LogoutError = '[auth] Logout error',
   LogoutSuccess = '[auth] Logout success',
+  LoginRedirect = '[auth] Login redirect',
+  DashboardRedirect = '[auth] Dashboard redirect',
 }
 
 export class LoginAction implements Action {
@@ -43,6 +44,9 @@ export class LogoutSuccessAction implements Action {
 export class LoginRedirectAction implements Action {
   public readonly type = AuthActionTypes.LoginRedirect;
 }
+export class DashboardRedurectAction implements Action {
+  public readonly type = AuthActionTypes.DashboardRedirect;
+}
 
 export type AuthActionsUnion =
   | LoginAction
@@ -51,4 +55,5 @@ export type AuthActionsUnion =
   | LoginRedirectAction
   | LogoutAction
   | LogoutErrorAction
-  | LogoutSuccessAction;
+  | LogoutSuccessAction
+  | DashboardRedurectAction;

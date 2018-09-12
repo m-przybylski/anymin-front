@@ -60,6 +60,27 @@ export class LoginEffects extends Logger {
     switchMap(() => of(new AuthActions.LoginRedirectAction())),
   );
 
+  @Effect({ dispatch: false })
+  public dashboardRedirect$ = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.DashboardRedirect),
+    tap(() => {
+      this.loggerService.debug('Redirecting to dashboard');
+      this.router
+        .navigate(['/dashboard/expert/activities'])
+        .then(success => {
+          if (success) {
+            this.loggerService.debug('Redirecting to dashboard success');
+          } else {
+            this.loggerService.warn('Redirecting to dashboard failed');
+          }
+        })
+        .catch(() => {
+          this.loggerService.error('Something went wrong, redirecting to "/dashboard/expert/activities"');
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        });
+    }),
+  );
+
   constructor(
     private actions$: Actions,
     private sessionService: SessionService,

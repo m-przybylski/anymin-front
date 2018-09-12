@@ -26,6 +26,7 @@ export function reducer(
         ...state,
         session: undefined,
         isPending: true,
+        isFromBackend: false,
       };
     }
     case AuthActions.AuthActionTypes.LoginSuccess:

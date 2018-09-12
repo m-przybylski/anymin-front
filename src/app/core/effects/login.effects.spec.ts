@@ -156,4 +156,46 @@ describe('LoginEffects', () => {
       expect(loginEffects.logoutSuccess$).toBeObservable(expected);
     });
   });
+  describe('dashboardRedirect$', () => {
+    it('should call router.navigate when action received', fakeAsync(() => {
+      const two = 2;
+      const router: Router = TestBed.get(Router);
+      const action = new AuthActions.DashboardRedurectAction();
+      actions$ = of(action);
+      (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
+      loginEffects.dashboardRedirect$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/expert/activities']);
+      });
+      tick();
+      expect(loggerService.debug).toHaveBeenCalledTimes(two);
+    }));
+
+    it('should call router.navigate when action received', fakeAsync(() => {
+      const router: Router = TestBed.get(Router);
+      const action = new AuthActions.DashboardRedurectAction();
+      actions$ = of(action);
+      (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+      loginEffects.dashboardRedirect$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/expert/activities']);
+      });
+      tick();
+      expect(loggerService.debug).toHaveBeenCalledTimes(1);
+      expect(loggerService.warn).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should call router.navigate when action received', fakeAsync(() => {
+      const router: Router = TestBed.get(Router);
+      const alertServide: AlertService = TestBed.get(AlertService);
+      const action = new AuthActions.DashboardRedurectAction();
+      actions$ = of(action);
+      (router.navigate as jasmine.Spy).and.returnValue(Promise.reject('error'));
+      loginEffects.dashboardRedirect$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/expert/activities']);
+      });
+      tick();
+      expect(loggerService.debug).toHaveBeenCalledTimes(1);
+      expect(loggerService.error).toHaveBeenCalledTimes(1);
+      expect(alertServide.pushDangerAlert).toHaveBeenCalledTimes(1);
+    }));
+  });
 });

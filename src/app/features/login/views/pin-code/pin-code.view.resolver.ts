@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { RegistrationService, GetRegistrationSession } from '@anymind-ng/api';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError } from 'rxjs/operators';
-import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
 import { LoginHelperService } from '../../services/login-helper.service';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
+import { AuthActions } from '@platform/core/actions';
 
 @Injectable()
 export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
   private logger: LoggerService;
 
   constructor(
+    private store: Store<fromCore.IState>,
     private registrationService: RegistrationService,
-    private router: Router,
     private alertService: AlertService,
     private helper: LoginHelperService,
     loggerFactory: LoggerFactory,
@@ -22,9 +25,9 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
     this.logger = loggerFactory.createLoggerService('PinCodeViewResolver');
   }
 
-  public resolve = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<GetRegistrationSession> =>
+  public resolve = (route: ActivatedRouteSnapshot): Observable<GetRegistrationSession> =>
     this.requestPinCode(this.helper.addPlusToPhoneNumber(route.params.msisdn)).pipe(
-      catchError(this.handlePinCodeError),
+      catchError(error => this.handlePinCodeError(error)),
     );
 
   private requestPinCode = (msisdn: string): Observable<GetRegistrationSession> =>
@@ -44,17 +47,7 @@ export class PinCodeViewResolver implements Resolve<GetRegistrationSession> {
           break;
 
         default:
-          this.router
-            .navigate(['/login'])
-            .then(isRedirectSuccessful => {
-              if (!isRedirectSuccessful) {
-                this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-                this.logger.warn('Error when redirect to login');
-              }
-            })
-            .catch(this.logger.error.bind(this));
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-          this.logger.error('Unhandled backend pin code error', err);
+          this.store.dispatch(new AuthActions.LoginRedirectAction());
       }
     } else {
       this.logger.warn('error when resolving pin-code', err);
