@@ -10,7 +10,6 @@ import {
   NavigatorWrapper,
   LoggerService,
 } from '@anymind-ng/core';
-import { RatelApi } from 'profitelo-api-ng/api/api';
 import { GetExpertSueDetails } from 'profitelo-api-ng/model/models';
 import { ModalsService } from '../../../services/modals/modals.service';
 import { SoundsService } from '../../../services/sounds/sounds.service';
@@ -31,7 +30,6 @@ export class ExpertCallService {
     'ServiceUsageEventApi',
     'modalsService',
     'soundsService',
-    'RatelApi',
     'communicatorService',
     'logger',
     'callFactory',
@@ -49,7 +47,6 @@ export class ExpertCallService {
     private ServiceUsageEventApi: ServiceUsageEventApi,
     private modalsService: ModalsService,
     private soundsService: SoundsService,
-    private RatelApi: RatelApi,
     private communicatorService: CommunicatorService,
     private logger: LoggerService,
     private callFactory: CallFactory,
@@ -174,10 +171,6 @@ export class ExpertCallService {
         // FIXME unsubscribe when answered
         // Client went offline when calling
         call.offline$.subscribe(offline => this.handleClientWentOfflineBeforeAnswering(offline, call, callingModal));
-        // Client timeouted when calling
-        call.left$
-          .pipe(takeUntil(this.callRejectedEvent))
-          .subscribe(left => this.handleClientLeftBeforeAnswering(left, expertSueDetails, callingModal));
         // Call was answered on the other device
         call.activeDevice$.subscribe(active => this.handleCallAnsweredOnOtherDevice(active, callingModal, call));
         // Client ended the call when calling
@@ -219,23 +212,6 @@ export class ExpertCallService {
     this.soundsService
       .playCallRejected()
       .catch(err => this.logger.warn('ExpertCallService: could not play rejected sound', err));
-  };
-
-  private handleClientLeftBeforeAnswering = (
-    callLeft: callEvents.Left,
-    incomingCallDetails: GetExpertSueDetails,
-    callingModal: ng.ui.bootstrap.IModalInstanceService,
-  ): void => {
-    this.logger.debug('ExpertCallService: Client left from call invitation, ending call', callLeft);
-    callingModal.close();
-    this.soundsService.callIncomingSound().stop();
-    this.soundsService
-      .playCallRejected()
-      .catch(err => this.logger.warn('ExpertCallService: could not play rejected sound', err));
-    this.RatelApi.postRatelStopCallRoute(incomingCallDetails.sueId).then(
-      () => this.logger.debug('ExpertCallService: Call ended successfully'),
-      err => this.logger.warn('ExpertCallService: Cannot end the call', err),
-    );
   };
 
   private handleCallAnsweredOnOtherDevice = (

@@ -34,6 +34,7 @@ export const organizationProfileView: OrganizationProfileView = {
       employments: [
         {
           id: '62508989-2f01-4c98-8dc9-cf4b6f19b192',
+          ratingCounter: 1,
           serviceId: '9effa37a-397b-4bcc-8c8f-26576e7222df',
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
@@ -164,6 +165,7 @@ export const organizationProfileView1: OrganizationProfileView = {
         {
           id: '62508989-2f01-4c98-8dc9-cf4b6f19b192',
           serviceId: '9effa37a-397b-4bcc-8c8f-26576e7222df',
+          ratingCounter: 1,
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
             name: 'Filip Franczak',
@@ -268,6 +270,7 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
             {
               id: '62508989-2f01-4c98-8dc9-cf4b6f19b192',
               serviceId: '9effa37a-397b-4bcc-8c8f-26576e7222df',
+              ratingCounter: 1,
               employeeProfile: {
                 id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
                 name: 'Filip Franczak',

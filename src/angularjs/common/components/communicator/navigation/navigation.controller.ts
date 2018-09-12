@@ -19,9 +19,8 @@ interface INavigationComponentController extends INavigationComponentBindings {
   isAudio: boolean;
 }
 
-export class NavigationComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy,
-  INavigationComponentController {
-
+export class NavigationComponentController
+  implements ng.IController, ng.IOnInit, ng.IOnDestroy, INavigationComponentController {
   public static $inject = ['modalsService', 'logger', 'expertCallService'];
   public areOptions = false;
   public isAudio = true;
@@ -33,12 +32,17 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
 
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private modalsService: ModalsService,
-              private logger: LoggerService,
-              private expertCallService: ExpertCallService) {
-    new NavigatorWrapper().hasMoreThanOneCamera().then(
-      (val) => this.isToogleCameraVisible = val,
-      (err) => logger.warn('NavigationComponentController: Can not get information about media devices', err));
+  constructor(
+    private modalsService: ModalsService,
+    private logger: LoggerService,
+    private expertCallService: ExpertCallService,
+  ) {
+    new NavigatorWrapper()
+      .hasMoreThanOneCamera()
+      .then(
+        val => (this.isToogleCameraVisible = val),
+        err => logger.warn('NavigationComponentController: Can not get information about media devices', err),
+      );
   }
 
   public $onInit(): void {
@@ -53,18 +57,21 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
   public hangupCall = (): void => {
     this.logger.debug('NavigationComponentController: Hanging up the call');
     if (this.currentCall) {
-      this.currentCall.hangup$().pipe(takeUntil(this.ngUnsubscribe$)).subscribe(
-        () => this.logger.debug('NavigationComponentController: Call hanged up'),
-        (err) => {
-          if (this.currentCall) {
-            this.currentCall.forceEndCall();
-          }
-          this.logger.error('NavigationComponentController: Could not hangup the call', err);
-        });
+      this.currentCall
+        .hangup$()
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(
+          () => {
+            this.logger.debug('NavigationComponentController: Call hanged up');
+          },
+          err => {
+            this.logger.error('NavigationComponentController: Could not hangup the call', err);
+          },
+        );
     } else {
       this.logger.error('NavigationComponentController: Cannot hangup the call, there is no call');
     }
-  }
+  };
 
   public animateButtons = (elem: any): void => {
     if (elem.currentTarget.classList.contains('is-active')) {
@@ -74,7 +81,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
       elem.currentTarget.classList.remove('is-inactive');
       elem.currentTarget.classList.add('is-active');
     }
-  }
+  };
 
   public changeCamera = (): void => {
     this.logger.debug('NavigationComponentController: Trying to change camera');
@@ -90,7 +97,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     } else {
       this.logger.error('NavigationComponentController: Cannot stop the camera, there is no call');
     }
-  }
+  };
 
   public startAudio = (): void => {
     if (this.currentCall) {
@@ -104,7 +111,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     } else {
       this.logger.error('NavigationComponentController: Cannot start the audio, there is no call');
     }
-  }
+  };
 
   public stopAudio = (): void => {
     this.logger.debug('NavigationComponentController: Stopping the audio');
@@ -119,7 +126,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     } else {
       this.logger.error('NavigationComponentController: Cannot stop the audio, there is no call');
     }
-  }
+  };
 
   public stopVideo = (): void => {
     this.logger.debug('NavigationComponentController: Stopping video');
@@ -133,7 +140,7 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     } else {
       this.logger.error('NavigationComponentController: Cannot stop the video, there is no call');
     }
-  }
+  };
 
   public startVideo = (elem: Element): void => {
     this.logger.debug('NavigationComponentController: Starting video');
@@ -148,42 +155,46 @@ export class NavigationComponentController implements ng.IController, ng.IOnInit
     } else {
       this.logger.error('NavigationComponentController: Cannot start the video, there is no call');
     }
-  }
+  };
 
   public toggleOptions = (elem: Element): void => {
     this.animateButtons(elem);
     this.areOptions = !this.areOptions;
-  }
+  };
 
   public toggleMessenger = (elem: Element): void => {
     this.animateButtons(elem);
     this.isMessenger = !this.isMessenger;
-  }
+  };
 
   private handleNewCall = (expertCall: CurrentExpertCall): void => {
     this.currentCall = expertCall;
     this.isAudio = true;
     this.isVideo = false;
     this.isMessenger = false;
-  }
+  };
 
   private turnOnSecondCamera = (): void => {
     if (this.currentCall) {
       if (!this.isVideo) {
         this.isVideo = true;
-        this.currentCall.changeCamera().then(() => {
-          this.logger.debug('NavigationComponentController: Successfully turned second camera');
-        }).catch((err) => {
-          this.isVideo = false;
-          this.modalsService.createInfoAlertModal('COMMUNICATOR.ERROR.SWITCH_CAMERA');
-          this.logger.error('NavigationComponentController: Cannot turn on the second camera', err);
-        });
+        this.currentCall
+          .changeCamera()
+          .then(() => {
+            this.logger.debug('NavigationComponentController: Successfully turned second camera');
+          })
+          .catch(err => {
+            this.isVideo = false;
+            this.modalsService.createInfoAlertModal('COMMUNICATOR.ERROR.SWITCH_CAMERA');
+            this.logger.error('NavigationComponentController: Cannot turn on the second camera', err);
+          });
       } else {
-        this.logger.error('NavigationComponentController: Cannot turn on second camera,' +
-          'there is a video already, stop it firstly');
+        this.logger.error(
+          'NavigationComponentController: Cannot turn on second camera,' + 'there is a video already, stop it firstly',
+        );
       }
     } else {
       this.logger.error('NavigationComponentController: Cannot change the camera, there is no call');
     }
-  }
+  };
 }
