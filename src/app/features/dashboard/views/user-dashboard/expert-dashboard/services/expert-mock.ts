@@ -15,6 +15,7 @@ export const expertProfileView: ExpertProfileView = {
   employments: [
     {
       id: '6c693138-b53d-4c49-bec1-f587e7a6ff77',
+      ratingCounter: 2,
       serviceDetails: {
         id: '75d15bc1-0520-43af-9180-b538e5e4f8f3',
         ownerProfile: {
@@ -58,6 +59,7 @@ export const expertProfileView: ExpertProfileView = {
     },
     {
       id: 'f7c0982e-7d79-40f0-ac5c-138c554f68fd',
+      ratingCounter: 2,
       serviceDetails: {
         id: '02927c7d-53b3-4294-9a11-9c288640c22b',
         ownerProfile: {
@@ -119,6 +121,7 @@ export const expertProfileView1: ExpertProfileView = {
   employments: [
     {
       id: '6c693138-b53d-4c49-bec1-f587e7a6ff77',
+      ratingCounter: 2,
       serviceDetails: {
         id: '75d15bc1-0520-43af-9180-b538e5e4f8f3',
         ownerProfile: {
@@ -163,6 +166,7 @@ export const expertProfileView1: ExpertProfileView = {
     },
     {
       id: 'f7c0982e-7d79-40f0-ac5c-138c554f68fd',
+      ratingCounter: 2,
       serviceDetails: {
         id: '02927c7d-53b3-4294-9a11-9c288640c22b',
         ownerProfile: {
@@ -219,6 +223,7 @@ export const expertProfileViewResult1: IExpertCompanyDashboardResolverData<Exper
     employments: [
       {
         id: 'f7c0982e-7d79-40f0-ac5c-138c554f68fd',
+        ratingCounter: 2,
         serviceDetails: {
           id: '02927c7d-53b3-4294-9a11-9c288640c22b',
           ownerProfile: {
