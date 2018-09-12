@@ -51,6 +51,7 @@ describe('Service: PinCode service', () => {
         accountId: '12',
       }),
     );
+    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
     tick();
     expect(router.navigate).toHaveBeenCalledWith(['/account/set-password']);

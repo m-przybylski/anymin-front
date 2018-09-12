@@ -94,17 +94,19 @@ export class PinCodeViewService {
     }
   };
   private redirectToSetPassword = (): void => {
-    this.router
-      .navigate(['/account/set-password'])
-      .then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.logger.warn('Error when redirect to account/set-password');
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-        }
-      })
-      .catch(() => {
-        this.logger.error('Error when redirect to account/set-password');
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-      });
+    setTimeout(() => {
+      this.router
+        .navigate(['/account/set-password'])
+        .then(isRedirectSuccessful => {
+          if (!isRedirectSuccessful) {
+            this.logger.warn('Error when redirect to account/set-password');
+            this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+          }
+        })
+        .catch(err => {
+          this.logger.error('Error when redirect to account/set-password', err);
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+        });
+    }, 0);
   };
 }
