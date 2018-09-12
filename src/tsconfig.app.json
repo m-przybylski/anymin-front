@@ -23,5 +23,5 @@
     "../node_modules/profitelo-api-ng/api.module.ts",
     "../node_modules/profitelo-api-ng/api/api.ts"
   ],
-  "exclude": ["test.ts", "**/*.spec.ts"]
+  "exclude": ["test.ts", "**/*.spec.ts", "wallabyTest.ts"]
 }
