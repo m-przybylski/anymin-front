@@ -5,8 +5,6 @@ import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { SessionGuard } from './session.guard';
 import { AuthActions, SessionActions } from '@platform/core/actions';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Deceiver } from 'deceiver-core';
 
 describe('SessionGuard', () => {
   let guard: SessionGuard;
@@ -21,15 +19,7 @@ describe('SessionGuard', () => {
           core: combineReducers(fromCore.reducers),
         }),
       ],
-      providers: [
-        SessionGuard,
-        {
-          provide: LoggerFactory,
-          useValue: Deceiver(LoggerFactory, {
-            createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
-          }),
-        },
-      ],
+      providers: [SessionGuard],
     });
 
     store = TestBed.get(Store);

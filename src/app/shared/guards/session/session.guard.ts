@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { SessionActions, AuthActions } from '@platform/core/actions';
@@ -9,15 +8,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-  private logger: LoggerService;
+  constructor(private store: Store<fromCore.IState>) {}
 
-  constructor(private store: Store<fromCore.IState>, loggerFactory: LoggerFactory) {
-    this.logger = loggerFactory.createLoggerService('SessionGuard');
-  }
-
-  public canActivate = (): Observable<boolean> => this.isLoggedIn();
-
-  public isLoggedIn = (): Observable<boolean> =>
+  public canActivate = (): Observable<boolean> =>
     this.store.pipe(
       select(fromCore.getLoggedIn),
       map(isLoggedIn => {
