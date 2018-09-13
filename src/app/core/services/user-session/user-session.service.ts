@@ -8,10 +8,14 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 import { Store } from '@ngrx/store';
 import * as fromCore from '../../reducers';
 import { AuthActions } from '../../actions';
+import { Logger } from '@platform/core/logger';
+import { LoggerFactory } from '@anymind-ng/core';
+import { tap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable()
-export class UserSessionService {
-  private sessionCache?: Promise<GetSessionWithAccount>;
+export class UserSessionService extends Logger {
+  private sessionCache?: GetSessionWithAccount;
 
   private readonly unauthorizedCode = 401;
 
@@ -20,7 +24,10 @@ export class UserSessionService {
     private sessionService: SessionService,
     private eventsService: EventsService,
     private state: Store<fromCore.IState>,
-  ) {}
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory);
+  }
 
   public logout = (): Promise<any> => {
     this.state.dispatch(new AuthActions.LogoutAction());
@@ -44,29 +51,32 @@ export class UserSessionService {
 
   public isLoggedIn = (): boolean => typeof this.sessionCache !== 'undefined';
 
-  public getSession = (force = false): Promise<GetSessionWithAccount> => {
-    if (force) {
-      this.sessionCache = this.getSessionFromBackend();
-      return this.sessionCache;
-    } else {
-      if (typeof this.sessionCache !== 'undefined') {
-        return this.sessionCache;
-      } else {
-        return this.getSessionFromBackend();
-      }
-    }
-  };
+  public getSession = (force = false): Promise<GetSessionWithAccount> =>
+    new Promise<GetSessionWithAccount>(
+      (resolve, reject): void => {
+        if (force || typeof this.sessionCache === 'undefined') {
+          this.getSessionFromBackend()
+            .pipe(
+              catchError(err => {
+                reject(err);
 
-  private getSessionFromBackend = (): Promise<GetSessionWithAccount> => {
-    this.sessionCache = this.sessionService
-      .checkRoute()
-      .toPromise()
-      .then(this.onSuccessLogin);
-    return this.sessionCache;
-  };
+                return throwError(err);
+              }),
+            )
+            .subscribe(session => {
+              resolve(session);
+            });
+        } else {
+          return resolve(this.sessionCache);
+        }
+      },
+    );
+
+  private getSessionFromBackend = (): Observable<GetSessionWithAccount> =>
+    this.sessionService.checkRoute().pipe(tap(this.onSuccessLogin));
 
   private onSuccessLogin = (sessionWithAccount: GetSessionWithAccount): GetSessionWithAccount => {
-    this.sessionCache = Promise.resolve(sessionWithAccount);
+    this.sessionCache = sessionWithAccount;
     this.authService.setApiKey(sessionWithAccount.session.apiKey);
 
     return sessionWithAccount;
