@@ -10,9 +10,17 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export class CommunicatorComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy {
-
-  public static $inject = ['$element', '$timeout', '$window', 'translatorService', 'topAlertService',
-    'microphoneService', 'expertCallService', 'communicatorService', 'logger'];
+  public static $inject = [
+    '$element',
+    '$timeout',
+    '$window',
+    'translatorService',
+    'topAlertService',
+    'microphoneService',
+    'expertCallService',
+    'communicatorService',
+    'logger',
+  ];
 
   private static readonly disconnectedAnimationTimeout = 500;
 
@@ -40,29 +48,26 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
 
   private ngUnsubscribe = new Subject<void>();
 
-  constructor(private $element: ng.IRootElementService,
-              private $timeout: ng.ITimeoutService,
-              private $window: ng.IWindowService,
-              private translatorService: TranslatorService,
-              private topAlertService: TopAlertService,
-              private microphoneService: MicrophoneService,
-              private expertCallService: ExpertCallService,
-              private communicatorService: CommunicatorService,
-              private logger: LoggerService) {
-  }
+  constructor(
+    private $element: ng.IRootElementService,
+    private $timeout: ng.ITimeoutService,
+    private $window: ng.IWindowService,
+    private translatorService: TranslatorService,
+    private topAlertService: TopAlertService,
+    private microphoneService: MicrophoneService,
+    private expertCallService: ExpertCallService,
+    private communicatorService: CommunicatorService,
+    private logger: LoggerService,
+  ) {}
 
   public $onInit(): void {
-    this.expertCallService.newCall$
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(this.registerExpertCall);
+    this.expertCallService.newCall$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.registerExpertCall);
 
     this.communicatorService.connectionEstablishedEvent$
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(this.connectionEstablished);
 
-    this.communicatorService.connectionLostEvent$
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(this.connectionLost);
+    this.communicatorService.connectionLostEvent$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.connectionLost);
 
     this.remoteVideoStreamElement = this.$element.find('.video-player-remote video');
     this.remoteAudioStreamElement = this.$element.find('.video-player-remote audio');
@@ -71,11 +76,12 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
 
     const communicatorElement: ng.IAugmentedJQuery = this.$element.find('.communicator');
     if (communicatorElement) {
-      communicatorElement.on('dragover', (e) => e.preventDefault());
-      communicatorElement.on('drop', (e) => e.preventDefault());
+      communicatorElement.on('dragover', e => e.preventDefault());
+      communicatorElement.on('drop', e => e.preventDefault());
     }
-    this.microphoneService.onMicrophoneStatusChange((state) =>
-      this.isMicrophoneMuted = state === MicrophoneStateEnum.MUTED);
+    this.microphoneService.onMicrophoneStatusChange(
+      state => (this.isMicrophoneMuted = state === MicrophoneStateEnum.MUTED),
+    );
   }
 
   public $onDestroy(): void {
@@ -89,18 +95,18 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
       this.isOffline = false;
       this.topAlertService.success({
         message: this.translatorService.translate('COMMUNICATOR.NETWORK_RECONNECTED'),
-        timeout: 3
+        timeout: 3,
       });
     }
-  }
+  };
 
   private connectionLost = (): void => {
     this.isOffline = true;
     this.topAlertService.error({
       message: this.translatorService.translate('COMMUNICATOR.NETWORK_INTERRUPT'),
-      timeout: 2
+      timeout: 2,
     });
-  }
+  };
 
   private registerExpertCall = (call: CurrentExpertCall): void => {
     this.cleanupComponent();
@@ -108,7 +114,7 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.isConnecting = true;
     this.isClosed = false;
     this.registerCommonCallEvents(call);
-  }
+  };
 
   private registerCommonCallEvents = (call: CurrentCall): void => {
     call.remoteMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleRemoteStream);
@@ -116,19 +122,17 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     call.localMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onLocalMediaTrack);
     call.end$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onCallEnd);
     call.timeCostChange$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onTimeCostChange);
-    call.participantOffline$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onUserBackOnline);
-    call.participantOnline$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onUserOffline);
     call.callTaken$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.closeCommunicator);
-  }
+  };
 
-  private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
+  private onTimeCostChange = (timeMoneyTuple: { time: number; money: MoneyDto }): void => {
     this.callLengthInSeconds = timeMoneyTuple.time;
     this.callCost = timeMoneyTuple.money;
-  }
+  };
 
   private handleRemoteVideoStream = (videoStatus: boolean): void => {
     this.isRemoteVideo = videoStatus;
-  }
+  };
 
   private handleRemoteStream = (track: MediaStreamTrack): void => {
     this.isConnecting = false;
@@ -136,21 +140,21 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     if (this.remoteAudioStreamElement && this.remoteVideoStreamElement) {
       if (track.kind === 'video') {
         this.attachTrackToElement(this.remoteVideoStreamElement, track);
-        const remoteVideoHTMLMediaElement =  this.remoteVideoStreamElement.get(0) as HTMLMediaElement;
-        remoteVideoHTMLMediaElement.play().catch((error) => {
+        const remoteVideoHTMLMediaElement = this.remoteVideoStreamElement.get(0) as HTMLMediaElement;
+        remoteVideoHTMLMediaElement.play().catch(error => {
           this.logger.error('Can not call play method', error);
         });
       } else {
         this.attachTrackToElement(this.remoteAudioStreamElement, track);
         const remoteAudioStreamHTMLMediaElement = this.remoteAudioStreamElement.get(0) as HTMLMediaElement;
-        remoteAudioStreamHTMLMediaElement.play().catch((error) => {
+        remoteAudioStreamHTMLMediaElement.play().catch(error => {
           this.logger.error('Can not call play method', error);
         });
       }
     } else {
       this.logger.error('remote Stream Elements are undefined');
     }
-  }
+  };
 
   private onLocalMediaTrack = (track: MediaStreamTrack): void => {
     if (this.localVideoStreamElement) {
@@ -158,16 +162,12 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
       if (track.kind === 'video') {
         this.attachTrackToElement(this.localVideoStreamElement, track);
         const localVideoStreamHTMLMediaElement = this.localVideoStreamElement.get(0) as HTMLMediaElement;
-        localVideoStreamHTMLMediaElement.play().catch((error) => {
+        localVideoStreamHTMLMediaElement.play().catch(error => {
           this.logger.error('Can not call play method', error);
         });
       }
     }
-
-  }
-  private onUserBackOnline = (): void => {
-    this.isParticipantOffline = false;
-  }
+  };
 
   private closeCommunicator = (): void => {
     this.isDisconnectedAnimation = true;
@@ -175,15 +175,7 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
       this.isClosed = true;
       this.cleanupComponent();
     }, CommunicatorComponentController.disconnectedAnimationTimeout);
-  }
-
-  private onUserOffline = (): void => {
-    this.isParticipantOffline = true;
-    this.topAlertService.error({
-      message: this.translatorService.translate('COMMUNICATOR.INTERLOCUTOR_NETWORK_INTERRUPT'),
-      timeout: 5
-    });
-  }
+  };
 
   private cleanupComponent = (): void => {
     this.isDisconnectedAnimation = false;
@@ -198,18 +190,18 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     this.callLengthInSeconds = 0;
     this.callCost = undefined;
     this.isMicrophoneMuted = false;
-  }
+  };
 
   private onCallEnd = (): void => {
     this.closeCommunicator();
-  }
+  };
 
   private attachTrackToElement = (element: ng.IAugmentedJQuery, track: MediaStreamTrack): void => {
     const stream = new MediaStream([track]);
     try {
-      element.prop({srcObject: stream});
+      element.prop({ srcObject: stream });
     } catch (_err) {
       element.attr('src', this.$window.URL.createObjectURL(stream));
     }
-  }
+  };
 }

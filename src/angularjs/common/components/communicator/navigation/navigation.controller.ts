@@ -8,6 +8,7 @@ import { CurrentCall, CurrentExpertCall, LoggerService } from '@anymind-ng/core'
 import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { CallReason } from 'ratel-sdk-js';
 
 export interface INavigationComponentBindings {
   isMessenger: boolean;
@@ -58,7 +59,7 @@ export class NavigationComponentController
     this.logger.debug('NavigationComponentController: Hanging up the call');
     if (this.currentCall) {
       this.currentCall
-        .hangup$()
+        .hangup$(CallReason.Hangup)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(
           () => {
