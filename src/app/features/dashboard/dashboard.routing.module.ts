@@ -9,7 +9,6 @@ import { ExpertActivitiesComponent } from './views/user-dashboard/expert-activit
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
-import { SettingsViewComponent } from './views/user-dashboard/settings/settings.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 
@@ -26,7 +25,10 @@ const routes: Routes = [
           { path: 'client-activities', component: ClientActivitiesComponent },
           { path: 'expert-activities', component: ExpertActivitiesComponent },
           { path: 'favourites', component: FavouritesComponent },
-          { path: 'settings', component: SettingsViewComponent },
+          {
+            path: 'settings',
+            loadChildren: './views/user-dashboard/settings/settings.module#SettingsModule'
+          },
           {
             path: RouterPaths.dashboard.user.profile.getName,
             loadChildren: './views/user-dashboard/expert-dashboard/expert-dashboard.module#ExpertDashboardModule',

@@ -8,12 +8,12 @@
 
 	&__container
 		width: 100%
-		
+
 .dropdown
 	cursor: pointer
 	position: relative
 	margin: 0
-	
+
 	&:not(.dropdown--list-only)
 		plat-dropdown-list
 			&::ng-deep
@@ -24,17 +24,25 @@
 					top: 14px
 					width: calc(100% + 16px)
 					left: -16px
-		
-	&:hover
-		.dropdown__arrow
-			span
-				color: $c-text-primary
-	
+
+  &:hover
+    .dropdown__arrow
+      span
+        color: $c-text-primary
+
+  &.input--disabled
+    cursor: default
+
+    &:hover
+      .dropdown__arrow
+        span
+          color: $c-label
+
 	&__handler
 		position: relative
 		display: flex
 		justify-content: space-between
-	
+
 	&__arrow
 		position: absolute
 		display: flex
@@ -42,14 +50,14 @@
 		height: 100%
 		right: 0
 		top: 0
-		
+
 		span
 			transition: color 0.3s
 			color: $c-label
-	
+
 	input
 		cursor: pointer
-		
+
 	&--list-only
 		&::before,
 		&::after

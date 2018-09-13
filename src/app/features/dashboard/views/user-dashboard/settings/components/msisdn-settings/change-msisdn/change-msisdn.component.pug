@@ -1,0 +1,37 @@
+.change-msisdn
+  .modal-form
+    form(
+      [id]="changeMsisdnFormId",
+      [formGroup]="changeMsisdnForm",
+      (ngSubmit)="onFormSubmit(changeMsisdnForm)",
+      novalidate
+    )
+      .input-handler
+        plat-dropdown(
+          label="DASHBOARD.SETTINGS.CHANGE_MSISDN.PREFIX_LABEL",
+          [placeholder]="msisdnPrefix",
+          [form]="changeMsisdnForm",
+          [controlName]="msisdnPrefixControlName",
+          [dropdownItems]="msisdnPrefixes",
+          [isRequired]="true",
+          [isDisabled]="true",
+          [isDropdownListVisible]="true",
+          (onSelectItemEmiter)="onSelectItemEmitter($event)"
+        )
+
+        am-core-input-phone-number(
+          label="LOGIN.ENTER_NUMBER",
+          placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER",
+          [controlName]="msisdnControlName",
+          [form]="changeMsisdnForm",
+          [isDisabled]="isRequestPending",
+          [initialFocus]="true",
+          [isRequired]="true"
+        )
+
+    .modal-component__action
+      am-core-submit-button(
+        titleText="DASHBOARD.SETTINGS.CHANGE_MSISDN.SUBMIT_BUTTON",
+        [formName]="changeMsisdnFormId",
+        [isLoading]="isRequestPending || isSubmitButtonDisabled"
+      )

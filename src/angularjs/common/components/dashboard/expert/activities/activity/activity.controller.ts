@@ -26,7 +26,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
 
   public $onInit(): void {
     this.activityDate = this.activity.initializedAt;
-    this.isCallActivity = this.activity.activityType !== GetProfileActivity.ActivityTypeEnum.FINANCIALTRANSACTION;
+    this.isCallActivity = this.activity.activityType === GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT;
   }
 
   public openActivityDescription = (): void => {
