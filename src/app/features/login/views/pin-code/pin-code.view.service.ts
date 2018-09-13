@@ -4,10 +4,9 @@ import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { RegistrationService } from '@anymind-ng/api';
-import { Observable } from 'rxjs';
-import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
+import { Observable, of } from 'rxjs';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
 import { EventsService } from '../../../../../angularjs/common/services/events/events.service';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
@@ -94,19 +93,17 @@ export class PinCodeViewService {
     }
   };
   private redirectToSetPassword = (): void => {
-    setTimeout(() => {
-      this.router
-        .navigate(['/account/set-password'])
-        .then(isRedirectSuccessful => {
-          if (!isRedirectSuccessful) {
-            this.logger.warn('Error when redirect to account/set-password');
-            this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          }
-        })
-        .catch(err => {
-          this.logger.error('Error when redirect to account/set-password', err);
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        });
-    }, 0);
+    this.router
+      .navigate(['/account/set-password'])
+      .then(isRedirectSuccessful => {
+        if (!isRedirectSuccessful) {
+          this.logger.warn('Error when redirect to account/set-password');
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        }
+      })
+      .catch(err => {
+        this.logger.error('Error when redirect to account/set-password', err);
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+      });
   };
 }
