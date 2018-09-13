@@ -6,7 +6,7 @@ import { SessionService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
-import { SessionActions, AuthActions } from '@platform/core/actions';
+import { SessionActions } from '@platform/core/actions';
 
 describe('SessionEffects', () => {
   let sessionEffects: SessionEffects;
@@ -54,19 +54,6 @@ describe('SessionEffects', () => {
       sessionService.checkRoute = jasmine.createSpy('').and.returnValue(response);
 
       expect(sessionEffects.fetchSession$).toBeObservable(expected);
-    });
-  });
-
-  describe('fetchSessionError$', () => {
-    it('should return Auth.LoginRedirectAction, if fetch fails', () => {
-      const error = 'Something is wrong';
-      const action = new SessionActions.FetchSessionErrorAction(error);
-      const completion = new AuthActions.LoginRedirectAction();
-
-      actions$ = hot('-a---', { a: action });
-      const expected = cold('-b', { b: completion });
-
-      expect(sessionEffects.fetchSessionError$).toBeObservable(expected);
     });
   });
 });
