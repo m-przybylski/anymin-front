@@ -50,7 +50,7 @@
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
     "@anymind-ng/api": "0.0.49",
-    "@anymind-ng/core": "^0.4.21",
+    "@anymind-ng/core": "^0.4.22",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",
     "@ngrx/effects": "^6.1.0",
     "@ngrx/entity": "^6.1.0",
