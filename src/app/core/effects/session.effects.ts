@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, defer } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
-import { SessionActions, AuthActions } from '../actions';
+import { SessionActions } from '../actions';
 import { SessionService } from '@anymind-ng/api';
 
 @Injectable()
@@ -16,12 +16,6 @@ export class SessionEffects {
         catchError(error => of(new SessionActions.FetchSessionErrorAction(error))),
       ),
     ),
-  );
-
-  @Effect()
-  public fetchSessionError$ = this.actions$.pipe(
-    ofType(SessionActions.SessionActionTypes.FetchSessionFromServerError),
-    map(() => new AuthActions.LoginRedirectAction()),
   );
 
   @Effect()

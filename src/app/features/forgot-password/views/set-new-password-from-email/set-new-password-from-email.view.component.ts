@@ -1,15 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, takeUntil } from 'rxjs/operators';
-import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Router } from '@angular/router';
+import { finalize, takeUntil, take } from 'rxjs/operators';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import {
   SetNewPasswordFromEmailStatus,
   SetNewPasswordFromEmailViewService,
 } from './set-new-password-from-email.view.service';
 import { InputSetPasswordErrors } from '../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { Subject } from 'rxjs';
-import { LoginHelperService } from '../../../login/services/login-helper.service';
+import { Logger } from '@platform/core/logger';
+import * as fromCore from '@platform/core/reducers';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'set-password',
@@ -17,7 +19,7 @@ import { LoginHelperService } from '../../../login/services/login-helper.service
   styleUrls: ['./set-new-password-from-email.view.component.sass'],
   providers: [SetNewPasswordFromEmailViewService],
 })
-export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
+export class SetNewPasswordFromEmailViewComponent extends Logger implements OnInit, OnDestroy {
   public readonly passwordControlName = 'password';
   public readonly setPasswordFormId = 'passwordForm';
 
@@ -26,24 +28,31 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
   public isRequestPending = false;
   public isInputInitialFocused = true;
 
-  private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
     private setNewPasswordFromEmailService: SetNewPasswordFromEmailViewService,
     private formUtils: FormUtilsService,
-    private helper: LoginHelperService,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewComponent');
+    super(loggerFactory);
   }
 
   public ngOnInit(): void {
     this.setPasswordForm = new FormGroup({});
-    this.msisdn = this.helper.addPlusToPhoneNumber(this.route.snapshot.params.msisdn);
+    this.store
+      .pipe(
+        select(fromCore.getSession),
+        take(1),
+      )
+      .subscribe(session => {
+        if (typeof session !== 'undefined') {
+          this.msisdn = session.account.msisdn;
+        }
+      });
   }
 
   public ngOnDestroy(): void {
@@ -82,22 +91,22 @@ export class SetNewPasswordFromEmailViewComponent implements OnInit, OnDestroy {
           .then(isRedirectSuccessful => {
             if (!isRedirectSuccessful) {
               this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Can not redirect to login', status);
+              this.loggerService.warn('Can not redirect to login', status);
             }
           })
-          .catch(this.logger.error.bind(this));
+          .catch(this.loggerService.error.bind(this));
         break;
 
       case SetNewPasswordFromEmailStatus.ERROR:
-        this.logger.info('Handled error status when set new password from email', status);
+        this.loggerService.info('Handled error status when set new password from email', status);
         break;
 
       case SetNewPasswordFromEmailStatus.SUCCESS:
-        this.logger.info('Handled success status when set new password from email', status);
+        this.loggerService.info('Handled success status when set new password from email', status);
         break;
 
       default:
-        this.logger.error('Unhandled status when set new password from email', status);
+        this.loggerService.error('Unhandled status when set new password from email', status);
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
   };
