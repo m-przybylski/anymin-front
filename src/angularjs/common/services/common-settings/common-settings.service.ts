@@ -18,6 +18,7 @@ export class CommonSettingsService {
   public readonly errorCodes = {
     notAllowedToLogin: 108,
     illegalArgument: 105,
+    invalidAccountNumber: 207,
   };
   public readonly languages = LanguagesService.languages;
   public readonly localSettings = {

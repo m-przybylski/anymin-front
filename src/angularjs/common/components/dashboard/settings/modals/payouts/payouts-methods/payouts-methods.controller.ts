@@ -29,17 +29,18 @@ export class PayoutsMethodsModalController implements ng.IController {
   private onModalCloseCallback: () => void;
   private static readonly payoutMethodId = {
     bankAccount: 'bankAccount',
-    payPalAccount: 'paypalAccount'
+    payPalAccount: 'paypalAccount',
   };
   private readonly IBANpolishCode = 'PL';
 
   public static $inject = ['$uibModalInstance', '$scope', 'CommonSettingsService', 'payoutsMethodsModalService'];
 
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private $scope: IPayoutsModalControllerScope,
-              private CommonSettingsService: CommonSettingsService,
-              private payoutsMethodsModalService: PayoutsMethodsModalService) {
-
+  constructor(
+    private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    private $scope: IPayoutsModalControllerScope,
+    private CommonSettingsService: CommonSettingsService,
+    private payoutsMethodsModalService: PayoutsMethodsModalService,
+  ) {
     this.onModalCloseCallback = this.$scope.onModalCloseCallback;
   }
 
@@ -48,58 +49,64 @@ export class PayoutsMethodsModalController implements ng.IController {
   public isBankAccountNumberValid = (): boolean => {
     const bankAccountNumber = this.createBankAccountModel();
     return bankAccountNumber !== '' && this.bankAccountNumberPattern.test(bankAccountNumber);
-  }
+  };
 
   public addPayPalAccount = (): void => {
     this.isLoading = true;
     const payoutMethod: PutPayoutMethodDto = {
       payPalAccount: {
-        email: this.payPalEmail
-      }
+        email: this.payPalEmail,
+      },
     };
-    this.payoutsMethodsModalService.putPayoutMethod(payoutMethod)
+    this.payoutsMethodsModalService
+      .putPayoutMethod(payoutMethod)
       .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError);
-  }
+  };
 
   public addBankAccount = (): void => {
     this.isLoading = true;
     const payoutMethod: PutPayoutMethodDto = {
       bankAccount: {
-        accountNumber: this.createBankAccountModel()
-      }
+        accountNumber: this.createBankAccountModel(),
+      },
     };
-    this.payoutsMethodsModalService.putPayoutMethod(payoutMethod)
+    this.payoutsMethodsModalService
+      .putPayoutMethod(payoutMethod)
       .then(this.onPutPayoutMethodSucceed, this.onPutPayoutMethodError);
-  }
+  };
 
   public choosePayoutPaypalMethod = (): void => {
     this.payoutMethod = PayoutsMethodsModalController.payoutMethodId.payPalAccount;
-  }
+  };
 
   public choosePayoutBankMethod = (): void => {
     this.payoutMethod = PayoutsMethodsModalController.payoutMethodId.bankAccount;
-  }
+  };
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');
-  }
+  };
 
   public onInputChange = (): void => {
     this.isBackendValidationError = false;
-  }
+  };
 
   private onPutPayoutMethodSucceed = (_response: ng.IPromise<JValue>): void => {
     this.onModalCloseCallback();
     this.$uibModalInstance.dismiss('cancel');
-  }
+  };
 
   private onPutPayoutMethodError = (error: any): void => {
     this.isLoading = false;
-    if (error.status === httpCodes.badRequest
-        && error.data.code === this.CommonSettingsService.errorCodes.illegalArgument) {
+    if (
+      error.status === httpCodes.badRequest &&
+      error.data.errors.filter(
+        (error: any) => error.code === this.CommonSettingsService.errorCodes.invalidAccountNumber,
+      ).length > 0
+    ) {
       this.isBackendValidationError = true;
     }
-  }
+  };
 
   private createBankAccountModel = (): string => {
     let bankAccountNumber = '';
@@ -110,6 +117,5 @@ export class PayoutsMethodsModalController implements ng.IController {
       }
     }
     return bankAccountNumber;
-  }
-
+  };
 }
