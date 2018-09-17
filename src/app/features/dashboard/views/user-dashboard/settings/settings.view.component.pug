@@ -5,17 +5,15 @@
   .settings__container
     plat-setting-option(
     [title]="'DASHBOARD.SETTINGS.ANONYMITY.TITLE'",
-    [description]="'DASHBOARD.SETTINGS.ANONYMITY.DESCRIPTION'"
+    [description]="'DASHBOARD.SETTINGS.ANONYMITY.DESCRIPTION'",
+    [tooltipTrText]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOLTIP'"
     )
-      plat-input-switch(
-        [turnOnTrKey]="'DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.ON'",
-        [turnOffTrKey]="'DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.OFF'")
+      plat-change-anonymity
 
     plat-setting-option(
     [title]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE'",
     [description]="'+48 500 000 123'",
     [buttonText]="'Zmień'",
-    [tooltipTrText]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOLTIP'"
     )
       button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
         span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
@@ -30,13 +28,6 @@
     [title]="'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE'",
     [description]="'filip.franczak@anymind.com'")
       button.button.button--small.button--tertiary((click)="openChangeEmailModal()")
-        span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
-
-
-    plat-setting-option(
-    [title]="'DASHBOARD.SETTINGS.CHANGE_LANGUAGE_TITLE'",
-    [description]="'filip.franczak@anymind.com'")
-      button.button.button--small.button--tertiary((click)="openChangeNumberModal()")
         span {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
 
     plat-setting-option(
