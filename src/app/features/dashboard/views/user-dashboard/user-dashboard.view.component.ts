@@ -1,4 +1,3 @@
-// tslint:disable:no-empty
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-dashboard.view.component.sass']
 })
 export class UserDashboardComponent {
-  public isExpertNavVisible = true;
 }

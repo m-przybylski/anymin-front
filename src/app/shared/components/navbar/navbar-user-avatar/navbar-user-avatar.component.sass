@@ -8,11 +8,7 @@
     position: absolute
     right: -4px
     bottom: -4px
-    font-size: 20px
-
-    &::before
-      background: $c-white
-      border-radius: 50%
+    font-size: 24px
 
   .icon-available
     &::before
@@ -22,20 +18,36 @@
     &::before
       color: $c-placeholder
 
+  .icon-background
+    position: absolute
+    background-color: $c-white
+    right: -2px
+    bottom: -2px
+    width: 20px
+    height: 20px
+    border-radius: 50%
+
   plat-user-avatar
     &::ng-deep
       .user-avatar
-        width: 40px
+        &__img
+          width: 40px
+          height: 40px
+          min-width: 40px
+          min-height: 40px
+
+          +xsm
+            width: 48px
+            height: 48px
+
+      .icon-avatar
         height: 40px
+        width: 40px
+        font-size: 40px
 
         +xsm
           width: 48px
           height: 48px
-
-      .icon-avatar
-        font-size: 40px
-
-        +xsm
           font-size: 48px
 
       .icon-avatar

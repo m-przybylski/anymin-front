@@ -3,7 +3,9 @@
     [avatarSize]="avatarSize",
     [avatarToken]="avatarToken"
   )
-  span.navbar-user-avatar__icon.icon.icon-available(*ngIf="userVisibility === visibilityStatusEnum.Visible")
-  span.navbar-user-avatar__icon.icon.icon-offline(*ngIf="userVisibility === visibilityStatusEnum.Invisible")
+  div(*ngIf="userType === userTypeEnum.EXPERT")
+    .icon-background
+    span.navbar-user-avatar__icon.icon.icon-available(*ngIf="userVisibility === visibilityStatusEnum.Visible")
+    span.navbar-user-avatar__icon.icon.icon-offline(*ngIf="userVisibility === visibilityStatusEnum.Invisible")
 
   ng-content

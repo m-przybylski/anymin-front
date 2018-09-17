@@ -3,7 +3,6 @@ import { DashboardRoutingModule } from './dashboard.routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
-import { EmployeesComponent } from './views/company-dashboard/employees/employees.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,15 +17,19 @@ import { DashboardComponentsModule } from './components/components.module';
 import { NavbarModule } from '../../shared/components/navbar/navbar.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 import { SettingsModule } from '@platform/features/dashboard/views/user-dashboard/settings/settings.module';
+import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
+import { DashboardResolver } from './dashboard.resolver';
+import { PaymentsModule } from '@platform/features/dashboard/views/user-dashboard/payments/payments.module';
+import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-dashboard/recommend-friends/recommend-friends.module';
 
 @NgModule({
   declarations: [
+    DashboardViewComponent,
     UserDashboardComponent,
     DiscoverComponent,
     ActivitiesViewComponent,
     ExpertActivitiesViewComponent,
     ClientActivitiesViewComponent,
-    EmployeesComponent,
     FavouritesComponent,
     NotFoundComponent,
   ],
@@ -41,7 +44,10 @@ import { SettingsModule } from '@platform/features/dashboard/views/user-dashboar
     InputsModule,
     CompanyDashboardModule,
     SettingsModule,
+    PaymentsModule,
+    RecommendFriendsModule,
     DashboardComponentsModule,
   ],
+  providers: [DashboardResolver],
 })
 export class DashboardModule {}

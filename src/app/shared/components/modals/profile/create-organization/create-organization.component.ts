@@ -11,11 +11,14 @@ import { CreateOrganizationModalComponentService } from './create-organization.c
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutOrganizationDetails } from '@anymind-ng/api';
-import { UserNavigationComponentService } from '../../../navbar/user-navigation/user-navigation.component.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { NavbarActions } from '@platform/core/actions';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import * as fromCore from '@platform/core/reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-create-organization',
@@ -54,9 +57,9 @@ export class CreateOrganizationModalComponent implements OnInit {
     private alertService: AlertService,
     private formUtils: FormUtilsService,
     private router: Router,
-    private navbarComponentService: UserNavigationComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private createOrganizationModalComponentService: CreateOrganizationModalComponentService,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CreateOrganizationModalComponent');
@@ -112,7 +115,7 @@ export class CreateOrganizationModalComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         val => {
-          this.navbarComponentService.onUpdateUserProfile().next(true);
+          this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.COMPANY));
           !this.isCompany ? this.redirectToOrganizationState(val.id) : this.onModalClose();
         },
         err => this.handleResponseError(err, 'Can not send company profile'),

@@ -1,60 +1,37 @@
 .user-navigation
-  ul.user-navigation__list.user-navigation__list--company(
-  *ngIf="isCompany && !isExpertNavVisible; else userMenu")
-    li(routerLinkActive="active", #listElement)
-      a(routerLink="/dashboard/company/activities")
-        span {{ "NAVBAR.COMPANY_ACTIVITIES" | translate }}
-    li(routerLinkActive="active", #listElement)
-      a(routerLink="/dashboard/company/employees")
-        span {{ "NAVBAR.COMPANY_EMPLOYEES" | translate }}
+  ul.user-navigation__list.user-navigation__list--nav
+    li(
+      *ngFor="let navbarOption of navbarItems",
+      routerLinkActive="active",
+      #listElement
+    )
+      a([routerLink]="navbarOption.url")
+        span([translate]="navbarOption.trKey")
 
-  ng-template(#userMenu)
-    ul.user-navigation__list.user-navigation__list--expert
-      li(routerLinkActive="active", #listElement)
-        a(routerLink="/dashboard/user/discover")
-          span {{ "NAVBAR.DISCOVER" | translate }}
-      li(routerLinkActive="active", #listElement)
-        a(routerLink="/dashboard/user/activities")
-          span {{ "NAVBAR.ACTIVITIES" | translate }}
-      li(routerLinkActive="active", #listElement, [hidden]="!isExpert")
-        a(routerLink="/dashboard/user/favourites")
-          span {{ "NAVBAR.FAVOURITE" | translate }}
-
-  .user-navigation__underline(userNavigationUnderlineDirective [currentItem$]="currentElement$")
+  .user-navigation__underline(userNavigationUnderlineDirective [currentItem$]="currentElement")
 
   ul.user-navigation__list.user-navigation__list--menu
     li
       a
         span.icon.icon-questionmark
-    li
-      a
-        span.icon.icon-bell
+    // TODO uncomment this after Beta release ends
+    //li
+    //  a
+    //    span.icon.icon-bell
     li
       plat-navbar-user-avatar(
-        [avatarToken]="(isExpertNavVisible) ? expertAvatar : companyLogo"
+        [avatarToken]="userAvatarToken",
+        [userType]="userType",
+        [isUserMenuVisible]="isMenuVisible"
       )
+
         plat-navbar-user-menu(
-          *ngIf="!isExpert && isExpertNavVisible",
-          [clientName]="clientName",
-          [avatarToken]="expertAvatar",
-          [isCompany]="isCompany",
-          [isExpert]="isExpert",
-          [companyAvatarToken]="companyLogo",
-          )
-
-        plat-navbar-expert-menu(
-          *ngIf="isExpert && isExpertNavVisible",
-          [avatarToken]="expertAvatar",
-          [expertName]="expertName",
-          [companyAvatarToken]="companyLogo",
-          [isExpert]="isExpert",
-          [isCompany]="isCompany"
-        )
-
-        plat-navbar-company-menu(
-          *ngIf="isCompany && !isExpertNavVisible",
-          [companyName]="companyName",
-          [companyAvatarToken]="companyLogo",
-          [expertAvatarToken]="expertAvatar",
-          [isExpert]="isExpert"
+          [menuItems]="menuItems",
+          [userName]="userName",
+          [userType]="userType",
+          [isMenuVisible]="isMenuVisible",
+          [accountId]="accountId",
+          [switchAccountAvatarToken]="switchAccountAvatarToken",
+          [switchAccountType]="switchAccountType",
+          (onSwitchAccount)="emitSwitchAccountUserType($event)"
         )
