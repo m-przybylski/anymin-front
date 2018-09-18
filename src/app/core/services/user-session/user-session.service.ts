@@ -30,7 +30,7 @@ export class UserSessionService extends Logger {
   }
 
   public logout = (): Promise<any> => {
-    this.state.dispatch(new AuthActions.LogoutAction());
+    // this.state.dispatch(new AuthActions.LogoutAction());
 
     return this.sessionService
       .logoutCurrentRoute()
@@ -83,6 +83,7 @@ export class UserSessionService extends Logger {
   };
 
   private onSuccessLogout = (): void => {
+    this.state.dispatch(new AuthActions.LogoutSuccessAction());
     this.sessionCache = undefined;
     this.authService.unsetApiKey();
   };
@@ -91,6 +92,8 @@ export class UserSessionService extends Logger {
     if (err && err.status === this.unauthorizedCode) {
       // user is already logged out so lets do the cache cleanup
       this.onSuccessLogout();
+    } else {
+      this.state.dispatch(new AuthActions.LogoutErrorAction(err));
     }
   };
 }
