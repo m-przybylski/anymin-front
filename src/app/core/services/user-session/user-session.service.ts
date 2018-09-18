@@ -29,14 +29,12 @@ export class UserSessionService extends Logger {
     super(loggerFactory);
   }
 
-  public logout = (): Promise<any> => {
+  public logout = (): Promise<any> =>
     // this.state.dispatch(new AuthActions.LogoutAction());
-
-    return this.sessionService
+    this.sessionService
       .logoutCurrentRoute()
       .toPromise()
       .then(this.onSuccessLogout, this.onFailureLogout);
-  };
 
   public login = (loginDetails: LoginCredentials): Promise<GetSessionWithAccount> =>
     this.sessionService
