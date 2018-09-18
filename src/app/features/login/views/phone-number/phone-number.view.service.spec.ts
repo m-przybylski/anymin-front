@@ -1,24 +1,18 @@
-// tslint:disable:no-empty
 import { TestBed } from '@angular/core/testing';
 import { PhoneNumberViewService } from './phone-number.view.service';
 import { GetRegistrationStatus, RegistrationService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import createSpyObj = jasmine.createSpyObj;
-import { AlertService, LoggerFactory } from '@anymind-ng/core';
+import { AlertService } from '@anymind-ng/core';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { LoginHelperService } from '../../services/login-helper.service';
+import { provideMockFactoryLogger } from 'testing/testing';
+import { Deceiver } from 'deceiver-core';
 
 describe('Service: PhoneNumberService', () => {
   const correctPhoneNumber = '48555555555';
 
-  const logger: any = {
-    info: (): void => {},
-    warn: (): void => {},
-    error: (): void => {},
-  };
-  const loggerFactory = createSpyObj('LoggerFactory', ['createLoggerService']);
-  loggerFactory.createLoggerService.and.returnValue(logger);
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -29,18 +23,23 @@ describe('Service: PhoneNumberService', () => {
           useValue: createSpyObj('RegistrationService', ['checkRegistrationStatusRoute']),
         },
         { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
-        { provide: LoggerFactory, useValue: loggerFactory },
+        provideMockFactoryLogger(),
         {
           provide: RegistrationInvitationService,
           useValue: createSpyObj('RegistrationInvitationService', ['getInvitationObject']),
         },
-        { provide: Router, useValue: createSpyObj('Router', ['navigate']) },
+        {
+          provide: Router,
+          useValue: Deceiver(Router, {
+            navigate: jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true)),
+          }),
+        },
       ],
     });
   });
 
   it('should redirect user to blocked view after send phone number', () => {
-    const phoneNumberService = TestBed.get(PhoneNumberViewService);
+    const phoneNumberService: PhoneNumberViewService = TestBed.get(PhoneNumberViewService);
     const router = TestBed.get(Router);
     const registrationService = TestBed.get(RegistrationService);
 
@@ -49,7 +48,7 @@ describe('Service: PhoneNumberService', () => {
     );
 
     phoneNumberService.handlePhoneNumber(correctPhoneNumber).subscribe();
-    expect(router.navigate).toHaveBeenCalledWith(['/login/blocked']);
+    expect(router.navigate).toHaveBeenCalledWith(['/login/blocked'], undefined);
   });
 
   it('should redirect user to password view after send phone number', () => {
@@ -62,7 +61,7 @@ describe('Service: PhoneNumberService', () => {
     );
 
     phoneNumberService.handlePhoneNumber(correctPhoneNumber).subscribe();
-    expect(router.navigate).toHaveBeenCalledWith(['/login/password', correctPhoneNumber]);
+    expect(router.navigate).toHaveBeenCalledWith(['/login/password', correctPhoneNumber], undefined);
   });
 
   it('should redirect user to pin-code view after send phone number', () => {
@@ -75,7 +74,7 @@ describe('Service: PhoneNumberService', () => {
     );
 
     phoneNumberService.handlePhoneNumber(correctPhoneNumber).subscribe();
-    expect(router.navigate).toHaveBeenCalledWith(['/login/pin-code', correctPhoneNumber]);
+    expect(router.navigate).toHaveBeenCalledWith(['/login/pin-code', correctPhoneNumber], undefined);
   });
 
   it('should redirect user to login/pin-code when is registered without password', () => {
