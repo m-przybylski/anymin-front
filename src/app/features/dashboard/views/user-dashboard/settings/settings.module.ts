@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SettingsComponentsModule } from '@platform/features/dashboard/views/user-dashboard/settings/components/settings.components.module';
 import { RouterModule } from '@angular/router';
 import { SettingsViewComponent } from './settings.view.component';
-import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 
 @NgModule({
   imports: [
@@ -18,8 +17,7 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
       ]),
     TranslateModule,
     AnymindComponentsModule,
-    SettingsComponentsModule,
-    InputsModule
+    SettingsComponentsModule
   ],
   exports: [],
   providers: [],

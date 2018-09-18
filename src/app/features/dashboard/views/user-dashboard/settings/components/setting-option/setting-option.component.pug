@@ -1,8 +1,9 @@
 .setting-option
   .setting-option__left
     .description-container
-      h3.description-container__title
-        | {{ title | translate }}
+      .description-container__title-container
+        h3.description-container__title
+          | {{ title | translate }}
         am-core-tooltip(
         *ngIf="tooltipTrText",
         [tooltipText]="tooltipTrText | translate"

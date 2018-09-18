@@ -1,11 +1,20 @@
-.input-switch
-  span.input-switch__status-text.input-switch__status-text--on(*ngIf="isInputChecked && turnOnTrKey && turnOffTrKey", [translate]="turnOnTrKey")
-  span.input-switch__status-text.input-switch__status-text--off(*ngIf="!isInputChecked && turnOnTrKey && turnOffTrKey", [translate]="turnOffTrKey")
-  label.input-switch__label((click)="onSwitcherClick($event)")
+.input-switch([formGroup]="formGroup")
+  span.input-switch__status-text(
+    [ngClass]="{'input-switch__status-text--disabled': isDisabled}"
+  ) {{ getOnOffTrKey(inputCheckbox.checked) | translate }}
+  label.input-switch__label(
+    (click)="onSwitcherClick($event)",
+    [ngClass]="{'input-switch__label--disabled': isDisabled}"
+  )
     .input-switch__switcher-container
       input(
+        #inputCheckbox
         type="checkbox",
-        [checked]="isInputChecked"
+        [formControlName]="controlName",
       )
-      span.input-switch__switcher
-    span.input-switch__label-text(*ngIf="labelTrKey", [translate]="labelTrKey")
+      span.input-switch__switcher([ngClass]="{'input-switch__switcher--disabled': isDisabled}")
+    span.input-switch__label-text(
+      *ngIf="labelTrKey",
+      [translate]="labelTrKey",
+      [ngClass]="{'input-switch__label-text--disabled': isDisabled}"
+    )
