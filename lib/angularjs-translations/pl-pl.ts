@@ -1412,7 +1412,7 @@ import 'angular-translate';
           'Hasło zostało pomyślnie zmienione. Możesz zalogować się do swojego konta korzystając z nowego hasła.',
         'LOGIN.PHONE_NUMBER_REQUIRED': 'Podaj swój numer telefonu. Przyślemy na niego kod do logowania.',
         'LOGIN.PIN_CODE.ACCEPT_MARKETING':
-          'Wyrażam zgodę na przetwarzanie moich danych osobowych w celach marketingowych.',
+          'Wyrażam zgodę na przesyłanie informacji handlowej środkami komunikacji elektronicznej z wykorzystaniem telekomunikacyjnych urządzeń końcowych przez lub na zlecenie Itelo Sp. z o. o.',
         'LOGIN.PIN_CODE.ACCEPT_MARKETING.VALIDATION_MESSAGE':
           'Aby korzystać z serwisu, musisz wyrazić zgodę na przetwarzanie danych',
         'LOGIN.PIN_CODE.ACCEPT_TERMS':
