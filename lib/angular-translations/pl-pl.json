@@ -1790,5 +1790,6 @@
   "CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.OTHERS": "innych konsultantów",
   "DASHBOARD.SETTINGS.CHANGE_MSISDN.PREFIX_LABEL": "Prefix:",
   "DASHBOARD.SETTINGS.CHANGE_MSISDN.SUBMIT_BUTTON": "Potwierdź",
-  "ALERT.MSISDN_CHANGED.SUCCESS": "Numer telefonu został zmieniony!"
+  "ALERT.MSISDN_CHANGED.SUCCESS": "Numer telefonu został zmieniony!",
+  "LOGIN.PIN_CODE.RODO_POLICY": "Administratorem danych osobowych jest Itelo Sp. z o. o. z siedzibą w Krakowie. Osobą do kontaktu w sprawach związanych z przetwarzaniem danych osobowych jest Anna Ryś. Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenia usług dostępnych w Serwisie [na podstawie art. 6 ust. 1 lit. b) RODO oraz w celu marketingu produktów lub usług  Spółki na podstawie art. 6 ust. 1 lit. f) RODO tj. prawnie uzasadnionych interesów realizowanych przez Spółkę. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>."
 }

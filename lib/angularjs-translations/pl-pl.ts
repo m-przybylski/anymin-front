@@ -1312,8 +1312,8 @@ import 'angular-translate';
         'INPUT_PASSWORD.INCORRECT_PASSWORD_VALIDATION_ERROR': 'Niepoprawne hasło',
         'INPUT_PASSWORD.UNSUCCESSFUL_ATTEMPTS_VALIDATION_ERROR': 'Przekroczono liczbę prób. Odczekaj i wyślij ponownie',
         'INPUT_PHONE_NUMBER.INCORRECT_PHONE_NUMBER_VALIDATION_ERROR': 'Błędny numer telefonu.',
-        "INPUT_PHONE_NUMBER.BLOCKED_PHONE_NUMBER_ERROR": "Numer telefonu zablokowany.",
-        "INPUT_PHONE_NUMBER.ALREADY_EXISTS_PHONE_NUMBER_ERROR": "Numer telefonu jest już zarejestrowany.",
+        'INPUT_PHONE_NUMBER.BLOCKED_PHONE_NUMBER_ERROR': 'Numer telefonu zablokowany.',
+        'INPUT_PHONE_NUMBER.ALREADY_EXISTS_PHONE_NUMBER_ERROR': 'Numer telefonu jest już zarejestrowany.',
         'INPUT_PIN_CODE.INCORRECT_PIN_CODE_VALIDATION_ERROR': 'Niepoprawny kod SMS',
         'INPUT_PIN_CODE.UNSUCCESSFUL_ATTEMPTS_VALIDATION_ERROR': 'Przekroczono liczbę prób. Odczekaj i wyślij ponownie',
         'INPUT_SET_PASSWORD.INVALID_PASSWORD_ERROR': 'Hasło nie spełnia wymagań',
@@ -1957,9 +1957,11 @@ import 'angular-translate';
         'DASHBOARD.SETTINGS.MANAGE_SESSIONS.UNKNOWN_DEVICE': 'Nierozpoznane urządzenie',
         'DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON': 'Wyloguj',
         'DASHBOARD.SETTINGS.MANAGE_SESSIONS.DEVICE_IN_USE': ' - w użyciu',
-        "DASHBOARD.SETTINGS.CHANGE_MSISDN.PREFIX_LABEL": "Prefix:",
-        "DASHBOARD.SETTINGS.CHANGE_MSISDN.SUBMIT_BUTTON": "Potwierdź",
-        "ALERT.MSISDN_CHANGED.SUCCESS": "Numer telefonu został zmieniony!"
+        'DASHBOARD.SETTINGS.CHANGE_MSISDN.PREFIX_LABEL': 'Prefix:',
+        'DASHBOARD.SETTINGS.CHANGE_MSISDN.SUBMIT_BUTTON': 'Potwierdź',
+        'ALERT.MSISDN_CHANGED.SUCCESS': 'Numer telefonu został zmieniony!',
+        'LOGIN.PIN_CODE.RODO_POLICY':
+          "Administratorem danych osobowych jest Itelo Sp. z o. o. z siedzibą w Krakowie. Osobą do kontaktu w sprawach związanych z przetwarzaniem danych osobowych jest Anna Ryś. Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenia usług dostępnych w Serwisie [na podstawie art. 6 ust. 1 lit. b) RODO oraz w celu marketingu produktów lub usług  Spółki na podstawie art. 6 ust. 1 lit. f) RODO tj. prawnie uzasadnionych interesów realizowanych przez Spółkę. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>.",
       });
     },
   ]);
