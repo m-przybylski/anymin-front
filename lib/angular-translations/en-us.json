@@ -1267,7 +1267,7 @@
   "LOGIN.PASSWORD_RECOVERY.ERROR": "Wystąpił błąd podczas próby odzyskania Twojego hasła. Spróbuj ponownie lub skontaktuj się z nami.",
   "LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED": "Hasło zostało pomyślnie zmienione. Możesz zalogować się do swojego konta korzystając z nowego hasła.",
   "LOGIN.PHONE_NUMBER_REQUIRED": "Podaj swój numer telefonu. Przyślemy na niego kod do logowania.",
-  "LOGIN.PIN_CODE.ACCEPT_MARKETING": "Wyrażam zgodę na przetwarzanie moich danych osobowych w celach marketingowych.",
+  "LOGIN.PIN_CODE.ACCEPT_MARKETING": "Wyrażam zgodę na przesyłanie informacji handlowej środkami komunikacji elektronicznej z wykorzystaniem telekomunikacyjnych urządzeń końcowych przez lub na zlecenie Itelo Sp. z o. o.",
   "LOGIN.PIN_CODE.ACCEPT_MARKETING.VALIDATION_MESSAGE": "Aby korzystać z serwisu, musisz wyrazić zgodę na przetwarzanie danych",
   "LOGIN.PIN_CODE.ACCEPT_TERMS": "Przeczytałem i akceptuję warunki <a href='https://anymind.com/regulamin/' target='_blank' tabindex='-1'>regulaminu</a>.",
   "LOGIN.PIN_CODE.ACCEPT_TERMS.VALIDATION_MESSAGE": "Musisz zaakceptować regulamin",
