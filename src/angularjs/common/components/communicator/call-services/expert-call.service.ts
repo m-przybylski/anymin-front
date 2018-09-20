@@ -17,13 +17,17 @@ import { EventsService } from '../../../services/events/events.service';
 import { SessionServiceWrapper } from '../../../services/session/session.service';
 import { BusinessCall, Session, Call, CallReason, callEvents, protocol } from 'ratel-sdk-js';
 import { first, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { PullableCall } from '../models/pullable-call';
 import { Config } from '../../../../../config';
 import { httpCodes } from '../../../classes/http-codes';
 import { ServiceUsageEventApi } from 'profitelo-api-ng/api/ServiceUsageEventApi';
 import EndReason = callEvents.EndReason;
-import { ReplaySubject } from 'rxjs/Rx';
+
+export interface IExpertSessionCall {
+  currentExpertCall: CurrentExpertCall;
+  session: Session;
+}
 
 export class ExpertCallService {
   public static $inject = [
@@ -37,11 +41,12 @@ export class ExpertCallService {
     'sessionServiceWrapper',
   ];
 
-  private readonly newCallEvent = new Subject<CurrentExpertCall>();
+  private readonly newCallEvent = new Subject<IExpertSessionCall>();
   private readonly pullableCallEvent = new ReplaySubject<PullableCall>(1);
   private readonly callRejectedEvent = new Subject<void>();
   private navigatorWrapper = new NavigatorWrapper();
   private callAnsweredOnOtherDeviceEvent$ = new Subject<void>();
+  private session?: Session;
 
   constructor(
     private ServiceUsageEventApi: ServiceUsageEventApi,
@@ -55,6 +60,14 @@ export class ExpertCallService {
   ) {
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkIncomingCalls);
     communicatorService.connectionEstablishedEvent$.subscribe(this.checkPullableCalls);
+    communicatorService.connectionEstablishedEvent$.subscribe(connected => (this.session = connected.session));
+
+    eventsService.on('logout', () => {
+      if (this.session) {
+        communicatorService.disconnect(this.session);
+      }
+    });
+
     communicatorService.callInvitationEvent$.subscribe(inv =>
       this.onExpertCallIdIncoming(inv.session, inv.callInvitation.callId),
     );
@@ -64,17 +77,15 @@ export class ExpertCallService {
       .then(sessionAccount =>
         communicatorService.authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey).subscribe(),
       );
+
     eventsService.on('login', () => {
       sessionServiceWrapper.getSession(true).then(sessionAccount => {
         communicatorService.authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey).subscribe();
       });
     });
-    eventsService.on('logout', () => {
-      communicatorService.disconnect();
-    });
   }
 
-  public get newCall$(): Observable<CurrentExpertCall> {
+  public get newCall$(): Observable<IExpertSessionCall> {
     return this.newCallEvent;
   }
 
@@ -250,23 +261,28 @@ export class ExpertCallService {
       localStream => {
         const currentMediaTracks = localStream.getTracks();
         currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
-
+        const session = this.session;
         const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
-        currentExpertCall.answer(currentMediaTracks).then(
-          () => {
-            // FIXME unsubscribe when call end or taken.
-            currentExpertCall.end$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-            currentExpertCall.callTaken$.subscribe(() => this.handlePullableCall(call));
-            this.newCallEvent.next(currentExpertCall);
-            this.soundsService.callIncomingSound().stop();
-            callingModal.close();
-          },
-          err => {
-            this.soundsService.callIncomingSound().stop();
-            callingModal.close();
-            this.logger.error('ExpertCallService: Could not answer the call', err);
-          },
-        );
+        if (session) {
+          currentExpertCall.answer(session, currentMediaTracks).then(
+            () => {
+              currentExpertCall.callDestroyed$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+              this.newCallEvent.next({
+                currentExpertCall,
+                session,
+              });
+              this.soundsService.callIncomingSound().stop();
+              callingModal.close();
+            },
+            err => {
+              this.soundsService.callIncomingSound().stop();
+              callingModal.close();
+              this.logger.error('ExpertCallService: Could not answer the call', err);
+            },
+          );
+        } else {
+          this.logger.error('ExpertCallService: Session is undefined');
+        }
       },
       err => this.logger.warn('ExpertCallService: Could not get user media', err),
     );

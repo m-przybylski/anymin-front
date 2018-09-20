@@ -56,7 +56,7 @@ import 'core-js/es7/reflect';
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
 // rtc peer connection patch: We need this because zone.js breaks addEventListener on Safari/Firefox
 // and also Zone.js is conflicted with adapter.js.
@@ -65,3 +65,5 @@ import 'zone.js/dist/webapis-rtc-peer-connection';
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import 'symbol-observable';

@@ -1,10 +1,10 @@
 // tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-any
-import { ExpertCallService } from '../call-services/expert-call.service';
+import { ExpertCallService, IExpertSessionCall } from '../call-services/expert-call.service';
 import { Config } from '../../../../../config';
 import { ModalsService } from '../../../services/modals/modals.service';
-import { CurrentCall, CurrentExpertCall, LoggerService } from '@anymind-ng/core';
+import { CurrentCall, LoggerService } from '@anymind-ng/core';
 import { NavigatorWrapper } from '../../../classes/navigator-wrapper/navigator-wrapper';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -58,17 +58,14 @@ export class NavigationComponentController
   public hangupCall = (): void => {
     this.logger.debug('NavigationComponentController: Hanging up the call');
     if (this.currentCall) {
-      this.currentCall
-        .hangup$(CallReason.Hangup)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(
-          () => {
-            this.logger.debug('NavigationComponentController: Call hanged up');
-          },
-          err => {
-            this.logger.error('NavigationComponentController: Could not hangup the call', err);
-          },
-        );
+      this.currentCall.hangup(CallReason.Hangup).then(
+        () => {
+          this.logger.debug('NavigationComponentController: Call hanged up');
+        },
+        err => {
+          this.logger.error('NavigationComponentController: Could not hangup the call', err);
+        },
+      );
     } else {
       this.logger.error('NavigationComponentController: Cannot hangup the call, there is no call');
     }
@@ -168,8 +165,8 @@ export class NavigationComponentController
     this.isMessenger = !this.isMessenger;
   };
 
-  private handleNewCall = (expertCall: CurrentExpertCall): void => {
-    this.currentCall = expertCall;
+  private handleNewCall = (expertSessionCall: IExpertSessionCall): void => {
+    this.currentCall = expertSessionCall.currentExpertCall;
     this.isAudio = true;
     this.isVideo = false;
     this.isMessenger = false;

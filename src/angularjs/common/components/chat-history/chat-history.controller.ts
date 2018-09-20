@@ -6,10 +6,11 @@ import { Session, protocol, roomEvents } from 'ratel-sdk-js';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommunicatorService } from '@anymind-ng/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 // tslint:disable:member-ordering
-export class ChatHistoryComponentController implements IChatHistoryBindings {
-
+export class ChatHistoryComponentController implements IChatHistoryBindings, ng.IOnDestroy {
   public chatMessages: roomEvents.CustomMessageSent[];
   public roomId?: string;
   public isLoading = true;
@@ -17,26 +18,37 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   public isError = false;
   public groupedMessages: roomEvents.CustomMessageSent[][] = [];
   private session?: Session;
+  private readonly ngUnsubscribe = new Subject<void>();
   private static readonly chatHistoryLimit = 500;
 
   public static $inject = ['communicatorService', '$log', '$scope'];
 
-  constructor(private communicatorService: CommunicatorService,
-              private $log: ng.ILogService,
-              private $scope: ng.IScope) {
-  }
+  constructor(
+    private communicatorService: CommunicatorService,
+    private $log: ng.ILogService,
+    private $scope: ng.IScope,
+  ) {}
 
   public $onInit(): void {
-    this.session = this.communicatorService.getSession();
+    this.communicatorService.connectionEstablishedEvent$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(connected => (this.session = connected.session));
     this.getMessages();
+  }
+
+  public $onDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public getMessages = (): void => {
     if (this.session && this.roomId) {
       this.isLoading = true;
-      this.session.chat.getRoom(this.roomId)
-        .then(room => room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit)
-          .then(this.onGetMessages, this.onReject))
+      this.session.chat
+        .getRoom(this.roomId)
+        .then(room =>
+          room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit).then(this.onGetMessages, this.onReject),
+        )
         .catch(this.onReject)
         .then(() => {
           this.isLoading = false;
@@ -44,13 +56,13 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     } else {
       this.onReject('Session or roomId not found');
     }
-  }
+  };
 
   private onReject = (err: any): void => {
     this.isError = true;
     this.isLoading = false;
     this.$log.error(err);
-  }
+  };
 
   private onGetMessages = (messages: protocol.Paginated<roomEvents.RoomEvent>): void => {
     this.chatMessages = messages.items
@@ -59,14 +71,14 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
       .filter(message => message.tag === 'room_custom_message_sent');
     this.isChatHistory = this.chatMessages.length > 0;
     this.isError = false;
-    this.chatMessages.forEach((message) => {
+    this.chatMessages.forEach(message => {
       this.addGroupedMessage(message);
     });
     this.$scope.$apply();
-  }
+  };
 
   private static isCustomMessageSent = (e: roomEvents.RoomEvent): e is roomEvents.CustomMessageSent =>
-    e.tag === roomEvents.CustomMessageSent.tag
+    e.tag === roomEvents.CustomMessageSent.tag;
 
   private addGroupedMessage = (message: roomEvents.CustomMessageSent): void => {
     if (this.groupedMessages.length === 0) {
@@ -80,6 +92,5 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
         this.groupedMessages.push([message]);
       }
     }
-  }
-
+  };
 }
