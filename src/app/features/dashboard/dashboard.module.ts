@@ -16,7 +16,6 @@ import { CompanyDashboardModule } from './views/company-dashboard/company-dashbo
 import { NavbarModule } from '../../shared/components/navbar/navbar.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 import { SettingsModule } from '@platform/features/dashboard/views/user-dashboard/settings/settings.module';
-import { ExpertAvailabilityService } from './components/expert-availability/expert-availablity.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +39,5 @@ import { ExpertAvailabilityService } from './components/expert-availability/expe
     CompanyDashboardModule,
     SettingsModule,
   ],
-  providers: [ExpertAvailabilityService],
 })
 export class DashboardModule {}
