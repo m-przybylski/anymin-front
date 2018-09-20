@@ -14,15 +14,15 @@ plat-modal-component(
       .modal-form__row
         .consultation-type-container
           .consultation-type(
-            (click)="onEmployeeConsultation()",
-            [ngClass]="{'consultation-type--disabled': isRequestPending, 'consultation-type--selected': !isFreelance}"
+          (click)="onEmployeeConsultation()",
+          [ngClass]="{'consultation-type--disabled': isRequestPending, 'consultation-type--selected': !isFreelance}"
           )
             header.consultation-type__title([translate]="'CREATE_COMPANY_CONSULTATION.CONSULTATION_TYPE_SECTION.EMPLOYEE_TYPE.TITLE'")
             p.consultation-type__description([translate]="'CREATE_COMPANY_CONSULTATION.CONSULTATION_TYPE_SECTION.EMPLOYEE_TYPE.DESCRIPTION'")
 
           .consultation-type(
-            (click)="onFreelanceConsultation()",
-            [ngClass]="{'consultation-type--disabled': isRequestPending, 'consultation-type--selected': isFreelance}"
+          (click)="onFreelanceConsultation()",
+          [ngClass]="{'consultation-type--disabled': isRequestPending, 'consultation-type--selected': isFreelance}"
           )
             header.consultation-type__title([translate]="'CREATE_COMPANY_CONSULTATION.CONSULTATION_TYPE_SECTION.FREELANCE_TYPE.TITLE'")
             p.consultation-type__description([translate]="'CREATE_COMPANY_CONSULTATION.CONSULTATION_TYPE_SECTION.FREELANCE_TYPE.DESCRIPTION'")

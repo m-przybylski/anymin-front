@@ -54,6 +54,7 @@ export const expertProfileView: ExpertProfileView = {
       employeeId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
       usageCounter: 0,
       commentCounter: 0,
+
       rating: 0,
       createdAt: new Date('2018-08-31T11:59:46.989Z'),
     },
@@ -96,6 +97,7 @@ export const expertProfileView: ExpertProfileView = {
       employeeId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
       usageCounter: 0,
       commentCounter: 0,
+
       rating: 0,
       createdAt: new Date('2018-09-05T10:48:48.360Z'),
     },
@@ -161,6 +163,7 @@ export const expertProfileView1: ExpertProfileView = {
       employeeId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
       usageCounter: 0,
       commentCounter: 0,
+
       rating: 0,
       createdAt: new Date('2018-08-31T11:59:46.989Z'),
     },
@@ -203,6 +206,7 @@ export const expertProfileView1: ExpertProfileView = {
       employeeId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
       usageCounter: 0,
       commentCounter: 0,
+
       rating: 0,
       createdAt: new Date('2018-09-05T10:48:48.360Z'),
     },
@@ -260,6 +264,7 @@ export const expertProfileViewResult1: IExpertCompanyDashboardResolverData<Exper
         employeeId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
         usageCounter: 0,
         commentCounter: 0,
+
         rating: 0,
         createdAt: new Date('2018-09-05T10:48:48.360Z'),
       },

@@ -1,0 +1,45 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "../../../../template/core/core"
+
+\:host
+  plat-modal-component
+    position: relative
+    display: block
+    overflow: hidden
+
+.consultation-details
+  padding: 24px 16px 32px
+
+  +smm
+    padding: 32px 32px 40px
+
+  +mdm
+    padding: 48px 48px 32px
+
+.consultation-comments
+  background: $c-base-background
+  padding: 0 8px 40px
+
+  +smm
+    padding: 0 24px 40px
+
+  &__actions
+    padding: 40px 8px 0
+    text-align: center
+
+  h4
+    +subtitle-small
+    color: $c-label
+    text-transform: uppercase
+    padding: 16px 0
+
+    +smm
+      padding: 24px
+
+  &__description
+    > *
+      +paragraph-small
+
+    +smm
+      > *
+        +paragraph

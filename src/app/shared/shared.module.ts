@@ -37,7 +37,7 @@ import { InputTagsComponent } from './components/consultation-tags/input-tags/in
 import { DropdownListComponent } from './components/dropdown/dropdown/dropdown-list/dropdown-list.component';
 import { ScrollToElementDirective } from './components/dropdown/dropdown/dropdown-list/scroll-to-element.directive';
 import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
-import { OnElementClickDirective } from './components/dropdown/dropdown/on-element-click.directive';
+import { ToggleElementDirective } from './components/dropdown/dropdown/on-element-click.directive';
 import { ValidationDirective } from './directives/validation/validation.directive';
 import { ProfileLinksComponentService } from './components/modals/profile/components/profile-links/profile-links.component.service';
 import { PhoneNumberUnifyService } from './services/phone-number-unify/phone-number-unify.service';
@@ -45,6 +45,8 @@ import { ExpandablePanelComponent } from './components/expandable-panel/expandab
 import { UserAvatarModule } from './components/user-avatar/user-avatar.module';
 import { IconModule, ButtonModule } from './components/atomic-components/';
 import { InputsModule } from './components/inputs/inputs.module';
+import { TagListComponent } from '@platform/shared/components/tag-list/tag-list.component';
+import { ExpertAvailabilityComponent } from '@platform/features/dashboard/components/expert-availability/expert-availablitiy.component';
 
 @NgModule({
   imports: [
@@ -76,9 +78,11 @@ import { InputsModule } from './components/inputs/inputs.module';
     DropdownListComponent,
     ScrollToElementDirective,
     DropdownComponent,
-    OnElementClickDirective,
+    ToggleElementDirective,
     ValidationDirective,
     ExpandablePanelComponent,
+    ExpertAvailabilityComponent,
+    TagListComponent,
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -96,6 +100,9 @@ import { InputsModule } from './components/inputs/inputs.module';
     DropdownComponent,
     ValidationDirective,
     ExpandablePanelComponent,
+    ExpertAvailabilityComponent,
+    ToggleElementDirective,
+    TagListComponent,
   ],
   providers: [
     EventsServiceProvider,

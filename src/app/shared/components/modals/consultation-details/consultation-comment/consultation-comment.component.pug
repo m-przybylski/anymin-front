@@ -1,0 +1,54 @@
+.consultation-comments([ngClass]="{'consultation-comments--add-comment': isAnswerFieldVisible, " +
+"'consultation-comments--add-reason': isReasonFieldVisible}")
+  plat-consultation-comments-item(
+  [toggleAnswerField]="dropdownChoose",
+  [commentDetails]="commentDetails",
+  [expertName]="expertName",
+  [tokentAvatar]="expertAvatar",
+  [temporaryAnswer]="tmpAnswer",
+  [isOwner]="isOwner",
+  [isReported]="isReported"
+  )
+
+  .consultation-comments-item__reason(*ngIf="isReasonFieldVisible", [@collapse])
+    form.form.form--report-comments
+      .form__header
+        h4 {{ 'CONSULTATION_DETAILS.COMMENTS.REPORT.TITLE' | translate }}
+        a.consultation-comments-item__close((click)="closeAnswerFields()")
+          span.icon.icon-clear
+
+      ul.comment-reason-list
+        li.comment-reason-list__item(*ngFor="let reason of reasonList", (click)="sendReasonReport(reason)")
+          span {{ 'CONSULTATION_DETAILS.COMMENTS.REPORT.' + reason | translate }}
+
+  .consultation-comments-item__answer-field(*ngIf="isAnswerFieldVisible", [@collapse])
+    form.form.form--report-comments(
+    (ngSubmit)="onSendComment(answerFormGroup)",
+    [id]="'answerFormGroup'",
+    [formGroup]="answerFormGroup",
+    id="answerFormGroup",
+    novalidate
+    )
+      .form__header
+        h4 {{ 'CONSULTATION_DETAILS.COMMENTS.ANSWER.TITLE' | translate }}
+        a.consultation-comments-item__close((click)="closeAnswerFields()")
+          span.icon.icon-clear
+
+      .modal-form__row--small
+        am-core-textarea-primary(
+        [label]="'CONSULTATION_DETAILS.COMMENTS.ADD_COMMENT.LABEL'",
+        [placeholder]="'CONSULTATION_DETAILS.COMMENTS.ADD_COMMENT.PLACEHOLDER'",
+        [controlName]="answerFormControlName",
+        [form]="answerFormGroup",
+        [maxLength]="commentMaxLength",
+        [minLength]="commentMinLength",
+        [initialFocus]="true",
+        [errorTextKey]="'CREATE_EXPERT_CONSULTATION.MAIN_DATA_SECTION.DESCRIPTION_LENGTH_ERROR'"
+        )
+
+      .form__action
+        am-core-submit-button(
+        [titleText]="'CONSULTATION_DETAILS.COMMENTS.ADD_COMMENT.BUTTON.SEND'",
+        [isLoading]="false",
+        [isButtonSmall]="true"
+        )

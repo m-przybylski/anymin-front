@@ -7,7 +7,7 @@ import { CreateProfileModalComponentService } from '../../../create-profile/crea
 import { Alerts, AlertService, WindowRef, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Croppie from 'croppie';
-import { ModalContainerWidthEnum } from '../../../../modal/modal.component';
+import { ModalContainerTypeEnum } from '../../../../modal/modal.component';
 import { PreloaderContentSizeEnum } from '../../../../../preloader/preloader-container.component';
 import { Config } from '../../../../../../../../config';
 import { UploaderService } from '../../../../../../services/uploader/uploader.service';
@@ -26,7 +26,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
   @Input()
   public cropModalData: IImageCropData;
 
-  public modalClass: ModalContainerWidthEnum = ModalContainerWidthEnum.CROPP_WIDTH;
+  public modalClass: ModalContainerTypeEnum = ModalContainerTypeEnum.CROPP_WIDTH;
   public isPending = false;
   public preloaderType = PreloaderContentSizeEnum.FULL_CONTENT;
 

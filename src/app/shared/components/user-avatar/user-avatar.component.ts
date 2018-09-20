@@ -5,6 +5,8 @@ export enum AvatarSizeEnum {
   X_24,
   X_32,
   X_48,
+  X_40,
+  X_96,
   X_156,
 }
 
@@ -36,6 +38,7 @@ export class UserAvatarComponent {
   public loaded = false;
 
   public setAvatarClass = (): string => {
+    // tslint:disable-next-line:cyclomatic-complexity
     switch (this.avatarSize) {
       case AvatarSizeEnum.X_24:
         return 'user-avatar--x24';
@@ -43,8 +46,14 @@ export class UserAvatarComponent {
       case AvatarSizeEnum.X_32:
         return 'user-avatar--x32';
 
+      case AvatarSizeEnum.X_40:
+        return 'user-avatar--x40';
+
       case AvatarSizeEnum.X_48:
         return 'user-avatar--x48';
+
+      case AvatarSizeEnum.X_96:
+        return 'user-avatar--x96';
 
       case AvatarSizeEnum.X_156:
         return 'user-avatar--x156';

@@ -8,6 +8,16 @@
   align-items: center
   position: relative
 
+  &__mobile-link
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    top: 0
+
+    +mdm
+      display: none
+
   &__for
     +subtitle-small
     margin-bottom: 12px

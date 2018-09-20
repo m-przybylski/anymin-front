@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { ModalContainerWidthEnum } from '../../../../../../../shared/components/modals/modal/modal.component';
 import { VerifyMsisdnStatusEnum } from './change-msisdn/change-msisdn.component.service';
 import { IPinVerificationStatus, PinVerificationPurposeEnum } from '../pin-verification/pin-verification.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PinVerificationStatus } from '../pin-verification/pin-verification.component.service';
 import { Alerts, AlertService } from '@anymind-ng/core';
 import { IVerifyMsisdnStatus } from './change-msisdn/change-msisdn.component';
-import { ModalAnimationComponentService } from '../../../../../../../shared/components/modals/modal/animation/modal-animation.animation.service';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
+import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 
 enum ChangeMsisdnModalStepEnum {
   CHANGE_MSISDN,
-  PIN_VERIFICATION
+  PIN_VERIFICATION,
 }
 
 @Component({
@@ -19,10 +19,9 @@ enum ChangeMsisdnModalStepEnum {
   styleUrls: ['./msisdn-settings.view.component.sass'],
 })
 export class MsisdnSettingsViewComponent {
-
   public readonly modalSteps: typeof ChangeMsisdnModalStepEnum = ChangeMsisdnModalStepEnum;
   public modalStep: ChangeMsisdnModalStepEnum = ChangeMsisdnModalStepEnum.CHANGE_MSISDN;
-  public modalWidth = ModalContainerWidthEnum.SMALL_WIDTH;
+  public modalWidth = ModalContainerTypeEnum.SMALL_WIDTH;
   public modalHeaderTrKey: string;
   public pinVerificationPurpose: PinVerificationPurposeEnum = PinVerificationPurposeEnum.MSISDN_CHANGE;
   public newUserMsisdn: string;
@@ -32,9 +31,11 @@ export class MsisdnSettingsViewComponent {
     pinVerification: 'DASHBOARD.SETTINGS.PIN_VERIFICATION.TITLE',
   };
 
-  constructor(private activeModal: NgbActiveModal,
-              private modalAnimationComponentService: ModalAnimationComponentService,
-              private alertService: AlertService) {
+  constructor(
+    private activeModal: NgbActiveModal,
+    private modalAnimationComponentService: ModalAnimationComponentService,
+    private alertService: AlertService,
+  ) {
     this.modalHeaderTrKey = this.modalHeaderTranslations.msisdn;
   }
 
@@ -45,7 +46,7 @@ export class MsisdnSettingsViewComponent {
   public onGoBack = (): void => {
     this.modalStep = ChangeMsisdnModalStepEnum.CHANGE_MSISDN;
     this.modalHeaderTrKey = this.modalHeaderTranslations.msisdn;
-  }
+  };
 
   public onMsisdnVerificationStatus = (msisdnVerification: IVerifyMsisdnStatus): void => {
     if (msisdnVerification.status === VerifyMsisdnStatusEnum.SUCCESS) {
@@ -53,13 +54,12 @@ export class MsisdnSettingsViewComponent {
       this.modalStep = ChangeMsisdnModalStepEnum.PIN_VERIFICATION;
       this.modalHeaderTrKey = this.modalHeaderTranslations.pinVerification;
     }
-  }
+  };
 
   public onPinVerification = (pinVerification: IPinVerificationStatus): void => {
     if (pinVerification.status === PinVerificationStatus.SUCCESS) {
       this.activeModal.close();
       this.alertService.pushSuccessAlert(Alerts.MsisdnChangedSuccess);
     }
-  }
-
+  };
 }

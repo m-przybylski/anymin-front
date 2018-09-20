@@ -1,0 +1,52 @@
+.consultation-comment-item(*ngIf="commentDetails")
+  .consultation-comment-item__row
+    .user-details
+      .user-details__avatar
+        plat-user-avatar(
+        [avatarSize]="avatarSize40"
+        )
+
+      .user-details__data
+        .user-details__data__name
+          p(*ngIf="commentDetails.clientDetails.nickname") {{ commentDetails.clientDetails.nickname }}
+          p(*ngIf="!commentDetails.clientDetails.nickname")
+            | {{ 'CONSULTATION_DETAILS.COMMENTS.ANONYMOUS_COMMENT' | translate }}
+
+        .user-details__time
+          .user-details__time__consultation-time
+            span.icon.icon-time-duration
+            span {{ commentDetails.callDurationInSeconds | timeDuration }}
+
+          .user-details__time__comment-registered
+            span.icon.icon-date
+            span {{ commentDate | dateDuration }}
+
+      .consultation-comment-item__edit(*ngIf="!commentDetails.answer && isOwner && !isReported")
+        span.icon.icon-options-more(toggleElementDirective, (isClickedElement)="toggleDropdown($event)")
+
+        ul.consultation-comment-item__edit__dropdown(*ngIf="isDropdownVisible", [@dropdownAnimation])
+          li((click)="onDropdownChoose(dropdownNavigationList.REASON_REPORT)")
+            span {{ 'CONSULTATION_DETAILS.COMMENTS.DROPDOWN.REPORT' | translate }}
+
+          li((click)="onDropdownChoose(dropdownNavigationList.ANSWER)")
+            span {{ 'CONSULTATION_DETAILS.COMMENTS.DROPDOWN.ANSWER' | translate }}
+
+    .consultation-comment-item__description([ngClass]="{'consultation-comment-item__description--reported': isReportAccepted}")
+      p {{ commentDetails.content }}
+
+  .consultation-comment-item__answer(*ngIf="isAnswer")
+    plat-consultation-comment-answer(
+      [avatarSize]="avatarSize40",
+      [tokentAvatar]="tokentAvatar",
+      [expertName]="expertName",
+      [commentDetails]="commentDetails"
+    )
+
+  .consultation-comment-item__answer--temporary(*ngIf="temporaryAnswer && !isAnswer", [@collapse])
+    plat-consultation-comment-answer(
+      [avatarSize]="avatarSize40",
+      [tokentAvatar]="tokentAvatar",
+      [expertName]="expertName",
+      [commentDetails]="commentDetails"
+
+    )

@@ -3,4 +3,4 @@
     span(plat-flat-fab color='primary')
       span(plat-icon iconClass='add')
     span.expert-dashboard-consultation-row__text {{'EXPERT_DASHBOARD.ADD_CONSULTATION' | translate}}
-  plat-consultation-row.expert-dashboard-consultation-row__row(*ngFor='let consultation of consultations', [consultation]='consultation')
+  plat-consultation-row.expert-dashboard-consultation-row__row(*ngFor='let consultation of consultations', [consultation]='consultation', [expertId]="expertId")

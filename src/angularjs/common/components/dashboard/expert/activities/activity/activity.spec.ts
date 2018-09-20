@@ -48,7 +48,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
     it('should open createExpertSUEActivityDetailsModal', inject((modalsService: ModalsService) => {
       component.isCallActivity = true;
       component.activity = {
-        id: 'sdfsdf',
+        id: 'asdasd',
         accountId: 'accountId',
         activityType: GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
         serviceUsageDetails: {
@@ -80,7 +80,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
     it('should log error when SUE is undefined', () => {
       component.isCallActivity = true;
       component.activity = {
-        id: 'asdasd',
+        id: 'id',
         accountId: 'accountId',
         activityType: GetProfileActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
         serviceUsageDetails: {

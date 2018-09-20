@@ -8,16 +8,16 @@ import { VERSION } from '../../generated_modules/version/version';
 import { EnvironmentService } from './core/services/environment/environment.service';
 const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 const englishTranslations = require('../../lib/angular-translations/en-us.json');
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-  constructor(private logger: LoggerService,
-              translate: TranslateService) {
+  constructor(private logger: LoggerService, translate: TranslateService) {
     this.printVersion();
     this.printEnvironment();
 
@@ -30,14 +30,15 @@ export class AppComponent {
     const browserLang = translate.getBrowserLang();
 
     translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
+
+    moment.locale('pl-PL');
   }
 
   private printVersion = (): void => {
     this.logger.info(`Application version: ${VERSION.hash}`, VERSION);
-  }
+  };
 
   private printEnvironment = (): void => {
     this.logger.info(`Application environment: ${EnvironmentService.get()}`);
-  }
-
+  };
 }

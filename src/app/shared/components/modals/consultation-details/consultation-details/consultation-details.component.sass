@@ -1,0 +1,154 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "../../../../../template/core/core"
+
+=avatar-size($val)
+  width: $val
+  height: $val
+  min-width: $val
+  min-height: $val
+
+
+.consultation-details
+  padding: 24px 16px 32px
+
+  +smm
+    padding: 32px 32px 40px
+
+  +mdm
+    padding: 48px 48px 32px
+
+
+  &__header
+    margin: 0 0 16px
+
+  &__content
+    h1
+      +h6
+      font-weight: 700
+
+      +smm
+        +h4
+        font-weight: 700
+
+  .user-details
+    display: flex
+    align-items: center
+
+    &__avatar
+      position: relative
+
+      &--company
+        position: absolute
+        right: 0
+        bottom: 0
+
+        &::ng-deep
+          plat-user-avatar
+            .user-avatar
+              img
+                box-shadow: 0 0 0 2px $c-white
+
+    &::ng-deep
+      plat-user-avatar
+        display: block
+
+        .user-avatar
+          img
+            +xsm-max
+              +avatar-size(64px)
+
+            +mdm-max
+              +avatar-size(80px)
+
+    &__data
+      margin: 0 0 0 16px
+
+      &__name
+        margin: 0 0 4px
+
+        p
+          +button-small
+          color: $c-text-primary
+          font-weight: 500
+
+          +smm
+            +h6
+            font-weight: 500
+
+          span
+            &.for
+              margin: 0 4px
+              color: $c-label
+
+      &__availbility
+        +caption
+        color: $c-text-secondary
+
+  &__title
+    margin: 0 0 16px
+
+  &__registeredAt
+    +subtitle-small
+    margin: 0 0 16px
+    color: $c-label
+
+    &__date
+      +subtitle-small
+      color: $c-text-primary
+      margin: 0 0 0 4px
+
+  &__description
+    +paragraph-small
+    color: $c-text-primary
+    margin: 0 0 40px
+
+    +smm
+      +paragraph
+
+    p
+      +paragraph-small
+      color: $c-text-primary
+
+      +smm
+        +paragraph
+
+  &__statistics
+    margin: 0 0 40px
+    text-align: center
+
+  &__list
+    display: flex
+    align-items: flex-start
+    justify-content: center
+
+    &__item
+      display: flex
+      flex-direction: column
+      align-items: center
+      border-right: 1px solid $c-lines
+      padding: 0 12px
+      min-width: 96px
+
+      +smm
+        padding: 0 40px
+        min-width: 125px
+
+      &:last-child
+        border: 0
+
+      span
+        &.icon
+          font-size: $f-icon-24
+          color: $c-placeholder
+          margin: 0 0 8px
+
+        &.count
+          +h6
+          font-weight: 700
+
+        &.text
+          +caption
+          color: $c-label
+
+          +smm
+            +subtitle-small

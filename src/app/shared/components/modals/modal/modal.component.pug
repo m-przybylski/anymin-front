@@ -12,5 +12,5 @@
         modalAnimationComponent,
         [ngClass]="{'modal-component__content--loading': isLoading}"
       )
-        div(contentHeightAnimation)
+        div(contentHeightAnimation, *ngIf="!isLoading")
           ng-content
