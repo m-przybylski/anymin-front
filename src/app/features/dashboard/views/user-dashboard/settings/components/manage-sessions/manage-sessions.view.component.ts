@@ -1,17 +1,16 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { ModalContainerWidthEnum } from '../../../../../../../shared/components/modals/modal/modal.component';
+import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import {
-  ActiveSessionDeviceTypeEnum, IActiveSession,
-  ManageSessionsViewComponentService
+  ActiveSessionDeviceTypeEnum,
+  IActiveSession,
+  ManageSessionsViewComponentService,
 } from './manage-sessions.view.component.service';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
-import {
-  ModalAnimationComponentService
-} from '../../../../../../../shared/components/modals/modal/animation/modal-animation.animation.service';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
-import { Animations } from '../../../../../../../shared/animations/animations';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
+import { Animations } from '@platform/shared/animations/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -19,11 +18,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './manage-sessions.view.component.html',
   styleUrls: ['./manage-sessions.view.component.sass'],
   providers: [ManageSessionsViewComponentService],
-  animations: [Animations.fadeOut]
+  animations: [Animations.fadeOut],
 })
 export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
-
-  public readonly modalWidth = ModalContainerWidthEnum.SMALL_WIDTH;
+  public readonly modalWidth = ModalContainerTypeEnum.SMALL_WIDTH;
   public activeSessions: ReadonlyArray<IActiveSession> = [];
   public deviceTypes: typeof ActiveSessionDeviceTypeEnum = ActiveSessionDeviceTypeEnum;
 
@@ -31,14 +29,17 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private manageSessionsService: ManageSessionsViewComponentService,
-              private modalAnimationComponentService: ModalAnimationComponentService,
-              private userSessionService: UserSessionService,
-              private alertService: AlertService,
-              private activeModal: NgbActiveModal,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private manageSessionsService: ManageSessionsViewComponentService,
+    private modalAnimationComponentService: ModalAnimationComponentService,
+    private userSessionService: UserSessionService,
+    private alertService: AlertService,
+    private activeModal: NgbActiveModal,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('ManageSessionsViewComponent');
-    this.userSessionService.getSession()
+    this.userSessionService
+      .getSession()
       .then(currentSession => {
         this.currentSessionApiKey = currentSession.session.apiKey;
       })
@@ -53,10 +54,13 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.modalAnimationComponentService.isPendingRequest().next(true);
-    this.manageSessionsService.getActiveSessions()
-      .pipe(finalize(() => {
-        this.modalAnimationComponentService.isPendingRequest().next(false);
-      }))
+    this.manageSessionsService
+      .getActiveSessions()
+      .pipe(
+        finalize(() => {
+          this.modalAnimationComponentService.isPendingRequest().next(false);
+        }),
+      )
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(activeSessions => {
         this.activeSessions = activeSessions;
@@ -70,7 +74,8 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
 
   public onLogoutSession = (apiKey: string): void => {
     if (this.currentSessionApiKey === apiKey) {
-      this.manageSessionsService.logoutCurrentSession()
+      this.manageSessionsService
+        .logoutCurrentSession()
         .then(() => {
           this.removeSessionFromList(apiKey);
         })
@@ -78,16 +83,16 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
           this.logger.info('handled logout error');
         });
     } else {
-      this.manageSessionsService.logoutSession(apiKey)
+      this.manageSessionsService
+        .logoutSession(apiKey)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => {
           this.removeSessionFromList(apiKey);
         });
     }
-  }
+  };
 
   private removeSessionFromList = (apiKey: string): void => {
     this.activeSessions = this.activeSessions.filter(session => session.apiKey !== apiKey);
-  }
-
+  };
 }

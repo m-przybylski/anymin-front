@@ -1,32 +1,34 @@
-import { Component, ElementRef } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import createSpyObj = jasmine.createSpyObj;
-import { OnElementClickDirective } from './on-element-click.directive';
+import { ElementRef } from '@angular/core';
+import { ToggleElementDirective } from './on-element-click.directive';
+import { Deceiver } from 'deceiver-core';
+import { fakeAsync } from '@angular/core/testing';
 
-@Component({
-  template:
-      `
-      <div onElementClickDirective style="height: 200px;">
-          <ul>
-              <li id="item_1"></li>
-              <li id="item_2"></li>
-          </ul>
-      </div>`
-})
-
-class TestDirectiveComponent {
-}
-
-describe('Directive: OnElementClickDirective', () => {
+describe('Directive: ToggleElementDirective', () => {
+  let element: ElementRef;
+  let directive: ToggleElementDirective;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestDirectiveComponent, OnElementClickDirective],
-      providers: [
-        {
-          provide: ElementRef, useValue: createSpyObj('ElementRef', ['element'])
-        }
-      ],
-    });
+    element = Deceiver(ElementRef, { nativeElement: { contains: jasmine.createSpy('contains') } });
+    directive = new ToggleElementDirective(element);
   });
+
+  it('should click on element', fakeAsync(() => {
+    (element.nativeElement.contains as jasmine.Spy).and.returnValue(true);
+
+    directive.isClickedElement.subscribe((val: boolean) => {
+      expect(val).toEqual(true);
+    });
+
+    directive.handleClick({ event: true } as any);
+  }));
+
+  it('should unclick', fakeAsync(() => {
+    (element.nativeElement.contains as jasmine.Spy).and.returnValue(false);
+
+    directive.isClickedElement.subscribe((val: boolean) => {
+      expect(val).toEqual(false);
+    });
+
+    directive.handleClick({ event: undefined } as any);
+  }));
 });

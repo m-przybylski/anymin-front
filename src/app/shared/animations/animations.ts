@@ -39,4 +39,21 @@ export class Animations {
       transition(`collapsed <=> expanded`, animate('200ms')),
     ]),
   ];
+
+  public static collapse: AnimationTriggerMetadata[] = [
+    trigger('collapse', [
+      transition('* => void', [style({ height: '*' }), animate('300ms ease-in-out', style({ height: '0' }))]),
+      transition('void => *', [style({ height: '0' }), animate('300ms ease-in-out', style({ height: '*' }))]),
+    ]),
+  ];
+
+  public static dropdownAnimation: AnimationTriggerMetadata[] = [
+    trigger('dropdownAnimation', [
+      transition(':enter', [
+        style({ transform: 'translateY(-8px)', opacity: '0' }),
+        animate('200ms ease-in', style({ transform: 'translateY(0)', opacity: '1' })),
+      ]),
+      transition(':leave', [animate('200ms ease-out', style({ transform: 'translateY(8px)', opacity: '0' }))]),
+    ]),
+  ];
 }

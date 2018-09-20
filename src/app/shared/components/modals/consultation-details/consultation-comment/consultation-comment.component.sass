@@ -1,0 +1,65 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "../../../../../shared/components/modals/modal/modal.component"
+
+.consultation-comments
+  margin: 0 0 4px
+  border-radius: 4px
+
+  &--add-reason,
+  &--add-comment
+    background: rgba($c-white, 0.5)
+
+  .form
+    overflow: hidden
+
+    &--report-comments
+      padding: 32px 12px
+
+      +mdm
+        padding: 32px 24px
+
+    &__header
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin: 0 0 32px
+
+      h4
+        +h6
+        font-weight: 500
+
+    &__action
+      text-align: center
+
+  &-item
+    &__answer-field
+      overflow: hidden
+
+    &__reason
+      overflow: hidden
+
+  .comment-reason-list
+    +mdm
+      display: flex
+      justify-content: space-between
+
+    li
+      border: 1px solid $c-lines
+      flex: 1 0 auto
+      padding: 16px 0
+      text-align: center
+      transition: border-color 0.3s
+      cursor: pointer
+
+      &:hover
+        border: 1px solid $c-text-primary
+
+      &:nth-child(2)
+        margin: 8px 0
+
+        +mdm
+          margin: 0 8px
+
+      span
+        +button-small
+        color: $c-text-primary

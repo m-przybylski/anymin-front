@@ -9,8 +9,12 @@ import { EmploymentWithService } from '@anymind-ng/api';
 export class ExpertDashboardConsultationsComponent {
   @Input()
   public consultations: ReadonlyArray<EmploymentWithService>;
+
   @Input()
   public isOwnProfile: boolean;
+
+  @Input()
+  public expertId: boolean;
 
   @Output()
   public addConsultation = new EventEmitter<void>();

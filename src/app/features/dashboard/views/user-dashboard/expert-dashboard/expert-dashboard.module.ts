@@ -6,6 +6,7 @@ import { ExpertDashboardConsultationsComponent } from './expert-dashboard-consul
 import { ExpertDashboardComponent } from './expert-dashboard.view.component';
 import { DashboardComponentsModule } from '../../../components/components.module';
 import { RouterModule } from '@angular/router';
+import { ConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/consultation-details.view.module';
 
 @NgModule({
   declarations: [ExpertDashboardComponent, ExpertDashboardConsultationsComponent],
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
         runGuardsAndResolvers: 'always',
       },
     ]),
+    ConsultationDetailsModule,
     CommonModule,
     SharedModule,
     DashboardComponentsModule,

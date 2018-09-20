@@ -1,0 +1,54 @@
+.consultation-details
+	.consultation-details__header
+		.user-details
+			.user-details__avatar(*ngIf="avatarSize")
+				plat-user-avatar(
+				[avatarSize]="avatarSize",
+				[avatarToken]="avatarToken"
+				)
+
+				.user-details__avatar--company(*ngIf="companyLogo")
+					plat-user-avatar(
+					[avatarSize]="companyAvatarSize",
+					[avatarToken]="companyLogo"
+					)
+
+			.user-details__data
+				.user-details__data__name(*ngIf="expertName")
+					p {{ expertName }}
+						span.for dla
+						span {{ companyName }}
+
+				.user-details__data__availbility(*ngIf="expertId")
+					plat-expert-availability([expertId]="expertId")
+
+	.consultation-details__content
+		h1.consultation-details__title(*ngIf="serviceName") {{ serviceName }}
+
+		.consultation-details__registeredAt(*ngIf="registeredAt")
+			span {{ "CONSULTATION_DETAILS.REGISTEREDAT" | translate }}
+			span.consultation-details__registeredAt__date {{ registeredAt | date : 'L MMMM yyyy' : 'UTC+02' : 'pl'}}
+
+		p.consultation-details__description(*ngIf="serviceDescription")
+			plat-expandable-panel
+				| {{ serviceDescription }}
+
+	.consultation-details__statistics(*ngIf="usageCounter")
+		ul.consultation-details__list
+			li.consultation-details__list__item
+				span.icon.icon-headphone
+				span.count {{ usageCounter }}
+				span.text {{ 'CONSULTATION_DETAILS.STATISTICS.CONNECTIONS' | translate }}
+
+			li.consultation-details__list__item
+				span.icon.icon-rating
+				span.count {{ ratingCounter }}
+				span.text {{ 'CONSULTATION_DETAILS.STATISTICS.RATE' | translate }}
+
+			li.consultation-details__list__item
+				span.icon.icon-satisfaction
+				span.count {{ commentCounter }}
+				span.text {{ 'CONSULTATION_DETAILS.STATISTICS.COMMENTS.POSITIVE' | translate }}
+
+	.consultation-details__tags(*ngIf="tagList[0]")
+		plat-tag-list([itemList]="tagList")

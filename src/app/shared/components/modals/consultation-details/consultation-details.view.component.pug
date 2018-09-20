@@ -1,0 +1,40 @@
+plat-modal-component(
+[modalTrTitleHeader]="'CONSULTATION_DETAILS.MODAL.TITLE'",
+[modalContainerClass]="modalType"
+)
+  div(*ngIf="!isPending", contentHeightAnimation)
+    plat-consultation-details(
+    [avatarSize]="avatarSize96",
+    [avatarToken]="expertAvatar",
+    [expertName]="expertName",
+    [companyName]="companyName",
+    [companyLogo]="companyLogo",
+    [expertId]="expertId",
+    [serviceName]="serviceName",
+    [registeredAt]="registeredAt",
+    [serviceDescription]="serviceDescription",
+    [tagList]="tagList",
+    [usageCounter]="usageCounter",
+    [ratingCounter]="ratingCounter",
+    [commentCounter]="commentCounter"
+    )
+
+    .consultation-comments(*ngIf="commentsConsultation[0]")
+      h4 {{ "CONSULTATION_DETAILS.COMMENTS.TITLE" | translate }}
+
+      ul.consultation-comments__list(*ngIf="commentsConsultation[0]")
+        li.consultation-comments__list__item(*ngFor="let comment of commentsConsultation")
+          plat-consultation-comments(
+          [commentDetails]="comment",
+          (onAddAnswer)="onAddAnswer($event)",
+          [expertName]="expertName",
+          [expertAvatar]="expertAvatar",
+          [isOwner]="isOwner"
+          )
+
+      .consultation-comments__actions(*ngIf="!ifMaxCommentsLengthReached")
+        a.button.button--tertiary((click)="onLoadMoreComments()")
+          span {{ "CONSULTATION_DETAILS.BUTTON.MORE.TITLE" | translate }}
+
+    .consultation-call
+    // call component

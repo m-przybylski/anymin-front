@@ -1,0 +1,21 @@
+.consultation-comment-answer
+  .consultation-comment-answer__row
+    .user-details
+      .user-details__avatar(*ngIf="tokentAvatar")
+        plat-user-avatar(
+        [avatarSize]="avatarSize",
+        [avatarToken]="tokentAvatar"
+        )
+
+      .user-details__data
+        .user-details__data__name(*ngIf="expertName")
+          span.user-details__data__answer-label {{ 'CONSULTATION_DETAILS.COMMENTS.ANSWER_FROM' | translate }}
+          p {{ expertName }}
+
+        .user-details__time(*ngIf="commentDetails.answer")
+          .user-details__time__comment-registered
+            span.icon.icon-date
+            span {{ commentDetails.answer.createdAt | dateDuration }}
+
+    .consultation-comment-answer__description(*ngIf="commentDetails.answer")
+      p {{ commentDetails.answer.content }}

@@ -1,9 +1,8 @@
 $grid-breakpoints: (xsm: 0, smm: 480px, mdm: 768px, lgm: 960px, xlm: 1280px)
-$container-max-widths: (mdm: 768px, lgm: 960px, xlm: 1280px)
+$container-max-widths: (mdm: 100%, lgm: 100%, xlm: 1280px)
 $grid-padding-sizes: (xsm: 8px, smm: 16px, mdm: 24px, lgm: 32px, xlm: 40px)
 
 =make-container
-
   +make-container-padding
   +make-container-max-widths
   width: 100%

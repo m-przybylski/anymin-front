@@ -33,10 +33,10 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
         dashboardClientActivitiesController = $controller<DashboardClientActivitiesController>(
           'dashboardClientActivitiesController',
           {
-            $state: $state,
+            $state,
             $scope: $rootScope.$new(),
             topAlertService: {},
-            clientActivitiesService: clientActivitiesService,
+            clientActivitiesService,
             filtersData: {},
             errorHandler: {},
           },
@@ -60,7 +60,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     ) => {
       dashboardClientActivitiesController.activities = [
         {
-          id: 'sdsdf',
+          id: 'id',
           accountId: 'id',
           activityType: GetClientActivity.ActivityTypeEnum.SERVICEUSAGEEVENT,
           initializedAt: new Date(),

@@ -1,6 +1,7 @@
 // tslint:disable:no-empty
+// tslint:disable:only-arrow-functions
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -15,6 +16,14 @@ import { metaReducers, reducers } from './reducers';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import localePl from '@angular/common/locales/pl';
+import { registerLocaleData } from '@angular/common';
+
+export function getLocale(): string {
+  return 'pl';
+}
+
+registerLocaleData(localePl, getLocale);
 
 @NgModule({
   declarations: [AppComponent],
@@ -58,7 +67,11 @@ import { EffectsModule } from '@ngrx/effects';
      */
     EffectsModule.forRoot([]),
   ],
-  providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }, AngularJsBootstrapSingletonService],
+  providers: [
+    { provide: ErrorHandler, useClass: RavenErrorHandler },
+    AngularJsBootstrapSingletonService,
+    { provide: LOCALE_ID, useFactory: getLocale },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

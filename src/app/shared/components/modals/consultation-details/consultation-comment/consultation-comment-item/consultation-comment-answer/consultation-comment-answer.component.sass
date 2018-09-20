@@ -1,0 +1,64 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.consultation-comment-answer
+	border-left: 1px solid $c-lines
+	position: relative
+	
+	&__row
+		.user-details
+			display: flex
+			align-items: center
+			margin: 0 0 12px
+			position: relative
+			
+			&__data
+				margin: 0 0 0 12px
+				
+				&__answer
+					+caption
+					margin: 0 0 4px
+					color: $c-text-secondary
+				
+				&__name
+					display: flex
+					align-items: center
+					margin: 0 0 4px
+					
+					span
+						+caption
+						color: $c-label
+						margin: 0 4px 0 0
+					p
+						+caption
+						color: $c-text-primary
+						font-weight: 500
+		
+			&__time
+				display: flex
+				align-items: center
+				
+				> div
+					display: flex
+					align-items: center
+					margin: 0 4px 0 0
+				
+				span
+					color: $c-label
+					margin: 0 2px 0 0
+					
+					&:not(.icon)
+						+caption
+						color: $c-label
+		
+	> div
+		margin: 20px 0 0
+		padding: 0 16px
+	
+	&__description
+		p
+			+paragraph-small
+			color: $c-text-primary
+		
+		&--reported
+			p
+				text-decoration: line-through

@@ -54,7 +54,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
   }
 
   public ngAfterViewInit(): void {
-    this.modalAnimationComponentService.isPendingRequest().next(false);
+    this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
   public ngOnInit(): void {
