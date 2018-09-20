@@ -1,11 +1,16 @@
 // tslint:disable:only-arrow-functions
 import { UserConfig } from 'ratel-sdk-js';
+import { Environment, EnvironmentService } from '@platform/core/services/environment/environment.service';
 
 export function CommunicatorConfigFactory(): UserConfig {
   const chatUrl = new URL(`${window.location.origin}/artichoke`);
+  const productionLogLevel = 2;
 
   return {
-    logLevel: 2, // DEBUG = 0, INFO = 1, WARN = 2, ERROR = 3, NONE = 4
+    /**
+     * DEBUG = 0, INFO = 1, WARN = 2, ERROR = 3, NONE = 4
+     */
+    logLevel: EnvironmentService.get() === Environment.PRODUCTION ? productionLogLevel : 0,
     chat: {
       protocol: chatUrl.protocol,
       pathname: chatUrl.pathname,
