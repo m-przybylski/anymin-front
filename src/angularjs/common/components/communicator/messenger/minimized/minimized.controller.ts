@@ -1,15 +1,14 @@
 // tslint:disable:readonly-array
 import { IMessengerMinimizedComponentBindings } from './minimized';
 import { roomEvents, Session } from 'ratel-sdk-js';
-import { ExpertCallService } from '../../call-services/expert-call.service';
+import { ExpertCallService, IExpertSessionCall } from '../../call-services/expert-call.service';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CurrentCall, MessageRoom } from '@anymind-ng/core';
+import { MessageRoom } from '@anymind-ng/core';
 
-export class MessengerMinimizedComponentController implements ng.IController, ng.IOnInit, ng.IOnDestroy,
-  IMessengerMinimizedComponentBindings {
-
-  public static $inject = ['$timeout', 'expertCallService'];
+export class MessengerMinimizedComponentController
+  implements ng.IController, ng.IOnInit, ng.IOnDestroy, IMessengerMinimizedComponentBindings {
+  public static $inject = ['$timeout', 'expertCallService', 'communicatorService'];
   private static readonly messageShowTimeout = 5000;
 
   public onMessageClick: (msg: roomEvents.CustomMessageSent) => void;
@@ -18,9 +17,7 @@ export class MessengerMinimizedComponentController implements ng.IController, ng
 
   private ngUnsubscribe = new Subject<void>();
 
-  constructor(private $timeout: ng.ITimeoutService,
-              private expertCallService: ExpertCallService) {
-  }
+  constructor(private $timeout: ng.ITimeoutService, private expertCallService: ExpertCallService) {}
 
   public $onInit(): void {
     this.expertCallService.newCall$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleNewExpertCall);
@@ -32,21 +29,22 @@ export class MessengerMinimizedComponentController implements ng.IController, ng
   }
 
   private hideMessage = (message: roomEvents.CustomMessageSent): roomEvents.CustomMessageSent[] =>
-    this.messages = this.messages.filter(msg => msg !== message)
+    (this.messages = this.messages.filter(msg => msg !== message));
 
   private showMessage = (message: roomEvents.CustomMessageSent, session: Session): void => {
     if (session.id !== message.authorId) {
       this.messages.push(message);
       this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout);
     }
-  }
+  };
 
-  private handleNewExpertCall = (currentCall: CurrentCall): void => {
+  private handleNewExpertCall = (expertSessionCall: IExpertSessionCall): void => {
     this.messages = [];
-    currentCall.messageRoom$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((room) =>
-      this.handleNewMessageRoom(room, currentCall.getSession()));
-  }
+    expertSessionCall.currentExpertCall.messageRoom$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(room => this.handleNewMessageRoom(room, expertSessionCall.session));
+  };
 
   private handleNewMessageRoom = (messageRoom: MessageRoom, session: Session): Subscription =>
-    messageRoom.message$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(msg => this.showMessage(msg, session))
+    messageRoom.message$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(msg => this.showMessage(msg, session));
 }

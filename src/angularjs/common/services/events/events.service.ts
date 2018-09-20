@@ -6,23 +6,24 @@ type EventName = 'login' | 'logout' | 'remote-session-deleted' | 'wizard-complet
 
 // tslint:disable:member-ordering
 export class EventsService {
-
   public static $inject = ['$rootScope'];
 
   private eventScope: ng.IScope;
 
-    constructor($rootScope: ng.IRootScopeService) {
+  constructor($rootScope: ng.IRootScopeService) {
     this.eventScope = $rootScope.$new();
   }
 
   public emit = (eventName: EventName): void => {
     this.eventScope.$emit(eventName);
-  }
+  };
 
-  public on = (eventName: EventName, callback: () => void, scope?: ng.IScope): void => {
+  public on = (eventName: EventName, callback: () => void, scope?: ng.IScope): (() => void) => {
     const eventHandler = this.eventScope.$on(eventName, callback);
     if (scope) {
       scope.$on('$destroy', eventHandler);
     }
-  }
+
+    return eventHandler;
+  };
 }

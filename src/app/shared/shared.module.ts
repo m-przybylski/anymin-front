@@ -2,12 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
-import {
-  CommunicatorModule,
-  CommunicatorService,
-  CommunicatorSessionService,
-  AnymindComponentsModule,
-} from '@anymind-ng/core';
+import { CommunicatorModule, CommunicatorService, AnymindComponentsModule } from '@anymind-ng/core';
 import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
 import { Config } from '../../config';
 import { UnsupportedGuard } from '../features/unsupported/unsupported.guard';
@@ -107,7 +102,6 @@ import { ExpertAvailabilityComponent } from '@platform/features/dashboard/compon
   providers: [
     EventsServiceProvider,
     CommunicatorService,
-    CommunicatorSessionService,
     UnsupportedGuard,
     AnonymousGuard,
     SessionGuard,
