@@ -7,6 +7,7 @@ import { ExpertDashboardComponent } from './expert-dashboard.view.component';
 import { DashboardComponentsModule } from '../../../components/components.module';
 import { RouterModule } from '@angular/router';
 import { ConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/consultation-details.view.module';
+import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 
 @NgModule({
   declarations: [ExpertDashboardComponent, ExpertDashboardConsultationsComponent],
@@ -24,6 +25,6 @@ import { ConsultationDetailsModule } from '@platform/shared/components/modals/co
     SharedModule,
     DashboardComponentsModule,
   ],
-  providers: [ExpertDashboardResolverService],
+  providers: [ExpertDashboardResolverService, ExpertAvailabilityService],
 })
 export class ExpertDashboardModule {}
