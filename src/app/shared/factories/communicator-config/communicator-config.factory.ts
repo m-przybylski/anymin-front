@@ -11,6 +11,12 @@ export function CommunicatorConfigFactory(): UserConfig {
       pathname: chatUrl.pathname,
       hostname: chatUrl.hostname,
       port: chatUrl.port,
+      /**
+       * When using multiple artichoke instances, reconnection to the same deviceId sometimes
+       * results in missing WS events such as callInvitation, webrtc candidates, sdp descriptions etc.
+       * With single artichoke this bug is unreproducible.
+       */
+      reconnectionDisabled: true,
       rtc: {
         negotiationNeededDisabled: true,
         iceTransportPolicy: 'all',
