@@ -68,10 +68,8 @@ export class Config {
     },
   };
 
-  public static readonly googlePlayProfile = {
-    urlProd: 'https://play.google.com/apps/testing/com.anymind.app',
-    urlDemo: 'https://play.google.com/apps/testing/com.anymind.demo',
-  };
+  public static readonly googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.anymind.app';
+  public static readonly appStoreUrl = 'https://itunes.apple.com/us/app/anymind-konsultant/id1423610480?ls=1&mt=8';
 
   public static readonly assetsUrl = {
     images: '/assets/images',
