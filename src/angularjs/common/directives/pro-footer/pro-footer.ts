@@ -4,10 +4,10 @@
 import * as angular from 'angular';
 import { IDirective } from 'angular';
 import { Config } from '../../../../config';
-import { Environment } from '../../../../app/core/services/environment/environment.service';
 
 interface IProFooterScope extends ng.IScope {
   googlePlayUrl: string;
+  appStoreUrl: string;
   isPlatformForExpert: boolean;
   zendeskUrl: string;
   anymindBlogUrl: string;
@@ -16,13 +16,11 @@ interface IProFooterScope extends ng.IScope {
   helpMailUrl: string;
 }
 
-(function (): void {
+(function(): void {
   function proFooter(): IDirective<ng.IScope> {
-
     function linkFunction(scope: IProFooterScope): void {
-      scope.googlePlayUrl =
-        window.location.origin === Environment.PRODUCTION ?
-          Config.googlePlayProfile.urlProd : Config.googlePlayProfile.urlDemo;
+      scope.googlePlayUrl = Config.googlePlayUrl;
+      scope.appStoreUrl = Config.appStoreUrl;
       scope.isPlatformForExpert = Config.isPlatformForExpert;
       scope.zendeskUrl = 'https://anymind.zendesk.com/';
       scope.anymindBlogUrl = 'https://anymind-widget.com/blog/';
@@ -35,13 +33,9 @@ interface IProFooterScope extends ng.IScope {
       template: require('./pro-footer.html'),
       restrict: 'E',
       link: linkFunction,
-      replace: true
+      replace: true,
     };
   }
 
-  angular.module('profitelo.directives.pro-footer', [
-    'pascalprecht.translate'
-  ])
-    .directive('proFooter', [proFooter]);
-
-}());
+  angular.module('profitelo.directives.pro-footer', ['pascalprecht.translate']).directive('proFooter', [proFooter]);
+})();
