@@ -1,17 +1,22 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/index';
 import { finalize, takeUntil, map, filter } from 'rxjs/internal/operators';
 import { PinCodeTimerService } from '../../../../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { PinVerificationStatus, PinVerificationComponentService } from './pin-verification.component.service';
 import {
-  Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum, LoggerFactory,
-  LoggerService
+  Alerts,
+  AlertService,
+  FormUtilsService,
+  InputPinCodeErrorsEnum,
+  LoggerFactory,
+  LoggerService,
 } from '@anymind-ng/core';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 
 export enum PinVerificationPurposeEnum {
   PASSWORD_CHANGE,
-  MSISDN_CHANGE
+  MSISDN_CHANGE,
 }
 
 export interface IPinVerificationStatus {
@@ -23,10 +28,9 @@ export interface IPinVerificationStatus {
   selector: 'plat-pin-verification',
   templateUrl: './pin-verification.component.html',
   styleUrls: ['./pin-verification.component.sass'],
-  providers: [PinVerificationComponentService]
+  providers: [PinVerificationComponentService],
 })
-export class PinVerificationComponent implements OnInit, OnDestroy {
-
+export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input()
   public msisdn: string;
 
@@ -52,17 +56,23 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
 
-  constructor(private pinCodeTimer: PinCodeTimerService,
-              private alertService: AlertService,
-              private formUtils: FormUtilsService,
-              private pinVerificationComponentService: PinVerificationComponentService,
-              private loggerFactory: LoggerFactory) {
-  }
+  constructor(
+    private pinCodeTimer: PinCodeTimerService,
+    private alertService: AlertService,
+    private formUtils: FormUtilsService,
+    private pinVerificationComponentService: PinVerificationComponentService,
+    private modalAnimationComponentService: ModalAnimationComponentService,
+    private loggerFactory: LoggerFactory,
+  ) {}
 
   public ngOnInit(): void {
     this.pinVerificationForm = new FormGroup({});
     this.logger = this.loggerFactory.createLoggerService('PinVerificationComponent');
     this.startPinCodeTimer();
+  }
+
+  public ngAfterViewInit(): void {
+    this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
   public ngOnDestroy(): void {
@@ -76,23 +86,25 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
       this.isRequestPending = true;
       switch (this.verificationPurpose) {
         case PinVerificationPurposeEnum.PASSWORD_CHANGE:
-          this.pinVerificationComponentService.verifyResetPasswordPinToken(token, this.msisdn)
+          this.pinVerificationComponentService
+            .verifyResetPasswordPinToken(token, this.msisdn)
             .pipe(
-              finalize(() => this.isRequestPending = false),
+              finalize(() => (this.isRequestPending = false)),
               map(this.handleSuccessPinTokenStatus),
               map(this.handleErrorPinTokenStatus),
-              filter(status => status !== undefined)
+              filter(status => status !== undefined),
             )
             .subscribe(this.handlePinTokenStatus);
           break;
 
         case PinVerificationPurposeEnum.MSISDN_CHANGE:
-          this.pinVerificationComponentService.verifyChangeMsisdnPinToken(token)
+          this.pinVerificationComponentService
+            .verifyChangeMsisdnPinToken(token)
             .pipe(
-              finalize(() => this.isRequestPending = false),
+              finalize(() => (this.isRequestPending = false)),
               map(this.handleSuccessPinTokenStatus),
               map(this.handleErrorPinTokenStatus),
-              filter(status => status !== undefined)
+              filter(status => status !== undefined),
             )
             .subscribe(this.handlePinTokenStatus);
           break;
@@ -103,7 +115,7 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
     } else {
       this.formUtils.validateAllFormFields(pinVerificationForm);
     }
-  }
+  };
 
   public isCountingDown = (): boolean => this.timeLeft > 0;
 
@@ -111,38 +123,37 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
     this.startPinCodeTimer();
     switch (this.verificationPurpose) {
       case PinVerificationPurposeEnum.PASSWORD_CHANGE:
-        this.pinVerificationComponentService.sendNewRecoverPasswordToken(this.msisdn)
-          .subscribe();
+        this.pinVerificationComponentService.sendNewRecoverPasswordToken(this.msisdn).subscribe();
         break;
 
       case PinVerificationPurposeEnum.MSISDN_CHANGE:
-        this.pinVerificationComponentService.sendNewChangeMsisdnToken(this.msisdn)
-          .subscribe();
+        this.pinVerificationComponentService.sendNewChangeMsisdnToken(this.msisdn).subscribe();
         break;
 
       default:
         this.handleUnhandledVerificationPurpose();
     }
-  }
+  };
 
   private startPinCodeTimer = (): void => {
-    this.pinCodeTimer.getTimeLeft$()
+    this.pinCodeTimer
+      .getTimeLeft$()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(timeLeft => this.timeLeft = timeLeft);
-  }
+      .subscribe(timeLeft => (this.timeLeft = timeLeft));
+  };
 
   private handleSuccessPinTokenStatus = (status: PinVerificationStatus): PinVerificationStatus | undefined => {
     if (status === PinVerificationStatus.SUCCESS) {
       this.pinVerificationEmitter$.emit({
         status: PinVerificationStatus.SUCCESS,
-        token: this.pinVerificationForm.value[this.pinControlName]
+        token: this.pinVerificationForm.value[this.pinControlName],
       });
 
       return undefined;
     }
 
     return status;
-  }
+  };
 
   private handleErrorPinTokenStatus = (status: PinVerificationStatus): PinVerificationStatus | undefined => {
     if (status === PinVerificationStatus.ERROR) {
@@ -152,29 +163,28 @@ export class PinVerificationComponent implements OnInit, OnDestroy {
     }
 
     return status;
-  }
+  };
 
   private displayValidationError = (error: string): void => {
-    const errorObj = {[error]: true};
+    const errorObj = { [error]: true };
     this.pinVerificationForm.controls[this.pinControlName].setErrors(errorObj);
     this.formUtils.validateAllFormFields(this.pinVerificationForm);
-  }
+  };
 
   private handleUnhandledStatus = (status: PinVerificationStatus): void => {
     this.logger.error('unhandled pin token status', status);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  }
+  };
 
   private handlePinTokenStatus = (status: PinVerificationStatus): void => {
     const errorMessage = this.validationAlertsMap.get(status);
     const fn = errorMessage ? this.displayValidationError : this.handleUnhandledStatus;
     const args = errorMessage ? errorMessage : status;
     fn.call(this, args);
-  }
+  };
 
   private handleUnhandledVerificationPurpose = (): void => {
     this.logger.error('unhandled verificationPurpose', this.verificationPurpose);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  }
-
+  };
 }

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { ModalContainerTypeEnum } from '../../../../../../../shared/components/modals/modal/modal.component';
+import { AfterViewInit, Component } from '@angular/core';
+import { ModalContainerTypeEnum } from '@platform//shared/components/modals/modal/modal.component';
 import { PostRecoverPassword } from '@anymind-ng/api';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PinVerificationStatus } from '../pin-verification/pin-verification.component.service';
 import { IPinVerificationStatus, PinVerificationPurposeEnum } from '../pin-verification/pin-verification.component';
-import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 
 enum ChangePasswordModalStepEnum {
   CHANGE_PASSWORD,
@@ -18,7 +19,7 @@ enum ChangePasswordModalStepEnum {
   templateUrl: './password-settings.view.component.html',
   styleUrls: ['./password-settings.view.component.sass'],
 })
-export class PasswordSettingsViewComponent {
+export class PasswordSettingsViewComponent implements AfterViewInit {
   public readonly modalWidth = ModalContainerTypeEnum.SMALL_WIDTH;
   public readonly modalSteps: typeof ChangePasswordModalStepEnum = ChangePasswordModalStepEnum;
   public modalStep: ChangePasswordModalStepEnum = ChangePasswordModalStepEnum.CHANGE_PASSWORD;
@@ -38,11 +39,16 @@ export class PasswordSettingsViewComponent {
   constructor(
     private alertService: AlertService,
     private userSessionService: UserSessionService,
+    private modalAnimationComponentService: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('PasswordSettingsViewComponent');
     this.modalHeaderTrKey = this.modalHeaderTranslations.changePassword;
     this.getUserMsisdn();
+  }
+
+  public ngAfterViewInit(): void {
+    this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
   public onRecoverPassword = (recoverMethod: PostRecoverPassword.MethodEnum): void => {

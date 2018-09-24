@@ -22,7 +22,16 @@
           .title-container
             span.icon.icon-available
             span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_LABEL.AVAILABLE'")
-          plat-input-switch((click)="onInputSwitchClick($event)")
+          form(
+            [id]="changeVisibilityFormId",
+            [formGroup]="changeVisibilityForm",
+            novalidate
+          )
+            plat-input-switch(
+              [controlName]="visibilityControlName",
+              [form]="changeVisibilityForm",
+              (click)="onInputSwitchClick($event)"
+            )
 
     li.menu-list__section.lgm-only
       ul

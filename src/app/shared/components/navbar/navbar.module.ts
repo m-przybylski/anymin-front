@@ -13,9 +13,17 @@ import { NavbarMenuService } from './navbar-menu-service/navbar-menu.service';
 import { UserAvatarModule } from '../user-avatar/user-avatar.module';
 import { RouterModule } from '@angular/router';
 import { InputsModule } from '../inputs/inputs.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, UserAvatarModule, RouterModule, InputsModule, TranslateModule.forChild()],
+  imports: [
+    CommonModule,
+    UserAvatarModule,
+    RouterModule,
+    InputsModule,
+    ReactiveFormsModule,
+    TranslateModule.forChild(),
+  ],
   declarations: [
     NavbarComponent,
     UserNavigationComponent,
