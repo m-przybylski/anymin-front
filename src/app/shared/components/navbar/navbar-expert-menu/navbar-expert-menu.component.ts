@@ -11,6 +11,7 @@ import { UserSessionService } from '../../../../core/services/user-session/user-
 import { RouterHelpers, RouterPaths } from '../../../routes/routes';
 import { Router } from '@angular/router';
 import { NavbarMenuService } from '../navbar-menu-service/navbar-menu.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'plat-navbar-expert-menu',
@@ -35,6 +36,10 @@ export class NavbarExpertMenuComponent implements OnInit {
   public companyAvatarToken?: string;
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
+  public readonly visibilityControlName = 'isVisible';
+  public readonly changeVisibilityFormId = 'changeVisibilityFormId';
+
+  public changeVisibilityForm: FormGroup;
   public isMenuVisible: boolean;
   private ngUnsubscribe$ = new Subject<void>();
   private logger: LoggerService;
@@ -45,7 +50,11 @@ export class NavbarExpertMenuComponent implements OnInit {
     private userSessionService: UserSessionService,
     private router: Router,
     private loggerFactory: LoggerFactory,
-  ) {}
+  ) {
+    this.changeVisibilityForm = new FormGroup({
+      [this.visibilityControlName]: new FormControl(false),
+    });
+  }
 
   public ngOnInit(): void {
     this.logger = this.loggerFactory.createLoggerService('NavbarExpertMenuComponent');
