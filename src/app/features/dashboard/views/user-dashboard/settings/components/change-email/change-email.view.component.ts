@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { ChangeEmailStatusEnum, ChangeEmailViewComponentService } from './change-email.view.component.service';
@@ -20,7 +20,7 @@ import { ModalAnimationComponentService } from '@platform/shared/components/moda
   styleUrls: ['./change-email.view.component.sass'],
   providers: [ChangeEmailViewComponentService],
 })
-export class ChangeEmailViewComponent implements OnDestroy {
+export class ChangeEmailViewComponent implements OnDestroy, AfterViewInit {
   public readonly changeEmailFormId = 'changeEmailForm';
   public readonly emailControlName = 'email';
   public readonly modalWidth = ModalContainerTypeEnum.SMALL_WIDTH;
@@ -51,6 +51,10 @@ export class ChangeEmailViewComponent implements OnDestroy {
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  public ngAfterViewInit(): void {
+    this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
   public onFormSubmit = (form: FormGroup): void => {

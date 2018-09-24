@@ -8,7 +8,8 @@ plat-modal-component.change-email(
       [id]="changeEmailFormId",
       [formGroup]="changeEmailForm",
       novalidate,
-      (ngSubmit)="onFormSubmit(changeEmailForm)"
+      (ngSubmit)="onFormSubmit(changeEmailForm)",
+      contentHeightAnimation
     )
 
       .modal-form__row--small
