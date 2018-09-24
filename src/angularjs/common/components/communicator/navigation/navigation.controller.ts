@@ -60,6 +60,7 @@ export class NavigationComponentController
     if (this.currentCall) {
       this.currentCall.hangup(CallReason.Hangup).then(
         () => {
+          this.expertCallService.emitHangupEvent();
           this.logger.debug('NavigationComponentController: Call hanged up');
         },
         err => {
