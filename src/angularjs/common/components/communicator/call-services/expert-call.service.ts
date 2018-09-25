@@ -44,6 +44,7 @@ export class ExpertCallService {
   private readonly newCallEvent = new Subject<IExpertSessionCall>();
   private readonly pullableCallEvent = new ReplaySubject<PullableCall>(1);
   private readonly callRejectedEvent = new Subject<void>();
+  private readonly hangupCallEvent = new Subject<void>();
   private navigatorWrapper = new NavigatorWrapper();
   private callAnsweredOnOtherDeviceEvent$ = new Subject<void>();
   private session?: Session;
@@ -93,6 +94,14 @@ export class ExpertCallService {
     return this.pullableCallEvent;
   }
 
+  public get hangupCall$(): Observable<void> {
+    return this.hangupCallEvent.asObservable();
+  }
+
+  public emitHangupEvent = (): void => {
+    this.hangupCallEvent.next();
+  };
+
   private handlePullableCall = (call: BusinessCall): void => {
     this.logger.debug('ExpertCallService: Handling pullable call for', call);
 
@@ -138,7 +147,7 @@ export class ExpertCallService {
           this.onExpertCallIncoming(incomingCall);
         }
       },
-      err => this.logger.warn('ExpertCallService: Could not load incoimg calls after successful connection', err),
+      err => this.logger.warn('ExpertCallService: Could not load incoming calls after successful connection', err),
     );
   };
 
@@ -266,7 +275,18 @@ export class ExpertCallService {
         if (session) {
           currentExpertCall.answer(session, currentMediaTracks).then(
             () => {
-              currentExpertCall.callDestroyed$.subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+              currentExpertCall.callDestroyed$
+                .pipe(
+                  first(),
+                  takeUntil(this.hangupCall$),
+                )
+                .subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+              this.hangupCall$
+                .pipe(
+                  first(),
+                  takeUntil(currentExpertCall.callDestroyed$),
+                )
+                .subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
               this.newCallEvent.next({
                 currentExpertCall,
                 session,

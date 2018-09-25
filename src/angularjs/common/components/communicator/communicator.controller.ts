@@ -121,6 +121,7 @@ export class CommunicatorComponentController implements ng.IController, ng.IOnIn
     call.localMediaTrack$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onLocalMediaTrack);
     call.callDestroyed$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onCallEnd);
     call.timeCostChange$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onTimeCostChange);
+    this.expertCallService.hangupCall$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.onCallEnd);
   };
 
   private onTimeCostChange = (timeMoneyTuple: { time: number; money: MoneyDto }): void => {
