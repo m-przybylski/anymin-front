@@ -7,6 +7,9 @@ import { Alerts, AlertService } from '@anymind-ng/core';
 import { IVerifyMsisdnStatus } from './change-msisdn/change-msisdn.component';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
+import { SessionActions } from '@platform/core/actions';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
 enum ChangeMsisdnModalStepEnum {
   CHANGE_MSISDN,
@@ -35,6 +38,7 @@ export class MsisdnSettingsViewComponent {
     private activeModal: NgbActiveModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private alertService: AlertService,
+    private store: Store<fromCore.IState>,
   ) {
     this.modalHeaderTrKey = this.modalHeaderTranslations.msisdn;
   }
@@ -60,6 +64,7 @@ export class MsisdnSettingsViewComponent {
     if (pinVerification.status === PinVerificationStatus.SUCCESS) {
       this.activeModal.close();
       this.alertService.pushSuccessAlert(Alerts.MsisdnChangedSuccess);
+      this.store.dispatch(new SessionActions.FetchSessionAction());
     }
   };
 }
