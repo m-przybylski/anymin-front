@@ -18,7 +18,7 @@ export class DateDurationPipe implements PipeTransform {
         hh: 'dziś',
         d: 'wczoraj',
         dd: '%d dni temu',
-        M: 'miesiąc',
+        M: 'miesiąc temu',
         MM: '%d miesięcy temu',
         y: 'rok temu',
         yy: '%d lat temu',
