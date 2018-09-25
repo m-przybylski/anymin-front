@@ -4,7 +4,8 @@ plat-modal-component(
 [isCloseButtonVisible]="false"
 )
   .image-crop
-    .image-crop__container
+    .image-crop__container(#imageCroppContainer)
+      #visual-source
       plat-preloader-container([isLoading]="isPending", [contentSizeClass]="preloaderType")
       p.hint {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.AVATAR.CROP' | translate }}
 

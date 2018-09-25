@@ -1,16 +1,23 @@
 // tslint:disable:no-implicit-dependencies
-import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { CropDetails } from '@anymind-ng/api/model/cropDetails';
-import { PostFileDetails } from '@anymind-ng/api';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProfileModalComponentService } from '../../../create-profile/create-profile.component.service';
 import { Alerts, AlertService, WindowRef, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import * as Croppie from 'croppie';
 import { ModalContainerTypeEnum } from '../../../../modal/modal.component';
 import { PreloaderContentSizeEnum } from '../../../../../preloader/preloader-container.component';
 import { Config } from '../../../../../../../../config';
-import { UploaderService } from '../../../../../../services/uploader/uploader.service';
+import * as Croppie from 'croppie';
+import { ImageCropService } from '@platform/shared/components/modals/profile/components/basic-profile-data/image-crop/image-crop.service';
 
 export interface IImageCropData {
   imgSrc: string;
@@ -21,14 +28,19 @@ export interface IImageCropData {
   selector: 'app-image-crop',
   templateUrl: './image-crop.component.html',
   styleUrls: ['./image-crop.component.sass'],
+  providers: [ImageCropService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImageCropModalComponent implements OnInit, OnDestroy {
+export class ImageCropModalComponent implements OnDestroy, AfterViewInit {
   @Input()
   public cropModalData: IImageCropData;
 
   public modalClass: ModalContainerTypeEnum = ModalContainerTypeEnum.CROPP_WIDTH;
   public isPending = false;
   public preloaderType = PreloaderContentSizeEnum.FULL_CONTENT;
+
+  @ViewChild('imageCroppContainer')
+  public imageCroppElement: ElementRef;
 
   private readonly mobileResolution = Config.screenWidth.mobile;
   private readonly largeMobileResolution = Config.screenWidth.mobileLarge;
@@ -37,11 +49,10 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
   private croppieResolution = this.largeMobileResolution;
 
   constructor(
-    private el: ElementRef,
     private activeModal: NgbActiveModal,
-    private uploaderService: UploaderService,
     private alertService: AlertService,
     private windowRef: WindowRef,
+    private imageCropService: ImageCropService,
     private createProfileModalComponentService: CreateProfileModalComponentService,
     loggerFactory: LoggerFactory,
   ) {
@@ -57,10 +68,9 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
     this.croppieElement.destroy();
   }
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     this.assignCroppieWidth();
-
-    this.croppieElement = new Croppie(this.el.nativeElement.querySelector('.image-crop__container'), {
+    this.croppieElement = new Croppie(this.imageCroppElement.nativeElement, {
       viewport: {
         width: 190,
         height: 190,
@@ -78,7 +88,7 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
         url: this.cropModalData.imgSrc,
         zoom: 0.5,
       })
-      .catch(error => {
+      .catch((error: Croppie.CropType) => {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('Can not bind croppie', error);
       });
@@ -87,7 +97,15 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
   public onModalClose = (): void => this.activeModal.close();
 
   public onImgUrlSubmit = (): void => {
-    this.uploadFile();
+    this.isPending = true;
+    this.imageCropService
+      .uploadFile(this.cropModalData, this.croppieElement)
+      .then(response => {
+        this.createProfileModalComponentService.setAvatarToken(response.token);
+        this.isPending = false;
+        this.onModalClose();
+      })
+      .catch(err => this.handleUploadFileError(err));
   };
 
   private assignCroppieWidth = (): void => {
@@ -97,42 +115,6 @@ export class ImageCropModalComponent implements OnInit, OnDestroy {
   };
 
   private onZoomChange = (value: number): void => this.croppieElement.setZoom(value);
-
-  private uploadFile = (): void => {
-    const croppieCords = this.assignCroppieCords();
-    this.isPending = true;
-
-    this.uploaderService
-      .uploadFile(this.cropModalData.file, {
-        fileType: PostFileDetails.FileTypeEnum.PROFILE,
-        croppingDetails: croppieCords,
-      })
-      .then(response => {
-        this.createProfileModalComponentService.setAvatarToken(response.token);
-        this.isPending = false;
-        this.onModalClose();
-      })
-      .catch(err => this.handleUploadFileError(err));
-  };
-
-  private assignCroppieCords = (): CropDetails => {
-    const points = this.croppieElement.get().points;
-    const indexOfPointCordX = 0;
-    const indexOfPointCordY = 1;
-    const indexOfPointWidth = 2;
-    const indexOfPointHeight = 3;
-
-    if (points !== undefined) {
-      return {
-        x: Number(points[indexOfPointCordX]),
-        y: Number(points[indexOfPointCordY]),
-        width: Number(points[indexOfPointWidth]) - Number(points[indexOfPointCordX]),
-        height: Number(points[indexOfPointHeight]) - Number(points[indexOfPointCordY]),
-      };
-    } else {
-      return { x: 0, y: 0, width: 0, height: 0 };
-    }
-  };
 
   private handleUploadFileError = (error: HttpErrorResponse): void => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
