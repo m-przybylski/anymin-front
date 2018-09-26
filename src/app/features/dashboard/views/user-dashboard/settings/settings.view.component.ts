@@ -16,7 +16,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./settings.view.component.sass'],
 })
 export class SettingsViewComponent implements OnInit {
-  private session$: Observable<GetSessionWithAccount>;
+  public session$: Observable<GetSessionWithAccount>;
 
   constructor(private ngbModalService: NgbModal, private store: Store<fromCore.IState>) {}
 
