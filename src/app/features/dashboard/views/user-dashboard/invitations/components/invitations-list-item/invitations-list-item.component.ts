@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'plat-invitations-list-item',
@@ -7,6 +7,8 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class InvitationsListItemComponent {
+  @Input()
+  public id: string;
   @Input()
   public isVisited: boolean;
   @Input()
@@ -17,4 +19,11 @@ export class InvitationsListItemComponent {
   public ownerName: string;
   @Input()
   public consultationDesc: string;
+
+  @Output()
+  public invitatonClicked: EventEmitter<string> = new EventEmitter();
+
+  public onInvitationClicked = (invitationId: string): void => {
+    this.invitatonClicked.emit(invitationId);
+  };
 }

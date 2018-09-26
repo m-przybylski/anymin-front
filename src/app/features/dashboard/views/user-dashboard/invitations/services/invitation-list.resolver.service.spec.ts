@@ -74,4 +74,12 @@ describe('InvitationListResolverService', () => {
       expect(data.length).toEqual(two);
     });
   }));
+
+  it('should return empty array if there is are no pending intites', fakeAsync(() => {
+    (invitationService.getInvitationsRoute as jasmine.Spy).and.returnValue(of(Mocks.invitationsMock6));
+    invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe(data => {
+      expect(data).toEqual(Mocks.result6);
+    });
+    tick();
+  }));
 });

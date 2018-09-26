@@ -50,6 +50,13 @@
       background-color: $c-primary
       color: $c-white
 
+  &.plat-secondary
+    color: $c-white
+    border-color: rgba($c-white, 0.15)
+
+    &:hover
+      border-color: $c-white
+
 .plat-stroked-button
   @extend %outline-button
   @extend %button-padding
@@ -62,6 +69,13 @@
   &.plat-primary
     color: $c-primary
     border-color: $c-primary
+
+  &.plat-secondary
+    color: $c-white
+    border-color: rgba($c-white, 0.15)
+
+    &:hover
+      border-color: $c-white
 
 .plat-button
   @extend %outline-button
@@ -89,4 +103,18 @@
 
     &:hover
       color: $c-primary
+      border-color: $c-primary
       background-color: $c-white
+
+.plat-flat
+  @extend %outline-button
+  @extend %button-padding
+  @extend %font-size-14
+  @extend %transition
+
+  &.plat-primary
+    color: $c-white
+    background-color: $c-primary
+
+    &:hover
+      background-color: $c-secondary

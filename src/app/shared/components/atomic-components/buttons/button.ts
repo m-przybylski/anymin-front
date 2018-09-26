@@ -8,6 +8,7 @@ const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-button',
   'plat-mini-flat-fab',
   'plat-flat-fab',
+  'plat-flat',
 ];
 
 class ButtonBase {
@@ -18,10 +19,10 @@ const ButtonMixinBase = mixinColor(ButtonBase);
 @Component({
   selector: `button[plat-icon-button], button[plat-stroked-button],
              button[plat-button], button[plat-mini-flat-fab],
-             button[plat-flat-fab],
+             button[plat-flat-fab], button[plat-flat],
              [plat-icon-button], [plat-stroked-button],
              [plat-button], [plat-mini-flat-fab],
-             [plat-flat-fab],
+             [plat-flat-fab], [plat-flat]
              `,
   templateUrl: './button.html',
   styleUrls: ['./button.sass'],

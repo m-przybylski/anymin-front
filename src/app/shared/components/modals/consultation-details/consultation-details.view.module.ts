@@ -9,9 +9,10 @@ import { DashboardComponentsModule } from '@platform/features/dashboard/componen
 import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-avatar.module';
 import { SharedModule } from '@platform/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalsModule } from '@platform/shared/components/modals/modals.module';
 import { ConsultationDetailsComponent } from './consultation-details/consultation-details.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
+import { ModalComponentsModule } from '../modal/modal.components.module';
+import { ConsultationFooterComponent } from './consultation-footer/consultation-footer.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { ConsultationDetailsViewComponent } from '@platform/shared/components/mo
     DashboardComponentsModule,
     UserAvatarModule,
     SharedModule,
-    ModalsModule,
+    ModalComponentsModule,
   ],
   declarations: [
     ConsultationDetailsViewComponent,
@@ -32,7 +33,9 @@ import { ConsultationDetailsViewComponent } from '@platform/shared/components/mo
     TimeDurationPipe,
     DateDurationPipe,
     ConsultationDetailsComponent,
+    ConsultationFooterComponent,
   ],
+  exports: [ConsultationDetailsComponent, ConsultationFooterComponent],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

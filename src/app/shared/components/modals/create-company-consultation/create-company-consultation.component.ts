@@ -12,7 +12,7 @@ import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { catchError } from 'rxjs/internal/operators';
 import { CreateCompanyConsultationService } from './create-company-consultation.service';
-import { EmployeesInviteModalComponent } from '../employees-invite/employees-invite.component';
+import { EmployeesInviteModalComponent } from '../invitations/employees-invite/employees-invite.component';
 import { GetService } from '@anymind-ng/api';
 
 @Component({

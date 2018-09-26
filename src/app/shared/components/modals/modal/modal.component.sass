@@ -15,7 +15,7 @@
     overflow: auto
     max-height: 100vh
     width: 100vw
-    
+
     +mdm
       padding: 48px 0
 
@@ -119,14 +119,10 @@
         width: $s-modal-container-small
 
     &--no-padding
-      padding: 0
-
       .modal-component__content
         padding: $s-modal-header 0 0
 
       +mdm
-        padding-right: 0
-        padding-left: 0
         width: $s-modal-container-medium
 
     &--cropp
@@ -210,6 +206,18 @@
 
       > *
         margin: initial
+
+  &__footer
+    color: $c-white
+    background: $c-text-primary
+    padding: 24px 16px
+    border-radius: 0 0 8px 8px
+
+    +smm
+      padding: 32px
+
+    +mdm
+      padding: 32px 48px
 
 .modal-form
   animation: none

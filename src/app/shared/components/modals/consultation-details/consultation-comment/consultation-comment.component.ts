@@ -104,7 +104,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
     }
   };
 
-  public sendReasonReport = (reason: string): void => {
+  public sendReasonReport = (reason: GetReport.CauseEnum): void => {
     this.consultationCommentService
       .postCommentReport(this.sueId, this.commentDetails.commentId, reason)
       .pipe(

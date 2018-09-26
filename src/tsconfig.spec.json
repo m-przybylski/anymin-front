@@ -22,8 +22,5 @@
     "../node_modules/profitelo-api-ng/api.module.ts",
     "../node_modules/profitelo-api-ng/api/api.ts"
   ],
-  "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ]
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
