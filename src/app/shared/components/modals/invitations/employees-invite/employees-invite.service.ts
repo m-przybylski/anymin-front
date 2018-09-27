@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { EmploymentService, InvitationService, ServiceService } from '@anymind-ng/api';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { PostInvitations } from '@anymind-ng/api/model/postInvitations';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
-import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { GetService } from '@anymind-ng/api/model/getService';
 import { filter, map } from 'rxjs/operators';
-import { PhoneNumberUnifyService } from '../../../services/phone-number-unify/phone-number-unify.service';
 import { IEmployeesInviteComponent } from './employees-invite.component';
 import { isValidNumber } from 'libphonenumber-js';
-import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
-import { Subject } from 'rxjs/Rx';
+import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
+import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
 
 export enum EmployeeInvitationTypeEnum {
   IS_EMAIL,
@@ -29,7 +27,7 @@ export interface IEmployeesPendingInvitation {
 
 @Injectable()
 export class EmployeesInviteService {
-  public pendingInvitations$ = new Subject<ReadonlyArray<PostInvitation>>();
+  public pendingInvitations$ = new Subject<ReadonlyArray<IEmployeesInviteComponent>>();
   private employeesWithPendingInvitaitons: ReadonlyArray<IEmployeesPendingInvitation> = [];
   private emailPattern: RegExp;
   private maxInvitationLength: number;
@@ -44,9 +42,8 @@ export class EmployeesInviteService {
   ) {
     this.emailPattern = commonSettingsService.localSettings.emailPattern;
     this.maxInvitationLength = commonSettingsService.localSettings.consultationInvitationsMaxCount;
-    console.log('pizda');
   }
-  public getNewInvitations = (): Subject<ReadonlyArray<PostInvitation>> => this.pendingInvitations$;
+  public getNewInvitations$ = (): Subject<ReadonlyArray<IEmployeesInviteComponent>> => this.pendingInvitations$;
 
   public getEmployeeList = (): Observable<ReadonlyArray<ExpertProfileWithEmployments>> =>
     this.employmentService.getEmployeesRoute();

@@ -14,7 +14,7 @@ export class ConsultationCompanyRowComponent {
   public consultation: ServiceWithEmployments;
 
   @Input()
-  public isOwnProfile: false;
+  public isOwnProfile = false;
 
   constructor(private modalService: NgbModal) {}
 
@@ -36,7 +36,7 @@ export class ConsultationCompanyRowComponent {
 
   public openConsultationModal = (): void => {
     const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
-    modal.componentInstance.consultationId = this.consultation.service.id;
+    modal.componentInstance.consultationId = this.companyId;
     modal.componentInstance.isOwnProfile = this.isOwnProfile;
   };
 }

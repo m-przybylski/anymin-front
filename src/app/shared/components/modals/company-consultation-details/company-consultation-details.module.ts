@@ -5,10 +5,10 @@ import { ModalsModule } from '@platform/shared/components/modals/modals.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
 import { SharedModule } from '@platform/shared/shared.module';
-import { ConsultationDetailsComponent } from '@platform/shared/components/modals/consultation-details/consultation-details/consultation-details.component';
 import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-avatar.module';
 import { CompanyEmployeeRowComponent } from './company-employee-row/company-employee-row.component';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { ConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/consultation-details.view.module';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { ExpertAvailabilityService } from '@platform/features/dashboard/componen
     ModalsModule,
     UserAvatarModule,
   ],
-  declarations: [CompanyConsultationDetailsViewComponent, ConsultationDetailsComponent, CompanyEmployeeRowComponent],
+  declarations: [CompanyConsultationDetailsViewComponent, CompanyEmployeeRowComponent],
   entryComponents: [CompanyConsultationDetailsViewComponent],
   providers: [ExpertAvailabilityService],
 })

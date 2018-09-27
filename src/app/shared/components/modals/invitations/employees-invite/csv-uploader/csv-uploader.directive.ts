@@ -33,6 +33,7 @@ export class CsvUploaderDirective {
               this.showCSVstatus(result.errors);
             },
           });
+          event.target.value = '';
         };
         reader.onerror = (err: ErrorEvent): void => {
           this.logger.error('Can not read file', err);

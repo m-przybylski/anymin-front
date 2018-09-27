@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 
 export interface ICompanyEmployeeRowComponent {
@@ -7,6 +7,7 @@ export interface ICompanyEmployeeRowComponent {
   ratingCounter?: number;
   name: string;
   id: string;
+  employeeId?: string;
   avatar?: string;
 }
 
@@ -15,22 +16,20 @@ export interface ICompanyEmployeeRowComponent {
   templateUrl: './company-employee-row.component.html',
   styleUrls: ['./company-employee-row.component.sass'],
 })
-export class CompanyEmployeeRowComponent implements OnInit {
+export class CompanyEmployeeRowComponent {
   @Input()
   public employeeDetails: ICompanyEmployeeRowComponent;
   @Output()
-  public onDeleteEmployeeEmiter$: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  public onDeletePendingInvitationEmiter$: EventEmitter<string> = new EventEmitter<string>();
+  public onDeleteEmployeeEmiter: EventEmitter<string> = new EventEmitter<string>();
   @Input()
   public isOwnProfile = false;
+  @Input()
+  public isStatisticsVisible = false;
 
   public avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_56;
 
-  public ngOnInit(): void {}
-
-  public onClickDelete = (employeeId: string): void => {
-    this.onDeletePendingInvitationEmiter$.emit(employeeId);
-    this.onDeleteEmployeeEmiter$.emit(employeeId);
+  public onClickDelete = (employeeId: Event): void => {
+    employeeId.stopPropagation();
+    this.onDeleteEmployeeEmiter.emit(this.employeeDetails.id);
   };
 }

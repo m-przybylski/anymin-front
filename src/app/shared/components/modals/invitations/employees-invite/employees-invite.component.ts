@@ -81,8 +81,8 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         this.dropdownItems = response.filter(item => item.employments[0]).map(employeeProfile => ({
           name: employeeProfile.expertProfile.name,
           avatar: employeeProfile.expertProfile.avatar,
-          employeeId: employeeProfile.employments[0].id,
-          serviceId: employeeProfile.employments[0].serviceId,
+          employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
+          serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
         }));
 
         this.employeesConsultationList = this.dropdownItems.filter(employee => employee.serviceId === this.serviceId);
@@ -111,8 +111,8 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         .pipe(takeUntil(this.ngUnsubscribe$))
         .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')))
         .subscribe(() => {
+          this.employeesInviteService.getNewInvitations$().next(this.invitedEmployeeList);
           this.alertService.pushSuccessAlert('INVITE_EMPLOYEES.ALERT.SUCCESS');
-          this.employeesInviteService.getNewInvitations().next(this.adjustEmployeeInvitationObject());
           this.activeModal.close();
         });
     }

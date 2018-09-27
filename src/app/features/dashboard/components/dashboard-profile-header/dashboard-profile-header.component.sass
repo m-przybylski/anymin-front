@@ -1,5 +1,11 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
 @import "../../../../template/core/partials/grid"
+
+=avatar-size($val)
+  width: $val
+  height: $val
+  min-width: $val
+  min-height: $val
 
 =size($width-height)
   width: $width-height
@@ -103,9 +109,22 @@
       margin-left: 8px
 
 
+  &::ng-deep
+    plat-user-avatar
+      display: block
+
+      .user-avatar
+        img
+          +xsm-max
+            +avatar-size(90px)
+
+          +mdm-max
+            +avatar-size(128px)
+
 plat-expandable-panel
   display: block
   margin-bottom: 8px
+
 plat-expert-availability
   display: block
   margin-left: -4px

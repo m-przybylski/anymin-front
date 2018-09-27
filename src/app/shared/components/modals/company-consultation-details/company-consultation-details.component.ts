@@ -6,13 +6,12 @@ import { GetService } from '@anymind-ng/api/model/getService';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EmployeesInviteModalComponent } from '@platform/shared/components/modals/employees-invite/employees-invite.component';
 import { Animations } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/company-consultation-details/company-employee-row/company-employee-row.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
-import { EmployeesInviteService } from '@platform/shared/components/modals/employees-invite/employees-invite.service';
 import { tap } from 'rxjs/operators';
-import { PreloaderContentSizeEnum } from '@platform/shared/components/preloader/preloader-container.component';
+import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
+import { EmployeesInviteModalComponent } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.component';
 
 @Component({
   selector: 'plat-company-consultation-details-view',
@@ -24,15 +23,13 @@ import { PreloaderContentSizeEnum } from '@platform/shared/components/preloader/
 export class CompanyConsultationDetailsViewComponent implements OnInit {
   public readonly avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_96;
   public readonly modalType: ModalContainerTypeEnum = ModalContainerTypeEnum.NO_PADDING;
-
   public consultationDetails: GetService;
   public profileDetails: GetProfileWithDocuments;
-
   public isPending = true;
-  public isPreloaderPending = false;
-
+  public isPendingInvitationLoaded = false;
   public employeesList: ReadonlyArray<ICompanyEmployeeRowComponent> = [];
   public pendingEmployeesList: ReadonlyArray<ICompanyEmployeeRowComponent> = [];
+  public tagList: ReadonlyArray<string>;
 
   @Input()
   public isOwnProfile: boolean;
@@ -40,7 +37,9 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
   @Input()
   public consultationId: string;
 
-  private expertId: string;
+  public get isPendingEmployeesListEmpty(): boolean {
+    return this.pendingEmployeesList.length === 0;
+  }
 
   constructor(
     private modalService: NgbModal,
@@ -50,37 +49,21 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.companyConsultationDetailsViewService.getServiceDetails(this.consultationId).subscribe(res => {
+    this.companyConsultationDetailsViewService.getConsultationDetails(this.consultationId).subscribe(response => {
+      this.tagList = response.tagsList;
+      this.consultationDetails = response.serviceDetails.consultationDetails;
+      this.profileDetails = response.serviceDetails.profileDetails;
+      this.employeesList = response.employeesList;
       this.isPending = false;
       this.modalAnimationComponentService.onModalContentChange().next(false);
-      this.consultationDetails = res.consultationDetails;
-      this.profileDetails = res.profileDetails;
     });
 
     this.employeesInviteService
-      .getNewInvitations()
-      .pipe(
-        tap(() => {
-          this.isPreloaderPending = true;
-        }),
-      )
+      .getNewInvitations$()
+      .pipe(tap(() => (this.isPendingInvitationLoaded = true)))
       .subscribe(() => {
         this.getPendingEmployees();
       });
-
-    this.companyConsultationDetailsViewService.getEmployeesList(this.consultationId).subscribe(res => {
-      this.employeesList = res[0].employeesDetails.map(employee => {
-        return {
-          usageCounter: employee.usageCounter,
-          commentCounter: employee.commentCounter,
-          ratingCounter: employee.rating,
-          id: employee.id,
-          name: employee.employeeProfile.name,
-          avatar: employee.employeeProfile.avatar,
-          invitationId: employee.id,
-        };
-      });
-    });
 
     if (this.isOwnProfile) {
       this.getPendingEmployees();
@@ -96,18 +79,12 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
   public onAddEmployees = (): string =>
     (this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = this.consultationId);
 
-  public getPendingEmployees = (): any =>
-    this.companyConsultationDetailsViewService.getPendingInvitation(this.consultationId).subscribe(response => {
-      this.pendingEmployeesList = response[0].invitations
-        .filter(invitation => invitation.status === 'NEW')
-        .map(item => ({
-          name: item.email || item.msisdn || '',
-          id: item.id,
-        }));
-
-      // TODO
-      this.isPreloaderPending = false;
+  public getPendingEmployees = (): void => {
+    this.companyConsultationDetailsViewService.getInvitations(this.consultationId).subscribe(response => {
+      this.pendingEmployeesList = response;
+      this.isPendingInvitationLoaded = false;
     });
+  };
 
   public onDeletePendingInvitation = (invitationId: string): void => {
     this.companyConsultationDetailsViewService.deletePendingInvitation(invitationId).subscribe(() => {
@@ -115,9 +92,9 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
     });
   };
 
-  public openConsultationDetailsModal = (): void => {
+  public openConsultationDetailsModal = (employeId: string): void => {
     const modalInstance = this.modalService.open(ConsultationDetailsViewComponent).componentInstance;
     modalInstance.serviceId = this.consultationId;
-    modalInstance.expertId = this.expertId;
+    modalInstance.expertId = employeId;
   };
 }
