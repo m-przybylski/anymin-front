@@ -8,7 +8,6 @@ import { StateService } from '@uirouter/angularjs';
 
 // tslint:disable:strict-type-predicates
 function controller($scope: any, $state: StateService, urlService: UrlService): void {
-
   this.$onInit = (): void => {
     const minConsultationsLength = 4;
     this.areControllsVisible = this.consultations.length >= minConsultationsLength;
@@ -27,7 +26,7 @@ function controller($scope: any, $state: StateService, urlService: UrlService): 
 
   this.goToProfile = (consultation: any): void => {
     const stateName = consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile';
-    $state.go(stateName, {profileId: consultation.owner.id, primaryConsultationId: consultation.id});
+    $state.go(stateName, { profileId: consultation.owner.id, primaryConsultationId: consultation.id });
   };
 
   return this;
@@ -37,15 +36,16 @@ const similarExpertsSlider = {
   template: require('./similar-experts-slider.html'),
   bindings: {
     consultations: '<',
-    title: '@'
+    title: '@',
   },
   controller: ['$scope', '$state', 'urlService', controller],
-  controllerAs: '$ctrl'
+  controllerAs: '$ctrl',
 };
 
-angular.module('profitelo.components.expert-profile.similar-experts-slider', [
-  'profitelo.components.interface.slider',
-  urlModule,
-  'pascalprecht.translate'
-])
+angular
+  .module('profitelo.components.expert-profile.similar-experts-slider', [
+    'profitelo.components.interface.slider',
+    urlModule,
+    'pascalprecht.translate',
+  ])
   .component('similarExpertsSlider', similarExpertsSlider);

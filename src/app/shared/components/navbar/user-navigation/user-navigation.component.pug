@@ -10,16 +10,13 @@
 
   ng-template(#userMenu)
     ul.user-navigation__list.user-navigation__list--expert
-      li([hidden]="!isExpert", routerLinkActive="active", #listElement)
-        a(routerLink="/dashboard/user/expert-activities")
-          span {{ "NAVBAR.EXPERT_ACTIVITIES" | translate }}
       li(routerLinkActive="active", #listElement)
         a(routerLink="/dashboard/user/discover")
           span {{ "NAVBAR.DISCOVER" | translate }}
       li(routerLinkActive="active", #listElement)
-        a(routerLink="/dashboard/user/client-activities")
+        a(routerLink="/dashboard/user/activities")
           span {{ "NAVBAR.ACTIVITIES" | translate }}
-      li(routerLinkActive="active", #listElement)
+      li(routerLinkActive="active", #listElement, [hidden]="!isExpert")
         a(routerLink="/dashboard/user/favourites")
           span {{ "NAVBAR.FAVOURITE" | translate }}
 

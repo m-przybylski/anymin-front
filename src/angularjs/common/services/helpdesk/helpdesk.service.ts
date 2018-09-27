@@ -7,14 +7,12 @@ import { ISearchArticleResults } from './search-article-results.interface';
 // tslint:disable:member-ordering
 // tslint:disable:strict-type-predicates
 export class HelpdeskService implements IHelpdesk {
-
   private static readonly baseZendeskUrl = 'https://anymind.zendesk.com/';
   private static readonly zendeskExpertCategoryId = '115000117831';
 
   public static $inject = ['$http'];
 
-    constructor(private $http: ng.IHttpService) {
-  }
+  constructor(private $http: ng.IHttpService) {}
 
   public searchArticles = (query: string): ng.IPromise<ISearchArticleResults> => {
     const searchArticlesUrlPath = HelpdeskService.baseZendeskUrl + 'api/v2/help_center/articles/search.json';
@@ -28,24 +26,22 @@ export class HelpdeskService implements IHelpdesk {
       url: searchArticlesUrlPath,
       params: {
         query,
-        category: HelpdeskService.zendeskExpertCategoryId
+        category: HelpdeskService.zendeskExpertCategoryId,
       },
       withCredentials: false,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-LANG': undefined,
-        'X-Api-Key': undefined
-      }
+        'X-Api-Key': undefined,
+      },
     };
 
     return this.$http(httpRequestParams).then(response => {
       if (typeof response.data !== 'undefined') {
         return response.data as ISearchArticleResults;
-      }
-      else {
+      } else {
         throw new Error('Response was not defined');
       }
     });
-  }
-
+  };
 }

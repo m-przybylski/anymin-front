@@ -1,0 +1,113 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
+
+.activities
+  background: $c-base-background
+
+  &__upper-container
+    background: $c-white
+
+  &__header
+    display: block
+    width: auto
+
+    +smm
+      height: 120px
+      display: flex
+      align-items: flex-end
+      max-width: 1200px
+
+    +mdm
+      margin: 0 auto
+
+  &__title
+    width: 100%
+    height: 72px
+    padding: 24px 12px
+
+    +smm
+      padding: 24px 24px 20px 24px
+
+    >span
+      +h6
+      font-weight: 500
+
+      +smm
+        +h5
+        font-weight: 500
+
+  &__container
+    padding: 24px 0 0
+
+    +smm
+      padding: 32px 0 0
+
+  &__tabs
+    display: flex
+    justify-content: space-around
+    height: 56px
+    border: solid 1px $c-base-background
+
+    +smm
+      width: 100%
+      height: 72px
+
+    +mdm
+      width: auto
+
+    &--expert, &--client
+      width: 100%
+      height: 100%
+      padding: 16px 12px
+      background: $c-white
+      display: flex
+      justify-content: space-between
+      align-items: center
+      outline: none
+      transition: color 0.3s, background 0.3s
+
+      +smm
+        padding: 24px
+        width: 248px
+
+      .activities__tabs__title
+        +button-small
+        color: $c-label
+
+        +mdm
+          +subtitle
+
+      .activities__tabs__counter
+        height: auto
+        border-radius: 4px
+        padding: 2px 6px
+        width: auto
+        background: $c-dark-grey
+        text-align: center
+        display: flex
+        align-items: center
+
+        span
+          +caption
+          font-weight: 500
+          width: 100%
+          color: $c-white
+
+      &:hover
+        cursor: pointer
+
+        .activities__tabs__title
+          color: $c-primary
+
+        .activities__tabs__counter
+          background: $c-primary
+
+      &.active
+        background: $c-base-background
+        cursor: default
+
+        .activities__tabs__title
+          color: $c-text-primary
+
+        .activities__tabs__counter
+          background: $c-black

@@ -53,7 +53,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
-    "@anymind-ng/core": "0.4.23",
+    "@anymind-ng/core": "0.4.25",
     "@anymind-ng/api": "0.0.51",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",
     "@ngrx/effects": "^6.1.0",

@@ -1,0 +1,34 @@
+.expert-activities
+  .expert-activities__profit
+    span.expert-activities__profit__header([translate]="'EXPERT_ACTIVITIES.PROFIT_HEADER'")
+    span.expert-activities__profit__money(*ngIf="balance") {{ balance.amount | currency: balance.currency:'symbol-narrow' }}
+
+  .non-activities(*ngIf="!isActivities")
+    am-core-image-display.non-activities__image(imgName="activities")
+    span([translate]="'EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER'")
+
+  .activities-lists(*ngIf="isActivities")
+    .important-list(*ngIf="importantActivitiesCounter > 0")
+      .important-list__header
+        span([translate]="'EXPERT_ACTIVITIES.IMPORTANT_LIST_COUNTER_TITLE'",
+        [translateParams]="{currentValue: currentImportantActivitiesOffset, counter: importantActivitiesCounter}")
+        a((click)="toggleImportantActivities()",
+        *ngIf="importantActivitiesCounter > importantActivitiesOffset")
+          | {{ importantLinkTranslationKey | translate }}
+
+      ul.important-list__container
+        li(*ngFor='let activity of displayedImportantActivities', [@animation])
+          plat-activity-row([isImportant]="true", [activity]="activity")
+
+    .all-list
+      .all-list__header
+        span([translate]="'EXPERT_ACTIVITIES.ALL_LIST_COUNTER_TITLE'")
+        a([translate]="'EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS'", [hidden]="true")
+
+      ul.all-list__container
+        li(*ngFor='let profileActivity of profileActivities', [@animation])
+          plat-activity-row([activity]="profileActivity.activity", [isImportant]="profileActivity.isImportant")
+
+    .bottom
+      a.button.button--tertiary.button--small([translate]="'EXPERT_ACTIVITIES.LOAD_MORE'", (click)="loadMore()",
+      *ngIf="isMoreActivity")

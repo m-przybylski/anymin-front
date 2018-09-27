@@ -12,9 +12,7 @@ export interface IProSwitcherScope extends ng.IScope {
 
 (function(): void {
   function proSwitcher(): IDirective<ng.IScope> {
-
     function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes): void {
-
       if (typeof scope.ngModel !== 'boolean') {
         throw new Error('ngModel must be of boolean type');
       }
@@ -45,13 +43,10 @@ export interface IProSwitcherScope extends ng.IScope {
         ngModel: '=',
         callback: '=?',
         label: '@',
-        name: '@'
-      }
+        name: '@',
+      },
     };
-
   }
 
-  angular.module('profitelo.directives.interface.pro-switcher', [])
-    .directive('proSwitcher', [proSwitcher]);
-
-}());
+  angular.module('profitelo.directives.interface.pro-switcher', []).directive('proSwitcher', [proSwitcher]);
+})();
