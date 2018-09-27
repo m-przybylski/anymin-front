@@ -1,121 +1,101 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
 
-=x156-size
-  width: 156px
-  min-width: 156px
-  height: 156px
-  min-height: 156px
-
-=x96-size
-  width: 96px
-  min-width: 96px
-  height: 96px
-  min-height: 96px
-
-=x40-size
-  width: 40px
-  min-width: 40px
-  height: 40px
-  min-height: 40px
-
-=x48-size
-  width: 48px
-  min-width: 48px
-  height: 48px
-  min-height: 48px
-
-=x32-size
-  width: 32px
-  min-width: 32px
-  height: 32px
-  min-height: 32px
-
-=x24-size
-  width: 24px
-  min-width: 24px
-  height: 24px
-  min-height: 24px
+=avatar-size($val)
+	width: $val
+	min-width: $val
+	height: $val
+	min-height: $val
 
 .user-avatar
-  display: flex
-  align-items: center
-  position: relative
+	display: flex
+	align-items: center
+	
+	&__img
+		border-radius: 50%
+		width: 100%
+		height: 100%
+		border: 1px solid $c-lines
+	
+	&--x156
+		img,
+		.user-avatar__error
+			+avatar-size(156px)
 
-  &__img
-    border-radius: 50%
-    width: 100%
-    height: 100%
-    border: 1px solid $c-lines
+		.icon
+			font-size: 156px
 
-  &--x156
-    img,
-    .user-avatar__error
-      +x156-size
+			&--profile
+				+avatar-size(156px)
 
-    .icon
-      font-size: 156px
+				&.icon-organization
+					font-size: 116px
 
-      &--profile
-        +x156-size
+	&--x96
+		img
+			+avatar-size(96px)
 
-        &.icon-organization
-          font-size: 116px
+		.icon
+			font-size: 96px
 
-  &--x96
-    img
-      +x96-size
+			&--profile
+				width: 96px
+				height: 96px
 
-    .icon
-      font-size: 96px
+	&--x56
+		img
+			+avatar-size(56px)
 
-      &--profile
-        width: 96px
-        height: 96px
+		.icon
+			font-size: 56px
 
-  &--x48
-    img
-      +x48-size
+			&--profile
+				width: 56px
+				height: 56px
 
-    .icon
-      font-size: 48px
+	&--x48
+		img
+			+avatar-size(48px)
 
-      &--profile
-        width: 48px
-        height: 48px
+		.icon
+			font-size: 48px
 
-  &--x40
-    img
-      +x40-size
+			&--profile
+				width: 48px
+				height: 48px
 
-    .icon
-      font-size: 40px
+	&--x40
+		img
+			+avatar-size(40px)
 
-      &--profile
-        width: 40px
-        height: 40px
+		.icon
+			font-size: 40px
 
-  &--x32
-    img
-      +x32-size
+			&--profile
+				width: 40px
+				height: 40px
 
-    .icon
-      font-size: 32px
+	&--x32
+		img
+			+avatar-size(32px)
 
-      &--profile
-        width: 32px
-        height: 32px
+		.icon
+			font-size: 32px
 
-  &--x24
-    img
-      +x24-size
-    .icon
-      font-size: 24px
+			&--profile
+				width: 32px
+				height: 32px
 
-      &--profile
-        width: 24px
-        height: 24px
-
+	&--x24
+		img
+			+avatar-size(24px)
+		.icon
+			font-size: 24px
+			
+			&--profile
+				width: 24px
+				height: 24px
+		
   .icon
     &--profile
       background: $c-text-primary
@@ -127,26 +107,26 @@
         top: 0
         left: 0
 
-
   &__error
-    background: $c-white
-    border: 1px solid $c-error-primary
-    border-radius: 50%
-    height: 100%
-    width: 100%
-    display: flex
-    align-items: center
-    justify-content: center
-    text-align: center
-    padding: 0 24px
-
-    .icon-warning
-      font-size: $f-icon-24
-      color: $c-error-primary
-
-    p
-      +label
-      font-weight: 400
-      font-size: $f-button-small
-      text-transform: none
-      color: $c-error-primary
+		background: $c-white
+		border: 1px solid $c-error-primary
+		border-radius: 50%
+		height: 100%
+		width: 100%
+		display: flex
+		align-items: center
+		justify-content: center
+		text-align: center
+		padding: 0 24px
+		
+		.icon-warning
+			font-size: $f-icon-24
+			color: $c-error-primary
+			
+		p
+			+label
+			font-weight: 400
+			font-size: $f-button-small
+			text-transform: none
+			color: $c-error-primary
+			

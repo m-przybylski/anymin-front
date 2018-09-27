@@ -6,9 +6,17 @@ import { CompanyActivitiesComponent } from './company-activities/company-activit
 import { SharedModule } from '../../../../shared/shared.module';
 import { DashboardComponentsModule } from '../../components/components.module';
 import { NavbarModule } from '../../../../shared/components/navbar/navbar.module';
+import { CompanyConsultationDetailsModule } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.module';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, RouterModule, DashboardComponentsModule, NavbarModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RouterModule,
+    DashboardComponentsModule,
+    NavbarModule,
+    CompanyConsultationDetailsModule,
+  ],
   declarations: [CompanyDashboardComponent, CompanyActivitiesComponent],
   exports: [CompanyDashboardComponent, CompanyActivitiesComponent],
 })

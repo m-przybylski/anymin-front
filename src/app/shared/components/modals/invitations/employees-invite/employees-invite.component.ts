@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
 import { FormGroup } from '@angular/forms';
@@ -10,8 +11,8 @@ import { EMPTY, Observable, Subject } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.service';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
-import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 
 export interface IEmployeesInviteComponent {
   name: string;
@@ -27,7 +28,7 @@ export interface IEmployeesInviteComponent {
   templateUrl: './employees-invite.component.html',
   styleUrls: ['./employees-invite.component.sass'],
   animations: Animations.addItemAnimation,
-  providers: [EmployeesInviteService],
+  providers: [CompanyConsultationDetailsViewService],
 })
 export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public readonly avatarSize = AvatarSizeEnum.X_24;
@@ -111,6 +112,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')))
         .subscribe(() => {
           this.alertService.pushSuccessAlert('INVITE_EMPLOYEES.ALERT.SUCCESS');
+          this.employeesInviteService.getNewInvitations().next(this.adjustEmployeeInvitationObject());
           this.activeModal.close();
         });
     }

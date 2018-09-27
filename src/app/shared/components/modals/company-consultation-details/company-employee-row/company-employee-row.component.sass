@@ -1,0 +1,32 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.company-employee-row
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background: $c-white
+  margin: 0 0 4px
+  min-height: 88px
+  padding: 16px 24px
+  border-radius: 4px
+
+  &__content
+    display: flex
+    align-items: center
+
+    .expert-details
+      display: flex
+      align-items: center
+
+      &__avatar
+        margin: 0 16px 0 0
+
+      &__name-wrapper
+        display: flex
+        align-items: center
+        margin: 0 0 4px
+
+        span
+          +subtitle
+          font-weight: 500
+          margin: 0 0 0 8px

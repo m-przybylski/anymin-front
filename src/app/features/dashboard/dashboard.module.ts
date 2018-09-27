@@ -21,6 +21,7 @@ import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.v
 import { DashboardResolver } from './dashboard.resolver';
 import { PaymentsModule } from '@platform/features/dashboard/views/user-dashboard/payments/payments.module';
 import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-dashboard/recommend-friends/recommend-friends.module';
+import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,6 @@ import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-
     RecommendFriendsModule,
     DashboardComponentsModule,
   ],
-  providers: [DashboardResolver],
+  providers: [EmployeesInviteService, DashboardResolver],
 })
 export class DashboardModule {}
