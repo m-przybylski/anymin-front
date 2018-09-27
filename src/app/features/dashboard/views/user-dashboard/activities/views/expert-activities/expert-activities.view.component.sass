@@ -1,0 +1,116 @@
+@import "~@anymind-ng/core/src/template/stylesheets/stylesheets"
+
+.expert-activities
+  &__profit
+    text-align: center
+
+    >span
+      display: block
+
+    &__header
+      +label
+      font-weight: 500
+      text-transform: uppercase
+      color: $c-label
+
+    &__money
+      +h3
+      font-weight: 300
+      color: $c-text-primary
+
+      +smm
+        +h2
+        font-weight: 300
+
+.non-activities
+  margin: 64px 0
+  width: 100%
+  text-align: center
+
+  +smm
+    margin: 150px 0 0
+
+  +mdm
+    margin: 102px 0 0
+
+  &__image
+    margin: 0 auto 20px
+    display: block
+    height: 208px
+    width: 208px
+
+    +smm
+      margin: 0 auto 29px
+      height: 245px
+      width: 256px
+
+  span
+    +h5
+    font-weight: 300
+
+    +smm
+      +h4
+      font-weight: 300
+
+.important-list
+  margin: 0 0 16px
+
+  +smm
+    margin: 0 0 24px
+
+  &__header
+    padding: 24px 8px 16px 8px
+    display: flex
+    justify-content: space-between
+
+    +smm
+      padding: 24px 16px
+
+    +mdm
+      padding: 24px
+
+    >span
+      +button-small
+      color: $c-label
+      text-transform: uppercase
+      font-weight: 400
+
+    >a
+      +button-small
+      color: $c-primary
+
+  li
+    margin: 0 0 4px 0
+
+.all-list
+  &__header
+    padding: 0 8px 16px 8px
+    display: flex
+    justify-content: space-between
+
+    +smm
+      padding: 0 16px 24px 16px
+
+    +mdm
+      padding: 0 24px 24px 24px
+
+    >span
+      +button-small
+      color: $c-label
+      text-transform: uppercase
+      font-weight: 400
+
+    >a
+      +button-small
+      color: $c-primary
+
+  li
+    margin: 0 0 4px 0
+
+.bottom
+  display: flex
+  justify-content: center
+  margin: 40px 0
+
+
+

@@ -1,0 +1,18 @@
+.activities
+  .activities__upper-container
+    header.activities__header(*ngIf="isProductionReady")
+      .activities__title
+        span([translate]="'ACTIVITIES.HEADER_TITTLE'")
+      .activities__tabs
+        .activities__tabs--expert(routerLink="/dashboard/user/activities/expert" routerLinkActive="active")
+          span.activities__tabs__title([translate]="'ACTIVITIES.EXPERT_TAB_HEADER'")
+          .activities__tabs__counter
+            span 10
+        .activities__tabs--client(routerLink="/dashboard/user/activities/client" routerLinkActive="active")
+          span.activities__tabs__title([translate]="'ACTIVITIES.CLIENT_TAB_HEADER'")
+          .activities__tabs__counter
+            span 6
+  .activities__container
+    .container
+      router-outlet
+

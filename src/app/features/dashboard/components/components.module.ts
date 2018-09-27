@@ -1,7 +1,7 @@
 import { SocialLinksComponent } from './social-links.ts/social-links';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ConsultationRowComponent } from './consultation-row/consultation-row.component';
 import { ConsultationStatComponent } from './consultation-stat/consultation-stat.component';
 import { AnymindComponentsModule } from '@anymind-ng/core';
@@ -11,6 +11,8 @@ import { ConsultationCompanyRowComponent } from './consultation-company-row/cons
 import { ConsultationExpertsComponent } from './consultation-experts/consultation-experts.component';
 import { IconModule, ButtonModule } from '../../../shared/components/atomic-components/index';
 import { UserAvatarModule } from '../../../shared/components/user-avatar/user-avatar.module';
+import { ActivityRowComponent } from './activity-row/activity-row.component';
+import { DecorateDatePipe } from './pipes/decorate-date.pipe';
 
 @NgModule({
   imports: [CommonModule, SharedModule, AnymindComponentsModule, IconModule, ButtonModule, UserAvatarModule],
@@ -22,7 +24,10 @@ import { UserAvatarModule } from '../../../shared/components/user-avatar/user-av
     ConsultationStatComponent,
     DashboardProfileHeaderComponent,
     EmptyNumberPipe,
+    ActivityRowComponent,
+    DecorateDatePipe,
   ],
+  providers: [DatePipe],
   exports: [
     SocialLinksComponent,
     ConsultationRowComponent,
@@ -30,6 +35,8 @@ import { UserAvatarModule } from '../../../shared/components/user-avatar/user-av
     ConsultationExpertsComponent,
     ConsultationStatComponent,
     DashboardProfileHeaderComponent,
+    ActivityRowComponent,
+    DecorateDatePipe,
     IconModule,
     ButtonModule,
   ],

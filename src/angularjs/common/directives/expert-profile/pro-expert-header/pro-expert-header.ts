@@ -12,16 +12,14 @@ import { IDirective } from 'angular';
 
 // tslint:disable:strict-type-predicates
 function proExpertHeader(urlService: UrlService): IDirective<ng.IScope> {
-
   function linkFunction(scope: any, _element: ng.IRootElementService): void {
-
     scope.handleUserImage = (imgToken: string): string =>
       imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : '';
 
     scope.checkCollaboratedExperts = (): boolean =>
-      scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations
-        || scope.profile.colaboratedOrganizations.length < 1;
-
+      scope.profile.type === 'company' ||
+      !scope.profile.colaboratedOrganizations ||
+      scope.profile.colaboratedOrganizations.length < 1;
   }
 
   return {
@@ -31,13 +29,14 @@ function proExpertHeader(urlService: UrlService): IDirective<ng.IScope> {
     link: linkFunction,
     scope: {
       profile: '=?',
-      handleLike: '&'
-    }
+      handleLike: '&',
+    },
   };
 }
 
-angular.module('profitelo.directives.expert-profile.pro-expert-header', [
-  'profitelo.components.interface.show-more-text',
-  urlModule
-])
+angular
+  .module('profitelo.directives.expert-profile.pro-expert-header', [
+    'profitelo.components.interface.show-more-text',
+    urlModule,
+  ])
   .directive('proExpertHeader', ['urlService', proExpertHeader]);

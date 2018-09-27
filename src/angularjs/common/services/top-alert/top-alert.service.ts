@@ -21,30 +21,28 @@ export interface ITopAlertSettings {
 // tslint:disable:member-ordering
 // tslint:disable:strict-type-predicates
 export class TopAlertService {
-
   private alertArray: ITopAlertSettings[] = [];
   private defaultOptions = {};
   private alertsLimit = 2;
 
   public static $inject = ['$timeout'];
 
-    constructor(private $timeout: ng.ITimeoutService) {
-  }
+  constructor(private $timeout: ng.ITimeoutService) {}
 
   private setId = (): number => {
     const d = new Date();
     const randomNumberMultiplier = 1000;
     const n = d.getMilliseconds() + Math.floor(Math.random() * randomNumberMultiplier);
     return n;
-  }
+  };
 
   public destroyAlert = (alertId: number): void => {
     if (this.alertsLimit < this.alertArray.length) {
       this.alertArray[this.alertsLimit].visible = true;
       this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id);
     }
-    _.remove(this.alertArray, (alert) => alert.id === alertId);
-  }
+    _.remove(this.alertArray, alert => alert.id === alertId);
+  };
 
   private timeoutDestroy = (timeout: number, id: number): void => {
     const timeoutMultiplier = 3000;
@@ -54,7 +52,7 @@ export class TopAlertService {
         this.destroyAlert(id);
       }, realTimeout);
     }
-  }
+  };
 
   private pushAlert = (options: ITopAlertSettings): void => {
     if (this.alertArray.length < this.alertsLimit) {
@@ -62,11 +60,11 @@ export class TopAlertService {
       this.timeoutDestroy(options.timeout || 0, options.id || 0);
     }
     this.alertArray.push(options);
-  }
+  };
 
   public bindAlert = (alerts: any): void => {
     alerts(this.alertArray);
-  }
+  };
 
   public success = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options;
@@ -76,10 +74,10 @@ export class TopAlertService {
       message: '',
       type: 'success',
       timeout: null,
-      visible: false
+      visible: false,
     };
     this.pushAlert(angular.extend(this.defaultOptions, options));
-  }
+  };
 
   public warning = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options;
@@ -89,10 +87,10 @@ export class TopAlertService {
       message: '',
       type: 'warning',
       timeout: null,
-      visible: false
+      visible: false,
     };
     this.pushAlert(angular.extend(this.defaultOptions, options));
-  }
+  };
 
   public error = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options;
@@ -102,10 +100,10 @@ export class TopAlertService {
       message: '',
       type: 'error',
       timeout: null,
-      visible: false
+      visible: false,
     };
     this.pushAlert(angular.extend(this.defaultOptions, options));
-  }
+  };
 
   public info = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options;
@@ -115,8 +113,8 @@ export class TopAlertService {
       message: '',
       type: 'info',
       timeout: null,
-      visible: false
+      visible: false,
     };
     this.pushAlert(angular.extend(this.defaultOptions, options));
-  }
+  };
 }

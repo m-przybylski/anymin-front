@@ -12,7 +12,7 @@ import {
   PaymentSystem,
   GetCreditCard,
   PostOrder,
-  GetPaymentOptions
+  GetPaymentOptions,
 } from 'profitelo-api-ng/model/models';
 
 import 'angularjs/common/components/interface/preloader/preloader';
@@ -55,7 +55,6 @@ export interface IGetLastPayment {
 // tslint:disable:member-ordering
 // tslint:disable:strict-type-predicates
 export class ChargeAccountController implements ng.IController {
-
   public static $inject = ['$uibModalInstance', '$state', '$timeout', '$window', 'smoothScrollingService', '$scope'];
   public isNavbar = true;
   public isFullscreen = true;
@@ -66,7 +65,7 @@ export class ChargeAccountController implements ng.IController {
   public queue = null;
   public amountModel: IAmountModel = {
     cashAmount: null,
-    amount: null
+    amount: null,
   };
   public paymentCountryId: string;
   public amounts: IAmounts;
@@ -77,28 +76,29 @@ export class ChargeAccountController implements ng.IController {
   public paymentsLinks?: PaymentLink[];
   public amountMethodModal: {
     amountModel: {
-      cashAmount: null | MoneyDto,
-      amount: null | MoneyDto
-    },
-    paymentSystemModel: string | null,
-    minimalAmount: MoneyDto,
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    payMethodValue?: string
+      cashAmount: null | MoneyDto;
+      amount: null | MoneyDto;
+    };
+    paymentSystemModel: string | null;
+    minimalAmount: MoneyDto;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    payMethodValue?: string;
   };
   public lastChargeAccountSectionID = 3;
 
   public currentState?: string;
 
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
-              private $state: StateService,
-              private $timeout: ng.ITimeoutService,
-              private $window: ng.IWindowService,
-              private smoothScrollingService: SmoothScrollingService,
-              private $scope: IChargeAccountScope) {
-
-    angular.element(this.$window).keydown((event) => {
+  constructor(
+    private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
+    private $state: StateService,
+    private $timeout: ng.ITimeoutService,
+    private $window: ng.IWindowService,
+    private smoothScrollingService: SmoothScrollingService,
+    private $scope: IChargeAccountScope,
+  ) {
+    angular.element(this.$window).keydown(event => {
       if (event.keyCode === keyboardCodes.escape) {
         this.onModalClose();
       }
@@ -109,76 +109,75 @@ export class ChargeAccountController implements ng.IController {
   public $onInit(): void {
     this.currentState = this.$scope.currentState;
 
-      const paymentsOptions = this.$scope.paymentsOptions;
-      const creditCards = this.$scope.creditCards;
-      const paymentsLinks = this.$scope.paymentsLinks;
-      const financeBalance = this.$scope.financeBalance;
+    const paymentsOptions = this.$scope.paymentsOptions;
+    const creditCards = this.$scope.creditCards;
+    const paymentsLinks = this.$scope.paymentsLinks;
+    const financeBalance = this.$scope.financeBalance;
 
-      if (paymentsOptions) {
-        this.paymentCountryId = paymentsOptions.paymentCountryId;
-        this.amounts = {
-          paymentOptions: paymentsOptions.paymentOptions,
-          minimalAmounts: paymentsOptions.minimalPayment
-        };
-        this.lastPayment = <any>paymentsOptions.lastPayment;
-        this.paymentSystems = paymentsOptions.paymentSystems;
-      }
-
-      this.currentSection = 1;
-      this.clientBalance = financeBalance;
-      this.isCreditCard = typeof creditCards !== 'undefined' && creditCards.length > 0;
-      this.paymentsLinks = paymentsLinks;
-
-      this.amountMethodModal = {
-        amountModel: this.amountModel,
-        paymentSystemModel: null,
-        minimalAmount: this.amounts.minimalAmounts
+    if (paymentsOptions) {
+      this.paymentCountryId = paymentsOptions.paymentCountryId;
+      this.amounts = {
+        paymentOptions: paymentsOptions.paymentOptions,
+        minimalAmounts: paymentsOptions.minimalPayment,
       };
+      this.lastPayment = <any>paymentsOptions.lastPayment;
+      this.paymentSystems = paymentsOptions.paymentSystems;
+    }
 
-      // tslint:disable-next-line:strict-type-predicates
-      if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
-        this.isChargeProfiteloAccount = true;
-        this.currentSection = this.lastChargeAccountSectionID;
-        if (_.find(this.amounts.paymentOptions, {amount: this.lastPayment.amount.amount})) {
-          this.amountModel.amount = this.lastPayment.amount;
-        } else {
-          this.amountModel.cashAmount = this.lastPayment.amount;
-        }
-        this.amountMethodModal.paymentSystemModel = this.lastPayment.paymentSystemId;
+    this.currentSection = 1;
+    this.clientBalance = financeBalance;
+    this.isCreditCard = typeof creditCards !== 'undefined' && creditCards.length > 0;
+    this.paymentsLinks = paymentsLinks;
 
-        if (this.lastPayment && this.lastPayment.payload && this.lastPayment.payload !== null) {
-          this.amountMethodModal.firstName = this.lastPayment.payload.firstName;
-          this.amountMethodModal.lastName = this.lastPayment.payload.lastName;
-          this.amountMethodModal.email = this.lastPayment.payload.email;
-          this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue;
-        }
+    this.amountMethodModal = {
+      amountModel: this.amountModel,
+      paymentSystemModel: null,
+      minimalAmount: this.amounts.minimalAmounts,
+    };
+
+    // tslint:disable-next-line:strict-type-predicates
+    if (this.lastPayment !== null && typeof this.lastPayment !== 'undefined') {
+      this.isChargeProfiteloAccount = true;
+      this.currentSection = this.lastChargeAccountSectionID;
+      if (_.find(this.amounts.paymentOptions, { amount: this.lastPayment.amount.amount })) {
+        this.amountModel.amount = this.lastPayment.amount;
+      } else {
+        this.amountModel.cashAmount = this.lastPayment.amount;
       }
+      this.amountMethodModal.paymentSystemModel = this.lastPayment.paymentSystemId;
+
+      if (this.lastPayment && this.lastPayment.payload && this.lastPayment.payload !== null) {
+        this.amountMethodModal.firstName = this.lastPayment.payload.firstName;
+        this.amountMethodModal.lastName = this.lastPayment.payload.lastName;
+        this.amountMethodModal.email = this.lastPayment.payload.email;
+        this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue;
+      }
+    }
   }
 
   public $onDestroy = (): void => {
     angular.element(this.$window).keydown('keydown');
-  }
+  };
 
   public onLoad = (): void => {
     this.isBraintreeFormLoaded = true;
-  }
+  };
 
   public chargeAccountProfiteloPaymentsMethod = (): void => {
     this.isChargeProfiteloAccount = true;
     this.isPaymentCardMethod = false;
-  }
+  };
 
   public addPaymentCardMethod = (): void => {
     this.isPaymentCardMethod = true;
     this.isChargeProfiteloAccount = false;
-  }
+  };
 
   public onFormSucceed = (): void => {
     this.$state.go('app.dashboard.client.activities');
-  }
+  };
 
-  public onClose = (): TransitionPromise =>
-    this.$state.go('app.dashboard.client.favourites')
+  public onClose = (): TransitionPromise => this.$state.go('app.dashboard.client.favourites');
 
   public validAction = (): boolean => {
     if (
@@ -191,7 +190,7 @@ export class ChargeAccountController implements ng.IController {
     } else {
       return true;
     }
-  }
+  };
 
   public scrollHandler = (slideTo?: number): void => {
     if (slideTo && angular.isDefined(slideTo)) {
@@ -202,7 +201,7 @@ export class ChargeAccountController implements ng.IController {
         this.smoothScrollingService.scrollTo(String(++this.currentSection));
       });
     }
-  }
+  };
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');
@@ -211,5 +210,5 @@ export class ChargeAccountController implements ng.IController {
     } else {
       this.$state.go('app.dashboard.client.activities');
     }
-  }
+  };
 }

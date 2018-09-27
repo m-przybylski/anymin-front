@@ -20,7 +20,6 @@ export interface ISingleServiceComponentControllerScope extends ng.IScope {
 
 // tslint:disable:member-ordering
 export class SingleServiceComponentController implements ng.IController, ISingleServiceComponentBindings {
-
   public serviceDetails: ServiceWithOwnerProfile | GetService;
   public isOwnerOfService: boolean;
   public serviceName: string;
@@ -33,17 +32,26 @@ export class SingleServiceComponentController implements ng.IController, ISingle
 
   private userId: string;
 
-  public static $inject = ['userService', 'modalsService', 'ServiceApi', 'EmploymentApi', 'translatorService',
-    'topAlertService', 'errorHandler'];
+  public static $inject = [
+    'userService',
+    'modalsService',
+    'ServiceApi',
+    'EmploymentApi',
+    'translatorService',
+    'topAlertService',
+    'errorHandler',
+  ];
 
-  constructor(private userService: UserService,
-              private modalsService: ModalsService,
-              private ServiceApi: ServiceApi,
-              private EmploymentApi: EmploymentApi,
-              private translatorService: TranslatorService,
-              private topAlertService: TopAlertService,
-              private errorHandler: ErrorHandlerService) {
-    this.userService.getUser().then((user) => {
+  constructor(
+    private userService: UserService,
+    private modalsService: ModalsService,
+    private ServiceApi: ServiceApi,
+    private EmploymentApi: EmploymentApi,
+    private translatorService: TranslatorService,
+    private topAlertService: TopAlertService,
+    private errorHandler: ErrorHandlerService,
+  ) {
+    this.userService.getUser().then(user => {
       this.userId = user.id;
       this.isCompany = user.isCompany;
       this.serviceName = this.serviceDetails.name;
@@ -68,7 +76,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
 
   public openServiceFormModal = (): void => {
     this.modalsService.createServiceFormModal(this.onModalClose, this.serviceDetails);
-  }
+  };
 
   public suspendProvideService = (): void => {
     if (this.isOwnerOfService) {
@@ -76,7 +84,7 @@ export class SingleServiceComponentController implements ng.IController, ISingle
     } else {
       this.deleteEmployment();
     }
-  }
+  };
 
   private isGetServiceModel(serviceDetails: ServiceWithOwnerProfile | GetService): serviceDetails is GetService {
     // tslint:disable-next-line:strict-type-predicates
@@ -84,36 +92,44 @@ export class SingleServiceComponentController implements ng.IController, ISingle
   }
 
   private deleteService = (): void => {
-    this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
+    this.modalsService.createConfirmAlertModal(
+      'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.SUSPEND_SERVICE_CONFIRM_TEXT',
       () => {
         this.ServiceApi.deleteServiceRoute(this.serviceDetails.id).then(() => {
           this.topAlertService.success({
-            message:
-              this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
-            timeout: 2
+            message: this.translatorService.translate(
+              'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE',
+            ),
+            timeout: 2,
           });
           this.isDeleted = true;
         }, this.onReject);
-      });
-  }
+      },
+    );
+  };
 
   private deleteEmployment = (): void => {
-    this.modalsService.createConfirmAlertModal('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT',
+    this.modalsService.createConfirmAlertModal(
+      'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.DELETE_EMPLOYMENT_CONFIRM_TEXT',
       () => {
         this.EmploymentApi.deleteEmploymentForServiceRoute(this.serviceDetails.id).then(() => {
           this.topAlertService.success({
-            message:
-              this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE'),
-            timeout: 2
+            message: this.translatorService.translate(
+              'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.SUCCESS_MESSAGE',
+            ),
+            timeout: 2,
           });
           this.isDeleted = true;
         }, this.onReject);
-      });
-  }
+      },
+    );
+  };
 
   private onReject = (error: any): void => {
-    this.errorHandler.handleServerError(error,
-      'Can not delete employment', 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.ERROR_MESSAGE');
-  }
-
+    this.errorHandler.handleServerError(
+      error,
+      'Can not delete employment',
+      'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.ERROR_MESSAGE',
+    );
+  };
 }
