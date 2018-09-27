@@ -100,10 +100,12 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
 
   public onClientFormSubmit = (clientNameForm: FormGroup): void => {
     if (clientNameForm.valid && !this.isPending) {
+      const clientAvatar = clientNameForm.controls[this.clientFormControlAvatar].value;
+
       this.isInputDisabled = true;
       this.sendClientProfile({
         nickname: clientNameForm.controls[this.clientFormControlName].value,
-        avatar: clientNameForm.controls[this.clientFormControlAvatar].value,
+        avatar: clientAvatar.length > 0 ? clientAvatar : undefined,
       });
     } else {
       this.formUtils.validateAllFormFields(clientNameForm);
