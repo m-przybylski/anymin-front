@@ -37,7 +37,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
   public commentsConsultation: ReadonlyArray<GetComment> = [];
   public employeementId: string;
   public ifMaxCommentsLengthReached = false;
-  public isCommentsRequestPending = true;
+  public isCommentsRequestPending = false;
   public isPending = true;
   public accountId: string;
   public isOwner: boolean;
@@ -100,7 +100,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
   };
   public onRemoveConsultationClick = (): void => {
-    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+    this.consultationDetailsViewService.removeConsultation(this.serviceId, this.activeModal);
   };
   public onCallConsultationClick = (): void => {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
@@ -109,7 +109,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
   };
   public onLeaveConsultationClick = (): void => {
-    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
+    this.consultationDetailsViewService.leaveConsultation(this.serviceId, this.employeementId, this.activeModal);
   };
   public onInviteConsultationClick = (): void => {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
@@ -133,6 +133,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     expertDetails,
     expertProfileViewDetails,
     getServiceWithEmployees,
+    getComments,
   }: IConsultationDetails): void => {
     this.serviceName = getServiceWithEmployees.serviceDetails.name;
     this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
@@ -150,39 +151,17 @@ export class ConsultationDetailsViewComponent implements OnInit {
     this.modalAnimationComponentService.onModalContentChange().next(false);
     this.isPending = false;
 
-    this.assignExpertConsultationStatistics(expertProfileViewDetails);
-    this.getEmployeement(expertProfileViewDetails);
-  };
+    this.expertName = expertProfileViewDetails.expertProfile.name;
+    this.expertAvatar = expertProfileViewDetails.expertProfile.avatar;
 
-  private getEmployeement = (employementDetails: ExpertProfileView): void => {
-    const employeementId = employementDetails.employments.find(item => item.serviceDetails.id === this.serviceId);
-    employeementId ? (this.employeementId = employeementId.id) : (this.employeementId = '');
+    const employmentWithService = expertProfileViewDetails.employments.find(
+      service => service.serviceDetails.id === this.serviceId,
+    );
 
-    this.expertName = employementDetails.expertProfile.name;
-    this.expertAvatar = employementDetails.expertProfile.avatar;
-
-    this.isOwner = this.checkIsOwner();
-
-    this.getComments(this.employeementId);
-  };
-
-  private checkIsOwner = (): boolean => this.expertId === this.accountId;
-
-  private getComments = (employeementId: string): void => {
-    this.consultationDetailsViewService.getComments(employeementId).subscribe(commentsList => {
-      const commentLimitLength = 3;
-
-      this.isCommentsRequestPending = false;
-      this.ifMaxCommentsLengthReached = commentsList.length < commentLimitLength;
-      this.commentsConsultation = commentsList;
-    });
-  };
-
-  private assignExpertConsultationStatistics = (expertDetails: ExpertProfileView): void => {
-    const conusltation = expertDetails.employments.filter(service => service.serviceDetails.id === this.serviceId);
-
-    this.usageCounter = conusltation[0] && conusltation[0].usageCounter;
-    this.commentCounter = conusltation[0] && conusltation[0].commentCounter;
-    this.ratingCounter = conusltation[0] && conusltation[0].ratingCounter;
+    if (employmentWithService) {
+      this.usageCounter = employmentWithService.usageCounter;
+      this.commentCounter = employmentWithService.commentCounter;
+      this.ratingCounter = employmentWithService.ratingCounter;
+    }
   };
 }

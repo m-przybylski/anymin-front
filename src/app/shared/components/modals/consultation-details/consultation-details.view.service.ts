@@ -13,11 +13,13 @@ import {
   FinancesService,
 } from '@anymind-ng/api';
 import { Observable, forkJoin } from 'rxjs';
-import { map, switchMap, filter } from 'rxjs/operators';
+import { map, switchMap, filter, catchError, mergeMap } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService, LoggerFactory } from '@anymind-ng/core';
+import { Logger } from '@platform/core/logger';
 
 @Injectable()
-export class ConsultationDetailsViewService {
+export class ConsultationDetailsViewService extends Logger {
   constructor(
     private serviceService: ServiceService,
     private profileService: ProfileService,
@@ -25,7 +27,11 @@ export class ConsultationDetailsViewService {
     private employmentService: EmploymentService,
     private paymentsService: PaymentsService,
     private financesService: FinancesService,
-  ) {}
+    private alertService: AlertService,
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory);
+  }
 
   public getServiceDetails = (serviceId: string, employeeId: string): Observable<IConsultationDetails> =>
     this.serviceService
@@ -38,9 +44,14 @@ export class ConsultationDetailsViewService {
         ),
         filter(getServiceWithEmployeesList => getServiceWithEmployeesList.length > 0),
         map(getServiceWithEmployeesList => getServiceWithEmployeesList[0]),
+        mergeMap(getServiceWithEmployees =>
+          this.getComments(this.pluckEmployeeId(getServiceWithEmployees, serviceId)).pipe(
+            map(getComments => ({ getServiceWithEmployees, getComments })),
+          ),
+        ),
       )
       .pipe(
-        switchMap(getServiceWithEmployees =>
+        switchMap(({ getServiceWithEmployees, getComments }) =>
           forkJoin(
             this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
             this.viewsService.getWebExpertProfileRoute(employeeId),
@@ -62,6 +73,7 @@ export class ConsultationDetailsViewService {
                 ),
                 payment,
                 balance,
+                getComments,
               }),
             ),
           ),
@@ -78,9 +90,6 @@ export class ConsultationDetailsViewService {
             .reduce((tagsList, getServiceTags) => [...tagsList, ...getServiceTags.tags.map(tag => tag.name)], []),
         ),
       );
-
-  public getComments = (employementId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
-    this.employmentService.getEmploymentCommentsRoute(employementId, limit, offset);
 
   public addTemporaryComment = (
     commentsList: GetComment,
@@ -104,8 +113,55 @@ export class ConsultationDetailsViewService {
     commentsConsultation: ReadonlyArray<GetComment>,
   ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
 
-  public editConsultation = (consultationId: string, modal: NgbActiveModal): void => {
-    modal.close(consultationId);
+  public editConsultation = (serviceId: string, modal: NgbActiveModal): void => {
+    modal.close(serviceId);
+  };
+
+  public removeConsultation = (serviceId: string, modal: NgbActiveModal): void => {
+    this.serviceService
+      .deleteServiceRoute(serviceId)
+      .pipe(
+        catchError(err => {
+          this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.REMOVE_FAILURE');
+          this.loggerService.warn('Cannot remove consultation', err);
+
+          throw err;
+        }),
+      )
+      .subscribe(() => {
+        this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
+        this.loggerService.debug('Consultation removed!');
+        modal.close(serviceId);
+      });
+  };
+
+  public leaveConsultation = (serviceId: string, employeementId: string, modal: NgbActiveModal): void => {
+    this.employmentService
+      .deleteEmploymentRoute(employeementId)
+      .pipe(
+        catchError(err => {
+          this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
+          this.loggerService.warn('Cannot leave consultation', err);
+
+          throw err;
+        }),
+      )
+      .subscribe(() => {
+        this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.LEAVE_SUCCESS');
+        this.loggerService.debug('Consultation removed!');
+        modal.close(serviceId);
+      });
+  };
+
+  public getComments = (employementId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
+    this.employmentService.getEmploymentCommentsRoute(employementId, limit, offset);
+
+  private pluckEmployeeId = (getServiceWithEmployees: GetServiceWithEmployees, serviceId: string): string => {
+    const employeeDetail = getServiceWithEmployees.employeesDetails.find(
+      employeesDetail => employeesDetail.serviceId === serviceId,
+    );
+
+    return employeeDetail ? employeeDetail.id : '';
   };
 }
 
@@ -116,4 +172,5 @@ export interface IConsultationDetails {
   expertIds: ReadonlyArray<string>;
   payment: DefaultCreditCard;
   balance: { amount: number; currency: string };
+  getComments: ReadonlyArray<GetComment>;
 }
