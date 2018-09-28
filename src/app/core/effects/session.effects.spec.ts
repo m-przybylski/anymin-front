@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { SessionEffects } from '@platform/core/effects/session.effects';
@@ -7,11 +7,14 @@ import { Deceiver } from 'deceiver-core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
 import { SessionActions } from '@platform/core/actions';
+import { ApiKeyService } from '@platform/core/services/api-key/api-key.service';
 
 describe('SessionEffects', () => {
   let sessionEffects: SessionEffects;
   let sessionService: SessionService;
   let actions$: Observable<any>;
+  let apiKeyService: ApiKeyService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -20,6 +23,10 @@ describe('SessionEffects', () => {
           provide: SessionService,
           useValue: Deceiver(SessionService, { checkRoute: jasmine.createSpy('SessionService.login') }),
         },
+        {
+          provide: ApiKeyService,
+          useValue: Deceiver(ApiKeyService),
+        },
         provideMockActions(() => actions$),
       ],
     });
@@ -27,6 +34,7 @@ describe('SessionEffects', () => {
     sessionEffects = TestBed.get(SessionEffects);
     sessionService = TestBed.get(SessionService);
     actions$ = TestBed.get(Actions);
+    apiKeyService = TestBed.get(ApiKeyService);
   });
 
   describe('fetchSession$', () => {
@@ -55,5 +63,23 @@ describe('SessionEffects', () => {
 
       expect(sessionEffects.fetchSession$).toBeObservable(expected);
     });
+  });
+
+  describe('fetchSessionSuccess$', () => {
+    it('should call setApiKey method from apiKeyService', fakeAsync(() => {
+      apiKeyService.setApiKey = jasmine.createSpy('setApiKey');
+      const session = {
+        session: {
+          apiKey: 'mockApiKey',
+        },
+      } as any;
+      const action = new SessionActions.FetchSessionSuccessAction(session);
+
+      actions$ = hot('-a---', { a: action });
+      sessionEffects.fetchSessionSuccess$.subscribe(() => {
+        expect(apiKeyService.setApiKey).toHaveBeenCalled();
+      });
+      tick();
+    }));
   });
 });

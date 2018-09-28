@@ -1,16 +1,18 @@
+// tslint:disable:max-file-line-count
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { RegistrationService } from '@anymind-ng/api';
+import { AccountService, RegistrationService } from '@anymind-ng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import createSpyObj = jasmine.createSpyObj;
 import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
 import { PinCodeServiceStatus, PinCodeViewService } from './pin-code.view.service';
 import { of, throwError } from 'rxjs';
 import { BackendErrors } from '../../../../shared/models/backend-error/backend-error';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { Deceiver } from 'deceiver-core';
-import { StoreModule } from '@ngrx/store';
+import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { EventsService } from 'angularjs/common/services/events/events.service';
+import { SessionActions } from '@platform/core/actions';
+import * as fromCore from '@platform/core/reducers';
 
 describe('Service: PinCode service', () => {
   const mockPhoneNumber = '+48555555555';
@@ -19,38 +21,53 @@ describe('Service: PinCode service', () => {
   let mockAlertService: AlertService;
   let router: Router;
   let logger: LoggerService;
-
+  let store: Store<any>;
+  let dispatchSpy: jasmine.Spy;
+  let accountService: AccountService;
   beforeEach(async(() => {
     logger = Deceiver(LoggerService);
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
           ...fromRoot.reducers,
+          core: combineReducers(fromCore.reducers),
         }),
       ],
       providers: [
         PinCodeViewService,
         provideMockFactoryLogger(logger),
-        { provide: ActivatedRoute, useValue: createSpyObj('ActivatedRoute', ['params']) },
-        { provide: RegistrationService, useValue: createSpyObj('RegistrationService', ['confirmVerificationRoute']) },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
-        { provide: Router, useValue: createSpyObj('Router', ['navigate']) },
+        { provide: ActivatedRoute, useValue: jasmine.createSpyObj('ActivatedRoute', ['params']) },
+        {
+          provide: RegistrationService,
+          useValue: Deceiver(RegistrationService),
+        },
+        { provide: AlertService, useValue: jasmine.createSpyObj('AlertService', ['pushDangerAlert']) },
+        { provide: AccountService, useValue: Deceiver(AccountService) },
+        { provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) },
         { provide: EventsService, useValue: Deceiver(EventsService, { emit: jasmine.createSpy('') }) },
       ],
     });
     TestBed.get(ActivatedRoute).params = of({ msisdn: mockPhoneNumber });
     pinCodeViewService = TestBed.get(PinCodeViewService);
     router = TestBed.get(Router);
+    accountService = TestBed.get(AccountService);
     mockRegistrationService = TestBed.get(RegistrationService);
     mockAlertService = TestBed.get(AlertService);
+    store = TestBed.get(Store);
+    dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
   }));
 
   it('should redirect user to set password', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    accountService.putMarketingSettingsRoute = jasmine.createSpy('putMarketingSettingsRoute').and.returnValue(of({}));
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       of({
-        accountId: '12',
+        session: {
+          accountId: '12',
+        },
       }),
     );
+    const action = new SessionActions.FetchSessionSuccessAction(of({ session: {} }) as any);
+    store.dispatch(action);
     (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
     tick();
@@ -58,11 +75,16 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should not be able to redirect user to set password and display alert to user', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    accountService.putMarketingSettingsRoute = jasmine.createSpy('putMarketingSettingsRoute').and.returnValue(of({}));
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       of({
-        accountId: '12',
+        session: {
+          accountId: '12',
+        },
       }),
     );
+    const action = new SessionActions.FetchSessionSuccessAction(of({ session: {} }) as any);
+    store.dispatch(action);
     (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
     spyOn(logger, 'warn');
 
@@ -73,7 +95,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display error if user try to create another token', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: BackendErrors.CreateAnotherPinCodeTokenRecently,
@@ -90,7 +112,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display error if user try to send pin code too recently', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: BackendErrors.PincodeSentTooRecently,
@@ -107,7 +129,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status incorrect verification of token', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: BackendErrors.MsisdnVerificationTokenIncorrect,
@@ -127,7 +149,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status can not find the token ', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: BackendErrors.CannotFindMsisdnToken,
@@ -148,7 +170,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status incorrect validation', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -169,7 +191,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status too many msisdn token attempts', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: BackendErrors.TooManyMsisdnTokenAttempts,
@@ -190,7 +212,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display alert and return error status on unhandled backend error', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {
           code: 123,
@@ -211,7 +233,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display alert and return error status on undefined errors from backend', fakeAsync(() => {
-    (mockRegistrationService.confirmVerificationRoute as jasmine.Spy).and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
       throwError({
         error: {},
       }),
