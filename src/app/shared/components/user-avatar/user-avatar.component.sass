@@ -2,145 +2,150 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
 
 =x156-size
-	width: 156px
-	min-width: 156px
-	height: 156px
-	min-height: 156px
-	
+  width: 156px
+  min-width: 156px
+  height: 156px
+  min-height: 156px
+
 =x96-size
-	width: 96px
-	min-width: 96px
-	height: 96px
-	min-height: 96px
-	
+  width: 96px
+  min-width: 96px
+  height: 96px
+  min-height: 96px
+
 =x40-size
-	width: 40px
-	min-width: 40px
-	height: 40px
-	min-height: 40px
-	
+  width: 40px
+  min-width: 40px
+  height: 40px
+  min-height: 40px
+
 =x48-size
-	width: 48px
-	min-width: 48px
-	height: 48px
-	min-height: 48px
-	
+  width: 48px
+  min-width: 48px
+  height: 48px
+  min-height: 48px
+
 =x32-size
-	width: 32px
-	min-width: 32px
-	height: 32px
-	min-height: 32px
-	
+  width: 32px
+  min-width: 32px
+  height: 32px
+  min-height: 32px
+
 =x24-size
-	width: 24px
-	min-width: 24px
-	height: 24px
-	min-height: 24px
-	
+  width: 24px
+  min-width: 24px
+  height: 24px
+  min-height: 24px
+
 .user-avatar
-	display: flex
-	align-items: center
-	
-	&__img
-		border-radius: 50%
-		width: 100%
-		height: 100%
-		border: 1px solid $c-lines
-	
-	&--x156
-		img,
-		.user-avatar__error
-			+x156-size
-			
-		.icon
-			font-size: 156px
-			
-			&--profile
-				+x156-size
-				
-				&.icon-organization
-					font-size: 116px
-		
-	&--x96
-		img
-			+x96-size
-			
-		.icon
-			font-size: 96px
-			
-			&--profile
-				width: 96px
-				height: 96px
-				
-	&--x48
-		img
-			+x48-size
-			
-		.icon
-			font-size: 48px
-			
-			&--profile
-				width: 48px
-				height: 48px
-				
-	&--x40
-		img
-			+x40-size
-			
-		.icon
-			font-size: 40px
-			
-			&--profile
-				width: 40px
-				height: 40px
-		
-	&--x32
-		img
-			+x32-size
-			
-		.icon
-			font-size: 32px
-			
-			&--profile
-				width: 32px
-				height: 32px
-	
-	&--x24
-		img
-			+x24-size
-		.icon
-			font-size: 24px
-			
-			&--profile
-				width: 24px
-				height: 24px
-		
-	.icon
-		&--profile
-			background: $c-text-primary
-			color: $c-half-white
-			border-radius: 50%
-	
-	&__error
-		background: $c-white
-		border: 1px solid $c-error-primary
-		border-radius: 50%
-		height: 100%
-		width: 100%
-		display: flex
-		align-items: center
-		justify-content: center
-		text-align: center
-		padding: 0 24px
-		
-		.icon-warning
-			font-size: $f-icon-24
-			color: $c-error-primary
-			
-		p
-			+label
-			font-weight: 400
-			font-size: $f-button-small
-			text-transform: none
-			color: $c-error-primary
-			
+  display: flex
+  align-items: center
+  position: relative
+
+  &__img
+    border-radius: 50%
+    width: 100%
+    height: 100%
+    border: 1px solid $c-lines
+
+  &--x156
+    img,
+    .user-avatar__error
+      +x156-size
+
+    .icon
+      font-size: 156px
+
+      &--profile
+        +x156-size
+
+        &.icon-organization
+          font-size: 116px
+
+  &--x96
+    img
+      +x96-size
+
+    .icon
+      font-size: 96px
+
+      &--profile
+        width: 96px
+        height: 96px
+
+  &--x48
+    img
+      +x48-size
+
+    .icon
+      font-size: 48px
+
+      &--profile
+        width: 48px
+        height: 48px
+
+  &--x40
+    img
+      +x40-size
+
+    .icon
+      font-size: 40px
+
+      &--profile
+        width: 40px
+        height: 40px
+
+  &--x32
+    img
+      +x32-size
+
+    .icon
+      font-size: 32px
+
+      &--profile
+        width: 32px
+        height: 32px
+
+  &--x24
+    img
+      +x24-size
+    .icon
+      font-size: 24px
+
+      &--profile
+        width: 24px
+        height: 24px
+
+  .icon
+    &--profile
+      background: $c-text-primary
+      color: $c-half-white
+      border-radius: 50%
+
+  &__error
+    background: $c-white
+    border: 1px solid $c-error-primary
+    border-radius: 50%
+    height: 100%
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    text-align: center
+    padding: 0 24px
+
+    .icon-warning
+      font-size: $f-icon-24
+      color: $c-error-primary
+
+    p
+      +label
+      font-weight: 400
+      font-size: $f-button-small
+      text-transform: none
+      color: $c-error-primary
+
+.icon--profile
+  position: absolute
+  top: 0
+  left: 0
