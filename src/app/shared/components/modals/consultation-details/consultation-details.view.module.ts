@@ -14,7 +14,7 @@ import { ConsultationDetailsViewComponent } from '@platform/shared/components/mo
 import { ModalComponentsModule } from '../modal/modal.components.module';
 import { ConsultationFooterComponent } from './consultation-footer/consultation-footer.component';
 import { ConsultationFooterWrapperComponent } from './consultation-footer-wrapper/consultation-footer-wrapper.component';
-import { CreditCardPipe } from './consultation-footer-wrapper/payment-card.pipe';
+import { PaymentCardModule } from '@platform/shared/components/pipes/payment-card';
 
 @NgModule({
   imports: [
@@ -24,8 +24,8 @@ import { CreditCardPipe } from './consultation-footer-wrapper/payment-card.pipe'
     ReactiveFormsModule,
     DashboardComponentsModule,
     UserAvatarModule,
-    SharedModule,
     ModalComponentsModule,
+    PaymentCardModule,
   ],
   declarations: [
     ConsultationDetailsViewComponent,
@@ -37,7 +37,6 @@ import { CreditCardPipe } from './consultation-footer-wrapper/payment-card.pipe'
     ConsultationDetailsComponent,
     ConsultationFooterComponent,
     ConsultationFooterWrapperComponent,
-    CreditCardPipe,
   ],
   exports: [ConsultationDetailsComponent, ConsultationFooterComponent, ConsultationFooterWrapperComponent],
   entryComponents: [ConsultationDetailsViewComponent],

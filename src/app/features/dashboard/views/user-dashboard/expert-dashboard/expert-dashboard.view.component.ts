@@ -7,6 +7,7 @@ import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { CreateExpertConsultationModalComponent } from '../../../../../shared/components/modals/create-expert-consultation/create-expert-consultation.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
+import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 
 @Component({
   selector: 'plat-expert-dashboard',
@@ -46,7 +47,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public editProfile = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModal(CreateProfileModalComponent);
+    const changed: boolean | undefined = await this.openModalResult(CreateProfileModalComponent);
     this.realoadIfNeeded(changed);
   };
   /**
@@ -54,7 +55,20 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    * this opens modal
    */
   public addConsultation = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModal(CreateExpertConsultationModalComponent);
+    const changed: boolean | undefined = await this.openModalResult(CreateExpertConsultationModalComponent);
     this.realoadIfNeeded(changed);
+  };
+
+  /**
+   * callback to open consultation detail modal
+   */
+  public openConsultationDetail = async (serviceId: string, expertId: string): Promise<void> => {
+    const modalRef = this.openModal(ConsultationDetailsViewComponent);
+    (modalRef.componentInstance as ConsultationDetailsViewComponent).expertId = expertId;
+    (modalRef.componentInstance as ConsultationDetailsViewComponent).serviceId = serviceId;
+    const closedServiceId: string | undefined = await modalRef.result;
+    if (closedServiceId === serviceId) {
+      this.reload();
+    }
   };
 }

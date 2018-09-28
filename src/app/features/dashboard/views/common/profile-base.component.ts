@@ -1,5 +1,5 @@
 import { Injector, OnDestroy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EmploymentWithService } from '@anymind-ng/api';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -15,8 +15,19 @@ export class ProfileBaseComponent implements OnDestroy {
     this.destroyed$.next();
     this.destroyed$.complete();
   }
-  /** helper for opening modal. It returns  */
-  protected openModal = <T>(component: T): Promise<boolean> => this.modalService.open(component).result;
+  /**
+   * helper for opening modal.
+   * @param component component to be opened
+   * @returns Promise resolves when modal is closed
+   */
+  protected openModalResult = <T>(component: T): Promise<boolean> => this.modalService.open(component).result;
+
+  /**
+   * helper for opening modal.
+   * @param component component to be opened
+   * @returns modal handler used to pass parameters
+   */
+  protected openModal = <T>(component: T): NgbModalRef => this.modalService.open(component);
 
   /**
    * extracts links from all consulations assigned to one expert
@@ -42,7 +53,7 @@ export class ProfileBaseComponent implements OnDestroy {
       this.reload();
     }
   };
-  private reload = (): void => {
+  protected reload = (): void => {
     void this.router.navigate(this.route.snapshot.url.map(url => url.toString()), {
       relativeTo: this.route.parent,
     });

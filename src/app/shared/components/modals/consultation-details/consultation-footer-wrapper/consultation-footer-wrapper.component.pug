@@ -3,7 +3,7 @@ plat-consultation-footer
   .consultation-footer__left-price(*ngIf='leftPanel === "showAmount"')
     .consultation-footer__price-wrapper
       span.consultation-footer__price-money {{ grossPrice }}
-      span.consultation-footer__price-currency zł/min
+      span.consultation-footer__price-currency  zł/min
   //middle part of the screen
   .consultation-footer__left-text([ngSwitch]='middlePanel')
     span.consultation-footer__text(*ngSwitchCase='"freeMinute"')

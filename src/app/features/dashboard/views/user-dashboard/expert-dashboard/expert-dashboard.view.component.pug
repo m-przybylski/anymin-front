@@ -16,5 +16,6 @@
     [consultations]='consultations',
     [isOwnProfile]='isOwnProfile',
     [expertId]="expertId",
-    (addConsultation)='addConsultation()'
+    (addConsultation)='addConsultation()',
+    (openConsultationDetails) = 'openConsultationDetail($event, expertId)'
   )

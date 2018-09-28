@@ -25,8 +25,10 @@ export class AppComponent {
     translate.setDefaultLang('pl');
     translate.use('pl');
 
+    // no maintain of english translations. Turn back on when
+    // specific decision is taken
     // const browserLang = translate.getBrowserLang();
-    // translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
+    // translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
 
     moment.locale('pl-PL');
   }

@@ -35,7 +35,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
   public commentCounter: number;
   public ratingCounter: number;
   public commentsConsultation: ReadonlyArray<GetComment> = [];
-  public employeementId: string;
+  public employmentId: string;
   public ifMaxCommentsLengthReached = false;
   public isCommentsRequestPending = false;
   public isPending = true;
@@ -85,7 +85,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     this.isCommentsRequestPending = true;
 
     this.consultationDetailsViewService
-      .getComments(this.employeementId, commentLimitLength.toString(), commentOffset.toString())
+      .getComments(this.employmentId, commentLimitLength.toString(), commentOffset.toString())
       .subscribe((commentsList: ReadonlyArray<GetComment>) => {
         this.ifMaxCommentsLengthReached = commentsList.length < commentLimitLength;
         this.isCommentsRequestPending = false;
@@ -109,7 +109,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
   };
   public onLeaveConsultationClick = (): void => {
-    this.consultationDetailsViewService.leaveConsultation(this.serviceId, this.employeementId, this.activeModal);
+    this.consultationDetailsViewService.leaveConsultation(this.serviceId, this.employmentId, this.activeModal);
   };
   public onInviteConsultationClick = (): void => {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
@@ -162,6 +162,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
       this.usageCounter = employmentWithService.usageCounter;
       this.commentCounter = employmentWithService.commentCounter;
       this.ratingCounter = employmentWithService.ratingCounter;
+      this.employmentId = employmentWithService.id;
     }
   };
 }

@@ -47,7 +47,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public editProfile = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModal(CreateOrganizationModalComponent);
+    const changed: boolean | undefined = await this.openModalResult(CreateOrganizationModalComponent);
     this.realoadIfNeeded(changed);
   };
 
@@ -56,7 +56,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * this opens modal
    */
   public addConsultation = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModal(CreateCompanyConsultationModalComponent);
+    const changed: boolean | undefined = await this.openModalResult(CreateCompanyConsultationModalComponent);
     this.realoadIfNeeded(changed);
   };
 }

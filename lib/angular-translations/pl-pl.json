@@ -1878,7 +1878,7 @@
   "CONSULTATION_DETAILS.FOOTER.NA_2": "Jeśli chcesz, możemy wysłać Ci powiadomienie, gdy znów się pojawi.",
   "CONSULTATION_DETAILS.FOOTER.CARD": "Meteda płatności {{value}}",
   "CONSULTATION_DETAILS.FOOTER.ACCOUNT": "Płatkość konto",
-  "CONSULTATION_DETAILS.FOOTER.TOP-UP": "Doładuj konto.",
+  "CONSULTATION_DETAILS.FOOTER.TOPUP": "Doładuj konto.",
   "CONSULTATION_DETAILS.FOOTER.TALKLAST": "Wystarczy na {{ duration }} min rozmowy ",
   "CONSULTATION_DETAILS.FOOTER.SELECTEXPERT": "Wybierz konsultanta, aby wykonać połączenie.",
   "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_1": "<strong>{{ price }} zł/min</strong> to kwota netto, którą zarobisz na tej konsultacji.",

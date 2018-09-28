@@ -27,7 +27,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   public serviceDescription: string;
   public tagList: ReadonlyArray<string> = [];
 
-  private pipe: MoneyToAmount;
+  private moneyPipe: MoneyToAmount;
   constructor(
     @Inject(INVITATION) public invitation: IInvitation,
     private activeModal: NgbActiveModal,
@@ -36,7 +36,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
-    this.pipe = new MoneyToAmount(this.loggerService);
+    this.moneyPipe = new MoneyToAmount(this.loggerService);
   }
   public ngOnInit(): void {
     this.loader.startLoadingAnimation();
@@ -52,8 +52,8 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
         this.serviceName = this.invitation.serviceName;
         this.serviceDescription = data.serviceDescription;
         this.isFreelance = data.isFreelance;
-        this.price = this.pipe.transform(data.price);
-        this.grossPrice = this.pipe.transform(data.grossPrice);
+        this.price = this.moneyPipe.transform(data.price);
+        this.grossPrice = this.moneyPipe.transform(data.grossPrice);
       });
   }
   public onRejectClicked = (): void => {

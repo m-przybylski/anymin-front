@@ -19,7 +19,14 @@ export class ExpertDashboardConsultationsComponent {
   @Output()
   public addConsultation = new EventEmitter<void>();
 
-  public add(): void {
+  @Output()
+  public openConsultationDetails = new EventEmitter<string>();
+
+  public add = (): void => {
     this.addConsultation.emit();
-  }
+  };
+
+  public onOpenConsultationDetails = (serviceId: string): void => {
+    this.openConsultationDetails.emit(serviceId);
+  };
 }
