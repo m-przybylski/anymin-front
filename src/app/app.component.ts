@@ -1,4 +1,3 @@
-// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-var-requires
 // tslint:disable:no-require-imports
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -7,7 +6,6 @@ import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
 import { EnvironmentService } from './core/services/environment/environment.service';
 const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
-const englishTranslations = require('../../lib/angular-translations/en-us.json');
 import * as moment from 'moment';
 
 @Component({
@@ -22,14 +20,13 @@ export class AppComponent {
     this.printEnvironment();
 
     translate.setTranslation('pl', polishTranslations);
-    translate.setTranslation('en', englishTranslations);
-    translate.addLangs(['en', 'pl']);
+    translate.addLangs(['pl']);
 
-    translate.setDefaultLang('en');
+    translate.setDefaultLang('pl');
+    translate.use('pl');
 
-    const browserLang = translate.getBrowserLang();
-
-    translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
+    // const browserLang = translate.getBrowserLang();
+    // translate.use(browserLang.match(/en|pl/) ? browserLang : 'en');
 
     moment.locale('pl-PL');
   }
