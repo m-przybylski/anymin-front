@@ -109,7 +109,7 @@ export class ConsultationFooterWrapperComponent extends Logger {
     return LeftPanelStatusTypes.showAmount;
   }
   // tslint:disable-next-line:cyclomatic-complexity
-  public get middlePanel(): MiddlePanelStatusTypes | undefined {
+  public get middlePanel(): MiddlePanelStatusTypes {
     if (this.userId === undefined) {
       return MiddlePanelStatusTypes.freeMinute;
     }
@@ -139,7 +139,7 @@ export class ConsultationFooterWrapperComponent extends Logger {
 
     return MiddlePanelStatusTypes.isFreelance;
   }
-  public get rightPanel(): RightPanelStatusTypes | undefined {
+  public get rightPanel(): RightPanelStatusTypes {
     if (this.ownerId === this.userId) {
       return RightPanelStatusTypes.canEdit;
     }

@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
-import { take, filter } from 'rxjs/operators';
-import { forkJoin, Observable } from 'rxjs';
-import { EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
-import { ExpertProfileView } from '@anymind-ng/api/model/expertProfileView';
+import { take } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { EmploymentWithService, GetComment } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
@@ -60,15 +59,17 @@ export class ConsultationDetailsViewComponent implements OnInit {
     forkJoin(
       this.store.pipe(
         select(fromCore.getSession),
-        filter(session => typeof session !== 'undefined'),
         take(1),
-      ) as Observable<GetSessionWithAccount>,
+      ),
       this.consultationDetailsViewService.getServicesTagList(this.serviceId),
       this.consultationDetailsViewService.getServiceDetails(this.serviceId, this.expertId),
-    ).subscribe(([getSession, tags, getServiceDetails]) => {
-      this.accountId = getSession.account.id;
+      this.consultationDetailsViewService.getExpertAvailability(this.expertId),
+    ).subscribe(([getSession, tags, getServiceDetails, expertIsAvailable]) => {
+      if (getSession !== undefined) {
+        this.accountId = getSession.account.id;
+      }
       this.tagList = tags;
-      this.footerData = this.buildFooterData(this.accountId, getServiceDetails);
+      this.footerData = this.buildFooterData(this.accountId, getServiceDetails, expertIsAvailable);
       this.assignExpertConsultationDetails(getServiceDetails);
     });
   }
@@ -115,12 +116,15 @@ export class ConsultationDetailsViewComponent implements OnInit {
     this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
   };
 
-  private buildFooterData = (userId: string, getServiceDetails: IConsultationDetails): IConsultationFooterData => ({
+  private buildFooterData = (
+    userId: string,
+    getServiceDetails: IConsultationDetails,
+    expertIsAvailable: boolean,
+  ): IConsultationFooterData => ({
     userId,
     ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
     expertsIdList: getServiceDetails.expertIds,
-    // TODO: implement it. For the moment hardcoded
-    isExpertAvailable: true,
+    isExpertAvailable: expertIsAvailable,
     isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
     defaultPayment: getServiceDetails.payment,
     accountBalance: getServiceDetails.balance,
@@ -135,6 +139,7 @@ export class ConsultationDetailsViewComponent implements OnInit {
     getServiceWithEmployees,
     getComments,
   }: IConsultationDetails): void => {
+    const maxCommentsForInitialLoad = 3;
     this.serviceName = getServiceWithEmployees.serviceDetails.name;
     this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
     this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
@@ -158,11 +163,13 @@ export class ConsultationDetailsViewComponent implements OnInit {
       service => service.serviceDetails.id === this.serviceId,
     );
 
-    if (employmentWithService) {
+    this.commentsConsultation = getComments;
+    this.ifMaxCommentsLengthReached = getComments.length === maxCommentsForInitialLoad;
+
+    if (employmentWithService !== undefined) {
       this.usageCounter = employmentWithService.usageCounter;
       this.commentCounter = employmentWithService.commentCounter;
       this.ratingCounter = employmentWithService.ratingCounter;
-      this.employmentId = employmentWithService.id;
     }
   };
 }
