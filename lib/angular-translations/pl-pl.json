@@ -2013,5 +2013,19 @@
   "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_TITLE": "Baner 250 x 250",
   "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_SUBTITLE": "Wyświetlany w dowolnym miejscu na stronie",
   "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.FAIL": "Nie udalo sie skopiowac danych do schowka",
-  "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS": "Dane skopiowane do schowka"
+  "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS": "Dane skopiowane do schowka",
+  "PUSH.WELCOME.TITLE": "Komunikator AnyMind",
+  "PUSH.WELCOME.MESSAGE": "Powiadomienia włączone!",
+  "PUSH.TIP.STATE.UNSUBSCRIBED": "Kliknij aby włączyć powiadomienia o połączeniach!",
+  "PUSH.TIP.STATE.SUBSCRIBED": "Powiadomienia o połączeniach są włączone",
+  "PUSH.TIP.STATE.BLOCKED": "Zablokowałęś powiadomienia o połączeniach",
+  "PUSH.MESSAGE.PRENOTIFY": "Kliknij aby włączyć powiadomienia o połączeniach",
+  "PUSH.MESSAGE.ACTION.SUBSCRIBED": "Notyfikacje połączeń włączone!",
+  "PUSH.MESSAGE.ACTION.RESUBSCRIBED": "Notyfikacje połączeń włączone!",
+  "PUSH.MESSAGE.ACTION.UNSUBSCRIBED": "Powiadomienia o połączeniach wyłączone",
+  "PUSH.DIALOG.MAIN.TITLE": "Zarządzaj powiadomieniami o połączeniach",
+  "PUSH.DIALOG.MAIN.BUTTON.SUBSCRIBE": "Włącz",
+  "PUSH.DIALOG.MAIN.BUTTON.UNSUBSCRIBE": "Wyłącz",
+  "PUSH.DIALOG.BLOCKED.TITLE": "Odblokuj powiadomienia o połączeniach",
+  "PUSH.DIALOG.BLOCKED.MESSAGE": "Wykonaj te instrukcje, aby zezwolić na powiadomienia o połączeniach:"
 }

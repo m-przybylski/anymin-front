@@ -27,6 +27,7 @@ import { UserTypeEffects } from '@platform/core/effects/user-type.effects';
 import { provideCommission } from './commission';
 import { ClipboardService } from './services/clipboard/clipboard.service';
 import { PlatMissingTranslationHandler } from './services/missing-translation/missing-translation.hander';
+import { PushNotificationService } from './services/call/push-notifications.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -64,6 +65,7 @@ export function getLogLevel(): LogLevel {
     WebSocketServiceFactory,
     AnymindWebsocketService,
     CallInvitationService,
+    PushNotificationService,
     ExpertCallService,
   ],
 })

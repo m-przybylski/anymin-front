@@ -60,9 +60,21 @@ export class Config {
 
   public static readonly isPlatformForExpert = true;
 
+  public static readonly oneSignal = {
+    appId:
+      EnvironmentService.get() === Environment.PRODUCTION
+        ? '028739eb-5e0d-41d6-8bd7-cb39a442dae3'
+        : '90ce371c-12f1-4b4e-a0b2-01c8870eaf25',
+    autoRegister: false,
+    persistNotification: true,
+    notifyButtonEnabled: true,
+    prenotify: true /* Show an icon with 1 unread message for first-time site visitors */,
+    showOneSignalCredits: false /* Show the OneSignal logo */,
+  };
+
   public static readonly sentry = {
     url: 'https://d5b6e4ad5fa6423e8df0e2225cb79fa3@sentry.io/286340',
-    enabledEnvironments: [Environment.PRODUCTION, Environment.DEMO],
+    enabledEnvironments: [Environment.PRODUCTION],
     options: {
       release: VERSION.hash,
       environment: EnvironmentService.get(),

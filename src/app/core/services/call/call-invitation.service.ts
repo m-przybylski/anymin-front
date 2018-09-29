@@ -20,6 +20,7 @@ import {
   GetExpertSueDetails,
   GetSessionWithAccount,
   ServiceUsageEventService,
+  RatelService
 } from '@anymind-ng/api';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
 import EndReason = callEvents.EndReason;
@@ -34,6 +35,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { httpCodes } from '@platform/shared/constants/httpCodes';
 import { INCOMING_CALL } from '@platform/shared/components/modals/call-modals/incoming-call/token';
+import { PushNotificationService } from './push-notifications.service';
 
 @Injectable()
 export class CallInvitationService extends Logger {
@@ -54,16 +56,40 @@ export class CallInvitationService extends Logger {
     private callService: ExpertCallService,
     private store: Store<fromCore.IState>,
     private alertService: AlertService,
+    private pushNotificationService: PushNotificationService,
+    private ratelService: RatelService,
     private injector: Injector,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
   }
 
-  public listenCallEvents = (): void => {
+  public unregisterFromPushNotifications = (): Promise<void> => {
+    const session = this.session;
+    if (session) {
+      return this.pushNotificationService.getDeviceId().then(id => session.chat.unregisterFromPushNotifications(id));
+    } else {
+      return Promise.reject('There is no session');
+    }
+  };
+
+  public initialize = (): void => {
+    this.pushNotificationService.init();
+    this.pushNotificationService.registerForPushNotifications();
+    this.pushNotificationService.onPushChange(enabled => {
+      if (enabled && this.session) {
+        this.handlePushNotificationRegistration(this.session);
+      } else {
+        this.unregisterFromPushNotifications()
+          .then(() => this.loggerService.info('Unregistered from push'))
+          .catch(err => this.loggerService.error('Unregistered from push failed', err));
+      }
+    });
+
     this.communicatorService.connectionEstablishedEvent$.subscribe(connected => {
       this.checkIncomingCalls(connected);
       this.checkPullableCalls(connected);
+      this.handlePushNotificationRegistration(connected.session);
       this.session = connected.session;
     });
 
@@ -95,6 +121,33 @@ export class CallInvitationService extends Logger {
       .subscribe(websocketFunction => {
         websocketFunction();
       });
+  };
+
+  private handlePushNotificationRegistration = (session: Session): void => {
+    this.pushNotificationService
+      .isPushNotificationsEnabled()
+      .then(pushEnabled => {
+        if (pushEnabled) {
+          this.pushNotificationService
+            .getDeviceId()
+            .then(deviceId => {
+              if (deviceId) {
+                session.chat
+                  .registerForPushNotifications(deviceId)
+                  .then(() => this.loggerService.debug('Registered for push in Artichoke'))
+                  .then(() => this.ratelService.postRegisteredOnPushNotificationRoute().toPromise())
+                  .then(() => this.loggerService.debug('Registered for backend webpush'))
+                  .catch(err => this.loggerService.warn('Registration for webpush failed', err));
+              } else {
+                this.loggerService.error('Push notification id is not set');
+              }
+            })
+            .catch(err => this.loggerService.error('getDeviceId failed', err));
+        } else {
+          this.loggerService.warn('Push notification is disabled');
+        }
+      })
+      .catch(err => this.loggerService.error('isPushNotificationsEnabled failed', err));
   };
 
   private handlePullableCall = (call: BusinessCall): void => {

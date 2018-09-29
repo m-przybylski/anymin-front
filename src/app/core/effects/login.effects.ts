@@ -46,6 +46,8 @@ export class LoginEffects extends Logger {
   @Effect()
   public logout$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.Logout),
+    // TODO
+    // When Logout will be dispatched, add unregistering from push notifications here!
     switchMap(() =>
       this.sessionService.logoutCurrentRoute().pipe(
         map(() => new AuthActions.LogoutSuccessAction()),

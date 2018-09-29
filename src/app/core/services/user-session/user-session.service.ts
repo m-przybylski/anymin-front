@@ -1,4 +1,3 @@
-// tslint:disable:no-any
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { LoginCredentials, SessionService } from '@anymind-ng/api';
@@ -12,6 +11,7 @@ import { LoggerFactory } from '@anymind-ng/core';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { httpCodes } from '@platform/shared/constants/httpCodes';
+import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 
 @Injectable()
 export class UserSessionService extends Logger {
@@ -21,16 +21,21 @@ export class UserSessionService extends Logger {
     private authService: ApiKeyService,
     private sessionService: SessionService,
     private state: Store<fromCore.IState>,
+    private callInvitationService: CallInvitationService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
   }
 
-  public logout = (): Promise<any> =>
+  public logout = (): Promise<void> =>
     // this.state.dispatch(new AuthActions.LogoutAction());
-    this.sessionService
-      .logoutCurrentRoute()
-      .toPromise()
+    // After removing this, move unregisterFromPushNotifications to login effects
+    this.callInvitationService
+      .unregisterFromPushNotifications()
+      // finally
+      .then()
+      .catch()
+      .then(() => this.sessionService.logoutCurrentRoute().toPromise())
       .then(this.onSuccessLogout, this.onFailureLogout);
 
   public login = (loginDetails: LoginCredentials): Promise<GetSessionWithAccount> =>
@@ -83,6 +88,7 @@ export class UserSessionService extends Logger {
     this.authService.unsetApiKey();
   };
 
+  // tslint:disable-next-line:no-any
   private onFailureLogout = (err: any): void => {
     if (err && err.status === httpCodes.unauthorized) {
       // user is already logged out so lets do the cache cleanup

@@ -13,6 +13,11 @@
           "glob": "*.js",
           "input": "../node_modules/angular-i18n",
           "output": "./assets/angular-i18n"
+        },
+        {
+          "glob": "*",
+          "input": "./root/",
+          "output": "./"
         }
       ],
       "index": "index.html",

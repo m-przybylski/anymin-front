@@ -17,12 +17,13 @@ import * as moment from 'moment';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-  constructor(private logger: LoggerService,
-              private expertCallService: CallInvitationService,
-              translate: TranslateService) {
+  constructor(
+    private logger: LoggerService,
+    private expertCallService: CallInvitationService,
+    translate: TranslateService,
+  ) {
     this.printVersion();
     this.printEnvironment();
-    this.expertCallService.listenCallEvents();
 
     translate.setTranslation('pl', polishTranslations);
     translate.addLangs(['pl']);
@@ -36,6 +37,9 @@ export class AppComponent {
     // translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
 
     moment.locale('pl-PL');
+
+    // Initialize communicator after translations are loaded
+    this.expertCallService.initialize();
   }
 
   private printVersion = (): void => {
