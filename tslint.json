@@ -184,6 +184,9 @@
 
     // RxJS imports
     "rxjs-no-add": { "severity": "error" },
-    "rxjs-no-patched": { "severity": "error" }
+    "rxjs-no-patched": { "severity": "error" },
+    "rxjs-no-deep-operators": { "severity": "error" },
+    "rxjs-no-internal": { "severity": "error" },
+    "rxjs-no-operator": { "severity": "error" }
   }
 }

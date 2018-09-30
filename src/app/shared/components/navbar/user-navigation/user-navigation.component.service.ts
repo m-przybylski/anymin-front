@@ -1,6 +1,5 @@
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable, Subject, from } from 'rxjs';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import { ProfileService } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
@@ -13,21 +12,20 @@ export class UserNavigationComponentService {
   private isProfileUpdated = new Subject<boolean>();
   private logger: LoggerService;
 
-  constructor(private userSessionService: UserSessionService,
-              private profileService: ProfileService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private userSessionService: UserSessionService,
+    private profileService: ProfileService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('UserNavigationComponentService');
   }
 
-  public onUpdateUserProfile = (): Subject<boolean> =>
-    this.isProfileUpdated
+  public onUpdateUserProfile = (): Subject<boolean> => this.isProfileUpdated;
 
-  public onUpdateClientProfile$ = (): Subject<boolean> =>
-    this.isClientProfileUpdated
+  public onUpdateClientProfile$ = (): Subject<boolean> => this.isClientProfileUpdated;
 
-  public updateSession = (): Observable<GetSessionWithAccount> =>
-    fromPromise(this.userSessionService.getSession(true))
+  public updateSession = (): Observable<GetSessionWithAccount> => from(this.userSessionService.getSession(true));
 
   public getProfileDetails = (sessionWithAccount: GetSessionWithAccount): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(sessionWithAccount.account.id)
+    this.profileService.getProfileRoute(sessionWithAccount.account.id);
 }

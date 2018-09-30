@@ -1,12 +1,9 @@
-// tslint:disable:readonly-array
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ConsultationTagsComponentService, TagValidationStatus } from './consultation-tags.component.service';
 import { InputTagsComponent } from './input-tags/input-tags.component';
-import { debounceTime, map } from 'rxjs/internal/operators';
-import { Subject, merge, EMPTY } from 'rxjs';
-import { Observable } from 'rxjs/Rx';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { debounceTime, map, takeUntil, catchError } from 'rxjs/operators';
+import { Subject, merge, EMPTY, Observable } from 'rxjs';
 import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GetSuggestedTags } from '@anymind-ng/api';
@@ -43,19 +40,19 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   public form: FormGroup;
 
   @Input()
-  public isRequired ? = false;
+  public isRequired = false;
 
   @Input()
-  public isDisabled ? = false;
+  public isDisabled = false;
 
   @Input()
-  public tagNames: string[] = [];
+  public tagNames: ReadonlyArray<string> = [];
 
   @Output()
-  public selectedTagsEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
+  public selectedTagsEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
 
-  public suggestedTags: string[] = [];
-  public selectedTags: string[] = [];
+  public suggestedTags: ReadonlyArray<string> = [];
+  public selectedTags: ReadonlyArray<string> = [];
   public validationErrorTrKey: string;
 
   private readonly validationErrorTranslations = {
@@ -151,7 +148,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   };
 
   public removeSelectedTag = (tag: string): void => {
-    if (this.isDisabled !== undefined && !this.isDisabled) {
+    if (!this.isDisabled) {
       this.selectedTags = this.selectedTags.filter(item => item !== tag);
       this.selectedTagsEmitter$.emit(this.selectedTags);
       this.updateSuggestedTags();
@@ -160,7 +157,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   };
 
   public handleSuggestedTag = (tag: string): void => {
-    if (this.isDisabled !== undefined && !this.isDisabled) {
+    if (!this.isDisabled) {
       this.suggestedTags = this.suggestedTags.filter(item => item !== tag);
       this.addTag(tag);
     }
@@ -171,7 +168,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   public areSuggestedTags = (): boolean => this.suggestedTags.length > 0;
 
   private addTag = (tag: string): void => {
-    this.selectedTags.push(tag);
+    this.selectedTags = [...this.selectedTags, tag];
     this.selectedTagsEmitter$.emit(this.selectedTags);
     this.updateSuggestedTags();
     this.checkTagsCount();
@@ -199,7 +196,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
       .getSuggestedTags({
         description: this.suggestedTagsQuery.description,
         query: this.suggestedTagsQuery.name,
-        tags: this.selectedTags,
+        tags: [...this.selectedTags],
         count: this.suggestedTagsCount,
       })
       .pipe(catchError(this.handleGetSuggestedTagsError))

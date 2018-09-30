@@ -1,28 +1,21 @@
 // tslint:disable:no-empty
-// tslint:disable:no-any
 import { TestBed } from '@angular/core/testing';
-import {
-  ContentHeightAnimationService
-}
-  from '../../../services/animation/content-height/content-height.animation.service';
+import { ContentHeightAnimationService } from '../../../services/animation/content-height/content-height.animation.service';
 import createSpyObj = jasmine.createSpyObj;
 import { ContentHeightAnimateDirective } from './content-height.animation.directive';
 import { Component, ElementRef } from '@angular/core';
 import { AnimationBuilder, AnimationFactory } from '@angular/animations';
 import { By } from '@angular/platform-browser';
 import { AnimationPlayer } from '@angular/animations/src/players/animation_player';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   template: `
-    <div contentHeightAnimation style="height: 200px;"><span>SomeTestText</span></div>`
+    <div contentHeightAnimation style="height: 200px;"><span>SomeTestText</span></div>`,
 })
-
-class TestDirectiveComponent {
-}
+class TestDirectiveComponent {}
 
 describe('Directive: ContentHeightAnimateDirective', () => {
-
   const currentHeight = 200;
 
   beforeEach(() => {
@@ -31,15 +24,17 @@ describe('Directive: ContentHeightAnimateDirective', () => {
       providers: [
         {
           provide: ContentHeightAnimationService,
-          useValue: createSpyObj('ContentHeightAnimationService', ['getPreviousHeight$'])
+          useValue: createSpyObj('ContentHeightAnimationService', ['getPreviousHeight$']),
         },
         {
-          provide: AnimationBuilder, useValue: createSpyObj('AnimationBuilder', ['build'])
+          provide: AnimationBuilder,
+          useValue: createSpyObj('AnimationBuilder', ['build']),
         },
         {
-          provide: ElementRef, useValue: createSpyObj('ElementRef', ['element'])
-        }
-      ]
+          provide: ElementRef,
+          useValue: createSpyObj('ElementRef', ['element']),
+        },
+      ],
     });
   });
 
@@ -51,12 +46,11 @@ describe('Directive: ContentHeightAnimateDirective', () => {
 
     const animationBuilder = TestBed.get(AnimationBuilder);
     const playObject = {
-      play: (): void => {
-      }
+      play: (): void => {},
     };
 
     animationBuilder.build = (): AnimationFactory => ({
-      create: (): AnimationPlayer => <any>playObject
+      create: (): AnimationPlayer => <any>playObject,
     });
 
     spyOn(playObject, 'play');

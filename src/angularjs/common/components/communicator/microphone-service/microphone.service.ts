@@ -1,25 +1,23 @@
 // tslint:disable:readonly-array
 // tslint:disable:no-empty
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export enum MicrophoneStateEnum {
   GOOD,
-  MUTED
+  MUTED,
 }
 
 // tslint:disable:member-ordering
 export class MicrophoneService {
-
   private microphoneStatusEmitter: BehaviorSubject<MicrophoneStateEnum> = new BehaviorSubject(MicrophoneStateEnum.GOOD);
 
   public static $inject = [];
 
-  constructor() {
-  }
+  constructor() {}
 
   public onMicrophoneStatusChange = (fn: (m: MicrophoneStateEnum) => void): void => {
     this.microphoneStatusEmitter.subscribe(fn);
-  }
+  };
 
   public startAudioStreamListening = (track: MediaStreamTrack): void => {
     if (track.muted) {
@@ -27,6 +25,5 @@ export class MicrophoneService {
     }
     track.onmute = (): void => this.microphoneStatusEmitter.next(MicrophoneStateEnum.MUTED);
     track.onunmute = (): void => this.microphoneStatusEmitter.next(MicrophoneStateEnum.GOOD);
-  }
-
+  };
 }

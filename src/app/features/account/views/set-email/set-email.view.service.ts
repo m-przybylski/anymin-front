@@ -5,11 +5,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '@anymind-ng/api';
 import { catchError, mergeMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
-import {
-  RegistrationInvitationService
-} from '../../../../shared/services/registration-invitation/registration-invitation.service';
+import { Observable, of } from 'rxjs';
+import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,27 +16,29 @@ export enum SetEmailStatus {
   SUCCESS,
   INVALID,
   ALREADY_EXIST,
-  ERROR
+  ERROR,
 }
 
 @Injectable()
 export class SetEmailViewService {
-
   private logger: LoggerService;
 
-  constructor(private accountService: AccountService,
-              private router: Router,
-              private alertService: AlertService,
-              private registrationInvitationService: RegistrationInvitationService,
-              private localStorageWrapperService: LocalStorageWrapperService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private alertService: AlertService,
+    private registrationInvitationService: RegistrationInvitationService,
+    private localStorageWrapperService: LocalStorageWrapperService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('SetEmailViewService');
   }
 
   public setEmail = (accountId: string, email: string): Observable<SetEmailStatus> =>
-    this.accountService.patchUpdateAccountRoute(accountId, {unverifiedEmail: email})
+    this.accountService
+      .patchUpdateAccountRoute(accountId, { unverifiedEmail: email })
       .pipe(mergeMap(this.determinateRedirectPath))
-      .pipe(catchError(this.handleSetEmailError))
+      .pipe(catchError(this.handleSetEmailError));
 
   private handleSetEmailError = (err: HttpErrorResponse): Observable<SetEmailStatus> => {
     const error = err.error;
@@ -62,39 +61,38 @@ export class SetEmailViewService {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       return of(SetEmailStatus.ERROR);
     }
-  }
+  };
 
   private redirectToDashboard = (): Promise<SetEmailStatus> =>
-    this.router.navigate(['/dashboard/expert/activities'])
-      .then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Error when redirect to dashboard/expert/activities');
-          return SetEmailStatus.ERROR;
-        } else {
-          this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
-          return SetEmailStatus.SUCCESS;
-        }
-      })
+    this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
+      if (!isRedirectSuccessful) {
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        this.logger.warn('Error when redirect to dashboard/expert/activities');
+        return SetEmailStatus.ERROR;
+      } else {
+        this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
+        return SetEmailStatus.SUCCESS;
+      }
+    });
 
   private redirectToInvitations = (token: string): Promise<SetEmailStatus> =>
-    this.router.navigate(['/invitations/' + token])
-      .then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Error when redirect to /invitations');
-          return SetEmailStatus.ERROR;
-        } else {
-          this.localStorageWrapperService.removeItem('invitation');
-          this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
-          return SetEmailStatus.SUCCESS;
-        }
-      })
+    this.router.navigate(['/invitations/' + token]).then(isRedirectSuccessful => {
+      if (!isRedirectSuccessful) {
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        this.logger.warn('Error when redirect to /invitations');
+        return SetEmailStatus.ERROR;
+      } else {
+        this.localStorageWrapperService.removeItem('invitation');
+        this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
+        return SetEmailStatus.SUCCESS;
+      }
+    });
 
   private determinateRedirectPath = (): Promise<SetEmailStatus> => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
 
     return invitationObject && invitationObject.token
-      ? this.redirectToInvitations(invitationObject.token) : this.redirectToDashboard();
-  }
+      ? this.redirectToInvitations(invitationObject.token)
+      : this.redirectToDashboard();
+  };
 }

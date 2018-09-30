@@ -3,7 +3,7 @@ import createSpyObj = jasmine.createSpyObj;
 import { FilesService, PostFileDetails } from '@anymind-ng/api';
 import { IUploadFileInfo, UploaderService } from './uploader.service';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 describe('Service: UploaderService', () => {
   beforeEach(() => {

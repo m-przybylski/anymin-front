@@ -11,7 +11,7 @@ import {
   LoggerService,
 } from '@anymind-ng/core';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';

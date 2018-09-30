@@ -106,8 +106,8 @@
     "ratel-sdk-js": "0.8.10",
     "raven-js": "^3.10.0",
     "reset.css": "^2.0.2",
-    "rxjs": "^6.2.1",
-    "rxjs-compat": "^6.2.1",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "symbol-observable": "^1.2.0",
     "ui-select": "^0.19.6",
     "zone.js": "^0.8.14"

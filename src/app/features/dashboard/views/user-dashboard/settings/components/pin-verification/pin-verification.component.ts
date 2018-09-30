@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs/index';
-import { finalize, takeUntil, map, filter } from 'rxjs/internal/operators';
+import { Subject } from 'rxjs';
+import { finalize, takeUntil, map, filter } from 'rxjs/operators';
 import { PinCodeTimerService } from '../../../../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { PinVerificationStatus, PinVerificationComponentService } from './pin-verification.component.service';
 import {

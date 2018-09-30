@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { catchError, map } from 'rxjs/internal/operators';
-import { of } from 'rxjs/index';
-import { Observable } from 'rxjs/Rx';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { AccountService } from '@anymind-ng/api';
 
 @Injectable()

@@ -2,10 +2,9 @@ import { GetSession, SessionService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { map, catchError, mergeMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
 import { Router } from '@angular/router';
 
