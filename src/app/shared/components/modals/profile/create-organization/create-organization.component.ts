@@ -12,8 +12,8 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutOrganizationDetails } from '@anymind-ng/api';
 import { UserNavigationComponentService } from '../../../navbar/user-navigation/user-navigation.component.service';
-import { Subject } from 'rxjs/index';
-import { takeUntil } from 'rxjs/internal/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 

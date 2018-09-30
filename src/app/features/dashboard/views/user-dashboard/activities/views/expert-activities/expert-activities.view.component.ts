@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ExpertActivitiesViewService } from './expert-activities.view.service';
 import { GetProfileActivities, GetProfileActivity, MoneyDto } from '@anymind-ng/api';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Rx';
-import { pluck } from 'rxjs/internal/operators';
+import { takeUntil, pluck } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { IActivitiesResolverData } from '@platform/features/dashboard/views/user-dashboard/activities/views/expert-activities/expert-activities.resolver.service';
 import { Animations } from '@anymind-ng/core';
 

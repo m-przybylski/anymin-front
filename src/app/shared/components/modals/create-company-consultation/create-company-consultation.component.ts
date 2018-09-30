@@ -1,16 +1,14 @@
-// tslint:disable:readonly-array
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
-import { EMPTY } from 'rxjs/index';
+import { Observable, EMPTY } from 'rxjs';
 import { Config } from '../../../../../config';
-import { Observable } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
-import { catchError } from 'rxjs/internal/operators';
+import { catchError } from 'rxjs/operators';
 import { CreateCompanyConsultationService } from './create-company-consultation.service';
 import { EmployeesInviteModalComponent } from '../invitations/employees-invite/employees-invite.component';
 import { GetService } from '@anymind-ng/api';
@@ -51,7 +49,7 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   private readonly percentDivider = 100;
   private readonly numberPrecision = 2;
   private loggerService: LoggerService;
-  private selectedTags: PostServiceTag[] = [];
+  private selectedTags: ReadonlyArray<PostServiceTag> = [];
   private anyMindCommission: number;
 
   constructor(
@@ -92,7 +90,7 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
     }
   };
 
-  public onSelectedTag = (tagsNames: string[]): void => {
+  public onSelectedTag = (tagsNames: ReadonlyArray<string>): void => {
     this.selectedTags = tagsNames.map(tagName => ({ name: tagName }));
   };
 
@@ -143,7 +141,7 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
       amount: this.createConsultationForm.controls[this.nettPriceControlName].value,
       currency: this.polishCurrency,
     },
-    tags: this.selectedTags,
+    tags: [...this.selectedTags],
     language: this.polandISOcode,
   });
 

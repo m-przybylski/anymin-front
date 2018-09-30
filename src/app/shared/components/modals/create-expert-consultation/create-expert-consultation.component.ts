@@ -1,15 +1,13 @@
-// tslint:disable:readonly-array
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CreateExpertConsultationModalService } from './create-expert-consultation.service';
 import { FormGroup } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Config } from '../../../../../config';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError } from 'rxjs/internal/operators';
+import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
-import { EMPTY } from 'rxjs/index';
-import { Observable } from 'rxjs/Rx';
+import { EMPTY, Observable } from 'rxjs';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 
@@ -40,7 +38,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
   private readonly anyMindCommission = 0.15;
   private readonly percentDivider = 100;
   private loggerService: LoggerService;
-  private selectedTags: PostServiceTag[] = [];
+  private selectedTags: ReadonlyArray<PostServiceTag> = [];
 
   constructor(
     private formUtils: FormUtilsService,
@@ -77,7 +75,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
     }
   };
 
-  public onSelectedTag = (tagsNames: string[]): void => {
+  public onSelectedTag = (tagsNames: ReadonlyArray<string>): void => {
     this.selectedTags = tagsNames.map(tagName => ({ name: tagName }));
   };
 
@@ -94,7 +92,7 @@ export class CreateExpertConsultationModalComponent implements OnInit, AfterView
       amount: this.createConsultationForm.controls[this.nettPriceControlName].value,
       currency: this.polishCurrency,
     },
-    tags: this.selectedTags,
+    tags: [...this.selectedTags],
     language: this.polandISOcode,
   });
 

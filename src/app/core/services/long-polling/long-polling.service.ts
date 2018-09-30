@@ -2,6 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer } from 'rxjs';
 import { switchMap, startWith, delay, tap, skip, retryWhen, mergeMap } from 'rxjs/operators';
+// this is realated to TypeScript typing system error for Document
+// tslint:disable-next-line:rxjs-no-internal
 import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 
 const second = 1000;

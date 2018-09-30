@@ -1,14 +1,12 @@
 // tslint:disable:newline-before-return
-import { Observable } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { of } from 'rxjs/observable/of';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
@@ -44,7 +42,7 @@ export class SetNewPasswordFromEmailViewService {
   public handleNewPassword = (password: string): Observable<SetNewPasswordFromEmailStatus> =>
     this.recoverPasswordService
       .putRecoverPasswordEmailRoute({ token: this.token, password })
-      .pipe(mergeMap(() => fromPromise(this.login(this.msisdn, password))))
+      .pipe(mergeMap(() => from(this.login(this.msisdn, password))))
       .pipe(mergeMap(this.determinateRedirectPath))
       .pipe(catchError(err => of(this.handleSetNewPasswordError(err))));
 

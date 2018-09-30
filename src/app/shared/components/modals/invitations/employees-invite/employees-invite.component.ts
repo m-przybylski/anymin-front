@@ -1,14 +1,12 @@
-// tslint:disable:readonly-array
-
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
 import { FormGroup } from '@angular/forms';
 import { AvatarSizeEnum } from '../../../user-avatar/user-avatar.component';
 import { Alerts, AlertService, Animations, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { catchError, takeUntil } from 'rxjs/internal/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EMPTY, Observable, Subject } from 'rxjs/index';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -38,8 +36,8 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public readonly inviteEmployeesControlName = 'inviteEmployeesControl';
   public readonly csvControlName = 'csvControlName';
   public isDropdownListVisible = false;
-  public invitedEmployeeList: IEmployeesInviteComponent[] = [];
-  public filteredItems: IEmployeesInviteComponent[] = [];
+  public invitedEmployeeList: ReadonlyArray<IEmployeesInviteComponent> = [];
+  public filteredItems: ReadonlyArray<IEmployeesInviteComponent> = [];
   public isChangeOnSubmit = false;
   public serviceName = '';
   public usedContactList: ReadonlyArray<string> = [];
@@ -48,10 +46,10 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public serviceId: string;
 
   @Output()
-  public linksListEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
+  public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
 
   private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
-  private employeesConsultationList: IEmployeesInviteComponent[] = [];
+  private employeesConsultationList: ReadonlyArray<IEmployeesInviteComponent> = [];
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -100,7 +98,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     this.employeesInviteService
       .checkPendingInvitations(this.serviceId)
       .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can not get unaccepted invites')))
-      .subscribe((invite: string[]) => {
+      .subscribe((invite: ReadonlyArray<string>) => {
         this.usedContactList = invite;
       });
   }
@@ -108,7 +106,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public onClickSend = (formGroup: FormGroup): void => {
     if (this.invitedEmployeeList.length !== 0 && formGroup.valid) {
       this.employeesInviteService
-        .postInvitation({ invitations: this.adjustEmployeeInvitationObject() })
+        .postInvitation({ invitations: [...this.adjustEmployeeInvitationObject()] })
         .pipe(takeUntil(this.ngUnsubscribe$))
         .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')))
         .subscribe(() => {
@@ -126,7 +124,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         )
       : void 0;
 
-  public onCSVupload = (employeesContact: string[]): void => {
+  public onCSVupload = (employeesContact: ReadonlyArray<string>): void => {
     employeesContact.forEach(value => {
       this.addEmployeeInvitationByType(this.employeesInviteService.checkInvitationType(value), value);
     });
@@ -193,7 +191,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     this.formUtils.isFieldInvalid(this.inviteEmployeesFormGroupName, this.inviteEmployeesControlName);
   };
 
-  private adjustEmployeeInvitationObject = (): PostInvitation[] =>
+  private adjustEmployeeInvitationObject = (): ReadonlyArray<PostInvitation> =>
     this.invitedEmployeeList.map(item => ({
       serviceId: this.serviceId,
       email: item.email,
@@ -212,10 +210,12 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     }
   };
 
-  private filterItem = (value: string): IEmployeesInviteComponent[] =>
+  private filterItem = (value: string): ReadonlyArray<IEmployeesInviteComponent> =>
     (this.filteredItems = this.dropdownItems.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1));
 
-  private filterOwnEmployeesDropdownList = (expertProfile: IEmployeesInviteComponent): IEmployeesInviteComponent[] =>
+  private filterOwnEmployeesDropdownList = (
+    expertProfile: IEmployeesInviteComponent,
+  ): ReadonlyArray<IEmployeesInviteComponent> =>
     (this.dropdownItems = this.dropdownItems.filter(item => item !== expertProfile));
 
   private isValueExist = (value: string): boolean =>
@@ -224,7 +224,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   private handleGetEmployeeListError = (
     error: HttpErrorResponse,
     msg: string,
-  ): Observable<ExpertProfileWithEmployments[]> => {
+  ): Observable<ReadonlyArray<ExpertProfileWithEmployments>> => {
     this.logger.warn(msg, error);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 

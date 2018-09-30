@@ -1,18 +1,21 @@
-// tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetRegistrationSession, RegistrationService } from '@anymind-ng/api';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import {
+  Alerts,
+  AlertService,
+  FormUtilsService,
+  InputPinCodeErrorsEnum,
+  LoggerFactory,
+  LoggerService,
+} from '@anymind-ng/core';
 import { FormGroup } from '@angular/forms';
-import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum } from '@anymind-ng/core';
 import { PinCodeViewService, PinCodeServiceStatus } from './pin-code.view.service';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
-import { Subject } from 'rxjs';
 import { LoginHelperService } from '../../services/login-helper.service';
 
 @Component({

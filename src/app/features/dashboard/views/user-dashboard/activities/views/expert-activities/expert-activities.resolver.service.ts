@@ -2,8 +2,7 @@ import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, throwError } from 'rxjs';
 import { ActivitiesService, GetProfileActivities, ViewsService } from '@anymind-ng/api';
-import { map } from 'rxjs/operators';
-import { catchError } from 'rxjs/internal/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 

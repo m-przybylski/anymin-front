@@ -1,8 +1,7 @@
 import { AccountService, RecoverPasswordService, GetRecoverMethod, PostRecoverPassword } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs/observable/of';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrors, isBackendError } from '../../../../../../../../shared/models/backend-error/backend-error';
 import { LoggerService, LoggerFactory, Alerts, AlertService } from '@anymind-ng/core';
@@ -11,37 +10,40 @@ export enum ChangePasswordStatusEnum {
   SUCCESS,
   ERROR,
   WRONG_PASSWORD,
-  TOO_MANY_ATTEMPTS
+  TOO_MANY_ATTEMPTS,
 }
 
 export enum ResetPasswordStatusEnum {
   RECOVER_BY_EMAIL,
   RECOVER_BY_SMS,
   CREATE_PIN_CODE_TOO_RECENTLY,
-  ERROR
+  ERROR,
 }
 
 @Injectable()
 export class ChangePasswordComponentService {
-
   private logger: LoggerService;
 
-  constructor(private accountService: AccountService,
-              private recoverPasswordService: RecoverPasswordService,
-              private alertService: AlertService,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private accountService: AccountService,
+    private recoverPasswordService: RecoverPasswordService,
+    private alertService: AlertService,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('ChangePasswordComponentService');
   }
 
   public changePassword = (actualPassword: string, newPassword: string): Observable<ChangePasswordStatusEnum> =>
-    this.accountService.changePasswordRoute({actualPassword, newPassword})
+    this.accountService
+      .changePasswordRoute({ actualPassword, newPassword })
       .pipe(map(this.handleChangePassword))
-      .pipe(catchError(err => of(this.handleChangePasswordError(err))))
+      .pipe(catchError(err => of(this.handleChangePasswordError(err))));
 
   public resetPassword = (msisdn: string): Observable<ResetPasswordStatusEnum> =>
-    this.recoverPasswordService.postRecoverPasswordRoute({msisdn})
+    this.recoverPasswordService
+      .postRecoverPasswordRoute({ msisdn })
       .pipe(map(this.handleResetPassword))
-      .pipe(catchError(err => of(this.handleResetPasswordError(err))))
+      .pipe(catchError(err => of(this.handleResetPasswordError(err))));
 
   private handleResetPassword = (recoverMethod: GetRecoverMethod): ResetPasswordStatusEnum => {
     const method: PostRecoverPassword.MethodEnum = recoverMethod.method;
@@ -58,7 +60,7 @@ export class ChangePasswordComponentService {
 
         return ResetPasswordStatusEnum.ERROR;
     }
-  }
+  };
 
   private handleResetPasswordError = (httpError: HttpErrorResponse): ResetPasswordStatusEnum => {
     const err = httpError.error;
@@ -87,13 +89,13 @@ export class ChangePasswordComponentService {
 
       return ResetPasswordStatusEnum.ERROR;
     }
-  }
+  };
 
   private handleChangePassword = (): ChangePasswordStatusEnum => {
     this.alertService.pushSuccessAlert(Alerts.ChangePasswordSuccess);
 
     return ChangePasswordStatusEnum.SUCCESS;
-  }
+  };
 
   private handleChangePasswordError = (httpError: HttpErrorResponse): ChangePasswordStatusEnum => {
     const error = httpError.error;
@@ -120,6 +122,5 @@ export class ChangePasswordComponentService {
 
       return ChangePasswordStatusEnum.ERROR;
     }
-  }
-
+  };
 }
