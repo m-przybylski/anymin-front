@@ -11,7 +11,7 @@ import { AuthActions } from '../../actions';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { tap, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class UserSessionService extends Logger {
@@ -58,11 +58,13 @@ export class UserSessionService extends Logger {
               catchError(err => {
                 reject(err);
 
-                return throwError(err);
+                return of(undefined);
               }),
             )
             .subscribe(session => {
-              resolve(session);
+              if (typeof session !== 'undefined') {
+                resolve(session);
+              }
             });
         } else {
           return resolve(this.sessionCache);
