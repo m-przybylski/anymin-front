@@ -13,6 +13,7 @@ Selectors: `[plat-button]`, `[plat-icon-button]`, `[plat-stroked-button]`, `[pla
 | plat-button               | regural button                       |
 | plat-large-button         | large button                         |
 | plat-stroked-large-button | large stroked button                 |
+| plat-large-icon-button    | large button                         |
 
 Properties
 

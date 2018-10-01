@@ -1,0 +1,19 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import '../.../../../../../../../../template/core/partials/grid'
+
+.consultation-footer__price
+  &-wrapper
+    display: inline-block
+    margin: 0 0 24px 0
+
+    +smm
+      padding: 0 24px 0 0
+      margin: 0 24px 0 0
+      border-right: 1px solid rgba($c-white, 0.15)
+
+  &-money
+    +h4
+    font-weight: 300
+
+  &-currency
+    color: $c-half-white

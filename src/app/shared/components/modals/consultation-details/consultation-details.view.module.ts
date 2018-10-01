@@ -12,20 +12,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultationDetailsComponent } from './consultation-details/consultation-details.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import { ModalComponentsModule } from '../modal/modal.components.module';
-import { ConsultationFooterComponent } from './consultation-footer/consultation-footer.component';
-import { ConsultationFooterWrapperComponent } from './consultation-footer-wrapper/consultation-footer-wrapper.component';
 import { PaymentCardModule } from '@platform/shared/components/pipes/payment-card';
+import { ConsultationFooterModule } from './consultation-footers/consultation-footer.module';
+import { ButtonModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    ButtonModule,
     FormsModule,
     ReactiveFormsModule,
     DashboardComponentsModule,
     UserAvatarModule,
     ModalComponentsModule,
     PaymentCardModule,
+    ConsultationFooterModule,
   ],
   declarations: [
     ConsultationDetailsViewComponent,
@@ -35,10 +37,8 @@ import { PaymentCardModule } from '@platform/shared/components/pipes/payment-car
     TimeDurationPipe,
     DateDurationPipe,
     ConsultationDetailsComponent,
-    ConsultationFooterComponent,
-    ConsultationFooterWrapperComponent,
   ],
-  exports: [ConsultationDetailsComponent, ConsultationFooterComponent, ConsultationFooterWrapperComponent],
+  exports: [ConsultationDetailsComponent],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

@@ -1,15 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  Injector,
+  OnDestroy,
+  ComponentRef,
+  ComponentFactoryResolver,
+} from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
-import { take } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+import { forkJoin, Subject } from 'rxjs';
 import { EmploymentWithService, GetComment } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { IConsultationFooterData } from './consultation-footer-wrapper/consultation-footer-wrapper.component';
+import {
+  IConsultationFooterData,
+  CONSULTATION_FOOTER_DATA,
+  IFooterOutput,
+} from './consultation-footers/consultation-footer-helpers';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConsultationFooterResolver } from './consultation-footers/consultation-footer.resolver';
 
 @Component({
   selector: 'plat-consultation-details-view',
@@ -17,7 +32,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./consultation-details.view.component.sass'],
   providers: [ConsultationDetailsViewService],
 })
-export class ConsultationDetailsViewComponent implements OnInit {
+export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   public readonly avatarSize96: AvatarSizeEnum = AvatarSizeEnum.X_96;
   public readonly modalType: ModalContainerTypeEnum = ModalContainerTypeEnum.NO_PADDING;
 
@@ -40,7 +55,6 @@ export class ConsultationDetailsViewComponent implements OnInit {
   public isPending = true;
   public accountId: string;
   public isOwner: boolean;
-  public footerData: IConsultationFooterData;
 
   @Input()
   public serviceId: string;
@@ -48,11 +62,17 @@ export class ConsultationDetailsViewComponent implements OnInit {
   @Input()
   public expertId: string;
 
+  @ViewChild('footerContainer', { read: ViewContainerRef })
+  private viewContainerRef: ViewContainerRef;
+  private destroyed$ = new Subject<void>();
+  private footerComponent: ComponentRef<IFooterOutput> | undefined;
   constructor(
     private store: Store<fromCore.IState>,
     private consultationDetailsViewService: ConsultationDetailsViewService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private activeModal: NgbActiveModal,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private injector: Injector,
   ) {}
 
   public ngOnInit(): void {
@@ -69,16 +89,25 @@ export class ConsultationDetailsViewComponent implements OnInit {
         this.accountId = getSession.account.id;
       }
       this.tagList = tags;
-      this.footerData = this.buildFooterData(this.accountId, getServiceDetails, expertIsAvailable);
       this.assignExpertConsultationDetails(getServiceDetails);
+      this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable);
     });
   }
 
-  public onAddAnswer = (commentsList: GetComment): ReadonlyArray<GetComment> =>
-    (this.commentsConsultation = this.consultationDetailsViewService.addTemporaryComment(
-      commentsList,
+  public ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+    if (this.footerComponent) {
+      this.footerComponent.destroy();
+    }
+  }
+
+  public onAddAnswer = (comment: GetComment): void => {
+    this.commentsConsultation = this.consultationDetailsViewService.addTemporaryComment(
+      comment,
       this.commentsConsultation,
-    ));
+    );
+  };
 
   public onLoadMoreComments = (): void => {
     const commentOffset = this.commentsConsultation.length;
@@ -95,25 +124,6 @@ export class ConsultationDetailsViewComponent implements OnInit {
           this.commentsConsultation,
         );
       });
-  };
-
-  public onEditConsultationClick = (): void => {
-    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
-  };
-  public onRemoveConsultationClick = (): void => {
-    this.consultationDetailsViewService.removeConsultation(this.serviceId, this.activeModal);
-  };
-  public onCallConsultationClick = (): void => {
-    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
-  };
-  public onNotifyConsultationClick = (): void => {
-    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
-  };
-  public onLeaveConsultationClick = (): void => {
-    this.consultationDetailsViewService.leaveConsultation(this.serviceId, this.employmentId, this.activeModal);
-  };
-  public onInviteConsultationClick = (): void => {
-    this.consultationDetailsViewService.editConsultation(this.serviceId, this.activeModal);
   };
 
   private buildFooterData = (
@@ -172,4 +182,41 @@ export class ConsultationDetailsViewComponent implements OnInit {
       this.ratingCounter = employmentWithService.ratingCounter;
     }
   };
+  private attachFooter(
+    userId: string,
+    getServiceDetails: IConsultationDetails,
+    expertIsAvailable: boolean,
+  ): ComponentRef<IFooterOutput> | undefined {
+    const component = ConsultationFooterResolver.resolve(
+      this.accountId,
+      getServiceDetails.expertDetails.profile.id,
+      getServiceDetails.expertIds,
+    );
+    if (component) {
+      const footerComponent = this.viewContainerRef.createComponent(
+        this.componentFactoryResolver.resolveComponentFactory(component),
+        undefined,
+        Injector.create({
+          providers: [
+            {
+              provide: CONSULTATION_FOOTER_DATA,
+              useValue: this.buildFooterData(userId, getServiceDetails, expertIsAvailable),
+            },
+          ],
+          parent: this.injector,
+        }),
+      );
+      footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
+        this.consultationDetailsViewService[value].call(this.consultationDetailsViewService, [
+          ...this.serviceId,
+          this.activeModal,
+          this.employmentId,
+        ]);
+      });
+
+      return footerComponent;
+    }
+
+    return undefined;
+  }
 }

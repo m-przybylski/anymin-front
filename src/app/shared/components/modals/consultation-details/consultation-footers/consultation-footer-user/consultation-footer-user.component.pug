@@ -1,0 +1,46 @@
+plat-consultation-footer
+  //left part of the screen
+  .consultation-footer__left-price
+    plat-consultation-footer-price([grossPrice]='grossPrice')
+  //middle part of the screen
+  .consultation-footer__left-text([ngSwitch]='middlePanel')
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.freeMinute')
+      span(plat-icon iconClass='information')
+      p {{"CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE" | translate}}
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.notAvailable')
+      span(plat-icon iconClass='information')
+      span
+        p {{"CONSULTATION_DETAILS.FOOTER.NA_1" | translate}}
+        p {{"CONSULTATION_DETAILS.FOOTER.NA_2" | translate}}
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.paymentCard')
+      span(plat-icon iconClass='payment-card')
+      p {{"CONSULTATION_DETAILS.FOOTER.CARD" |translate: {value: defaultPayment?.card | creditCard} }}
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.paymentAnyMind')
+      span(plat-icon iconClass='wallet')
+      p
+        | {{"CONSULTATION_DETAILS.FOOTER.ACCOUNT" | translate }}
+        strong AnyMind
+        | : {{ balance }} zł.
+        span(*ngIf='duration') {{"CONSULTATION_DETAILS.FOOTER.TALKLAST" | translate:{duration: duration} }}
+        a {{"CONSULTATION_DETAILS.FOOTER.TOPUP" | translate}}
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.pickExpert')
+      span(plat-icon iconClass='information')
+      p {{ "CONSULTATION_DETAILS.FOOTER.SELECTEXPERT" | translate }}
+  //right part of the screen
+  .consultation-footer__right
+    a(plat-large-icon-button, color='success', *ngIf="isExpertAvailable else offlineDesktop", (click)='onCall()')
+      span(plat-icon iconClass='headphone')
+      span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+    ng-template(#offlineDesktop)
+      a(plat-large-icon-button color='success', (click)='onNotifyUser()')
+        span(plat-icon iconClass='bell')
+        span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
+  //right panel on the screen on mobile
+  .consultation-footer__right--mobile
+    a(plat-large-icon-button color='success', *ngIf="isExpertAvailable else offlineMobile", (click)='onCall()')
+      span(plat-icon iconClass='headphone')
+      span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+    ng-template(#offlineMobile)
+      a(plat-large-icon-button color='success', (click)='onNotifyUser()')
+        span(plat-icon iconClass='bell')
+        span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}

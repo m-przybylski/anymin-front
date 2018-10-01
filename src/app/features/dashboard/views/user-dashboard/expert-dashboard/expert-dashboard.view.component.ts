@@ -64,8 +64,8 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    */
   public openConsultationDetail = async (serviceId: string, expertId: string): Promise<void> => {
     const modalRef = this.openModal(ConsultationDetailsViewComponent);
-    (modalRef.componentInstance as ConsultationDetailsViewComponent).expertId = expertId;
-    (modalRef.componentInstance as ConsultationDetailsViewComponent).serviceId = serviceId;
+    modalRef.componentInstance.expertId = expertId;
+    modalRef.componentInstance.serviceId = serviceId;
     const closedServiceId: string | undefined = await modalRef.result;
     if (closedServiceId === serviceId) {
       this.reload();

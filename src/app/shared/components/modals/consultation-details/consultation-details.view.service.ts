@@ -13,7 +13,7 @@ import {
   FinancesService,
 } from '@anymind-ng/api';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap, filter, catchError, mergeMap, take } from 'rxjs/operators';
+import { map, switchMap, filter, catchError, take } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
@@ -40,23 +40,18 @@ export class ConsultationDetailsViewService extends Logger {
       .postServiceWithEmployeesRoute({ serviceIds: [serviceId] })
       .pipe(
         map(getServiceWithEmployeesList =>
-          getServiceWithEmployeesList.filter(
+          getServiceWithEmployeesList.find(
             getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === serviceId,
           ),
         ),
-        filter(getServiceWithEmployeesList => getServiceWithEmployeesList.length > 0),
-        map(getServiceWithEmployeesList => getServiceWithEmployeesList[0]),
-        mergeMap(getServiceWithEmployees =>
-          this.getComments(this.pluckEmployeeId(getServiceWithEmployees, serviceId)).pipe(
-            map(getComments => ({ getServiceWithEmployees, getComments })),
-          ),
-        ),
+        filter(getServiceWithEmployee => getServiceWithEmployee !== undefined),
       )
       .pipe(
-        switchMap(({ getServiceWithEmployees, getComments }) =>
+        switchMap((getServiceWithEmployees: GetServiceWithEmployees) =>
           forkJoin(
             this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
             this.viewsService.getWebExpertProfileRoute(employeeId),
+            this.getComments(this.pluckEmployeeId(getServiceWithEmployees, serviceId)),
             this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
             this.financesService.getClientBalanceRoute().pipe(
               catchError(() =>
@@ -72,7 +67,7 @@ export class ConsultationDetailsViewService extends Logger {
             ),
           ).pipe(
             map(
-              ([expertDetails, expertProfileViewDetails, payment, balance]): IConsultationDetails => ({
+              ([expertDetails, expertProfileViewDetails, getComments, payment, balance]): IConsultationDetails => ({
                 expertDetails,
                 expertProfileViewDetails,
                 getServiceWithEmployees,
@@ -100,20 +95,18 @@ export class ConsultationDetailsViewService extends Logger {
       );
 
   public addTemporaryComment = (
-    commentsList: GetComment,
-    commentsConsultation: ReadonlyArray<GetComment>,
+    comment: GetComment,
+    comments: ReadonlyArray<GetComment>,
   ): ReadonlyArray<GetComment> => {
-    const commentsList_first_part = commentsConsultation.slice(0, commentsConsultation.indexOf(commentsList));
-    const commentsList_changed_element = commentsConsultation.slice(
-      commentsConsultation.indexOf(commentsList),
-      commentsConsultation.indexOf(commentsList) + 1,
-    );
-    const commentsList_second_part = commentsConsultation.slice(
-      commentsConsultation.indexOf(commentsList) + 1,
-      commentsConsultation.length,
-    );
+    const commentFound = comments.find(cmt => cmt.commentId === comment.commentId);
+    if (commentFound === undefined) {
+      return comments;
+    }
+    const index = comments.indexOf(commentFound);
+    const commentsList_first_part = comments.slice(0, index);
+    const commentsList_second_part = comments.slice(index + 1, comments.length);
 
-    return [...commentsList_first_part, ...commentsList_changed_element, ...commentsList_second_part];
+    return [...commentsList_first_part, comment, ...commentsList_second_part];
   };
   public loadMoreComments = (
     commentsList: ReadonlyArray<GetComment>,
@@ -139,7 +132,7 @@ export class ConsultationDetailsViewService extends Logger {
         modal.close(serviceId);
       });
   };
-  public leaveConsultation = (serviceId: string, employeementId: string, modal: NgbActiveModal): void => {
+  public leaveConsultation = (serviceId: string, modal: NgbActiveModal, employeementId: string): void => {
     this.employmentService
       .deleteEmploymentRoute(employeementId)
       .pipe(
@@ -155,6 +148,16 @@ export class ConsultationDetailsViewService extends Logger {
         this.loggerService.debug('Consultation removed!');
         modal.close(serviceId);
       });
+  };
+  public makeCall = (): void => {
+    // TODO: implement functionality
+  };
+  public notifyUser = (): void => {
+    // TODO: implement functionality
+  };
+
+  public deleteConsultation = (): void => {
+    // TODO: delete implementation
   };
   public getExpertAvailability = (expertId: string): Observable<boolean> =>
     this.expertAvailabilityService.getExpertPresence(expertId).pipe(

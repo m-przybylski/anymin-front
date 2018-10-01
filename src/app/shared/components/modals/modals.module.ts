@@ -23,6 +23,6 @@ import { ModalComponentsModule } from './modal/modal.components.module';
     InvitationsModalsModule,
     ModalComponentsModule,
   ],
-  exports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule, PinElementDirective, ModalComponentsModule],
+  exports: [SharedModule, FormsModule, ReactiveFormsModule, PinElementDirective, ModalComponentsModule],
 })
 export class ModalsModule {}

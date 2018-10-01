@@ -14,9 +14,10 @@ import { CreateOrganizationModalComponent } from './create-organization/create-o
 import { CreateOrganizationModalComponentService } from './create-organization/create-organization.component.service';
 import { InputsModule } from '../../inputs/inputs.module';
 import { UserAvatarModule } from '../../user-avatar/user-avatar.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [ModalsModule, InputsModule, UserAvatarModule],
+  imports: [CommonModule, ModalsModule, InputsModule, UserAvatarModule],
   entryComponents: [CreateProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
   providers: [CreateProfileModalComponentService, CreateOrganizationModalComponentService, UploaderService],
   declarations: [
