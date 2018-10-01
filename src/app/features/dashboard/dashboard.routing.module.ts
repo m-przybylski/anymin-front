@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { RouterPaths } from '../../shared/routes/routes';
 import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
 import { CompanyActivitiesComponent } from './views/company-dashboard/company-activities/company-activities.view.component';
-import { EmployeesComponent } from './views/company-dashboard/employees/employees.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
@@ -12,12 +11,16 @@ import { ActivitiesViewComponent } from './views/user-dashboard/activities/activ
 import { ExpertActivitiesViewComponent } from './views/user-dashboard/activities/views/expert-activities/expert-activities.view.component';
 import { ClientActivitiesViewComponent } from './views/user-dashboard/activities/views/client-activities/client-activities.view.component';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
+import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
+import { DashboardResolver } from './dashboard.resolver';
 import { ExpertActivitiesResolverService } from './views/user-dashboard/activities/views/expert-activities/expert-activities.resolver.service';
 
 const routes: Routes = [
   {
     path: '',
     canActivate: [SessionGuard],
+    component: DashboardViewComponent,
+    resolve: { userStatus: DashboardResolver },
     children: [
       {
         path: RouterPaths.dashboard.user.getName,
@@ -43,8 +46,16 @@ const routes: Routes = [
           },
           { path: 'favourites', component: FavouritesComponent },
           {
-            path: 'settings',
+            path: RouterPaths.dashboard.user.settings.getName,
             loadChildren: './views/user-dashboard/settings/settings.module#SettingsModule',
+          },
+          {
+            path: RouterPaths.dashboard.user.payments.getName,
+            loadChildren: './views/user-dashboard/payments/payments.module#PaymentsModule',
+          },
+          {
+            path: RouterPaths.dashboard.user.recommendFriends.getName,
+            loadChildren: './views/user-dashboard/recommend-friends/recommend-friends.module#RecommendFriendsModule',
           },
           {
             path: RouterPaths.dashboard.user.profile.getName,
@@ -60,7 +71,6 @@ const routes: Routes = [
         path: RouterPaths.dashboard.company.getName,
         component: CompanyDashboardComponent,
         children: [
-          { path: 'employees', component: EmployeesComponent, canActivate: [CompanyDashboardViewGuard] },
           { path: 'activities', component: CompanyActivitiesComponent, canActivate: [CompanyDashboardViewGuard] },
           {
             path: RouterPaths.dashboard.company.profile.getName,

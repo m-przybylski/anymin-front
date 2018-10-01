@@ -10,7 +10,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
-import { UserNavigationComponentService } from '../../../navbar/user-navigation/user-navigation.component.service';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
@@ -18,7 +17,11 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, from } from 'rxjs';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
-import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import { NavbarActions, SessionActions } from '@platform/core/actions';
+import * as fromCore from '@platform/core/reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   styleUrls: ['./create-profile.component.sass'],
@@ -60,11 +63,11 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
     private formUtils: FormUtilsService,
-    private navbarComponentService: UserNavigationComponentService,
     private createProfileModalComponentService: CreateProfileModalComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private userSessionService: UserSessionService,
     private router: Router,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CreateProfileModalComponent');
@@ -145,7 +148,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   private sendClientProfile = (data: PutGeneralSettings): void => {
     this.createProfileModalComponentService.createClientProfile(data).subscribe(
       () => {
-        this.navbarComponentService.onUpdateClientProfile$().next(true);
+        this.store.dispatch(new SessionActions.FetchSessionAction());
         this.onModalClose();
       },
       err => this.handleResponseError(err, 'Can not set client profile'),
@@ -165,7 +168,6 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
         this.setExpertFormValues(profileDetails);
         this.isPending = false;
         this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
-        this.navbarComponentService.onUpdateClientProfile$().next(true);
       },
       err => this.handleResponseError(err, 'Can not get expert file profile'),
     );
@@ -222,8 +224,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         val => {
-          this.navbarComponentService.onUpdateUserProfile().next(true);
-          this.navbarComponentService.onUpdateClientProfile$().next(true);
+          this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.EXPERT));
           this.sendClientProfile({
             nickname: this.expertNameForm.controls[this.expertFormControlName].value,
             avatar: this.expertNameForm.controls[this.expertFormControlAvatar].value,

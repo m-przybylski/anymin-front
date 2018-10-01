@@ -24,6 +24,18 @@ export const RouterPaths = {
         asPath: 'dashboard/user/invitations',
         getName: 'invitations',
       },
+      settings: {
+        asPath: 'dashboard/user/settings',
+        getName: 'settings',
+      },
+      payments: {
+        asPath: 'dashboard/user/payments',
+        getName: 'payments',
+      },
+      recommendFriends: {
+        asPath: 'dashboard/user/recommend-friends',
+        getName: 'recommend-friends',
+      },
     },
     company: {
       asPath: 'dashboard/company',

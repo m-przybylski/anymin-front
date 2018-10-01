@@ -1,6 +1,5 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
-@import "../../../../template/core/shared/navbar-user-menu"
 
 .user-navigation
   display: flex
@@ -11,13 +10,14 @@
   &__underline
     display: none
 
-    +mdm
-      position: absolute
-      top: 100%
-      left: 0
-      display: block
-      height: 1px
-      background: $c-primary
+    &.visible
+      +mdm
+        position: absolute
+        top: 100%
+        left: 0
+        display: block
+        height: 1px
+        background: $c-primary
 
   &__list
     display: flex
@@ -27,15 +27,18 @@
     span
       color: $c-text-primary
 
-    &--expert, &--company
+    &--nav
       display: none
 
       li
         margin: 0 24px 0 0
 
+        &:last-child
+          margin: 0 16px 0 0
+
         a
           span
-            +button-small
+            +subtitle-small
             color: $c-text-primary
 
           &:hover

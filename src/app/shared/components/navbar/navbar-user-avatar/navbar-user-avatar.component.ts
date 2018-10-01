@@ -1,68 +1,67 @@
-import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { GetExpertVisibility } from 'profitelo-api-ng/model/models';
+import { Component, ElementRef, Inject, Input, NgZone } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Subject, of, Observable } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { NavbarMenuService } from '../navbar-menu-service/navbar-menu.service';
+import { fromEvent, Subject } from 'rxjs';
+import { GetExpertVisibility } from '@anymind-ng/api';
+import VisibilityEnum = GetExpertVisibility.VisibilityEnum;
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import * as fromCore from '@platform/core/reducers';
+import { Store } from '@ngrx/store';
+import { NavbarActions } from '@platform/core/actions';
+import { DOCUMENT } from '@angular/common';
+import { takeUntil, filter } from 'rxjs/operators';
+// tslint:disable-next-line:rxjs-no-internal
+import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 
 @Component({
   selector: 'plat-navbar-user-avatar',
   templateUrl: './navbar-user-avatar.component.html',
   styleUrls: ['./navbar-user-avatar.component.sass'],
 })
-export class NavbarUserAvatarComponent implements OnInit, OnDestroy {
+export class NavbarUserAvatarComponent {
   @Input()
   public avatarToken?: string;
 
   @Input()
-  public userVisibility?: GetExpertVisibility.VisibilityEnum;
+  public userVisibility: GetExpertVisibility.VisibilityEnum = VisibilityEnum.Visible;
+
+  @Input()
+  public userType: UserTypeEnum;
+
+  @Input()
+  public set isUserMenuVisible(value: boolean) {
+    if (value) {
+      this.setCloseHandlers();
+
+      return;
+    }
+    this.navbarMenuClose$.next();
+  }
 
   public readonly avatarSize = AvatarSizeEnum.X_48;
   public visibilityStatusEnum: typeof GetExpertVisibility.VisibilityEnum = GetExpertVisibility.VisibilityEnum;
-  public isMenuVisible = false;
+  public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
 
-  private ngUnsubscribe$ = new Subject<void>();
-  private logger: LoggerService;
+  private navbarMenuClose$ = new Subject<void>();
 
   constructor(
-    private navbarMenuService: NavbarMenuService,
     private element: ElementRef,
-    private loggerFactory: LoggerFactory,
+    private store: Store<fromCore.IState>,
+    private ngZone: NgZone,
+    @Inject(DOCUMENT) private document: Document,
   ) {}
 
-  public ngOnInit(): void {
-    this.logger = this.loggerFactory.createLoggerService('NavbarUserAvatarComponent');
-
-    this.navbarMenuService
-      .getVisibility$()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .pipe(catchError(this.handleError))
-      .subscribe(isMenuVisible => (this.isMenuVisible = isMenuVisible));
-  }
-
-  public ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-  }
-
-  @HostListener('document:click', ['$event'])
-  public handleClick(event: Event): void {
-    if (!this.element.nativeElement.contains(event.target)) {
-      this.isMenuVisible = false;
-      this.navbarMenuService.getVisibility$().next(this.isMenuVisible);
-    }
-  }
-
   public toggleMenuVisibility = (): void => {
-    this.isMenuVisible = !this.isMenuVisible;
-    this.navbarMenuService.getVisibility$().next(this.isMenuVisible);
+    this.store.dispatch(new NavbarActions.ToggleUserMenuVisibility());
   };
 
-  // tslint:disable-next-line:no-any
-  private handleError = (err: any): Observable<boolean> => {
-    this.logger.warn('failure when try to change navbar menu visibility, ', err);
-
-    return of(false);
+  private setCloseHandlers = (): void => {
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent<MouseEvent>(this.document as FromEventTarget<MouseEvent>, 'click')
+        .pipe(
+          filter(event => !this.element.nativeElement.contains(event.target)),
+          takeUntil(this.navbarMenuClose$),
+        )
+        .subscribe(this.toggleMenuVisibility);
+    });
   };
 }

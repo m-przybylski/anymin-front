@@ -18,6 +18,7 @@ import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './effects/login.effects';
 import { SessionEffects } from './effects/session.effects';
+import { UserTypeEffects } from '@platform/core/effects/user-type.effects';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -33,7 +34,7 @@ export function getLogLevel(): LogLevel {
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     StoreModule.forFeature('core', reducers),
-    EffectsModule.forFeature([LoginEffects, SessionEffects]),
+    EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
   ],
   providers: [
     ApiKeyService,

@@ -6,68 +6,80 @@
 
   ul.menu-list
     li.menu-list__header
-      .menu-list__user-information
-        plat-user-avatar(
-        [avatarSize]="avatarSize48",
-        [avatarToken]="avatarToken"
-        )
+      .user-name-container(*ngIf="userName; else anonymous")
+        span.user-name-container__title([translate]="'NAVBAR_USER_MENU.WELCOME'")
+        span.user-name-container__user-name {{ userName }}
+
+      ng-template(#anonymous)
         .user-name-container
-          span.user-name-container__title([translate]="'NAVBAR_USER_MENU.WELCOME'")
-          span.user-name-container__user-name(*ngIf="!clientName", [translate]="'NAVBAR_USER_MENU.ANONYMOUS'")
-          span.user-name-container__user-name(*ngIf="clientName") {{ clientName }}
+          span.user-name-container__title([translate]="'NAVBAR_USER_MENU.ANONYMOUS'")
+          span.user-name-container__user-name([translate]="'NAVBAR_USER_MENU.FILL_PROFILE'")
 
-      a.button.button--link(*ngIf="!isExpert", (click)="openEditProfileModal()", [translate]="'NAVBAR_USER_MENU.EDIT'")
-      a.button.button--link(*ngIf="isExpert", (click)="openEditProfileAsExpertModal()", [translate]="'NAVBAR_USER_MENU.SHOW'")
+      ng-container([ngSwitch]="userType")
+        // TODO uncomment this after Beta release ends
+        //a(
+        //  plat-button-link,
+        //  *ngSwitchCase="userTypeEnum.USER",
+        //  [routerLink]="userProfileUrl",
+        //  [translate]="'NAVBAR_USER_MENU.EDIT'"
+        //)
+        a(
+          plat-button-link,
+          *ngSwitchCase="userTypeEnum.EXPERT",
+          [routerLink]="userProfileUrl",
+          [translate]="'NAVBAR_USER_MENU.SHOW'"
+        )
+        a(
+          plat-button-link,
+          *ngSwitchCase="userTypeEnum.COMPANY",
+          [routerLink]="companyProfileUrl",
+          [translate]="'NAVBAR_USER_MENU.SHOW'"
+        )
 
-    li.menu-list__section.lgm-only
+    li.menu-list__section(*ngIf="userType === userTypeEnum.EXPERT")
       ul
-        li.menu-list__row
-          span.icon.icon-discovery
-          span.option-title([translate]="'NAVBAR_USER_MENU.DISCOVER'")
+        li.menu-list__row.menu-list__row--visibility
+          .title-container
+            span.icon.icon-available
+            span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_LABEL.AVAILABLE'")
 
-        li.menu-list__row
-          span.icon.icon-list
-          span.option-title([translate]="'NAVBAR_USER_MENU.ACTIVITIES'")
-
-        li.menu-list__row
-          span.icon.icon-avatar
-          span.option-title([translate]="'NAVBAR_USER_MENU.FAVOURITES'")
-
-    li.menu-list__section
-      ul
-        li.menu-list__row([routerLink]="['/dashboard/user/settings']")
-          span.icon.icon-settings
-          span.option-title([translate]="'NAVBAR_USER_MENU.SETTINGS'")
-
-        li.menu-list__row
-          span.icon.icon-payment-card
-          span.option-title([translate]="'NAVBAR_USER_MENU.PAYMENT_METHODS'")
-
-    li.menu-list__section(*ngIf="!isExpert")
-      ul
-        li.menu-list__row((click)="openEditProfileAsExpertModal()")
-          span.icon.icon-expert
-          span.option-title([translate]="'NAVBAR_USER_MENU.BECOME_CONSULTATNT'")
-
-        li.menu-list__row(*ngIf="!isCompany")
-          span.icon.icon-organization
-          span.option-title((click)="openCreateOrganizationModal()", [translate]="'NAVBAR_USER_MENU.CREATE_COMPANY'")
-
-    li.menu-list__section
-      ul
-        li.menu-list__row
-          span.icon.icon-invite
-          span.option-title([translate]="'NAVBAR_USER_MENU.INVITE_FRIENDS'")
-
-        li.menu-list__row((click)="logout()")
-          span.icon.icon-logout
-          span.option-title([translate]="'NAVBAR_USER_MENU.LOGOUT'")
-
-    li.menu-list__section.menu-list__section--switch-account(*ngIf="isCompany")
-      ul
-        li.menu-list__row((click)="onOrganizationProfileSwitch($event)", [routerLink]="['/dashboard/company/activities']")
-          plat-user-avatar(
-          [avatarSize]="avatarSize32",
-          [avatarToken]="companyAvatarToken"
+          form(
+            [id]="changeVisibilityFormId",
+            [formGroup]="changeVisibilityForm",
+            novalidate
           )
-          span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_TO_ORGANIZATION'")
+            plat-input-switch(
+              [controlName]="visibilityControlName",
+              [form]="changeVisibilityForm",
+              (click)="onInputSwitchClick($event)"
+            )
+
+    li.menu-list__section(*ngFor="let menuItemsGroup of groupedMenuItems")
+      ul
+        li.menu-list__row(
+          *ngFor="let menuItem of menuItemsGroup",
+          [ngClass]="{'lgm-only': menuItem.group === navigationItemGroups.NAVBAR}",
+        )
+          .menu-list__row__content(
+            *ngIf="menuItem.url; else functionCallback",
+            [routerLink]="menuItem.url"
+          )
+            span(plat-icon, [iconClass]="menuItem.iconClass")
+            span.option-title([translate]="menuItem.trKey")
+
+          ng-template(#functionCallback)
+            .menu-list__row__content((click)="onClick(menuItem.callbackFnName)")
+              span(plat-icon, [iconClass]="menuItem.iconClass")
+              span.option-title([translate]="menuItem.trKey")
+
+    li.menu-list__section.menu-list__section--switch-account(*ngIf="switchAccountType")
+      ul
+        li.menu-list__row(
+          (click)="switchAccount(switchAccountType)",
+          [routerLink]="switchAccountUrl"
+        )
+          plat-user-avatar(
+            [avatarSize]="avatarSize32",
+            [avatarToken]="switchAccountAvatarToken"
+          )
+          span.option-title([translate]="switchAccountTrKey")
