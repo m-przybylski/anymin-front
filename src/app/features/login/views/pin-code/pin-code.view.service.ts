@@ -2,13 +2,13 @@
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, map } from 'rxjs/operators';
-import { RegistrationService } from '@anymind-ng/api';
+import { catchError, map, filter, first, mergeMap } from 'rxjs/operators';
+import { AccountService, RegistrationService } from '@anymind-ng/api';
 import { Observable, of } from 'rxjs';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EventsService } from '../../../../../angularjs/common/services/events/events.service';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { SessionActions } from '@platform/core/actions';
 
@@ -32,6 +32,7 @@ export class PinCodeViewService {
     private store: Store<fromCore.IState>,
     private alertService: AlertService,
     private registrationService: RegistrationService,
+    private accountService: AccountService,
     private eventsService: EventsService,
     private router: Router,
     loggerFactory: LoggerFactory,
@@ -43,13 +44,24 @@ export class PinCodeViewService {
     });
   }
 
-  public handleRegistration = (sessionId: string, token: string): Observable<PinCodeServiceStatus> =>
+  public handleRegistration = (
+    sessionId: string,
+    token: string,
+    isMarketingAllowed = false,
+  ): Observable<PinCodeServiceStatus> =>
     this.registrationService.confirmVerificationRoute({ sessionId, token }).pipe(
       map(session => {
         this.store.dispatch(new SessionActions.FetchSessionSuccessAction(session));
         this.eventsService.emit('login');
+        this.store
+          .pipe(
+            select(fromCore.getSession),
+            filter(getSession => typeof getSession !== 'undefined'),
+            first(),
+            mergeMap(() => this.sendMarketingStatus(isMarketingAllowed)),
+          )
+          .subscribe();
         this.redirectToSetPassword();
-
         return PinCodeServiceStatus.SUCCESS;
       }),
       catchError(error => of(this.handleCheckPinCodeError(error))),
@@ -106,4 +118,6 @@ export class PinCodeViewService {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       });
   };
+  private sendMarketingStatus = (isMarketingAllowed: boolean): Observable<void> =>
+    this.accountService.putMarketingSettingsRoute({ isMarketingAllowed });
 }

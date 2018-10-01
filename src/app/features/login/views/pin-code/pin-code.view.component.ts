@@ -73,8 +73,9 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
     if (pinCodeForm.valid) {
       this.isRequestPending = true;
       const pinCode = pinCodeForm.value[this.pinCodeControlName];
+      const isMarketingAllowed = pinCodeForm.value[this.termsOfMarketingControlName];
       this.pinCodeService
-        .handleRegistration(this.registrationSession.sessionId, pinCode)
+        .handleRegistration(this.registrationSession.sessionId, pinCode, isMarketingAllowed)
         .pipe(finalize(() => (this.isRequestPending = false)))
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleCheckPinCodeStatus);
