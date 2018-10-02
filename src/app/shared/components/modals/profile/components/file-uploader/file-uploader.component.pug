@@ -34,9 +34,10 @@
     )
       .uploaded-files__preview(
         *ngIf="currentFile.fileInfo",
-        [@fadeInWithDelay]
+        [@fadeInWithDelay],
+        [ngClass]="currentFile.fileInfo.type"
       )
-        img.preview__img(src="{{ currentFile.fileInfo.previews[0] }}")
+        img.preview__img(*ngIf="currentFile.fileInfo.type !== 'pdf'", src="{{ currentFile.fileInfo.previews }}")
         .preview-info-container
           span.uploaded-files__file-name {{ createFileName(currentFile.fileInfo.name) }}
           span.icon.icon-trash((click)="removeFile(currentFile)")
