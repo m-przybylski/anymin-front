@@ -1,0 +1,23 @@
+plat-modal-component.payout-method(
+[modalTrTitleHeader]="'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.TITLE'",
+[modalContainerClass]="modalWidth"
+)
+
+  .payout-method__type-container
+    .payout-method__type-container--type(
+    [class.selected]="selectedPayoutMethodType === payoutMethods.BANK_ACCOUNT",
+    (click)="selectPayoutMethod(payoutMethods.BANK_ACCOUNT)"
+    )
+      span {{ 'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.TITLE' | translate }}
+
+    .payout-method__type-container--type(
+    [class.selected]="selectedPayoutMethodType === payoutMethods.PAYPAL",
+    (click)="selectPayoutMethod(payoutMethods.PAYPAL)"
+    )
+      span {{ 'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.PAYPAL.TITLE' | translate }}
+
+  ng-container(*ngIf="selectedPayoutMethodType === payoutMethods.BANK_ACCOUNT")
+    bank-account([getPayoutMethod]="getPayoutMethod")
+
+  ng-container(*ngIf="selectedPayoutMethodType === payoutMethods.PAYPAL")
+    paypal-account([getPayoutMethod]="getPayoutMethod")

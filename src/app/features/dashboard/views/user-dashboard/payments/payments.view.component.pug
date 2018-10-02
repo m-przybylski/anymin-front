@@ -1,1 +1,18 @@
-h1 Payments view
+.payments
+  .payments__header
+    span {{ 'DASHBOARD.PAYMENTS.TITLE' | translate }}
+
+  .payments__container
+    plat-setting-option(
+    [title]="'DASHBOARD.PAYMENTS.INVOICE.TITLE'",
+    [description]="'DASHBOARD.PAYMENTS.INVOICE.DESCRIPTION'"
+    )
+      button.button.button--small.button--tertiary((click)="openInvoiceModal()")
+        span {{ 'DASHBOARD.PAYMENTS.BUTTON.CHANGE' | translate }}
+
+    plat-setting-option(
+    [title]="'DASHBOARD.PAYMENTS.PAYOUTS.TITLE'",
+    [description]="'DASHBOARD.PAYMENTS.PAYOUTS.DESCRIPTION'",
+    )
+      button.button.button--small.button--tertiary((click)="openPayoutMethod()")
+        span {{ 'DASHBOARD.PAYMENTS.BUTTON.CHANGE' | translate }}

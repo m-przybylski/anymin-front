@@ -8,18 +8,13 @@ import { ChangePasswordComponent } from '@platform/features/dashboard/views/user
 import { EmailConfirmationComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
 import { SetNewPasswordComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/password-settings/set-new-password/set-new-password.component';
 import { PinVerificationComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/pin-verification/pin-verification.component';
-import { SettingOptionComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component';
 import { ModalsModule } from '@platform/shared/components/modals/modals.module';
 import { ChangeMsisdnComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/msisdn-settings/change-msisdn/change-msisdn.component';
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ModalsModule,
-    InputsModule
-  ],
+  imports: [CommonModule, ModalsModule, InputsModule],
   exports: [
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
@@ -29,9 +24,8 @@ import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/use
     EmailConfirmationComponent,
     SetNewPasswordComponent,
     PinVerificationComponent,
-    SettingOptionComponent,
     ChangeMsisdnComponent,
-    ChangeAnonymityComponent
+    ChangeAnonymityComponent,
   ],
   declarations: [
     ChangeEmailViewComponent,
@@ -42,17 +36,15 @@ import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/use
     EmailConfirmationComponent,
     SetNewPasswordComponent,
     PinVerificationComponent,
-    SettingOptionComponent,
     ChangeMsisdnComponent,
-    ChangeAnonymityComponent
+    ChangeAnonymityComponent,
   ],
   providers: [],
   entryComponents: [
     MsisdnSettingsViewComponent,
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
-    PasswordSettingsViewComponent
-  ]
+    PasswordSettingsViewComponent,
+  ],
 })
-
 export class SettingsComponentsModule {}

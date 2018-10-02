@@ -1,0 +1,24 @@
+form(
+[formGroup]="changeBankAccountForm",
+novalidate,
+(ngSubmit)="onFormSubmit(changeBankAccountForm)"
+)
+
+  am-core-custom-input-numeric(
+  [inputType]="'tel'",
+  [inputMask]="'99 9999 9999 9999 9999 9999 9999'",
+  [isDisabled]="isPending",
+  [label]="'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.INPUT.LABEL'",
+  [placeholder]="'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.INPUT.PLACEHOLDER'",
+  [form]="changeBankAccountForm",
+  [isRequired]="true",
+  [controlName]="bankAccountControlName",
+  [errorTextKey]="'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.INPUT.ERROR'",
+  )
+
+  am-core-submit-button(
+  titleText="DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.SUBMIT_BUTTON",
+  [isLoading]="isPending"
+  )
+
+

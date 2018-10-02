@@ -5,24 +5,24 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SettingsComponentsModule } from '@platform/features/dashboard/views/user-dashboard/settings/components/settings.components.module';
 import { RouterModule } from '@angular/router';
 import { SettingsViewComponent } from './settings.view.component';
+import { SharedModule } from '@platform/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
-        component: SettingsViewComponent
-      }
-      ]),
+        component: SettingsViewComponent,
+      },
+    ]),
     TranslateModule,
     AnymindComponentsModule,
-    SettingsComponentsModule
+    SettingsComponentsModule,
   ],
   exports: [],
   providers: [],
   declarations: [SettingsViewComponent],
 })
-
-export class SettingsModule {
-}
+export class SettingsModule {}
