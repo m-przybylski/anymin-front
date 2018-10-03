@@ -42,69 +42,82 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
   private userPhoneNumber?: string;
   public static $inject = ['CommonSettingsService', 'userService', 'modalsService', 'logger'];
 
-  constructor(private CommonSettingsService: CommonSettingsService,
-              private userService: UserService,
-              private modalsService: ModalsService,
-              private logger: LoggerService) {
+  constructor(
+    private CommonSettingsService: CommonSettingsService,
+    private userService: UserService,
+    private modalsService: ModalsService,
+    private logger: LoggerService,
+  ) {
     this.assignValidationValues();
   }
 
   public $onInit(): void {
-    this.userService.getUser().then(account => {
-      this.userEmail = account.email;
-      this.userPhoneNumber = account.msisdn;
-    }, (error) => {
-      this.logger.error(error);
-    });
+    this.userService.getUser().then(
+      account => {
+        this.userEmail = account.email;
+        this.userPhoneNumber = account.msisdn;
+      },
+      error => {
+        this.logger.error(error);
+      },
+    );
   }
 
   public onChange = (): void => {
     this.isValidEmployee = false;
     this.isInputValueInvalid = false;
-  }
+  };
 
   private getPrefixPhoneNumber = (phoneNumber: string): string => {
     if (phoneNumber.indexOf(InputConsultationEmployeeComponentController.defaultCountryPrefix) !== -1) {
-      return phoneNumber.replace(InputConsultationEmployeeComponentController.defaultCountryPrefix,
-        InputConsultationEmployeeComponentController.defaultCountryPrefix + ' ');
+      return phoneNumber.replace(
+        InputConsultationEmployeeComponentController.defaultCountryPrefix,
+        InputConsultationEmployeeComponentController.defaultCountryPrefix + ' ',
+      );
     } else {
       return InputConsultationEmployeeComponentController.defaultCountryPrefix + ' ' + phoneNumber;
     }
-  }
+  };
 
-  private deleteIncorrectPhoneSigns = (inputValue: string): string =>
-    inputValue.replace(/ /g, '').replace(/-/g, '')
+  private deleteIncorrectPhoneSigns = (inputValue: string): string => inputValue.replace(/ /g, '').replace(/-/g, '');
 
-  private isValidPhoneNumber = (inputValue: string): boolean =>
-    inputValue.length > 0 && this.phonePattern.test(inputValue)
+  private isValidPhoneNumber = (inputValue: string): boolean => {
+    const minPhoneNumberLength = 9;
+    return inputValue.length >= minPhoneNumberLength && phoneNumbers.isValidNumber(inputValue, 'PL');
+  };
 
   private isValidEmailAddress = (inputValue?: string): boolean =>
-    inputValue && inputValue.length > 0 ? this.mailRegexp.test(inputValue) : false
+    inputValue && inputValue.length > 0 ? this.mailRegexp.test(inputValue) : false;
 
   public isEmployeeExist = (inputValue?: string): boolean =>
-    inputValue ? this.addedItemsList.indexOf(inputValue) !== -1 : false
+    inputValue ? this.addedItemsList.indexOf(inputValue) !== -1 : false;
 
   // tslint:disable-next-line:cyclomatic-complexity
   public onEnter = (inputValue?: string): void => {
     this.isValidEmployee = this.isEmployeeExist(inputValue);
 
-    if (inputValue && phoneNumbers.isValidNumber(inputValue, 'PL') && !this.isPhoneNumberBelongsToUser(inputValue)) {
+    if (
+      inputValue &&
+      phoneNumbers.isValidNumber(inputValue, 'PL') &&
+      this.isValidPhoneNumber(inputValue) &&
+      !this.isPhoneNumberBelongsToUser(inputValue)
+    ) {
       const correctValue = this.getFullPhoneNumber(inputValue);
-      if (this.isValidPhoneNumber(correctValue) && !this.isMaxInvitationsCountReached())
-        this.addEmployee(correctValue);
-    }
-    else if (inputValue && this.isValidEmailAddress(inputValue) && !this.isMaxInvitationsCountReached()
-      && !this.isEmailBelongsToUser(inputValue)) {
+      if (this.isValidPhoneNumber(correctValue) && !this.isMaxInvitationsCountReached()) this.addEmployee(correctValue);
+    } else if (
+      inputValue &&
+      this.isValidEmailAddress(inputValue) &&
+      !this.isMaxInvitationsCountReached() &&
+      !this.isEmailBelongsToUser(inputValue)
+    ) {
       this.addEmployee(inputValue);
-    }
-    else if (this.isMaxInvitationsCountReached()) {
+    } else if (this.isMaxInvitationsCountReached()) {
       this.isMaxConsultationCountError = true;
-    }
-    else {
+    } else {
       this.isInputValueInvalid = true;
       this.isValidEmployee = false;
     }
-  }
+  };
 
   private addEmployee = (contactValue: string): void => {
     if (!this.isEmployeeExist(contactValue)) {
@@ -115,19 +128,19 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
       this.isValidEmployee = true;
     }
     this.isInputValueInvalid = false;
-  }
+  };
 
   private getFullPhoneNumber = (inputValue: string): string =>
-    this.getPrefixPhoneNumber(this.deleteIncorrectPhoneSigns(inputValue))
+    this.getPrefixPhoneNumber(this.deleteIncorrectPhoneSigns(inputValue));
 
   public deleteSelectedItem = (index: number): void => {
     this.addedItemsList.splice(index, 1);
     this.isMaxConsultationCountError = this.areInvitationsExceedValidLimit();
-  }
+  };
 
   public onFocus = (): void => {
     this.isFocus = true;
-  }
+  };
 
   public onBlur = (): void => {
     this.isDirty = true;
@@ -135,7 +148,7 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     this.isInputValueInvalid = false;
     this.isValidEmployee = false;
     this.isMaxConsultationCountError = false;
-  }
+  };
 
   public uploadCSVFile = (files: FileList): void => {
     const file = files[0];
@@ -144,12 +157,12 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
         complete: (result: ParseResult): void => {
           const loadedNumber = this.onLoadFile(result.data);
           this.showCSVstatus(loadedNumber, result.errors);
-        }
+        },
       });
     } else {
       this.logger.error('InputConsultationEmployeeComponentController: csv upload - file is undefined');
     }
-  }
+  };
 
   private showCSVstatus = (loadedNumber: number, errors: ParseError[]): void => {
     this.modalsService.createInfoAlertModal(`Liczba załadowanych rekordów: ${loadedNumber}`, () => {
@@ -157,20 +170,21 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
         this.modalsService.createInfoAlertModal('Błąd! Format pliku jest niepoprawny');
       }
     });
-  }
+  };
 
   private isEmailBelongsToUser = (email: string): boolean => this.userEmail === email;
 
   private isPhoneNumberBelongsToUser = (phoneNumber: string): boolean =>
-    this.userPhoneNumber === InputConsultationEmployeeComponentController.defaultCountryPrefix + phoneNumber
+    this.userPhoneNumber === InputConsultationEmployeeComponentController.defaultCountryPrefix + phoneNumber;
 
   private onLoadFile = (csv: string[][]): number => {
-    const emailsOrMsisdns = flatten(csv).filter(str => str.length > 0).map(str => str.replace(/\s/g, ''));
+    const emailsOrMsisdns = flatten(csv)
+      .filter(str => str.length > 0)
+      .map(str => str.replace(/\s/g, ''));
     this.logger.debug(emailsOrMsisdns);
 
     let loadedCount = 0;
-    emailsOrMsisdns.forEach((emailOrMsisdn) => {
-
+    emailsOrMsisdns.forEach(emailOrMsisdn => {
       if (this.addedItemsList.indexOf(emailOrMsisdn) === -1 && this.mailRegexp.test(emailOrMsisdn)) {
         this.logger.debug(`Recognized ${emailOrMsisdn} as email`);
         loadedCount += 1;
@@ -184,14 +198,14 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
             this.addedItemsList.push(arrayNumber);
           }
         } catch (e) {
-            this.logger.debug(`Not recognized ${emailOrMsisdn}`);
+          this.logger.debug(`Not recognized ${emailOrMsisdn}`);
         }
       }
     });
 
     this.isMaxConsultationCountError = this.areInvitationsExceedValidLimit();
     return loadedCount;
-  }
+  };
 
   private getNumberWithoutPolishPrefix = (phonenumber: string): string => {
     // tslint:disable:no-magic-numbers
@@ -204,18 +218,18 @@ export class InputConsultationEmployeeComponentController implements IInputConsu
     } else {
       return phonenumber;
     }
-  }
+  };
 
   private isMaxInvitationsCountReached = (): boolean =>
-    this.addedItemsList.length >= this.consultationInvitationsMaxCount
+    this.addedItemsList.length >= this.consultationInvitationsMaxCount;
 
   private areInvitationsExceedValidLimit = (): boolean =>
-    this.addedItemsList.length > this.consultationInvitationsMaxCount
+    this.addedItemsList.length > this.consultationInvitationsMaxCount;
 
   private assignValidationValues = (): void => {
     const localSettings = this.CommonSettingsService.localSettings;
     this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount;
     this.mailRegexp = localSettings.emailPattern;
     this.phonePattern = localSettings.phonePattern;
-  }
+  };
 }
