@@ -10,6 +10,14 @@ describe('ConsultationFooterResolver', () => {
     expect(ConsultationFooterResolver.resolve(userId)).toEqual(ConsultationFooterUserComponent);
   });
 
+  it('should return ConsultationFooterUserComponent when user is not looged', () => {
+    const userId = 'arturek';
+    const expertId = 'nie.arturek';
+    const expertListId = ['nie.arturek'] as ReadonlyArray<string>;
+
+    expect(ConsultationFooterResolver.resolve(userId, expertId, expertListId)).toEqual(ConsultationFooterUserComponent);
+  });
+
   it('should return ConsultationFooterMultipleExpertComponent for logged user but no expertId provided', () => {
     const userId = 'arturek';
     const expertId = undefined;

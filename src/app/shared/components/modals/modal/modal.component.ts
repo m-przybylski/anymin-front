@@ -38,9 +38,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public isCloseButtonVisible = true;
 
-  @Input()
-  public hasFooter = false;
-
   @ViewChild(ModalAnimationComponentDirective)
   public onPendingRequest: ModalAnimationComponentDirective;
 

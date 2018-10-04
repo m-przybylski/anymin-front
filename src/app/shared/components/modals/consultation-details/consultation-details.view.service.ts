@@ -115,7 +115,7 @@ export class ConsultationDetailsViewService extends Logger {
   public editConsultation = (serviceId: string, modal: NgbActiveModal): void => {
     modal.close(serviceId);
   };
-  public removeConsultation = (serviceId: string, modal: NgbActiveModal): void => {
+  public deleteConsultation = (serviceId: string, modal: NgbActiveModal): void => {
     this.serviceService
       .deleteServiceRoute(serviceId)
       .pipe(
@@ -156,9 +156,6 @@ export class ConsultationDetailsViewService extends Logger {
     // TODO: implement functionality
   };
 
-  public deleteConsultation = (): void => {
-    // TODO: delete implementation
-  };
   public getExpertAvailability = (expertId: string): Observable<boolean> =>
     this.expertAvailabilityService.getExpertPresence(expertId).pipe(
       take(1),

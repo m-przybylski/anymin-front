@@ -8,6 +8,7 @@ const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-mini-flat-fab',
   'plat-flat-fab',
   'plat-flat',
+  'plat-button',
   'plat-button-link',
   'plat-large-icon-button',
 ];

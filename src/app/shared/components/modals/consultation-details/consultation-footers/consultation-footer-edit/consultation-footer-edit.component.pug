@@ -15,7 +15,11 @@ plat-consultation-footer
         [organizationPrice]='organizationPrice')
   //right part of the screen
   .consultation-footer__right
-    a((click)='onLeave()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.LEAVE" | translate}}
+    a.consultation-footer__right-button((click)='onDelete()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.REMOVE" | translate}}
+    a.consultation-footer__right-button((click)='onEdit()', plat-button color='primary') {{"CONSULTATION_DETAILS.FOOTER.EDIT" | translate}}
   //right panel on the screen on mobile
-  .consultation-footer__right--mobile([ngSwitch]='rightPanel')
-    a((click)='onLeave()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.LEAVE" | translate}}
+  .consultation-footer__right--mobile
+    a.consultation-footer__right-button((click)='onDelete()', plat-icon-button color='secondary')
+      span(plat-icon iconClass='clear')
+    a.consultation-footer__right-button((click)='onEdit()', plat-flat-fab color='primary')
+      span(plat-icon iconClass='stroke-edit')

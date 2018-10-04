@@ -35,7 +35,7 @@ export class ConsultationFooterResolver {
         return ConsultationFooterEditComponent;
       }
 
-      return undefined;
+      return ConsultationFooterUserComponent;
     }
 
     return undefined;
