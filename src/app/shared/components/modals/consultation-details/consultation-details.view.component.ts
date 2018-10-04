@@ -1,19 +1,19 @@
+// tslint:disable:max-file-line-count
 import {
   Component,
-  Input,
   OnInit,
   ViewChild,
   ViewContainerRef,
   Injector,
   OnDestroy,
   ComponentRef,
-  ComponentFactoryResolver,
+  ComponentFactoryResolver, Input,
 } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
-import { take, takeUntil } from 'rxjs/operators';
+import { filter, take, takeUntil } from 'rxjs/operators';
 import { forkJoin, Subject } from 'rxjs';
-import { EmploymentWithService, GetComment } from '@anymind-ng/api';
+import { EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
@@ -25,6 +25,9 @@ import {
 } from './consultation-footers/consultation-footer-helpers';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConsultationFooterResolver } from './consultation-footers/consultation-footer.resolver';
+import { ICreateEditConsultationPayload } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
+import { ServiceWithOwnerProfile } from '@anymind-ng/api/model/serviceWithOwnerProfile';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 
 @Component({
   selector: 'plat-consultation-details-view',
@@ -57,6 +60,9 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   public isOwner: boolean;
 
   @Input()
+  public userType: UserTypeEnum;
+
+  @Input()
   public serviceId: string;
 
   @Input()
@@ -66,6 +72,9 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   private viewContainerRef: ViewContainerRef;
   private destroyed$ = new Subject<void>();
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
+  private editConsultationPayload: ICreateEditConsultationPayload;
+  private isCompany: boolean;
+
   constructor(
     private store: Store<fromCore.IState>,
     private consultationDetailsViewService: ConsultationDetailsViewService,
@@ -73,7 +82,15 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     private activeModal: NgbActiveModal,
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
-  ) {}
+  ) {
+    this.store.pipe(
+      select(fromCore.getSessionAndUserType),
+      filter(({getSession}) => typeof getSession !== 'undefined'),
+      ).subscribe(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
+        this.isCompany = getSession.isCompany;
+        this.userType = this.userType || getUserType;
+    });
+  }
 
   public ngOnInit(): void {
     forkJoin(
@@ -90,6 +107,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       }
       this.tagList = tags;
       this.assignExpertConsultationDetails(getServiceDetails);
+      this.assignEditConsultationPayload(getServiceDetails.getServiceWithEmployees.serviceDetails);
       this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable);
     });
   }
@@ -148,11 +166,13 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     expertProfileViewDetails,
     getServiceWithEmployees,
     getComments,
+    employmentId
   }: IConsultationDetails): void => {
     const maxCommentsForInitialLoad = 3;
     this.serviceName = getServiceWithEmployees.serviceDetails.name;
     this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
     this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
+    this.employmentId = employmentId;
 
     if (expertDetails.profile.organizationDetails !== undefined) {
       this.companyName = expertDetails.profile.organizationDetails.name;
@@ -182,15 +202,18 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       this.ratingCounter = employmentWithService.ratingCounter;
     }
   };
+
   private attachFooter(
     userId: string,
     getServiceDetails: IConsultationDetails,
     expertIsAvailable: boolean,
   ): ComponentRef<IFooterOutput> | undefined {
     const component = ConsultationFooterResolver.resolve(
+      this.userType,
+      this.isCompany,
       this.accountId,
       getServiceDetails.expertDetails.profile.id,
-      getServiceDetails.expertIds,
+      getServiceDetails.expertIds
     );
     if (component) {
       const footerComponent = this.viewContainerRef.createComponent(
@@ -209,7 +232,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
         this.consultationDetailsViewService[value].call(
           this.consultationDetailsViewService,
-          ...[this.serviceId, this.activeModal, this.employmentId],
+          ...[this.serviceId, this.activeModal, this.employmentId, this.editConsultationPayload],
         );
       });
 
@@ -218,4 +241,15 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
 
     return undefined;
   }
+
+  private assignEditConsultationPayload = (serviceDetails: ServiceWithOwnerProfile): void => {
+    this.editConsultationPayload = {
+      isExpertConsultation: this.isExpertConsultation(serviceDetails),
+      serviceDetails,
+      tags: this.tagList,
+    };
+  };
+
+  private isExpertConsultation = (serviceDetails: ServiceWithOwnerProfile): boolean =>
+    typeof serviceDetails.ownerProfile.organizationDetails === 'undefined';
 }

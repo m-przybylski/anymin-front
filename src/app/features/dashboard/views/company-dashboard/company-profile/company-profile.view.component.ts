@@ -4,9 +4,15 @@ import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { ServiceWithEmployments } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
-import { CreateOrganizationModalComponent } from '../../../../../shared/components/modals/profile/create-organization/create-organization.component';
-import { CreateCompanyConsultationModalComponent } from '../../../../../shared/components/modals/create-company-consultation/create-company-consultation.component';
+import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
+import {
+  CreateEditConsultationModalComponent,
+  ICreateEditConsultationPayload,
+} from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
 import { OrganizationProfile } from './services/company-profile-resolver.service';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 
 @Component({
   templateUrl: 'company-profile.view.component.html',
@@ -21,8 +27,11 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   public consultations: ReadonlyArray<ServiceWithEmployments>;
   public links: ReadonlyArray<string>;
 
-  constructor(protected route: ActivatedRoute, injector: Injector) {
+  private logger: LoggerService;
+
+  constructor(protected route: ActivatedRoute, protected injector: Injector, loggerFactory: LoggerFactory) {
     super(injector);
+    this.logger = loggerFactory.createLoggerService('CompanyProfileComponent');
     this.route.data
       .pipe(
         takeUntil(this.destroyed$),
@@ -48,7 +57,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    */
   public editProfile = async (): Promise<void> => {
     const changed: boolean | undefined = await this.openModalResult(CreateOrganizationModalComponent);
-    this.realoadIfNeeded(changed);
+    this.reloadIfNeeded(changed);
   };
 
   /**
@@ -56,7 +65,25 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * this opens modal
    */
   public addConsultation = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModalResult(CreateCompanyConsultationModalComponent);
-    this.realoadIfNeeded(changed);
+    const payload: ICreateEditConsultationPayload = {
+      isExpertConsultation: false,
+    };
+    const modalOptions: NgbModalOptions = {
+      injector: this.setupInjector(payload),
+    };
+    try {
+      const changed: boolean | undefined = await this.openModalResult(
+        CreateEditConsultationModalComponent,
+        modalOptions,
+      );
+      this.reloadIfNeeded(changed);
+    } catch (err) {
+      this.logger.error('Error when try to open modal result', err);
+
+      return;
+    }
   };
+
+  private setupInjector = (payload: ICreateEditConsultationPayload): Injector =>
+    Injector.create({providers: [{provide: CONSULTATIONDETAILS, useValue: payload}], parent: this.injector});
 }

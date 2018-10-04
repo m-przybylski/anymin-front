@@ -3,47 +3,76 @@ import { ConsultationFooterMultipleExpertComponent } from './consultation-footer
 import { ConsultationFooterUserComponent } from './consultation-footer-user/consultation-footer-user.component';
 import { ConsultationFooterLeaveComponent } from './consultation-footer-leave/consultation-footer-leave.component';
 import { ConsultationFooterEditComponent } from './consultation-footer-edit/consultation-footer-edit.component';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 
 describe('ConsultationFooterResolver', () => {
   it('should return ConsultationFooterUserComponent when user is not looged', () => {
+    const userType = UserTypeEnum.EXPERT;
     const userId = undefined;
-    expect(ConsultationFooterResolver.resolve(userId)).toEqual(ConsultationFooterUserComponent);
+    expect(ConsultationFooterResolver.resolve(userType, userId)).toEqual(ConsultationFooterUserComponent);
   });
 
   it('should return ConsultationFooterUserComponent when user is not looged', () => {
+    const userType = UserTypeEnum.EXPERT;
     const userId = 'arturek';
-    const expertId = 'nie.arturek';
+    const ownerId = 'nie.arturek';
     const expertListId = ['nie.arturek'] as ReadonlyArray<string>;
+    const isCompany = false;
 
-    expect(ConsultationFooterResolver.resolve(userId, expertId, expertListId)).toEqual(ConsultationFooterUserComponent);
+    expect(ConsultationFooterResolver.resolve(userType, isCompany, userId, ownerId, expertListId))
+      .toEqual(ConsultationFooterUserComponent);
   });
 
-  it('should return ConsultationFooterMultipleExpertComponent for logged user but no expertId provided', () => {
+  it('should return ConsultationFooterMultipleExpertComponent for logged user but not owner of service' +
+    'and there is more than one expert who provides service', () => {
+    const userType = UserTypeEnum.EXPERT;
     const userId = 'arturek';
-    const expertId = undefined;
-    expect(ConsultationFooterResolver.resolve(userId, expertId)).toEqual(ConsultationFooterMultipleExpertComponent);
+    const ownerId = 'księciunio';
+    const expertListId = ['arturek', 'macius'] as ReadonlyArray<string>;
+    const isCompany = false;
+    expect(ConsultationFooterResolver.resolve(userType, isCompany, userId, ownerId, expertListId))
+      .toEqual(ConsultationFooterMultipleExpertComponent);
   });
 
-  it('should return ConsultationFooterMultipleExpertComponent for logged user but no expertId provided', () => {
+  it('should return ConsultationFooterLeaveComponent for logged user who is owner of service' +
+    'and he checks consultation details as expert and he has company', () => {
+    const userType = UserTypeEnum.EXPERT;
     const userId = 'arturek';
-    const expertId = 'nie.arturek';
+    const ownerId = 'arturek';
     const expertListId = ['kubus', 'macius', 'mikolajek', 'januszek', 'arturek'] as ReadonlyArray<string>;
-    expect(ConsultationFooterResolver.resolve(userId, expertId, expertListId)).toEqual(
+    const isCompany = true;
+    expect(ConsultationFooterResolver.resolve(userType, isCompany, userId, ownerId, expertListId)).toEqual(
       ConsultationFooterLeaveComponent,
     );
   });
 
-  it('should return ConsultationFooterEditComponent for logged user which is an owner', () => {
+  it('should return ConsultationFooterLeaveComponent for logged user which is not an owner' +
+    'and he provides service in that consultation', () => {
     const userId = 'arturek';
-    const expertId = 'arturek';
+    const ownerId = 'not.arturek';
     const expertListId = ['arturek'] as ReadonlyArray<string>;
-    expect(ConsultationFooterResolver.resolve(userId, expertId, expertListId)).toEqual(ConsultationFooterEditComponent);
+    const userType = UserTypeEnum.EXPERT;
+    const isCompany = true;
+    expect(ConsultationFooterResolver.resolve(userType, isCompany, userId, ownerId, expertListId))
+      .toEqual(ConsultationFooterLeaveComponent);
+  });
+
+  it('should return ConsultationFooterEditComponent for logged user which is an owner', () => {
+    const userType = UserTypeEnum.EXPERT;
+    const userId = 'arturek';
+    const ownerId = 'arturek';
+    const expertListId = ['arturek'] as ReadonlyArray<string>;
+    const isCompany = false;
+    expect(ConsultationFooterResolver.resolve(userType, isCompany, userId, ownerId, expertListId))
+      .toEqual(ConsultationFooterEditComponent);
   });
 
   it('should return undefined for logged user an no list is provided', () => {
+    const userType = UserTypeEnum.EXPERT;
     const userId = 'arturek';
-    const expertId = 'nie.arturek';
+    const ownerId = 'nie.arturek';
     const expertListId = undefined;
-    expect(ConsultationFooterResolver.resolve(userId, expertId, expertListId)).toEqual(undefined);
+    const isCompany = false;
+    expect(ConsultationFooterResolver.resolve(userType, isCompany, userId, ownerId, expertListId)).toEqual(undefined);
   });
 });

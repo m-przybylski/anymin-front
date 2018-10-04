@@ -68,7 +68,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.modalAnimationComponentService.isPendingRequest().next(false);
+    this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
   public ngOnInit(): void {

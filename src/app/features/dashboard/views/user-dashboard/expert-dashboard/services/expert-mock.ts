@@ -109,6 +109,7 @@ export const expertProfileViewResult: IExpertCompanyDashboardResolverData<Expert
   profile: expertProfileView,
   isOwnProfile: false,
   isLogged: true,
+  isCompany: false
 };
 
 export const expertProfileView1: ExpertProfileView = {
@@ -273,4 +274,5 @@ export const expertProfileViewResult1: IExpertCompanyDashboardResolverData<Exper
   },
   isOwnProfile: false,
   isLogged: true,
+  isCompany: false
 };

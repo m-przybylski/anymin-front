@@ -31,7 +31,7 @@ describe('CompanyProfileResolverService', () => {
 
   it('should make return resolved data', fakeAsync(() => {
     // prepare data
-    const getSession = Promise.resolve({ account: { id: '123' } });
+    const getSession = Promise.resolve({ isCompany: true, account: { id: '123' } });
     const organizationView = cold('-a|', { a: Mocks.organizationProfileView });
     const profile = cold('-a|', { a: Mocks.profileWithDocuments });
 
@@ -47,7 +47,7 @@ describe('CompanyProfileResolverService', () => {
 
   it('should make return resolved and filtered data', fakeAsync(() => {
     // prepare data
-    const getSession = Promise.resolve({ account: { id: '123' } });
+    const getSession = Promise.resolve({ isCompany: true, account: { id: '123' } });
     const organizationView = cold('-a|', { a: Mocks.organizationProfileView1 });
     const profile = cold('-a|', { a: Mocks.profileWithDocuments });
 

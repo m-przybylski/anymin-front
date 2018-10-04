@@ -30,7 +30,7 @@ describe('ExpertDashboardResolverService', () => {
 
   it('should make return resolved data', fakeAsync(() => {
     // prepare data
-    const getSession = Promise.resolve({ account: { id: '123' } });
+    const getSession = Promise.resolve({ isCompany: false, account: { id: '123' } });
     const expertView = cold('-a|', { a: Mocks.expertProfileView });
 
     // mock functoins
@@ -45,7 +45,7 @@ describe('ExpertDashboardResolverService', () => {
 
   it('should make return resolved and filtered data', fakeAsync(() => {
     // prepare data
-    const getSession = Promise.resolve({ account: { id: '123' } });
+    const getSession = Promise.resolve({ isCompany: false, account: { id: '123' } });
     const expertView = cold('-a|', { a: Mocks.expertProfileView1 });
 
     // mock functoins

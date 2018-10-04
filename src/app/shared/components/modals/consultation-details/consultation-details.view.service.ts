@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {
   EmploymentService,
   ProfileService,
@@ -14,7 +14,7 @@ import {
 } from '@anymind-ng/api';
 import { Observable, forkJoin, of, EMPTY } from 'rxjs';
 import { map, switchMap, filter, catchError, take, tap } from 'rxjs/operators';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
@@ -22,6 +22,12 @@ import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { AuthActions } from '@platform/core/actions';
 import { ConfirmationService } from '../confirmation/confirmation.service';
+import {
+  CreateEditConsultationModalComponent,
+  ICreateEditConsultationPayload,
+} from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
+import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class ConsultationDetailsViewService extends Logger {
@@ -36,6 +42,10 @@ export class ConsultationDetailsViewService extends Logger {
     private expertAvailabilityService: ExpertAvailabilityService,
     private store: Store<fromCore.IState>,
     private confirmationService: ConfirmationService,
+    private injector: Injector,
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
@@ -57,7 +67,7 @@ export class ConsultationDetailsViewService extends Logger {
           forkJoin(
             this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
             this.viewsService.getWebExpertProfileRoute(employeeId),
-            this.getComments(this.pluckEmployeeId(getServiceWithEmployees, serviceId)),
+            this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId)),
             this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
             this.financesService.getClientBalanceRoute().pipe(
               catchError(() =>
@@ -77,6 +87,7 @@ export class ConsultationDetailsViewService extends Logger {
                 expertDetails,
                 expertProfileViewDetails,
                 getServiceWithEmployees,
+                employmentId: this.pluckEmploymentId(getServiceWithEmployees, serviceId),
                 expertIds: getServiceWithEmployees.employeesDetails.map(
                   employeesDetails => employeesDetails.employeeProfile.id,
                 ),
@@ -118,10 +129,27 @@ export class ConsultationDetailsViewService extends Logger {
     commentsList: ReadonlyArray<GetComment>,
     commentsConsultation: ReadonlyArray<GetComment>,
   ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
-  public editConsultation = (serviceId: string, modal: NgbActiveModal): void => {
+
+  public editConsultation = (
+    serviceId: string,
+    modal: NgbActiveModal,
+    _: string,
+    consultationPayload: ICreateEditConsultationPayload,
+  ): void => {
+    const modalOptions: NgbModalOptions = {
+      injector: this.setupInjector(consultationPayload),
+    };
+    this.modalService
+      .open(CreateEditConsultationModalComponent, modalOptions)
+      .result.then(() => {
+        void this.router.navigate(this.route.snapshot.url.map(url => url.toString()), {
+          relativeTo: this.route.parent,
+        });
+      })
+      .catch(() => this.loggerService.debug('CreateEditConsultationModal closed without changes'));
     modal.close(serviceId);
-    // TODO: implement logic
   };
+
   public deleteConsultation = (serviceId: string, modal: NgbActiveModal): void => {
     this.confirmationService
       .confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE')
@@ -193,19 +221,22 @@ export class ConsultationDetailsViewService extends Logger {
   public getComments = (employmentId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
     this.employmentService.getEmploymentCommentsRoute(employmentId, limit, offset);
 
-  private pluckEmployeeId = (getServiceWithEmployees: GetServiceWithEmployees, serviceId: string): string => {
+  private pluckEmploymentId = (getServiceWithEmployees: GetServiceWithEmployees, serviceId: string): string => {
     const employeeDetail = getServiceWithEmployees.employeesDetails.find(
       employeesDetail => employeesDetail.serviceId === serviceId,
     );
 
     return employeeDetail ? employeeDetail.id : '';
   };
+  private setupInjector = (payload: ICreateEditConsultationPayload): Injector =>
+    Injector.create({ providers: [{ provide: CONSULTATIONDETAILS, useValue: payload }], parent: this.injector });
 }
 
 export interface IConsultationDetails {
   expertDetails: GetProfileWithDocuments;
   expertProfileViewDetails: ExpertProfileView;
   getServiceWithEmployees: GetServiceWithEmployees;
+  employmentId: string;
   expertIds: ReadonlyArray<string>;
   payment: DefaultCreditCard;
   balance: { amount: number; currency: string };
