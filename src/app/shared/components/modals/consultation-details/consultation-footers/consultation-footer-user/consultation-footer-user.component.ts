@@ -33,11 +33,11 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public get isExpertAvailable(): boolean {
-    return this.data.isExpertAvailable;
+    return this.data.userId === undefined || this.data.isExpertAvailable;
   }
 
   public get middlePanel(): MiddlePanelStatusTypes {
-    if (this.data.expertsIdList.length) {
+    if (this.data.expertsIdList.length > 1) {
       return MiddlePanelStatusTypes.pickExpert;
     }
 

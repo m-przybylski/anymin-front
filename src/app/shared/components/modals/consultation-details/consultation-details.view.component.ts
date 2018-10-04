@@ -207,11 +207,10 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
         }),
       );
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
-        this.consultationDetailsViewService[value].call(this.consultationDetailsViewService, [
-          this.serviceId,
-          this.activeModal,
-          this.employmentId,
-        ]);
+        this.consultationDetailsViewService[value].call(
+          this.consultationDetailsViewService,
+          ...[this.serviceId, this.activeModal, this.employmentId],
+        );
       });
 
       return footerComponent;

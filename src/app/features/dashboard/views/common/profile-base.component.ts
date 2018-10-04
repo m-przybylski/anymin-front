@@ -37,9 +37,9 @@ export class ProfileBaseComponent implements OnDestroy {
     const set = new Set(
       employments
         .map(
-          employement =>
-            (employement.serviceDetails.ownerProfile.expertDetails &&
-              employement.serviceDetails.ownerProfile.expertDetails.links) ||
+          employment =>
+            (employment.serviceDetails.ownerProfile.expertDetails &&
+              employment.serviceDetails.ownerProfile.expertDetails.links) ||
             [],
         )
         .reduce((acc, cur) => acc.concat(cur), []),

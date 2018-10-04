@@ -13,11 +13,14 @@ import {
   FinancesService,
 } from '@anymind-ng/api';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap, filter, catchError, take } from 'rxjs/operators';
+import { map, switchMap, filter, catchError, take, tap } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { Store, select } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
+import { AuthActions } from '@platform/core/actions';
 
 @Injectable()
 export class ConsultationDetailsViewService extends Logger {
@@ -30,6 +33,7 @@ export class ConsultationDetailsViewService extends Logger {
     private financesService: FinancesService,
     private alertService: AlertService,
     private expertAvailabilityService: ExpertAvailabilityService,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
@@ -149,7 +153,20 @@ export class ConsultationDetailsViewService extends Logger {
         modal.close(serviceId);
       });
   };
-  public makeCall = (): void => {
+  public makeCall = (_: string, modal: NgbActiveModal): void => {
+    // check if user is logged. If not navigate to login page
+    modal.close();
+    this.store
+      .pipe(
+        select(fromCore.getLoggedIn),
+        tap(login => {
+          if (!login.isLoggedIn) {
+            this.store.dispatch(new AuthActions.LoginRedirectAction());
+          }
+        }),
+      )
+      .subscribe();
+
     // TODO: implement functionality
   };
   public notifyUser = (): void => {
@@ -161,8 +178,8 @@ export class ConsultationDetailsViewService extends Logger {
       take(1),
       map(status => status === 'available'),
     );
-  public getComments = (employementId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
-    this.employmentService.getEmploymentCommentsRoute(employementId, limit, offset);
+  public getComments = (employmentId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
+    this.employmentService.getEmploymentCommentsRoute(employmentId, limit, offset);
 
   private pluckEmployeeId = (getServiceWithEmployees: GetServiceWithEmployees, serviceId: string): string => {
     const employeeDetail = getServiceWithEmployees.employeesDetails.find(

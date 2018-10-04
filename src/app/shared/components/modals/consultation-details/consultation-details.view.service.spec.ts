@@ -19,9 +19,16 @@ import {
 import { AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { cold } from 'jasmine-marbles';
+import { TestBed, fakeAsync } from '@angular/core/testing';
+import { Store, StoreModule, combineReducers } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import * as fromCore from '@platform/core/reducers';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthActions } from '@platform/core/actions';
 
 describe('ConsultationDetailsViewService', () => {
   let consultationDetailsViewService: ConsultationDetailsViewService;
+  let store: Store<fromCore.IState>;
 
   const serviceService: ServiceService = Deceiver(ServiceService);
   const profileService: ProfileService = Deceiver(ProfileService);
@@ -36,6 +43,15 @@ describe('ConsultationDetailsViewService', () => {
   });
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          ...fromRoot.reducers,
+          core: combineReducers(fromCore.reducers),
+        }),
+      ],
+    });
+    store = TestBed.get(Store);
     consultationDetailsViewService = new ConsultationDetailsViewService(
       serviceService,
       profileService,
@@ -45,6 +61,7 @@ describe('ConsultationDetailsViewService', () => {
       financesService,
       alertService,
       expertAvailabilityService,
+      store,
       loggerFactory,
     );
   });
@@ -233,6 +250,7 @@ describe('ConsultationDetailsViewService', () => {
   });
 
   describe('addTemporaryComment', () => {
+    const dummyDate = new Date();
     it('should return new array', () => {
       const getComment: GetComment = {
         commentId: '1234',
@@ -248,9 +266,9 @@ describe('ConsultationDetailsViewService', () => {
         },
         answer: {
           content: 'asdf',
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
-        createdAt: new Date(),
+        createdAt: dummyDate,
       };
       const getComentList: GetComment[] = [
         {
@@ -265,7 +283,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
         {
           commentId: '1234',
@@ -279,7 +297,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
         {
           commentId: '123',
@@ -293,7 +311,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
       ];
       const getComentListResult: GetComment[] = [
@@ -309,7 +327,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
         {
           commentId: '1234',
@@ -325,9 +343,9 @@ describe('ConsultationDetailsViewService', () => {
           },
           answer: {
             content: 'asdf',
-            createdAt: new Date(),
+            createdAt: dummyDate,
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
         {
           commentId: '123',
@@ -341,7 +359,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
       ];
       const a = consultationDetailsViewService.addTemporaryComment(getComment, getComentList);
@@ -365,9 +383,9 @@ describe('ConsultationDetailsViewService', () => {
         },
         answer: {
           content: 'asdf',
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
-        createdAt: new Date(),
+        createdAt: dummyDate,
       };
       const getComentList: GetComment[] = [
         {
@@ -382,7 +400,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
         {
           commentId: '123',
@@ -396,7 +414,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
         {
           commentId: '123',
@@ -410,7 +428,7 @@ describe('ConsultationDetailsViewService', () => {
             clientId: '333',
             nickname: 'osom',
           },
-          createdAt: new Date(),
+          createdAt: dummyDate,
         },
       ];
       const a = consultationDetailsViewService.addTemporaryComment(getComment, getComentList);
@@ -418,5 +436,29 @@ describe('ConsultationDetailsViewService', () => {
       expect(a).toBe(getComentList);
       expect(a).toEqual(getComentList);
     });
+  });
+
+  describe('makeCall', () => {
+    const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('call') });
+    it('should redirect to login when user is not logged in', fakeAsync(() => {
+      // make sure user is not logged
+      store.dispatch(new AuthActions.LogoutSuccessAction());
+      // spy on dispatch action
+      const spy = spyOn(store, 'dispatch');
+      consultationDetailsViewService.makeCall('', modal);
+      expect(modal.close).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(new AuthActions.LoginRedirectAction());
+    }));
+
+    it('should redirect to login when user is not logged in', fakeAsync(() => {
+      // make sure user is not logged
+      const session = {} as any;
+      store.dispatch(new AuthActions.LoginSuccessAction(session));
+      // spy on dispatch action
+      const spy = spyOn(store, 'dispatch');
+      consultationDetailsViewService.makeCall('', modal);
+      expect(modal.close).toHaveBeenCalled();
+      expect(spy).not.toHaveBeenCalled();
+    }));
   });
 });

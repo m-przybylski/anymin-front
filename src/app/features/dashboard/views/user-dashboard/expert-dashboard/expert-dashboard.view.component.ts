@@ -47,16 +47,24 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public editProfile = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModalResult(CreateProfileModalComponent);
-    this.realoadIfNeeded(changed);
+    try {
+      const changed: boolean | undefined = await this.openModalResult(CreateProfileModalComponent);
+      this.realoadIfNeeded(changed);
+    } catch (result) {
+      return;
+    }
   };
   /**
    * callback when add consultation is triggered
    * this opens modal
    */
   public addConsultation = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModalResult(CreateExpertConsultationModalComponent);
-    this.realoadIfNeeded(changed);
+    try {
+      const changed: boolean | undefined = await this.openModalResult(CreateExpertConsultationModalComponent);
+      this.realoadIfNeeded(changed);
+    } catch (result) {
+      return;
+    }
   };
 
   /**
@@ -66,9 +74,13 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
     const modalRef = this.openModal(ConsultationDetailsViewComponent);
     modalRef.componentInstance.expertId = expertId;
     modalRef.componentInstance.serviceId = serviceId;
-    const closedServiceId: string | undefined = await modalRef.result;
-    if (closedServiceId === serviceId) {
-      this.reload();
+    try {
+      const closedServiceId: string | undefined = await modalRef.result;
+      if (closedServiceId === serviceId) {
+        this.reload();
+      }
+    } catch (result) {
+      return;
     }
   };
 }
