@@ -38,7 +38,7 @@ stage-deploy:
     name: staging
     url: https://stage.anymind.com
   before_script:
-    - kubectl config use-context admin-cluster.local
+    - kubectl config use-context gke_dev-country-188109_europe-west3-b_anymind-stage-eu
     - helm init --service-account default
     - cd gitlab-ci
   script:
