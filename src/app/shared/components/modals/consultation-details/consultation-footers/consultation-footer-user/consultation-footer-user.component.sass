@@ -2,49 +2,44 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
 @import '../.../../../../../../../template/core/partials/grid'
 
-.consultation-footer__price
-  &-wrapper
-    display: inline-block
-    margin: 0 0 24px 0
+.consultation-footer
+  &__left-price
+    padding: 10px 0
 
-    +smm
-      padding: 0 24px 0 0
-      margin: 0 24px 0 0
-      border-right: 1px solid rgba($c-white, 0.15)
+  &__price
+    &-money
+      +h4
+      font-weight: 300
 
-  &-money
-    +h4
-    font-weight: 300
+    &-currency
+      color: $c-half-white
 
-  &-currency
-    color: $c-half-white
+  &__text
+    display: inline-flex
+    align-items: center
+    padding: 0 10px 0 0
 
-.consultation-footer__text
-  display: inline-flex
-  align-items: center
-  padding: 0 10px 0 0
+    > span
+      margin: 0 12px 0 0
 
-  > span
-    margin: 0 12px 0 0
-
-  p
-    +caption
-
-    strong
-      font-weight: 700
-    a
+    p
       +caption
-      color: $c-white
-      margin: 0
-      font-weight: 700
-      display: block
 
-      +mdm
-        display: inline
+      strong
+        font-weight: 700
+      a
+        +caption
+        color: $c-white
+        margin: 0
+        font-weight: 700
+        display: block
 
-.consultation-footer__right
-  &-button
-    margin: 0 0 0 16px
+        +mdm
+          display: inline
 
-    &:nth-child(1)
-      margin: 0
+  &__right
+    &-button
+      margin: 0 0 0 16px
+
+      &:nth-child(1)
+        margin: 0

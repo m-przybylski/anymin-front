@@ -118,6 +118,7 @@ export class ConsultationDetailsViewService extends Logger {
   ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
   public editConsultation = (serviceId: string, modal: NgbActiveModal): void => {
     modal.close(serviceId);
+    // TODO: implement logic
   };
   public deleteConsultation = (serviceId: string, modal: NgbActiveModal): void => {
     this.serviceService
@@ -172,7 +173,6 @@ export class ConsultationDetailsViewService extends Logger {
   public notifyUser = (): void => {
     // TODO: implement functionality
   };
-
   public getExpertAvailability = (expertId: string): Observable<boolean> =>
     this.expertAvailabilityService.getExpertPresence(expertId).pipe(
       take(1),
