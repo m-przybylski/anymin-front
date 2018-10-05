@@ -137,9 +137,9 @@ export class ConsultationDetailsViewService extends Logger {
         modal.close(serviceId);
       });
   };
-  public leaveConsultation = (serviceId: string, modal: NgbActiveModal, employeementId: string): void => {
+  public leaveConsultation = (serviceId: string, modal: NgbActiveModal, employmentId: string): void => {
     this.employmentService
-      .deleteEmploymentRoute(employeementId)
+      .deleteEmploymentRoute(employmentId)
       .pipe(
         catchError(err => {
           this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
