@@ -1,14 +1,30 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  Injector,
+  OnDestroy,
+  ComponentRef,
+  ComponentFactoryResolver,
+} from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
 import { take, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { EmploymentWithService, GetComment, GetService } from '@anymind-ng/api';
-import { ExpertProfileView } from '@anymind-ng/api/model/expertProfileView';
+import { forkJoin, Subject } from 'rxjs';
+import { EmploymentWithService, GetComment } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import {
+  IConsultationFooterData,
+  CONSULTATION_FOOTER_DATA,
+  IFooterOutput,
+} from './consultation-footers/consultation-footer-helpers';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConsultationFooterResolver } from './consultation-footers/consultation-footer.resolver';
 
 @Component({
   selector: 'plat-consultation-details-view',
@@ -33,9 +49,9 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   public commentCounter: number;
   public ratingCounter: number;
   public commentsConsultation: ReadonlyArray<GetComment> = [];
-  public employeementId: string;
+  public employmentId: string;
   public ifMaxCommentsLengthReached = false;
-  public isCommentsRequestPending = true;
+  public isCommentsRequestPending = false;
   public isPending = true;
   public accountId: string;
   public isOwner: boolean;
@@ -46,43 +62,52 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   @Input()
   public expertId: string;
 
-  private ngUnsubscribe$ = new Subject<void>();
-
+  @ViewChild('footerContainer', { read: ViewContainerRef })
+  private viewContainerRef: ViewContainerRef;
+  private destroyed$ = new Subject<void>();
+  private footerComponent: ComponentRef<IFooterOutput> | undefined;
   constructor(
     private store: Store<fromCore.IState>,
     private consultationDetailsViewService: ConsultationDetailsViewService,
     private modalAnimationComponentService: ModalAnimationComponentService,
+    private activeModal: NgbActiveModal,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private injector: Injector,
   ) {}
 
-  public ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-  }
-
   public ngOnInit(): void {
-    this.store
-      .pipe(
+    forkJoin(
+      this.store.pipe(
         select(fromCore.getSession),
         take(1),
-      )
-      .subscribe(session => {
-        if (typeof session !== 'undefined') {
-          this.accountId = session.account.id;
-        }
-      });
-
-    this.consultationDetailsViewService.getServicesTagList(this.serviceId).subscribe(tags => (this.tagList = tags));
-
-    this.consultationDetailsViewService
-      .getServiceDetails(this.serviceId, this.expertId)
-      .subscribe(response => this.assignExpertConsultationDetails(response));
+      ),
+      this.consultationDetailsViewService.getServicesTagList(this.serviceId),
+      this.consultationDetailsViewService.getServiceDetails(this.serviceId, this.expertId),
+      this.consultationDetailsViewService.getExpertAvailability(this.expertId),
+    ).subscribe(([getSession, tags, getServiceDetails, expertIsAvailable]) => {
+      if (getSession !== undefined) {
+        this.accountId = getSession.account.id;
+      }
+      this.tagList = tags;
+      this.assignExpertConsultationDetails(getServiceDetails);
+      this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable);
+    });
   }
 
-  public onAddAnswer = (commentsList: GetComment): ReadonlyArray<GetComment> =>
-    (this.commentsConsultation = this.consultationDetailsViewService.addTemporaryComment(
-      commentsList,
+  public ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+    if (this.footerComponent) {
+      this.footerComponent.destroy();
+    }
+  }
+
+  public onAddAnswer = (comment: GetComment): void => {
+    this.commentsConsultation = this.consultationDetailsViewService.addTemporaryComment(
+      comment,
       this.commentsConsultation,
-    ));
+    );
+  };
 
   public onLoadMoreComments = (): void => {
     const commentOffset = this.commentsConsultation.length;
@@ -90,8 +115,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     this.isCommentsRequestPending = true;
 
     this.consultationDetailsViewService
-      .getComments(this.employeementId, commentLimitLength.toString(), commentOffset.toString())
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .getComments(this.employmentId, commentLimitLength.toString(), commentOffset.toString())
       .subscribe((commentsList: ReadonlyArray<GetComment>) => {
         this.ifMaxCommentsLengthReached = commentsList.length < commentLimitLength;
         this.isCommentsRequestPending = false;
@@ -102,18 +126,34 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       });
   };
 
-  private assignServiceDetails = (serviceDetails: GetService): void => {
-    this.serviceName = serviceDetails.name;
-    this.serviceDescription = serviceDetails.description;
-    this.registeredAt = serviceDetails.createdAt;
-  };
-
+  private buildFooterData = (
+    userId: string,
+    getServiceDetails: IConsultationDetails,
+    expertIsAvailable: boolean,
+  ): IConsultationFooterData => ({
+    userId,
+    ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
+    expertsIdList: getServiceDetails.expertIds,
+    isExpertAvailable: expertIsAvailable,
+    isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
+    defaultPayment: getServiceDetails.payment,
+    accountBalance: getServiceDetails.balance,
+    price: {
+      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.grossPrice,
+      price: getServiceDetails.getServiceWithEmployees.serviceDetails.netPrice,
+    },
+  });
   private assignExpertConsultationDetails = ({
     expertDetails,
     expertProfileViewDetails,
-    getService,
+    getServiceWithEmployees,
+    getComments,
   }: IConsultationDetails): void => {
-    this.assignServiceDetails(getService);
+    const maxCommentsForInitialLoad = 3;
+    this.serviceName = getServiceWithEmployees.serviceDetails.name;
+    this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
+    this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
+
     if (expertDetails.profile.organizationDetails !== undefined) {
       this.companyName = expertDetails.profile.organizationDetails.name;
       this.companyLogo = expertDetails.profile.organizationDetails.logo;
@@ -126,39 +166,56 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     this.modalAnimationComponentService.onModalContentChange().next(false);
     this.isPending = false;
 
-    this.assignExpertConsultationStatistics(expertProfileViewDetails);
-    this.getEmployeement(expertProfileViewDetails);
+    this.expertName = expertProfileViewDetails.expertProfile.name;
+    this.expertAvatar = expertProfileViewDetails.expertProfile.avatar;
+
+    const employmentWithService = expertProfileViewDetails.employments.find(
+      service => service.serviceDetails.id === this.serviceId,
+    );
+
+    this.commentsConsultation = getComments;
+    this.ifMaxCommentsLengthReached = getComments.length === maxCommentsForInitialLoad;
+
+    if (employmentWithService !== undefined) {
+      this.usageCounter = employmentWithService.usageCounter;
+      this.commentCounter = employmentWithService.commentCounter;
+      this.ratingCounter = employmentWithService.ratingCounter;
+    }
   };
+  private attachFooter(
+    userId: string,
+    getServiceDetails: IConsultationDetails,
+    expertIsAvailable: boolean,
+  ): ComponentRef<IFooterOutput> | undefined {
+    const component = ConsultationFooterResolver.resolve(
+      this.accountId,
+      getServiceDetails.expertDetails.profile.id,
+      getServiceDetails.expertIds,
+    );
+    if (component) {
+      const footerComponent = this.viewContainerRef.createComponent(
+        this.componentFactoryResolver.resolveComponentFactory(component),
+        undefined,
+        Injector.create({
+          providers: [
+            {
+              provide: CONSULTATION_FOOTER_DATA,
+              useValue: this.buildFooterData(userId, getServiceDetails, expertIsAvailable),
+            },
+          ],
+          parent: this.injector,
+        }),
+      );
+      footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
+        this.consultationDetailsViewService[value].call(
+          this.consultationDetailsViewService,
+          ...[this.serviceId, this.activeModal, this.employmentId],
+        );
+      });
 
-  private getEmployeement = (employementDetails: ExpertProfileView): void => {
-    const employeementId = employementDetails.employments.find(item => item.serviceDetails.id === this.serviceId);
-    employeementId ? (this.employeementId = employeementId.id) : (this.employeementId = '');
+      return footerComponent;
+    }
 
-    this.expertName = employementDetails.expertProfile.name;
-    this.expertAvatar = employementDetails.expertProfile.avatar;
-
-    this.isOwner = this.checkIsOwner();
-
-    this.getComments(this.employeementId);
-  };
-
-  private checkIsOwner = (): boolean => this.expertId === this.accountId;
-
-  private getComments = (employeementId: string): void => {
-    this.consultationDetailsViewService.getComments(employeementId).subscribe(commentsList => {
-      const commentLimitLength = 3;
-
-      this.isCommentsRequestPending = false;
-      this.ifMaxCommentsLengthReached = commentsList.length < commentLimitLength;
-      this.commentsConsultation = commentsList;
-    });
-  };
-
-  private assignExpertConsultationStatistics = (expertDetails: ExpertProfileView): void => {
-    const conusltation = expertDetails.employments.filter(service => service.serviceDetails.id === this.serviceId);
-
-    this.usageCounter = conusltation[0] && conusltation[0].usageCounter;
-    this.commentCounter = conusltation[0] && conusltation[0].commentCounter;
-    this.ratingCounter = conusltation[0] && conusltation[0].ratingCounter;
-  };
+    return undefined;
+  }
 }

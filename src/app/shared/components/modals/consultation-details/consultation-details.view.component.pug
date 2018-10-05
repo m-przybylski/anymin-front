@@ -35,3 +35,5 @@ plat-modal-component(
       .consultation-comments__actions(*ngIf="!ifMaxCommentsLengthReached")
         a.button.button--tertiary((click)="onLoadMoreComments()")
           span {{ "CONSULTATION_DETAILS.BUTTON.MORE.TITLE" | translate }}
+  .modal-component__footer
+    ng-container(#footerContainer)

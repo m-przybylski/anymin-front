@@ -3,23 +3,27 @@
 %display
   display: inline-block
 
-%outline-button
+@mixin outline-button($radius)
   @extend %display
   color: $c-text-primary
   border: solid 1px $c-placeholder
-  border-radius: 20px
+  border-radius: $radius
   background-color: transparent
 
 %button-padding
-  padding-top: 8px
-  padding-bottom: 8px
-  padding-left: 24px
-  padding-right: 24px
+  padding: 8px 24px
+
+%button-padding-large
+  padding: 16px 40px
 
 %font-size-14
   font-size: 14px
   line-height: 24px
   font-weight: 500
+
+%font-size-16
+  font-size: 16px
+  line-height: 24px
 
 %icon-button
   width: 40px
@@ -34,9 +38,9 @@
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease
 
 .plat-icon-button
-  @extend %outline-button
   @extend %icon-button
   @extend %transition
+  +outline-button(20px)
 
   &:hover
     border-color: $c-text-primary
@@ -58,10 +62,10 @@
       border-color: $c-white
 
 .plat-stroked-button
-  @extend %outline-button
   @extend %button-padding
   @extend %font-size-14
   @extend %transition
+  +outline-button(20px)
 
   &:hover
     border-color: $c-text-primary
@@ -77,11 +81,65 @@
     &:hover
       border-color: $c-white
 
-.plat-button
-  @extend %outline-button
+.plat-large-button
+  @extend %button-padding-large
+  @extend %font-size-16
+  @extend %transition
+  +outline-button(28px)
+  color: $c-white
+
+  &.plat-primary
+    background-color: $c-primary
+
+    &:hover
+      background-color: $c-secondary
+
+  &.plat-success
+    background-color: $c-success-primary
+
+    &:hover
+      background-color: $c-success-secondary
+
+.plat-large-icon-button
+  @extend %button-padding-large
+  @extend %font-size-16
+  @extend %transition
+  display: inline-flex
+  justify-content: center
+  padding: 16px 40px 16px 32px
+  border-radius: 28px
+  color: $c-white
+
+  &.plat-primary
+    background-color: $c-primary
+
+    &:hover
+      background-color: $c-secondary
+
+  &.plat-success
+    background-color: $c-success-primary
+
+    &:hover
+      background-color: $c-success-secondary
+
+  span.icon
+    display: inline-flex
+    width: 24px
+    height: 24px
+    margin-right: 8px
+
+.plat-stroked-large-button
   @extend %button-padding
-  @extend %font-size-14
-  border-color: transparent
+  @extend %font-size-16
+  @extend %transition
+  +outline-button(20px)
+
+  color: $c-primary
+  background-color: $c-primary
+
+  &:hover
+    color: $c-secondary
+    background-color: $c-secondary
 
 .plat-mini-flat-fab
   @extend %display
@@ -92,9 +150,9 @@
   padding: 0
 
 .plat-flat-fab
-  @extend %outline-button
   @extend %icon-button
   @extend %transition
+  +outline-button(20px)
 
   &.plat-primary
     color: $c-white
@@ -106,11 +164,11 @@
       border-color: $c-primary
       background-color: $c-white
 
-.plat-flat
-  @extend %outline-button
+.plat-button
   @extend %button-padding
   @extend %font-size-14
   @extend %transition
+  +outline-button(20px)
 
   &.plat-primary
     color: $c-white

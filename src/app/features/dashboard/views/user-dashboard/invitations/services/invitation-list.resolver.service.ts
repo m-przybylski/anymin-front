@@ -50,7 +50,7 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
     );
 
   /**
-   * Function makes concurent calls to API to retrive list of profiles.
+   * Function makes concurent calls to API to retrieve list of profiles.
    * If backend does not return organization details item is ommited.
    */
   private getProfiles = (profilesId: ReadonlyArray<string>): Observable<Map<string, GetOrganizationDetails>> => {

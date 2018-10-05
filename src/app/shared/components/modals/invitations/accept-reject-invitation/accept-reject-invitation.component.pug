@@ -1,10 +1,9 @@
 plat-modal-component(
   modalTrTitleHeader="INVITE_ACCEPT_REJECT.HEADER",
-  modalContainerClass="NO_PADDING",
-  hasFooter="true")
+  modalContainerClass="NO_PADDING")
   .accept-reject-invitation-content
     plat-consultation-details(
-      avatarSize="avatarSize96",
+      [avatarSize]="avatarSize",
       [avatarToken]="avatarToken",
       [expertName]="expertName",
       [serviceName]="serviceName",
@@ -16,7 +15,7 @@ plat-modal-component(
       .consultation-footer__left-price(*ngIf="isFreelance")
         .accept-reject-invitation__billing-detail-price
           span.accept-reject-invitation__billing-detail-price-money {{grossPrice}}
-          span.accept-reject-invitation__billing-detail-price-currency zł/min
+          span.accept-reject-invitation__billing-detail-price-currency  zł/min
       .consultation-footer__left-text
         .accept-reject-invitation__billing-detail-text
           span(plat-icon="", iconClass="information", color="secondary")
@@ -24,16 +23,15 @@ plat-modal-component(
             span
               strong {{price}} zł/min
               | {{"INVITE_ACCEPT_REJECT.FREELANCE" | translate}}
-              strong {{grossPrice}} zł/min
-              | .
+              strong {{grossPrice}} zł/min.
       .consultation-footer__right--mobile
-        a.accept-reject-invitation__buttons-button((click)="onRejectClicked()", plat-icon-button="", color="secondary")
+        a.accept-reject-invitation__buttons-button((click)="onRejectClicked()", plat-icon-button, color="secondary")
           span(plat-icon="", iconClass="clear")
-        a.accept-reject-invitation__buttons-button((click)="onAcceptClicked()", plat-flat-fab="", color="primary")
+        a.accept-reject-invitation__buttons-button((click)="onAcceptClicked()", plat-flat-fab, color="primary")
           span(plat-icon="", iconClass="check")
       .consultation-footer__right
-        a.accept-reject-invitation__buttons-button((click)="onRejectClicked()", plat-stroked-button="", color="secondary") {{"ACCEPT_REJECT_INVITATION.REJECT" | translate}}
-        a.accept-reject-invitation__buttons-button((click)="onAcceptClicked()", plat-flat="", color="primary") {{"ACCEPT_REJECT_INVITATION.ACCEPT" | translate}}
+        a.accept-reject-invitation__buttons-button((click)="onRejectClicked()", plat-stroked-button, color="secondary") {{"ACCEPT_REJECT_INVITATION.REJECT" | translate}}
+        a.accept-reject-invitation__buttons-button((click)="onAcceptClicked()", plat-button, color="primary") {{"ACCEPT_REJECT_INVITATION.ACCEPT" | translate}}
 ng-template(#organizationDescription="")
   p {{"INVITE_ACCEPT_REJECT.ORGANIZATION" | translate}}
     a {{"INVITE_ACCEPT_REJECT.ORGANIZATION.FIND_MORE" | translate }}

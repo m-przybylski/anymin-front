@@ -1,0 +1,25 @@
+plat-consultation-footer
+  //left part of the screen
+  .consultation-footer__left-price
+    plat-consultation-footer-price([grossPrice]='grossPrice')
+  //middle part of the screen
+  .consultation-footer__left-text
+    plat-consultation-footer-freelance-text(
+      *ngIf='isFreelance else organization',
+      [price]='price',
+      [grossPrice]='grossPrice')
+    ng-template(#organization)
+      plat-consultation-footer-organization-edit-text(
+        [expertPrice]='price',
+        [grossPrice]='grossPrice',
+        [organizationPrice]='organizationPrice')
+  //right part of the screen
+  .consultation-footer__right
+    a.consultation-footer__right-button((click)='onDelete()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.REMOVE" | translate}}
+    a.consultation-footer__right-button((click)='onEdit()', plat-button color='primary') {{"CONSULTATION_DETAILS.FOOTER.EDIT" | translate}}
+  //right panel on the screen on mobile
+  .consultation-footer__right--mobile
+    a.consultation-footer__right-button((click)='onDelete()', plat-icon-button color='secondary')
+      span(plat-icon iconClass='clear')
+    a.consultation-footer__right-button((click)='onEdit()', plat-flat-fab color='primary')
+      span(plat-icon iconClass='stroke-edit')

@@ -3,7 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { LongPollingService } from '../../../../core/services/long-polling/long-polling.service';
 import { PresenceService, AccountPresenceStatus } from '@anymind-ng/api';
 import { Observable, ReplaySubject, Subscription, Subject } from 'rxjs';
-import { map, takeUntil, share } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 
 const pollingRate = 5000;
 
@@ -42,7 +42,7 @@ export class ExpertAvailabilityService implements OnDestroy {
       // create new stream to and assing it to experts object
       const stream$ = new ReplaySubject<AccountPresenceStatus.StatusEnum>(1);
       // share this stream so there is no value will be cashed for other requests
-      this.expertPresence.experts[id] = { subject: stream$, obs: stream$.pipe(share()) };
+      this.expertPresence.experts[id] = { subject: stream$, obs: stream$.asObservable() };
       // start pooling data
       this.pollingSubscription = this.startPooling(this.expertPresence);
     }

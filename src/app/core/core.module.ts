@@ -19,6 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './effects/login.effects';
 import { SessionEffects } from './effects/session.effects';
 import { UserTypeEffects } from '@platform/core/effects/user-type.effects';
+import { provideCommission } from './commission';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -42,6 +43,7 @@ export function getLogLevel(): LogLevel {
     UserSessionService,
     LongPollingService,
     LoginHelperService,
+    provideCommission(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptor,

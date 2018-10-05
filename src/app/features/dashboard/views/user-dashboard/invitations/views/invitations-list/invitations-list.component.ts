@@ -34,9 +34,9 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
   public ngOnDestroy = (): void => {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
-  };
+  }
 
-  public onInvitatonClicked = (invitationId: string): void => {
+  public onInvitationClicked = (invitationId: string): void => {
     const injector = this.setupInjector(invitationId);
 
     if (typeof injector === 'undefined') {

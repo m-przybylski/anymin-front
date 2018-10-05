@@ -21,9 +21,9 @@ export class InvitationsListItemComponent {
   public consultationDesc: string;
 
   @Output()
-  public invitatonClicked: EventEmitter<string> = new EventEmitter();
+  public invitationClicked: EventEmitter<string> = new EventEmitter();
 
   public onInvitationClicked = (invitationId: string): void => {
-    this.invitatonClicked.emit(invitationId);
+    this.invitationClicked.emit(invitationId);
   };
 }

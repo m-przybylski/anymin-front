@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+// tslint:disable:readonly-array
+import { AfterViewInit, Component, OnInit, Inject } from '@angular/core';
+import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { Observable, EMPTY } from 'rxjs';
 import { Config } from '../../../../../config';
@@ -12,6 +13,8 @@ import { catchError } from 'rxjs/operators';
 import { CreateCompanyConsultationService } from './create-company-consultation.service';
 import { EmployeesInviteModalComponent } from '../invitations/employees-invite/employees-invite.component';
 import { GetService } from '@anymind-ng/api';
+import { COMMISSION, ICommission } from '@platform/core/commission';
+import { Logger } from '@platform/core/logger';
 
 @Component({
   selector: 'plat-create-company-consultation',
@@ -19,7 +22,7 @@ import { GetService } from '@anymind-ng/api';
   styleUrls: ['./create-company-consultation.component.sass'],
   providers: [CreateCompanyConsultationService],
 })
-export class CreateCompanyConsultationModalComponent implements OnInit, AfterViewInit {
+export class CreateCompanyConsultationModalComponent extends Logger implements OnInit, AfterViewInit {
   public readonly formId = 'createExpertConsultation';
   public readonly nameControlName = 'name';
   public readonly descriptionControlName = 'description';
@@ -43,13 +46,7 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
     employeeConsultation: 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.NET_PRICE_LABEL',
     freelanceConsultation: 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.FREELANCER_NET_PRICE_LABEL',
   };
-  private readonly freelanceConsultationAnyMindCommission = 0.2;
-  private readonly freelanceConsultationCompanyCommission = 0.1;
-  private readonly employeeServiceAnyMindCommission = 0.15;
-  private readonly percentDivider = 100;
-  private readonly numberPrecision = 2;
-  private loggerService: LoggerService;
-  private selectedTags: ReadonlyArray<PostServiceTag> = [];
+  private selectedTags: PostServiceTag[] = [];
   private anyMindCommission: number;
 
   constructor(
@@ -59,9 +56,10 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
     private modalService: NgbModal,
     private activeModal: NgbActiveModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
+    @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
   ) {
-    this.loggerService = loggerFactory.createLoggerService('CreateExpertConsultationModalComponent');
+    super(loggerFactory);
   }
 
   public ngOnInit(): void {
@@ -97,8 +95,8 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   public onEmployeeConsultation = (): void => {
     if (!this.isRequestPending) {
       this.isFreelance = false;
-      this.totalCommission = this.employeeServiceAnyMindCommission;
-      this.anyMindCommission = this.employeeServiceAnyMindCommission;
+      this.totalCommission = this.commissionConfig.employeeServiceAnyMindCommission;
+      this.anyMindCommission = this.commissionConfig.employeeServiceAnyMindCommission;
       this.labelTrKey = this.labelTranslations.employeeConsultation;
       this.clearPriceInputs();
     }
@@ -107,27 +105,28 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   public onFreelanceConsultation = (): void => {
     if (!this.isRequestPending) {
       this.isFreelance = true;
-      this.anyMindCommission = this.freelanceConsultationAnyMindCommission;
+      this.anyMindCommission = this.commissionConfig.freelanceConsultationAnyMindCommission;
       this.totalCommission = parseFloat(
-        (this.freelanceConsultationAnyMindCommission + this.freelanceConsultationCompanyCommission).toFixed(
-          this.numberPrecision,
-        ),
+        (
+          this.commissionConfig.freelanceConsultationAnyMindCommission +
+          this.commissionConfig.freelanceConsultationCompanyCommission
+        ).toFixed(this.commissionConfig.numberPrecision),
       );
       this.labelTrKey = this.labelTranslations.freelanceConsultation;
       this.clearPriceInputs();
     }
   };
 
-  public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.percentDivider}%`;
+  public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.commissionConfig.percentDivider}%`;
 
   public getCompanyProfitForUI = (): string => {
     const nett = this.createConsultationForm.controls[this.nettPriceControlName].value;
     const companyProfit = this.createCompanyConsultationService.getCompanyProfit(
       nett,
-      this.freelanceConsultationCompanyCommission,
+      this.commissionConfig.freelanceConsultationCompanyCommission,
     );
 
-    return `${companyProfit.toPrecision(this.numberPrecision)} zł`;
+    return `${companyProfit.toPrecision(this.commissionConfig.numberPrecision)} zł`;
   };
 
   private getServiceModel = (): PostService => ({
@@ -160,8 +159,8 @@ export class CreateCompanyConsultationModalComponent implements OnInit, AfterVie
   };
 
   private assignInitialData = (): void => {
-    this.totalCommission = this.employeeServiceAnyMindCommission;
-    this.anyMindCommission = this.employeeServiceAnyMindCommission;
+    this.totalCommission = this.commissionConfig.employeeServiceAnyMindCommission;
+    this.anyMindCommission = this.commissionConfig.employeeServiceAnyMindCommission;
     this.labelTrKey = this.labelTranslations.employeeConsultation;
   };
 }

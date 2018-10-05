@@ -12,6 +12,7 @@ import { AcceptRejectInvitationModalComponent } from './accept-reject-invitation
 import { IconModule, ButtonModule } from '@platform/shared/components/atomic-components';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConsultationDetailsModule } from '../consultation-details/consultation-details.view.module';
+import { ConsultationFooterModule } from '../consultation-details/consultation-footers/consultation-footer.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ConsultationDetailsModule } from '../consultation-details/consultation-
     UserAvatarModule,
     TranslateModule.forChild(),
     ConsultationDetailsModule,
+    ConsultationFooterModule,
   ],
   entryComponents: [AcceptRejectInvitationModalComponent, EmployeesInviteModalComponent],
   declarations: [

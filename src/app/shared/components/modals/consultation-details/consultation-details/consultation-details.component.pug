@@ -30,8 +30,7 @@
 			span.consultation-details__registeredAt__date {{ registeredAt | date : 'L MMMM yyyy' : 'UTC+02' : 'pl'}}
 
 		p.consultation-details__description(*ngIf="serviceDescription")
-			plat-expandable-panel
-				| {{ serviceDescription }}
+			plat-expandable-panel {{ serviceDescription }}
 
 	.consultation-details__statistics(*ngIf="usageCounter")
 		ul.consultation-details__list

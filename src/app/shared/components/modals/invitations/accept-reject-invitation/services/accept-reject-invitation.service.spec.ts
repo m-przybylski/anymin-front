@@ -1,4 +1,4 @@
-import { AcceptRejectInvitatioService, IConsultationDetails } from './accept-reject-invitation.service';
+import { AcceptRejectInvitationService, IConsultationDetails } from './accept-reject-invitation.service';
 import { InvitationService, ServiceService, GetService, GetServiceGrossPrice } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { TestBed } from '@angular/core/testing';
@@ -7,8 +7,8 @@ import { cold } from 'jasmine-marbles';
 import { AlertService } from '@anymind-ng/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-describe('AcceptRejectInvitatioService', () => {
-  let service: AcceptRejectInvitatioService;
+describe('AcceptRejectInvitationService', () => {
+  let service: AcceptRejectInvitationService;
 
   let invitationService: InvitationService;
   let alertService: AlertService;
@@ -35,14 +35,14 @@ describe('AcceptRejectInvitatioService', () => {
     TestBed.configureTestingModule({
       providers: [
         provideMockFactoryLogger(),
-        AcceptRejectInvitatioService,
+        AcceptRejectInvitationService,
         { provide: InvitationService, useValue: invitationService },
         { provide: AlertService, useValue: alertService },
         { provide: ServiceService, useValue: serviceService },
       ],
     });
 
-    service = TestBed.get(AcceptRejectInvitatioService);
+    service = TestBed.get(AcceptRejectInvitationService);
   });
 
   it('should be created', () => {

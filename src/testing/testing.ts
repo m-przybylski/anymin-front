@@ -11,7 +11,6 @@ const mockLoggerService = Deceiver(LoggerService, {
   trace: jasmine.createSpy('trace'),
 });
 
-// tslint:disable:only-arrow-functions
 export const provideMockFactoryLogger = (loggerService?: LoggerService): Provider => ({
   provide: LoggerFactory,
   useValue: Deceiver(LoggerFactory, {

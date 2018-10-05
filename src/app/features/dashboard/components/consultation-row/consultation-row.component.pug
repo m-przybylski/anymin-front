@@ -1,5 +1,4 @@
-.consultation-layout
-  .consultation-layout__mobile-link((click)="openConsultationDetailsModal()")
+.consultation-layout((click)="openConsultationDetailsModal(serviceId)")
   .consultation-layout__wrapper
     .consultation-layout__for(*ngIf='company')
       span.consultation-layout__for-caption {{'CONSULTATION_INFO.CONSULTATION_ROW.FOR_COMPONANY' | translate}}
@@ -15,5 +14,5 @@
     .consultation-layout__amount
       span {{price | moneyToAmount}}
         span.consultation-layout__amount__currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
-      a(plat-icon-button, color='primary', (click)="openConsultationDetailsModal()").consultation-layout__amount-button
+      a.consultation-layout__amount-button(plat-icon-button, color='primary')
         span(plat-icon iconClass='arrow-right')

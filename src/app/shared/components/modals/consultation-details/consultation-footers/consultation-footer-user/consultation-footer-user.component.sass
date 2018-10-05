@@ -1,0 +1,45 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
+@import '../.../../../../../../../template/core/partials/grid'
+
+.consultation-footer
+  &__left-price
+    padding: 10px 0
+
+  &__price
+    &-money
+      +h4
+      font-weight: 300
+
+    &-currency
+      color: $c-half-white
+
+  &__text
+    display: inline-flex
+    align-items: center
+    padding: 0 10px 0 0
+
+    > span
+      margin: 0 12px 0 0
+
+    p
+      +caption
+
+      strong
+        font-weight: 700
+      a
+        +caption
+        color: $c-white
+        margin: 0
+        font-weight: 700
+        display: block
+
+        +mdm
+          display: inline
+
+  &__right
+    &-button
+      margin: 0 0 0 16px
+
+      &:nth-child(1)
+        margin: 0

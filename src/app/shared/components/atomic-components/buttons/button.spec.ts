@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `<button plat-button></button>`,
+  template: `<button plat-stroked-button></button>`,
 })
 class DummyComponent {}
 
@@ -21,7 +21,7 @@ describe('ButtonComponent', () => {
       const debugElement = componentFixture.debugElement;
       const button = debugElement.query(By.css('button'));
       const buttonHtml: HTMLButtonElement = button.nativeElement;
-      expect(buttonHtml.classList.item(0)).toEqual('plat-button');
+      expect(buttonHtml.classList.item(0)).toEqual('plat-stroked-button');
     });
   });
 });

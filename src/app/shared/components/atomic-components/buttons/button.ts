@@ -5,11 +5,12 @@ import { mixinColor, ICanColor } from '../common/collor';
 const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-icon-button',
   'plat-stroked-button',
-  'plat-button',
   'plat-mini-flat-fab',
   'plat-flat-fab',
   'plat-flat',
+  'plat-button',
   'plat-button-link',
+  'plat-large-icon-button',
 ];
 
 class ButtonBase {
@@ -23,7 +24,8 @@ const ButtonMixinBase = mixinColor(ButtonBase);
              button[plat-flat-fab], button[plat-flat],
              [plat-icon-button], [plat-stroked-button],
              [plat-button], [plat-mini-flat-fab],
-             [plat-flat-fab], [plat-flat], [plat-button-link]
+             [plat-flat-fab], [plat-flat], [plat-button-link],
+             [plat-large-icon-button]
              `,
   templateUrl: './button.html',
   styleUrls: ['./button.sass'],
