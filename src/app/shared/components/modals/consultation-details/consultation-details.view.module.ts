@@ -15,6 +15,7 @@ import { ModalComponentsModule } from '../modal/modal.components.module';
 import { PaymentCardModule } from '@platform/shared/components/pipes/payment-card';
 import { ConsultationFooterModule } from './consultation-footers/consultation-footer.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
+import { ConfirmationModalModule } from '../confirmation/confirmation.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ButtonModule } from '@platform/shared/components/atomic-components';
     ModalComponentsModule,
     PaymentCardModule,
     ConsultationFooterModule,
+    ConfirmationModalModule,
   ],
   declarations: [
     ConsultationDetailsViewComponent,

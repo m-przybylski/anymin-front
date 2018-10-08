@@ -11,6 +11,8 @@ const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-button',
   'plat-button-link',
   'plat-large-icon-button',
+  'plat-large-button',
+  'plat-stroked-large-button',
 ];
 
 class ButtonBase {
@@ -22,10 +24,12 @@ const ButtonMixinBase = mixinColor(ButtonBase);
   selector: `button[plat-icon-button], button[plat-stroked-button],
              button[plat-button], button[plat-mini-flat-fab],
              button[plat-flat-fab], button[plat-flat],
+             button[plat-large-button], button[plat-stroked-large-button],
              [plat-icon-button], [plat-stroked-button],
              [plat-button], [plat-mini-flat-fab],
              [plat-flat-fab], [plat-flat], [plat-button-link],
-             [plat-large-icon-button]
+             [plat-large-icon-button], [plat-large-button],
+             [plat-stroked-large-button]
              `,
   templateUrl: './button.html',
   styleUrls: ['./button.sass'],

@@ -1883,5 +1883,13 @@
   "CONSULTATION_DETAILS.FOOTER.SELECTEXPERT": "Wybierz konsultanta, aby wykonać połączenie.",
   "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_1": "<strong>{{ price }} zł/min</strong> to kwota netto, którą zarobisz na tej konsultacji.",
   "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_2": "Niezależny konsultant zarobi <strong>{{ price }} zł/min</strong> netto.",
-  "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_3": "Klient zobaczy <strong>{{ price }} zł/min</strong> brutto."
+  "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_3": "Klient zobaczy <strong>{{ price }} zł/min</strong> brutto.",
+  "CONSULTATION_DETAILS.LEAVE.HEADER": "Rezygnacja z konsultacji",
+  "CONSULTATION_DETAILS.LEAVE.MESSAGE_QUESTION": "Czy na pewno chcesz",
+  "CONSULTATION_DETAILS.LEAVE.MESSAGE": "zrezygnować z tej konsultacji?",
+  "CONSULTATION_DETAILS.DELETE.HEADER": "Usuwanie konsultacji",
+  "CONSULTATION_DETAILS.DELETE.MESSAGE": "usunąć tę konsultację?",
+  "CONSULTATION_DETAILS.LEAVE_MESSAGE": "Konsultacja wciąż będzie widoczna w historii Twoich rozmów oraz Twoich rozmówców, jednak szczegóły oraz komentarze nie będą widoczne dla klientow.",
+  "CONSULTATION_DETAILS.YES": "Tak",
+  "CONSULTATION_DETAILS.NO": "Nie"
 }

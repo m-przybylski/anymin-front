@@ -1,0 +1,17 @@
+plat-modal-component([modalTrTitleHeader]="headerModal", modalContainerClass='SMALL_WIDTH')
+  .consultation-leave
+    .consultation-leave__wrapper
+      .consultation-leave__header
+        | {{ "CONSULTATION_DETAILS.LEAVE.MESSAGE_QUESTION" | translate }}
+        div {{ header | translate }}
+      .consultation-leave__text {{ "CONSULTATION_DETAILS.LEAVE_MESSAGE" | translate }}
+      .consultation-leave__actions
+        a.consultation-leave__action(
+          plat-stroked-large-button,
+          color='primary',
+          (click)='onConfirmationClick(false)'
+          ) {{ "CONSULTATION_DETAILS.NO" | translate }}
+        a.consultation-leave__action(
+          plat-large-button, color='primary',
+          (click)='onConfirmationClick(true)'
+          ) {{ "CONSULTATION_DETAILS.YES" | translate }}

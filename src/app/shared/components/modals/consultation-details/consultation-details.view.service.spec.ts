@@ -18,13 +18,14 @@ import {
 } from '@anymind-ng/api';
 import { AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
-import { cold } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestBed, fakeAsync } from '@angular/core/testing';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthActions } from '@platform/core/actions';
+import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 
 describe('ConsultationDetailsViewService', () => {
   let consultationDetailsViewService: ConsultationDetailsViewService;
@@ -38,6 +39,7 @@ describe('ConsultationDetailsViewService', () => {
   const financesService: FinancesService = Deceiver(FinancesService);
   const alertService: AlertService = Deceiver(AlertService);
   const expertAvailabilityService: ExpertAvailabilityService = Deceiver(ExpertAvailabilityService);
+  const confirmationService: ConfirmationService = Deceiver(ConfirmationService);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
     createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
   });
@@ -62,6 +64,7 @@ describe('ConsultationDetailsViewService', () => {
       alertService,
       expertAvailabilityService,
       store,
+      confirmationService,
       loggerFactory,
     );
   });
@@ -460,5 +463,74 @@ describe('ConsultationDetailsViewService', () => {
       expect(modal.close).toHaveBeenCalled();
       expect(spy).not.toHaveBeenCalled();
     }));
+  });
+
+  describe('deleteConsultation', () => {
+    it('should not close modal when user did not confirm', fakeAsync(() => {
+      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: false }));
+      consultationDetailsViewService.deleteConsultation('asdf', modal);
+      getTestScheduler().flush();
+      expect(modal.close).not.toHaveBeenCalled();
+    }));
+    it('should close modal when user did confirm', () => {
+      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
+      serviceService.deleteServiceRoute = jasmine
+        .createSpy('deleteServiceRoute')
+        .and.returnValue(cold('-a|', { a: 'okey' }));
+      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
+      consultationDetailsViewService.deleteConsultation('asdf', modal);
+      getTestScheduler().flush();
+      expect(serviceService.deleteServiceRoute).toHaveBeenCalledWith('asdf');
+      expect(modal.close).toHaveBeenCalledWith('asdf');
+    });
+    it('should not close modal when user confirmed but there was error on backend', () => {
+      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
+      serviceService.deleteServiceRoute = jasmine
+        .createSpy('deleteServiceRoute')
+        .and.returnValue(cold('-#', {}, 'oups'));
+      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
+      alertService.pushDangerAlert = jasmine.createSpy('pushDangerAlert');
+      consultationDetailsViewService.deleteConsultation('asdf', modal);
+      getTestScheduler().flush();
+      expect(serviceService.deleteServiceRoute).toHaveBeenCalledWith('asdf');
+      expect(modal.close).not.toHaveBeenCalled();
+    });
+  });
+  describe('leaveConsultation', () => {
+    it('should not close modal when user did not confirm', fakeAsync(() => {
+      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: false }));
+      consultationDetailsViewService.leaveConsultation('asdf', modal, 'aasd');
+      getTestScheduler().flush();
+      expect(modal.close).not.toHaveBeenCalled();
+    }));
+    it('should close modal when user did confirm', () => {
+      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
+      employmentService.deleteEmploymentRoute = jasmine
+        .createSpy('deleteEmploymentRoute')
+        .and.returnValue(cold('-a|', { a: 'okey' }));
+      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
+      consultationDetailsViewService.leaveConsultation('asdf', modal, 'aaa');
+      getTestScheduler().flush();
+      expect(employmentService.deleteEmploymentRoute).toHaveBeenCalledWith('aaa');
+      expect(modal.close).toHaveBeenCalledWith('asdf');
+    });
+    it('should not close modal when user confirmed but there was error on backend', () => {
+      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
+      employmentService.deleteEmploymentRoute = jasmine
+        .createSpy('deleteEmploymentRoute')
+        .and.returnValue(cold('-#', {}, 'oups'));
+      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
+      alertService.pushDangerAlert = jasmine.createSpy('pushDangerAlert');
+      consultationDetailsViewService.leaveConsultation('asdf', modal, 'aaa');
+      getTestScheduler().flush();
+      expect(employmentService.deleteEmploymentRoute).toHaveBeenCalledWith('aaa');
+      expect(modal.close).not.toHaveBeenCalled();
+    });
   });
 });
