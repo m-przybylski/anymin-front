@@ -7,11 +7,16 @@ import {
   Injector,
   OnDestroy,
   ComponentRef,
-  ComponentFactoryResolver, Input,
+  ComponentFactoryResolver,
+  Input,
 } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
 import { filter, take, takeUntil } from 'rxjs/operators';
+import {
+  ConsultationDetailsActionsService,
+  IConsultationDetailActionParameters,
+} from './consultation-details-actions.service';
 import { forkJoin, Subject } from 'rxjs';
 import { EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
@@ -78,18 +83,21 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromCore.IState>,
     private consultationDetailsViewService: ConsultationDetailsViewService,
+    private consultationDetailsActionsService: ConsultationDetailsActionsService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private activeModal: NgbActiveModal,
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
   ) {
-    this.store.pipe(
-      select(fromCore.getSessionAndUserType),
-      filter(({getSession}) => typeof getSession !== 'undefined'),
-      ).subscribe(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
+    this.store
+      .pipe(
+        select(fromCore.getSessionAndUserType),
+        filter(({ getSession }) => typeof getSession !== 'undefined'),
+      )
+      .subscribe(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
         this.isCompany = getSession.isCompany;
         this.userType = this.userType || getUserType;
-    });
+      });
   }
 
   public ngOnInit(): void {
@@ -166,7 +174,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     expertProfileViewDetails,
     getServiceWithEmployees,
     getComments,
-    employmentId
+    employmentId,
   }: IConsultationDetails): void => {
     const maxCommentsForInitialLoad = 3;
     this.serviceName = getServiceWithEmployees.serviceDetails.name;
@@ -213,7 +221,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       this.isCompany,
       this.accountId,
       getServiceDetails.expertDetails.profile.id,
-      getServiceDetails.expertIds
+      getServiceDetails.expertIds,
     );
     if (component) {
       const footerComponent = this.viewContainerRef.createComponent(
@@ -230,10 +238,13 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
         }),
       );
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
-        this.consultationDetailsViewService[value].call(
-          this.consultationDetailsViewService,
-          ...[this.serviceId, this.activeModal, this.employmentId, this.editConsultationPayload],
-        );
+        const payload: IConsultationDetailActionParameters = {
+          serviceId: this.serviceId,
+          modal: this.activeModal,
+          employmentId: this.employmentId,
+          expertId: this.expertId,
+        };
+        this.consultationDetailsActionsService[value].call(this.consultationDetailsActionsService, payload);
       });
 
       return footerComponent;

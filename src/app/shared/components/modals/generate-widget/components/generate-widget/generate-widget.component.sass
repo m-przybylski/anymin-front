@@ -1,0 +1,134 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+
+@import "../../../../../../template/core/core"
+
+.generate-widget
+  &-step-content
+    display: flex
+    flex-direction: row
+    min-height: 687px
+
+    &-panel
+      flex: 1 0 0
+
+    &-panel:nth-child(1)
+      padding: 0 20px 0 0
+
+    &-panel:nth-child(2)
+      padding: 0 0 0 20px
+
+    &-section
+      margin: 0 0 48px 0
+
+    &-section:nth-last-child(1)
+      margin: 0
+
+  &-social-share
+    display: flex
+
+  &-social-link
+    margin: 0 0 0 20px
+
+  &-social-link:nth-child(1)
+    margin: 0
+
+  &-copy
+    +subtitle-small
+    color: $c-text-secondary
+    background: $c-base-background
+    border-radius: 4px
+    border: 1px dashed $c-lines
+    padding: 16px
+    margin: 0 0 24px 0
+
+    &:only-of-type
+      margin: 0
+
+  &-preview
+    border-radius: 12px
+    background: $c-base-background
+    padding: 4px
+
+    &-header
+      +subtitle
+      background: $c-white
+      text-align: center
+      border-radius: 8px 8px 0 0
+      padding: 16px 0
+      margin: 0 0 1px
+
+    &-content
+      background: $c-white
+      padding: 16px
+      height: 520px
+
+    &-expert
+      display: flex
+      align-items: center
+      margin: 0 0 16px
+
+      &-details
+        margin: 0 0 0 16px
+
+        &-name
+          +subtitle-small
+
+    &-title
+      +h6
+      margin: 0 0 8px
+
+    &-description
+      +paragraph-small
+      color: $c-text-secondary
+
+    &-footer
+      background: $c-white
+      padding: 0 16px 16px
+      border-radius: 0 0 8px 8px
+
+      &-button
+        color: $c-white
+        background: $c-success-primary
+        padding: 18px 16px
+        border-radius: 4px
+        display: flex
+        justify-content: space-between
+        margin: 0 0 8px 0
+
+        &-text
+          +h6
+          font-weight: 500
+
+        &-subtext
+          +caption
+          font-weight: 500
+
+        &-right::ng-deep
+          .plat-icon-button.plat-secondary
+            border-color: $c-white
+
+      &-text
+        background: $c-white
+        font-size: 10px
+        line-height: 10px
+        text-align: center
+        color: $c-text-secondary
+        margin: 0 0 -8px 0
+
+plat-user-avatar::ng-deep
+  div.user-avatar
+    width: 56px
+    height: 56px
+    img, span
+      width: 56px
+      height: 56px
+
+plat-expert-availability
+  display: block
+  margin: 0 0 0 -4px
+
+p
+  +button
+  color: $c-text-primary
+  margin: 0 0 24px 0

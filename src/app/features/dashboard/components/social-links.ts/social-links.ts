@@ -6,6 +6,7 @@ import { ProfileLinksComponentService } from '../../../../shared/components/moda
   templateUrl: './social-links.html',
   styleUrls: ['./social-links.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ProfileLinksComponentService],
 })
 export class SocialLinksComponent {
   @Input()

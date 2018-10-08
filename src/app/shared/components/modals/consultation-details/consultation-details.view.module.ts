@@ -15,7 +15,9 @@ import { PaymentCardModule } from '@platform/shared/components/pipes/payment-car
 import { ConsultationFooterModule } from './consultation-footers/consultation-footer.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ConfirmationModalModule } from '../confirmation/confirmation.module';
-import { ConsultationFooterComponent } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer/consultation-footer.component';
+import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
+import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
+import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 
 @NgModule({
   imports: [
@@ -30,6 +32,8 @@ import { ConsultationFooterComponent } from '@platform/shared/components/modals/
     PaymentCardModule,
     ConsultationFooterModule,
     ConfirmationModalModule,
+    ExpertAvailabilityModule.forRoot(),
+    GenerateWidgetModule,
   ],
   declarations: [
     ConsultationDetailsViewComponent,
@@ -39,7 +43,7 @@ import { ConsultationFooterComponent } from '@platform/shared/components/modals/
     TimeDurationPipe,
     DateDurationPipe,
   ],
-  exports: [ConsultationFooterComponent],
+  providers: [ConsultationDetailsActionsService],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

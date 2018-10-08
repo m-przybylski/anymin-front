@@ -1,0 +1,7 @@
+.plat-stepper-container
+  .plat-step-content(
+    *ngFor='let step of steps; let i = index',
+    [@stepTransition]='getAnimationState(i)',
+    [attr.aria-expanded]='i === selectedIndex',
+  )
+    ng-container([ngTemplateOutlet]='step.content')

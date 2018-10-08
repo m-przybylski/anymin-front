@@ -5,17 +5,17 @@ import {
   CONSULTATION_FOOTER_DATA,
   IConsultationFooterData,
 } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer-helpers';
-import { ConsultationDetailsViewService } from '@platform/shared/components/modals/consultation-details/consultation-details.view.service';
 import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { COMMISSION, ICommission } from '@platform/core/commission';
+import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 
 @Component({
   templateUrl: 'consultation-footer-edit.component.html',
   styleUrls: ['consultation-footer-edit.component.sass'],
 })
 export class ConsultationFooterEditComponent extends Logger implements IFooterOutput, OnDestroy {
-  public get actionTaken$(): Observable<keyof ConsultationDetailsViewService> {
+  public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
     return this._actionTaken$.asObservable();
   }
   public get grossPrice(): string {
@@ -64,7 +64,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     return this.data.isFreelance;
   }
 
-  private _actionTaken$ = new Subject<keyof ConsultationDetailsViewService>();
+  private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
   constructor(
     @Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData,
@@ -82,7 +82,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     this._actionTaken$.next('editConsultation');
   };
 
-  public onDelete = (): void => {
-    this._actionTaken$.next('deleteConsultation');
+  public onShare = (): void => {
+    this._actionTaken$.next('share');
   };
 }

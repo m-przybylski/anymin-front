@@ -3,9 +3,9 @@
     .modal-component__container([ngClass]="setModalContainerWidth()")
       plat-modal-header(
       [titleTrHeader]="modalTrTitleHeader",
-      [onBackwardClick]="onBackClick",
       [isBackwardVisible]="isBackwardVisible",
-      [isCloseButtonVisible]="isCloseButtonVisible"
+      [isCloseButtonVisible]="isCloseButtonVisible",
+      (backwardClick)="onBackClick()"
       )
 
       .modal-component__content(

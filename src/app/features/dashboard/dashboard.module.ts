@@ -22,6 +22,7 @@ import { PaymentsModule } from '@platform/features/dashboard/views/user-dashboar
 import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-dashboard/recommend-friends/recommend-friends.module';
 import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 import { NavbarModule } from '@platform/features/dashboard/components/navbar/navbar.module';
+import { StepperModule } from '@platform/shared/components/stepper/stepper.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NavbarModule } from '@platform/features/dashboard/components/navbar/nav
     PaymentsModule,
     RecommendFriendsModule,
     DashboardComponentsModule,
+    StepperModule,
   ],
   providers: [EmployeesInviteService, DashboardResolver],
 })
