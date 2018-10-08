@@ -21,7 +21,7 @@ ingress:
   path: /
   serviceName: frontend
 
-namespace: stage
+namespace: default
 
 frontend:
   DEPLOY_TYPE: stage
