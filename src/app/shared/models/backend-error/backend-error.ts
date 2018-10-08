@@ -28,5 +28,5 @@ export enum BackendErrors {
   ToManyIncorrectPasswordAttempts = 345,
   MsisdnBlocked = 346,
   MissingTokenModelId = 408,
-  MissingPermissionForCreatingFreeConsultation = 479,
+  MissingPermissionForCreatingFreeConsultation = 216,
 }
