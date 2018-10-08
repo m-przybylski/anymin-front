@@ -23,7 +23,7 @@ const phoneNumbers = require('libphonenumber-js');
 export class InputConsultationEmployeeComponentController implements IInputConsultationEmployeeBindings {
   public addedItemsList: string[] = [];
   public inputValue: string;
-  public isOwnerEmployee: boolean;
+  public isOwnerEmployee = true;
   public isDirty = false;
   public isInputValueInvalid = false;
   public isUploadFileIsInvalid = false;
