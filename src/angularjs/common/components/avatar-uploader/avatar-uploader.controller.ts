@@ -89,6 +89,7 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
     };
     this.isLoading = true;
     this.isUploadInProgress = true;
+    this.isFileUploadError = false;
     this.uploader
       .uploadFile(this.uploadedFile, postFileDetails, () => {})
       .then(this.onFileUpload, this.onFileUploadError);
@@ -109,6 +110,8 @@ export class AvatarUploaderComponentController implements IAvatarUploaderCompone
   private onFileUploadError = (err: any): void => {
     this.isLoading = false;
     this.isFileUploadError = true;
+    this.clearFormAfterCropping();
+    this.imageSource = '';
     this.logger.warn('Can not upload file: ' + String(err));
   };
 
