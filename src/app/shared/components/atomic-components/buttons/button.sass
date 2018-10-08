@@ -6,7 +6,9 @@
 @mixin outline-button($radius)
   @extend %display
   color: $c-text-primary
-  border: solid 1px $c-placeholder
+  border-style: solid
+  border-width: 1px
+  border-color: $c-placeholder
   border-radius: $radius
   background-color: transparent
 
@@ -14,7 +16,7 @@
   padding: 8px 24px
 
 %button-padding-large
-  padding: 16px 40px
+  padding: 15px 39px
 
 %font-size-14
   font-size: 14px
@@ -129,17 +131,19 @@
     margin-right: 8px
 
 .plat-stroked-large-button
-  @extend %button-padding
+  @extend %button-padding-large
   @extend %font-size-16
   @extend %transition
-  +outline-button(20px)
+  +outline-button(28px)
 
-  color: $c-primary
-  background-color: $c-primary
+  &.plat-primary
+    color: $c-primary
+    border-color: $c-primary
 
-  &:hover
-    color: $c-secondary
-    background-color: $c-secondary
+    &:hover
+      color: $c-white
+      background-color: $c-secondary
+      border-color: $c-secondary
 
 .plat-mini-flat-fab
   @extend %display

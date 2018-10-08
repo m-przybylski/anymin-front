@@ -12,7 +12,7 @@ import {
   DefaultCreditCard,
   FinancesService,
 } from '@anymind-ng/api';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, EMPTY } from 'rxjs';
 import { map, switchMap, filter, catchError, take, tap } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
@@ -21,6 +21,7 @@ import { ExpertAvailabilityService } from '@platform/features/dashboard/componen
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { AuthActions } from '@platform/core/actions';
+import { ConfirmationService } from '../confirmation/confirmation.service';
 
 @Injectable()
 export class ConsultationDetailsViewService extends Logger {
@@ -34,6 +35,7 @@ export class ConsultationDetailsViewService extends Logger {
     private alertService: AlertService,
     private expertAvailabilityService: ExpertAvailabilityService,
     private store: Store<fromCore.IState>,
+    private confirmationService: ConfirmationService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
@@ -121,15 +123,20 @@ export class ConsultationDetailsViewService extends Logger {
     // TODO: implement logic
   };
   public deleteConsultation = (serviceId: string, modal: NgbActiveModal): void => {
-    this.serviceService
-      .deleteServiceRoute(serviceId)
+    this.confirmationService
+      .confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE')
       .pipe(
-        catchError(err => {
-          this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.REMOVE_FAILURE');
-          this.loggerService.warn('Cannot remove consultation', err);
+        filter(confirmed => confirmed),
+        switchMap(() =>
+          this.serviceService.deleteServiceRoute(serviceId).pipe(
+            catchError(err => {
+              this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.REMOVE_FAILURE');
+              this.loggerService.warn('Cannot remove consultation', err);
 
-          throw err;
-        }),
+              return EMPTY;
+            }),
+          ),
+        ),
       )
       .subscribe(() => {
         this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
@@ -138,15 +145,20 @@ export class ConsultationDetailsViewService extends Logger {
       });
   };
   public leaveConsultation = (serviceId: string, modal: NgbActiveModal, employmentId: string): void => {
-    this.employmentService
-      .deleteEmploymentRoute(employmentId)
+    this.confirmationService
+      .confirm('CONSULTATION_DETAILS.LEAVE.HEADER', 'CONSULTATION_DETAILS.LEAVE.MESSAGE')
       .pipe(
-        catchError(err => {
-          this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
-          this.loggerService.warn('Cannot leave consultation', err);
+        filter(confirmed => confirmed),
+        switchMap(() =>
+          this.employmentService.deleteEmploymentRoute(employmentId).pipe(
+            catchError(err => {
+              this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
+              this.loggerService.warn('Cannot leave consultation', err);
 
-          throw err;
-        }),
+              return EMPTY;
+            }),
+          ),
+        ),
       )
       .subscribe(() => {
         this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.LEAVE_SUCCESS');
