@@ -63,21 +63,30 @@ export class ConsultationController implements ng.IController {
   private consultationPriceMax: number;
   private static readonly defaultConsultationLanguage: ILanguage = {
     name: 'Polish',
-    value: 'pl'
+    value: 'pl',
   };
 
-  public static $inject = ['translatorService', '$state', '$stateParams', 'WizardApi', 'userService',
-    'wizardProfile', 'languagesService', 'CommonSettingsService'];
+  public static $inject = [
+    'translatorService',
+    '$state',
+    '$stateParams',
+    'WizardApi',
+    'userService',
+    'wizardProfile',
+    'languagesService',
+    'CommonSettingsService',
+  ];
 
-  constructor(private translatorService: TranslatorService,
-              private $state: StateService,
-              private $stateParams: IConsultationStateParams,
-              private WizardApi: WizardApi,
-              private userService: UserService,
-              private wizardProfile: GetWizardProfile,
-              private languagesService: LanguagesService,
-              private CommonSettingsService: CommonSettingsService) {
-
+  constructor(
+    private translatorService: TranslatorService,
+    private $state: StateService,
+    private $stateParams: IConsultationStateParams,
+    private WizardApi: WizardApi,
+    private userService: UserService,
+    private wizardProfile: GetWizardProfile,
+    private languagesService: LanguagesService,
+    private CommonSettingsService: CommonSettingsService,
+  ) {
     this.languagesList = this.languagesService.languagesList;
 
     this.assignValidationValues();
@@ -94,31 +103,34 @@ export class ConsultationController implements ng.IController {
   public $onInit(): void {
     this.checkIsPriceInputValid();
 
-    this.userService.getUser().then((response) => {
+    this.userService.getUser().then(response => {
       this.currency = response.currency;
       this.defaultLanguageISO = response.countryISO;
 
-      const language = _.find(this.languagesList, (languageItem) =>
-        languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase());
+      const language = _.find(
+        this.languagesList,
+        languageItem => languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase(),
+      );
 
-      language ? this.languageInputValue = language :
-        this.languageInputValue = ConsultationController.defaultConsultationLanguage;
+      language
+        ? (this.languageInputValue = language)
+        : (this.languageInputValue = ConsultationController.defaultConsultationLanguage);
     });
 
     if (this.$stateParams.service) {
       this.nameInputValue = this.$stateParams.service.name;
       this.isOwnerEmployee = this.$stateParams.service.isOwnerEmployee;
       this.priceAmountInputValue = (this.$stateParams.service.price.amount / this.moneyDivider).toString();
-      this.$stateParams.service.tags.forEach((tag) => {
+      this.$stateParams.service.tags.forEach(tag => {
         this.tagsInputValue.push(tag.name);
       });
       this.languageInputValue = {
         name: this.translatorService.translate('LANGUAGE.' + this.$stateParams.service.language),
-        value: this.$stateParams.service.language
+        value: this.$stateParams.service.language,
       };
       this.descriptionInputValue = this.$stateParams.service.description;
       if (this.$stateParams.service.invitations) {
-        this.$stateParams.service.invitations.forEach((employee) => {
+        this.$stateParams.service.invitations.forEach(employee => {
           if (employee.email) {
             this.invitationsInputValue.push(employee.email);
           } else if (employee.msisdn) {
@@ -127,8 +139,10 @@ export class ConsultationController implements ng.IController {
         });
       }
       if (this.wizardProfile && this.wizardProfile.services)
-        this.currentEditServiceIndex = _.findIndex(this.wizardProfile.services, (service) =>
-          service.name === this.$stateParams.service.name);
+        this.currentEditServiceIndex = _.findIndex(
+          this.wizardProfile.services,
+          service => service.name === this.$stateParams.service.name,
+        );
     }
   }
 
@@ -136,31 +150,31 @@ export class ConsultationController implements ng.IController {
     if (this.isExpert && !this.isCompany) {
       this.saveConsultation();
     }
-  }
+  };
 
   // tslint:disable-next-line:cyclomatic-complexity
   public saveConsultation = (): void => {
     if (this.checkIsFormValid() && this.wizardProfile) {
       const priceModel: MoneyDto = {
         amount: Number(this.priceAmountInputValue.replace(',', '.')) * this.moneyDivider,
-        currency: this.currency
+        currency: this.currency,
       };
       const tags: WizardTag[] = [];
-      this.tagsInputValue.forEach((tag) => {
+      this.tagsInputValue.forEach(tag => {
         tags.push({
-          name: tag
+          name: tag,
         });
       });
 
       const invitations: IServiceInvitation[] = [];
-      this.invitationsInputValue.forEach((emailOrPhone) => {
+      this.invitationsInputValue.forEach(emailOrPhone => {
         if (emailOrPhone.indexOf('@') > -1) {
           invitations.push({
-            email: emailOrPhone
+            email: emailOrPhone,
           });
         } else {
           invitations.push({
-            msisdn: emailOrPhone
+            msisdn: emailOrPhone,
           });
         }
       });
@@ -172,7 +186,7 @@ export class ConsultationController implements ng.IController {
         description: this.descriptionInputValue,
         name: this.nameInputValue,
         price: priceModel,
-        isOwnerEmployee: this.isOwnerEmployee
+        isOwnerEmployee: this.isOwnerEmployee,
       };
       if (this.wizardProfile.services && !this.$stateParams.service) {
         this.wizardProfile.services.push(serviceModel);
@@ -187,52 +201,53 @@ export class ConsultationController implements ng.IController {
     } else {
       this.isSubmitted = true;
     }
-  }
+  };
 
   public onGoBack = (): void => {
     this.$state.go('app.wizard.summary');
-  }
+  };
 
   public selectFreelance = (): void => {
     this.isServiceTypeSelected = true;
     this.isFreelance = true;
-    this.isOwnerEmployee = false;
-  }
+    this.isOwnerEmployee = true;
+  };
 
   public selectCompany = (): void => {
     this.isServiceTypeSelected = true;
     this.isFreelance = false;
-  }
+  };
 
   public isRegExpPriceValid = (isRegExpPriceValid: boolean): void => {
     this.isRegExpPriceInputValid = isRegExpPriceValid;
-  }
+  };
 
   public onPriceChange = (ngModel: number): void => {
     const amount = Number(ngModel.toString().replace(',', '.'));
     this.isPriceAmountValid = amount <= this.consultationPriceMax && amount >= this.consultationPriceMin;
-  }
+  };
 
   public checkIsNameInputValid = (): boolean => this.consultationNamePattern.test(this.nameInputValue);
 
-  public checkIsTagsInputValid = (): boolean => this.tagsInputValue
-    && this.tagsInputValue.length >= this.consultationTagsMinCount
-    && this.tagsInputValue.length <= this.consultationTagsMaxCount
+  public checkIsTagsInputValid = (): boolean =>
+    this.tagsInputValue &&
+    this.tagsInputValue.length >= this.consultationTagsMinCount &&
+    this.tagsInputValue.length <= this.consultationTagsMaxCount;
 
   public checkIsDescriptionInputValid = (): boolean =>
-    this.consultationDescriptionPattern.test(this.descriptionInputValue)
+    this.consultationDescriptionPattern.test(this.descriptionInputValue);
 
   public checkIsEmployeesInputValid = (): boolean =>
-    this.isOwnerEmployee && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
-    || this.invitationsInputValue.length >= this.consultationInvitationsMinCount
-    && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount
+    (this.isOwnerEmployee && this.invitationsInputValue.length <= this.consultationInvitationsMaxCount) ||
+    (this.invitationsInputValue.length >= this.consultationInvitationsMinCount &&
+      this.invitationsInputValue.length <= this.consultationInvitationsMaxCount);
 
   public checkIsFormValid = (): boolean =>
-    this.checkIsNameInputValid()
-    && this.checkIsTagsInputValid()
-    && this.checkIsPriceInputValid()
-    && this.checkIsEmployeesInputValid()
-    && this.checkIsDescriptionInputValid()
+    this.checkIsNameInputValid() &&
+    this.checkIsTagsInputValid() &&
+    this.checkIsPriceInputValid() &&
+    this.checkIsEmployeesInputValid() &&
+    this.checkIsDescriptionInputValid();
 
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid();
 
@@ -248,6 +263,5 @@ export class ConsultationController implements ng.IController {
     this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount;
     this.consultationPriceMin = localSettings.consultationPriceMin / this.moneyDivider;
     this.consultationPriceMax = localSettings.consultationPriceMax / this.moneyDivider;
-  }
-
+  };
 }

@@ -52,7 +52,7 @@ export class ServiceFormModalController implements ng.IController {
   public consultationDescription = '';
   public recommendedTags: string[] = [];
   public consultationNewInvitations: string[] = [];
-  public isOwnerEmployee = false;
+  public isOwnerEmployee = true;
   public consultationPrice = '1.00';
   public isSubmitted = false;
   public isRegExpPriceInputValid = true;
@@ -213,7 +213,7 @@ export class ServiceFormModalController implements ng.IController {
 
   public selectFreelance = (): void => {
     this.isFreelance = true;
-    this.isOwnerEmployee = false;
+    this.isOwnerEmployee = true;
   };
 
   public selectCompany = (): void => {
