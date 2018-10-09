@@ -7,9 +7,6 @@ import { FavouritesComponent } from './views/user-dashboard/favourites/favourite
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
-import { ActivitiesViewComponent } from './views/user-dashboard/activities/activities.view.component';
-import { ExpertActivitiesViewComponent } from './views/user-dashboard/activities/views/expert-activities/expert-activities.view.component';
-import { ClientActivitiesViewComponent } from './views/user-dashboard/activities/views/client-activities/client-activities.view.component';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
@@ -28,21 +25,9 @@ const routes: Routes = [
         children: [
           { path: 'discover', component: DiscoverComponent },
           {
-            path: 'activities',
-            component: ActivitiesViewComponent,
-            children: [
-              {
-                path: 'expert',
-                component: ExpertActivitiesViewComponent,
-                resolve: { activities: ExpertActivitiesResolverService },
-              },
-              { path: '', pathMatch: 'full', redirectTo: 'expert' },
-              {
-                path: 'client',
-                component: ClientActivitiesViewComponent,
-                redirectTo: '/dashboard/user/activities/expert',
-              },
-            ],
+            path: RouterPaths.dashboard.user.activities.getName,
+            loadChildren:
+              './views/user-dashboard/activities/user-dashboard-activities.module#UserDashboardActivitiesModule',
           },
           { path: 'favourites', component: FavouritesComponent },
           {

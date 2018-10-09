@@ -18,6 +18,7 @@
     "app/features/dashboard/views/user-dashboard/invitations/invitations.module.ts",
     "app/features/angularjs/angularjs.module.ts",
     "app/features/browse/browse.module.ts",
+    "app/features/dashboard/views/user-dashboard/activities/user-dashboard-activities.module.ts",
     "angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts",
     "polyfills.ts",
     "main.ts",

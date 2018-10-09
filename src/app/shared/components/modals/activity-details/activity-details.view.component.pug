@@ -1,0 +1,24 @@
+plat-modal-component.activity-details-modal(
+  [modalTrTitleHeader]="modalHeaderTrKey",
+  [isBackwardVisible]="isBackwardVisible",
+  (backwardClick)="onGoBack()"
+)
+
+  plat-stepper(#stepper='platStepper', *ngIf="activityType === activityTypesEnum.SERVICEUSAGEEVENT")
+    plat-step
+      plat-sue-details(
+        [activityDetails]="sueDetails",
+        [isChatHistoryVisible]="isChatHistoryVisible",
+        (openChat)="onOpenChat()",
+      )
+    plat-step
+      plat-chat-history(
+          [groupedMessages]="groupedMessages",
+          [clientAvatarUrl]="clientAvatarUrl",
+          [expertAvatarUrl]="expertAvatarUrl"
+       )
+
+  plat-financial-operation-details(
+    *ngIf="activityType === activityTypesEnum.FINANCIALTRANSACTION",
+    [financialOperationDetails]="financialOperationDetails"
+  )

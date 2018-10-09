@@ -101,7 +101,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
      * once value is changes in the form
      * wait for animation to finish
      * and than start new animation.
-     * avoid jumping beetween states and softer
+     * avoid jumping between states and softer
      * content change
      */
     this.buttonType.valueChanges

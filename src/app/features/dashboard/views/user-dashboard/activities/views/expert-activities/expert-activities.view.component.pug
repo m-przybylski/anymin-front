@@ -18,7 +18,11 @@
 
       ul.important-list__container
         li(*ngFor='let activity of displayedImportantActivities', [@animation])
-          plat-activity-row([isImportant]="true", [activity]="activity")
+          plat-activity-row(
+            [isImportant]="true",
+            [activity]="activity",
+            (activityModalClose)="onActivityModalClose(activity)"
+          )
 
     .all-list
       .all-list__header
@@ -27,7 +31,11 @@
 
       ul.all-list__container
         li(*ngFor='let profileActivity of profileActivities', [@animation])
-          plat-activity-row([activity]="profileActivity.activity", [isImportant]="profileActivity.isImportant")
+          plat-activity-row(
+            [activity]="profileActivity.activity",
+            [isImportant]="profileActivity.isImportant",
+            (activityModalClose)="onActivityModalClose(profileActivity.activity)"
+          )
 
     .bottom
       a.button.button--tertiary.button--small([translate]="'EXPERT_ACTIVITIES.LOAD_MORE'", (click)="loadMore()",

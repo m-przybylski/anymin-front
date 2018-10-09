@@ -1,4 +1,4 @@
-.activity-row([ngClass]="{'--important':isImportant}", [ngSwitch]="activityType")
+.activity-row([ngClass]="{'--important':isImportant}", [ngSwitch]="activityType", (click)="onActivityRowClick()")
   .activity-row__icon
     span.activity-row__icon.icon.icon-phone(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT")
     span.activity-row__icon.icon.icon-account-payments(*ngSwitchCase="activityTypes.FINANCIALTRANSACTION")

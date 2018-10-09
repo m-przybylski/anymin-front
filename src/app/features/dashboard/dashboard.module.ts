@@ -10,9 +10,6 @@ import { CommonModule } from '@angular/common';
 import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { CompanyDashboardModule } from './views/company-dashboard/company-dashboard.module';
-import { ActivitiesViewComponent } from './views/user-dashboard/activities/activities.view.component';
-import { ExpertActivitiesViewComponent } from './views/user-dashboard/activities/views/expert-activities/expert-activities.view.component';
-import { ClientActivitiesViewComponent } from './views/user-dashboard/activities/views/client-activities/client-activities.view.component';
 import { DashboardComponentsModule } from './components/components.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 import { SettingsModule } from '@platform/features/dashboard/views/user-dashboard/settings/settings.module';
@@ -29,9 +26,6 @@ import { StepperModule } from '@platform/shared/components/stepper/stepper.modul
     DashboardViewComponent,
     UserDashboardComponent,
     DiscoverComponent,
-    ActivitiesViewComponent,
-    ExpertActivitiesViewComponent,
-    ClientActivitiesViewComponent,
     FavouritesComponent,
     NotFoundComponent,
   ],
