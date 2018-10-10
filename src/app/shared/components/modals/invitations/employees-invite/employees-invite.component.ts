@@ -11,7 +11,7 @@ import { EMPTY, Observable, Subject } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.service';
+import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
 
 export interface IEmployeesInviteComponent {

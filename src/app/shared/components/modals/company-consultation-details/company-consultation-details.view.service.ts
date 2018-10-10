@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { EmploymentService, GetInvitation, InvitationService, ProfileService, ServiceService } from '@anymind-ng/api';
 import { Observable } from 'rxjs/Observable';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { GetService } from '@anymind-ng/api/model/getService';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
-import { forkJoin, iif, of } from 'rxjs';
+import { EMPTY, forkJoin, iif, of } from 'rxjs';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/company-consultation-details/company-employee-row/company-employee-row.component';
 import { EmploymentWithExpertProfile } from '@anymind-ng/api/model/employmentWithExpertProfile';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Logger } from '@platform/core/logger';
 
 export interface ICompanyProfileDetails {
   consultationDetails: GetService;
@@ -21,13 +24,18 @@ interface ICompanyConsultationDetails {
 }
 
 @Injectable()
-export class CompanyConsultationDetailsViewService {
+export class CompanyConsultationDetailsViewService extends Logger {
+  protected loggerService: LoggerService;
+
   constructor(
     private serviceService: ServiceService,
     private employmentService: EmploymentService,
     private invitationService: InvitationService,
     private profileService: ProfileService,
-  ) {}
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory);
+  }
 
   public getConsultationDetails = (serviceId: string): Observable<ICompanyConsultationDetails> =>
     forkJoin(
@@ -65,6 +73,7 @@ export class CompanyConsultationDetailsViewService {
           employeesList,
         }),
       ),
+      catchError(error => this.handleError('Can not get profile: ', error)),
     );
 
   public deletePendingInvitation = (inviationId: string): Observable<void> =>
@@ -99,6 +108,7 @@ export class CompanyConsultationDetailsViewService {
                     employeeId: employee.id,
                   }),
                 ),
+                catchError(error => this.handleError('Can not get profile: ', error)),
               ),
             ),
           ),
@@ -109,9 +119,16 @@ export class CompanyConsultationDetailsViewService {
               employeeInvitations: ReadonlyArray<ICompanyEmployeeRowComponent>,
             ): ReadonlyArray<ICompanyEmployeeRowComponent> => [...employeeInvitations, ...pendingInvitations],
           ),
+          catchError(error => this.handleError('Can not return employee and invitations object: ', error)),
         );
       }),
     );
+
+  private handleError = (msg: string, error: HttpErrorResponse): Observable<any> => {
+    this.loggerService.error(msg, error);
+
+    return EMPTY;
+  };
 
   private assignEmployeesList = (employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent => ({
     usageCounter: employee.usageCounter,

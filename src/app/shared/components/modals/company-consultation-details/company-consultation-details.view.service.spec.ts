@@ -2,9 +2,9 @@ import { EmploymentService, InvitationService, ProfileService, ServiceService } 
 import { Deceiver } from 'deceiver-core';
 import { LoggerService } from '@anymind-ng/core';
 import { TestBed } from '@angular/core/testing';
-import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.service';
 import { provideMockFactoryLogger } from '../../../../../testing/testing';
 import { cold } from 'jasmine-marbles';
+import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 
 describe('CompanyConsultationDetailsViewService', () => {
   const loggerService: LoggerService = Deceiver(LoggerService, {
@@ -48,7 +48,7 @@ describe('CompanyConsultationDetailsViewService', () => {
     service = TestBed.get(CompanyConsultationDetailsViewService);
   });
 
-  fit('should get consultation details', () => {
+  it('should get consultation details', () => {
     const profileService = TestBed.get(ProfileService);
     const serviceService = TestBed.get(ServiceService);
 
@@ -143,6 +143,31 @@ describe('CompanyConsultationDetailsViewService', () => {
     const getServiceRoute = cold('-(a|)', { a: getService });
     const getProfileRoute = cold('-(a|)', { a: getProfileWithDocuments });
     const postServiceWithEmployeesRoute = cold('-(a|)', { a: [getServiceWithEmployees] });
+
+    serviceService.postServicesTagsRoute = jasmine
+      .createSpy('postServicesTagsRoute')
+      .and.returnValue(postServicesTagsRoute);
+    serviceService.getServiceRoute = jasmine.createSpy('getServiceRoute').and.returnValue(getServiceRoute);
+    profileService.getProfileRoute = jasmine.createSpy('getProfileRoute').and.returnValue(getProfileRoute);
+    serviceService.postServiceWithEmployeesRoute = jasmine
+      .createSpy('postServiceWithEmployeesRoute')
+      .and.returnValue(postServiceWithEmployeesRoute);
+
+    expect(service.getConsultationDetails('1234')).toBeObservable(expected);
+  });
+
+  it('should get error when get tags list', () => {
+    const profileService = TestBed.get(ProfileService);
+    const serviceService = TestBed.get(ServiceService);
+
+    const result = undefined;
+    const error = 'error';
+
+    const expected = cold('-|', { a: result });
+    const postServicesTagsRoute = cold('-#', {}, error);
+    const getServiceRoute = cold('-(a|)', { a: {} });
+    const getProfileRoute = cold('-(a|)', { a: {} });
+    const postServiceWithEmployeesRoute = cold('-(a|)', { a: [] });
 
     serviceService.postServicesTagsRoute = jasmine
       .createSpy('postServicesTagsRoute')

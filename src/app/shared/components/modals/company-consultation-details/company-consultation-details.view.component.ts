@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
-import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.service';
+import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 import { GetService } from '@anymind-ng/api/model/getService';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
@@ -15,9 +15,9 @@ import { EmployeesInviteModalComponent } from '@platform/shared/components/modal
 
 @Component({
   selector: 'plat-company-consultation-details-view',
-  templateUrl: './company-consultation-details.component.html',
-  styleUrls: ['./company-consultation-details.component.sass'],
-  providers: [CompanyConsultationDetailsViewService, ModalAnimationComponentService],
+  templateUrl: './company-consultation-details.view.component.html',
+  styleUrls: ['./company-consultation-details.view.component.sass'],
+  providers: [CompanyConsultationDetailsViewService, ModalAnimationComponentService, EmployeesInviteService],
   animations: Animations.addItemAnimation,
 })
 export class CompanyConsultationDetailsViewComponent implements OnInit {
