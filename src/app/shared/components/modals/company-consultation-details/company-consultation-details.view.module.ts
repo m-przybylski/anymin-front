@@ -8,6 +8,7 @@ import { SharedModule } from '@platform/shared/shared.module';
 import { CompanyEmployeeRowComponent } from './company-employee-row/company-employee-row.component';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { ConsultationDetailsComponentModule } from '@platform/features/dashboard/components/consultation-details/consultation-details.component.module';
+import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { ConsultationDetailsComponentModule } from '@platform/features/dashboard
   ],
   exports: [ConsultationDetailsComponentModule],
   declarations: [CompanyConsultationDetailsViewComponent, CompanyEmployeeRowComponent],
-  providers: [ExpertAvailabilityService],
+  providers: [ExpertAvailabilityService, EmployeesInviteService],
   entryComponents: [CompanyConsultationDetailsViewComponent],
 })
 export class CompanyConsultationDetailsModule {}

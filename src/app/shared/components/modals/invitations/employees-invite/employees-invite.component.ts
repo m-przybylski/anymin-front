@@ -9,10 +9,10 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
+import { PostInvitation } from '@anymind-ng/api';
 
 export interface IEmployeesInviteComponent {
   name: string;
@@ -21,6 +21,7 @@ export interface IEmployeesInviteComponent {
   employeeId?: string;
   email?: string;
   msisdn?: string;
+  id?: string;
 }
 
 @Component({
@@ -108,12 +109,13 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     if (this.invitedEmployeeList.length !== 0 && formGroup.valid) {
       this.employeesInviteService
         .postInvitation({ invitations: [...this.adjustEmployeeInvitationObject()] })
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')))
-        .subscribe(() => {
-          this.employeesInviteService.getNewInvitations$().next(this.invitedEmployeeList);
+        .pipe(
+          takeUntil(this.ngUnsubscribe$),
+          catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')),
+        )
+        .subscribe(response => {
           this.alertService.pushSuccessAlert('INVITE_EMPLOYEES.ALERT.SUCCESS');
-          this.activeModal.close();
+          this.activeModal.close(response);
         });
     }
   };

@@ -5,10 +5,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'plat-modal-header',
   templateUrl: './modal-header.component.html',
-  styleUrls: ['./modal-header.component.sass']
+  styleUrls: ['./modal-header.component.sass'],
 })
 export class ModalHeaderComponent {
-
   @Input()
   public titleTrHeader?: string;
 
@@ -19,18 +18,15 @@ export class ModalHeaderComponent {
   public isBackwardVisible = false;
 
   @Input()
-  public isCloseButtonVisible ? = true;
+  public isCloseButtonVisible = true;
 
-  constructor(public activeModal: NgbActiveModal) {
-  }
+  constructor(public activeModal: NgbActiveModal) {}
 
-  public onModalClose = (): void =>
-    this.activeModal.close()
+  public onModalClose = (): void => this.activeModal.dismiss();
 
   public onBackClick = (): void => {
     if (this.onBackwardClick) {
       this.onBackwardClick();
     }
-  }
-
+  };
 }

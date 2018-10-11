@@ -2,19 +2,16 @@
 // tslint:disable:no-shadowed-variable
 // tslint:disable:no-duplicate-imports
 import { ModalsService } from '../../../../common/services/modals/modals.service';
-import { ExpertProfileView } from 'profitelo-api-ng/model/models';
 import { ViewsApi } from 'profitelo-api-ng/api/api';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 import { IExtendedAccount, UserService } from '../../../../common/services/user/user.service';
-import {
-  ExpertProfileWithDocuments,
-  OrganizationProfileView,
-  ServiceWithOwnerProfile,
-} from 'profitelo-api-ng/model/models';
+import { ServiceWithOwnerProfile } from 'profitelo-api-ng/model/models';
+
 import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
 import { GetService } from 'profitelo-api-ng/model/GetService';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
+import { ExpertProfileView, ExpertProfileWithDocuments, OrganizationProfileView } from '@anymind-ng/api';
 
 // tslint:disable:member-ordering
 export class DashboardExpertManageProfileController {
@@ -44,7 +41,7 @@ export class DashboardExpertManageProfileController {
     this.userService.getUser().then(user => {
       if (user.isExpert && !user.isCompany) {
         this.ViewsApi.getWebExpertProfileRoute(user.id)
-          .then(response => {
+          .then((response: ExpertProfileView) => {
             this.isLoading = false;
             this.onGetExpertProfile(response);
           })
@@ -60,7 +57,7 @@ export class DashboardExpertManageProfileController {
       }
       if (user.isCompany) {
         this.ViewsApi.getWebOrganizationProfileRoute(user.id)
-          .then(response => {
+          .then((response: OrganizationProfileView) => {
             this.isLoading = false;
             this.onGetOrganizationProfile(response, user);
           })
@@ -101,7 +98,7 @@ export class DashboardExpertManageProfileController {
   private onGetOrganizationProfile = (organizationDetails: OrganizationProfileView, user: IExtendedAccount): void => {
     if (user.isExpert) {
       this.ViewsApi.getWebExpertProfileRoute(user.id)
-        .then(expertProfile => {
+        .then((expertProfile: ExpertProfileView) => {
           this.isLoading = false;
           this.organizationProfile = organizationDetails.organizationProfile;
           this.organizationName = this.organizationProfile.name;

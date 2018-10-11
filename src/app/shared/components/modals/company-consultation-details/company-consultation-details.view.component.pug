@@ -13,7 +13,7 @@ plat-modal-component(
     [tagList]="tagList",
     )
 
-    .container-grey
+    .container-grey(*ngIf="hasEmployeesOrInvites")
       .company-consultation-details__employees
         h4 {{ "COMPANY_VIEW.CONSULTATION_DETAILS.CONSULTANTS.TITLE" | translate }}
 

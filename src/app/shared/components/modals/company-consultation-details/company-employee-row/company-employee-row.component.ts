@@ -2,13 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 
 export interface ICompanyEmployeeRowComponent {
+  name: string;
+  id: string;
   usageCounter?: number;
   commentCounter?: number;
   ratingCounter?: number;
-  name: string;
-  id: string;
   employeeId?: string;
   avatar?: string;
+  invitationId?: string;
 }
 
 @Component({
@@ -30,6 +31,11 @@ export class CompanyEmployeeRowComponent {
 
   public onClickDelete = (employeeId: Event): void => {
     employeeId.stopPropagation();
-    this.onDeleteEmployeeEmiter.emit(this.employeeDetails.id);
+
+    if (typeof this.employeeDetails.invitationId !== 'undefined') {
+      this.onDeleteEmployeeEmiter.emit(this.employeeDetails.invitationId);
+    } else {
+      this.onDeleteEmployeeEmiter.emit(this.employeeDetails.id);
+    }
   };
 }

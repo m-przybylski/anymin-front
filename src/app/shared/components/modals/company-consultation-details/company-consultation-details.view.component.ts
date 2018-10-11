@@ -6,21 +6,20 @@ import { GetService } from '@anymind-ng/api/model/getService';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Animations } from '@anymind-ng/core';
+import { Animations, LoggerFactory } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/company-consultation-details/company-employee-row/company-employee-row.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
-import { tap } from 'rxjs/operators';
-import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 import { EmployeesInviteModalComponent } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.component';
+import { Logger } from '@platform/core/logger';
 
 @Component({
   selector: 'plat-company-consultation-details-view',
   templateUrl: './company-consultation-details.view.component.html',
   styleUrls: ['./company-consultation-details.view.component.sass'],
-  providers: [CompanyConsultationDetailsViewService, ModalAnimationComponentService, EmployeesInviteService],
+  providers: [CompanyConsultationDetailsViewService, ModalAnimationComponentService],
   animations: Animations.addItemAnimation,
 })
-export class CompanyConsultationDetailsViewComponent implements OnInit {
+export class CompanyConsultationDetailsViewComponent extends Logger implements OnInit {
   public readonly avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_96;
   public readonly modalType: ModalContainerTypeEnum = ModalContainerTypeEnum.NO_PADDING;
   public consultationDetails: GetService;
@@ -30,6 +29,7 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
   public employeesList: ReadonlyArray<ICompanyEmployeeRowComponent> = [];
   public pendingEmployeesList: ReadonlyArray<ICompanyEmployeeRowComponent> = [];
   public tagList: ReadonlyArray<string>;
+  public hasEmployeesOrInvites: boolean;
 
   @Input()
   public isOwnProfile: boolean;
@@ -45,8 +45,10 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
     private modalService: NgbModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private companyConsultationDetailsViewService: CompanyConsultationDetailsViewService,
-    private employeesInviteService: EmployeesInviteService,
-  ) {}
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory);
+  }
 
   public ngOnInit(): void {
     this.companyConsultationDetailsViewService.getConsultationDetails(this.consultationId).subscribe(response => {
@@ -58,16 +60,10 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
       this.modalAnimationComponentService.onModalContentChange().next(false);
     });
 
-    this.employeesInviteService
-      .getNewInvitations$()
-      .pipe(tap(() => (this.isPendingInvitationLoaded = true)))
-      .subscribe(() => {
-        this.getPendingEmployees();
-      });
-
     if (this.isOwnProfile) {
       this.getPendingEmployees();
     }
+    this.hasEmployeesOrInvites = this.employeesList.length + this.pendingEmployeesList.length > 0;
   }
 
   public onDeleteEmployee = (employeeId: string): void => {
@@ -76,25 +72,40 @@ export class CompanyConsultationDetailsViewComponent implements OnInit {
       .subscribe(() => (this.employeesList = this.employeesList.filter(employee => employee.id !== employeeId)));
   };
 
-  public onAddEmployees = (): string =>
-    (this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = this.consultationId);
+  public onAddEmployees = (): void => {
+    const modal = this.modalService.open(EmployeesInviteModalComponent);
+    modal.componentInstance.serviceId = this.consultationId;
+    modal.result
+      .then(() => {
+        this.isPendingInvitationLoaded = true;
+        this.getPendingEmployees();
+      })
+      .catch(err => this.loggerService.warn(err));
+  };
 
   public getPendingEmployees = (): void => {
     this.companyConsultationDetailsViewService.getInvitations(this.consultationId).subscribe(response => {
-      this.pendingEmployeesList = response;
+      this.pendingEmployeesList = response.map(item => ({
+        name: item.name,
+        id: item.id,
+        invitationId: item.employeeId || item.id || '',
+        avatar: item.avatar || '',
+        employeeId: item.employeeId || '',
+      }));
       this.isPendingInvitationLoaded = false;
     });
   };
 
   public onDeletePendingInvitation = (invitationId: string): void => {
     this.companyConsultationDetailsViewService.deletePendingInvitation(invitationId).subscribe(() => {
-      this.pendingEmployeesList = this.pendingEmployeesList.filter(employee => employee.id !== invitationId);
+      this.pendingEmployeesList = this.pendingEmployeesList.filter(employee => employee.invitationId !== invitationId);
+      this.isPendingInvitationLoaded = false;
     });
   };
 
   public openConsultationDetailsModal = (employeId: string): void => {
-    const modalInstance = this.modalService.open(ConsultationDetailsViewComponent).componentInstance;
-    modalInstance.serviceId = this.consultationId;
-    modalInstance.expertId = employeId;
+    const modalInstance = this.modalService.open(ConsultationDetailsViewComponent);
+    modalInstance.componentInstance.serviceId = this.consultationId;
+    modalInstance.componentInstance.expertId = employeId;
   };
 }

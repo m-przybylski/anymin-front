@@ -38,7 +38,6 @@ import { ConsultationFooterComponent } from '@platform/shared/components/modals/
     ConsultationCommentAnswerComponent,
     TimeDurationPipe,
     DateDurationPipe,
-    ConsultationFooterComponent,
   ],
   exports: [ConsultationFooterComponent],
   entryComponents: [ConsultationDetailsViewComponent],

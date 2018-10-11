@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { EmploymentService, InvitationService, ServiceService } from '@anymind-ng/api';
+import { EmploymentService, GetInvitation, InvitationService, ServiceService } from '@anymind-ng/api';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PostInvitations } from '@anymind-ng/api/model/postInvitations';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
 import { GetService } from '@anymind-ng/api/model/getService';
@@ -27,7 +27,6 @@ export interface IEmployeesPendingInvitation {
 
 @Injectable()
 export class EmployeesInviteService {
-  public pendingInvitations$ = new Subject<ReadonlyArray<IEmployeesInviteComponent>>();
   private employeesWithPendingInvitaitons: ReadonlyArray<IEmployeesPendingInvitation> = [];
   private emailPattern: RegExp;
   private maxInvitationLength: number;
@@ -43,7 +42,6 @@ export class EmployeesInviteService {
     this.emailPattern = commonSettingsService.localSettings.emailPattern;
     this.maxInvitationLength = commonSettingsService.localSettings.consultationInvitationsMaxCount;
   }
-  public getNewInvitations$ = (): Subject<ReadonlyArray<IEmployeesInviteComponent>> => this.pendingInvitations$;
 
   public getEmployeeList = (): Observable<ReadonlyArray<ExpertProfileWithEmployments>> =>
     this.employmentService.getEmployeesRoute();
@@ -54,7 +52,7 @@ export class EmployeesInviteService {
   public getConsultationDetails = (serviceId: string): Observable<GetService> =>
     this.serviceService.getServiceRoute(serviceId);
 
-  public postInvitation = (data: PostInvitations): Observable<PostInvitations> =>
+  public postInvitation = (data: PostInvitations): Observable<ReadonlyArray<GetInvitation>> =>
     this.invitationService.postInvitationRoute(data);
 
   public checkInvitationType = (value: string): EmployeeInvitationTypeEnum => {

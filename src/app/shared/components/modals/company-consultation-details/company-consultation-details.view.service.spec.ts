@@ -1,18 +1,11 @@
 import { EmploymentService, InvitationService, ProfileService, ServiceService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
-import { LoggerService } from '@anymind-ng/core';
 import { TestBed } from '@angular/core/testing';
 import { provideMockFactoryLogger } from '../../../../../testing/testing';
 import { cold } from 'jasmine-marbles';
 import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 
 describe('CompanyConsultationDetailsViewService', () => {
-  const loggerService: LoggerService = Deceiver(LoggerService, {
-    debug: jasmine.createSpy(''),
-    warn: jasmine.createSpy(''),
-    error: jasmine.createSpy(''),
-  });
-
   let service: CompanyConsultationDetailsViewService;
 
   beforeEach(() => {
@@ -35,13 +28,9 @@ describe('CompanyConsultationDetailsViewService', () => {
           provide: ProfileService,
           useValue: Deceiver(ProfileService),
         },
-        provideMockFactoryLogger(loggerService),
+        provideMockFactoryLogger(),
       ],
     });
-
-    (loggerService.error as jasmine.Spy).calls.reset();
-    (loggerService.warn as jasmine.Spy).calls.reset();
-    (loggerService.debug as jasmine.Spy).calls.reset();
   });
 
   beforeEach(() => {
