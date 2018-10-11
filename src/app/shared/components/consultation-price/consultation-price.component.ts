@@ -2,18 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DefaultConsultationPriceService } from './consulatation-price-services/default-consultation-price.service';
 import { FreelanceConsultationPriceService } from './consulatation-price-services/freelance-consultation-price.service';
-import {
-  IConsultationPriceComponentService
-}
-  from './consulatation-price-services/consultation-price-component-service.interface';
+import { IConsultationPriceComponentService } from './consulatation-price-services/consultation-price-component-service.interface';
 
 @Component({
   selector: 'plat-consultation-price',
   templateUrl: './consultation-price.component.html',
-  styleUrls: ['./consultation-price.component.sass']
+  styleUrls: ['./consultation-price.component.sass'],
 })
 export class ConsultationPriceComponent implements OnInit {
-
   @Input()
   public labelWithoutCommission: string;
 
@@ -33,10 +29,10 @@ export class ConsultationPriceComponent implements OnInit {
   public form: FormGroup;
 
   @Input()
-  public isRequired ? = false;
+  public isRequired = false;
 
   @Input()
-  public isDisabled ? = false;
+  public isDisabled = false;
 
   @Input()
   public taxValue = 0.23;
@@ -55,10 +51,19 @@ export class ConsultationPriceComponent implements OnInit {
     }
   }
 
+  @Input()
+  public set grossPrice(value: number | undefined) {
+    if (typeof value !== 'undefined') {
+      setTimeout(() => {
+        this.calculatePriceWithoutCommission(value);
+      });
+    }
+  }
+
   public minValidPriceWithoutCommission: number;
   public maxValidPriceWithoutCommission: number;
   public grossMinValidPrice: number;
-  public grossMaxValidPrice: number;
+  public grossMaxValidPrice = 9900;
 
   private readonly lastButOneIndex = 2;
   private consultationPriceComponentService: IConsultationPriceComponentService;
@@ -71,20 +76,22 @@ export class ConsultationPriceComponent implements OnInit {
     if (this.isFormControlValid(this.withoutCommissionControlName)) {
       const grossPrice = this.consultationPriceComponentService.getGrossPrice(inputValue);
       this.form.controls[this.grossControlName].setValue(this.createInputPriceModel(grossPrice));
-      this.form.controls[this.nettControlName]
-        .setValue(this.consultationPriceComponentService.getNettPrice(inputValue));
+      this.form.controls[this.nettControlName].setValue(
+        this.consultationPriceComponentService.getNettPrice(inputValue),
+      );
     } else {
       this.displayFormControlError(this.withoutCommissionControlName);
       this.form.controls[this.grossControlName].setValue('');
       this.form.controls[this.nettControlName].setValue('');
     }
-  }
+  };
 
   public calculatePriceWithoutCommission = (inputValue: number): void => {
     if (this.isFormControlValid(this.grossControlName)) {
       const priceWithoutCommission = this.consultationPriceComponentService.getPriceWithoutCommission(inputValue);
-      this.form.controls[this.withoutCommissionControlName]
-        .setValue(this.createInputPriceModel(priceWithoutCommission));
+      this.form.controls[this.withoutCommissionControlName].setValue(
+        this.createInputPriceModel(priceWithoutCommission),
+      );
       const netPrice = this.consultationPriceComponentService.getNettPrice(priceWithoutCommission);
       this.form.controls[this.nettControlName].setValue(netPrice);
     } else {
@@ -92,7 +99,7 @@ export class ConsultationPriceComponent implements OnInit {
       this.form.controls[this.withoutCommissionControlName].setValue('');
       this.form.controls[this.nettControlName].setValue('');
     }
-  }
+  };
 
   private createInputPriceModel = (value: number): string => {
     const stringVal = value.toString().replace('.', ',');
@@ -103,21 +110,17 @@ export class ConsultationPriceComponent implements OnInit {
     }
 
     return stringVal;
-  }
+  };
 
-  private isFormControlValid = (controlName: string): boolean =>
-    this.form.controls[controlName].valid
+  private isFormControlValid = (controlName: string): boolean => this.form.controls[controlName].valid;
 
   private displayFormControlError = (controlName: string): void => {
     this.form.controls[controlName].markAsTouched();
-  }
+  };
 
   private assignValidationValues = (): void => {
     this.minValidPriceWithoutCommission = this.consultationPriceComponentService.getMinValidPriceWithoutCommission();
     this.maxValidPriceWithoutCommission = this.consultationPriceComponentService.getMaxValidPriceWithoutCommission();
     this.grossMinValidPrice = this.consultationPriceComponentService.getMinGrossValidPrice();
-    const grossMaxValidPrice = 9900;
-    this.grossMaxValidPrice = grossMaxValidPrice;
-  }
-
+  };
 }

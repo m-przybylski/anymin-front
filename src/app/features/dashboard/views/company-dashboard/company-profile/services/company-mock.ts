@@ -133,6 +133,7 @@ export const companyProfileView: IExpertCompanyDashboardResolverData<Organizatio
   profile: [organizationProfileView, profileWithDocuments],
   isOwnProfile: false,
   isLogged: true,
+  isCompany: true
 };
 
 export const organizationProfileView1: OrganizationProfileView = {
@@ -309,4 +310,5 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
   ],
   isOwnProfile: false,
   isLogged: true,
+  isCompany: true
 };

@@ -8,6 +8,7 @@ export interface ICommission {
   employeeServiceAnyMindCommission: number;
   percentDivider: number;
   numberPrecision: number;
+  moneyDivider: number;
 }
 
 // tslint:disable-next-line:only-arrow-functions
@@ -20,6 +21,7 @@ export function provideCommission(): Provider {
       employeeServiceAnyMindCommission: 0.15,
       percentDivider: 100,
       numberPrecision: 2,
+      moneyDivider: 100,
     },
   };
 }

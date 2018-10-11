@@ -28,7 +28,10 @@ export const mapData = <T>(
     session$.pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === httpCodes.unauthorized) {
-          return of({ account: { id: undefined } });
+          return of({
+            account: { id: undefined },
+            isCompany: false
+          });
         }
 
         return throwError(error);
@@ -37,6 +40,7 @@ export const mapData = <T>(
   ).pipe(
     map(([data, session]) => ({
       profile: data,
+      isCompany: session.isCompany,
       isOwnProfile: session.account.id === getOwnerId(data),
       isLogged: session.account.id !== undefined,
     })),
@@ -53,4 +57,5 @@ export interface IExpertCompanyDashboardResolverData<T> {
   profile: T;
   isOwnProfile: boolean;
   isLogged: boolean;
+  isCompany: boolean;
 }

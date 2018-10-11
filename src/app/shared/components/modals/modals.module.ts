@@ -3,16 +3,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { PinElementDirective } from '../../directives/pin-element/pin-element.directive';
-import { CreateExpertConsultationModalComponent } from './create-expert-consultation/create-expert-consultation.component';
-import { CreateCompanyConsultationModalComponent } from './create-company-consultation/create-company-consultation.component';
+import { CreateEditConsultationModalComponent } from './create-edit-consultation/create-edit-consultation.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { UserAvatarModule } from '../user-avatar/user-avatar.module';
 import { InvitationsModalsModule } from './invitations/invitations.module';
 import { ModalComponentsModule } from './modal/modal.components.module';
 
 @NgModule({
-  declarations: [PinElementDirective, CreateExpertConsultationModalComponent, CreateCompanyConsultationModalComponent],
-  entryComponents: [CreateExpertConsultationModalComponent, CreateCompanyConsultationModalComponent],
+  declarations: [PinElementDirective, CreateEditConsultationModalComponent],
+  entryComponents: [CreateEditConsultationModalComponent],
   imports: [
     CommonModule,
     SharedModule,
