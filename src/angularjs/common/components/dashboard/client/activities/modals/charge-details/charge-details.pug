@@ -14,11 +14,6 @@ scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
 
             .details-tab-row
               .details-tab-label
-                span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TRANSACTION_ID")
-              .details-tab-content
-                span {{ financialOperationId }}
-            .details-tab-row
-              .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.DATE")
               .details-tab-content
                 span {{ createdAt | date:'yyyy-MM-dd' }}

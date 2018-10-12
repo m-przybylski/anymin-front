@@ -5,7 +5,7 @@
 // tslint:disable:no-any
 // tslint:disable:newline-before-return
 // tslint:disable:deprecation
-import { JValue, PutPayoutMethodDto } from 'profitelo-api-ng/model/models';
+import { JValue, PutPayoutMethod } from 'profitelo-api-ng/model/models';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { PayoutsMethodsModalService } from './payouts-methods.service';
 import { httpCodes } from '../../../../../../classes/http-codes';
@@ -53,7 +53,7 @@ export class PayoutsMethodsModalController implements ng.IController {
 
   public addPayPalAccount = (): void => {
     this.isLoading = true;
-    const payoutMethod: PutPayoutMethodDto = {
+    const payoutMethod: PutPayoutMethod = {
       payPalAccount: {
         email: this.payPalEmail,
       },
@@ -65,7 +65,7 @@ export class PayoutsMethodsModalController implements ng.IController {
 
   public addBankAccount = (): void => {
     this.isLoading = true;
-    const payoutMethod: PutPayoutMethodDto = {
+    const payoutMethod: PutPayoutMethod = {
       bankAccount: {
         accountNumber: this.createBankAccountModel(),
       },

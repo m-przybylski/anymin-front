@@ -24,19 +24,20 @@ export interface IClientChargeDetailsControllerScope extends ng.IScope {
   onModalClose: () => void;
 }
 
-function controller($scope: IClientChargeDetailsControllerScope, $state: StateService,
-                    $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {
+function controller(
+  $scope: IClientChargeDetailsControllerScope,
+  $state: StateService,
+  $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+): void {
   $scope.isNavbar = true;
   $scope.isFullscreen = true;
 
   if ($scope.$parent.financeActivityDetails.financialOperation) {
     $scope.operation = $scope.$parent.financeActivityDetails.financialOperation.operation;
     $scope.createdAt = $scope.$parent.financeActivityDetails.initializedAt;
-    $scope.financialOperationId = $scope.$parent.financeActivityDetails.financialOperation.id;
     // TODO Wait for backend: https://git.contactis.pl/itelo/profitelo/issues/993
     // $scope.paymentSystemName = $scope.$parent.financeActivityDetails.financialOperation.paymentSystemName
-  }
-  else {
+  } else {
     throw Error('Wrong financeActivityDetails, financialOperation is missing.');
   }
 
@@ -45,14 +46,13 @@ function controller($scope: IClientChargeDetailsControllerScope, $state: StateSe
     $scope.onModalClose();
   };
 
-  $scope.onModalClose = (): void =>
-    $uibModalInstance.dismiss('cancel');
+  $scope.onModalClose = (): void => $uibModalInstance.dismiss('cancel');
   return this;
 }
 
-angular.module('profitelo.components.dashboard.client.activities.modals.charge-details', [
-  'ui.bootstrap',
-  'profitelo.directives.interface.scrollable'
-])
-  .controller('clientChargeDetailsController', [
-    '$scope', '$state', '$uibModalInstance', controller]);
+angular
+  .module('profitelo.components.dashboard.client.activities.modals.charge-details', [
+    'ui.bootstrap',
+    'profitelo.directives.interface.scrollable',
+  ])
+  .controller('clientChargeDetailsController', ['$scope', '$state', '$uibModalInstance', controller]);
