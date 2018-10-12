@@ -4,7 +4,7 @@
 // tslint:disable:no-shadowed-variable
 // tslint:disable:curly
 import { WizardApi } from 'profitelo-api-ng/api/api';
-import { GetWizardProfile, MoneyDto, GetWizardService, WizardTag } from 'profitelo-api-ng/model/models';
+import { GetWizardProfile, MoneyDto } from 'profitelo-api-ng/model/models';
 import { UserService } from '../../../common/services/user/user.service';
 import { IServiceInvitation } from '../../../common/models/ServiceInvitation';
 // tslint:disable-next-line:import-blacklist
@@ -14,9 +14,11 @@ import { TranslatorService } from '../../../common/services/translator/translato
 import { CommonSettingsService } from '../../../common/services/common-settings/common-settings.service';
 import { Config } from '../../../../config';
 import { StateService, StateParams } from '@uirouter/angularjs';
+import { PostService } from '@anymind-ng/api';
+import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 
 export interface IConsultationStateParams extends StateParams {
-  service: GetWizardService;
+  service: PostService;
 }
 
 interface ILanguagesList {
@@ -159,7 +161,7 @@ export class ConsultationController implements ng.IController {
         amount: Number(this.priceAmountInputValue.replace(',', '.')) * this.moneyDivider,
         currency: this.currency,
       };
-      const tags: WizardTag[] = [];
+      const tags: PostServiceTag[] = [];
       this.tagsInputValue.forEach(tag => {
         tags.push({
           name: tag,
@@ -178,7 +180,7 @@ export class ConsultationController implements ng.IController {
           });
         }
       });
-      const serviceModel: GetWizardService = {
+      const serviceModel: PostService = {
         tags,
         invitations,
         isFreelance: this.isFreelance,

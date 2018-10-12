@@ -2,21 +2,20 @@
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:prefer-template
 import { ISingleConsultationEditComponentBindings } from './single-consultation-edit';
-import { GetWizardService, WizardTag, MoneyDto } from 'profitelo-api-ng/model/models';
+import { PostService, PostServiceTag, MoneyDto } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../services/translator/translator.service';
 import { ModalsService } from '../../../../services/modals/modals.service';
 
 // tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class SingleConsultationEditComponentController implements ISingleConsultationEditComponentBindings {
-
-  public service: GetWizardService;
-  public tagsList: WizardTag[];
+  public service: PostService;
+  public tagsList: PostServiceTag[];
   public employeeList: string[];
   public name: string;
   public price: MoneyDto;
-  public onRemove: (service: GetWizardService) => void;
-  public onEdit: (service: GetWizardService) => void;
+  public onRemove: (service: PostService) => void;
+  public onEdit: (service: PostService) => void;
   public isOwnerEmployee = false;
   public isCompany: boolean;
   public language: string;
@@ -24,15 +23,13 @@ export class SingleConsultationEditComponentController implements ISingleConsult
 
   public static $inject = ['translatorService', 'modalsService'];
 
-  constructor(private translatorService: TranslatorService,
-              private modalsService: ModalsService) {
-  }
+  constructor(private translatorService: TranslatorService, private modalsService: ModalsService) {}
 
   public $onInit(): void {
     this.tagsList = this.service.tags;
     this.employeeList = [];
     if (this.service.invitations) {
-      this.service.invitations.forEach((invitation) => {
+      this.service.invitations.forEach(invitation => {
         if (invitation.email) {
           this.employeeList.push(invitation.email);
         } else if (invitation.msisdn) {
@@ -53,16 +50,15 @@ export class SingleConsultationEditComponentController implements ISingleConsult
         this.onRemove(this.service);
       });
     }
-  }
+  };
 
   public editConsultation = (): void => {
     if (this.checkIsOnEditExist()) {
       this.onEdit(this.service);
     }
-  }
+  };
 
   public checkIsOnRemoveExist = (): boolean => this.onRemove && typeof this.onRemove === 'function';
 
   public checkIsOnEditExist = (): boolean => this.onEdit && typeof this.onEdit === 'function';
-
 }

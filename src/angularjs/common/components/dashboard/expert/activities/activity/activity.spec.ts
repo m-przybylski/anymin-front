@@ -57,7 +57,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           serviceUsageEventId: 'serviceUsageEventId',
         },
         financialOperation: {
-          id: 'id',
           operation: {
             amount: 123,
             currency: 'PLN',
@@ -89,7 +88,6 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
           serviceUsageEventId: '',
         },
         financialOperation: {
-          id: 'id',
           operation: {
             amount: 123,
             currency: 'PLN',

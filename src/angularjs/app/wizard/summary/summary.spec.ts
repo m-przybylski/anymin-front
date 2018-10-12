@@ -1,5 +1,5 @@
 import * as angular from 'angular';
-import { GetWizardProfile, GetWizardService, WizardCompleteResult } from 'profitelo-api-ng/model/models';
+import { GetWizardProfile, PostService, WizardCompleteResult } from 'profitelo-api-ng/model/models';
 import { WizardApi, WizardApiMock } from 'profitelo-api-ng/api/api';
 import { SummaryController } from './summary.controller';
 import summaryWizardModule from './summary';
@@ -124,7 +124,7 @@ describe('Testing Controller: SummaryController', () => {
   });
 
   it('should redirect to consultation', () => {
-    const service: GetWizardService = {
+    const service: PostService = {
       name: 'name',
       price: {
         amount: 2423,
