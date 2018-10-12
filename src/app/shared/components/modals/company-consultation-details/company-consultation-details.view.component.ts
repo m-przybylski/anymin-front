@@ -29,7 +29,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   public employeesList: ReadonlyArray<ICompanyEmployeeRowComponent> = [];
   public pendingEmployeesList: ReadonlyArray<ICompanyEmployeeRowComponent> = [];
   public tagList: ReadonlyArray<string>;
-  public hasEmployeesOrInvites: boolean;
+  public isEmployeesListExist: boolean;
 
   @Input()
   public isOwnProfile: boolean;
@@ -58,12 +58,12 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.employeesList = response.employeesList;
       this.isPending = false;
       this.modalAnimationComponentService.onModalContentChange().next(false);
+      this.isEmployeesListExist = this.employeesList.length > 0;
     });
 
     if (this.isOwnProfile) {
       this.getPendingEmployees();
     }
-    this.hasEmployeesOrInvites = this.employeesList.length + this.pendingEmployeesList.length > 0;
   }
 
   public onDeleteEmployee = (employeeId: string): void => {
