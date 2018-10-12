@@ -1,0 +1,28 @@
+.company-employee-row
+  .company-employee-row__content
+    .expert-details
+      .expert-details__avatar
+        plat-user-avatar(
+        [avatarSize]="avatarSize",
+        [avatarToken]="employeeDetails.avatar"
+        )
+
+      .expert-details__data
+        .expert-details__name-wrapper
+          plat-expert-availability(
+            *ngIf="employeeDetails.employeeId",
+            [expertId]="employeeDetails.employeeId",
+            [isTextVisible]="false"
+            )
+          span(*ngIf="employeeDetails.name") {{ employeeDetails.name }}
+
+        .expert-details__statistics(*ngIf="isStatisticsVisible")
+          plat-consultation-stat(
+          [usageCounter]='employeeDetails.usageCounter',
+          [commentCounter]='employeeDetails.commentCounter',
+          [rating]='employeeDetails.ratingCounter',
+          )
+
+  .company-employee-row__action(*ngIf="isOwnProfile")
+    span(plat-flat-fab color='default', (click)="onClickDelete($event)")
+      span(plat-icon iconClass='stroke-delete')

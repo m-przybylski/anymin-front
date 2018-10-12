@@ -15,6 +15,9 @@ export class ExpertAvailabilityComponent {
       this.expertAvailable$ = this.availability.getExpertPresence(id);
     }
   }
+  @Input()
+  public isTextVisible = true;
+
   public expertPresenceStatuses: typeof AccountPresenceStatus.StatusEnum = AccountPresenceStatus.StatusEnum;
   public expertAvailable$: Observable<AccountPresenceStatus.StatusEnum>;
   constructor(private availability: ExpertAvailabilityService) {}

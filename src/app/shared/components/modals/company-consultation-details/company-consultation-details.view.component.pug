@@ -1,0 +1,49 @@
+plat-modal-component(
+  [modalTrTitleHeader]="'CONSULTATION_DETAILS.MODAL.TITLE'",
+  [modalContainerClass]="modalType"
+)
+  .company-consultation-details(*ngIf="!isPending")
+    plat-consultation-details(
+    [avatarSize]="avatarSize",
+    [avatarToken]="profileDetails.profile.organizationDetails.logo",
+    [expertName]="profileDetails.profile.organizationDetails.name",
+    [serviceName]="consultationDetails.name",
+    [registeredAt]="consultationDetails.createdAt",
+    [serviceDescription]="consultationDetails.description",
+    [tagList]="tagList",
+    )
+
+    .container-grey(*ngIf="hasEmployeesOrInvites")
+      .company-consultation-details__employees
+        h4 {{ "COMPANY_VIEW.CONSULTATION_DETAILS.CONSULTANTS.TITLE" | translate }}
+
+        a.button-row((click)="onAddEmployees()", *ngIf="isOwnProfile")
+          span(plat-flat-fab color='primary')
+            span(plat-icon iconClass='add')
+          span.button-row__text {{'COMPANY_VIEW.CONSULTATION_DETAILS.ADD_EMPLOYEE.TITLE' | translate}}
+
+        ul
+          li(*ngFor="let employee of employeesList", [@animation])
+            plat-company-employee-row(
+            [employeeDetails]="employee",
+            (onDeleteEmployeeEmiter)="onDeleteEmployee($event)",
+            [isOwnProfile]="isOwnProfile",
+            (click)="openConsultationDetailsModal(employee.employeeId)",
+            [isStatisticsVisible]="true"
+            )
+
+      .company-consultation-details__invites-employee(*ngIf="isOwnProfile && !isPendingEmployeesListEmpty")
+        .company-consultation-details__preloader(*ngIf="isPendingInvitationLoaded",
+          [ngClass]="{'company-consultation-details__preloader--loading': isPendingInvitationLoaded}")
+          span.icon.icon-loading(*ngIf="isPendingInvitationLoaded")
+
+        h4 {{ "COMPANY_VIEW.CONSULTATION_DETAILS.INVITATION_WAITING.TITLE" | translate }}
+
+        ul
+          li(*ngFor="let employee of pendingEmployeesList", [@animation])
+            plat-company-employee-row(
+              [employeeDetails]="employee",
+              (onDeleteEmployeeEmiter)="onDeletePendingInvitation($event)",
+              [isOwnProfile]="isOwnProfile",
+            )
+

@@ -1,46 +1,15 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
 
-=x156-size
-  width: 156px
-  min-width: 156px
-  height: 156px
-  min-height: 156px
-
-=x96-size
-  width: 96px
-  min-width: 96px
-  height: 96px
-  min-height: 96px
-
-=x40-size
-  width: 40px
-  min-width: 40px
-  height: 40px
-  min-height: 40px
-
-=x48-size
-  width: 48px
-  min-width: 48px
-  height: 48px
-  min-height: 48px
-
-=x32-size
-  width: 32px
-  min-width: 32px
-  height: 32px
-  min-height: 32px
-
-=x24-size
-  width: 24px
-  min-width: 24px
-  height: 24px
-  min-height: 24px
+=avatar-size($val)
+  width: $val
+  min-width: $val
+  height: $val
+  min-height: $val
 
 .user-avatar
   display: flex
   align-items: center
-  position: relative
 
   &__img
     border-radius: 50%
@@ -51,20 +20,20 @@
   &--x156
     img,
     .user-avatar__error
-      +x156-size
+      +avatar-size(156px)
 
     .icon
       font-size: 156px
 
       &--profile
-        +x156-size
+        +avatar-size(156px)
 
         &.icon-organization
           font-size: 116px
 
   &--x96
     img
-      +x96-size
+      +avatar-size(96px)
 
     .icon
       font-size: 96px
@@ -73,9 +42,20 @@
         width: 96px
         height: 96px
 
+  &--x56
+    img
+      +avatar-size(56px)
+
+    .icon
+      font-size: 56px
+
+      &--profile
+        width: 56px
+        height: 56px
+
   &--x48
     img
-      +x48-size
+      +avatar-size(48px)
 
     .icon
       font-size: 48px
@@ -86,7 +66,7 @@
 
   &--x40
     img
-      +x40-size
+      +avatar-size(40px)
 
     .icon
       font-size: 40px
@@ -97,7 +77,7 @@
 
   &--x32
     img
-      +x32-size
+      +avatar-size(32px)
 
     .icon
       font-size: 32px
@@ -108,7 +88,7 @@
 
   &--x24
     img
-      +x24-size
+      +avatar-size(24px)
     .icon
       font-size: 24px
 
@@ -126,7 +106,6 @@
         position: absolute
         top: 0
         left: 0
-
 
   &__error
     background: $c-white
@@ -150,3 +129,4 @@
       font-size: $f-button-small
       text-transform: none
       color: $c-error-primary
+

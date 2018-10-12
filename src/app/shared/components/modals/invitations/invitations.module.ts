@@ -11,8 +11,9 @@ import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-a
 import { AcceptRejectInvitationModalComponent } from './accept-reject-invitation/accept-reject-invitation.component';
 import { IconModule, ButtonModule } from '@platform/shared/components/atomic-components';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConsultationDetailsModule } from '../consultation-details/consultation-details.view.module';
+import { ConsultationDetailsComponentModule } from '@platform/features/dashboard/components/consultation-details/consultation-details.component.module';
 import { ConsultationFooterModule } from '../consultation-details/consultation-footers/consultation-footer.module';
+import { ConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/consultation-details.view.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { ConsultationFooterModule } from '../consultation-details/consultation-f
     UserAvatarModule,
     TranslateModule.forChild(),
     ConsultationDetailsModule,
+    ConsultationDetailsComponentModule,
     ConsultationFooterModule,
   ],
   entryComponents: [AcceptRejectInvitationModalComponent, EmployeesInviteModalComponent],

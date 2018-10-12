@@ -6,16 +6,16 @@ import { ConsultationCommentComponent } from '@platform/shared/components/modals
 import { TimeDurationPipe } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/time-duration.pipe';
 import { ConsultationCommentAnswerComponent } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/consultation-comment-answer/consultation-comment-answer.component';
 import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
-import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-avatar.module';
 import { SharedModule } from '@platform/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConsultationDetailsComponent } from './consultation-details/consultation-details.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import { ModalComponentsModule } from '../modal/modal.components.module';
+import { ConsultationDetailsComponentModule } from '@platform/features/dashboard/components/consultation-details/consultation-details.component.module';
 import { PaymentCardModule } from '@platform/shared/components/pipes/payment-card';
 import { ConsultationFooterModule } from './consultation-footers/consultation-footer.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ConfirmationModalModule } from '../confirmation/confirmation.module';
+import { ConsultationFooterComponent } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer/consultation-footer.component';
 
 @NgModule({
   imports: [
@@ -25,8 +25,8 @@ import { ConfirmationModalModule } from '../confirmation/confirmation.module';
     FormsModule,
     ReactiveFormsModule,
     DashboardComponentsModule,
-    UserAvatarModule,
     ModalComponentsModule,
+    ConsultationDetailsComponentModule,
     PaymentCardModule,
     ConsultationFooterModule,
     ConfirmationModalModule,
@@ -38,9 +38,8 @@ import { ConfirmationModalModule } from '../confirmation/confirmation.module';
     ConsultationCommentAnswerComponent,
     TimeDurationPipe,
     DateDurationPipe,
-    ConsultationDetailsComponent,
   ],
-  exports: [ConsultationDetailsComponent],
+  exports: [ConsultationFooterComponent],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

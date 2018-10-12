@@ -1,0 +1,87 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+%transition
+  transition: background 0.3s ease, color 0.3s ease
+
+=greySection
+  background: $c-base-background
+  padding: 0 8px 40px
+
+  +smm
+    padding: 0 24px 40px
+
+  &__actions
+    padding: 40px 8px 0
+    text-align: center
+
+  h4
+    +subtitle-small
+    color: $c-label
+    text-transform: uppercase
+    padding: 16px 0
+
+    +smm
+      padding: 24px
+
+.company-consultation-details
+  &__employees
+    ul
+      li
+        cursor: pointer
+
+    &__description
+      > *
+        +paragraph-small
+
+      +smm
+        > *
+          +paragraph
+
+  .container-grey
+    +greySection
+
+  &__invites-employee
+    position: relative
+
+  &__preloader
+    display: flex
+    align-items: center
+    justify-content: center
+    position: absolute
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+    background: $c-white
+
+    span
+      &.icon
+        width: 24px
+        height: 24px
+        display: flex
+        align-items: center
+        animation: 0.6s linear rotate360Deg infinite
+
+.button-row
+  background: $c-white
+  padding: 24px
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 88px
+  margin: 0 0 4px
+
+  &:hover
+    span
+      color: $c-primary
+      background-color: transparent
+
+      span
+        @extend %transition
+        color: $c-primary
+
+
+  &__text
+    +subtitle-small
+    font-weight: 500
+    margin: 0 0 0 16px

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
 import { FormGroup } from '@angular/forms';
@@ -8,10 +9,10 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import { PostInvitation } from '@anymind-ng/api/model/postInvitation';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
-import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
+import { PostInvitation } from '@anymind-ng/api';
 
 export interface IEmployeesInviteComponent {
   name: string;
@@ -20,6 +21,7 @@ export interface IEmployeesInviteComponent {
   employeeId?: string;
   email?: string;
   msisdn?: string;
+  id?: string;
 }
 
 @Component({
@@ -27,7 +29,7 @@ export interface IEmployeesInviteComponent {
   templateUrl: './employees-invite.component.html',
   styleUrls: ['./employees-invite.component.sass'],
   animations: Animations.addItemAnimation,
-  providers: [EmployeesInviteService],
+  providers: [CompanyConsultationDetailsViewService],
 })
 export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public readonly avatarSize = AvatarSizeEnum.X_24;
@@ -80,8 +82,8 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         this.dropdownItems = response.filter(item => item.employments[0]).map(employeeProfile => ({
           name: employeeProfile.expertProfile.name,
           avatar: employeeProfile.expertProfile.avatar,
-          employeeId: employeeProfile.employments[0].id,
-          serviceId: employeeProfile.employments[0].serviceId,
+          employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
+          serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
         }));
 
         this.employeesConsultationList = this.dropdownItems.filter(employee => employee.serviceId === this.serviceId);
@@ -107,11 +109,13 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     if (this.invitedEmployeeList.length !== 0 && formGroup.valid) {
       this.employeesInviteService
         .postInvitation({ invitations: [...this.adjustEmployeeInvitationObject()] })
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')))
-        .subscribe(() => {
+        .pipe(
+          takeUntil(this.ngUnsubscribe$),
+          catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')),
+        )
+        .subscribe(response => {
           this.alertService.pushSuccessAlert('INVITE_EMPLOYEES.ALERT.SUCCESS');
-          this.activeModal.close();
+          this.activeModal.close(response);
         });
     }
   };

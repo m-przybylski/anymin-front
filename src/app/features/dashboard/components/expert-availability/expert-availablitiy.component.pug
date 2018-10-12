@@ -1,12 +1,12 @@
 .availability([ngSwitch]="expertAvailable$ | async")
   ng-container(*ngSwitchCase="expertPresenceStatuses.Available")
     span.icon.icon-available
-    span {{ 'EXPERT_VIEW.STATUS.AVAILABLE' | translate }}
+    span(*ngIf="isTextVisible") {{ 'EXPERT_VIEW.STATUS.AVAILABLE' | translate }}
 
   ng-container(*ngSwitchCase="expertPresenceStatuses.Busy")
     span.icon.icon-busy
-    span {{ 'EXPERT_VIEW.STATUS.BUSY' | translate }}
+    span(*ngIf="isTextVisible") {{ 'EXPERT_VIEW.STATUS.BUSY' | translate }}
 
   ng-container(*ngSwitchCase="expertPresenceStatuses.Unavailable")
     span.icon.icon-offline
-    span {{ 'EXPERT_VIEW.STATUS.UNAVAILABLE' | translate }}
+    span(*ngIf="isTextVisible") {{ 'EXPERT_VIEW.STATUS.UNAVAILABLE' | translate }}

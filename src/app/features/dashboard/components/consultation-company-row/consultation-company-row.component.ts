@@ -1,5 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MoneyDto, ServiceWithEmployments } from '@anymind-ng/api';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.component';
 
 @Component({
   selector: 'plat-consultation-company-row',
@@ -11,6 +13,11 @@ export class ConsultationCompanyRowComponent {
   @Input()
   public consultation: ServiceWithEmployments;
 
+  @Input()
+  public isOwnProfile = false;
+
+  constructor(private modalService: NgbModal) {}
+
   public get header(): string {
     return this.consultation.service.name;
   }
@@ -19,7 +26,17 @@ export class ConsultationCompanyRowComponent {
     return this.consultation.service.price;
   }
 
+  public get companyId(): string {
+    return this.consultation.service.id;
+  }
+
   public get expertAvatarTokenList(): ReadonlyArray<string> {
     return this.consultation.employments.map(employment => employment.employeeProfile.avatar);
   }
+
+  public openConsultationModal = (): void => {
+    const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
+    modal.componentInstance.consultationId = this.companyId;
+    modal.componentInstance.isOwnProfile = this.isOwnProfile;
+  };
 }

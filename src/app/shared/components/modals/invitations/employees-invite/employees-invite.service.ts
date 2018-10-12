@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EmploymentService, InvitationService, ServiceService } from '@anymind-ng/api';
+import { EmploymentService, GetInvitation, InvitationService, ServiceService } from '@anymind-ng/api';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
 import { Observable } from 'rxjs';
 import { PostInvitations } from '@anymind-ng/api/model/postInvitations';
@@ -52,7 +52,7 @@ export class EmployeesInviteService {
   public getConsultationDetails = (serviceId: string): Observable<GetService> =>
     this.serviceService.getServiceRoute(serviceId);
 
-  public postInvitation = (data: PostInvitations): Observable<PostInvitations> =>
+  public postInvitation = (data: PostInvitations): Observable<ReadonlyArray<GetInvitation>> =>
     this.invitationService.postInvitationRoute(data);
 
   public checkInvitationType = (value: string): EmployeeInvitationTypeEnum => {

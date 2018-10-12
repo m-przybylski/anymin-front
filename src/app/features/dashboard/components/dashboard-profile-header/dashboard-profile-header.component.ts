@@ -1,11 +1,10 @@
-import { Component, Input, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { AvatarSizeEnum } from '../../../../shared/components/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'plat-dashboard-profile-header',
   templateUrl: './dashboard-profile-header.component.html',
   styleUrls: ['./dashboard-profile-header.component.sass'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class DashboardProfileHeaderComponent {
   @Input()
