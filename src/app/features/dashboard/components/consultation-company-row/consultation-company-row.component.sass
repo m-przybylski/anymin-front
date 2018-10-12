@@ -2,12 +2,21 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/mixins/mixins"
 @import "../../../../template/core/partials/grid"
 
+%transition
+  transition: background 0.3s ease, color 0.3s ease
+
 .consultation-layout
   display: flex
   justify-content: space-between
   align-items: center
   position: relative
   cursor: pointer
+
+  &:hover
+    .consultation-layout__amount-button
+      @extend %transition
+      color: $c-white
+      background-color: $c-primary
 
   &__header
     +paragraph-small
