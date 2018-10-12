@@ -42,6 +42,7 @@ import { IconModule, ButtonModule } from './components/atomic-components/';
 import { InputsModule } from './components/inputs/inputs.module';
 import { TagListComponent } from '@platform/shared/components/tag-list/tag-list.component';
 import { ExpertAvailabilityComponent } from '@platform/features/dashboard/components/expert-availability/expert-availablitiy.component';
+import { SettingOptionComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { ExpertAvailabilityComponent } from '@platform/features/dashboard/compon
     ExpandablePanelComponent,
     ExpertAvailabilityComponent,
     TagListComponent,
+    SettingOptionComponent,
   ],
   entryComponents: [WidgetGeneratorComponent],
   exports: [
@@ -98,6 +100,7 @@ import { ExpertAvailabilityComponent } from '@platform/features/dashboard/compon
     ExpertAvailabilityComponent,
     ToggleElementDirective,
     TagListComponent,
+    SettingOptionComponent,
   ],
   providers: [
     EventsServiceProvider,

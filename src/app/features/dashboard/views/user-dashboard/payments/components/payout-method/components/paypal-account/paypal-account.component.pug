@@ -1,0 +1,21 @@
+form(
+[formGroup]="payPalAccountForm",
+novalidate,
+(ngSubmit)="onFormSubmit(payPalAccountForm)"
+)
+
+  am-core-input-email(
+  [isDisabled]="isPending",
+  [label]="'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.PAYPAL_ACCOUNT.INPUT.LABEL'",
+  [placeholder]="'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.PAYPAL_ACCOUNT.INPUT.PLACEHOLDER'",
+  [form]="payPalAccountForm",
+  [isRequired]="true",
+  [controlName]="payPalAccountControlName",
+  )
+
+  am-core-submit-button(
+  titleText="DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.SUBMIT_BUTTON",
+  [isLoading]="isPending"
+  )
+
+
