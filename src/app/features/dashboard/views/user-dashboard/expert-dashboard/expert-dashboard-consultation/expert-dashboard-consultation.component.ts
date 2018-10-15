@@ -28,6 +28,9 @@ export class ExpertDashboardConsultationsComponent extends Logger {
   public isCompany: boolean;
 
   @Input()
+  public isLogged: boolean;
+
+  @Input()
   public set accountId(value: string) {
     this.companyProfileUrl = `/${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
       [RouterPaths.dashboard.company.profile.params.profileId]: value,
@@ -42,10 +45,12 @@ export class ExpertDashboardConsultationsComponent extends Logger {
 
   public companyProfileUrl: string;
 
-  constructor(private router: Router,
-              private alertService: AlertService,
-              private store: Store<fromCore.IState>,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private store: Store<fromCore.IState>,
+    loggerFactory: LoggerFactory,
+  ) {
     super(loggerFactory);
   }
 
@@ -65,5 +70,5 @@ export class ExpertDashboardConsultationsComponent extends Logger {
       }
     });
     this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.COMPANY));
-  }
+  };
 }

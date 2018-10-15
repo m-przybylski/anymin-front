@@ -199,8 +199,10 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private handleResponse = (serviceDetails: GetService): void => {
     this.isRequestPending = false;
     this.alertService.pushSuccessAlert(this.successAlertTrKey);
-    this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
     this.activeModal.close(true);
+    if (!this.payload.isExpertConsultation) {
+      this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
+    }
   };
 
   private assignValues = (): void => {
