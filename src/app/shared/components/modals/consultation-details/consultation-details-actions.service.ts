@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import { ServiceService, EmploymentService } from '@anymind-ng/api';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, switchMap, catchError, tap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { AuthActions } from '@platform/core/actions';
 import { GenerateWidgetActions } from '@platform/shared/components/modals/generate-widget/actions';
+import {
+  ICreateEditConsultationPayload,
+  CreateEditConsultationModalComponent,
+} from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
+import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class ConsultationDetailsActionsService extends Logger {
@@ -19,15 +25,37 @@ export class ConsultationDetailsActionsService extends Logger {
     private alertService: AlertService,
     private store: Store<fromCore.IState>,
     private confirmationService: ConfirmationService,
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute,
+    private injector: Injector,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
   }
 
-  public editConsultation = ({ serviceId, modal }: IConsultationDetailActionParameters): void => {
+  public editConsultation = ({
+    serviceId,
+    modal,
+    createEditConsultationPayload,
+  }: IConsultationDetailActionParameters): void => {
+    const modalOptions = {
+      injector: Injector.create({
+        providers: [{ provide: CONSULTATIONDETAILS, useValue: createEditConsultationPayload }],
+        parent: this.injector,
+      }),
+    };
+    this.modalService
+      .open(CreateEditConsultationModalComponent, modalOptions)
+      .result.then(() => {
+        void this.router.navigate([], {
+          relativeTo: this.route,
+        });
+      })
+      .catch(() => this.loggerService.debug('CreateEditConsultationModal closed without changes'));
     modal.close(serviceId);
-    // TODO: implement logic
   };
+
   public deleteConsultation = ({ serviceId, modal }: IConsultationDetailActionParameters): void => {
     this.confirmationService
       .confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE')
@@ -103,4 +131,5 @@ export interface IConsultationDetailActionParameters {
   modal: NgbActiveModal;
   employmentId: string;
   expertId: string;
+  createEditConsultationPayload?: ICreateEditConsultationPayload;
 }

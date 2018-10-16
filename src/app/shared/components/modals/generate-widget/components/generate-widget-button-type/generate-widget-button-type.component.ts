@@ -1,4 +1,3 @@
-// tslint:disable:no-any
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -37,26 +36,24 @@ export class GenerateWidgetButtonTypeComponent implements ControlValueAccessor {
       selected: '#button-selected',
       notSelected: '#button',
     },
-    // {
-    //   buttonType: WidgetButtonType.BANNER,
-    //   title: 'GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_TITLE',
-    //   subtitle: 'GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_SUBTITLE',
-    //   imgSrc: '',
-    // },
   ];
 
-  public focused: WidgetButtonType | undefined;
+  public focused?: WidgetButtonType;
   public buttonType: WidgetButtonType;
   public isDisabled: boolean;
+  // tslint:disable-next-line:no-any
   private onModelChange: (obj?: any) => any;
+  // tslint:disable-next-line:no-any
   private onTouch: (obj?: any) => any;
 
   public writeValue(buttonType: WidgetButtonType): void {
     this.buttonType = buttonType;
   }
+  // tslint:disable-next-line:no-any
   public registerOnChange(fn: any): void {
     this.onModelChange = fn;
   }
+  // tslint:disable-next-line:no-any
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }

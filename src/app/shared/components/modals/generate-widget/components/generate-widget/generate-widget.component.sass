@@ -6,17 +6,20 @@
 .generate-widget
   &-step-content
     display: flex
-    flex-direction: row
-    min-height: 687px
+    flex-direction: column
+
+    +smm
+      flex-direction: row
+      min-height: 687px
 
     &-panel
       flex: 1 0 0
 
-    &-panel:nth-child(1)
-      padding: 0 20px 0 0
+      &-separator
+        height: 40px
 
-    &-panel:nth-child(2)
-      padding: 0 0 0 20px
+        +smm
+          flex-basis: 40px
 
     &-section
       margin: 0 0 48px 0

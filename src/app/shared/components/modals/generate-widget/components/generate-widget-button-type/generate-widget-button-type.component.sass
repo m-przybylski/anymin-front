@@ -1,6 +1,6 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
-
+@import "../../../../../../template/core/core"
 input
   border: 0
   clip: rect(0 0 0 0)
@@ -13,13 +13,21 @@ input
 
 .button-types
   display: flex
-  justify-content: space-around
+  flex-direction: column
+
+  +smm
+    flex-direction: row
+    justify-content: space-around
 
 .button-type
   display: flex
   flex-direction: column
   align-items: center
   cursor: pointer
+  margin: 0 0 24px
+
+  +smm
+    margin: 0
 
   &__image
     width: 248px

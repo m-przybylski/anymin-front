@@ -71,11 +71,11 @@ export class GenerateWidgetEffects extends Logger {
   );
 
   constructor(
-    loggerFactory: LoggerFactory,
     private actions$: Actions,
     private widgetService: WidgetService,
     private alertService: AlertService,
     private generateWidgetService: GenerateWidgetService,
+    loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
   }

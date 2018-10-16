@@ -9,10 +9,12 @@ import { TestBed, fakeAsync } from '@angular/core/testing';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthActions } from '@platform/core/actions';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { ConsultationDetailsActionsService } from './consultation-details-actions.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Injector } from '@angular/core';
 
 describe('ConsultationDetailsAcrionsService', () => {
   let consultationDetailsAcrionsService: ConsultationDetailsActionsService;
@@ -42,12 +44,17 @@ describe('ConsultationDetailsAcrionsService', () => {
       ],
     });
     store = TestBed.get(Store);
+
     consultationDetailsAcrionsService = new ConsultationDetailsActionsService(
       serviceService,
       employmentService,
       alertService,
       store,
       confirmationService,
+      Deceiver(NgbModal),
+      Deceiver(Router),
+      Deceiver(ActivatedRoute),
+      TestBed.get(Injector),
       loggerFactory,
     );
   });

@@ -22,24 +22,10 @@
   padding: 0 $padding $padding 0
 
 .expert-layout
-  position: relative
-  &::ng-deep
-    div.user-avatar
-
-      +size(96px)
-
-      +mdm
-
-        +size(128px)
-
-      +lgm
-
-        +size(156px)
-
-.expert-layout
   margin: 24px 8px 8px 8px
   display: flex
   flex-direction: column
+  position: relative
 
   +xsm
     margin: 24px 0 0 0
@@ -92,6 +78,7 @@
         font-weight: 700
 
     &-available
+      margin: 0 0 16px 0
 
       +caption
 
@@ -128,4 +115,3 @@ plat-expandable-panel
 plat-expert-availability
   display: block
   margin-left: -4px
-  margin-bottom: 16px

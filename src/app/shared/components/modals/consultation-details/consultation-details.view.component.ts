@@ -115,7 +115,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       }
       this.tagList = tags;
       this.assignExpertConsultationDetails(getServiceDetails);
-      this.assignEditConsultationPayload(getServiceDetails.getServiceWithEmployees.serviceDetails);
+      this.assignEditConsultationPayload(getServiceDetails);
       this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable);
     });
   }
@@ -243,6 +243,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
           modal: this.activeModal,
           employmentId: this.employmentId,
           expertId: this.expertId,
+          createEditConsultationPayload: this.editConsultationPayload,
         };
         this.consultationDetailsActionsService[value].call(this.consultationDetailsActionsService, payload);
       });
@@ -253,11 +254,14 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     return undefined;
   }
 
-  private assignEditConsultationPayload = (serviceDetails: ServiceWithOwnerProfile): void => {
+  private assignEditConsultationPayload = (consultationDetails: IConsultationDetails): void => {
     this.editConsultationPayload = {
-      isExpertConsultation: this.isExpertConsultation(serviceDetails),
-      serviceDetails,
+      isExpertConsultation: this.isExpertConsultation(consultationDetails.getServiceWithEmployees.serviceDetails),
+      serviceDetails: consultationDetails.getServiceWithEmployees.serviceDetails,
       tags: this.tagList,
+      isOwnerEmployee: consultationDetails.expertIds.some(
+        expertId => expertId === consultationDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
+      ),
     };
   };
 

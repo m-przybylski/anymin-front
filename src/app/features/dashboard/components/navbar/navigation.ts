@@ -125,15 +125,6 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
     isCompany: false,
     group: NavigationItemGroupsEnum.ADDITIONAL,
   },
-  {
-    trKey: 'NAVBAR_USER_MENU.GENERATE_WIDGET',
-    url: '/dashboard/generate-widget',
-    iconClass: 'anymind',
-    isUser: false,
-    isExpert: true,
-    isCompany: true,
-    group: NavigationItemGroupsEnum.ADDITIONAL,
-  },
   // TODO uncomment this after Beta release ends
   // {
   //   trKey: 'NAVBAR_USER_MENU.INVITE_FRIENDS',

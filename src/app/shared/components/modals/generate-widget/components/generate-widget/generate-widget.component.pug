@@ -20,7 +20,8 @@ plat-modal-component(
             .generate-widget-copy {{ widgetId }}
           .generate-widget-step-content-section
             p(innerHtml="{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT3' | translate}}")
-            button(plat-stroked-button, (click)='stepper.next()') Instalacja wtyczki
+            button(plat-stroked-button, (click)='stepper.next()') {{ 'GENERATE_WIDGET_MODAL.CONTENT.INSTALL' | translate}}
+        .generate-widget-step-content-panel-separator
         .generate-widget-step-content-panel
           .generate-widget-preview
             .generate-widget-preview-header

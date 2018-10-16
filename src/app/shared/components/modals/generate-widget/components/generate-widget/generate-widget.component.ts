@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { GENERATE_WIDGET_DATA, IGenerateWidgetData } from '../../tokens';
@@ -32,7 +32,7 @@ interface IShareLink {
     ]),
   ],
 })
-export class GenerateWidgetComponent extends Logger implements AfterViewInit, OnDestroy {
+export class GenerateWidgetComponent extends Logger implements OnInit, AfterViewInit, OnDestroy {
   public serviceId: string;
   public expertId: string;
   public widgetLink: string;
@@ -58,8 +58,17 @@ export class GenerateWidgetComponent extends Logger implements AfterViewInit, On
   @ViewChild(ModalComponent)
   private modal: ModalComponent;
 
+  /**
+   * used to show if component loaded data from the server
+   */
   private componentLoaded = new BehaviorSubject<boolean>(false);
+  /**
+   * used to trigger when component is destroyed
+   */
   private destroyed$ = new Subject<void>();
+  /**
+   * used for animations. * => void is completed emits value
+   */
   private fadeOutComplete$ = new Subject<void>();
 
   constructor(
@@ -71,7 +80,8 @@ export class GenerateWidgetComponent extends Logger implements AfterViewInit, On
     this.serviceId = data.serviceId;
     this.expertId = data.expertId;
     this.widgetId = data.widgetId;
-
+  }
+  public ngOnInit(): void {
     this.widgetLink = this.generateWidgetService.getWidgetLink(this.widgetId);
     this.generateWidgetService
       .resolve(this.widgetId)
@@ -90,6 +100,13 @@ export class GenerateWidgetComponent extends Logger implements AfterViewInit, On
         }
       });
     this.buttonType = new FormControl('');
+    /**
+     * once value is changes in the form
+     * wait for animation to finish
+     * and than start new animation.
+     * avoid jumping beetween states and softer
+     * content change
+     */
     this.buttonType.valueChanges
       .pipe(
         takeUntil(this.destroyed$),
@@ -108,6 +125,10 @@ export class GenerateWidgetComponent extends Logger implements AfterViewInit, On
       });
   }
   public ngAfterViewInit(): void {
+    /**
+     * race condiation between component load and
+     * data load
+     */
     this.componentLoaded
       .pipe(
         filter(loaded => loaded),
