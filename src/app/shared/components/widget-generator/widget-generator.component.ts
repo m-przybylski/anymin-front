@@ -14,6 +14,7 @@ import { CommonSettingsService } from '../../../../angularjs/common/services/com
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
+import { BrowserUtils } from 'ratel-sdk-js';
 
 @Component({
   templateUrl: './widget-generator.component.html',
@@ -44,6 +45,7 @@ export class WidgetGeneratorComponent implements OnInit {
   public currentWidgetUrl: string;
 
   private readonly widgetUrl = this.CommonSettingsService.links.widget;
+  private readonly selectionRangeMax = 999999;
   private profileWithServices: ServiceWithEmployments[] = [];
   private widgetId?: string;
 
@@ -122,15 +124,21 @@ export class WidgetGeneratorComponent implements OnInit {
 
   public copyToClipboard = (textToCopy: string): void => {
     const textArea = document.createElement('textarea');
+    const range = document.createRange();
+    const s = window.getSelection();
+
     textArea.style.position = 'absolute';
     textArea.style.top = '50vh';
     textArea.style.left = '0';
+    textArea.contentEditable = 'true';
+    textArea.readOnly = false;
     textArea.value = textToCopy;
     document.body.appendChild(textArea);
-    (<any>textArea).focus({
-      preventScroll: true,
-    });
-    textArea.select();
+    s.removeAllRanges();
+    s.addRange(range);
+    textArea.setSelectionRange(0, this.selectionRangeMax);
+
+    this.selectAreaNotOnMobileSafari(textArea);
 
     try {
       document.execCommand('copy');
@@ -147,6 +155,15 @@ export class WidgetGeneratorComponent implements OnInit {
     this.setButtonClicked();
     if (!this.isGenerateButtonDisabled()) {
       this.generateWidgetCode(expertId, serviceId);
+    }
+  };
+
+  private selectAreaNotOnMobileSafari = (textArea: any): void => {
+    if (!BrowserUtils.isSafari()) {
+      textArea.focus({
+        preventScroll: true,
+      });
+      textArea.select();
     }
   };
 
