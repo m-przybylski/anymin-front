@@ -15,11 +15,17 @@ import { CreateOrganizationModalComponentService } from './create-organization/c
 import { InputsModule } from '../../inputs/inputs.module';
 import { UserAvatarModule } from '../../user-avatar/user-avatar.module';
 import { CommonModule } from '@angular/common';
+import { ProfileLinksComponentService } from '@platform/shared/components/modals/profile/components/profile-links/profile-links.component.service';
 
 @NgModule({
   imports: [CommonModule, ModalsModule, InputsModule, UserAvatarModule],
   entryComponents: [CreateProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
-  providers: [CreateProfileModalComponentService, CreateOrganizationModalComponentService, UploaderService],
+  providers: [
+    CreateProfileModalComponentService,
+    CreateOrganizationModalComponentService,
+    UploaderService,
+    ProfileLinksComponentService,
+  ],
   declarations: [
     BasicProfileDataComponent,
     CreateProfileModalComponent,
