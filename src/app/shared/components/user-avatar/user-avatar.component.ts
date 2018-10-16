@@ -4,9 +4,10 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 export enum AvatarSizeEnum {
   X_24,
   X_32,
-  X_40,
-  X_56,
   X_48,
+  X_40,
+  X_80,
+  X_56,
   X_96,
   X_156,
 }
@@ -55,6 +56,9 @@ export class UserAvatarComponent {
 
       case AvatarSizeEnum.X_56:
         return 'user-avatar--x56';
+
+      case AvatarSizeEnum.X_80:
+        return 'user-avatar--x80';
 
       case AvatarSizeEnum.X_96:
         return 'user-avatar--x96';

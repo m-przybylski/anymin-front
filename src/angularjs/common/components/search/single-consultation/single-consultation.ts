@@ -2,7 +2,6 @@
 // tslint:disable:no-invalid-this
 // tslint:disable:no-duplicate-imports
 import * as angular from 'angular';
-import communicatorModule from '../../communicator/communicator';
 import filtersModule from '../../../filters/filters';
 import urlModule from '../../../services/url/url';
 import { UserService } from '../../../services/user/user.service';
@@ -82,7 +81,6 @@ angular.module('profitelo.components.search.single-consultation', [
   'pascalprecht.translate',
   uiRouter,
   apiModule,
-  communicatorModule,
   filtersModule,
   urlModule
 ])

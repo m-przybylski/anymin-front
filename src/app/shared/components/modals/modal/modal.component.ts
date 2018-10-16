@@ -15,6 +15,7 @@ export enum ModalContainerTypeEnum {
   MEDIUM_WIDTH = 'MEDIUM_WIDTH',
   CROPP_WIDTH = 'CROPP_WIDTH',
   NO_PADDING = 'NO_PADDING',
+  SMALL_NO_PADDING = 'SMALL_NO_PADDING'
 }
 
 @Component({
@@ -112,6 +113,9 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
       case ModalContainerTypeEnum.NO_PADDING:
         return 'modal-component__container--no-padding';
+
+      case ModalContainerTypeEnum.SMALL_NO_PADDING:
+        return 'modal-component__container--no-padding-small';
 
       default:
         return 'modal-component__container--medium';

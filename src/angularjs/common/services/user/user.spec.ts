@@ -12,7 +12,10 @@ describe('Unit testing: profitelo.services.userService >', () => {
     let q: ng.IQService;
     let resolverParam: ng.IPromise<{ account: IExtendedAccount }>;
 
-    const accountDetails: IExtendedAccount = {} as IExtendedAccount;
+    const accountDetails: IExtendedAccount = {
+      isExpert: undefined,
+      isCompany: undefined,
+    } as any;
 
     const eventsService = {
       emit: (param: string): string => param,

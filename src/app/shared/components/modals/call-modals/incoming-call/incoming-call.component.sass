@@ -1,0 +1,95 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
+
+.client-call-modal
+  padding: 89px 16px
+  max-height: 100vh
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  +smm
+    padding: 32px 48px 48px
+
+  &__avatar
+    display: flex
+    justify-content: center
+    margin: 0 auto
+    align-items: center
+    height: 148px
+    width: 148px
+    position: relative
+
+  &__description
+    padding: 32px 0 0
+    text-align: center
+
+    &--name
+      +h6
+      font-weight: bold
+      color: $c-white
+
+    &--title
+      +h6
+      color: $c-white
+      padding: 18px 0 0
+
+  &__buttons
+    padding: 48px 0 0
+    display: flex
+    justify-content: center
+
+
+    &--description-answer
+      +subtitle
+      font-weight: 500
+      padding: 16px 0 0 0
+      color: $c-success-primary
+      transition: color 0.3s ease-out
+
+    &--description-reject
+      +subtitle
+      font-weight: 500
+      padding: 16px 0 0 0
+      color: $c-error-primary
+      transition: color 0.3s ease-out
+
+    &__container
+      &:first-child
+        margin: 0 56px 0 0
+
+    &--reject
+      height: 56px
+      width: 56px
+      border: solid 1px
+      border-radius: 50%
+      font-size: 33px
+      border-color: $c-error-primary
+      color: $c-error-primary
+      background: transparent
+      transition: color 0.3s ease-out
+
+      &:hover
+        border-color: $c-error-secondary
+        color: $c-error-secondary
+
+      &:hover + .client-call-modal__buttons--description-reject
+        color: $c-error-secondary
+
+    &--answer
+      height: 56px
+      width: 56px
+      border: solid 1px
+      border-radius: 50%
+      font-size: 33px
+      color: $c-white
+      border-color: $c-success-primary
+      background: $c-success-primary
+      transition: color 0.3s ease-out, background 0.3s ease-out
+
+      &:hover
+        border-color: $c-success-secondary
+        background: $c-success-secondary
+
+      &:hover + .client-call-modal__buttons--description-answer
+        color: $c-success-secondary

@@ -25,9 +25,8 @@ import uiRouter from '@uirouter/angularjs';
 import { TopAlertService } from '../../../../common/services/top-alert/top-alert.service';
 import topAlertModule from '../../../../common/services/top-alert/top-alert';
 import { TranslatorService } from '../../../../common/services/translator/translator.service';
-import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
-import { ISessionDeleted } from '../../../../common/services/session-deleted/session-deleted.service';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 interface ISession {
   device: string;
@@ -51,7 +50,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     'translatorService',
     '$location',
     'sessionsData',
-    'profiteloWebsocket',
+    'anymindWebsocket',
   ];
 
   constructor(
@@ -63,7 +62,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     private translatorService: TranslatorService,
     private $location: ng.ILocationService,
     sessionsData: GetSession[],
-    profiteloWebsocket: ProfiteloWebsocketService,
+    anymindWebsocket: AnymindWebsocketService,
   ) {
     if (currentSession.account) {
       this.hasMobilePin = false;
@@ -101,7 +100,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
       };
     });
 
-    profiteloWebsocket.onSessionDeleted(this.onSessionDeleted);
+    anymindWebsocket.sessionDeleted.subscribe(this.onSessionDeleted);
   }
 
   public removeSession = (apiKey: string): void => {
@@ -131,8 +130,8 @@ export class DashboardSettingsSecurityController implements ng.IController {
     this.modalsService.createSecurityChangePasswordSettingsModal();
   };
 
-  private onSessionDeleted = (deletedSession: ISessionDeleted): void => {
-    _.remove(this.sessions, session => session.apiKey === deletedSession.removedSessionApiKey);
+  private onSessionDeleted = (deletedSessionApiKey: string): void => {
+    _.remove(this.sessions, session => session.apiKey === deletedSessionApiKey);
   };
 }
 

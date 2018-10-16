@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
 import { EnvironmentService } from './core/services/environment/environment.service';
+import { CallInvitationService } from './core/services/call/call-invitation.service';
+
 const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 import * as moment from 'moment';
 
@@ -15,9 +17,12 @@ import * as moment from 'moment';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-  constructor(private logger: LoggerService, translate: TranslateService) {
+  constructor(private logger: LoggerService,
+              private expertCallService: CallInvitationService,
+              translate: TranslateService) {
     this.printVersion();
     this.printEnvironment();
+    this.expertCallService.listenCallEvents();
 
     translate.setTranslation('pl', polishTranslations);
     translate.addLangs(['pl']);

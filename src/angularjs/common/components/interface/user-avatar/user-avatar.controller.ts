@@ -6,7 +6,6 @@ import { IUserAvatarComponentBindings } from './user-avatar';
 
 // tslint:disable:member-ordering
 export class UserAvatarComponentController implements IUserAvatarComponentBindings {
-
   public imageToken?: string;
   public profileImageUrl: string;
 
@@ -16,7 +15,7 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     } else {
       this.profileImageUrl = '/assets/images/no-avatar.jpg';
     }
-  }
+  };
 
   public $onChanges = (): void => {
     if (this.imageToken) {
@@ -24,10 +23,9 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     } else {
       this.profileImageUrl = '/assets/images/no-avatar.jpg';
     }
-  }
+  };
 
   public static $inject = ['urlService'];
 
-    constructor(private urlService: UrlService) {
-  }
+  constructor(private urlService: UrlService) {}
 }

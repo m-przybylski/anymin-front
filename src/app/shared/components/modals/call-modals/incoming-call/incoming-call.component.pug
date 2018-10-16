@@ -1,0 +1,18 @@
+.client-call-modal
+  .client-call-modal__avatar
+    am-core-user-avatar.thumb.x128.communicator-avatar([tokenAvatar]="expertAvatar",
+    [avatarSize]="AvatarSizeEnum.SMALL")
+    am-core-equalizer([isConnecting]="isConnecting")
+
+  .client-call-modal__description
+    p.client-call-modal__description--name([translate]="'COMMUNICATOR.MODALS.CLIENT_CALL.TITLE'")
+    header.client-call-modal__description--title
+      span {{ serviceName }}
+
+  .client-call-modal__buttons
+    .client-call-modal__buttons__container
+      a.client-call-modal__buttons--reject((click)="rejectCall()", plat-icon, iconClass="end-call")
+      p.client-call-modal__buttons--description-reject([translate]="'COMMUNICATOR.MODALS.REJECT'" )
+    .client-call-modal__buttons__container
+      a.client-call-modal__buttons--answer((click)="answerCall()", plat-icon, iconClass="phone")
+      p.client-call-modal__buttons--description-answer([translate]="'COMMUNICATOR.MODALS.ANSWER'")

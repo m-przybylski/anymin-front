@@ -21,7 +21,6 @@ import interfaceLanguageModule from '../common/services/interface-language/inter
 import sessionModule from '../common/services/session/session';
 import permissionModule from '../common/services/permission/permission';
 import pagesModule from './pages';
-import communicatorModule from '../common/components/communicator/communicator';
 import 'angularjs/common/components/interface/preloader-container/preloader-container';
 import 'angularjs/common/directives/interface/pro-alert/pro-alert';
 import 'angularjs/common/directives/pro-top-waiting-loader/pro-top-waiting-loader';
@@ -33,10 +32,7 @@ import { AppComponentController } from './app.controller';
 import { AppConfigFunction } from './app.config';
 import { AppRunFunction } from './app.run';
 import 'croppie';
-import profiteloWebsocketModule from '../common/services/profitelo-websocket/profitelo-websocket';
 import pagePreloaderModule from '../common/components/interface/page-preloader/page-preloader';
-import activeCallBarModule from '../common/components/communicator/active-call-bar/active-call-bar';
-import toggleClassOnPullCall from '../common/directives/toggle-class-on-pull-call/toggle-class-on-pull-call';
 import cookieNotificationModule from '../common/components/cookie-notification/cookie-notification';
 import sessionDeletedModule from '../common/services/session-deleted/session-deleted';
 import { UpgradeService } from '../common/services/upgrade/upgrade.service';
@@ -44,60 +40,72 @@ import loggerModule from '../common/services/logger/logger';
 import { Config } from '../../config';
 import * as Raven from 'raven-js';
 import { EnvironmentService } from '../../app/core/services/environment/environment.service';
+import anymindWebsocketModule from '../common/services/anymind-websocket/anymind-websocket.service';
 const ngRaven = require('raven-js/plugins/angular');
 
-Raven
-  .config(Config.sentry.url, Config.sentry.options)
+Raven.config(Config.sentry.url, Config.sentry.options)
   .addPlugin(ngRaven, angular)
   .setShouldSendCallback(() => Config.sentry.enabledEnvironments.includes(EnvironmentService.get()))
   .install();
 
-export const angularjsModule = angular.module('profitelo', [
-  ngRaven.moduleName,
-  'pascalprecht.translate',
-  'tmh.dynamicLocale',
-  'ngAnimate',
+export const angularjsModule = angular
+  .module('profitelo', [
+    ngRaven.moduleName,
+    'pascalprecht.translate',
+    'tmh.dynamicLocale',
+    'ngAnimate',
 
-  uiRouter,
-  'permission',
-  'permission.ui',
+    uiRouter,
+    'permission',
+    'permission.ui',
 
-  // services
-  loggerModule,
-  topAlertModule,
-  interfaceLanguageModule,
-  customTranslationHandlerModule,
-  sessionModule,
-  profiteloWebsocketModule,
-  permissionModule,
-  sessionDeletedModule,
+    // services
+    loggerModule,
+    topAlertModule,
+    interfaceLanguageModule,
+    customTranslationHandlerModule,
+    sessionModule,
+    permissionModule,
+    anymindWebsocketModule,
+    sessionDeletedModule,
 
-  // controllers
-  pagesModule,
-  communicatorModule,
+    // controllers
+    pagesModule,
 
-  // components
-  pagePreloaderModule,
-  activeCallBarModule,
-  cookieNotificationModule,
+    // components
+    pagePreloaderModule,
+    cookieNotificationModule,
 
-  // directives
-  'profitelo.components.interface.preloader-container',
-  'profitelo.directives.pro-top-waiting-loader',
-  'profitelo.services.pro-top-waiting-loader-service',
-  'profitelo.directives.interface.pro-alert',
-  toggleClassOnPullCall,
+    // directives
+    'profitelo.components.interface.preloader-container',
+    'profitelo.directives.pro-top-waiting-loader',
+    'profitelo.services.pro-top-waiting-loader-service',
+    'profitelo.directives.interface.pro-alert',
 
-  // translations
-  'profitelo.translations.en-us',
-  'profitelo.translations.pl-pl'
-
-])
-  .run(['$rootScope', '$log', 'permissionService', '$anchorScroll',
-    'sessionServiceWrapper', '$urlRouter', '$state', 'topAlertService', 'sessionDeletedService',
-    'profiteloWebsocket', AppRunFunction])
-  .config(['$urlRouterProvider', '$stateProvider', '$translateProvider',
-    '$locationProvider', '$animateProvider', 'tmhDynamicLocaleProvider', AppConfigFunction])
+    // translations
+    'profitelo.translations.en-us',
+    'profitelo.translations.pl-pl',
+  ])
+  .run([
+    '$rootScope',
+    '$log',
+    'permissionService',
+    '$anchorScroll',
+    'sessionServiceWrapper',
+    '$urlRouter',
+    '$state',
+    'topAlertService',
+    AppRunFunction,
+  ])
+  .config([
+    '$urlRouterProvider',
+    '$stateProvider',
+    '$translateProvider',
+    '$locationProvider',
+    '$animateProvider',
+    'tmhDynamicLocaleProvider',
+    AppConfigFunction,
+  ])
   .controller('AppComponentController', ['InterfaceLanguageService', AppComponentController])
   .constant('apiUrl', window.location.origin)
   .service('upgradeService', UpgradeService);

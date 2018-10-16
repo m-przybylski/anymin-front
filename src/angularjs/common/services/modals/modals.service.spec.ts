@@ -1,9 +1,11 @@
-import * as angular from 'angular';
-import { ModalsService } from './modals.service';
-import modalsModule from './modals';
-import dialogModule from '../dialog/dialog';
-import { DialogService } from '../dialog/dialog.service';
-import { GetExpertSueDetails, GetClientActivity, GetProfile, GetService } from 'profitelo-api-ng/model/models';
+import * as angular from 'angular'
+import { ModalsService } from './modals.service'
+import modalsModule from './modals'
+import dialogModule from '../dialog/dialog'
+import { DialogService } from '../dialog/dialog.service'
+import {
+  GetClientActivity
+} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
@@ -21,38 +23,6 @@ describe('Unit testing: profitelo.services.modals >', () => {
     it('should have a dummy test', () => {
       expect(true).toBeTruthy();
     });
-
-    it('should create IncomingCallModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog');
-
-      modalsService.createIncomingCallModal(<GetExpertSueDetails>{}, () => {}, () => {});
-
-      expect(dialogService.openDialog).toHaveBeenCalled();
-    }));
-
-    it('should create NoFundsModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog');
-
-      modalsService.createNoFundsModal(() => {}, () => {});
-
-      expect(dialogService.openDialog).toHaveBeenCalled();
-    }));
-
-    it('should create ServiceUnavailableModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog');
-
-      modalsService.createServiceUnavailableModal(() => {}, () => {});
-
-      expect(dialogService.openDialog).toHaveBeenCalled();
-    }));
-
-    it('should create createExpertConsultationSummaryModal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog');
-
-      modalsService.createExpertConsultationSummaryModal(<any>{});
-
-      expect(dialogService.openDialog).toHaveBeenCalled();
-    }));
 
     it('should create createClientSUEActivityDetailsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog');
@@ -157,15 +127,11 @@ describe('Unit testing: profitelo.services.modals >', () => {
     }));
 
     it('should open expert invite employees modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog');
-      modalsService.createExpertInviteEmployeesModal(() => {});
-      expect(dialogService.openDialog).toHaveBeenCalled();
-    }));
+      spyOn(dialogService, 'openDialog')
+      modalsService.createExpertInviteEmployeesModal(() => {
+      })
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
 
-    it('should open precall modal', inject((dialogService: DialogService) => {
-      spyOn(dialogService, 'openDialog');
-      modalsService.createPrecallModal(<GetService>{}, <GetProfile>{}, <MediaStream>{});
-      expect(dialogService.openDialog).toHaveBeenCalled();
-    }));
-  });
-});
+  })
+})

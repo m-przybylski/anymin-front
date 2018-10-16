@@ -13,42 +13,51 @@ import { ErrorHandlerService } from '../../../../services/error-handler/error-ha
 import errorHandlerModule from '../../../../services/error-handler/error-handler';
 import { PromiseService } from '../../../../services/promise/promise.service';
 import promiseModule from '../../../../services/promise/promise';
-import { ProfiteloWebsocketService } from '../../../../services/profitelo-websocket/profitelo-websocket.service';
-import profiteloWebsocketModule from '../../../../services/profitelo-websocket/profitelo-websocket';
+import anymindWebsocketModule from '../../../../services/anymind-websocket/anymind-websocket.service';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-(function (): void {
-
-  function controller(PaymentsApi: PaymentsApi,
-                      FinancesApi: FinancesApi,
-                      errorHandler: ErrorHandlerService,
-                      promiseService: PromiseService,
-                      profiteloWebsocket: ProfiteloWebsocketService): void {
-
+(function(): void {
+  function controller(
+    PaymentsApi: PaymentsApi,
+    FinancesApi: FinancesApi,
+    errorHandler: ErrorHandlerService,
+    promiseService: PromiseService,
+    anymindWebsocket: AnymindWebsocketService,
+  ): void {
     const loaderDelay = 500;
     this.isCard = false;
     this.isLoading = true;
-
-    profiteloWebsocket.onNewFinancialOperation((data) => {
+    this.ngUnsubscribe$ = new Subject<void>();
+    anymindWebsocket.financialOperation.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
       this.clientBalance = data.balanceAfter;
     });
 
-    profiteloWebsocket.onClientCallCost((data) => {
+    anymindWebsocket.clientCallCost.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
       this.clientBalance = data.balanceAfter;
     });
 
-    PaymentsApi.getCreditCardsRoute().then((response) => {
+    this.$onDestroy = (): void => {
+      this.ngUnsubscribe$.next();
+      this.ngUnsubscribe$.complete();
+    };
+
+    PaymentsApi.getCreditCardsRoute().then(response => {
       if (response && response.length > 0) {
         this.isCard = true;
         this.isLoading = false;
       } else {
-        promiseService.setMinimalDelay(FinancesApi.getClientBalanceRoute(), loaderDelay
-        ).then((value) => {
-          this.clientBalance = value;
-          this.isLoading = false;
-        }).catch((error) => {
-          errorHandler.handleServerError(error);
-          this.isLoading = false;
-        });
+        promiseService
+          .setMinimalDelay(FinancesApi.getClientBalanceRoute(), loaderDelay)
+          .then(value => {
+            this.clientBalance = value;
+            this.isLoading = false;
+          })
+          .catch(error => {
+            errorHandler.handleServerError(error);
+            this.isLoading = false;
+          });
       }
     });
     return this;
@@ -56,19 +65,20 @@ import profiteloWebsocketModule from '../../../../services/profitelo-websocket/p
 
   const component = {
     template: require('./navigation.html'),
-    controller: ['PaymentsApi', 'FinancesApi', 'errorHandler', 'promiseService', 'profiteloWebsocket', controller],
+    controller: ['PaymentsApi', 'FinancesApi', 'errorHandler', 'promiseService', 'anymindWebsocket', controller],
     controllerAs: '$ctrl',
-    bindings: {}
+    bindings: {},
   };
 
-  angular.module('profitelo.components.dashboard.client.navigation', [
-    'pascalprecht.translate',
-    userModule,
-    apiModule,
-    filtersModule,
-    promiseModule,
-    errorHandlerModule,
-    profiteloWebsocketModule
-  ])
+  angular
+    .module('profitelo.components.dashboard.client.navigation', [
+      'pascalprecht.translate',
+      userModule,
+      apiModule,
+      filtersModule,
+      promiseModule,
+      errorHandlerModule,
+      anymindWebsocketModule,
+    ])
     .component('clientNavigation', component);
-}());
+})();

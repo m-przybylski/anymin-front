@@ -8,20 +8,19 @@ import apiModule from 'profitelo-api-ng/api.module';
 import filtersModule from '../../../../filters/filters';
 import promiseModule from '../../../../services/promise/promise';
 import errorHandlerModule from '../../../../services/error-handler/error-handler';
-import profiteloWebsocketModule from '../../../../services/profitelo-websocket/profitelo-websocket';
+import anymindWebsocketModule from '../../../../services/anymind-websocket/anymind-websocket.service';
 
-export interface IExpertNavigationComponentBindings extends ng.IController {
-}
+export interface IExpertNavigationComponentBindings extends ng.IController {}
 
-const expertNavigationModule = angular.module('profitelo.components.dashboard.expert.navigation', [
-  'pascalprecht.translate',
-  filtersModule,
-  errorHandlerModule,
-  apiModule,
-  promiseModule,
-  profiteloWebsocketModule
-])
-  .component('expertNavigation', new ExpertNavigationComponent())
-  .name;
+const expertNavigationModule = angular
+  .module('profitelo.components.dashboard.expert.navigation', [
+    'pascalprecht.translate',
+    filtersModule,
+    errorHandlerModule,
+    apiModule,
+    promiseModule,
+    anymindWebsocketModule,
+  ])
+  .component('expertNavigation', new ExpertNavigationComponent()).name;
 
 export default expertNavigationModule;

@@ -1,30 +1,24 @@
 // tslint:disable:only-arrow-functions
 import { PermissionService } from '../common/services/permission/permission.service';
 import { TopAlertService } from '../common/services/top-alert/top-alert.service';
-import { ProfiteloWebsocketService } from '../common/services/profitelo-websocket/profitelo-websocket.service';
 import { Config } from '../../config';
-import { SessionDeletedService } from '../common/services/session-deleted/session-deleted.service';
 import { IRootScopeService } from '../common/services/root-scope/root-scope.service';
 import { SessionServiceWrapper } from '../common/services/session/session.service';
 import { StateService } from '@uirouter/angularjs';
 
-export function AppRunFunction($rootScope: IRootScopeService,
-                               $log: ng.ILogService,
-                               permissionService: PermissionService,
-                               $anchorScroll: ng.IAnchorScrollService,
-                               sessionServiceWrapper: SessionServiceWrapper,
-                               $urlRouter: ng.ui.IUrlRouterService,
-                               $state: StateService,
-                               topAlertService: TopAlertService,
-                               sessionDeletedService: SessionDeletedService,
-                               profiteloWebsocket: ProfiteloWebsocketService,
-                               $location: ng.ILocationService): void {
+export function AppRunFunction(
+  $rootScope: IRootScopeService,
+  $log: ng.ILogService,
+  permissionService: PermissionService,
+  $anchorScroll: ng.IAnchorScrollService,
+  sessionServiceWrapper: SessionServiceWrapper,
+  $urlRouter: ng.ui.IUrlRouterService,
+  $state: StateService,
+  topAlertService: TopAlertService,
+  $location: ng.ILocationService,
+): void {
   // initialize all views permissions
   permissionService.initializeAll();
-
-  // initialize websocket service
-  profiteloWebsocket.initializeWebsocket();
-  sessionDeletedService.init();
 
   // scrollup after every state change
   $rootScope.$on('$locationChangeSuccess', () => {
@@ -36,7 +30,7 @@ export function AppRunFunction($rootScope: IRootScopeService,
     event.preventDefault();
     topAlertService.error({
       message: 'error',
-      timeout: 4
+      timeout: 4,
     });
   });
 
@@ -50,11 +44,14 @@ export function AppRunFunction($rootScope: IRootScopeService,
     }
   });
 
-  sessionServiceWrapper.getSession().then(() => {
-    $urlRouter.listen();
-    $urlRouter.sync();
-  }, () => {
-    $urlRouter.listen();
-    $urlRouter.sync();
-  });
+  sessionServiceWrapper.getSession().then(
+    () => {
+      $urlRouter.listen();
+      $urlRouter.sync();
+    },
+    () => {
+      $urlRouter.listen();
+      $urlRouter.sync();
+    },
+  );
 }

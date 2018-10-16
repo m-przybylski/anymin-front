@@ -6,7 +6,7 @@ import { ApiModule } from '@anymind-ng/api';
 import { ApiConfigurationFactory } from './factories/api-configuration/api-configuration.factory';
 import { ApiKeyService } from './services/api-key/api-key.service';
 import { ApiKeyInterceptor } from './services/api-key/api-key.interceptor';
-import { LoggerModule, AnymindComponentsCoreModule, LogLevel } from '@anymind-ng/core';
+import { LoggerModule, AnymindComponentsCoreModule, LogLevel, CommunicatorModule } from '@anymind-ng/core';
 import { Config } from '../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,6 +18,11 @@ import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './effects/login.effects';
 import { SessionEffects } from './effects/session.effects';
+import { CommunicatorConfigFactory } from '@platform/shared/factories/communicator-config/communicator-config.factory';
+import { WebSocketServiceFactory } from '@platform/core/services/websocket/websocket.factory';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
+import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
+import { ExpertCallService } from '@platform/core/services/call/expert-call.service';
 import { UserTypeEffects } from '@platform/core/effects/user-type.effects';
 import { provideCommission } from './commission';
 
@@ -33,7 +38,9 @@ export function getLogLevel(): LogLevel {
     ApiModule.forRoot(ApiConfigurationFactory),
     LoggerModule.forRoot(getLogLevel),
     NgbModule.forRoot(),
+    // AngularJsProvidersModule,
     TranslateModule.forRoot(),
+    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout),
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
   ],
@@ -49,6 +56,10 @@ export function getLogLevel(): LogLevel {
       useClass: ApiKeyInterceptor,
       multi: true,
     },
+    WebSocketServiceFactory,
+    AnymindWebsocketService,
+    CallInvitationService,
+    ExpertCallService,
   ],
 })
 export class CoreModule {}

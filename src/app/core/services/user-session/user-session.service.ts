@@ -3,7 +3,6 @@
 import { Injectable } from '@angular/core';
 import { LoginCredentials, SessionService } from '@anymind-ng/api';
 import { ApiKeyService } from '../api-key/api-key.service';
-import { EventsService } from '../../../../angularjs/common/services/events/events.service';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { Store } from '@ngrx/store';
 import * as fromCore from '../../reducers';
@@ -12,17 +11,15 @@ import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { httpCodes } from '@platform/shared/constants/httpCodes';
 
 @Injectable()
 export class UserSessionService extends Logger {
   private sessionCache?: GetSessionWithAccount;
 
-  private readonly unauthorizedCode = 401;
-
   constructor(
     private authService: ApiKeyService,
     private sessionService: SessionService,
-    private eventsService: EventsService,
     private state: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
@@ -41,7 +38,6 @@ export class UserSessionService extends Logger {
       .login(loginDetails)
       .toPromise()
       .then(session => {
-        this.eventsService.emit('login');
         this.state.dispatch(new AuthActions.LoginSuccessAction(session));
 
         return this.onSuccessLogin(session);
@@ -78,7 +74,6 @@ export class UserSessionService extends Logger {
   private onSuccessLogin = (sessionWithAccount: GetSessionWithAccount): GetSessionWithAccount => {
     this.sessionCache = sessionWithAccount;
     this.authService.setApiKey(sessionWithAccount.session.apiKey);
-
     return sessionWithAccount;
   };
 
@@ -89,7 +84,7 @@ export class UserSessionService extends Logger {
   };
 
   private onFailureLogout = (err: any): void => {
-    if (err && err.status === this.unauthorizedCode) {
+    if (err && err.status === httpCodes.unauthorized) {
       // user is already logged out so lets do the cache cleanup
       this.onSuccessLogout();
     } else {

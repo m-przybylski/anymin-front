@@ -6,7 +6,6 @@
 import * as angular from 'angular';
 import urlModule from '../../../services/url/url';
 import filtersModule from '../../../filters/filters';
-import communicatorModule from '../../communicator/communicator';
 import 'angularjs/common/components/interface/slider/slider';
 import 'angularjs/common/components/expert-profile/experts-consultation-slider/experts-consultation-slider';
 import {
@@ -47,7 +46,6 @@ angular.module('profitelo.components.expert-profile.company-single-consultation'
   urlModule,
   filtersModule,
   'profitelo.components.expert-profile.experts-consultation-slider',
-  communicatorModule,
   'pascalprecht.translate'
 ])
 .component('companySingleConsultation', companySingleConsultation);

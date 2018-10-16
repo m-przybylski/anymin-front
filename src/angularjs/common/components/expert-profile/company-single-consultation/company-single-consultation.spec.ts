@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 
 import {UrlService} from '../../../services/url/url.service'
-import communicatorMockModule from '../../communicator/communicator.mock';
 import userModule from '../../../services/user/user';
 
 interface IWindow {
@@ -59,7 +58,6 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     }
 
     beforeEach(() => {
-      angular.mock.module(communicatorMockModule)
       angular.mock.module(userModule)
     })
 

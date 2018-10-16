@@ -1,0 +1,146 @@
+@import "../../modal/modal.component"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+\:host
+  display: block
+  width: 100%
+
+  .call-summary
+    height: calc(100vh - 56px)
+    padding: 48px 16px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    text-align: center
+
+    +smm
+      padding: 48px
+      height: auto
+      justify-content: flex-start
+
+    &__client-name
+      +paragraph
+      font-weight: 500
+      color: $c-text-primary
+      margin: 16px 0 0
+
+    &__title
+      +h6
+      font-weight: bold
+      color: $c-text-primary
+      margin: 24px 0 0
+
+    &__call-details
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin: 24px 0 82px
+
+    &__data-container
+      &--header
+        +caption
+        color: $c-text-secondary
+        font-weight: normal
+
+      &--data
+        +h6
+        color: $c-text-secondary
+        font-weight: normal
+
+      &:first-child
+        padding: 0 16px 0 0
+        border-right: 1px solid $c-lines
+
+      &:last-child
+        padding: 0 0 0 16px
+
+    &__footer
+      position: absolute
+      bottom: 0
+      padding: 0 0 48px 0
+
+      +xsm-landscape
+        padding: 0
+
+      +smm
+        position: relative
+        padding: 0
+
+      &__button
+        font-weight: 500
+        font-size: 14px
+        line-height: 24px
+        color: $c-primary
+        display: block
+
+        &:first-child
+          margin: 0 0 16px
+
+        &--disabled
+          color: $c-lines
+          cursor: default
+          pointer-events: none
+
+  .comment-section
+    height: calc(100vh - 56px)
+    padding: 48px 16px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    text-align: center
+
+    +smm
+      padding: 48px
+      min-height: 488px
+      height: auto
+
+
+    &__form
+      width: 100%
+
+    &__textarea-wrapper
+      width: 100%
+
+      +smm
+        margin: -48px 0 0
+
+    &__button-wrapper
+      position: absolute
+      width: 100%
+      bottom: 0
+      left: 0
+      right: 0
+      margin: 0 0 48px 0
+      height: 56px
+
+  .report-client-section
+    height: calc(100vh - 56px)
+    padding: 48px 16px
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    +smm
+      padding: 48px
+      min-height: 488px
+      height: auto
+
+    &__form
+      width: 100%
+
+    &__radio
+      +smm
+        margin: -48px 0 0
+
+    &__button-wrapper
+      position: absolute
+      display: flex
+      justify-content: center
+      width: 100%
+      bottom: 0
+      left: 0
+      right: 0
+      margin: 0 0 48px 0
+      height: 56px
