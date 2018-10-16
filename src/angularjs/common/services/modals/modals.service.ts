@@ -7,16 +7,8 @@
 // tslint:disable:deprecation
 // tslint:disable: max-file-line-count
 import {
-  GetService,
-  GetClientActivity,
-  MoneyDto,
-  GetCreditCard,
-  GetPaymentOptions,
-  PaymentLink,
-  GetProfile,
-  GetProfileWithServicesInvitations,
-  GetCompanyInvoiceDetails,
-  GetExpertSueDetails,
+  GetService, GetClientActivity, MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink,
+  GetProfileWithServicesInvitations, GetCompanyInvoiceDetails
 } from 'profitelo-api-ng/model/models';
 import { DialogService } from '../dialog/dialog.service';
 import { IBasicAccountSettingsControllerParentScope } from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings';
@@ -63,23 +55,13 @@ import {
   IInvitationsModalScope,
 } from '../../../app/invitations/modal/invitations.controller';
 import {
-  IPrecallModalControllerScope,
-  PrecallModalController,
-} from '../../components/communicator/modals/precall/precall.controller';
-import {
-  ConsultationSummaryExpertController,
-  IConsultationSummaryExpertControllerScope,
-} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
-import { IPhoneSettingsControllerScope } from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
+  IPhoneSettingsControllerScope
+} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
 import { IModalInstanceService } from 'angular-ui-bootstrap';
 import {
   IChargeAccountScope,
   ChargeAccountController,
 } from '../../../app/charge-account/modal/charge-account.controller';
-import {
-  ExpertIncomingCallController,
-  IExpertIncomingCallParentControllerScope,
-} from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call.controller';
 import {
   ConsultationModalController,
   IConsultationModalControllerScope,
@@ -89,10 +71,12 @@ import {
   IServiceFormModalScope,
 } from '../../components/dashboard/expert/manage-profile/modals/service-form-modal/service-form-modal.controller';
 import { IRootScopeService } from '../root-scope/root-scope.service';
-import { INoCreditsControllerParentScope } from '../../components/communicator/modals/no-credits/no-credits';
-import { IUnavailableServiceControllerParentScope } from '../../components/communicator/modals/service-unavailable/service-unavailable';
-import { IPayoutsModalControllerScope } from '../../components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller';
-import { IAddPaymentMethodControllerScope } from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method';
+import {
+  IPayoutsModalControllerScope
+} from '../../components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods.controller';
+import {
+  IAddPaymentMethodControllerScope
+} from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method';
 import { ConfirmAlertController, IConfirmAlertScope } from '../../controllers/confirm-alert/confirm-alert.controller';
 import { IInfoAlertScope, InfoAlertController } from '../../controllers/info-alert/info-alert.controller';
 import {
@@ -108,77 +92,6 @@ export class ModalsService {
   public static $inject = ['$rootScope', 'dialogService'];
 
   constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {}
-
-  public createIncomingCallModal = (
-    expertSueDetails: GetExpertSueDetails,
-    answerCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void,
-    rejectCallback: ($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) => void,
-  ): IModalInstanceService => {
-    const dialogScope: IExpertIncomingCallParentControllerScope = <IExpertIncomingCallParentControllerScope>(
-      this.$rootScope.$new(true)
-    );
-
-    dialogScope.expertSueDetails = expertSueDetails;
-    dialogScope.answerCall = answerCallback;
-    dialogScope.rejectCall = rejectCallback;
-
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: ExpertIncomingCallController,
-      windowClass: 'modal-open full-screen modal-dark',
-      template: require('angularjs/common/components/communicator/modals/expert-incoming-call/expert-incoming-call.html'),
-      scope: dialogScope,
-    });
-  };
-
-  public createNoFundsModal = (acceptCallback: () => void, rejectCallback: () => void): IModalInstanceService => {
-    const dialogScope: INoCreditsControllerParentScope = <INoCreditsControllerParentScope>this.$rootScope.$new(true);
-
-    dialogScope.reject = acceptCallback;
-    dialogScope.accept = rejectCallback;
-
-    return this.dialogService.openDialog({
-      controller: 'noCreditsController',
-      template: require('angularjs/common/components/communicator/modals/no-credits/no-credits.html'),
-      scope: dialogScope,
-    });
-  };
-
-  public createServiceUnavailableModal = (
-    acceptCallback: () => void,
-    rejectCallback: () => void,
-  ): IModalInstanceService => {
-    const dialogScope: IUnavailableServiceControllerParentScope = <IUnavailableServiceControllerParentScope>(
-      this.$rootScope.$new(true)
-    );
-
-    dialogScope.reject = acceptCallback;
-    dialogScope.accept = rejectCallback;
-
-    return this.dialogService.openDialog({
-      controller: 'unavailableServiceController',
-      template: require('angularjs/common/components/communicator/modals/service-unavailable/service-unavailable.html'),
-      scope: dialogScope,
-    });
-  };
-
-  public createExpertConsultationSummaryModal = (serviceUsageEventId: string): IModalInstanceService => {
-    if (!serviceUsageEventId) {
-      throw new Error('Expected serviceUsageEventId, got ' + serviceUsageEventId);
-    }
-
-    const dialogScope: IConsultationSummaryExpertControllerScope = <IConsultationSummaryExpertControllerScope>(
-      this.$rootScope.$new(true)
-    );
-
-    dialogScope.serviceUsageEventId = serviceUsageEventId;
-
-    return this.dialogService.openDialog({
-      controller: ConsultationSummaryExpertController,
-      template: require('angularjs/common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.html'),
-      scope: dialogScope,
-    });
-  };
 
   public createClientSUEActivityDetailsModal = (sueId: string): IModalInstanceService => {
     if (!sueId) {
@@ -469,29 +382,14 @@ export class ModalsService {
     dialogScope.profile = profile;
     dialogScope.onModalCloseCallback = onModalClose;
 
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: EditExpertProfileController,
-      template: require('angularjs/common/components/dashboard/expert/manage-profile/' +
-        'modals/edit-expert-profile/edit-expert-profile.html'),
-      scope: dialogScope,
-    });
-  };
-
-  public createPrecallModal = (service: GetService, owner: GetProfile, stream: MediaStream): IModalInstanceService => {
-    const dialogScope: IPrecallModalControllerScope = <IPrecallModalControllerScope>this.$rootScope.$new(true);
-
-    dialogScope.service = service;
-    dialogScope.owner = owner;
-    dialogScope.stream = stream;
-
-    return this.dialogService.openDialog({
-      controllerAs: 'vm',
-      controller: PrecallModalController,
-      template: require('angularjs/common/components/communicator/modals/precall/precall.html'),
-      scope: dialogScope,
-    });
-  };
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        controller: EditExpertProfileController,
+        template: require('angularjs/common/components/dashboard/expert/manage-profile/' +
+          'modals/edit-expert-profile/edit-expert-profile.html'),
+        scope: dialogScope
+      });
+    }
 
   public createConsultationModal = (): IModalInstanceService => {
     const dialogScope: IConsultationModalControllerScope = <IConsultationModalControllerScope>(

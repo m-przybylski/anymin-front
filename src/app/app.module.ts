@@ -11,6 +11,7 @@ import { AngularJsBootstrapSingletonService } from './upgrade/angularjs-bootstra
 import { UpgradeModule } from '@angular/upgrade/static';
 import { RavenErrorHandler } from './shared/providers/raven-error-handler/raven-error-handler';
 import { ConfirmEmailModule } from './features/confirm-email/confirm-email.module';
+import { ModalsModule } from './shared/components/modals/modals.module';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './reducers';
 import { environment } from '../environments/environment';
@@ -31,6 +32,7 @@ registerLocaleData(localePl, getLocale);
     RouterModule,
     BrowserModule,
     AppRoutingModule,
+    ModalsModule,
     CoreModule,
     SharedModule,
     ConfirmEmailModule,

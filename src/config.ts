@@ -49,6 +49,8 @@ export class Config {
     consultationMaxDescription: 600,
     commentMaxLength: 600,
     commentMinLength: 3,
+    callSummaryCommentMaxLength: 600,
+    callSummaryCommentMinLength: 15,
   };
 
   public static readonly styles = {

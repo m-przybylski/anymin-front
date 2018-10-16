@@ -11,11 +11,10 @@ import { GetProfileWithServicesInvitations, GetInvitation } from 'profitelo-api-
 import * as _ from 'lodash';
 import { NavbarNotificationsService } from '../navbar-notifications/navbar-notifications.service';
 import { Config } from '../../../../../config';
-import { ProfiteloWebsocketService } from '../../../services/profitelo-websocket/profitelo-websocket.service';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 // tslint:disable:member-ordering
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
-
   public isExpert = false;
   public isExpertOrOrganization: boolean;
   public isNotificationsMenuShow = false;
@@ -30,24 +29,37 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   public invitations: GetProfileWithServicesInvitations[] = [];
   public isPlatformForExpert = Config.isPlatformForExpert;
 
-  public static $inject = ['userService', 'translatorService', 'topAlertService', '$element', '$document',
-    '$window', '$scope', '$log', 'ProfileApi', '$location', 'navbarNotificationsService', 'profiteloWebsocket'];
+  public static $inject = [
+    'userService',
+    'translatorService',
+    'topAlertService',
+    '$element',
+    '$document',
+    '$window',
+    '$scope',
+    '$log',
+    'ProfileApi',
+    '$location',
+    'navbarNotificationsService',
+    'anymindWebsocket',
+  ];
 
-    constructor(private userService: UserService,
-              private translatorService: TranslatorService,
-              private topAlertService: TopAlertService,
-              private $element: ng.IRootElementService,
-              private $document: ng.IDocumentService,
-              private $window: ng.IWindowService,
-              private $scope: ng.IScope,
-              private $log: ng.ILogService,
-              private ProfileApi: ProfileApi,
-              private $location: ng.ILocationService,
-              navbarNotificationsService: NavbarNotificationsService,
-              profiteloWebsocket: ProfiteloWebsocketService) {
-
-      navbarNotificationsService.onInvitationsResolved(this.fetchInvitations);
-      profiteloWebsocket.onNewInvitation(this.fetchInvitations);
+  constructor(
+    private userService: UserService,
+    private translatorService: TranslatorService,
+    private topAlertService: TopAlertService,
+    private $element: ng.IRootElementService,
+    private $document: ng.IDocumentService,
+    private $window: ng.IWindowService,
+    private $scope: ng.IScope,
+    private $log: ng.ILogService,
+    private ProfileApi: ProfileApi,
+    private $location: ng.ILocationService,
+    navbarNotificationsService: NavbarNotificationsService,
+    anymindWebsocket: AnymindWebsocketService,
+  ) {
+    navbarNotificationsService.onInvitationsResolved(this.fetchInvitations);
+    anymindWebsocket.newInvitation.subscribe(this.fetchInvitations);
   }
 
   public $onInit(): void {
@@ -65,8 +77,10 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     });
 
     angular.element(this.$window).bind('scroll', () => {
-      if (this.$window.pageYOffset >= Config.styles.NAVBAR_HEIGHT
-        && this.$window.innerWidth >= Config.styles.DESKTOP_WINDOW_WIDTH) {
+      if (
+        this.$window.pageYOffset >= Config.styles.NAVBAR_HEIGHT &&
+        this.$window.innerWidth >= Config.styles.DESKTOP_WINDOW_WIDTH
+      ) {
         this.isNotificationsMenuShow = false;
         this.isHelpMenuShow = false;
       }
@@ -77,15 +91,19 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   }
 
   private fetchInvitations = (): void => {
-    this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
-      this.invitations = response.filter((profileInvitation) =>
-        _.find(profileInvitation.services, (service) => service.invitation.status === GetInvitation.StatusEnum.NEW));
-      this.areNotificationsDisplayed = this.invitations.length > 0;
-      this.notificationCounter = this.invitations.length;
-    }, (error) => {
-      this.$log.error(error);
-    });
-  }
+    this.ProfileApi.getProfilesInvitationsRoute().then(
+      response => {
+        this.invitations = response.filter(profileInvitation =>
+          _.find(profileInvitation.services, service => service.invitation.status === GetInvitation.StatusEnum.NEW),
+        );
+        this.areNotificationsDisplayed = this.invitations.length > 0;
+        this.notificationCounter = this.invitations.length;
+      },
+      error => {
+        this.$log.error(error);
+      },
+    );
+  };
 
   public $onDestroy(): void {
     this.$document.unbind('click');
@@ -97,50 +115,52 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       this.$location.path('/login');
       this.topAlertService.success({
         message: this.translatorService.translate('LOGIN.SUCCESSFUL_LOGOUT'),
-        timeout: 2
+        timeout: 2,
       });
     });
-  }
+  };
 
   private setIsExpert = (): void => {
-    this.userService.getUser().then((response) => {
-      this.isExpert = response.isExpert;
-      this.isExpertOrOrganization = response.isExpert || response.isCompany;
-    }, () => {
-      this.isExpertOrOrganization = false;
-      this.isExpert = false;
-    });
-  }
+    this.userService.getUser().then(
+      response => {
+        this.isExpert = response.isExpert;
+        this.isExpertOrOrganization = response.isExpert || response.isCompany;
+      },
+      () => {
+        this.isExpertOrOrganization = false;
+        this.isExpert = false;
+      },
+    );
+  };
 
   public toggleNotificationsMenuShow = (): void => {
     this.isNotificationsMenuShow = !this.isNotificationsMenuShow;
     this.isAnyMenuShow = !this.isAnyMenuShow;
-  }
+  };
 
   public toggleNotificationsTabShow = (): void => {
     this.toggleNotificationsMenuShow();
     this.isNotificationsTab = true;
     this.isInvitationsTab = false;
     this.isHelpMenuShow = false;
-  }
+  };
 
   public toggleInvitationsTabShow = (): void => {
     this.toggleNotificationsMenuShow();
     this.areInvitationsDisplayed = true;
     this.isNotificationsTab = false;
     this.isInvitationsTab = true;
-  }
+  };
 
   public toggleHelpMenuShow = (): void => {
     this.isHelpMenuShow = !this.isHelpMenuShow;
     this.isNotificationsMenuShow = false;
     this.isAnyMenuShow = !this.isAnyMenuShow;
-  }
+  };
 
   public toggleAvailbilityNav = (): void => {
     this.isHelpMenuShow = false;
     this.isNotificationsMenuShow = false;
     this.isAvailbilityMenuShow = !this.isAvailbilityMenuShow;
-  }
-
+  };
 }

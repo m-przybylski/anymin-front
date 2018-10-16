@@ -1,0 +1,34 @@
+.call-alert-container
+  am-core-call-warn-alert(*ngIf="microphoneStateEnums.MUTED === currentMicrophoneStateEnum", [text]="'FEATURE" +
+  ".COMMUNICATOR.ALERT.MICROPHONE_OFF'")
+  am-core-call-pending-alert(*ngIf="isConnecting || isReconnecting")
+  am-core-call-connected-alert(*ngIf="!isConnecting")
+
+.communicator.communicator--maximized
+  .communicator__container
+
+    .communicator__participant-profile.participant-profile
+      .participant-profile__container(*ngIf="!isRemoteVideo")
+        .avatar-container
+          am-core-user-avatar.thumb.x192.communicator-avatar([tokenAvatar]="expertAvatar",
+          [avatarSize]="AvatarSizeEnum.BIG")
+          am-core-equalizer([isConnecting]="isConnecting")
+        span.participant-profile__owner-name(*ngIf="clientName") {{ clientName }}
+        span.participant-profile__owner-name(*ngIf="!clientName") {{ 'COMMUNICATOR.ANONYMOUS_CLIENT' | translate  }}
+        span.participant-profile__company-name {{ serviceName }}
+
+    .communicator__navigation
+      am-core-communicator-nav(#navigation, [(isVideo)]="isLocalVideo", [(isMessenger)]="isMessenger",
+      [minimizeCommunicator]="minimizeCommunicator", [isMobile]="isMobile", [newCallEvent]="newCallEvent",
+      [hangupCall]="hangupCall")
+
+      .communicator__navigation__messenger
+        am-core-messenger([(isMessenger)]="isMessenger", [newCallEvent]="newCallEvent")
+
+  .communicator__video-local([hidden]="!isLocalVideo")
+    video(#localVideoStreamElement, autoplay="true", muted="true", playsinline)
+    span(*ngIf="isMobile", (click)="changeCamera()", plat-icon="", iconClass="camera-switch")
+
+  audio(#remoteAudioStreamElement, autoplay="true")
+  .communicator__video-remote([hidden]="!isRemoteVideo")
+    video(#remoteVideoStreamElement, autoplay="true", playsinline)

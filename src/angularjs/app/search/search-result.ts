@@ -15,7 +15,6 @@ import 'angularjs/common/components/search/search-filters/search-filters';
 import 'angularjs/common/directives/pro-footer/pro-footer';
 import 'angularjs/common/components/interface/preloader/preloader';
 import 'angularjs/common/components/interface/preloader-container/preloader-container';
-import communicatorModule from '../../common/components/communicator/communicator';
 import navbarModule from '../../common/components/navbar/navbar';
 import { SearchResultController } from './search-result.controller';
 import { StateProvider } from '@uirouter/angularjs';
@@ -26,7 +25,6 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
   'permission.ui',
   uiRouter,
   ngInfiniteScroll,
-  communicatorModule,
   navbarModule,
   'profitelo.components.interface.go-to-top',
   'profitelo.components.search.single-consultation',

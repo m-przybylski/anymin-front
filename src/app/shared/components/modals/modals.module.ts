@@ -8,6 +8,7 @@ import { InputsModule } from '../inputs/inputs.module';
 import { UserAvatarModule } from '../user-avatar/user-avatar.module';
 import { InvitationsModalsModule } from './invitations/invitations.module';
 import { ModalComponentsModule } from './modal/modal.components.module';
+import { CallModalsModule } from '@platform/shared/components/modals/call-modals/call-modals.module';
 
 @NgModule({
   declarations: [PinElementDirective, CreateEditConsultationModalComponent],
@@ -21,6 +22,7 @@ import { ModalComponentsModule } from './modal/modal.components.module';
     ReactiveFormsModule,
     InvitationsModalsModule,
     ModalComponentsModule,
+    CallModalsModule,
   ],
   exports: [SharedModule, FormsModule, ReactiveFormsModule, PinElementDirective, ModalComponentsModule],
 })

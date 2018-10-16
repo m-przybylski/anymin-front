@@ -30,14 +30,19 @@ const appRoutes: Routes = [
         loadChildren: './features/dashboard/dashboard.module#DashboardModule',
       },
       {
+        path: 'communicator',
+        canActivate: [SessionGuard],
+        loadChildren: './features/communicator/communicator.module#CommunicatorViewModule'
+      },
+      {
         path: RouterPaths.browse.getName,
         canActivate: [ProfileGuard],
         loadChildren: './features/browse/browse.module#BrowseModule',
       },
     ],
   },
-  { path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule' },
-  { path: '**', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
+  {path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule'},
+  {path: '**', loadChildren: './features/angularjs/angularjs.module#AngularJsModule'}
 ];
 
 @NgModule({

@@ -3,8 +3,6 @@
 import * as angular from 'angular';
 import { ModalsService } from './modals.service';
 import dialogModule from '../dialog/dialog';
-import '../../components/communicator/modals/service-unavailable/service-unavailable';
-import '../../components/communicator/modals/no-credits/no-credits';
 import '../../components/dashboard/client/activities/modals/complain-report/complain-report';
 import '../../components/dashboard/client/activities/modals/charge-details/charge-details';
 import '../../components/dashboard/client/activities/modals/consultation-details/consultation-details';
@@ -19,7 +17,6 @@ import '../../components/dashboard/settings/modals/payments/edit-company-invoice
 import { default as payoutsMethodsModalModule } from '../../components/dashboard/settings/modals/payouts/payouts-methods/payouts-methods';
 import '../../directives/interface/scrollable/scrollable';
 import '../../components/interface/multiselect/multiselect';
-import callSummaryModule from '../call-summary/call-summary';
 import '../../components/interface/preloader/preloader';
 import '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details';
 import expertEmployeeDetailsModalModule from '../../components/dashboard/expert/employees/modals/employee-details/employee-details';
@@ -29,18 +26,12 @@ import manageProfileEditProfileModule from '../../components/dashboard/expert/ma
 import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview';
 import invitationsModalModule from '../../../app/invitations/modal/invitations';
 import chargeAccountModalModule from '../../../app/charge-account/modal/charge-account';
-import consultationSummaryExpertControllerModule from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert';
-import preallcallModalModule from '../../components/communicator/modals/precall/precall';
-import expertIncomingCallModule from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call';
 import consultationModalModule from '../../components/search/modals/consultation/consultation';
 import companyInvoiceDetailsModalModule from '../../components/dashboard/settings/modals/payouts/company-invoice-details/company-invoice-details';
 
 const modalsModule = angular
   .module('profitelo.services.modals', [
     dialogModule,
-    callSummaryModule,
-    'profitelo.components.communicator.modals.service-unavailable',
-    'profitelo.components.communicator.modals.no-credits',
     'profitelo.components.dashboard.client.activities.modals.consultation-details',
     'profitelo.components.dashboard.client.activities.modals.complain-report',
     'profitelo.components.dashboard.client.activities.modals.charge-details',
@@ -59,10 +50,7 @@ const modalsModule = angular
     manageProfileEditProfileModule,
     invitationsModalModule,
     profileGalleryPreviewModule,
-    preallcallModalModule,
     profileGalleryPreviewModule,
-    consultationSummaryExpertControllerModule,
-    expertIncomingCallModule,
     consultationModalModule,
     payoutsMethodsModalModule,
     companyInvoiceDetailsModalModule,

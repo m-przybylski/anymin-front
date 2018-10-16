@@ -1,0 +1,76 @@
+plat-modal-component(
+[modalTrTitleHeader]="modalHeaderTr",
+[modalContainerClass]="modalContainerClass",
+[isBackwardVisible]="isBackwardVisible",
+[onBackwardClick]="onBackwardClick"
+)
+  .summary-container([ngSwitch]="currentSummaryState")
+    .call-summary(*ngSwitchCase="summaryStateEnum.SUMMARY_DETAILS")
+      plat-user-avatar.call-summary__client-avatar([avatarToken]='clientAvatarToken', [avatarSize]='avatarSize')
+      span.call-summary__client-name([translate]="clientName")
+      span.call-summary__title {{ title }}
+      .call-summary__call-details
+        .call-summary__data-container
+          p.call-summary__data-container--header([translate]="'CALL_SUMMARY.TIME_HEADER'")
+          p.call-summary__data-container--data(*ngIf="callDuration") {{ callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+        .call-summary__data-container
+          p.call-summary__data-container--header([translate]="'CALL_SUMMARY.MONEY_HEADER'")
+          p.call-summary__data-container--data {{ amount | currency: currency:'symbol-narrow' }}
+      .call-summary__footer
+        a.call-summary__footer__button([translate]="'CALL_SUMMARY.REPORT_LINK'", (click)="switchToReportClient()",
+        [ngClass]="{'call-summary__footer__button--disabled': isClientReported}")
+        a.call-summary__footer__button([translate]="'CALL_SUMMARY.TECHNICAL_PROBLEM_LINK'",
+        (click)="switchToTechnicalProblem()",
+        [ngClass]="{'call-summary__footer__button--disabled': isTechnicalProblemReported}")
+
+    .comment-section(*ngSwitchDefault)
+      form.comment-section__form(
+      [id]="formId",
+      [formGroup]="commentForm",
+      novalidate)
+
+        .comment-section__textarea-wrapper
+          am-core-textarea-primary(
+          [label]="'CALL_SUMMARY.COMMENT_LABEL'",
+          [placeholder]="'CALL_SUMMARY.COMMENT_PLACEHOLDER'",
+          [isRequired]="true",
+          [minLength]="minValidDescriptionLength",
+          [maxLength]="maxValidDescriptionLength",
+          [controlName]="commentControlName",
+          [form]="commentForm",
+          [isDisabled]="isCommentInputDisabled",
+          [errorTextKey]="'CALL_SUMMARY.COMMENT_ERROR'"
+          )
+
+        .comment-section__button-wrapper
+          am-core-submit-button(
+          (click)="onSubmitComment()",
+          [titleText]="'CALL_SUMMARY.COMMENT_BUTTON'",
+          [isDisabled]="isCommentInputDisabled",
+          [isLoading]="isCommentInputDisabled"
+          )
+
+    .report-client-section(*ngSwitchCase="summaryStateEnum.TECHNICAL_PROBLEM")
+      form(
+      [id]="'technicalForm'",
+      [formGroup]="technicalProblemForm",
+      novalidate)
+
+        .report-client-section__radio
+          am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_CONNECTIONINTERRUPTED_LABEL",
+          [value]="postTechnicalProblemEnum.CONNECTIONINTERRUPTED", [form]="technicalProblemForm",
+          [controlName]="technicalProblemControlName")
+          am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_CHATPROBLEM_LABEL",
+          [value]="postTechnicalProblemEnum.CHATPROBLEM", [form]="technicalProblemForm", [controlName]="technicalProblemControlName")
+          am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_IMAGEORSOUNDPROBLEM_LABEL",
+          [value]="postTechnicalProblemEnum.IMAGEORSOUNDPROBLEM", [form]="technicalProblemForm", [controlName]="technicalProblemControlName")
+          am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_OTHER_LABEL",
+          [value]="postTechnicalProblemEnum.OTHER", [form]="technicalProblemForm", [controlName]="technicalProblemControlName")
+
+        .report-client-section__button-wrapper
+          am-core-submit-button(
+          (click)="onSubmitTechnicalProblem()",
+          [titleText]="technicalProblemButtonTr()",
+          [isDisabled]="isTechnicalProblemInputDisabled",
+          [isLoading]="isTechnicalProblemInputDisabled"
+          )

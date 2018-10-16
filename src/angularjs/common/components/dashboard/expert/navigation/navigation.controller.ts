@@ -5,9 +5,9 @@ import { FinancesApi } from 'profitelo-api-ng/api/api';
 import { MoneyDto } from 'profitelo-api-ng/model/models';
 import { ErrorHandlerService } from '../../../../services/error-handler/error-handler.service';
 import { PromiseService } from '../../../../services/promise/promise.service';
-import { ProfiteloWebsocketService } from '../../../../services/profitelo-websocket/profitelo-websocket.service';
 import { UserService } from '../../../../services/user/user.service';
 import { Config } from '../../../../../../config';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 // tslint:disable:member-ordering
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
@@ -17,24 +17,24 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
   public isPlatformForExpert = Config.isPlatformForExpert;
   public isCompany = true;
 
-  public static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'profiteloWebsocket'];
+  public static $inject = ['FinancesApi', 'userService', 'errorHandler', 'promiseService', 'anymindWebsocket'];
 
   constructor(
     FinancesApi: FinancesApi,
     userService: UserService,
     errorHandler: ErrorHandlerService,
     promiseService: PromiseService,
-    profiteloWebsocket: ProfiteloWebsocketService,
+    anymindWebsocket: AnymindWebsocketService,
   ) {
     userService.getUser().then(account => {
       this.isCompany = account.isCompany;
     });
 
-    profiteloWebsocket.onProfileCallProfit(data => {
+    anymindWebsocket.profileCallProfit.subscribe(data => {
       this.expertBalance = data.balanceAfter;
     });
 
-    profiteloWebsocket.onProfileCallRefund(data => {
+    anymindWebsocket.profileCallRefund.subscribe(data => {
       this.expertBalance = data.balanceAfter;
     });
 

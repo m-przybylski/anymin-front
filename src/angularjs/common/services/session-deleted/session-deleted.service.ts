@@ -1,7 +1,7 @@
 // tslint:disable:readonly-array
-import { ProfiteloWebsocketService } from '../profitelo-websocket/profitelo-websocket.service';
 import { EventsService } from '../events/events.service';
 import { SessionServiceWrapper } from '../session/session.service';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 export interface ISessionDeleted {
   removedSessionApiKey: string;
@@ -9,26 +9,29 @@ export interface ISessionDeleted {
 
 // tslint:disable:member-ordering
 export class SessionDeletedService {
+  public static $inject = ['sessionServiceWrapper', '$log', 'eventsService', 'anymindWebsocket'];
 
-  public static $inject = ['sessionServiceWrapper', '$log', 'eventsService', 'profiteloWebsocket'];
-
-    constructor(private sessionServiceWrapper: SessionServiceWrapper,
-              private $log: ng.ILogService,
-              private eventsService: EventsService,
-              private profiteloWebsocket: ProfiteloWebsocketService) {
-  }
+  constructor(
+    private sessionServiceWrapper: SessionServiceWrapper,
+    private $log: ng.ILogService,
+    private eventsService: EventsService,
+    private anymindWebsocket: AnymindWebsocketService,
+  ) {}
 
   public init = (): void => {
-    this.profiteloWebsocket.onSessionDeleted(this.onSessionDeleted);
-  }
+    this.anymindWebsocket.sessionDeleted.subscribe(data => this.onSessionDeleted(data));
+  };
 
-  private onSessionDeleted = (sessionDeleted: ISessionDeleted): void => {
-    this.sessionServiceWrapper.getSession().then((sessionWithAccount) => {
-      if (sessionDeleted.removedSessionApiKey === sessionWithAccount.session.apiKey) {
-        this.eventsService.emit('remote-session-deleted');
-      }
-    }, (error) => {
-      this.$log.warn(error);
-    });
-  }
+  private onSessionDeleted = (sessionDeleted: string): void => {
+    this.sessionServiceWrapper.getSession().then(
+      sessionWithAccount => {
+        if (sessionDeleted === sessionWithAccount.session.apiKey) {
+          this.eventsService.emit('remote-session-deleted');
+        }
+      },
+      error => {
+        this.$log.warn(error);
+      },
+    );
+  };
 }

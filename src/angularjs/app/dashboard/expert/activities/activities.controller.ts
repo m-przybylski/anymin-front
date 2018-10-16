@@ -14,8 +14,8 @@ import { ActivitiesQueryParams } from '../../../../common/services/dashboard-pro
 import { PromiseService } from '../../../../common/services/promise/promise.service';
 import { ErrorHandlerService } from '../../../../common/services/error-handler/error-handler.service';
 import { httpCodes } from '../../../../common/classes/http-codes';
-import { ProfiteloWebsocketService } from '../../../../common/services/profitelo-websocket/profitelo-websocket.service';
 import { LoggerService } from '@anymind-ng/core';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 // tslint:disable:member-ordering
 export class DashboardExpertActivitiesController {
@@ -27,7 +27,7 @@ export class DashboardExpertActivitiesController {
     '$timeout',
     'logger',
     'filtersData',
-    'profiteloWebsocket',
+    'anymindWebsocket',
   ];
 
   private static readonly queryLimit = 10;
@@ -64,7 +64,7 @@ export class DashboardExpertActivitiesController {
     private $timeout: ng.ITimeoutService,
     private logger: LoggerService,
     filtersData: GetActivityFilters,
-    profiteloWebsocket: ProfiteloWebsocketService,
+    anymindWebsocket: AnymindWebsocketService,
   ) {
     this.activitiesQueryParam = new ActivitiesQueryParams();
     this.setBasicQueryParam(this.activitiesQueryParam);
@@ -78,7 +78,7 @@ export class DashboardExpertActivitiesController {
         }
       });
     });
-    profiteloWebsocket.onCallSummary(() => {
+    anymindWebsocket.callSummary.subscribe(() => {
       this.onSetFiltersParams(this.activitiesQueryParam);
     });
     this.translationPayoutsHref = {

@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
-import { CommunicatorModule, CommunicatorService, AnymindComponentsModule } from '@anymind-ng/core';
-import { CommunicatorConfigFactory } from './factories/communicator-config/communicator-config.factory';
-import { Config } from '../../config';
+import { AnymindComponentsModule } from '@anymind-ng/core';
 import { UnsupportedGuard } from '../features/unsupported/unsupported.guard';
 import { SessionGuard } from './guards/session/session.guard';
 import { AnonymousGuard } from './guards/anonymous/anonymous.guard';
@@ -34,7 +32,6 @@ import { ScrollToElementDirective } from './components/dropdown/dropdown/dropdow
 import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
 import { ToggleElementDirective } from './components/dropdown/dropdown/on-element-click.directive';
 import { ValidationDirective } from './directives/validation/validation.directive';
-import { ProfileLinksComponentService } from './components/modals/profile/components/profile-links/profile-links.component.service';
 import { PhoneNumberUnifyService } from './services/phone-number-unify/phone-number-unify.service';
 import { ExpandablePanelComponent } from './components/expandable-panel/expandable-panel.component';
 import { UserAvatarModule } from './components/user-avatar/user-avatar.module';
@@ -49,7 +46,6 @@ import { SettingOptionComponent } from '@platform/features/dashboard/views/user-
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout),
     NgbModule,
     TranslateModule.forChild(),
     AnymindComponentsModule,
@@ -104,7 +100,6 @@ import { SettingOptionComponent } from '@platform/features/dashboard/views/user-
   ],
   providers: [
     EventsServiceProvider,
-    CommunicatorService,
     UnsupportedGuard,
     AnonymousGuard,
     SessionGuard,
@@ -115,7 +110,6 @@ import { SettingOptionComponent } from '@platform/features/dashboard/views/user-
     RegistrationInvitationService,
     PinCodeTimerService,
     ContentHeightAnimationService,
-    ProfileLinksComponentService,
     PhoneNumberUnifyService,
   ],
 })
