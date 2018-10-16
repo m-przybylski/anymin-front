@@ -13,6 +13,7 @@ export class CreateIncomingCallComponent extends Logger {
   public readonly AvatarSizeEnum: typeof AvatarSize = AvatarSize;
   public serviceName: string;
   public isConnecting = true;
+  public clientAvatar?: string;
 
   constructor(
     private activeModal: NgbActiveModal,
