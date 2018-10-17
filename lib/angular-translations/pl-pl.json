@@ -1802,6 +1802,11 @@
   "DASHBOARD.PAYMENTS.PAYOUTS_MODAL.PAYPAL_ACCOUNT.INPUT.PLACEHOLDER": "jan.kowalski@gmail.com",
   "ALERT.PAYPAL_ADD_SUCCESS": "Konto paypal zostało dodane pomyślnie",
   "DASHBOARD.PAYMENTS.PAYOUTS_MODAL.PAYPAL.TITLE": "PayPal",
+  "INVITATIONS.HEADER": "Zaproszenia do konsultacji",
+  "INVITATIONS.EMPTY_HEADER": "Tu powinny być zaproszenia…",
+  "INVITATIONS.EMPTY_DESCRIPTION_ONE": "…do rozmawiania w ramach konsultacji należących do organizacji.",
+  "INVITATIONS.EMPTY_DESCRIPTION_TWO": " Możesz dowiedzieć się więcej o pracownikach i organizacjach w AnyMind, w ",
+  "INVITATIONS.EMPTY_LINK": "<a href='https://anymind.zendesk.com/hc/pl/articles/360009918991--Kt%C3%B3re-konto-AnyMind-wybra%C4%87-' target='_blank'>tym artykule</a>",
 
   "DASHBOARD.PAYMENTS.BUTTON.CHANGE": "Edytuj",
   "DASHBOARD.SETTINGS.TITLE": "Ustawienia konta",
