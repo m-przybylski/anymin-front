@@ -184,13 +184,19 @@ export class CallInvitationService extends Logger {
         };
 
         const callingModal = this.modalsService.open(CreateIncomingCallComponent, options);
-        callingModal.result
-          .then(() => {
-            this.handleAnswerCallInvitation(expertSueDetails, call);
-          })
-          .catch(() => {
+        callingModal.result.then(
+          isAnswerActionCalledFromUI => {
+            if (isAnswerActionCalledFromUI) {
+              this.handleAnswerCallInvitation(expertSueDetails, call);
+            } else {
+              this.loggerService.debug('Modal closed by external event');
+            }
+          },
+          () => {
             this.rejectCallInvitation(call);
-          });
+          },
+        );
+
         // Client went offline when calling
         call.offline$.subscribe(offline => this.handleClientWentOfflineBeforeAnswering(offline, call, callingModal));
         // Call was answered on the other device
@@ -199,7 +205,7 @@ export class CallInvitationService extends Logger {
         call.end$
           .pipe(
             takeUntil(this.callRejectedEvent$),
-            takeUntil(this.callService.newCall$),
+            takeUntil(call.answered$),
             takeUntil(this.callAnsweredOnOtherDeviceEvent$),
           )
           .subscribe(end => this.handleCallEndedBeforeAnswering(end, callingModal));

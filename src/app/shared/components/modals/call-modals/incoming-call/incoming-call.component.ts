@@ -15,6 +15,8 @@ export class CreateIncomingCallComponent extends Logger {
   public isConnecting = true;
   public clientAvatar?: string;
 
+  private readonly isAnswerActionCalledFromUI = true;
+
   constructor(
     private activeModal: NgbActiveModal,
     loggerFactory: LoggerFactory,
@@ -29,6 +31,6 @@ export class CreateIncomingCallComponent extends Logger {
   };
 
   public answerCall = (): void => {
-    this.activeModal.close();
+    this.activeModal.close(this.isAnswerActionCalledFromUI);
   };
 }
