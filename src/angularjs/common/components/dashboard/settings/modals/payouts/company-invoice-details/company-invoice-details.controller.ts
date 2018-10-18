@@ -23,9 +23,14 @@ interface ICountry {
 }
 
 export class CompanyInvoiceDetailsModalController implements ng.IController {
-
-  public static $inject = ['$uibModalInstance', '$scope', 'companyInvoiceDetailsModalService', 'translatorService',
-    'topAlertService', 'CommonSettingsService'];
+  public static $inject = [
+    '$uibModalInstance',
+    '$scope',
+    'companyInvoiceDetailsModalService',
+    'translatorService',
+    'topAlertService',
+    'CommonSettingsService',
+  ];
 
   public vatNumber = '';
   public name = '';
@@ -44,13 +49,14 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
   private emailPattern: RegExp;
   private postalCodePattern: RegExp;
 
-  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private $scope: ICompanyInvoiceDetailsModalControllerScope,
-              private companyInvoiceDetailsModalService: CompanyInvoiceDetailsModalService,
-              private translatorService: TranslatorService,
-              private topAlertService: TopAlertService,
-              private CommonSettingsService: CommonSettingsService) {
-
+  constructor(
+    private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    private $scope: ICompanyInvoiceDetailsModalControllerScope,
+    private companyInvoiceDetailsModalService: CompanyInvoiceDetailsModalService,
+    private translatorService: TranslatorService,
+    private topAlertService: TopAlertService,
+    private CommonSettingsService: CommonSettingsService,
+  ) {
     this.companyInvoiceDetails = this.$scope.companyInvoiceDetails;
     this.onModalCloseCallback = this.$scope.onModalCloseCallback;
 
@@ -58,34 +64,38 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
     this.emailPattern = this.CommonSettingsService.localSettings.emailPattern;
     this.postalCodePattern = this.CommonSettingsService.localSettings.postalCodePattern;
 
-    this.countryList = [{
-      name: this.translatorService.translate('COUNTRIES.PL'),
-      value: 'PL'
-    }];
+    this.countryList = [
+      {
+        name: this.translatorService.translate('COUNTRIES.PL'),
+        value: 'PL',
+      },
+    ];
     this.selectedCountry = this.countryList[0];
 
     this.assignInvoiceDetailsValues();
-
   }
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel');
-  }
+  };
 
   public saveCompanyInvoiceDetails = (): void => {
     this.isLoading = true;
-    this.companyInvoiceDetailsModalService.saveInvoiceDetails(this.createCompanyInvoiceDetailsModel())
+    this.companyInvoiceDetailsModalService
+      .saveInvoiceDetails(this.createCompanyInvoiceDetailsModel())
       .then(this.onSaveCompanyInvoiceDetailsSucceed)
-      .catch((error) => {
-        if (error.status === httpCodes.badRequest
-          && error.data.code === this.CommonSettingsService.errorCodes.illegalArgument) {
+      .catch(error => {
+        if (
+          error.status === httpCodes.badRequest &&
+          error.data.code === this.CommonSettingsService.errorCodes.validationError
+        ) {
           this.isBackendValidationError = true;
         }
       })
       .finally(() => {
         this.isLoading = false;
       });
-  }
+  };
 
   public isVatNumberValid = (): boolean => this.vatNumberPattern.test(this.vatNumber.replace(/-|\s/g, ''));
 
@@ -100,43 +110,41 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
   public isEmailValid = (): boolean => this.emailPattern.test(this.email);
 
   public isFormValid = (): boolean =>
-    this.isVatNumberValid()
-    && this.isNameValid()
-    && this.isAddressValid()
-    && this.isPostalCodeValid()
-    && this.isCityValid()
-    && this.isEmailValid()
+    this.isVatNumberValid() &&
+    this.isNameValid() &&
+    this.isAddressValid() &&
+    this.isPostalCodeValid() &&
+    this.isCityValid() &&
+    this.isEmailValid();
 
   public onVatInputChange = (): void => {
     this.isBackendValidationError = false;
-  }
+  };
 
-  private createCompanyInvoiceDetailsModel = (): PostCompanyInvoiceDetails => (
-    {
-      vatNumber: this.vatNumber.replace(/-|\s/g, ''),
-      companyName: this.name,
-      address: {
-        address: this.address,
-        postalCode: this.postalCode,
-        city: this.city,
-        countryISO: this.selectedCountry.value.toUpperCase()
-      },
-      email: this.email
-    }
-  )
+  private createCompanyInvoiceDetailsModel = (): PostCompanyInvoiceDetails => ({
+    vatNumber: this.vatNumber.replace(/-|\s/g, ''),
+    companyName: this.name,
+    address: {
+      address: this.address,
+      postalCode: this.postalCode,
+      city: this.city,
+      countryISO: this.selectedCountry.value.toUpperCase(),
+    },
+    email: this.email,
+  });
 
   private showSuccessAlert = (): void => {
     this.topAlertService.success({
       message: this.translatorService.translate('DASHBOARD.SETTINGS.PAYOUTS_METHOD.INVOICE_DETAILS.SUCCESS_MESSAGE'),
-      timeout: 2
+      timeout: 2,
     });
-  }
+  };
 
   private onSaveCompanyInvoiceDetailsSucceed = (): void => {
     this.onModalCloseCallback();
     this.$uibModalInstance.dismiss('cancel');
     this.showSuccessAlert();
-  }
+  };
 
   private assignInvoiceDetailsValues = (): void => {
     if (this.companyInvoiceDetails) {
@@ -148,9 +156,8 @@ export class CompanyInvoiceDetailsModalController implements ng.IController {
       this.email = this.companyInvoiceDetails.email;
       this.selectedCountry = {
         name: this.translatorService.translate('COUNTRIES.' + this.companyInvoiceDetails.address.countryISO),
-        value: this.companyInvoiceDetails.address.countryISO
+        value: this.companyInvoiceDetails.address.countryISO,
       };
     }
-  }
-
+  };
 }

@@ -22,19 +22,18 @@
         .price-small
           span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
 
-  .list-row.money-activity(data-ng-if="!$ctrl.isCallActivity")
-    .last-activity-details
-      .last-activity-icon
-        span.icon.icon-payout-24
+    .list-row.money-activity(data-ng-if="!$ctrl.isCallActivity")
+      .last-activity-details
+        .last-activity-icon
+          span.icon.icon-payout-24
 
         .last-activity-about
           .last-activity-date
-            span {{ ::$ctrl.activity.createdAt | date : "EEE d.MM.y" }}
+            span {{ ::$ctrl.activityDate | date : "EEE d.MM.y" }}
 
-      .money-activity-informations-container
-        .last-activity-description
-          span {{ ::'DASHBOARD_CLIENT.CHARGE_ACCOUNT_ACTIVITY_HEADER' | translate}}
+      .last-activity-description
+        span {{ ::'DASHBOARD_CLIENT.PAYOUT_ACCOUNT_ACTIVITY_HEADER' | translate}}
 
+      .last-activity-profile
         .price-small
-          span +
           span(data-ng-bind-html="::$ctrl.activity.financialOperation.operation | money")
