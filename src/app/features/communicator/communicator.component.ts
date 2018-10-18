@@ -109,7 +109,10 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.loggerService.debug('Hanging up the call');
     if (this.currentCall) {
       this.currentCall.hangup(CallReason.Hangup).then(
-        () => this.loggerService.debug('Call hanged up'),
+        () => {
+          this.callService.pushHangupCallEvent();
+          this.loggerService.debug('Call hanged up');
+        },
         err => {
           this.loggerService.warn('Could not hangup the call', err);
         },
