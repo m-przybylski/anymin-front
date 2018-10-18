@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { GenerateWidgetComponent } from './components/generate-widget/generate-widget.component';
 import { GenerateWidgetService } from './services/generate-widget.service';
+import { GenerateWidgetDataService } from './services/generate-widget.data.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from './reducers/generate-widget.reducer';
@@ -14,9 +15,10 @@ import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-a
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { GenerateWidgetButtonTypeComponent } from './components/generate-widget-button-type/generate-widget-button-type.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CopyCodeToClipbord } from './components/copy-generated-code/copy-generated-code.component';
 
 @NgModule({
-  declarations: [GenerateWidgetComponent, GenerateWidgetButtonTypeComponent],
+  declarations: [GenerateWidgetComponent, GenerateWidgetButtonTypeComponent, CopyCodeToClipbord],
   imports: [
     CommonModule,
     ModalComponentsModule,
@@ -30,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TranslateModule.forChild(),
     ExpertAvailabilityModule,
   ],
-  providers: [GenerateWidgetService],
+  providers: [GenerateWidgetService, GenerateWidgetDataService],
   entryComponents: [GenerateWidgetComponent],
 })
 export class GenerateWidgetModule {}

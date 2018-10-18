@@ -1,15 +1,11 @@
 // tslint:disable:max-line-length
 import { Injectable, Injector } from '@angular/core';
 import { Logger } from '@platform/core/logger';
-import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
+import { LoggerFactory, MoneyToAmount, AlertService } from '@anymind-ng/core';
 import { GenerateWidgetComponent } from '../components/generate-widget/generate-widget.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { GENERATE_WIDGET_DATA, IGenerateWidgetData } from '../tokens';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
-import { WidgetService, ServiceService } from '@anymind-ng/api';
-import { switchMap, map, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { WidgetButtonType } from '../components/generate-widget-button-type/generate-widget-button-type.component';
+import { ClipboardService } from '@platform/core/services/clipboard/clipboard.service';
 
 @Injectable()
 export class GenerateWidgetService extends Logger {
@@ -18,9 +14,8 @@ export class GenerateWidgetService extends Logger {
     loggerFactory: LoggerFactory,
     private injector: Injector,
     private modalService: NgbModal,
-    private commonSettingsService: CommonSettingsService,
-    private widgetService: WidgetService,
-    private serviceService: ServiceService,
+    private clipboardService: ClipboardService,
+    private alertService: AlertService,
   ) {
     super(loggerFactory);
     this.moneyToAmount = new MoneyToAmount(this.loggerService);
@@ -43,60 +38,15 @@ export class GenerateWidgetService extends Logger {
       }),
     });
   }
-
-  public getWidgetLink(widgetId: string): string {
-    return `${this.commonSettingsService.links.widget}?widgetId=${widgetId}`;
+  public saveToClipboard(textToCopy: string): void {
+    this.clipboardService
+      .writeText(textToCopy)
+      .then(this.showSuccessOnSuccess.bind(this), this.showWarningOnFailure.bind(this));
   }
-
-  public getWidgetSdkLink(): string {
-    return `<script>var d="${
-      this.commonSettingsService.links.widgetSdk
-    }",t=document.getElementsByTagName("head")[0],s=document.createElement("script");s.src=d,t.appendChild(s);</script>`;
+  private showWarningOnFailure(): void {
+    this.alertService.pushWarningAlert('GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.FAIL');
   }
-
-  public getButtonCode(widgetId: string, buttonType: WidgetButtonType): string {
-    return `<button data-anymind-widget="${widgetId}" class="anymind-button${
-      buttonType === WidgetButtonType.FLOATING ? ' anymind-floating' : ''
-    }"></button>`;
+  private showSuccessOnSuccess(): void {
+    this.alertService.pushSuccessAlert('GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS');
   }
-
-  public resolve(widgetId: string): Observable<IGenerateWidgetResolveData | undefined> {
-    return this.widgetService.getWidgetRoute(widgetId).pipe(
-      filter(getWidget => typeof getWidget.serviceId !== 'undefined'),
-      switchMap(getWidget =>
-        this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [getWidget.serviceId as string] }).pipe(
-          map(getServiceWithEmployeesList =>
-            getServiceWithEmployeesList.find(
-              getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === getWidget.serviceId,
-            ),
-          ),
-          map(getServiceWithEmployees => {
-            if (getServiceWithEmployees) {
-              const expertDetails = getServiceWithEmployees.employeesDetails.find(
-                employmentWithExpertProfile => employmentWithExpertProfile.employeeProfile.id === getWidget.expertId,
-              );
-
-              return {
-                serviceName: getServiceWithEmployees.serviceDetails.name,
-                serviceDesc: getServiceWithEmployees.serviceDetails.description,
-                servicePrice: this.moneyToAmount.transform(getServiceWithEmployees.serviceDetails.grossPrice),
-                expertName: expertDetails && expertDetails.employeeProfile.name,
-                expertAvatar: expertDetails && expertDetails.employeeProfile.avatar,
-              };
-            }
-
-            return undefined;
-          }),
-        ),
-      ),
-    );
-  }
-}
-
-export interface IGenerateWidgetResolveData {
-  serviceName: string;
-  serviceDesc: string;
-  servicePrice: string;
-  expertName: string | undefined;
-  expertAvatar: string | undefined;
 }

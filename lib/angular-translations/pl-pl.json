@@ -2011,5 +2011,7 @@
   "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.STATIC_TITLE": "Styczny przycisk",
   "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.STATIC_SUBTITLE": "Wyświetlany w dowolnym miejscu na stronie",
   "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_TITLE": "Baner 250 x 250",
-  "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_SUBTITLE": "Wyświetlany w dowolnym miejscu na stronie"
+  "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_SUBTITLE": "Wyświetlany w dowolnym miejscu na stronie",
+  "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.FAIL": "Nie udalo sie skopiowac danych do schowka",
+  "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS": "Dane skopiowane do schowka"
 }

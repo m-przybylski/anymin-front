@@ -1,21 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { GenerateWidgetService } from './generate-widget.service';
 import { NgbModalModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ServiceService, WidgetService } from '@anymind-ng/api';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
+import { ClipboardService } from '@platform/core/services/clipboard/clipboard.service';
+import { AlertService } from '@anymind-ng/core';
 import { Deceiver } from 'deceiver-core';
-import { cold } from 'jasmine-marbles';
 
 describe('GenerateWidgetService', () => {
   let service: GenerateWidgetService;
   let modalService: NgbModal;
-
-  const widgetService: WidgetService = Deceiver(WidgetService, { getWidgetRoute: jasmine.createSpy('getWidgetRoute') });
-  const serviceService: ServiceService = Deceiver(ServiceService, {
-    postServiceWithEmployeesRoute: jasmine.createSpy('postServiceWithEmployeesRoute'),
+  const clipboardService: ClipboardService = Deceiver(ClipboardService, { writeText: jasmine.createSpy('writeText') });
+  const alertService: AlertService = Deceiver(AlertService, {
+    pushSuccessAlert: jasmine.createSpy('pushSuccessAlert'),
+    pushWarningAlert: jasmine.createSpy('pushWarningAlert'),
   });
-  const commonSettingsService: CommonSettingsService = new CommonSettingsService();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,77 +22,43 @@ describe('GenerateWidgetService', () => {
         GenerateWidgetService,
         provideMockFactoryLogger(),
         {
-          provide: CommonSettingsService,
-          useValue: commonSettingsService,
+          provide: ClipboardService,
+          useValue: clipboardService,
         },
-        { provide: WidgetService, useValue: widgetService },
-        { provide: ServiceService, useValue: serviceService },
+        { provide: AlertService, useValue: alertService },
       ],
     });
 
     service = TestBed.get(GenerateWidgetService);
     modalService = TestBed.get(NgbModal);
-    (widgetService.getWidgetRoute as jasmine.Spy).calls.reset();
-    (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).calls.reset();
+  });
+
+  beforeEach(() => {
+    (alertService.pushSuccessAlert as jasmine.Spy).calls.reset();
+    (alertService.pushWarningAlert as jasmine.Spy).calls.reset();
   });
 
   describe('openModal', () => {
     it('should call open modal', () => {
-      const spy = spyOn(modalService, 'open');
+      const spy = spyOn(modalService, 'open').and.stub();
       service.openModal({ serviceId: 'asd', expertId: 'aaa', widgetId: 'qqq' });
       expect(spy).toHaveBeenCalled();
     });
   });
-  describe('resolve', () => {
-    it('should return correct values', () => {
-      const wId = 'abc123';
-      const getWidget = { serviceId: '1234', expertId: 'exper1234', id: 'abc123' };
-      const serviceDetails: ReadonlyArray<any> = [
-        {
-          serviceDetails: {
-            id: '1234',
-            name: 'name',
-            description: 'description',
-            grossPrice: { amount: 124, currency: 'PLN' },
-          },
-          employeesDetails: [{ employeeProfile: { id: 'exper1234', name: 'Macko', avatar: 'asdf' } }],
-        },
-      ];
-      const result = {
-        serviceName: 'name',
-        serviceDesc: 'description',
-        servicePrice: '1,24',
-        expertName: 'Macko',
-        expertAvatar: 'asdf',
-      };
-      (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
-      (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: serviceDetails }));
-      expect(service.resolve(wId)).toBeObservable(cold('--a|', { a: result }));
-    });
-    it('should never complete but not return value when no service id provided', () => {
-      const wId = 'abc123';
-      const getWidget = { expertId: 'exper1234', id: 'abc123' };
-      (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
-      expect(service.resolve(wId)).toBeObservable(cold('--|', {}));
-    });
-    it('should return undefined when no matching service found', () => {
-      const wId = 'abc123';
-      const getWidget = { serviceId: '1234', expertId: 'exper1234', id: 'abc123' };
-      const serviceDetails: ReadonlyArray<any> = [
-        {
-          serviceDetails: {
-            id: '',
-            name: 'name',
-            description: 'description',
-            grossPrice: { amount: 124, currency: 'PLN' },
-          },
-          employeesDetails: [{ employeeProfile: { id: 'exper1234', name: 'Macko', avatar: 'asdf' } }],
-        },
-      ];
-      const result = undefined;
-      (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
-      (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: serviceDetails }));
-      expect(service.resolve(wId)).toBeObservable(cold('--a|', { a: result }));
-    });
+  describe('saveToClipboard', () => {
+    it('should copy value to clipboard and display confirmation', fakeAsync(() => {
+      // operation success
+      (clipboardService.writeText as jasmine.Spy).and.returnValue(Promise.resolve());
+      service.saveToClipboard('MackoXXXX');
+      flushMicrotasks();
+      expect(alertService.pushSuccessAlert).toHaveBeenCalled();
+    }));
+    it('should fail value to clipboard and display warning', fakeAsync(() => {
+      // operation success
+      (clipboardService.writeText as jasmine.Spy).and.returnValue(Promise.reject('u stupid'));
+      service.saveToClipboard('MackoXXXX');
+      flushMicrotasks();
+      expect(alertService.pushWarningAlert).toHaveBeenCalled();
+    }));
   });
 });

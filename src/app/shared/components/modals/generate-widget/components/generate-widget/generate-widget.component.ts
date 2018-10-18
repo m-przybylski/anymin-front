@@ -3,7 +3,7 @@ import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { GENERATE_WIDGET_DATA, IGenerateWidgetData } from '../../tokens';
 import { ModalComponent } from '@platform/shared/components/modals/modal/modal.component';
-import { GenerateWidgetService } from '../../services/generate-widget.service';
+import { GenerateWidgetDataService } from '../../services/generate-widget.data.service';
 import { of, BehaviorSubject, Subject } from 'rxjs';
 import { AccountPresenceStatus } from '@anymind-ng/api';
 import { finalize, filter, first, takeUntil, switchMap, map } from 'rxjs/operators';
@@ -48,7 +48,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   public selectedButonType: WidgetButtonType = undefinedSelectedButonType;
 
   public readonly available = of(AccountPresenceStatus.StatusEnum.Available);
-  public readonly headScript = this.generateWidgetService.getWidgetSdkLink();
+  public readonly headScript = this.generateWidgetDataService.getWidgetSdkLink();
   public readonly socialMediaLinks: ReadonlyArray<IShareLink> = [
     { url: '', iconName: 'linkedin' },
     { url: '', iconName: 'instagram' },
@@ -74,7 +74,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   constructor(
     loggerFactgory: LoggerFactory,
     @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
-    private generateWidgetService: GenerateWidgetService,
+    private generateWidgetDataService: GenerateWidgetDataService,
   ) {
     super(loggerFactgory);
     this.serviceId = data.serviceId;
@@ -82,8 +82,8 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     this.widgetId = data.widgetId;
   }
   public ngOnInit(): void {
-    this.widgetLink = this.generateWidgetService.getWidgetLink(this.widgetId);
-    this.generateWidgetService
+    this.widgetLink = this.generateWidgetDataService.getWidgetLink(this.widgetId);
+    this.generateWidgetDataService
       .resolve(this.widgetId)
       .pipe(
         finalize(() => {
@@ -121,7 +121,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
       )
       .subscribe(buttonType => {
         this.selectedButonType = buttonType;
-        this.buttonCode = this.generateWidgetService.getButtonCode(this.widgetId, buttonType);
+        this.buttonCode = this.generateWidgetDataService.getButtonCode(this.widgetId, buttonType);
       });
   }
   public ngAfterViewInit(): void {
