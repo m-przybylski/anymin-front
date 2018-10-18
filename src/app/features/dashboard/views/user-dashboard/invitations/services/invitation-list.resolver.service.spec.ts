@@ -1,5 +1,4 @@
 import { InvitationService, ProfileService } from '@anymind-ng/api';
-// tslint:disable-next-line:no-implicit-dependencies
 import { Deceiver } from 'deceiver-core';
 import { of } from 'rxjs';
 import { InvitationListResolverService } from './invitation-list.resolver.service';

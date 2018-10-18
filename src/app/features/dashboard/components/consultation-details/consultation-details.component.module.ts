@@ -5,9 +5,10 @@ import { ConsultationDetailsComponent } from '@platform/features/dashboard/compo
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@platform/shared/shared.module';
+import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, SharedModule, UserAvatarModule],
+  imports: [CommonModule, TranslateModule, SharedModule, UserAvatarModule, ExpertAvailabilityModule],
   declarations: [ConsultationDetailsComponent],
   exports: [UserAvatarModule, ConsultationDetailsComponent],
   providers: [ExpertAvailabilityService],

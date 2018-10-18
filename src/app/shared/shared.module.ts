@@ -38,7 +38,6 @@ import { UserAvatarModule } from './components/user-avatar/user-avatar.module';
 import { IconModule, ButtonModule } from './components/atomic-components/';
 import { InputsModule } from './components/inputs/inputs.module';
 import { TagListComponent } from '@platform/shared/components/tag-list/tag-list.component';
-import { ExpertAvailabilityComponent } from '@platform/features/dashboard/components/expert-availability/expert-availablitiy.component';
 import { SettingOptionComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component';
 
 @NgModule({
@@ -73,7 +72,6 @@ import { SettingOptionComponent } from '@platform/features/dashboard/views/user-
     ToggleElementDirective,
     ValidationDirective,
     ExpandablePanelComponent,
-    ExpertAvailabilityComponent,
     TagListComponent,
     SettingOptionComponent,
   ],
@@ -93,7 +91,6 @@ import { SettingOptionComponent } from '@platform/features/dashboard/views/user-
     DropdownComponent,
     ValidationDirective,
     ExpandablePanelComponent,
-    ExpertAvailabilityComponent,
     ToggleElementDirective,
     TagListComponent,
     SettingOptionComponent,

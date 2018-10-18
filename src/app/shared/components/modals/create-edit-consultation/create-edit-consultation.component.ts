@@ -22,6 +22,7 @@ export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
   serviceDetails?: ServiceWithOwnerProfile;
   tags?: ReadonlyArray<string>;
+  isOwnerEmployee: boolean;
 }
 
 @Component({
@@ -161,7 +162,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private getPutServiceModel = (): PutService => ({
     // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-538
     invitations: [],
-    isOwnerEmployee: this.payload.isExpertConsultation,
+    isOwnerEmployee: this.payload.isOwnerEmployee,
     name: this.formControls[this.nameControlName].value,
     description: this.formControls[this.descriptionControlName].value,
     price: {

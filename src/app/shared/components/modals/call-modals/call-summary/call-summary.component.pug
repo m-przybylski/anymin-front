@@ -2,7 +2,7 @@ plat-modal-component(
 [modalTrTitleHeader]="modalHeaderTr",
 [modalContainerClass]="modalContainerClass",
 [isBackwardVisible]="isBackwardVisible",
-[onBackwardClick]="onBackwardClick"
+(backwardClick)="onBackwardClick()"
 )
   .summary-container([ngSwitch]="currentSummaryState")
     .call-summary(*ngSwitchCase="summaryStateEnum.SUMMARY_DETAILS")

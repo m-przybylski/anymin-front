@@ -1,4 +1,4 @@
-ul.social-icons
+ul.social-icons(*ngIf="links.length")
   li.social-icons--item(*ngFor="let link of links")
     a(plat-icon-button href='{{link}}' target='_blank')
       span(plat-icon [iconClass]='getIconClass(link)')

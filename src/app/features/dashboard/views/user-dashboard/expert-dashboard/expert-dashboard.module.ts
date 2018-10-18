@@ -6,7 +6,7 @@ import { ExpertDashboardConsultationsComponent } from './expert-dashboard-consul
 import { ExpertDashboardComponent } from './expert-dashboard.view.component';
 import { DashboardComponentsModule } from '../../../components/components.module';
 import { RouterModule } from '@angular/router';
-import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 
 @NgModule({
   declarations: [ExpertDashboardComponent, ExpertDashboardConsultationsComponent],
@@ -21,8 +21,9 @@ import { ExpertAvailabilityService } from '@platform/features/dashboard/componen
     ]),
     CommonModule,
     SharedModule,
+    ExpertAvailabilityModule.forRoot(),
     DashboardComponentsModule,
   ],
-  providers: [ExpertDashboardResolverService, ExpertAvailabilityService],
+  providers: [ExpertDashboardResolverService],
 })
 export class ExpertDashboardModule {}

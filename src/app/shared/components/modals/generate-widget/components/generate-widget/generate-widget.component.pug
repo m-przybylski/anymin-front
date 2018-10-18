@@ -1,0 +1,63 @@
+plat-modal-component(
+  #modal,
+  modalTrTitleHeader='GENERATE_WIDGET_MODAL.HEADER',
+  [isBackwardVisible]="stepper.selectedIndex !== 0",
+  (backwardClick)='stepper.previous()'
+  )
+  plat-stepper(#stepper='platStepper')
+    plat-step
+      .generate-widget-step-content
+        .generate-widget-step-content-panel
+          .generate-widget-step-content-section
+            p(innerHtml= "{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT1' | translate}}")
+            .generate-widget-copy([plat-copy-to-clipboard]="widgetLink") {{widgetLink}}
+            .generate-widget-social-share
+              .generate-widget-social-link(*ngFor='let icon of socialMediaLinks')
+                button(plat-icon-button)
+                  span(plat-icon [iconClass]='icon.iconName')
+          .generate-widget-step-content-section
+            p(innerHtml="{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT2' | translate}}")
+            .generate-widget-copy([plat-copy-to-clipboard]="widgetId") {{ widgetId }}
+          .generate-widget-step-content-section
+            p(innerHtml="{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT3' | translate}}")
+            button(plat-stroked-button, (click)='stepper.next()') {{ 'GENERATE_WIDGET_MODAL.CONTENT.INSTALL' | translate}}
+        .generate-widget-step-content-panel-separator
+        .generate-widget-step-content-panel
+          .generate-widget-preview
+            .generate-widget-preview-header
+              span {{"GENERATE_WIDGET_MODAL.CONTENT.PREVIEW" | translate}}
+            .generate-widget-preview-content
+              .generate-widget-preview-expert
+                plat-user-avatar([avatarToken]='avatarToken')
+                .generate-widget-preview-expert-details
+                  span.generate-widget-preview-expert-details-name {{expertName}}
+                  plat-expert-availability([expertAvailable$]='available')
+              .generate-widget-preview-title {{consultationHeader}}
+              .generate-widget-preview-description {{cosulationDescription}}
+            .generate-widget-preview-footer
+              .generate-widget-preview-footer-button
+                .generate-widget-preview-footer-button-left
+                  .generate-widget-preview-footer-button-text {{ consultationPrice }} zł/min
+                  .generate-widget-preview-footer-button-subtext {{"GENERATE_WIDGET_MODAL.CONTENT.FIRST_MINUTE" | translate}}
+                .generate-widget-preview-footer-button-right
+                  span(plat-icon-button color='secondary')
+                    span(plat-icon iconClass='headphone')
+              .generate-widget-preview-footer-text {{ "WIDGET.POWERED_BY_ANYMIND" | translate:"{missing: 'Powered by AnyMind'}" }}
+    plat-step
+      .generate-widget-step-content
+        .generate-widget-step-content-panel
+          .generate-widget-step-content-section
+            p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP1" | translate}}
+            .generate-widget-copy([plat-copy-to-clipboard]="headScript") {{headScript}}
+          .generate-widget-step-content-section
+            p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP2" | translate}}
+            plat-generate-widget-button-type([formControl]='buttonType')
+          .generate-widget-step-content-section(*ngIf="buttonCode !== ''", [@fadeIn])
+            p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP3" | translate}}
+            .generate-widget-copy(
+              *ngIf='selectedButonType !== -1',
+              [@fadeInOut],
+              (@fadeInOut.done)="animationDone($event)",
+              [plat-copy-to-clipboard]="buttonCode") {{buttonCode}}
+
+

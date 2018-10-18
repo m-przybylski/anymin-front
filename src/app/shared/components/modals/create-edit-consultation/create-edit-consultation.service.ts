@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ServiceService } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { GetService } from '@anymind-ng/api/model/getService';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { PutService } from '@anymind-ng/api/model/putService';

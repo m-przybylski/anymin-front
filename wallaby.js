@@ -56,7 +56,7 @@ module.exports = function(wallaby) {
 
     tests: [{ pattern: 'src/**/*spec.ts', load: false }, { pattern: 'src/**/*e2e-spec.ts', ignore: true }],
 
-    testFramework: 'jasmine',
+    testFramework: 'jasmine@2.8.0',
 
     compilers: {
       '**/*.ts': wallaby.compilers.typeScript(compilerOptions),

@@ -9,7 +9,7 @@ import { ApiKeyInterceptor } from './services/api-key/api-key.interceptor';
 import { LoggerModule, AnymindComponentsCoreModule, LogLevel, CommunicatorModule } from '@anymind-ng/core';
 import { Config } from '../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, MissingTranslationHandler } from '@ngx-translate/core';
 import { getCoreConfig } from './factories/core-config/core-config.facotry';
 import { LongPollingService } from './services/long-polling/long-polling.service';
 import { LoginHelperService } from '../features/login/services/login-helper.service';
@@ -25,6 +25,8 @@ import { CallInvitationService } from '@platform/core/services/call/call-invitat
 import { ExpertCallService } from '@platform/core/services/call/expert-call.service';
 import { UserTypeEffects } from '@platform/core/effects/user-type.effects';
 import { provideCommission } from './commission';
+import { ClipboardService } from './services/clipboard/clipboard.service';
+import { PlatMissingTranslationHandler } from './services/missing-translation/missing-translation.hander';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -39,7 +41,9 @@ export function getLogLevel(): LogLevel {
     LoggerModule.forRoot(getLogLevel),
     NgbModule.forRoot(),
     // AngularJsProvidersModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: PlatMissingTranslationHandler },
+    }),
     CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout),
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
@@ -50,6 +54,7 @@ export function getLogLevel(): LogLevel {
     UserSessionService,
     LongPollingService,
     LoginHelperService,
+    ClipboardService,
     provideCommission(),
     {
       provide: HTTP_INTERCEPTORS,

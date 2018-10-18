@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ExpertAvailabilityService } from './expert-availablity.service';
-import { Observable } from 'rxjs';
+import { Observable, of, isObservable } from 'rxjs';
 import { AccountPresenceStatus } from '@anymind-ng/api';
 
 @Component({
@@ -10,15 +10,24 @@ import { AccountPresenceStatus } from '@anymind-ng/api';
 })
 export class ExpertAvailabilityComponent {
   @Input()
+  public isTextVisible = true;
+  @Input()
   public set expertId(id: string | undefined) {
     if (typeof id !== 'undefined') {
       this.expertAvailable$ = this.availability.getExpertPresence(id);
     }
   }
   @Input()
-  public isTextVisible = true;
-
+  public set expertAvailable$(
+    streamOrValue: Observable<AccountPresenceStatus.StatusEnum> | AccountPresenceStatus.StatusEnum,
+  ) {
+    this._expertAvailable$ = isObservable(streamOrValue) ? streamOrValue : of(streamOrValue);
+  }
+  public get expertAvailable$(): Observable<AccountPresenceStatus.StatusEnum> | AccountPresenceStatus.StatusEnum {
+    return this._expertAvailable$;
+  }
   public expertPresenceStatuses: typeof AccountPresenceStatus.StatusEnum = AccountPresenceStatus.StatusEnum;
-  public expertAvailable$: Observable<AccountPresenceStatus.StatusEnum>;
+
+  private _expertAvailable$: Observable<AccountPresenceStatus.StatusEnum>;
   constructor(private availability: ExpertAvailabilityService) {}
 }

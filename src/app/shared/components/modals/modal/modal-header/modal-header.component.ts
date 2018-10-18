@@ -1,5 +1,5 @@
 // tslint:disable:strict-boolean-expressions
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -12,21 +12,19 @@ export class ModalHeaderComponent {
   public titleTrHeader?: string;
 
   @Input()
-  public onBackwardClick?: () => void;
-
-  @Input()
   public isBackwardVisible = false;
 
   @Input()
   public isCloseButtonVisible = true;
 
+  @Output()
+  public backwardClick = new EventEmitter<void>();
+
   constructor(public activeModal: NgbActiveModal) {}
 
-  public onModalClose = (): void => this.activeModal.dismiss();
+  public onModalClose = (): void => this.activeModal.close();
 
   public onBackClick = (): void => {
-    if (this.onBackwardClick) {
-      this.onBackwardClick();
-    }
+    this.backwardClick.next();
   };
 }

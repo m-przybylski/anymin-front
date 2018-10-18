@@ -1,5 +1,5 @@
 // tslint:disable:strict-boolean-expressions
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAnimationComponentService } from './animation/modal-animation.animation.service';
 import { ModalAnimationComponentDirective } from './animation/modal-animation.component.directive';
@@ -31,13 +31,13 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   public isBackwardVisible?: boolean;
 
   @Input()
-  public onBackwardClick?: () => void;
-
-  @Input()
   public modalContainerClass?: ModalContainerTypeEnum = ModalContainerTypeEnum.MEDIUM_WIDTH;
 
   @Input()
   public isCloseButtonVisible = true;
+
+  @Output()
+  public backwardClick = new EventEmitter<void>();
 
   @ViewChild(ModalAnimationComponentDirective)
   public onPendingRequest: ModalAnimationComponentDirective;
@@ -93,12 +93,16 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onBackClick = (): void => {
-    if (this.onBackwardClick) {
-      this.onBackwardClick();
-    }
+    this.backwardClick.next();
   };
 
-  public onModalClose = (): void => this.activeModal.close();
+  public onModalClose = (): void => {
+    this.activeModal.close();
+  };
+
+  public stopLoadingAnimation = (): void => {
+    this.modalAnimationComponentService.stopLoadingAnimation();
+  };
 
   public setModalContainerWidth = (): string => {
     switch (this.modalContainerClass) {

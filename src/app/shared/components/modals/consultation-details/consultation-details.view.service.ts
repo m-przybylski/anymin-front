@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   EmploymentService,
   ProfileService,
@@ -12,22 +12,11 @@ import {
   DefaultCreditCard,
   FinancesService,
 } from '@anymind-ng/api';
-import { Observable, forkJoin, of, EMPTY } from 'rxjs';
-import { map, switchMap, filter, catchError, take, tap } from 'rxjs/operators';
-import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, LoggerFactory } from '@anymind-ng/core';
+import { Observable, forkJoin, of } from 'rxjs';
+import { map, switchMap, filter, catchError, take } from 'rxjs/operators';
+import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
-import { Store, select } from '@ngrx/store';
-import * as fromCore from '@platform/core/reducers';
-import { AuthActions } from '@platform/core/actions';
-import { ConfirmationService } from '../confirmation/confirmation.service';
-import {
-  CreateEditConsultationModalComponent,
-  ICreateEditConsultationPayload,
-} from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
-import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class ConsultationDetailsViewService extends Logger {
@@ -38,14 +27,7 @@ export class ConsultationDetailsViewService extends Logger {
     private employmentService: EmploymentService,
     private paymentsService: PaymentsService,
     private financesService: FinancesService,
-    private alertService: AlertService,
     private expertAvailabilityService: ExpertAvailabilityService,
-    private store: Store<fromCore.IState>,
-    private confirmationService: ConfirmationService,
-    private injector: Injector,
-    private modalService: NgbModal,
-    private router: Router,
-    private route: ActivatedRoute,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
@@ -129,90 +111,6 @@ export class ConsultationDetailsViewService extends Logger {
     commentsList: ReadonlyArray<GetComment>,
     commentsConsultation: ReadonlyArray<GetComment>,
   ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
-
-  public editConsultation = (
-    serviceId: string,
-    modal: NgbActiveModal,
-    _: string,
-    consultationPayload: ICreateEditConsultationPayload,
-  ): void => {
-    const modalOptions: NgbModalOptions = {
-      injector: this.setupInjector(consultationPayload),
-    };
-    this.modalService
-      .open(CreateEditConsultationModalComponent, modalOptions)
-      .result.then(() => {
-        void this.router.navigate(this.route.snapshot.url.map(url => url.toString()), {
-          relativeTo: this.route.parent,
-        });
-      })
-      .catch(() => this.loggerService.debug('CreateEditConsultationModal closed without changes'));
-    modal.close(serviceId);
-  };
-
-  public deleteConsultation = (serviceId: string, modal: NgbActiveModal): void => {
-    this.confirmationService
-      .confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE')
-      .pipe(
-        filter(confirmed => confirmed),
-        switchMap(() =>
-          this.serviceService.deleteServiceRoute(serviceId).pipe(
-            catchError(err => {
-              this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.REMOVE_FAILURE');
-              this.loggerService.warn('Cannot remove consultation', err);
-
-              return EMPTY;
-            }),
-          ),
-        ),
-      )
-      .subscribe(() => {
-        this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
-        this.loggerService.debug('Consultation removed!');
-        modal.close(serviceId);
-      });
-  };
-  public leaveConsultation = (serviceId: string, modal: NgbActiveModal, employmentId: string): void => {
-    this.confirmationService
-      .confirm('CONSULTATION_DETAILS.LEAVE.HEADER', 'CONSULTATION_DETAILS.LEAVE.MESSAGE')
-      .pipe(
-        filter(confirmed => confirmed),
-        switchMap(() =>
-          this.employmentService.deleteEmploymentRoute(employmentId).pipe(
-            catchError(err => {
-              this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
-              this.loggerService.warn('Cannot leave consultation', err);
-
-              return EMPTY;
-            }),
-          ),
-        ),
-      )
-      .subscribe(() => {
-        this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.LEAVE_SUCCESS');
-        this.loggerService.debug('Consultation removed!');
-        modal.close(serviceId);
-      });
-  };
-  public makeCall = (_: string, modal: NgbActiveModal): void => {
-    // check if user is logged. If not navigate to login page
-    modal.close();
-    this.store
-      .pipe(
-        select(fromCore.getLoggedIn),
-        tap(login => {
-          if (!login.isLoggedIn) {
-            this.store.dispatch(new AuthActions.LoginRedirectAction());
-          }
-        }),
-      )
-      .subscribe();
-
-    // TODO: implement functionality
-  };
-  public notifyUser = (): void => {
-    // TODO: implement functionality
-  };
   public getExpertAvailability = (expertId: string): Observable<boolean> =>
     this.expertAvailabilityService.getExpertPresence(expertId).pipe(
       take(1),
@@ -228,8 +126,6 @@ export class ConsultationDetailsViewService extends Logger {
 
     return employeeDetail ? employeeDetail.id : '';
   };
-  private setupInjector = (payload: ICreateEditConsultationPayload): Injector =>
-    Injector.create({ providers: [{ provide: CONSULTATIONDETAILS, useValue: payload }], parent: this.injector });
 }
 
 export interface IConsultationDetails {

@@ -2,7 +2,7 @@ plat-modal-component(
   [modalTrTitleHeader]="modalHeaderTrKey",
   [modalContainerClass]="modalWidth",
   [isBackwardVisible]="modalStep === modalSteps.PIN_VERIFICATION",
-  [onBackwardClick]="onGoBack"
+  (backwardClick)="onGoBack()"
 )
 
   ng-container([ngSwitch]="modalStep")

@@ -5,16 +5,16 @@ import {
   CONSULTATION_FOOTER_DATA,
   IConsultationFooterData,
 } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer-helpers';
-import { ConsultationDetailsViewService } from '@platform/shared/components/modals/consultation-details/consultation-details.view.service';
 import { Observable, EMPTY } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
+import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 
 @Component({
   templateUrl: 'consultation-footer-multiple-expert.component.html',
   styleUrls: ['consultation-footer-multiple-expert.component.sass'],
 })
 export class ConsultationFooterMultipleExpertComponent extends Logger implements IFooterOutput {
-  public get actionTaken$(): Observable<keyof ConsultationDetailsViewService> {
+  public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
     return EMPTY;
   }
   public get grossPrice(): string {

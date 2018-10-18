@@ -6,10 +6,11 @@ import { ProfileLinksComponentService } from '../../../../shared/components/moda
   templateUrl: './social-links.html',
   styleUrls: ['./social-links.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ProfileLinksComponentService],
 })
 export class SocialLinksComponent {
   @Input()
-  public links: ReadonlyArray<string>;
+  public links: ReadonlyArray<string> = [];
   constructor(private profileLinksComponentService: ProfileLinksComponentService) {}
 
   public getIconClass = (link: string): string =>

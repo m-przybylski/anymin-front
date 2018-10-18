@@ -6,9 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
 import { SharedModule } from '@platform/shared/shared.module';
 import { CompanyEmployeeRowComponent } from './company-employee-row/company-employee-row.component';
-import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { ConsultationDetailsComponentModule } from '@platform/features/dashboard/components/consultation-details/consultation-details.component.module';
 import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
+import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 
 @NgModule({
   imports: [
@@ -19,10 +19,11 @@ import { EmployeesInviteService } from '@platform/shared/components/modals/invit
     DashboardComponentsModule,
     ModalsModule,
     ConsultationDetailsComponentModule,
+    ExpertAvailabilityModule.forRoot(),
   ],
   exports: [ConsultationDetailsComponentModule],
   declarations: [CompanyConsultationDetailsViewComponent, CompanyEmployeeRowComponent],
-  providers: [ExpertAvailabilityService, EmployeesInviteService],
+  providers: [EmployeesInviteService],
   entryComponents: [CompanyConsultationDetailsViewComponent],
 })
 export class CompanyConsultationDetailsModule {}

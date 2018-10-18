@@ -13,9 +13,18 @@ import { IconModule, ButtonModule } from '../../../shared/components/atomic-comp
 import { UserAvatarModule } from '../../../shared/components/user-avatar/user-avatar.module';
 import { ActivityRowComponent } from './activity-row/activity-row.component';
 import { DecorateDatePipe } from './pipes/decorate-date.pipe';
+import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, AnymindComponentsModule, IconModule, ButtonModule, UserAvatarModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    AnymindComponentsModule,
+    IconModule,
+    ButtonModule,
+    UserAvatarModule,
+    ExpertAvailabilityModule.forRoot(),
+  ],
   declarations: [
     SocialLinksComponent,
     ConsultationRowComponent,

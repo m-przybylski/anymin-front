@@ -67,6 +67,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   public addConsultation = async (): Promise<void> => {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: false,
+      isOwnerEmployee: true,
     };
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(payload),
@@ -85,5 +86,5 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   };
 
   private setupInjector = (payload: ICreateEditConsultationPayload): Injector =>
-    Injector.create({providers: [{provide: CONSULTATIONDETAILS, useValue: payload}], parent: this.injector});
+    Injector.create({ providers: [{ provide: CONSULTATIONDETAILS, useValue: payload }], parent: this.injector });
 }

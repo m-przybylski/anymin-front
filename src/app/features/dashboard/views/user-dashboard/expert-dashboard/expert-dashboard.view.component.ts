@@ -69,6 +69,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
   public addConsultation = async (): Promise<void> => {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: true,
+      isOwnerEmployee: true,
     };
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(payload),
