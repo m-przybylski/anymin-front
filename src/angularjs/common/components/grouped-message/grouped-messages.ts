@@ -1,7 +1,7 @@
 // tslint:disable:readonly-array
 import * as angular from 'angular';
 import { GroupedMessagesComponent } from './grouped-messages.component';
-import { roomEvents } from 'ratel-sdk-js';
+import { roomEvents } from 'machoke-sdk';
 import filtersModule from '../../filters/filters';
 
 export interface IGroupedMessagesComponentBindings {

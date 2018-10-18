@@ -2,7 +2,7 @@
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-any
 import { IChatHistoryBindings } from './chat-history';
-import { Session, protocol, roomEvents } from 'ratel-sdk-js';
+import { Session, protocol, roomEvents } from 'machoke-sdk';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';
 import { CommunicatorService } from '@anymind-ng/core';

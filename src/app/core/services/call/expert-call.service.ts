@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CurrentExpertCall } from '@anymind-ng/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { Session } from 'ratel-sdk-js';
+import { Session } from 'machoke-sdk';
 
 export interface IExpertSessionCall {
   currentExpertCall: CurrentExpertCall;

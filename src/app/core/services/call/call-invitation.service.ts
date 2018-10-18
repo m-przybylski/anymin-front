@@ -12,9 +12,9 @@ import {
 } from '@anymind-ng/core';
 import { Injectable, Injector } from '@angular/core';
 import { iif, of, race, Subject } from 'rxjs';
-import { BusinessCall, Call, callEvents, CallReason, Session } from 'ratel-sdk-js';
+import { BusinessCall, Call, callEvents, CallReason, Session } from 'machoke-sdk';
 import { Config } from '../../../../config';
-import { ID } from 'ratel-sdk-js/dist/protocol/protocol';
+import { ID } from 'machoke-sdk/dist/protocol/protocol';
 import {
   GetAccountDetails,
   GetExpertSueDetails,

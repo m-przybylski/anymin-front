@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
-import { BrowserUtils } from 'ratel-sdk-js';
+import { BrowserUtils } from 'machoke-sdk';
 
 @Injectable()
 export class UnsupportedGuard implements CanActivate {

@@ -1,7 +1,7 @@
 // tslint:disable:readonly-array
 // tslint:disable:strict-boolean-expressions
 import { IGroupedMessagesComponentBindings } from './grouped-messages';
-import { roomEvents } from 'ratel-sdk-js';
+import { roomEvents } from 'machoke-sdk';
 import { CommunicatorService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
