@@ -15,7 +15,12 @@ import { iif, of, race, Subject } from 'rxjs';
 import { BusinessCall, Call, callEvents, CallReason, Session } from 'ratel-sdk-js';
 import { Config } from '../../../../config';
 import { ID } from 'ratel-sdk-js/dist/protocol/protocol';
-import { GetExpertSueDetails, GetSessionWithAccount, ServiceUsageEventService } from '@anymind-ng/api';
+import {
+  GetAccountDetails,
+  GetExpertSueDetails,
+  GetSessionWithAccount,
+  ServiceUsageEventService,
+} from '@anymind-ng/api';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
 import EndReason = callEvents.EndReason;
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +42,7 @@ export class CallInvitationService extends Logger {
   private readonly pullableCallEvent$ = new Subject<void>();
   private navigatorWrapper = new NavigatorWrapper();
   private session?: Session;
+  private expertSessionDetails: GetAccountDetails;
 
   constructor(
     private communicatorService: CommunicatorService,
@@ -71,7 +77,13 @@ export class CallInvitationService extends Logger {
         switchMap(sessionAccount =>
           iif(
             () => sessionAccount !== undefined,
-            of(() => this.connectToCallWebsocket(sessionAccount)),
+            of(() => {
+              if (sessionAccount) {
+                this.expertSessionDetails = sessionAccount.account.details;
+              }
+
+              return this.connectToCallWebsocket(sessionAccount);
+            }),
             of(() => {
               if (this.session) {
                 this.communicatorService.disconnect(this.session);
@@ -261,7 +273,7 @@ export class CallInvitationService extends Logger {
   private handleCallEndedBeforeAnswering = (callEnd: callEvents.Ended, callingModal: NgbModalRef): void => {
     this.loggerService.debug('Call was ended before expert answer', callEnd);
     if (callEnd.reason !== EndReason.CallRejected) {
-      callingModal.dismiss();
+      callingModal.close();
       this.showMissedCallAlert();
     }
     callingModal.close();
@@ -275,7 +287,11 @@ export class CallInvitationService extends Logger {
         const currentMediaTracks = localStream.getTracks();
         currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
         const session = this.session;
-        const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
+        const currentExpertCall = this.callFactory.createExpertCall(
+          call,
+          incomingCallDetails,
+          this.expertSessionDetails,
+        );
         if (session) {
           currentExpertCall.answer(session, currentMediaTracks).then(
             () => {
