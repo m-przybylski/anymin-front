@@ -2,15 +2,18 @@
 // tslint:disable:unified-signatures
 // tslint:disable:no-any
 import { MoneyDto } from 'profitelo-api-ng/model/models';
-import { roomEvents } from 'ratel-sdk-js';
+import { roomEvents } from 'machoke-sdk';
 
 export interface IFilterService extends ng.IFilterService {
   (name: 'translate'): (translationId: string, interpolateParams?: any, interpolation?: string) => string;
 
   (name: 'normalizeTranslationKey'): (translationId: string, interpolateParams?: any, interpolation?: string) => string;
 
-  (name: 'semicolonToCommaInputFilter'): (translationId: string, interpolateParams?: any, interpolation?: string) =>
-    string;
+  (name: 'semicolonToCommaInputFilter'): (
+    translationId: string,
+    interpolateParams?: any,
+    interpolation?: string,
+  ) => string;
 
   (name: 'searchBoldFilter'): (translationId: string, interpolateParams?: any, interpolation?: string) => string;
 

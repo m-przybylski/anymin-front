@@ -15,7 +15,7 @@ import { ReplaySubject, Subject, race } from 'rxjs';
 import { takeUntil, first } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { ExpertCallService, IExpertSessionCall } from '../../core/services/call/expert-call.service';
-import { CallReason } from 'ratel-sdk-js';
+import { CallReason } from 'machoke-sdk';
 import { Logger } from '@platform/core/logger';
 
 @Component({

@@ -14,7 +14,7 @@ import { CommonSettingsService } from '../../../../angularjs/common/services/com
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
-import { BrowserUtils } from 'ratel-sdk-js';
+import { BrowserUtils } from 'machoke-sdk';
 
 @Component({
   templateUrl: './widget-generator.component.html',

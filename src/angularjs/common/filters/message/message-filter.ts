@@ -4,7 +4,7 @@
 // tslint:disable:prefer-template
 // tslint:disable:only-arrow-functions
 // tslint:disable:newline-before-return
-import { roomEvents } from 'ratel-sdk-js';
+import { roomEvents } from 'machoke-sdk';
 import * as angular from 'angular';
 // tslint:disable-next-line:import-blacklist
 import * as _ from 'lodash';

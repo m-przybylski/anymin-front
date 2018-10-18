@@ -1,5 +1,5 @@
 // tslint:disable:only-arrow-functions
-import { UserConfig } from 'ratel-sdk-js';
+import { UserConfig } from 'machoke-sdk';
 import { Environment, EnvironmentService } from '@platform/core/services/environment/environment.service';
 
 export function CommunicatorConfigFactory(): UserConfig {

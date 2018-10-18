@@ -14,6 +14,7 @@ const PROXY_CONFIG = [
       "/api",
       "/briefcase",
       "/artichoke",
+      "/machoke",
       "/files"
     ],
     target: environmentBackendUrl,
