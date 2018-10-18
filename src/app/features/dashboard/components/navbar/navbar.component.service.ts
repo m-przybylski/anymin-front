@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
-import { INavigationItem, NAVIGATIONITEMS } from '@platform/shared/components/navbar/navigation';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { GetSessionWithAccount, ProfileService } from '@anymind-ng/api';
 import { Observable } from 'rxjs/Rx';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
+import { INavigationItem, NAVIGATIONITEMS } from '@platform/features/dashboard/components/navbar/navigation';
 
 @Injectable()
 export class NavbarComponentService extends Logger {

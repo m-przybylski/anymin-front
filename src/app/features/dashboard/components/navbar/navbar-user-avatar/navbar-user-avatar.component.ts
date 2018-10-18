@@ -1,5 +1,4 @@
 import { Component, ElementRef, Inject, Input, NgZone } from '@angular/core';
-import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { fromEvent, Subject } from 'rxjs';
 import { GetExpertVisibility } from '@anymind-ng/api';
 import VisibilityEnum = GetExpertVisibility.VisibilityEnum;
@@ -11,6 +10,7 @@ import { DOCUMENT } from '@angular/common';
 import { takeUntil, filter } from 'rxjs/operators';
 // tslint:disable-next-line:rxjs-no-internal
 import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
+import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'plat-navbar-user-avatar',

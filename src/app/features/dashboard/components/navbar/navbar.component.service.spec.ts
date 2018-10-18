@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { LoggerService } from '@anymind-ng/core';
 import { ProfileService } from '@anymind-ng/api';
-import { NavbarComponentService } from '@platform/shared/components/navbar/navbar.component.service';
-import { provideMockFactoryLogger } from '../../../../testing/testing';
 import { Deceiver } from 'deceiver-core';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import SpyObj = jasmine.SpyObj;
+import { NavbarComponentService } from '@platform/features/dashboard/components/navbar/navbar.component.service';
 import {
   INavigationItem,
   NavigationItemGroupsEnum,
   NAVIGATIONITEMS,
-} from '@platform/shared/components/navbar/navigation';
-import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
-import SpyObj = jasmine.SpyObj;
+} from '@platform/features/dashboard/components/navbar/navigation';
+import { provideMockFactoryLogger } from '../../../../../testing/testing';
 
 describe('NavbarComponentService', () => {
   let navbarComponentService: SpyObj<NavbarComponentService>;
