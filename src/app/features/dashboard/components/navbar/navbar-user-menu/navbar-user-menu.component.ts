@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { CreateProfileModalComponent } from '../../modals/profile/create-profile/create-profile.component';
-import { CreateOrganizationModalComponent } from '../../modals/profile/create-organization/create-organization.component';
-import { INavigationItem, NavigationItemGroupsEnum } from '@platform/shared/components/navbar/navigation';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { AuthActions } from '@platform/core/actions';
+import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/dashboard/components/navbar/navigation';
+import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
+import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 
 @Component({
   selector: 'plat-navbar-user-menu',

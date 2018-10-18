@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject, Observable } from 'rxjs';
-import { INavigationItem, NavigationItemGroupsEnum } from '@platform/shared/components/navbar/navigation';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/dashboard/components/navbar/navigation';
 
 @Component({
   selector: 'plat-user-navigation',

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { GetProfileWithDocuments, GetSessionWithAccount } from '@anymind-ng/api';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
-import { INavigationItem } from '@platform/shared/components/navbar/navigation';
 import * as fromCore from '@platform/core/reducers';
 import { select, Store } from '@ngrx/store';
 import { filter, switchMap, map, catchError } from 'rxjs/operators';
@@ -11,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { NavbarActions } from '@platform/core/actions';
 import { NavbarComponentService } from './navbar.component.service';
+import { INavigationItem } from '@platform/features/dashboard/components/navbar/navigation';
 
 interface INavbarData {
   profileData?: GetProfileWithDocuments;

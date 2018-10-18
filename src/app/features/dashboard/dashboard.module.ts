@@ -14,7 +14,6 @@ import { ActivitiesViewComponent } from './views/user-dashboard/activities/activ
 import { ExpertActivitiesViewComponent } from './views/user-dashboard/activities/views/expert-activities/expert-activities.view.component';
 import { ClientActivitiesViewComponent } from './views/user-dashboard/activities/views/client-activities/client-activities.view.component';
 import { DashboardComponentsModule } from './components/components.module';
-import { NavbarModule } from '../../shared/components/navbar/navbar.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 import { SettingsModule } from '@platform/features/dashboard/views/user-dashboard/settings/settings.module';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
@@ -22,6 +21,7 @@ import { DashboardResolver } from './dashboard.resolver';
 import { PaymentsModule } from '@platform/features/dashboard/views/user-dashboard/payments/payments.module';
 import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-dashboard/recommend-friends/recommend-friends.module';
 import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
+import { NavbarModule } from '@platform/features/dashboard/components/navbar/navbar.module';
 
 @NgModule({
   declarations: [

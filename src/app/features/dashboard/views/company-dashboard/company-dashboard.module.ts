@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CompanyDashboardComponent } from './company-dashboard.view.component';
 import { CompanyActivitiesComponent } from './company-activities/company-activities.view.component';
-import { SharedModule } from '../../../../shared/shared.module';
 import { DashboardComponentsModule } from '../../components/components.module';
-import { NavbarModule } from '../../../../shared/components/navbar/navbar.module';
+import { NavbarModule } from '@platform/features/dashboard/components/navbar/navbar.module';
+import { SharedModule } from '@platform/shared/shared.module';
 
 @NgModule({
   imports: [CommonModule, SharedModule, RouterModule, DashboardComponentsModule, NavbarModule],
