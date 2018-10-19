@@ -33,8 +33,8 @@ export class UserSessionService extends Logger {
     this.callInvitationService
       .unregisterFromPushNotifications()
       // finally
-      .then()
-      .catch()
+      .then(() => this.loggerService.info('unregisterFromPushNotifications succeed'))
+      .catch(() => this.loggerService.info('unregisterFromPushNotifications failed'))
       .then(() => this.sessionService.logoutCurrentRoute().toPromise())
       .then(this.onSuccessLogout, this.onFailureLogout);
 

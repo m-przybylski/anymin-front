@@ -65,27 +65,29 @@ export class CallInvitationService extends Logger {
   public unregisterFromPushNotifications = (): Promise<void> => {
     const session = this.session;
     if (session) {
-      // FIXME fix sdk loading because getDeviceId gets stuck and blocks code execution
-      // return this.pushNotificationService.getDeviceId().then(id => session.chat.unregisterFromPushNotifications(id));
-
-      return Promise.resolve();
+      return this.pushNotificationService
+        .getDeviceId()
+        .toPromise()
+        .then(id => session.chat.unregisterFromPushNotifications(id));
     } else {
       return Promise.reject('There is no session');
     }
   };
 
   public initialize = (): void => {
-    this.pushNotificationService.init();
     this.pushNotificationService.registerForPushNotifications();
-    this.pushNotificationService.onPushChange(enabled => {
-      if (enabled && this.session) {
-        this.handlePushNotificationRegistration(this.session);
-      } else {
-        this.unregisterFromPushNotifications()
-          .then(() => this.loggerService.info('Unregistered from push'))
-          .catch(err => this.loggerService.error('Unregistered from push failed', err));
-      }
-    });
+    this.pushNotificationService.pushChange$.subscribe(
+      enabled => {
+        if (enabled && this.session) {
+          this.handlePushNotificationRegistration(this.session);
+        } else {
+          this.unregisterFromPushNotifications()
+            .then(() => this.loggerService.info('Unregistered from push'))
+            .catch(err => this.loggerService.warn('Unregistered from push failed', err));
+        }
+      },
+      err => this.loggerService.warn('push change FAILED', err),
+    );
 
     this.communicatorService.connectionEstablishedEvent$.subscribe(connected => {
       this.checkIncomingCalls(connected);
@@ -125,13 +127,11 @@ export class CallInvitationService extends Logger {
   };
 
   private handlePushNotificationRegistration = (session: Session): void => {
-    this.pushNotificationService
-      .isPushNotificationsEnabled()
-      .then(pushEnabled => {
+    this.pushNotificationService.isPushNotificationsEnabled().subscribe(
+      pushEnabled => {
         if (pushEnabled) {
-          this.pushNotificationService
-            .getDeviceId()
-            .then(deviceId => {
+          this.pushNotificationService.getDeviceId().subscribe(
+            deviceId => {
               if (deviceId) {
                 session.chat
                   .registerForPushNotifications(deviceId)
@@ -140,13 +140,15 @@ export class CallInvitationService extends Logger {
               } else {
                 this.loggerService.error('Push notification id is not set');
               }
-            })
-            .catch(err => this.loggerService.error('getDeviceId failed', err));
+            },
+            err => this.loggerService.warn('getDeviceId failed', err),
+          );
         } else {
           this.loggerService.warn('Push notification is disabled');
         }
-      })
-      .catch(err => this.loggerService.error('isPushNotificationsEnabled failed', err));
+      },
+      err => this.loggerService.warn('isPushNotificationsEnabled failed', err),
+    );
   };
 
   private handlePullableCall = (call: BusinessCall): void => {
