@@ -30,9 +30,7 @@ export class UserService {
     });
 
   public logout = (): ng.IPromise<void> =>
-    this.sessionServiceWrapper.logout().then(() => {
-      this.eventsService.emit('logout');
-    });
+    this.sessionServiceWrapper.logout().then(() => this.eventsService.emit('logout'));
 
   public login = (loginDetails: LoginCredentials): ng.IPromise<GetSessionWithAccount> =>
     this.sessionServiceWrapper.login(loginDetails).then(session => {

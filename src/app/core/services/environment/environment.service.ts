@@ -4,7 +4,6 @@ const environment = require('../../../../../generated_modules/environment/enviro
 
 export enum Environment {
   STAGING = 'staging',
-  DEMO = 'demo',
   PRODUCTION = 'production',
 }
 
@@ -22,8 +21,6 @@ export class EnvironmentService {
         return Environment.STAGING;
       case 'stage':
         return Environment.STAGING;
-      case 'demo':
-        return Environment.DEMO;
       case 'app':
         return Environment.PRODUCTION;
       default:

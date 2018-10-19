@@ -59,3 +59,11 @@ brew install swagger-codegen
 cd src/common/api
 swagger-codegen generate -i http://api.dev.profitelo.pl/swagger/swagger.json -l typescript-angular -t typescript-angular
 ```
+
+### To test Push notifications locally:
+- Use ssl `npm run serve-ssl`
+- Run chrome in trusted mode:
+```
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost:4200
+```
+- You need to change OneSignal stage configuration to use localhost:4200 and run `ng serve` with `--ssl` flag
