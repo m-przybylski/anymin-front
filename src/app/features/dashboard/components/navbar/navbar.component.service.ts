@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { GetSessionWithAccount, ProfileService } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
