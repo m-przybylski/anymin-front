@@ -20,7 +20,6 @@ import {
   GetExpertSueDetails,
   GetSessionWithAccount,
   ServiceUsageEventService,
-  RatelService
 } from '@anymind-ng/api';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
 import EndReason = callEvents.EndReason;
@@ -57,7 +56,6 @@ export class CallInvitationService extends Logger {
     private store: Store<fromCore.IState>,
     private alertService: AlertService,
     private pushNotificationService: PushNotificationService,
-    private ratelService: RatelService,
     private injector: Injector,
     loggerFactory: LoggerFactory,
   ) {
@@ -67,7 +65,10 @@ export class CallInvitationService extends Logger {
   public unregisterFromPushNotifications = (): Promise<void> => {
     const session = this.session;
     if (session) {
-      return this.pushNotificationService.getDeviceId().then(id => session.chat.unregisterFromPushNotifications(id));
+      // FIXME fix sdk loading because getDeviceId gets stuck and blocks code execution
+      // return this.pushNotificationService.getDeviceId().then(id => session.chat.unregisterFromPushNotifications(id));
+
+      return Promise.resolve();
     } else {
       return Promise.reject('There is no session');
     }
@@ -135,8 +136,6 @@ export class CallInvitationService extends Logger {
                 session.chat
                   .registerForPushNotifications(deviceId)
                   .then(() => this.loggerService.debug('Registered for push in Artichoke'))
-                  .then(() => this.ratelService.postRegisteredOnPushNotificationRoute().toPromise())
-                  .then(() => this.loggerService.debug('Registered for backend webpush'))
                   .catch(err => this.loggerService.warn('Registration for webpush failed', err));
               } else {
                 this.loggerService.error('Push notification id is not set');
