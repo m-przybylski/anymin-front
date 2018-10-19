@@ -13,7 +13,6 @@ export enum MiddlePanelStatusTypes {
   freeMinute,
   paymentCard,
   paymentAnyMind,
-  pickExpert,
   notAvailable,
 }
 
@@ -36,11 +35,20 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     return this.data.userId === undefined || this.data.isExpertAvailable;
   }
 
-  public get middlePanel(): MiddlePanelStatusTypes {
-    if (this.data.expertsIdList.length > 1) {
-      return MiddlePanelStatusTypes.pickExpert;
+  public get balance(): string {
+    return this.moneyPipe.transform(this.data.accountBalance);
+  }
+
+  public get duration(): number {
+    const grossPrice = (this.data.price && this.data.price.grossPrice.amount) || 0;
+    if (grossPrice === 0) {
+      return 0;
     }
 
+    return Math.round(this.data.accountBalance.amount / grossPrice);
+  }
+
+  public get middlePanel(): MiddlePanelStatusTypes {
     if (this.data.userId === undefined) {
       return MiddlePanelStatusTypes.freeMinute;
     }

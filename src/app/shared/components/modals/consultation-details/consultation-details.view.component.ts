@@ -221,7 +221,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       this.isCompany,
       this.accountId,
       getServiceDetails.expertDetails.profile.id,
-      getServiceDetails.expertIds,
+      [this.expertId],
     );
     if (component) {
       const footerComponent = this.viewContainerRef.createComponent(
