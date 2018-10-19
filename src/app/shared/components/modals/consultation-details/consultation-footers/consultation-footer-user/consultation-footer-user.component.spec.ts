@@ -150,34 +150,6 @@ describe('ConsultationFooterUserComponent', () => {
 
     expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.paymentCard);
   });
-  it('should return MiddlePanelStatusTypes.pickExpert when expert list is populated', () => {
-    data = {
-      ownerId: 'asdf',
-      expertsIdList: ['asd', 'ddd'] as any,
-      isExpertAvailable: true,
-      isFreelance: false,
-      userId: '123',
-      price: {
-        grossPrice: { amount: 123, currency: 'PLN' },
-        price: { amount: 100, currency: 'PLN' },
-      },
-      defaultPayment: {
-        card: {
-          id: '1234',
-          cardType: GetCreditCard.CardTypeEnum.VISA,
-          isDefault: true,
-          maskedNumber: '****3214',
-          createdAt: new Date(),
-          expiryDate: 'ania',
-        },
-      },
-      accountBalance: { amount: 0, currency: 'PLN' },
-    };
-    const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
-    consultationFooterUserComponent = componentFixture.componentInstance;
-
-    expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.pickExpert);
-  });
   it('should return MiddlePanelStatusTypes.paymentAnyMind when expert list is populated', () => {
     data = {
       ownerId: 'asdf',
