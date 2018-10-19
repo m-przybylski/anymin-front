@@ -32,6 +32,7 @@ export class PushNotificationService extends Logger {
       .then(oneSignal => {
         this.loggerService.debug('OneSignal initialized', oneSignal);
         this.oneSignal$.next(oneSignal);
+        this.oneSignal$.complete();
       })
       .catch(err => {
         this.loggerService.warn('OneSignal init failed', err);
