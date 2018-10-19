@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { EmploymentService, GetInvitation, InvitationService, ProfileService, ServiceService } from '@anymind-ng/api';
-import { Observable } from 'rxjs/Observable';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { GetService } from '@anymind-ng/api/model/getService';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
-import { EMPTY, forkJoin, iif, of } from 'rxjs';
+import { EMPTY, forkJoin, iif, of, Observable } from 'rxjs';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/company-consultation-details/company-employee-row/company-employee-row.component';
 import { EmploymentWithExpertProfile } from '@anymind-ng/api/model/employmentWithExpertProfile';
 import { LoggerFactory } from '@anymind-ng/core';

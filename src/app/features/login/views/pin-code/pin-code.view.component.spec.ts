@@ -19,7 +19,7 @@ import { PinCodeServiceStatus, PinCodeViewService } from './pin-code.view.servic
 import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from '@anymind-ng/api';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
 import { LoginHelperService } from '../../services/login-helper.service';
 

@@ -1,6 +1,8 @@
 {
   "extends": ["tslint-immutable", "rxjs-tslint-rules", "tslint-config-prettier"],
+  "rulesDirectory": ["tools/tslint"],
   "rules": {
+    "rxjs-imports": true,
     "typedef": [true, "call-signature", "arrow-call-signature"],
     "class-name": true,
     "comment-format": [true, "check-space"],

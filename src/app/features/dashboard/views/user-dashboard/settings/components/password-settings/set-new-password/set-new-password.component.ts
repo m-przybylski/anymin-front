@@ -3,25 +3,18 @@ import { FormGroup } from '@angular/forms';
 import { SetNewPasswordComponentService, SetNewPasswordStatusEnum } from './set-new-password.component.service';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject } from 'rxjs/Rx';
-import {
-  CommonSettingsService
-}
-  from '../../../../../../../../../angularjs/common/services/common-settings/common-settings.service';
-import {
-  InputSetPasswordErrors
-}
-  from '../../../../../../../../shared/components/inputs/input-set-password/input-set-password.component';
+import { Subject } from 'rxjs';
+import { CommonSettingsService } from '../../../../../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { InputSetPasswordErrors } from '../../../../../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'plat-set-new-password',
   templateUrl: './set-new-password.component.html',
   styleUrls: ['./set-new-password.component.sass'],
-  providers: [SetNewPasswordComponentService]
+  providers: [SetNewPasswordComponentService],
 })
 export class SetNewPasswordComponent implements OnDestroy {
-
   @Input()
   public msisdn: string;
 
@@ -37,12 +30,14 @@ export class SetNewPasswordComponent implements OnDestroy {
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(private setNewPasswordComponentService: SetNewPasswordComponentService,
-              private formUtils: FormUtilsService,
-              private alertService: AlertService,
-              private commonSettingService: CommonSettingsService,
-              private activeModal: NgbActiveModal,
-              loggerFactory: LoggerFactory) {
+  constructor(
+    private setNewPasswordComponentService: SetNewPasswordComponentService,
+    private formUtils: FormUtilsService,
+    private alertService: AlertService,
+    private commonSettingService: CommonSettingsService,
+    private activeModal: NgbActiveModal,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordComponent');
   }
 
@@ -56,8 +51,9 @@ export class SetNewPasswordComponent implements OnDestroy {
       const password = this.setPasswordForm.value[this.passwordControlName];
       if (this.isTokenValid()) {
         this.isRequestPending = true;
-        this.setNewPasswordComponentService.setNewPassword(this.msisdn, this.token, password)
-          .pipe(finalize(() => this.isRequestPending = false))
+        this.setNewPasswordComponentService
+          .setNewPassword(this.msisdn, this.token, password)
+          .pipe(finalize(() => (this.isRequestPending = false)))
           .pipe(takeUntil(this.ngUnsubscribe$))
           .subscribe(this.handleNewPasswordStatus);
       } else {
@@ -67,13 +63,14 @@ export class SetNewPasswordComponent implements OnDestroy {
     } else {
       this.formUtils.validateAllFormFields(setPasswordForm);
     }
-  }
+  };
 
   private displayIncorrectPasswordError = (): void => {
-    this.setPasswordForm.controls[this.passwordControlName]
-      .setErrors({[InputSetPasswordErrors.IncorrectPassword]: true});
+    this.setPasswordForm.controls[this.passwordControlName].setErrors({
+      [InputSetPasswordErrors.IncorrectPassword]: true,
+    });
     this.formUtils.validateAllFormFields(this.setPasswordForm);
-  }
+  };
 
   private handleNewPasswordStatus = (status: SetNewPasswordStatusEnum): void => {
     switch (status) {
@@ -97,9 +94,7 @@ export class SetNewPasswordComponent implements OnDestroy {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('Unhandled password status ', status);
     }
-  }
+  };
 
-  private isTokenValid = (): boolean =>
-    this.commonSettingService.localSettings.smsCodePattern.test(this.token)
-
+  private isTokenValid = (): boolean => this.commonSettingService.localSettings.smsCodePattern.test(this.token);
 }
