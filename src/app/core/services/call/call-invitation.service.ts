@@ -75,6 +75,7 @@ export class CallInvitationService extends Logger {
   };
 
   public initialize = (): void => {
+    this.pushNotificationService.initialize();
     this.pushNotificationService.registerForPushNotifications();
     this.pushNotificationService.pushChange$.subscribe(
       enabled => {

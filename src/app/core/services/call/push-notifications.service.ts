@@ -25,8 +25,10 @@ export class PushNotificationService extends Logger {
 
   constructor(private translate: TranslateService, loggerFactory: LoggerFactory) {
     super(loggerFactory);
+  }
 
-    this.initialize()
+  public initialize(): void {
+    this.initializeOneSignal()
       .then(oneSignal => {
         this.loggerService.debug('OneSignal initialized', oneSignal);
         this.oneSignal$.next(oneSignal);
@@ -60,7 +62,7 @@ export class PushNotificationService extends Logger {
     );
   }
 
-  private initialize(): Promise<IOneSignal> {
+  private initializeOneSignal(): Promise<IOneSignal> {
     /**
      * OneSignal might be blocked by browser extensions cusing initalization failures.
      */
