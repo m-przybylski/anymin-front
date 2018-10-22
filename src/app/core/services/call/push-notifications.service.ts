@@ -40,7 +40,6 @@ export class PushNotificationService extends Logger {
       })
       .catch(err => {
         this.loggerService.warn('OneSignal init failed', err);
-        this.oneSignal$.error(err);
         this.oneSignal$.complete();
       });
   }
@@ -69,14 +68,13 @@ export class PushNotificationService extends Logger {
 
   private initializeOneSignal(): Promise<IOneSignal> {
     /**
-     * OneSignal might be blocked by browser extensions cusing initalization failures.
+     * OneSignal might be blocked by browser extensions causing initialization failures.
      */
     // tslint:disable-next-line:no-any
     const oneSignal = (<any>window).OneSignal;
-    // Checks without `typeof` are not enough. Do not fully trust the types on unsupported browsers ex. mobile safari 12
-    if (typeof oneSignal === 'object' && typeof oneSignal.init === 'function') {
-      const conf = Config.oneSignal;
-
+    const conf = Config.oneSignal;
+    // try-catch required since it crashes on some unsupported browsers ex. mobile safari 12
+    try {
       return oneSignal
         .init({
           appId: conf.appId,
@@ -133,8 +131,8 @@ export class PushNotificationService extends Logger {
           },
         })
         .then(() => oneSignal);
-    } else {
-      return Promise.reject('OneSignal is not present in the window, unsupported, or not loaded properly');
+    } catch (err) {
+      return Promise.reject(`OneSignal is not present in the window, unsupported, or not loaded properly. ${err}`);
     }
   }
 }
