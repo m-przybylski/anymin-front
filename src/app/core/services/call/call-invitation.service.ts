@@ -15,12 +15,7 @@ import { iif, of, race, Subject } from 'rxjs';
 import { BusinessCall, Call, callEvents, CallReason, Session } from 'machoke-sdk';
 import { Config } from '../../../../config';
 import { ID } from 'machoke-sdk/dist/protocol/protocol';
-import {
-  GetAccountDetails,
-  GetExpertSueDetails,
-  GetSessionWithAccount,
-  ServiceUsageEventService,
-} from '@anymind-ng/api';
+import { GetExpertSueDetails, GetSessionWithAccount, ServiceUsageEventService } from '@anymind-ng/api';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
 import EndReason = callEvents.EndReason;
 import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -41,9 +36,11 @@ export class CallInvitationService extends Logger {
   private readonly callRejectedEvent$ = new Subject<void>();
   private readonly callAnsweredOnOtherDeviceEvent$ = new Subject<void>();
   private readonly pullableCallEvent$ = new Subject<void>();
+  private readonly callAnswered$ = new Subject<void>();
+
   private navigatorWrapper = new NavigatorWrapper();
   private session?: Session;
-  private expertSessionDetails: GetAccountDetails;
+  private missingCallCounter = 0;
 
   constructor(
     private communicatorService: CommunicatorService,
@@ -109,7 +106,6 @@ export class CallInvitationService extends Logger {
               if (sessionAccount) {
                 this.pushNotificationService.initialize();
                 this.pushNotificationService.registerForPushNotifications().subscribe();
-                this.expertSessionDetails = sessionAccount.account.details;
               }
 
               return this.connectToCallWebsocket(sessionAccount);
@@ -117,6 +113,7 @@ export class CallInvitationService extends Logger {
             of(() => {
               if (this.session) {
                 this.communicatorService.disconnect(this.session);
+                this.missingCallCounter = 0;
               }
             }),
           ),
@@ -342,18 +339,14 @@ export class CallInvitationService extends Logger {
         const currentMediaTracks = localStream.getTracks();
         currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
         const session = this.session;
-        const currentExpertCall = this.callFactory.createExpertCall(
-          call,
-          incomingCallDetails,
-          this.expertSessionDetails,
-        );
+        const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
         if (session) {
           currentExpertCall.answer(session, currentMediaTracks).then(
             () => {
               race(currentExpertCall.callDestroyed$, this.callService.hangupCall$)
                 .pipe(first())
                 .subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-
+              this.callAnswered$.next();
               this.soundsService.callIncomingSound().stop();
               void this.router.navigate(['communicator', call.id]).then(isRedirectSuccessful => {
                 if (!isRedirectSuccessful) {
@@ -414,6 +407,27 @@ export class CallInvitationService extends Logger {
   };
 
   private showMissedCallAlert = (): void => {
-    // TODO Wait for design
+    this.missingCallCounter++;
+    if (this.missingCallCounter <= 1) {
+      this.alertService
+        .pushWarningAlert('COMMUNICATOR.MISSING_CALL_ALERT', undefined, {
+          isStatic: true,
+        })
+        .subscribe(() => {
+          this.missingCallCounter = 0;
+        });
+    } else {
+      this.alertService
+        .pushWarningAlert(
+          'COMMUNICATOR.MISSING_CALLS_ALERT',
+          { value: this.missingCallCounter },
+          {
+            isStatic: true,
+          },
+        )
+        .subscribe(() => {
+          this.missingCallCounter = 0;
+        });
+    }
   };
 }
