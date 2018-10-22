@@ -16,7 +16,7 @@ interface IOneSignal {
   getUserId(): Promise<string>;
 
   // tslint:disable-next-line:no-any
-  init(args: any): Promise<void>;
+  init?(args: any): Promise<void>;
 
   registerForPushNotifications(): void;
 
@@ -73,7 +73,8 @@ export class PushNotificationService extends Logger {
      */
     // tslint:disable-next-line:no-any
     const oneSignal = (<any>window).OneSignal;
-    if (oneSignal) {
+    // Checks without `typeof` are not enough. Do not fully trust the types on unsupported browsers ex. mobile safari 12
+    if (typeof oneSignal === 'object' && typeof oneSignal.init === 'function') {
       const conf = Config.oneSignal;
 
       return oneSignal
@@ -133,7 +134,7 @@ export class PushNotificationService extends Logger {
         })
         .then(() => oneSignal);
     } else {
-      return Promise.reject('OneSignal is not present in the window, check if OneSignalSdk is loaded properly');
+      return Promise.reject('OneSignal is not present in the window, unsupported, or not loaded properly');
     }
   }
 }
