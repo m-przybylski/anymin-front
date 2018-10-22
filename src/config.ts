@@ -68,6 +68,8 @@ export class Config {
     autoRegister: false,
     persistNotification: true,
     notifyButtonEnabled: true,
+    notificationClickHandlerMatch: 'origin',
+    notificationClickHandlerAction: 'focus',
     prenotify: true /* Show an icon with 1 unread message for first-time site visitors */,
     showOneSignalCredits: false /* Show the OneSignal logo */,
   };
