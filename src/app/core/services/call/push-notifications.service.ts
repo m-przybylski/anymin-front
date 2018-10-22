@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject, Observable, Observer } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
+/**
+ * OneSignal web push SDK
+ * https://documentation.onesignal.com/docs/web-push-sdk
+ */
 interface IOneSignal {
   isPushNotificationsEnabled(): Promise<boolean>;
 
@@ -77,6 +81,8 @@ export class PushNotificationService extends Logger {
           appId: conf.appId,
           autoRegister: conf.autoRegister,
           persistNotification: conf.persistNotification,
+          notificationClickHandlerMatch: conf.notificationClickHandlerMatch,
+          notificationClickHandlerAction: conf.notificationClickHandlerAction,
           notifyButton: {
             enable: conf.notifyButtonEnabled /* Required to use the Subscription Bell */,
             size: 'large' /* One of 'small', 'medium', or 'large' */,
