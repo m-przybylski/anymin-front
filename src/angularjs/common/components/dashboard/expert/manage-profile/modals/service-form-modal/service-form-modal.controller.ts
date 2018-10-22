@@ -213,7 +213,7 @@ export class ServiceFormModalController implements ng.IController {
 
   public selectFreelance = (): void => {
     this.isFreelance = true;
-    this.isOwnerEmployee = true;
+    this.isOwnerEmployee = false;
   };
 
   public selectCompany = (): void => {
