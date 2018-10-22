@@ -212,7 +212,7 @@ export class ConsultationController implements ng.IController {
   public selectFreelance = (): void => {
     this.isServiceTypeSelected = true;
     this.isFreelance = true;
-    this.isOwnerEmployee = true;
+    this.isOwnerEmployee = false;
   };
 
   public selectCompany = (): void => {
