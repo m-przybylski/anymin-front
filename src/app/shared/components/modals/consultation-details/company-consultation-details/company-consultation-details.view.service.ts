@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
-import { EmploymentService, GetInvitation, InvitationService, ProfileService, ServiceService } from '@anymind-ng/api';
+import {
+  EmploymentService,
+  GetInvitation,
+  InvitationService,
+  ProfileService,
+  ServiceService,
+  FinancesService,
+  PaymentsService,
+  DefaultCreditCard,
+  GetServiceWithEmployees,
+} from '@anymind-ng/api';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { map, switchMap, catchError } from 'rxjs/operators';
-import { GetService } from '@anymind-ng/api/model/getService';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
-import { EMPTY, forkJoin, iif, of, Observable } from 'rxjs';
-import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/company-consultation-details/company-employee-row/company-employee-row.component';
+import { EMPTY, forkJoin, iif, of, Observable, throwError } from 'rxjs';
+import { ICompanyEmployeeRowComponent } from './company-employee-row/company-employee-row.component';
 import { EmploymentWithExpertProfile } from '@anymind-ng/api/model/employmentWithExpertProfile';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 
-export interface ICompanyProfileDetails {
-  consultationDetails: GetService;
-  profileDetails: GetProfileWithDocuments;
-}
-
-interface ICompanyConsultationDetails {
+export interface ICompanyConsultationDetails {
   tagsList: ReadonlyArray<string>;
-  serviceDetails: ICompanyProfileDetails;
+  serviceDetails: GetServiceWithEmployees;
   employeesList: ReadonlyArray<ICompanyEmployeeRowComponent>;
+  payment: DefaultCreditCard;
+  balance: { amount: number; currency: string };
 }
 
 @Injectable()
@@ -28,6 +34,8 @@ export class CompanyConsultationDetailsViewService extends Logger {
     private employmentService: EmploymentService,
     private invitationService: InvitationService,
     private profileService: ProfileService,
+    private financesService: FinancesService,
+    private paymentsService: PaymentsService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewService'));
@@ -44,29 +52,50 @@ export class CompanyConsultationDetailsViewService extends Logger {
               .reduce((tagsList, getServiceTags) => [...tagsList, ...getServiceTags.tags.map(tag => tag.name)], []),
           ),
         ),
-      this.serviceService
-        .getServiceRoute(serviceId)
-        .pipe(
-          switchMap(
-            (consultationDetails): Observable<ICompanyProfileDetails> =>
-              this.profileService
-                .getProfileRoute(consultationDetails.ownerId)
-                .pipe(map(profileDetails => ({ consultationDetails, profileDetails }))),
+      this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [serviceId] }).pipe(
+        map(getServiceWithEmployeesList =>
+          getServiceWithEmployeesList.find(
+            getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === serviceId,
           ),
         ),
-      this.serviceService
-        .postServiceWithEmployeesRoute({ serviceIds: [serviceId] })
-        .pipe(map(response => response[0].employeesDetails.map(employee => this.assignEmployeesList(employee)))),
+        map(getServiceWithEmployees => {
+          if (typeof getServiceWithEmployees === 'undefined') {
+            throwError(new Error('Not able to get service details'));
+          }
+
+          return getServiceWithEmployees;
+        }),
+        switchMap((getServiceWithEmployees: GetServiceWithEmployees) =>
+          this.profileService
+            .getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id)
+            .pipe(map(profileDetails => ({ getServiceWithEmployees, profileDetails }))),
+        ),
+      ),
+      // .pipe(map(response => response[0].employeesDetails.map(employee => this.assignEmployeesList(employee)))),
+
+      this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
+      this.financesService.getClientBalanceRoute().pipe(
+        catchError(() =>
+          of({
+            accountBalance: { amount: 0, currency: '' },
+            promoCodeBalance: { amount: 0, currency: '' },
+          }),
+        ),
+        map(balance => ({
+          amount: balance.accountBalance.amount + balance.promoCodeBalance.amount,
+          currency: balance.accountBalance.currency,
+        })),
+      ),
     ).pipe(
       map(
-        ([tagsList, serviceDetails, employeesList]: [
-          ReadonlyArray<string>,
-          ICompanyProfileDetails,
-          ReadonlyArray<ICompanyEmployeeRowComponent>
-        ]): ICompanyConsultationDetails => ({
+        ([tagsList, serviceDetails, payment, balance]): ICompanyConsultationDetails => ({
           tagsList,
-          serviceDetails,
-          employeesList,
+          serviceDetails: serviceDetails.getServiceWithEmployees,
+          employeesList: serviceDetails.getServiceWithEmployees.employeesDetails.map(employee =>
+            this.mapEmployeesList(employee),
+          ),
+          payment,
+          balance,
         }),
       ),
       catchError(error => {
@@ -127,7 +156,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
       }),
     );
 
-  private assignEmployeesList = (employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent => ({
+  private mapEmployeesList = (employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent => ({
     usageCounter: employee.usageCounter,
     commentCounter: employee.commentCounter,
     ratingCounter: employee.rating,
@@ -136,7 +165,6 @@ export class CompanyConsultationDetailsViewService extends Logger {
     avatar: employee.employeeProfile.avatar,
     employeeId: employee.employeeProfile.id,
   });
-
   private getPendingInvitation = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>
     this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
 }

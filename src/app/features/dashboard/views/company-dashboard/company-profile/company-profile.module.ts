@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CompanyProfileComponent } from './company-profile.view.component';
 import { CompanyProfileConsultationsComponent } from './company-profile-consultation/company-profile-consultation.component';
 import { CompanyProfileResolverService } from './services/company-profile-resolver.service';
-import { CompanyConsultationDetailsModule } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.module';
+import { CompanyConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.module';
 
 @NgModule({
   declarations: [CompanyProfileComponent, CompanyProfileConsultationsComponent],

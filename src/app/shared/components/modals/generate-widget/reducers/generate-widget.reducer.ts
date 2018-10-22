@@ -3,7 +3,7 @@ import * as fromRoot from '@platform/reducers';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface IGenerateWidgetState {
-  expertId: string;
+  expertId?: string;
   serviceId?: string;
   widgetId?: string;
   fetchWidgetIdPending: boolean;
@@ -14,7 +14,6 @@ export interface IState extends fromRoot.IState {
 }
 
 export const initialState: IGenerateWidgetState = {
-  expertId: '',
   fetchWidgetIdPending: false,
 };
 

@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MoneyDto, ServiceWithEmployments } from '@anymind-ng/api';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.component';
+import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.component';
 
 @Component({
   selector: 'plat-consultation-company-row',

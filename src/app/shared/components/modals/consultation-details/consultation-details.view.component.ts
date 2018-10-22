@@ -1,15 +1,5 @@
 // tslint:disable:max-file-line-count
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-  Injector,
-  OnDestroy,
-  ComponentRef,
-  ComponentFactoryResolver,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, OnDestroy, ComponentRef, Input } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
 import { filter, take, takeUntil } from 'rxjs/operators';
@@ -23,11 +13,7 @@ import { ModalAnimationComponentService } from '../modal/animation/modal-animati
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import {
-  IConsultationFooterData,
-  CONSULTATION_FOOTER_DATA,
-  IFooterOutput,
-} from './consultation-footers/consultation-footer-helpers';
+import { IFooterOutput, IConsultationFooterData } from './consultation-footers/consultation-footer-helpers';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConsultationFooterResolver } from './consultation-footers/consultation-footer.resolver';
 import { ICreateEditConsultationPayload } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
@@ -38,7 +24,6 @@ import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
   selector: 'plat-consultation-details-view',
   templateUrl: './consultation-details.view.component.html',
   styleUrls: ['./consultation-details.view.component.sass'],
-  providers: [ConsultationDetailsViewService],
 })
 export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   public readonly avatarSize96: AvatarSizeEnum = AvatarSizeEnum.X_96;
@@ -86,8 +71,6 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     private consultationDetailsActionsService: ConsultationDetailsActionsService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private activeModal: NgbActiveModal,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector,
   ) {
     this.store
       .pipe(
@@ -152,23 +135,6 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       });
   };
 
-  private buildFooterData = (
-    userId: string,
-    getServiceDetails: IConsultationDetails,
-    expertIsAvailable: boolean,
-  ): IConsultationFooterData => ({
-    userId,
-    ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
-    expertsIdList: getServiceDetails.expertIds,
-    isExpertAvailable: expertIsAvailable,
-    isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
-    defaultPayment: getServiceDetails.payment,
-    accountBalance: getServiceDetails.balance,
-    price: {
-      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.grossPrice,
-      price: getServiceDetails.getServiceWithEmployees.serviceDetails.netPrice,
-    },
-  });
   private assignExpertConsultationDetails = ({
     expertDetails,
     expertProfileViewDetails,
@@ -224,19 +190,12 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       [this.expertId],
     );
     if (component) {
-      const footerComponent = this.viewContainerRef.createComponent(
-        this.componentFactoryResolver.resolveComponentFactory(component),
-        undefined,
-        Injector.create({
-          providers: [
-            {
-              provide: CONSULTATION_FOOTER_DATA,
-              useValue: this.buildFooterData(userId, getServiceDetails, expertIsAvailable),
-            },
-          ],
-          parent: this.injector,
-        }),
+      const footerComponent = this.consultationDetailsViewService.attachFooter(
+        component,
+        this.viewContainerRef,
+        this.buildFooterData(userId, getServiceDetails, expertIsAvailable),
       );
+
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
         const payload: IConsultationDetailActionParameters = {
           serviceId: this.serviceId,
@@ -264,6 +223,24 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
       ),
     };
   };
+
+  private buildFooterData = (
+    userId: string,
+    getServiceDetails: IConsultationDetails,
+    expertIsAvailable: boolean,
+  ): IConsultationFooterData => ({
+    userId,
+    ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
+    expertsIdList: getServiceDetails.expertIds,
+    isExpertAvailable: expertIsAvailable,
+    isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
+    defaultPayment: getServiceDetails.payment,
+    accountBalance: getServiceDetails.balance,
+    price: {
+      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.grossPrice,
+      price: getServiceDetails.getServiceWithEmployees.serviceDetails.netPrice,
+    },
+  });
 
   private isExpertConsultation = (serviceDetails: ServiceWithOwnerProfile): boolean =>
     typeof serviceDetails.ownerProfile.organizationDetails === 'undefined';

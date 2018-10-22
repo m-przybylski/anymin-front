@@ -23,6 +23,7 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
+import { ConsultationFootersService } from './consultation-footers.service';
 
 describe('ConsultationDetailsViewService', () => {
   let consultationDetailsViewService: ConsultationDetailsViewService;
@@ -35,6 +36,7 @@ describe('ConsultationDetailsViewService', () => {
   const paymentsService: PaymentsService = Deceiver(PaymentsService);
   const financesService: FinancesService = Deceiver(FinancesService);
   const expertAvailabilityService: ExpertAvailabilityService = Deceiver(ExpertAvailabilityService);
+  const consultationFootersService: ConsultationFootersService = Deceiver(ConsultationFootersService);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
     createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
   });
@@ -56,6 +58,7 @@ describe('ConsultationDetailsViewService', () => {
       paymentsService,
       financesService,
       expertAvailabilityService,
+      consultationFootersService,
       loggerFactory,
     );
   });

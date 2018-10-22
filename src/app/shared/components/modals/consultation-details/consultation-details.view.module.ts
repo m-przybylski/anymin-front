@@ -18,6 +18,8 @@ import { ConfirmationModalModule } from '../confirmation/confirmation.module';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
+import { ConsultationFootersService } from './consultation-footers.service';
+import { ConsultationDetailsViewService } from './consultation-details.view.service';
 
 @NgModule({
   imports: [
@@ -43,7 +45,7 @@ import { ExpertAvailabilityModule } from '@platform/features/dashboard/component
     TimeDurationPipe,
     DateDurationPipe,
   ],
-  providers: [ConsultationDetailsActionsService],
+  providers: [ConsultationDetailsActionsService, ConsultationFootersService, ConsultationDetailsViewService],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}
