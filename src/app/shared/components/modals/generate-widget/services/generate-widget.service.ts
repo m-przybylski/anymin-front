@@ -11,11 +11,11 @@ import { ClipboardService } from '@platform/core/services/clipboard/clipboard.se
 export class GenerateWidgetService extends Logger {
   private moneyToAmount: MoneyToAmount;
   constructor(
-    loggerFactory: LoggerFactory,
     private injector: Injector,
     private modalService: NgbModal,
     private clipboardService: ClipboardService,
     private alertService: AlertService,
+    loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
     this.moneyToAmount = new MoneyToAmount(this.loggerService);

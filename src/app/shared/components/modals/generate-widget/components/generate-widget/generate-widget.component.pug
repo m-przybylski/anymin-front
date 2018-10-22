@@ -48,16 +48,16 @@ plat-modal-component(
         .generate-widget-step-content-panel
           .generate-widget-step-content-section
             p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP1" | translate}}
-            .generate-widget-copy([plat-copy-to-clipboard]="headScript") {{headScript}}
-          .generate-widget-step-content-section
-            p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP2" | translate}}
             plat-generate-widget-button-type([formControl]='buttonType')
-          .generate-widget-step-content-section(*ngIf="buttonCode !== ''", [@fadeIn])
+          .generate-widget-step-content-section(
+            *ngIf="selectedButonType !== undefinedSelectedButonType",
+            [@fadeInOut],
+            (@fadeInOut.done)="animationDone($event)"
+            )
+            p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP2" | translate}}
+            .generate-widget-copy([plat-copy-to-clipboard]="headScript") {{headScript}}
+          .generate-widget-step-content-section(*ngIf="displayButtonCode", [@fadeInOut])
             p {{"GENERATE_WIDGET_MODAL.CONTENT.ADD_STEP3" | translate}}
-            .generate-widget-copy(
-              *ngIf='selectedButonType !== -1',
-              [@fadeInOut],
-              (@fadeInOut.done)="animationDone($event)",
-              [plat-copy-to-clipboard]="buttonCode") {{buttonCode}}
+            .generate-widget-copy([plat-copy-to-clipboard]="buttonCode") {{buttonCode}}
 
 

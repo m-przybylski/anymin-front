@@ -12,10 +12,10 @@ import { WidgetButtonType } from '../components/generate-widget-button-type/gene
 export class GenerateWidgetDataService extends Logger {
   private moneyToAmount: MoneyToAmount;
   constructor(
-    loggerFactory: LoggerFactory,
     private commonSettingsService: CommonSettingsService,
     private widgetService: WidgetService,
     private serviceService: ServiceService,
+    loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory);
     this.moneyToAmount = new MoneyToAmount(this.loggerService);
@@ -25,10 +25,12 @@ export class GenerateWidgetDataService extends Logger {
     return `${this.commonSettingsService.links.widget}?widgetId=${widgetId}`;
   }
 
-  public getWidgetSdkLink(): string {
-    return `<script>var d="${
+  public getWidgetSdkLink(widgetId?: string): string {
+    return `<script>(function(d,id,amWidgetId){if(d.getElementById(id))return;var a="${
       this.commonSettingsService.links.widgetSdk
-    }",t=document.getElementsByTagName("head")[0],s=document.createElement("script");s.src=d,t.appendChild(s);</script>`;
+    }",t=d.getElementsByTagName("head")[0],s=d.createElement("script");s.id=id;s.setAttribute('data-widgetid',amWidgetId);s.src=a,t.appendChild(s)})(document,'anymind-widget-jssdk'${this.getWidgetSdkParams(
+      widgetId,
+    )})</script>`;
   }
 
   public getButtonCode(widgetId: string, buttonType: WidgetButtonType): string {
@@ -67,6 +69,10 @@ export class GenerateWidgetDataService extends Logger {
         ),
       ),
     );
+  }
+
+  private getWidgetSdkParams(widgetId?: string): string {
+    return widgetId ? `,'${widgetId}'` : '';
   }
 }
 
