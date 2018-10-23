@@ -2027,5 +2027,8 @@
   "PUSH.DIALOG.MAIN.BUTTON.SUBSCRIBE": "Włącz",
   "PUSH.DIALOG.MAIN.BUTTON.UNSUBSCRIBE": "Wyłącz",
   "PUSH.DIALOG.BLOCKED.TITLE": "Odblokuj powiadomienia o połączeniach",
-  "PUSH.DIALOG.BLOCKED.MESSAGE": "Wykonaj te instrukcje, aby zezwolić na powiadomienia o połączeniach:"
+  "PUSH.DIALOG.BLOCKED.MESSAGE": "Wykonaj te instrukcje, aby zezwolić na powiadomienia o połączeniach:",
+  "COMMUNICATOR.MISSING_CALL_ALERT": "Nieodebrałeś połączenia od klienta",
+  "COMMUNICATOR.MISSING_CALLS_ALERT": "Nieodebrane połączenia od klienta: {{ value }}",
+  "COMMUNICATOR.CHAT_HEADER_ANONYMOUS_CALLER": "Anonimowym rozmówcą"
 }
