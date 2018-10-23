@@ -71,11 +71,21 @@ export class CompanyConsultationDetailsViewService extends Logger {
             .pipe(map(profileDetails => ({ getServiceWithEmployees, profileDetails }))),
         ),
       ),
-      // .pipe(map(response => response[0].employeesDetails.map(employee => this.assignEmployeesList(employee)))),
-
-      this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
+      this.paymentsService.getDefaultPaymentMethodRoute().pipe(
+        /**
+         * return {} object when error on the server
+         * error happens for not logged user 401 response.
+         * represents the same response as no default payment
+         */
+        catchError(() => of({})),
+      ),
       this.financesService.getClientBalanceRoute().pipe(
         catchError(() =>
+          /**
+           * return "empty" object when error on the server
+           * error happens for not logged user 401 response.
+           * next map operator calculates balance
+           */
           of({
             accountBalance: { amount: 0, currency: '' },
             promoCodeBalance: { amount: 0, currency: '' },

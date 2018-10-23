@@ -22,7 +22,7 @@ plat-consultation-footer
         strong  AnyMind
         | : {{ balance }} zł.
         span(*ngIf='duration') {{"CONSULTATION_DETAILS.FOOTER.TALKLAST" | translate:{duration: duration} }}
-        a {{"CONSULTATION_DETAILS.FOOTER.TOPUP" | translate}}
+        a  {{"CONSULTATION_DETAILS.FOOTER.TOPUP" | translate}}
   //right part of the screen
   .consultation-footer__right
     a(plat-large-icon-button, color='success', *ngIf="isExpertAvailable else offlineDesktop", (click)='onCall()')

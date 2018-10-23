@@ -84,14 +84,13 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewComponent'));
   }
 
   public ngOnInit(): void {
     forkJoin(
       this.store.pipe(
         select(fromCore.getSessionAndUserType),
-        // filter(({ getSession }) => typeof getSession !== 'undefined'),
         take(1),
       ),
       this.companyConsultationDetailsViewService.getConsultationDetails(this.consultationId),
@@ -110,7 +109,10 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.isCompany = (getSession && getSession.isCompany) || false;
       this.userType = this.userType || getUserType;
       this.accountId = (getSession && getSession.account.id) || '';
-      this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails);
+      const emplyment = getConsultationDetails.serviceDetails.employeesDetails.find(
+        employment => employment.employeeProfile.id === (getSession && getSession.account.id),
+      );
+      this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails, emplyment && emplyment.id);
       this.modalComponent.stopLoadingAnimation();
       this.isPending = false;
     });
@@ -158,6 +160,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   };
 
   public openConsultationDetailsModal = (employeId: string): void => {
+    this.activeModal.close();
     const modalInstance = this.modalService.open(ConsultationDetailsViewComponent);
     modalInstance.componentInstance.serviceId = this.consultationId;
     modalInstance.componentInstance.expertId = employeId;
@@ -166,13 +169,21 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   private attachFooter(
     userId: string,
     getConsultationDetails: ICompanyConsultationDetails,
+    employmentId?: string,
   ): ComponentRef<IFooterOutput> | undefined {
     const component = ConsultationFooterResolver.resolve(
       this.userType,
       this.isCompany,
       this.accountId,
       getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
-      getConsultationDetails.employeesList.map(getConsultationDetail => getConsultationDetail.employeeId || ''),
+      getConsultationDetails.employeesList
+        .map(getConsultationDetail => getConsultationDetail.employeeId || '')
+        /**
+         * need to add extra element to the list
+         * in case there is only one item system displays user footer
+         * empty string is dengerous so any value do the trick
+         */
+        .concat('$'),
     );
     if (component) {
       const footerComponent = this.consultationDetailsViewService.attachFooter(
@@ -185,9 +196,17 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
         const payload: IConsultationDetailActionParameters = {
           serviceId: this.consultationId,
           modal: this.activeModal,
-          employmentId: undefined,
+          employmentId,
           expertId: undefined,
-          createEditConsultationPayload: undefined,
+          createEditConsultationPayload: {
+            isExpertConsultation: false,
+            // make a copy of an object. Not sure what if other component does not mutate the object
+            serviceDetails: JSON.parse(JSON.stringify(this.consultationDetails.serviceDetails)),
+            tags: this.tagList,
+            isOwnerEmployee: getConsultationDetails.serviceDetails.employeesDetails.some(
+              expertId => expertId.id === getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
+            ),
+          },
         };
         this.consultationDetailsActionsService[value].call(this.consultationDetailsActionsService, payload);
       });

@@ -29,15 +29,16 @@ export class ConsultationFooterResolver {
     if (expertIdList !== undefined) {
       // there is a list of experts so we can use it
 
+      if (userId !== ownerId && expertIdList.some(fromListExpertId => fromListExpertId === userId)) {
+        // user is not owner of service and he provides service for that consultation
+        return ConsultationFooterLeaveComponent;
+      }
+
       if (userId !== ownerId && expertIdList.length > 1) {
         // user is not owner of service and there is more than one expert who provides service
         return ConsultationFooterMultipleExpertComponent;
       }
 
-      if (userId !== ownerId && expertIdList.some(fromListExpertId => fromListExpertId === userId)) {
-        // user is not owner of service and he provides service for that consultation
-        return ConsultationFooterLeaveComponent;
-      }
       if (userId === ownerId) {
         if (userType === UserTypeEnum.EXPERT && isCompany) {
           // user is owner of service and he checks consultation details as expert and he has company
