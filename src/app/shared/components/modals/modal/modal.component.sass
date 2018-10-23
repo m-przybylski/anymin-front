@@ -1,5 +1,6 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
 @import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/animations"
 @import "../../../../template/core/core"
 
 .modal-component
@@ -149,35 +150,20 @@
       padding: 48px + $s-modal-header 48px 48px
 
     &--loading
-      &::before
-        content: ""
-        position: absolute
-        left: 0
-        top: calc(#{$s-modal-header} + 1px)
-        right: 0
-        bottom: 0
-        z-index: $z-index-1000
-        background: $c-white
-        display: flex
-        align-items: center
-        justify-content: center
-        height: calc(100% - #{$s-modal-header} - 1px)
+      height: calc(128px - #{$s-modal-header})
+      display: flex
+      justify-content: center
+      align-items: center
 
-      &::after
-        content: "\eabb"
-        font-family: 'icons'
-        font-size: 24px
-        color: $c-primary
-        z-index: $z-index-1000
-        position: absolute
-        left: 0
-        top: $s-modal-header
-        right: 0
-        bottom: 0
-        margin: auto
+      span
+        display: block
         width: 24px
         height: 24px
-        animation: 0.6s linear rotate360Deg infinite
+        color: $c-primary
+        animation-name: rotate360Deg
+        animation-timing-function: linear
+        animation-duration: 0.6s
+        animation-iteration-count: infinite
 
     &__header
       margin: 0 0 24px
