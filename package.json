@@ -95,6 +95,7 @@
     "jquery-bridget": "^2.0.1",
     "libphonenumber-js": "^1.4.2",
     "lodash": "^4.17.4",
+    "machoke-sdk": "0.0.6",
     "messageformat": "^0.2.2",
     "moment": "^2.17.1",
     "ng-file-upload": "^11.2.3",
@@ -105,13 +106,13 @@
     "perfect-scrollbar": "^0.6.14",
     "phonenumber": "^7.7.1",
     "profitelo-api-ng": "0.1.80",
-    "machoke-sdk": "0.0.6",
     "raven-js": "^3.10.0",
     "reset.css": "^2.0.2",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "symbol-observable": "^1.2.0",
     "ui-select": "^0.19.6",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

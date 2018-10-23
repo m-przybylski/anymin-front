@@ -6,9 +6,11 @@ import { ModalAnimationComponentDirective } from './animation/modal-animation.co
 import { ModalAnimationComponentService } from './animation/modal-animation.animation.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { IconModule } from '@platform/shared/components/atomic-components';
+import { SharedModule } from '@platform/shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, IconModule, SharedModule],
   exports: [ModalComponent, ModalHeaderComponent, ModalAnimationComponentDirective],
   declarations: [ModalComponent, ModalHeaderComponent, ModalAnimationComponentDirective],
   providers: [ModalAnimationComponentService],
