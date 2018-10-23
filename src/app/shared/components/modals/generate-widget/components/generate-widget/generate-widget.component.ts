@@ -11,7 +11,6 @@ import { FormControl } from '@angular/forms';
 import { WidgetButtonType } from '../generate-widget-button-type/generate-widget-button-type.component';
 import { trigger, transition, style, animate, state, AnimationEvent } from '@angular/animations';
 
-const undefinedSelectedButonType = -1;
 interface IShareLink {
   url: string;
   iconName: string;
@@ -26,10 +25,6 @@ interface IShareLink {
       transition(':enter', [animate('250ms', style({ opacity: '1' }))]),
       transition(':leave', [animate('250ms')]),
     ]),
-    trigger('fadeIn', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', [animate('250ms', style({ opacity: '1' }))]),
-    ]),
   ],
 })
 export class GenerateWidgetComponent extends Logger implements OnInit, AfterViewInit, OnDestroy {
@@ -37,23 +32,24 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   public expertId: string;
   public widgetLink: string;
   public widgetId: string;
+  public headScript: string;
   public avatarToken: string;
   public expertName: string;
   public consultationHeader: string;
-  public cosulationDescription: string;
+  public cosultationDescription: string;
   public consultationPrice: string;
   public buttonCode = '';
 
-  public buttonType: FormControl;
-  public selectedButonType: WidgetButtonType = undefinedSelectedButonType;
-
   public readonly available = of(AccountPresenceStatus.StatusEnum.Available);
-  public readonly headScript = this.generateWidgetDataService.getWidgetSdkLink();
+  public readonly undefinedSelectedButtonType = -1;
   public readonly socialMediaLinks: ReadonlyArray<IShareLink> = [
     { url: '', iconName: 'linkedin' },
     { url: '', iconName: 'instagram' },
     { url: '', iconName: 'facebook' },
   ];
+
+  public buttonType: FormControl;
+  public selectedButtonType: WidgetButtonType = this.undefinedSelectedButtonType;
 
   @ViewChild(ModalComponent)
   private modal: ModalComponent;
@@ -72,17 +68,18 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   private fadeOutComplete$ = new Subject<void>();
 
   constructor(
-    loggerFactgory: LoggerFactory,
-    @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
     private generateWidgetDataService: GenerateWidgetDataService,
+    @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
+    loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactgory);
+    super(loggerFactory);
     this.serviceId = data.serviceId;
     this.expertId = data.expertId;
     this.widgetId = data.widgetId;
   }
   public ngOnInit(): void {
     this.widgetLink = this.generateWidgetDataService.getWidgetLink(this.widgetId);
+    this.headScript = this.generateWidgetDataService.getWidgetSdkLink(this.widgetId);
     this.generateWidgetDataService
       .resolve(this.widgetId)
       .pipe(
@@ -95,7 +92,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
           this.avatarToken = generateWidgetResolveData.expertAvatar || '';
           this.expertName = generateWidgetResolveData.expertName || '';
           this.consultationHeader = generateWidgetResolveData.serviceName;
-          this.cosulationDescription = generateWidgetResolveData.serviceDesc;
+          this.cosultationDescription = generateWidgetResolveData.serviceDesc;
           this.consultationPrice = generateWidgetResolveData.servicePrice;
         }
       });
@@ -111,23 +108,25 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
       .pipe(
         takeUntil(this.destroyed$),
         switchMap(buttonType => {
-          if (this.selectedButonType === undefinedSelectedButonType) {
+          if (this.selectedButtonType === this.undefinedSelectedButtonType) {
             return of(buttonType);
           }
-          this.selectedButonType = undefinedSelectedButonType;
+          this.selectedButtonType = this.undefinedSelectedButtonType;
 
           return this.fadeOutComplete$.pipe(map(() => buttonType));
         }),
       )
       .subscribe(buttonType => {
-        this.selectedButonType = buttonType;
+        this.selectedButtonType = buttonType;
+        this.headScript = this.generateWidgetDataService.getWidgetSdkLink(
+          buttonType === WidgetButtonType.FLOATING ? this.widgetId : undefined,
+        );
         this.buttonCode = this.generateWidgetDataService.getButtonCode(this.widgetId, buttonType);
       });
   }
   public ngAfterViewInit(): void {
     /**
-     * race condiation between component load and
-     * data load
+     * before stopping loader need to wait for data to be loaded
      */
     this.componentLoaded
       .pipe(
@@ -142,10 +141,12 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     this.destroyed$.next();
     this.destroyed$.complete();
   }
-
   public animationDone(animationEvent: AnimationEvent): void {
     if (animationEvent.toState === 'void') {
       this.fadeOutComplete$.next();
     }
+  }
+  public get displayButtonCode(): boolean {
+    return this.selectedButtonType === WidgetButtonType.BANNER || this.selectedButtonType === WidgetButtonType.STATIC;
   }
 }

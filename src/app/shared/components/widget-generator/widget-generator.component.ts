@@ -22,10 +22,7 @@ import { BrowserUtils } from 'machoke-sdk';
   styleUrls: ['widget-generator.component.sass'],
 })
 export class WidgetGeneratorComponent implements OnInit {
-  public readonly headScript = `<script>var d="${
-    this.CommonSettingsService.links.widgetSdk
-  }",t=document.getElementsByTagName("head")[0],s=document.createElement("script");s.src=d,t.appendChild(s);</script>`;
-
+  public headScript: string;
   public bodyScript?: string;
   public radioModel = 'static';
   public serviceList: IPrimaryDropdownListElement[] = [];
@@ -44,14 +41,14 @@ export class WidgetGeneratorComponent implements OnInit {
   public serviceCompanyList: IPrimaryDropdownListElement[] = [];
   public currentWidgetUrl: string;
 
-  private readonly widgetUrl = this.CommonSettingsService.links.widget;
+  private readonly widgetUrl = this.commonSettingsService.links.widget;
   private readonly selectionRangeMax = 999999;
   private profileWithServices: ServiceWithEmployments[] = [];
   private widgetId?: string;
 
   constructor(
     private widgetGeneratorService: WidgetGeneratorService,
-    private CommonSettingsService: CommonSettingsService,
+    private commonSettingsService: CommonSettingsService,
     private userSessionService: UserSessionService,
     private translate: TranslateService,
     private logger: LoggerService,
@@ -77,6 +74,10 @@ export class WidgetGeneratorComponent implements OnInit {
     this.radioModel = value;
     if (this.bodyScript) {
       this.bodyScript = this.generateBodyCode(this.widgetId);
+      this.headScript = this.widgetGeneratorService.getWidgetSdkLink(
+        this.commonSettingsService.links.widgetSdk,
+        this.radioModel === 'flatten' ? this.widgetId : undefined,
+      );
     }
   };
 
@@ -96,6 +97,10 @@ export class WidgetGeneratorComponent implements OnInit {
         this.isError = false;
         this.widgetId = widget.id;
         this.bodyScript = this.generateBodyCode(widget.id);
+        this.headScript = this.widgetGeneratorService.getWidgetSdkLink(
+          this.commonSettingsService.links.widgetSdk,
+          this.radioModel === 'flatten' ? this.widgetId : undefined,
+        );
         this.currentWidgetUrl = this.widgetUrl + '?widgetId=' + widget.id;
       },
       error => {
