@@ -36,12 +36,12 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   public avatarToken: string;
   public expertName: string;
   public consultationHeader: string;
-  public cosulationDescription: string;
+  public cosultationDescription: string;
   public consultationPrice: string;
   public buttonCode = '';
 
   public readonly available = of(AccountPresenceStatus.StatusEnum.Available);
-  public readonly undefinedSelectedButonType = -1;
+  public readonly undefinedSelectedButtonType = -1;
   public readonly socialMediaLinks: ReadonlyArray<IShareLink> = [
     { url: '', iconName: 'linkedin' },
     { url: '', iconName: 'instagram' },
@@ -49,7 +49,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   ];
 
   public buttonType: FormControl;
-  public selectedButonType: WidgetButtonType = this.undefinedSelectedButonType;
+  public selectedButtonType: WidgetButtonType = this.undefinedSelectedButtonType;
 
   @ViewChild(ModalComponent)
   private modal: ModalComponent;
@@ -68,11 +68,11 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   private fadeOutComplete$ = new Subject<void>();
 
   constructor(
-    loggerFactgory: LoggerFactory,
-    @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
     private generateWidgetDataService: GenerateWidgetDataService,
+    @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
+    loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactgory);
+    super(loggerFactory);
     this.serviceId = data.serviceId;
     this.expertId = data.expertId;
     this.widgetId = data.widgetId;
@@ -92,7 +92,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
           this.avatarToken = generateWidgetResolveData.expertAvatar || '';
           this.expertName = generateWidgetResolveData.expertName || '';
           this.consultationHeader = generateWidgetResolveData.serviceName;
-          this.cosulationDescription = generateWidgetResolveData.serviceDesc;
+          this.cosultationDescription = generateWidgetResolveData.serviceDesc;
           this.consultationPrice = generateWidgetResolveData.servicePrice;
         }
       });
@@ -108,16 +108,16 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
       .pipe(
         takeUntil(this.destroyed$),
         switchMap(buttonType => {
-          if (this.selectedButonType === this.undefinedSelectedButonType) {
+          if (this.selectedButtonType === this.undefinedSelectedButtonType) {
             return of(buttonType);
           }
-          this.selectedButonType = this.undefinedSelectedButonType;
+          this.selectedButtonType = this.undefinedSelectedButtonType;
 
           return this.fadeOutComplete$.pipe(map(() => buttonType));
         }),
       )
       .subscribe(buttonType => {
-        this.selectedButonType = buttonType;
+        this.selectedButtonType = buttonType;
         this.headScript = this.generateWidgetDataService.getWidgetSdkLink(
           buttonType === WidgetButtonType.FLOATING ? this.widgetId : undefined,
         );
@@ -126,8 +126,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   }
   public ngAfterViewInit(): void {
     /**
-     * race condition between component load and
-     * data load
+     * before stopping loader need to wait for data to be loaded
      */
     this.componentLoaded
       .pipe(
@@ -148,6 +147,6 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     }
   }
   public get displayButtonCode(): boolean {
-    return this.selectedButonType === WidgetButtonType.BANNER || this.selectedButonType === WidgetButtonType.STATIC;
+    return this.selectedButtonType === WidgetButtonType.BANNER || this.selectedButtonType === WidgetButtonType.STATIC;
   }
 }

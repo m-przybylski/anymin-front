@@ -28,9 +28,9 @@ export class GenerateWidgetDataService extends Logger {
   public getWidgetSdkLink(widgetId?: string): string {
     return `<script>(function(d,id,amWidgetId){if(d.getElementById(id))return;var a="${
       this.commonSettingsService.links.widgetSdk
-    }",t=d.getElementsByTagName("head")[0],s=d.createElement("script");s.id=id;s.setAttribute('data-widgetid',amWidgetId);s.src=a,t.appendChild(s)})(document,'anymind-widget-jssdk'${this.getWidgetSdkParams(
-      widgetId,
-    )})</script>`;
+    }",t=d.getElementsByTagName("head")[0],s=d.createElement("script");s.id=id;s.setAttribute('data-widgetid',amWidgetId);s.src=a,t.appendChild(s)})(document,'anymind-widget-jssdk','${
+      widgetId ? widgetId : ''
+    }')</script>`;
   }
 
   public getButtonCode(widgetId: string, buttonType: WidgetButtonType): string {
@@ -69,10 +69,6 @@ export class GenerateWidgetDataService extends Logger {
         ),
       ),
     );
-  }
-
-  private getWidgetSdkParams(widgetId?: string): string {
-    return widgetId ? `,'${widgetId}'` : '';
   }
 }
 

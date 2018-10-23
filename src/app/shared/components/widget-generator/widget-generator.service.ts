@@ -21,11 +21,8 @@ export class WidgetGeneratorService {
 
   public getWidgetSdkLink(widgetSdk: string, widgetId?: string): string {
     // tslint:disable-next-line:max-line-length
-    return `<script>(function(d,id,amWidgetId){if(d.getElementById(id))return;var a="${widgetSdk}",t=d.getElementsByTagName("head")[0],s=d.createElement("script");s.id=id;s.setAttribute('data-widgetid',amWidgetId);s.src=a,t.appendChild(s)})(document,'anymind-widget-jssdk'${this.getWidgetSdkParams(
-      widgetId,
-    )})</script>`;
-  }
-  private getWidgetSdkParams(widgetId?: string): string {
-    return widgetId ? `,'${widgetId}'` : '';
+    return `<script>(function(d,id,amWidgetId){if(d.getElementById(id))return;var a="${widgetSdk}",t=d.getElementsByTagName("head")[0],s=d.createElement("script");s.id=id;s.setAttribute('data-widgetid',amWidgetId);s.src=a,t.appendChild(s)})(document,'anymind-widget-jssdk','${
+      widgetId ? widgetId : ''
+    }')</script>`;
   }
 }
