@@ -75,8 +75,6 @@ export class CallInvitationService extends Logger {
   };
 
   public initialize = (): void => {
-    this.pushNotificationService.initialize();
-    this.pushNotificationService.registerForPushNotifications();
     this.pushNotificationService.pushChange$.subscribe(
       enabled => {
         if (enabled && this.session) {
@@ -109,6 +107,8 @@ export class CallInvitationService extends Logger {
             () => sessionAccount !== undefined,
             of(() => {
               if (sessionAccount) {
+                this.pushNotificationService.initialize();
+                this.pushNotificationService.registerForPushNotifications().subscribe();
                 this.expertSessionDetails = sessionAccount.account.details;
               }
 
