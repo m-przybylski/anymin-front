@@ -1,0 +1,32 @@
+.sue-details.activity-details
+  header.activity-details__header {{ serviceName }}
+  .activity-section
+    ul
+      li.basic-data
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CLIENT_NAME' | translate }}
+        span.basic-data__value {{ clientName | translate}}
+      li.basic-data
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.ID_NUMBER' | translate }}
+        span.basic-data__value {{ sueId | uuidTrimmer }}
+      li.basic-data
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.DATE' | translate }}
+        span.basic-data__value {{ answeredAt | date:'d.M.yyyy' }}, {{ answeredAt | date:'H:mm' }}
+      li.basic-data
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.DURATION_TIME' | translate }}
+        span.basic-data__value {{ callDuration | date:'H:mm:ss':'UTC'}}
+      li.basic-data
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COST_PER_MIN' | translate }}
+        span.basic-data__value {{ servicePriceAmount | currency: servicePriceCurrency:'symbol-narrow' }}
+
+  .activity-section.activity-section--financial
+    .basic-data.basic-data--financial
+      span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION' | translate }}
+      span.basic-data__value + {{ financialOperationAmount | currency: financialOperationCurrency:'symbol-narrow' }}
+
+  .activity-section
+    .basic-data(*ngIf="isChatHistoryVisible")
+      span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CHAT' | translate }}
+      a.basic-data__value((click)="onOpenChatClick()") {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CHAT_OPEN' | translate }}
+    .basic-data
+      span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION' | translate }}
+      span.basic-data__value {{ isRecommended | translate }}

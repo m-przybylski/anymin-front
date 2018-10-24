@@ -1,0 +1,11 @@
+.chat-history
+  am-core-grouped-messages(
+  *ngFor="let messages of groupedMessages",
+  [messages]="messages",
+  [participantAvatarUrl]="clientAvatarUrl",
+  [mineAvatarUrl]="expertAvatarUrl"
+  )
+
+  .chat-history__end-conversation
+    .end-conversation-text
+      span {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CHAT_END' | translate }}

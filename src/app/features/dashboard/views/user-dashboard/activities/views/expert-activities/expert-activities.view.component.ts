@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { IActivitiesResolverData } from '@platform/features/dashboard/views/user-dashboard/activities/views/expert-activities/expert-activities.resolver.service';
 import { Animations } from '@anymind-ng/core';
 
-interface IProfileActivitiesWithStatus {
+export interface IProfileActivitiesWithStatus {
   activity: GetProfileActivity;
   isImportant: boolean;
 }
@@ -102,6 +102,21 @@ export class ExpertActivitiesViewComponent implements OnInit, OnDestroy {
       this.displayedImportantActivities = [...this.importantActivities];
     }
     this.isImportantListToggle = !this.isImportantListToggle;
+  };
+
+  public onActivityModalClose = (currentDisplayedActivity: GetProfileActivity): void => {
+    this.importantActivitiesCounter = this.importantActivitiesCounter - 1;
+    this.currentImportantActivitiesOffset = this.currentImportantActivitiesOffset - 1;
+    this.displayedImportantActivities = this.displayedImportantActivities.filter(
+      activity => activity.id !== currentDisplayedActivity.id,
+    );
+    this.profileActivities = this.profileActivities.map(profileActivity => {
+      if (profileActivity.activity.id === currentDisplayedActivity.id) {
+        return { ...profileActivity, isImportant: false };
+      }
+
+      return profileActivity;
+    });
   };
 
   private mapToProfileActivitiesWithStatus = (

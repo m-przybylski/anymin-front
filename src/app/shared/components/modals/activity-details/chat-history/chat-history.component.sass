@@ -1,0 +1,28 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.chat-history
+  padding: 0 32px
+
+  &__end-conversation
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    border-bottom: 1px solid $c-lines
+    margin: 32px -16px 8px
+
+    +xsm
+      margin: 38px -32px 8px
+
+    +lgm
+      margin: 56px -32px 8px
+
+    .end-conversation-text
+      position: absolute
+      padding: 0 24px 0
+      background: $c-white
+
+      span
+        +caption
+        font-weight: 500
+        color: $c-text-primary
