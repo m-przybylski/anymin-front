@@ -8,9 +8,10 @@
       (backwardClick)="onBackClick()"
       )
 
-      .modal-component__content
-        .modal-component__content--loading(*ngIf="isLoading")
-          span(plat-icon, iconClass='loading')
+      .modal-component__content(
+        modalAnimationComponent,
+        [ngClass]="{'modal-component__content--loading': isLoading}"
+      )
         div(contentHeightAnimation, *ngIf="!isLoading")
           ng-content
 
