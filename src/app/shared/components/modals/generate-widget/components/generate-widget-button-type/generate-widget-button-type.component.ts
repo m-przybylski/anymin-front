@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export enum WidgetButtonType {
@@ -19,6 +19,7 @@ export const GENERATE_WIDGET_BUTTON_TYPE_ACCESSOR = {
   templateUrl: 'generate-widget-button-type.component.html',
   styleUrls: ['generate-widget-button-type.component.sass'],
   providers: [GENERATE_WIDGET_BUTTON_TYPE_ACCESSOR],
+  encapsulation: ViewEncapsulation.None,
 })
 export class GenerateWidgetButtonTypeComponent implements ControlValueAccessor {
   public readonly buttons: ReadonlyArray<IWidgetButtonTypeConfig> = [
