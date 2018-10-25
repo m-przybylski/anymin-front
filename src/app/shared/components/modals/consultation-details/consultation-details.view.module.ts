@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DateDurationPipe } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/date-duration.pipe';
-import { ConsultationCommentItemComponent } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/consultation-comment-item.component';
-import { ConsultationCommentComponent } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment.component';
-import { TimeDurationPipe } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/time-duration.pipe';
-import { ConsultationCommentAnswerComponent } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/consultation-comment-answer/consultation-comment-answer.component';
 import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
 import { SharedModule } from '@platform/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +13,8 @@ import { ConfirmationModalModule } from '../confirmation/confirmation.module';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
+import { ConsultationCommentModule } from '@platform/shared/components/consultation-comment/consultation-comment.module';
+import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 import { ConsultationFootersService } from './consultation-footers.service';
 import { ConsultationDetailsViewService } from './consultation-details.view.service';
 
@@ -36,16 +33,17 @@ import { ConsultationDetailsViewService } from './consultation-details.view.serv
     ConfirmationModalModule,
     ExpertAvailabilityModule.forRoot(),
     GenerateWidgetModule,
+    ConsultationCommentModule,
+    DropdownModule,
   ],
   declarations: [
-    ConsultationDetailsViewComponent,
-    ConsultationCommentComponent,
-    ConsultationCommentItemComponent,
-    ConsultationCommentAnswerComponent,
-    TimeDurationPipe,
-    DateDurationPipe,
+    ConsultationDetailsViewComponent
   ],
-  providers: [ConsultationDetailsActionsService, ConsultationFootersService, ConsultationDetailsViewService],
+  providers: [
+    ConsultationDetailsActionsService,
+    ConsultationFootersService,
+    ConsultationDetailsViewService
+  ],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

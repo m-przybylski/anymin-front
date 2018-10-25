@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { GetComment } from '@anymind-ng/api';
-import { AvatarSizeEnum } from '../../../../../user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '../../../user-avatar/user-avatar.component';
 
 @Component({
   selector: 'plat-consultation-comment-answer',
@@ -15,8 +15,8 @@ export class ConsultationCommentAnswerComponent {
   public commentDetails: GetComment;
 
   @Input()
-  public expertName: string;
+  public expertName = '';
 
   @Input()
-  public tokentAvatar: string;
+  public tokenAvatar = '';
 }

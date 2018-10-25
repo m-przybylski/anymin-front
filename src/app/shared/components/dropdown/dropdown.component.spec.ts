@@ -2,11 +2,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { DropdownComponent, IDropdownComponent } from './dropdown.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
+import { getCoreConfig } from '../../../core/factories/core-config/core-config.facotry';
 import { BrowserModule } from '@angular/platform-browser';
 import { AnymindComponentsCoreModule, AnymindComponentsModule } from '@anymind-ng/core';
 import { DropdownListComponent } from './dropdown-list/dropdown-list.component';
-import { UserAvatarComponent } from '../../user-avatar/user-avatar.component';
+import { UserAvatarComponent } from '../user-avatar/user-avatar.component';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('Component: DropdownComponent', () => {

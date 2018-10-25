@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/co
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { ActivityDetailsViewComponentService } from '@platform/shared/components/modals/activity-details/activity-details.view.component.service';
 import { ACTIVITY_DETAILS_DATA } from '@platform/shared/components/modals/activity-details/activity-details-helpers';
-import { GetClientActivity, GetProfileActivity } from '@anymind-ng/api';
+import { GetClientActivity, GetProfileActivity, GetSessionWithAccount } from '@anymind-ng/api';
 import ActivityTypeEnum = GetClientActivity.ActivityTypeEnum;
 import { catchError, switchMap, map, filter, first } from 'rxjs/operators';
 import { EMPTY, of, BehaviorSubject } from 'rxjs';
@@ -14,6 +14,8 @@ import { StepperComponent } from '@platform/shared/components/stepper/stepper.co
 import { roomEvents } from 'machoke-sdk';
 import { ISueDetails } from '@platform/shared/components/modals/activity-details/sue-details/sue-details.component';
 import { IFinancialOperationDetails } from '@platform/shared/components/modals/activity-details/financial-operation-details/financial-operation-details.component';
+import { select, Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
 export const MODAL_CLOSED_WITH_ERROR = 'MODAL_CLOSED_WITH_ERROR';
 
@@ -42,16 +44,25 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
    * used to show if component loaded data from the server
    */
   private componentLoaded = new BehaviorSubject<boolean>(false);
+  private accountId: string;
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
     private activityDetailsService: ActivityDetailsViewComponentService,
     private alertService: AlertService,
     private activeModal: NgbActiveModal,
+    private store: Store<fromCore.IState>,
     @Inject(ACTIVITY_DETAILS_DATA) private activityDetails: IProfileActivitiesWithStatus,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ActivityDetailsViewComponent'));
+    this.store
+      .pipe(
+        select(fromCore.getSession),
+        filter(getSession => typeof getSession !== 'undefined'),
+        first(),
+      )
+      .subscribe((getSession: GetSessionWithAccount) => (this.accountId = getSession.account.id));
   }
 
   public ngOnInit(): void {
@@ -100,7 +111,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
 
   private getCallDetails = (sueId: string, activityId: string): void => {
     this.activityDetailsService
-      .getCallDetails(sueId)
+      .getCallDetails(sueId, this.accountId)
       .pipe(
         catchError(err => {
           this.loggerService.warn('Error when try to getCallDetails', err);

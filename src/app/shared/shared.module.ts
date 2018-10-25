@@ -27,10 +27,6 @@ import { PreloaderContainerComponent } from './components/preloader/preloader-co
 import { ConsultationTagsComponent } from './components/consultation-tags/consultation-tags.component';
 import { ConsultationPriceComponent } from './components/consultation-price/consultation-price.component';
 import { InputTagsComponent } from './components/consultation-tags/input-tags/input-tags.component';
-import { DropdownListComponent } from './components/dropdown/dropdown/dropdown-list/dropdown-list.component';
-import { ScrollToElementDirective } from './components/dropdown/dropdown/dropdown-list/scroll-to-element.directive';
-import { DropdownComponent } from './components/dropdown/dropdown/dropdown.component';
-import { ToggleElementDirective } from './components/dropdown/dropdown/on-element-click.directive';
 import { ValidationDirective } from './directives/validation/validation.directive';
 import { PhoneNumberUnifyService } from './services/phone-number-unify/phone-number-unify.service';
 import { ExpandablePanelComponent } from './components/expandable-panel/expandable-panel.component';
@@ -67,10 +63,6 @@ import { FileUrlResolveService } from '@platform/shared/services/file-url-resolv
     ConsultationTagsComponent,
     ConsultationPriceComponent,
     InputTagsComponent,
-    DropdownListComponent,
-    ScrollToElementDirective,
-    DropdownComponent,
-    ToggleElementDirective,
     ValidationDirective,
     ExpandablePanelComponent,
     TagListComponent,
@@ -88,11 +80,8 @@ import { FileUrlResolveService } from '@platform/shared/services/file-url-resolv
     ConsultationTagsComponent,
     ConsultationPriceComponent,
     InputTagsComponent,
-    DropdownListComponent,
-    DropdownComponent,
     ValidationDirective,
     ExpandablePanelComponent,
-    ToggleElementDirective,
     TagListComponent,
     SettingOptionComponent,
   ],

@@ -7,9 +7,9 @@ plat-modal-component.activity-details-modal(
   plat-stepper(#stepper='platStepper', *ngIf="activityType === activityTypesEnum.SERVICEUSAGEEVENT")
     plat-step
       plat-sue-details(
-        [activityDetails]="sueDetails",
+        [sueDetails]="sueDetails",
         [isChatHistoryVisible]="isChatHistoryVisible",
-        (openChat)="onOpenChat()",
+        (openChat)="onOpenChat()"
       )
     plat-step
       plat-chat-history(

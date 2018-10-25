@@ -12,9 +12,10 @@ import { ModalsModule } from '@platform/shared/components/modals/modals.module';
 import { ChangeMsisdnComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/msisdn-settings/change-msisdn/change-msisdn.component';
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component';
+import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 
 @NgModule({
-  imports: [CommonModule, ModalsModule, InputsModule],
+  imports: [CommonModule, ModalsModule, InputsModule, DropdownModule],
   exports: [
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,

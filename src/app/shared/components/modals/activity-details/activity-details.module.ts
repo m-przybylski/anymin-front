@@ -9,9 +9,17 @@ import { ChatHistoryComponent } from './chat-history/chat-history.component';
 import { StepperModule } from '@platform/shared/components/stepper/stepper.module';
 import { FinancialOperationDetailsComponent } from './financial-operation-details/financial-operation-details.component';
 import { UuidTrimmerPipe } from '@platform/shared/components/modals/activity-details/uuid-trimmer.pipe';
+import { ConsultationCommentModule } from '@platform/shared/components/consultation-comment/consultation-comment.module';
 
 @NgModule({
-  imports: [CommonModule, ModalComponentsModule, TranslateModule, AnymindComponentsModule, StepperModule],
+  imports: [
+    CommonModule,
+    ModalComponentsModule,
+    TranslateModule,
+    AnymindComponentsModule,
+    StepperModule,
+    ConsultationCommentModule,
+  ],
   entryComponents: [ActivityDetailsViewComponent],
   declarations: [
     ActivityDetailsViewComponent,
