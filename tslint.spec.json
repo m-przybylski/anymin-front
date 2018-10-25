@@ -1,6 +1,7 @@
 {
   "extends": "./tslint.json",
   "rules": {
+    "no-inferred-empty-object-type": false,
     "max-line-length": [true, { "limit": 120, "ignore-pattern": "^import|^\\s{1,}it\\(" }],
     "no-magic-numbers": false
   }

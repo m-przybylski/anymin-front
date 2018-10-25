@@ -8,6 +8,7 @@
     "ng": "ng",
     "start": "npm run pug-watch | ng serve  --proxy-config proxy.conf.js",
     "serve": "npm run start",
+    "serve:demo": "ng serve --app=demo-app --port 4201 --proxy-config proxy.conf.js",
     "serve-ssl": "npm run start -- --ssl",
     "start-mobile": "pug src/app -P --doctype html --watch | ng serve --live-reload false  --proxy-config proxy.conf.js",
     "serve-mobile": "npm run start-mobile",

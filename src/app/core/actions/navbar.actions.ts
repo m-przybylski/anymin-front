@@ -1,6 +1,6 @@
 // tslint:disable:max-classes-per-file
 import { Action } from '@ngrx/store';
-import { UserTypeEnum } from 'app/core/reducers/navbar.reducer';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 
 export enum NavbarActionTypes {
   SetUserType = '[navbar] set user type',
