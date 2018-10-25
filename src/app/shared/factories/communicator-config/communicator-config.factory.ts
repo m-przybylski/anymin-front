@@ -23,7 +23,6 @@ export function CommunicatorConfigFactory(): UserConfig {
        */
       reconnectionDisabled: true,
       rtc: {
-        negotiationNeededDisabled: true,
         iceTransportPolicy: 'all',
         bundlePolicy: 'max-bundle',
         iceServers: [
@@ -38,6 +37,13 @@ export function CommunicatorConfigFactory(): UserConfig {
           },
         ],
       },
+      callstats:
+        EnvironmentService.get() === Environment.PRODUCTION
+          ? {
+              appId: '855932209',
+              appSecret: 'pz3m+iOw8/JF:DsraQEDX6LqyBCiOop5+z5jYKn3CDstcV7+9RhCATcU=',
+            }
+          : undefined,
     },
   };
 }
