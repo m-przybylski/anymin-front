@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2017", "dom"],
+    "outDir": "./dist/app",
+    "target": "es5",
+    "module": "es2015",
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "@platform/*": ["../../src/app/*"],
+      "@testing-app/*": ["./src/app/*"]
+    }
+  },
+  "exclude": ["../../node_modules", "**/*.spec.ts"]
+}

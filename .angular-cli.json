@@ -38,6 +38,20 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
+    },
+    {
+      "name": "demo-app",
+      "root": "projects/demo-app",
+      "prefix": "test",
+      "polyfills": "src/polyfills.ts",
+      "main": "src/main.ts",
+      "index": "src/index.html",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.app.json",
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts"
+      }
     }
   ],
   "e2e": {
