@@ -13,7 +13,7 @@ plat-modal-component(
             .generate-widget-social-share
               .generate-widget-social-link(*ngFor='let icon of socialMediaLinks')
                 button(plat-icon-button)
-                  span(plat-icon [iconClass]='icon.iconName')
+                  span(plat-icon, [iconClass]='icon.iconName')
           .generate-widget-step-content-section
             p(innerHtml="{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT2' | translate}}")
             .generate-widget-copy([plat-copy-to-clipboard]="widgetId") {{ widgetId }}
@@ -39,8 +39,8 @@ plat-modal-component(
                   .generate-widget-preview-footer-button-text {{ consultationPrice }} zł/min
                   .generate-widget-preview-footer-button-subtext {{"GENERATE_WIDGET_MODAL.CONTENT.FIRST_MINUTE" | translate}}
                 .generate-widget-preview-footer-button-right
-                  span(plat-icon-button color='secondary')
-                    span(plat-icon iconClass='headphone')
+                  span(plat-icon-button, color='secondary')
+                    span(plat-icon, iconClass='headphone')
               .generate-widget-preview-footer-text {{ "WIDGET.POWERED_BY_ANYMIND" | translate:"{missing: 'Powered by AnyMind'}" }}
     plat-step
       .generate-widget-step-content
