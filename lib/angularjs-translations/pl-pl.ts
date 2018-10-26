@@ -1080,6 +1080,8 @@ import 'angular-translate';
         'DASHBOARD.SETTINGS.CHANGE_NUMBER.TITLE': 'Numer telefonu',
         'DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON': 'Potwierdź kodem SMS',
         'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE': 'Numer telefonu',
+        'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOTLIP':
+          'Jeśli włączysz anonimowość, konsultanci nie zobaczą Twojego imienia, nazwiska oraz avatara. Twoje dane nie będą widoczne również w sekcji komentarzy.',
         'DASHBOARD.SETTINGS.CHANGE_ANONYMITY_TITLE.TOOLTIP': 'Tooltip anonimowość',
         'DASHBOARD.SETTINGS.CHANGE_PASSWORD_DESCRIPTION':
           'Dobrze jest użyć silnego hasła, którego nie używasz nigdzie indziej',
@@ -1414,7 +1416,7 @@ import 'angular-translate';
           'Hasło zostało pomyślnie zmienione. Możesz zalogować się do swojego konta korzystając z nowego hasła.',
         'LOGIN.PHONE_NUMBER_REQUIRED': 'Podaj swój numer telefonu. Przyślemy na niego kod do logowania.',
         'LOGIN.PIN_CODE.ACCEPT_MARKETING':
-          'Wyrażam zgodę na przesyłanie informacji handlowej środkami komunikacji elektronicznej z wykorzystaniem telekomunikacyjnych urządzeń końcowych przez lub na zlecenie Itelo Sp. z o. o.',
+          'Wyrażam zgodę na przesyłanie mi drogą elektroniczną informacji o produkcjach i usługach świadczonych przez Itelo sp. z o.o.',
         'LOGIN.PIN_CODE.ACCEPT_MARKETING.VALIDATION_MESSAGE':
           'Aby korzystać z serwisu, musisz wyrazić zgodę na przetwarzanie danych',
         'LOGIN.PIN_CODE.ACCEPT_TERMS':
@@ -1609,7 +1611,7 @@ import 'angular-translate';
         'SETTINGS.GENERAL.BASIC_ACCOUNT.FILE_FORMAT_ERROR':
           'Ten format pliku nie jest obsługiwany. Obsługiwane formaty pliku: .jpg, .jpeg, .png.',
         'SETTINGS.GENERAL.BASIC_ACCOUNT.FILE_SIZE_ERROR':
-          'Podany plik jest za duży. Maksymalna wielkość pliku wynosi 30MB',
+          'Wybrany plik jest za duży. Maksymalna wielkość pliku wynosi 30MB',
         'SETTINGS.GENERAL.BASIC_ACCOUNT.FULL_NAME.INPUT.VALIDATION': 'Wpisz prawidłowe dane',
         'SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER': 'Edytuj imię, nazwisko i zdjęcie',
         'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL':
@@ -1749,7 +1751,7 @@ import 'angular-translate';
         'WIZARD.CONSULTATION.VALIDATE_FORM': 'Nie wszystkie pola są wypełnione poprawnie. Sprawdź dane.',
         'WIZARD.CREATE_PROFILE.FILE_FORMAT_ERROR':
           'Ten format pliku nie jest obsługiwany. Obsługiwane formaty pliku: .jpg, .jpeg, .png.',
-        'WIZARD.CREATE_PROFILE.FILE_SIZE_ERROR': 'Podany plik jest za duży. Maksymalna wielkość pliku wynosi 30MB',
+        'WIZARD.CREATE_PROFILE.FILE_SIZE_ERROR': 'Wybrany plik jest za duży. Maksymalna wielkość pliku wynosi 30MB',
         'WIZARD.CREATE_PROFILE.UPLOAD_FAILED': 'Wgrywanie pliku nie powiodło się, spróbuj ponownie',
         'WIZARD.EXPERT.AVATAR_INPUT_VALIDATION': 'Zdjęcie profilowe jest wymagane.',
         'WIZARD.EXPERT.LANGUAGES_INPUT_VALIDATION': 'Należy wybrać przynajmniej jeden język',
@@ -1966,7 +1968,7 @@ import 'angular-translate';
         'DASHBOARD.SETTINGS.CHANGE_MSISDN.SUBMIT_BUTTON': 'Potwierdź',
         'ALERT.MSISDN_CHANGED.SUCCESS': 'Numer telefonu został zmieniony!',
         'LOGIN.PIN_CODE.RODO_POLICY':
-          "Administratorem danych osobowych jest Itelo Sp. z o. o. z siedzibą w Krakowie. Osobą do kontaktu w sprawach związanych z przetwarzaniem danych osobowych jest Anna Ryś. Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenia usług dostępnych w Serwisie [na podstawie art. 6 ust. 1 lit. b) RODO oraz w celu marketingu produktów lub usług  Spółki na podstawie art. 6 ust. 1 lit. f) RODO tj. prawnie uzasadnionych interesów realizowanych przez Spółkę. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>.",
+          "Administratorem Twoich danych osobowych jest Itelo sp. z o.o. z siedzibą w Krakowie (rodo@anymind.com). Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenie usług w serwisie anymind.com, a w przypadku Twojej zgody (którą możesz w każdej chwili cofnąć), w celu dostarczania Ci informacji o naszych produktach i usługach. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>.",
       });
     },
   ]);
