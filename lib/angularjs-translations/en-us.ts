@@ -1081,7 +1081,7 @@ import 'angular-translate';
         'DASHBOARD.SETTINGS.CHANGE_NUMBER.TITLE': 'Numer telefonu',
         'DASHBOARD.SETTINGS.CHANGE_NUMBER_BUTTON': 'Potwierdź kodem SMS',
         'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE': 'Numer telefonu',
-        'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOTLIP':
+        'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOLTIP':
           'Jeśli włączysz anonimowość, konsultanci nie zobaczą Twojego imienia, nazwiska oraz avatara. Twoje dane nie będą widoczne również w sekcji komentarzy.',
         'DASHBOARD.SETTINGS.CHANGE_ANONYMITY_TITLE.TOOLTIP': 'Tooltip anonimowość',
         'DASHBOARD.SETTINGS.CHANGE_PASSWORD_DESCRIPTION':
