@@ -248,18 +248,23 @@ export class CallInvitationService extends Logger {
         };
 
         const callingModal = this.modalsService.open(CreateIncomingCallComponent, options);
-        callingModal.result.then(
-          isAnswerActionCalledFromUI => {
-            if (isAnswerActionCalledFromUI) {
-              this.handleAnswerCallInvitation(expertSueDetails, call);
-            } else {
-              this.loggerService.debug('Modal closed by external event');
-            }
-          },
-          () => {
-            this.rejectCallInvitation(call);
-          },
-        );
+        callingModal.componentInstance.answerCall = (): void => {
+          this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
+            localStreams => {
+              this.handleAnswerCallInvitation(localStreams, expertSueDetails, call);
+              callingModal.close();
+            },
+            error => {
+              this.loggerService.debug('Could not get user media stream: ', error);
+              this.alertService.pushDangerAlert('COMMUNICATOR.BLOCKED_MEDIA');
+            },
+          );
+        };
+
+        callingModal.componentInstance.rejectCall = (): void => {
+          this.rejectCallInvitation(call);
+          callingModal.dismiss();
+        };
 
         // Client went offline when calling
         call.offline$.subscribe(offline => this.handleClientWentOfflineBeforeAnswering(offline, call, callingModal));
@@ -333,46 +338,42 @@ export class CallInvitationService extends Logger {
     this.soundsService.playCallRejected().catch(err => this.loggerService.warn('could not play rejected sound', err));
   };
 
-  private handleAnswerCallInvitation = (incomingCallDetails: GetExpertSueDetails, call: BusinessCall): void => {
-    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
-      localStream => {
-        const currentMediaTracks = localStream.getTracks();
-        currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
-        const session = this.session;
-        const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
-        if (session) {
-          currentExpertCall.answer(session, currentMediaTracks).then(
-            () => {
-              race(currentExpertCall.callDestroyed$, this.callService.hangupCall$)
-                .pipe(first())
-                .subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
-              this.callAnswered$.next();
-              this.soundsService.callIncomingSound().stop();
-              void this.router.navigate(['communicator', call.id]).then(isRedirectSuccessful => {
-                if (!isRedirectSuccessful) {
-                  this.loggerService.warn('Error when redirect to communicator');
-                  this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-                }
-              });
-              this.callService.pushCallEvent({
-                currentExpertCall,
-                session,
-              });
-            },
-            err => {
-              this.soundsService.callIncomingSound().stop();
-              this.loggerService.error('ExpertCallService: Could not answer the call', err);
-            },
-          );
-        } else {
-          this.loggerService.error('ExpertCallService: Session is undefined');
-        }
-      },
-      err => {
-        this.rejectCallInvitation(call);
-        this.loggerService.warn('CallInvitationService: Could not get user media', err);
-      },
-    );
+  private handleAnswerCallInvitation = (
+    localStreams: MediaStream,
+    incomingCallDetails: GetExpertSueDetails,
+    call: BusinessCall,
+  ): void => {
+    const currentMediaTracks = localStreams.getTracks();
+    currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
+    const session = this.session;
+    const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
+    if (session) {
+      currentExpertCall.answer(session, currentMediaTracks).then(
+        () => {
+          race(currentExpertCall.callDestroyed$, this.callService.hangupCall$)
+            .pipe(first())
+            .subscribe(() => this.onAnsweredCallEnd(currentExpertCall));
+          this.callAnswered$.next();
+          this.soundsService.callIncomingSound().stop();
+          void this.router.navigate(['communicator', call.id]).then(isRedirectSuccessful => {
+            if (!isRedirectSuccessful) {
+              this.loggerService.warn('Error when redirect to communicator');
+              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+            }
+          });
+          this.callService.pushCallEvent({
+            currentExpertCall,
+            session,
+          });
+        },
+        err => {
+          this.soundsService.callIncomingSound().stop();
+          this.loggerService.error('ExpertCallService: Could not answer the call', err);
+        },
+      );
+    } else {
+      this.loggerService.error('ExpertCallService: Session is undefined');
+    }
   };
 
   private rejectCallInvitation = (call: BusinessCall): void => {
