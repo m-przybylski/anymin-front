@@ -23,7 +23,6 @@ plat-modal-component(
         [isChangeOnSubmit]="isChangeOnSubmit",
         [pattern]="emailPattern",
         (onEnterClick)="onEnter($event)",
-        [isValidationVisibleOnBlur]="isDropdownListVisible"
         )
 
         plat-dropdown(
@@ -64,5 +63,5 @@ plat-modal-component(
       am-core-submit-button(
         (click)="onClickSend(inviteEmployeesFormGroupName)",
         [titleText]="'INVITE_EMPLOYEES.BUTTON'",
-        [isDisabled]="invitedEmployeeList.length === 0",
+        [isDisabled]="invitedEmployeeList.length === 0 || !inviteEmployeesFormGroupName.valid",
       )
