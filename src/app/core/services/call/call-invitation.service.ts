@@ -368,7 +368,10 @@ export class CallInvitationService extends Logger {
           this.loggerService.error('ExpertCallService: Session is undefined');
         }
       },
-      err => this.loggerService.warn('CallInvitationService: Could not get user media', err),
+      err => {
+        this.rejectCallInvitation(call);
+        this.loggerService.warn('CallInvitationService: Could not get user media', err);
+      },
     );
   };
 
