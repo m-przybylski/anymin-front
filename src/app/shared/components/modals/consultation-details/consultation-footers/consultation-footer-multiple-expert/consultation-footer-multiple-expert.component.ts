@@ -26,6 +26,6 @@ export class ConsultationFooterMultipleExpertComponent extends Logger implements
 
   private moneyPipe = new MoneyToAmount(this.loggerService);
   constructor(@Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData, loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ConsultationFooterMultipleExpertComponent'));
   }
 }

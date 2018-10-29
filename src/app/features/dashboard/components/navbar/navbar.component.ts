@@ -44,7 +44,7 @@ export class NavbarComponent extends Logger {
     private navbarComponentService: NavbarComponentService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('NavbarComponentService'));
 
     this.store
       .pipe(

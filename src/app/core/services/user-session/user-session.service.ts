@@ -24,7 +24,7 @@ export class UserSessionService extends Logger {
     private callInvitationService: CallInvitationService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('UserSessionService'));
   }
 
   public logout = (): Promise<void> =>

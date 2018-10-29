@@ -30,7 +30,7 @@ export class ConsultationDetailsViewService extends Logger {
     private expertAvailabilityService: ExpertAvailabilityService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ConsultationDetailsViewService'));
   }
 
   public getServiceDetails = (serviceId: string, employeeId: string): Observable<IConsultationDetails> =>

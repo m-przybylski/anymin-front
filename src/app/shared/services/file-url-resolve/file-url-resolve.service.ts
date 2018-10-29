@@ -6,7 +6,7 @@ import { getCoreConfig } from '@platform/core/factories/core-config/core-config.
 @Injectable()
 export class FileUrlResolveService extends Logger {
   constructor(loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('FileUrlResolveService'));
   }
 
   public getFileDownloadUrl = (fileToken?: string): string => {

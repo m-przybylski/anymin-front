@@ -76,7 +76,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CreateEditConsultationModalComponent'));
   }
 
   public ngOnInit(): void {

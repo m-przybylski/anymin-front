@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ChangeAnonymityComponentService } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -22,8 +22,6 @@ export class ChangeAnonymityComponent extends Logger implements OnDestroy {
 
   public changeAnonymityForm: FormGroup;
 
-  protected loggerService: LoggerService;
-
   private isAnonymous: boolean;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   private anonymityControl: FormControl;
@@ -34,7 +32,7 @@ export class ChangeAnonymityComponent extends Logger implements OnDestroy {
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ChangeAnonymityComponent'));
     this.getIsAnonymousFromSession();
     this.anonymityControl = new FormControl(this.isAnonymous);
     this.changeAnonymityForm = new FormGroup({

@@ -36,7 +36,7 @@ export class PhoneNumberViewComponent extends Logger implements OnInit {
     private inputPhoneNumber: InputPhoneNumberService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('PhoneNumberViewComponent'));
   }
 
   public ngOnInit(): void {

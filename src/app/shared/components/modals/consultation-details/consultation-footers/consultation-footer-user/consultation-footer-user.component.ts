@@ -68,7 +68,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
   constructor(@Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData, loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ConsultationFooterUserComponent'));
   }
 
   public ngOnDestroy(): void {

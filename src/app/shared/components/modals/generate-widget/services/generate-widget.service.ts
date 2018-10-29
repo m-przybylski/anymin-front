@@ -17,7 +17,7 @@ export class GenerateWidgetService extends Logger {
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('GenerateWidgetService'));
     this.moneyToAmount = new MoneyToAmount(this.loggerService);
   }
 

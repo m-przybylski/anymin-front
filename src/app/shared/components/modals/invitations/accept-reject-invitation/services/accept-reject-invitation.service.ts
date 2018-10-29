@@ -16,7 +16,7 @@ export class AcceptRejectInvitationService extends Logger {
     private serviceService: ServiceService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('AcceptRejectInvitationService'));
   }
 
   /**

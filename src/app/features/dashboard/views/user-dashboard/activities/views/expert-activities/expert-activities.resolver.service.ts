@@ -21,7 +21,7 @@ export class ExpertActivitiesResolverService extends Logger implements Resolve<I
     private activitiesService: ActivitiesService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ExpertActivitiesResolverService'));
   }
 
   public resolve(): Observable<IActivitiesResolverData> {

@@ -28,7 +28,7 @@ export class PushNotificationService extends Logger {
   private readonly oneSignal$ = new ReplaySubject<IOneSignal>(1);
 
   constructor(private translate: TranslateService, loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('PushNotificationService'));
   }
 
   public initialize(): void {

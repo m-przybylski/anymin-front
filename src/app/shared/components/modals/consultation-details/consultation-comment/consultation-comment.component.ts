@@ -60,7 +60,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ConsultationCommentComponent'));
   }
 
   public ngOnInit(): void {

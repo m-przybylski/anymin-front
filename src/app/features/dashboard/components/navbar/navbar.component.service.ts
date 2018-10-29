@@ -22,7 +22,7 @@ export class NavbarComponentService extends Logger {
     loggerFactory: LoggerFactory,
     @Inject(NAVIGATIONITEMS) private navigationItems: ReadonlyArray<INavigationItem>,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('NavbarComponentService'));
   }
 
   public getProfileData = (accountId: string): Observable<GetProfileWithDocuments> =>

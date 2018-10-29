@@ -65,7 +65,7 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CreateCallSummaryComponent'));
   }
 
   public ngOnInit(): void {

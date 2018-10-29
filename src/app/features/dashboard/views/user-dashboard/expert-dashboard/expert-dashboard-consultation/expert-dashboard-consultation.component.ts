@@ -51,7 +51,7 @@ export class ExpertDashboardConsultationsComponent extends Logger {
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ExpertDashboardConsultationsComponent'));
   }
 
   public add = (): void => {

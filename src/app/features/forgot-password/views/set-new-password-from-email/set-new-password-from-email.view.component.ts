@@ -38,7 +38,7 @@ export class SetNewPasswordFromEmailViewComponent extends Logger implements OnIn
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('SetNewPasswordFromEmailViewComponent'));
   }
 
   public ngOnInit(): void {

@@ -25,7 +25,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
     private router: Router,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('InvitationsListComponent'));
     this.route.data.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(({ data }: { data: ReadonlyArray<IInvitation> }) => {
       this.invitations = data;
     });
@@ -34,7 +34,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
   public ngOnDestroy = (): void => {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
-  }
+  };
 
   public onInvitationClicked = (invitationId: string): void => {
     const injector = this.setupInjector(invitationId);

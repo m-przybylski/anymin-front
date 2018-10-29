@@ -30,7 +30,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
     private profileService: ProfileService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewService'));
   }
 
   public getConsultationDetails = (serviceId: string): Observable<ICompanyConsultationDetails> =>

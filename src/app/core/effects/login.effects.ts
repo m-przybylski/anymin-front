@@ -91,6 +91,6 @@ export class LoginEffects extends Logger {
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('LoginEffects'));
   }
 }
