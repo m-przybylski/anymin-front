@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { AvatarSize, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { INCOMING_CALL, IncomingCallData } from '@platform/shared/components/modals/call-modals/incoming-call/token';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'plat-incoming-call',
@@ -15,22 +14,11 @@ export class CreateIncomingCallComponent extends Logger {
   public isConnecting = true;
   public clientAvatar?: string;
 
-  private readonly isAnswerActionCalledFromUI = true;
+  public answerCall: () => void;
+  public rejectCall: () => void;
 
-  constructor(
-    private activeModal: NgbActiveModal,
-    loggerFactory: LoggerFactory,
-    @Inject(INCOMING_CALL) incomingCallData: IncomingCallData,
-  ) {
+  constructor(loggerFactory: LoggerFactory, @Inject(INCOMING_CALL) incomingCallData: IncomingCallData) {
     super(loggerFactory.createLoggerService('CreateIncomingCallComponent'));
     this.serviceName = incomingCallData.serviceName;
   }
-
-  public rejectCall = (): void => {
-    this.activeModal.dismiss();
-  };
-
-  public answerCall = (): void => {
-    this.activeModal.close(this.isAnswerActionCalledFromUI);
-  };
 }
