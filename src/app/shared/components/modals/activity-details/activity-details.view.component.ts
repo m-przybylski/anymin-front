@@ -51,7 +51,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     @Inject(ACTIVITY_DETAILS_DATA) private activityDetails: IProfileActivitiesWithStatus,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ActivityDetailsViewComponent'));
   }
 
   public ngOnInit(): void {

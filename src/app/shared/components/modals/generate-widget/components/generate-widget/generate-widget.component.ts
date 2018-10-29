@@ -72,7 +72,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('GenerateWidgetComponent'));
     this.serviceId = data.serviceId;
     this.expertId = data.expertId;
     this.widgetId = data.widgetId;

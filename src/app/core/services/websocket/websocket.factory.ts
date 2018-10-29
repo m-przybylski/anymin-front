@@ -6,7 +6,7 @@ import { Logger } from '@platform/core/logger';
 @Injectable()
 export class WebSocketServiceFactory<T> extends Logger {
   constructor(loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('WebSocketService'));
   }
 
   public create = (endpointUrl: string): WebSocketService<T> => new WebSocketService(this.loggerService, endpointUrl);

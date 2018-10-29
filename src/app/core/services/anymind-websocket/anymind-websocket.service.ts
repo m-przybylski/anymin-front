@@ -110,7 +110,7 @@ export class AnymindWebsocketService extends Logger {
     store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('AnymindWebsocketService'));
 
     store
       .pipe(

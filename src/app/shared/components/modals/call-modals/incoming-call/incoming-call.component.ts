@@ -22,7 +22,7 @@ export class CreateIncomingCallComponent extends Logger {
     loggerFactory: LoggerFactory,
     @Inject(INCOMING_CALL) incomingCallData: IncomingCallData,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CreateIncomingCallComponent'));
     this.serviceName = incomingCallData.serviceName;
   }
 

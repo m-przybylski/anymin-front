@@ -56,7 +56,7 @@ export class CallInvitationService extends Logger {
     private injector: Injector,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CallInvitationService'));
   }
 
   public unregisterFromPushNotifications = (): Promise<void> => {

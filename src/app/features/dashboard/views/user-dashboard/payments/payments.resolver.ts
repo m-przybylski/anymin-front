@@ -11,7 +11,7 @@ export class PaymentsResolver extends Logger implements Resolve<GetPayoutMethod>
   protected loggerService: LoggerService;
 
   constructor(private payoutsService: PayoutsService, loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('PaymentsResolver'));
   }
 
   public resolve = (): Observable<GetPayoutMethod> =>

@@ -73,7 +73,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     loggerFactory: LoggerFactory,
     communicatorService: CommunicatorService,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CommunicatorComponent'));
     communicatorService.connectionEstablishedEvent$
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => (this.isReconnecting = false));

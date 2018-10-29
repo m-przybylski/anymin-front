@@ -21,7 +21,7 @@ export class ActivityDetailsViewComponentService extends Logger {
     private fileUrlService: FileUrlResolveService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ActivityDetailsViewComponentService'));
   }
 
   public getCallDetails = (sueId: string): Observable<ISueDetails> =>

@@ -35,7 +35,7 @@ export class PayPalAccountComponent extends Logger implements AfterViewInit {
     private route: ActivatedRoute,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('PayPalAccountComponent'));
     this.payPalAccountForm = new FormGroup({});
   }
 

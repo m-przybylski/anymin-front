@@ -36,7 +36,7 @@ export class BankAccountComponent extends Logger implements AfterViewInit {
     private route: ActivatedRoute,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('BankAccountComponent'));
     this.changeBankAccountForm = new FormGroup({});
 
     this.changeBankAccountForm.setControl(

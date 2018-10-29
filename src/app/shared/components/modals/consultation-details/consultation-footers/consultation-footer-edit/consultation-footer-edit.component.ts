@@ -71,7 +71,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ConsultationFooterEditComponent'));
   }
 
   public ngOnDestroy(): void {

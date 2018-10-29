@@ -9,7 +9,7 @@ import { Logger } from '@platform/core/logger';
 @Injectable()
 export class CommunicatorGuard extends Logger implements CanActivate {
   constructor(private expertCallService: ExpertCallService, loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CommunicatorGuard'));
   }
 
   public canActivate(): Observable<boolean> {

@@ -33,7 +33,7 @@ export class FinancialOperationDetailsComponent extends Logger {
   private readonly moneyDivider = 100;
 
   constructor(loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('FinancialOperationDetailsComponent'));
   }
 
   private assignValuesForUI = (activityDetails: IFinancialOperationDetails): void => {

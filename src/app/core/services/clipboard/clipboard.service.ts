@@ -7,7 +7,7 @@ const TEXT_PLAIN = 'text/plain';
 @Injectable()
 export class ClipboardService extends Logger {
   constructor(loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ClipboardService'));
   }
 
   public async writeText(textToCopy: string): Promise<void> {

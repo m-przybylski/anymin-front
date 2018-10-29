@@ -47,7 +47,7 @@ export class PhoneNumberViewService extends Logger {
     private helper: LoginHelperService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('PhoneNumberViewService'));
   }
 
   public handlePhoneNumber = (msisdn: string): Observable<PhoneNumberServiceStatus> =>

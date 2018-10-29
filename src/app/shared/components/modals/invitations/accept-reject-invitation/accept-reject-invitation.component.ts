@@ -35,7 +35,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
     private loader: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('AcceptRejectInvitationModalComponent'));
     this.moneyPipe = new MoneyToAmount(this.loggerService);
   }
   public ngOnInit(): void {

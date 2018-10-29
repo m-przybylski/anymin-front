@@ -47,7 +47,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     private companyConsultationDetailsViewService: CompanyConsultationDetailsViewService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewComponent'));
   }
 
   public ngOnInit(): void {

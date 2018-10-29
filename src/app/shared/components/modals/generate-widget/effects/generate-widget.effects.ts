@@ -77,6 +77,6 @@ export class GenerateWidgetEffects extends Logger {
     private generateWidgetService: GenerateWidgetService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('GenerateWidgetEffects'));
   }
 }

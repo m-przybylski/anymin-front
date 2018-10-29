@@ -15,7 +15,7 @@ export class DashboardResolver extends Logger implements Resolve<boolean> {
   protected loggerService: LoggerService;
 
   constructor(private store: Store<fromCore.IState>, loggerFactory: LoggerFactory) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('DashboardResolver'));
   }
 
   public resolve = (): Observable<boolean> =>

@@ -31,7 +31,7 @@ export class ConsultationDetailsActionsService extends Logger {
     private injector: Injector,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory);
+    super(loggerFactory.createLoggerService('ConsultationDetailsActionsService'));
   }
 
   public editConsultation = ({
