@@ -51,16 +51,19 @@ export class GenerateWidgetDataService extends Logger {
           ),
           map(getServiceWithEmployees => {
             if (getServiceWithEmployees) {
-              const expertDetails = getServiceWithEmployees.employeesDetails.find(
+              const tempExpertDetails = getServiceWithEmployees.employeesDetails.find(
                 employmentWithExpertProfile => employmentWithExpertProfile.employeeProfile.id === getWidget.expertId,
               );
+
+              // expertId is not required. If expertId === undefined pick first from the list
+              const expertDetails = tempExpertDetails ? tempExpertDetails : getServiceWithEmployees.employeesDetails[0];
 
               return {
                 serviceName: getServiceWithEmployees.serviceDetails.name,
                 serviceDesc: getServiceWithEmployees.serviceDetails.description,
                 servicePrice: this.moneyToAmount.transform(getServiceWithEmployees.serviceDetails.grossPrice),
-                expertName: expertDetails && expertDetails.employeeProfile.name,
-                expertAvatar: expertDetails && expertDetails.employeeProfile.avatar,
+                expertName: expertDetails.employeeProfile.name,
+                expertAvatar: expertDetails.employeeProfile.avatar,
               };
             }
 

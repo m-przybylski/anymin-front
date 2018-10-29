@@ -16,12 +16,12 @@ export class FetchWidgetIdAction implements Action {
 
 export class StartOpenGenerateWidgetAction implements Action {
   public readonly type = GenerateWidgetActionTypes.StartOpenGenerateWidgetModal;
-  constructor(public payload: { expertId: string; serviceId: string }) {}
+  constructor(public payload: { expertId?: string; serviceId: string }) {}
 }
 
 export class OpenGenerateWidgetAction implements Action {
   public readonly type = GenerateWidgetActionTypes.OpenGenerateWidgetModal;
-  constructor(public payload: { expertId: string; serviceId: string; widgetId: string }) {}
+  constructor(public payload: { expertId?: string; serviceId: string; widgetId: string }) {}
 }
 
 export class FetchWidgetIdSuccessAction implements Action {

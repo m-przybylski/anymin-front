@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ComponentRef, ViewContainerRef } from '@angular/core';
 import {
   EmploymentService,
   ProfileService,
@@ -17,6 +17,12 @@ import { map, switchMap, filter, catchError, take } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { ConsultationFootersService } from './consultation-footers.service';
+import {
+  IFooterOutput,
+  FooterComponentConstructor,
+  IConsultationFooterData,
+} from './consultation-footers/consultation-footer-helpers';
 
 @Injectable()
 export class ConsultationDetailsViewService extends Logger {
@@ -28,6 +34,7 @@ export class ConsultationDetailsViewService extends Logger {
     private paymentsService: PaymentsService,
     private financesService: FinancesService,
     private expertAvailabilityService: ExpertAvailabilityService,
+    private consultationFootersService: ConsultationFootersService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationDetailsViewService'));
@@ -118,6 +125,13 @@ export class ConsultationDetailsViewService extends Logger {
     );
   public getComments = (employmentId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
     this.employmentService.getEmploymentCommentsRoute(employmentId, limit, offset);
+
+  public attachFooter = (
+    component: FooterComponentConstructor,
+    viewContainerRef: ViewContainerRef,
+    footerData: IConsultationFooterData,
+  ): ComponentRef<IFooterOutput> =>
+    this.consultationFootersService.attachFooter(component, viewContainerRef, footerData);
 
   private pluckEmploymentId = (getServiceWithEmployees: GetServiceWithEmployees, serviceId: string): string => {
     const employeeDetail = getServiceWithEmployees.employeesDetails.find(

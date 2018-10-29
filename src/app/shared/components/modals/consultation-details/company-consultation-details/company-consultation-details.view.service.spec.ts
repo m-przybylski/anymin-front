@@ -1,9 +1,16 @@
-import { EmploymentService, InvitationService, ProfileService, ServiceService } from '@anymind-ng/api';
+import {
+  EmploymentService,
+  InvitationService,
+  ProfileService,
+  ServiceService,
+  FinancesService,
+  PaymentsService,
+} from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { TestBed } from '@angular/core/testing';
-import { provideMockFactoryLogger } from '../../../../../testing/testing';
+import { provideMockFactoryLogger } from 'testing/testing';
 import { cold } from 'jasmine-marbles';
-import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
+import { CompanyConsultationDetailsViewService } from './company-consultation-details.view.service';
 
 describe('CompanyConsultationDetailsViewService', () => {
   let service: CompanyConsultationDetailsViewService;
@@ -28,6 +35,14 @@ describe('CompanyConsultationDetailsViewService', () => {
           provide: ProfileService,
           useValue: Deceiver(ProfileService),
         },
+        {
+          provide: FinancesService,
+          useValue: Deceiver(FinancesService),
+        },
+        {
+          provide: PaymentsService,
+          useValue: Deceiver(PaymentsService),
+        },
         provideMockFactoryLogger(),
       ],
     });
@@ -40,26 +55,12 @@ describe('CompanyConsultationDetailsViewService', () => {
   it('should get consultation details', () => {
     const profileService = TestBed.get(ProfileService);
     const serviceService = TestBed.get(ServiceService);
+    const financesService: FinancesService = TestBed.get(FinancesService);
+    const paymentsService: PaymentsService = TestBed.get(PaymentsService);
 
     const getServiceTags = {
       serviceId: '1234',
       tags: [{ name: 'tag' }, { name: 'tag2' }],
-    };
-
-    const getService = {
-      id: '1234',
-      ownerId: 'ownerId',
-      name: 'Name',
-      description: 'Description',
-      price: {
-        amount: 1,
-        currency: 'PLN',
-      },
-      language: 'pl',
-      isSuspended: false,
-      isFreelance: false,
-      createdAt: new Date(),
-      deletedAt: new Date(),
     };
 
     const moneyDto = {
@@ -109,10 +110,7 @@ describe('CompanyConsultationDetailsViewService', () => {
 
     const result = {
       tagsList: ['tag', 'tag2'],
-      serviceDetails: {
-        consultationDetails: getService,
-        profileDetails: getProfileWithDocuments,
-      },
+      serviceDetails: getServiceWithEmployees,
       employeesList: [
         {
           usageCounter: employmentWithExpertProfile.usageCounter,
@@ -124,20 +122,28 @@ describe('CompanyConsultationDetailsViewService', () => {
           employeeId: employmentWithExpertProfile.employeeProfile.id,
         },
       ],
+      payment: {},
+      balance: { amount: 0, currency: '' },
     };
 
     const expected = cold('--(a|)', { a: result });
 
     const postServicesTagsRoute = cold('-(a|)', { a: [getServiceTags] });
-    const getServiceRoute = cold('-(a|)', { a: getService });
     const getProfileRoute = cold('-(a|)', { a: getProfileWithDocuments });
     const postServiceWithEmployeesRoute = cold('-(a|)', { a: [getServiceWithEmployees] });
+    const getClientBalanceRoute = cold('-#');
+    const getDefaultPaymentMethodRoute = cold('-#');
 
     serviceService.postServicesTagsRoute = jasmine
       .createSpy('postServicesTagsRoute')
       .and.returnValue(postServicesTagsRoute);
-    serviceService.getServiceRoute = jasmine.createSpy('getServiceRoute').and.returnValue(getServiceRoute);
     profileService.getProfileRoute = jasmine.createSpy('getProfileRoute').and.returnValue(getProfileRoute);
+    financesService.getClientBalanceRoute = jasmine
+      .createSpy('getClientBalanceRoute')
+      .and.returnValue(getClientBalanceRoute);
+    paymentsService.getDefaultPaymentMethodRoute = jasmine
+      .createSpy('getDefaultPaymentMethodRoute')
+      .and.returnValue(getDefaultPaymentMethodRoute);
     serviceService.postServiceWithEmployeesRoute = jasmine
       .createSpy('postServiceWithEmployeesRoute')
       .and.returnValue(postServiceWithEmployeesRoute);
@@ -148,6 +154,8 @@ describe('CompanyConsultationDetailsViewService', () => {
   it('should get error when get tags list', () => {
     const profileService = TestBed.get(ProfileService);
     const serviceService = TestBed.get(ServiceService);
+    const financesService: FinancesService = TestBed.get(FinancesService);
+    const paymentsService: PaymentsService = TestBed.get(PaymentsService);
 
     const result = undefined;
     const error = 'error';
@@ -166,6 +174,10 @@ describe('CompanyConsultationDetailsViewService', () => {
     serviceService.postServiceWithEmployeesRoute = jasmine
       .createSpy('postServiceWithEmployeesRoute')
       .and.returnValue(postServiceWithEmployeesRoute);
+    financesService.getClientBalanceRoute = jasmine.createSpy('getClientBalanceRoute').and.returnValue(cold('-#'));
+    paymentsService.getDefaultPaymentMethodRoute = jasmine
+      .createSpy('getDefaultPaymentMethodRoute')
+      .and.returnValue(cold('-#'));
 
     expect(service.getConsultationDetails('1234')).toBeObservable(expected);
   });

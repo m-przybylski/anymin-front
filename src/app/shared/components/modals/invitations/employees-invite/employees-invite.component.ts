@@ -10,7 +10,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CompanyConsultationDetailsViewService } from '@platform/shared/components/modals/company-consultation-details/company-consultation-details.view.service';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
 import { PostInvitation } from '@anymind-ng/api';
 
@@ -29,7 +28,6 @@ export interface IEmployeesInviteComponent {
   templateUrl: './employees-invite.component.html',
   styleUrls: ['./employees-invite.component.sass'],
   animations: Animations.addItemAnimation,
-  providers: [CompanyConsultationDetailsViewService],
 })
 export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public readonly avatarSize = AvatarSizeEnum.X_24;

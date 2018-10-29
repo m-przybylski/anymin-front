@@ -5,11 +5,11 @@ plat-modal-component(
   .company-consultation-details(*ngIf="!isPending")
     plat-consultation-details(
     [avatarSize]="avatarSize",
-    [avatarToken]="profileDetails.profile.organizationDetails.logo",
-    [expertName]="profileDetails.profile.organizationDetails.name",
-    [serviceName]="consultationDetails.name",
-    [registeredAt]="consultationDetails.createdAt",
-    [serviceDescription]="consultationDetails.description",
+    [avatarToken]="avatarToken",
+    [expertName]="expertName",
+    [serviceName]="serviceName",
+    [registeredAt]="registeredAt",
+    [serviceDescription]="serviceDescription",
     [tagList]="tagList",
     )
 
@@ -46,4 +46,5 @@ plat-modal-component(
               (onDeleteEmployeeEmiter)="onDeletePendingInvitation($event)",
               [isOwnProfile]="isOwnProfile",
             )
-
+  .modal-component__footer
+    ng-container(#footerContainer)

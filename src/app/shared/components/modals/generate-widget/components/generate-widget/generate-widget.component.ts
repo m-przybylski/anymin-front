@@ -29,7 +29,7 @@ interface IShareLink {
 })
 export class GenerateWidgetComponent extends Logger implements OnInit, AfterViewInit, OnDestroy {
   public serviceId: string;
-  public expertId: string;
+  public expertId?: string;
   public widgetLink: string;
   public widgetId: string;
   public headScript: string;

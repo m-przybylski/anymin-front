@@ -79,26 +79,28 @@ export class ConsultationDetailsActionsService extends Logger {
       });
   };
   public leaveConsultation = ({ serviceId, modal, employmentId }: IConsultationDetailActionParameters): void => {
-    this.confirmationService
-      .confirm('CONSULTATION_DETAILS.LEAVE.HEADER', 'CONSULTATION_DETAILS.LEAVE.MESSAGE')
-      .pipe(
-        filter(confirmed => confirmed),
-        switchMap(() =>
-          this.employmentService.deleteEmploymentRoute(employmentId).pipe(
-            catchError(err => {
-              this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
-              this.loggerService.warn('Cannot leave consultation', err);
+    if (typeof employmentId !== 'undefined') {
+      this.confirmationService
+        .confirm('CONSULTATION_DETAILS.LEAVE.HEADER', 'CONSULTATION_DETAILS.LEAVE.MESSAGE')
+        .pipe(
+          filter(confirmed => confirmed),
+          switchMap(() =>
+            this.employmentService.deleteEmploymentRoute(employmentId).pipe(
+              catchError(err => {
+                this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
+                this.loggerService.warn('Cannot leave consultation', err);
 
-              return EMPTY;
-            }),
+                return EMPTY;
+              }),
+            ),
           ),
-        ),
-      )
-      .subscribe(() => {
-        this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.LEAVE_SUCCESS');
-        this.loggerService.debug('Consultation removed!');
-        modal.close(serviceId);
-      });
+        )
+        .subscribe(() => {
+          this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.LEAVE_SUCCESS');
+          this.loggerService.debug('Consultation removed!');
+          modal.close(serviceId);
+        });
+    }
   };
   public makeCall = ({ modal }: IConsultationDetailActionParameters): void => {
     // check if user is logged. If not navigate to login page
@@ -129,7 +131,7 @@ export class ConsultationDetailsActionsService extends Logger {
 export interface IConsultationDetailActionParameters {
   serviceId: string;
   modal: NgbActiveModal;
-  employmentId: string;
-  expertId: string;
+  employmentId?: string;
+  expertId?: string;
   createEditConsultationPayload?: ICreateEditConsultationPayload;
 }
