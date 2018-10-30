@@ -52,9 +52,6 @@ export class InputAddItemComponent {
   @Input()
   public isChangeOnSubmit = true;
 
-  @Input()
-  public isValidationVisibleOnBlur = false;
-
   public inputValue = '';
 
   public isFocused = false;
@@ -91,18 +88,30 @@ export class InputAddItemComponent {
   };
 
   public onBlur = (): void => {
-    if (!this.isValidationVisibleOnBlur) {
-      this.formGroup.controls[this.controlName].setValidators(this.getValidators());
-      this.formGroup.controls[this.controlName].updateValueAndValidity();
-      this.isFocused = false;
+    const controlErrors = this.formGroup.controls[this.controlName].errors;
+    if (controlErrors === null && this.formGroup.controls[this.controlName].value.length > 0) {
+      this.setDefaultValidators();
     }
+
+    this.isFocused = false;
   };
 
-  public onFocus = (): boolean => (this.isFocused = true);
+  public onFocus = (): void => {
+    this.formGroup.controls[this.controlName].clearValidators();
+    this.isFocused = true;
+  };
 
-  public onAddLinkClick = (): void => this.onAddItem();
+  public onAddLinkClick = (): void => {
+    this.setDefaultValidators();
+    this.onAddItem();
+  };
 
   public onEnter = (): void => this.onAddItem();
+
+  private setDefaultValidators = (): void => {
+    this.formGroup.controls[this.controlName].setValidators(this.getValidators());
+    this.formGroup.controls[this.controlName].updateValueAndValidity();
+  };
 
   private onAddItem = (): void => {
     if (this.onChange !== undefined) {
