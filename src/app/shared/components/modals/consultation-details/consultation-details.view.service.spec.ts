@@ -71,7 +71,7 @@ describe('ConsultationDetailsViewService', () => {
     it('should create proper object from backend', () => {
       // define consts
       const serviceId = 'serviceId1';
-      const employeeId = 'qqqq';
+      const employeeId = '123444';
       const getServiceWithEmployees: GetServiceWithEmployees[] = [
         {
           employeesDetails: [

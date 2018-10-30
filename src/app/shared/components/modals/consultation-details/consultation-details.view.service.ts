@@ -56,7 +56,7 @@ export class ConsultationDetailsViewService extends Logger {
           forkJoin(
             this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
             this.viewsService.getWebExpertProfileRoute(employeeId),
-            this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId)),
+            this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId)),
             this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
             this.financesService.getClientBalanceRoute().pipe(
               catchError(() =>
@@ -76,7 +76,7 @@ export class ConsultationDetailsViewService extends Logger {
                 expertDetails,
                 expertProfileViewDetails,
                 getServiceWithEmployees,
-                employmentId: this.pluckEmploymentId(getServiceWithEmployees, serviceId),
+                employmentId: this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId),
                 expertIds: getServiceWithEmployees.employeesDetails.map(
                   employeesDetails => employeesDetails.employeeProfile.id,
                 ),
@@ -133,9 +133,13 @@ export class ConsultationDetailsViewService extends Logger {
   ): ComponentRef<IFooterOutput> =>
     this.consultationFootersService.attachFooter(component, viewContainerRef, footerData);
 
-  private pluckEmploymentId = (getServiceWithEmployees: GetServiceWithEmployees, serviceId: string): string => {
+  private pluckEmploymentId = (
+    getServiceWithEmployees: GetServiceWithEmployees,
+    serviceId: string,
+    expertId: string,
+  ): string => {
     const employeeDetail = getServiceWithEmployees.employeesDetails.find(
-      employeesDetail => employeesDetail.serviceId === serviceId,
+      employeesDetail => employeesDetail.serviceId === serviceId && employeesDetail.employeeProfile.id === expertId,
     );
 
     return employeeDetail ? employeeDetail.id : '';
