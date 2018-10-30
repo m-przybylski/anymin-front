@@ -1,6 +1,7 @@
 // tslint:disable:no-mixed-interface
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export enum NavigationItemGroupsEnum {
   NAVBAR,
@@ -18,8 +19,12 @@ export interface INavigationItem {
   isCompany: boolean;
   group: NavigationItemGroupsEnum;
   callbackFnName?: string;
+  isCounter?: boolean;
+  counter?: Observable<number>;
+
   isVisible?(session: GetSessionWithAccount): boolean;
 }
+
 export const NAVIGATIONITEMS: InjectionToken<ReadonlyArray<INavigationItem>> = new InjectionToken(
   'navigation item config',
 );
@@ -42,6 +47,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
     isExpert: true,
     isCompany: false,
     group: NavigationItemGroupsEnum.NAVBAR,
+    isCounter: true,
   },
   // TODO uncomment this after Beta release ends
   // {

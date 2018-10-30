@@ -57,6 +57,16 @@
           border-radius: 50%
           cursor: pointer
 
+    &__counter-wrapper
+      width: 100%
+      display: flex
+      justify-content: flex-end
+
+      plat-activities-counter
+        &::ng-deep
+          .activities-counter
+            background: $c-black
+
     &__row
       display: flex
       align-items: center
@@ -92,6 +102,12 @@
         plat-user-avatar
           &::ng-deep
             .icon-avatar
+              background: $c-primary
+              transition: color 0.3s
+
+        plat-activities-counter
+          &::ng-deep
+            .activities-counter
               background: $c-primary
               transition: color 0.3s
 

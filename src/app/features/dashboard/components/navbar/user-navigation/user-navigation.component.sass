@@ -32,23 +32,40 @@
 
       li
         margin: 0 24px 0 0
+        display: flex
+        justify-items: center
 
         &:last-child
           margin: 0 16px 0 0
+
+        &::ng-deep
+          .activities-counter
+            margin: 0 0 0 6px
 
         a
           span
             +subtitle-small
             color: $c-text-primary
 
+          &:hover + plat-activities-counter
+            &::ng-deep
+              .activities-counter
+                background: $c-primary
+
           &:hover
             span
               color: $c-primary
+
+
 
         &.active
           a
             span
               color: $c-primary
+
+          &::ng-deep
+            .activities-counter
+              background: $c-primary
 
       +lgm
         display: flex

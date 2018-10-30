@@ -7,6 +7,7 @@
     )
       a([routerLink]="navbarOption.url")
         span([translate]="navbarOption.trKey")
+      plat-activities-counter(*ngIf="navbarOption.counter | async as combineCounter", [counter]="combineCounter")
 
   .user-navigation__underline(userNavigationUnderlineDirective [currentItem$]="currentElement")
 

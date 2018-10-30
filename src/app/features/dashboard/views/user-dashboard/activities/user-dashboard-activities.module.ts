@@ -8,6 +8,7 @@ import { DashboardComponentsModule } from '@platform/features/dashboard/componen
 import { AnymindComponentsModule } from '@anymind-ng/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivityDetailsModule } from '@platform/shared/components/modals/activity-details/activity-details.module';
+import { ActivitiesCounterModule } from '@platform/features/dashboard/components/activities-counter/activities-counter.module';
 
 @NgModule({
   imports: [
@@ -16,12 +17,9 @@ import { ActivityDetailsModule } from '@platform/shared/components/modals/activi
     AnymindComponentsModule,
     TranslateModule,
     ActivityDetailsModule,
-    UserDashboardActivitiesRoutingModule
+    UserDashboardActivitiesRoutingModule,
+    ActivitiesCounterModule,
   ],
-  declarations: [
-    ActivitiesViewComponent,
-    ExpertActivitiesViewComponent,
-    ClientActivitiesViewComponent
-  ]
+  declarations: [ActivitiesViewComponent, ExpertActivitiesViewComponent, ClientActivitiesViewComponent],
 })
-export class UserDashboardActivitiesModule { }
+export class UserDashboardActivitiesModule {}

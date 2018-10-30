@@ -20,6 +20,10 @@ import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-
 import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 import { NavbarModule } from '@platform/features/dashboard/components/navbar/navbar.module';
 import { StepperModule } from '@platform/shared/components/stepper/stepper.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '@platform/features/dashboard/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { ActivitiesEffects } from '@platform/features/dashboard/effects/activities.effects';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,8 @@ import { StepperModule } from '@platform/shared/components/stepper/stepper.modul
     RecommendFriendsModule,
     DashboardComponentsModule,
     StepperModule,
+    StoreModule.forFeature('dashboard', reducers),
+    EffectsModule.forFeature([ActivitiesEffects]),
   ],
   providers: [EmployeesInviteService, DashboardResolver],
 })

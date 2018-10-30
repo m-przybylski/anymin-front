@@ -274,7 +274,7 @@ export class CallInvitationService extends Logger {
         call.end$
           .pipe(
             takeUntil(this.callRejectedEvent$),
-            takeUntil(call.answered$),
+            takeUntil(this.callAnswered$),
             takeUntil(this.callAnsweredOnOtherDeviceEvent$),
           )
           .subscribe(end => this.handleCallEndedBeforeAnswering(end, callingModal));

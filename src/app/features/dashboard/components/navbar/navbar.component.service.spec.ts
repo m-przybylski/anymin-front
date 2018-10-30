@@ -12,9 +12,12 @@ import {
   NAVIGATIONITEMS,
 } from '@platform/features/dashboard/components/navbar/navigation';
 import { provideMockFactoryLogger } from '../../../../../testing/testing';
+import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import * as fromDashboard from '@platform/features/dashboard/reducers';
 
 describe('NavbarComponentService', () => {
   let navbarComponentService: SpyObj<NavbarComponentService>;
+  let store: Store<fromDashboard.IState>;
   const loggerService: LoggerService = Deceiver(LoggerService, {
     error: jasmine.createSpy(''),
   });
@@ -86,6 +89,12 @@ describe('NavbarComponentService', () => {
   ];
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          ...fromDashboard.reducers,
+          dashboard: combineReducers(fromDashboard.reducers),
+        }),
+      ],
       providers: [
         NavbarComponentService,
         {
@@ -100,6 +109,7 @@ describe('NavbarComponentService', () => {
       ],
     });
     (loggerService.error as jasmine.Spy).calls.reset();
+    store = TestBed.get(Store);
     navbarComponentService = TestBed.get(NavbarComponentService);
   });
 

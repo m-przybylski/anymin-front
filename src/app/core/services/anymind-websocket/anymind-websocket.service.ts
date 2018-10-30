@@ -44,7 +44,8 @@ export class AnymindWebsocketService extends Logger {
   private readonly heartbeatConfigEvent$: ReplaySubject<IHeartbeatConfig> = new ReplaySubject<IHeartbeatConfig>();
   private readonly creditCardAddedEvent$: Subject<any> = new Subject<any>();
   private readonly sessionDestroyed$: Subject<void> = new Subject<void>();
-
+  private readonly importantProfileActivityEvent$: Subject<void> = new Subject<void>();
+  private readonly importantClientActivityEvent$: Subject<void> = new Subject<void>();
   private readonly configuration: IWebSocketMessageConfiguration = {
     CALL_SUMMARY: {
       event: this.callSummaryEvent$,
@@ -90,6 +91,14 @@ export class AnymindWebsocketService extends Logger {
       event: this.expertPresenceEvent$,
       extract: (message: IWebSocketMessage): string => message.value.status,
     },
+    IMPORTANT_PROFILE_ACTIVITY: {
+      event: this.importantProfileActivityEvent$,
+      extract: (message: IWebSocketMessage): string => message.value,
+    },
+    CLIENT_PROFILE_ACTIVITY: {
+      event: this.importantClientActivityEvent$,
+      extract: (message: IWebSocketMessage): string => message.value,
+    },
     HEARTBEAT_CONFIG: {
       event: this.heartbeatConfigEvent$,
       extract: (message: IWebSocketMessage): IHeartbeatConfig => ({
@@ -134,6 +143,14 @@ export class AnymindWebsocketService extends Logger {
 
   public get sessionDeleted(): Observable<string> {
     return this.sessionDeletedEvent$.asObservable();
+  }
+
+  public get importantProfileActivity(): Observable<any> {
+    return this.importantProfileActivityEvent$.asObservable();
+  }
+
+  public get importantClientActivity(): Observable<any> {
+    return this.importantClientActivityEvent$.asObservable();
   }
 
   public get minuteLeftWarning(): Observable<void> {

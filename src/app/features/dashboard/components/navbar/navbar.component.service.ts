@@ -6,6 +6,8 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { INavigationItem, NAVIGATIONITEMS } from '@platform/features/dashboard/components/navbar/navigation';
+import { select, Store } from '@ngrx/store';
+import * as fromDashboard from '@platform/features/dashboard/reducers';
 
 @Injectable()
 export class NavbarComponentService extends Logger {
@@ -19,6 +21,7 @@ export class NavbarComponentService extends Logger {
 
   constructor(
     private profileService: ProfileService,
+    private store: Store<fromDashboard.IState>,
     loggerFactory: LoggerFactory,
     @Inject(NAVIGATIONITEMS) private navigationItems: ReadonlyArray<INavigationItem>,
   ) {
@@ -35,6 +38,10 @@ export class NavbarComponentService extends Logger {
     const filterFn = this.userTypeMap.get(userType);
     if (typeof filterFn !== 'undefined') {
       return this.navigationItems.filter(navigationItem => {
+        if (navigationItem.isCounter) {
+          navigationItem.counter = this.store.pipe(select(fromDashboard.getCombineCounters));
+        }
+
         if (navigationItem.isVisible) {
           return navigationItem.isVisible(session) && filterFn(navigationItem);
         }
