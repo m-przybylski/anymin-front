@@ -1,11 +1,11 @@
 import { Resolve } from '@angular/router';
 import * as fromCore from '@platform/core/reducers';
 import { select, Store } from '@ngrx/store';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, take, switchMap } from 'rxjs/operators';
 import { NavbarActions } from '@platform/core/actions';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { GetSessionWithAccount } from '@anymind-ng/api';
-import { Observable } from 'rxjs';
+import { Observable, defer, of } from 'rxjs';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
@@ -19,6 +19,13 @@ export class DashboardResolver extends Logger implements Resolve<boolean> {
   }
 
   public resolve = (): Observable<boolean> =>
+    this.getUserType().pipe(
+      switchMap(userType => defer(() => (userType !== undefined ? of(true) : this.dispatchUserFromSession()))),
+      take(1),
+    );
+
+  private getUserType = (): Observable<UserTypeEnum | undefined> => this.store.pipe(select(fromCore.getUserType));
+  private dispatchUserFromSession = (): Observable<boolean> =>
     this.store.pipe(
       select(fromCore.getSession),
       filter(session => typeof session !== 'undefined'),
@@ -37,6 +44,5 @@ export class DashboardResolver extends Logger implements Resolve<boolean> {
 
         return true;
       }),
-      take(1),
     );
 }

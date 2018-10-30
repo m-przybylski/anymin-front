@@ -8,12 +8,11 @@ export enum UserTypeEnum {
 }
 
 export interface IState {
-  userType: UserTypeEnum;
+  userType?: UserTypeEnum;
   isNavbarUserMenuVisible: boolean;
 }
 
 export const initialState: IState = {
-  userType: UserTypeEnum.USER,
   isNavbarUserMenuVisible: false,
 };
 
@@ -47,5 +46,5 @@ export function reducer(state = initialState, action: NavbarActions.NavbarAction
   }
 }
 
-export const getUserType = (state: IState): UserTypeEnum => state.userType;
+export const getUserType = (state: IState): UserTypeEnum | undefined => state.userType;
 export const getIsNavbarUserMenuVisible = (state: IState): boolean => state.isNavbarUserMenuVisible;

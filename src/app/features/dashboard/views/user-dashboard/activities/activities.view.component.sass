@@ -96,11 +96,13 @@
       &:hover
         cursor: pointer
 
+
         .activities__tabs__title
           color: $c-primary
 
-        .activities__tabs__counter
-          background: $c-primary
+        &::ng-deep
+          .activities-counter
+            background: $c-primary
 
       &.active
         background: $c-base-background
@@ -109,5 +111,6 @@
         .activities__tabs__title
           color: $c-text-primary
 
-        .activities__tabs__counter
-          background: $c-black
+        &::ng-deep
+          .activities-counter
+            background: $c-black

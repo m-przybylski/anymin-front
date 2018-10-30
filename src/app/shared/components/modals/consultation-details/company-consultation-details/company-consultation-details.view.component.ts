@@ -71,7 +71,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   private modalComponent: ModalComponent;
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private isCompany: boolean;
-  private userType: UserTypeEnum;
+  private userType: UserTypeEnum | undefined;
   private accountId: string;
   private destroyed$ = new Subject<void>();
 

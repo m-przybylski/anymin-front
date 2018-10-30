@@ -66,6 +66,8 @@
           )
             span(plat-icon, [iconClass]="menuItem.iconClass")
             span.option-title([translate]="menuItem.trKey")
+            .menu-list__counter-wrapper
+              plat-activities-counter(*ngIf="menuItem.counter | async as combineCounter", [counter]="combineCounter")
 
           ng-template(#functionCallback)
             .menu-list__row__content((click)="onClick(menuItem.callbackFnName)")

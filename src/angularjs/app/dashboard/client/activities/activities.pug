@@ -17,7 +17,7 @@
       dashboard-filters(data-filters="vm.filters" data-on-set-search-params="vm.onSetFiltersParams"
       data-account-type="vm.accountType")
 
-      client-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
+      client-activity(data-ng-repeat="activity in vm.dashboard" data-activity="activity")
 
       .load-more-results-container
         span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")

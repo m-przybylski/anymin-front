@@ -15,7 +15,7 @@ export class ConsultationFooterResolver {
    */
   // tslint:disable-next-line:cyclomatic-complexity
   public static resolve(
-    userType: UserTypeEnum,
+    userType?: UserTypeEnum,
     isCompany = false,
     userId?: string,
     ownerId?: string,

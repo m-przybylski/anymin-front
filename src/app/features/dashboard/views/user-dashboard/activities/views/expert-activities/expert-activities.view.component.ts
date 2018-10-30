@@ -6,6 +6,9 @@ import { takeUntil, pluck } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IActivitiesResolverData } from '@platform/features/dashboard/views/user-dashboard/activities/views/expert-activities/expert-activities.resolver.service';
 import { Animations } from '@anymind-ng/core';
+import { Store } from '@ngrx/store';
+import * as fromDashboard from '@platform/features/dashboard/reducers';
+import { ActivitiesActions } from '@platform/features/dashboard/actions';
 
 export interface IProfileActivitiesWithStatus {
   activity: GetProfileActivity;
@@ -38,8 +41,13 @@ export class ExpertActivitiesViewComponent implements OnInit, OnDestroy {
 
   private currentActivitiesOffset = 0;
   private isImportantListToggle = false;
+  private readonly moneyDivider = 100;
 
-  constructor(private route: ActivatedRoute, private expertActivitiesViewService: ExpertActivitiesViewService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private expertActivitiesViewService: ExpertActivitiesViewService,
+    private store: Store<fromDashboard.IState>,
+  ) {}
 
   public ngOnInit(): void {
     this.importantLinkTranslationKey = this.translationKeyForShowLink;
@@ -48,6 +56,7 @@ export class ExpertActivitiesViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe(profileBalance => {
         this.balance = profileBalance.balance;
+        this.balance.amount = profileBalance.balance.amount / this.moneyDivider;
       });
 
     this.route.data
@@ -110,6 +119,7 @@ export class ExpertActivitiesViewComponent implements OnInit, OnDestroy {
     this.displayedImportantActivities = this.displayedImportantActivities.filter(
       activity => activity.id !== currentDisplayedActivity.id,
     );
+    this.store.dispatch(new ActivitiesActions.DecrementImportantProfileActivitiesCounterAction());
     this.profileActivities = this.profileActivities.map(profileActivity => {
       if (profileActivity.activity.id === currentDisplayedActivity.id) {
         return { ...profileActivity, isImportant: false };
