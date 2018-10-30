@@ -2015,6 +2015,7 @@
   "GENERATE_WIDGET_MODAL.CONTENT.BUTTON.BANNER_SUBTITLE": "Wyświetlany w dowolnym miejscu na stronie",
   "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.FAIL": "Nie udalo sie skopiowac danych do schowka",
   "GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS": "Dane skopiowane do schowka",
+  "GENERATE_WIDGET_MODAL.CONTENT.DUMMY_NAME": "Konsultant",
   "PUSH.WELCOME.TITLE": "Komunikator AnyMind",
   "PUSH.WELCOME.MESSAGE": "Powiadomienia włączone!",
   "PUSH.TIP.STATE.UNSUBSCRIBED": "Kliknij aby włączyć powiadomienia o połączeniach!",

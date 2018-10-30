@@ -5,6 +5,7 @@ import { CommonSettingsService } from 'angularjs/common/services/common-settings
 import { Deceiver } from 'deceiver-core';
 import { cold } from 'jasmine-marbles';
 import { GenerateWidgetDataService } from './generate-widget.data.service';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('GenerateWidgetDataService', () => {
   let service: GenerateWidgetDataService;
@@ -13,6 +14,7 @@ describe('GenerateWidgetDataService', () => {
   const serviceService: ServiceService = Deceiver(ServiceService, {
     postServiceWithEmployeesRoute: jasmine.createSpy('postServiceWithEmployeesRoute'),
   });
+  const translateService: TranslateService = Deceiver(TranslateService, { get: jasmine.createSpy('get') });
   const commonSettingsService: CommonSettingsService = new CommonSettingsService();
 
   beforeEach(() => {
@@ -27,6 +29,7 @@ describe('GenerateWidgetDataService', () => {
         },
         { provide: WidgetService, useValue: widgetService },
         { provide: ServiceService, useValue: serviceService },
+        { provide: TranslateService, useValue: translateService },
       ],
     });
 
@@ -61,7 +64,32 @@ describe('GenerateWidgetDataService', () => {
       (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: serviceDetails }));
       expect(service.resolve(wId)).toBeObservable(cold('--a|', { a: result }));
     });
-    it('should never complete but not return value when no service id provided', () => {
+    it('should return first expert from the list if organization generates widget', () => {
+      const wId = 'abc123';
+      const getWidget = { serviceId: '1234', expertId: undefined, id: 'abc123' };
+      const serviceDetails: ReadonlyArray<any> = [
+        {
+          serviceDetails: {
+            id: '1234',
+            name: 'name',
+            description: 'description',
+            grossPrice: { amount: 124, currency: 'PLN' },
+          },
+          employeesDetails: [{ employeeProfile: { id: 'exper1234', name: 'Macko', avatar: 'asdf' } }],
+        },
+      ];
+      const result = {
+        serviceName: 'name',
+        serviceDesc: 'description',
+        servicePrice: '1,24',
+        expertName: 'Macko',
+        expertAvatar: 'asdf',
+      };
+      (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
+      (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: serviceDetails }));
+      expect(service.resolve(wId)).toBeObservable(cold('--a|', { a: result }));
+    });
+    it('should complete but not return value when no service id provided', () => {
       const wId = 'abc123';
       const getWidget = { expertId: 'exper1234', id: 'abc123' };
       (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
@@ -84,7 +112,33 @@ describe('GenerateWidgetDataService', () => {
       const result = undefined;
       (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
       (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: serviceDetails }));
-      expect(service.resolve(wId)).toBeObservable(cold('--a|', { a: result }));
+      expect(service.resolve(wId)).toBeObservable(cold('---|', { a: result }));
+    });
+    it('should call returned some data when no expert is assigned to consultation', () => {
+      const wId = 'abc123';
+      const getWidget = { serviceId: '1234', expertId: undefined, id: 'abc123' };
+      const serviceDetails: ReadonlyArray<any> = [
+        {
+          serviceDetails: {
+            id: '1234',
+            name: 'name',
+            description: 'description',
+            grossPrice: { amount: 124, currency: 'PLN' },
+          },
+          employeesDetails: [],
+        },
+      ];
+      const result = {
+        serviceName: 'name',
+        serviceDesc: 'description',
+        servicePrice: '1,24',
+        expertName: 'Konsultant',
+        expertAvatar: undefined,
+      };
+      (widgetService.getWidgetRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: getWidget }));
+      (serviceService.postServiceWithEmployeesRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: serviceDetails }));
+      (translateService.get as jasmine.Spy).and.returnValue(cold('-a|', { a: 'Konsultant' }));
+      expect(service.resolve(wId)).toBeObservable(cold('---a|', { a: result }));
     });
   });
 });
