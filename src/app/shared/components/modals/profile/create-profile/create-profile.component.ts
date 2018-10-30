@@ -75,7 +75,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isOpenAsExpert = this.isExpertForm;
-    from(this.userSessionService.getSession())
+    from(this.userSessionService.getSession(true))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         session => this.adjustProfileDetails(session),
