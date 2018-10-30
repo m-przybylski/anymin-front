@@ -55,7 +55,7 @@ describe('Testing Controller: editExpertProfileController', () => {
   });
 
   it('should save expert profile', inject(($q: ng.IQService) => {
-    spyOn(ProfileApi, 'patchProfileRoute').and.callFake(() => $q.resolve({}));
+    spyOn(ProfileApi, 'putExpertProfileRoute').and.callFake(() => $q.resolve({}));
     editExpertProfileController.profileName = 'SomeName';
     editExpertProfileController.profileAvatarToken = 'someToken';
     editExpertProfileController.profileDescription = 'someDescription someDescription someDescription someDescription';
@@ -73,23 +73,21 @@ describe('Testing Controller: editExpertProfileController', () => {
       ],
     };
     const updatedProfile = {
-      expertDetails: {
-        name: 'SomeName',
-        avatar: 'someToken',
-        description: 'someDescription someDescription someDescription someDescription',
-        files: [],
-        links: [],
-      },
+      name: 'SomeName',
+      avatar: 'someToken',
+      description: 'someDescription someDescription someDescription someDescription',
+      files: [],
+      links: [],
     };
     const status = true;
     editExpertProfileController.onFileUploadEnd(status);
     editExpertProfileController.saveChanges();
     expect(editExpertProfileController.isSubmitted).toBe(false);
-    expect(ProfileApi.patchProfileRoute).toHaveBeenCalledWith(updatedProfile);
+    expect(ProfileApi.putExpertProfileRoute).toHaveBeenCalledWith(updatedProfile);
   }));
 
   it('should save organization profile', inject(($q: ng.IQService) => {
-    spyOn(ProfileApi, 'patchProfileRoute').and.callFake(() => $q.resolve({}));
+    spyOn(ProfileApi, 'putOrganizationProfileRoute').and.callFake(() => $q.resolve({}));
     editExpertProfileController.profileName = 'SomeName';
     editExpertProfileController.profileAvatarToken = 'someToken';
     editExpertProfileController.profileDescription = 'someDescription someDescription someDescription someDescription';
@@ -107,19 +105,17 @@ describe('Testing Controller: editExpertProfileController', () => {
       ],
     };
     const updatedProfile = {
-      organizationDetails: {
-        name: 'SomeName',
-        logo: 'someToken',
-        description: 'someDescription someDescription someDescription someDescription',
-        files: [],
-        links: [],
-      },
+      name: 'SomeName',
+      logo: 'someToken',
+      description: 'someDescription someDescription someDescription someDescription',
+      files: [],
+      links: [],
     };
     const status = true;
     editExpertProfileController.onFileUploadEnd(status);
     editExpertProfileController.saveChanges();
     expect(editExpertProfileController.isSubmitted).toBe(false);
-    expect(ProfileApi.patchProfileRoute).toHaveBeenCalledWith(updatedProfile);
+    expect(ProfileApi.putOrganizationProfileRoute).toHaveBeenCalledWith(updatedProfile);
   }));
 
   it('should check is profile name valid', () => {

@@ -6,12 +6,11 @@
 // tslint:disable:deprecation
 import { ProfileApi } from 'profitelo-api-ng/api/api';
 import { TopAlertService } from '../../../../../../services/top-alert/top-alert.service';
-import { UpdateProfile } from 'profitelo-api-ng/model/models';
 import { TranslatorService } from '../../../../../../services/translator/translator.service';
 import { CommonSettingsService } from '../../../../../../services/common-settings/common-settings.service';
 import { Config } from '../../../../../../../../config';
 import { OrganizationProfileWithDocuments } from '@anymind-ng/api/model/organizationProfileWithDocuments';
-import { ExpertProfileWithDocuments } from '@anymind-ng/api';
+import { ExpertProfileWithDocuments, PutExpertDetails, PutOrganizationDetails } from '@anymind-ng/api';
 
 export interface IEditExpertProfileScope extends ng.IScope {
   profile: ExpertProfileWithDocuments | OrganizationProfileWithDocuments;
@@ -30,7 +29,6 @@ interface IEditProfileTranslations {
 // tslint:disable:strict-type-predicates
 // tslint:disable:member-ordering
 export class EditExpertProfileController implements ng.IController {
-
   public profileAvatarToken: string;
   public profileFilesTokens: string[] = [];
   public profileName: string;
@@ -53,22 +51,31 @@ export class EditExpertProfileController implements ng.IController {
     expertDescriptionLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE',
     organizationNameLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.TITLE',
     organizationNamePlaceholder: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_NAME.PLACEHOLDER',
-    organizationDescriptionLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE'
+    organizationDescriptionLabel: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.ORGANIZATION_DESCRIPTION.TITLE',
   };
   private isUploaded = true;
   private profileNamePattern: RegExp = this.CommonSettingsService.localSettings.profileNamePattern;
   private profileDescriptionPattern: RegExp = this.CommonSettingsService.localSettings.profileDescriptionPattern;
 
-  public static $inject = ['$uibModalInstance', 'ProfileApi', '$log', 'topAlertService', 'translatorService',
-    '$scope', 'CommonSettingsService'];
+  public static $inject = [
+    '$uibModalInstance',
+    'ProfileApi',
+    '$log',
+    'topAlertService',
+    'translatorService',
+    '$scope',
+    'CommonSettingsService',
+  ];
 
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private ProfileApi: ProfileApi,
-              private $log: ng.ILogService,
-              private topAlertService: TopAlertService,
-              private translatorService: TranslatorService,
-              private $scope: IEditExpertProfileScope,
-              private CommonSettingsService: CommonSettingsService) {}
+  constructor(
+    private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    private ProfileApi: ProfileApi,
+    private $log: ng.ILogService,
+    private topAlertService: TopAlertService,
+    private translatorService: TranslatorService,
+    private $scope: IEditExpertProfileScope,
+    private CommonSettingsService: CommonSettingsService,
+  ) {}
 
   public $onInit(): void {
     if (this.isGetExpertDetails(this.$scope.profile)) {
@@ -82,74 +89,77 @@ export class EditExpertProfileController implements ng.IController {
       this.profileNamePlaceholder = EditExpertProfileController.translations.organizationNamePlaceholder;
       this.profileDescriptionLabel = EditExpertProfileController.translations.organizationDescriptionLabel;
     }
-      this.profileName = this.$scope.profile.name;
-      this.profileDescription = this.$scope.profile.description;
+    this.profileName = this.$scope.profile.name;
+    this.profileDescription = this.$scope.profile.description;
   }
 
   public saveChanges = (): void => {
     if (this.isFormValid() && this.isGetExpertDetails(this.$scope.profile)) {
       const updatedProfile = {
-        expertDetails: {
-          name: this.profileName,
-          avatar: this.profileAvatarToken,
-          description: this.profileDescription,
-          files: this.profileFilesTokens,
-          links: this.profileLinks
-        }
+        name: this.profileName,
+        avatar: this.profileAvatarToken,
+        description: this.profileDescription,
+        files: this.profileFilesTokens,
+        links: this.profileLinks,
       };
-      this.sendUpdatedProfile(updatedProfile);
+      this.updateExpertProfile(updatedProfile);
     } else if (this.isFormValid() && !this.isGetExpertDetails(this.$scope.profile)) {
       const updatedProfile = {
-        organizationDetails: {
-          name: this.profileName,
-          logo: this.profileAvatarToken,
-          description: this.profileDescription,
-          files: this.profileFilesTokens,
-          links: this.profileLinks
-        }
+        name: this.profileName,
+        logo: this.profileAvatarToken,
+        description: this.profileDescription,
+        files: this.profileFilesTokens,
+        links: this.profileLinks,
       };
-      this.sendUpdatedProfile(updatedProfile);
+      this.updateOrganizationProfile(updatedProfile);
     } else {
       this.isSubmitted = true;
     }
-  }
+  };
 
   public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel');
 
-  public isAvatarValid = (): boolean => (this.profileAvatarToken) ? this.profileAvatarToken.length > 0 : false;
+  public isAvatarValid = (): boolean => (this.profileAvatarToken ? this.profileAvatarToken.length > 0 : false);
 
-  public isNameValid = (): boolean => (this.profileName) ?
-    this.profileNamePattern.test(this.profileName) : false
+  public isNameValid = (): boolean => (this.profileName ? this.profileNamePattern.test(this.profileName) : false);
 
-  public isDescriptionValid = (): boolean => (this.profileDescription) ?
-    this.profileDescriptionPattern.test(this.profileDescription) : false
+  public isDescriptionValid = (): boolean =>
+    this.profileDescription ? this.profileDescriptionPattern.test(this.profileDescription) : false;
 
   private isFileUploadValid = (): boolean => this.isUploaded;
 
   public onFileUploadEnd = (isNotError: boolean): void => {
     this.isUploaded = isNotError;
-  }
+  };
 
   public isFormValid = (): boolean =>
-    this.isAvatarValid()
-    && this.isNameValid()
-    && this.isDescriptionValid()
-    && this.isFileUploadValid()
+    this.isAvatarValid() && this.isNameValid() && this.isDescriptionValid() && this.isFileUploadValid();
 
-  private isGetExpertDetails = (profileDetails: OrganizationProfileWithDocuments | ExpertProfileWithDocuments):
-    profileDetails is ExpertProfileWithDocuments => (<ExpertProfileWithDocuments>profileDetails).avatar !== undefined
+  private isGetExpertDetails = (
+    profileDetails: OrganizationProfileWithDocuments | ExpertProfileWithDocuments,
+  ): profileDetails is ExpertProfileWithDocuments => (<ExpertProfileWithDocuments>profileDetails).avatar !== undefined;
 
-  private sendUpdatedProfile = (updatedProfile: UpdateProfile): void => {
-    this.ProfileApi.patchProfileRoute(updatedProfile).then((_res) => {
-      this.$scope.onModalCloseCallback();
-      this.onModalClose();
-    }, (err) => {
-      this.$log.error(err);
-      this.topAlertService.error({
-        message: this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE'),
-        timeout: 5
-      });
+  private updateExpertProfile = (updatedProfile: PutExpertDetails): void => {
+    this.ProfileApi.putExpertProfileRoute(updatedProfile).then(this.onUpdateProfileSuccess, this.onUpdateProfileError);
+  };
+
+  private updateOrganizationProfile = (updatedProfile: PutOrganizationDetails): void => {
+    this.ProfileApi.putOrganizationProfileRoute(updatedProfile).then(
+      this.onUpdateProfileSuccess,
+      this.onUpdateProfileError,
+    );
+  };
+
+  private onUpdateProfileSuccess = (): void => {
+    this.$scope.onModalCloseCallback();
+    this.onModalClose();
+  };
+
+  private onUpdateProfileError = (err: any): void => {
+    this.$log.error(err);
+    this.topAlertService.error({
+      message: this.translatorService.translate('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE'),
+      timeout: 5,
     });
-  }
-
+  };
 }
