@@ -48,7 +48,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   @Output()
   public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
 
-  private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
+  private dropdownItems: ReadonlyArray<any> = [];
   private employeesConsultationList: ReadonlyArray<IEmployeesInviteComponent> = [];
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
@@ -77,17 +77,14 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can not get employees list')))
       .subscribe((response: ReadonlyArray<ExpertProfileWithEmployments>) => {
-        this.dropdownItems = response.filter(item => item.employments[0]).map(employeeProfile => ({
-          name: employeeProfile.expertProfile.name,
-          avatar: employeeProfile.expertProfile.avatar,
-          employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
-          serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
-        }));
-
-        this.employeesConsultationList = this.dropdownItems.filter(employee => employee.serviceId === this.serviceId);
-        this.employeesConsultationList.forEach(item => {
-          this.filterOwnEmployeesDropdownList(item);
-        });
+        this.dropdownItems = response
+          .filter(item => item.employments.every(employment => employment.serviceId !== this.serviceId))
+          .map(employeeProfile => ({
+            name: employeeProfile.expertProfile.name,
+            avatar: employeeProfile.expertProfile.avatar,
+            employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
+            serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
+          }));
       });
 
     this.employeesInviteService
