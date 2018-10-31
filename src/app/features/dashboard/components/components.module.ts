@@ -25,7 +25,7 @@ import { FilePreviewModule } from '@platform/shared/components/modals/file-previ
     ButtonModule,
     UserAvatarModule,
     FilePreviewModule,
-    ExpertAvailabilityModule.forRoot(),
+    ExpertAvailabilityModule,
   ],
   declarations: [
     SocialLinksComponent,

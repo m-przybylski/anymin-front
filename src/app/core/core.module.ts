@@ -29,6 +29,7 @@ import { ClipboardService } from './services/clipboard/clipboard.service';
 import { PlatMissingTranslationHandler } from './services/missing-translation/missing-translation.hander';
 import { PushNotificationService } from './services/call/push-notifications.service';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
+import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -69,6 +70,7 @@ export function getLogLevel(): LogLevel {
     PushNotificationService,
     ExpertCallService,
     RemoteLogoutService,
+    ExpertAvailabilityService,
   ],
 })
 export class CoreModule {}

@@ -19,7 +19,7 @@ import { ConsultationFooterModule } from '../../consultation-details/consultatio
     ModalsModule,
     ConsultationDetailsComponentModule,
     ConsultationFooterModule,
-    ExpertAvailabilityModule.forRoot(),
+    ExpertAvailabilityModule,
   ],
   exports: [ConsultationDetailsComponentModule],
   declarations: [CompanyConsultationDetailsViewComponent, CompanyEmployeeRowComponent],
