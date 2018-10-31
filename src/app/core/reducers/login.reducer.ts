@@ -23,7 +23,7 @@ export function reducer(
         isPending: true,
       };
     }
-
+    case AuthActions.AuthActionTypes.LogoutRemote:
     case AuthActions.AuthActionTypes.LoginSuccess:
     case AuthActions.AuthActionTypes.LogoutSuccess: {
       return {

@@ -208,8 +208,10 @@ export class AnymindWebsocketService extends Logger {
   };
 
   private onUserLogout = (): void => {
-    this.sessionDestroyed$.next();
-    this.websocketService.disconnectWithoutSideEffects();
+    if (this.websocketService) {
+      this.sessionDestroyed$.next();
+      this.websocketService.disconnectWithoutSideEffects();
+    }
   };
 
   private listenHeartbeats = (): void => {

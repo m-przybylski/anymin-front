@@ -1,3 +1,4 @@
+// tslint:disable:cyclomatic-complexity
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { SessionActions, AuthActions } from '@platform/core/actions';
 
@@ -57,6 +58,7 @@ export function reducer(
       };
     }
 
+    case AuthActions.AuthActionTypes.LogoutRemote:
     case AuthActions.AuthActionTypes.LogoutSuccess: {
       return {
         ...state,

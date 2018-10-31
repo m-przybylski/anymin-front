@@ -10,6 +10,7 @@ export enum AuthActionTypes {
   LogoutSuccess = '[auth] Logout success',
   LoginRedirect = '[auth] Login redirect',
   DashboardRedirect = '[auth] Dashboard redirect',
+  LogoutRemote = '[auth] Logout by remote event',
 }
 
 export class LoginAction implements Action {
@@ -47,6 +48,9 @@ export class LoginRedirectAction implements Action {
 export class DashboardRedurectAction implements Action {
   public readonly type = AuthActionTypes.DashboardRedirect;
 }
+export class LogoutRemoteAction implements Action {
+  public readonly type = AuthActionTypes.LogoutRemote;
+}
 
 export type AuthActionsUnion =
   | LoginAction
@@ -56,4 +60,5 @@ export type AuthActionsUnion =
   | LogoutAction
   | LogoutErrorAction
   | LogoutSuccessAction
-  | DashboardRedurectAction;
+  | DashboardRedurectAction
+  | LogoutRemoteAction;
