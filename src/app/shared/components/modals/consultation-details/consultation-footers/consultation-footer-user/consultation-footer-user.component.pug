@@ -34,10 +34,19 @@ plat-consultation-footer
         span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
   //right panel on the screen on mobile
   .consultation-footer__right--mobile
-    a(plat-large-icon-button color='success', *ngIf="isExpertAvailable else offlineMobile", (click)='onCall()')
-      span(plat-icon iconClass='headphone')
-      span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+    div.button-large
+      a(plat-large-icon-button color='success', *ngIf="isExpertAvailable else offlineMobileLarge", (click)='onCall()')
+        span(plat-icon iconClass='headphone')
+        span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+    div.button-small
+      a(plat-flat-fab color='success', *ngIf="isExpertAvailable else offlineMobile", (click)='onCall()')
+        span(plat-icon iconClass='headphone')
+    ng-template(#offlineMobileLarge)
+      div.button-large
+        a(plat-large-icon-button color='primary', (click)='onNotifyUser()')
+          span(plat-icon iconClass='bell')
+          span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
     ng-template(#offlineMobile)
-      a(plat-large-icon-button color='primary', (click)='onNotifyUser()')
-        span(plat-icon iconClass='bell')
-        span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
+      div.button-small
+        a(plat-flat-fab color='primary', (click)='onNotifyUser()')
+          span(plat-icon iconClass='bell')
