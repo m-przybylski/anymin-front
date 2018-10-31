@@ -1,0 +1,34 @@
+.file-preview-navigation([ngClass]="{'file-preview-navigation--is-pending': isPending}")
+  .file-preview-pagination
+    ul
+      li.file-preview-pagination__preview([ngClass]="{'file-preview-pagination__preview--inactive': !isNavigationBackwardAllowed}")
+        span(plat-icon, iconClass="backward", (click)="onBackwardClick()")
+
+      li.file-preview-pagination__counter
+        span(*ngIf="!isPending") {{ currentItem }} {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.FROM' | translate }} {{ filesCount }}
+        span(*ngIf="isPending") {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.EMPTY_NAV' | translate }}
+
+      li.file-preview-pagination--next([ngClass]="{'file-preview-pagination__next--inactive': !isNavigationForwardAllowed}")
+        span(plat-icon, iconClass="forward", (click)="onForwardClick()")
+
+  .file-preview-zoom
+    ul
+      li.file-preview-zoom__out([ngClass]="{'file-preview-zoom__out--inactive': !isZoomOutAllowed || !isScalable}")
+        span(plat-icon, iconClass="zoom-out", (click)="onZoomOutClick()")
+
+      li.file-preview-zoom__counter
+        span(*ngIf="!isPending") {{ currentZoom }} {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.ZOOM_PERCENT' | translate }}
+        span(*ngIf="isPending") {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.EMPTY_ZOOM' | translate }}
+
+      li.file-preview-zoom__in([ngClass]="{'file-preview-zoom__in--inactive': !isZoomInAllowed || !isScalable}")
+        span(plat-icon, iconClass="zoom-in", (click)="onZoomInClick()")
+
+  .file-preview-action
+    ul
+      li.file-preview-action__download(*ngIf="imageUrl || isPending")
+        a(target="_self", download="{{imageUrl}}", href="{{imageUrl}}")
+          span(plat-icon, iconClass="download")
+
+      li.file-preview-action__print
+        a#print-section((click)="onPrintClick()")
+          span(plat-icon, iconClass="print")

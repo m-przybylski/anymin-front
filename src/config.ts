@@ -96,6 +96,7 @@ export class Config {
     iconsTablet: '/assets/images/profitelo_icons/tablet',
     iconsSmallDesktop: '/assets/images/profitelo_icons/small_desktop',
     iconsDesktop: '/assets/images/profitelo_icons/desktop',
+    brokenImage: './assets/images/broken-image.svg',
   };
 
   public static readonly imageSizeInBytes = {
@@ -137,5 +138,9 @@ export class Config {
     seven: 55,
     eight: 56,
     nine: 57,
+    plus: 187,
+    minus: 189,
+    numericPlus: 107,
+    numericMinus: 109,
   };
 }

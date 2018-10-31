@@ -1,0 +1,72 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.file-preview-navigation
+  background: $c-text-secondary
+  border-radius: 4px 4px 0 0
+  padding: 0 16px
+  height: 56px
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  +smm
+    border-radius: 4px
+
+  &--is-pending
+    &::after
+      content: ""
+      cursor: not-allowed
+      width: 100%
+      height: 100%
+      position: absolute
+      left: 0
+      top: 0
+
+    ul
+      li
+        span
+          pointer-events: none
+          color: rgba($c-white, 0.35)
+
+  ul
+    display: flex
+    align-items: center
+
+    li
+      @extend ul
+
+    span
+      cursor: pointer
+      color: $c-white
+      position: relative
+      z-index: $z-index-100
+
+      &:not(.icon)
+        +button-small
+
+      &--inavtive
+        color: $c-placeholder
+
+  [class*="--inactive"]
+    span
+      color: rgba($c-white, 0.35)
+
+.file-preview
+  &-pagination
+    &__counter
+      margin: 0 16px
+
+  &-zoom
+    &__counter
+      margin: 0 16px
+
+  &-action
+    ul
+      .file-preview-action__print
+        display: none
+
+        +smm
+          display: flex
+
+    .icon
+      margin: 0 0 0 16px

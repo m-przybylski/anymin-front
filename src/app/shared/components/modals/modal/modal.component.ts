@@ -16,6 +16,7 @@ export enum ModalContainerTypeEnum {
   CROPP_WIDTH = 'CROPP_WIDTH',
   NO_PADDING = 'NO_PADDING',
   SMALL_NO_PADDING = 'SMALL_NO_PADDING',
+  FILE_PREVIEW = 'FILE_PREVIEW',
 }
 
 @Component({
