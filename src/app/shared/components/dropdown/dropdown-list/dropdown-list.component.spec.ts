@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AnymindComponentsCoreModule, AnymindComponentsModule } from '@anymind-ng/core';
 import { DropdownListComponent } from './dropdown-list.component';
-import { getCoreConfig } from '../../../../../core/factories/core-config/core-config.facotry';
-import { UserAvatarComponent } from '../../../user-avatar/user-avatar.component';
+import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
+import { UserAvatarComponent } from '../../user-avatar/user-avatar.component';
 import { ScrollToElementDirective } from './scroll-to-element.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 

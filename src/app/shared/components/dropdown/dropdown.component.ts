@@ -9,10 +9,9 @@ export interface IDropdownComponent {
 @Component({
   selector: 'plat-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.sass']
+  styleUrls: ['./dropdown.component.sass'],
 })
 export class DropdownComponent implements OnInit {
-
   @Input('label')
   public labelTrKey: string;
 
@@ -26,10 +25,10 @@ export class DropdownComponent implements OnInit {
   public form: FormGroup;
 
   @Input()
-  public isRequired ? = false;
+  public isRequired = false;
 
   @Input()
-  public isDisabled ? = false;
+  public isDisabled = false;
 
   @Input()
   public dropdownItems: ReadonlyArray<IDropdownComponent>;
@@ -44,7 +43,7 @@ export class DropdownComponent implements OnInit {
   public onSelectItemEmiter = new EventEmitter<IDropdownComponent>();
 
   @Output()
-  public onCloseEmiter ? = new EventEmitter<boolean>(true);
+  public onCloseEmiter = new EventEmitter<boolean>(true);
 
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', []));
@@ -52,7 +51,7 @@ export class DropdownComponent implements OnInit {
 
   public onClickDropdown = (): void => {
     this.isDropdownListVisible = !this.isDropdownListVisible;
-  }
+  };
 
   public onSelectItem = (value: IDropdownComponent): void => {
     if (this.isDropdownListOnly) {
@@ -63,17 +62,16 @@ export class DropdownComponent implements OnInit {
 
     this.isDropdownListVisible = false;
     this.placeholderTrKey = value.name;
-  }
+  };
 
   public onToggleDropdown = (isVisible: boolean): void => {
     this.isDropdownListVisible = isVisible;
     this.onCloseDropdownList(isVisible);
-  }
+  };
 
   public onCloseDropdownList = (isVisible: boolean): void => {
     if (this.onCloseEmiter) {
       this.onCloseEmiter.emit(isVisible);
     }
-  }
-
+  };
 }

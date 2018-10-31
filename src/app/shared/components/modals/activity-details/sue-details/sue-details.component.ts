@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MoneyDto } from '@anymind-ng/api';
+import { GetCallDetails, GetComment, MoneyDto } from '@anymind-ng/api';
 
 export interface ISueDetails {
   serviceName: string;
@@ -10,9 +10,11 @@ export interface ISueDetails {
   answeredAt: Date;
   callDuration: number;
   servicePrice: MoneyDto;
+  recommendedTags: string;
+  isOwnerOfService: boolean;
   financialOperation?: MoneyDto;
-  // todo wait for https://anymind.atlassian.net/browse/PLAT-544
-  isRecommended: boolean;
+  rate?: GetCallDetails.RateEnum;
+  comment?: GetComment;
 }
 
 @Component({
@@ -25,7 +27,7 @@ export class SueDetailsComponent {
   public isChatHistoryVisible: boolean;
 
   @Input()
-  public set activityDetails(value: ISueDetails | undefined) {
+  public set sueDetails(value: ISueDetails | undefined) {
     if (typeof value !== 'undefined') {
       this.assignValuesForUI(value);
     }
@@ -43,7 +45,10 @@ export class SueDetailsComponent {
   public servicePriceCurrency: string;
   public financialOperationAmount = 0;
   public financialOperationCurrency = 'PLN';
-  public isRecommended: string;
+  public rate: string;
+  public commentDetails?: GetComment;
+  public recommendedTags: string;
+  public isOwnerOfService: boolean;
 
   private readonly moneyDivider = 100;
   private readonly oneSecondInMilliseconds = 1000;
@@ -67,9 +72,22 @@ export class SueDetailsComponent {
     this.callDuration = value.callDuration * this.oneSecondInMilliseconds;
     this.servicePriceAmount = value.servicePrice.amount / this.moneyDivider;
     this.servicePriceCurrency = value.servicePrice.currency;
-    // todo wait for https://anymind.atlassian.net/browse/PLAT-544
-    this.isRecommended = value.isRecommended
-      ? 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_POSITIVE'
-      : 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NEGATIVE';
+    this.rate = this.getRateStatus(value.rate);
+    this.commentDetails = value.comment;
+    this.recommendedTags = value.recommendedTags;
+    this.isOwnerOfService = value.isOwnerOfService;
+  };
+
+  private getRateStatus = (rate?: GetCallDetails.RateEnum): string => {
+    switch (rate) {
+      case GetCallDetails.RateEnum.POSITIVE:
+        return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_POSITIVE';
+
+      case GetCallDetails.RateEnum.NEGATIVE:
+        return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NEGATIVE';
+
+      default:
+        return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NONE';
+    }
   };
 }

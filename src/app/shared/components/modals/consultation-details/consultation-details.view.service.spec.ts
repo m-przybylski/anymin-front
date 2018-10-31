@@ -127,7 +127,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '1234',
           sueId: 'qqwer',
           callDurationInSeconds: 134,
-          isRecommended: true,
           clientDetails: {
             avatar: '12345555',
             clientId: '121qweqq',
@@ -262,7 +261,6 @@ describe('ConsultationDetailsViewService', () => {
         expertId: '123132',
         sueId: '111',
         callDurationInSeconds: 156,
-        isRecommended: false,
         clientDetails: {
           avatar: 'a13ee',
           clientId: '333',
@@ -281,7 +279,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -295,7 +292,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -309,7 +305,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -325,7 +320,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -339,7 +333,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -357,7 +350,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -379,7 +371,6 @@ describe('ConsultationDetailsViewService', () => {
         expertId: '123132',
         sueId: '111',
         callDurationInSeconds: 156,
-        isRecommended: false,
         clientDetails: {
           avatar: 'a13ee',
           clientId: '333',
@@ -398,7 +389,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -412,7 +402,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',
@@ -426,7 +415,6 @@ describe('ConsultationDetailsViewService', () => {
           expertId: '123132',
           sueId: '111',
           callDurationInSeconds: 156,
-          isRecommended: false,
           clientDetails: {
             avatar: 'a13ee',
             clientId: '333',

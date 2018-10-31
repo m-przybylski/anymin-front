@@ -1,16 +1,19 @@
 .consultation-comment-answer
   .consultation-comment-answer__row
     .user-details
-      .user-details__avatar(*ngIf="tokentAvatar")
+      .user-details__avatar(*ngIf="tokenAvatar")
         plat-user-avatar(
         [avatarSize]="avatarSize",
-        [avatarToken]="tokentAvatar"
+        [avatarToken]="tokenAvatar"
         )
 
       .user-details__data
         .user-details__data__name(*ngIf="expertName")
           span.user-details__data__answer-label {{ 'CONSULTATION_DETAILS.COMMENTS.ANSWER_FROM' | translate }}
           p {{ expertName }}
+
+        .user-details__data__name(*ngIf="!expertName")
+          p {{ 'CONSULTATION_DETAILS.COMMENTS.YOUR_ANSWER' | translate }}
 
         .user-details__time(*ngIf="commentDetails.answer")
           .user-details__time__comment-registered

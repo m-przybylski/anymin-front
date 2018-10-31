@@ -18,6 +18,12 @@
     +xsm
       padding: 32px 0
 
+    &:last-child
+      padding: 24px 0 0
+
+      +xsm
+        padding: 32px 0 0
+
     &--financial
       padding: 24px 0
       border-top: 1px solid $c-lines
@@ -47,15 +53,37 @@
         +xsm
           +subtitle
 
-      &--financial
-        span
-          +h6
-          color: $c-text-primary
-          font-weight: 500
-
-          +xsm
-            +h5
-            font-weight: 500
-
       a
         color: $c-primary
+
+    .basic-data-comment,
+    .basic-data-tags
+      flex-direction: column
+
+      +xsm
+        flex-direction: row
+
+      .basic-data__value
+        +paragraph-small
+        width: 100%
+
+      .basic-data__title
+        margin: 0 0 4px 0
+
+        +xsm
+          margin: 0
+
+    .basic-data-financial
+      span
+        +h6
+        color: $c-text-primary
+        font-weight: 500
+
+        +xsm
+          +h5
+          font-weight: 500
+
+  .activity-section-financial
+    padding: 24px 0
+    border-top: 1px solid $c-lines
+    border-bottom: 1px solid $c-lines

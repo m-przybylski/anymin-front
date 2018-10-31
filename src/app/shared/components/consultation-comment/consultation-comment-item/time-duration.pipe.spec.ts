@@ -1,5 +1,5 @@
 // tslint:disable:max-line-length
-import { TimeDurationPipe } from '@platform/shared/components/modals/consultation-details/consultation-comment/consultation-comment-item/time-duration.pipe';
+import { TimeDurationPipe } from './time-duration.pipe';
 
 describe('EmptyNumberPipe', () => {
   let timeDurationPipe: TimeDurationPipe;

@@ -1,15 +1,15 @@
 // tslint:disable:max-file-line-count
 import { ActivityDetailsViewComponentService } from './activity-details.view.component.service';
-import { ActivitiesService, ViewsService } from '@anymind-ng/api';
+import { ActivitiesService, GetCallDetails, ViewsService, GetTag, GetReport } from '@anymind-ng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { provideMockFactoryLogger } from '../../../../../testing/testing';
 import { TestBed } from '@angular/core/testing';
 import { Deceiver } from 'deceiver-core';
-import { GetTag } from 'profitelo-api-ng/model/GetTag';
 import { cold } from 'jasmine-marbles';
 import { CommunicatorService, LoggerService } from '@anymind-ng/core';
 import { of, Observable } from 'rxjs';
 import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
+import { ISueDetails } from '@platform/shared/components/modals/activity-details/sue-details/sue-details.component';
 
 describe('ActivityDetailsViewComponentService', () => {
   let service: ActivityDetailsViewComponentService;
@@ -59,11 +59,12 @@ describe('ActivityDetailsViewComponentService', () => {
     (loggerService.warn as jasmine.Spy).calls.reset();
   });
 
-  it('should activity details with client avatar and expert avatar', () => {
+  it('should get activity details with client avatar and expert avatar', () => {
     const viewsService = TestBed.get(ViewsService);
     const mockSueId = 'id123';
-    const answeredAtDate = new Date();
-    const response = {
+    const mockAccountId = 'serviceOwnerProfileId';
+    const mockDate = new Date();
+    const response: GetCallDetails = {
       isRecommended: true,
       isRecommendable: true,
       recommendedTags: [
@@ -78,9 +79,13 @@ describe('ActivityDetailsViewComponentService', () => {
         content: 'Arturek jest super',
         answer: {
           content: 'Potwierdzam!',
-          createdAt: new Date(),
+          createdAt: mockDate,
         },
-        createdAt: new Date(),
+        report: {
+          cause: GetReport.CauseEnum.OFFENSIVECOMMENT,
+          status: GetReport.StatusEnum.NEW,
+        },
+        createdAt: mockDate,
       },
       clientDetails: {
         clientId: 'clientId',
@@ -119,7 +124,7 @@ describe('ActivityDetailsViewComponentService', () => {
         serviceUsageEventId: 'serviceUsageEventId',
         ratelCallId: 'ratelCallId',
         ratelRoomId: 'ratelRoomId',
-        answeredAt: answeredAtDate,
+        answeredAt: mockDate,
         ratePerMinute: {
           amount: 123,
           currency: 'PLN',
@@ -131,13 +136,13 @@ describe('ActivityDetailsViewComponentService', () => {
         callDuration: 22,
       },
     };
-    const expectedValue = {
+    const expectedValue: ISueDetails = {
       sueId: mockSueId,
       serviceName: 'superService',
       clientName: 'MalyRozbojnik123',
       clientAvatarUrl: 'http://www.anymind.com/files/clientAvatar/download',
       expertAvatarUrl: 'http://www.anymind.com/files/expertAvatar/download',
-      answeredAt: answeredAtDate,
+      answeredAt: mockDate,
       callDuration: 22,
       servicePrice: {
         amount: 123,
@@ -147,7 +152,30 @@ describe('ActivityDetailsViewComponentService', () => {
         amount: 234,
         currency: 'PLN',
       },
-      isRecommended: true,
+      recommendedTags: 'superTag',
+      isOwnerOfService: true,
+      comment: {
+        commentId: 'commentId',
+        content: 'Arturek jest super',
+        expertId: 'expertProfileId',
+        sueId: 'serviceUsageEventId',
+        answer: {
+          content: 'Potwierdzam!',
+          createdAt: mockDate,
+        },
+        report: {
+          cause: GetReport.CauseEnum.OFFENSIVECOMMENT,
+          status: GetReport.StatusEnum.NEW,
+        },
+        callDurationInSeconds: 22,
+        clientDetails: {
+          clientId: 'clientId',
+          nickname: 'MalyRozbojnik123',
+          avatar: 'clientAvatar',
+        },
+        createdAt: mockDate,
+      },
+      rate: undefined,
     };
     const expectedResult = cold('-(a|)', { a: expectedValue });
     const getCallDetails = cold('-(a|)', { a: response });
@@ -155,13 +183,14 @@ describe('ActivityDetailsViewComponentService', () => {
     viewsService.getDashboardCallDetailsRoute = jasmine
       .createSpy('getDashboardCallDetailsRoute')
       .and.returnValue(getCallDetails);
-    expect(service.getCallDetails(mockSueId)).toBeObservable(expectedResult);
+    expect(service.getCallDetails(mockSueId, mockAccountId)).toBeObservable(expectedResult);
   });
 
-  it('should activity details without client and expert avatar', () => {
+  it('should activity details without client, expert avatar, comment', () => {
     const viewsService = TestBed.get(ViewsService);
     const mockSueId = 'id123';
-    const answeredAtDate = new Date();
+    const mockAccountId = 'id123';
+    const mockDate = new Date();
     const response = {
       isRecommended: true,
       isRecommendable: true,
@@ -172,15 +201,6 @@ describe('ActivityDetailsViewComponentService', () => {
           status: GetTag.StatusEnum.ACCEPTED,
         },
       ],
-      comment: {
-        commentId: 'commentId',
-        content: 'Arturek jest super',
-        answer: {
-          content: 'Potiwerdzam!',
-          createdAt: new Date(),
-        },
-        createdAt: new Date(),
-      },
       clientDetails: {
         clientId: 'clientId',
         nickname: 'MalyRozbojnik123',
@@ -211,7 +231,7 @@ describe('ActivityDetailsViewComponentService', () => {
         serviceUsageEventId: 'serviceUsageEventId',
         ratelCallId: 'ratelCallId',
         ratelRoomId: 'ratelRoomId',
-        answeredAt: answeredAtDate,
+        answeredAt: mockDate,
         ratePerMinute: {
           amount: 123,
           currency: 'PLN',
@@ -223,13 +243,13 @@ describe('ActivityDetailsViewComponentService', () => {
         callDuration: 22,
       },
     };
-    const expectedValue = {
+    const expectedValue: ISueDetails = {
       sueId: mockSueId,
       serviceName: 'superService',
       clientName: 'MalyRozbojnik123',
       clientAvatarUrl: '',
       expertAvatarUrl: '',
-      answeredAt: answeredAtDate,
+      answeredAt: mockDate,
       callDuration: 22,
       servicePrice: {
         amount: 123,
@@ -239,7 +259,10 @@ describe('ActivityDetailsViewComponentService', () => {
         amount: 234,
         currency: 'PLN',
       },
-      isRecommended: true,
+      recommendedTags: 'superTag',
+      isOwnerOfService: false,
+      rate: undefined,
+      comment: undefined,
     };
     const expectedResult = cold('-(a|)', { a: expectedValue });
     const getCallDetails = cold('-(a|)', { a: response });
@@ -247,7 +270,7 @@ describe('ActivityDetailsViewComponentService', () => {
     viewsService.getDashboardCallDetailsRoute = jasmine
       .createSpy('getDashboardCallDetailsRoute')
       .and.returnValue(getCallDetails);
-    expect(service.getCallDetails(mockSueId)).toBeObservable(expectedResult);
+    expect(service.getCallDetails(mockSueId, mockAccountId)).toBeObservable(expectedResult);
   });
 
   it('should log warn error when mark activity as unimportant failed', () => {

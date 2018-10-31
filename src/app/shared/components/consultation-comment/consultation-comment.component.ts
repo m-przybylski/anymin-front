@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Config } from '../../../../../../config';
-import { Animations } from '../../../../animations/animations';
+import { Config } from '../../../../config';
+import { Animations } from '../../animations/animations';
 import { GetComment } from '@anymind-ng/api/model/getComment';
 import { GetAnswer, GetReport } from '@anymind-ng/api';
 import { ConsultationCommentService } from './consultation-comment.service';
@@ -10,7 +10,7 @@ import { catchError, tap, switchMap } from 'rxjs/operators';
 import { EMPTY, Observable, timer } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConsultationCommentTypeAnswer } from './consultation-comment-item/consultation-comment-item.component';
-import { Logger } from '@platform/core/logger';
+import { Logger } from '../../../core/logger';
 
 @Component({
   selector: 'plat-consultation-comments',
@@ -31,28 +31,38 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
   public readonly commentMaxLength = Config.inputsLengthNumbers.commentMaxLength;
   public readonly commentMinLength = Config.inputsLengthNumbers.commentMinLength;
 
-  public isAnswerFieldVisible = false;
-  public isReasonFieldVisible = false;
-
   @Input()
   public isOwner = false;
 
   @Input()
-  public expertName: string;
+  public expertName = '';
 
   @Input()
-  public expertAvatar: string;
+  public expertAvatar = '';
 
   @Input()
-  public commentDetails: GetComment;
+  public set commentDetails(value: GetComment | undefined) {
+    if (typeof value !== 'undefined') {
+      this.comment = value;
+      this.sueId = value.sueId;
+
+      if (typeof value.answer !== 'undefined') {
+        this.commentAnswer = value.answer;
+      }
+      this.isReported = typeof value.report !== 'undefined';
+    }
+  }
 
   @Output()
   public onAddAnswer = new EventEmitter<GetComment>();
 
+  public comment: GetComment;
   public tmpAnswer = false;
-
   public commentAnswer: GetAnswer;
   public isReported = false;
+  public isAnswerFieldVisible = false;
+  public isReasonFieldVisible = false;
+
   private sueId: string;
 
   constructor(
@@ -65,11 +75,6 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
 
   public ngOnInit(): void {
     this.answerFormGroup.addControl(this.answerFormControlName, new FormControl('', []));
-    this.sueId = this.commentDetails.sueId;
-
-    if (typeof this.commentDetails.answer !== 'undefined') {
-      this.commentAnswer = this.commentDetails.answer;
-    }
   }
 
   public dropdownChoose = (choose: ConsultationCommentTypeAnswer): void => {
@@ -96,20 +101,19 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
     this.isReasonFieldVisible = false;
   };
 
-  public onSendComment = (formGrup: FormGroup): void => {
-    if (formGrup.valid) {
-      this.isReported = true;
-      this.sendCommentAnswer(formGrup.controls[this.answerFormControlName].value);
-      this.closeAnswerFields();
+  public onSendComment = (formGroup: FormGroup): void => {
+    if (formGroup.valid) {
+      this.sendCommentAnswer(formGroup.controls[this.answerFormControlName].value);
     }
   };
 
   public sendReasonReport = (reason: GetReport.CauseEnum): void => {
     this.consultationCommentService
-      .postCommentReport(this.sueId, this.commentDetails.commentId, reason)
+      .postCommentReport(this.sueId, this.comment.commentId, reason)
       .pipe(
         catchError(err => this.handleRequestError(err, 'Can not send comment report')),
         tap(() => {
+          this.isReported = true;
           this.closeAnswerFields();
           this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.COMMENTS.REPORT.COMPLETE');
         }),
@@ -118,20 +122,23 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
   };
 
   private sendCommentAnswer = (answer: string): void => {
-    this.commentDetails.answer = {
+    this.comment.answer = {
       content: answer,
       createdAt: new Date(),
     };
 
     this.consultationCommentService
-      .postCommentAnswer(this.sueId, this.commentDetails.commentId, answer)
+      .postCommentAnswer(this.sueId, this.comment.commentId, answer)
       .pipe(
         tap(() => {
-          this.onAddAnswer.emit(this.commentDetails);
+          this.onAddAnswer.emit(this.comment);
           this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.COMMENTS.ANSWER.COMPLETE');
         }),
         switchMap(() => timer(ConsultationCommentComponent.timeout)),
-        tap(() => (this.tmpAnswer = true)),
+        tap(() => {
+          this.tmpAnswer = true;
+          this.closeAnswerFields();
+        }),
         catchError(err => this.handleRequestError(err, 'Can not send comment answer')),
       )
       .subscribe();

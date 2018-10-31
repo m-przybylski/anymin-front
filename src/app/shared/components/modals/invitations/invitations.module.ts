@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConsultationDetailsComponentModule } from '@platform/features/dashboard/components/consultation-details/consultation-details.component.module';
 import { ConsultationFooterModule } from '../consultation-details/consultation-footers/consultation-footer.module';
 import { ConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/consultation-details.view.module';
+import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { ConsultationDetailsModule } from '@platform/shared/components/modals/co
     ConsultationDetailsModule,
     ConsultationDetailsComponentModule,
     ConsultationFooterModule,
+    DropdownModule,
   ],
   entryComponents: [AcceptRejectInvitationModalComponent, EmployeesInviteModalComponent],
   declarations: [

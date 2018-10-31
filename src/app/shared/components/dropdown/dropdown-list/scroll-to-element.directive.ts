@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
-import { keyboardCodes } from '../../../../../../angularjs/common/classes/keyboard';
+import { keyboardCodes } from '../../../../../angularjs/common/classes/keyboard';
 
 @Directive({
   selector: '[scrollToElementDirective]',

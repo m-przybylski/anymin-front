@@ -1,4 +1,4 @@
-import { ActivitiesService, ViewsService } from '@anymind-ng/api';
+import { ActivitiesService, GetComment, ViewsService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { map, catchError, take, switchMap } from 'rxjs/operators';
 import { GetCallDetails } from '@anymind-ng/api/model/getCallDetails';
@@ -24,7 +24,7 @@ export class ActivityDetailsViewComponentService extends Logger {
     super(loggerFactory.createLoggerService('ActivityDetailsViewComponentService'));
   }
 
-  public getCallDetails = (sueId: string): Observable<ISueDetails> =>
+  public getCallDetails = (sueId: string, accountId: string): Observable<ISueDetails> =>
     this.viewsService.getDashboardCallDetailsRoute(sueId).pipe(
       map((callDetails: GetCallDetails) => ({
         sueId,
@@ -38,8 +38,11 @@ export class ActivityDetailsViewComponentService extends Logger {
         answeredAt: callDetails.serviceUsageDetails.answeredAt,
         callDuration: callDetails.serviceUsageDetails.callDuration,
         servicePrice: callDetails.service.price,
+        recommendedTags: callDetails.recommendedTags.map(tag => tag.name).join(', '),
+        isOwnerOfService: accountId === callDetails.serviceOwnerProfile.id,
         financialOperation: callDetails.serviceUsageDetails.financialOperation,
-        isRecommended: callDetails.isRecommended,
+        rate: callDetails.rate,
+        comment: this.getComment(callDetails),
       })),
     );
 
@@ -112,4 +115,22 @@ export class ActivityDetailsViewComponentService extends Logger {
     lastMessage: roomEvents.CustomMessageSent,
     message: roomEvents.CustomMessageSent,
   ): boolean => lastMessage.authorId === message.authorId;
+
+  private getComment = (callDetails: GetCallDetails): GetComment | undefined => {
+    if (typeof callDetails.comment !== 'undefined') {
+      return {
+        commentId: callDetails.comment.commentId,
+        content: callDetails.comment.content,
+        expertId: callDetails.expertProfile.id,
+        sueId: callDetails.serviceUsageDetails.serviceUsageEventId,
+        answer: callDetails.comment.answer,
+        report: callDetails.comment.report,
+        callDurationInSeconds: callDetails.serviceUsageDetails.callDuration,
+        clientDetails: callDetails.clientDetails,
+        createdAt: callDetails.comment.createdAt,
+      };
+    }
+
+    return undefined;
+  };
 }

@@ -1,4 +1,4 @@
-.consultation-comment-item(*ngIf="commentDetails")
+.consultation-comment-item(*ngIf="comment", #commentContainer)
   .consultation-comment-item__row
     .user-details
       .user-details__avatar
@@ -8,45 +8,55 @@
 
       .user-details__data
         .user-details__data__name
-          p(*ngIf="commentDetails.clientDetails.nickname") {{ commentDetails.clientDetails.nickname }}
-          p(*ngIf="!commentDetails.clientDetails.nickname")
+          p(*ngIf="comment.clientDetails.nickname") {{ comment.clientDetails.nickname }}
+          p(*ngIf="!comment.clientDetails.nickname")
             | {{ 'CONSULTATION_DETAILS.COMMENTS.ANONYMOUS_COMMENT' | translate }}
 
         .user-details__time
           .user-details__time__consultation-time
             span.icon.icon-time-duration
-            span {{ commentDetails.callDurationInSeconds | timeDuration }}
+            span {{ comment.callDurationInSeconds | timeDuration }}
 
           .user-details__time__comment-registered
             span.icon.icon-date
             span {{ commentDate | dateDuration }}
 
-      .consultation-comment-item__edit(*ngIf="!commentDetails.answer && isOwner && !isReported")
+      .consultation-comment-item__edit(
+        *ngIf="isCommentOptionVisible()",
+        commentDropdownPosition,
+        [commentDropdownParentElement]="commentContainer"
+      )
         span.icon.icon-options-more(toggleElementDirective, (isClickedElement)="toggleDropdown($event)")
 
-        ul.consultation-comment-item__edit__dropdown(*ngIf="isDropdownVisible", [@dropdownAnimation])
-          li((click)="onDropdownChoose(dropdownNavigationList.REASON_REPORT)")
+        ul.consultation-comment-item__edit__dropdown(
+          #commentDropdown,
+          [@dropdownAnimation]="dropdownVisibility",
+          (@dropdownAnimation.start)="onAnimationStart($event, commentDropdown)",
+          (@dropdownAnimation.done)="onAnimationDone($event, commentDropdown)"
+        )
+
+          li(*ngIf="!isReported", (click)="onDropdownChoose(dropdownNavigationList.REASON_REPORT)")
             span {{ 'CONSULTATION_DETAILS.COMMENTS.DROPDOWN.REPORT' | translate }}
 
-          li((click)="onDropdownChoose(dropdownNavigationList.ANSWER)")
+          li(*ngIf="!isAnswer && !temporaryAnswer", (click)="onDropdownChoose(dropdownNavigationList.ANSWER)")
             span {{ 'CONSULTATION_DETAILS.COMMENTS.DROPDOWN.ANSWER' | translate }}
 
     .consultation-comment-item__description([ngClass]="{'consultation-comment-item__description--reported': isReportAccepted}")
-      p {{ commentDetails.content }}
+      p {{ comment.content }}
 
   .consultation-comment-item__answer(*ngIf="isAnswer")
     plat-consultation-comment-answer(
       [avatarSize]="avatarSize40",
-      [tokentAvatar]="tokentAvatar",
+      [tokenAvatar]="tokenAvatar",
       [expertName]="expertName",
-      [commentDetails]="commentDetails"
+      [commentDetails]="comment"
     )
 
   .consultation-comment-item__answer--temporary(*ngIf="temporaryAnswer && !isAnswer", [@collapse])
     plat-consultation-comment-answer(
       [avatarSize]="avatarSize40",
-      [tokentAvatar]="tokentAvatar",
+      [tokenAvatar]="tokenAvatar",
       [expertName]="expertName",
-      [commentDetails]="commentDetails"
+      [commentDetails]="comment"
 
     )

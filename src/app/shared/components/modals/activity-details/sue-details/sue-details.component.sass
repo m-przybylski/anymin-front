@@ -1,1 +1,128 @@
 @import "../activity-details.view.component"
+
+.sue-details
+  plat-consultation-comments
+    &::ng-deep
+      .consultation-comments
+        .consultation-comment-item
+          padding: 0
+          margin: 0
+
+          &__row
+            .consultation-comment-item__description
+              p
+                +xsm
+                  +paragraph
+
+            .user-details
+              margin: 0 0 4px
+
+              +xsm
+                margin: 0 0 12px
+
+              &__avatar
+                display: none
+
+              &__data
+                margin: 0
+                display: flex
+
+                &__name
+                  margin: 0
+
+                  p
+                    +paragraph-small
+                    font-weight: 500
+
+                    +xsm
+                      +subtitle
+                      font-weight: 500
+
+              &__time
+                margin: 0 0 0 4px
+
+                &__consultation-time
+                  display: none
+
+                &__comment-registered
+                  .icon
+                    font-size: $f-icon-20
+
+                    +xsm
+                      font-size: $f-icon-24
+
+                  span
+                    +paragraph-small
+
+                    +xsm
+                      +subtitle
+
+          &__answer,
+          &__answer--temporary
+            .consultation-comment-answer
+              border: none
+
+              &__row
+                padding: 0
+
+                .consultation-comment-answer__description
+                  p
+                    +xsm
+                      +paragraph
+
+                .user-details
+                  margin: 0 0 4px
+
+                  +xsm
+                    margin: 0 0 12px
+
+                  &__data
+                    display: flex
+                    margin: 0
+
+                    &__name
+                      margin: 0
+                    p
+                      +paragraph-small
+                      font-weight: 500
+
+                      +xsm
+                        +subtitle
+                        font-weight: 500
+
+                  &__time
+                    span
+                      +paragraph-small
+                      margin: 0 0 0 4px
+
+                      +xsm
+                        +subtitle
+
+                    .icon
+                      margin: 0 0 0 4px
+                      font-size: $f-icon-20
+
+                      +xsm
+                        font-size: $f-icon-24
+
+        .consultation-comments-item
+          &__reason,
+          &__answer-field
+            margin: 24px 0 0
+
+            .form
+              &__action
+                text-align: right
+
+              &--report-comments
+                padding: 0
+
+              &__header
+                margin: 0 0 24px
+
+                h4
+                  +subtitle
+                  font-weight: 500
+
+              .modal-form__row--small
+                margin: 0 0 16px

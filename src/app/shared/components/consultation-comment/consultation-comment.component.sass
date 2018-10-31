@@ -1,5 +1,5 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
-@import "../../../../../shared/components/modals/modal/modal.component"
+@import "../modals/modal/modal.component"
 
 .consultation-comments
   margin: 0 0 4px
@@ -39,13 +39,13 @@
       overflow: hidden
 
   .comment-reason-list
-    +mdm
+    +smm
       display: flex
       justify-content: space-between
 
     li
       border: 1px solid $c-lines
-      flex: 1 0 auto
+      flex: 1 0
       padding: 16px 0
       text-align: center
       transition: border-color 0.3s
@@ -57,7 +57,7 @@
       &:nth-child(2)
         margin: 8px 0
 
-        +mdm
+        +smm
           margin: 0 8px
 
       span

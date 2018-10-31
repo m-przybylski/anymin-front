@@ -49,11 +49,10 @@ export class Animations {
 
   public static dropdownAnimation: AnimationTriggerMetadata[] = [
     trigger('dropdownAnimation', [
-      transition(':enter', [
-        style({ transform: 'translateY(-8px)', opacity: '0' }),
-        animate('200ms ease-in', style({ transform: 'translateY(0)', opacity: '1' })),
-      ]),
-      transition(':leave', [animate('200ms ease-out', style({ transform: 'translateY(8px)', opacity: '0' }))]),
+      state('visible', style({ transform: 'translateY(0)', opacity: '1' })),
+      state('hidden', style({ transform: 'translateY(-8px)', opacity: '0' })),
+      transition('hidden => visible', animate('200ms ease-in')),
+      transition('visible => hidden', animate('200ms ease-out', style({ transform: 'translateY(8px)', opacity: '0' }))),
     ]),
   ];
 }
