@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import { EmploymentWithService, ExpertProfileView } from '@anymind-ng/api';
+import { EmploymentWithService, ExpertProfileView, ProfileDocument } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
@@ -26,10 +26,11 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
   public links: ReadonlyArray<string>;
   public description: string;
   public isOwnProfile: boolean;
-  public consultations: ReadonlyArray<EmploymentWithService>;
+  public consultations: ReadonlyArray<EmploymentWithService> = [];
   public expertId: string;
   public isLogged: boolean;
   public isCompany: boolean;
+  public expertDocuments: ReadonlyArray<ProfileDocument> = [];
   public readonly avatarSize = AvatarSizeEnum.X_156;
   constructor(protected route: ActivatedRoute, protected injector: Injector) {
     super(injector);
@@ -45,6 +46,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
         this.links = this.getFlattenLinks(data.profile.employments);
         this.isOwnProfile = data.isOwnProfile;
         this.consultations = data.profile.employments;
+        this.expertDocuments = data.profile.expertProfile.documents;
         this.expertId = data.profile.expertProfile.id;
         this.isLogged = data.isLogged;
         this.isCompany = data.isCompany;

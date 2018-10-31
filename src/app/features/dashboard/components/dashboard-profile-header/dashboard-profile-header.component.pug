@@ -1,22 +1,24 @@
-.expert-layout
-  plat-user-avatar.expert-layout__avatar(
-    [avatarToken]="avatarToken",
-    [avatarSize]="avatarSize"
+.profile-layout
+  plat-user-avatar.profile-layout__avatar(
+  [avatarToken]="avatarToken",
+  [avatarSize]="avatarSize"
   )
-  .expert-layout__content
-    .expert-layout__details
-      .expert-layout__details-name-wrapper
-        span.expert-layout__details-name {{name}}
-        .expert-layout__icons(*ngIf='isLogged')
-          a.expert-layout__icons-button(plat-icon-button)
+  .profile-layout__content
+    .profile-layout__details
+      .profile-layout__details-name-wrapper
+        span.profile-layout__details-name {{name}}
+        .profile-layout__icons(*ngIf='isLogged')
+          a.profile-layout__icons-button(plat-icon-button)
             span(plat-icon iconClass='share')
-          a(*ngIf='isOwnProfile; else likeButton',plat-stroked-button, (click)='editProfileClick()').expert-layout__icons-button {{'EXPERT_DASHBOARD.EDIT' | translate}}
-      .expert-layout__details-available
+          a(*ngIf='isOwnProfile; else likeButton',plat-stroked-button, (click)='editProfileClick()').profile-layout__icons-button {{'EXPERT_DASHBOARD.EDIT' | translate}}
+      .profile-layout__details-available
         plat-expert-availability(*ngIf='expertId', [expertId]='expertId')
       plat-social-links([links]='links')
-    plat-expandable-panel.expert-layout__description
+    plat-expandable-panel.profile-layout__description
       span {{description}}
-    a(plat-stroked-button) {{'EXPERT_DASHBOARD.ATTACHMENTS_BUTTON' | translate:attachmentCount}}
+
+    a(*ngIf="isGalleryPreviewVisible", plat-stroked-button, (click)="openFilePreviewModal()") {{'EXPERT_DASHBOARD.ATTACHMENTS_BUTTON' | translate:attachmentCount}}
+
 ng-template(#likeButton)
-  a.expert-layout__icons-button(plat-icon-button, (click)='likeProfileClick()')
+  a.profile-layout__icons-button(plat-icon-button, (click)='likeProfileClick()')
     span(plat-icon iconClass='heart-stroke')

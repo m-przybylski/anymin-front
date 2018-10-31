@@ -13,6 +13,7 @@ import { OrganizationProfile } from './services/company-profile-resolver.service
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 
 @Component({
   templateUrl: 'company-profile.view.component.html',
@@ -24,9 +25,10 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   public description: string;
   public isOwnProfile: boolean;
   public isLogged: boolean;
-  public consultations: ReadonlyArray<ServiceWithEmployments>;
+  public consultations: ReadonlyArray<ServiceWithEmployments> = [];
   public links: ReadonlyArray<string>;
-
+  public organizationId: string;
+  public organizationDocuments: ReadonlyArray<ProfileDocument> = [];
   private logger: LoggerService;
 
   constructor(protected route: ActivatedRoute, protected injector: Injector, loggerFactory: LoggerFactory) {
@@ -39,9 +41,11 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
       )
       .subscribe((data: IExpertCompanyDashboardResolverData<OrganizationProfile>) => {
         const [consultations, profile] = data.profile;
+        this.organizationId = consultations.organizationProfile.id;
         this.avatarToken = consultations.organizationProfile.logo;
         this.name = consultations.organizationProfile.name;
         this.description = consultations.organizationProfile.description;
+        this.organizationDocuments = consultations.organizationProfile.documents;
         this.isOwnProfile = data.isOwnProfile;
         this.consultations = consultations.services;
         this.isLogged = data.isLogged;

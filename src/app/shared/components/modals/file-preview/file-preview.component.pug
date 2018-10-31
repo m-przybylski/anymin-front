@@ -1,0 +1,51 @@
+.file-preview
+  .file-preview__header
+    plat-modal-header(
+    [titleTrHeader]="namePreview",
+    [isCloseButtonVisible]="true",
+    )
+
+  .file-preview__content
+    .file-preview__preloader(*ngIf="isPending && !isDifferenteType")
+      svg(xmlns='http://www.w3.org/2000/svg', width='48', height='48', viewBox='0 0 24 24')
+        g(fill='none', fill-rule='evenodd')
+          circle(cx='12', cy='12', r='11.5', stroke='#2C2F34')
+          path(stroke='#FFF', stroke-opacity='.5', d='M.502 12.205C.612 18.462 5.717 23.5 12 23.5c6.351 0 11.5-5.149 11.5-11.5C23.5 5.717 18.462.611 12.205.502L.502 12.205z')
+
+    .file-preview__templates
+      ng-container(#filePreviewTemplate)
+        ng-template(#filePreviewTemplate_IMG)
+          .file-preview-list(*ngIf="!isPreviewBroken", [ngClass]="{'file-preview-list--view-pdf': isFilePDF}")
+            .file-preview-list__item(*ngFor="let preview of currentPreviewList")
+              img(
+              *ngIf="!isFilePDF && !isPreviewBroken"
+              src="{{ preview }}",
+              alt="{{namePreview}}",
+              brokenPreview, #imageSize, fileResizer, (onLoadPreview)="onImageLoad()", (onImageError)="onImageError($event)")
+
+        ng-template(#filePreviewTemplate_PDF)
+          .file-preview__templates--pdf(*ngIf="!isPreviewBroken", smoothScroll, (onLoadMore)="onLoadMorePreviews($event)", [currentLimit]="maxLengthPDFPreviews", [maxCountElements]="currentPreviewList.length")
+            .file-preview-list([ngClass]="{'file-preview-list--view-pdf': isFilePDF}")
+              .file-preview-list__item(*ngFor="let preview of currentPdfList, let i = index")
+                img(
+                *ngIf="isFilePDF && i < maxLengthPDFPreviews"
+                alt="{{namePreview}}",
+                [src]="preview",
+                brokenPreview, #imageSize, fileResizer, (onLoadPreview)="onImageLoad()", (onImageError)="onImageError($event)")
+
+      .file-preview-list__alerts(*ngIf="isPreviewBroken || isDifferenteType")
+        span.icon.icon-picture
+        p(*ngIf="isPreviewBroken") {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.ERROR' | translate }}
+        p(*ngIf="isDifferenteType && !isPreviewBroken") {{ noFilePreviewTr | translate }}
+
+  .file-preview__nav
+    plat-file-preview-navigation(
+    [isPending]="isPendingOnInit",
+    [currentZoomValue]="currentPercentZoom",
+    [isScalable]="isPreviewScalable",
+    (onZoomEmiter)="onZoomChange($event)",
+    (onChangeFileEmiter)="onFileChange($event)",
+    (onPrintEmiter)="onPrintClick($event)",
+    [filesCount]="fileList.length",
+    [imageUrl]="urlPreview",
+    )
