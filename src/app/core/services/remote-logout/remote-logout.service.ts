@@ -6,6 +6,7 @@ import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { AuthActions } from '@platform/core/actions';
 import { switchMap, filter } from 'rxjs/operators';
+import { GetSessionWithAccount } from '@anymind-ng/api';
 
 @Injectable()
 export class RemoteLogoutService extends Logger {
@@ -22,9 +23,9 @@ export class RemoteLogoutService extends Logger {
       .pipe(
         select(fromCore.getSession),
         filter(session => typeof session !== 'undefined'),
-        switchMap(session =>
+        switchMap((sessionWithAccount: GetSessionWithAccount) =>
           this.anymindWebsocket.sessionDeleted.pipe(
-            filter(deletedSessionApiKey => session !== undefined && deletedSessionApiKey === session.session.apiKey),
+            filter(deletedSessionApiKey => deletedSessionApiKey === sessionWithAccount.session.apiKey),
           ),
         ),
       )

@@ -58,16 +58,8 @@ export function reducer(
       };
     }
 
+    case AuthActions.AuthActionTypes.LogoutRemote:
     case AuthActions.AuthActionTypes.LogoutSuccess: {
-      return {
-        ...state,
-        session: undefined,
-        isFromBackend: true,
-        isPending: false,
-      };
-    }
-
-    case AuthActions.AuthActionTypes.LogoutRemote: {
       return {
         ...state,
         session: undefined,

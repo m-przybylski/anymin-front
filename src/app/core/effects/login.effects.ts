@@ -58,14 +58,7 @@ export class LoginEffects extends Logger {
 
   @Effect()
   public logoutSuccess$ = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.LogoutSuccess),
-    tap(this.alertService.closeAllAlerts),
-    switchMap(() => of(new AuthActions.LoginRedirectAction())),
-  );
-
-  @Effect()
-  public LogoutRemote$ = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.LogoutRemote),
+    ofType(AuthActions.AuthActionTypes.LogoutSuccess, AuthActions.AuthActionTypes.LogoutRemote),
     tap(this.alertService.closeAllAlerts),
     switchMap(() => of(new AuthActions.LoginRedirectAction())),
   );

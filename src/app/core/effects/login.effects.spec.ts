@@ -156,6 +156,17 @@ describe('LoginEffects', () => {
       expect(loginEffects.logoutSuccess$).toBeObservable(expected);
     });
   });
+  describe('logoutRemote$', () => {
+    it('should return Auth.LoginRedirectAction', () => {
+      const action = new AuthActions.LogoutRemoteAction();
+      const completion = new AuthActions.LoginRedirectAction();
+
+      actions$ = hot('-a---', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(loginEffects.logoutSuccess$).toBeObservable(expected);
+    });
+  });
   describe('dashboardRedirect$', () => {
     it('should call router.navigate when action received', fakeAsync(() => {
       const two = 2;

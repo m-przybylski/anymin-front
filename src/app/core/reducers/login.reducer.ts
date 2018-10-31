@@ -23,7 +23,7 @@ export function reducer(
         isPending: true,
       };
     }
-
+    case AuthActions.AuthActionTypes.LogoutRemote:
     case AuthActions.AuthActionTypes.LoginSuccess:
     case AuthActions.AuthActionTypes.LogoutSuccess: {
       return {
@@ -42,13 +42,6 @@ export function reducer(
       };
     }
 
-    case AuthActions.AuthActionTypes.LogoutRemote: {
-      return {
-        ...state,
-        error: undefined,
-        isPending: false,
-      };
-    }
     default: {
       return state;
     }
