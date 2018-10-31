@@ -42,6 +42,13 @@ export function reducer(
       };
     }
 
+    case AuthActions.AuthActionTypes.LogoutRemote: {
+      return {
+        ...state,
+        error: undefined,
+        isPending: false,
+      };
+    }
     default: {
       return state;
     }

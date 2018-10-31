@@ -9,6 +9,7 @@ import { CallInvitationService } from './core/services/call/call-invitation.serv
 
 const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 import * as moment from 'moment';
+import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent {
   constructor(
     private logger: LoggerService,
     private expertCallService: CallInvitationService,
+    private remoteLogoutService: RemoteLogoutService,
     translate: TranslateService,
   ) {
     this.printVersion();
@@ -40,6 +42,8 @@ export class AppComponent {
 
     // Initialize communicator after translations are loaded
     this.expertCallService.initialize();
+
+    this.remoteLogoutService.listenForRemovedSession();
   }
 
   private printVersion = (): void => {

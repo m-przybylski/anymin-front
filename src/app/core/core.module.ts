@@ -28,6 +28,7 @@ import { provideCommission } from './commission';
 import { ClipboardService } from './services/clipboard/clipboard.service';
 import { PlatMissingTranslationHandler } from './services/missing-translation/missing-translation.hander';
 import { PushNotificationService } from './services/call/push-notifications.service';
+import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -67,6 +68,7 @@ export function getLogLevel(): LogLevel {
     CallInvitationService,
     PushNotificationService,
     ExpertCallService,
+    RemoteLogoutService,
   ],
 })
 export class CoreModule {}

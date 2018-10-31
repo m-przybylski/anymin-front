@@ -63,6 +63,13 @@ export class LoginEffects extends Logger {
     switchMap(() => of(new AuthActions.LoginRedirectAction())),
   );
 
+  @Effect()
+  public LogoutRemote$ = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.LogoutRemote),
+    tap(this.alertService.closeAllAlerts),
+    switchMap(() => of(new AuthActions.LoginRedirectAction())),
+  );
+
   @Effect({ dispatch: false })
   public dashboardRedirect$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.DashboardRedirect),

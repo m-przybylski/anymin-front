@@ -49,9 +49,11 @@ export class WebSocketService<T> {
   }
 
   public disconnectWithoutSideEffects = (): void => {
-    this.webSocket.unsubscribe();
-    // tslint:disable-next-line
-    delete this.webSocket;
+    if (this.webSocket) {
+      this.webSocket.unsubscribe();
+      // tslint:disable-next-line
+      delete this.webSocket;
+    }
   };
 
   // tslint:disable-next-line:no-any
