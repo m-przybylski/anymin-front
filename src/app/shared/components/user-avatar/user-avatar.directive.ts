@@ -19,6 +19,7 @@ export class UserAvatarDirective {
     if (this.src.length > 0) {
       this.src = `./assets/images/broken-image.svg`;
       this.element.nativeElement.classList.add('image-broken');
+      this.element.nativeElement.style.padding = '8px';
     }
   };
 }

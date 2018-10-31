@@ -24,9 +24,10 @@ export class FilePreviewNavigationComponent implements OnInit {
   }
 
   @Input()
-  public imageUrl: string;
+  public filesLength = 0;
+
   @Input()
-  public filesCount = 0;
+  public imageUrl: string;
   @Input()
   public isZoomAble = true;
   @Input()
@@ -138,6 +139,6 @@ export class FilePreviewNavigationComponent implements OnInit {
 
   private checkNavigationAvailbility = (): void => {
     this.isNavigationBackwardAllowed = this.currentItem !== 1;
-    this.isNavigationForwardAllowed = this.currentItem !== this.filesCount;
+    this.isNavigationForwardAllowed = this.currentItem !== this.filesLength;
   };
 }

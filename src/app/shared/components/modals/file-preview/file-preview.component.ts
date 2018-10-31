@@ -48,6 +48,9 @@ export class FilePreviewComponent implements OnInit {
   public profileId: string;
 
   @Input()
+  public filesLength = 0;
+
+  @Input()
   public isExpertProfile = false;
 
   @ViewChild(FileResizerDirective)
@@ -77,6 +80,7 @@ export class FilePreviewComponent implements OnInit {
     this.filePreviewService.getProfileDetails(this.profileId, this.isExpertProfile).subscribe(response => {
       this.fileList = response;
       this.prepareFirstFilePreview();
+      this.isPendingOnInit = false;
     });
   }
 
@@ -107,7 +111,6 @@ export class FilePreviewComponent implements OnInit {
   public onImageLoad = (): void => {
     this.isPreviewScalable = !this.isFilePDF;
     this.isPending = false;
-    this.isPendingOnInit = false;
   };
 
   public onLoadMorePreviews = (currentItem: number): void => {
