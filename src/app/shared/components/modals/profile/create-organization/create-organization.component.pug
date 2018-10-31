@@ -56,8 +56,8 @@ plat-modal-component(
       [maxFilesCount]="maxValidFilesCount",
       [fileCategory]="fileCategory",
       [profileDocuments]="profileDocumentsList",
-      (isUploadingEmitter$)="onUploadingFile($event)",
-      (tokensListEmitter$)="onUploadFile($event)",
+      (uploadingFile)="onUploadingFile($event)",
+      (fileTokensList)="onUploadFile($event)",
       [isDisabled]="isInputDisabled"
       )
 
