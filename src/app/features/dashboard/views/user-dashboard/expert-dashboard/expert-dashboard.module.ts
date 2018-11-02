@@ -21,7 +21,7 @@ import { ExpertAvailabilityModule } from '@platform/features/dashboard/component
     ]),
     CommonModule,
     SharedModule,
-    ExpertAvailabilityModule.forRoot(),
+    ExpertAvailabilityModule,
     DashboardComponentsModule,
   ],
   providers: [ExpertDashboardResolverService],

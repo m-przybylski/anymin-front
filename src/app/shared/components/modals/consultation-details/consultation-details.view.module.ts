@@ -31,7 +31,7 @@ import { ConsultationDetailsViewService } from './consultation-details.view.serv
     PaymentCardModule,
     ConsultationFooterModule,
     ConfirmationModalModule,
-    ExpertAvailabilityModule.forRoot(),
+    ExpertAvailabilityModule,
     GenerateWidgetModule,
     ConsultationCommentModule,
     DropdownModule,

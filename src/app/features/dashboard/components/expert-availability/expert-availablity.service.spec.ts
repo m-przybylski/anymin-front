@@ -1,41 +1,42 @@
 import { ExpertAvailabilityService } from './expert-availablity.service';
 import { LongPollingService } from '../../../../core/services/long-polling/long-polling.service';
 import { PresenceService } from '@anymind-ng/api';
-import { of } from 'rxjs';
+import { Deceiver } from 'deceiver-core';
+import { cold } from 'jasmine-marbles';
 
 describe('ExpertAvailabilityService', () => {
-  // tslint:disable:no-let
-  // tslint:disable:no-unbound-method
   let expertAvailabilityService: ExpertAvailabilityService;
   let pollingService: LongPollingService;
   let presenceService: PresenceService;
   beforeEach(() => {
-    pollingService = jasmine.createSpyObj('pollingService', ['longPollData']);
-    presenceService = jasmine.createSpyObj('presenceService', ['userPresenceRoute']);
-    (pollingService.longPollData as jasmine.Spy).and.returnValue(of([]));
+    pollingService = Deceiver(LongPollingService, { longPollData: jasmine.createSpy('longPollData') });
+    presenceService = Deceiver(PresenceService, { userPresenceRoute: jasmine.createSpy('userPresenceRoute') });
     expertAvailabilityService = new ExpertAvailabilityService(pollingService, presenceService);
   });
 
   it('should fech data from api', () => {
-    expertAvailabilityService.getExpertPresence('asdf');
-    expect(presenceService.userPresenceRoute as jasmine.Spy).toHaveBeenCalledTimes(1);
-    expect((presenceService.userPresenceRoute as jasmine.Spy).calls.mostRecent().args).toEqual([
-      {
-        expertIds: ['asdf'],
-      },
-    ]);
+    const expertAvailability = cold('-a---a---a---a', { a: [{ expertId: 'asdf', status: true }] });
+    (presenceService.userPresenceRoute as jasmine.Spy).and.returnValue(cold('a|', { a: true }));
+    (pollingService.longPollData as jasmine.Spy).and.returnValue(expertAvailability);
+    expect(expertAvailabilityService.getExpertPresence('asdf')).toBeObservable(cold('-a---a---a---a', { a: true }));
   });
 
-  it('should not make extra call when asked for the same expert', () => {
-    expertAvailabilityService.getExpertPresence('asdf');
-    expertAvailabilityService.getExpertPresence('asdf');
-    expect(presenceService.userPresenceRoute as jasmine.Spy).toHaveBeenCalledTimes(1);
+  it('should return any value only from response from backend', () => {
+    const expertAvailability = cold('-a---a---a---a', { a: [{ expertId: 'asdf', status: true }] });
+    (presenceService.userPresenceRoute as jasmine.Spy).and.returnValue(cold('a|', { a: true }));
+    (pollingService.longPollData as jasmine.Spy).and.returnValue(expertAvailability);
+    expertAvailabilityService.getExpertPresence('asdf1');
+    expertAvailabilityService.getExpertPresence('asdf2');
+    expertAvailabilityService.getExpertPresence('asdf3');
+    expect(expertAvailabilityService.getExpertPresence('asdf')).toBeObservable(cold('-a---a---a---a', { a: true }));
+    expect(expertAvailabilityService.getExpertPresence('asdf3')).toBeObservable(cold('---'));
   });
 
-  it('should crean after itself', () => {
+  it('should clean after destroy', () => {
+    const expertAvailability = cold('-a---a---a---a', { a: [{ expertId: 'asdf', status: true }] });
+    (pollingService.longPollData as jasmine.Spy).and.returnValue(expertAvailability);
     expertAvailabilityService.getExpertPresence('asdf');
-    const spy = spyOn(expertAvailabilityService, 'ngOnDestroy');
     expertAvailabilityService.ngOnDestroy();
-    expect(spy).not.toThrow();
+    expect(expertAvailabilityService.getExpertPresence('asdf')).toBeObservable(cold('|'));
   });
 });
