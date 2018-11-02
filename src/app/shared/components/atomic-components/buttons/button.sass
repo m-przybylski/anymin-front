@@ -104,7 +104,6 @@
       background-color: $c-success-secondary
 
 .plat-large-icon-button
-  @extend %button-padding-large
   @extend %font-size-16
   @extend %transition
   display: inline-flex
@@ -168,6 +167,13 @@
       color: $c-primary
       border-color: $c-primary
       background-color: $c-white
+
+  &.plat-success
+    color: $c-white
+    background-color: $c-success-primary
+
+    &:hover
+      background-color: $c-success-secondary
 
 .plat-button
   @extend %button-padding
