@@ -31,7 +31,7 @@ export class GenerateWidgetDataService extends Logger {
   }
 
   public getWidgetLink(widgetId: string): string {
-    return `${this.commonSettingsService.links.widget}?widgetId=${widgetId}`;
+    return `${this.commonSettingsService.links.widget}/${widgetId}`;
   }
 
   public getWidgetSdkLink(widgetId?: string): string {
