@@ -22,3 +22,8 @@ plat-modal-component.activity-details-modal(
     *ngIf="activityType === activityTypesEnum.FINANCIALTRANSACTION",
     [financialOperationDetails]="financialOperationDetails"
   )
+
+  plat-refund-details(
+    *ngIf="activityType === activityTypesEnum.REFUND",
+    [refundOperationDetails]="refundOperationDetails"
+  )

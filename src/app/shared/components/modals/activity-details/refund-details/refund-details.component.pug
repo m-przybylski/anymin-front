@@ -1,26 +1,18 @@
-.fiancial-details.activity-details
+.refund-details.activity-details
   .activity-section
     ul.basic-data
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.ID_NUMBER' | translate }}
-        span.basic-data__value {{ id | uuidTrimmer}}
+        span.basic-data__value {{ id | uuidTrimmer }}
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.DATE' | translate }}
         span.basic-data__value {{ date | date:'d.M.yyyy' }}, {{ date | date:'H:mm' }}
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.PAYOUT_METHOD' | translate }}
-        span.basic-data__value
-          span {{ payoutMethodTrKey | translate }}
+        span.basic-data__value {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.REFUND' | translate }}
 
   .activity-section.activity-section-financial
     ul.basic-data.basic-data-financial
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.PAYOUT_AMOUNT' | translate }}
-        span.basic-data__value {{ payoutAmount | currency: payoutCurrency:'symbol-narrow' }}
-
-  .activity-section
-    ul.basic-data
-      li.basic-data__item
-        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.ADDITIONAL_OPTIONS' | translate }}
-        // TODO implement functionality
-        a.basic-data__value {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.DOWNLOAD_INVOICE' | translate }}
+        span.basic-data__value {{ refundAmount | currency: refundCurrency:'symbol-narrow' }}

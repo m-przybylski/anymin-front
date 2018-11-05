@@ -18,26 +18,28 @@
     +xsm
       padding: 32px 0
 
+    &:first-child
+      padding: 0 0 24px
+
+      +xsm
+        padding: 0 0 32px
+
     &:last-child
       padding: 24px 0 0
 
       +xsm
         padding: 32px 0 0
 
-    &--financial
-      padding: 24px 0
-      border-top: 1px solid $c-lines
-      border-bottom: 1px solid $c-lines
-
     .basic-data
-      display: flex
-      justify-content: space-between
+      &__item
+        display: flex
+        justify-content: space-between
 
-      &:not(:last-child)
-        margin: 0 0 12px
+        &:not(:last-child)
+          margin: 0 0 12px
 
-      +xsm
-        justify-content: flex-start
+        +xsm
+          justify-content: flex-start
 
       &__title
         +subtitle-small
@@ -87,3 +89,9 @@
     padding: 24px 0
     border-top: 1px solid $c-lines
     border-bottom: 1px solid $c-lines
+
+    &:first-child
+      padding: 24px 0
+
+    &:last-child
+      padding: 24px 0
