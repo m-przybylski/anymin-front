@@ -4,15 +4,15 @@ plat-consultation-footer
     plat-consultation-footer-price([grossPrice]='grossPrice')
   //middle part of the screen
   .consultation-footer__left-text
-    plat-consultation-footer-freelance-text(
+    plat-consultation-footer-organization-edit-freelance-text(
       *ngIf='isFreelance else organization',
-      [price]='price',
-      [grossPrice]='grossPrice')
+      [expertPrice]='price',
+      [grossPrice]='grossPrice',
+      [organizationPrice]='organizationPrice')
     ng-template(#organization)
-      plat-consultation-footer-organization-edit-text(
-        [expertPrice]='price',
-        [grossPrice]='grossPrice',
-        [organizationPrice]='organizationPrice')
+      plat-consultation-footer-freelance-text(
+        [price]='price',
+        [grossPrice]='grossPrice')
   //right part of the screen
   .consultation-footer__right
     a.consultation-footer__right-button((click)='onEdit()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.EDIT" | translate}}

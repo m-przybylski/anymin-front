@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'plat-consultation-footer-organization-edit-text',
+  selector: 'plat-consultation-footer-organization-edit-freelance-text',
   templateUrl: 'consultation-footer-organization-edit.component.html',
   styleUrls: ['consultation-footer-organization-edit.component.sass'],
 })
