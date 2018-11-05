@@ -114,11 +114,12 @@ export class ExpertActivitiesViewComponent implements OnInit, OnDestroy {
   };
 
   public onActivityModalClose = (currentDisplayedActivity: GetProfileActivity): void => {
-    this.importantActivitiesCounter = this.importantActivitiesCounter - 1;
-    this.currentImportantActivitiesOffset = this.currentImportantActivitiesOffset - 1;
-    this.displayedImportantActivities = this.displayedImportantActivities.filter(
-      activity => activity.id !== currentDisplayedActivity.id,
+    this.importantActivities = this.importantActivities.filter(
+      importantActivity => importantActivity.id !== currentDisplayedActivity.id,
     );
+    this.displayedImportantActivities = this.importantActivities.slice(0, this.importantActivitiesOffset);
+    this.importantActivitiesCounter = this.importantActivities.length;
+    this.currentImportantActivitiesOffset = this.displayedImportantActivities.length;
     this.store.dispatch(new ActivitiesActions.DecrementImportantProfileActivitiesCounterAction());
     this.profileActivities = this.profileActivities.map(profileActivity => {
       if (profileActivity.activity.id === currentDisplayedActivity.id) {

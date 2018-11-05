@@ -32,7 +32,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
   public readonly commentMinLength = Config.inputsLengthNumbers.commentMinLength;
 
   @Input()
-  public isOwner = false;
+  public isSueExpert = false;
 
   @Input()
   public expertName = '';

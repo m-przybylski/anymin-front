@@ -111,7 +111,7 @@ describe('ActivityDetailsViewComponentService', () => {
         isActive: true,
       },
       expertProfile: {
-        id: 'expertProfileId',
+        id: 'serviceOwnerProfileId',
         isActive: true,
         expertDetails: {
           name: 'Arturek',
@@ -153,11 +153,11 @@ describe('ActivityDetailsViewComponentService', () => {
         currency: 'PLN',
       },
       recommendedTags: 'superTag',
-      isOwnerOfService: true,
+      isSueExpert: true,
       comment: {
         commentId: 'commentId',
         content: 'Arturek jest super',
-        expertId: 'expertProfileId',
+        expertId: 'serviceOwnerProfileId',
         sueId: 'serviceUsageEventId',
         answer: {
           content: 'Potwierdzam!',
@@ -260,7 +260,7 @@ describe('ActivityDetailsViewComponentService', () => {
         currency: 'PLN',
       },
       recommendedTags: 'superTag',
-      isOwnerOfService: false,
+      isSueExpert: false,
       rate: undefined,
       comment: undefined,
     };

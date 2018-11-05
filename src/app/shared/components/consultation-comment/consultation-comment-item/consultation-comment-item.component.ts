@@ -17,7 +17,7 @@ export enum ConsultationCommentTypeAnswer {
 })
 export class ConsultationCommentItemComponent {
   @Input()
-  public isOwner = false;
+  public isSueExpert = false;
 
   @Input()
   public toggleAnswerField: (answerType: ConsultationCommentTypeAnswer) => void;
@@ -57,7 +57,7 @@ export class ConsultationCommentItemComponent {
   public dropdownVisibility: 'hidden' | 'visible' = 'hidden';
 
   public isCommentOptionVisible = (): boolean =>
-    this.isOwner && (!this.isReported || (!this.isAnswer && !this.temporaryAnswer));
+    this.isSueExpert && (!this.isReported || (!this.isAnswer && !this.temporaryAnswer));
 
   public toggleDropdown = (isVisible: boolean): void => {
     isVisible ? (this.dropdownVisibility = 'visible') : (this.dropdownVisibility = 'hidden');

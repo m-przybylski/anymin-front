@@ -11,7 +11,7 @@ export interface ISueDetails {
   callDuration: number;
   servicePrice: MoneyDto;
   recommendedTags: string;
-  isOwnerOfService: boolean;
+  isSueExpert: boolean;
   financialOperation?: MoneyDto;
   rate?: GetCallDetails.RateEnum;
   comment?: GetComment;
@@ -48,7 +48,7 @@ export class SueDetailsComponent {
   public rate: string;
   public commentDetails?: GetComment;
   public recommendedTags: string;
-  public isOwnerOfService: boolean;
+  public isSueExpert: boolean;
 
   private readonly moneyDivider = 100;
   private readonly oneSecondInMilliseconds = 1000;
@@ -75,7 +75,7 @@ export class SueDetailsComponent {
     this.rate = this.getRateStatus(value.rate);
     this.commentDetails = value.comment;
     this.recommendedTags = value.recommendedTags;
-    this.isOwnerOfService = value.isOwnerOfService;
+    this.isSueExpert = value.isSueExpert;
   };
 
   private getRateStatus = (rate?: GetCallDetails.RateEnum): string => {
