@@ -51,7 +51,7 @@ describe('ProfileLinksComponentService', () => {
     [ProfileLinksComponentService],
     (service: ProfileLinksComponentService) => {
       const value = 'https://wp.pl';
-      expect(service.unifyLinkProtocol(value)).toBe('https://www.wp.pl');
+      expect(service.unifyLinkProtocol(value)).toBe('https://wp.pl');
     },
   ));
 

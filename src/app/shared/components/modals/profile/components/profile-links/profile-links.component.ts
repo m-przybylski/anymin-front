@@ -5,7 +5,6 @@ import { Animations, FormUtilsService, LoggerFactory, LoggerService } from '@any
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ProfileLinksComponentService } from './profile-links.component.service';
-import { CommonSettingsService } from '../../../../../../../angularjs/common/services/common-settings/common-settings.service';
 
 export interface ILinkList {
   link: string;
@@ -44,10 +43,12 @@ export class ProfileLinksComponent implements OnInit {
     private formUtils: FormUtilsService,
     private profileLinksComponentService: ProfileLinksComponentService,
     loggerFactory: LoggerFactory,
-    CommonSettingsService: CommonSettingsService,
   ) {
     this.logger = loggerFactory.createLoggerService('ProfileLinksComponent');
-    this.urlPattern = CommonSettingsService.localSettings.urlPattern;
+    /**
+     * http patter from: https://www.regextester.com/94502
+     */
+    this.urlPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   }
 
   public ngOnInit(): void {
