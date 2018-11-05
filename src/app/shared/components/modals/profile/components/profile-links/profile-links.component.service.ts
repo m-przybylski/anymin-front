@@ -12,7 +12,7 @@ interface IShortLink {
 @Injectable()
 export class ProfileLinksComponentService {
   private readonly httpPattern = /^(?:http?:\/\/)?(?:www\.)|(?:http?:\/\/)/i;
-  private readonly httpsPattern = /^(?:https?:\/\/)?(?:www\.)|(?:https?:\/\/)/i;
+  private readonly httpsPattern = /^(?:https?:\/\/)/i;
 
   constructor() {}
 
@@ -78,7 +78,7 @@ export class ProfileLinksComponentService {
     if (this.httpPattern.test(addressUrl)) {
       return `http://www.${addressUrl.replace(this.httpPattern, '')}`;
     } else if (this.httpsPattern.test(addressUrl)) {
-      return `https://www.${addressUrl.replace(this.httpsPattern, '')}`;
+      return `https://${addressUrl.replace(this.httpsPattern, '')}`;
     }
     return '';
   };
