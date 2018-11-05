@@ -26,6 +26,7 @@ interface IOneSignal {
 @Injectable()
 export class PushNotificationService extends Logger {
   private readonly oneSignal$ = new ReplaySubject<IOneSignal>(1);
+  private enableButton = false;
 
   constructor(private translate: TranslateService, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('PushNotificationService'));
@@ -43,6 +44,10 @@ export class PushNotificationService extends Logger {
         this.oneSignal$.complete();
       });
   }
+
+  public setEnableButton = (value: boolean): void => {
+    this.enableButton = value;
+  };
 
   public getDeviceId(): Observable<string> {
     return this.oneSignal$.pipe(mergeMap(oneSignal => oneSignal.getUserId()));
@@ -83,7 +88,7 @@ export class PushNotificationService extends Logger {
           notificationClickHandlerMatch: conf.notificationClickHandlerMatch,
           notificationClickHandlerAction: conf.notificationClickHandlerAction,
           notifyButton: {
-            enable: conf.notifyButtonEnabled /* Required to use the Subscription Bell */,
+            enable: this.enableButton /* Required to use the Subscription Bell */,
             size: 'large' /* One of 'small', 'medium', or 'large' */,
             theme: 'default' /* One of 'default' (red-white) or 'inverse" (white-red) */,
             position: 'bottom-left' /* Either 'bottom-left' or 'bottom-right' */,
