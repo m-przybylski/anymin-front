@@ -51,10 +51,10 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   public isDisabled = false;
 
   @Output()
-  public tokensListEmitter$: EventEmitter<string[]> = new EventEmitter<string[]>();
+  public fileTokensList: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   @Output()
-  public isUploadingEmitter$: EventEmitter<boolean> = new EventEmitter<false>();
+  public uploadingFile: EventEmitter<boolean> = new EventEmitter<false>();
 
   public readonly isMultipleFilesAllowed = true;
   public userFiles: ReadonlyArray<IFile> = [];
@@ -160,9 +160,9 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   public removeFile = (fileToRemove: IFile): void => {
     this.userFiles = this.userFiles.filter(userFile => userFile !== fileToRemove);
     this.tokensList = this.tokensList.filter(
-      token => (fileToRemove.fileInfo ? fileToRemove.fileInfo.token !== token : false),
+      token => (fileToRemove.fileInfo ? fileToRemove.fileInfo.token !== token : token),
     );
-    this.tokensListEmitter$.emit(this.tokensList);
+    this.fileTokensList.emit(this.tokensList);
     if (fileToRemove.fileStatus === FileStatus.VALID || fileToRemove.fileStatus === FileStatus.UPLOAD_FAILURE) {
       this.validUserFilesCounter--;
     }
@@ -200,7 +200,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   private uploadFile = (fileToUpload: IFile): void => {
     if (fileToUpload.file) {
-      this.isUploadingEmitter$.emit(true);
+      this.uploadingFile.emit(true);
       this.uploaderService
         .uploadFile(fileToUpload.file, this.postProcessOptions)
         .then(response => this.onFileUploadSuccess(response, fileToUpload))
@@ -216,13 +216,17 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
       type: this.setFileType(response.name),
     };
     this.tokensList.push(response.token);
-    this.tokensListEmitter$.emit(this.tokensList);
-    this.isUploadingEmitter$.emit(false);
+    this.fileTokensList.emit(this.tokensList);
+    if (!this.uploaderService.isAnyFileUploading) {
+      this.uploadingFile.emit(false);
+    }
   };
 
   private onFileUploadError = (error: HttpErrorResponse, file: IFile): void => {
     file.fileStatus = FileStatus.UPLOAD_FAILURE;
-    this.isUploadingEmitter$.emit(false);
+    if (!this.uploaderService.isAnyFileUploading) {
+      this.uploadingFile.emit(false);
+    }
     this.loggerService.warn('File upload failure', error);
   };
 

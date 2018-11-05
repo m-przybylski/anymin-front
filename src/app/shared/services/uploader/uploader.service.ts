@@ -56,6 +56,10 @@ export class UploaderService {
     }
   };
 
+  public get isAnyFileUploading(): boolean {
+    return this.isFileUploadInProgress;
+  }
+
   private getUploadUrl = (fileId: string): string => `${window.location.origin}/files/${fileId}/upload`;
 
   private onFileUploadEnd = (): void => {
