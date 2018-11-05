@@ -6,7 +6,6 @@ import { AnymindComponentsModule } from '@anymind-ng/core';
 import { UnsupportedGuard } from '../features/unsupported/unsupported.guard';
 import { SessionGuard } from './guards/session/session.guard';
 import { AnonymousGuard } from './guards/anonymous/anonymous.guard';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginBackgroundComponent } from './components/login-background/login-background.component';
 import { LoginContentComponent } from './components/login-content/login-content.component';
@@ -36,13 +35,11 @@ import { InputsModule } from './components/inputs/inputs.module';
 import { TagListComponent } from '@platform/shared/components/tag-list/tag-list.component';
 import { SettingOptionComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component';
 import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
-
 @NgModule({
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    NgbModule,
     TranslateModule.forChild(),
     AnymindComponentsModule,
     RouterModule,

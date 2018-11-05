@@ -10,6 +10,7 @@ import { SessionService, LoginCredentials } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { AlertService, LoggerService } from '@anymind-ng/core';
 import { provideMockFactoryLogger } from 'testing/testing';
+import { ModalStack } from '@platform/core/services/modal/modal.service';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
@@ -30,7 +31,10 @@ describe('LoginEffects', () => {
         },
         {
           provide: AlertService,
-          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('') }),
+          useValue: Deceiver(AlertService, {
+            pushDangerAlert: jasmine.createSpy('pushDangerAlert'),
+            closeAllAlerts: jasmine.createSpy('closeAllAlerts'),
+          }),
         },
         {
           provide: Router,
@@ -38,6 +42,10 @@ describe('LoginEffects', () => {
         },
         provideMockFactoryLogger(loggerService),
         provideMockActions(() => actions$),
+        {
+          provide: ModalStack,
+          useValue: Deceiver(ModalStack, { dismissAll: jasmine.createSpy('dismissAll') }),
+        },
       ],
     });
 
