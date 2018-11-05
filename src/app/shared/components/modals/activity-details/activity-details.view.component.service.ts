@@ -39,7 +39,7 @@ export class ActivityDetailsViewComponentService extends Logger {
         callDuration: callDetails.serviceUsageDetails.callDuration,
         servicePrice: callDetails.service.price,
         recommendedTags: callDetails.recommendedTags.map(tag => tag.name).join(', '),
-        isOwnerOfService: accountId === callDetails.serviceOwnerProfile.id,
+        isSueExpert: accountId === callDetails.expertProfile.id,
         financialOperation: callDetails.serviceUsageDetails.financialOperation,
         rate: callDetails.rate,
         comment: this.getComment(callDetails),
