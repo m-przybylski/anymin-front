@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config } from '../../../../config';
 import { Logger } from '@platform/core/logger';
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Observable, Observer } from 'rxjs';
+import { ReplaySubject, Observable, Observer, BehaviorSubject } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 /**
@@ -26,7 +26,7 @@ interface IOneSignal {
 @Injectable()
 export class PushNotificationService extends Logger {
   private readonly oneSignal$ = new ReplaySubject<IOneSignal>(1);
-  private enableButton = true;
+  private readonly enableButton$ = new BehaviorSubject<boolean>(true);
 
   constructor(private translate: TranslateService, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('PushNotificationService'));
@@ -45,11 +45,9 @@ export class PushNotificationService extends Logger {
       });
   }
 
-  public setEnableButton = (value: boolean): void => {
-    this.enableButton = value;
+  public pushEnableButtonStatus = (value: boolean): void => {
+    this.enableButton$.next(value);
   };
-
-  public getEnableButton = (): boolean => this.enableButton;
 
   public getDeviceId(): Observable<string> {
     return this.oneSignal$.pipe(mergeMap(oneSignal => oneSignal.getUserId()));
@@ -91,7 +89,6 @@ export class PushNotificationService extends Logger {
           notificationClickHandlerAction: conf.notificationClickHandlerAction,
           notifyButton: {
             enable: conf.notifyButtonEnabled /* Required to use the Subscription Bell */,
-            displayPredicate: this.getEnableButton,
             size: 'large' /* One of 'small', 'medium', or 'large' */,
             theme: 'default' /* One of 'default' (red-white) or 'inverse" (white-red) */,
             position: 'bottom-left' /* Either 'bottom-left' or 'bottom-right' */,
@@ -138,7 +135,17 @@ export class PushNotificationService extends Logger {
             // "url": ""
           },
         })
-        .then(() => oneSignal);
+        .then(() => {
+          this.enableButton$.subscribe(value => {
+            if (value) {
+              oneSignal.notifyButton.launcher.show();
+            } else {
+              oneSignal.notifyButton.launcher.hide();
+            }
+          });
+
+          return oneSignal;
+        });
     } catch (err) {
       return Promise.reject(`OneSignal is not present in the window, unsupported, or not loaded properly. ${err}`);
     }

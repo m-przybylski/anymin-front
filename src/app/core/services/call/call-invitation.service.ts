@@ -206,7 +206,7 @@ export class CallInvitationService extends Logger {
 
   private onExpertCallIncoming = (call: Call): void => {
     if (BusinessCall.isBusiness(call)) {
-      this.pushNotificationService.setEnableButton(false);
+      this.pushNotificationService.pushEnableButtonStatus(false);
       this.onExpertBusinessCallIncoming(call);
     } else {
       this.loggerService.error('Incoming call was not of BusinessCall type, rejecting', call);
@@ -330,7 +330,7 @@ export class CallInvitationService extends Logger {
 
   private handleCallEndedBeforeAnswering = (callEnd: callEvents.Ended, callingModal: NgbModalRef): void => {
     this.loggerService.debug('Call was ended before expert answer', callEnd);
-    this.pushNotificationService.setEnableButton(true);
+    this.pushNotificationService.pushEnableButtonStatus(true);
     if (callEnd.reason !== EndReason.CallRejected) {
       callingModal.close();
       this.showMissedCallAlert();
@@ -385,6 +385,7 @@ export class CallInvitationService extends Logger {
 
     call.reject(CallReason.CallRejected).then(
       () => {
+        this.pushNotificationService.pushEnableButtonStatus(true);
         this.soundsService.callIncomingSound().stop();
         this.soundsService
           .playCallRejected()
@@ -404,7 +405,7 @@ export class CallInvitationService extends Logger {
   private onAnsweredCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
     summaryModal.componentInstance.currentCall = currentExpertCall;
-    this.pushNotificationService.setEnableButton(true);
+    this.pushNotificationService.pushEnableButtonStatus(true);
     this.soundsService
       .playCallEnded()
       .then(
