@@ -16,6 +16,7 @@ import { ISueDetails } from '@platform/shared/components/modals/activity-details
 import { IFinancialOperationDetails } from '@platform/shared/components/modals/activity-details/financial-operation-details/financial-operation-details.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { IRefundOperationDetails } from '@platform/shared/components/modals/activity-details/refund-details/refund-details.component';
 
 export const MODAL_CLOSED_WITH_ERROR = 'MODAL_CLOSED_WITH_ERROR';
 
@@ -30,7 +31,8 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
   public activityType: ActivityTypeEnum;
   public sueDetails: ISueDetails;
   public financialOperationDetails: IFinancialOperationDetails;
-  public modalHeaderTrKey = 'ACTIVITY_DETAILS.MODAL_HEADER.DEFAULT';
+  public refundOperationDetails: IRefundOperationDetails;
+  public modalHeaderTrKey: string;
   public groupedMessages: ReadonlyArray<ReadonlyArray<roomEvents.CustomMessageSent>> = [];
   public isChatHistoryVisible: boolean;
   public clientAvatarUrl: string;
@@ -45,6 +47,11 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
    */
   private componentLoaded = new BehaviorSubject<boolean>(false);
   private accountId: string;
+  private readonly modalHeaderTrKeys = {
+    default: 'ACTIVITY_DETAILS.MODAL_HEADER.DEFAULT',
+    chatHistory: 'ACTIVITY_DETAILS.MODAL_HEADER.CHAT_HISTORY',
+    financial: 'ACTIVITY_DETAILS.MODAL_HEADER.FINANCIAL',
+  };
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
@@ -56,6 +63,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ActivityDetailsViewComponent'));
+    this.modalHeaderTrKey = this.modalHeaderTrKeys.default;
     this.store
       .pipe(
         select(fromCore.getSession),
@@ -69,6 +77,10 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     switch (this.activityDetails.activity.activityType) {
       case ActivityTypeEnum.SERVICEUSAGEEVENT:
         this.onSueActivityType(this.activityDetails.activity);
+        break;
+
+      case ActivityTypeEnum.REFUND:
+        this.onRefundActivityType(this.activityDetails.activity);
         break;
 
       case ActivityTypeEnum.FINANCIALTRANSACTION:
@@ -99,13 +111,13 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
 
   public onOpenChat = (): void => {
     this.stepper.next();
-    this.modalHeaderTrKey = 'ACTIVITY_DETAILS.MODAL_HEADER.CHAT_HISTORY';
+    this.modalHeaderTrKey = this.modalHeaderTrKeys.chatHistory;
     this.isBackwardVisible = true;
   };
 
   public onGoBack = (): void => {
     this.stepper.previous();
-    this.modalHeaderTrKey = 'ACTIVITY_DETAILS.MODAL_HEADER.DEFAULT';
+    this.modalHeaderTrKey = this.modalHeaderTrKeys.default;
     this.isBackwardVisible = false;
   };
 
@@ -158,15 +170,28 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
       typeof activity.payoutMethod !== 'undefined' &&
       typeof activity.payoutId !== 'undefined'
     ) {
-      this.activityType = ActivityTypeEnum.FINANCIALTRANSACTION;
-      this.modalHeaderTrKey = 'ACTIVITY_DETAILS.MODAL_HEADER.FINANCIAL';
       this.financialOperationDetails = {
         id: activity.payoutId,
         date: activity.initializedAt,
         payoutMethod: activity.payoutMethod,
         payoutValue: activity.financialOperation.operation,
       };
+      this.activityType = ActivityTypeEnum.FINANCIALTRANSACTION;
+      this.modalHeaderTrKey = this.modalHeaderTrKeys.financial;
       this.componentLoaded.next(true);
     }
+  };
+
+  private onRefundActivityType = (activity: GetProfileActivity): void => {
+    if (typeof activity.financialOperation !== 'undefined') {
+      this.refundOperationDetails = {
+        id: activity.id,
+        date: activity.initializedAt,
+        refundValue: activity.financialOperation.operation,
+      };
+    }
+    this.activityType = ActivityTypeEnum.REFUND;
+    this.modalHeaderTrKey = this.modalHeaderTrKeys.financial;
+    this.componentLoaded.next(true);
   };
 }

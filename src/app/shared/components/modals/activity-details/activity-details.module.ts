@@ -10,6 +10,7 @@ import { StepperModule } from '@platform/shared/components/stepper/stepper.modul
 import { FinancialOperationDetailsComponent } from './financial-operation-details/financial-operation-details.component';
 import { UuidTrimmerPipe } from '@platform/shared/components/modals/activity-details/uuid-trimmer.pipe';
 import { ConsultationCommentModule } from '@platform/shared/components/consultation-comment/consultation-comment.module';
+import { RefundDetailsComponent } from './refund-details/refund-details.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ConsultationCommentModule } from '@platform/shared/components/consultat
     ChatHistoryComponent,
     FinancialOperationDetailsComponent,
     UuidTrimmerPipe,
+    RefundDetailsComponent,
   ],
 })
 export class ActivityDetailsModule {}
