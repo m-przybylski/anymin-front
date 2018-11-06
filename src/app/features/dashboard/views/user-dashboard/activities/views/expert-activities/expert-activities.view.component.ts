@@ -93,6 +93,7 @@ export class ExpertActivitiesViewComponent implements OnInit, OnDestroy {
           ...this.profileActivities,
           ...this.mapToProfileActivitiesWithStatus(profileActivities),
         ];
+        this.isMoreActivity = profileActivities.count > this.profileActivities.length;
       },
       _error => {
         this.currentActivitiesOffset -= this.activitiesOffsetIterator;
