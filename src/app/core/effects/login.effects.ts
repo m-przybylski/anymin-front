@@ -7,6 +7,7 @@ import { SessionService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
+import { ModalStack } from '@platform/core/services/modal/modal.service';
 
 @Injectable()
 export class LoginEffects extends Logger {
@@ -59,7 +60,10 @@ export class LoginEffects extends Logger {
   @Effect()
   public logoutSuccess$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.LogoutSuccess, AuthActions.AuthActionTypes.LogoutRemote),
-    tap(this.alertService.closeAllAlerts),
+    tap(() => {
+      this.alertService.closeAllAlerts();
+      this.modalService.dismissAll();
+    }),
     switchMap(() => of(new AuthActions.LoginRedirectAction())),
   );
 
@@ -89,6 +93,7 @@ export class LoginEffects extends Logger {
     private sessionService: SessionService,
     private router: Router,
     private alertService: AlertService,
+    private modalService: ModalStack,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('LoginEffects'));

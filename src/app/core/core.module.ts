@@ -30,6 +30,8 @@ import { PlatMissingTranslationHandler } from './services/missing-translation/mi
 import { PushNotificationService } from './services/call/push-notifications.service';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
+import { ModalStack } from '@platform/core/services/modal/modal.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -71,6 +73,11 @@ export function getLogLevel(): LogLevel {
     ExpertCallService,
     RemoteLogoutService,
     ExpertAvailabilityService,
+    /**
+     * need to override internal class of ng-bootstrap <3
+     */
+    ModalStack,
+    { provide: NgbModalStack, useExisting: ModalStack },
   ],
 })
 export class CoreModule {}
