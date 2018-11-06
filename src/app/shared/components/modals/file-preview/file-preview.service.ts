@@ -40,7 +40,9 @@ export class FilePreviewService extends Logger {
     );
 
   public printPreview = (imageUrl: ReadonlyArray<string>): void => {
-    const nativeWindow = this.windowRef.nativeWindow.open('', '_blank', 'top=0, left=0, height=100%, width=100%');
+    const nativeWindow = this.windowRef.nativeWindow.open(
+      '_blank, top=0, left=0, height=100%, width=100%, fullscreen=yes',
+    );
     nativeWindow.document.open();
     nativeWindow.document.write(this.prepareHtmlPageToPrint(imageUrl));
     nativeWindow.document.close();

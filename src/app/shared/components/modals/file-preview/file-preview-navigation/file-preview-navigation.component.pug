@@ -5,7 +5,7 @@
         span(plat-icon, iconClass="backward", (click)="onBackwardClick()")
 
       li.file-preview-pagination__counter
-        span(*ngIf="!isPending") {{ currentItem }} {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.FROM' | translate }} {{ filesCount }}
+        span(*ngIf="!isPending") {{ currentItem }} {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.FROM' | translate }} {{ filesLength }}
         span(*ngIf="isPending") {{ 'DASHBOARD.PROFILE.FILES.PREVIEW.NAVIGATION.EMPTY_NAV' | translate }}
 
       li.file-preview-pagination--next([ngClass]="{'file-preview-pagination__next--inactive': !isNavigationForwardAllowed}")

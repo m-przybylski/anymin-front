@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { EmploymentService, GetInvitation, InvitationService, ServiceService } from '@anymind-ng/api';
-import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
-import { Observable } from 'rxjs';
+import {
+  EmploymentService,
+  ExpertProfileWithEmployments,
+  GetInvitation,
+  InvitationService,
+  ServiceService,
+} from '@anymind-ng/api';
+import { forkJoin, Observable } from 'rxjs';
 import { PostInvitations } from '@anymind-ng/api/model/postInvitations';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
 import { GetService } from '@anymind-ng/api/model/getService';
@@ -23,8 +28,18 @@ export enum EmployeeInvitationTypeEnum {
 export interface IEmployeesPendingInvitation {
   email?: string;
   msisdn?: string;
+  employeeId?: string;
 }
 
+export interface IEmployeesNewInvitations {
+  invitations: ReadonlyArray<string>;
+  employeeInvitations: ReadonlyArray<IEmployeesPendingInvitation>;
+}
+
+export interface IEmployeesList {
+  employeeList: ReadonlyArray<IEmployeesInviteComponent>;
+  pendingInvitations: IEmployeesNewInvitations;
+}
 @Injectable()
 export class EmployeesInviteService {
   private employeesWithPendingInvitaitons: ReadonlyArray<IEmployeesPendingInvitation> = [];
@@ -42,12 +57,6 @@ export class EmployeesInviteService {
     this.emailPattern = commonSettingsService.localSettings.emailPattern;
     this.maxInvitationLength = commonSettingsService.localSettings.consultationInvitationsMaxCount;
   }
-
-  public getEmployeeList = (): Observable<ReadonlyArray<ExpertProfileWithEmployments>> =>
-    this.employmentService.getEmployeesRoute();
-
-  public getInvitations = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>
-    this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
 
   public getConsultationDetails = (serviceId: string): Observable<GetService> =>
     this.serviceService.getServiceRoute(serviceId);
@@ -72,23 +81,52 @@ export class EmployeesInviteService {
     }
   };
 
+  public mapEmployeeList = (serviceId: string): Observable<IEmployeesList> =>
+    forkJoin(
+      this.employmentService.getEmployeesRoute().pipe(
+        map((response: ReadonlyArray<ExpertProfileWithEmployments>) =>
+          response
+            .filter(item => item.employments.every(employment => employment.serviceId !== serviceId))
+            .map(employeeProfile => ({
+              name: employeeProfile.expertProfile.name,
+              avatar: employeeProfile.expertProfile.avatar,
+              employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
+              serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
+            })),
+        ),
+      ),
+      this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] }).pipe(
+        map(services => services.find(service => service.service.id === serviceId)),
+        filter(service => typeof service !== 'undefined'),
+        map((status: GetServiceWithInvitations) => {
+          this.employeesWithPendingInvitaitons = this.getUnAcceptedInvitations(status);
+
+          const invitations: ReadonlyArray<string> = this.employeesWithPendingInvitaitons.reduce(
+            (contactList, contact) => [...contactList, this.getStringValue(contact)],
+            [],
+          );
+
+          return {
+            invitations,
+            employeeInvitations: this.employeesWithPendingInvitaitons.filter(item => item.employeeId),
+          };
+        }),
+      ),
+    ).pipe(
+      map(([consultationEmployees, pendingInvitations]) => {
+        const employeeList = consultationEmployees.filter(obj =>
+          pendingInvitations.employeeInvitations.every(
+            (pendingEmployeeId: IEmployeesPendingInvitation) => obj.employeeId !== pendingEmployeeId.employeeId,
+          ),
+        );
+
+        return { employeeList, pendingInvitations };
+      }),
+    );
+
   public setInvitedEmployeeList = (
     employeeList: ReadonlyArray<IEmployeesInviteComponent>,
   ): ReadonlyArray<IEmployeesInviteComponent> => (this.invitedEmployeeList = employeeList);
-
-  public checkPendingInvitations = (serviceId: string): Observable<ReadonlyArray<string>> =>
-    this.getInvitations(serviceId).pipe(
-      map(services => services.find(service => service.service.id === serviceId)),
-      filter(service => typeof service !== 'undefined'),
-      map((status: GetServiceWithInvitations) => {
-        this.employeesWithPendingInvitaitons = this.getUnAcceptedInvitations(status);
-
-        return this.employeesWithPendingInvitaitons;
-      }),
-      map((invitations: ReadonlyArray<IEmployeesPendingInvitation>) =>
-        invitations.reduce((contactList, contact) => [...contactList, this.getStringValue(contact)], []),
-      ),
-    );
 
   private getStringValue = (item: { email?: string; msisdn?: string }): string => {
     if (typeof item.email !== 'undefined') {
@@ -107,6 +145,7 @@ export class EmployeesInviteService {
     serviceWithInvitation.invitations.filter(item => item.status === 'NEW').map(item => ({
       email: item.email,
       msisdn: item.msisdn,
+      employeeId: item.employeeId,
     }));
 
   private isMaxLengthInvitationReached = (): boolean => this.invitedEmployeeList.length >= this.maxInvitationLength;

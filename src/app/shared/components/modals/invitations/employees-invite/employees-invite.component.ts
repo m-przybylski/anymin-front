@@ -49,7 +49,6 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
 
   private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
-  private employeesConsultationList: ReadonlyArray<IEmployeesInviteComponent> = [];
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -72,35 +71,15 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
-    this.employeesInviteService
-      .getEmployeeList()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can not get employees list')))
-      .subscribe((response: ReadonlyArray<ExpertProfileWithEmployments>) => {
-        this.dropdownItems = response.filter(item => item.employments[0]).map(employeeProfile => ({
-          name: employeeProfile.expertProfile.name,
-          avatar: employeeProfile.expertProfile.avatar,
-          employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
-          serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
-        }));
-
-        this.employeesConsultationList = this.dropdownItems.filter(employee => employee.serviceId === this.serviceId);
-        this.employeesConsultationList.forEach(item => {
-          this.filterOwnEmployeesDropdownList(item);
-        });
-      });
+    this.employeesInviteService.mapEmployeeList(this.serviceId).subscribe(res => {
+      this.dropdownItems = res.employeeList;
+      this.usedContactList = res.pendingInvitations.invitations;
+    });
 
     this.employeesInviteService
       .getConsultationDetails(this.serviceId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(serviceDetails => (this.serviceName = serviceDetails.name));
-
-    this.employeesInviteService
-      .checkPendingInvitations(this.serviceId)
-      .pipe(catchError(err => this.handleGetEmployeeListError(err, 'Can not get unaccepted invites')))
-      .subscribe((invite: ReadonlyArray<string>) => {
-        this.usedContactList = invite;
-      });
   }
 
   public onClickSend = (formGroup: FormGroup): void => {

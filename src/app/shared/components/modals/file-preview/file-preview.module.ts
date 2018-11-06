@@ -24,11 +24,10 @@ import { SmoothScrollDirective } from './smooth-scroll.directive';
   ],
   declarations: [
     FilePreviewComponent,
-    FilePreviewNavigationComponent,
-    FilePreviewNavigationComponent,
     FilePreviewDirective,
     FileResizerDirective,
     SmoothScrollDirective,
+    FilePreviewNavigationComponent,
   ],
   entryComponents: [FilePreviewComponent],
   providers: [WindowRef, FilePreviewService],

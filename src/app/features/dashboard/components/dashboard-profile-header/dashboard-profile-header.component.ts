@@ -71,5 +71,6 @@ export class DashboardProfileHeaderComponent implements OnInit {
     const openModal = this.modalService.open(FilePreviewComponent);
     openModal.componentInstance.profileId = this.profileId;
     openModal.componentInstance.isExpertProfile = this.isExpertProfile;
+    openModal.componentInstance.filesLength = this.attachments.length;
   };
 }
