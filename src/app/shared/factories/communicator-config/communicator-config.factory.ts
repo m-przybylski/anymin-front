@@ -28,12 +28,15 @@ export function CommunicatorConfigFactory(): UserConfig {
         iceServers: [
           {
             urls: [
-              'turn:turn.anymind.com:443?transport=udp',
-              'turn:turn.anymind.com:443?transport=tcp',
-              'stun:turn.anymind.com:443',
+              'turns:turn2.anymind.com:443?transport=udp',
+              'turns:turn2.anymind.com:443?transport=tcp',
+              'turn:turn2.anymind.com:80?transport=udp',
+              'turn:turn2.anymind.com:80?transport=tcp',
+              'stun:turn2.anymind.com:443',
+              'stun:turn2.anymind.com:80',
             ],
-            username: 'test123',
-            credential: 'test456',
+            username: 'anymind',
+            credential: 'turn',
           },
         ],
       },
