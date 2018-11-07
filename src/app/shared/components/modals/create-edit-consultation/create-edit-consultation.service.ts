@@ -12,6 +12,7 @@ import { Logger } from '@platform/core/logger';
 @Injectable()
 export class CreateEditConsultationService extends Logger {
   private readonly moneyDivider = 100;
+  private readonly lastButOneIndex = 2;
 
   constructor(
     private serviceService: ServiceService,
@@ -29,6 +30,17 @@ export class CreateEditConsultationService extends Logger {
     this.serviceService.putServiceRoute(serviceId, service);
 
   public getCompanyProfit = (value: number, commission: number): number => (value / this.moneyDivider) * commission;
+
+  public getInputPriceModel = (value: number): string => {
+    const stringVal = value.toString().replace('.', ',');
+    if (stringVal.indexOf(',') === stringVal.length - 1 || stringVal.indexOf(',') === -1) {
+      return `${stringVal},00`;
+    } else if (stringVal.indexOf(',') === stringVal.length - this.lastButOneIndex) {
+      return `${stringVal}0`;
+    }
+
+    return stringVal;
+  };
 
   public deleteService = (serviceId: string): Observable<void> =>
     this.confirmationService.confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE').pipe(

@@ -1,4 +1,5 @@
 // tslint:disable:readonly-array
+// tslint:disable:max-file-line-count
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
@@ -17,6 +18,7 @@ import { ServiceWithOwnerProfile } from 'profitelo-api-ng/model/ServiceWithOwner
 import { Logger } from '@platform/core/logger';
 import { CONSULTATIONDETAILS } from './create-edit-consultation';
 import { COMMISSION, ICommission } from '@platform/core/commission';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
@@ -182,10 +184,19 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     language: this.polandISOcode,
   });
 
-  private handleError = (error: HttpErrorResponse): Observable<void> => {
+  private handleError = (httpError: HttpErrorResponse): Observable<void> => {
     this.isRequestPending = false;
+    this.loggerService.warn('error when try to create service', httpError);
+
+    const err = httpError.error;
+    if (isBackendError(err)) {
+      if (err.code === BackendErrors.InvalidServicePrice) {
+        this.alertService.pushDangerAlert('ALERT.NOT_ALLOWED_TO_CREATE_FREE_CONSULTATION');
+
+        return EMPTY;
+      }
+    }
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-    this.loggerService.warn('error when try to create service', error);
 
     return EMPTY;
   };
@@ -222,7 +233,9 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
       this.grossPrice = serviceDetails.grossPrice.amount / this.commissionConfig.moneyDivider;
       this.formControls[this.nameControlName].setValue(serviceDetails.name);
       this.formControls[this.descriptionControlName].setValue(serviceDetails.description);
-      this.formControls[this.grossPriceControlName].setValue(this.grossPrice);
+      this.formControls[this.grossPriceControlName].setValue(
+        this.createEditConsultationService.getInputPriceModel(this.grossPrice),
+      );
       this.successAlertTrKey = 'ALERT.EDIT_CONSULTATION.SUCCESS';
       this.modalHeaderTrKey = this.editConsultationTrKey;
       if (serviceDetails.isFreelance) {

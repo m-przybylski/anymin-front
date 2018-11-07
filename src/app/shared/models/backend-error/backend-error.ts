@@ -29,6 +29,7 @@ export enum BackendErrors {
   IncorrectValidation = 200,
   InvalidAddressEmail = 202,
   InvalidBankAccountNumber = 207,
+  InvalidServicePrice = 216,
   NoSuchAccount = 300,
   CannotFindMsisdnToken = 322,
   CannotFindEmailToken = 323,

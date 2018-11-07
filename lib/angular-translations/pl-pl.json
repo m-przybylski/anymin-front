@@ -28,6 +28,7 @@
   "ALERT.TO_MANY_ATTEMPTS": "Za dużo niepoprawnych prób. Spróbuj ponownie za około 1 min.",
   "ALERT.SESSION_LOGGED_OUT.SUCCESS": "Sesja została wylogowana.",
   "ALERT.NOT_SUPPORTED": "Ta funkcjonalność nie jest obecnie wspierana",
+  "ALERT.NOT_ALLOWED_TO_CREATE_FREE_CONSULTATION": "Nie możesz stworzyć darmowej konsultacji",
   "APP.BROWSER.FIREFOX": "Firefox",
   "APP.BROWSER.SUPPORT.CHROME": "Chrome",
   "APP.BROWSER.SUPPORT.INSTRUCTION": "Jeśli chcesz wykonywać połączenia, użyyj jednej z poniższych przeglądarek:",
