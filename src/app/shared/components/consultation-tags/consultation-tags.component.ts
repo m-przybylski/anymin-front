@@ -54,6 +54,8 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   public suggestedTags: ReadonlyArray<string> = [];
   public selectedTags: ReadonlyArray<string> = [];
   public validationErrorTrKey: string;
+  public hasSuggestedTags = false;
+  public hasSelectedTags = false;
 
   private readonly validationErrorTranslations = {
     invalidLength: 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_CHARACTERS_COUNT',
@@ -82,6 +84,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.selectedTags = [...this.tagNames];
+    this.hasSelectedTags = this.selectedTags.length > 0;
 
     const titleValueChanges$ = this.form.controls[this.nameControlName].valueChanges.pipe(
       map(value => (this.suggestedTagsQuery.name = value)),
@@ -151,6 +154,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
     if (!this.isDisabled) {
       this.selectedTags = this.selectedTags.filter(item => item !== tag);
       this.selectedTagsEmitter$.emit(this.selectedTags);
+      this.hasSelectedTags = this.selectedTags.length > 0;
       this.updateSuggestedTags();
       this.checkTagsCount();
     }
@@ -159,17 +163,15 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
   public handleSuggestedTag = (tag: string): void => {
     if (!this.isDisabled) {
       this.suggestedTags = this.suggestedTags.filter(item => item !== tag);
+      this.hasSuggestedTags = this.suggestedTags.length > 0;
       this.addTag(tag);
     }
   };
 
-  public areSelectedTags = (): boolean => this.selectedTags.length > 0;
-
-  public areSuggestedTags = (): boolean => this.suggestedTags.length > 0;
-
   private addTag = (tag: string): void => {
     this.selectedTags = [...this.selectedTags, tag];
     this.selectedTagsEmitter$.emit(this.selectedTags);
+    this.hasSelectedTags = this.selectedTags.length > 0;
     this.updateSuggestedTags();
     this.checkTagsCount();
   };
@@ -203,6 +205,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(response => {
         this.suggestedTags = response.tags;
+        this.hasSuggestedTags = this.suggestedTags.length > 0;
       });
   };
 
