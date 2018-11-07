@@ -1,21 +1,18 @@
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import * as fromCore from 'app/core/reducers/index';
 import { Deceiver } from 'deceiver-core';
-import { GetProfileWithDocuments, ProfileDocument, ProfileService } from '@anymind-ng/api';
+import { ProfileDocument } from '@anymind-ng/api';
 import * as fromRoot from 'app/reducers/index';
 import { TestBed } from '@angular/core/testing';
 import { FilePreviewService } from '@platform/shared/components/modals/file-preview/file-preview.service';
-import { AlertService, LoggerFactory, LoggerService, WindowRef } from '@anymind-ng/core';
-import { cold } from 'jasmine-marbles';
+import { LoggerFactory, LoggerService, WindowRef } from '@anymind-ng/core';
 import { IFileType } from '@platform/shared/components/modals/file-preview/file-preview.component';
 
 describe('FilePreviewService', () => {
   let filePreviewService: FilePreviewService;
   let store: Store<fromCore.IState>;
 
-  const profileService: ProfileService = Deceiver(ProfileService);
   const windowRef: WindowRef = Deceiver(WindowRef);
-  const alertService: AlertService = Deceiver(AlertService);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
     createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
   });
@@ -30,79 +27,11 @@ describe('FilePreviewService', () => {
       ],
     });
     store = TestBed.get(Store);
-    filePreviewService = new FilePreviewService(profileService, alertService, windowRef, loggerFactory);
+    filePreviewService = new FilePreviewService(windowRef, loggerFactory);
   });
 
   it('should be created', () => {
     expect(filePreviewService).toBeTruthy();
-  });
-
-  it('should get expert profile files', () => {
-    const serviceId = '123444';
-    const isExpertProfile = true;
-    const profileDocument: ProfileDocument = {
-      name: 'string',
-      token: 'string',
-      previews: ['preview'],
-      contentType: 'string',
-    };
-
-    const getProfileWithDocuments: GetProfileWithDocuments = {
-      expertDocuments: [profileDocument],
-      profile: {
-        id: 'qwerr',
-        isActive: true,
-        expertDetails: {
-          avatar: '123444',
-          description: 'jujuju',
-          links: [],
-          name: 'asdfff',
-        },
-      },
-      organizationDocuments: [profileDocument],
-    };
-
-    const result = profileDocument;
-
-    const expected$ = cold('-(a|)', { a: [result] });
-    profileService.getProfileRoute = jasmine
-      .createSpy('getProfileRoute')
-      .and.returnValue(cold('-(a|)', { a: getProfileWithDocuments }));
-    expect(filePreviewService.getProfileDetails(serviceId, isExpertProfile)).toBeObservable(expected$);
-  });
-
-  it('should get company profile files', () => {
-    const serviceId = '123444';
-    const isExpertProfile = false;
-    const profileDocument: ProfileDocument = {
-      name: 'string',
-      token: 'string',
-      previews: ['preview'],
-      contentType: 'string',
-    };
-
-    const getProfileWithDocuments: GetProfileWithDocuments = {
-      expertDocuments: [profileDocument],
-      profile: {
-        id: 'qwerr',
-        isActive: true,
-        expertDetails: {
-          avatar: '123444',
-          description: 'jujuju',
-          links: [],
-          name: 'asdfff',
-        },
-      },
-      organizationDocuments: [profileDocument],
-    };
-
-    const result = profileDocument;
-
-    const expected$ = cold('-(a|)', { a: [result] });
-    profileService.getProfileRoute = jasmine
-      .createSpy('getProfileRoute')
-      .and.returnValue(cold('-(a|)', { a: getProfileWithDocuments }));
-    expect(filePreviewService.getProfileDetails(serviceId, isExpertProfile)).toBeObservable(expected$);
   });
 
   it('should check pdf file type', () => {

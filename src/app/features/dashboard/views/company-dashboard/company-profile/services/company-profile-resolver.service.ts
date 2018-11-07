@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ViewsService, OrganizationProfileView, GetProfileWithDocuments, ProfileService } from '@anymind-ng/api';
+import {
+  ViewsService,
+  OrganizationProfileView,
+  GetProfileWithDocuments,
+  ProfileService,
+  GetSessionWithAccount,
+} from '@anymind-ng/api';
 import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { UserSessionService } from '../../../../../../core/services/user-session/user-session.service';
-import { Observable, from, forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { map } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
 @Injectable()
 export class CompanyProfileResolverService
@@ -12,14 +19,18 @@ export class CompanyProfileResolverService
   constructor(
     private views: ViewsService,
     private router: Router,
-    private userSessionService: UserSessionService,
     private profileService: ProfileService,
+    private store: Store<fromCore.IState>,
   ) {}
   public resolve(route: ActivatedRouteSnapshot): Observable<IExpertCompanyDashboardResolverData<OrganizationProfile>> {
     /** get profile Id from route */
     const profileId = route.paramMap.get('profileId') as string;
     /** get information who is logged */
-    const session$ = from(this.userSessionService.getSession());
+    const session$ = this.store.pipe(
+      select(fromCore.getSession),
+      filter(session => session !== undefined),
+      take(1),
+    ) as Observable<GetSessionWithAccount>;
     /** get data from backend - organization profile - consultataions */
     const organizationDetails$ = this.views
       .getWebOrganizationProfileRoute(profileId)
