@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { EventsServiceProvider } from '../shared/providers/ajs-upgraded-providers/ajs-upgraded-providers';
 import { UserSessionService } from './services/user-session/user-session.service';
 import { ApiModule } from '@anymind-ng/api';
 import { ApiConfigurationFactory } from './factories/api-configuration/api-configuration.factory';
@@ -53,7 +52,6 @@ export function getLogLevel(): LogLevel {
     EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
   ],
   providers: [
-    EventsServiceProvider,
     UserSessionService,
     LongPollingService,
     LoginHelperService,

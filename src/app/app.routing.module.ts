@@ -25,8 +25,6 @@ const appRoutes: Routes = [
         loadChildren: './features/forgot-password/forgot-password.module#ForgotPasswordModule',
       },
       { path: 'account', canActivate: [SessionGuard], loadChildren: './features/account/account.module#AccountModule' },
-      // required by AngularJS
-      { path: 'dashboard/expert/activities', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
       {
         path: 'dashboard',
         canActivate: [ProfileGuard],
@@ -45,7 +43,6 @@ const appRoutes: Routes = [
     ],
   },
   { path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule' },
-  { path: '**', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
 ];
 
 @NgModule({

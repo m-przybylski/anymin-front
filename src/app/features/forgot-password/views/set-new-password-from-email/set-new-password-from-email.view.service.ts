@@ -9,6 +9,7 @@ import { BackendErrors, isBackendError } from '../../../../shared/models/backend
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 export enum SetNewPasswordFromEmailStatus {
   SUCCESS,
@@ -48,9 +49,8 @@ export class SetNewPasswordFromEmailViewService {
     this.userSessionService.login({ msisdn, password }).then(() => SetNewPasswordFromEmailStatus.SUCCESS);
 
   private redirectToDashboard = (): Promise<SetNewPasswordFromEmailStatus> =>
-    this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
+    this.router.navigate([RouterPaths.dashboard.user.welcome.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to dashboard/expert/activities');
         return SetNewPasswordFromEmailStatus.ERROR;
       } else {

@@ -16,8 +16,7 @@ import {
   EmployeesInviteModalComponent,
   IEmployeeInvitePayload,
 } from '../invitations/employees-invite/employees-invite.component';
-import { GetService, PostServiceInvitation, PutService } from '@anymind-ng/api';
-import { ServiceWithOwnerProfile } from 'profitelo-api-ng/model/ServiceWithOwnerProfile';
+import { GetService, PostServiceInvitation, PutService, ServiceWithOwnerProfile } from '@anymind-ng/api';
 import { Logger } from '@platform/core/logger';
 import { CONSULTATION_DETAILS } from './create-edit-consultation';
 import { COMMISSION, ICommission } from '@platform/core/commission';

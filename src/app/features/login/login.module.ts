@@ -13,7 +13,6 @@ import { PinCodeViewService } from './views/pin-code/pin-code.view.service';
 import { PinCodeViewResolver } from './views/pin-code/pin-code.view.resolver';
 import { LimitedAccessViewComponent } from './views/limited-access/limited-access.view.component';
 import { BlockedViewComponent } from './views/blocked/blocked.view.component';
-import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 
 @NgModule({
@@ -25,14 +24,7 @@ import { InputsModule } from '../../shared/components/inputs/inputs.module';
     BlockedViewComponent,
   ],
   providers: [PhoneNumberViewService, PasswordViewService, PinCodeViewService, PinCodeViewResolver],
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    LoginRoutingModule,
-    SharedModule,
-    InputsModule,
-    AngularJsProvidersModule,
-  ],
+  imports: [ReactiveFormsModule, CommonModule, LoginRoutingModule, SharedModule, InputsModule],
 })
 export class LoginModule {
   constructor() {}

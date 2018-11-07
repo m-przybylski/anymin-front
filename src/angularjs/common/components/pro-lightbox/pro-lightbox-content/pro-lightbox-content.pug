@@ -1,5 +1,0 @@
-.pro-lightbox-content(data-ng-class="{'pdf' : $ctrl.slide.contentType =='application/pdf'}")
-  .content(data-ng-if="!$ctrl.slide.contentType!=='application/pdf'")
-    img(data-ng-src="{{ $ctrl.slide.previews[0] }}" draggable="false")
-  .content(data-ng-repeat="preview in $ctrl.slide.previews" data-ng-if="$ctrl.slide.contentType==='application/pdf'")
-    img(src="{{ preview }}" draggable="false")

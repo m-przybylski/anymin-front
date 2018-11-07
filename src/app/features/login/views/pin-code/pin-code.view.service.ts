@@ -7,7 +7,6 @@ import { AccountService, RegistrationService } from '@anymind-ng/api';
 import { Observable, of } from 'rxjs';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EventsService } from '../../../../../angularjs/common/services/events/events.service';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { SessionActions } from '@platform/core/actions';
@@ -33,7 +32,6 @@ export class PinCodeViewService {
     private alertService: AlertService,
     private registrationService: RegistrationService,
     private accountService: AccountService,
-    private eventsService: EventsService,
     private router: Router,
     loggerFactory: LoggerFactory,
   ) {
@@ -52,7 +50,6 @@ export class PinCodeViewService {
     this.registrationService.confirmVerificationRoute({ sessionId, token }).pipe(
       map(session => {
         this.store.dispatch(new SessionActions.FetchSessionSuccessAction(session));
-        this.eventsService.emit('login');
         this.store
           .pipe(
             select(fromCore.getSession),

@@ -10,7 +10,6 @@ import { provideMockFactoryLogger } from 'testing/testing';
 import { Deceiver } from 'deceiver-core';
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import { EventsService } from 'angularjs/common/services/events/events.service';
 import { SessionActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
 
@@ -44,7 +43,6 @@ describe('Service: PinCode service', () => {
         { provide: AlertService, useValue: jasmine.createSpyObj('AlertService', ['pushDangerAlert']) },
         { provide: AccountService, useValue: Deceiver(AccountService) },
         { provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) },
-        { provide: EventsService, useValue: Deceiver(EventsService, { emit: jasmine.createSpy('') }) },
       ],
     });
     TestBed.get(ActivatedRoute).params = of({ msisdn: mockPhoneNumber });

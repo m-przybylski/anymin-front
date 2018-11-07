@@ -7,7 +7,7 @@ import { CommunicatorDeactivateGuardService } from '@platform/features/communica
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard/expert/activities',
+    redirectTo: '/dashboard/user/activities',
     pathMatch: 'full',
   },
   {

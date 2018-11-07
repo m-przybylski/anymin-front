@@ -9,7 +9,6 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
-import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
@@ -20,6 +19,7 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { NavbarActions, SessionActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
+import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { Store, select } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
 

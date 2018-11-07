@@ -1,8 +1,0 @@
-.no-results-information
-  img.information-icon(data-ng-show="$ctrl.iconSrc" data-ng-src="{{$ctrl.iconSrc}}" alt="icon")
-  h2.information-title(data-ng-show="$ctrl.informationTitle") {{$ctrl.informationTitle | translate}}
-  p.information-description(data-ng-show="$ctrl.informationDescription") {{$ctrl.informationDescription | translate}}
-  a.btn(data-ng-show="$ctrl.buttonTitle" data-ng-class="{'{{$ctrl.buttonClass}}': $ctrl.buttonClass}" data-ng-click="$ctrl.buttonCallback()")
-    span.icon(data-ng-show="$ctrl.buttonIconLeftClass" data-ng-class="{'{{$ctrl.buttonIconLeftClass}}': $ctrl.buttonIconLeftClass}")
-    | {{$ctrl.buttonTitle | translate}}
-    span.icon(data-ng-show="$ctrl.buttonIconRightClass" data-ng-class="{'{{$ctrl.buttonIconRightClass}}': $ctrl.buttonIconRightClass}")

@@ -6,10 +6,10 @@ import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
 import { EnvironmentService } from './core/services/environment/environment.service';
 import { CallInvitationService } from './core/services/call/call-invitation.service';
-
-const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 import * as moment from 'moment';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
+
+const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 
 @Component({
   selector: 'app-root',

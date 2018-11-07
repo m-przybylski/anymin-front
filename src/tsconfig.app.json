@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "commonjs",
-    "types": ["angular", "angular-mocks", "jquery", "perfect-scrollbar", "node"]
+    "types": ["angular", "jquery", "perfect-scrollbar", "node"]
   },
   "files": [
     "app/features/confirm-email/confirm-email.module.ts",
@@ -18,15 +18,11 @@
     "app/features/dashboard/views/user-dashboard/invitations/invitations.module.ts",
     "app/features/dashboard/views/user-dashboard/welcome/welcome.module.ts",
     "app/features/dashboard/views/company-dashboard/company-dashboard.module.ts",
-    "app/features/angularjs/angularjs.module.ts",
     "app/features/browse/browse.module.ts",
     "app/features/dashboard/views/user-dashboard/activities/user-dashboard-activities.module.ts",
     "app/features/dashboard/views/company-dashboard/activities/company-dashboard-activities.module.ts",
-    "angularjs/common/directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts",
     "polyfills.ts",
-    "main.ts",
-    "../node_modules/profitelo-api-ng/api.module.ts",
-    "../node_modules/profitelo-api-ng/api/api.ts"
+    "main.ts"
   ],
   "exclude": ["test.ts", "**/*.spec.ts", "wallabyTest.ts"]
 }

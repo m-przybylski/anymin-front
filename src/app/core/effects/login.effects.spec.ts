@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { AlertService, LoggerService } from '@anymind-ng/core';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { ModalStack } from '@platform/core/services/modal/modal.service';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
@@ -183,7 +184,7 @@ describe('LoginEffects', () => {
       actions$ = of(action);
       (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
       loginEffects.dashboardRedirect$.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/expert/activities']);
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
       });
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(two);
@@ -195,7 +196,7 @@ describe('LoginEffects', () => {
       actions$ = of(action);
       (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
       loginEffects.dashboardRedirect$.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/expert/activities']);
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
       });
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(1);
@@ -209,7 +210,7 @@ describe('LoginEffects', () => {
       actions$ = of(action);
       (router.navigate as jasmine.Spy).and.returnValue(Promise.reject('error'));
       loginEffects.dashboardRedirect$.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/expert/activities']);
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
       });
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(1);

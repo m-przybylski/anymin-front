@@ -1,8 +1,0 @@
-scrollable.add-payment-method(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
-  top-modal-navbar(data-on-close="vm.onModalClose")
-  .modal-settings
-    preloader(data-is-loading="!vm.onBraintreeFormLoad")
-      .modal-form.container-medium
-        .add-payment-braintree
-          braintree-form(data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON"
-          data-on-form-succeed="vm.onFormSucceed")

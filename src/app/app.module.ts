@@ -7,8 +7,6 @@ import { AppRoutingModule } from './app.routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
-import { AngularJsBootstrapSingletonService } from './upgrade/angularjs-bootstrap-singleton.service';
-import { UpgradeModule } from '@angular/upgrade/static';
 import { RavenErrorHandler } from './shared/providers/raven-error-handler/raven-error-handler';
 import { ConfirmEmailModule } from './features/confirm-email/confirm-email.module';
 import { ModalsModule } from './shared/components/modals/modals.module';
@@ -36,7 +34,6 @@ registerLocaleData(localePl, getLocale);
     CoreModule,
     SharedModule,
     ConfirmEmailModule,
-    UpgradeModule,
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
      * function or object map of reducer functions. If passed an object of
@@ -69,11 +66,7 @@ registerLocaleData(localePl, getLocale);
      */
     EffectsModule.forRoot([]),
   ],
-  providers: [
-    { provide: ErrorHandler, useClass: RavenErrorHandler },
-    AngularJsBootstrapSingletonService,
-    { provide: LOCALE_ID, useFactory: getLocale },
-  ],
+  providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }, { provide: LOCALE_ID, useFactory: getLocale }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

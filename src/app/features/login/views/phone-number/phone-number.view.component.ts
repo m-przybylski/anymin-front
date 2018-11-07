@@ -8,21 +8,20 @@ import {
   inputPhoneNumberErrorMessages,
 } from '@anymind-ng/core';
 import { finalize, catchError } from 'rxjs/operators';
-import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { Logger } from '@platform/core/logger';
 import { EMPTY } from 'rxjs';
+import { Config } from '../../../../../config';
 
 @Component({
   templateUrl: './phone-number.view.component.html',
   styleUrls: ['./phone-number.view.component.sass'],
-  providers: [CommonSettingsService],
 })
 export class PhoneNumberViewComponent extends Logger implements OnInit {
   public readonly msisdnFormId = 'msisdnForm';
   public readonly msisdnControlName = 'msisdn';
 
   public msisdnForm: FormGroup;
-  public msisdnPrefix: string = this.commonSettingsService.localSettings.countryCodes[0];
+  public msisdnPrefix: string = Config.localSettings.countryCodes[0];
   public isRequestPending = false;
   public isInputInitialFocused = true;
   public isInputRequired = true;
@@ -32,7 +31,6 @@ export class PhoneNumberViewComponent extends Logger implements OnInit {
   constructor(
     private loginService: PhoneNumberViewService,
     private formUtils: FormUtilsService,
-    private commonSettingsService: CommonSettingsService,
     private inputPhoneNumber: InputPhoneNumberService,
     loggerFactory: LoggerFactory,
   ) {

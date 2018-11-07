@@ -2,12 +2,12 @@
 import { Injectable } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
 import { WidgetService, ServiceService, GetServiceWithEmployees } from '@anymind-ng/api';
 import { switchMap, map, filter } from 'rxjs/operators';
 import { Observable, of, EMPTY, defer } from 'rxjs';
 import { WidgetButtonType } from '../components/generate-widget-button-type/generate-widget-button-type.component';
 import { TranslateService } from '@ngx-translate/core';
+import { Config } from '../../../../../../config';
 
 @Injectable()
 export class GenerateWidgetDataService extends Logger {
@@ -20,7 +20,6 @@ export class GenerateWidgetDataService extends Logger {
 
   private moneyToAmount: MoneyToAmount;
   constructor(
-    private commonSettingsService: CommonSettingsService,
     private widgetService: WidgetService,
     private serviceService: ServiceService,
     private translateService: TranslateService,
@@ -31,12 +30,12 @@ export class GenerateWidgetDataService extends Logger {
   }
 
   public getWidgetLink(widgetId: string): string {
-    return `${this.commonSettingsService.links.widget}/${widgetId}`;
+    return `${Config.links.widget}/${widgetId}`;
   }
 
   public getWidgetSdkLink(widgetId?: string): string {
     return `<script>(function(d,id,amWidgetId){if(d.getElementById(id))return;var a="${
-      this.commonSettingsService.links.widgetSdk
+      Config.links.widgetSdk
     }",t=d.getElementsByTagName("head")[0],s=d.createElement("script");s.id=id;s.setAttribute('data-widgetid',amWidgetId);s.src=a,t.appendChild(s)})(document,'anymind-widget-jssdk','${
       widgetId ? widgetId : ''
     }')</script>`;

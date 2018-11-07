@@ -7,8 +7,10 @@ import { AccountService } from '@anymind-ng/api';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
-import { IInvitationObject } from '../../../../../angularjs/app/invitations/invitation.interface';
+import {
+  IInvitationObject,
+  RegistrationInvitationService,
+} from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterPaths } from '@platform/shared/routes/routes';

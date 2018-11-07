@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
-import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { Config } from '../../../../../config';
 
 export enum InputSetPasswordErrors {
   IncorrectPassword = 'incorrectPassword',
@@ -35,15 +35,12 @@ export class InputSetPasswordComponent {
 
   public isFocused = false;
 
-  constructor(public formUtils: FormUtilsService, private commonSettingService: CommonSettingsService) {}
+  constructor(public formUtils: FormUtilsService) {}
 
   public ngOnInit(): void {
     this.formGroup.addControl(
       this.controlName,
-      new FormControl('', [
-        Validators.required.bind(this),
-        Validators.pattern(this.commonSettingService.localSettings.passwordPattern),
-      ]),
+      new FormControl('', [Validators.required.bind(this), Validators.pattern(Config.patterns.passwordPattern)]),
     );
   }
 
@@ -73,5 +70,5 @@ export class InputSetPasswordComponent {
   };
 
   public isPasswordPassRegexp = (): boolean =>
-    this.commonSettingService.localSettings.passwordPattern.test(this.formGroup.value[this.controlName]);
+    Config.patterns.passwordPattern.test(this.formGroup.value[this.controlName]);
 }

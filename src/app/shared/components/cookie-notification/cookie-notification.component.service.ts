@@ -1,5 +1,4 @@
 import { Config } from '../../../../config';
-import { CookiesKeyName } from '../../../../angularjs/common/services/cookie/cookie.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 
@@ -19,7 +18,7 @@ export class CookieNotificationComponentService {
 
   public isNotificationVisible = (): boolean => this.isCookieNotDefined(Config.cookies.cookieNotification.key);
 
-  private isCookieNotDefined = (cookieKey: CookiesKeyName): boolean => !this.cookieService.check(cookieKey);
+  private isCookieNotDefined = (cookieKey: string): boolean => !this.cookieService.check(cookieKey);
 
   private getCookieNotificationExpirationDate = (): Date =>
     new Date(this.getCookieExpirationYear(), Config.cookies.cookieNotification.month);

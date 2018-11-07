@@ -14,10 +14,6 @@
 ```bash
 # node --version: min 4 or greater
 npm install
-git submodule init
-git submodule update
-npm run tr
-npm run cc
 npm run start
 ```
 
@@ -29,28 +25,6 @@ npm run test
 - create component
 ```bash
 npm run component [name]
-```
-
-- download translations from tr
-```
-npm run tr
-```
-
-- choose environment
-
-available `env_name`:
- - build-dev
- - build-stage
- - build-prod
- - integration-test
- 
-```
-export PROFITELO_ENV=env_name
-```
-
-- generate common config
-```
-npm run cc
 ```
 
 - generate new api client

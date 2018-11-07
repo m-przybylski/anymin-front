@@ -37,7 +37,7 @@ export const RouterPaths = {
         getName: 'invitations',
       },
       welcome: {
-        asPath: 'dashboard/user/welcome-to-anymind',
+        asPath: '/dashboard/user/welcome-to-anymind',
         getName: 'welcome-to-anymind',
       },
       settings: {

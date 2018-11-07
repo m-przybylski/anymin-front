@@ -1,5 +1,0 @@
-.grouped-messages-js(data-ng-class="{'interlocutor': !$ctrl.isMine}")
-  div
-    .message(data-ng-repeat="message in $ctrl.messages track by $index" data-ng-class="{'is-active': !message}")
-      .content
-        span(data-ng-bind-html="::message | message")

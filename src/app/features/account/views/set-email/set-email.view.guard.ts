@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 @Injectable()
 export class SetEmailViewGuard implements CanActivate {
@@ -21,7 +22,7 @@ export class SetEmailViewGuard implements CanActivate {
     this.userSessionService.getSession().then(session => {
       if (this.hasUserEmail(session)) {
         this.logger.info('user has email, redirecting to dashboard');
-        void this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
+        void this.router.navigate([RouterPaths.dashboard.user.welcome.asPath]).then(isRedirectSuccessful => {
           if (!isRedirectSuccessful) {
             this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
             this.logger.warn('can not redirect to dashboard/expert/activities');

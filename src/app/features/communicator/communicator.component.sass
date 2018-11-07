@@ -117,3 +117,11 @@
   *
     &:not(:last-child)
       border-bottom: solid 1px rgba($c-white, 0.1)
+
+// FIXME fast fix after removing angularJS
+.thumb-x192
+  &::ng-deep
+    img
+      border-radius: 50%
+      height: 192px
+      width: 192px

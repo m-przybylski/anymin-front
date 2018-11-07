@@ -1,9 +1,0 @@
-.show-more-text
-  .description(data-ng-style="$ctrl.descriptionStyles")
-    p
-      span.short-text(data-ng-class="{'is-showed': !$ctrl.isCollapsed && $ctrl.isCollapsible}") {{ $ctrl.textShort }}
-      span.long-text(ng-bind-html="$ctrl.textLong" data-ng-class="{'visible': $ctrl.isCollapsed}")
-
-  a.btn.btn-show-more(data-ng-click="$ctrl.showMoreText()" data-ng-show="$ctrl.isCollapsible" data-ng-class="{'show-less': $ctrl.isCollapsed}")
-    span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EXPAND" data-ng-show="!$ctrl.isCollapsed")
-    span(data-translate="DASHBOARD.EXPERT_ACCOUNT.COLLAPSE" data-ng-show="$ctrl.isCollapsed")

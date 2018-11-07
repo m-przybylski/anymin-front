@@ -1,16 +1,23 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
-@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
 
 .tag-list
-	&__item
-		min-height: 32px
-		border: 1px solid $c-lines
-		border-radius: 32px
-		display: flex
-		align-items: center
+  display: flex
+  flex-wrap: wrap
+  position: relative
+  z-index: $z-index-100
 
-		span
-			+caption
-			color: $c-text-secondary
-			border: 0
-			background: none
+  &__item
+    min-height: 32px
+    border: 1px solid $c-lines
+    border-radius: 32px
+    display: flex
+    align-items: center
+    margin: 0 8px 8px 0
+    animation: fadeInY 0.3s
+    padding: 0 16px
+
+    span
+      +caption
+      color: $c-text-secondary
+      border: 0
+      background: none

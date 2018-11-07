@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CommonSettingsService } from '../../../../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { UserSessionService } from '../../../../../../../../core/services/user-session/user-session.service';
 import { IDropdownComponent } from '../../../../../../../../shared/components/dropdown/dropdown.component';
 import { ChangeMsisdnComponentService, VerifyMsisdnStatusEnum } from './change-msisdn.component.service';
@@ -16,6 +15,7 @@ import {
 import { finalize, map, filter } from 'rxjs/operators';
 import { ModalAnimationComponentService } from '../../../../../../../../shared/components/modals/modal/animation/modal-animation.animation.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Config } from '../../../../../../../../../config';
 
 export interface IVerifyMsisdnStatus {
   msisdn: string;
@@ -37,10 +37,10 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
   public readonly msisdnPrefixControlName = 'msisdnPrefix';
   public readonly msisdnPrefixes: ReadonlyArray<IDropdownComponent> = [
     {
-      name: this.commonSettingsService.localSettings.countryCodes[0],
+      name: Config.localSettings.countryCodes[0],
     },
   ];
-  public readonly msisdnPrefix = this.commonSettingsService.localSettings.countryCodes[0];
+  public readonly msisdnPrefix = Config.localSettings.countryCodes[0];
 
   public changeMsisdnForm: FormGroup;
   public isRequestPending = false;
@@ -62,7 +62,6 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
   private fullMsisdn: string;
 
   constructor(
-    private commonSettingsService: CommonSettingsService,
     private userService: UserSessionService,
     private formUtils: FormUtilsService,
     private alertService: AlertService,

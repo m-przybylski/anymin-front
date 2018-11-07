@@ -1,6 +1,0 @@
-.summary-tag-multiselect
-  span.title-row {{ ::$ctrl.title | translate }}
-
-  ul.tag-list(data-ng-class="{'disable': $ctrl.isDisabled}")
-    li(ng-repeat="item in $ctrl.items" data-ng-click="$ctrl.toggleItem(item)" data-ng-class="{'is-checked': $ctrl.isChecked(item)}")
-      a {{ ::item[$ctrl.field] }}
