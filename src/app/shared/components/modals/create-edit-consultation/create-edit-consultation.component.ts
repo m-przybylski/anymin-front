@@ -51,6 +51,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   public tagNames: ReadonlyArray<string> = [];
   public grossPrice: number;
   public modalHeaderTrKey = 'CREATE_EXPERT_CONSULTATION.HEADER.TITLE';
+  public isEditModal = false;
 
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
@@ -66,7 +67,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
 
   constructor(
     private formUtils: FormUtilsService,
-    private consultationService: CreateEditConsultationService,
+    private createEditConsultationService: CreateEditConsultationService,
     private alertService: AlertService,
     private modalService: NgbModal,
     private activeModal: NgbActiveModal,
@@ -97,14 +98,14 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
        * instead of editing the existing one
        */
       if (typeof this.payload.serviceDetails === 'undefined') {
-        this.consultationService
+        this.createEditConsultationService
           .createService(this.getPostServiceModel())
           .pipe(catchError(this.handleError))
           .subscribe(this.handleResponse);
 
         return;
       }
-      this.consultationService
+      this.createEditConsultationService
         .updateServiceDetails(this.payload.serviceDetails.id, this.getPutServiceModel())
         .pipe(catchError(this.handleError))
         .subscribe(this.handleResponse);
@@ -146,12 +147,20 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
 
   public getCompanyProfitForUI = (): string => {
     const nett = this.formControls[this.nettPriceControlName].value;
-    const companyProfit = this.consultationService.getCompanyProfit(
+    const companyProfit = this.createEditConsultationService.getCompanyProfit(
       nett,
       this.commissionConfig.freelanceConsultationCompanyCommission,
     );
 
     return `${companyProfit.toPrecision(this.commissionConfig.numberPrecision)} zł`;
+  };
+
+  public deleteConsultation = (serviceId: string): void => {
+    this.createEditConsultationService.deleteService(serviceId).subscribe(() => {
+      this.activeModal.close(true);
+      this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
+      this.loggerService.debug('Consultation removed!');
+    });
   };
 
   private getPostServiceModel = (): PostService => ({
@@ -209,6 +218,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private assignValues = (): void => {
     const serviceDetails = this.payload.serviceDetails;
     if (typeof serviceDetails !== 'undefined') {
+      this.isEditModal = true;
       this.grossPrice = serviceDetails.grossPrice.amount / this.commissionConfig.moneyDivider;
       this.formControls[this.nameControlName].setValue(serviceDetails.name);
       this.formControls[this.descriptionControlName].setValue(serviceDetails.description);

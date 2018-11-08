@@ -116,6 +116,12 @@ plat-modal-component(
           span.calculation-data__value {{ getCompanyProfitForUI() }}
 
       .create-consultation__submit-button-container
+        a.create-consultation__remove-consultation(
+        *ngIf="isEditModal",
+        plat-stroked-large-button,
+        color='primary',
+        (click)="deleteConsultation(payload.serviceDetails.id)") {{ 'CREATE_EXPERT_CONSULTATION.REMOVE_BUTTON' | translate }}
+
         am-core-submit-button(
         titleText="CREATE_EXPERT_CONSULTATION.SUBMIT_BUTTON",
         [formName]="formId",
@@ -123,3 +129,5 @@ plat-modal-component(
         [isSubmitType]="false",
         (click)="onFormSubmit()"
         )
+
+
