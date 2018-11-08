@@ -60,6 +60,7 @@ var NoImportsWalker = (function (_super) {
 }(Lint.RuleWalker));
 var OperatorsPathRegEx = /^rxjs\/operators\/.*$/;
 var ImportList = [
+    'rxjs/index',
     'rxjs/util/',
     'rxjs/util/pipe',
     'rxjs/util/noop',
