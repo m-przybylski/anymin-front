@@ -95,7 +95,7 @@
     "jquery-bridget": "^2.0.1",
     "libphonenumber-js": "^1.4.2",
     "lodash": "^4.17.4",
-    "machoke-sdk": "1.0.0",
+    "machoke-sdk": "1.2.1",
     "messageformat": "^0.2.2",
     "moment": "^2.17.1",
     "ng-file-upload": "^11.2.3",

@@ -23,6 +23,9 @@ export function CommunicatorConfigFactory(): UserConfig {
        */
       reconnectionDisabled: true,
       rtc: {
+        optimizeVideoForFPS: true,
+        videoHint: 'motion',
+        audioHint: 'speech',
         iceTransportPolicy: 'all',
         bundlePolicy: 'max-bundle',
         iceServers: [
