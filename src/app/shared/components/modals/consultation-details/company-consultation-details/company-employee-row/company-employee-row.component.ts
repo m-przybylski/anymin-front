@@ -10,6 +10,10 @@ export interface ICompanyEmployeeRowComponent {
   employeeId?: string;
   avatar?: string;
   invitationId?: string;
+  // TODO remove email, msisdn, invitedExpertAccountId properties after https://anymind.atlassian.net/browse/PLAT-538
+  email?: string;
+  msisdn?: string;
+  invitedExpertAccountId?: string;
 }
 
 @Component({
