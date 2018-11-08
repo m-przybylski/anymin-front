@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProfileDocument, ProfileService } from '@anymind-ng/api';
 import { map, catchError } from 'rxjs/operators';
-import { EMPTY, Observable } from 'rxjs/index';
+import { EMPTY, Observable } from 'rxjs';
 import { AlertService, LoggerFactory, WindowRef } from '@anymind-ng/core';
 import { IFilePreviewDetails, IFileType } from '@platform/shared/components/modals/file-preview/file-preview.component';
 import { Logger } from '@platform/core/logger';

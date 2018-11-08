@@ -44,6 +44,7 @@ class NoImportsWalker extends Lint.RuleWalker {
 const OperatorsPathRegEx = /^rxjs\/operators\/.*$/;
 
 const ImportList = [
+  'rxjs/index',
   'rxjs/util/',
   'rxjs/util/pipe',
   'rxjs/util/noop',
