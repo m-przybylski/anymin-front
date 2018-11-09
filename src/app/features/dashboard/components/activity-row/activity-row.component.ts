@@ -30,8 +30,6 @@ export class ActivityRowComponent implements OnInit {
   public payoutTitle?: string;
   public payoutTitleYear?: string;
 
-  private readonly moneyDivider = 100;
-
   constructor(private modalService: NgbModal, private injector: Injector) {}
 
   public ngOnInit(): void {
@@ -40,7 +38,6 @@ export class ActivityRowComponent implements OnInit {
     this.operationAmount = this.activity.financialOperation
       ? this.activity.financialOperation.operation
       : { amount: 0, currency: 'PLN' };
-    this.operationAmount.amount = this.operationAmount.amount / this.moneyDivider;
     this.activityDescription = this.activity.serviceName;
     this.payoutTitle = this.mapMonthToPayoutTitleTranslation(this.date.getMonth());
     this.payoutTitleYear = String(this.date.getFullYear());
@@ -81,6 +78,12 @@ export class ActivityRowComponent implements OnInit {
      */
     const noop = (): void => undefined;
     modalResult.then(noop, noop);
+  };
+
+  public getDividedAmount = (amount: number): number => {
+    const moneyDivider = 100;
+
+    return amount / moneyDivider;
   };
 
   private mapMonthToPayoutTitleTranslation = (monthIndex: number): string => {
