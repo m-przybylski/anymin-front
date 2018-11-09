@@ -84,7 +84,7 @@ describe('ProfileLinksComponentService', () => {
   it('expect return incorrect url', inject([ProfileLinksComponentService], (service: ProfileLinksComponentService) => {
     const value = 'razdwatrzy';
     service.unifyLinkProtocol(value);
-    expect(service.unifyLinkProtocol(value)).toBeFalsy();
+    expect(service.unifyLinkProtocol(value)).toBe('http://www.razdwatrzy');
   }));
 
   it('expect crop facebook link to create short link ', inject(
