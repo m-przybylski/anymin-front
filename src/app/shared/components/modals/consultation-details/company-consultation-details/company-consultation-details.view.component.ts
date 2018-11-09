@@ -1,3 +1,4 @@
+// tslint:disable:max-file-line-count
 import { Component, Input, OnInit, ComponentRef, ViewContainerRef, ViewChild } from '@angular/core';
 import { ModalContainerTypeEnum, ModalComponent } from '@platform/shared/components/modals/modal/modal.component';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
@@ -5,7 +6,7 @@ import {
   CompanyConsultationDetailsViewService,
   ICompanyConsultationDetails,
 } from './company-consultation-details.view.service';
-import { GetServiceWithEmployees } from '@anymind-ng/api';
+import { GetServiceWithEmployees, PostServiceInvitation } from '@anymind-ng/api';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Animations, LoggerFactory } from '@anymind-ng/core';
@@ -74,6 +75,9 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   private userType: UserTypeEnum | undefined;
   private accountId: string;
   private destroyed$ = new Subject<void>();
+  // TODO remove this after https://anymind.atlassian.net/browse/PLAT-538
+  // tslint:disable-next-line:readonly-array
+  private pendingInvitations: PostServiceInvitation[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -109,10 +113,10 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.isCompany = (getSession && getSession.isCompany) || false;
       this.userType = this.userType || getUserType;
       this.accountId = (getSession && getSession.account.id) || '';
-      const emplyment = getConsultationDetails.serviceDetails.employeesDetails.find(
-        employment => employment.employeeProfile.id === (getSession && getSession.account.id),
+      const employment = getConsultationDetails.serviceDetails.employeesDetails.find(
+        item => item.employeeProfile.id === (getSession && getSession.account.id),
       );
-      this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails, emplyment && emplyment.id);
+      this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails, employment && employment.id);
       this.modalComponent.stopLoadingAnimation();
       this.isPending = false;
     });
@@ -148,6 +152,16 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
         avatar: item.avatar || '',
         employeeId: item.employeeId || '',
       }));
+      this.pendingInvitations = response.map(invitation => {
+        if (typeof invitation.msisdn !== 'undefined') {
+          return { msisdn: invitation.msisdn };
+        }
+        if (typeof invitation.email !== 'undefined') {
+          return { email: invitation.email };
+        }
+
+        return { accountId: invitation.invitedExpertAccountId };
+      });
       this.isPendingInvitationLoaded = false;
     });
   };
@@ -159,11 +173,11 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     });
   };
 
-  public openConsultationDetailsModal = (employeId: string): void => {
+  public openConsultationDetailsModal = (employeeId: string): void => {
     this.activeModal.close();
     const modalInstance = this.modalService.open(ConsultationDetailsViewComponent);
     modalInstance.componentInstance.serviceId = this.consultationId;
-    modalInstance.componentInstance.expertId = employeId;
+    modalInstance.componentInstance.expertId = employeeId;
   };
 
   private attachFooter(
@@ -181,7 +195,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
         /**
          * need to add extra element to the list
          * in case there is only one item system displays user footer
-         * empty string is dengerous so any value do the trick
+         * empty string is dangerous so any value do the trick
          */
         .concat('$'),
     );
@@ -206,6 +220,8 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
             isOwnerEmployee: getConsultationDetails.serviceDetails.employeesDetails.some(
               expertId => expertId.id === getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
             ),
+            // todo delete this after https://anymind.atlassian.net/browse/PLAT-538
+            pendingInvitations: this.pendingInvitations,
           },
         };
         this.consultationDetailsActionsService[value].call(this.consultationDetailsActionsService, payload);

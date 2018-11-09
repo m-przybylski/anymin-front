@@ -115,11 +115,11 @@ export class CompanyConsultationDetailsViewService extends Logger {
       }),
     );
 
-  public deletePendingInvitation = (inviationId: string): Observable<void> =>
-    this.invitationService.deleteInvitationsRoute({ invitationsIds: [inviationId] });
+  public deletePendingInvitation = (invitationId: string): Observable<void> =>
+    this.invitationService.deleteInvitationsRoute({ invitationsIds: [invitationId] });
 
-  public deleteEmployee = (employeementId: string): Observable<void> =>
-    this.employmentService.deleteEmploymentRoute(employeementId);
+  public deleteEmployee = (employmentId: string): Observable<void> =>
+    this.employmentService.deleteEmploymentRoute(employmentId);
 
   public getInvitations = (consultationId: string): Observable<ReadonlyArray<ICompanyEmployeeRowComponent>> =>
     this.getPendingInvitation(consultationId).pipe(
@@ -132,6 +132,9 @@ export class CompanyConsultationDetailsViewService extends Logger {
         const pendingInvitations = invitations.filter(item => typeof item.employeeId === 'undefined').map(item => ({
           name: item.msisdn || item.email || '',
           id: item.id,
+          // todo delete email, msisdn properties after https://anymind.atlassian.net/browse/PLAT-538
+          email: item.email,
+          msisdn: item.msisdn,
         }));
 
         return iif(
@@ -145,6 +148,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
                     id: res.profile.id,
                     avatar: res.profile.expertDetails ? res.profile.expertDetails.avatar : '',
                     employeeId: employee.id,
+                    invitedExpertAccountId: res.profile.id,
                   }),
                 ),
               ),

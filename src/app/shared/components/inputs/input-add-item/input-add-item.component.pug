@@ -16,8 +16,9 @@
 			placeholder="{{placeholderTrKey | translate}}",
 			type="text",
 			[(ngModel)]="inputValue",
-			(change)="onInputChange"
-			)
+			(change)="onInputChange",
+      [autofocus]="initialFocus"
+      )
 
 		a.button.button--secondary.button--small.xsm-hidden((click)="onAddLinkClick()")
 			span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.BUTTON' | translate }}

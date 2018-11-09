@@ -13,7 +13,7 @@ import { PostService } from '@anymind-ng/api/model/postService';
 import { catchError } from 'rxjs/operators';
 import { CreateEditConsultationService } from './create-edit-consultation.service';
 import { EmployeesInviteModalComponent } from '../invitations/employees-invite/employees-invite.component';
-import { GetService, PutService } from '@anymind-ng/api';
+import { GetService, PostServiceInvitation, PutService } from '@anymind-ng/api';
 import { ServiceWithOwnerProfile } from 'profitelo-api-ng/model/ServiceWithOwnerProfile';
 import { Logger } from '@platform/core/logger';
 import { CONSULTATIONDETAILS } from './create-edit-consultation';
@@ -22,9 +22,10 @@ import { BackendErrors, isBackendError } from '@platform/shared/models/backend-e
 
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
+  isOwnerEmployee: boolean;
   serviceDetails?: ServiceWithOwnerProfile;
   tags?: ReadonlyArray<string>;
-  isOwnerEmployee: boolean;
+  pendingInvitations?: PostServiceInvitation[];
 }
 
 @Component({
@@ -172,7 +173,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
 
   private getPutServiceModel = (): PutService => ({
     // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-538
-    invitations: [],
+    invitations: typeof this.payload.pendingInvitations !== 'undefined' ? this.payload.pendingInvitations : [],
     isOwnerEmployee: this.payload.isOwnerEmployee,
     name: this.formControls[this.nameControlName].value,
     description: this.formControls[this.descriptionControlName].value,

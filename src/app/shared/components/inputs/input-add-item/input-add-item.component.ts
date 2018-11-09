@@ -52,6 +52,9 @@ export class InputAddItemComponent {
   @Input()
   public isChangeOnSubmit = true;
 
+  @Input()
+  public initialFocus = false;
+
   public inputValue = '';
 
   public isFocused = false;
