@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
-import { PinElementDirective } from '../../directives/pin-element/pin-element.directive';
 import { CreateEditConsultationModalComponent } from './create-edit-consultation/create-edit-consultation.component';
 import { InputsModule } from '../inputs/inputs.module';
 import { UserAvatarModule } from '../user-avatar/user-avatar.module';
@@ -13,7 +12,7 @@ import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ConfirmationModalModule } from '@platform/shared/components/modals/confirmation/confirmation.module';
 
 @NgModule({
-  declarations: [PinElementDirective, CreateEditConsultationModalComponent],
+  declarations: [CreateEditConsultationModalComponent],
   entryComponents: [CreateEditConsultationModalComponent],
   imports: [
     CommonModule,
@@ -28,6 +27,6 @@ import { ConfirmationModalModule } from '@platform/shared/components/modals/conf
     ButtonModule,
     ConfirmationModalModule,
   ],
-  exports: [SharedModule, FormsModule, ReactiveFormsModule, PinElementDirective, ModalComponentsModule],
+  exports: [SharedModule, FormsModule, ReactiveFormsModule, ModalComponentsModule],
 })
 export class ModalsModule {}
