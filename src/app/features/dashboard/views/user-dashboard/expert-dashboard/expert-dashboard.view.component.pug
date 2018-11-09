@@ -8,8 +8,9 @@
       [isOwnProfile]='isOwnProfile',
       [expertId]='expertId',
       [isLogged]='isLogged',
+      [attachments]='expertDocuments',
       (editProfile)='editProfile()',
-      [attachments]="expertDocuments",
+      (openGallery)='onOpenGallery()'
     )
 .container
   h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}

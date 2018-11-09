@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import { EmploymentWithService, ExpertProfileView, ProfileDocument } from '@anymind-ng/api';
+import { EmploymentWithService, ProfileDocument } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
@@ -14,6 +14,7 @@ import {
 import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import { IExpertProfile } from './services/expert-dashboard-resolver.service';
 
 @Component({
   selector: 'plat-expert-dashboard',
@@ -39,15 +40,18 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
         takeUntil(this.destroyed$),
         pluck('expert'),
       )
-      .subscribe((data: IExpertCompanyDashboardResolverData<ExpertProfileView>) => {
-        this.avatarToken = data.profile.expertProfile.avatar;
-        this.name = data.profile.expertProfile.name;
-        this.description = data.profile.expertProfile.description;
-        this.links = this.getFlattenLinks(data.profile.employments);
+      .subscribe((data: IExpertCompanyDashboardResolverData<IExpertProfile>) => {
+        this.avatarToken = data.profile.expertProfileView.expertProfile.avatar;
+        this.name = data.profile.expertProfileView.expertProfile.name;
+        this.description = data.profile.expertProfileView.expertProfile.description;
+        this.links =
+          (data.profile.getProfileWithDocuments.profile.expertDetails &&
+            data.profile.getProfileWithDocuments.profile.expertDetails.links) ||
+          [];
         this.isOwnProfile = data.isOwnProfile;
-        this.consultations = data.profile.employments;
-        this.expertDocuments = data.profile.expertProfile.documents;
-        this.expertId = data.profile.expertProfile.id;
+        this.consultations = data.profile.expertProfileView.employments;
+        this.expertDocuments = data.profile.expertProfileView.expertProfile.documents;
+        this.expertId = data.profile.expertProfileView.expertProfile.id;
         this.isLogged = data.isLogged;
         this.isCompany = data.isCompany;
       });
@@ -56,35 +60,29 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    * callback when edit profile is triggered.
    * Modal resolves to true if user changes something.
    */
-  public editProfile = async (): Promise<void> => {
-    try {
-      const changed: boolean | undefined = await this.openModalResult(CreateProfileModalComponent);
-      this.reloadIfNeeded(changed);
-    } catch (result) {
-      return;
-    }
+  public editProfile = (): void => {
+    this.openModalWithReload(CreateProfileModalComponent);
   };
   /**
    * callback when add consultation is triggered
    * this opens modal
    */
-  public addConsultation = async (): Promise<void> => {
+  public addConsultation = (): void => {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: true,
       isOwnerEmployee: true,
     };
     const modalOptions: NgbModalOptions = {
-      injector: this.setupInjector(payload),
+      injector: this.setupInjector(CONSULTATIONDETAILS, payload),
     };
-    try {
-      const changed: boolean | undefined = await this.openModalResult(
-        CreateEditConsultationModalComponent,
-        modalOptions,
-      );
-      this.reloadIfNeeded(changed);
-    } catch (result) {
-      return;
-    }
+    this.openModalWithReload(CreateEditConsultationModalComponent, modalOptions);
+  };
+
+  /**
+   * callback when openGallery is triggered.
+   */
+  public onOpenGallery = (): void => {
+    this.openGallery(this.expertDocuments);
   };
 
   /**
@@ -104,7 +102,4 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
       return;
     }
   };
-
-  private setupInjector = (payload: ICreateEditConsultationPayload): Injector =>
-    Injector.create({ providers: [{ provide: CONSULTATIONDETAILS, useValue: payload }], parent: this.injector });
 }

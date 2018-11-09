@@ -59,36 +59,29 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * callback when edit profile is triggered.
    * Modal resolves to true if user changes something.
    */
-  public editProfile = async (): Promise<void> => {
-    const changed: boolean | undefined = await this.openModalResult(CreateOrganizationModalComponent);
-    this.reloadIfNeeded(changed);
+  public onEditProfile = (): void => {
+    this.openModalWithReload(CreateOrganizationModalComponent);
+  };
+
+  /**
+   * callback when openGallery is triggered.
+   */
+  public onOpenGallery = (): void => {
+    this.openGallery(this.organizationDocuments);
   };
 
   /**
    * callback when add consultation is triggered
    * this opens modal
    */
-  public addConsultation = async (): Promise<void> => {
+  public addConsultation = (): void => {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: false,
       isOwnerEmployee: false,
     };
     const modalOptions: NgbModalOptions = {
-      injector: this.setupInjector(payload),
+      injector: this.setupInjector(CONSULTATIONDETAILS, payload),
     };
-    try {
-      const changed: boolean | undefined = await this.openModalResult(
-        CreateEditConsultationModalComponent,
-        modalOptions,
-      );
-      this.reloadIfNeeded(changed);
-    } catch (err) {
-      this.logger.error('Error when try to open modal result', err);
-
-      return;
-    }
+    this.openModalWithReload(CreateEditConsultationModalComponent, modalOptions);
   };
-
-  private setupInjector = (payload: ICreateEditConsultationPayload): Injector =>
-    Injector.create({ providers: [{ provide: CONSULTATIONDETAILS, useValue: payload }], parent: this.injector });
 }

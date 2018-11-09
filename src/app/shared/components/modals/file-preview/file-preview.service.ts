@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ProfileDocument, ProfileService } from '@anymind-ng/api';
-import { map, catchError } from 'rxjs/operators';
-import { EMPTY, Observable } from 'rxjs';
-import { AlertService, LoggerFactory, WindowRef } from '@anymind-ng/core';
+import { ProfileDocument } from '@anymind-ng/api';
+import { LoggerFactory, WindowRef } from '@anymind-ng/core';
 import { IFilePreviewDetails, IFileType } from '@platform/shared/components/modals/file-preview/file-preview.component';
 import { Logger } from '@platform/core/logger';
 
@@ -10,34 +8,9 @@ import { Logger } from '@platform/core/logger';
 export class FilePreviewService extends Logger {
   private readonly noFileNameTr = 'DASHBOARD.PROFILE.FILES.PREVIEW.NAME';
 
-  constructor(
-    private profileService: ProfileService,
-    private alertService: AlertService,
-    private windowRef: WindowRef,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(private windowRef: WindowRef, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('FilePreviewService'));
   }
-
-  public getProfileDetails = (
-    profileId: string,
-    isExpertProfile: boolean,
-  ): Observable<ReadonlyArray<ProfileDocument>> =>
-    this.profileService.getProfileRoute(profileId).pipe(
-      map(res => {
-        if (isExpertProfile) {
-          return res.expertDocuments.filter(file => file.token);
-        } else {
-          return res.organizationDocuments.filter(file => file.token);
-        }
-      }),
-      catchError(err => {
-        this.alertService.pushDangerAlert('DASHBOARD.PROFILE.FILES.PREVIEW.ERROR');
-        this.loggerService.warn('Cannot get profile details', err);
-
-        return EMPTY;
-      }),
-    );
 
   public printPreview = (imageUrl: ReadonlyArray<string>): void => {
     const nativeWindow = this.windowRef.nativeWindow.open(

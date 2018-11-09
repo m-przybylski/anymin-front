@@ -1,7 +1,5 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../../../shared/components/user-avatar/user-avatar.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FilePreviewComponent } from '@platform/shared/components/modals/file-preview/file-preview.component';
 
 @Component({
   selector: 'plat-dashboard-profile-header',
@@ -34,14 +32,13 @@ export class DashboardProfileHeaderComponent implements OnInit {
   public editProfile: EventEmitter<void> = new EventEmitter();
   @Output()
   public likeProfile: EventEmitter<void> = new EventEmitter();
+  @Output()
+  public openGallery: EventEmitter<void> = new EventEmitter();
 
-  public isGalleryPreviewVisible = false;
   public readonly avatarSize = AvatarSizeEnum.X_156;
 
   private profileId: string;
   private isExpertProfile = false;
-
-  constructor(private modalService: NgbModal) {}
 
   public ngOnInit(): void {
     if (typeof this.expertId !== 'undefined') {
@@ -52,25 +49,25 @@ export class DashboardProfileHeaderComponent implements OnInit {
       this.profileId = this.companyId;
       this.isExpertProfile = false;
     }
-    this.isGalleryPreviewVisible = this.attachments.length > 0;
+  }
+
+  public get isGalleryPreviewVisible(): boolean {
+    return this.attachments.length > 0;
   }
 
   public editProfileClick = (): void => {
-    this.editProfile.next();
+    this.editProfile.emit();
   };
 
   public likeProfileClick = (): void => {
-    this.likeProfile.next();
+    this.likeProfile.emit();
+  };
+
+  public openFilePreviewModal = (): void => {
+    this.openGallery.emit();
   };
 
   public get attachmentCount(): { value: number } {
     return { value: this.attachments.length };
   }
-
-  public openFilePreviewModal = (): void => {
-    const openModal = this.modalService.open(FilePreviewComponent);
-    openModal.componentInstance.profileId = this.profileId;
-    openModal.componentInstance.isExpertProfile = this.isExpertProfile;
-    openModal.componentInstance.filesLength = this.attachments.length;
-  };
 }

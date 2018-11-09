@@ -7,9 +7,10 @@
       [links]='links',
       [isOwnProfile]='isOwnProfile',
       [isLogged]='isLogged',
-      (editProfile)='editProfile()',
       [companyId]="organizationId",
       [attachments]="organizationDocuments",
+      (editProfile)='onEditProfile()',
+      (openGallery)="onOpenGallery()"
     )
 .container
   h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}

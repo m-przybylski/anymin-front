@@ -1,29 +1,63 @@
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { ViewsService, ExpertProfileView } from '@anymind-ng/api';
-import { Observable, from } from 'rxjs';
+import {
+  ViewsService,
+  ExpertProfileView,
+  GetSessionWithAccount,
+  ProfileService,
+  GetProfileWithDocuments,
+} from '@anymind-ng/api';
+import { Observable, forkJoin } from 'rxjs';
 import { RouterPaths } from '@platform/shared/routes/routes';
-import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { map } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
 @Injectable()
-export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDashboardResolverData<ExpertProfileView>> {
-  constructor(private views: ViewsService, private router: Router, private userSessionService: UserSessionService) {}
+export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDashboardResolverData<IExpertProfile>> {
+  constructor(
+    private views: ViewsService,
+    private router: Router,
+    private profileService: ProfileService,
+    private store: Store<fromCore.IState>,
+  ) {}
 
-  public resolve(route: ActivatedRouteSnapshot): Observable<IExpertCompanyDashboardResolverData<ExpertProfileView>> {
+  public resolve(route: ActivatedRouteSnapshot): Observable<IExpertCompanyDashboardResolverData<IExpertProfile>> {
     /** get expert id from route */
     const expertId = route.paramMap.get(RouterPaths.dashboard.user.profile.params.expertId) as string;
     /** get session to resolve logged user */
-    const session$ = from(this.userSessionService.getSession());
+    const session$ = this.store.pipe(
+      select(fromCore.getSession),
+      filter(session => session !== undefined),
+      take(1),
+    ) as Observable<GetSessionWithAccount>;
     /** get expert profile from backend */
-    const expertProfile$ = this.views.getWebExpertProfileRoute(expertId).pipe(
-      map(data => ({
-        ...data,
-        employments: data.employments.filter(employment => employment.serviceDetails.deletedAt === undefined),
+    const expertProfile$ = forkJoin(
+      this.views.getWebExpertProfileRoute(expertId),
+      this.profileService.getProfileRoute(expertId),
+    ).pipe(
+      map(([expertProfileView, getProfileWithDocuments]) => ({
+        expertProfileView: {
+          ...expertProfileView,
+          employments: expertProfileView.employments.filter(
+            employment => employment.serviceDetails.deletedAt === undefined,
+          ),
+        },
+        getProfileWithDocuments,
       })),
     );
 
-    return mapData<ExpertProfileView>(expertProfile$, session$, data => data.expertProfile.id, this.router);
+    return mapData<IExpertProfile>(
+      expertProfile$,
+      session$,
+      data => data.expertProfileView.expertProfile.id,
+      this.router,
+    );
   }
+}
+
+export interface IExpertProfile {
+  expertProfileView: ExpertProfileView;
+  getProfileWithDocuments: GetProfileWithDocuments;
 }

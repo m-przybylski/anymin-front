@@ -1,9 +1,10 @@
-import { Component, ElementRef, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef, Inject } from '@angular/core';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { FilePreviewService } from '@platform/shared/components/modals/file-preview/file-preview.service';
 import { ProfileDocument } from '@anymind-ng/api';
 import { FileResizerDirective } from '@platform/shared/components/modals/file-preview/file-size-checker.directive';
 import { SmoothScrollDirective } from '@platform/shared/components/modals/file-preview/smooth-scroll.directive';
+import { FILE_PREVIEW_PAYLOAD } from './file-preview';
 
 export enum IFileType {
   IMAGE_JPG = 'image/jpeg',
@@ -18,6 +19,9 @@ export interface IFilePreviewDetails {
   previews: ReadonlyArray<string>;
   contentType: IFileType;
   fileUrl: string;
+}
+export interface IFilePreviewPayload {
+  files: ReadonlyArray<ProfileDocument>;
 }
 
 @Component({
@@ -41,17 +45,7 @@ export class FilePreviewComponent implements OnInit {
   public currentPdfList: ReadonlyArray<string> = [];
   public maxLengthPDFPreviews = this.pdfPreviewsLength;
   public isPreviewBroken = false;
-  public isPending = true;
-  public isPendingOnInit = true;
-
-  @Input()
-  public profileId: string;
-
-  @Input()
-  public filesLength = 0;
-
-  @Input()
-  public isExpertProfile = false;
+  public isPending = false;
 
   @ViewChild(FileResizerDirective)
   public fileResizer: FileResizerDirective;
@@ -71,17 +65,22 @@ export class FilePreviewComponent implements OnInit {
   @ViewChild('imageSize')
   public imageSize: ElementRef;
 
+  public get filesLength(): number {
+    return this.fileList.length;
+  }
+
   private readonly basicZoomPreview = 100;
 
-  constructor(private filePreviewService: FilePreviewService) {}
+  constructor(
+    private filePreviewService: FilePreviewService,
+    @Inject(FILE_PREVIEW_PAYLOAD) filePreviewPayload: IFilePreviewPayload,
+  ) {
+    this.fileList = filePreviewPayload.files.filter(file => file.token);
+  }
 
   public ngOnInit(): void {
     this.currentPercentZoom = this.basicZoomPreview;
-    this.filePreviewService.getProfileDetails(this.profileId, this.isExpertProfile).subscribe(response => {
-      this.fileList = response;
-      this.prepareFirstFilePreview();
-      this.isPendingOnInit = false;
-    });
+    this.updatePreviewDetails(0);
   }
 
   public onPrintClick = (): void => {
@@ -90,11 +89,9 @@ export class FilePreviewComponent implements OnInit {
 
   public onFileChange = (currentIndex: number): void => {
     this.filePreviewTemplate.clear();
-    this.isPending = true;
     this.currentPercentZoom = this.basicZoomPreview;
     this.updatePreviewDetails(currentIndex - 1);
     this.isPreviewBroken = false;
-    this.currentPercentZoom = this.basicZoomPreview;
     this.maxLengthPDFPreviews = this.pdfPreviewsLength;
   };
 
@@ -118,13 +115,13 @@ export class FilePreviewComponent implements OnInit {
     this.loadMorePdfViews(this.currentPreviewList, this.maxLengthPDFPreviews);
   };
 
-  private prepareFirstFilePreview = (): void => {
-    this.updatePreviewDetails(0);
-    this.isPending = false;
-  };
-
+  /**
+   * function changes current displayed image.
+   * once this one is completed view should start loading new image
+   */
   private updatePreviewDetails = (currentIndex: number): void => {
-    this.changeCurrentFile(currentIndex);
+    this.isPending = true;
+    this.currentFileDetails = this.filePreviewService.checkTypeOfFile(this.fileList[currentIndex]);
     this.resetFileContentType();
     this.updateContentType(this.currentFileDetails.contentType);
     this.namePreview = this.currentFileDetails.name;
@@ -144,9 +141,6 @@ export class FilePreviewComponent implements OnInit {
   private loadMorePdfViews = (list: ReadonlyArray<string>, arrayLimit: number): void => {
     this.currentPdfList = list.slice(0, arrayLimit);
   };
-
-  private changeCurrentFile = (currentIndex: number): IFilePreviewDetails =>
-    (this.currentFileDetails = this.filePreviewService.checkTypeOfFile(this.fileList[currentIndex]));
 
   private updateContentType = (contentType: string): void => {
     switch (contentType) {
