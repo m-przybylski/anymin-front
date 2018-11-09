@@ -12,6 +12,7 @@ import { CommonSettingsService } from '../../../../../../angularjs/common/servic
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
 import { PostInvitation } from '@anymind-ng/api';
+import { BackendErrors, isBackendError, SingleBackendError } from '@platform/shared/models/backend-error/backend-error';
 
 export interface IEmployeesInviteComponent {
   name: string;
@@ -203,11 +204,22 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     this.invitedEmployeeList.filter(item => item.name === value).length > 0;
 
   private handleGetEmployeeListError = (
-    error: HttpErrorResponse,
+    httpError: HttpErrorResponse,
     msg: string,
   ): Observable<ReadonlyArray<ExpertProfileWithEmployments>> => {
-    this.logger.warn(msg, error);
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    if (isBackendError(httpError.error) && httpError.error.code === BackendErrors.IncorrectValidation) {
+      this.invitedEmployeeList = this.invitedEmployeeList.filter(
+        invitedEmployee =>
+          !httpError.error.errors
+            .map((error: SingleBackendError) => error.message)
+            .some((message: string) => invitedEmployee.msisdn && message.includes(invitedEmployee.msisdn)),
+      );
+
+      this.alertService.pushDangerAlert('INVITE_EMPLOYEES.SOME_INVALID_NUMBERS_VALIDATION');
+    } else {
+      this.logger.warn(msg, httpError);
+      this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+    }
 
     return EMPTY;
   };

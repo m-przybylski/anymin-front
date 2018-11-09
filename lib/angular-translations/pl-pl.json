@@ -1076,6 +1076,7 @@
   "VALIDATOR.ERROR.REQUIRED": "Pole jest wymagane",
   "INVITE_EMPLOYEES.LABEL": "Email lub numer telefonu pracownika",
   "INVITE_EMPLOYEES.TITLE": "Zaproś pracowników",
+  "INVITE_EMPLOYEES.SOME_INVALID_NUMBERS_VALIDATION": "Któryś z kontaktów miał niepoprawny format.",
   "CSV_UPLOADER.TITLE": "Wgraj plik CSV <span>zawierający kontakty</span>",
   "CSV_UPLOADER.ERROR.INVALID_FILE": "Niepoprawny format pliku",
   "CSV_UPLOADER.ERROR.MAX_LENGTH_BEEN_REACHED": "Osiągnięto limit zaproszeń",
