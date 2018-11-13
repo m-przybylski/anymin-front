@@ -80,7 +80,7 @@ export class ProfileLinksComponentService {
     } else if (this.httpsPattern.test(addressUrl)) {
       return `https://${addressUrl.replace(this.httpsPattern, '')}`;
     }
-    return '';
+    return `http://www.${addressUrl}`;
   };
 
   private setSocialLinkSSLProtocol = (addressUrl: string): string =>

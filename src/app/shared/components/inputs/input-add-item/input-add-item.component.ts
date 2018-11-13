@@ -77,7 +77,9 @@ export class InputAddItemComponent {
     this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  public isFieldInvalid = (): boolean =>
+    this.formUtils.isFieldInvalid(this.formGroup, this.controlName) &&
+    this.formGroup.controls[this.controlName].value.length > 0;
 
   public showValidationAlert = (): string => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
