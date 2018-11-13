@@ -15,6 +15,7 @@ import { roomEvents } from 'machoke-sdk';
 import { ISueDetails } from '@platform/shared/components/modals/activity-details/sue-details/sue-details.component';
 import { IFinancialOperationDetails } from '@platform/shared/components/modals/activity-details/financial-operation-details/financial-operation-details.component';
 import { select, Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { IRefundOperationDetails } from '@platform/shared/components/modals/activity-details/refund-details/refund-details.component';
 
@@ -58,7 +59,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     private activityDetailsService: ActivityDetailsViewComponentService,
     private alertService: AlertService,
     private activeModal: NgbActiveModal,
-    private store: Store<fromCore.IState>,
+    private store: Store<fromRoot.IState>,
     @Inject(ACTIVITY_DETAILS_DATA) private activityDetails: IProfileActivitiesWithStatus,
     loggerFactory: LoggerFactory,
   ) {

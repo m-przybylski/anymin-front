@@ -22,7 +22,7 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
     });
 
     this.anymindWebscoketService.importantProfileActivity.pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.store.dispatch(new ActivitiesActions.IncrementImportantProfileActivitiesCounterAction());
+      this.store.dispatch(new ActivitiesActions.IncrementImportantExpertActivitiesCounterAction());
     });
   }
 

@@ -1,7 +1,7 @@
 // tslint:disable:cyclomatic-complexity
-import { ActivitiesActionTypes } from '@platform/features/dashboard/actions/activities.actions';
-import { ActivitiesActions } from '@platform/features/dashboard/actions/index';
+import { ActivitiesActions } from '@platform/features/dashboard/actions';
 import { GetImportantActivitiesCounters } from '@anymind-ng/api';
+import { createSelector } from '@ngrx/store';
 
 export interface IState {
   counters: GetImportantActivitiesCounters;
@@ -12,28 +12,29 @@ export const initialState: IState = {
   isPending: false,
   counters: {
     clientActivitiesCount: 0,
-    profileActivitiesCount: 0,
+    expertProfileActivitiesCount: 0,
+    organizationProfileActivitiesCount: 0,
   },
 };
 
 // tslint:disable-next-line:only-arrow-functions
 export function reducer(state = initialState, action: ActivitiesActions.ActivitiesActionsUnion): IState {
   switch (action.type) {
-    case ActivitiesActionTypes.FetchImportantActivitiesCounterFromServer: {
+    case ActivitiesActions.ActivitiesActionTypes.FetchImportantActivitiesCounterFromServer: {
       return {
         ...state,
         isPending: true,
       };
     }
 
-    case ActivitiesActionTypes.FetchImportantActivitiesCounterFromServerError: {
+    case ActivitiesActions.ActivitiesActionTypes.FetchImportantActivitiesCounterFromServerError: {
       return {
         ...state,
         isPending: false,
       };
     }
 
-    case ActivitiesActionTypes.FetchImportantActivitiesCounterFromServerSuccess: {
+    case ActivitiesActions.ActivitiesActionTypes.FetchImportantActivitiesCounterFromServerSuccess: {
       return {
         ...state,
         isPending: false,
@@ -41,10 +42,10 @@ export function reducer(state = initialState, action: ActivitiesActions.Activiti
       };
     }
 
-    case ActivitiesActionTypes.IncrementImportantProfileActivitiesCounter: {
+    case ActivitiesActions.ActivitiesActionTypes.IncrementImportantExpertActivitiesCounter: {
       const incrementedCounters = {
-        clientActivitiesCount: state.counters.clientActivitiesCount,
-        profileActivitiesCount: state.counters.profileActivitiesCount + 1,
+        ...state.counters,
+        expertProfileActivitiesCount: state.counters.expertProfileActivitiesCount + 1,
       };
 
       return {
@@ -54,10 +55,10 @@ export function reducer(state = initialState, action: ActivitiesActions.Activiti
       };
     }
 
-    case ActivitiesActionTypes.DecrementImportantProfileActivitiesCounter: {
+    case ActivitiesActions.ActivitiesActionTypes.DecrementImportantExpertActivitiesCounter: {
       const decrementedCounters = {
-        clientActivitiesCount: state.counters.clientActivitiesCount,
-        profileActivitiesCount: state.counters.profileActivitiesCount - 1,
+        ...state.counters,
+        expertProfileActivitiesCount: state.counters.expertProfileActivitiesCount - 1,
       };
 
       return {
@@ -67,10 +68,10 @@ export function reducer(state = initialState, action: ActivitiesActions.Activiti
       };
     }
 
-    case ActivitiesActionTypes.IncrementImportantClientActivitiesCounter: {
+    case ActivitiesActions.ActivitiesActionTypes.IncrementImportantClientActivitiesCounter: {
       const incrementedCounters = {
+        ...state.counters,
         clientActivitiesCount: state.counters.clientActivitiesCount + 1,
-        profileActivitiesCount: state.counters.profileActivitiesCount,
       };
 
       return {
@@ -80,10 +81,10 @@ export function reducer(state = initialState, action: ActivitiesActions.Activiti
       };
     }
 
-    case ActivitiesActionTypes.DecrementImportantClientActivitiesCounter: {
+    case ActivitiesActions.ActivitiesActionTypes.DecrementImportantClientActivitiesCounter: {
       const decrementedCounters = {
+        ...state.counters,
         clientActivitiesCount: state.counters.clientActivitiesCount - 1,
-        profileActivitiesCount: state.counters.profileActivitiesCount,
       };
 
       return {
@@ -101,7 +102,10 @@ export function reducer(state = initialState, action: ActivitiesActions.Activiti
 
 export const getPending = (state: IState): boolean => state.isPending;
 export const getCounters = (state: IState): GetImportantActivitiesCounters => state.counters;
-export const getProfileCounter = (state: IState): number => state.counters.profileActivitiesCount;
+export const getExpertCounter = (state: IState): number => state.counters.expertProfileActivitiesCount;
 export const getClientCounter = (state: IState): number => state.counters.clientActivitiesCount;
-export const getCombineCounters = (state: IState): number =>
-  state.counters.clientActivitiesCount + state.counters.profileActivitiesCount;
+export const getCombineCounters = createSelector(
+  getExpertCounter,
+  getClientCounter,
+  (expertCounter, clientCounter) => expertCounter + clientCounter,
+);

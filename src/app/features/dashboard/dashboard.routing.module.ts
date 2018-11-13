@@ -10,7 +10,6 @@ import { CompanyDashboardViewGuard } from './views/company-dashboard/company-das
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
-import { ExpertActivitiesResolverService } from './views/user-dashboard/activities/views/expert-activities/expert-activities.resolver.service';
 
 const routes: Routes = [
   {
@@ -70,6 +69,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyDashboardViewGuard, ExpertActivitiesResolverService],
+  providers: [CompanyDashboardViewGuard],
 })
 export class DashboardRoutingModule {}

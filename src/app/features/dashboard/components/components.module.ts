@@ -11,7 +11,6 @@ import { ConsultationCompanyRowComponent } from './consultation-company-row/cons
 import { ConsultationExpertsComponent } from './consultation-experts/consultation-experts.component';
 import { IconModule, ButtonModule } from '../../../shared/components/atomic-components/index';
 import { UserAvatarModule } from '../../../shared/components/user-avatar/user-avatar.module';
-import { ActivityRowComponent } from './activity-row/activity-row.component';
 import { DecorateDatePipe } from './pipes/decorate-date.pipe';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { FilePreviewModule } from '@platform/shared/components/modals/file-preview/file-preview.module';
@@ -35,7 +34,6 @@ import { FilePreviewModule } from '@platform/shared/components/modals/file-previ
     ConsultationStatComponent,
     DashboardProfileHeaderComponent,
     EmptyNumberPipe,
-    ActivityRowComponent,
     DecorateDatePipe,
   ],
   providers: [DatePipe],
@@ -46,7 +44,6 @@ import { FilePreviewModule } from '@platform/shared/components/modals/file-previ
     ConsultationExpertsComponent,
     ConsultationStatComponent,
     DashboardProfileHeaderComponent,
-    ActivityRowComponent,
     DecorateDatePipe,
     IconModule,
     ButtonModule,

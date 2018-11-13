@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { ExpertActivitiesResolverService } from '@platform/features/dashboard/views/user-dashboard/activities/views/expert-activities/expert-activities.resolver.service';
-import { ExpertActivitiesViewComponent } from '@platform/features/dashboard/views/user-dashboard/activities/views/expert-activities/expert-activities.view.component';
-import { ClientActivitiesViewComponent } from '@platform/features/dashboard/views/user-dashboard/activities/views/client-activities/client-activities.view.component';
-import { ActivitiesViewComponent } from '@platform/features/dashboard/views/user-dashboard/activities/activities.view.component';
+import { ExpertActivitiesViewComponent } from './views/expert-activities/expert-activities.view.component';
+import { ClientActivitiesViewComponent } from './views/client-activities/client-activities.view.component';
+import { ActivitiesViewComponent } from './activities.view.component';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { ExpertActivitiesGuard } from './services/expert-activities.guard';
 
 const routes: Routes = [
   {
@@ -14,25 +14,25 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'expert'
+        redirectTo: 'expert',
       },
       {
         path: RouterPaths.dashboard.user.activities.expert.getName,
         component: ExpertActivitiesViewComponent,
-        resolve: {activities: ExpertActivitiesResolverService},
+        canActivate: [ExpertActivitiesGuard],
       },
       {
         path: RouterPaths.dashboard.user.activities.client.getName,
         component: ClientActivitiesViewComponent,
         redirectTo: '/dashboard/user/activities/expert',
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  providers: [ExpertActivitiesGuard],
 })
-export class UserDashboardActivitiesRoutingModule {
-}
+export class UserDashboardActivitiesRoutingModule {}

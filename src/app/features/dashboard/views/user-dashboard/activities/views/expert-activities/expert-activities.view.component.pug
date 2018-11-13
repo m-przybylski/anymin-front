@@ -1,27 +1,32 @@
-.expert-activities
+.expert-activities(*ngIf="profileActivities$ | async as profileActivities")
   .expert-activities__profit
     span.expert-activities__profit__header([translate]="'EXPERT_ACTIVITIES.PROFIT_HEADER'")
-    span.expert-activities__profit__money(*ngIf="balance") {{ balance.amount | currency: balance.currency:'symbol-narrow' }}
+    span.expert-activities__profit__money(*ngIf="(balance$ | async) as balance") {{ balance.amount | currency: balance.currency:'symbol-narrow' }}
 
-  .non-activities(*ngIf="!isActivities")
+  .non-activities(*ngIf="!profileActivities.length")
     am-core-image-display.non-activities__image(imgName="activities")
     span([translate]="'EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER'")
 
-  .activities-lists(*ngIf="isActivities")
-    .important-list(*ngIf="importantActivitiesCounter > 0")
+  .activities-lists(*ngIf="profileActivities.length")
+    .important-list(*ngIf="importantActivitiesCounter$ | async as importantActivitiesCounter")
       .important-list__header
-        span([translate]="'EXPERT_ACTIVITIES.IMPORTANT_LIST_COUNTER_TITLE'",
-        [translateParams]="{currentValue: currentImportantActivitiesOffset, counter: importantActivitiesCounter}")
-        a((click)="toggleImportantActivities()",
-        *ngIf="importantActivitiesCounter > importantActivitiesOffset")
-          | {{ importantLinkTranslationKey | translate }}
+        span(
+          [translate]="'EXPERT_ACTIVITIES.IMPORTANT_LIST_COUNTER_TITLE'",
+          [translateParams]="{currentValue: (displayedImportantActivities$ | async).length, counter: importantActivitiesCounter}")
+        ng-container(*ngIf="importantActivitiesCounter > (importantActivitiesOffset$ | async)")
+          a((click)="hideMore()",
+            *ngIf="isImportantListShown$ | async")
+            | {{ "EXPERT_ACTIVITIES.IMPORTANT_LIST_HIDE" | translate }}
+          a((click)="showMore()",
+            *ngIf="!(isImportantListShown$ | async)")
+            | {{ "EXPERT_ACTIVITIES.IMPORTANT_LIST_SHOW_ALL" | translate }}
 
       ul.important-list__container
-        li(*ngFor='let activity of displayedImportantActivities', [@animation])
+        li(*ngFor='let activity of displayedImportantActivities$ | async; trackBy:trackByImportantActivities', [@animation])
           plat-activity-row(
             [isImportant]="true",
             [activity]="activity",
-            (activityModalClose)="onActivityModalClose(activity)"
+            (activityRowClicked)="onActivityRowClicked(activity, true)",
           )
 
     .all-list
@@ -30,13 +35,13 @@
         a([translate]="'EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS'", [hidden]="true")
 
       ul.all-list__container
-        li(*ngFor='let profileActivity of profileActivities', [@animation])
+        li(*ngFor='let profileActivity of profileActivities; trackBy:trackByActivities', [@animation])
           plat-activity-row(
             [activity]="profileActivity.activity",
             [isImportant]="profileActivity.isImportant",
-            (activityModalClose)="onActivityModalClose(profileActivity.activity)"
+            (activityRowClicked)="onActivityRowClicked(profileActivity.activity, profileActivity.isImportant)",
           )
 
     .bottom
       a.button.button--tertiary.button--small([translate]="'EXPERT_ACTIVITIES.LOAD_MORE'", (click)="loadMore()",
-      *ngIf="isMoreActivity")
+      *ngIf="isMoreActivity$ | async")
