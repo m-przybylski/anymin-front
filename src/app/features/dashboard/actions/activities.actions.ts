@@ -6,9 +6,9 @@ export enum ActivitiesActionTypes {
   FetchImportantActivitiesCounterFromServer = '[activities] Fetch activities counter from backend',
   FetchImportantActivitiesCounterFromServerError = '[activities] Fetch error',
   FetchImportantActivitiesCounterFromServerSuccess = '[activities] Fetch success',
-  IncrementImportantProfileActivitiesCounter = '[activities] Increment profile activities counter',
+  IncrementImportantExpertActivitiesCounter = '[activities] Increment expert activities counter',
   IncrementImportantClientActivitiesCounter = '[activities] Increment client activities counter',
-  DecrementImportantProfileActivitiesCounter = '[activities] Decrement profile activities counter',
+  DecrementImportantExpertActivitiesCounter = '[activities] Decrement expert activities counter',
   DecrementImportantClientActivitiesCounter = '[activities] Decrement client activities counter',
 }
 
@@ -29,16 +29,16 @@ export class FetchImportantActivitiesCounterSuccessAction implements Action {
   constructor(public payload: GetImportantActivitiesCounters) {}
 }
 
-export class IncrementImportantProfileActivitiesCounterAction implements Action {
-  public readonly type = ActivitiesActionTypes.IncrementImportantProfileActivitiesCounter;
+export class IncrementImportantExpertActivitiesCounterAction implements Action {
+  public readonly type = ActivitiesActionTypes.IncrementImportantExpertActivitiesCounter;
 }
 
 export class IncrementImportantClientActivitiesCounterAction implements Action {
   public readonly type = ActivitiesActionTypes.IncrementImportantClientActivitiesCounter;
 }
 
-export class DecrementImportantProfileActivitiesCounterAction implements Action {
-  public readonly type = ActivitiesActionTypes.DecrementImportantProfileActivitiesCounter;
+export class DecrementImportantExpertActivitiesCounterAction implements Action {
+  public readonly type = ActivitiesActionTypes.DecrementImportantExpertActivitiesCounter;
 }
 
 export class DecrementImportantClientActivitiesCounterAction implements Action {
@@ -49,7 +49,7 @@ export type ActivitiesActionsUnion =
   | FetchImportantActivitiesCounterAction
   | FetchImportantActivitiesCounterErrorAction
   | FetchImportantActivitiesCounterSuccessAction
-  | IncrementImportantProfileActivitiesCounterAction
+  | IncrementImportantExpertActivitiesCounterAction
   | IncrementImportantClientActivitiesCounterAction
-  | DecrementImportantProfileActivitiesCounterAction
+  | DecrementImportantExpertActivitiesCounterAction
   | DecrementImportantClientActivitiesCounterAction;

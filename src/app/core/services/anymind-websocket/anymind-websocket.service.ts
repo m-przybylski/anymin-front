@@ -1,4 +1,5 @@
 // tslint:disable:no-any
+// tslint:disable:max-file-line-count
 import { Injectable } from '@angular/core';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Subject, ReplaySubject, Observable, interval, iif, of } from 'rxjs';
@@ -9,17 +10,46 @@ import { GetExpertVisibility } from '@anymind-ng/api';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Logger } from '@platform/core/logger';
+import { IProfileCallProfit } from './anymind-websocket.modal';
+
+type WS_BACKEND_MESSAGES =
+  | 'ADMIN_ACCEPTED_COMPLAINT_NOTIFY_CLIENT'
+  | 'ADMIN_ACCEPTED_COMPLAINT_NOTIFY_EXPERT'
+  | 'ADMIN_REJECTED_COMPLAINT_NOTIFY_CLIENT'
+  | 'ADMIN_REJECTED_COMPLAINT_NOTIFY_EXPERT'
+  | 'CALL_SUMMARY'
+  | 'CLIENT_CALL_COST'
+  | 'CLIENT_CALL_REFUND'
+  | 'CLIENT_COMPLAINT_CANCELLED'
+  | 'CREDIT_CARD_ADDED'
+  | 'ENFORCED_CALL_END'
+  | 'EXPERT_ACCEPTED_COMPLAINT'
+  | 'EXPERT_PRESENCE_UPDATE'
+  | 'EXPERT_REJECTED_COMPLAINT'
+  | 'HEARTBEAT'
+  | 'HEARTBEAT_CONFIG'
+  | 'IMPORTANT_CLIENT_ACTIVITY'
+  | 'IMPORTANT_PROFILE_ACTIVITY'
+  | 'INVITATION_DISPLAYED'
+  | 'NEW_CLIENT_COMPLAINT'
+  | 'NEW_FINANCIAL_OPERATION'
+  | 'NEW_INVITATION'
+  | 'PROFILE_CALL_PROFIT'
+  | 'PROFILE_CALL_REFUND'
+  | 'ONE_MINUTE_LEFT_WARNING'
+  | 'SESSION_DELETED';
 
 export interface IWebSocketMessage {
   messageType: string;
   value?: any;
 }
 
-export interface IWebSocketMessageConfiguration {
-  [key: string]: {
-    event: Subject<any> | ReplaySubject<any>;
-    extract(message: any): any;
-  };
+export interface IWebSocketMessageParser {
+  extract(message: any): any;
+}
+
+export interface IWebSocketMessageConfiguration extends IWebSocketMessageParser {
+  event: Subject<any> | ReplaySubject<any>;
 }
 
 export interface IHeartbeatConfig {
@@ -29,24 +59,22 @@ export interface IHeartbeatConfig {
 
 @Injectable()
 export class AnymindWebsocketService extends Logger {
-  private readonly callSummaryEvent$: ReplaySubject<any> = new ReplaySubject<any>(1);
-  private readonly financialOperationEvent$: Subject<any> = new Subject<any>();
-  private readonly sessionDeletedEvent$: Subject<string> = new Subject<string>();
-  private readonly minuteLeftWarningEvent$: Subject<void> = new Subject<void>();
-  private readonly clientCallCostEvent$: Subject<any> = new Subject<any>();
-  private readonly heartbeatEvent$: Subject<Date> = new Subject<Date>();
-  private readonly profileCallProfitEvent$: Subject<any> = new Subject<any>();
-  private readonly profileCallRefundEvent$: Subject<any> = new Subject<any>();
-  private readonly newInvitationEvent$: Subject<any> = new Subject<any>();
-  private readonly expertPresenceEvent$: Subject<GetExpertVisibility.VisibilityEnum> = new Subject<
-    GetExpertVisibility.VisibilityEnum
-  >();
-  private readonly heartbeatConfigEvent$: ReplaySubject<IHeartbeatConfig> = new ReplaySubject<IHeartbeatConfig>();
-  private readonly creditCardAddedEvent$: Subject<any> = new Subject<any>();
-  private readonly sessionDestroyed$: Subject<void> = new Subject<void>();
-  private readonly importantProfileActivityEvent$: Subject<void> = new Subject<void>();
-  private readonly importantClientActivityEvent$: Subject<void> = new Subject<void>();
-  private readonly configuration: IWebSocketMessageConfiguration = {
+  private readonly callSummaryEvent$ = new ReplaySubject<any>(1);
+  private readonly financialOperationEvent$ = new Subject<any>();
+  private readonly sessionDeletedEvent$ = new Subject<string>();
+  private readonly minuteLeftWarningEvent$ = new Subject<void>();
+  private readonly clientCallCostEvent$ = new Subject<any>();
+  private readonly heartbeatEvent$ = new Subject<Date>();
+  private readonly profileCallProfitEvent$ = new Subject<any>();
+  private readonly profileCallRefundEvent$ = new Subject<any>();
+  private readonly newInvitationEvent$ = new Subject<any>();
+  private readonly expertPresenceEvent$ = new Subject<GetExpertVisibility.VisibilityEnum>();
+  private readonly heartbeatConfigEvent$ = new ReplaySubject<IHeartbeatConfig>();
+  private readonly creditCardAddedEvent$ = new Subject<any>();
+  private readonly sessionDestroyed$ = new Subject<void>();
+  private readonly importantProfileActivityEvent$ = new Subject<string>();
+  private readonly importantClientActivityEvent$ = new Subject<void>();
+  private readonly configuration: { [key in WS_BACKEND_MESSAGES]?: IWebSocketMessageConfiguration } = {
     CALL_SUMMARY: {
       event: this.callSummaryEvent$,
       extract: (message: IWebSocketMessage): any => message.value.callSummary,
@@ -93,11 +121,11 @@ export class AnymindWebsocketService extends Logger {
     },
     IMPORTANT_PROFILE_ACTIVITY: {
       event: this.importantProfileActivityEvent$,
-      extract: (message: IWebSocketMessage): string => message.value,
+      extract: (message: IWebSocketMessage): string => message.value.activityId,
     },
-    CLIENT_PROFILE_ACTIVITY: {
+    IMPORTANT_CLIENT_ACTIVITY: {
       event: this.importantClientActivityEvent$,
-      extract: (message: IWebSocketMessage): string => message.value,
+      extract: (message: IWebSocketMessage): string => message.value.activityId,
     },
     HEARTBEAT_CONFIG: {
       event: this.heartbeatConfigEvent$,
@@ -145,7 +173,11 @@ export class AnymindWebsocketService extends Logger {
     return this.sessionDeletedEvent$.asObservable();
   }
 
-  public get importantProfileActivity(): Observable<any> {
+  /**
+   * important expert activity
+   * as a result you get activityId
+   */
+  public get importantProfileActivity(): Observable<string> {
     return this.importantProfileActivityEvent$.asObservable();
   }
 
@@ -181,17 +213,17 @@ export class AnymindWebsocketService extends Logger {
     return this.profileCallRefundEvent$.asObservable();
   }
 
-  public get profileCallProfit(): Observable<any> {
+  public get profileCallProfit(): Observable<IProfileCallProfit> {
     return this.profileCallProfitEvent$.asObservable();
   }
 
   public get newInvitation(): Observable<any> {
-    return this.profileCallProfitEvent$.asObservable();
+    return this.newInvitationEvent$.asObservable();
   }
 
   private handleMessageType = (data: any): void => {
-    const type = data && data.messageType;
-    const { event, extract } = this.configuration[type];
+    const type: WS_BACKEND_MESSAGES = data && data.messageType;
+    const { event, extract } = this.configuration[type] as IWebSocketMessageConfiguration;
     event.next(extract(data));
   };
 

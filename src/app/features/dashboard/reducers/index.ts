@@ -1,12 +1,13 @@
 import { createSelector, createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 import * as fromDashboard from './activities.reducer';
+import * as fromRoot from '@platform/reducers';
 import { ActivitiesActions } from '@platform/features/dashboard/actions/index';
 
 export interface IDashboardState {
   dashboard: fromDashboard.IState;
 }
 
-export interface IState extends fromDashboard.IState {
+export interface IState extends fromRoot.IState {
   dashboard: IDashboardState;
 }
 
