@@ -91,7 +91,7 @@ export class PushNotificationService extends Logger {
             enable: conf.notifyButtonEnabled /* Required to use the Subscription Bell */,
             size: 'large' /* One of 'small', 'medium', or 'large' */,
             theme: 'default' /* One of 'default' (red-white) or 'inverse" (white-red) */,
-            position: 'bottom-left' /* Either 'bottom-left' or 'bottom-right' */,
+            position: 'bottom-right' /* Either 'bottom-left' or 'bottom-right' */,
             offset: {
               bottom: '16px',
               left: '16px' /* Only applied if bottom-left */,
@@ -138,9 +138,13 @@ export class PushNotificationService extends Logger {
         .then(() => {
           this.enableButton$.subscribe(value => {
             if (value) {
-              oneSignal.notifyButton.launcher.show();
+              if (oneSignal.notifyButton) {
+                oneSignal.notifyButton.launcher.show();
+              }
             } else {
-              oneSignal.notifyButton.launcher.hide();
+              if (oneSignal.notifyButton) {
+                oneSignal.notifyButton.launcher.hide();
+              }
             }
           });
 
