@@ -3,6 +3,7 @@ import {
   EmploymentService,
   ExpertProfileWithEmployments,
   GetInvitation,
+  GetSessionWithAccount,
   InvitationService,
   ServiceService,
 } from '@anymind-ng/api';
@@ -10,17 +11,20 @@ import { forkJoin, Observable } from 'rxjs';
 import { PostInvitations } from '@anymind-ng/api/model/postInvitations';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
 import { GetService } from '@anymind-ng/api/model/getService';
-import { filter, map } from 'rxjs/operators';
+import { filter, first, map } from 'rxjs/operators';
 import { IEmployeesInviteComponent } from './employees-invite.component';
 import { isValidNumber } from 'libphonenumber-js';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
 import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
+import { select, Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
 export enum EmployeeInvitationTypeEnum {
   IS_EMAIL,
   IS_MSIDN,
   IS_PENDING,
   IS_ALREADY_ADDED,
+  IS_USER_ACCOUNT,
   MAX_LENGTH_REACHED,
   INVALID,
 }
@@ -40,22 +44,51 @@ export interface IEmployeesList {
   employeeList: ReadonlyArray<IEmployeesInviteComponent>;
   pendingInvitations: IEmployeesNewInvitations;
 }
+
 @Injectable()
 export class EmployeesInviteService {
-  private employeesWithPendingInvitaitons: ReadonlyArray<IEmployeesPendingInvitation> = [];
+  private readonly maxInvitationLength: number;
+  private employeesWithPendingInvitations: ReadonlyArray<IEmployeesPendingInvitation> = [];
   private emailPattern: RegExp;
-  private maxInvitationLength: number;
   private invitedEmployeeList: ReadonlyArray<IEmployeesInviteComponent> = [];
+  private accountId: string;
+  private accountMSISDN: string;
+  private accountEmail: string;
 
   constructor(
     private employmentService: EmploymentService,
     private serviceService: ServiceService,
     private phoneNumberUnifyService: PhoneNumberUnifyService,
     private invitationService: InvitationService,
+    private store: Store<fromCore.IState>,
     commonSettingsService: CommonSettingsService,
   ) {
     this.emailPattern = commonSettingsService.localSettings.emailPattern;
     this.maxInvitationLength = commonSettingsService.localSettings.consultationInvitationsMaxCount;
+    this.store
+      .pipe(
+        first(),
+        select(fromCore.getSession),
+        filter(getSession => typeof getSession !== 'undefined'),
+      )
+      .subscribe((session: GetSessionWithAccount) => {
+        this.accountId = session.account.id;
+        this.accountMSISDN = session.account.msisdn;
+        if (typeof session.account.email !== 'undefined') {
+          this.accountEmail = session.account.email;
+
+          return;
+        }
+        if (typeof session.account.unverifiedEmail !== 'undefined') {
+          this.accountEmail = session.account.unverifiedEmail;
+
+          return;
+        }
+      });
+  }
+
+  public get userAccountId(): string {
+    return this.accountId;
   }
 
   public getConsultationDetails = (serviceId: string): Observable<GetService> =>
@@ -64,21 +97,39 @@ export class EmployeesInviteService {
   public postInvitation = (data: PostInvitations): Observable<ReadonlyArray<GetInvitation>> =>
     this.invitationService.postInvitationRoute(data);
 
-  public checkInvitationType = (value: string): EmployeeInvitationTypeEnum => {
+  // tslint:disable-next-line:cyclomatic-complexity
+  public checkInvitationType = (value: string, isFreelanceService: boolean): EmployeeInvitationTypeEnum => {
+    const unifiedPhoneNumber = this.phoneNumberUnifyService.unifyPhoneNumber(value);
     if (this.isMaxLengthInvitationReached()) {
       return EmployeeInvitationTypeEnum.MAX_LENGTH_REACHED;
-    } else if (
-      this.isInvitationPending(value) ||
-      this.isInvitationPending(this.phoneNumberUnifyService.unifyPhoneNumber(value))
-    ) {
-      return EmployeeInvitationTypeEnum.IS_PENDING;
-    } else if (isValidNumber(this.phoneNumberUnifyService.unifyPhoneNumber(value))) {
-      return EmployeeInvitationTypeEnum.IS_MSIDN;
-    } else if (this.isValueEmailAddress(value)) {
-      return EmployeeInvitationTypeEnum.IS_EMAIL;
-    } else {
-      return EmployeeInvitationTypeEnum.INVALID;
     }
+    if (this.isInvitationPending(value) || this.isInvitationPending(unifiedPhoneNumber)) {
+      return EmployeeInvitationTypeEnum.IS_PENDING;
+    }
+    if (isValidNumber(unifiedPhoneNumber)) {
+      /**
+       * if consultation is freelance we need to check if user provided his msisdn
+       * because he can not invite himself to freelance service
+       */
+      if (isFreelanceService && unifiedPhoneNumber === this.accountMSISDN) {
+        return EmployeeInvitationTypeEnum.IS_USER_ACCOUNT;
+      }
+
+      return EmployeeInvitationTypeEnum.IS_MSIDN;
+    }
+    if (this.isValidEmailAddress(value)) {
+      /**
+       * if consultation is freelance we need to check if user provided his email
+       * because he can not invite himself to freelance service
+       */
+      if (isFreelanceService && value === this.accountEmail) {
+        return EmployeeInvitationTypeEnum.IS_USER_ACCOUNT;
+      }
+
+      return EmployeeInvitationTypeEnum.IS_EMAIL;
+    }
+
+    return EmployeeInvitationTypeEnum.INVALID;
   };
 
   public mapEmployeeList = (serviceId: string): Observable<IEmployeesList> =>
@@ -92,6 +143,7 @@ export class EmployeesInviteService {
               avatar: employeeProfile.expertProfile.avatar,
               employeeId: employeeProfile.employments[0] ? employeeProfile.employments[0].employeeId : '',
               serviceId: employeeProfile.employments[0] ? employeeProfile.employments[0].serviceId : '',
+              id: employeeProfile.expertProfile.id,
             })),
         ),
       ),
@@ -99,16 +151,16 @@ export class EmployeesInviteService {
         map(services => services.find(service => service.service.id === serviceId)),
         filter(service => typeof service !== 'undefined'),
         map((status: GetServiceWithInvitations) => {
-          this.employeesWithPendingInvitaitons = this.getUnAcceptedInvitations(status);
+          this.employeesWithPendingInvitations = this.getUnAcceptedInvitations(status);
 
-          const invitations: ReadonlyArray<string> = this.employeesWithPendingInvitaitons.reduce(
+          const invitations: ReadonlyArray<string> = this.employeesWithPendingInvitations.reduce(
             (contactList, contact) => [...contactList, this.getStringValue(contact)],
             [],
           );
 
           return {
             invitations,
-            employeeInvitations: this.employeesWithPendingInvitaitons.filter(item => item.employeeId),
+            employeeInvitations: this.employeesWithPendingInvitations.filter(item => item.employeeId),
           };
         }),
       ),
@@ -149,7 +201,7 @@ export class EmployeesInviteService {
     }));
 
   private isMaxLengthInvitationReached = (): boolean => this.invitedEmployeeList.length >= this.maxInvitationLength;
-  private isValueEmailAddress = (value: string): boolean => this.emailPattern.test(value);
+  private isValidEmailAddress = (value: string): boolean => this.emailPattern.test(value);
   private isInvitationPending = (value: string): boolean =>
-    this.employeesWithPendingInvitaitons.filter(item => item.email === value || item.msisdn === value).length > 0;
+    this.employeesWithPendingInvitations.filter(item => item.email === value || item.msisdn === value).length > 0;
 }

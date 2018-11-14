@@ -1,5 +1,5 @@
 // tslint:disable:max-file-line-count
-import { Component, Input, OnInit, ComponentRef, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ComponentRef, ViewContainerRef, ViewChild, Injector } from '@angular/core';
 import { ModalContainerTypeEnum, ModalComponent } from '@platform/shared/components/modals/modal/modal.component';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import {
@@ -8,11 +8,14 @@ import {
 } from './company-consultation-details.view.service';
 import { GetServiceWithEmployees, PostServiceInvitation } from '@anymind-ng/api';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Animations, LoggerFactory } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-employee-row/company-employee-row.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
-import { EmployeesInviteModalComponent } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.component';
+import {
+  EmployeesInviteModalComponent,
+  IEmployeeInvitePayload,
+} from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.component';
 import { Logger } from '@platform/core/logger';
 import { ConsultationDetailsViewService } from '../consultation-details.view.service';
 import { IFooterOutput, IConsultationFooterData } from '../consultation-footers/consultation-footer-helpers';
@@ -26,6 +29,7 @@ import {
   IConsultationDetailActionParameters,
   ConsultationDetailsActionsService,
 } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
+import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
 
 @Component({
   selector: 'plat-company-consultation-details-view',
@@ -56,12 +60,15 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   public get isPendingEmployeesListEmpty(): boolean {
     return this.pendingEmployeesList.length === 0;
   }
+
   public get serviceName(): string {
     return this.consultationDetails.serviceDetails.name;
   }
+
   public get serviceDescription(): string {
     return this.consultationDetails.serviceDetails.description;
   }
+
   public get registeredAt(): Date {
     return this.consultationDetails.serviceDetails.createdAt;
   }
@@ -86,6 +93,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     private consultationDetailsViewService: ConsultationDetailsViewService,
     private consultationDetailsActionsService: ConsultationDetailsActionsService,
     private store: Store<fromCore.IState>,
+    private injector: Injector,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewComponent'));
@@ -103,17 +111,17 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.tagList = getConsultationDetails.tagsList;
       this.consultationDetails = getConsultationDetails.serviceDetails;
       this.expertName =
-        getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.organizationDetails &&
-        getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.organizationDetails.name;
+        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails &&
+        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails.name;
       this.avatarToken =
-        getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.organizationDetails &&
-        getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.organizationDetails.logo;
+        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails &&
+        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails.logo;
       this.employeesList = getConsultationDetails.employeesList;
       this.isEmployeesListExist = this.employeesList.length > 0;
       this.isCompany = (getSession && getSession.isCompany) || false;
       this.userType = this.userType || getUserType;
       this.accountId = (getSession && getSession.account.id) || '';
-      const employment = getConsultationDetails.serviceDetails.employeesDetails.find(
+      const employment = this.consultationDetails.employeesDetails.find(
         item => item.employeeProfile.id === (getSession && getSession.account.id),
       );
       this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails, employment && employment.id);
@@ -133,8 +141,17 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   };
 
   public onAddEmployees = (): void => {
-    const modal = this.modalService.open(EmployeesInviteModalComponent);
-    modal.componentInstance.serviceId = this.consultationId;
+    const payload: IEmployeeInvitePayload = {
+      serviceId: this.consultationId,
+      isFreelanceService: this.consultationDetails.serviceDetails.isFreelance,
+    };
+    const modalOptions: NgbModalOptions = {
+      injector: Injector.create({
+        providers: [{ provide: INVITATION_PAYLOAD, useValue: payload }],
+        parent: this.injector,
+      }),
+    };
+    const modal = this.modalService.open(EmployeesInviteModalComponent, modalOptions);
     modal.result
       .then(() => {
         this.isPendingInvitationLoaded = true;

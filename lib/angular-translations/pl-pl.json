@@ -1071,6 +1071,7 @@
   "INVITE_EMPLOYEES.ERROR.INCORRECT_VALUE": "Nieprawidłowa wartość",
   "INVITE_EMPLOYEES.ERROR.VALUE_ADDED": "Dodałeś już tego eksperta",
   "INVITE_EMPLOYEES.ERROR.LIMIT_REACHED": "Maksymalny limit zaproszeń został osiągnięty",
+  "INVITE_EMPLOYEES.ERROR.INVITE_YOURSELF": "Nie możesz zaprosić siebie do uslugi typu freelance",
   "INVITE_EMPLOYEES.INPUT.LABEL": "E-mail lub numer telefonu pracownika:",
   "VALIDATOR.ERROR.PATTERN": "Nieprawidłowa wartość",
   "VALIDATOR.ERROR.REQUIRED": "Pole jest wymagane",

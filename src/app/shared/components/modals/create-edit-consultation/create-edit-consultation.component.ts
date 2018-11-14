@@ -1,24 +1,28 @@
 // tslint:disable:readonly-array
 // tslint:disable:max-file-line-count
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Injector, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { Observable, EMPTY } from 'rxjs';
 import { Config } from '../../../../../config';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
 import { catchError } from 'rxjs/operators';
 import { CreateEditConsultationService } from './create-edit-consultation.service';
-import { EmployeesInviteModalComponent } from '../invitations/employees-invite/employees-invite.component';
+import {
+  EmployeesInviteModalComponent,
+  IEmployeeInvitePayload,
+} from '../invitations/employees-invite/employees-invite.component';
 import { GetService, PostServiceInvitation, PutService } from '@anymind-ng/api';
 import { ServiceWithOwnerProfile } from 'profitelo-api-ng/model/ServiceWithOwnerProfile';
 import { Logger } from '@platform/core/logger';
 import { CONSULTATIONDETAILS } from './create-edit-consultation';
 import { COMMISSION, ICommission } from '@platform/core/commission';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
+import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
 
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
@@ -76,6 +80,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     private activeModal: NgbActiveModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private changeDetector: ChangeDetectorRef,
+    private injector: Injector,
     @Inject(CONSULTATIONDETAILS) public payload: ICreateEditConsultationPayload,
     @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
@@ -223,7 +228,17 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     this.alertService.pushSuccessAlert(this.successAlertTrKey);
     this.activeModal.close(true);
     if (!this.payload.isExpertConsultation) {
-      this.modalService.open(EmployeesInviteModalComponent).componentInstance.serviceId = serviceDetails.id;
+      const payload: IEmployeeInvitePayload = {
+        serviceId: serviceDetails.id,
+        isFreelanceService: serviceDetails.isFreelance,
+      };
+      const modalOptions: NgbModalOptions = {
+        injector: Injector.create({
+          providers: [{ provide: INVITATION_PAYLOAD, useValue: payload }],
+          parent: this.injector,
+        }),
+      };
+      this.modalService.open(EmployeesInviteModalComponent, modalOptions);
     }
   };
 

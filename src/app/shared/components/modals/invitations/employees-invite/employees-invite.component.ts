@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
@@ -13,6 +13,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
 import { PostInvitation } from '@anymind-ng/api';
 import { BackendErrors, isBackendError, SingleBackendError } from '@platform/shared/models/backend-error/backend-error';
+import { INVITATION_PAYLOAD } from './employee-invite';
+
+export interface IEmployeeInvitePayload {
+  serviceId: string;
+  isFreelanceService: boolean;
+}
 
 export interface IEmployeesInviteComponent {
   name: string;
@@ -31,11 +37,14 @@ export interface IEmployeesInviteComponent {
   animations: Animations.addItemAnimation,
 })
 export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
+  @Output()
+  public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
+
   public readonly avatarSize = AvatarSizeEnum.X_24;
   public readonly emailPattern: RegExp;
-  public inviteEmployeesFormGroupName = new FormGroup({});
   public readonly inviteEmployeesControlName = 'inviteEmployeesControl';
   public readonly csvControlName = 'csvControlName';
+  public inviteEmployeesFormGroupName = new FormGroup({});
   public isDropdownListVisible = false;
   public invitedEmployeeList: ReadonlyArray<IEmployeesInviteComponent> = [];
   public filteredItems: ReadonlyArray<IEmployeesInviteComponent> = [];
@@ -43,15 +52,10 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public serviceName = '';
   public usedContactList: ReadonlyArray<string> = [];
 
-  @Input()
-  public serviceId: string;
-
-  @Output()
-  public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
-
   private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
+  private accountId: string;
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
@@ -60,6 +64,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     private formUtils: FormUtilsService,
     private activeModal: NgbActiveModal,
     private phoneNumberUnifyService: PhoneNumberUnifyService,
+    @Inject(INVITATION_PAYLOAD) public payload: IEmployeeInvitePayload,
     commonSettingsService: CommonSettingsService,
     loggerFactory: LoggerFactory,
   ) {
@@ -72,13 +77,20 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
-    this.employeesInviteService.mapEmployeeList(this.serviceId).subscribe(res => {
-      this.dropdownItems = res.employeeList;
+    this.accountId = this.employeesInviteService.userAccountId;
+    this.employeesInviteService.mapEmployeeList(this.payload.serviceId).subscribe(res => {
+      /**
+       * if consultation is freelance we don`t want to show user on the employee list
+       * because he can not invite himself to freelance service
+       */
+      this.dropdownItems = this.payload.isFreelanceService
+        ? res.employeeList.filter(employee => employee.id !== this.accountId)
+        : res.employeeList;
       this.usedContactList = res.pendingInvitations.invitations;
     });
 
     this.employeesInviteService
-      .getConsultationDetails(this.serviceId)
+      .getConsultationDetails(this.payload.serviceId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(serviceDetails => (this.serviceName = serviceDetails.name));
   }
@@ -101,14 +113,17 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public onEnter = (value: string): void =>
     !this.isDropdownListVisible
       ? this.addEmployeeInvitationByType(
-          this.employeesInviteService.checkInvitationType(value.toLowerCase()),
+          this.employeesInviteService.checkInvitationType(value.toLowerCase(), this.payload.isFreelanceService),
           value.toLowerCase(),
         )
       : void 0;
 
   public onCSVupload = (employeesContact: ReadonlyArray<string>): void => {
     employeesContact.forEach(value => {
-      this.addEmployeeInvitationByType(this.employeesInviteService.checkInvitationType(value), value);
+      this.addEmployeeInvitationByType(
+        this.employeesInviteService.checkInvitationType(value, this.payload.isFreelanceService),
+        value,
+      );
     });
   };
 
@@ -123,7 +138,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     this.isDropdownListVisible = value !== '' && this.filteredItems.length > 0;
   };
 
-  public onCloseDrodpown = (isOpen: boolean): boolean => (this.isDropdownListVisible = isOpen);
+  public onCloseDropdown = (isOpen: boolean): boolean => (this.isDropdownListVisible = isOpen);
 
   public onDeleteClick = (deleteItem: IEmployeesInviteComponent): void => {
     this.invitedEmployeeList = this.invitedEmployeeList.filter(item => item !== deleteItem);
@@ -140,11 +155,11 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
       case EmployeeInvitationTypeEnum.IS_MSIDN:
         const unifyPhoneNumber = this.phoneNumberUnifyService.unifyPhoneNumber(value);
         const prettyPhoneNumber = this.phoneNumberUnifyService.getPrettyPhoneNumber(value);
-        this.addEmployee({ serviceId: this.serviceId, name: prettyPhoneNumber, msisdn: unifyPhoneNumber });
+        this.addEmployee({ serviceId: this.payload.serviceId, name: prettyPhoneNumber, msisdn: unifyPhoneNumber });
         break;
 
       case EmployeeInvitationTypeEnum.IS_EMAIL:
-        this.addEmployee({ serviceId: this.serviceId, name: value, email: value });
+        this.addEmployee({ serviceId: this.payload.serviceId, name: value, email: value });
         break;
 
       case EmployeeInvitationTypeEnum.IS_PENDING:
@@ -163,6 +178,10 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         this.setEmployeesInvitationError({ 'INVITE_EMPLOYEES.ERROR.LIMIT_REACHED': true });
         break;
 
+      case EmployeeInvitationTypeEnum.IS_USER_ACCOUNT:
+        this.setEmployeesInvitationError({ 'INVITE_EMPLOYEES.ERROR.INVITE_YOURSELF': true });
+        break;
+
       default:
         return;
     }
@@ -175,7 +194,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
 
   private adjustEmployeeInvitationObject = (): ReadonlyArray<PostInvitation> =>
     this.invitedEmployeeList.map(item => ({
-      serviceId: this.serviceId,
+      serviceId: this.payload.serviceId,
       email: item.email,
       msisdn: item.msisdn,
       employeeId: item.employeeId,

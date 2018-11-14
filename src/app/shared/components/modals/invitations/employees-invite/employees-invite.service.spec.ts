@@ -1,26 +1,76 @@
-import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
-import { EmploymentService, InvitationService, ServiceService } from '@anymind-ng/api';
+// tslint:disable:max-file-line-count
+import {
+  EmployeeInvitationTypeEnum,
+  EmployeesInviteService,
+} from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
+import { EmploymentService, GetSessionWithAccount, InvitationService, ServiceService } from '@anymind-ng/api';
 import { cold } from 'jasmine-marbles';
 import { Deceiver } from 'deceiver-core';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
 import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
 import * as angular from 'angular';
+import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
+import { TestBed } from '@angular/core/testing';
+import * as fromRoot from '@platform/reducers';
+import * as AuthActions from '@platform/core/actions/login.actions';
 
 describe('EmployeesInviteService', () => {
   let employeesInviteService: EmployeesInviteService;
+  let store: Store<fromCore.IState>;
+  const mockSession: GetSessionWithAccount = {
+    account: {
+      id: 'id',
+      msisdn: '+48555555555',
+      email: 'szybkiRoman123@gmail.com',
+      registeredAt: new Date(),
+      isBlocked: false,
+      hasPassword: true,
+      isClientCompany: true,
+      isAnonymous: false,
+      details: {
+        clientId: 'id',
+      },
+      currency: 'PLN',
+      countryISO: 'pl',
+    },
+    session: {
+      accountId: 'id',
+      apiKey: 'apiKey',
+      ipAddress: '0.0.0.0',
+      isExpired: false,
+      lastActivityAt: new Date(),
+    },
+    isCompany: false,
+    isExpert: true,
+  };
 
   const employmentService: EmploymentService = Deceiver(EmploymentService);
   const serviceService: ServiceService = Deceiver(ServiceService);
   const invitationService: InvitationService = Deceiver(InvitationService);
-  const phoneNumberUnifyService: PhoneNumberUnifyService = Deceiver(PhoneNumberUnifyService);
+  const phoneNumberUnifyService: PhoneNumberUnifyService = Deceiver(PhoneNumberUnifyService, {
+    unifyPhoneNumber: jasmine.createSpy('unifyPhoneNumber').and.returnValue(''),
+  });
   const commonSettingsService: CommonSettingsService = new CommonSettingsService();
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          ...fromRoot.reducers,
+          core: combineReducers(fromCore.reducers),
+        }),
+      ],
+    });
+    store = TestBed.get(Store);
+    store.dispatch(new AuthActions.LoginSuccessAction(mockSession));
+
     employeesInviteService = new EmployeesInviteService(
       employmentService,
       serviceService,
       phoneNumberUnifyService,
       invitationService,
+      store,
       commonSettingsService,
     );
   });
@@ -110,6 +160,7 @@ describe('EmployeesInviteService', () => {
           avatar: 'd6dfef1381744186a89db1a8e336436f',
           employeeId: '7e859d32-aa37-4293-9449-432ad7b0223b',
           serviceId: 'test',
+          id: '7e859d32-aa37-4293-9449-432ad7b0223b',
         },
       ],
       pendingInvitations: {
@@ -224,4 +275,51 @@ describe('EmployeesInviteService', () => {
       .and.returnValue(cold('-(a|)', { a: getServiceWithInvitations }));
     expect(employeesInviteService.mapEmployeeList(serviceId)).toBeObservable(expected$);
   });
+
+  it('should return MAX_LENGTH_REACHED when you reach max invitations limit', () => {
+    const maxPossibleInvitations = 100;
+    const mockInvitations = new Array(maxPossibleInvitations);
+    employeesInviteService.setInvitedEmployeeList(mockInvitations);
+    expect(employeesInviteService.checkInvitationType('someInvitationEmail@gmail.com', false)).toBe(
+      EmployeeInvitationTypeEnum.MAX_LENGTH_REACHED,
+    );
+  });
+
+  it('should return INVALID status when provided invitation email is incorrect', () => {
+    expect(employeesInviteService.checkInvitationType('someIncorrectInvitationEmail@', false)).toBe(
+      EmployeeInvitationTypeEnum.INVALID,
+    );
+  });
+
+  it('should return IS_EMAIL status when provided invitation email is correct', () => {
+    expect(employeesInviteService.checkInvitationType('someInvitationEmail@gmail.com', false)).toBe(
+      EmployeeInvitationTypeEnum.IS_EMAIL,
+    );
+  });
+
+  it(
+    'should return IS_USER_ACCOUNT status when provided invitation email is correct and' +
+      'is the same as user email, service is freelance type',
+    () => {
+      expect(employeesInviteService.checkInvitationType('szybkiRoman123@gmail.com', true)).toBe(
+        EmployeeInvitationTypeEnum.IS_USER_ACCOUNT,
+      );
+    },
+  );
+
+  it('should return IS_MSIDN status when provided invitation msisdn is correct', () => {
+    phoneNumberUnifyService.unifyPhoneNumber = jasmine.createSpy('unifyPhoneNumber').and.returnValue('+48555555555');
+    expect(employeesInviteService.checkInvitationType('+48555555555', false)).toBe(EmployeeInvitationTypeEnum.IS_MSIDN);
+  });
+
+  it(
+    'should return IS_USER_ACCOUNT status when provided invitation msisdn is correct and' +
+      'is the same as user msisdn, service is freelance type',
+    () => {
+      phoneNumberUnifyService.unifyPhoneNumber = jasmine.createSpy('unifyPhoneNumber').and.returnValue('+48555555555');
+      expect(employeesInviteService.checkInvitationType('+48555555555', true)).toBe(
+        EmployeeInvitationTypeEnum.IS_USER_ACCOUNT,
+      );
+    },
+  );
 });
