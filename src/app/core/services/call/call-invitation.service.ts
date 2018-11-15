@@ -239,6 +239,8 @@ export class CallInvitationService extends Logger {
                 provide: INCOMING_CALL,
                 useValue: {
                   serviceName: expertSueDetails.serviceName,
+                  clientName: expertSueDetails.clientDetails.nickname,
+                  clientAvatar: expertSueDetails.clientDetails.avatar,
                 },
               },
             ],
