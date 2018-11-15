@@ -298,27 +298,29 @@ describe('EmployeesInviteService', () => {
   });
 
   it(
-    'should return IS_USER_ACCOUNT status when provided invitation email is correct and' +
+    'should return OWNER_USER status when provided invitation email is correct and' +
       'is the same as user email, service is freelance type',
     () => {
       expect(employeesInviteService.checkInvitationType('szybkiRoman123@gmail.com', true)).toBe(
-        EmployeeInvitationTypeEnum.IS_USER_ACCOUNT,
+        EmployeeInvitationTypeEnum.OWNER_USER,
       );
     },
   );
 
-  it('should return IS_MSIDN status when provided invitation msisdn is correct', () => {
+  it('should return IS_MSISDN status when provided invitation msisdn is correct', () => {
     phoneNumberUnifyService.unifyPhoneNumber = jasmine.createSpy('unifyPhoneNumber').and.returnValue('+48555555555');
-    expect(employeesInviteService.checkInvitationType('+48555555555', false)).toBe(EmployeeInvitationTypeEnum.IS_MSIDN);
+    expect(employeesInviteService.checkInvitationType('+48555555555', false)).toBe(
+      EmployeeInvitationTypeEnum.IS_MSISDN,
+    );
   });
 
   it(
-    'should return IS_USER_ACCOUNT status when provided invitation msisdn is correct and' +
+    'should return OWNER_USER status when provided invitation msisdn is correct and' +
       'is the same as user msisdn, service is freelance type',
     () => {
       phoneNumberUnifyService.unifyPhoneNumber = jasmine.createSpy('unifyPhoneNumber').and.returnValue('+48555555555');
       expect(employeesInviteService.checkInvitationType('+48555555555', true)).toBe(
-        EmployeeInvitationTypeEnum.IS_USER_ACCOUNT,
+        EmployeeInvitationTypeEnum.OWNER_USER,
       );
     },
   );

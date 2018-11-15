@@ -21,10 +21,10 @@ import * as fromCore from '@platform/core/reducers';
 
 export enum EmployeeInvitationTypeEnum {
   IS_EMAIL,
-  IS_MSIDN,
+  IS_MSISDN,
   IS_PENDING,
   IS_ALREADY_ADDED,
-  IS_USER_ACCOUNT,
+  OWNER_USER,
   MAX_LENGTH_REACHED,
   INVALID,
 }
@@ -52,7 +52,7 @@ export class EmployeesInviteService {
   private emailPattern: RegExp;
   private invitedEmployeeList: ReadonlyArray<IEmployeesInviteComponent> = [];
   private accountId: string;
-  private accountMSISDN: string;
+  private accountMsisdn: string;
   private accountEmail: string;
 
   constructor(
@@ -73,7 +73,7 @@ export class EmployeesInviteService {
       )
       .subscribe((session: GetSessionWithAccount) => {
         this.accountId = session.account.id;
-        this.accountMSISDN = session.account.msisdn;
+        this.accountMsisdn = session.account.msisdn;
         if (typeof session.account.email !== 'undefined') {
           this.accountEmail = session.account.email;
 
@@ -87,9 +87,7 @@ export class EmployeesInviteService {
       });
   }
 
-  public get userAccountId(): string {
-    return this.accountId;
-  }
+  public getUserAccountId = (): string => this.accountId;
 
   public getConsultationDetails = (serviceId: string): Observable<GetService> =>
     this.serviceService.getServiceRoute(serviceId);
@@ -111,11 +109,11 @@ export class EmployeesInviteService {
        * if consultation is freelance we need to check if user provided his msisdn
        * because he can not invite himself to freelance service
        */
-      if (isFreelanceService && unifiedPhoneNumber === this.accountMSISDN) {
-        return EmployeeInvitationTypeEnum.IS_USER_ACCOUNT;
+      if (isFreelanceService && unifiedPhoneNumber === this.accountMsisdn) {
+        return EmployeeInvitationTypeEnum.OWNER_USER;
       }
 
-      return EmployeeInvitationTypeEnum.IS_MSIDN;
+      return EmployeeInvitationTypeEnum.IS_MSISDN;
     }
     if (this.isValidEmailAddress(value)) {
       /**
@@ -123,7 +121,7 @@ export class EmployeesInviteService {
        * because he can not invite himself to freelance service
        */
       if (isFreelanceService && value === this.accountEmail) {
-        return EmployeeInvitationTypeEnum.IS_USER_ACCOUNT;
+        return EmployeeInvitationTypeEnum.OWNER_USER;
       }
 
       return EmployeeInvitationTypeEnum.IS_EMAIL;

@@ -77,7 +77,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
-    this.accountId = this.employeesInviteService.userAccountId;
+    this.accountId = this.employeesInviteService.getUserAccountId();
     this.employeesInviteService.mapEmployeeList(this.payload.serviceId).subscribe(res => {
       /**
        * if consultation is freelance we don`t want to show user on the employee list
@@ -152,7 +152,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:cyclomatic-complexity
   private addEmployeeInvitationByType = (invitationType: EmployeeInvitationTypeEnum, value: string): void => {
     switch (invitationType) {
-      case EmployeeInvitationTypeEnum.IS_MSIDN:
+      case EmployeeInvitationTypeEnum.IS_MSISDN:
         const unifyPhoneNumber = this.phoneNumberUnifyService.unifyPhoneNumber(value);
         const prettyPhoneNumber = this.phoneNumberUnifyService.getPrettyPhoneNumber(value);
         this.addEmployee({ serviceId: this.payload.serviceId, name: prettyPhoneNumber, msisdn: unifyPhoneNumber });
@@ -178,7 +178,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
         this.setEmployeesInvitationError({ 'INVITE_EMPLOYEES.ERROR.LIMIT_REACHED': true });
         break;
 
-      case EmployeeInvitationTypeEnum.IS_USER_ACCOUNT:
+      case EmployeeInvitationTypeEnum.OWNER_USER:
         this.setEmployeesInvitationError({ 'INVITE_EMPLOYEES.ERROR.INVITE_YOURSELF': true });
         break;
 
