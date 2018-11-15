@@ -322,6 +322,7 @@ export class CallInvitationService extends Logger {
     call: BusinessCall,
   ): void => {
     this.callAnsweredOnOtherDeviceEvent$.next();
+    this.pushNotificationService.pushEnableButtonStatus(true);
     this.loggerService.debug('Call was answered on other device', callActiveDevice);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
