@@ -1,11 +1,11 @@
 .cookie.cookie-notification(data-ng-if="!$ctrl.isVisible()")
-  .container
-    .cookie-content
-      div
-        img(src="/assets/images/profitelo_icons/cookie.png")
-        p(data-translate="{{ 'APP.COOKIE.DESCRIPTION' | translate: $ctrl.cookieTranslationHref }}")
+  a.icon.icon-close-16(data-ng-click="$ctrl.onClick()")
+  .cookie-content
+    .cookie-content__information
+      img(src="/assets/images/profitelo_icons/cookies.png")
+      p(data-translate="{{ 'APP.COOKIE.DESCRIPTION' | translate: $ctrl.cookieTranslationHref }}")
 
-      a.btn.btn-default(
-      data-translate="APP.COOKIE.BTN.AGREE"
-      data-ng-click="$ctrl.onClick()"
-      )
+    a.btn.btn-default(
+    data-translate="APP.COOKIE.BTN.AGREE"
+    data-ng-click="$ctrl.onClick()"
+    )

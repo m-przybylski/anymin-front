@@ -35,6 +35,7 @@ import { InputsModule } from './components/inputs/inputs.module';
 import { TagListComponent } from '@platform/shared/components/tag-list/tag-list.component';
 import { SettingOptionComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component';
 import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
+import { CookieNotificationModule } from '@platform/shared/components/cookie-notification/cookie-notification.module';
 @NgModule({
   imports: [
     FormsModule,
@@ -47,6 +48,7 @@ import { FileUrlResolveService } from '@platform/shared/services/file-url-resolv
     IconModule,
     ButtonModule,
     InputsModule,
+    CookieNotificationModule,
   ],
   declarations: [
     LoginBackgroundComponent,
@@ -68,6 +70,7 @@ import { FileUrlResolveService } from '@platform/shared/services/file-url-resolv
   entryComponents: [WidgetGeneratorComponent],
   exports: [
     AnymindComponentsModule,
+    CookieNotificationModule,
     TranslateModule,
     LoginBackgroundComponent,
     LoginContentComponent,
