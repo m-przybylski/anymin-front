@@ -13,6 +13,7 @@ export class CreateIncomingCallComponent extends Logger {
   public serviceName: string;
   public isConnecting = true;
   public clientAvatar?: string;
+  public clientName?: string;
 
   public answerCall: () => void;
   public rejectCall: () => void;
@@ -20,5 +21,7 @@ export class CreateIncomingCallComponent extends Logger {
   constructor(loggerFactory: LoggerFactory, @Inject(INCOMING_CALL) incomingCallData: IncomingCallData) {
     super(loggerFactory.createLoggerService('CreateIncomingCallComponent'));
     this.serviceName = incomingCallData.serviceName;
+    this.clientAvatar = incomingCallData.clientAvatar;
+    this.clientName = incomingCallData.clientName;
   }
 }

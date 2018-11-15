@@ -6,4 +6,6 @@ export const INCOMING_CALL: InjectionToken<IncomingCallData> = new InjectionToke
 
 export interface IncomingCallData {
   serviceName: string;
+  clientName?: string;
+  clientAvatar?: string;
 }

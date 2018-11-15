@@ -29,12 +29,12 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   public isConnecting = true;
   public service?: GetService;
   public expert?: GetProfile;
-  public expertAvatar?: string;
+  public clientAvatar?: string;
 
   public isRemoteVideo = false;
   public isLocalVideo = false;
-  public isMessenger = false;
 
+  public isMessenger = false;
   public serviceName: string;
   public expertName: string;
 
@@ -61,6 +61,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   public currentMicrophoneStateEnum: MicrophoneStateEnum = MicrophoneStateEnum.GOOD;
   public microphoneStateEnums: typeof MicrophoneStateEnum = MicrophoneStateEnum;
   public isUserInactive = false;
+  public clientName?: string;
 
   private ngUnsubscribe$ = new Subject<void>();
   private currentCall: CurrentExpertCall;
@@ -134,6 +135,8 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.newCallEvent.next(expertSessionCall.currentExpertCall);
     this.registerCommonCallEvents(expertSessionCall.currentExpertCall);
     this.serviceName = expertSessionCall.currentExpertCall.getServiceName();
+    this.clientName = expertSessionCall.currentExpertCall.getExpertSueDetails().clientDetails.nickname;
+    this.clientAvatar = expertSessionCall.currentExpertCall.getExpertSueDetails().clientDetails.avatar;
     this.isConnecting = false;
     this.isClosed = false;
   };
