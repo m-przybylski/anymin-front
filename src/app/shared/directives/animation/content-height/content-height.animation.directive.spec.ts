@@ -47,6 +47,8 @@ describe('Directive: ContentHeightAnimateDirective', () => {
     const animationBuilder = TestBed.get(AnimationBuilder);
     const playObject = {
       play: (): void => {},
+      destroy: (): void => {},
+      onDone: (): void => {},
     };
 
     animationBuilder.build = (): AnimationFactory => ({
