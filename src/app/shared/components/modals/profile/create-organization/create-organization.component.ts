@@ -28,11 +28,11 @@ import { Store } from '@ngrx/store';
 export class CreateOrganizationModalComponent implements OnInit {
   public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
   public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
-  public createOrganizationFormGroup = new FormGroup({});
   public readonly createOrganizationNameFormControl = 'createOrganizationNameFormControl';
   public readonly avatarFormControl = 'avatarFormControl';
   public readonly descriptionFormControl = 'descriptionFormControl';
   public readonly profileLinksFormControl = 'profileLinksFormControl';
+  public createOrganizationFormGroup = new FormGroup({});
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   public isInputDisabled = false;
   public maxValidFileSize = 30000000;
@@ -44,11 +44,15 @@ export class CreateOrganizationModalComponent implements OnInit {
   public linksList: ReadonlyArray<string> = [];
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isProfileHasConsultations = false;
-
   public isExpert: boolean;
   public isCompany: boolean;
   public avatarToken: string;
+  public modalHeaderTr: string;
 
+  private readonly modalHeaderTrKeys = {
+    createProfile: 'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.CREATE_TITLE',
+    editProfile: 'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.EDIT_TITLE',
+  };
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -106,7 +110,14 @@ export class CreateOrganizationModalComponent implements OnInit {
   private adjustProfileDetails = (session: GetSessionWithAccount): void => {
     this.isExpert = session.isExpert;
     this.isCompany = session.isCompany;
-    this.isCompany ? this.assignOrganizationDetails() : this.checkExpertConsultationsLength(session.account.id);
+    if (this.isCompany) {
+      this.assignOrganizationDetails();
+      this.modalHeaderTr = this.modalHeaderTrKeys.editProfile;
+
+      return;
+    }
+    this.checkExpertConsultationsLength(session.account.id);
+    this.modalHeaderTr = this.modalHeaderTrKeys.createProfile;
   };
 
   private sendOrganizationProfile = (): void => {

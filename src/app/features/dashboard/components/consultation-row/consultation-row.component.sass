@@ -11,6 +11,10 @@
   align-items: center
   position: relative
   cursor: pointer
+  padding: 20px 12px
+
+  +smm
+    padding: 20px 24px
 
   &:hover
     .consultation-layout__amount-button
@@ -41,14 +45,15 @@
     +button-small
     font-weight: 500
     position: absolute
-    right: 0
-    bottom: 0
+    right: 12px
+    bottom: 20px
     display: flex
     flex-direction: column
     justify-content: flex-end
 
     +smm
       +h6
+      right: 24px
       font-weight: 500
 
     +mdm
