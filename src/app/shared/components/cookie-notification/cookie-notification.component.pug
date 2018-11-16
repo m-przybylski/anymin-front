@@ -1,0 +1,15 @@
+.cookie.cookie-notification(*ngIf="isNotificationVisible")
+  a.icon.icon-clear((click)="onClick()")
+  .cookie-content
+    .cookie-content__information
+      am-core-image-display(
+        imgName="cookies",
+        altDescription="cookie",
+      )
+      p([innerHTML]="'APP.COOKIE.DESCRIPTION' | translate")
+
+    a.cookie-content__button(
+      plat-button,
+      color="primary",
+      (click)="onClick()"
+    ) {{ 'APP.COOKIE.BTN.AGREE' | translate }}
