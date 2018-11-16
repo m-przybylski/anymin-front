@@ -84,7 +84,8 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.navigationService.getCurrentNavigationStateEmitter().subscribe(this.onUserInactivity);
+    this.navigationService.startInactivityTimer();
+    this.navigationService.userActivity$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onUserInactivity);
     this.microphoneService.onMicrophoneStatusChange(state => (this.currentMicrophoneStateEnum = state));
     this.AvatarSizeEnum = AvatarSize;
     this.callService.newCall$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => {
@@ -93,6 +94,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.navigationService.removeInactivityTimer();
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
     this.localVideoStreamElement.nativeElement.srcObject = undefined;
