@@ -110,13 +110,17 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     }
   };
 
-  public onEnter = (value: string): void =>
-    !this.isDropdownListVisible
-      ? this.addEmployeeInvitationByType(
-          this.employeesInviteService.checkInvitationType(value.toLowerCase(), this.payload.isFreelanceService),
-          value.toLowerCase(),
-        )
-      : void 0;
+  public onEnter = (value: string): void => {
+    if (
+      !this.isDropdownListVisible &&
+      this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName].value.length > 0
+    ) {
+      this.addEmployeeInvitationByType(
+        this.employeesInviteService.checkInvitationType(value.toLowerCase(), this.payload.isFreelanceService),
+        value.toLowerCase(),
+      );
+    }
+  };
 
   public onCSVupload = (employeesContact: ReadonlyArray<string>): void => {
     employeesContact.forEach(value => {
