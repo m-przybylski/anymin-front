@@ -3,8 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config } from '../../../../config';
 import { Logger } from '@platform/core/logger';
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Observable, Observer, BehaviorSubject } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { ReplaySubject, Observable, Observer } from 'rxjs';
+import { map, mergeMap, delay } from 'rxjs/operators';
 
 /**
  * OneSignal web push SDK
@@ -26,7 +26,7 @@ interface IOneSignal {
 @Injectable()
 export class PushNotificationService extends Logger {
   private readonly oneSignal$ = new ReplaySubject<IOneSignal>(1);
-  private readonly enableButton$ = new BehaviorSubject<boolean>(true);
+  private readonly enableButton$ = new ReplaySubject<boolean>(1);
 
   constructor(private translate: TranslateService, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('PushNotificationService'));
@@ -93,7 +93,7 @@ export class PushNotificationService extends Logger {
             theme: 'default' /* One of 'default' (red-white) or 'inverse" (white-red) */,
             position: 'bottom-right' /* Either 'bottom-left' or 'bottom-right' */,
             offset: {
-              bottom: '16px',
+              bottom: '54px',
               left: '16px' /* Only applied if bottom-left */,
               right: '16px' /* Only applied if bottom-right */,
             },
@@ -136,7 +136,8 @@ export class PushNotificationService extends Logger {
           },
         })
         .then(() => {
-          this.enableButton$.subscribe(value => {
+          const oneSignalLoadingTimeout = 1000;
+          this.enableButton$.pipe(delay(oneSignalLoadingTimeout)).subscribe(value => {
             if (value) {
               if (oneSignal.notifyButton) {
                 oneSignal.notifyButton.launcher.show();
