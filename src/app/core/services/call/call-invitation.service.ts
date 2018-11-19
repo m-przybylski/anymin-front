@@ -206,7 +206,6 @@ export class CallInvitationService extends Logger {
 
   private onExpertCallIncoming = (call: Call): void => {
     if (BusinessCall.isBusiness(call)) {
-      this.pushNotificationService.pushEnableButtonStatus(false);
       this.onExpertBusinessCallIncoming(call);
     } else {
       this.loggerService.error('Incoming call was not of BusinessCall type, rejecting', call);
@@ -231,7 +230,7 @@ export class CallInvitationService extends Logger {
     this.serviceUsageEventService.getSueDetailsForExpertRoute(call.id).subscribe(
       expertSueDetails => {
         this.soundsService.callIncomingSound().play();
-
+        this.pushNotificationService.pushEnableButtonStatus(false);
         const options: NgbModalOptions = {
           injector: Injector.create({
             providers: [
