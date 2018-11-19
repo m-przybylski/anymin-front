@@ -52,10 +52,15 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   public isOpenAsExpert: boolean;
   public isExpert: boolean;
   public isCompany: boolean;
+  public modalHeaderTr: string;
 
   @Input()
   public isExpertForm = true;
 
+  private readonly modalHeaderTrKeys = {
+    createProfile: 'EDIT_PROFILE.CREATE_TITLE',
+    editProfile: 'EDIT_PROFILE.EDIT_TITLE',
+  };
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -142,7 +147,14 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   private adjustProfileDetails = (session: GetSessionWithAccount): void => {
     this.isExpert = session.isExpert;
     this.isCompany = session.isCompany;
-    this.isExpert ? this.assignExpertProfileDetails() : this.assignClientProfileDetails(session);
+    if (this.isExpert) {
+      this.assignExpertProfileDetails();
+      this.modalHeaderTr = this.modalHeaderTrKeys.editProfile;
+
+      return;
+    }
+    this.assignClientProfileDetails(session);
+    this.modalHeaderTr = this.modalHeaderTrKeys.createProfile;
   };
 
   private sendClientProfile = (data: PutGeneralSettings): void => {

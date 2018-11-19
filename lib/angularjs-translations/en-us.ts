@@ -51,7 +51,7 @@ import 'angular-translate';
         'APP.BROWSER.SUPPORT.OPERA': 'Opera',
         'APP.COOKIE.BTN.AGREE': 'Przejdź do serwisu',
         'APP.COOKIE.DESCRIPTION':
-          "Ta strona korzysta z ciasteczek (cookies) w celach statystycznych i reklamowych, w celu prowadzenia analiz i prezentowania treści reklamowych dopasowanych do Twoich preferencji i zachowań. Klikając w przycisk 'Przejdź do serwisu' lub zamykając to okno wyrażasz zgodę na użycie plików cookies w celach opisanych powyżej. Więcej informacji znajdziesz w <a href='{{hrefUrl}}' target='_blank'>Polityce Prywatności</a>.",
+          "Ta strona korzysta z ciasteczek (cookies) w celach statystycznych i reklamowych, w celu prowadzenia analiz i prezentowania treści reklamowych dopasowanych do Twoich preferencji i zachowań. Klikając w przycisk 'Przejdź do serwisu' lub zamykając to okno, wyrażasz zgodę na użycie plików cookies w celach opisanych powyżej. Więcej informacji znajdziesz w <a href='{{hrefUrl}}' target='_blank'>Polityce Prywatności</a>.",
         'APP.RESOLVER_ERROR': 'Spróbuj ponownie',
         'APP.WIZARDS.CREATE_NEW_SERVICE.SWITCHER_IOS': 'IOS 6 (aplikacja)',
         'BRAINTREE.ADD_BUTTON': 'Dodaj',

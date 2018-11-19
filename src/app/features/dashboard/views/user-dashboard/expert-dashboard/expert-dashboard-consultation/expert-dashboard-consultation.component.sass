@@ -5,26 +5,10 @@
 %transition
   transition: background 0.3s ease, color 0.3s ease
 
-=adjust-container-for-row
-  margin: 0 -4px 4px -4px
-  padding: 20px 12px
-
-  +xsm
-    margin: 0 -12px 4px -12px
-
-  +smm
-    margin: 0 -16px 4px -16px
-    padding: 20px 24px
-
-  +mdm
-    margin: 0 0 4px 0
-
-
 .expert-dashboard-consultation-row
-
   &__add-consultation
-
-    +adjust-container-for-row
+    margin: 0 0 4px
+    padding: 20px 12px
     display: flex
     justify-content: center
     align-items: center
@@ -32,27 +16,27 @@
     border-radius: 4px
     background-color: $c-white
 
-    &:hover
+    +smm
+      padding: 20px 24px
 
+    &:hover
       span
         @extend %transition
         color: $c-primary
         background-color: transparent
 
   &__text
-
     +button-small
     margin: 0 0 0 16px
 
   &__row
-
-    +adjust-container-for-row
     display: block
     border-radius: 4px
     background-color: $c-white
+    margin: 0 0 4px
 
-  &:nth-last-child(1)
-    margin-bottom: 0
+    &:last-child
+      margin: 0
 
   .alert-information
     width: 100%
