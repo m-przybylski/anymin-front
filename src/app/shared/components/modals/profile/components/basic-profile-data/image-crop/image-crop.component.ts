@@ -35,7 +35,7 @@ export class ImageCropModalComponent implements OnDestroy, AfterViewInit {
   @Input()
   public cropModalData: IImageCropData;
 
-  public modalClass: ModalContainerTypeEnum = ModalContainerTypeEnum.CROPP_WIDTH;
+  public modalClass: ModalContainerTypeEnum = ModalContainerTypeEnum.CROP_WIDTH;
   public isPending = false;
   public preloaderType = PreloaderContentSizeEnum.FULL_CONTENT;
 

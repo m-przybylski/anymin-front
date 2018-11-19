@@ -2,7 +2,7 @@ plat-modal-component(
   [modalTrTitleHeader]="'CONSULTATION_DETAILS.MODAL.TITLE'",
   [modalContainerClass]="modalType"
 )
-  .company-consultation-details(*ngIf="!isPending")
+  .company-consultation-details(contentHeightAnimation, *ngIf="!isPending")
     plat-consultation-details(
     [avatarSize]="avatarSize",
     [avatarToken]="avatarToken",

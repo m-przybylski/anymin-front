@@ -1,8 +1,7 @@
-import { Component, Inject, AfterViewInit, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { GENERATE_WIDGET_DATA, IGenerateWidgetData } from '../../tokens';
-import { ModalComponent } from '@platform/shared/components/modals/modal/modal.component';
 import { GenerateWidgetDataService } from '../../services/generate-widget.data.service';
 import { of, BehaviorSubject, Subject } from 'rxjs';
 import { AccountPresenceStatus } from '@anymind-ng/api';
@@ -10,6 +9,7 @@ import { finalize, filter, first, takeUntil, switchMap, map } from 'rxjs/operato
 import { FormControl } from '@angular/forms';
 import { WidgetButtonType } from '../generate-widget-button-type/generate-widget-button-type.component';
 import { trigger, transition, style, animate, state, AnimationEvent } from '@angular/animations';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 
 interface IShareLink {
   url: string;
@@ -51,9 +51,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   public buttonType: FormControl;
   public selectedButtonType: WidgetButtonType = this.undefinedSelectedButtonType;
 
-  @ViewChild(ModalComponent)
-  private modal: ModalComponent;
-
+  private readonly initialModalHeight = '100px';
   /**
    * used to show if component loaded data from the server
    */
@@ -69,6 +67,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
 
   constructor(
     private generateWidgetDataService: GenerateWidgetDataService,
+    private modalAnimationComponentService: ModalAnimationComponentService,
     @Inject(GENERATE_WIDGET_DATA) data: IGenerateWidgetData,
     loggerFactory: LoggerFactory,
   ) {
@@ -134,7 +133,7 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
         first(),
       )
       .subscribe(() => {
-        this.modal.stopLoadingAnimation();
+        this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight);
       });
   }
   public ngOnDestroy(): void {

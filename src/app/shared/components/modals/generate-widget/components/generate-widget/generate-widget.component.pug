@@ -3,7 +3,7 @@ plat-modal-component(
   [isBackwardVisible]="stepper.selectedIndex !== 0",
   (backwardClick)='stepper.previous()'
   )
-  plat-stepper(#stepper='platStepper')
+  plat-stepper(contentHeightAnimation, #stepper='platStepper')
     plat-step
       .generate-widget-step-content
         .generate-widget-step-content-panel
