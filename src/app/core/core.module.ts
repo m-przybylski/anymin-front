@@ -4,7 +4,6 @@ import { EventsServiceProvider } from '../shared/providers/ajs-upgraded-provider
 import { UserSessionService } from './services/user-session/user-session.service';
 import { ApiModule } from '@anymind-ng/api';
 import { ApiConfigurationFactory } from './factories/api-configuration/api-configuration.factory';
-import { ApiKeyService } from './services/api-key/api-key.service';
 import { ApiKeyInterceptor } from './services/api-key/api-key.interceptor';
 import { LoggerModule, AnymindComponentsCoreModule, LogLevel, CommunicatorModule } from '@anymind-ng/core';
 import { Config } from '../../config';
@@ -54,7 +53,6 @@ export function getLogLevel(): LogLevel {
     EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
   ],
   providers: [
-    ApiKeyService,
     EventsServiceProvider,
     UserSessionService,
     LongPollingService,

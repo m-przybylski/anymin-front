@@ -32,6 +32,7 @@ export const getLoggedIn = createSelector(selectSession, state => ({
   isLoggedIn: typeof state.session !== 'undefined',
   isFromBackend: state.isFromBackend,
   isPending: state.isPending,
+  session: state.session,
 }));
 export const getLoginError = createSelector(selectLogin, fromLogin.getError);
 export const getLoginPending = createSelector(selectLogin, fromLogin.getIsPending);
