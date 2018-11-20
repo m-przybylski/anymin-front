@@ -53,6 +53,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     chatHistory: 'ACTIVITY_DETAILS.MODAL_HEADER.CHAT_HISTORY',
     financial: 'ACTIVITY_DETAILS.MODAL_HEADER.FINANCIAL',
   };
+  private readonly initialModalHeight = '100px';
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
@@ -106,7 +107,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
         first(),
       )
       .subscribe(() => {
-        this.modalAnimationComponentService.stopLoadingAnimation();
+        this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight);
       });
   }
 

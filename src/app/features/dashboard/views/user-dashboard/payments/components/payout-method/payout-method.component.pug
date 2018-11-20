@@ -3,7 +3,7 @@ plat-modal-component.payout-method(
 [modalContainerClass]="modalWidth"
 )
 
-  .payout-method__type-container
+  .payout-method__type-container(contentHeightAnimation)
     .payout-method__type-container--type(
     [class.selected]="selectedPayoutMethodType === payoutMethods.BANK_ACCOUNT",
     (click)="selectPayoutMethod(payoutMethods.BANK_ACCOUNT)"

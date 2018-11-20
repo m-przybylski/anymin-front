@@ -1,6 +1,6 @@
 // tslint:disable:max-file-line-count
 import { Component, Input, OnInit, ComponentRef, ViewContainerRef, ViewChild, Injector } from '@angular/core';
-import { ModalContainerTypeEnum, ModalComponent } from '@platform/shared/components/modals/modal/modal.component';
+import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import {
   CompanyConsultationDetailsViewService,
@@ -75,8 +75,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
 
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
-  @ViewChild(ModalComponent)
-  private modalComponent: ModalComponent;
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private isCompany: boolean;
   private userType: UserTypeEnum | undefined;
@@ -94,6 +92,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     private consultationDetailsActionsService: ConsultationDetailsActionsService,
     private store: Store<fromCore.IState>,
     private injector: Injector,
+    private modalAnimationComponentService: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewComponent'));
@@ -125,7 +124,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
         item => item.employeeProfile.id === (getSession && getSession.account.id),
       );
       this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails, employment && employment.id);
-      this.modalComponent.stopLoadingAnimation();
+      this.modalAnimationComponentService.stopLoadingAnimation();
       this.isPending = false;
     });
 

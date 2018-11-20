@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 export enum ModalContainerTypeEnum {
   SMALL_WIDTH = 'SMALL_WIDTH',
   MEDIUM_WIDTH = 'MEDIUM_WIDTH',
-  CROPP_WIDTH = 'CROPP_WIDTH',
+  CROP_WIDTH = 'CROP_WIDTH',
   NO_PADDING = 'NO_PADDING',
   SMALL_NO_PADDING = 'SMALL_NO_PADDING',
   FILE_PREVIEW = 'FILE_PREVIEW',
@@ -70,7 +70,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngOnInit(): void {
     this.setModalContainerWidth();
 
-    if (this.modalContainerClass === ModalContainerTypeEnum.CROPP_WIDTH) {
+    if (this.modalContainerClass === ModalContainerTypeEnum.CROP_WIDTH) {
       this.isLoading = false;
     }
   }
@@ -101,10 +101,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activeModal.close();
   };
 
-  public stopLoadingAnimation = (): void => {
-    this.modalAnimationComponentService.stopLoadingAnimation();
-  };
-
   public setModalContainerWidth = (): string => {
     switch (this.modalContainerClass) {
       case ModalContainerTypeEnum.SMALL_WIDTH:
@@ -113,8 +109,8 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       case ModalContainerTypeEnum.MEDIUM_WIDTH:
         return 'modal-component__container--medium';
 
-      case ModalContainerTypeEnum.CROPP_WIDTH:
-        return 'modal-component__container--cropp';
+      case ModalContainerTypeEnum.CROP_WIDTH:
+        return 'modal-component__container--crop';
 
       case ModalContainerTypeEnum.NO_PADDING:
         return 'modal-component__container--no-padding';

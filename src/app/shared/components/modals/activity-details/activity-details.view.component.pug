@@ -1,29 +1,33 @@
-plat-modal-component.activity-details-modal(
+plat-modal-component(
   [modalTrTitleHeader]="modalHeaderTrKey",
   [isBackwardVisible]="isBackwardVisible",
   (backwardClick)="onGoBack()"
 )
 
-  plat-stepper(#stepper='platStepper', *ngIf="activityType === activityTypesEnum.SERVICEUSAGEEVENT")
-    plat-step
-      plat-sue-details(
-        [sueDetails]="sueDetails",
-        [isChatHistoryVisible]="isChatHistoryVisible",
-        (openChat)="onOpenChat()"
-      )
-    plat-step
-      plat-chat-history(
-          [groupedMessages]="groupedMessages",
-          [clientAvatarUrl]="clientAvatarUrl",
-          [expertAvatarUrl]="expertAvatarUrl"
-       )
+  .activity-details-modal(contentHeightAnimation)
+    plat-stepper(
+      #stepper='platStepper',
+      *ngIf="activityType === activityTypesEnum.SERVICEUSAGEEVENT"
+    )
+      plat-step
+        plat-sue-details(
+          [sueDetails]="sueDetails",
+          [isChatHistoryVisible]="isChatHistoryVisible",
+          (openChat)="onOpenChat()"
+        )
+      plat-step
+        plat-chat-history(
+            [groupedMessages]="groupedMessages",
+            [clientAvatarUrl]="clientAvatarUrl",
+            [expertAvatarUrl]="expertAvatarUrl"
+         )
 
-  plat-financial-operation-details(
-    *ngIf="activityType === activityTypesEnum.FINANCIALTRANSACTION",
-    [financialOperationDetails]="financialOperationDetails"
-  )
+    plat-financial-operation-details(
+      *ngIf="activityType === activityTypesEnum.FINANCIALTRANSACTION",
+      [financialOperationDetails]="financialOperationDetails"
+    )
 
-  plat-refund-details(
-    *ngIf="activityType === activityTypesEnum.REFUND",
-    [refundOperationDetails]="refundOperationDetails"
-  )
+    plat-refund-details(
+      *ngIf="activityType === activityTypesEnum.REFUND",
+      [refundOperationDetails]="refundOperationDetails"
+    )
