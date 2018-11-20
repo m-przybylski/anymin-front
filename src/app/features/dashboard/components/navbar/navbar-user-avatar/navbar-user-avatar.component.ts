@@ -1,7 +1,6 @@
 import { Component, ElementRef, Inject, Input, NgZone } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { GetExpertVisibility } from '@anymind-ng/api';
-import VisibilityEnum = GetExpertVisibility.VisibilityEnum;
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
@@ -22,7 +21,7 @@ export class NavbarUserAvatarComponent {
   public avatarToken?: string;
 
   @Input()
-  public userVisibility: GetExpertVisibility.VisibilityEnum = VisibilityEnum.Visible;
+  public isUserVisible: boolean;
 
   @Input()
   public userType: UserTypeEnum;

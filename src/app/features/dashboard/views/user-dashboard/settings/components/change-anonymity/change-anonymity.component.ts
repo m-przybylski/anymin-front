@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ChangeAnonymityComponentService } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, takeUntil, filter } from 'rxjs/operators';
@@ -17,14 +17,9 @@ import { GetSessionWithAccount } from '@anymind-ng/api';
   providers: [ChangeAnonymityComponentService],
 })
 export class ChangeAnonymityComponent extends Logger implements OnDestroy {
-  public readonly changeAnonymityFormId = 'changeAnonymityForm';
-  public readonly anonymityControlName = 'isAnonymous';
-
-  public changeAnonymityForm: FormGroup;
-
+  public anonymityControl: FormControl;
   private isAnonymous: boolean;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
-  private anonymityControl: FormControl;
 
   constructor(
     private anonymityComponentService: ChangeAnonymityComponentService,
@@ -35,9 +30,6 @@ export class ChangeAnonymityComponent extends Logger implements OnDestroy {
     super(loggerFactory.createLoggerService('ChangeAnonymityComponent'));
     this.getIsAnonymousFromSession();
     this.anonymityControl = new FormControl(this.isAnonymous);
-    this.changeAnonymityForm = new FormGroup({
-      [this.anonymityControlName]: this.anonymityControl,
-    });
     this.anonymityControl.valueChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onAnonymityChange);
   }
 

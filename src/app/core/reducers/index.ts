@@ -8,7 +8,6 @@ export interface ICoreState {
   login: fromLogin.IState;
   session: fromSession.IState;
   userType: fromNavbar.IState;
-  navbarUserMenuVisibility: fromNavbar.IState;
 }
 
 export interface IState extends fromRoot.IState {
@@ -20,7 +19,6 @@ export const reducers: ActionReducerMap<ICoreState, any> = {
   login: fromLogin.reducer,
   session: fromSession.reducer,
   userType: fromNavbar.reducer,
-  navbarUserMenuVisibility: fromNavbar.reducer,
 };
 
 export const selectCoreState = createFeatureSelector<IState, ICoreState>('core');

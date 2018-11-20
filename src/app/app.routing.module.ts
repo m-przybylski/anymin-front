@@ -26,13 +26,13 @@ const appRoutes: Routes = [
       { path: 'dashboard/expert/activities', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
       {
         path: 'dashboard',
-        canActivate: [ProfileGuard],
+        canActivate: [ProfileGuard, SessionGuard],
         loadChildren: './features/dashboard/dashboard.module#DashboardModule',
       },
       {
         path: 'communicator',
         canActivate: [SessionGuard],
-        loadChildren: './features/communicator/communicator.module#CommunicatorViewModule'
+        loadChildren: './features/communicator/communicator.module#CommunicatorViewModule',
       },
       {
         path: RouterPaths.browse.getName,
@@ -41,8 +41,8 @@ const appRoutes: Routes = [
       },
     ],
   },
-  {path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule'},
-  {path: '**', loadChildren: './features/angularjs/angularjs.module#AngularJsModule'}
+  { path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule' },
+  { path: '**', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
 ];
 
 @NgModule({

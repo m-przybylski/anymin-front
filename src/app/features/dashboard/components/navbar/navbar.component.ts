@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { GetProfileWithDocuments, GetSessionWithAccount } from '@anymind-ng/api';
+import { GetExpertVisibility, GetProfileWithDocuments, GetSessionWithAccount } from '@anymind-ng/api';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
-import { select, Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
 import { filter, switchMap, map, catchError } from 'rxjs/operators';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
@@ -11,6 +11,9 @@ import { Observable, of } from 'rxjs';
 import { NavbarActions } from '@platform/core/actions';
 import { NavbarComponentService } from './navbar.component.service';
 import { INavigationItem } from '@platform/features/dashboard/components/navbar/navigation';
+import { VisibilityUiActions } from '@platform/features/dashboard/actions';
+import * as fromDashboard from '@platform/features/dashboard/reducers';
+import { select, Store } from '@ngrx/store';
 
 interface INavbarData {
   profileData?: GetProfileWithDocuments;
@@ -32,15 +35,18 @@ export class NavbarComponent extends Logger {
   public userType: UserTypeEnum;
   public switchAccountType?: UserTypeEnum;
   public accountId: string;
-
-  public isMenuVisible$: Observable<boolean> = this.store.pipe(select(fromCore.getIsNavbarUserMenuVisible));
+  public isMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarUserMenuVisible));
+  public isUserVisible$ = this.store.pipe(
+    select(fromDashboard.getVisibilityStatus),
+    map(visibility => visibility === GetExpertVisibility.VisibilityEnum.Visible),
+  );
 
   protected loggerService: LoggerService;
 
   private session: GetSessionWithAccount;
 
   constructor(
-    private store: Store<fromCore.IState>,
+    private store: Store<fromRoot.IState>,
     private navbarComponentService: NavbarComponentService,
     loggerFactory: LoggerFactory,
   ) {
@@ -59,6 +65,13 @@ export class NavbarComponent extends Logger {
       )
       .subscribe(this.assignValues);
   }
+  public onSwitchVisibility = (toVisible: boolean): void => {
+    if (toVisible) {
+      this.store.dispatch(new VisibilityUiActions.SetUiVisilbilityVisibleAction());
+    } else {
+      this.store.dispatch(new VisibilityUiActions.SetUiVisilbilityInvisibleAction());
+    }
+  };
 
   public onSwitchAccount = (switchAccountType: UserTypeEnum): void => {
     this.store.dispatch(new NavbarActions.SetUserType(switchAccountType));

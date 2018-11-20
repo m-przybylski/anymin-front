@@ -13,10 +13,6 @@ import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-a
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { NAVIGATIONITEMS, navigationItems } from '@platform/features/dashboard/components/navbar/navigation';
 import { ActivitiesCounterModule } from '@platform/features/dashboard/components/activities-counter/activities-counter.module';
-import { ActivitiesEffects } from '@platform/features/dashboard/effects/activities.effects';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { reducers } from '@platform/features/dashboard/reducers';
 
 @NgModule({
   imports: [
@@ -29,8 +25,6 @@ import { reducers } from '@platform/features/dashboard/reducers';
     ButtonModule,
     TranslateModule.forChild(),
     ActivitiesCounterModule,
-    StoreModule.forFeature('dashboard', reducers),
-    EffectsModule.forFeature([ActivitiesEffects]),
   ],
   declarations: [
     NavbarComponent,

@@ -15,15 +15,16 @@
     li
       a
         span.icon.icon-questionmark
-    // TODO uncomment this after Beta release ends
-    //li
-    //  a
-    //    span.icon.icon-bell
+    //- TODO uncomment this after Beta release ends
+    //-li
+    //-  a
+    //-    span.icon.icon-bell
     li
       plat-navbar-user-avatar(
         [avatarToken]="userAvatarToken",
         [userType]="userType",
-        [isUserMenuVisible]="isMenuVisible"
+        [isUserMenuVisible]="isMenuVisible",
+        [isUserVisible]="isUserVisible",
       )
 
         plat-navbar-user-menu(
@@ -34,5 +35,7 @@
           [accountId]="accountId",
           [switchAccountAvatarToken]="switchAccountAvatarToken",
           [switchAccountType]="switchAccountType",
-          (onSwitchAccount)="emitSwitchAccountUserType($event)"
+          (onSwitchAccount)="emitSwitchAccountUserType($event)",
+          [isVisible]="isUserVisible",
+          (onSwitchVisibility)="onSwitchVisibility($event)"
         )

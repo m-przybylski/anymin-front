@@ -1,12 +1,6 @@
 .change-anonymity
-  form(
-    [id]="changeAnonymityFormId",
-    [formGroup]="changeAnonymityForm",
-    novalidate
+  plat-input-switch(
+    turnOnTrKey="DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.ON",
+    turnOffTrKey="DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.OFF",
+    [formControl]="anonymityControl",
   )
-    plat-input-switch(
-      turnOnTrKey="DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.ON",
-      turnOffTrKey="DASHBOARD.SETTINGS.ANONYMITY.SWITCHER.OFF",
-      [controlName]="anonymityControlName",
-      [form]="changeAnonymityForm"
-    )

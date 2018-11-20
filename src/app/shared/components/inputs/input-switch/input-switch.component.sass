@@ -28,17 +28,12 @@
     width: 36px
     height: 8px
 
-    input
-      display: none
+  .input-switch__switcher--on
+    background-color: $c-success-primary
 
-      &:checked + .input-switch__switcher
-        background-color: $c-success-primary
+    &:before
+      transform: translateX(20px)
 
-        &:before
-          transform: translateX(20px)
-
-      &:checked + .input-switch__switcher--disabled
-        background-color: $c-lines
 
   &__switcher
     position: absolute

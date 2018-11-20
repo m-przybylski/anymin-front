@@ -3,6 +3,7 @@
     .navbar__logo
   .navbar__right-container
     .navbar__navigation-menu
+
       plat-user-navigation(
         [navigationItems]="navigationItems",
         [userAvatarToken]="userAvatarToken",
@@ -12,5 +13,9 @@
         [switchAccountAvatarToken]="switchAccountAvatarToken",
         [switchAccountType]="switchAccountType",
         [isMenuVisible]="isMenuVisible$ | async",
-        (onSwitchAccount)="onSwitchAccount($event)"
+        (onSwitchAccount)="onSwitchAccount($event)",
+        [isUserVisible]="isUserVisible$ | async",
+        (onChangeVisibility)="onSwitchVisibility($event)"
       )
+
+

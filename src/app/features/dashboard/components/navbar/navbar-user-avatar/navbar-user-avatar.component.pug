@@ -5,7 +5,7 @@
   )
   div(*ngIf="userType === userTypeEnum.EXPERT")
     .icon-background
-    span.navbar-user-avatar__icon.icon.icon-available(*ngIf="userVisibility === visibilityStatusEnum.Visible")
-    span.navbar-user-avatar__icon.icon.icon-offline(*ngIf="userVisibility === visibilityStatusEnum.Invisible")
+    span.navbar-user-avatar__icon.icon.icon-available(*ngIf="isUserVisible")
+    span.navbar-user-avatar__icon.icon.icon-offline(*ngIf="!isUserVisible")
 
   ng-content

@@ -40,19 +40,10 @@
       ul
         li.menu-list__row.menu-list__row--visibility
           .title-container
-            span.icon.icon-available
-            span.option-title([translate]="'NAVBAR_USER_MENU.SWITCH_LABEL.AVAILABLE'")
+            span(plat-icon, iconClass='available')
+            span.option-title {{ (isVisible ? 'NAVBAR_USER_MENU.SWITCH_LABEL.AVAILABLE' : 'NAVBAR_USER_MENU.SWITCH_LABEL.UNAVAILABLE') | translate }}
 
-          form(
-            [id]="changeVisibilityFormId",
-            [formGroup]="changeVisibilityForm",
-            novalidate
-          )
-            plat-input-switch(
-              [controlName]="visibilityControlName",
-              [form]="changeVisibilityForm",
-              (click)="onInputSwitchClick($event)"
-            )
+          plat-input-switch([formControl]="visibilityControl")
 
     li.menu-list__section(*ngFor="let menuItemsGroup of groupedMenuItems")
       ul
