@@ -24,6 +24,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '@platform/features/dashboard/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ActivitiesEffects } from '@platform/features/dashboard/effects/activities.effects';
+import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { ActivitiesEffects } from '@platform/features/dashboard/effects/activiti
     DashboardComponentsModule,
     StepperModule,
     StoreModule.forFeature('dashboard', reducers),
-    EffectsModule.forFeature([ActivitiesEffects]),
+    EffectsModule.forFeature([ActivitiesEffects, VisibilityEffects]),
   ],
   providers: [EmployeesInviteService, DashboardResolver],
 })

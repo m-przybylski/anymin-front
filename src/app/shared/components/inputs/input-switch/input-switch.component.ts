@@ -1,39 +1,63 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+export const INPUT_SWITCH_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
+  useExisting: forwardRef(() => InputSwitchComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'plat-input-switch',
   templateUrl: './input-switch.component.html',
   styleUrls: ['./input-switch.component.sass'],
+  providers: [INPUT_SWITCH_ACCESSOR],
 })
-export class InputSwitchComponent {
-
+export class InputSwitchComponent implements ControlValueAccessor {
+  public isChecked: boolean;
+  public isDisabled = false;
   @Input('label')
   public labelTrKey?: string;
-
   @Input()
   public turnOffTrKey = '';
-
   @Input()
   public turnOnTrKey = '';
 
-  @Input()
-  public controlName: string;
+  // tslint:disable-next-line:no-any
+  private onModelChange: (obj?: any) => any;
+  // tslint:disable-next-line:no-any
+  private onTouch: (obj?: any) => any;
+  // tslint:disable-next-line:no-any
+  public writeValue(obj: any): void {
+    this.isChecked = obj;
+  }
+  // tslint:disable-next-line:no-any
+  public registerOnChange(fn: any): void {
+    this.onModelChange = fn;
+  }
+  // tslint:disable-next-line:no-any
+  public registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+  public setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
 
-  @Input()
-  public isDisabled = false;
-
-  @Input('form')
-  public formGroup: FormGroup;
-
-  public onSwitcherClick = (event: Event): void => {
-    event.preventDefault();
+  public onSwitcherClick = (clickEvent: Event): void => {
+    /**
+     * this is triggered from click event
+     * need to cancel propagation
+     * not sure this is the right place to do it
+     */
+    clickEvent.stopPropagation();
     if (!this.isDisabled) {
-      const currentValue = this.formGroup.value[this.controlName];
-      this.formGroup.controls[this.controlName].setValue(!currentValue);
+      this.isChecked = !this.isChecked;
+      this.onModelChange(this.isChecked);
     }
   };
 
-  public getOnOffTrKey = (isChecked: boolean): string => isChecked ? this.turnOnTrKey : this.turnOffTrKey;
-
+  public get onOffTrKey(): string {
+    return this.isChecked ? this.turnOnTrKey : this.turnOffTrKey;
+  }
 }

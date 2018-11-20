@@ -42,6 +42,9 @@ export class UserNavigationComponent implements AfterViewChecked {
   public accountId: string;
 
   @Input()
+  public isUserVisible: boolean;
+
+  @Input()
   public set navigationItems(navigationItems: ReadonlyArray<INavigationItem> | undefined) {
     if (typeof navigationItems !== 'undefined') {
       this.navbarItems = navigationItems.filter(navItem => navItem.group === NavigationItemGroupsEnum.NAVBAR);
@@ -52,13 +55,15 @@ export class UserNavigationComponent implements AfterViewChecked {
   @Output()
   public onSwitchAccount = new EventEmitter<UserTypeEnum>();
 
+  @Output()
+  public onChangeVisibility = new EventEmitter<boolean>();
+
   public get currentElement(): Observable<ElementRef> {
     return this.currentElement$.asObservable();
   }
 
   public menuItems: ReadonlyArray<INavigationItem>;
   public navbarItems: ReadonlyArray<INavigationItem>;
-
   private readonly activeElementClassName = 'active';
   private currentElement$ = new Subject<ElementRef>();
   private logger: LoggerService;
@@ -69,6 +74,10 @@ export class UserNavigationComponent implements AfterViewChecked {
   constructor(loggerFactory: LoggerFactory) {
     this.logger = loggerFactory.createLoggerService('UserNavigationComponent');
   }
+
+  public onSwitchVisibility = (isVisibile: boolean): void => {
+    this.onChangeVisibility.emit(isVisibile);
+  };
 
   public ngAfterViewChecked(): void {
     const activeElement = this.listOfNavbarElements.filter(element =>

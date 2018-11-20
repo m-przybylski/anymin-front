@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
@@ -11,6 +11,7 @@ import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/da
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -18,7 +19,7 @@ import { CreateOrganizationModalComponent } from '@platform/shared/components/mo
   styleUrls: ['./navbar-user-menu.component.sass'],
   animations: Animations.slideInOut,
 })
-export class NavbarUserMenuComponent {
+export class NavbarUserMenuComponent implements OnInit {
   @Input()
   public set menuItems(menuItems: ReadonlyArray<INavigationItem> | undefined) {
     this.groupMenuItems(menuItems);
@@ -35,6 +36,15 @@ export class NavbarUserMenuComponent {
 
   @Input()
   public userType: UserTypeEnum;
+
+  @Input()
+  public set isVisible(value: boolean) {
+    this._isVisible = value;
+    this.visibilityControl.setValue(value, { emitEvent: false });
+  }
+  public get isVisible(): boolean {
+    return this._isVisible;
+  }
 
   @Input()
   public set accountId(value: string) {
@@ -59,11 +69,11 @@ export class NavbarUserMenuComponent {
   @Output()
   public onSwitchAccount = new EventEmitter<UserTypeEnum>();
 
-  public readonly avatarSize32 = AvatarSizeEnum.X_32;
-  public readonly visibilityControlName = 'isVisible';
-  public readonly changeVisibilityFormId = 'changeVisibilityFormId';
+  @Output()
+  public onSwitchVisibility = new EventEmitter<boolean>();
 
-  public changeVisibilityForm: FormGroup;
+  public readonly avatarSize32 = AvatarSizeEnum.X_32;
+
   public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
   public navigationItemGroups: typeof NavigationItemGroupsEnum = NavigationItemGroupsEnum;
   public switchAccountTrKey = '';
@@ -71,21 +81,23 @@ export class NavbarUserMenuComponent {
   public groupedMenuItems: ReadonlyArray<ReadonlyArray<INavigationItem>>;
   public userProfileUrl: string;
   public companyProfileUrl: string;
+  public visibilityControl = new FormControl();
 
   private logger: LoggerService;
   private _switchAccountType?: UserTypeEnum;
+  private _isVisible: boolean;
 
-  constructor(
-    private modalService: NgbModal,
-    private loggerFactory: LoggerFactory,
-    private store: Store<fromCore.IState>,
-  ) {
-    this.changeVisibilityForm = new FormGroup({
-      [this.visibilityControlName]: new FormControl(false),
-    });
-    this.logger = this.loggerFactory.createLoggerService('NavbarUserMenuComponent');
+  constructor(private modalService: NgbModal, private store: Store<fromCore.IState>, loggerFactory: LoggerFactory) {
+    this.logger = loggerFactory.createLoggerService('NavbarUserMenuComponent');
   }
 
+  public ngOnInit(): void {
+    this.visibilityControl.valueChanges.pipe(distinctUntilChanged()).subscribe(
+      (visible: boolean): void => {
+        this.onSwitchVisibility.emit(visible);
+      },
+    );
+  }
   public onClick = (fnName: string): void => {
     // tslint:disable-next-line:no-any
     if (typeof (this as any)[fnName] === 'function') {
@@ -104,10 +116,6 @@ export class NavbarUserMenuComponent {
 
   public switchAccount = (switchAccountUserType: UserTypeEnum): void => {
     this.onSwitchAccount.emit(switchAccountUserType);
-  };
-
-  public onInputSwitchClick = (e: Event): void => {
-    e.stopPropagation();
   };
 
   public logout = (): void => {
