@@ -6,6 +6,7 @@ import { SettingsComponentsModule } from '@platform/features/dashboard/views/use
 import { RouterModule } from '@angular/router';
 import { SettingsViewComponent } from './settings.view.component';
 import { SharedModule } from '@platform/shared/shared.module';
+import { ButtonModule, IconModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
   imports: [
@@ -20,6 +21,8 @@ import { SharedModule } from '@platform/shared/shared.module';
     TranslateModule,
     AnymindComponentsModule,
     SettingsComponentsModule,
+    ButtonModule,
+    IconModule,
   ],
   exports: [],
   providers: [],
