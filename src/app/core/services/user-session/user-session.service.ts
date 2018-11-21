@@ -1,7 +1,6 @@
 // tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { LoginCredentials, SessionService } from '@anymind-ng/api';
-import { ApiKeyService } from '../api-key/api-key.service';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { Store } from '@ngrx/store';
 import * as fromCore from '../../reducers';
@@ -18,7 +17,6 @@ export class UserSessionService extends Logger {
   private sessionCache?: GetSessionWithAccount;
 
   constructor(
-    private authService: ApiKeyService,
     private sessionService: SessionService,
     private state: Store<fromCore.IState>,
     private callInvitationService: CallInvitationService,
@@ -78,14 +76,12 @@ export class UserSessionService extends Logger {
 
   private onSuccessLogin = (sessionWithAccount: GetSessionWithAccount): GetSessionWithAccount => {
     this.sessionCache = sessionWithAccount;
-    this.authService.setApiKey(sessionWithAccount.session.apiKey);
     return sessionWithAccount;
   };
 
   private onSuccessLogout = (): void => {
     this.state.dispatch(new AuthActions.LogoutSuccessAction());
     this.sessionCache = undefined;
-    this.authService.unsetApiKey();
   };
 
   // tslint:disable-next-line:no-any

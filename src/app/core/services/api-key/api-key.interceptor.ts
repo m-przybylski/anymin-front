@@ -1,15 +1,11 @@
-// tslint:disable:strict-boolean-expressions
 // tslint:disable:no-any
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
 import { Config } from '../../../../config';
-import { ApiKeyService } from './api-key.service';
+import { Store, select } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
 interface IHeaders {
   [key: string]: string;
@@ -17,27 +13,42 @@ interface IHeaders {
 
 @Injectable()
 export class ApiKeyInterceptor implements HttpInterceptor {
-
-  constructor(private apiKeyService: ApiKeyService) {}
+  constructor(private store: Store<fromCore.IState>) {}
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(this.getRequestWithAuthHeaders(request));
+    return this.getApiKey().pipe(
+      this.mapApiKeyToHeaders(),
+      this.handleNext(request, next),
+    );
   }
 
-  private getAuthHeaders = (): IHeaders => {
+  private buildHeaders(apiKey: string | undefined): IHeaders {
     const headers: IHeaders = {};
-    const apiKey = this.apiKeyService.getApiKey();
-
-    if (apiKey) {
+    if (apiKey !== undefined) {
       headers[Config.http.apiHeader] = apiKey;
     }
 
     return headers;
   }
 
-  private getRequestWithAuthHeaders = <T>(request: HttpRequest<T>): HttpRequest<T> =>
-    request.clone({
-      setHeaders: this.getAuthHeaders()
-    })
+  private mapApiKeyToHeaders(): (source: Observable<string | undefined>) => Observable<IHeaders> {
+    return (source: Observable<string | undefined>): Observable<IHeaders> =>
+      source.pipe(map(this.buildHeaders.bind(this)));
+  }
 
+  private handleNext(
+    request: HttpRequest<any>,
+    next: HttpHandler,
+  ): (source: Observable<IHeaders>) => Observable<HttpEvent<any>> {
+    return (source: Observable<IHeaders>): Observable<HttpEvent<any>> =>
+      source.pipe(mergeMap(setHeaders => next.handle(request.clone({ setHeaders }))));
+  }
+
+  private getApiKey(): Observable<string | undefined> {
+    return this.store.pipe(
+      select(fromCore.getSession),
+      map(getSessionWithAccount => getSessionWithAccount && getSessionWithAccount.session.apiKey),
+      take(1),
+    );
+  }
 }
