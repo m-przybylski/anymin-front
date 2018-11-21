@@ -19,12 +19,12 @@ import { PaymentsModule } from '@platform/features/dashboard/views/user-dashboar
 import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-dashboard/recommend-friends/recommend-friends.module';
 import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 import { NavbarModule } from '@platform/features/dashboard/components/navbar/navbar.module';
-import { StepperModule } from '@platform/shared/components/stepper/stepper.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '@platform/features/dashboard/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ActivitiesEffects } from '@platform/features/dashboard/effects/activities.effects';
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
+import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import { VisibilityEffects } from '@platform/features/dashboard/effects/visibili
     PaymentsModule,
     RecommendFriendsModule,
     DashboardComponentsModule,
-    StepperModule,
+    GenerateWidgetModule,
     StoreModule.forFeature('dashboard', reducers),
     EffectsModule.forFeature([ActivitiesEffects, VisibilityEffects]),
   ],

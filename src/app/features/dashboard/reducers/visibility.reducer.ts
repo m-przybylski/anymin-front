@@ -19,40 +19,40 @@ export const initialStatus: IState = {
 export function reducer(
   state = initialStatus,
   action:
-    | VisibilityUiActions.VisilbilityUiActionsUnion
-    | VisibilityInitActions.VisilbilityInitActionsUnion
-    | VisibilityApiActions.VisilbilityApiActionsUnion
+    | VisibilityUiActions.VisibilityUiActionsUnion
+    | VisibilityInitActions.VisibilityInitActionsUnion
+    | VisibilityApiActions.VisibilityApiActionsUnion
     | VisibilityWSActions.VisibilityWSActionsUnion,
 ): IState {
   switch (action.type) {
-    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisilbilityInvisibleError:
-    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisilbilityVisibleSuccess:
+    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityInvisibleError:
+    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityVisibleSuccess:
     case VisibilityWSActions.VisibilityWSActionTypes.SetWSVisibilityVisible:
-    case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisilbilityVisible: {
+    case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisibilityVisible: {
       return {
         ...state,
         visibility: GetExpertVisibility.VisibilityEnum.Visible,
       };
     }
 
-    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisilbilityInvisibleSuccess:
-    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisilbilityVisibleError:
+    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityInvisibleSuccess:
+    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityVisibleError:
     case VisibilityWSActions.VisibilityWSActionTypes.SetWSVisibilityInvisible:
-    case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisilbilityInvisible: {
+    case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisibilityInvisible: {
       return {
         ...state,
         visibility: GetExpertVisibility.VisibilityEnum.Invisible,
       };
     }
 
-    case VisibilityApiActions.VisibilityApiActionTypes.FetchInitVisilbilitySuccess: {
+    case VisibilityApiActions.VisibilityApiActionTypes.FetchInitVisibilitySuccess: {
       return {
         ...state,
         visibility: action.payload.visibility,
       };
     }
 
-    case VisibilityInitActions.VisibilityInitActionTypes.FetchInitVisilbility:
+    case VisibilityInitActions.VisibilityInitActionTypes.FetchInitVisibility:
     default:
       return state;
   }

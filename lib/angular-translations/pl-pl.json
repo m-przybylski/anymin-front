@@ -790,7 +790,6 @@
   "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE": "Zarządzaj profilem",
   "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE": "Wypłać",
   "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.WIDGET.TITLE": "Kod wtyczki",
-  "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.VISIBILITY.ERROR": "Wystąpił błąd, nie można pobrać dostępności",
   "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.VISIBILITY.SWITCH_BUTTON.ERROR": "Nie można przełączyć dostępności, spróbuj ponownie później",
   "DASHBOARD.EXPERT_ACCOUNT.NIP": "NIP",
   "DASHBOARD.EXPERT_ACCOUNT.NO_ACTIVITIES.DSC": "<a href='{{hrefUrl}}'>Dodaj informacje o rozliczeniach i metodzie wypłaty,</a> aby mieć możliwość wypłacenia zarobionych pieniędzy.",

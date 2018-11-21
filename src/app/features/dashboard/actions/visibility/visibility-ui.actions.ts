@@ -2,16 +2,16 @@
 import { Action } from '@ngrx/store';
 
 export enum VisibilityUiActionTypes {
-  SetUiVisilbilityVisible = '[UI Navbar] set visibility visible',
-  SetUiVisilbilityInvisible = '[UI Navbar] set visibility invisible',
+  SetUiVisibilityVisible = '[UI Navbar] set visibility visible',
+  SetUiVisibilityInvisible = '[UI Navbar] set visibility invisible',
 }
 
-export class SetUiVisilbilityVisibleAction implements Action {
-  public readonly type = VisibilityUiActionTypes.SetUiVisilbilityVisible;
+export class SetUiVisibilityVisibleAction implements Action {
+  public readonly type = VisibilityUiActionTypes.SetUiVisibilityVisible;
 }
 
-export class SetUiVisilbilityInvisibleAction implements Action {
-  public readonly type = VisibilityUiActionTypes.SetUiVisilbilityInvisible;
+export class SetUiVisibilityInvisibleAction implements Action {
+  public readonly type = VisibilityUiActionTypes.SetUiVisibilityInvisible;
 }
 
-export type VisilbilityUiActionsUnion = SetUiVisilbilityVisibleAction | SetUiVisilbilityInvisibleAction;
+export type VisibilityUiActionsUnion = SetUiVisibilityVisibleAction | SetUiVisibilityInvisibleAction;
