@@ -1,19 +1,22 @@
-import { AfterViewInit, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+// tslint:disable:max-file-line-count
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
 import { FormGroup } from '@angular/forms';
 import { AvatarSizeEnum } from '../../../user-avatar/user-avatar.component';
 import { Alerts, AlertService, Animations, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EMPTY, Observable, Subject } from 'rxjs';
+import { EMPTY, Observable, Subject, forkJoin } from 'rxjs';
 import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
 import { PostInvitation } from '@anymind-ng/api';
 import { BackendErrors, isBackendError, SingleBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from './employee-invite';
+
+export const EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES = 'EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES';
 
 export interface IEmployeeInvitePayload {
   serviceId: string;
@@ -35,8 +38,9 @@ export interface IEmployeesInviteComponent {
   templateUrl: './employees-invite.component.html',
   styleUrls: ['./employees-invite.component.sass'],
   animations: Animations.addItemAnimation,
+  providers: [ModalAnimationComponentService],
 })
-export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
+export class EmployeesInviteModalComponent implements OnInit {
   @Output()
   public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
 
@@ -52,6 +56,7 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
   public serviceName = '';
   public usedContactList: ReadonlyArray<string> = [];
 
+  private readonly initialModalHeight = '100px';
   private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
@@ -72,27 +77,34 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
     this.emailPattern = commonSettingsService.localSettings.emailPattern;
   }
 
-  public ngAfterViewInit(): void {
-    this.modalAnimationComponentService.onModalContentChange().next(false);
-  }
-
   public ngOnInit(): void {
     this.accountId = this.employeesInviteService.getUserAccountId();
-    this.employeesInviteService.mapEmployeeList(this.payload.serviceId).subscribe(res => {
-      /**
-       * if consultation is freelance we don`t want to show user on the employee list
-       * because he can not invite himself to freelance service
-       */
-      this.dropdownItems = this.payload.isFreelanceService
-        ? res.employeeList.filter(employee => employee.id !== this.accountId)
-        : res.employeeList;
-      this.usedContactList = res.pendingInvitations.invitations;
-    });
 
-    this.employeesInviteService
-      .getConsultationDetails(this.payload.serviceId)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(serviceDetails => (this.serviceName = serviceDetails.name));
+    forkJoin(
+      this.employeesInviteService.mapEmployeeList(this.payload.serviceId),
+      this.employeesInviteService.getConsultationDetails(this.payload.serviceId),
+    )
+      .pipe(
+        catchError(err => {
+          this.activeModal.close();
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+          this.logger.warn('error when try to get initial data', err);
+
+          return EMPTY;
+        }),
+        finalize(() => this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight)),
+      )
+      .subscribe(([employees, serviceDetails]) => {
+        /**
+         * if consultation is freelance we don`t want to show user on the employee list
+         * because he can not invite himself to freelance service
+         */
+        this.dropdownItems = this.payload.isFreelanceService
+          ? employees.employeeList.filter(employee => employee.id !== this.accountId)
+          : employees.employeeList;
+        this.usedContactList = employees.pendingInvitations.invitations;
+        this.serviceName = serviceDetails.name;
+      });
   }
 
   public onClickSend = (formGroup: FormGroup): void => {
@@ -103,9 +115,9 @@ export class EmployeesInviteModalComponent implements OnInit, AfterViewInit {
           takeUntil(this.ngUnsubscribe$),
           catchError(err => this.handleGetEmployeeListError(err, 'Can no send invitations')),
         )
-        .subscribe(response => {
+        .subscribe(() => {
           this.alertService.pushSuccessAlert('INVITE_EMPLOYEES.ALERT.SUCCESS');
-          this.activeModal.close(response);
+          this.activeModal.close(EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES);
         });
     }
   };
