@@ -67,9 +67,9 @@ export class NavbarComponent extends Logger {
   }
   public onSwitchVisibility = (toVisible: boolean): void => {
     if (toVisible) {
-      this.store.dispatch(new VisibilityUiActions.SetUiVisilbilityVisibleAction());
+      this.store.dispatch(new VisibilityUiActions.SetUiVisibilityVisibleAction());
     } else {
-      this.store.dispatch(new VisibilityUiActions.SetUiVisilbilityInvisibleAction());
+      this.store.dispatch(new VisibilityUiActions.SetUiVisibilityInvisibleAction());
     }
   };
 

@@ -10,7 +10,6 @@ import { PaymentCardModule } from '@platform/shared/components/pipes/payment-car
 import { ConsultationFooterModule } from './consultation-footers/consultation-footer.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ConfirmationModalModule } from '../confirmation/confirmation.module';
-import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { ConsultationCommentModule } from '@platform/shared/components/consultation-comment/consultation-comment.module';
@@ -32,18 +31,11 @@ import { ConsultationDetailsViewService } from './consultation-details.view.serv
     ConsultationFooterModule,
     ConfirmationModalModule,
     ExpertAvailabilityModule,
-    GenerateWidgetModule,
     ConsultationCommentModule,
     DropdownModule,
   ],
-  declarations: [
-    ConsultationDetailsViewComponent
-  ],
-  providers: [
-    ConsultationDetailsActionsService,
-    ConsultationFootersService,
-    ConsultationDetailsViewService
-  ],
+  declarations: [ConsultationDetailsViewComponent],
+  providers: [ConsultationDetailsActionsService, ConsultationFootersService, ConsultationDetailsViewService],
   entryComponents: [ConsultationDetailsViewComponent],
 })
 export class ConsultationDetailsModule {}

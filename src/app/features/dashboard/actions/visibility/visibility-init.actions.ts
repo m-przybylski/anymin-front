@@ -2,11 +2,11 @@
 import { Action } from '@ngrx/store';
 
 export enum VisibilityInitActionTypes {
-  FetchInitVisilbility = '[INIT Navbar] init visibility',
+  FetchInitVisibility = '[INIT Navbar] init visibility',
 }
 
-export class FetchInitVisilbilityAction implements Action {
-  public readonly type = VisibilityInitActionTypes.FetchInitVisilbility;
+export class FetchInitVisibilityAction implements Action {
+  public readonly type = VisibilityInitActionTypes.FetchInitVisibility;
 }
 
-export type VisilbilityInitActionsUnion = FetchInitVisilbilityAction;
+export type VisibilityInitActionsUnion = FetchInitVisibilityAction;

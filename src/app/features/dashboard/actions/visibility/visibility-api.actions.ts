@@ -3,44 +3,44 @@ import { Action } from '@ngrx/store';
 import { GetExpertVisibility } from '@anymind-ng/api';
 
 export enum VisibilityApiActionTypes {
-  FetchInitVisilbilitySuccess = '[API Navbar] init visibility SUCCESS',
-  FetchInitVisilbilityError = '[API Navbar] init visibility ERROR',
-  SetUiVisilbilityVisibleSuccess = '[API Navbar] set visibility visible SUCCESS',
-  SetUiVisilbilityVisibleError = '[API Navbar] set visibility visible ERROR',
-  SetUiVisilbilityInvisibleSuccess = '[API Navbar] set visibility invisible SUCCESS',
-  SetUiVisilbilityInvisibleError = '[API Navbar] set visibility invisible ERROR',
+  FetchInitVisibilitySuccess = '[API Navbar] init visibility SUCCESS',
+  FetchInitVisibilityError = '[API Navbar] init visibility ERROR',
+  SetUiVisibilityVisibleSuccess = '[API Navbar] set visibility visible SUCCESS',
+  SetUiVisibilityVisibleError = '[API Navbar] set visibility visible ERROR',
+  SetUiVisibilityInvisibleSuccess = '[API Navbar] set visibility invisible SUCCESS',
+  SetUiVisibilityInvisibleError = '[API Navbar] set visibility invisible ERROR',
 }
 
-export class FetchApiVisilbilitySuccessAction implements Action {
-  public readonly type = VisibilityApiActionTypes.FetchInitVisilbilitySuccess;
+export class FetchApiVisibilitySuccessAction implements Action {
+  public readonly type = VisibilityApiActionTypes.FetchInitVisibilitySuccess;
 
   constructor(public payload: GetExpertVisibility) {}
 }
 
-export class FetchApiVisilbilityErrorAction implements Action {
-  public readonly type = VisibilityApiActionTypes.FetchInitVisilbilityError;
+export class FetchApiVisibilityErrorAction implements Action {
+  public readonly type = VisibilityApiActionTypes.FetchInitVisibilityError;
 }
 
-export class SetUiVisilbilityVisibleSuccessAction implements Action {
-  public readonly type = VisibilityApiActionTypes.SetUiVisilbilityVisibleSuccess;
+export class SetUiVisibilityVisibleSuccessAction implements Action {
+  public readonly type = VisibilityApiActionTypes.SetUiVisibilityVisibleSuccess;
 }
 
-export class SetUiVisilbilityVisibleErrorAction implements Action {
-  public readonly type = VisibilityApiActionTypes.SetUiVisilbilityVisibleError;
+export class SetUiVisibilityVisibleErrorAction implements Action {
+  public readonly type = VisibilityApiActionTypes.SetUiVisibilityVisibleError;
 }
 
-export class SetUiVisilbilityInvisibleSuccessAction implements Action {
-  public readonly type = VisibilityApiActionTypes.SetUiVisilbilityInvisibleSuccess;
+export class SetUiVisibilityInvisibleSuccessAction implements Action {
+  public readonly type = VisibilityApiActionTypes.SetUiVisibilityInvisibleSuccess;
 }
 
-export class SetUiVisilbilityInvisibleErrorAction implements Action {
-  public readonly type = VisibilityApiActionTypes.SetUiVisilbilityInvisibleError;
+export class SetUiVisibilityInvisibleErrorAction implements Action {
+  public readonly type = VisibilityApiActionTypes.SetUiVisibilityInvisibleError;
 }
 
-export type VisilbilityApiActionsUnion =
-  | FetchApiVisilbilitySuccessAction
-  | FetchApiVisilbilityErrorAction
-  | SetUiVisilbilityVisibleSuccessAction
-  | SetUiVisilbilityVisibleErrorAction
-  | SetUiVisilbilityInvisibleSuccessAction
-  | SetUiVisilbilityInvisibleErrorAction;
+export type VisibilityApiActionsUnion =
+  | FetchApiVisibilitySuccessAction
+  | FetchApiVisibilityErrorAction
+  | SetUiVisibilityVisibleSuccessAction
+  | SetUiVisibilityVisibleErrorAction
+  | SetUiVisibilityInvisibleSuccessAction
+  | SetUiVisibilityInvisibleErrorAction;

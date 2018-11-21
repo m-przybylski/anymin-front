@@ -49,8 +49,8 @@ describe('VisibilityEffects', () => {
   it('should return a FetchInitVisilbilitySuccessAction, when visibility if fetch succeeds', () => {
     const visibility = { visibility: GetExpertVisibility.VisibilityEnum.Visible };
 
-    const action = new VisibilityInitActions.FetchInitVisilbilityAction();
-    const result = new VisibilityApiActions.FetchApiVisilbilitySuccessAction(visibility);
+    const action = new VisibilityInitActions.FetchInitVisibilityAction();
+    const result = new VisibilityApiActions.FetchApiVisibilitySuccessAction(visibility);
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-a|', { a: visibility });
@@ -61,8 +61,8 @@ describe('VisibilityEffects', () => {
   });
 
   it('should return a SetUiVisilbilityVisibleSuccessAction, with visibility if fetch succeeds', () => {
-    const action = new VisibilityUiActions.SetUiVisilbilityVisibleAction();
-    const result = new VisibilityApiActions.SetUiVisilbilityVisibleSuccessAction();
+    const action = new VisibilityUiActions.SetUiVisibilityVisibleAction();
+    const result = new VisibilityApiActions.SetUiVisibilityVisibleSuccessAction();
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-a|');
@@ -73,8 +73,8 @@ describe('VisibilityEffects', () => {
   });
 
   it('should return a SetUiVisilbilityVisibleErrorAction, with visibility if fetch fails', () => {
-    const action = new VisibilityUiActions.SetUiVisilbilityVisibleAction();
-    const result = new VisibilityApiActions.SetUiVisilbilityVisibleErrorAction();
+    const action = new VisibilityUiActions.SetUiVisibilityVisibleAction();
+    const result = new VisibilityApiActions.SetUiVisibilityVisibleErrorAction();
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-#', {});
@@ -85,8 +85,8 @@ describe('VisibilityEffects', () => {
   });
 
   it('should return a SetUiVisilbilityInvisibleSuccessAction, with visibility if fetch succeeds', () => {
-    const action = new VisibilityUiActions.SetUiVisilbilityInvisibleAction();
-    const result = new VisibilityApiActions.SetUiVisilbilityInvisibleSuccessAction();
+    const action = new VisibilityUiActions.SetUiVisibilityInvisibleAction();
+    const result = new VisibilityApiActions.SetUiVisibilityInvisibleSuccessAction();
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-a|');
@@ -97,8 +97,8 @@ describe('VisibilityEffects', () => {
   });
 
   it('should return a SetUiVisilbilityInvisibleErrorAction, with visibility if fetch fails', () => {
-    const action = new VisibilityUiActions.SetUiVisilbilityInvisibleAction();
-    const result = new VisibilityApiActions.SetUiVisilbilityInvisibleErrorAction();
+    const action = new VisibilityUiActions.SetUiVisibilityInvisibleAction();
+    const result = new VisibilityApiActions.SetUiVisibilityInvisibleErrorAction();
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-#', {});
