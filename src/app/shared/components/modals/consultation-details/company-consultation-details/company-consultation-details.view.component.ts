@@ -13,6 +13,7 @@ import { Animations, LoggerFactory } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-employee-row/company-employee-row.component';
 import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import {
+  EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES,
   EmployeesInviteModalComponent,
   IEmployeeInvitePayload,
 } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.component';
@@ -152,9 +153,11 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     };
     const modal = this.modalService.open(EmployeesInviteModalComponent, modalOptions);
     modal.result
-      .then(() => {
-        this.isPendingInvitationLoaded = true;
-        this.getPendingEmployees();
+      .then(result => {
+        if (result === EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES) {
+          this.isPendingInvitationLoaded = true;
+          this.getPendingEmployees();
+        }
       })
       .catch(err => this.loggerService.warn(err));
   };
