@@ -9,7 +9,6 @@ import { EMPTY, of, BehaviorSubject } from 'rxjs';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/user-dashboard/activities/views/expert-activities/expert-activities.view.component';
 import { StepperComponent } from '@platform/shared/components/stepper/stepper.component';
 import { roomEvents } from 'machoke-sdk';
 import { ISueDetails } from '@platform/shared/components/modals/activity-details/sue-details/sue-details.component';
@@ -18,6 +17,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { IRefundOperationDetails } from '@platform/shared/components/modals/activity-details/refund-details/refund-details.component';
+import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/activities/activities.component';
 
 export const MODAL_CLOSED_WITH_ERROR = 'MODAL_CLOSED_WITH_ERROR';
 

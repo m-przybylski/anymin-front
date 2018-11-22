@@ -1,12 +1,11 @@
+// tslint:disable:max-line-length
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterPaths } from '../../shared/routes/routes';
 import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
-import { CompanyActivitiesComponent } from './views/company-dashboard/company-activities/company-activities.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
-import { CompanyDashboardViewGuard } from './views/company-dashboard/company-dashboard.view.guard';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
@@ -55,7 +54,11 @@ const routes: Routes = [
         path: RouterPaths.dashboard.company.getName,
         component: CompanyDashboardComponent,
         children: [
-          { path: 'activities', component: CompanyActivitiesComponent, canActivate: [CompanyDashboardViewGuard] },
+          {
+            path: 'activities',
+            loadChildren:
+              './views/company-dashboard/activities/company-dashboard-activities.module#CompanyDashboardActivitiesModule',
+          },
           {
             path: RouterPaths.dashboard.company.profile.getName,
             loadChildren: './views/company-dashboard/company-profile/company-profile.module#CompanyProfileModule',
@@ -69,6 +72,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyDashboardViewGuard],
+  providers: [],
 })
 export class DashboardRoutingModule {}

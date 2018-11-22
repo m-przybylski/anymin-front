@@ -14,6 +14,7 @@ import { UserAvatarModule } from '../../../shared/components/user-avatar/user-av
 import { DecorateDatePipe } from './pipes/decorate-date.pipe';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { FilePreviewModule } from '@platform/shared/components/modals/file-preview/file-preview.module';
+import { ActivityRowComponent } from '@platform/features/dashboard/components/activity-row/activity-row.component';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { FilePreviewModule } from '@platform/shared/components/modals/file-previ
     DashboardProfileHeaderComponent,
     EmptyNumberPipe,
     DecorateDatePipe,
+    ActivityRowComponent,
   ],
   providers: [DatePipe],
   exports: [
@@ -47,6 +49,7 @@ import { FilePreviewModule } from '@platform/shared/components/modals/file-previ
     DecorateDatePipe,
     IconModule,
     ButtonModule,
+    ActivityRowComponent,
   ],
 })
 export class DashboardComponentsModule {}

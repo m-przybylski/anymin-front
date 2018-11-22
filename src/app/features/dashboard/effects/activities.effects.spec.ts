@@ -3,20 +3,20 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
-import { ActivitiesEffects } from '@platform/features/dashboard/effects/activities.effects';
+import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
 import { ActivitiesService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
-import { ActivitiesActions } from '@platform/features/dashboard/actions';
+import { DashboardActions } from '@platform/features/dashboard/actions';
 
-describe('ActivitiesEffects', () => {
-  let activitiesEffects: ActivitiesEffects;
+describe('DashboardEffects', () => {
+  let dashboardEffects: DashboardEffects;
   let activitiesService: ActivitiesService;
   let actions$: Observable<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ActivitiesEffects,
+        DashboardEffects,
         {
           provide: ActivitiesService,
           useValue: Deceiver(ActivitiesService, {
@@ -29,7 +29,7 @@ describe('ActivitiesEffects', () => {
       ],
     });
 
-    activitiesEffects = TestBed.get(ActivitiesEffects);
+    dashboardEffects = TestBed.get(DashboardEffects);
     activitiesService = TestBed.get(ActivitiesService);
     actions$ = TestBed.get(Actions);
   });
@@ -37,28 +37,28 @@ describe('ActivitiesEffects', () => {
   describe('fetchImportantActivitiesCounter$', () => {
     it('should return a FetchImportantActivitiesCounterSuccessAction, with counters if fetch succeeds', () => {
       const counters = {} as any;
-      const action = new ActivitiesActions.FetchImportantActivitiesCounterAction();
-      const completion = new ActivitiesActions.FetchImportantActivitiesCounterSuccessAction(counters);
+      const action = new DashboardActions.FetchImportantActivitiesCounterAction();
+      const completion = new DashboardActions.FetchImportantActivitiesCounterSuccessAction(counters);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: counters });
       const expected = cold('--b', { b: completion });
       activitiesService.getImportantActivitiesCountersRoute = jasmine.createSpy('').and.returnValue(response);
 
-      expect(activitiesEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
+      expect(dashboardEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
     });
 
     it('should return a FetchImportantActivitiesCounterErrorAction, with error if fetch fails', () => {
       const error = 'Something is wrong';
-      const action = new ActivitiesActions.FetchImportantActivitiesCounterAction();
-      const completion = new ActivitiesActions.FetchImportantActivitiesCounterErrorAction(error);
+      const action = new DashboardActions.FetchImportantActivitiesCounterAction();
+      const completion = new DashboardActions.FetchImportantActivitiesCounterErrorAction(error);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-#', {}, error);
       const expected = cold('--b', { b: completion });
       activitiesService.getImportantActivitiesCountersRoute = jasmine.createSpy('').and.returnValue(response);
 
-      expect(activitiesEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
+      expect(dashboardEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
     });
   });
 });

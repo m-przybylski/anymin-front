@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileModalModule } from '../../shared/components/modals/profile/profile.module';
 import { NotFoundComponent } from './views/not-found/not-found.component';
-import { CompanyDashboardModule } from './views/company-dashboard/company-dashboard.module';
 import { DashboardComponentsModule } from './components/components.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 import { SettingsModule } from '@platform/features/dashboard/views/user-dashboard/settings/settings.module';
@@ -22,7 +21,8 @@ import { NavbarModule } from '@platform/features/dashboard/components/navbar/nav
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '@platform/features/dashboard/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { ActivitiesEffects } from '@platform/features/dashboard/effects/activities.effects';
+import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
+import { CompanyDashboardComponent } from '@platform/features/dashboard/views/company-dashboard/company-dashboard.view.component';
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 
@@ -30,6 +30,7 @@ import { GenerateWidgetModule } from '@platform/shared/components/modals/generat
   declarations: [
     DashboardViewComponent,
     UserDashboardComponent,
+    CompanyDashboardComponent,
     DiscoverComponent,
     FavouritesComponent,
     NotFoundComponent,
@@ -43,14 +44,13 @@ import { GenerateWidgetModule } from '@platform/shared/components/modals/generat
     DashboardRoutingModule,
     ProfileModalModule,
     InputsModule,
-    CompanyDashboardModule,
     SettingsModule,
     PaymentsModule,
     RecommendFriendsModule,
     DashboardComponentsModule,
     GenerateWidgetModule,
     StoreModule.forFeature('dashboard', reducers),
-    EffectsModule.forFeature([ActivitiesEffects, VisibilityEffects]),
+    EffectsModule.forFeature([DashboardEffects, VisibilityEffects]),
   ],
   providers: [EmployeesInviteService, DashboardResolver],
 })

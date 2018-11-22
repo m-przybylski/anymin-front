@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { ActivitiesActions } from '@platform/features/dashboard/actions';
+import { DashboardActions } from '@platform/features/dashboard/actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { ActivitiesService } from '@anymind-ng/api';
 import { defer, of } from 'rxjs';
 
 @Injectable()
-export class ActivitiesEffects {
+export class DashboardEffects {
   @Effect()
   public fetchImportantActivitiesCounter$ = this.actions$.pipe(
-    ofType(ActivitiesActions.ActivitiesActionTypes.FetchImportantActivitiesCounterFromServer),
+    ofType(DashboardActions.DashboardActionTypes.FetchImportantActivitiesCounterFromServer),
     switchMap(() =>
       this.activitiesService.getImportantActivitiesCountersRoute().pipe(
-        map(counters => new ActivitiesActions.FetchImportantActivitiesCounterSuccessAction(counters)),
-        catchError(error => of(new ActivitiesActions.FetchImportantActivitiesCounterErrorAction(error))),
+        map(counters => new DashboardActions.FetchImportantActivitiesCounterSuccessAction(counters)),
+        catchError(error => of(new DashboardActions.FetchImportantActivitiesCounterErrorAction(error))),
       ),
     ),
   );
 
   @Effect()
   public init$ = defer(() => of(undefined)).pipe(
-    map(() => new ActivitiesActions.FetchImportantActivitiesCounterAction()),
+    map(() => new DashboardActions.FetchImportantActivitiesCounterAction()),
   );
 
   constructor(private actions$: Actions, private activitiesService: ActivitiesService) {}

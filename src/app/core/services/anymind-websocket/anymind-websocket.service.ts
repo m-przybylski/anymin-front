@@ -29,7 +29,8 @@ type WS_BACKEND_MESSAGES =
   | 'HEARTBEAT'
   | 'HEARTBEAT_CONFIG'
   | 'IMPORTANT_CLIENT_ACTIVITY'
-  | 'IMPORTANT_PROFILE_ACTIVITY'
+  | 'IMPORTANT_EXPERT_ACTIVITY'
+  | 'IMPORTANT_ORGANIZATION_ACTIVITY'
   | 'INVITATION_DISPLAYED'
   | 'NEW_CLIENT_COMPLAINT'
   | 'NEW_FINANCIAL_OPERATION'
@@ -72,7 +73,8 @@ export class AnymindWebsocketService extends Logger {
   private readonly heartbeatConfigEvent$ = new ReplaySubject<IHeartbeatConfig>();
   private readonly creditCardAddedEvent$ = new Subject<any>();
   private readonly sessionDestroyed$ = new Subject<void>();
-  private readonly importantProfileActivityEvent$ = new Subject<string>();
+  private readonly importantExpertActivityEvent$ = new Subject<string>();
+  private readonly importantCompanyActivityEvent$ = new Subject<string>();
   private readonly importantClientActivityEvent$ = new Subject<void>();
   private readonly configuration: { [key in WS_BACKEND_MESSAGES]?: IWebSocketMessageConfiguration } = {
     CALL_SUMMARY: {
@@ -119,8 +121,12 @@ export class AnymindWebsocketService extends Logger {
       event: this.expertPresenceEvent$,
       extract: (message: IWebSocketMessage): string => message.value.status,
     },
-    IMPORTANT_PROFILE_ACTIVITY: {
-      event: this.importantProfileActivityEvent$,
+    IMPORTANT_EXPERT_ACTIVITY: {
+      event: this.importantExpertActivityEvent$,
+      extract: (message: IWebSocketMessage): string => message.value.activityId,
+    },
+    IMPORTANT_ORGANIZATION_ACTIVITY: {
+      event: this.importantCompanyActivityEvent$,
       extract: (message: IWebSocketMessage): string => message.value.activityId,
     },
     IMPORTANT_CLIENT_ACTIVITY: {
@@ -177,8 +183,12 @@ export class AnymindWebsocketService extends Logger {
    * important expert activity
    * as a result you get activityId
    */
-  public get importantProfileActivity(): Observable<string> {
-    return this.importantProfileActivityEvent$.asObservable();
+  public get importantExpertActivity(): Observable<string> {
+    return this.importantExpertActivityEvent$.asObservable();
+  }
+
+  public get importantCompanyActivity(): Observable<string> {
+    return this.importantCompanyActivityEvent$.asObservable();
   }
 
   public get importantClientActivity(): Observable<any> {

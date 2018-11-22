@@ -21,7 +21,6 @@ export interface INavigationItem {
   callbackFnName?: string;
   isCounter?: boolean;
   counter?: Observable<number>;
-
   isVisible?(session: GetSessionWithAccount): boolean;
 }
 
@@ -38,6 +37,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
     isExpert: false,
     isCompany: true,
     group: NavigationItemGroupsEnum.NAVBAR,
+    isCounter: true,
   },
   {
     trKey: 'NAVBAR.ACTIVITIES',

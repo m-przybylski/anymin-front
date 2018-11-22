@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import { ActivitiesActions, VisibilityWSActions } from '@platform/features/dashboard/actions';
+import { DashboardActions, VisibilityWSActions } from '@platform/features/dashboard/actions';
 import { Subject, merge } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { GetExpertVisibility } from '@anymind-ng/api';
@@ -20,10 +20,10 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     merge(
       this.anymindWebscoketService.importantClientActivity.pipe(
-        map(() => new ActivitiesActions.IncrementImportantClientActivitiesCounterAction()),
+        map(() => new DashboardActions.IncrementImportantClientActivitiesCounterAction()),
       ),
       this.anymindWebscoketService.importantClientActivity.pipe(
-        map(() => new ActivitiesActions.IncrementImportantClientActivitiesCounterAction()),
+        map(() => new DashboardActions.IncrementImportantClientActivitiesCounterAction()),
       ),
       this.anymindWebscoketService.expertPresence.pipe(
         map(

@@ -1,3 +1,4 @@
+// tslint:disable:cyclomatic-complexity
 import { Inject, Injectable } from '@angular/core';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { GetSessionWithAccount, ProfileService } from '@anymind-ng/api';
@@ -38,7 +39,9 @@ export class NavbarComponentService extends Logger {
     const filterFn = this.userTypeMap.get(userType);
     if (typeof filterFn !== 'undefined') {
       return this.navigationItems.filter(navigationItem => {
-        if (navigationItem.isCounter) {
+        if (navigationItem.isCounter && navigationItem.isCompany) {
+          navigationItem.counter = this.store.pipe(select(fromDashboard.getCompanyCounters));
+        } else if (navigationItem.isCounter && navigationItem.isExpert) {
           navigationItem.counter = this.store.pipe(select(fromDashboard.getCombineCounters));
         }
 
