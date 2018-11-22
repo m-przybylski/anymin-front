@@ -13,8 +13,6 @@ import {
 import { Injectable, Injector } from '@angular/core';
 import { iif, of, race, Subject } from 'rxjs';
 import { BusinessCall, Call, callEvents, CallReason, Session } from 'machoke-sdk';
-import { Config } from '../../../../config';
-import { ID } from 'machoke-sdk/dist/protocol/protocol';
 import { GetExpertSueDetails, GetSessionWithAccount, ServiceUsageEventService } from '@anymind-ng/api';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
 import EndReason = callEvents.EndReason;
@@ -92,9 +90,7 @@ export class CallInvitationService extends Logger {
       this.session = connected.session;
     });
 
-    this.communicatorService.callInvitationEvent$.subscribe(inv =>
-      this.onExpertCallIdIncoming(inv.session, inv.callInvitation.callId),
-    );
+    this.communicatorService.callInvitationEvent$.subscribe(inv => this.onExpertCallIncoming(inv.call));
 
     this.store
       .pipe(
@@ -165,16 +161,12 @@ export class CallInvitationService extends Logger {
   };
 
   private checkPullableCalls = (connected: IConnected): void => {
-    connected.session.chat.getActiveCalls().then(
-      activeCalls => {
-        this.loggerService.debug('Received active calls', activeCalls);
-        if (activeCalls.length > Config.communicator.maxSimultaneousCallsCount) {
-          this.loggerService.debug('Abnormal state - received more than 1 active calls, choosing first', activeCalls);
-        }
-        const activeCall = activeCalls[0];
-        if (activeCall) {
-          if (BusinessCall.isBusiness(activeCall)) {
-            this.handlePullableCall(activeCall);
+    connected.session.chat.getActiveCall().then(
+      maybeActiveCall => {
+        this.loggerService.debug('Reconnected, checking active call', maybeActiveCall);
+        if (maybeActiveCall) {
+          if (BusinessCall.isBusiness(maybeActiveCall)) {
+            this.handlePullableCall(maybeActiveCall);
           } else {
             this.loggerService.warn('Abnormal state - Active call is not BusinessCall, aborting');
           }
@@ -186,18 +178,11 @@ export class CallInvitationService extends Logger {
 
   private checkIncomingCalls = (connected: IConnected): void => {
     this.loggerService.debug('Reconnected, checking incoming calls');
-    connected.session.chat.getCallsWithPendingInvitations().then(
-      incomingCalls => {
-        this.loggerService.debug('Received incoming calls', incomingCalls);
-        if (incomingCalls.length > Config.communicator.maxSimultaneousCallsCount) {
-          this.loggerService.debug(
-            'Abnormal state - received more incoming calls than 1, choosing first',
-            incomingCalls,
-          );
-        }
-        const incomingCall = incomingCalls[0];
-        if (incomingCall) {
-          this.onExpertCallIncoming(incomingCall);
+    connected.session.chat.getCallWithPendingInvitation().then(
+      maybeIncomingCall => {
+        this.loggerService.debug('Received incoming call', maybeIncomingCall);
+        if (maybeIncomingCall) {
+          this.onExpertCallIncoming(maybeIncomingCall);
         }
       },
       err => this.loggerService.warn('Could not load incoming calls after successful connection', err),
@@ -217,14 +202,6 @@ export class CallInvitationService extends Logger {
         );
     }
   };
-
-  private onExpertCallIdIncoming = (session: Session, callId: ID): Promise<void> =>
-    session.chat
-      .getCall(callId)
-      .then(
-        call => this.onExpertCallIncoming(call),
-        err => this.loggerService.error('Can not leave unsupported call invitation', err),
-      );
 
   private onExpertBusinessCallIncoming = (call: BusinessCall): void => {
     this.serviceUsageEventService.getSueDetailsForExpertRoute(call.id).subscribe(
