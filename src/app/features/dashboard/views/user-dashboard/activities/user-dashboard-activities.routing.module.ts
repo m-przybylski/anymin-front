@@ -1,10 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { ExpertActivitiesViewComponent } from './views/expert-activities/expert-activities.view.component';
-import { ClientActivitiesViewComponent } from './views/client-activities/client-activities.view.component';
 import { ActivitiesViewComponent } from './activities.view.component';
 import { RouterPaths } from '@platform/shared/routes/routes';
-import { ExpertActivitiesGuard } from './services/expert-activities.guard';
+import { ActivitiesComponent } from '@platform/features/dashboard/views/activities/activities.component';
+import { ActivitiesGuard, ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.guard';
 
 const routes: Routes = [
   {
@@ -18,12 +17,12 @@ const routes: Routes = [
       },
       {
         path: RouterPaths.dashboard.user.activities.expert.getName,
-        component: ExpertActivitiesViewComponent,
-        canActivate: [ExpertActivitiesGuard],
+        component: ActivitiesComponent,
+        canActivate: [ActivitiesGuard],
+        data: { activityListType: ActivityListTypeEnum.EXPERT },
       },
       {
         path: RouterPaths.dashboard.user.activities.client.getName,
-        component: ClientActivitiesViewComponent,
         redirectTo: '/dashboard/user/activities/expert',
       },
     ],
@@ -33,6 +32,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [ExpertActivitiesGuard],
+  providers: [],
 })
 export class UserDashboardActivitiesRoutingModule {}

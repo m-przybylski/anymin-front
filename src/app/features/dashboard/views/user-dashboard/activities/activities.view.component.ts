@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { GetImportantActivitiesCounters } from '@anymind-ng/api';
 
 @Component({
-  selector: 'plat-activities',
+  selector: 'plat-expert-activities',
   templateUrl: './activities.view.component.html',
   styleUrls: ['./activities.view.component.sass'],
   providers: [ActivitiesService],
