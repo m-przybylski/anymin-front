@@ -1,4 +1,4 @@
-.navbar-user-menu(*ngIf="isMenuVisible", [@slideInOut])
+.navbar-user-menu([@slideInOut]="animationState")
   ul.smm-only
     li.menu-list__section.menu-list__section--mobile-close
       span.title([translate]="'NAVBAR_USER_MENU.ACCOUNT'")
@@ -68,7 +68,7 @@
     li.menu-list__section.menu-list__section--switch-account(*ngIf="switchAccountType")
       ul
         li.menu-list__row(
-          (click)="switchAccount(switchAccountType)",
+          (click)="onSwitchAccount(switchAccountType)",
           [routerLink]="switchAccountUrl"
         )
           plat-user-avatar(

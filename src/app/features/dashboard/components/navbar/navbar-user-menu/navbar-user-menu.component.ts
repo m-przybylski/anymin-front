@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
@@ -11,13 +11,19 @@ import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/da
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'plat-navbar-user-menu',
   templateUrl: './navbar-user-menu.component.html',
   styleUrls: ['./navbar-user-menu.component.sass'],
-  animations: Animations.slideInOut,
+  animations: [
+    trigger('slideInOut', [
+      state('show', style({ transform: 'translate3D(0, 0 ,0)' })),
+      state('hide', style({ transform: 'translate3D(calc(100% + 16px), 0, 0)' })),
+      transition('show <=> hide', [animate('300ms ease-in-out')]),
+    ]),
+  ],
 })
 export class NavbarUserMenuComponent implements OnInit {
   @Input()
@@ -32,7 +38,9 @@ export class NavbarUserMenuComponent implements OnInit {
   public switchAccountAvatarToken: string;
 
   @Input()
-  public isMenuVisible: boolean;
+  public set isMenuVisible(value: boolean) {
+    this.animationState = value ? 'show' : 'hide';
+  }
 
   @Input()
   public userType: UserTypeEnum;
@@ -67,13 +75,14 @@ export class NavbarUserMenuComponent implements OnInit {
   }
 
   @Output()
-  public onSwitchAccount = new EventEmitter<UserTypeEnum>();
+  public switchAccount = new EventEmitter<UserTypeEnum>();
 
   @Output()
-  public onSwitchVisibility = new EventEmitter<boolean>();
+  public switchVisibility = new EventEmitter<boolean>();
 
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
 
+  public animationState: 'show' | 'hide' = 'hide';
   public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
   public navigationItemGroups: typeof NavigationItemGroupsEnum = NavigationItemGroupsEnum;
   public switchAccountTrKey = '';
@@ -92,12 +101,13 @@ export class NavbarUserMenuComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.visibilityControl.valueChanges.pipe(distinctUntilChanged()).subscribe(
+    this.visibilityControl.valueChanges.pipe().subscribe(
       (visible: boolean): void => {
-        this.onSwitchVisibility.emit(visible);
+        this.switchVisibility.emit(visible);
       },
     );
   }
+
   public onClick = (fnName: string): void => {
     // tslint:disable-next-line:no-any
     if (typeof (this as any)[fnName] === 'function') {
@@ -114,8 +124,8 @@ export class NavbarUserMenuComponent implements OnInit {
   public openEditProfileModal = (): boolean =>
     (this.modalService.open(CreateProfileModalComponent).componentInstance.isExpertForm = false);
 
-  public switchAccount = (switchAccountUserType: UserTypeEnum): void => {
-    this.onSwitchAccount.emit(switchAccountUserType);
+  public onSwitchAccount = (switchAccountUserType: UserTypeEnum): void => {
+    this.switchAccount.emit(switchAccountUserType);
   };
 
   public logout = (): void => {
@@ -127,10 +137,10 @@ export class NavbarUserMenuComponent implements OnInit {
   private groupMenuItems = (menuItems: ReadonlyArray<INavigationItem> | undefined): void => {
     if (typeof menuItems !== 'undefined') {
       this.groupedMenuItems = Object.values(
-        menuItems.reduce((grouppedItems, menuItem) => {
-          grouppedItems[menuItem.group] = [...(grouppedItems[menuItem.group] || []), menuItem];
+        menuItems.reduce((groupedItems, menuItem) => {
+          groupedItems[menuItem.group] = [...(groupedItems[menuItem.group] || []), menuItem];
 
-          return grouppedItems;
+          return groupedItems;
         }, Object()),
       );
     }
