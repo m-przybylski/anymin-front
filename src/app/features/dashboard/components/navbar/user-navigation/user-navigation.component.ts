@@ -53,10 +53,10 @@ export class UserNavigationComponent implements AfterViewChecked {
   }
 
   @Output()
-  public onSwitchAccount = new EventEmitter<UserTypeEnum>();
+  public switchAccount = new EventEmitter<UserTypeEnum>();
 
   @Output()
-  public onChangeVisibility = new EventEmitter<boolean>();
+  public changeVisibility = new EventEmitter<boolean>();
 
   public get currentElement(): Observable<ElementRef> {
     return this.currentElement$.asObservable();
@@ -75,8 +75,8 @@ export class UserNavigationComponent implements AfterViewChecked {
     this.logger = loggerFactory.createLoggerService('UserNavigationComponent');
   }
 
-  public onSwitchVisibility = (isVisibile: boolean): void => {
-    this.onChangeVisibility.emit(isVisibile);
+  public onSwitchVisibility = (isVisible: boolean): void => {
+    this.changeVisibility.emit(isVisible);
   };
 
   public ngAfterViewChecked(): void {
@@ -92,6 +92,6 @@ export class UserNavigationComponent implements AfterViewChecked {
   }
 
   public emitSwitchAccountUserType = (userType: UserTypeEnum): void => {
-    this.onSwitchAccount.emit(userType);
+    this.switchAccount.emit(userType);
   };
 }

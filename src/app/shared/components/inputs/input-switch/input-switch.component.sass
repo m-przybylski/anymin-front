@@ -28,12 +28,6 @@
     width: 36px
     height: 8px
 
-  .input-switch__switcher--on
-    background-color: $c-success-primary
-
-    &:before
-      transform: translateX(20px)
-
 
   &__switcher
     position: absolute
@@ -43,23 +37,25 @@
     right: 0
     bottom: 0
     background-color: $c-lines
-    transition: 0.3s
+    transition: .3s
 
-    &:before
-      position: absolute
-      content: ""
-      height: 20px
-      width: 20px
-      border: 2px solid $c-label
-      border-radius: 50%
-      left: -2px
-      bottom: -6px
-      background-color: $c-white
-      transition: 0.3s
+    &--on
+      background-color: $c-success-primary
+
+
+  &__toggle
+    position: absolute
+    content: ""
+    height: 20px
+    width: 20px
+    border: 2px solid $c-label
+    border-radius: 50%
+    left: -2px
+    bottom: -6px
+    background-color: $c-white
 
     &--disabled
-      &:before
-        border-color: $c-lines
+      border-color: $c-lines
 
   &__label-text
     +button-small

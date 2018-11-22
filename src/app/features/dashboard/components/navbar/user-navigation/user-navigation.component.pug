@@ -35,7 +35,7 @@
           [accountId]="accountId",
           [switchAccountAvatarToken]="switchAccountAvatarToken",
           [switchAccountType]="switchAccountType",
-          (onSwitchAccount)="emitSwitchAccountUserType($event)",
+          (switchAccount)="emitSwitchAccountUserType($event)",
           [isVisible]="isUserVisible",
-          (onSwitchVisibility)="onSwitchVisibility($event)"
+          (switchVisibility)="onSwitchVisibility($event)"
         )

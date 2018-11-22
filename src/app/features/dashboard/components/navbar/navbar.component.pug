@@ -13,9 +13,9 @@
         [switchAccountAvatarToken]="switchAccountAvatarToken",
         [switchAccountType]="switchAccountType",
         [isMenuVisible]="isMenuVisible$ | async",
-        (onSwitchAccount)="onSwitchAccount($event)",
+        (switchAccount)="onSwitchAccount($event)",
         [isUserVisible]="isUserVisible$ | async",
-        (onChangeVisibility)="onSwitchVisibility($event)"
+        (changeVisibility)="onSwitchVisibility($event)"
       )
 
 

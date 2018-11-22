@@ -26,7 +26,6 @@ export function reducer(
 ): IState {
   switch (action.type) {
     case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityInvisibleError:
-    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityVisibleSuccess:
     case VisibilityWSActions.VisibilityWSActionTypes.SetWSVisibilityVisible:
     case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisibilityVisible: {
       return {
@@ -35,7 +34,6 @@ export function reducer(
       };
     }
 
-    case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityInvisibleSuccess:
     case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityVisibleError:
     case VisibilityWSActions.VisibilityWSActionTypes.SetWSVisibilityInvisible:
     case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisibilityInvisible: {
@@ -52,7 +50,6 @@ export function reducer(
       };
     }
 
-    case VisibilityInitActions.VisibilityInitActionTypes.FetchInitVisibility:
     default:
       return state;
   }

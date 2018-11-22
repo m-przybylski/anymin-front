@@ -1,13 +1,18 @@
 .input-switch
   span.input-switch__status-text(
-    [ngClass]="{'input-switch__status-text--disabled': isDisabled}"
+    [ngClass]="{'input-switch__status-text--disabled': isDisabled }"
   ) {{ onOffTrKey | translate }}
   label.input-switch__label(
     (click)="onSwitcherClick($event)",
-    [ngClass]="{'input-switch__label--disabled': isDisabled}"
+    [ngClass]="{'input-switch__label--disabled': isDisabled }"
   )
     .input-switch__switcher-container
       span.input-switch__switcher([ngClass]="{'input-switch__switcher--disabled': isDisabled,'input-switch__switcher--on': isChecked}")
+      span.input-switch__toggle(
+        [@onOfSwitch]="switchState",
+        (@onOfSwitch.start)='onAnimationStart()',
+        (@onOfSwitch.done)='onAnimationDone()',
+        [ngClass]="{'input-switch__toggle--disabled': isDisabled }")
     span.input-switch__label-text(
       *ngIf="labelTrKey",
       [translate]="labelTrKey",
