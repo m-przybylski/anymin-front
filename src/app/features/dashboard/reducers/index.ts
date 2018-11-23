@@ -27,6 +27,8 @@ export const getCompanyCounters = createSelector(selectActivities, fromDashboard
 
 export const getCombineCounters = createSelector(selectActivities, fromDashboard.getCombineCounters);
 
+export const getExpertCounter = createSelector(selectActivities, fromDashboard.getExpertCounter);
+
 export const selectVisiblity = createSelector(selectDashboardState, (state: IDashboardState) => state.visibility);
 
 export const getVisibilityStatus = createSelector(selectVisiblity, fromVisiblity.getVisibility);
