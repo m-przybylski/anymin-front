@@ -42,7 +42,7 @@ export class NavbarComponentService extends Logger {
         if (navigationItem.isCounter && navigationItem.isCompany) {
           navigationItem.counter = this.store.pipe(select(fromDashboard.getCompanyCounters));
         } else if (navigationItem.isCounter && navigationItem.isExpert) {
-          navigationItem.counter = this.store.pipe(select(fromDashboard.getCombineCounters));
+          navigationItem.counter = this.store.pipe(select(fromDashboard.getExpertCounter));
         }
 
         if (navigationItem.isVisible) {
