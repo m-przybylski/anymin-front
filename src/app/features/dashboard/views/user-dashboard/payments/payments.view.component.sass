@@ -13,3 +13,35 @@
 		display: block
 		margin: 0 0 24px 24px
 
+.options-container
+  display: flex
+  justify-content: center
+  margin: 0 0 48px 0
+
+  &__item
+    width: 180px
+    height: 72px
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 4px
+    border: solid 1px $c-lines
+    cursor: pointer
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease
+
+    &:first-of-type
+      margin: 0 24px 0 0
+
+    span
+      +subtitle
+
+    &:hover
+      border-color: $c-placeholder
+
+    &.selected
+      cursor: default
+      border: none
+      background-color: $c-text-primary
+
+      span
+        color: $c-white

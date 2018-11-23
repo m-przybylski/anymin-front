@@ -3,14 +3,14 @@ plat-modal-component.payout-method(
 [modalContainerClass]="modalWidth"
 )
 
-  .payout-method__type-container(contentHeightAnimation)
-    .payout-method__type-container--type(
+  .options-container(contentHeightAnimation)
+    .options-container__item(
     [class.selected]="selectedPayoutMethodType === payoutMethods.BANK_ACCOUNT",
     (click)="selectPayoutMethod(payoutMethods.BANK_ACCOUNT)"
     )
       span {{ 'DASHBOARD.PAYMENTS.PAYOUTS_MODAL.BANK_ACCOUNT.TITLE' | translate }}
 
-    .payout-method__type-container--type(
+    .options-container__item(
     [class.selected]="selectedPayoutMethodType === payoutMethods.PAYPAL",
     (click)="selectPayoutMethod(payoutMethods.PAYPAL)"
     )

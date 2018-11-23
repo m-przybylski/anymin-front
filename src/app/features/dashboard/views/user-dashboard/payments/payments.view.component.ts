@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PayoutMethodComponent } from '@platform/features/dashboard/views/user-dashboard/payments/components/payout-method/payout-method.component';
 import { ActivatedRoute } from '@angular/router';
-import { AlertService } from '@anymind-ng/core';
+import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 
 @Component({
   selector: 'plat-payments',
@@ -10,14 +10,10 @@ import { AlertService } from '@anymind-ng/core';
   styleUrls: ['./payments.view.component.sass'],
 })
 export class PaymentsViewComponent {
-  constructor(private alertService: AlertService, private route: ActivatedRoute, private ngbModalService: NgbModal) {}
+  constructor(private route: ActivatedRoute, private ngbModalService: NgbModal) {}
 
   public openInvoiceModal = (): void => {
-    this.alertService.pushWarningAlert('ALERT.NOT_SUPPORTED');
-    // TODO waiting for backend
-    // this.ngbModalService.open(
-    //   InvoiceComponent,
-    // ).componentInstance.getPayoutMethod = this.route.snapshot.data.getPayoutMethod;
+    this.ngbModalService.open(InvoiceDetailsComponent);
   };
 
   public openPayoutMethod = (): void => {
