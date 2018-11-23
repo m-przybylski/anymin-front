@@ -256,7 +256,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
         this.onModalClose();
         if (!isRedirectSuccessful) {
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Error when redirect to /dashboard/user/discover');
+          this.logger.warn('Error when redirect to dashboard/user/profile/');
         }
       })
       .catch(this.logger.error.bind(this));

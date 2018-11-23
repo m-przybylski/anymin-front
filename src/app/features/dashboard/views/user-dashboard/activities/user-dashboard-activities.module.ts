@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ActivityDetailsModule } from '@platform/shared/components/modals/activity-details/activity-details.module';
 import { ActivitiesCounterModule } from '@platform/features/dashboard/components/activities-counter/activities-counter.module';
 import { ActivitiesModule } from '@platform/features/dashboard/views/activities/activities.module';
+import { ExpertActivitiesViewResolver } from './views/expert-activities/expert-activities.view.resolver';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { ActivitiesModule } from '@platform/features/dashboard/views/activities/
     ActivitiesCounterModule,
     ActivitiesModule,
   ],
-  providers: [],
+  providers: [ExpertActivitiesViewResolver],
   declarations: [ActivitiesViewComponent],
   exports: [ActivitiesViewComponent],
 })

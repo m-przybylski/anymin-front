@@ -66,7 +66,7 @@ export class ExpertDashboardConsultationsComponent extends Logger {
     void this.router.navigate([this.companyProfileUrl]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-        this.loggerService.warn('Can not redirect to dashboard/user/discover');
+        this.loggerService.warn('Can not redirect to company profile');
       }
     });
     this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.COMPANY));

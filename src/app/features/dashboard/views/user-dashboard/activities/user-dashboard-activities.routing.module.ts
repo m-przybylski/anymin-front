@@ -4,6 +4,7 @@ import { ActivitiesViewComponent } from './activities.view.component';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { ActivitiesComponent } from '@platform/features/dashboard/views/activities/activities.component';
 import { ActivitiesGuard, ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.guard';
+import { ExpertActivitiesViewResolver } from './views/expert-activities/expert-activities.view.resolver';
 
 const routes: Routes = [
   {
@@ -17,6 +18,9 @@ const routes: Routes = [
       },
       {
         path: RouterPaths.dashboard.user.activities.expert.getName,
+        resolve: {
+          userType: ExpertActivitiesViewResolver,
+        },
         component: ActivitiesComponent,
         canActivate: [ActivitiesGuard],
         data: { activityListType: ActivityListTypeEnum.EXPERT },

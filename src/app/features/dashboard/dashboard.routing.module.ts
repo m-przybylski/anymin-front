@@ -9,6 +9,7 @@ import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.vi
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
+import { CompanyDashboardViewResolver } from './views/company-dashboard/company-dashboard.view.resolver';
 
 const routes: Routes = [
   {
@@ -53,6 +54,9 @@ const routes: Routes = [
       {
         path: RouterPaths.dashboard.company.getName,
         component: CompanyDashboardComponent,
+        resolve: {
+          userType: CompanyDashboardViewResolver,
+        },
         children: [
           {
             path: 'activities',

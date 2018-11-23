@@ -25,6 +25,7 @@ import { DashboardEffects } from '@platform/features/dashboard/effects/activitie
 import { CompanyDashboardComponent } from '@platform/features/dashboard/views/company-dashboard/company-dashboard.view.component';
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
+import { CompanyDashboardViewResolver } from '@platform/features/dashboard/views/company-dashboard/company-dashboard.view.resolver';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,6 @@ import { GenerateWidgetModule } from '@platform/shared/components/modals/generat
     StoreModule.forFeature('dashboard', reducers),
     EffectsModule.forFeature([DashboardEffects, VisibilityEffects]),
   ],
-  providers: [EmployeesInviteService, DashboardResolver],
+  providers: [EmployeesInviteService, DashboardResolver, CompanyDashboardViewResolver],
 })
 export class DashboardModule {}
