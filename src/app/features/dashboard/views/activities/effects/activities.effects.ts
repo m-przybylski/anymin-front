@@ -72,7 +72,7 @@ export class ActivitiesEffects {
       ActivitiesPageActions.ActivitiesPageActionTypes.ExpertActivityRowClick,
     ),
     map(action => action.payload),
-    this.openActivityDetails(actionPayload => this.createExpertActions(actionPayload.getProfileActivity)),
+    this.openExpertActivityDetails(actionPayload => this.createExpertActions(actionPayload.getProfileActivity)),
   );
 
   @Effect()
@@ -81,7 +81,7 @@ export class ActivitiesEffects {
       ActivitiesPageActions.ActivitiesPageActionTypes.CompanyActivityRowClick,
     ),
     map(action => action.payload),
-    this.openActivityDetails(actionPayload => this.createCompanyActions(actionPayload.getProfileActivity)),
+    this.openCompanyActivityDetails(actionPayload => this.createCompanyActions(actionPayload.getProfileActivity)),
   );
 
   @Effect()
@@ -101,6 +101,14 @@ export class ActivitiesEffects {
     map(action => action.payload),
     this.loadActivityId(activityId => this.activitiesListService.getCompanyActivity(activityId)),
   );
+
+  private get openCompanyActivityDetails(): (createAction: ActionFromModalResultFactory) => ModalResultToActionMapper {
+    return this.openActivityDetails(true);
+  }
+
+  private get openExpertActivityDetails(): (createAction: ActionFromModalResultFactory) => ModalResultToActionMapper {
+    return this.openActivityDetails(false);
+  }
 
   constructor(
     private actions$: Actions,
@@ -165,13 +173,16 @@ export class ActivitiesEffects {
   }
 
   private openActivityDetails(
-    createAction: (payload: { getProfileActivity: GetProfileActivity; isImportant: boolean }) => ReadonlyArray<Action>,
-  ): (source: Observable<{ getProfileActivity: GetProfileActivity; isImportant: boolean }>) => Observable<Action> {
-    return (source: Observable<{ getProfileActivity: GetProfileActivity; isImportant: boolean }>): Observable<Action> =>
+    isCompany: boolean,
+  ): (createAction: ActionFromModalResultFactory) => ModalResultToActionMapper {
+    return (createAction: ActionFromModalResultFactory): ModalResultToActionMapper => (
+      source: Observable<{ getProfileActivity: GetProfileActivity; isImportant: boolean }>,
+    ): Observable<Action> =>
       source.pipe(
         exhaustMap(({ getProfileActivity, isImportant }) => {
           const profileActivity: IProfileActivitiesWithStatus = {
             activity: getProfileActivity,
+            isCompany,
             isImportant,
           };
           const options: NgbModalOptions = {
@@ -211,3 +222,13 @@ export class ActivitiesEffects {
       );
   }
 }
+
+type ActionFromModalResultFactory = (
+  payload: { getProfileActivity: GetProfileActivity; isImportant: boolean },
+) => ReadonlyArray<Action>;
+type ModalResultToActionMapper = (
+  source: Observable<{
+    getProfileActivity: GetProfileActivity;
+    isImportant: boolean;
+  }>,
+) => Observable<Action>;

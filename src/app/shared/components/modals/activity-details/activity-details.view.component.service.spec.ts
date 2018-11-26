@@ -154,6 +154,7 @@ describe('ActivityDetailsViewComponentService', () => {
       },
       recommendedTags: 'superTag',
       isSueExpert: true,
+      expertName: 'Arturek',
       comment: {
         commentId: 'commentId',
         content: 'Arturek jest super',
@@ -261,6 +262,7 @@ describe('ActivityDetailsViewComponentService', () => {
       },
       recommendedTags: 'superTag',
       isSueExpert: false,
+      expertName: '',
       rate: undefined,
       comment: undefined,
     };
