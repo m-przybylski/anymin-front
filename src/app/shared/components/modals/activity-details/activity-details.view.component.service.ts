@@ -40,6 +40,10 @@ export class ActivityDetailsViewComponentService extends Logger {
         servicePrice: callDetails.service.price,
         recommendedTags: callDetails.recommendedTags.map(tag => tag.name).join(', '),
         isSueExpert: accountId === callDetails.expertProfile.id,
+        expertName:
+          typeof callDetails.expertProfile.expertDetails !== 'undefined'
+            ? callDetails.expertProfile.expertDetails.name
+            : '',
         financialOperation: callDetails.serviceUsageDetails.financialOperation,
         rate: callDetails.rate,
         comment: this.getComment(callDetails),

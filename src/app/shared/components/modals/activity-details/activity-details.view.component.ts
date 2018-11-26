@@ -35,10 +35,11 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
   public refundOperationDetails: IRefundOperationDetails;
   public modalHeaderTrKey: string;
   public groupedMessages: ReadonlyArray<ReadonlyArray<roomEvents.CustomMessageSent>> = [];
-  public isChatHistoryVisible: boolean;
+  public isChatHistoryVisible = false;
   public clientAvatarUrl: string;
   public expertAvatarUrl: string;
   public isBackwardVisible = false;
+  public isCompanyActivity?: boolean;
 
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
@@ -66,6 +67,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
   ) {
     super(loggerFactory.createLoggerService('ActivityDetailsViewComponent'));
     this.modalHeaderTrKey = this.modalHeaderTrKeys.default;
+    this.isCompanyActivity = this.activityDetails.isCompany;
     this.store
       .pipe(
         select(fromCore.getSession),
@@ -146,6 +148,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
         this.sueDetails = activityDetails;
         this.clientAvatarUrl = activityDetails.clientAvatarUrl;
         this.expertAvatarUrl = activityDetails.expertAvatarUrl;
+        this.componentLoaded.next(true);
       });
   };
 
@@ -153,7 +156,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     if (typeof activity.serviceUsageDetails !== 'undefined') {
       this.activityType = ActivityTypeEnum.SERVICEUSAGEEVENT;
       this.getCallDetails(activity.serviceUsageDetails.serviceUsageEventId, activity.id);
-      if (activity.serviceUsageDetails.ratelRoomId) {
+      if (activity.serviceUsageDetails.ratelRoomId && !this.isCompanyActivity) {
         this.activityDetailsService.getChatHistory(activity.serviceUsageDetails.ratelRoomId).subscribe(
           messages => {
             this.isChatHistoryVisible = messages.length > 0;

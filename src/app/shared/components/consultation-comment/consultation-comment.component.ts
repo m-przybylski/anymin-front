@@ -32,7 +32,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
   public readonly commentMinLength = Config.inputsLengthNumbers.commentMinLength;
 
   @Input()
-  public isSueExpert = false;
+  public isCommentOptionVisible = false;
 
   @Input()
   public expertName = '';
@@ -57,7 +57,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
   public onAddAnswer = new EventEmitter<GetComment>();
 
   public comment: GetComment;
-  public tmpAnswer = false;
+  public isTemporaryAnswer = false;
   public commentAnswer: GetAnswer;
   public isReported = false;
   public isAnswerFieldVisible = false;
@@ -136,7 +136,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
         }),
         switchMap(() => timer(ConsultationCommentComponent.timeout)),
         tap(() => {
-          this.tmpAnswer = true;
+          this.isTemporaryAnswer = true;
           this.closeAnswerFields();
         }),
         catchError(err => this.handleRequestError(err, 'Can not send comment answer')),

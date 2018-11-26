@@ -3,7 +3,6 @@ import { GetCallDetails, GetComment, MoneyDto } from '@anymind-ng/api';
 
 export interface ISueDetails {
   serviceName: string;
-  clientName?: string;
   clientAvatarUrl: string;
   expertAvatarUrl: string;
   sueId: string;
@@ -12,6 +11,8 @@ export interface ISueDetails {
   servicePrice: MoneyDto;
   recommendedTags: string;
   isSueExpert: boolean;
+  expertName: string;
+  clientName?: string;
   financialOperation?: MoneyDto;
   rate?: GetCallDetails.RateEnum;
   comment?: GetComment;
@@ -25,6 +26,9 @@ export interface ISueDetails {
 export class SueDetailsComponent {
   @Input()
   public isChatHistoryVisible: boolean;
+
+  @Input()
+  public isCompanyActivity: boolean;
 
   @Input()
   public set sueDetails(value: ISueDetails | undefined) {
@@ -49,6 +53,7 @@ export class SueDetailsComponent {
   public commentDetails?: GetComment;
   public recommendedTags: string;
   public isSueExpert: boolean;
+  public expertName: string;
 
   private readonly moneyDivider = 100;
   private readonly oneSecondInMilliseconds = 1000;
@@ -76,6 +81,10 @@ export class SueDetailsComponent {
     this.commentDetails = value.comment;
     this.recommendedTags = value.recommendedTags;
     this.isSueExpert = value.isSueExpert;
+    /**
+     * if user is expert who provides the service we do not want to show his name
+     */
+    this.expertName = this.isSueExpert ? '' : value.expertName;
   };
 
   private getRateStatus = (rate?: GetCallDetails.RateEnum): string => {

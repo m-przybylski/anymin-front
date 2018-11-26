@@ -13,6 +13,7 @@ import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activit
 export interface IProfileActivitiesWithStatus {
   activity: GetProfileActivity;
   isImportant: boolean;
+  isCompany?: boolean;
 }
 
 @Component({

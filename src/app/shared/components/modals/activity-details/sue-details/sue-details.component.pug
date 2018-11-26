@@ -2,6 +2,9 @@
   header.activity-details__header {{ serviceName }}
   .activity-section
     ul.basic-data
+      li.basic-data__item(*ngIf="!isSueExpert")
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.EXPERT_NAME' | translate }}
+        span.basic-data__value {{ expertName }}
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CLIENT_NAME' | translate }}
         span.basic-data__value {{ clientName | translate}}
@@ -39,6 +42,7 @@
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMMENT' | translate }}
         .basic-data__value
           plat-consultation-comments(
-            [isSueExpert]="isSueExpert",
-            [commentDetails]="commentDetails"
+            [isCommentOptionVisible]="isSueExpert && !isCompanyActivity",
+            [commentDetails]="commentDetails",
+            [expertName]="expertName"
           )

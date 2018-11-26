@@ -22,7 +22,7 @@
             span {{ commentDate | dateDuration }}
 
       .consultation-comment-item__edit(
-        *ngIf="isCommentOptionVisible()",
+        *ngIf="isCommentOptionShown",
         commentDropdownPosition,
         [commentDropdownParentElement]="commentContainer"
       )
@@ -35,10 +35,10 @@
           (@dropdownAnimation.done)="onAnimationDone($event, commentDropdown)"
         )
 
-          li(*ngIf="!isReported", (click)="onDropdownChoose(dropdownNavigationList.REASON_REPORT)")
+          li(*ngIf="!_isReported", (click)="onDropdownChoose(dropdownNavigationList.REASON_REPORT)")
             span {{ 'CONSULTATION_DETAILS.COMMENTS.DROPDOWN.REPORT' | translate }}
 
-          li(*ngIf="!isAnswer && !temporaryAnswer", (click)="onDropdownChoose(dropdownNavigationList.ANSWER)")
+          li(*ngIf="!isAnswer && !_isTemporaryAnswer", (click)="onDropdownChoose(dropdownNavigationList.ANSWER)")
             span {{ 'CONSULTATION_DETAILS.COMMENTS.DROPDOWN.ANSWER' | translate }}
 
     .consultation-comment-item__description([ngClass]="{'consultation-comment-item__description--reported': isReportAccepted}")
@@ -52,7 +52,7 @@
       [commentDetails]="comment"
     )
 
-  .consultation-comment-item__answer--temporary(*ngIf="temporaryAnswer && !isAnswer", [@collapse])
+  .consultation-comment-item__answer--temporary(*ngIf="_isTemporaryAnswer && !isAnswer", [@collapse])
     plat-consultation-comment-answer(
       [avatarSize]="avatarSize40",
       [tokenAvatar]="tokenAvatar",
