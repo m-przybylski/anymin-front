@@ -5,13 +5,13 @@ import { FormControl } from '@angular/forms';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { AuthActions } from '@platform/core/actions';
 import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/dashboard/components/navbar/navigation';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -52,16 +52,6 @@ export class NavbarUserMenuComponent implements OnInit {
   }
   public get isVisible(): boolean {
     return this._isVisible;
-  }
-
-  @Input()
-  public set accountId(value: string) {
-    this.userProfileUrl = `/${RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
-      [RouterPaths.dashboard.user.profile.params.expertId]: value,
-    })}`;
-    this.companyProfileUrl = `/${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
-      [RouterPaths.dashboard.company.profile.params.profileId]: value,
-    })}`;
   }
 
   @Input()
@@ -150,17 +140,17 @@ export class NavbarUserMenuComponent implements OnInit {
     switch (switchUserType) {
       case UserTypeEnum.COMPANY:
         this.switchAccountTrKey = 'NAVBAR_USER_MENU.SWITCH_TO_ORGANIZATION';
-        this.switchAccountUrl = this.companyProfileUrl;
+        this.switchAccountUrl = RouterPaths.dashboard.company.activities.asPath;
         break;
 
       case UserTypeEnum.EXPERT:
         this.switchAccountTrKey = 'NAVBAR_USER_MENU.SWITCH_TO_EXPERT';
-        this.switchAccountUrl = this.userProfileUrl;
+        this.switchAccountUrl = RouterPaths.dashboard.user.activities.expert.asPath;
         break;
 
       case UserTypeEnum.USER:
         this.switchAccountTrKey = 'NAVBAR_USER_MENU.SWITCH_TO_CLIENT';
-        this.switchAccountUrl = this.userProfileUrl;
+        this.switchAccountUrl = RouterPaths.dashboard.user.activities.client.asPath;
         break;
 
       default:

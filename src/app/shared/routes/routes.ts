@@ -24,13 +24,13 @@ export const RouterPaths = {
         asPath: 'dashboard/user/activities',
         getName: 'activities',
         expert: {
-          asPath: 'dashboard/user/activities/expert',
-          getName: 'expert'
+          asPath: '/dashboard/user/activities/expert',
+          getName: 'expert',
         },
         client: {
-          asPath: 'dashboard/user/activities/client',
-          getName: 'client'
-        }
+          asPath: '/dashboard/user/activities/client',
+          getName: 'client',
+        },
       },
       invitations: {
         asPath: 'dashboard/user/invitations',
@@ -58,6 +58,10 @@ export const RouterPaths = {
         params: {
           profileId: 'profileId',
         },
+      },
+      activities: {
+        asPath: '/dashboard/company/activities',
+        getName: 'activities',
       },
     },
     notfound: {
