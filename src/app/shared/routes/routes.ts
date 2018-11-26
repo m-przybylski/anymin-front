@@ -33,7 +33,7 @@ export const RouterPaths = {
         },
       },
       invitations: {
-        asPath: 'dashboard/user/invitations',
+        asPath: '/dashboard/user/invitations',
         getName: 'invitations',
       },
       welcome: {

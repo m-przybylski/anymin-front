@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { AccountService } from '@anymind-ng/api';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
-import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
-import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
+import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 export enum SetEmailStatus {
   SUCCESS,
@@ -28,7 +28,6 @@ export class SetEmailViewService {
     private router: Router,
     private alertService: AlertService,
     private registrationInvitationService: RegistrationInvitationService,
-    private localStorageWrapperService: LocalStorageWrapperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('SetEmailViewService');
@@ -75,14 +74,13 @@ export class SetEmailViewService {
       }
     });
 
-  private redirectToInvitations = (token: string): Promise<SetEmailStatus> =>
-    this.router.navigate(['/invitations/' + token]).then(isRedirectSuccessful => {
+  private redirectToInvitations = (): Promise<SetEmailStatus> =>
+    this.router.navigate([RouterPaths.dashboard.user.invitations.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to /invitations');
         return SetEmailStatus.ERROR;
       } else {
-        this.localStorageWrapperService.removeItem('invitation');
         this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
         return SetEmailStatus.SUCCESS;
       }
@@ -91,8 +89,6 @@ export class SetEmailViewService {
   private determinateRedirectPath = (): Promise<SetEmailStatus> => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
 
-    return invitationObject && invitationObject.token
-      ? this.redirectToInvitations(invitationObject.token)
-      : this.redirectToDashboard();
+    return invitationObject && invitationObject.token ? this.redirectToInvitations() : this.redirectToDashboard();
   };
 }

@@ -6,7 +6,6 @@ import expertProfilePageModule from './expert-profile/expert-profile';
 import companyProfilePageModule from './company-profile/company-profile';
 import dashboardPageModule from './dashboard/dashboard';
 import wizardPageModule from './wizard/wizard';
-import invitationsPageModule from './invitations/invitations';
 import chargeAccountModule from './charge-account/charge-account';
 import loginConfirmEmailModule from '../common/resolvers/login-confirm-email/login-confirm-email.service';
 
@@ -17,11 +16,9 @@ const pagesModule = angular.module('profitelo.pages', [
   expertProfilePageModule,
   companyProfilePageModule,
   errorPageModule,
-  invitationsPageModule,
   wizardPageModule,
   chargeAccountModule,
-  loginConfirmEmailModule // because confirm-email feature was already moved to angular
-])
-  .name;
+  loginConfirmEmailModule, // because confirm-email feature was already moved to angular
+]).name;
 
 export default pagesModule;

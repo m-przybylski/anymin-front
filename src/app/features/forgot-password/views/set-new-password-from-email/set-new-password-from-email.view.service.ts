@@ -8,7 +8,6 @@ import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 
 export enum SetNewPasswordFromEmailStatus {
@@ -30,7 +29,6 @@ export class SetNewPasswordFromEmailViewService {
     private recoverPasswordService: RecoverPasswordService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private localStorageWrapperService: LocalStorageWrapperService,
     private registrationInvitationService: RegistrationInvitationService,
     loggerFactory: LoggerFactory,
   ) {
@@ -65,7 +63,6 @@ export class SetNewPasswordFromEmailViewService {
       .navigate([`/invitations/${token}`])
       .then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
-          this.localStorageWrapperService.removeItem('invitation');
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
           this.logger.warn('Error when redirect to invitation');
           return SetNewPasswordFromEmailStatus.ERROR;

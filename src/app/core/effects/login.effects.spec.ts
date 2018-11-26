@@ -179,7 +179,7 @@ describe('LoginEffects', () => {
     it('should call router.navigate when action received', fakeAsync(() => {
       const two = 2;
       const router: Router = TestBed.get(Router);
-      const action = new AuthActions.DashboardRedurectAction();
+      const action = new AuthActions.DashboardRedirectAction();
       actions$ = of(action);
       (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
       loginEffects.dashboardRedirect$.subscribe(() => {
@@ -191,7 +191,7 @@ describe('LoginEffects', () => {
 
     it('should call router.navigate when action received', fakeAsync(() => {
       const router: Router = TestBed.get(Router);
-      const action = new AuthActions.DashboardRedurectAction();
+      const action = new AuthActions.DashboardRedirectAction();
       actions$ = of(action);
       (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
       loginEffects.dashboardRedirect$.subscribe(() => {
@@ -205,7 +205,7 @@ describe('LoginEffects', () => {
     it('should call router.navigate when action received', fakeAsync(() => {
       const router: Router = TestBed.get(Router);
       const alertServide: AlertService = TestBed.get(AlertService);
-      const action = new AuthActions.DashboardRedurectAction();
+      const action = new AuthActions.DashboardRedirectAction();
       actions$ = of(action);
       (router.navigate as jasmine.Spy).and.returnValue(Promise.reject('error'));
       loginEffects.dashboardRedirect$.subscribe(() => {

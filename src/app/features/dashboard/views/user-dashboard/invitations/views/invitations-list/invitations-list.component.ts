@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Injector } from '@angular/core';
+import { Component, OnDestroy, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IInvitation } from '../../services/invitation-list.resolver.service';
 import { Subject, from, of } from 'rxjs';
@@ -8,12 +8,16 @@ import { AcceptRejectInvitationModalComponent } from '@platform/shared/component
 import { INVITATION } from '@platform/shared/components/modals/invitations/accept-reject-invitation/services/accept-reject-invitation';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
+import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+import { select, Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
+import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 
 @Component({
   templateUrl: 'invitations-list.component.html',
   styleUrls: ['invitations-list.component.sass'],
 })
-export class InvitationsListComponent extends Logger implements OnDestroy {
+export class InvitationsListComponent extends Logger implements OnDestroy, OnInit {
   public invitations: ReadonlyArray<IInvitation>;
 
   private ngUnsubscribe$ = new Subject<void>();
@@ -23,18 +27,28 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
     private modalService: NgbModal,
     private injector: Injector,
     private router: Router,
+    private store: Store<fromCore.IState>,
+    private registrationInvitationService: RegistrationInvitationService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('InvitationsListComponent'));
-    this.route.data.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(({ data }: { data: ReadonlyArray<IInvitation> }) => {
-      this.invitations = data;
-    });
   }
 
   public ngOnDestroy = (): void => {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   };
+
+  public ngOnInit(): void {
+    this.route.data.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(({ data }: { data: ReadonlyArray<IInvitation> }) => {
+      this.invitations = data;
+      const invitationObject = this.registrationInvitationService.getInvitationObject();
+      if (invitationObject && invitationObject.id) {
+        this.determinateModalToOpen(invitationObject.id);
+        this.registrationInvitationService.removeInvitationObject();
+      }
+    });
+  }
 
   public onInvitationClicked = (invitationId: string): void => {
     const injector = this.setupInjector(invitationId);
@@ -44,6 +58,10 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
 
       return;
     }
+    this.openInvitationModal(invitationId);
+  };
+
+  private openInvitationModal(invitationId: string): void {
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(invitationId),
     };
@@ -54,7 +72,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
         this.loggerService.debug('modal closed');
         this.reloadPage();
       });
-  };
+  }
 
   private getInvitation = (invitationId: string): IInvitation | undefined =>
     this.invitations.find(invitation => invitation.id === invitationId);
@@ -69,6 +87,19 @@ export class InvitationsListComponent extends Logger implements OnDestroy {
 
     return Injector.create({ providers: [{ provide: INVITATION, useValue: invitation }], parent: this.injector });
   };
+
+  private determinateModalToOpen(invitationId: string): void {
+    this.store
+      .pipe(
+        select(fromCore.getSession),
+        takeUntil(this.ngUnsubscribe$),
+      )
+      .subscribe(session => {
+        session && session.isExpert
+          ? this.openInvitationModal(invitationId)
+          : this.modalService.open(CreateProfileModalComponent);
+      });
+  }
 
   private reloadPage = (): void => {
     void this.router.navigate([], { relativeTo: this.route });

@@ -45,7 +45,7 @@ export class LogoutSuccessAction implements Action {
 export class LoginRedirectAction implements Action {
   public readonly type = AuthActionTypes.LoginRedirect;
 }
-export class DashboardRedurectAction implements Action {
+export class DashboardRedirectAction implements Action {
   public readonly type = AuthActionTypes.DashboardRedirect;
 }
 export class LogoutRemoteAction implements Action {
@@ -60,5 +60,5 @@ export type AuthActionsUnion =
   | LogoutAction
   | LogoutErrorAction
   | LogoutSuccessAction
-  | DashboardRedurectAction
+  | DashboardRedirectAction
   | LogoutRemoteAction;

@@ -29,7 +29,7 @@ export class AnonymousGuard implements CanActivate {
       filter(result => typeof result !== 'undefined'),
       map((canActivate: boolean) => {
         if (canActivate) {
-          this.store.dispatch(new AuthActions.DashboardRedurectAction());
+          this.store.dispatch(new AuthActions.DashboardRedirectAction());
         }
 
         return !canActivate;
