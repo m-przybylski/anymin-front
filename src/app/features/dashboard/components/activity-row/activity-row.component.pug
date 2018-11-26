@@ -13,9 +13,7 @@
       span.date {{ date | decorateDate | translate }}
 
     .activity-row__title-container
-      span.activity-row__title(
-      *ngSwitchCase="activityTypes.SERVICEUSAGEEVENT",
-      [translate]="'DASHBOARD_ACTIVITY.ANONYMOUS_CONSULTANT'")
+      span.activity-row__title(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT") {{ participantName | translate }}
       span.activity-row__title(*ngSwitchCase="activityTypes.FINANCIALTRANSACTION")
         | {{ payoutTitle | translate: {year: payoutTitleYear} }}
       span.activity-row__title(*ngSwitchCase="activityTypes.REFUND",

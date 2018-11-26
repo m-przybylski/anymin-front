@@ -18,7 +18,7 @@ export class RefundDetailsComponent {
     if (typeof value !== 'undefined') {
       this.id = value.id;
       this.date = value.date;
-      this.refundAmount = value.refundValue.amount;
+      this.refundAmount = value.refundValue.amount / this.moneyDivider;
       this.refundCurrency = value.refundValue.currency;
     }
   }
@@ -27,4 +27,6 @@ export class RefundDetailsComponent {
   public date: Date;
   public refundAmount = 0;
   public refundCurrency: string;
+
+  private readonly moneyDivider = 100;
 }

@@ -25,6 +25,7 @@
             plat-activity-row(
             [isImportant]="true",
             [activity]="activity",
+            [listType]="listType",
             (activityRowClicked)="onActivityRowClicked(activity, true)",
             )
 
@@ -38,6 +39,7 @@
             plat-activity-row(
             [activity]="profileActivity.activity",
             [isImportant]="profileActivity.isImportant",
+            [listType]="listType",
             (activityRowClicked)="onActivityRowClicked(profileActivity.activity, profileActivity.isImportant)",
             )
       .bottom
