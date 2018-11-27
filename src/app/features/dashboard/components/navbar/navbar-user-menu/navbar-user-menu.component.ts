@@ -11,7 +11,7 @@ import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-ava
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { RouterPaths } from '@platform/shared/routes/routes';
+import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -46,10 +46,21 @@ export class NavbarUserMenuComponent implements OnInit {
   public userType: UserTypeEnum;
 
   @Input()
+  public set accountId(value: string) {
+    this.userProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
+      [RouterPaths.dashboard.user.profile.params.expertId]: value,
+    })}`;
+    this.companyProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
+      [RouterPaths.dashboard.company.profile.params.profileId]: value,
+    })}`;
+  }
+
+  @Input()
   public set isVisible(value: boolean) {
     this._isVisible = value;
     this.visibilityControl.setValue(value, { emitEvent: false });
   }
+
   public get isVisible(): boolean {
     return this._isVisible;
   }
