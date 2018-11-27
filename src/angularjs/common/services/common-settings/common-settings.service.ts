@@ -89,7 +89,7 @@ export class CommonSettingsService {
     consultationMaxTagWords: 5,
     consultationMinTagLength: 2,
     consultationMaxTagLength: 50,
-    consultationPriceMin: 0,
+    consultationPriceMin: 1,
     consultationPriceMax: 9900,
     consultationInvitationsMinCount: 1,
     consultationInvitationsMaxCount: 100,
