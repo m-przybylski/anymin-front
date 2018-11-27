@@ -14,7 +14,7 @@ export const RouterPaths = {
       asPath: 'dashboard/user',
       getName: 'user',
       profile: {
-        asPath: 'dashboard/user/profile/:expertId',
+        asPath: '/dashboard/user/profile/:expertId',
         getName: 'profile/:expertId',
         params: {
           expertId: 'expertId',
@@ -53,7 +53,7 @@ export const RouterPaths = {
       asPath: 'dashboard/company',
       getName: 'company',
       profile: {
-        asPath: 'dashboard/company/profile/:profileId',
+        asPath: '/dashboard/company/profile/:profileId',
         getName: 'profile/:profileId',
         params: {
           profileId: 'profileId',
