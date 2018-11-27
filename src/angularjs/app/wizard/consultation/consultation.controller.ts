@@ -226,7 +226,8 @@ export class ConsultationController implements ng.IController {
 
   public onPriceChange = (ngModel: number): void => {
     const amount = Number(ngModel.toString().replace(',', '.'));
-    this.isPriceAmountValid = amount <= this.consultationPriceMax && amount >= this.consultationPriceMin;
+    this.isPriceAmountValid =
+      (amount <= this.consultationPriceMax && amount >= this.consultationPriceMin) || amount === 0;
   };
 
   public checkIsNameInputValid = (): boolean => this.consultationNamePattern.test(this.nameInputValue);
