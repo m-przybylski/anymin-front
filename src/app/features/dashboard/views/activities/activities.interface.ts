@@ -4,3 +4,8 @@ export interface IActivitiesData {
   importantActivitiesList: GetProfileActivities;
   activitiesList: GetProfileActivities;
 }
+
+export enum ActivityListTypeEnum {
+  EXPERT,
+  COMPANY,
+}

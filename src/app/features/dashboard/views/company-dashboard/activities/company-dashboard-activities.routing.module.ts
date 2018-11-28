@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ActivitiesComponent } from '@platform/features/dashboard/views/activities/activities.component';
-import { ActivitiesGuard } from '@platform/features/dashboard/views/activities/activities.guard';
 import { CompanyActivitiesViewComponent } from './views/company.activities.view.component';
+import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.interface';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
       {
         path: '',
         component: ActivitiesComponent,
-        canActivate: [ActivitiesGuard],
+        data: { activityListType: ActivityListTypeEnum.COMPANY },
       },
     ],
   },

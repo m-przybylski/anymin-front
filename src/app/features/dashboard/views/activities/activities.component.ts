@@ -5,10 +5,10 @@ import { Store, select } from '@ngrx/store';
 import * as fromActivities from './reducers';
 import { take, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { ActivitiesPageActions } from '@platform/features/dashboard/views/activities/actions';
+import { ActivitiesPageActions, ActivitiesActions } from '@platform/features/dashboard/views/activities/actions';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ActivatedRoute } from '@angular/router';
-import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.guard';
+import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.interface';
 
 export interface IProfileActivitiesWithStatus {
   activity: GetProfileActivity;
@@ -36,8 +36,10 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.updateActivitiesStatus(activitiesList, importantActivitiesList),
     ),
   );
+  public isLoaded$ = this.store.pipe(select(fromActivities.getIsLoaded));
+
   /**
-   * bacause only one subscription is kept in component
+   * because only one subscription is kept in component
    * there is a better to unsubscribe manually.
    * less code, less memory usage
    */
@@ -48,7 +50,14 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     private store: Store<fromActivities.IState>,
     private activitiesService: ActivitiesListService,
     private route: ActivatedRoute,
-  ) {}
+  ) {
+    const activityListType: ActivityListTypeEnum = route.snapshot.data.activityListType;
+    this.store.dispatch(
+      activityListType === ActivityListTypeEnum.EXPERT
+        ? new ActivitiesActions.LoadExpertActivitiesWithBalanceAction()
+        : new ActivitiesActions.LoadCompanyActivitiesWithBalanceAction(),
+    );
+  }
 
   public ngOnInit(): void {
     this.listType = this.route.snapshot.data.activityListType;
