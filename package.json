@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "repository": "git@git.contactis.pl:itelo/profitelo-frontend.git",
   "scripts": {
-    "postinstall": "node lib/version/version.js",
+    "postinstall": "node lib/version/version.js && node lib/scripts/patch-production.js",
     "ng": "ng",
     "start": "npm run pug-watch | ng serve  --proxy-config proxy.conf.js",
     "serve": "npm run start",
