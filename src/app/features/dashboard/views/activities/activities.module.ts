@@ -10,15 +10,16 @@ import { ActivitiesCounterModule } from '@platform/features/dashboard/components
 import { ActivitiesComponent } from '@platform/features/dashboard/views/activities/activities.component';
 import { ActivitiesEffects } from '@platform/features/dashboard/views/activities/effects/activities.effects';
 import { reducers } from '@platform/features/dashboard/views/activities/reducers';
-import { ActivitiesGuard } from '@platform/features/dashboard/views/activities/activities.guard';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
+import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardComponentsModule,
+    ContentLoaderModule,
     AnymindComponentsModule,
-    TranslateModule,
+    TranslateModule.forChild(),
     ActivityDetailsModule,
     ActivitiesCounterModule,
     StoreModule.forFeature('activities', reducers),
@@ -26,6 +27,6 @@ import { ActivitiesListService } from '@platform/features/dashboard/views/activi
   ],
   declarations: [ActivitiesComponent],
   exports: [ActivitiesComponent],
-  providers: [ActivitiesGuard, ActivitiesListService],
+  providers: [ActivitiesListService],
 })
 export class ActivitiesModule {}

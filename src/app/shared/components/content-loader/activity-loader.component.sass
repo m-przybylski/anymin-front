@@ -1,0 +1,20 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/rwd"
+
+.activity-loader--mobile
+  +smm
+    display: none
+
+.activity-loader--tablet
+  display: none
+
+  +smm
+    display: inline
+
+  +mdm
+    display: none
+
+.activity-loader--desktop
+  display: none
+
+  +mdm
+    display: inline
