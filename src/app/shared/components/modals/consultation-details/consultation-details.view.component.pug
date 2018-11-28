@@ -32,7 +32,7 @@ plat-modal-component(
           [isCommentOptionVisible]="isOwner"
           )
 
-      .consultation-comments__actions(*ngIf="!ifMaxCommentsLengthReached")
+      .consultation-comments__actions(*ngIf="isLoadMoreCommentsBtnVisible")
         a.button.button--tertiary((click)="onLoadMoreComments()")
           span {{ "CONSULTATION_DETAILS.BUTTON.MORE.TITLE" | translate }}
   .modal-component__footer
