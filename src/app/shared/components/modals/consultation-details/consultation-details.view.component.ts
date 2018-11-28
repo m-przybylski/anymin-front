@@ -43,7 +43,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   public ratingCounter: number;
   public commentsConsultation: ReadonlyArray<GetComment> = [];
   public employmentId: string;
-  public ifMaxCommentsLengthReached = false;
+  public isLoadMoreCommentsBtnVisible = false;
   public isCommentsRequestPending = false;
   public isPending = true;
   public accountId: string;
@@ -60,6 +60,8 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
+
+  private readonly commentsLimitLength = 3;
   private destroyed$ = new Subject<void>();
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private editConsultationPayload: ICreateEditConsultationPayload;
@@ -119,14 +121,13 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   };
 
   public onLoadMoreComments = (): void => {
-    const commentOffset = this.commentsConsultation.length;
-    const commentLimitLength = 10;
+    const commentOffset = this.commentsConsultation.length + this.commentsLimitLength;
     this.isCommentsRequestPending = true;
 
     this.consultationDetailsViewService
-      .getComments(this.employmentId, commentLimitLength.toString(), commentOffset.toString())
+      .getComments(this.employmentId, this.commentsLimitLength.toString(), commentOffset.toString())
       .subscribe((commentsList: ReadonlyArray<GetComment>) => {
-        this.ifMaxCommentsLengthReached = commentsList.length < commentLimitLength;
+        this.isLoadMoreCommentsBtnVisible = commentsList.length === this.commentsLimitLength;
         this.isCommentsRequestPending = false;
         this.commentsConsultation = this.consultationDetailsViewService.loadMoreComments(
           commentsList,
@@ -142,7 +143,6 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     getComments,
     employmentId,
   }: IConsultationDetails): void => {
-    const maxCommentsForInitialLoad = 3;
     this.serviceName = getServiceWithEmployees.serviceDetails.name;
     this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
     this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
@@ -168,7 +168,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     );
 
     this.commentsConsultation = getComments;
-    this.ifMaxCommentsLengthReached = getComments.length === maxCommentsForInitialLoad;
+    this.isLoadMoreCommentsBtnVisible = getComments.length !== 0 && getComments.length === this.commentsLimitLength;
 
     if (employmentWithService !== undefined) {
       this.usageCounter = employmentWithService.usageCounter;
