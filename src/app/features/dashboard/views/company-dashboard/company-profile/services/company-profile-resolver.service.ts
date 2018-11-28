@@ -9,9 +9,10 @@ import {
 import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { map, filter, take } from 'rxjs/operators';
+import { map, filter, take, tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { CompanyProfileApiActions } from '../actions';
 
 @Injectable()
 export class CompanyProfileResolverService
@@ -31,12 +32,13 @@ export class CompanyProfileResolverService
       filter(session => session !== undefined),
       take(1),
     ) as Observable<GetSessionWithAccount>;
-    /** get data from backend - organization profile - consultataions */
-    const organizationDetails$ = this.views
-      .getWebOrganizationProfileRoute(profileId)
-      .pipe(
-        map(data => ({ ...data, services: data.services.filter(service => service.service.deletedAt === undefined) })),
-      );
+    /** get data from backend - organization profile - consultations */
+    const organizationDetails$ = this.views.getWebOrganizationProfileRoute(profileId).pipe(
+      map(data => ({ ...data, services: data.services.filter(service => service.service.deletedAt === undefined) })),
+      tap(data =>
+        this.store.dispatch(new CompanyProfileApiActions.LoadCompanyConsultationsSuccessAction(data.services)),
+      ),
+    );
     /** get data from backend - organization details - name, desc, logo, links */
     const profileDetails$ = this.profileService.getProfileRoute(profileId);
 

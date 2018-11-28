@@ -4,12 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { RouterPaths } from '../../shared/routes/routes';
 import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
-import { CompanyDashboardComponent } from './views/company-dashboard/company-dashboard.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
-import { CompanyDashboardViewResolver } from './views/company-dashboard/company-dashboard.view.resolver';
 
 const routes: Routes = [
   {
@@ -53,21 +51,7 @@ const routes: Routes = [
       },
       {
         path: RouterPaths.dashboard.company.getName,
-        component: CompanyDashboardComponent,
-        resolve: {
-          userType: CompanyDashboardViewResolver,
-        },
-        children: [
-          {
-            path: 'activities',
-            loadChildren:
-              './views/company-dashboard/activities/company-dashboard-activities.module#CompanyDashboardActivitiesModule',
-          },
-          {
-            path: RouterPaths.dashboard.company.profile.getName,
-            loadChildren: './views/company-dashboard/company-profile/company-profile.module#CompanyProfileModule',
-          },
-        ],
+        loadChildren: './views/company-dashboard/company-dashboard.module#CompanyDashboardModule',
       },
     ],
   },

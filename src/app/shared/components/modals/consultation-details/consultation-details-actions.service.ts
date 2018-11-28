@@ -14,7 +14,7 @@ import {
   ICreateEditConsultationPayload,
   CreateEditConsultationModalComponent,
 } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
-import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
+import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
@@ -41,7 +41,7 @@ export class ConsultationDetailsActionsService extends Logger {
   }: IConsultationDetailActionParameters): void => {
     const modalOptions = {
       injector: Injector.create({
-        providers: [{ provide: CONSULTATIONDETAILS, useValue: createEditConsultationPayload }],
+        providers: [{ provide: CONSULTATION_DETAILS, useValue: createEditConsultationPayload }],
         parent: this.injector,
       }),
     };

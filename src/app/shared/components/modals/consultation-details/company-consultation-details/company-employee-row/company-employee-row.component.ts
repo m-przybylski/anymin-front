@@ -25,7 +25,7 @@ export class CompanyEmployeeRowComponent {
   @Input()
   public employeeDetails: ICompanyEmployeeRowComponent;
   @Output()
-  public onDeleteEmployeeEmiter: EventEmitter<string> = new EventEmitter<string>();
+  public deleteEmployee: EventEmitter<string> = new EventEmitter<string>();
   @Input()
   public isOwnProfile = false;
   @Input()
@@ -36,10 +36,6 @@ export class CompanyEmployeeRowComponent {
   public onClickDelete = (employeeId: Event): void => {
     employeeId.stopPropagation();
 
-    if (typeof this.employeeDetails.invitationId !== 'undefined') {
-      this.onDeleteEmployeeEmiter.emit(this.employeeDetails.invitationId);
-    } else {
-      this.onDeleteEmployeeEmiter.emit(this.employeeDetails.id);
-    }
+    this.deleteEmployee.emit(this.employeeDetails.invitationId || this.employeeDetails.id);
   };
 }

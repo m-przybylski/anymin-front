@@ -4,8 +4,8 @@ import { GetImportantActivitiesCounters } from '@anymind-ng/api';
 
 export enum DashboardActionTypes {
   FetchImportantActivitiesCounterFromServer = '[dashboard] Fetch activities counter from backend',
-  FetchImportantActivitiesCounterFromServerError = '[dashboard] Fetch error',
-  FetchImportantActivitiesCounterFromServerSuccess = '[dashboard] Fetch success',
+  FetchImportantActivitiesCounterFromServerError = '[dashboard] Fetch activities counter error',
+  FetchImportantActivitiesCounterFromServerSuccess = '[dashboard] Fetch activities counter success ',
   IncrementImportantExpertActivitiesCounter = '[dashboard] Increment expert activities counter',
   IncrementImportantClientActivitiesCounter = '[dashboard] Increment client activities counter',
   DecrementImportantExpertActivitiesCounter = '[dashboard] Decrement expert activities counter',

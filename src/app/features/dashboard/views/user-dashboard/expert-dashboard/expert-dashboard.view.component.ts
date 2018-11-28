@@ -11,7 +11,7 @@ import {
   CreateEditConsultationModalComponent,
   ICreateEditConsultationPayload,
 } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
-import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
+import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { IExpertProfile } from './services/expert-dashboard-resolver.service';
@@ -73,7 +73,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
       isOwnerEmployee: true,
     };
     const modalOptions: NgbModalOptions = {
-      injector: this.setupInjector(CONSULTATIONDETAILS, payload),
+      injector: this.setupInjector(CONSULTATION_DETAILS, payload),
     };
     this.openModalWithReload(CreateEditConsultationModalComponent, modalOptions);
   };
