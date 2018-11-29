@@ -14,7 +14,7 @@ plat-consultation-footer
         p {{"CONSULTATION_DETAILS.FOOTER.NA_2" | translate}}
     span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.paymentCard')
       span(plat-icon iconClass='payment-card')
-      p {{"CONSULTATION_DETAILS.FOOTER.CARD" |translate: {value: defaultPayment?.card | creditCard} }}
+      p {{"CONSULTATION_DETAILS.FOOTER.CARD" |translate: {method: defaultPayment?.card | creditCard} }}
     span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.paymentAnyMind')
       span(plat-icon iconClass='wallet')
       p

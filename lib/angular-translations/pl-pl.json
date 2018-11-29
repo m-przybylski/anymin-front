@@ -1976,7 +1976,7 @@
   "CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE": "Pierwsza minuta jest darmowa.",
   "CONSULTATION_DETAILS.FOOTER.NA_1": "Konsultant nie jest w tym momencie dostępny.",
   "CONSULTATION_DETAILS.FOOTER.NA_2": "Jeśli chcesz, możemy wysłać Ci powiadomienie, gdy znów się pojawi.",
-  "CONSULTATION_DETAILS.FOOTER.CARD": "Meteda płatności {{value}}",
+  "CONSULTATION_DETAILS.FOOTER.CARD": "Metoda płatności {{method}}",
   "CONSULTATION_DETAILS.FOOTER.ACCOUNT": "Płatkość konto",
   "CONSULTATION_DETAILS.FOOTER.TOPUP": "Doładuj konto.",
   "CONSULTATION_DETAILS.FOOTER.TALKLAST": "Wystarczy na {{ duration }} min rozmowy ",
