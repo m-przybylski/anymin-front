@@ -45,17 +45,14 @@ export class SueDetailsComponent {
   public sueId: string;
   public answeredAt: Date;
   public callDuration: number;
-  public servicePriceAmount: number;
-  public servicePriceCurrency: string;
-  public financialOperationAmount = 0;
-  public financialOperationCurrency = 'PLN';
+  public servicePrice: MoneyDto;
+  public financialOperation: MoneyDto;
   public rate: string;
   public commentDetails?: GetComment;
   public recommendedTags: string;
   public isSueExpert: boolean;
   public expertName: string;
 
-  private readonly moneyDivider = 100;
   private readonly oneSecondInMilliseconds = 1000;
 
   public onOpenChatClick = (): void => {
@@ -68,15 +65,13 @@ export class SueDetailsComponent {
     this.sueId = value.sueId;
     this.answeredAt = value.answeredAt;
     if (value.financialOperation) {
-      this.financialOperationAmount = value.financialOperation.amount / this.moneyDivider;
-      this.financialOperationCurrency = value.financialOperation.currency;
+      this.financialOperation = value.financialOperation;
     }
     /**
      * multiple by 1000 because of use angular date pipe in template
      */
     this.callDuration = value.callDuration * this.oneSecondInMilliseconds;
-    this.servicePriceAmount = value.servicePrice.amount / this.moneyDivider;
-    this.servicePriceCurrency = value.servicePrice.currency;
+    this.servicePrice = value.servicePrice;
     this.rate = this.getRateStatus(value.rate);
     this.commentDetails = value.comment;
     this.recommendedTags = value.recommendedTags;

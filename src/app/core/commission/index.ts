@@ -1,4 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core';
+import { Config } from '../../../config';
 
 export const COMMISSION: InjectionToken<ICommission> = new InjectionToken('Commission injection token');
 
@@ -21,7 +22,7 @@ export function provideCommission(): Provider {
       employeeServiceAnyMindCommission: 0.15,
       percentDivider: 100,
       numberPrecision: 2,
-      moneyDivider: 100,
+      moneyDivider: Config.moneyDivider,
     },
   };
 }

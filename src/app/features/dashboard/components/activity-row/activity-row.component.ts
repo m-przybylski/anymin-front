@@ -55,12 +55,6 @@ export class ActivityRowComponent implements OnInit {
     this.activityRowClicked.emit(this.activity);
   };
 
-  public getDividedAmount = (amount: number): number => {
-    const moneyDivider = 100;
-
-    return amount / moneyDivider;
-  };
-
   private mapMonthToPayoutTitleTranslation = (monthIndex: number): string => {
     const monthNames: ReadonlyArray<string> = [
       'JANUARY',

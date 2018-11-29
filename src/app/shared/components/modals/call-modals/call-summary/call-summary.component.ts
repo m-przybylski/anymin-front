@@ -5,7 +5,7 @@ import { ExpertCallSummaryService } from './call-summary.service';
 import { Logger } from '@platform/core/logger';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
-import { PostTechnicalProblem } from '@anymind-ng/api';
+import { MoneyDto, PostTechnicalProblem } from '@anymind-ng/api';
 import { FormGroup } from '@angular/forms';
 import { Config } from '../../../../../../config';
 import { Subject } from 'rxjs';
@@ -44,8 +44,7 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
   public clientName: string;
   public title: string;
   public callDuration: number;
-  public amount: number;
-  public currency: string;
+  public callProfit: MoneyDto;
   public modalHeaderTr = 'CALL_SUMMARY.HEADER.TITLE';
   public onBackwardClick: () => void;
   public isBackwardVisible = false;
@@ -76,15 +75,13 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
       .getCallSummary(this.currentCall)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(summary => {
-        const gross = 100;
         this.clientAvatarToken = summary.clientDetails.avatar;
         this.clientName = summary.clientDetails.nickname
           ? summary.clientDetails.nickname
           : 'CALL_SUMMARY.ANONYMOUS_CLIENT';
         this.title = summary.service.name;
         this.callDuration = summary.callDuration;
-        this.amount = summary.profit.amount / gross;
-        this.currency = summary.profit.currency;
+        this.callProfit = summary.profit;
         this.sueId = summary.sueId;
         this.modalAnimationComponentService.isPendingRequest().next(false);
       });

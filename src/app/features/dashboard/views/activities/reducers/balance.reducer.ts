@@ -1,7 +1,8 @@
 import { MoneyDto } from '@anymind-ng/api';
 import { BalanceApiActions, ActivitiesWsActions } from '../actions';
+import { Config } from '../../../../../../config';
 
-const moneyDivider = 100;
+const moneyDivider = Config.moneyDivider;
 
 export interface IState {
   balance: MoneyDto;

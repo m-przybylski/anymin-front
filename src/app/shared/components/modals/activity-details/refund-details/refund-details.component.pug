@@ -15,4 +15,5 @@
     ul.basic-data.basic-data-financial
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.PAYOUT_AMOUNT' | translate }}
-        span.basic-data__value {{ refundAmount | currency: refundCurrency:'symbol-narrow' }}
+        span
+          plat-money-display.basic-data__value([money]="refund")

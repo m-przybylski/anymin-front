@@ -8,6 +8,7 @@ import { CreateIncomingCallComponent } from '@platform/shared/components/modals/
 import { CreateCallSummaryComponent } from '@platform/shared/components/modals/call-modals/call-summary/call-summary.component';
 import { ModalComponentsModule } from '@platform/shared/components/modals/modal/modal.components.module';
 import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-avatar.module';
+import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-a
     UserAvatarModule,
     ReactiveFormsModule,
     IconModule,
+    MoneyDisplayModule,
   ],
   declarations: [CreateIncomingCallComponent, CreateCallSummaryComponent],
   exports: [],

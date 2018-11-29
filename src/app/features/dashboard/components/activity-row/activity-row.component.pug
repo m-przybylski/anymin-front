@@ -24,6 +24,7 @@
 
     .activity-row__money([ngSwitch]="activityType")
       span.date {{ date | decorateDate | translate }}
-      span.money(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT")
-        | + {{ getDividedAmount(operationAmount.amount) | currency: operationAmount.currency:'symbol-narrow' }}
-      span.money(*ngSwitchDefault) {{ getDividedAmount(operationAmount.amount) | currency: operationAmount.currency:'symbol-narrow' }}
+      span(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT")
+        plat-money-display.money([money]="operationAmount", sign="+")
+      span(*ngSwitchDefault)
+        plat-money-display.money([money]="operationAmount")
