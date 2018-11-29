@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Observable, of } from 'rxjs';
-import { map, take, switchMap, catchError, filter, tap } from 'rxjs/operators';
+import { map, take, switchMap, catchError, tap } from 'rxjs/operators';
 import { InvitationService } from '@anymind-ng/api';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { RouterPaths } from '@platform/shared/routes/routes';
-import * as SessionActions from '@platform/core/actions/session.actions';
 import { AuthActions } from '@platform/core/actions';
 import { HttpErrorResponse } from '@angular/common/http';
+import { isUserLogged } from '@platform/shared/guards/session.helper';
 
 @Injectable()
 export class InvitationsGuard extends Logger implements CanActivate {
@@ -28,20 +28,7 @@ export class InvitationsGuard extends Logger implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.store.pipe(
-      select(fromCore.getLoggedIn),
-      map(isLoggedIn => {
-        if (isLoggedIn.isPending) {
-          return undefined;
-        }
-        if (!isLoggedIn.isFromBackend) {
-          this.store.dispatch(new SessionActions.FetchSessionAction());
-
-          return undefined;
-        }
-
-        return isLoggedIn.isLoggedIn;
-      }),
-      filter(result => typeof result !== 'undefined'),
+      isUserLogged(),
       switchMap((isLoggedIn: boolean) => {
         const token = route.params.token;
 
