@@ -13,9 +13,7 @@
       span.date {{ date | decorateDate | translate }}
 
     .activity-row__title-container
-      span.activity-row__title(
-      *ngSwitchCase="activityTypes.SERVICEUSAGEEVENT",
-      [translate]="'DASHBOARD_ACTIVITY.ANONYMOUS_CONSULTANT'")
+      span.activity-row__title(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT") {{ participantName | translate }}
       span.activity-row__title(*ngSwitchCase="activityTypes.FINANCIALTRANSACTION")
         | {{ payoutTitle | translate: {year: payoutTitleYear} }}
       span.activity-row__title(*ngSwitchCase="activityTypes.REFUND",
@@ -26,6 +24,7 @@
 
     .activity-row__money([ngSwitch]="activityType")
       span.date {{ date | decorateDate | translate }}
-      span.money(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT")
-        | + {{ getDividedAmount(operationAmount.amount) | currency: operationAmount.currency:'symbol-narrow' }}
-      span.money(*ngSwitchDefault) {{ getDividedAmount(operationAmount.amount) | currency: operationAmount.currency:'symbol-narrow' }}
+      span(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT")
+        plat-money-display.money([money]="operationAmount", sign="+")
+      span(*ngSwitchDefault)
+        plat-money-display.money([money]="operationAmount")

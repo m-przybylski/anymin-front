@@ -19,13 +19,15 @@
         span.basic-data__value {{ callDuration | date:'H:mm:ss':'UTC'}}
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COST_PER_MIN' | translate }}
-        span.basic-data__value {{ servicePriceAmount | currency: servicePriceCurrency:'symbol-narrow' }}
+        span
+          plat-money-display.basic-data__value([money]="servicePrice")
 
   .activity-section.activity-section-financial
     ul.basic-data.basic-data-financial
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION' | translate }}
-        span.basic-data__value + {{ financialOperationAmount | currency: financialOperationCurrency:'symbol-narrow' }}
+        span
+          plat-money-display.basic-data__value([money]="financialOperation", sign="+")
 
   .activity-section
     ul.basic-data

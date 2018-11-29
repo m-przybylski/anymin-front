@@ -15,7 +15,8 @@ plat-modal-component(
           p.call-summary__data-container--data(*ngIf="callDuration") {{ callDuration | secondsToDateTime | date:'HH:mm:ss' }}
         .call-summary__data-container
           p.call-summary__data-container--header([translate]="'CALL_SUMMARY.MONEY_HEADER'")
-          p.call-summary__data-container--data {{ amount | currency: currency:'symbol-narrow' }}
+          p
+            plat-money-display.call-summary__data-container--data([money]="callProfit")
       .call-summary__footer
         a.call-summary__footer__button([translate]="'CALL_SUMMARY.REPORT_LINK'", (click)="switchToReportClient()",
         [ngClass]="{'call-summary__footer__button--disabled': isClientReported}")

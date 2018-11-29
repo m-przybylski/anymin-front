@@ -8,10 +8,11 @@ import { Observable, EMPTY } from 'rxjs';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
+import { Config } from '../../../../../config';
 
 @Injectable()
 export class CreateEditConsultationService extends Logger {
-  private readonly moneyDivider = 100;
+  private readonly moneyDivider = Config.moneyDivider;
   private readonly lastButOneIndex = 2;
 
   constructor(

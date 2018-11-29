@@ -142,4 +142,6 @@ export class Config {
     numericPlus: 107,
     numericMinus: 109,
   };
+
+  public static readonly moneyDivider = 100;
 }

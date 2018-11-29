@@ -18,13 +18,11 @@ export class RefundDetailsComponent {
     if (typeof value !== 'undefined') {
       this.id = value.id;
       this.date = value.date;
-      this.refundAmount = value.refundValue.amount;
-      this.refundCurrency = value.refundValue.currency;
+      this.refund = value.refundValue;
     }
   }
 
   public id: string;
   public date: Date;
-  public refundAmount = 0;
-  public refundCurrency: string;
+  public refund: MoneyDto;
 }

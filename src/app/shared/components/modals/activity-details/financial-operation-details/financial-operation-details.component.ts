@@ -27,10 +27,7 @@ export class FinancialOperationDetailsComponent extends Logger {
   public id: string;
   public date: Date;
   public payoutMethodTrKey: string;
-  public payoutAmount = 0;
-  public payoutCurrency = 'PLN';
-
-  private readonly moneyDivider = 100;
+  public payout: MoneyDto;
 
   constructor(loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('FinancialOperationDetailsComponent'));
@@ -42,8 +39,7 @@ export class FinancialOperationDetailsComponent extends Logger {
     /**
      * multiple by -1 to make amount as positive number
      */
-    this.payoutAmount = (activityDetails.payoutValue.amount * -1) / this.moneyDivider;
-    this.payoutCurrency = activityDetails.payoutValue.currency;
+    this.payout = { amount: activityDetails.payoutValue.amount * -1, currency: activityDetails.payoutValue.currency };
   };
 
   private assignPayoutMethodForUI = (payoutMethod: GetPayoutMethod): void => {

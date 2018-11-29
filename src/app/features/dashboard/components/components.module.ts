@@ -15,6 +15,7 @@ import { DecorateDatePipe } from './pipes/decorate-date.pipe';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { FilePreviewModule } from '@platform/shared/components/modals/file-preview/file-preview.module';
 import { ActivityRowComponent } from '@platform/features/dashboard/components/activity-row/activity-row.component';
+import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { ActivityRowComponent } from '@platform/features/dashboard/components/ac
     UserAvatarModule,
     FilePreviewModule,
     ExpertAvailabilityModule,
+    MoneyDisplayModule,
   ],
   declarations: [
     SocialLinksComponent,

@@ -11,6 +11,7 @@ import { FinancialOperationDetailsComponent } from './financial-operation-detail
 import { UuidTrimmerPipe } from '@platform/shared/components/modals/activity-details/uuid-trimmer.pipe';
 import { ConsultationCommentModule } from '@platform/shared/components/consultation-comment/consultation-comment.module';
 import { RefundDetailsComponent } from './refund-details/refund-details.component';
+import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { RefundDetailsComponent } from './refund-details/refund-details.componen
     AnymindComponentsModule,
     StepperModule,
     ConsultationCommentModule,
+    MoneyDisplayModule,
   ],
   entryComponents: [ActivityDetailsViewComponent],
   declarations: [
