@@ -1,15 +1,17 @@
-// tslint:disable:no-unbound-method
 import { ProfileGuard } from './profile.guard';
-import { UserSessionService } from '../../../core/services/user-session/user-session.service';
 import { Router } from '@angular/router';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { importStore } from 'testing/testing';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '@platform/core/actions';
+import { cold } from 'jasmine-marbles';
 
 describe('ProfileGuard', () => {
   let guard: ProfileGuard;
-  let userSessionService: UserSessionService;
   let loggerFactory: any;
   let router: Router;
+  let store: Store<any>;
   const routerConfig: any = {
     dashboard: {
       asPath: 'dashboard',
@@ -63,54 +65,58 @@ describe('ProfileGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, importStore()],
     });
   });
 
   beforeEach(() => {
-    userSessionService = jasmine.createSpyObj('userSessionService', ['getSession']);
     loggerFactory = {
       createLoggerService: (_: string): any => ({
         debug: jasmine.createSpy('debug').and.stub(),
       }),
     };
+
+    store = TestBed.get(Store);
     router = TestBed.get(Router);
     spyOn(router, 'navigate').and.stub();
-    guard = new ProfileGuard(userSessionService, router, loggerFactory, routerConfig);
+    guard = new ProfileGuard(router, store, loggerFactory, routerConfig);
   });
 
-  it('should not redirect when user is logged and logged path is active', fakeAsync(() => {
-    (userSessionService.getSession as jasmine.Spy).and.returnValue(Promise.resolve({}));
-    guard.canActivate(undefined as any, { url: 'dashboard/user/profile/123' } as any).subscribe(canActivate => {
-      tick();
-      expect(router.navigate).not.toHaveBeenCalled();
-      expect(canActivate).toBeTruthy();
-    });
-  }));
+  it('should not redirect when user is logged and logged path is active', () => {
+    const session: any = {};
+    const action = new AuthActions.LoginSuccessAction(session);
+    store.dispatch(action);
+    const expected = cold('(a|)', { a: true });
+    expect(guard.canActivate(undefined as any, { url: 'dashboard/user/profile/123' } as any)).toBeObservable(expected);
+  });
 
   it('should redirect when user is logged and not logged path is active', fakeAsync(() => {
-    (userSessionService.getSession as jasmine.Spy).and.returnValue(Promise.resolve({}));
-    guard.canActivate(undefined as any, { url: 'browse/user/profile/123' } as any).subscribe(() => {
-      tick();
-      const navigate: jasmine.Spy = router.navigate as jasmine.Spy;
-      expect(navigate.calls.count()).toBe(1, 'navigate called once');
-      expect(navigate.calls.mostRecent().args).toEqual(
-        [['dashboard', 'user', 'profile', '123']],
-        'navigate to specific path',
-      );
-    });
+    const session: any = {};
+    const action = new AuthActions.LoginSuccessAction(session);
+    store.dispatch(action);
+    const expected = cold('(a|)', { a: false });
+    expect(guard.canActivate(undefined as any, { url: 'browse/user/profile/123' } as any)).toBeObservable(expected);
+    tick();
+    const navigate: jasmine.Spy = router.navigate as jasmine.Spy;
+    expect(navigate.calls.count()).toBe(1, 'navigate called once');
+    expect(navigate.calls.mostRecent().args).toEqual(
+      [['dashboard', 'user', 'profile', '123']],
+      'navigate to specific path',
+    );
   }));
 
   it('should redirect when user is not logged and logged path is active', fakeAsync(() => {
-    (userSessionService.getSession as jasmine.Spy).and.returnValue(Promise.reject({ status: 401 }));
-    guard.canActivate(undefined as any, { url: 'dashboard/user/profile/123' } as any).subscribe(() => {
-      tick();
-      const navigate: jasmine.Spy = router.navigate as jasmine.Spy;
-      expect(navigate.calls.count()).toBe(1, 'navigate called once');
-      expect(navigate.calls.mostRecent().args).toEqual(
-        [['browse', 'user', 'profile', '123']],
-        'navigate to specific path',
-      );
-    });
+    const error: any = 'error, error, error';
+    const action = new AuthActions.LoginErrorAction(error);
+    store.dispatch(action);
+    const expected = cold('(a|)', { a: false });
+    expect(guard.canActivate(undefined as any, { url: 'dashboard/user/profile/123' } as any)).toBeObservable(expected);
+    tick();
+    const navigate: jasmine.Spy = router.navigate as jasmine.Spy;
+    expect(navigate.calls.count()).toBe(1, 'navigate called once');
+    expect(navigate.calls.mostRecent().args).toEqual(
+      [['browse', 'user', 'profile', '123']],
+      'navigate to specific path',
+    );
   }));
 });

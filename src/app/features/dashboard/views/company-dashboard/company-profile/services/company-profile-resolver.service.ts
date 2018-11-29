@@ -9,7 +9,7 @@ import {
 import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { map, filter, take, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { CompanyProfileApiActions } from '../actions';
@@ -29,7 +29,6 @@ export class CompanyProfileResolverService
     /** get information who is logged */
     const session$ = this.store.pipe(
       select(fromCore.getSession),
-      filter(session => session !== undefined),
       take(1),
     ) as Observable<GetSessionWithAccount>;
     /** get data from backend - organization profile - consultations */

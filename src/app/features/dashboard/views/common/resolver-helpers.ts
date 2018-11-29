@@ -1,4 +1,4 @@
-import { forkJoin, Observable, throwError, of } from 'rxjs';
+import { forkJoin, Observable, throwError } from 'rxjs';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 /**
  * Function that maps data from backend for resolver
- * Used internaly in:
+ * Used internally in:
  * company profile resolver
  * expert profile resolver
  * @param data$ stream of data from backend
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
  */
 export const mapData = <T>(
   data$: Observable<T>,
-  session$: Observable<GetSessionWithAccount>,
+  session$: Observable<GetSessionWithAccount | undefined>,
   getOwnerId: (data: T) => string,
   router: Router,
   destinationNotFoundRoute = 'not-found',
@@ -26,16 +26,15 @@ export const mapData = <T>(
   forkJoin(
     data$,
     session$.pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === httpCodes.unauthorized) {
-          return of({
-            account: { id: undefined },
-            isCompany: false
-          });
-        }
-
-        return throwError(error);
-      }),
+      map(
+        getSessionWithAccount =>
+          getSessionWithAccount === undefined
+            ? {
+                account: { id: undefined },
+                isCompany: false,
+              }
+            : getSessionWithAccount,
+      ),
     ),
   ).pipe(
     map(([data, session]) => ({

@@ -26,7 +26,6 @@ const appRoutes: Routes = [
       { path: 'dashboard/expert/activities', loadChildren: './features/angularjs/angularjs.module#AngularJsModule' },
       {
         path: 'dashboard',
-        canLoad: [SessionGuard],
         canActivate: [ProfileGuard],
         loadChildren: './features/dashboard/dashboard.module#DashboardModule',
       },

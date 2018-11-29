@@ -8,18 +8,19 @@ import {
   PRIMARY_OUTLET,
 } from '@angular/router';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { UserSessionService } from '../../../core/services/user-session/user-session.service';
-import { Observable, from, of, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { httpCodes } from '../../constants/httpCodes';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { RouterPaths, RouterPathsToken } from '../../routes/routes';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import { isKnownUser } from '@platform/shared/guards/session.helper';
 
 /**
- * Responsible of this guard is to check weather user is looged
+ * Responsible of this guard is to check weather user is logged
  * or not and redirect to specific path.
  *
- * Guard gets ifroamtion from session if user is logged or nor
- * Guard calls matchPath to retrieve destination path and redirectes
+ * Guard gets information from session if user is logged or nor
+ * Guard calls matchPath to retrieve destination path and redirects
  * to that path if needed.
  *
  */
@@ -28,8 +29,8 @@ export class ProfileGuard implements CanActivate {
   private logger: LoggerService;
 
   constructor(
-    private userSessionService: UserSessionService,
     private router: Router,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
     @Inject(RouterPathsToken) private routerPaths: typeof RouterPaths,
   ) {
@@ -37,15 +38,17 @@ export class ProfileGuard implements CanActivate {
   }
 
   public canActivate = (_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> =>
-    from(this.userSessionService.getSession()).pipe(
-      map(() => true),
-      catchError(error => (error.status === httpCodes.unauthorized ? of(false) : throwError(error))),
-      map(logged => {
-        const redirectTo = this.matchPath(this.buildRedirectMap())(this.getUrlSegmentsWithNoParam(state.url), logged);
+    this.can(state.url);
+
+  private can(url: string): Observable<boolean> {
+    return this.store.pipe(
+      isKnownUser(),
+      map(isUserKnown => {
+        const redirectTo = this.matchPath(this.buildRedirectMap())(this.getUrlSegmentsWithNoParam(url), isUserKnown);
         if (redirectTo !== undefined) {
           this.logger.debug(`redirecting to ${redirectTo} and ID :)`);
           void setTimeout(() => {
-            void this.router.navigate([...redirectTo.map(segment => segment.toString()), this.getLastParam(state.url)]);
+            void this.router.navigate([...redirectTo.map(segment => segment.toString()), this.getLastParam(url)]);
           }, 0);
 
           return false;
@@ -53,8 +56,9 @@ export class ProfileGuard implements CanActivate {
 
         return true;
       }),
+      take(1),
     );
-
+  }
   private buildRedirectMap = (): IRedirectMap =>
     /**
      * setup map. Each path profile, company etc has logged and unlogged property
