@@ -2,7 +2,6 @@ import { Component, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
-import { ServiceWithEmployments } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 import {
@@ -11,10 +10,11 @@ import {
 } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
 import { OrganizationProfile } from './services/company-profile-resolver.service';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { CONSULTATIONDETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
+import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
-
+import { Store, select } from '@ngrx/store';
+import * as fromCompanyDashboard from '../reducers';
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
@@ -25,13 +25,18 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   public description: string;
   public isOwnProfile: boolean;
   public isLogged: boolean;
-  public consultations: ReadonlyArray<ServiceWithEmployments> = [];
+  public consultations$ = this.store.pipe(select(fromCompanyDashboard.getConsultations));
   public links: ReadonlyArray<string>;
   public organizationId: string;
   public organizationDocuments: ReadonlyArray<ProfileDocument> = [];
   private logger: LoggerService;
 
-  constructor(protected route: ActivatedRoute, protected injector: Injector, loggerFactory: LoggerFactory) {
+  constructor(
+    protected route: ActivatedRoute,
+    protected injector: Injector,
+    private store: Store<fromCompanyDashboard.IState>,
+    loggerFactory: LoggerFactory,
+  ) {
     super(injector);
     this.logger = loggerFactory.createLoggerService('CompanyProfileComponent');
     this.route.data
@@ -47,7 +52,6 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
         this.description = consultations.organizationProfile.description;
         this.organizationDocuments = consultations.organizationProfile.documents;
         this.isOwnProfile = data.isOwnProfile;
-        this.consultations = consultations.services;
         this.isLogged = data.isLogged;
         if (typeof profile.profile.organizationDetails !== 'undefined') {
           this.links = profile.profile.organizationDetails.links;
@@ -80,7 +84,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
       isOwnerEmployee: false,
     };
     const modalOptions: NgbModalOptions = {
-      injector: this.setupInjector(CONSULTATIONDETAILS, payload),
+      injector: this.setupInjector(CONSULTATION_DETAILS, payload),
     };
     this.openModalWithReload(CreateEditConsultationModalComponent, modalOptions);
   };

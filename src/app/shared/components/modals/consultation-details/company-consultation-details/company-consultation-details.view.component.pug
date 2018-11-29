@@ -26,7 +26,7 @@ plat-modal-component(
           li(*ngFor="let employee of employeesList", [@animation])
             plat-company-employee-row(
             [employeeDetails]="employee",
-            (onDeleteEmployeeEmiter)="onDeleteEmployee($event)",
+            (deleteEmployee)="onDeleteEmployee($event)",
             [isOwnProfile]="isOwnProfile",
             (click)="openConsultationDetailsModal(employee.employeeId)",
             [isStatisticsVisible]="true"
@@ -43,7 +43,7 @@ plat-modal-component(
           li(*ngFor="let employee of pendingEmployeesList", [@animation])
             plat-company-employee-row(
               [employeeDetails]="employee",
-              (onDeleteEmployeeEmiter)="onDeletePendingInvitation($event)",
+              (deleteEmployee)="onDeletePendingInvitation($event)",
               [isOwnProfile]="isOwnProfile",
             )
   .modal-component__footer

@@ -15,7 +15,7 @@
 .container
   h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
   plat-company-profile-consultations(
-    [consultations]='consultations',
+    [consultations]='consultations$ | async',
     [isOwnProfile]='isOwnProfile',
     (addConsultation)='addConsultation()'
   )

@@ -23,6 +23,7 @@ import { IFooterOutput, IConsultationFooterData } from '../consultation-footers/
 import { ConsultationFooterResolver } from '../consultation-footers/consultation-footer.resolver';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { CompanyProfileApiActions } from '@platform/features/dashboard/views/company-dashboard/company-profile/actions';
 import { takeUntil, take } from 'rxjs/operators';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Subject, forkJoin } from 'rxjs';
@@ -134,10 +135,11 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     }
   }
 
-  public onDeleteEmployee = (employeeId: string): void => {
-    this.companyConsultationDetailsViewService
-      .deleteEmployee(employeeId)
-      .subscribe(() => (this.employeesList = this.employeesList.filter(employee => employee.id !== employeeId)));
+  public onDeleteEmployee = (employmentId: string): void => {
+    this.companyConsultationDetailsViewService.deleteEmployee(employmentId).subscribe(() => {
+      this.store.dispatch(new CompanyProfileApiActions.DeleteEmploymentSuccessAction(employmentId));
+      this.employeesList = this.employeesList.filter(employee => employee.id !== employmentId);
+    });
   };
 
   public onAddEmployees = (): void => {

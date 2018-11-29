@@ -50,16 +50,15 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     private store: Store<fromActivities.IState>,
     private activitiesService: ActivitiesListService,
     private route: ActivatedRoute,
-  ) {
-    const activityListType: ActivityListTypeEnum = route.snapshot.data.activityListType;
+  ) {}
+
+  public ngOnInit(): void {
+    const activityListType: ActivityListTypeEnum = this.route.snapshot.data.activityListType;
     this.store.dispatch(
       activityListType === ActivityListTypeEnum.EXPERT
         ? new ActivitiesActions.LoadExpertActivitiesWithBalanceAction()
         : new ActivitiesActions.LoadCompanyActivitiesWithBalanceAction(),
     );
-  }
-
-  public ngOnInit(): void {
     this.listType = this.route.snapshot.data.activityListType;
     this.wsSubscription =
       this.listType === ActivityListTypeEnum.EXPERT

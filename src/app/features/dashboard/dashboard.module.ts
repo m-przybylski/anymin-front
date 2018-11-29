@@ -22,16 +22,13 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '@platform/features/dashboard/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
-import { CompanyDashboardComponent } from '@platform/features/dashboard/views/company-dashboard/company-dashboard.view.component';
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
-import { CompanyDashboardViewResolver } from '@platform/features/dashboard/views/company-dashboard/company-dashboard.view.resolver';
 
 @NgModule({
   declarations: [
     DashboardViewComponent,
     UserDashboardComponent,
-    CompanyDashboardComponent,
     DiscoverComponent,
     FavouritesComponent,
     NotFoundComponent,
@@ -53,6 +50,6 @@ import { CompanyDashboardViewResolver } from '@platform/features/dashboard/views
     StoreModule.forFeature('dashboard', reducers),
     EffectsModule.forFeature([DashboardEffects, VisibilityEffects]),
   ],
-  providers: [EmployeesInviteService, DashboardResolver, CompanyDashboardViewResolver],
+  providers: [EmployeesInviteService, DashboardResolver],
 })
 export class DashboardModule {}

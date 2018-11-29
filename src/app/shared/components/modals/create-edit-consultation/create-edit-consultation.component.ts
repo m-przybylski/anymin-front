@@ -19,7 +19,7 @@ import {
 import { GetService, PostServiceInvitation, PutService } from '@anymind-ng/api';
 import { ServiceWithOwnerProfile } from 'profitelo-api-ng/model/ServiceWithOwnerProfile';
 import { Logger } from '@platform/core/logger';
-import { CONSULTATIONDETAILS } from './create-edit-consultation';
+import { CONSULTATION_DETAILS } from './create-edit-consultation';
 import { COMMISSION, ICommission } from '@platform/core/commission';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
@@ -81,7 +81,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     private modalAnimationComponentService: ModalAnimationComponentService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    @Inject(CONSULTATIONDETAILS) public payload: ICreateEditConsultationPayload,
+    @Inject(CONSULTATION_DETAILS) public payload: ICreateEditConsultationPayload,
     @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
   ) {
