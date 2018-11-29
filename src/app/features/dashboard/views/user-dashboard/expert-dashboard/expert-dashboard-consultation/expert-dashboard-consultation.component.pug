@@ -1,18 +1,17 @@
 .expert-dashboard-consultation-row
   div(*ngIf="isLogged")
     a.expert-dashboard-consultation-row__add-consultation(
-      *ngIf="isOwnProfile && !isCompany; else alertInformation",
+      *ngIf="isOwnProfile && !isCompany",
       (click)='add()'
     )
       span(plat-flat-fab color='primary')
         span(plat-icon iconClass='add')
       span.expert-dashboard-consultation-row__text {{'EXPERT_DASHBOARD.ADD_CONSULTATION' | translate}}
 
-    ng-template(#alertInformation)
-      .alert-information
-        span(plat-icon iconClass='warning')
-        p {{'EXPERT_DASHBOARD.ALERT_INFORMATION' | translate }}
-          a((click)="onAlertInformationLinkClick()", [translate]="'EXPERT_DASHBOARD.ALERT_INFORMATION.LINK'")
+    .alert-information(*ngIf="isOwnProfile && isCompany")
+      span(plat-icon iconClass='warning')
+      p {{'EXPERT_DASHBOARD.ALERT_INFORMATION' | translate }}
+        a((click)="onAlertInformationLinkClick()", [translate]="'EXPERT_DASHBOARD.ALERT_INFORMATION.LINK'")
 
   plat-consultation-row.expert-dashboard-consultation-row__row(*ngFor='let consultation of consultations',
     [consultation]='consultation', [expertId]="expertId", (openConsultationDetails)="onOpenConsultationDetails($event)")
