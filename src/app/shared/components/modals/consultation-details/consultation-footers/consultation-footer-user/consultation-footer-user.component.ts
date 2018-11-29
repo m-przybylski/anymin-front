@@ -8,6 +8,7 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
+import { DefaultCreditCard } from '@anymind-ng/api';
 
 export enum MiddlePanelStatusTypes {
   freeMinute,
@@ -46,6 +47,10 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     }
 
     return Math.round(this.data.accountBalance.amount / grossPrice);
+  }
+
+  public get defaultPayment(): DefaultCreditCard {
+    return this.data.defaultPayment;
   }
 
   public get middlePanel(): MiddlePanelStatusTypes {
