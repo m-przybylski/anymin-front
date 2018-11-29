@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import * as fromCore from '@platform/core/reducers';
-import { SessionActions, AuthActions } from '@platform/core/actions';
-import { filter, map, take } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import { AuthActions } from '@platform/core/actions';
+import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { isKnownUser } from '@platform/shared/guards/session.helper';
 
 @Injectable()
 export class SessionGuard implements CanActivate, CanLoad {
-  constructor(private store: Store<fromCore.IState>) {}
+  constructor(private store: Store<fromRoot.IState>) {}
 
   public canLoad(): Observable<boolean> {
     return this.can();
@@ -17,28 +18,15 @@ export class SessionGuard implements CanActivate, CanLoad {
   public canActivate(): Observable<boolean> {
     return this.can();
   }
-  public can(): Observable<boolean> {
+  private can(): Observable<boolean> {
     return this.store.pipe(
-      select(fromCore.getLoggedIn),
-      map(isLoggedIn => {
-        if (isLoggedIn.isPending) {
-          return undefined;
-        }
-        if (!isLoggedIn.isFromBackend) {
-          this.store.dispatch(new SessionActions.FetchSessionAction());
-
-          return undefined;
-        }
-
-        return isLoggedIn.isLoggedIn;
-      }),
-      filter(result => typeof result !== 'undefined'),
-      map((canActivate: boolean) => {
-        if (!canActivate) {
+      isKnownUser(),
+      map((isUserKnown: boolean) => {
+        if (!isUserKnown) {
           this.store.dispatch(new AuthActions.LoginRedirectAction());
         }
 
-        return canActivate;
+        return isUserKnown;
       }),
       take(1),
     );

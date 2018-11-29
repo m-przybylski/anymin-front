@@ -10,7 +10,7 @@ import {
 import { Observable, forkJoin } from 'rxjs';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { map, filter, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 
@@ -29,7 +29,6 @@ export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDas
     /** get session to resolve logged user */
     const session$ = this.store.pipe(
       select(fromCore.getSession),
-      filter(session => session !== undefined),
       take(1),
     ) as Observable<GetSessionWithAccount>;
     /** get expert profile from backend */
