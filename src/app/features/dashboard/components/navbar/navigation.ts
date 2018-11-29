@@ -43,7 +43,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
     trKey: 'NAVBAR.ACTIVITIES',
     url: '/dashboard/user/activities/expert',
     iconClass: 'list',
-    isUser: true,
+    isUser: false,
     isExpert: true,
     isCompany: false,
     group: NavigationItemGroupsEnum.NAVBAR,
