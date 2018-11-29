@@ -83,7 +83,7 @@ export class PhoneNumberViewService extends Logger {
     if (showAlert !== undefined) {
       this.alertService.pushDangerAlert(showAlert, { msisdn });
     }
-    this.clearLocalStorageOnDifferentPhoneNumber(msisdn);
+    this.removeInvitation(msisdn);
 
     return PhoneNumberServiceStatus.SUCCESS;
   };
@@ -149,9 +149,9 @@ export class PhoneNumberViewService extends Logger {
       .catch(this.loggerService.error.bind(this));
   };
 
-  private clearLocalStorageOnDifferentPhoneNumber = (phoneNumber: string): void => {
+  private removeInvitation = (phoneNumber: string): void => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
-    if (invitationObject !== void 0 && invitationObject.msisdn && invitationObject.msisdn !== phoneNumber) {
+    if (invitationObject !== undefined && invitationObject.msisdn && invitationObject.msisdn !== phoneNumber) {
       this.registrationInvitationService.removeInvitationObject();
     }
   };

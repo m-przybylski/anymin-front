@@ -46,7 +46,7 @@ describe('ExpertDashboardResolverService', () => {
     // prepare data
     const expertView = cold('-a|', { a: Mocks.expertProfileView });
 
-    // mock functoins
+    // mock functions
     (viewsService.getWebExpertProfileRoute as jasmine.Spy).and.returnValue(expertView);
 
     // expect result
