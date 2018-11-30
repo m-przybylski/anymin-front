@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { FormGroup } from '@angular/forms';
-import { FileCategoryEnum } from '../../../../../../angularjs/common/classes/file-type-checker/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
@@ -19,6 +18,7 @@ import { NavbarActions } from '@platform/core/actions';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
+import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 
 @Component({
   selector: 'app-create-organization',

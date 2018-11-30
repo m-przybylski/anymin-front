@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
-import { keyboardCodes } from '../../../../../angularjs/common/classes/keyboard';
+import { Config } from '../../../../../config';
 
 @Directive({
   selector: '[scrollToElementDirective]',
@@ -19,17 +19,17 @@ export class ScrollToElementDirective {
   @HostListener('document:keydown', ['$event'])
   public onKeydownHandler = (event: KeyboardEvent): void => {
     switch (event.keyCode) {
-      case keyboardCodes.arrowUp:
+      case Config.keyboardCodes.arrowUp:
         this.onKeyUp.emit();
 
         return;
 
-      case keyboardCodes.arrowDown:
+      case Config.keyboardCodes.arrowDown:
         this.onKeyDown.emit();
 
         return;
 
-      case keyboardCodes.enter:
+      case Config.keyboardCodes.enter:
         this.onEnter.emit();
 
         return;

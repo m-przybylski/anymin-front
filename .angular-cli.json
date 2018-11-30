@@ -30,7 +30,6 @@
       "styles": ["styles.sass"],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js",
         "../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
@@ -80,7 +79,7 @@
       "project": "src/tsconfig.spec.json",
       "tslintConfig": "./tslint.spec.json",
       "files": ["**/*.spec.ts"],
-      "exclude": ["**/node_modules/**", "**/angularjs/**/*.ts", "**/generated_modules/**"]
+      "exclude": ["**/node_modules/**", "**/generated_modules/**"]
     }
   ],
   "test": {

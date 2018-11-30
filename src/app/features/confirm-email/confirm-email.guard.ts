@@ -4,6 +4,7 @@ import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AccountService } from '@anymind-ng/api';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 @Injectable()
 export class ConfirmEmailGuard implements CanActivate {
@@ -45,11 +46,10 @@ export class ConfirmEmailGuard implements CanActivate {
 
   private redirectToDashboard = (): void => {
     this.router
-      .navigate(['/dashboard/expert/activities'])
+      .navigate([RouterPaths.dashboard.user.welcome.asPath])
       .then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Can not redirect to /dashboard/expert/activities');
+          this.logger.warn('Can not redirect to /dashboard/user/activities');
         }
       })
       .catch(err => this.logger.error(err));

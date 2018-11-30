@@ -2,7 +2,7 @@ import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { VerifiedCodeService } from '../../verified-code.service';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
+import { Config } from '../../../../../config';
 
 @Injectable()
 export class SetNewPasswordFromMsisdnViewGuard implements CanActivate {
@@ -12,7 +12,6 @@ export class SetNewPasswordFromMsisdnViewGuard implements CanActivate {
     private tokenService: VerifiedCodeService,
     private alertService: AlertService,
     private router: Router,
-    private commonSettingService: CommonSettingsService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromMsisdnViewGuard');
@@ -40,6 +39,6 @@ export class SetNewPasswordFromMsisdnViewGuard implements CanActivate {
   private isTokenValid = (): boolean => {
     const token = this.tokenService.getVerifiedCode();
 
-    return typeof token === 'string' && this.commonSettingService.localSettings.smsCodePattern.test(token);
+    return typeof token === 'string' && Config.patterns.smsCodePattern.test(token);
   };
 }

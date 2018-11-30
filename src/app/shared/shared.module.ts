@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { EventsServiceProvider } from './providers/ajs-upgraded-providers/ajs-upgraded-providers';
 import { AnymindComponentsModule } from '@anymind-ng/core';
 import { UnsupportedGuard } from '../features/unsupported/unsupported.guard';
 import { SessionGuard } from './guards/session/session.guard';
@@ -11,11 +10,6 @@ import { LoginBackgroundComponent } from './components/login-background/login-ba
 import { LoginContentComponent } from './components/login-content/login-content.component';
 import { LoginMobileFooterComponent } from './components/login-mobile-footer/login-mobile-footer.component';
 import { RouterModule } from '@angular/router';
-import { WidgetGeneratorComponent } from './components/widget-generator/widget-generator.component';
-import { WidgetGeneratorService } from './components/widget-generator/widget-generator.service';
-import { DropdownPrimaryDirective } from './directives/dropdown/dropdown.directive';
-import { RadioButtonDirective } from './directives/radio/radio.directive';
-import { CommonSettingsService } from '../../angularjs/common/services/common-settings/common-settings.service';
 import { MsisdnGuard } from './guards/msisdn/msisdn.guard';
 import { LocalStorageWrapperService } from './services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
@@ -56,10 +50,6 @@ import { InvitationsComponent } from '@platform/features/invitations/invitations
     LoginBackgroundComponent,
     LoginContentComponent,
     LoginMobileFooterComponent,
-    DropdownPrimaryDirective,
-    RadioButtonDirective,
-    InvitationsComponent,
-    WidgetGeneratorComponent,
     ContentHeightAnimateDirective,
     PreloaderContainerComponent,
     ConsultationTagsComponent,
@@ -69,8 +59,8 @@ import { InvitationsComponent } from '@platform/features/invitations/invitations
     ExpandablePanelComponent,
     TagListComponent,
     SettingOptionComponent,
+    InvitationsComponent,
   ],
-  entryComponents: [WidgetGeneratorComponent],
   exports: [
     AnymindComponentsModule,
     CookieNotificationModule,
@@ -90,13 +80,10 @@ import { InvitationsComponent } from '@platform/features/invitations/invitations
     InvitationsComponent,
   ],
   providers: [
-    EventsServiceProvider,
     UnsupportedGuard,
     AnonymousGuard,
     InvitationsGuard,
     SessionGuard,
-    WidgetGeneratorService,
-    CommonSettingsService,
     MsisdnGuard,
     LocalStorageWrapperService,
     RegistrationInvitationService,

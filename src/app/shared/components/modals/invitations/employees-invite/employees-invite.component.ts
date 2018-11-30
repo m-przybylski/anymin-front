@@ -9,12 +9,12 @@ import { Alerts, AlertService, Animations, FormUtilsService, LoggerFactory, Logg
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable, Subject, forkJoin } from 'rxjs';
-import { CommonSettingsService } from '../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneNumberUnifyService } from '../../../../services/phone-number-unify/phone-number-unify.service';
 import { PostInvitation } from '@anymind-ng/api';
 import { BackendErrors, isBackendError, SingleBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from './employee-invite';
+import { Config } from '../../../../../../config';
 
 export const EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES = 'EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES';
 
@@ -70,11 +70,10 @@ export class EmployeesInviteModalComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private phoneNumberUnifyService: PhoneNumberUnifyService,
     @Inject(INVITATION_PAYLOAD) public payload: IEmployeeInvitePayload,
-    commonSettingsService: CommonSettingsService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('EmployeesInviteModalComponent');
-    this.emailPattern = commonSettingsService.localSettings.emailPattern;
+    this.emailPattern = Config.patterns.emailPattern;
   }
 
   public ngOnInit(): void {

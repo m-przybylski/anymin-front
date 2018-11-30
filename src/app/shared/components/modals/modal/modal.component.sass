@@ -104,11 +104,18 @@
     box-shadow: 0 16px 24px 0 $c-lines
     background: $c-white
     margin: 0 auto
-    display: block
     position: relative
     width: 100%
     border-radius: 8px
     overflow: hidden
+    display: flex
+    justify-content: space-between
+    flex-direction: column
+    min-height: 100vh
+
+    +smm
+      display: block
+      min-height: 0
 
     +lgm
       width: $s-modal-container-medium
@@ -146,6 +153,7 @@
     position: relative
     min-height: 128px
     padding: 24px + $s-modal-header 16px 24px
+    flex: 1
 
     +smm
       padding: 32px + $s-modal-header 48px 32px

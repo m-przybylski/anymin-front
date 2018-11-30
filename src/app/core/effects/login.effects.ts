@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ModalStack } from '@platform/core/services/modal/modal.service';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 @Injectable()
 export class LoginEffects extends Logger {
@@ -73,7 +74,7 @@ export class LoginEffects extends Logger {
     tap(() => {
       this.loggerService.debug('Redirecting to dashboard');
       this.router
-        .navigate(['/dashboard/expert/activities'])
+        .navigate([RouterPaths.dashboard.user.welcome.asPath])
         .then(success => {
           if (success) {
             this.loggerService.debug('Redirecting to dashboard success');
@@ -82,7 +83,7 @@ export class LoginEffects extends Logger {
           }
         })
         .catch(() => {
-          this.loggerService.error('Something went wrong, redirecting to "/dashboard/expert/activities"');
+          this.loggerService.error('Something went wrong, redirecting to "/dashboard/user/activities"');
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         });
     }),

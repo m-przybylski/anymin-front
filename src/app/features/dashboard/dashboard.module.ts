@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -28,7 +27,6 @@ import { WelcomeModule } from '@platform/features/dashboard/views/user-dashboard
 @NgModule({
   declarations: [DashboardViewComponent, UserDashboardComponent, FavouritesComponent, NotFoundComponent],
   imports: [
-    AngularJsProvidersModule,
     ReactiveFormsModule,
     NavbarModule,
     CommonModule,

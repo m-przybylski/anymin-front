@@ -10,19 +10,10 @@ import { SetEmailViewComponent } from './views/set-email/set-email.view.componen
 import { AccountRoutingModule } from './account.routing.module';
 import { SetEmailViewGuard } from './views/set-email/set-email.view.guard';
 import { SetPasswordViewGuard } from './views/set-password/set-password.view.guard';
-import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 
 @NgModule({
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    AccountRoutingModule,
-    SharedModule,
-    TranslateModule,
-    InputsModule,
-    AngularJsProvidersModule,
-  ],
+  imports: [ReactiveFormsModule, CommonModule, AccountRoutingModule, SharedModule, TranslateModule, InputsModule],
   providers: [SetEmailViewResolver, SetPasswordViewResolver, SetEmailViewGuard, SetPasswordViewGuard],
   declarations: [SetPasswordViewComponent, SetEmailViewComponent],
 })

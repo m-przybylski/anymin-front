@@ -2,11 +2,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
 import { ParseError } from '@angular/compiler';
 import { isValidNumber } from 'libphonenumber-js';
 import { IValidatorsErrorMsg } from '@platform/shared/components/inputs/input-add-item/input-add-item.component';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
+import { Config } from '../../../../../../../config';
 
 @Component({
   selector: 'plat-csv-uploader',
@@ -57,7 +57,6 @@ export class CsvUploaderComponent implements OnInit {
   constructor(
     private formUtils: FormUtilsService,
     private phoneNumberUnifyService: PhoneNumberUnifyService,
-    private commonSettingsService: CommonSettingsService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CsvUploaderComponent');
@@ -157,10 +156,9 @@ export class CsvUploaderComponent implements OnInit {
     this.addedItemsList.length + this.invitedEmployeeLength >= this.consultationInvitationsMaxCount;
 
   private assignValidationValues = (): void => {
-    const localSettings = this.commonSettingsService.localSettings;
-    this.consultationInvitationsMaxCount = localSettings.consultationInvitationsMaxCount;
-    this.mailPattern = localSettings.emailPattern;
-    this.phonePattern = localSettings.phonePattern;
+    this.consultationInvitationsMaxCount = Config.inputsLengthNumbers.consultationInvitationsMaxCount;
+    this.mailPattern = Config.patterns.emailPattern;
+    this.phonePattern = Config.patterns.phonePattern;
   };
 
   private areCSVErrorOccurs = (loadedNumber: number, errors: ReadonlyArray<ParseError>): boolean =>

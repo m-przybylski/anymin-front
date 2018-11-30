@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { ServiceService, WidgetService } from '@anymind-ng/api';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
 import { Deceiver } from 'deceiver-core';
 import { cold } from 'jasmine-marbles';
 import { GenerateWidgetDataService } from './generate-widget.data.service';
@@ -15,7 +14,6 @@ describe('GenerateWidgetDataService', () => {
     postServiceWithEmployeesRoute: jasmine.createSpy('postServiceWithEmployeesRoute'),
   });
   const translateService: TranslateService = Deceiver(TranslateService, { get: jasmine.createSpy('get') });
-  const commonSettingsService: CommonSettingsService = new CommonSettingsService();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,10 +21,6 @@ describe('GenerateWidgetDataService', () => {
       providers: [
         GenerateWidgetDataService,
         provideMockFactoryLogger(),
-        {
-          provide: CommonSettingsService,
-          useValue: commonSettingsService,
-        },
         { provide: WidgetService, useValue: widgetService },
         { provide: ServiceService, useValue: serviceService },
         { provide: TranslateService, useValue: translateService },

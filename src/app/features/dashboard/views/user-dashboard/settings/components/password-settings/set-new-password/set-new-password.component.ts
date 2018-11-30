@@ -4,9 +4,9 @@ import { SetNewPasswordComponentService, SetNewPasswordStatusEnum } from './set-
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject } from 'rxjs';
-import { CommonSettingsService } from '../../../../../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { InputSetPasswordErrors } from '../../../../../../../../shared/components/inputs/input-set-password/input-set-password.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Config } from '../../../../../../../../../config';
 
 @Component({
   selector: 'plat-set-new-password',
@@ -34,7 +34,6 @@ export class SetNewPasswordComponent implements OnDestroy {
     private setNewPasswordComponentService: SetNewPasswordComponentService,
     private formUtils: FormUtilsService,
     private alertService: AlertService,
-    private commonSettingService: CommonSettingsService,
     private activeModal: NgbActiveModal,
     loggerFactory: LoggerFactory,
   ) {
@@ -96,5 +95,5 @@ export class SetNewPasswordComponent implements OnDestroy {
     }
   };
 
-  private isTokenValid = (): boolean => this.commonSettingService.localSettings.smsCodePattern.test(this.token);
+  private isTokenValid = (): boolean => Config.patterns.smsCodePattern.test(this.token);
 }

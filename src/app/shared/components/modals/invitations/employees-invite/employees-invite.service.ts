@@ -15,9 +15,9 @@ import { filter, first, map } from 'rxjs/operators';
 import { IEmployeesInviteComponent } from './employees-invite.component';
 import { isValidNumber } from 'libphonenumber-js';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { Config } from '../../../../../../config';
 
 export enum EmployeeInvitationTypeEnum {
   IS_EMAIL,
@@ -61,10 +61,9 @@ export class EmployeesInviteService {
     private phoneNumberUnifyService: PhoneNumberUnifyService,
     private invitationService: InvitationService,
     private store: Store<fromCore.IState>,
-    commonSettingsService: CommonSettingsService,
   ) {
-    this.emailPattern = commonSettingsService.localSettings.emailPattern;
-    this.maxInvitationLength = commonSettingsService.localSettings.consultationInvitationsMaxCount;
+    this.emailPattern = Config.patterns.emailPattern;
+    this.maxInvitationLength = Config.inputsLengthNumbers.consultationInvitationsMaxCount;
     this.store
       .pipe(
         first(),

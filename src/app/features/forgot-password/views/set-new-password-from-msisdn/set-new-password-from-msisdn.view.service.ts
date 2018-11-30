@@ -9,6 +9,7 @@ import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 export enum SetNewPasswordFromMsisdnStatus {
   SUCCESS,
@@ -73,9 +74,8 @@ export class SetNewPasswordFromMsisdnViewService {
   };
 
   private redirectToDashboard = (): Promise<SetNewPasswordFromMsisdnStatus> =>
-    this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
+    this.router.navigate([RouterPaths.dashboard.user.welcome.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to dashboard/expert/activities');
         return SetNewPasswordFromMsisdnStatus.ERROR;
       } else {

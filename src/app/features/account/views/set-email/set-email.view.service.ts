@@ -63,7 +63,7 @@ export class SetEmailViewService {
   };
 
   private redirectToDashboard = (): Promise<SetEmailStatus> =>
-    this.router.navigate(['/dashboard/expert/activities']).then(isRedirectSuccessful => {
+    this.router.navigate([RouterPaths.dashboard.user.welcome.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to dashboard/expert/activities');

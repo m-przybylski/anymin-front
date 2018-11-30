@@ -12,13 +12,19 @@
     padding: 32px 48px 48px
 
   &__avatar
-    display: flex
+    display: inline-flex
+    position: relative
     justify-content: center
     margin: 0 auto
     align-items: center
     height: 148px
     width: 148px
-    position: relative
+
+    .communicator-avatar
+      height: 128px
+      width: 128px
+      min-width: 128px
+      min-height: 128px
 
   &__description
     padding: 32px 0 0
@@ -93,3 +99,12 @@
 
       &:hover + .client-call-modal__buttons--description-answer
         color: $c-success-secondary
+
+// FIXME fast fix after removing angularJS
+.thumb-x128
+  &::ng-deep
+    img
+      border-radius: 50%
+      height: 128px
+      width: 128px
+

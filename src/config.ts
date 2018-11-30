@@ -25,6 +25,20 @@ export class Config {
     },
   };
 
+  public static readonly localSettings = {
+    countryCodes: ['+48'],
+  };
+
+  public static readonly links = {
+    imageUrl: `${window.location.origin}/files/%s/download`,
+    zendeskAllowMediaUrl:
+      'https://anymind.zendesk.com/hc/pl/articles/115002692852-' +
+      '-Moja-przegl%C4%85darka-nie-ma-dost%C4%99pu-do-kamery-i-mikrofonu-jak-to-naprawi%C4%87-',
+    widgetSdk: `${window.location.origin}/sdk/widget-sdk.js`,
+    widget: `${window.location.origin}/widget`,
+    assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL',
+  };
+
   // TODO delete this object name after removing AngularJS
   public static readonly inputsLength = {
     profileName: '150',
@@ -50,6 +64,7 @@ export class Config {
     commentMinLength: 3,
     callSummaryCommentMaxLength: 600,
     callSummaryCommentMinLength: 15,
+    consultationInvitationsMaxCount: 100,
   };
 
   public static readonly styles = {
@@ -96,6 +111,18 @@ export class Config {
     iconsSmallDesktop: '/assets/images/profitelo_icons/small_desktop',
     iconsDesktop: '/assets/images/profitelo_icons/desktop',
     brokenImage: './assets/images/broken-image.svg',
+  };
+
+  public static readonly patterns = {
+    emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+    smsCodePattern: /^[0-9]{4}$/,
+    phonePattern: /^\+?\d+(\s\d+)*$/,
+    passwordPattern: new RegExp(
+      '^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[ !"#$%&\'()*+,-./:;<=>?@[\\\\]^_`{|}~])).{8,64}$'.replace(
+        /\\\\/g,
+        '\\',
+      ),
+    ),
   };
 
   public static readonly imageSizeInBytes = {

@@ -7,8 +7,6 @@ import { EmploymentService, GetSessionWithAccount, InvitationService, ServiceSer
 import { cold } from 'jasmine-marbles';
 import { Deceiver } from 'deceiver-core';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
-import { CommonSettingsService } from 'angularjs/common/services/common-settings/common-settings.service';
-import * as angular from 'angular';
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { TestBed } from '@angular/core/testing';
@@ -51,7 +49,6 @@ describe('EmployeesInviteService', () => {
   const phoneNumberUnifyService: PhoneNumberUnifyService = Deceiver(PhoneNumberUnifyService, {
     unifyPhoneNumber: jasmine.createSpy('unifyPhoneNumber').and.returnValue(''),
   });
-  const commonSettingsService: CommonSettingsService = new CommonSettingsService();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -70,16 +67,9 @@ describe('EmployeesInviteService', () => {
       serviceService,
       phoneNumberUnifyService,
       invitationService,
-      store,
-      commonSettingsService,
+      store
     );
   });
-
-  beforeEach(
-    angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('CommonSettingsService', CommonSettingsService);
-    }),
-  );
 
   it('should be created', () => {
     expect(employeesInviteService).toBeTruthy();

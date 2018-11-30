@@ -4,7 +4,6 @@ import { PhoneNumberViewService, PhoneNumberServiceStatus } from './phone-number
 import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormUtilsService, InputPhoneNumberService } from '@anymind-ng/core';
-import { CommonSettingsService } from '../../../../../angularjs/common/services/common-settings/common-settings.service';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
 import { LoginBackgroundComponent } from '../../../../shared/components/login-background/login-background.component';
 import { of, throwError } from 'rxjs';
@@ -46,11 +45,6 @@ describe('Component: PhoneNumberViewComponent', () => {
   }));
 
   beforeEach(() => {
-    TestBed.overrideProvider(CommonSettingsService, {
-      useValue: {
-        localSettings: { countryCodes: ['+675'] },
-      },
-    });
     componentFixture = TestBed.createComponent(PhoneNumberViewComponent);
     component = componentFixture.componentInstance;
     componentFixture.detectChanges();
@@ -91,6 +85,6 @@ describe('Component: PhoneNumberViewComponent', () => {
     component.msisdnForm.controls[component.msisdnControlName].setValue('555555555');
     component.onFormSubmit(component.msisdnForm);
     expect(component.msisdnForm.valid).toBeTruthy();
-    expect(phoneNumberViewService.handlePhoneNumber).toHaveBeenCalledWith('+675555555555');
+    expect(phoneNumberViewService.handlePhoneNumber).toHaveBeenCalledWith('+48555555555');
   });
 });

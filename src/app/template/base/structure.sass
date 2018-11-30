@@ -1,0 +1,73 @@
+@import "../core/core"
+
+html
+  box-sizing: border-box
+  font-family: 'Roboto', sans-serif
+  color: $c-text-primary
+
+body
+  background: $c-base-background
+
+img
+  max-width: 100%
+
+*
+  margin: 0
+  box-sizing: border-box
+
+  &::after, &::before
+    box-sizing: border-box
+
+p, span, a, b, em, strong, i, u
+  font-family: 'Roboto', sans-serif
+  line-height: normal
+  font-weight: 400
+  -webkit-font-smoothing: antialiased !important
+  text-shadow: 1px 1px 1px rgba($c-black, 0.004)
+
+p
+  +paragraph
+
+  a
+    color: $c-primary
+
+a
+  line-height: inherit
+  cursor: pointer
+
+button
+  outline: none
+  border: none
+
+input
+  outline: none
+  border-radius: 0
+  border: 0
+
+  &[type="text"]
+    &:focus
+      -webkit-text-size-adjust: 100%
+
+textarea
+  border: 0
+  outline: none
+  border-radius: 0
+
+  &:focus
+    -webkit-text-size-adjust: 100%
+
+strong
+  font-weight: 700
+  color: inherit
+
+br
+  display: none
+
+  +smm
+    display: block
+
+p,
+span
+  a
+    color: $c-primary
+    margin: 0 0 0 4px

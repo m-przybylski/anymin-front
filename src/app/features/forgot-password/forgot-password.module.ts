@@ -12,7 +12,6 @@ import { SetNewPasswordFromEmailViewComponent } from './views/set-new-password-f
 import { SetNewPasswordFromMsisdnViewComponent } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.component';
 import { SetNewPasswordFromMsisdnViewGuard } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard';
 import { SetNewPasswordFromEmailViewGuard } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
-import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
 import { SetNewPasswordFromEmailViewResolver } from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 
@@ -30,14 +29,7 @@ import { InputsModule } from '../../shared/components/inputs/inputs.module';
     SetNewPasswordFromEmailViewGuard,
     SetNewPasswordFromEmailViewResolver,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ForgotPasswordRoutingModule,
-    SharedModule,
-    InputsModule,
-    AngularJsProvidersModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, ForgotPasswordRoutingModule, SharedModule, InputsModule],
 })
 export class ForgotPasswordModule {
   constructor() {}
