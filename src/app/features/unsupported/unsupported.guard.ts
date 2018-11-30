@@ -8,7 +8,7 @@ export class UnsupportedGuard implements CanActivate {
   constructor(private router: Router, private logger: LoggerService, private alertService: AlertService) {}
 
   public canActivate(): boolean {
-    if (BrowserUtils.isBrowserSupported(true)) {
+    if (BrowserUtils.isBrowserSupported()) {
       return true;
     } else {
       this.router

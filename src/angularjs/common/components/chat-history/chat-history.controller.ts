@@ -44,7 +44,7 @@ export class ChatHistoryComponentController implements IChatHistoryBindings, ng.
   public getMessages = (): void => {
     if (this.session && this.roomId) {
       this.isLoading = true;
-      this.session.chat
+      this.session.machoke
         .getRoom(this.roomId)
         .then(room =>
           room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit).then(this.onGetMessages, this.onReject),
