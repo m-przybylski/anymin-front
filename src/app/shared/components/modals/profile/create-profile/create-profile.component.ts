@@ -108,7 +108,6 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
         err => {
           /**
            * No session. Log show error message to the user
-           * not sure if this is needed here.
            */
           this.handleResponseError(err, 'Can not get session');
         },
