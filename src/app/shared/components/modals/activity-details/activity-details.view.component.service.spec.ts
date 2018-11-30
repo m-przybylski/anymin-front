@@ -310,7 +310,7 @@ describe('ActivityDetailsViewComponentService', () => {
     };
     const connectObj = {
       session: {
-        chat: {
+        machoke: {
           getRoom: (_ratelRoomId: string): Observable<any> =>
             of({
               getMessages: (_offset: number, _limit: number): Observable<any> => of(messages),

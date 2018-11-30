@@ -65,7 +65,7 @@ export class ActivityDetailsViewComponentService extends Logger {
     this.communicatorService.connectionEstablishedEvent$.pipe(
       take(1),
       map(connected => connected.session),
-      switchMap(session => from(session.chat.getRoom(ratelRoomId))),
+      switchMap(session => from(session.machoke.getRoom(ratelRoomId))),
       switchMap(room => from(room.getMessages(0, this.chatHistoryLimit))),
       catchError(err => {
         this.loggerService.warn('error when try to get chat history', err);

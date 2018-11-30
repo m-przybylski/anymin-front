@@ -63,7 +63,7 @@ export class CallInvitationService extends Logger {
       return this.pushNotificationService
         .getDeviceId()
         .toPromise()
-        .then(id => session.chat.unregisterFromPushNotifications(id));
+        .then(id => session.machoke.unregisterFromPushNotifications(id));
     } else {
       return Promise.reject('There is no session');
     }
@@ -127,7 +127,7 @@ export class CallInvitationService extends Logger {
           this.pushNotificationService.getDeviceId().subscribe(
             deviceId => {
               if (deviceId) {
-                session.chat
+                session.machoke
                   .registerForPushNotifications(deviceId)
                   .then(() => this.loggerService.debug('Registered for push in Artichoke'))
                   .catch(err => this.loggerService.warn('Registration for webpush failed', err));
@@ -153,15 +153,12 @@ export class CallInvitationService extends Logger {
 
   private connectToCallWebsocket = (sessionAccount?: GetSessionWithAccount): void => {
     if (sessionAccount) {
-      this.communicatorService
-        .authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey)
-        .pipe(first())
-        .subscribe();
+      this.communicatorService.authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey);
     }
   };
 
   private checkPullableCalls = (connected: IConnected): void => {
-    connected.session.chat.getActiveCall().then(
+    connected.session.machoke.getActiveCall().then(
       maybeActiveCall => {
         this.loggerService.debug('Reconnected, checking active call', maybeActiveCall);
         if (maybeActiveCall) {
@@ -178,7 +175,7 @@ export class CallInvitationService extends Logger {
 
   private checkIncomingCalls = (connected: IConnected): void => {
     this.loggerService.debug('Reconnected, checking incoming calls');
-    connected.session.chat.getCallWithPendingInvitation().then(
+    connected.session.machoke.getCallWithPendingInvitation().then(
       maybeIncomingCall => {
         this.loggerService.debug('Received incoming call', maybeIncomingCall);
         if (maybeIncomingCall) {
