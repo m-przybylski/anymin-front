@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AngularJsProvidersModule } from '../../upgrade/angularjs-providers.module';
-import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,15 +23,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
+import { WelcomeModule } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.module';
 
 @NgModule({
-  declarations: [
-    DashboardViewComponent,
-    UserDashboardComponent,
-    DiscoverComponent,
-    FavouritesComponent,
-    NotFoundComponent,
-  ],
+  declarations: [DashboardViewComponent, UserDashboardComponent, FavouritesComponent, NotFoundComponent],
   imports: [
     AngularJsProvidersModule,
     ReactiveFormsModule,
@@ -43,6 +37,7 @@ import { GenerateWidgetModule } from '@platform/shared/components/modals/generat
     ProfileModalModule,
     InputsModule,
     SettingsModule,
+    WelcomeModule,
     PaymentsModule,
     RecommendFriendsModule,
     DashboardComponentsModule,

@@ -2,12 +2,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterPaths } from '../../shared/routes/routes';
-import { DiscoverComponent } from './views/user-dashboard/discover/discover.view.component';
 import { FavouritesComponent } from './views/user-dashboard/favourites/favourites.view.component';
 import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.view.component';
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
+import { WelcomeViewGuard } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.view.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +20,6 @@ const routes: Routes = [
         path: RouterPaths.dashboard.user.getName,
         component: UserDashboardComponent,
         children: [
-          { path: 'discover', component: DiscoverComponent },
           {
             path: RouterPaths.dashboard.user.activities.getName,
             loadChildren:
@@ -46,6 +45,11 @@ const routes: Routes = [
           {
             path: RouterPaths.dashboard.user.invitations.getName,
             loadChildren: './views/user-dashboard/invitations/invitations.module#InvitationsModule',
+          },
+          {
+            path: RouterPaths.dashboard.user.welcome.getName,
+            canActivate: [WelcomeViewGuard],
+            loadChildren: './views/user-dashboard/welcome/welcome.module#WelcomeModule',
           },
         ],
       },

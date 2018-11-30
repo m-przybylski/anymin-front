@@ -36,6 +36,10 @@ export const RouterPaths = {
         asPath: 'dashboard/user/invitations',
         getName: 'invitations',
       },
+      welcome: {
+        asPath: 'dashboard/user/welcome-to-anymind',
+        getName: 'welcome-to-anymind',
+      },
       settings: {
         asPath: 'dashboard/user/settings',
         getName: 'settings',
