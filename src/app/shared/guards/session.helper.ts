@@ -11,7 +11,7 @@ import { SessionActions } from '@platform/core/actions';
  * as parameter it accepts action factory to be able to make an request
  * once session is not present in the store and was never requested
  */
-export const isKnownUser = (
+export const isUserLogged = (
   action: () => Action = (): Action => new SessionActions.FetchSessionAction(),
 ): ((source: Store<fromCore.IState>) => Observable<boolean>) => (source: Store<fromCore.IState>): Observable<boolean> =>
   source.pipe(

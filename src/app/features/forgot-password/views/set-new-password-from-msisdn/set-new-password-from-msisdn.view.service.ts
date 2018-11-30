@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,7 +27,6 @@ export class SetNewPasswordFromMsisdnViewService {
     private recoverPasswordService: RecoverPasswordService,
     private alertService: AlertService,
     private registrationInvitationService: RegistrationInvitationService,
-    private localStorageWrapperService: LocalStorageWrapperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromMsisdnViewService');
@@ -88,7 +86,6 @@ export class SetNewPasswordFromMsisdnViewService {
   private redirectToInvitations = (token: string): Promise<SetNewPasswordFromMsisdnStatus> =>
     this.router.navigate([`/invitations/${token}`]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
-        this.localStorageWrapperService.removeItem('invitation');
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to inviation');
         return SetNewPasswordFromMsisdnStatus.ERROR;

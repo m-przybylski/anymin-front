@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Observable } from 'rxjs';
-import { map, take, filter } from 'rxjs/operators';
-import { SessionActions, AuthActions } from '@platform/core/actions';
+import { map, take } from 'rxjs/operators';
+import { AuthActions } from '@platform/core/actions';
+import { isUserLogged } from '@platform/shared/guards/session.helper';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate {
@@ -12,27 +13,13 @@ export class AnonymousGuard implements CanActivate {
 
   public canActivate = (): Observable<boolean> =>
     this.store.pipe(
-      select(fromCore.getLoggedIn),
-      map(isLoggedIn => {
-        if (isLoggedIn.isPending) {
-          return undefined;
+      isUserLogged(),
+      map((isUserLoggedIn: boolean) => {
+        if (isUserLoggedIn) {
+          this.store.dispatch(new AuthActions.DashboardRedirectAction());
         }
 
-        if (!isLoggedIn.isFromBackend) {
-          this.store.dispatch(new SessionActions.FetchSessionAction());
-
-          return undefined;
-        }
-
-        return isLoggedIn.isLoggedIn;
-      }),
-      filter(result => typeof result !== 'undefined'),
-      map((canActivate: boolean) => {
-        if (canActivate) {
-          this.store.dispatch(new AuthActions.DashboardRedurectAction());
-        }
-
-        return !canActivate;
+        return !isUserLoggedIn;
       }),
       take(1),
     );

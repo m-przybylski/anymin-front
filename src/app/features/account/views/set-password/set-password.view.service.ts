@@ -9,9 +9,9 @@ import { Observable, of } from 'rxjs';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { IInvitationObject } from '../../../../../angularjs/app/invitations/invitation.interface';
-import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 export enum SetPasswordStatus {
   SUCCESS,
@@ -28,7 +28,6 @@ export class SetPasswordViewService {
     private router: Router,
     private registrationInvitationService: RegistrationInvitationService,
     private alertService: AlertService,
-    private localStorageWrapperService: LocalStorageWrapperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('SetPasswordViewService');
@@ -57,15 +56,14 @@ export class SetPasswordViewService {
       }
     });
 
-  private redirectToInvitations = (token: string): Promise<SetPasswordStatus> =>
-    this.router.navigate(['/invitations/' + token]).then(isRedirectSuccessful => {
+  private redirectToInvitations = (): Promise<SetPasswordStatus> =>
+    this.router.navigate([RouterPaths.dashboard.user.invitations.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to invitations');
         return SetPasswordStatus.ERROR;
       } else {
-        this.alertService.pushSuccessAlert(Alerts.SetPasswordViewSuccess);
-        this.localStorageWrapperService.removeItem('invitation');
+        this.alertService.pushSuccessAlert(Alerts.UserLoggedIn);
         return SetPasswordStatus.SUCCESS;
       }
     });
@@ -110,7 +108,7 @@ export class SetPasswordViewService {
   private verifyEmailByToken = (token: string): Observable<SetPasswordStatus> =>
     this.accountService
       .postConfirmEmailViaInvitationRoute(token)
-      .pipe(mergeMap(() => this.redirectToInvitations(token)))
+      .pipe(mergeMap(() => this.redirectToInvitations()))
       .pipe(catchError(this.handleVerifyTokenError));
 
   private setPasswordByInvitation = (accountId: string, password: string): Observable<SetPasswordStatus> => {

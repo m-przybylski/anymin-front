@@ -4,8 +4,8 @@ import { UserSessionService } from '../../../../core/services/user-session/user-
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
-import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 export enum PasswordLoginStatus {
   SUCCESS,
@@ -24,7 +24,6 @@ export class PasswordViewService {
     private router: Router,
     private registrationInvitationService: RegistrationInvitationService,
     private alertService: AlertService,
-    private localStorageWrapperService: LocalStorageWrapperService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('PasswordViewService');
@@ -50,8 +49,8 @@ export class PasswordViewService {
       }
     });
 
-  private redirectToInvitations = (token: string): Promise<PasswordLoginStatus> =>
-    this.router.navigate([`/invitations/${token}`]).then(isRedirectSuccessful => {
+  private redirectToInvitations = (): Promise<PasswordLoginStatus> =>
+    this.router.navigate([RouterPaths.dashboard.user.invitations.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         this.logger.warn('Error when redirect to invitations');
@@ -59,7 +58,6 @@ export class PasswordViewService {
         return PasswordLoginStatus.ERROR;
       } else {
         this.alertService.pushSuccessAlert(Alerts.UserLoggedIn);
-        this.localStorageWrapperService.removeItem('invitation');
 
         return PasswordLoginStatus.SUCCESS_WITH_INVITATION;
       }
@@ -111,7 +109,7 @@ export class PasswordViewService {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
 
     return invitationObject !== void 0 && invitationObject.token !== void 0
-      ? this.redirectToInvitations(invitationObject.token)
+      ? this.redirectToInvitations()
       : this.redirectToDashboard();
   };
 }

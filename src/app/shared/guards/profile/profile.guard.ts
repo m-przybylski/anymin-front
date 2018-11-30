@@ -13,7 +13,7 @@ import { map, take } from 'rxjs/operators';
 import { RouterPaths, RouterPathsToken } from '../../routes/routes';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import { isKnownUser } from '@platform/shared/guards/session.helper';
+import { isUserLogged } from '@platform/shared/guards/session.helper';
 
 /**
  * Responsible of this guard is to check weather user is logged
@@ -42,9 +42,9 @@ export class ProfileGuard implements CanActivate {
 
   private can(url: string): Observable<boolean> {
     return this.store.pipe(
-      isKnownUser(),
-      map(isUserKnown => {
-        const redirectTo = this.matchPath(this.buildRedirectMap())(this.getUrlSegmentsWithNoParam(url), isUserKnown);
+      isUserLogged(),
+      map(isUserLoggedIn => {
+        const redirectTo = this.matchPath(this.buildRedirectMap())(this.getUrlSegmentsWithNoParam(url), isUserLoggedIn);
         if (redirectTo !== undefined) {
           this.logger.debug(`redirecting to ${redirectTo} and ID :)`);
           void setTimeout(() => {

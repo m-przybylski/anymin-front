@@ -13,28 +13,34 @@ export interface IInvitationsStateParams extends StateParams {
   companyId: string;
 }
 
-const invitationsPageModule = angular.module('profitelo.controller.invitations', [
-  'permission',
-  uiRouter,
-  'permission.ui',
-  'ngTouch',
-  topAlertModule,
-  modalsModule
-])
-  .config(['$stateProvider', ($stateProvider: StateProvider): void => {
-    $stateProvider.state('app.invitations', {
-      url: '/invitations/{token}',
-      resolve: {
-        invitations: ['invitationsResolver', '$stateParams',
-          (invitationsResolver: InvitationsResolver, $stateParams: IInvitationsStateParams): void =>
-            invitationsResolver.resolve($stateParams)]
-      },
-      data: {
-        pageTitle: 'PAGE_TITLE.INVITATIONS'
-      }
-    });
-  }])
-  .service('invitationsResolver', InvitationsResolver)
-  .name;
+const invitationsPageModule = angular
+  .module('profitelo.controller.invitations', [
+    'permission',
+    uiRouter,
+    'permission.ui',
+    'ngTouch',
+    topAlertModule,
+    modalsModule,
+  ])
+  .config([
+    '$stateProvider',
+    ($stateProvider: StateProvider): void => {
+      $stateProvider.state('app.invitations', {
+        url: '/insd/{token}',
+        resolve: {
+          invitations: [
+            'invitationsResolver',
+            '$stateParams',
+            (invitationsResolver: InvitationsResolver, $stateParams: IInvitationsStateParams): void =>
+              invitationsResolver.resolve($stateParams),
+          ],
+        },
+        data: {
+          pageTitle: 'PAGE_TITLE.INVITATIONS',
+        },
+      });
+    },
+  ])
+  .service('invitationsResolver', InvitationsResolver).name;
 
 export default invitationsPageModule;

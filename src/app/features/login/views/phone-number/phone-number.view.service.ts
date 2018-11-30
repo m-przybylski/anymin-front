@@ -39,6 +39,7 @@ export class PhoneNumberViewService extends Logger {
   private alertMap = new Map<GetRegistrationStatus.StatusEnum, string>([
     [GetRegistrationStatus.StatusEnum.VERIFICATIONATTEMPTSEXCEEDED, 'ALERT.MSISDN_VERIFICATION_ATTEMPTS_EXCEEDED'],
   ]);
+
   constructor(
     private registrationService: RegistrationService,
     private router: Router,
@@ -82,6 +83,7 @@ export class PhoneNumberViewService extends Logger {
     if (showAlert !== undefined) {
       this.alertService.pushDangerAlert(showAlert, { msisdn });
     }
+    this.removeInvitation(msisdn);
 
     return PhoneNumberServiceStatus.SUCCESS;
   };
@@ -145,6 +147,13 @@ export class PhoneNumberViewService extends Logger {
         }
       })
       .catch(this.loggerService.error.bind(this));
+  };
+
+  private removeInvitation = (phoneNumber: string): void => {
+    const invitationObject = this.registrationInvitationService.getInvitationObject();
+    if (invitationObject !== undefined && invitationObject.msisdn && invitationObject.msisdn !== phoneNumber) {
+      this.registrationInvitationService.removeInvitationObject();
+    }
   };
 }
 

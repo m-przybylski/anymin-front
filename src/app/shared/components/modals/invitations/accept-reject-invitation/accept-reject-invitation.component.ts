@@ -2,12 +2,18 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { INVITATION } from './services/accept-reject-invitation';
 import { AcceptRejectInvitationService } from './services/accept-reject-invitation.service';
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, switchMap, filter, first } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
-import { MoneyToAmount, LoggerFactory } from '@anymind-ng/core';
+import { MoneyToAmount, LoggerFactory, AlertService } from '@anymind-ng/core';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
+import { select, Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import * as fromCore from '@platform/core/reducers';
+import { GetSessionWithAccount } from '@anymind-ng/api';
+import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import { EMPTY } from 'rxjs';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -28,16 +34,21 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   public tagList: ReadonlyArray<string> = [];
 
   private moneyPipe: MoneyToAmount;
+
   constructor(
     @Inject(INVITATION) public invitation: IInvitation,
     private activeModal: NgbActiveModal,
     private acceptRejectInvitationService: AcceptRejectInvitationService,
     private loader: ModalAnimationComponentService,
+    private store: Store<fromRoot.IState>,
+    private modalService: NgbModal,
+    private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('AcceptRejectInvitationModalComponent'));
     this.moneyPipe = new MoneyToAmount(this.loggerService);
   }
+
   public ngOnInit(): void {
     this.loader.startLoadingAnimation();
     if (!this.invitation.isVisited) {
@@ -56,11 +67,27 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
         this.grossPrice = this.moneyPipe.transform(data.grossPrice);
       });
   }
+
   public onRejectClicked = (): void => {
     this.acceptRejectInvitationService.rejectInvitation(this.invitation.id, this.activeModal).subscribe();
   };
 
   public onAcceptClicked = (): void => {
-    this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal).subscribe();
+    this.store
+      .pipe(
+        select(fromCore.getSession),
+        filter(session => typeof session !== 'undefined'),
+        first(),
+        switchMap((session: GetSessionWithAccount) => {
+          if (session.isExpert) {
+            return this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal);
+          }
+          this.alertService.pushWarningAlert('INVITATIONS.ACCEPT_REJECT_MODAL.EXPERT_ACCOUNT_WARNING_ALERT');
+          this.modalService.open(CreateProfileModalComponent);
+
+          return EMPTY;
+        }),
+      )
+      .subscribe();
   };
 }

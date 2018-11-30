@@ -5,7 +5,7 @@ import * as fromRoot from '@platform/reducers';
 import { AuthActions } from '@platform/core/actions';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { isKnownUser } from '@platform/shared/guards/session.helper';
+import { isUserLogged } from '@platform/shared/guards/session.helper';
 
 @Injectable()
 export class SessionGuard implements CanActivate, CanLoad {
@@ -20,13 +20,13 @@ export class SessionGuard implements CanActivate, CanLoad {
   }
   private can(): Observable<boolean> {
     return this.store.pipe(
-      isKnownUser(),
-      map((isUserKnown: boolean) => {
-        if (!isUserKnown) {
+      isUserLogged(),
+      map((isUserLoggedIn: boolean) => {
+        if (!isUserLoggedIn) {
           this.store.dispatch(new AuthActions.LoginRedirectAction());
         }
 
-        return isUserKnown;
+        return isUserLoggedIn;
       }),
       take(1),
     );
