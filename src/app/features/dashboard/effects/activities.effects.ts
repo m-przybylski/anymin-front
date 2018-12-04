@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { DashboardActions } from '@platform/features/dashboard/actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { ActivitiesService } from '@anymind-ng/api';
-import { defer, of } from 'rxjs';
+import { of } from 'rxjs';
 
 @Injectable()
 export class DashboardEffects {
@@ -16,11 +16,6 @@ export class DashboardEffects {
         catchError(error => of(new DashboardActions.FetchImportantActivitiesCounterErrorAction(error))),
       ),
     ),
-  );
-
-  @Effect()
-  public init$ = defer(() => of(undefined)).pipe(
-    map(() => new DashboardActions.FetchImportantActivitiesCounterAction()),
   );
 
   constructor(private actions$: Actions, private activitiesService: ActivitiesService) {}

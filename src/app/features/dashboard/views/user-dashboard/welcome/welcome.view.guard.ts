@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { filter, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Injectable()
 export class WelcomeViewGuard implements CanActivate {
@@ -17,9 +18,7 @@ export class WelcomeViewGuard implements CanActivate {
   }
 
   public canActivate(): Observable<boolean> {
-    return this.store.pipe(
-      select(fromCore.getSession),
-      filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+    return getNotUndefinedSession(this.store).pipe(
       map((getSessionWithAccount: GetSessionWithAccount) => {
         if (getSessionWithAccount.isCompany) {
           void this.router.navigate([RouterPaths.dashboard.company.activities.asPath]);

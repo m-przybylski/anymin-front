@@ -7,10 +7,11 @@ import { switchMapTo, takeUntil, switchMap, first } from 'rxjs/operators';
 import { WebSocketService } from '../websocket/websocket.service.rxjs';
 import { WebSocketServiceFactory } from '../websocket/websocket.factory';
 import { GetExpertVisibility } from '@anymind-ng/api';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Logger } from '@platform/core/logger';
 import { IProfileCallProfit } from './anymind-websocket.modal';
+import { selectNewSession } from '@platform/core/utils/select-new-session';
 
 type WS_BACKEND_MESSAGES =
   | 'ADMIN_ACCEPTED_COMPLAINT_NOTIFY_CLIENT'
@@ -154,10 +155,9 @@ export class AnymindWebsocketService extends Logger {
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('AnymindWebsocketService'));
-
     store
       .pipe(
-        select(fromCore.getSession),
+        selectNewSession(),
         switchMap(sessionAccount =>
           iif(() => sessionAccount !== undefined, of(() => this.setupWebsocket()), of(() => this.onUserLogout())),
         ),

@@ -61,7 +61,8 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
 
-  private readonly commentsLimitLength = 3;
+  private readonly commentsMinLimitLength = 3;
+  private readonly commentsLimitLength = 10;
   private destroyed$ = new Subject<void>();
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private editConsultationPayload: ICreateEditConsultationPayload;
@@ -97,6 +98,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     ).subscribe(([getSession, tags, getServiceDetails, expertIsAvailable]) => {
       if (getSession !== undefined) {
         this.accountId = getSession.account.id;
+        this.isOwner = this.expertId === this.accountId;
       }
       this.tagList = tags;
       this.assignExpertConsultationDetails(getServiceDetails);
@@ -121,7 +123,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
   };
 
   public onLoadMoreComments = (): void => {
-    const commentOffset = this.commentsConsultation.length + this.commentsLimitLength;
+    const commentOffset = this.commentsConsultation.length;
     this.isCommentsRequestPending = true;
 
     this.consultationDetailsViewService
@@ -168,7 +170,7 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     );
 
     this.commentsConsultation = getComments;
-    this.isLoadMoreCommentsBtnVisible = getComments.length !== 0 && getComments.length === this.commentsLimitLength;
+    this.isLoadMoreCommentsBtnVisible = getComments.length === this.commentsMinLimitLength;
 
     if (employmentWithService !== undefined) {
       this.usageCounter = employmentWithService.usageCounter;

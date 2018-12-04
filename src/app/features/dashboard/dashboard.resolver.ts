@@ -1,7 +1,7 @@
 import { Resolve } from '@angular/router';
 import * as fromCore from '@platform/core/reducers';
 import { select, Store } from '@ngrx/store';
-import { filter, map, take, switchMap } from 'rxjs/operators';
+import { map, take, switchMap } from 'rxjs/operators';
 import { NavbarActions } from '@platform/core/actions';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { GetSessionWithAccount } from '@anymind-ng/api';
@@ -9,6 +9,7 @@ import { Observable, defer, of } from 'rxjs';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Injectable()
 export class DashboardResolver extends Logger implements Resolve<boolean> {
@@ -26,9 +27,7 @@ export class DashboardResolver extends Logger implements Resolve<boolean> {
 
   private getUserType = (): Observable<UserTypeEnum | undefined> => this.store.pipe(select(fromCore.getUserType));
   private dispatchUserFromSession = (): Observable<boolean> =>
-    this.store.pipe(
-      select(fromCore.getSession),
-      filter(session => typeof session !== 'undefined'),
+    getNotUndefinedSession(this.store).pipe(
       map((session: GetSessionWithAccount) => {
         if (session.isCompany) {
           this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.COMPANY));

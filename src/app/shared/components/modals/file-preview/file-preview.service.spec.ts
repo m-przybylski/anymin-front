@@ -4,9 +4,8 @@ import { Deceiver } from 'deceiver-core';
 import { ProfileDocument } from '@anymind-ng/api';
 import * as fromRoot from 'app/reducers/index';
 import { TestBed } from '@angular/core/testing';
-import { FilePreviewService } from '@platform/shared/components/modals/file-preview/file-preview.service';
+import { FilePreviewService, IFileType } from '@platform/shared/components/modals/file-preview/file-preview.service';
 import { LoggerFactory, LoggerService, WindowRef } from '@anymind-ng/core';
-import { IFileType } from '@platform/shared/components/modals/file-preview/file-preview.component';
 
 describe('FilePreviewService', () => {
   let filePreviewService: FilePreviewService;

@@ -10,10 +10,12 @@ export enum UserTypeEnum {
 export interface IState {
   userType?: UserTypeEnum;
   isNavbarUserMenuVisible: boolean;
+  isNavbarHelpMenuVisible: boolean;
 }
 
 export const initialState: IState = {
   isNavbarUserMenuVisible: false,
+  isNavbarHelpMenuVisible: false,
 };
 
 // tslint:disable-next-line:only-arrow-functions
@@ -40,6 +42,13 @@ export function reducer(state = initialState, action: NavbarActions.NavbarAction
       };
     }
 
+    case NavbarActionTypes.ToggleHelpMenuVisibility: {
+      return {
+        ...state,
+        isNavbarHelpMenuVisible: !state.isNavbarHelpMenuVisible,
+      };
+    }
+
     default: {
       return state;
     }
@@ -48,3 +57,4 @@ export function reducer(state = initialState, action: NavbarActions.NavbarAction
 
 export const getUserType = (state: IState): UserTypeEnum | undefined => state.userType;
 export const getIsNavbarUserMenuVisible = (state: IState): boolean => state.isNavbarUserMenuVisible;
+export const getIsNavbarHelpMenuVisible = (state: IState): boolean => state.isNavbarHelpMenuVisible;

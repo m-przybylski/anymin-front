@@ -17,9 +17,9 @@ export function provideCommission(): Provider {
   return {
     provide: COMMISSION,
     useValue: {
-      freelanceConsultationAnyMindCommission: 0.2,
+      freelanceConsultationAnyMindCommission: 0.07,
       freelanceConsultationCompanyCommission: 0.1,
-      employeeServiceAnyMindCommission: 0.15,
+      employeeServiceAnyMindCommission: 0,
       percentDivider: 100,
       numberPrecision: 2,
       moneyDivider: Config.moneyDivider,

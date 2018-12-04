@@ -6,6 +6,7 @@ export enum NavbarActionTypes {
   SetUserType = '[navbar] set user type',
   UpdateSessionAndUserType = '[navbar] set user type and fetch session',
   ToggleUserMenuVisibility = '[navbar] toggle user menu visibility',
+  ToggleHelpMenuVisibility = '[navbar] toggle help menu visibility',
 }
 
 export class SetUserType implements Action {
@@ -24,4 +25,12 @@ export class ToggleUserMenuVisibility implements Action {
   public readonly type = NavbarActionTypes.ToggleUserMenuVisibility;
 }
 
-export type NavbarActionsUnion = SetUserType | UpdateUserTypeAndSession | ToggleUserMenuVisibility;
+export class ToggleHelpMenuVisibility implements Action {
+  public readonly type = NavbarActionTypes.ToggleHelpMenuVisibility;
+}
+
+export type NavbarActionsUnion =
+  | SetUserType
+  | UpdateUserTypeAndSession
+  | ToggleUserMenuVisibility
+  | ToggleHelpMenuVisibility;

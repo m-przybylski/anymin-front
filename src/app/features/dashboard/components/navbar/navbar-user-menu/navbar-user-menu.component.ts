@@ -10,20 +10,14 @@ import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/da
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
-import { trigger, transition, style, animate, state } from '@angular/animations';
 import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
+import { Animations } from '@platform/shared/animations/animations';
 
 @Component({
   selector: 'plat-navbar-user-menu',
   templateUrl: './navbar-user-menu.component.html',
   styleUrls: ['./navbar-user-menu.component.sass'],
-  animations: [
-    trigger('slideInOut', [
-      state('show', style({ transform: 'translate3D(0, 0 ,0)' })),
-      state('hide', style({ transform: 'translate3D(calc(100% + 16px), 0, 0)' })),
-      transition('show <=> hide', [animate('300ms ease-in-out')]),
-    ]),
-  ],
+  animations: [Animations.menuSlideInOut],
 })
 export class NavbarUserMenuComponent implements OnInit {
   @Input()
@@ -38,7 +32,7 @@ export class NavbarUserMenuComponent implements OnInit {
   public switchAccountAvatarToken: string;
 
   @Input()
-  public set isMenuVisible(value: boolean) {
+  public set isUserMenuVisible(value: boolean) {
     this.animationState = value ? 'show' : 'hide';
   }
 

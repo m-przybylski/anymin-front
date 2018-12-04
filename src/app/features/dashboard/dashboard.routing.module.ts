@@ -8,6 +8,8 @@ import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
 import { WelcomeViewGuard } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.view.guard';
+import { CompanyDashboardGuard } from '@platform/features/dashboard/views/company-dashboard/services/company-dashboard.guard';
+import { ExpertDashboardGuard } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard.guard';
 
 const routes: Routes = [
   {
@@ -22,6 +24,7 @@ const routes: Routes = [
         children: [
           {
             path: RouterPaths.dashboard.user.activities.getName,
+            canActivate: [ExpertDashboardGuard],
             loadChildren:
               './views/user-dashboard/activities/user-dashboard-activities.module#UserDashboardActivitiesModule',
           },
@@ -55,6 +58,7 @@ const routes: Routes = [
       },
       {
         path: RouterPaths.dashboard.company.getName,
+        canActivate: [CompanyDashboardGuard],
         loadChildren: './views/company-dashboard/company-dashboard.module#CompanyDashboardModule',
       },
     ],
@@ -64,6 +68,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [],
+  providers: [CompanyDashboardGuard, ExpertDashboardGuard],
 })
 export class DashboardRoutingModule {}

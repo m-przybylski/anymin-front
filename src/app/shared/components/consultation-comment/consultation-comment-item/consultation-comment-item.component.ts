@@ -110,6 +110,6 @@ export class ConsultationCommentItemComponent implements OnInit {
 
   private checkIsCommentOptionShown(): void {
     this.isCommentOptionShown =
-      this.isCommentOptionVisible && (!this._isReported || (!this.isAnswer && !this._isTemporaryAnswer));
+      this.isCommentOptionVisible && (!this._isReported && (!this.isAnswer && !this._isTemporaryAnswer));
   }
 }

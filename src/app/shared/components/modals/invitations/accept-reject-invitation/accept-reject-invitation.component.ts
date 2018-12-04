@@ -4,16 +4,16 @@ import { AcceptRejectInvitationService } from './services/accept-reject-invitati
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { finalize, switchMap, filter, first } from 'rxjs/operators';
+import { finalize, switchMap, first } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
 import { MoneyToAmount, LoggerFactory, AlertService } from '@anymind-ng/core';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import * as fromCore from '@platform/core/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY } from 'rxjs';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -73,10 +73,8 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   };
 
   public onAcceptClicked = (): void => {
-    this.store
+    getNotUndefinedSession(this.store)
       .pipe(
-        select(fromCore.getSession),
-        filter(session => typeof session !== 'undefined'),
         first(),
         switchMap((session: GetSessionWithAccount) => {
           if (session.isExpert) {

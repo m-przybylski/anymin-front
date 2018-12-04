@@ -150,7 +150,10 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     }
   };
 
-  public getCommissionValueForUI = (): string => `${this.anyMindCommission * this.commissionConfig.percentDivider}%`;
+  public getCommissionValueForUI = (): string =>
+    `${(this.anyMindCommission * this.commissionConfig.percentDivider).toFixed(
+      this.commissionConfig.numberPrecision,
+    )}%`;
 
   public getCompanyProfitForUI = (): string => {
     const nett = this.formControls[this.nettPriceControlName].value;

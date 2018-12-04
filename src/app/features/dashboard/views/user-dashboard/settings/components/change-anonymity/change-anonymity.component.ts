@@ -4,11 +4,12 @@ import { ChangeAnonymityComponentService } from '@platform/features/dashboard/vi
 import { FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, takeUntil, filter } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Component({
   selector: 'plat-change-anonymity',
@@ -54,12 +55,8 @@ export class ChangeAnonymityComponent extends Logger implements OnDestroy {
   };
 
   private getIsAnonymousFromSession = (): void => {
-    this.store
-      .pipe(
-        select(fromCore.getSession),
-        filter(session => typeof session !== 'undefined'),
-        takeUntil(this.ngUnsubscribe$),
-      )
+    getNotUndefinedSession(this.store)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((session: GetSessionWithAccount) => {
         this.isAnonymous = session.account.isAnonymous;
       });

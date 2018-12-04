@@ -25,7 +25,6 @@ export function reducer(
     case SessionActions.SessionActionTypes.FetchSessionFromServer: {
       return {
         ...state,
-        session: undefined,
         isPending: true,
         isFromBackend: false,
       };

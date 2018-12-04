@@ -124,7 +124,8 @@ svg(width='0', height='0', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http
 
 .button-types
   label.button-type(*ngFor='let button of buttons')
-    input(type='radio', name='buttonType', [attr.value]='button.buttonType', (blur)='onBlur()', (change)='onChange(button.buttonType)', (focus)='onFocus(button.buttonType)', [checked]='buttonType === button.buttonType')
+    input.button-types__input(type='radio', name='buttonType', [attr.value]='button.buttonType', (blur)='onBlur()',
+    (change)='onChange(button.buttonType)', (focus)='onFocus(button.buttonType)', [checked]='buttonType === button.buttonType')
     svg.button-type__image(viewBox='0 0 248 248')
       use([attr.xlink:href]='buttonType === button.buttonType ? button.selected : button.notSelected')/
     .button-type__description

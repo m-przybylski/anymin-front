@@ -55,4 +55,12 @@ export class Animations {
       transition('visible => hidden', animate('200ms ease-out', style({ transform: 'translateY(8px)', opacity: '0' }))),
     ]),
   ];
+
+  public static menuSlideInOut: AnimationTriggerMetadata[] = [
+    trigger('slideInOut', [
+      state('show', style({ transform: 'translate3D(0, 0 ,0)' })),
+      state('hide', style({ transform: 'translate3D(calc(100% + 16px), 0, 0)' })),
+      transition('show <=> hide', [animate('300ms ease-in-out')]),
+    ]),
+  ];
 }
