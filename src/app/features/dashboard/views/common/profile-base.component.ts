@@ -4,11 +4,9 @@ import { ProfileDocument } from '@anymind-ng/api';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ICreateEditConsultationPayload } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
-import {
-  IFilePreviewPayload,
-  FilePreviewComponent,
-} from '@platform/shared/components/modals/file-preview/file-preview.component';
 import { FILE_PREVIEW_PAYLOAD } from '@platform/shared/components/modals/file-preview/file-preview';
+import { IFilePreviewPayload } from '@platform/shared/components/modals/file-preview/file-preview.service';
+import { FilePreviewComponent } from '@platform/shared/components/modals/file-preview/file-preview.component';
 
 export type DialogPayload = ICreateEditConsultationPayload | IFilePreviewPayload;
 export class ProfileBaseComponent implements OnDestroy {

@@ -9,7 +9,6 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Subject, Observable } from 'rxjs';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/dashboard/components/navbar/navigation';
@@ -27,7 +26,10 @@ export class UserNavigationComponent implements AfterViewChecked {
   public userName: string;
 
   @Input()
-  public isMenuVisible: boolean;
+  public isUserMenuVisible: boolean;
+
+  @Input()
+  public isHelpMenuVisible: boolean;
 
   @Input()
   public switchAccountAvatarToken: string;
@@ -66,14 +68,9 @@ export class UserNavigationComponent implements AfterViewChecked {
   public navbarItems: ReadonlyArray<INavigationItem>;
   private readonly activeElementClassName = 'active';
   private currentElement$ = new Subject<ElementRef>();
-  private logger: LoggerService;
 
   @ViewChildren('listElement')
   private listOfNavbarElements: QueryList<ElementRef>;
-
-  constructor(loggerFactory: LoggerFactory) {
-    this.logger = loggerFactory.createLoggerService('UserNavigationComponent');
-  }
 
   public onSwitchVisibility = (isVisible: boolean): void => {
     this.changeVisibility.emit(isVisible);

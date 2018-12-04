@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { VisibilityInitActions, VisibilityApiActions, VisibilityUiActions } from '@platform/features/dashboard/actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { PresenceService } from '@anymind-ng/api';
-import { defer, of } from 'rxjs';
+import { of } from 'rxjs';
 import { GetExpertVisibility } from '@anymind-ng/api/model/getExpertVisibility';
 import { AlertService } from '@anymind-ng/core';
 
@@ -52,9 +52,6 @@ export class VisibilityEffects {
       ),
     ),
   );
-
-  @Effect()
-  public init$ = defer(() => of(undefined)).pipe(map(() => new VisibilityInitActions.FetchInitVisibilityAction()));
 
   constructor(
     private actions$: Actions,

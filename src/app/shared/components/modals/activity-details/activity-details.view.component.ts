@@ -13,11 +13,11 @@ import { StepperComponent } from '@platform/shared/components/stepper/stepper.co
 import { roomEvents } from 'machoke-sdk';
 import { ISueDetails } from '@platform/shared/components/modals/activity-details/sue-details/sue-details.component';
 import { IFinancialOperationDetails } from '@platform/shared/components/modals/activity-details/financial-operation-details/financial-operation-details.component';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import * as fromCore from '@platform/core/reducers';
 import { IRefundOperationDetails } from '@platform/shared/components/modals/activity-details/refund-details/refund-details.component';
 import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/activities/activities.component';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 export const MODAL_CLOSED_WITH_ERROR = 'MODAL_CLOSED_WITH_ERROR';
 
@@ -68,12 +68,8 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
     super(loggerFactory.createLoggerService('ActivityDetailsViewComponent'));
     this.modalHeaderTrKey = this.modalHeaderTrKeys.default;
     this.isCompanyActivity = this.activityDetails.isCompany;
-    this.store
-      .pipe(
-        select(fromCore.getSession),
-        filter(getSession => typeof getSession !== 'undefined'),
-        first(),
-      )
+    getNotUndefinedSession(this.store)
+      .pipe(first())
       .subscribe((getSession: GetSessionWithAccount) => (this.accountId = getSession.account.id));
   }
 

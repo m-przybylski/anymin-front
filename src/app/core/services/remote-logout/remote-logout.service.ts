@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 import * as fromCore from '@platform/core/reducers';
 import { Logger } from '@platform/core/logger';
@@ -7,6 +7,7 @@ import { LoggerFactory } from '@anymind-ng/core';
 import { AuthActions } from '@platform/core/actions';
 import { switchMap, filter } from 'rxjs/operators';
 import { GetSessionWithAccount } from '@anymind-ng/api';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Injectable()
 export class RemoteLogoutService extends Logger {
@@ -19,10 +20,8 @@ export class RemoteLogoutService extends Logger {
   }
 
   public listenForRemovedSession = (): void => {
-    this.store
+    getNotUndefinedSession(this.store)
       .pipe(
-        select(fromCore.getSession),
-        filter(session => typeof session !== 'undefined'),
         switchMap((sessionWithAccount: GetSessionWithAccount) =>
           this.anymindWebsocket.sessionDeleted.pipe(
             filter(deletedSessionApiKey => deletedSessionApiKey === sessionWithAccount.session.apiKey),

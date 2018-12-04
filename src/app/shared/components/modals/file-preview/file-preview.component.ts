@@ -1,28 +1,15 @@
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef, Inject } from '@angular/core';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
-import { FilePreviewService } from '@platform/shared/components/modals/file-preview/file-preview.service';
+import {
+  FilePreviewService,
+  IFilePreviewDetails,
+  IFilePreviewPayload,
+  IFileType,
+} from '@platform/shared/components/modals/file-preview/file-preview.service';
 import { ProfileDocument } from '@anymind-ng/api';
 import { FileResizerDirective } from '@platform/shared/components/modals/file-preview/file-size-checker.directive';
 import { SmoothScrollDirective } from '@platform/shared/components/modals/file-preview/smooth-scroll.directive';
 import { FILE_PREVIEW_PAYLOAD } from './file-preview';
-
-export enum IFileType {
-  IMAGE_JPG = 'image/jpeg',
-  IMAGE_PNG = 'image/png',
-  PDF = 'application/pdf',
-  OTHER = 'other',
-}
-
-export interface IFilePreviewDetails {
-  name: string;
-  token: string;
-  previews: ReadonlyArray<string>;
-  contentType: IFileType;
-  fileUrl: string;
-}
-export interface IFilePreviewPayload {
-  files: ReadonlyArray<ProfileDocument>;
-}
 
 @Component({
   selector: 'plat-file-preview',

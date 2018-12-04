@@ -23,11 +23,12 @@ import { Router } from '@angular/router';
 import { ExpertCallService } from '@platform/core/services/call/expert-call.service';
 import { CreateIncomingCallComponent } from '@platform/shared/components/modals/call-modals/incoming-call/incoming-call.component';
 import { CreateCallSummaryComponent } from '@platform/shared/components/modals/call-modals/call-summary/call-summary.component';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { httpCodes } from '@platform/shared/constants/httpCodes';
 import { INCOMING_CALL } from '@platform/shared/components/modals/call-modals/incoming-call/token';
 import { PushNotificationService } from './push-notifications.service';
+import { selectNewSession } from '@platform/core/utils/select-new-session';
 
 @Injectable()
 export class CallInvitationService extends Logger {
@@ -94,7 +95,7 @@ export class CallInvitationService extends Logger {
 
     this.store
       .pipe(
-        select(fromCore.getSession),
+        selectNewSession(),
         switchMap(sessionAccount =>
           iif(
             () => sessionAccount !== undefined,

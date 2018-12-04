@@ -11,7 +11,7 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { HttpErrorResponse } from '@angular/common/http';
 import { PutOrganizationDetails } from '@anymind-ng/api';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { NavbarActions } from '@platform/core/actions';
@@ -19,6 +19,7 @@ import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
+import { waitForSession } from '@platform/core/utils/wait-for-session';
 
 @Component({
   selector: 'app-create-organization',
@@ -123,10 +124,13 @@ export class CreateOrganizationModalComponent implements OnInit {
   private sendOrganizationProfile = (): void => {
     this.createOrganizationModalComponentService
       .createOrganizationProfile(this.assignFormValues())
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(
+        tap(() => this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.COMPANY))),
+        waitForSession(this.store),
+        takeUntil(this.ngUnsubscribe$),
+      )
       .subscribe(
         val => {
-          this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.COMPANY));
           !this.isCompany ? this.redirectToOrganizationState(val.id) : this.onModalClose();
         },
         err => this.handleResponseError(err, 'Can not send company profile'),

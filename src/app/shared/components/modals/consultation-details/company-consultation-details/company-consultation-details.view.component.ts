@@ -239,7 +239,8 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
             serviceDetails: JSON.parse(JSON.stringify(this.consultationDetails.serviceDetails)),
             tags: this.tagList,
             isOwnerEmployee: getConsultationDetails.serviceDetails.employeesDetails.some(
-              expertId => expertId.id === getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
+              employee =>
+                employee.employeeProfile.id === getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
             ),
             // todo delete this after https://anymind.atlassian.net/browse/PLAT-538
             pendingInvitations: this.pendingInvitations,

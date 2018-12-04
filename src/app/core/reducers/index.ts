@@ -42,3 +42,4 @@ export const getSessionAndUserType = createSelector(getSession, getUserType, (se
   getUserType: userType,
 }));
 export const getIsNavbarUserMenuVisible = createSelector(selectUserType, fromNavbar.getIsNavbarUserMenuVisible);
+export const getIsNavbarHelpMenuVisible = createSelector(selectUserType, fromNavbar.getIsNavbarHelpMenuVisible);

@@ -38,7 +38,7 @@ export class ConsultationPriceComponent implements OnInit {
   public taxValue = 0.23;
 
   @Input()
-  public commission = 0.15;
+  public commission = 0;
 
   @Input()
   public set isFreelanceService(isFreelance: boolean) {

@@ -4,11 +4,11 @@ import { PasswordSettingsViewComponent } from './components/password-settings/pa
 import { ChangeEmailViewComponent } from './components/change-email/change-email.view.component';
 import { ManageSessionsViewComponent } from './components/manage-sessions/manage-sessions.view.component';
 import { MsisdnSettingsViewComponent } from './components/msisdn-settings/msisdn-settings.view.component';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Component({
   selector: 'plat-settings',
@@ -21,10 +21,7 @@ export class SettingsViewComponent implements OnInit {
   constructor(private ngbModalService: NgbModal, private store: Store<fromCore.IState>) {}
 
   public ngOnInit(): void {
-    this.session$ = this.store.pipe(
-      select(fromCore.getSession),
-      filter(session => typeof session !== 'undefined'),
-    ) as Observable<GetSessionWithAccount>;
+    this.session$ = getNotUndefinedSession(this.store);
   }
 
   public openChangeNumberModal = (): void => {

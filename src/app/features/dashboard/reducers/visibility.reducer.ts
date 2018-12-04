@@ -8,7 +8,7 @@ import {
 } from '@platform/features/dashboard/actions';
 
 export interface IState {
-  visibility: GetExpertVisibility.VisibilityEnum;
+  visibility: GetExpertVisibility.VisibilityEnum | undefined;
 }
 
 export const initialStatus: IState = {
@@ -34,6 +34,13 @@ export function reducer(
       };
     }
 
+    case VisibilityApiActions.VisibilityApiActionTypes.FetchInitVisibilityError: {
+      return {
+        ...state,
+        visibility: undefined,
+      };
+    }
+
     case VisibilityApiActions.VisibilityApiActionTypes.SetUiVisibilityVisibleError:
     case VisibilityWSActions.VisibilityWSActionTypes.SetWSVisibilityInvisible:
     case VisibilityUiActions.VisibilityUiActionTypes.SetUiVisibilityInvisible: {
@@ -55,4 +62,4 @@ export function reducer(
   }
 }
 
-export const getVisibility = (state: IState): GetExpertVisibility.VisibilityEnum => state.visibility;
+export const getVisibility = (state: IState): GetExpertVisibility.VisibilityEnum | undefined => state.visibility;

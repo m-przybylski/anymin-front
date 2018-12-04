@@ -15,9 +15,10 @@ import { filter, first, map } from 'rxjs/operators';
 import { IEmployeesInviteComponent } from './employees-invite.component';
 import { isValidNumber } from 'libphonenumber-js';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Config } from '../../../../../../config';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 export enum EmployeeInvitationTypeEnum {
   IS_EMAIL,
@@ -64,12 +65,8 @@ export class EmployeesInviteService {
   ) {
     this.emailPattern = Config.patterns.emailPattern;
     this.maxInvitationLength = Config.inputsLengthNumbers.consultationInvitationsMaxCount;
-    this.store
-      .pipe(
-        first(),
-        select(fromCore.getSession),
-        filter(getSession => typeof getSession !== 'undefined'),
-      )
+    getNotUndefinedSession(this.store)
+      .pipe(first())
       .subscribe((session: GetSessionWithAccount) => {
         this.accountId = session.account.id;
         this.accountMsisdn = session.account.msisdn;

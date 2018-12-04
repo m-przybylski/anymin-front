@@ -2,14 +2,15 @@
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, map, filter, first, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { AccountService, RegistrationService } from '@anymind-ng/api';
 import { Observable, of } from 'rxjs';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { SessionActions } from '@platform/core/actions';
+import { waitForSession } from '@platform/core/utils/wait-for-session';
 
 export enum PinCodeServiceStatus {
   SUCCESS,
@@ -48,16 +49,10 @@ export class PinCodeViewService {
     isMarketingAllowed = false,
   ): Observable<PinCodeServiceStatus> =>
     this.registrationService.confirmVerificationRoute({ sessionId, token }).pipe(
-      map(session => {
-        this.store.dispatch(new SessionActions.FetchSessionSuccessAction(session));
-        this.store
-          .pipe(
-            select(fromCore.getSession),
-            filter(getSession => typeof getSession !== 'undefined'),
-            first(),
-            mergeMap(() => this.sendMarketingStatus(isMarketingAllowed)),
-          )
-          .subscribe();
+      tap(session => this.store.dispatch(new SessionActions.FetchSessionSuccessAction(session))),
+      waitForSession(this.store),
+      mergeMap(() => this.sendMarketingStatus(isMarketingAllowed)),
+      map(() => {
         this.redirectToSetPassword();
         return PinCodeServiceStatus.SUCCESS;
       }),

@@ -1,36 +1,34 @@
 import { CanActivate, Router } from '@angular/router';
-import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
-import { LoggerService, Alerts, AlertService } from '@anymind-ng/core';
+import { LoggerFactory } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
+import { select, Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import * as fromCore from '@platform/core/reducers';
+import { filter, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Logger } from '@platform/core/logger';
 
 @Injectable()
-export class SetPasswordViewGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private alertService: AlertService,
-    private userSessionService: UserSessionService,
-    private logger: LoggerService,
-  ) {}
+export class SetPasswordViewGuard extends Logger implements CanActivate {
+  constructor(private router: Router, private store: Store<fromRoot.IState>, loggerFactory: LoggerFactory) {
+    super(loggerFactory.createLoggerService('SetPasswordViewGuard'));
+  }
 
-  public canActivate = (): Promise<boolean> =>
-    this.userSessionService.getSession().then(session => {
-      if (this.hasUserPassword(session)) {
-        this.logger.info('SetPasswordViewGuard: user has password, redirecting to set-email');
-        void this.router.navigate(['/account/set-email']).then(isRedirectSuccessful => {
-          if (!isRedirectSuccessful) {
-            this.logger.warn('Error when redirect to account/set-email');
-            this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          }
-        });
+  public canActivate = (): Observable<boolean> =>
+    this.store.pipe(
+      select(fromCore.getSession),
+      filter(session => typeof session !== 'undefined'),
+      map((session: GetSessionWithAccount) => {
+        if (this.hasUserPassword(session)) {
+          this.loggerService.info('user has password, redirecting to set-email');
+          void this.router.navigate(['/account/set-email']);
+        }
 
-        return false;
-      } else {
-        this.logger.info('SetPasswordViewGuard: user has not password, allowing access');
-
-        return true;
-      }
-    });
+        return !this.hasUserPassword(session);
+      }),
+      take(1),
+    );
 
   private hasUserPassword = (sessionWithAccount: GetSessionWithAccount): boolean =>
     sessionWithAccount.account.hasPassword;

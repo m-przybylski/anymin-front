@@ -1,0 +1,15 @@
+.navbar-help-menu([@slideInOut]="animationState")
+  ul.mobile-header
+    li.mobile-header__item.mobile-close
+      span.mobile-header__title {{ 'NAVIGATION.HELP_MENU.HELP_HEADER' | translate }}
+      span.icon.icon-clear.smm-only
+
+  ul.menu-content
+    li.menu-content__header.menu-content__item
+      span {{ 'NAVIGATION.HELP_MENU.RECOMMENDED' | translate}}
+    li.menu-content__item(*ngFor="let zendeskHelp of zendeskHelpUrls")
+      a([href]="zendeskHelp.url", target="_blank") {{ zendeskHelp.description | translate }}
+
+  ul.menu-footer
+    li.menu-footer__item((click)="onHelpFooterClick()")
+      span {{ 'NAVIGATION.HELP_MENU.HELP_CENTER' | translate }}

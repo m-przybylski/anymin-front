@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import { DashboardActions, VisibilityWSActions } from '@platform/features/dashboard/actions';
+import { DashboardActions, VisibilityWSActions, VisibilityInitActions } from '@platform/features/dashboard/actions';
 import { Subject, merge } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { takeUntil, map, take } from 'rxjs/operators';
 import { GetExpertVisibility } from '@anymind-ng/api';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Component({
   selector: 'plat-dashboard',
@@ -15,17 +16,48 @@ import { GetExpertVisibility } from '@anymind-ng/api';
 export class DashboardViewComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void> = new Subject<void>();
 
-  constructor(private anymindWebscoketService: AnymindWebsocketService, private store: Store<fromRoot.IState>) {}
+  constructor(private anymindWebsocketService: AnymindWebsocketService, private store: Store<fromRoot.IState>) {}
 
   public ngOnInit(): void {
+    /**
+     * once there user is not an expert do not fetch visibility
+     * for the moment company does not have visibility.
+     */
+    getNotUndefinedSession(this.store)
+      .pipe(
+        map(session => (session.isExpert ? [new VisibilityInitActions.FetchInitVisibilityAction()] : [])),
+        take(1),
+      )
+      .subscribe(actions => {
+        /**
+         * when array is empty nothing will be send
+         */
+        actions.forEach(action => {
+          this.store.dispatch(action);
+        });
+      });
+
+    this.store.dispatch(new DashboardActions.FetchImportantActivitiesCounterAction());
+
+    /**
+     * web socket handler.
+     * activities counters for
+     *  - client
+     *  - expert
+     *  - organization
+     * and visibility.
+     */
     merge(
-      this.anymindWebscoketService.importantClientActivity.pipe(
+      this.anymindWebsocketService.importantClientActivity.pipe(
         map(() => new DashboardActions.IncrementImportantClientActivitiesCounterAction()),
       ),
-      this.anymindWebscoketService.importantClientActivity.pipe(
-        map(() => new DashboardActions.IncrementImportantClientActivitiesCounterAction()),
+      this.anymindWebsocketService.importantExpertActivity.pipe(
+        map(() => new DashboardActions.IncrementImportantExpertActivitiesCounterAction()),
       ),
-      this.anymindWebscoketService.expertPresence.pipe(
+      this.anymindWebsocketService.importantCompanyActivity.pipe(
+        map(() => new DashboardActions.IncrementImportantOrganizationActivitiesCounterAction()),
+      ),
+      this.anymindWebsocketService.expertPresence.pipe(
         map(
           getExpertVisibility =>
             getExpertVisibility === GetExpertVisibility.VisibilityEnum.Visible

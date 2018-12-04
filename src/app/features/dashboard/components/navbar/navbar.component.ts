@@ -35,7 +35,8 @@ export class NavbarComponent extends Logger {
   public userType: UserTypeEnum;
   public switchAccountType?: UserTypeEnum;
   public accountId: string;
-  public isMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarUserMenuVisible));
+  public isUserMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarUserMenuVisible));
+  public isHelpMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarHelpMenuVisible));
   public isUserVisible$ = this.store.pipe(
     select(fromDashboard.getVisibilityStatus),
     map(visibility => visibility === GetExpertVisibility.VisibilityEnum.Visible),

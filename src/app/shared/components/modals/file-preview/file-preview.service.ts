@@ -1,8 +1,25 @@
 import { Injectable } from '@angular/core';
 import { ProfileDocument } from '@anymind-ng/api';
 import { LoggerFactory, WindowRef } from '@anymind-ng/core';
-import { IFilePreviewDetails, IFileType } from '@platform/shared/components/modals/file-preview/file-preview.component';
 import { Logger } from '@platform/core/logger';
+
+export enum IFileType {
+  IMAGE_JPG = 'image/jpeg',
+  IMAGE_PNG = 'image/png',
+  PDF = 'application/pdf',
+  OTHER = 'other',
+}
+
+export interface IFilePreviewDetails {
+  name: string;
+  token: string;
+  previews: ReadonlyArray<string>;
+  contentType: IFileType;
+  fileUrl: string;
+}
+export interface IFilePreviewPayload {
+  files: ReadonlyArray<ProfileDocument>;
+}
 
 @Injectable()
 export class FilePreviewService extends Logger {
