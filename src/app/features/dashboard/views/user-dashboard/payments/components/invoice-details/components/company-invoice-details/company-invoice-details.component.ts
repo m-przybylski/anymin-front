@@ -2,17 +2,17 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, ValidatorFn } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { CompanyInvoiceDetailsComponentService } from '@platform/features/dashboard/views/user-dashboard/payments/components/invoice-details/components/company-invoice-details/company-invoice-details.component.service';
-import { GetCompanyInvoiceDetails, PostCompanyInvoiceDetails } from '@anymind-ng/api';
 import { catchError, finalize } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Logger } from '@platform/core/logger';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { vatNumberValidator } from './vat-number.validator';
+import { GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 
 export interface ICompanyInvoiceDetails {
-  vatNumber: string;
-  companyName: string;
+  vatNumber?: string;
+  companyName?: string;
   address: string;
   city: string;
   postalCode: string;
@@ -76,19 +76,21 @@ export class CompanyInvoiceDetailsComponent extends Logger {
     }
   };
 
-  private getInvoiceDetailsModel = (): PostCompanyInvoiceDetails => ({
+  private getInvoiceDetailsModel = (): PostCompanyDetails => ({
+    // TODO FIX_NEW_FINANCE_MODEL
     vatNumber: this.formControls[this.vatNumberControlName].value,
     companyName: this.formControls[this.companyNameControlName].value,
     address: {
-      address: this.formControls[this.addressControlName].value,
+      street: this.formControls[this.addressControlName].value,
+      streetNumber: '12',
       postalCode: this.getPostalCode(this.formControls[this.postalCodeControlName].value),
       city: this.formControls[this.cityControlName].value,
       countryISO: this.polandIsoCode,
     },
-    email: this.formControls[this.emailControlName].value,
+    vatRateType: 'COMPANY_23',
   });
 
-  private handleUpdateInvoiceDetailsError = (httpError: HttpErrorResponse): Observable<GetCompanyInvoiceDetails> => {
+  private handleUpdateInvoiceDetailsError = (httpError: HttpErrorResponse): Observable<GetInvoiceDetails> => {
     this.loggerService.warn('Error when try to update invoice details, ', httpError);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 

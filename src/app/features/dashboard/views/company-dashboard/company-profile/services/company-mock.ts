@@ -1,9 +1,10 @@
 // tslint:disable:max-line-length
 // tslint:disable:max-file-line-count
 
-import { OrganizationProfileView, GetProfileWithDocuments } from '@anymind-ng/api';
+import { OrganizationProfileView, GetProfileWithDocuments, Account } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 import { OrganizationProfile } from './company-profile-resolver.service';
+import VatRateTypeEnum = Account.VatRateTypeEnum;
 
 export const organizationProfileView: OrganizationProfileView = {
   organizationProfile: {
@@ -36,6 +37,7 @@ export const organizationProfileView: OrganizationProfileView = {
           id: '62508989-2f01-4c98-8dc9-cf4b6f19b192',
           ratingCounter: 1,
           serviceId: '9effa37a-397b-4bcc-8c8f-26576e7222df',
+          vatRateType: VatRateTypeEnum.NATURALPERSON,
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
             name: 'Filip Franczak',
@@ -133,7 +135,7 @@ export const companyProfileView: IExpertCompanyDashboardResolverData<Organizatio
   profile: [organizationProfileView, profileWithDocuments],
   isOwnProfile: false,
   isLogged: true,
-  isCompany: true
+  isCompany: true,
 };
 
 export const organizationProfileView1: OrganizationProfileView = {
@@ -167,6 +169,7 @@ export const organizationProfileView1: OrganizationProfileView = {
           id: '62508989-2f01-4c98-8dc9-cf4b6f19b192',
           serviceId: '9effa37a-397b-4bcc-8c8f-26576e7222df',
           ratingCounter: 1,
+          vatRateType: VatRateTypeEnum.NATURALPERSON,
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
             name: 'Filip Franczak',
@@ -272,6 +275,7 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
               id: '62508989-2f01-4c98-8dc9-cf4b6f19b192',
               serviceId: '9effa37a-397b-4bcc-8c8f-26576e7222df',
               ratingCounter: 1,
+              vatRateType: VatRateTypeEnum.NATURALPERSON,
               employeeProfile: {
                 id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
                 name: 'Filip Franczak',
@@ -310,5 +314,5 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
   ],
   isOwnProfile: false,
   isLogged: true,
-  isCompany: true
+  isCompany: true,
 };

@@ -31,9 +31,7 @@ export class ActivityRowComponent implements OnInit {
   public ngOnInit(): void {
     this.activityType = this.activity.activityType;
     this.date = new Date(this.activity.initializedAt);
-    this.operationAmount = this.activity.financialOperation
-      ? { ...this.activity.financialOperation.operation }
-      : { amount: 0, currency: 'PLN' };
+    this.operationAmount = this.activity.amount ? { ...this.activity.amount } : { amount: 0, currency: 'PLN' };
     this.activityDescription = this.activity.serviceName;
     this.payoutTitle = this.mapMonthToPayoutTitleTranslation(this.date.getMonth());
     this.payoutTitleYear = String(this.date.getFullYear());

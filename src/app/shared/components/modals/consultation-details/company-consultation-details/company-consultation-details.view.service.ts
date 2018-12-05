@@ -5,10 +5,9 @@ import {
   InvitationService,
   ProfileService,
   ServiceService,
-  FinancesService,
   PaymentsService,
-  DefaultCreditCard,
   GetServiceWithEmployees,
+  GetDefaultPaymentMethod,
 } from '@anymind-ng/api';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { map, switchMap, catchError } from 'rxjs/operators';
@@ -23,7 +22,7 @@ export interface ICompanyConsultationDetails {
   tagsList: ReadonlyArray<string>;
   serviceDetails: GetServiceWithEmployees;
   employeesList: ReadonlyArray<ICompanyEmployeeRowComponent>;
-  payment: DefaultCreditCard;
+  payment: GetDefaultPaymentMethod;
   balance: { amount: number; currency: string };
 }
 
@@ -34,7 +33,6 @@ export class CompanyConsultationDetailsViewService extends Logger {
     private employmentService: EmploymentService,
     private invitationService: InvitationService,
     private profileService: ProfileService,
-    private financesService: FinancesService,
     private paymentsService: PaymentsService,
     loggerFactory: LoggerFactory,
   ) {
@@ -71,6 +69,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
             .pipe(map(profileDetails => ({ getServiceWithEmployees, profileDetails }))),
         ),
       ),
+      // TODO FIX_NEW_FINANCE_MODEL
       this.paymentsService.getDefaultPaymentMethodRoute().pipe(
         /**
          * return {} object when error on the server
@@ -79,33 +78,16 @@ export class CompanyConsultationDetailsViewService extends Logger {
          */
         catchError(() => of({})),
       ),
-      this.financesService.getClientBalanceRoute().pipe(
-        catchError(() =>
-          /**
-           * return "empty" object when error on the server
-           * error happens for not logged user 401 response.
-           * next map operator calculates balance
-           */
-          of({
-            accountBalance: { amount: 0, currency: '' },
-            promoCodeBalance: { amount: 0, currency: '' },
-          }),
-        ),
-        map(balance => ({
-          amount: balance.accountBalance.amount + balance.promoCodeBalance.amount,
-          currency: balance.accountBalance.currency,
-        })),
-      ),
     ).pipe(
       map(
-        ([tagsList, serviceDetails, payment, balance]): ICompanyConsultationDetails => ({
+        ([tagsList, serviceDetails, payment]): ICompanyConsultationDetails => ({
           tagsList,
           serviceDetails: serviceDetails.getServiceWithEmployees,
           employeesList: serviceDetails.getServiceWithEmployees.employeesDetails.map(employee =>
             this.mapEmployeesList(employee),
           ),
           payment,
-          balance,
+          balance: { amount: 0, currency: '' },
         }),
       ),
       catchError(error => {

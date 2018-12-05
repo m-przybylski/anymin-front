@@ -239,8 +239,9 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     defaultPayment: getServiceDetails.payment,
     accountBalance: getServiceDetails.balance,
     price: {
-      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.grossPrice,
-      price: getServiceDetails.getServiceWithEmployees.serviceDetails.netPrice,
+      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
+      // TODO FIX_NEW_FINANCE_MODEL
+      price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
     },
   });
 

@@ -83,7 +83,7 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
         this.onRefundActivityType(this.activityDetails.activity);
         break;
 
-      case ActivityTypeEnum.FINANCIALTRANSACTION:
+      case ActivityTypeEnum.PAYOUT:
         this.onFinancialActivityType(this.activityDetails.activity);
         break;
 
@@ -164,10 +164,10 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
       }
     }
   };
-
+  // TODO FIX_NEW_FINANCE_MODEL financialOperation -> amount
   private onFinancialActivityType = (activity: GetProfileActivity): void => {
     if (
-      typeof activity.financialOperation !== 'undefined' &&
+      typeof activity.amount !== 'undefined' &&
       typeof activity.payoutMethod !== 'undefined' &&
       typeof activity.payoutId !== 'undefined'
     ) {
@@ -175,20 +175,20 @@ export class ActivityDetailsViewComponent extends Logger implements OnInit, Afte
         id: activity.payoutId,
         date: activity.initializedAt,
         payoutMethod: activity.payoutMethod,
-        payoutValue: activity.financialOperation.operation,
+        payoutValue: activity.amount,
       };
-      this.activityType = ActivityTypeEnum.FINANCIALTRANSACTION;
+      this.activityType = ActivityTypeEnum.PAYOUT;
       this.modalHeaderTrKey = this.modalHeaderTrKeys.financial;
       this.componentLoaded.next(true);
     }
   };
 
   private onRefundActivityType = (activity: GetProfileActivity): void => {
-    if (typeof activity.financialOperation !== 'undefined') {
+    if (typeof activity.amount !== 'undefined') {
       this.refundOperationDetails = {
         id: activity.id,
         date: activity.initializedAt,
-        refundValue: activity.financialOperation.operation,
+        refundValue: activity.amount,
       };
     }
     this.activityType = ActivityTypeEnum.REFUND;

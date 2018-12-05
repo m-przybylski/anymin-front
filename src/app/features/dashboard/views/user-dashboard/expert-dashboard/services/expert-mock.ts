@@ -39,12 +39,8 @@ export const expertProfileView: ExpertProfileView = {
         },
         name: 'JUPI',
         description: 'Something, something',
-        netPrice: {
+        price: {
           amount: 1429,
-          currency: 'PLN',
-        },
-        grossPrice: {
-          amount: 1758,
           currency: 'PLN',
         },
         language: 'pl',
@@ -82,12 +78,8 @@ export const expertProfileView: ExpertProfileView = {
         },
         name: 'To jest jakas super dluga nazwa tylko, zeby zobaczyc jak to sie zagina i wygina, zagina i ',
         description: 'To bedzie opis, kiedys, dlugi',
-        netPrice: {
+        price: {
           amount: 1757,
-          currency: 'PLN',
-        },
-        grossPrice: {
-          amount: 2161,
           currency: 'PLN',
         },
         language: 'pl',
@@ -196,12 +188,8 @@ export const expertProfileView1: ExpertProfileView = {
         },
         name: 'JUPI',
         description: 'Something, something',
-        netPrice: {
+        price: {
           amount: 1429,
-          currency: 'PLN',
-        },
-        grossPrice: {
-          amount: 1758,
           currency: 'PLN',
         },
         language: 'pl',
@@ -240,12 +228,8 @@ export const expertProfileView1: ExpertProfileView = {
         },
         name: 'To jest jakas super dluga nazwa tylko, zeby zobaczyc jak to sie zagina i wygina, zagina i ',
         description: 'To bedzie opis, kiedys, dlugi',
-        netPrice: {
+        price: {
           amount: 1757,
-          currency: 'PLN',
-        },
-        grossPrice: {
-          amount: 2161,
           currency: 'PLN',
         },
         language: 'pl',
@@ -299,12 +283,8 @@ export const expertProfileViewResult1: IExpertCompanyDashboardResolverData<IExpe
             },
             name: 'To jest jakas super dluga nazwa tylko, zeby zobaczyc jak to sie zagina i wygina, zagina i ',
             description: 'To bedzie opis, kiedys, dlugi',
-            netPrice: {
+            price: {
               amount: 1757,
-              currency: 'PLN',
-            },
-            grossPrice: {
-              amount: 2161,
               currency: 'PLN',
             },
             language: 'pl',

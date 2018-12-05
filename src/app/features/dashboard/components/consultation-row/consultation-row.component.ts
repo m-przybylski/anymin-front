@@ -26,7 +26,7 @@ export class ConsultationRowComponent {
   }
 
   public get price(): MoneyDto {
-    return this.consultation.serviceDetails.grossPrice;
+    return this.consultation.serviceDetails.price;
   }
 
   public get usageCounter(): number {

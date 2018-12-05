@@ -9,8 +9,7 @@ import {
   ExpertProfileView,
   GetComment,
   PaymentsService,
-  DefaultCreditCard,
-  FinancesService,
+  GetDefaultPaymentMethod,
 } from '@anymind-ng/api';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, switchMap, filter, catchError, take } from 'rxjs/operators';
@@ -32,7 +31,6 @@ export class ConsultationDetailsViewService extends Logger {
     private viewsService: ViewsService,
     private employmentService: EmploymentService,
     private paymentsService: PaymentsService,
-    private financesService: FinancesService,
     private expertAvailabilityService: ExpertAvailabilityService,
     private consultationFootersService: ConsultationFootersService,
     loggerFactory: LoggerFactory,
@@ -57,22 +55,11 @@ export class ConsultationDetailsViewService extends Logger {
             this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
             this.viewsService.getWebExpertProfileRoute(employeeId),
             this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId)),
+            // TODO FIX_NEW_FINANCE_MODEL
             this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
-            this.financesService.getClientBalanceRoute().pipe(
-              catchError(() =>
-                of({
-                  accountBalance: { amount: 0, currency: '' },
-                  promoCodeBalance: { amount: 0, currency: '' },
-                }),
-              ),
-              map(balance => ({
-                amount: balance.accountBalance.amount + balance.promoCodeBalance.amount,
-                currency: balance.accountBalance.currency,
-              })),
-            ),
           ).pipe(
             map(
-              ([expertDetails, expertProfileViewDetails, getComments, payment, balance]): IConsultationDetails => ({
+              ([expertDetails, expertProfileViewDetails, getComments, payment]): IConsultationDetails => ({
                 expertDetails,
                 expertProfileViewDetails,
                 getServiceWithEmployees,
@@ -81,7 +68,8 @@ export class ConsultationDetailsViewService extends Logger {
                   employeesDetails => employeesDetails.employeeProfile.id,
                 ),
                 payment,
-                balance,
+                // TODO FIX_NEW_FINANCE_MODEL
+                balance: { amount: 0, currency: '' },
                 getComments,
               }),
             ),
@@ -152,7 +140,7 @@ export interface IConsultationDetails {
   getServiceWithEmployees: GetServiceWithEmployees;
   employmentId: string;
   expertIds: ReadonlyArray<string>;
-  payment: DefaultCreditCard;
+  payment: GetDefaultPaymentMethod;
   balance: { amount: number; currency: string };
   getComments: ReadonlyArray<GetComment>;
 }

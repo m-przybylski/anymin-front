@@ -8,7 +8,7 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
-import { DefaultCreditCard } from '@anymind-ng/api';
+import { GetDefaultPaymentMethod } from '@anymind-ng/api';
 
 export enum MiddlePanelStatusTypes {
   freeMinute,
@@ -49,7 +49,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     return Math.round(this.data.accountBalance.amount / grossPrice);
   }
 
-  public get defaultPayment(): DefaultCreditCard {
+  public get defaultPayment(): GetDefaultPaymentMethod {
     return this.data.defaultPayment;
   }
 
@@ -61,8 +61,8 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     if (!this.data.isExpertAvailable) {
       return MiddlePanelStatusTypes.notAvailable;
     }
-
-    if (this.data.defaultPayment.card === undefined) {
+    // TODO FIX_NEW_FINANCE_MODEL
+    if (this.data.defaultPayment.creditCardId === undefined) {
       return MiddlePanelStatusTypes.paymentAnyMind;
     }
 

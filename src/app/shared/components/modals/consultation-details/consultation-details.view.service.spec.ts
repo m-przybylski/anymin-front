@@ -9,7 +9,6 @@ import {
   ServiceService,
   ViewsService,
   PaymentsService,
-  FinancesService,
   GetServiceWithEmployees,
   GetComment,
   GetProfileWithDocuments,
@@ -34,7 +33,6 @@ describe('ConsultationDetailsViewService', () => {
   const viewsService: ViewsService = Deceiver(ViewsService);
   const employmentService: EmploymentService = Deceiver(EmploymentService);
   const paymentsService: PaymentsService = Deceiver(PaymentsService);
-  const financesService: FinancesService = Deceiver(FinancesService);
   const expertAvailabilityService: ExpertAvailabilityService = Deceiver(ExpertAvailabilityService);
   const consultationFootersService: ConsultationFootersService = Deceiver(ConsultationFootersService);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
@@ -56,7 +54,6 @@ describe('ConsultationDetailsViewService', () => {
       viewsService,
       employmentService,
       paymentsService,
-      financesService,
       expertAvailabilityService,
       consultationFootersService,
       loggerFactory,
@@ -101,15 +98,11 @@ describe('ConsultationDetailsViewService', () => {
             id: serviceId,
             createdAt: new Date(),
             description: 'jajaja',
-            grossPrice: {
-              amount: 123,
-              currency: 'PLN',
-            },
             isFreelance: false,
             isSuspended: false,
             language: 'PL',
             name: 'tytytyt',
-            netPrice: {
+            price: {
               amount: 100,
               currency: 'PLN',
             },
@@ -192,8 +185,6 @@ describe('ConsultationDetailsViewService', () => {
       paymentsService.getDefaultPaymentMethodRoute = jasmine
         .createSpy('getDefaultPaymentMethodRoute')
         .and.returnValue(cold('#', {}, 'oups'));
-
-      financesService.getClientBalanceRoute = jasmine.createSpy('getClientBalanceRoute').and.returnValue(cold('#'));
 
       expect(consultationDetailsViewService.getServiceDetails(serviceId, employeeId)).toBeObservable(expected);
     });
