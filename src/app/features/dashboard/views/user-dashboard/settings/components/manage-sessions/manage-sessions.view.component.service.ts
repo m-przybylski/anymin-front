@@ -1,12 +1,14 @@
 import { GetSession, SessionService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { map, catchError, mergeMap } from 'rxjs/operators';
+import { map, catchError, mergeMap, take } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
-import { Router } from '@angular/router';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
 
 export enum ActiveSessionDeviceTypeEnum {
   MOBILE,
@@ -35,19 +37,17 @@ export class ManageSessionsViewComponentService {
     private alertService: AlertService,
     private activeModal: NgbActiveModal,
     private userSessionService: UserSessionService,
-    private router: Router,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ManageSessionsViewComponentService');
-    this.userSessionService
-      .getSession()
-      .then(currentSession => {
-        this.currentSessionApiKey = currentSession.session.apiKey;
-      })
-      .catch(error => {
-        this.logger.warn('error when try to get session', error);
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        this.activeModal.close();
+    getNotUndefinedSession(this.store)
+      .pipe(
+        map(session => session.session.apiKey),
+        take(1),
+      )
+      .subscribe(apiKey => {
+        this.currentSessionApiKey = apiKey;
       });
   }
 
@@ -57,28 +57,9 @@ export class ManageSessionsViewComponentService {
       .pipe(mergeMap(this.handleActiveSessions))
       .pipe(catchError(error => this.handleGetActiveSessionsError(error)));
 
-  // tslint:disable-next-line:no-any
-  public logoutCurrentSession = (): Promise<any> =>
-    this.userSessionService
-      .logout()
-      .then(() => {
-        this.activeModal.close();
-
-        return this.router.navigate(['/login']);
-        // this.alertService.pushSuccessAlert(Alerts.UserLoggedOut);
-      })
-      .then(isRedirectSuccessful => {
-        if (!isRedirectSuccessful) {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-          this.logger.warn('Error when redirect to /login');
-        } else {
-          this.alertService.pushSuccessAlert(Alerts.UserLoggedOut);
-        }
-      })
-      .catch(error => {
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        this.logger.log('Error when logout', error);
-      });
+  public logoutCurrentSession(): void {
+    this.userSessionService.logout();
+  }
 
   // tslint:disable-next-line:no-any
   public logoutSession = (apiKey: string): Observable<any> =>

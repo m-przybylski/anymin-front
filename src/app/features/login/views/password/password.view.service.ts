@@ -6,6 +6,9 @@ import { BackendErrors, isBackendError } from '../../../../shared/models/backend
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { Observable, from, of } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
+import { GetSessionWithAccount } from '@anymind-ng/api';
 
 export enum PasswordLoginStatus {
   SUCCESS,
@@ -29,16 +32,16 @@ export class PasswordViewService {
     this.logger = loggerFactory.createLoggerService('PasswordViewService');
   }
 
-  public login = (msisdn: string, password: string): Promise<PasswordLoginStatus> =>
-    this.userSessionService
-      .login({ msisdn, password })
-      .then(this.determinateRedirectPath)
-      .catch(this.handlePasswordStatus);
+  public login = (msisdn: string, password: string): Observable<PasswordLoginStatus> =>
+    this.userSessionService.login({ msisdn, password }).pipe(
+      mergeMap(session => from(this.determinateRedirectPath(session))),
+      catchError((httpError: HttpErrorResponse) => of(this.handlePasswordStatus(httpError))),
+    );
 
   private redirectToDashboard = (): Promise<PasswordLoginStatus> =>
     this.router.navigate([RouterPaths.dashboard.user.welcome.asPath]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
-        this.logger.warn('Error when redirect to dashboard/expert/activities');
+        this.logger.warn('Error when redirect to welcome');
 
         return PasswordLoginStatus.ERROR;
       } else {
@@ -104,8 +107,17 @@ export class PasswordViewService {
     throw err;
   };
 
-  private determinateRedirectPath = (): Promise<PasswordLoginStatus> => {
+  private determinateRedirectPath = (session: GetSessionWithAccount): Promise<PasswordLoginStatus> => {
     const invitationObject = this.registrationInvitationService.getInvitationObject();
+
+    /* We have to remove invitation object if user login on another account with different email */
+    if (
+      invitationObject !== undefined &&
+      invitationObject.email !== undefined &&
+      invitationObject.email !== session.account.email
+    ) {
+      this.registrationInvitationService.removeInvitationObject();
+    }
 
     return invitationObject !== void 0 && invitationObject.token !== void 0
       ? this.redirectToInvitations()

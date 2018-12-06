@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, concat } from 'rxjs';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';
 import { AuthActions } from '@platform/core/actions';
 import { SessionService } from '@anymind-ng/api';
@@ -9,6 +9,7 @@ import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ModalStack } from '@platform/core/services/modal/modal.service';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 
 @Injectable()
 export class LoginEffects extends Logger {
@@ -48,12 +49,13 @@ export class LoginEffects extends Logger {
   @Effect()
   public logout$ = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.Logout),
-    // TODO
-    // When Logout will be dispatched, add unregistering from push notifications here!
     switchMap(() =>
-      this.sessionService.logoutCurrentRoute().pipe(
-        map(() => new AuthActions.LogoutSuccessAction()),
-        catchError(error => of(new AuthActions.LogoutErrorAction(error))),
+      concat(
+        this.callInvitationService.unregisterFromPushNotifications(),
+        this.sessionService.logoutCurrentRoute().pipe(
+          map(() => new AuthActions.LogoutSuccessAction()),
+          catchError(error => of(new AuthActions.LogoutErrorAction(error))),
+        ),
       ),
     ),
   );
@@ -95,6 +97,7 @@ export class LoginEffects extends Logger {
     private router: Router,
     private alertService: AlertService,
     private modalService: ModalStack,
+    private callInvitationService: CallInvitationService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('LoginEffects'));

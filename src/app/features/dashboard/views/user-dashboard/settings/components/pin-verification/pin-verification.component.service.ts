@@ -2,12 +2,13 @@ import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { BackendErrors, isBackendError } from '../../../../../../../shared/models/backend-error/backend-error';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, take } from 'rxjs/operators';
 import { AccountService, RecoverPasswordService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { GetRecoverMethod } from '@anymind-ng/api/model/getRecoverMethod';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 export enum PinVerificationStatus {
   SUCCESS,
@@ -36,21 +37,15 @@ export class PinVerificationComponentService {
     private alertService: AlertService,
     private recoverPasswordService: RecoverPasswordService,
     private accountService: AccountService,
-    activeModal: NgbActiveModal,
-    userSessionService: UserSessionService,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('PinVerificationComponentService');
 
-    userSessionService
-      .getSession()
-      .then(session => {
-        this.userAccountId = session.account.id;
-      })
-      .catch(error => {
-        this.logger.warn('error when try to get session', error);
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        activeModal.close();
+    getNotUndefinedSession(this.store)
+      .pipe(take(1))
+      .subscribe(getSessionWithAccount => {
+        this.userAccountId = getSessionWithAccount.account.id;
       });
   }
 

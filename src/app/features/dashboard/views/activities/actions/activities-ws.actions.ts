@@ -3,12 +3,19 @@ import { Action } from '@ngrx/store';
 import { MoneyDto } from '@anymind-ng/api';
 
 export enum ActivitiesWsActionTypes {
-  NewActivityNotification = '[Activities WS] New Activity Notification',
+  NewExpertActivityNotification = '[Activities WS] New Expert Activity Notification',
+  NewCompanyActivityNotification = '[Activities WS] New Company Activity Notification',
   BalanceUpdate = '[Activities WS] Balance Update',
 }
 
-export class NewActivityNotificationAction implements Action {
-  public readonly type = ActivitiesWsActionTypes.NewActivityNotification;
+export class NewExpertActivityNotificationAction implements Action {
+  public readonly type = ActivitiesWsActionTypes.NewExpertActivityNotification;
+
+  constructor(public payload: string) {}
+}
+
+export class NewCompanyActivityNotificationAction implements Action {
+  public readonly type = ActivitiesWsActionTypes.NewCompanyActivityNotification;
 
   constructor(public payload: string) {}
 }
@@ -18,4 +25,7 @@ export class BalanceUpdateAction implements Action {
 
   constructor(public payload: MoneyDto) {}
 }
-export type ActivitiesWsActionUnion = NewActivityNotificationAction | BalanceUpdateAction;
+export type ActivitiesWsActionUnion =
+  | NewExpertActivityNotificationAction
+  | NewCompanyActivityNotificationAction
+  | BalanceUpdateAction;

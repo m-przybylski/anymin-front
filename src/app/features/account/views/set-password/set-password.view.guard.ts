@@ -2,12 +2,12 @@ import { CanActivate, Router } from '@angular/router';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import * as fromCore from '@platform/core/reducers';
-import { filter, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Logger } from '@platform/core/logger';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Injectable()
 export class SetPasswordViewGuard extends Logger implements CanActivate {
@@ -16,9 +16,7 @@ export class SetPasswordViewGuard extends Logger implements CanActivate {
   }
 
   public canActivate = (): Observable<boolean> =>
-    this.store.pipe(
-      select(fromCore.getSession),
-      filter(session => typeof session !== 'undefined'),
+    getNotUndefinedSession(this.store).pipe(
       map((session: GetSessionWithAccount) => {
         if (this.hasUserPassword(session)) {
           this.loggerService.info('user has password, redirecting to set-email');

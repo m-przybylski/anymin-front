@@ -26,6 +26,7 @@ import { LoginHelperService } from '../../services/login-helper.service';
 // tslint:disable:no-unbound-method
 describe('Component: Login PinCodeViewComponent', () => {
   const logger: any = {
+    debug: jasmine.createSpy('debug').and.stub(),
     info: jasmine.createSpy('info').and.stub(),
     warn: jasmine.createSpy('warn').and.stub(),
     error: jasmine.createSpy('error').and.stub(),
@@ -107,7 +108,7 @@ describe('Component: Login PinCodeViewComponent', () => {
     componentFixture.detectChanges();
     component.pinCodeForm.controls[component.pinCodeControlName].setValue('1234');
     component.onFormSubmit(component.pinCodeForm);
-    expect(logger.warn).toHaveBeenCalledWith('Handled backend success status');
+    expect(logger.debug).toHaveBeenCalledWith('Handled backend success status');
   });
 
   it('should submit form successfully', () => {

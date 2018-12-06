@@ -1,43 +1,51 @@
 // tslint:disable:no-empty
 
-import { TestBed, inject } from '@angular/core/testing';
-import { LoggerFactory } from '@anymind-ng/core';
-import createSpyObj = jasmine.createSpyObj;
+import { TestBed } from '@angular/core/testing';
 import { ProfileService, PutOrganizationDetails, ServiceService } from '@anymind-ng/api';
-import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
 import { CreateOrganizationModalComponentService } from './create-organization.component.service';
+import { importStore, provideMockFactoryLogger, dispatchLoggedUser } from 'testing/testing';
+import { Deceiver } from 'deceiver-core';
+import { Store } from '@ngrx/store';
+import { cold } from 'jasmine-marbles';
 
 describe('CreateOrganizationModalComponentService', () => {
+  let store: Store<any>;
+  let service: CreateOrganizationModalComponentService;
+  let profileService: ProfileService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CreateOrganizationModalComponentService,
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
+      imports: [importStore()],
+      providers: [
+        CreateOrganizationModalComponentService,
+        provideMockFactoryLogger(),
         {
-          provide: ProfileService, useValue: createSpyObj('ProfileService', [
-              'putOrganizationProfileRoute', 'getProfileRoute'
-            ]
-          )
+          provide: ProfileService,
+          useValue: Deceiver(ProfileService, {
+            putOrganizationProfileRoute: jasmine.createSpy('putOrganizationProfileRoute'),
+            getProfileRoute: jasmine.createSpy('getProfileRoute'),
+          }),
         },
-        {provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession'])},
-        {provide: ServiceService, useValue: createSpyObj('ServiceService', ['getProfileServicesRoute'])},
-      ]
-    });
-
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {
-      },
-      error: (): void => {
-      }
+        {
+          provide: ServiceService,
+          useValue: Deceiver(ServiceService, { getProfileServicesRoute: jasmine.createSpy('getProfileServicesRoute') }),
+        },
+      ],
     });
   });
 
-  it('should be created', inject([CreateOrganizationModalComponentService],
-    (service: CreateOrganizationModalComponentService) => {
-      expect(service).toBeTruthy();
-    }));
+  beforeEach(() => {
+    store = TestBed.get(Store);
+    service = TestBed.get(CreateOrganizationModalComponentService);
+    profileService = TestBed.get(ProfileService);
+    dispatchLoggedUser(store, { account: { id: '123' } });
+  });
 
-  it('should get orgnization profile', () => {
-    const service = TestBed.get(CreateOrganizationModalComponentService);
+  it('getProfileDetails ', () => {
+    (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: 'ok' }));
+    expect(service.getProfileDetails()).toBeObservable(cold('-a', { a: 'ok' }));
+  });
+
+  it('should get organization profile', () => {
     const serviceService = TestBed.get(ServiceService);
     const accountId = '1234';
 
@@ -46,14 +54,12 @@ describe('CreateOrganizationModalComponentService', () => {
   });
 
   it('should create organization profile', () => {
-    const service = TestBed.get(CreateOrganizationModalComponentService);
-    const profileService = TestBed.get(ProfileService);
     const clientDetailsObject: PutOrganizationDetails = {
       name: 'name',
       logo: 'logo',
       description: 'description',
       files: [],
-      links: []
+      links: [],
     };
 
     service.createOrganizationProfile(clientDetailsObject);

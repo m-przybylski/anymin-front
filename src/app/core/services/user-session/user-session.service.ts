@@ -1,96 +1,24 @@
-// tslint:disable:newline-before-return
 import { Injectable } from '@angular/core';
 import { LoginCredentials, SessionService } from '@anymind-ng/api';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { Store } from '@ngrx/store';
 import * as fromCore from '../../reducers';
 import { AuthActions } from '../../actions';
-import { Logger } from '@platform/core/logger';
-import { LoggerFactory } from '@anymind-ng/core';
-import { tap, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { httpCodes } from '@platform/shared/constants/httpCodes';
-import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class UserSessionService extends Logger {
-  private sessionCache?: GetSessionWithAccount;
+export class UserSessionService {
+  constructor(private sessionService: SessionService, private state: Store<fromCore.IState>) {}
 
-  constructor(
-    private sessionService: SessionService,
-    private state: Store<fromCore.IState>,
-    private callInvitationService: CallInvitationService,
-    loggerFactory: LoggerFactory,
-  ) {
-    super(loggerFactory.createLoggerService('UserSessionService'));
+  public logout(): void {
+    this.state.dispatch(new AuthActions.LogoutAction());
   }
 
-  public logout = (): Promise<void> =>
-    // this.state.dispatch(new AuthActions.LogoutAction());
-    // After removing this, move unregisterFromPushNotifications to login effects
-    this.callInvitationService
-      .unregisterFromPushNotifications()
-      // finally
-      .then(() => this.loggerService.info('unregisterFromPushNotifications succeed'))
-      .catch(() => this.loggerService.info('unregisterFromPushNotifications failed'))
-      .then(() => this.sessionService.logoutCurrentRoute().toPromise())
-      .then(this.onSuccessLogout, this.onFailureLogout);
-
-  public login = (loginDetails: LoginCredentials): Promise<GetSessionWithAccount> =>
-    this.sessionService
-      .login(loginDetails)
-      .toPromise()
-      .then(session => {
+  public login = (loginDetails: LoginCredentials): Observable<GetSessionWithAccount> =>
+    this.sessionService.login(loginDetails).pipe(
+      tap(session => {
         this.state.dispatch(new AuthActions.LoginSuccessAction(session));
-
-        return this.onSuccessLogin(session);
-      });
-
-  public isLoggedIn = (): boolean => typeof this.sessionCache !== 'undefined';
-
-  public getSession = (force = false): Promise<GetSessionWithAccount> =>
-    new Promise<GetSessionWithAccount>(
-      (resolve, reject): void => {
-        if (force || typeof this.sessionCache === 'undefined') {
-          this.getSessionFromBackend()
-            .pipe(
-              catchError(err => {
-                reject(err);
-
-                return of(undefined);
-              }),
-            )
-            .subscribe(session => {
-              if (typeof session !== 'undefined') {
-                resolve(session);
-              }
-            });
-        } else {
-          return resolve(this.sessionCache);
-        }
-      },
+      }),
     );
-
-  private getSessionFromBackend = (): Observable<GetSessionWithAccount> =>
-    this.sessionService.checkRoute().pipe(tap(this.onSuccessLogin));
-
-  private onSuccessLogin = (sessionWithAccount: GetSessionWithAccount): GetSessionWithAccount => {
-    this.sessionCache = sessionWithAccount;
-    return sessionWithAccount;
-  };
-
-  private onSuccessLogout = (): void => {
-    this.state.dispatch(new AuthActions.LogoutSuccessAction());
-    this.sessionCache = undefined;
-  };
-
-  // tslint:disable-next-line:no-any
-  private onFailureLogout = (err: any): void => {
-    if (err && err.status === httpCodes.unauthorized) {
-      // user is already logged out so lets do the cache cleanup
-      this.onSuccessLogout();
-    } else {
-      this.state.dispatch(new AuthActions.LogoutErrorAction(err));
-    }
-  };
 }

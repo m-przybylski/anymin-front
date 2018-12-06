@@ -13,7 +13,7 @@ import { map, mergeMap, delay } from 'rxjs/operators';
 interface IOneSignal {
   isPushNotificationsEnabled(): Promise<boolean>;
 
-  getUserId(): Promise<string>;
+  getUserId(): Promise<string | null>;
 
   // tslint:disable-next-line:no-any
   init?(args: any): Promise<void>;
@@ -49,7 +49,7 @@ export class PushNotificationService extends Logger {
     this.enableButton$.next(value);
   };
 
-  public getDeviceId(): Observable<string> {
+  public getDeviceId(): Observable<string | null> {
     return this.oneSignal$.pipe(mergeMap(oneSignal => oneSignal.getUserId()));
   }
 
@@ -76,7 +76,7 @@ export class PushNotificationService extends Logger {
      * OneSignal might be blocked by browser extensions causing initialization failures.
      */
     // tslint:disable-next-line:no-any
-    const oneSignal = (<any>window).OneSignal;
+    const oneSignal = (window as any).OneSignal;
     const conf = Config.oneSignal;
     // try-catch required since it crashes on some unsupported browsers ex. mobile safari 12
     try {

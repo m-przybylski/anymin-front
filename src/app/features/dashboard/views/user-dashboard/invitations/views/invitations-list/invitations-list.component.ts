@@ -2,7 +2,7 @@ import { Component, OnDestroy, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IInvitation } from '../../services/invitation-list.resolver.service';
 import { Subject, from, of } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { takeUntil, catchError, take } from 'rxjs/operators';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AcceptRejectInvitationModalComponent } from '@platform/shared/components/modals/invitations/accept-reject-invitation/accept-reject-invitation.component';
 import { INVITATION } from '@platform/shared/components/modals/invitations/accept-reject-invitation/services/accept-reject-invitation';
@@ -34,10 +34,10 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
     super(loggerFactory.createLoggerService('InvitationsListComponent'));
   }
 
-  public ngOnDestroy = (): void => {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
-  };
+  }
 
   public ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(({ data }: { data: ReadonlyArray<IInvitation> }) => {
@@ -92,7 +92,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
     this.store
       .pipe(
         select(fromCore.getSession),
-        takeUntil(this.ngUnsubscribe$),
+        take(1),
       )
       .subscribe(session => {
         session && session.isExpert

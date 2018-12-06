@@ -8,7 +8,8 @@
       .profile-layout__details-name-wrapper
         span.profile-layout__details-name {{name}}
         .profile-layout__icons(*ngIf='isLogged')
-          a.profile-layout__icons-button(plat-icon-button)
+          //- TODO uncomment this after Beta release ends
+          //-a.profile-layout__icons-button(plat-icon-button)
             span(plat-icon iconClass='share')
           a(*ngIf='isOwnProfile; else likeButton',plat-stroked-button, (click)='editProfileClick()').profile-layout__icons-button {{'EXPERT_DASHBOARD.EDIT' | translate}}
       .profile-layout__details-available

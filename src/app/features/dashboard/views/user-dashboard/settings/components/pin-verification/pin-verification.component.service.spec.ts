@@ -1,242 +1,243 @@
-// tslint:disable:no-empty
 // tslint:disable:max-file-line-count
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+// tslint:disable:max-line-length
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AccountService, RecoverPasswordService } from '@anymind-ng/api';
-import createSpyObj = jasmine.createSpyObj;
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService } from '@anymind-ng/core';
 import { of, throwError } from 'rxjs';
 import { PinVerificationComponentService, PinVerificationStatus } from './pin-verification.component.service';
 import { BackendErrors } from '../../../../../../../shared/models/backend-error/backend-error';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
+import { Deceiver } from 'deceiver-core';
+import { provideMockFactoryLogger, importStore, dispatchLoggedUser } from 'testing/testing';
+import { Store } from '@ngrx/store';
 
 describe('Service: PinVerificationComponentService', () => {
-
   const mockPhoneNumber = '+48555555555';
   const mockToken = 'token';
-  const logger: LoggerService = new LoggerService(1);
   let pinVerificationComponentService: PinVerificationComponentService;
+  let store: Store<any>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [importStore()],
       providers: [
         PinVerificationComponentService,
         {
           provide: RecoverPasswordService,
-          useValue: createSpyObj('RecoverPasswordService',
-            ['postRecoverPasswordVerifyMsisdnRoute', 'postRecoverPasswordRoute'])
+          useValue: Deceiver(RecoverPasswordService, {
+            postRecoverPasswordVerifyMsisdnRoute: jasmine.createSpy('postRecoverPasswordVerifyMsisdnRoute'),
+            postRecoverPasswordRoute: jasmine.createSpy('postRecoverPasswordRoute'),
+          }),
         },
         {
           provide: AccountService,
-          useValue: createSpyObj('AccountService', ['confirmMsisdnVerificationRoute', 'newMsisdnVerificationRoute'])
+          useValue: Deceiver(AccountService, {
+            confirmMsisdnVerificationRoute: jasmine.createSpy('confirmMsisdnVerificationRoute'),
+            newMsisdnVerificationRoute: jasmine.createSpy('newMsisdnVerificationRoute'),
+          }),
         },
         {
-          provide: NgbActiveModal,
-          useValue: createSpyObj('NgbActiveModal', ['close'])
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
         },
-        {
-          provide: UserSessionService,
-          useValue: createSpyObj('UserSessionService', ['getSession'])
-        },
-        {provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert'])},
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
-      ]
+        provideMockFactoryLogger(),
+      ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
-    TestBed.get(UserSessionService).getSession.and.returnValue(Promise.resolve({}));
     pinVerificationComponentService = TestBed.get(PinVerificationComponentService);
-  }));
+  });
+
+  beforeEach(() => {
+    store = TestBed.get(Store);
+    dispatchLoggedUser(store, { account: { id: '123' } });
+  });
 
   it('should return SUCCESS status when verify recover password token pass', fakeAsync(() => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
     mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(of({}));
 
-    pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+    pinVerificationComponentService
+      .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
       .subscribe((status: PinVerificationStatus) => {
         expect(status).toEqual(PinVerificationStatus.SUCCESS);
       });
     tick();
   }));
 
-  it('should return INVALID_TOKEN status when check pin token failed with backend error' +
-    'MsisdnVerificationTokenIncorrect', fakeAsync(() => {
-    const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
-
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(throwError({
-      error: {
-        code: BackendErrors.MsisdnVerificationTokenIncorrect,
-        error: {},
-        message: 'errorMessage'
-      }
-    }));
-
-    pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
-      .subscribe(() => {
-      }, (err: PinVerificationStatus) => {
-        expect(err).toEqual(PinVerificationStatus.INVALID_TOKEN);
-      });
-    tick();
-  }));
-
-  it('should return CAN_NOT_FIND_TOKEN status when check pin token failed with backend error CannotFindMsisdnToken',
-    fakeAsync(() => {
+  it(
+    'should return INVALID_TOKEN status when check pin token failed with backend error' +
+      'MsisdnVerificationTokenIncorrect',
+    () => {
       const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(throwError({
+      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+        throwError({
+          error: {
+            code: BackendErrors.MsisdnVerificationTokenIncorrect,
+            error: {},
+            message: 'errorMessage',
+          },
+        }),
+      );
+
+      pinVerificationComponentService
+        .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+        .subscribe((err: PinVerificationStatus) => {
+          expect(err).toEqual(PinVerificationStatus.INVALID_TOKEN);
+        });
+    },
+  );
+
+  it('should return CAN_NOT_FIND_TOKEN status when check pin token failed with backend error CannotFindMsisdnToken', () => {
+    const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
+
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+      throwError({
         error: {
           code: BackendErrors.CannotFindMsisdnToken,
           error: {},
-          message: 'errorMessage'
-        }
-      }));
+          message: 'errorMessage',
+        },
+      }),
+    );
 
-      pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
-        .subscribe(() => {
-        }, (err: PinVerificationStatus) => {
-          expect(err).toEqual(PinVerificationStatus.CAN_NOT_FIND_TOKEN);
-        });
-      tick();
-    }));
+    pinVerificationComponentService
+      .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+      .subscribe((err: PinVerificationStatus) => {
+        expect(err).toEqual(PinVerificationStatus.CAN_NOT_FIND_TOKEN);
+      });
+  });
 
-  it('should return TOO_MANY_ATTEMPTS status when check pin token failed with backend error TooManyMsisdnTokenAttempts',
-    fakeAsync(() => {
-      const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
+  it('should return TOO_MANY_ATTEMPTS status when check pin token failed with backend error TooManyMsisdnTokenAttempts', () => {
+    const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(throwError({
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+      throwError({
         error: {
           code: BackendErrors.TooManyMsisdnTokenAttempts,
           error: {},
-          message: 'errorMessage'
-        }
-      }));
+          message: 'errorMessage',
+        },
+      }),
+    );
 
-      pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
-        .subscribe(() => {
-        }, (err: PinVerificationStatus) => {
-          expect(err).toEqual(PinVerificationStatus.TOO_MANY_ATTEMPTS);
-        });
-      tick();
-    }));
+    pinVerificationComponentService
+      .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+      .subscribe((err: PinVerificationStatus) => {
+        expect(err).toEqual(PinVerificationStatus.TOO_MANY_ATTEMPTS);
+      });
+  });
 
-  it('should return INVALID_TOKEN status when check pin token failed with backend error IncorrectValidation',
-    fakeAsync(() => {
-      const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
+  it('should return INVALID_TOKEN status when check pin token failed with backend error IncorrectValidation', () => {
+    const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(throwError({
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+      throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
           error: {},
-          message: 'errorMessage'
-        }
-      }));
+          message: 'errorMessage',
+        },
+      }),
+    );
 
-      pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
-        .subscribe(() => {
-        }, (err: PinVerificationStatus) => {
-          expect(err).toEqual(PinVerificationStatus.INVALID_TOKEN);
-        });
-      tick();
-    }));
+    pinVerificationComponentService
+      .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+      .subscribe((err: PinVerificationStatus) => {
+        expect(err).toEqual(PinVerificationStatus.INVALID_TOKEN);
+      });
+  });
 
-  it('should return ERROR status and show alert when check pin token failed with unhandled backend error',
-    fakeAsync(() => {
-      const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
-      const mockAlertService = TestBed.get(AlertService);
+  it('should return ERROR status and show alert when check pin token failed with unhandled backend error', () => {
+    const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
+    const mockAlertService = TestBed.get(AlertService);
 
-      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(throwError({
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+      throwError({
         error: {
           code: 1,
           error: {},
-          message: 'errorMessage'
-        }
-      }));
+          message: 'errorMessage',
+        },
+      }),
+    );
 
-      pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
-        .subscribe(() => {
-        }, (err: PinVerificationStatus) => {
-          expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-          expect(err).toEqual(PinVerificationStatus.ERROR);
-        });
-      tick();
-    }));
+    pinVerificationComponentService
+      .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+      .subscribe((err: PinVerificationStatus) => {
+        expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+        expect(err).toEqual(PinVerificationStatus.ERROR);
+      });
+  });
 
-  it('should return ERROR status and show alert when check pin token failed without backend error',
-    fakeAsync(() => {
-      const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
-      const mockAlertService = TestBed.get(AlertService);
+  it('should return ERROR status and show alert when check pin token failed without backend error', () => {
+    const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
+    const mockAlertService = TestBed.get(AlertService);
 
-      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(throwError({
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+      throwError({
         error: {
-          error: {}
-        }
-      }));
+          error: {},
+        },
+      }),
+    );
 
-      pinVerificationComponentService.verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
-        .subscribe(() => {
-        }, (err: PinVerificationStatus) => {
-          expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-          expect(err).toEqual(PinVerificationStatus.ERROR);
-        });
-      tick();
-    }));
+    pinVerificationComponentService
+      .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
+      .subscribe((err: PinVerificationStatus) => {
+        expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+        expect(err).toEqual(PinVerificationStatus.ERROR);
+      });
+  });
 
-  it('should return SUCCESS status when verify change msisdn token pass', fakeAsync(() => {
+  it('should return SUCCESS status when verify change msisdn token pass', () => {
     const mockAccountService = TestBed.get(AccountService);
 
     mockAccountService.confirmMsisdnVerificationRoute.and.returnValue(of({}));
 
-    pinVerificationComponentService.verifyChangeMsisdnPinToken(mockToken)
-      .subscribe((status: PinVerificationStatus) => {
-        expect(status).toEqual(PinVerificationStatus.SUCCESS);
-      });
-    tick();
-  }));
+    pinVerificationComponentService.verifyChangeMsisdnPinToken(mockToken).subscribe((status: PinVerificationStatus) => {
+      expect(status).toEqual(PinVerificationStatus.SUCCESS);
+    });
+  });
 
-  it('should return CAN_NOT_FIND_TOKEN status when check pin token failed with backend error' +
-    'CanNotFindMsisdnVerification', fakeAsync(() => {
+  it(
+    'should return CAN_NOT_FIND_TOKEN status when check pin token failed with backend error' +
+      'CanNotFindMsisdnVerification',
+    () => {
       const mockAccountService = TestBed.get(AccountService);
 
-      mockAccountService.confirmMsisdnVerificationRoute.and.returnValue(throwError({
-        error: {
-          code: BackendErrors.CanNotFindMsisdnVerification,
-          error: {},
-          message: 'errorMessage'
-        }
-      }));
+      mockAccountService.confirmMsisdnVerificationRoute.and.returnValue(
+        throwError({
+          error: {
+            code: BackendErrors.CanNotFindMsisdnVerification,
+            error: {},
+            message: 'errorMessage',
+          },
+        }),
+      );
 
-      pinVerificationComponentService.verifyChangeMsisdnPinToken(mockToken)
-        .subscribe(() => {
-        }, (err: PinVerificationStatus) => {
-          expect(err).toEqual(PinVerificationStatus.CAN_NOT_FIND_TOKEN);
-        });
-      tick();
-    }));
+      pinVerificationComponentService.verifyChangeMsisdnPinToken(mockToken).subscribe((err: PinVerificationStatus) => {
+        expect(err).toEqual(PinVerificationStatus.CAN_NOT_FIND_TOKEN);
+      });
+    },
+  );
 
-  it('should show danger alert when send new recover password token failed', fakeAsync(() => {
+  it('should show danger alert when send new recover password token failed', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const mockAlertService = TestBed.get(AlertService);
 
     mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(throwError({}));
 
-    pinVerificationComponentService.sendNewRecoverPasswordToken(mockPhoneNumber)
-      .subscribe(() => {
-        expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-      });
-    tick();
-  }));
+    pinVerificationComponentService.sendNewRecoverPasswordToken(mockPhoneNumber).subscribe();
+    expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+  });
 
-  it('should show danger alert when send new change msisdn token failed', fakeAsync(() => {
+  it('should show danger alert when send new change msisdn token failed', () => {
     const mockAccountService = TestBed.get(AccountService);
     const mockAlertService = TestBed.get(AlertService);
 
     mockAccountService.newMsisdnVerificationRoute.and.returnValue(throwError({}));
 
-    pinVerificationComponentService.sendNewChangeMsisdnToken(mockPhoneNumber)
-      .subscribe(() => {
-        expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-      });
-    tick();
-  }));
-
+    pinVerificationComponentService.sendNewChangeMsisdnToken(mockPhoneNumber).subscribe();
+    expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+  });
 });

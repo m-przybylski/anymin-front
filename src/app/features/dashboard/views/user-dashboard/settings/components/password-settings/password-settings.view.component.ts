@@ -4,8 +4,11 @@ import { PostRecoverPassword } from '@anymind-ng/api';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PinVerificationStatus } from '../pin-verification/pin-verification.component.service';
 import { IPinVerificationStatus, PinVerificationPurposeEnum } from '../pin-verification/pin-verification.component';
-import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+import { take } from 'rxjs/operators';
 
 enum ChangePasswordModalStepEnum {
   CHANGE_PASSWORD,
@@ -37,8 +40,8 @@ export class PasswordSettingsViewComponent implements AfterViewInit {
   private logger: LoggerService;
 
   constructor(
+    private store: Store<fromRoot.IState>,
     private alertService: AlertService,
-    private userSessionService: UserSessionService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
   ) {
@@ -85,13 +88,10 @@ export class PasswordSettingsViewComponent implements AfterViewInit {
   };
 
   private getUserMsisdn = (): void => {
-    this.userSessionService
-      .getSession()
-      .then(session => {
-        this.msisdn = session.account.msisdn;
-      })
-      .catch(err => {
-        this.logger.warn('error when try to get session', err);
+    getNotUndefinedSession(this.store)
+      .pipe(take(1))
+      .subscribe(getSessionWithAccount => {
+        this.msisdn = getSessionWithAccount.account.msisdn;
       });
   };
 }

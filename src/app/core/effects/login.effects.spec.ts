@@ -12,10 +12,12 @@ import { AlertService, LoggerService } from '@anymind-ng/core';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { ModalStack } from '@platform/core/services/modal/modal.service';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
   let sessionService: SessionService;
+  let callInvitationService: CallInvitationService;
   let actions$: Observable<any>;
   const loggerService: LoggerService = Deceiver(LoggerService, {
     debug: jasmine.createSpy(''),
@@ -47,12 +49,19 @@ describe('LoginEffects', () => {
           provide: ModalStack,
           useValue: Deceiver(ModalStack, { dismissAll: jasmine.createSpy('dismissAll') }),
         },
+        {
+          provide: CallInvitationService,
+          useValue: Deceiver(CallInvitationService, {
+            unregisterFromPushNotifications: jasmine.createSpy('unregisterFromPushNotifications'),
+          }),
+        },
       ],
     });
 
     loginEffects = TestBed.get(LoginEffects);
     sessionService = TestBed.get(SessionService);
     actions$ = TestBed.get(Actions);
+    callInvitationService = TestBed.get(CallInvitationService);
     (loggerService.error as jasmine.Spy).calls.reset();
     (loggerService.warn as jasmine.Spy).calls.reset();
     (loggerService.debug as jasmine.Spy).calls.reset();
@@ -136,20 +145,24 @@ describe('LoginEffects', () => {
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: undefined });
-      const expected = cold('--b', { b: completion });
+      const pushResponse = cold('-|');
+      const expected = cold('---c', { c: completion });
       sessionService.logoutCurrentRoute = jasmine.createSpy('').and.returnValue(response);
+      (callInvitationService.unregisterFromPushNotifications as jasmine.Spy).and.returnValue(pushResponse);
 
       expect(loginEffects.logout$).toBeObservable(expected);
     });
-    it('should return Auth.LogoutSuccessAction if logout is succeded', () => {
+    it('should return Auth.LogoutErrorAction if logout is succeded', () => {
       const error = 'Something went wrong';
       const action = new AuthActions.LogoutAction();
       const completion = new AuthActions.LogoutErrorAction(error);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-#', {}, error);
-      const expected = cold('--b', { b: completion });
+      const pushResponse = cold('-|');
+      const expected = cold('---b', { b: completion });
       sessionService.logoutCurrentRoute = jasmine.createSpy('').and.returnValue(response);
+      (callInvitationService.unregisterFromPushNotifications as jasmine.Spy).and.returnValue(pushResponse);
 
       expect(loginEffects.logout$).toBeObservable(expected);
     });
