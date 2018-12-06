@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { UserSessionService } from '../../../../../../../../core/services/user-session/user-session.service';
 import { IDropdownComponent } from '../../../../../../../../shared/components/dropdown/dropdown.component';
 import { ChangeMsisdnComponentService, VerifyMsisdnStatusEnum } from './change-msisdn.component.service';
 import {
@@ -12,10 +11,12 @@ import {
   LoggerService,
   inputPhoneNumberErrorMessages,
 } from '@anymind-ng/core';
-import { finalize, map, filter } from 'rxjs/operators';
+import { finalize, map, filter, take } from 'rxjs/operators';
 import { ModalAnimationComponentService } from '../../../../../../../../shared/components/modals/modal/animation/modal-animation.animation.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Config } from '../../../../../../../../../config';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
 
 export interface IVerifyMsisdnStatus {
   msisdn: string;
@@ -62,12 +63,11 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
   private fullMsisdn: string;
 
   constructor(
-    private userService: UserSessionService,
+    private store: Store<fromRoot.IState>,
     private formUtils: FormUtilsService,
     private alertService: AlertService,
     private changeMsisdnService: ChangeMsisdnComponentService,
     private inputPhoneNumberService: InputPhoneNumberService,
-    private activeModal: NgbActiveModal,
     private modalAnimationComponentService: ModalAnimationComponentService,
     loggerFactory: LoggerFactory,
   ) {
@@ -85,18 +85,17 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
       this.inputPhoneNumberService.getValidators(this.msisdnPrefix, this.isInputRequired),
     );
 
-    this.userService
-      .getSession(true)
-      .then(user => {
-        this.currentUserMsisdn = user.account.msisdn.slice(this.prefixLength);
+    /**
+     * TODO: refactor callback of this subscription
+     * not sure why this is placed in ngAfterViewInit().
+     */
+    getNotUndefinedSession(this.store)
+      .pipe(take(1))
+      .subscribe(getSessionWithAccount => {
+        this.currentUserMsisdn = getSessionWithAccount.account.msisdn.slice(this.prefixLength);
         this.changeMsisdnForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
         this.changeMsisdnForm.controls[this.msisdnControlName].setValue(this.currentUserMsisdn);
         this.modalAnimationComponentService.isPendingRequest().next(false);
-      })
-      .catch(error => {
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        this.logger.warn('error when try to get session', error);
-        this.activeModal.close();
       });
   }
 

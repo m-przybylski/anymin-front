@@ -1,6 +1,6 @@
 // tslint:disable:newline-before-return
-import { Observable, of, from } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, mergeMap, map } from 'rxjs/operators';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -41,12 +41,14 @@ export class SetNewPasswordFromEmailViewService {
   public handleNewPassword = (password: string): Observable<SetNewPasswordFromEmailStatus> =>
     this.recoverPasswordService
       .putRecoverPasswordEmailRoute({ token: this.token, password })
-      .pipe(mergeMap(() => from(this.login(this.msisdn, password))))
-      .pipe(mergeMap(this.determinateRedirectPath))
+      .pipe(
+        mergeMap(() => this.login(this.msisdn, password)),
+        mergeMap(this.determinateRedirectPath),
+      )
       .pipe(catchError(err => of(this.handleSetNewPasswordError(err))));
 
-  private login = (msisdn: string, password: string): Promise<SetNewPasswordFromEmailStatus> =>
-    this.userSessionService.login({ msisdn, password }).then(() => SetNewPasswordFromEmailStatus.SUCCESS);
+  private login = (msisdn: string, password: string): Observable<SetNewPasswordFromEmailStatus> =>
+    this.userSessionService.login({ msisdn, password }).pipe(map(() => SetNewPasswordFromEmailStatus.SUCCESS));
 
   private redirectToDashboard = (): Promise<SetNewPasswordFromEmailStatus> =>
     this.router.navigate([RouterPaths.dashboard.user.welcome.asPath]).then(isRedirectSuccessful => {

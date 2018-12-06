@@ -1,35 +1,51 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AccountService } from '@anymind-ng/api';
-import createSpyObj = jasmine.createSpyObj;
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService } from '@anymind-ng/core';
 import { of, throwError } from 'rxjs';
 import { ChangeEmailStatusEnum, ChangeEmailViewComponentService } from './change-email.view.component.service';
-import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
 import { BackendErrors } from '../../../../../../../shared/models/backend-error/backend-error';
+import { Deceiver } from 'deceiver-core';
+import { importStore, provideMockFactoryLogger, dispatchLoggedUser } from 'testing/testing';
+import { Store } from '@ngrx/store';
 
 describe('Service: ChangeEmailViewComponentService', () => {
   const mockNewEmail = 'new@email.com';
-  const logger: LoggerService = new LoggerService(1);
+  let store: Store<any>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [importStore()],
       providers: [
         ChangeEmailViewComponentService,
         {
           provide: AccountService,
-          useValue: createSpyObj('AccountService', ['patchUpdateAccountRoute']),
+          useValue: Deceiver(AccountService, { patchUpdateAccountRoute: jasmine.createSpy('patchUpdateAccountRoute') }),
         },
         {
-          provide: UserSessionService,
-          useValue: createSpyObj('UserSessionService', ['getSession']),
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
         },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+        provideMockFactoryLogger(),
       ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
-    TestBed.get(UserSessionService).getSession.and.returnValue(Promise.resolve({}));
-  }));
+  });
+
+  beforeEach(() => {
+    store = TestBed.get(Store);
+    dispatchLoggedUser(store, { account: { id: '123' } });
+  });
+
+  it('should call method with data from store', () => {
+    const mockAccountService = TestBed.get(AccountService);
+    const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
+
+    mockAccountService.patchUpdateAccountRoute.and.returnValue(of({}));
+
+    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe();
+    expect(
+      (mockAccountService.patchUpdateAccountRoute as jasmine.Spy).calls.mostRecent().args.includes('123'),
+    ).toBeTruthy();
+  });
 
   it('should return SUCCESS status when set email pass', () => {
     const mockAccountService = TestBed.get(AccountService);

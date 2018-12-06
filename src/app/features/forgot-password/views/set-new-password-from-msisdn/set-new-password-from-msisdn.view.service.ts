@@ -1,6 +1,6 @@
 // tslint:disable:newline-before-return
-import { Observable, of, from } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, mergeMap, map } from 'rxjs/operators';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
@@ -38,14 +38,14 @@ export class SetNewPasswordFromMsisdnViewService {
     token: string,
     password: string,
   ): Observable<SetNewPasswordFromMsisdnStatus> =>
-    this.recoverPasswordService
-      .putRecoverPasswordMsisdnRoute({ msisdn, token, password })
-      .pipe(mergeMap(() => from(this.login(msisdn, password))))
-      .pipe(mergeMap(this.determinateRedirectPath))
-      .pipe(catchError(this.handlePutRecoverPasswordMsisdnRoute));
+    this.recoverPasswordService.putRecoverPasswordMsisdnRoute({ msisdn, token, password }).pipe(
+      mergeMap(() => this.login(msisdn, password)),
+      mergeMap(this.determinateRedirectPath),
+      catchError(this.handlePutRecoverPasswordMsisdnRoute),
+    );
 
-  private login = (msisdn: string, password: string): Promise<SetNewPasswordFromMsisdnStatus> =>
-    this.userSessionService.login({ msisdn, password }).then(() => SetNewPasswordFromMsisdnStatus.SUCCESS);
+  private login = (msisdn: string, password: string): Observable<SetNewPasswordFromMsisdnStatus> =>
+    this.userSessionService.login({ msisdn, password }).pipe(map(() => SetNewPasswordFromMsisdnStatus.SUCCESS));
 
   private handlePutRecoverPasswordMsisdnRoute = (
     httpError: HttpErrorResponse,

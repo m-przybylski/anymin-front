@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SetEmailViewResolver } from './views/set-email/set-email.view.resolver';
-import { SetPasswordViewResolver } from './views/set-password/set-password.view.resolver';
 import { SetPasswordViewComponent } from './views/set-password/set-password.view.component';
 import { SetEmailViewComponent } from './views/set-email/set-email.view.component';
 import { SetEmailViewGuard } from './views/set-email/set-email.view.guard';
 import { SetPasswordViewGuard } from './views/set-password/set-password.view.guard';
+import { AccountIdResolver } from './views/account.resolver';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full' },
@@ -14,26 +13,21 @@ const routes: Routes = [
     canActivate: [SetPasswordViewGuard],
     component: SetPasswordViewComponent,
     resolve: {
-      accountId: SetPasswordViewResolver
-    }
+      accountId: AccountIdResolver,
+    },
   },
   {
     path: 'set-email',
     canActivate: [SetEmailViewGuard],
     component: SetEmailViewComponent,
     resolve: {
-      accountId: SetEmailViewResolver
-    }
-  }
+      accountId: AccountIdResolver,
+    },
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class AccountRoutingModule {
-}
+export class AccountRoutingModule {}

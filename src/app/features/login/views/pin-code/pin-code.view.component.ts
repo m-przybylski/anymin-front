@@ -77,7 +77,6 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
       this.pinCodeService
         .handleRegistration(this.registrationSession.sessionId, pinCode, isMarketingAllowed)
         .pipe(finalize(() => (this.isRequestPending = false)))
-        .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(this.handleCheckPinCodeStatus);
     } else {
       this.formUtils.validateAllFormFields(pinCodeForm);
@@ -91,7 +90,6 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
     this.registrationService
       .requestVerificationRoute({ msisdn: this.msisdn })
       .pipe(catchError(this.handleResendPinCodeError))
-      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((registrationSession: GetRegistrationSession) => {
         this.registrationSession.sessionId = registrationSession.sessionId;
       });
@@ -114,7 +112,7 @@ export class PinCodeViewComponent implements OnInit, OnDestroy {
   private handleCheckPinCodeStatus = (status: PinCodeServiceStatus): void => {
     switch (status) {
       case PinCodeServiceStatus.SUCCESS:
-        this.logger.warn('Handled backend success status');
+        this.logger.debug('Handled backend success status');
         break;
 
       case PinCodeServiceStatus.CREATE_MSISDN_TOKEN_TOO_RECENTLY:

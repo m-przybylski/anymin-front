@@ -3,9 +3,13 @@
 
 .container
   padding: 0
+  min-height: calc(100vh - #{$s-navbar-mobile-height})
+  display: flex
+  align-items: center
+  justify-content: center
 
-  +smm
-    padding: 16px
+  +xsm
+    min-height: calc(100vh - #{$s-navbar-desktop-height})
 
 .welcome-to-anymind
   display: flex
@@ -13,12 +17,15 @@
   justify-content: center
   align-items: center
   padding: 32px 8px
-  min-height: calc(100vh - #{$s-modal-header})
+  min-height: calc(100vh - #{$s-navbar-mobile-height})
   cursor: default
   background: $c-white
+  width: 100%
+
+  +xsm
+    min-height: calc(100vh - #{$s-navbar-desktop-height})
 
   +smm
-    margin: 64px auto 32px
     padding: 48px
     max-width: 888px
     border-radius: 8px
@@ -52,7 +59,7 @@
 
   .choose-profile-container
     display: flex
-    justify-content: center
+    justify-content: space-between
     flex-direction: column
     width: 100%
 
@@ -68,15 +75,16 @@
       border-radius: 8px
       transition: border-color 0.3s
       text-align: center
+      cursor: pointer
 
       +smm
-        min-width: 320px
+        flex: 0 0 47%
 
       &:first-of-type
         margin: 0 0 24px
 
         +smm
-          margin: 0 48px 0 0
+          margin: 0
 
       &:hover
         border: 1px solid $c-primary

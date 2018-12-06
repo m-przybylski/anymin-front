@@ -1,37 +1,32 @@
-// tslint:disable:no-empty
-import { TestBed, inject } from '@angular/core/testing';
-import { LoggerFactory } from '@anymind-ng/core';
-import createSpyObj = jasmine.createSpyObj;
+import { TestBed } from '@angular/core/testing';
 import { AccountService, ProfileService, PutExpertDetails, PutGeneralSettings } from '@anymind-ng/api';
-import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
 import { CreateProfileModalComponentService } from './create-profile.component.service';
+import { Deceiver } from 'deceiver-core';
+import { importStore, provideMockFactoryLogger } from 'testing/testing';
 
 describe('CreateProfileModalComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [importStore()],
       providers: [
+        provideMockFactoryLogger(),
         CreateProfileModalComponentService,
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
         {
           provide: ProfileService,
-          useValue: createSpyObj('ProfileService', ['putExpertProfileRoute', 'getProfileRoute']),
+          useValue: Deceiver(ProfileService, {
+            putExpertProfileRoute: jasmine.createSpy('putExpertProfileRoute'),
+            getProfileRoute: jasmine.createSpy('getProfileRoute'),
+          }),
         },
-        { provide: AccountService, useValue: createSpyObj('AccountService', ['putGeneralSettingsRoute']) },
-        { provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['getSession']) },
+        {
+          provide: AccountService,
+          useValue: Deceiver(AccountService, {
+            putGeneralSettingsRoute: jasmine.createSpy('putGeneralSettingsRoute'),
+          }),
+        },
       ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {},
-      error: (): void => {},
-    });
   });
-
-  it('should be created', inject(
-    [CreateProfileModalComponentService],
-    (service: CreateProfileModalComponentService) => {
-      expect(service).toBeTruthy();
-    },
-  ));
 
   it('should create expert profile', () => {
     const service: CreateProfileModalComponentService = TestBed.get(CreateProfileModalComponentService);

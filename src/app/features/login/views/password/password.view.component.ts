@@ -4,6 +4,7 @@ import { PasswordLoginStatus, PasswordViewService } from './password.view.servic
 import { ActivatedRoute } from '@angular/router';
 import { InputPasswordErrorsEnum, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { LoginHelperService } from '../../services/login-helper.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   templateUrl: './password.view.html',
@@ -44,12 +45,13 @@ export class PasswordViewComponent implements OnInit {
 
       this.passwordService
         .login(this.msisdn, password)
-        .then(status => {
-          this.isRequestPending = false;
+        .pipe(
+          finalize(() => {
+            this.isRequestPending = false;
+          }),
+        )
+        .subscribe(status => {
           this.handlePasswordStatus(status);
-        })
-        .catch(() => {
-          this.isRequestPending = false;
         });
     } else {
       this.formUtils.validateAllFormFields(passwordForm);
@@ -59,11 +61,11 @@ export class PasswordViewComponent implements OnInit {
   private handlePasswordStatus = (status: PasswordLoginStatus): void => {
     switch (status) {
       case PasswordLoginStatus.SUCCESS:
-        this.logger.warn('Handled password login status ', status);
+        this.logger.debug('Handled password login status ', status);
         break;
 
       case PasswordLoginStatus.SUCCESS_WITH_INVITATION:
-        this.logger.warn('Handled password login status ', status);
+        this.logger.debug('Handled password login status ', status);
         break;
 
       case PasswordLoginStatus.ERROR:

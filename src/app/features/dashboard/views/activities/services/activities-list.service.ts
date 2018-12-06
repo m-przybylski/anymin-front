@@ -77,7 +77,7 @@ export class ActivitiesListService extends Logger {
   public listenToExpertWS(): Observable<void> {
     return merge(
       this.anymindWebSocket.importantExpertActivity.pipe(
-        tap(activityId => this.store.dispatch(new ActivitiesWsActions.NewActivityNotificationAction(activityId))),
+        tap(activityId => this.store.dispatch(new ActivitiesWsActions.NewExpertActivityNotificationAction(activityId))),
       ),
       this.anymindWebSocket.profileCallProfit.pipe(
         tap(({ balanceAfter }) => this.store.dispatch(new ActivitiesWsActions.BalanceUpdateAction(balanceAfter))),
@@ -127,7 +127,7 @@ export class ActivitiesListService extends Logger {
   public listenToCompanyWS(): Observable<void> {
     return merge(
       this.anymindWebSocket.importantCompanyActivity.pipe(
-        tap(activityId => this.store.dispatch(new ActivitiesWsActions.NewActivityNotificationAction(activityId))),
+        tap(activityId => this.store.dispatch(new ActivitiesWsActions.NewExpertActivityNotificationAction(activityId))),
       ),
       this.anymindWebSocket.profileCallProfit.pipe(
         tap(({ balanceAfter }) => this.store.dispatch(new ActivitiesWsActions.BalanceUpdateAction(balanceAfter))),

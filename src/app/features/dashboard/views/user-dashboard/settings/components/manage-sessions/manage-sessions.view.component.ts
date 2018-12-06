@@ -6,12 +6,13 @@ import {
   ManageSessionsViewComponentService,
 } from './manage-sessions.view.component.service';
 import { Subject } from 'rxjs';
-import { takeUntil, finalize } from 'rxjs/operators';
+import { takeUntil, finalize, map, take } from 'rxjs/operators';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
+import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Animations } from '@platform/shared/animations/animations';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
 
 @Component({
   selector: 'plat-manage-sessions',
@@ -32,24 +33,18 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
   constructor(
     private manageSessionsService: ManageSessionsViewComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
-    private userSessionService: UserSessionService,
-    private alertService: AlertService,
-    private activeModal: NgbActiveModal,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ManageSessionsViewComponent');
-    this.userSessionService
-      .getSession()
-      .then(currentSession => {
-        this.currentSessionApiKey = currentSession.session.apiKey;
-      })
-      .catch(error => {
-        this.logger.warn('error when try to get session', error);
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        this.activeModal.close();
+    getNotUndefinedSession(this.store)
+      .pipe(
+        map(session => session.session.apiKey),
+        take(1),
+      )
+      .subscribe(apiKey => {
+        this.currentSessionApiKey = apiKey;
       });
-
-    // TODO in new Angular WebSocketService subscribe on event 'onSessionDeleted'
   }
 
   public ngAfterViewInit(): void {
@@ -74,14 +69,7 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
 
   public onLogoutSession = (apiKey: string): void => {
     if (this.currentSessionApiKey === apiKey) {
-      this.manageSessionsService
-        .logoutCurrentSession()
-        .then(() => {
-          this.removeSessionFromList(apiKey);
-        })
-        .catch(() => {
-          this.logger.info('handled logout error');
-        });
+      this.manageSessionsService.logoutCurrentSession();
     } else {
       this.manageSessionsService
         .logoutSession(apiKey)

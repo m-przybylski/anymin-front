@@ -1,8 +1,7 @@
 // tslint:disable:readonly-array
 // tslint:disable:max-file-line-count
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import createSpyObj = jasmine.createSpyObj;
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { TestBed } from '@angular/core/testing';
+import { Alerts, AlertService } from '@anymind-ng/core';
 import {
   ActiveSessionDeviceTypeEnum,
   IActiveSession,
@@ -13,49 +12,60 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { Deceiver } from 'deceiver-core';
+import { provideMockFactoryLogger, importStore, dispatchLoggedUser } from 'testing/testing';
+import { Store } from '@ngrx/store';
 
 describe('Service: ManageSessionsViewComponentService', () => {
-  const logger: LoggerService = new LoggerService(1);
+  let mockSessionService: SessionService;
+  let manageSessionsService: ManageSessionsViewComponentService;
+  let store: Store<any>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [importStore()],
       providers: [
         ManageSessionsViewComponentService,
         {
           provide: SessionService,
-          useValue: createSpyObj('SessionService', ['getSessionsRoute', 'logoutRoute']),
+          useValue: Deceiver(SessionService, {
+            getSessionsRoute: jasmine.createSpy('getSessionsRoute'),
+            logoutRoute: jasmine.createSpy('logoutRoute'),
+          }),
         },
         {
           provide: AlertService,
-          useValue: createSpyObj('AlertService', ['pushDangerAlert', 'pushSuccessAlert']),
+          useValue: Deceiver(AlertService, {
+            pushDangerAlert: jasmine.createSpy('pushDangerAlert'),
+            pushSuccessAlert: jasmine.createSpy('pushSuccessAlert'),
+          }),
         },
         {
           provide: NgbActiveModal,
-          useValue: createSpyObj('NgbActiveModal', ['close']),
+          useValue: Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') }),
         },
         {
           provide: UserSessionService,
-          useValue: createSpyObj('UserSessionService', ['getSession', 'logout']),
+          useValue: Deceiver(UserSessionService, { logout: jasmine.createSpy('logout') }),
         },
         {
           provide: Router,
-          useValue: createSpyObj('Router', ['navigate']),
+          useValue: Deceiver(Router, { navigate: jasmine.createSpy('navigate') }),
         },
-        {
-          provide: LoggerFactory,
-          useValue: createSpyObj('LoggerFactory', ['createLoggerService']),
-        },
+        provideMockFactoryLogger(),
       ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
-    TestBed.get(UserSessionService).getSession.and.returnValue(Promise.resolve({}));
-  }));
+  });
+
+  beforeEach(() => {
+    store = TestBed.get(Store);
+    mockSessionService = TestBed.get(SessionService);
+    manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
+    dispatchLoggedUser(store, { session: { apiKey: 'apk' } });
+  });
 
   it('should get active sessions with session on desktop device', () => {
-    const mockSessionService = TestBed.get(SessionService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockSessionService.getSessionsRoute.and.returnValue(
+    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
       of([
         {
           accountId: 'id',
@@ -80,10 +90,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on mobile device', () => {
-    const mockSessionService = TestBed.get(SessionService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockSessionService.getSessionsRoute.and.returnValue(
+    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
       of([
         {
           accountId: 'id',
@@ -108,10 +115,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on mobile device with device name and without city name', () => {
-    const mockSessionService = TestBed.get(SessionService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockSessionService.getSessionsRoute.and.returnValue(
+    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
       of([
         {
           accountId: 'id',
@@ -135,10 +139,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on unknown device', () => {
-    const mockSessionService = TestBed.get(SessionService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockSessionService.getSessionsRoute.and.returnValue(
+    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
       of([
         {
           accountId: 'id',
@@ -163,10 +164,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions without user agent data', () => {
-    const mockSessionService = TestBed.get(SessionService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockSessionService.getSessionsRoute.and.returnValue(
+    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
       of([
         {
           accountId: 'id',
@@ -190,25 +188,20 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should show danger alert and close modal when get active sessions failed', () => {
-    const mockSessionService = TestBed.get(SessionService);
     const mockAlertService = TestBed.get(AlertService);
     const activeModal = TestBed.get(NgbActiveModal);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
 
-    mockSessionService.getSessionsRoute.and.returnValue(throwError({}));
+    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(throwError({}));
 
-    manageSessionsService.getActiveSessions().subscribe(() => {
-      expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-      expect(activeModal.close).toHaveBeenCalled();
-    });
+    manageSessionsService.getActiveSessions().subscribe();
+    expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+    expect(activeModal.close).toHaveBeenCalled();
   });
 
   it('should logout session', () => {
-    const mockSessionService = TestBed.get(SessionService);
     const mockAlertService = TestBed.get(AlertService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
 
-    mockSessionService.logoutRoute.and.returnValue(of({}));
+    (mockSessionService.logoutRoute as jasmine.Spy).and.returnValue(of({}));
 
     manageSessionsService.logoutSession('apiKey').subscribe(() => {
       expect(mockAlertService.pushSuccessAlert).toHaveBeenCalledWith(Alerts.SessionLoggedOutSuccess);
@@ -216,57 +209,9 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should show alert when logout session failed', () => {
-    const mockSessionService = TestBed.get(SessionService);
     const mockAlertService = TestBed.get(AlertService);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockSessionService.logoutRoute.and.returnValue(throwError({}));
-
-    manageSessionsService.logoutSession('apiKey').subscribe(() => {
-      expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-    });
-  });
-
-  it('should logout current session and redirect to /login', () => {
-    const mockUserSessionService = TestBed.get(UserSessionService);
-    const mockAlertService = TestBed.get(AlertService);
-    const mockRouter = TestBed.get(Router);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockRouter.navigate.and.returnValue(Promise.resolve({}));
-    mockUserSessionService.logout.and.returnValue(Promise.resolve({}));
-
-    manageSessionsService.logoutCurrentSession().then(() => {
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
-      expect(mockAlertService.pushSuccessAlert).toHaveBeenCalledWith(Alerts.UserLoggedOut);
-    });
-  });
-
-  it('should show danger alert when redirecting to login failed after logout', fakeAsync(() => {
-    const mockUserSessionService = TestBed.get(UserSessionService);
-    const mockAlertService = TestBed.get(AlertService);
-    const mockRouter = TestBed.get(Router);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockRouter.navigate.and.returnValue(Promise.resolve(false));
-    mockUserSessionService.logout.and.returnValue(Promise.resolve({}));
-
-    manageSessionsService.logoutCurrentSession();
-    tick();
-    expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrongWithRedirect);
-  }));
-
-  it('should show danger alert when logout current session failed', () => {
-    const mockUserSessionService = TestBed.get(UserSessionService);
-    const mockAlertService = TestBed.get(AlertService);
-    const mockRouter = TestBed.get(Router);
-    const manageSessionsService = TestBed.get(ManageSessionsViewComponentService);
-
-    mockRouter.navigate.and.returnValue(Promise.resolve({}));
-    mockUserSessionService.logout.and.returnValue(Promise.reject({}));
-
-    manageSessionsService.logoutCurrentSession().then(() => {
-      expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
-    });
+    (mockSessionService.logoutRoute as jasmine.Spy).and.returnValue(throwError({}));
+    manageSessionsService.logoutSession('apiKey').subscribe();
+    expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
   });
 });

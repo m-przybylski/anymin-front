@@ -45,7 +45,7 @@ export function reducer(state = initialState, action: DashboardActions.Dashboard
     case DashboardActions.DashboardActionTypes.IncrementImportantExpertActivitiesCounter: {
       const incrementedCounters = {
         ...state.counters,
-        expertProfileDashboardCount: state.counters.expertProfileActivitiesCount + 1,
+        expertProfileActivitiesCount: state.counters.expertProfileActivitiesCount + 1,
       };
 
       return {

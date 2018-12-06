@@ -109,7 +109,7 @@ export function reducer(state = initialState, action: ActionUnion): IState {
        * 1. loaded page will be refreshed by router when navigated out of call
        * 2. loaded page will not be refreshed, because someone handled conversion
        * in different card/device.
-       * Importat count must be increased all the time because information source is websocket
+       * Important count must be increased all the time because information source is websocket
        */
       const activityExists = state.activitiesList.some(activity => activity.id === action.payload.id);
 

@@ -271,7 +271,10 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
             nickname: this.expertNameForm.controls[this.expertFormControlName].value,
             avatar: this.expertNameForm.controls[this.expertFormControlAvatar].value,
           });
-          !this.isExpert && this.router.url !== '/dashboard/user/discover'
+          /* It have to be refactor, for now we don't want to redirect users from invitations list view */
+          !this.isExpert &&
+          this.router.url !== '/dashboard/user/discover' &&
+          this.router.url !== '/dashboard/user/invitations/list'
             ? this.redirectToExpertState(val.id)
             : this.onModalClose();
         },

@@ -1,11 +1,13 @@
 import { AccountService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { UserSessionService } from '../../../../../../../core/services/user-session/user-session.service';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, take } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrors, isBackendError } from '../../../../../../../shared/models/backend-error/backend-error';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
 
 export enum ChangeEmailStatusEnum {
   SUCCESS,
@@ -21,19 +23,19 @@ export class ChangeEmailViewComponentService {
 
   constructor(
     private accountService: AccountService,
-    private userSessionService: UserSessionService,
     private alertService: AlertService,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ChangeEmailViewComponentService');
 
-    this.userSessionService
-      .getSession()
-      .then(session => {
-        this.accountId = session.account.id;
-      })
-      .catch(error => {
-        this.logger.warn('error when try to get session', error);
+    getNotUndefinedSession(this.store)
+      .pipe(
+        map(session => session.account.id),
+        take(1),
+      )
+      .subscribe(accountId => {
+        this.accountId = accountId;
       });
   }
 

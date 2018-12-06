@@ -1,11 +1,13 @@
-import { ReplaySubject, Observable, from } from 'rxjs';
-import { AccountService, GetProfile, ProfileService, PutGeneralSettings, GetSessionWithAccount } from '@anymind-ng/api';
+import { ReplaySubject, Observable } from 'rxjs';
+import { AccountService, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { mergeMap } from 'rxjs/operators';
-import { UserSessionService } from '../../../../../core/services/user-session/user-session.service';
+import { map, switchMap } from 'rxjs/operators';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
+import * as fromRoot from '@platform/reducers';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class CreateProfileModalComponentService {
@@ -16,7 +18,7 @@ export class CreateProfileModalComponentService {
   constructor(
     private profileService: ProfileService,
     private accountService: AccountService,
-    private userSessionService: UserSessionService,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CreateProfileModalComponentService');
@@ -37,10 +39,12 @@ export class CreateProfileModalComponentService {
     this.userName$.next(userName);
   }
 
-  public getProfileDetails = (): Observable<GetProfileWithDocuments> =>
-    from(this.userSessionService.getSession()).pipe(
-      mergeMap((session: GetSessionWithAccount) => this.getProfileRoute(session.session.accountId)),
+  public getProfileDetails(): Observable<GetProfileWithDocuments> {
+    return getNotUndefinedSession(this.store).pipe(
+      map(session => session.account.id),
+      switchMap(accountId => this.profileService.getProfileRoute(accountId)),
     );
+  }
 
   public createClientProfile = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
     this.accountService.putGeneralSettingsRoute({
@@ -50,7 +54,4 @@ export class CreateProfileModalComponentService {
 
   public createExpertProfile = (data: PutExpertDetails): Observable<GetProfile> =>
     this.profileService.putExpertProfileRoute(data);
-
-  private getProfileRoute = (accountId: string): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(accountId);
 }

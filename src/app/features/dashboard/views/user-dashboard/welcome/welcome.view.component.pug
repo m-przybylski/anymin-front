@@ -10,7 +10,7 @@
       p {{ 'DASHBOARD.WELCOME.DESCRIPTION' | translate }}
 
     .choose-profile-container
-      .choose-profile-container__option
+      .choose-profile-container__option((click)="onCreateExpertAccount()")
         .option__info-container
           header.option__header {{ 'DASHBOARD.WELCOME.EXPERT_ACCOUNT.TITLE' | translate }}
           p.option__description {{ 'DASHBOARD.WELCOME.EXPERT_ACCOUNT.DESCRIPTION' | translate }}
@@ -18,10 +18,9 @@
           a(
             plat-large-button,
             color="primary",
-            (click)="onCreateExpertAccount()"
           ) {{ 'DASHBOARD.WELCOME.CONFIRM_BUTTON' | translate }}
 
-      .choose-profile-container__option
+      .choose-profile-container__option((click)="onCreateCompanyAccount()")
         .option__info-container
           header.option__header {{ 'DASHBOARD.WELCOME.COMPANY_ACCOUNT.TITLE' | translate }}
           p.option__description {{ 'DASHBOARD.WELCOME.COMPANY_ACCOUNT.DESCRIPTION' | translate }}
@@ -29,5 +28,4 @@
           a(
             plat-large-button,
             color="primary",
-            (click)="onCreateCompanyAccount()"
           ) {{ 'DASHBOARD.WELCOME.CONFIRM_BUTTON' | translate }}

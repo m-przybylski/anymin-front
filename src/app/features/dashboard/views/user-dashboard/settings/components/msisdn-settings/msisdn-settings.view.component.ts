@@ -44,7 +44,7 @@ export class MsisdnSettingsViewComponent {
   }
 
   public ngAfterViewInit(): void {
-    this.modalAnimationComponentService.isPendingRequest().next(true);
+    this.modalAnimationComponentService.stopLoadingAnimation();
   }
 
   public onGoBack = (): void => {

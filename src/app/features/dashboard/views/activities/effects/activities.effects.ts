@@ -86,8 +86,8 @@ export class ActivitiesEffects {
 
   @Effect()
   public loadExpertActivityById$ = this.actions$.pipe(
-    ofType<ActivitiesWsActions.NewActivityNotificationAction>(
-      ActivitiesWsActions.ActivitiesWsActionTypes.NewActivityNotification,
+    ofType<ActivitiesWsActions.NewExpertActivityNotificationAction>(
+      ActivitiesWsActions.ActivitiesWsActionTypes.NewExpertActivityNotification,
     ),
     map(action => action.payload),
     this.loadActivityId(activityId => this.activitiesListService.getExpertActivity(activityId)),
@@ -95,8 +95,8 @@ export class ActivitiesEffects {
 
   @Effect()
   public loadCompanyActivityById$ = this.actions$.pipe(
-    ofType<ActivitiesWsActions.NewActivityNotificationAction>(
-      ActivitiesWsActions.ActivitiesWsActionTypes.NewActivityNotification,
+    ofType<ActivitiesWsActions.NewCompanyActivityNotificationAction>(
+      ActivitiesWsActions.ActivitiesWsActionTypes.NewCompanyActivityNotification,
     ),
     map(action => action.payload),
     this.loadActivityId(activityId => this.activitiesListService.getCompanyActivity(activityId)),
