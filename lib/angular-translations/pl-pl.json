@@ -1920,6 +1920,8 @@
   "FEATURE.COMMUNICATOR.MESSENGER.INPUT_PLACEHOLDER": "Wpisz wiadomość...",
   "FEATURE.COMMUNICATOR.MESSENGER.MESSAGE_SEND_FAILED": "Ta wiadomość nie została wysłana. Sprawdź połączenie z internetem i kliknij tutaj aby spróbować ponownie.",
   "FEATURE.COMMUNICATOR.MESSENGER.UPLOAD_ERROR": "Błąd ładowania, spróbuj ponownie",
+  "FEATURE.COMMUNICATOR.MESSENGER.UPLOAD_ERROR.SOMETHING_WENT_WRONG": "Coś poszło nie tak",
+  "FEATURE.COMMUNICATOR.MESSENGER.UPLOAD_ERROR.TO_BIG_SIZE": "Wybrany plik jest za duży. Maksymalny rozmiar pliku to 30MB",
   "FEATURE.COMMUNICATOR.NAVIGATION.CAMERA_OFF": "Kamera wyłączona",
   "FEATURE.COMMUNICATOR.NAVIGATION.CAMERA_ON": "Kamera włączona",
   "FEATURE.COMMUNICATOR.NAVIGATION.MICROPHONE_OFF": "Mikrofon wyłączony",
