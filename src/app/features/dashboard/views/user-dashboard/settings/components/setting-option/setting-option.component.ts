@@ -15,4 +15,7 @@ export class SettingOptionComponent {
 
   @Input()
   public tooltipTrText: string;
+
+  @Input()
+  public titleOptionalText: string;
 }
