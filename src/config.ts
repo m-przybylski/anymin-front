@@ -115,7 +115,7 @@ export class Config {
   };
 
   public static readonly patterns = {
-    emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+    emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+([\.]{1}[a-zA-Z]{2,6})+([\.]{1}[a-zA-Z]{2,6})?$/,
     smsCodePattern: /^[0-9]{4}$/,
     phonePattern: /^\+?\d+(\s\d+)*$/,
     passwordPattern: new RegExp(
