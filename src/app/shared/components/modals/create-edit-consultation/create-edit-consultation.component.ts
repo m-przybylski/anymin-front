@@ -43,7 +43,6 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   public readonly descriptionControlName = 'description';
   public readonly tagControlName = 'tag';
   public readonly priceWithoutCommissionControlName = 'withoutCommissionPrice';
-  public readonly grossPriceControlName = 'grossPrice';
   public readonly nettPriceControlName = 'nettPrice';
   public readonly minValidNameLength = Config.inputsLengthNumbers.consultationMinName;
   public readonly maxValidNameLength = Config.inputsLengthNumbers.consultationMaxName;
@@ -55,7 +54,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   public totalCommission: number;
   public labelTrKey: string;
   public tagNames: ReadonlyArray<string> = [];
-  public grossPrice: number;
+  public nettPrice: number;
   public modalHeaderTrKey = 'CREATE_EXPERT_CONSULTATION.HEADER.TITLE';
   public isEditModal = false;
 
@@ -212,7 +211,6 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private clearPriceInputs = (): void => {
     this.formControls[this.nettPriceControlName].reset('');
     this.formControls[this.priceWithoutCommissionControlName].reset('');
-    this.formControls[this.grossPriceControlName].reset('');
   };
 
   private assignInitialData = (): void => {
@@ -248,11 +246,12 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     const serviceDetails = this.payload.serviceDetails;
     if (typeof serviceDetails !== 'undefined') {
       this.isEditModal = true;
-      this.grossPrice = serviceDetails.grossPrice.amount / this.commissionConfig.moneyDivider;
+      this.nettPrice = serviceDetails.netPrice.amount / this.commissionConfig.moneyDivider;
       this.formControls[this.nameControlName].setValue(serviceDetails.name);
       this.formControls[this.descriptionControlName].setValue(serviceDetails.description);
-      this.formControls[this.grossPriceControlName].setValue(
-        this.createEditConsultationService.getInputPriceModel(this.grossPrice),
+      this.formControls[this.nettPriceControlName].setValue(serviceDetails.netPrice.amount);
+      this.formControls[this.priceWithoutCommissionControlName].setValue(
+        this.createEditConsultationService.getInputPriceModel(this.nettPrice),
       );
       this.successAlertTrKey = 'ALERT.EDIT_CONSULTATION.SUCCESS';
       this.modalHeaderTrKey = this.editConsultationTrKey;

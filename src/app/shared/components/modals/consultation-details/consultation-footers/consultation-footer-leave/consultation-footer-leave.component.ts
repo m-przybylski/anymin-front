@@ -8,6 +8,7 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
+import { COMMISSION, ICommission } from '@platform/core/commission';
 
 @Component({
   templateUrl: 'consultation-footer-leave.component.html',
@@ -26,8 +27,16 @@ export class ConsultationFooterLeaveComponent extends Logger implements IFooterO
 
   public get price(): string {
     return (
-      this.moneyPipe.transform(this.data.price && this.data.price.price) ||
-      this.moneyPipe.transform({ amount: 0, currency: '' })
+      this.moneyPipe.transform(
+        this.data.price && {
+          amount:
+            this.data.price.price.amount *
+            (1 -
+              (this.commissionConfig.freelanceConsultationAnyMindCommission +
+                this.commissionConfig.freelanceConsultationCompanyCommission)),
+          currency: this.data.price.price.currency,
+        },
+      ) || this.moneyPipe.transform({ amount: 0, currency: '' })
     );
   }
 
@@ -37,7 +46,11 @@ export class ConsultationFooterLeaveComponent extends Logger implements IFooterO
 
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
-  constructor(@Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData, loggerFactory: LoggerFactory) {
+  constructor(
+    @Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData,
+    @Inject(COMMISSION) private commissionConfig: ICommission,
+    loggerFactory: LoggerFactory,
+  ) {
     super(loggerFactory.createLoggerService('ConsultationFooterLeaveComponent'));
   }
 

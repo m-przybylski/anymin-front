@@ -16,6 +16,8 @@ export class ConsultationCompanyRowComponent {
   @Input()
   public isOwnProfile = false;
 
+  private readonly vatMultiplayer = 1.23;
+
   constructor(private modalService: NgbModal) {}
 
   public get header(): string {
@@ -23,7 +25,10 @@ export class ConsultationCompanyRowComponent {
   }
 
   public get price(): MoneyDto {
-    return this.consultation.service.price;
+    return {
+      amount: this.consultation.service.price.amount * this.vatMultiplayer,
+      currency: this.consultation.service.price.currency,
+    };
   }
 
   public get companyId(): string {

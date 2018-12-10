@@ -10,9 +10,8 @@ export class FreelanceConsultationPriceService implements IConsultationPriceComp
   constructor(private tax: number, private commission: number) {}
 
   public getPriceWithoutCommission = (value: number): number => {
-    const netPrice = value - (value * this.tax) / (this.tax + 1);
     const withoutCommissionPercent = 1 - this.commission;
-    const netPriceWithoutCommission = netPrice * withoutCommissionPercent;
+    const netPriceWithoutCommission = value * withoutCommissionPercent;
 
     return this.getValueRoundedToTwoDecimals(netPriceWithoutCommission);
   };
