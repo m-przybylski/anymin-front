@@ -66,6 +66,12 @@ export function reducer(state = initialState, action: ActionUnion): IState {
         displayedImportantActivitiesIds: sliceImportantActivities(action.payload.importantActivitiesList.activities),
       };
 
+    case ActivitiesApiActions.ActivitiesApiActionTypes.LoadActivitiesWithImportantFailure:
+      return {
+        ...initialState,
+        isLoaded: true,
+      };
+
     case ActivitiesApiActions.ActivitiesApiActionTypes.LoadActivitiesSuccess:
       return {
         ...state,
