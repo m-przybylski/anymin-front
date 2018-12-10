@@ -14,13 +14,7 @@ export class ConsultationPriceComponent implements OnInit {
   public labelWithoutCommission: string;
 
   @Input()
-  public labelGross: string;
-
-  @Input()
   public withoutCommissionControlName: string;
-
-  @Input()
-  public grossControlName: string;
 
   @Input()
   public nettControlName: string;
@@ -42,6 +36,7 @@ export class ConsultationPriceComponent implements OnInit {
 
   @Input()
   public set isFreelanceService(isFreelance: boolean) {
+    this._isFreelanceService = isFreelance;
     if (isFreelance) {
       this.consultationPriceComponentService = new FreelanceConsultationPriceService(this.taxValue, this.commission);
       this.assignValidationValues();
@@ -52,7 +47,7 @@ export class ConsultationPriceComponent implements OnInit {
   }
 
   @Input()
-  public set grossPrice(value: number | undefined) {
+  public set nettPrice(value: number | undefined) {
     if (typeof value !== 'undefined') {
       setTimeout(() => {
         this.calculatePriceWithoutCommission(value);
@@ -62,8 +57,7 @@ export class ConsultationPriceComponent implements OnInit {
 
   public minValidPriceWithoutCommission: number;
   public maxValidPriceWithoutCommission: number;
-  public grossMinValidPrice: number;
-  public grossMaxValidPrice = 9900;
+  public _isFreelanceService: boolean;
 
   private readonly lastButOneIndex = 2;
   private consultationPriceComponentService: IConsultationPriceComponentService;
@@ -74,30 +68,29 @@ export class ConsultationPriceComponent implements OnInit {
 
   public calculateGrossPrice = (inputValue: number): void => {
     if (this.isFormControlValid(this.withoutCommissionControlName)) {
-      const grossPrice = this.consultationPriceComponentService.getGrossPrice(inputValue);
-      this.form.controls[this.grossControlName].setValue(this.createInputPriceModel(grossPrice));
       this.form.controls[this.nettControlName].setValue(
         this.consultationPriceComponentService.getNettPrice(inputValue),
       );
     } else {
       this.displayFormControlError(this.withoutCommissionControlName);
-      this.form.controls[this.grossControlName].setValue('');
       this.form.controls[this.nettControlName].setValue('');
     }
   };
 
   public calculatePriceWithoutCommission = (inputValue: number): void => {
-    if (this.isFormControlValid(this.grossControlName)) {
+    if (this._isFreelanceService && this.isFormControlValid(this.nettControlName)) {
       const priceWithoutCommission = this.consultationPriceComponentService.getPriceWithoutCommission(inputValue);
       this.form.controls[this.withoutCommissionControlName].setValue(
         this.createInputPriceModel(priceWithoutCommission),
       );
-      const netPrice = this.consultationPriceComponentService.getNettPrice(priceWithoutCommission);
-      this.form.controls[this.nettControlName].setValue(netPrice);
-    } else {
-      this.displayFormControlError(this.grossControlName);
-      this.form.controls[this.withoutCommissionControlName].setValue('');
-      this.form.controls[this.nettControlName].setValue('');
+
+      return;
+    }
+
+    if (!this._isFreelanceService && this.isFormControlValid(this.nettControlName)) {
+      this.form.controls[this.withoutCommissionControlName].setValue(this.createInputPriceModel(inputValue));
+
+      return;
     }
   };
 
@@ -121,6 +114,5 @@ export class ConsultationPriceComponent implements OnInit {
   private assignValidationValues = (): void => {
     this.minValidPriceWithoutCommission = this.consultationPriceComponentService.getMinValidPriceWithoutCommission();
     this.maxValidPriceWithoutCommission = this.consultationPriceComponentService.getMaxValidPriceWithoutCommission();
-    this.grossMinValidPrice = this.consultationPriceComponentService.getMinGrossValidPrice();
   };
 }

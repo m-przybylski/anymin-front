@@ -96,15 +96,13 @@ plat-modal-component(
 
       plat-consultation-price(
       [labelWithoutCommission]="labelTrKey",
-      [labelGross]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.GROSS_PRICE_LABEL'",
       [isRequired]="true",
       [form]="createConsultationForm",
       [withoutCommissionControlName]="priceWithoutCommissionControlName",
-      [grossControlName]="grossPriceControlName",
       [nettControlName]="nettPriceControlName",
       [isDisabled]="isRequestPending",
       [commission]="totalCommission",
-      [grossPrice]="grossPrice",
+      [nettPrice]="nettPrice",
       [isFreelanceService]="isFreelance"
       )
 
@@ -129,5 +127,3 @@ plat-modal-component(
         [isSubmitType]="false",
         (click)="onFormSubmit()"
         )
-
-

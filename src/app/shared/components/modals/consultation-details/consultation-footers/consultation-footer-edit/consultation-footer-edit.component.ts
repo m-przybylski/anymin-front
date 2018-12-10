@@ -18,6 +18,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
   public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
     return this._actionTaken$.asObservable();
   }
+
   public get grossPrice(): string {
     if (this.data.price === undefined) {
       return '';
@@ -26,12 +27,30 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     return this.moneyPipe.transform(this.data.price && this.data.price.grossPrice);
   }
 
-  public get price(): string {
+  public get netPrice(): string {
     if (this.data.price === undefined) {
       return '';
     }
 
     return this.moneyPipe.transform(this.data.price && this.data.price.price);
+  }
+
+  public get netFreelancerPrice(): string {
+    if (this.data.price === undefined) {
+      return '';
+    }
+    const freelancerPrice =
+      this.data.price.price.amount *
+      (1 -
+        (this.commissionConfig.freelanceConsultationAnyMindCommission +
+          this.commissionConfig.freelanceConsultationCompanyCommission));
+
+    return this.moneyPipe.transform(
+      this.data.price && {
+        amount: freelancerPrice,
+        currency: this.data.price.price.currency,
+      },
+    );
   }
 
   public get organizationPrice(): string {
@@ -66,6 +85,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
 
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
+
   constructor(
     @Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData,
     @Inject(COMMISSION) private commissionConfig: ICommission,

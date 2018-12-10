@@ -2,22 +2,19 @@ import { TestBed } from '@angular/core/testing';
 import { FreelanceConsultationPriceService } from './freelance-consultation-price.service';
 
 describe('Service: FreelanceConsultationPriceService', () => {
-
   const tax = 0.23;
   const commission = 0.15;
   const freelanceConsultationPriceService = new FreelanceConsultationPriceService(tax, commission);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        FreelanceConsultationPriceService
-      ]
+      providers: [FreelanceConsultationPriceService],
     });
   });
 
   it('should get price without commission', () => {
     const value = 6;
-    const expectedValue = 4.15;
+    const expectedValue = 5.1;
     expect(freelanceConsultationPriceService.getPriceWithoutCommission(value)).toEqual(expectedValue);
   });
 
@@ -47,5 +44,4 @@ describe('Service: FreelanceConsultationPriceService', () => {
     const expectedValue = 8.68;
     expect(freelanceConsultationPriceService.getGrossPrice(value)).toEqual(expectedValue);
   });
-
 });
