@@ -246,10 +246,11 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     const serviceDetails = this.payload.serviceDetails;
     if (typeof serviceDetails !== 'undefined') {
       this.isEditModal = true;
-      this.nettPrice = serviceDetails.netPrice.amount / this.commissionConfig.moneyDivider;
+      // TODO FIX_NEW_FINANCE_MODEL - price is gross
+      this.nettPrice = serviceDetails.price.amount / this.commissionConfig.moneyDivider;
       this.formControls[this.nameControlName].setValue(serviceDetails.name);
       this.formControls[this.descriptionControlName].setValue(serviceDetails.description);
-      this.formControls[this.nettPriceControlName].setValue(serviceDetails.netPrice.amount);
+      this.formControls[this.nettPriceControlName].setValue(serviceDetails.price.amount);
       this.formControls[this.priceWithoutCommissionControlName].setValue(
         this.createEditConsultationService.getInputPriceModel(this.nettPrice),
       );

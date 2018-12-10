@@ -24,7 +24,6 @@ describe('EmployeesInviteService', () => {
       registeredAt: new Date(),
       isBlocked: false,
       hasPassword: true,
-      isClientCompany: true,
       isAnonymous: false,
       details: {
         clientId: 'id',
@@ -67,7 +66,7 @@ describe('EmployeesInviteService', () => {
       serviceService,
       phoneNumberUnifyService,
       invitationService,
-      store
+      store,
     );
   });
 

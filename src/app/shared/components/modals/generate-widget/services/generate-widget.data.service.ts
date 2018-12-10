@@ -106,7 +106,7 @@ export class GenerateWidgetDataService extends Logger {
   ): IGenerateWidgetResolveData => ({
     serviceName: getServiceWithEmployees.serviceDetails.name,
     serviceDesc: getServiceWithEmployees.serviceDetails.description,
-    servicePrice: this.moneyToAmount.transform(getServiceWithEmployees.serviceDetails.grossPrice),
+    servicePrice: this.moneyToAmount.transform(getServiceWithEmployees.serviceDetails.price),
     expertName,
     expertAvatar,
   });

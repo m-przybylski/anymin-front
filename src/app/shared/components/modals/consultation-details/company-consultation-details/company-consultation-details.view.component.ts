@@ -266,8 +266,9 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     isFreelance: getConsultationDetails.serviceDetails.serviceDetails.isFreelance,
     ownerId: getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
     price: {
-      grossPrice: getConsultationDetails.serviceDetails.serviceDetails.grossPrice,
-      price: getConsultationDetails.serviceDetails.serviceDetails.netPrice,
+      grossPrice: getConsultationDetails.serviceDetails.serviceDetails.price,
+      // TODO FIX_NEW_FINANCE_MODEL
+      price: getConsultationDetails.serviceDetails.serviceDetails.price,
     },
     userId,
   });

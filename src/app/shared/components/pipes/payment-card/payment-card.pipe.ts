@@ -1,15 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DefaultCreditCard } from '@anymind-ng/api';
+import { GetDefaultPaymentMethod } from '@anymind-ng/api';
 
 @Pipe({
   name: 'creditCard',
 })
 export class CreditCardPipe implements PipeTransform {
-  public transform(value: DefaultCreditCard | undefined): string {
-    if (!(value && value.card)) {
-      return '';
+  public transform(value: GetDefaultPaymentMethod | undefined): string {
+    // TODO FIX_NEW_FINANCE_MODEL
+    if (value && value.creditCardId) {
+      return `${value.creditCardId} ${value.creditCardId}`;
     }
 
-    return `${value.card.cardType} ${value.card.maskedNumber}`;
+    return '';
   }
 }

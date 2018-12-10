@@ -1,4 +1,4 @@
-import { MoneyDto, DefaultCreditCard } from '@anymind-ng/api';
+import { MoneyDto, GetDefaultPaymentMethod } from '@anymind-ng/api';
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
@@ -15,7 +15,7 @@ export interface IConsultationFooterData {
     grossPrice: MoneyDto;
     price: MoneyDto;
   };
-  defaultPayment: DefaultCreditCard;
+  defaultPayment: GetDefaultPaymentMethod;
   accountBalance: { amount: number; currency: string };
 }
 

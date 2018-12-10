@@ -65,9 +65,12 @@ export class ActivitiesListService extends Logger {
   }
 
   public getExpertProfilePayment(): Observable<MoneyDto> {
-    return this.financesService
-      .getExpertProfileBalanceRoute()
-      .pipe(map(getProfileBalance => getProfileBalance.balance));
+    return (
+      this.financesService
+        .getExpertProfileBalanceRoute()
+        // TODO FIX_NEW_FINANCE_MODEL - partnerBalance?
+        .pipe(map(getProfileBalance => getProfileBalance.profileBalance))
+    );
   }
 
   public getExpertActivity(activityId: string): Observable<GetProfileActivity> {
@@ -115,9 +118,12 @@ export class ActivitiesListService extends Logger {
   }
 
   public getCompanyProfilePayment(): Observable<MoneyDto> {
-    return this.financesService
-      .getOrganizationProfileBalanceRoute()
-      .pipe(map(getProfileBalance => getProfileBalance.balance));
+    return (
+      this.financesService
+        .getOrganizationProfileBalanceRoute()
+        // TODO FIX_NEW_FINANCE_MODEL - partnerBalance?
+        .pipe(map(getProfileBalance => getProfileBalance.profileBalance))
+    );
   }
 
   public getCompanyActivity(activityId: string): Observable<GetProfileActivity> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InvitationService, ServiceService, GetService, MoneyDto, GetServiceGrossPrice } from '@anymind-ng/api';
+import { InvitationService, ServiceService, GetService, MoneyDto } from '@anymind-ng/api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, AlertService } from '@anymind-ng/core';
@@ -30,13 +30,13 @@ export class AcceptRejectInvitationService extends Logger {
   public getInvitationDetails = (invitation: IInvitation): Observable<IConsultationDetails> =>
     forkJoin(
       this.serviceService.getServiceRoute(invitation.serviceId),
-      this.serviceService.getServiceGrossPriceRoute(invitation.serviceId),
       this.getTagsForService(invitation.serviceId),
     ).pipe(
-      map(([service, price, tagList]: [GetService, GetServiceGrossPrice, ReadonlyArray<string>]) => ({
+      // TODO FIX_NEW_FINANCE_MODEL
+      map(([service, tagList]: [GetService, ReadonlyArray<string>]) => ({
         isFreelance: service.isFreelance,
         price: service.price,
-        grossPrice: price.price,
+        grossPrice: service.price,
         serviceDescription: service.description,
         tagList,
       })),

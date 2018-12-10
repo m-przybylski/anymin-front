@@ -1,4 +1,4 @@
-import { AccountService, GetCompanyInvoiceDetails, PostCompanyInvoiceDetails } from '@anymind-ng/api';
+import { AccountService, GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -6,6 +6,6 @@ import { Injectable } from '@angular/core';
 export class CompanyInvoiceDetailsComponentService {
   constructor(private accountService: AccountService) {}
 
-  public updateInvoiceDetails = (invoiceDetails: PostCompanyInvoiceDetails): Observable<GetCompanyInvoiceDetails> =>
-    this.accountService.postCompanyPayoutInvoiceDetailsRoute(invoiceDetails);
+  public updateInvoiceDetails = (invoiceDetails: PostCompanyDetails): Observable<GetInvoiceDetails> =>
+    this.accountService.postCompanyDetailsRoute(invoiceDetails);
 }

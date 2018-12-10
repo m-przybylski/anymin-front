@@ -9,14 +9,15 @@ export class InvoiceDetailsComponentService {
   constructor(private accountService: AccountService) {}
 
   public getInvoiceDetails = (): Observable<ICompanyInvoiceDetails> =>
-    this.accountService.getCompanyPayoutInvoiceDetailsRoute().pipe(
+    // TODO FIX_NEW_FINANCE_MODEL
+    this.accountService.getInvoiceDetailsRoute().pipe(
       map(response => ({
         vatNumber: response.vatNumber,
         companyName: response.companyName,
-        address: response.address.address,
+        address: response.address.street,
         city: response.address.city,
         postalCode: response.address.postalCode,
-        email: response.email,
+        email: 'response.email',
       })),
     );
 }

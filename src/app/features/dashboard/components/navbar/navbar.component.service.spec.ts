@@ -28,7 +28,6 @@ describe('NavbarComponentService', () => {
       registeredAt: new Date(),
       isBlocked: false,
       hasPassword: true,
-      isClientCompany: true,
       isAnonymous: false,
       details: {
         clientId: 'id',
