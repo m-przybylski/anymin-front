@@ -14,6 +14,7 @@ import { GetSessionWithAccount } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { COMMISSION, ICommission } from '@platform/core/commission';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -37,6 +38,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
 
   constructor(
     @Inject(INVITATION) public invitation: IInvitation,
+    @Inject(COMMISSION) private commissionConfig: ICommission,
     private activeModal: NgbActiveModal,
     private acceptRejectInvitationService: AcceptRejectInvitationService,
     private loader: ModalAnimationComponentService,
@@ -63,7 +65,14 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
         this.serviceName = this.invitation.serviceName;
         this.serviceDescription = data.serviceDescription;
         this.isFreelance = data.isFreelance;
-        this.price = this.moneyPipe.transform(data.price);
+        this.price = this.moneyPipe.transform({
+          amount:
+            data.price.amount *
+            (1 -
+              (this.commissionConfig.freelanceConsultationCompanyCommission +
+                this.commissionConfig.freelanceConsultationAnyMindCommission)),
+          currency: data.price.currency,
+        });
         this.grossPrice = this.moneyPipe.transform(data.grossPrice);
       });
   }
