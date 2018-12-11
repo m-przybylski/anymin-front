@@ -173,4 +173,9 @@ export class Config {
 
   public static readonly moneyDivider = 100;
   public static readonly contentLoaderDelayMilliseconds = 350;
+
+  public static readonly consultationPriceValidationValues = {
+    min: 50,
+    max: 9900,
+  };
 }

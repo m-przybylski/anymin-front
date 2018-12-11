@@ -1,11 +1,10 @@
 // tslint:disable:readonly-array
-// tslint:disable:max-file-line-count
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, Injector, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { Observable, EMPTY } from 'rxjs';
 import { Config } from '../../../../../config';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
@@ -19,7 +18,6 @@ import {
 import { GetInvitation, GetService, PutService, ServiceWithOwnerProfile } from '@anymind-ng/api';
 import { Logger } from '@platform/core/logger';
 import { CONSULTATION_DETAILS } from './create-edit-consultation';
-import { COMMISSION, ICommission } from '@platform/core/commission';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
 
@@ -38,36 +36,30 @@ export interface ICreateEditConsultationPayload {
   providers: [CreateEditConsultationService],
 })
 export class CreateEditConsultationModalComponent extends Logger implements OnInit, AfterViewInit {
-  public readonly formId = 'createExpertConsultation';
+  public readonly formId = 'consultationForm';
   public readonly nameControlName = 'name';
   public readonly descriptionControlName = 'description';
   public readonly tagControlName = 'tag';
-  public readonly priceWithoutCommissionControlName = 'withoutCommissionPrice';
-  public readonly nettPriceControlName = 'nettPrice';
+  public readonly priceControlName = 'price';
   public readonly minValidNameLength = Config.inputsLengthNumbers.consultationMinName;
   public readonly maxValidNameLength = Config.inputsLengthNumbers.consultationMaxName;
   public readonly minValidDescriptionLength = Config.inputsLengthNumbers.consultationMinDescription;
   public readonly maxValidDescriptionLength = Config.inputsLengthNumbers.consultationMaxDescription;
-  public createConsultationForm: FormGroup = new FormGroup({});
+  public priceControl = new FormControl('', Validators.required);
+  public consultationForm: FormGroup = new FormGroup({});
   public isRequestPending = false;
   public isFreelance = false;
-  public totalCommission: number;
-  public labelTrKey: string;
   public tagNames: ReadonlyArray<string> = [];
-  public nettPrice: number;
+  public consultationPrice: number;
   public modalHeaderTrKey = 'CREATE_EXPERT_CONSULTATION.HEADER.TITLE';
   public isEditModal = false;
+  public isCompanyService = false;
 
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
-  private readonly labelTranslations = {
-    employeeConsultation: 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.NET_PRICE_LABEL',
-    freelanceConsultation: 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.FREELANCER_NET_PRICE_LABEL',
-  };
   private readonly editConsultationTrKey = 'EDIT_EXPERT_CONSULTATION.HEADER.TITLE';
   private selectedTags: PostServiceTag[] = [];
-  private anyMindCommission: number;
-  private formControls = this.createConsultationForm.controls;
+  private formControls = this.consultationForm.controls;
   private successAlertTrKey: string = Alerts.CreateConsultationSuccess;
 
   constructor(
@@ -80,14 +72,17 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
     @Inject(CONSULTATION_DETAILS) public payload: ICreateEditConsultationPayload,
-    @Inject(COMMISSION) private commissionConfig: ICommission,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CreateEditConsultationModalComponent'));
   }
 
   public ngOnInit(): void {
-    this.assignInitialData();
+    this.isCompanyService = !this.payload.isExpertConsultation;
+    if (typeof this.payload.tags !== 'undefined') {
+      this.tagNames = this.payload.tags;
+      this.onSelectedTag(this.payload.tags);
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -96,7 +91,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   }
 
   public onFormSubmit = (): void => {
-    if (this.createConsultationForm.valid) {
+    if (this.consultationForm.valid) {
       this.isRequestPending = true;
       /**
        * if serviceDetails has not been specified,
@@ -116,7 +111,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
         .pipe(catchError(this.handleError))
         .subscribe(this.handleResponse);
     } else {
-      this.formUtils.validateAllFormFields(this.createConsultationForm);
+      this.formUtils.validateAllFormFields(this.consultationForm);
     }
   };
 
@@ -127,41 +122,13 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   public onEmployeeConsultation = (): void => {
     if (!this.isRequestPending && typeof this.payload.serviceDetails === 'undefined') {
       this.isFreelance = false;
-      this.totalCommission = this.commissionConfig.employeeServiceAnyMindCommission;
-      this.anyMindCommission = this.commissionConfig.employeeServiceAnyMindCommission;
-      this.labelTrKey = this.labelTranslations.employeeConsultation;
-      this.clearPriceInputs();
     }
   };
 
   public onFreelanceConsultation = (): void => {
     if (!this.isRequestPending && typeof this.payload.serviceDetails === 'undefined') {
       this.isFreelance = true;
-      this.anyMindCommission = this.commissionConfig.freelanceConsultationAnyMindCommission;
-      this.totalCommission = parseFloat(
-        (
-          this.commissionConfig.freelanceConsultationAnyMindCommission +
-          this.commissionConfig.freelanceConsultationCompanyCommission
-        ).toFixed(this.commissionConfig.numberPrecision),
-      );
-      this.labelTrKey = this.labelTranslations.freelanceConsultation;
-      this.clearPriceInputs();
     }
-  };
-
-  public getCommissionValueForUI = (): string =>
-    `${(this.anyMindCommission * this.commissionConfig.percentDivider).toFixed(
-      this.commissionConfig.numberPrecision,
-    )}%`;
-
-  public getCompanyProfitForUI = (): string => {
-    const nett = this.formControls[this.nettPriceControlName].value;
-    const companyProfit = this.createEditConsultationService.getCompanyProfit(
-      nett,
-      this.commissionConfig.freelanceConsultationCompanyCommission,
-    );
-
-    return `${companyProfit.toPrecision(this.commissionConfig.numberPrecision)} zł`;
   };
 
   public deleteConsultation = (serviceId: string): void => {
@@ -181,8 +148,13 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     isOwnerEmployee: this.payload.isOwnerEmployee,
     name: this.formControls[this.nameControlName].value,
     description: this.formControls[this.descriptionControlName].value,
+    /**
+     * Value of priceControl is string
+     * so we have to convert it to number and multiply by moneyDivider
+     * as it is accepted value for backend
+     */
     price: {
-      amount: this.formControls[this.nettPriceControlName].value,
+      amount: Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
       currency: this.polishCurrency,
     },
     tags: [...this.selectedTags],
@@ -204,21 +176,6 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 
     return EMPTY;
-  };
-
-  private clearPriceInputs = (): void => {
-    this.formControls[this.nettPriceControlName].reset('');
-    this.formControls[this.priceWithoutCommissionControlName].reset('');
-  };
-
-  private assignInitialData = (): void => {
-    this.totalCommission = this.commissionConfig.employeeServiceAnyMindCommission;
-    this.anyMindCommission = this.commissionConfig.employeeServiceAnyMindCommission;
-    this.labelTrKey = this.labelTranslations.employeeConsultation;
-    if (typeof this.payload.tags !== 'undefined') {
-      this.tagNames = this.payload.tags;
-      this.onSelectedTag(this.payload.tags);
-    }
   };
 
   private handleResponse = (serviceDetails: GetService): void => {
@@ -244,26 +201,13 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     const serviceDetails = this.payload.serviceDetails;
     if (typeof serviceDetails !== 'undefined') {
       this.isEditModal = true;
-      // TODO FIX_NEW_FINANCE_MODEL - price is gross
-      this.nettPrice = serviceDetails.price.amount / this.commissionConfig.moneyDivider;
+      this.consultationPrice = serviceDetails.price.amount;
       this.formControls[this.nameControlName].setValue(serviceDetails.name);
       this.formControls[this.descriptionControlName].setValue(serviceDetails.description);
-      this.formControls[this.nettPriceControlName].setValue(serviceDetails.price.amount);
-      this.formControls[this.priceWithoutCommissionControlName].setValue(
-        this.createEditConsultationService.getInputPriceModel(this.nettPrice),
-      );
       this.successAlertTrKey = 'ALERT.EDIT_CONSULTATION.SUCCESS';
       this.modalHeaderTrKey = this.editConsultationTrKey;
       if (serviceDetails.isFreelance) {
         this.isFreelance = true;
-        this.anyMindCommission = this.commissionConfig.freelanceConsultationAnyMindCommission;
-        this.totalCommission = parseFloat(
-          (
-            this.commissionConfig.freelanceConsultationAnyMindCommission +
-            this.commissionConfig.freelanceConsultationCompanyCommission
-          ).toFixed(this.commissionConfig.numberPrecision),
-        );
-        this.labelTrKey = this.labelTranslations.freelanceConsultation;
       }
     }
     this.changeDetector.detectChanges();

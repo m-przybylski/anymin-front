@@ -73,25 +73,4 @@ describe('CreateEditConsultationService', () => {
     service.updateServiceDetails(serviceId, updatedService);
     expect(serviceService.putServiceRoute).toHaveBeenCalledWith(serviceId, updatedService);
   });
-
-  it('should get company profit', () => {
-    const value = 200;
-    const commission = 0.15;
-    const expectedResult = 0.3;
-    expect(service.getCompanyProfit(value, commission)).toEqual(expectedResult);
-  });
-
-  it('should get input price model when value is without decimals', () => {
-    expect(service.getInputPriceModel(0)).toEqual('0,00');
-  });
-
-  it('should get input price model when value has decimals', () => {
-    const val = 0.1;
-    expect(service.getInputPriceModel(val)).toEqual('0,10');
-  });
-
-  it('should get input price model when value has hundredths', () => {
-    const val = 0.01;
-    expect(service.getInputPriceModel(val)).toEqual('0,01');
-  });
 });

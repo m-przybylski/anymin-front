@@ -42,6 +42,7 @@
       border-radius: 4px
       margin: 0 12px
       box-sizing: border-box
+      transition: background-color 0.3s ease, border 0.3s ease
 
       +xsm
         flex: 1 0
@@ -56,45 +57,37 @@
           margin: 0 12px
 
       &:hover
-        border-color: $c-text-primary
+        border-color: $c-black
 
       &--selected
-        border-color: $c-primary
+        border-color: $c-text-primary
+        background: $c-text-primary
 
-        &:hover
-          border-color: $c-primary
+        .consultation-type__title
+          color: $c-white
+
+        .consultation-type__description
+          color: $c-half-white
 
       &--disabled
-        opacity: 0.35
         cursor: default
+
+        &:not(.consultation-type--selected)
+          .consultation-type__title
+            color: $c-placeholder
+
+          .consultation-type__description
+            color: $c-placeholder
 
         &:hover
           border-color: $c-lines
 
-          &.consultation-type--selected
-            border-color: $c-primary
-
       &__title
-        +h6
+        +subtitle
         font-weight: 500
         margin: 0 0 8px
-
-        +lgm
-          +h5
 
       &__description
         +caption
         font-weight: 500
-
-    .calculation-data
-      margin: 8px 0 48px
-
-      &__title
-        +subtitle
         color: $c-label
-
-      &__value
-        +subtitle
-        color: $c-text-primary
-        font-weight: 500
-        margin: 0 0 0 4px

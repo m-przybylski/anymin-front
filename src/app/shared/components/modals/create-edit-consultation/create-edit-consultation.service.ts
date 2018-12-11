@@ -8,13 +8,9 @@ import { Observable, EMPTY } from 'rxjs';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
-import { Config } from '../../../../../config';
 
 @Injectable()
 export class CreateEditConsultationService extends Logger {
-  private readonly moneyDivider = Config.moneyDivider;
-  private readonly lastButOneIndex = 2;
-
   constructor(
     private serviceService: ServiceService,
     private confirmationService: ConfirmationService,
@@ -29,19 +25,6 @@ export class CreateEditConsultationService extends Logger {
 
   public updateServiceDetails = (serviceId: string, service: PutService): Observable<GetService> =>
     this.serviceService.putServiceRoute(serviceId, service);
-
-  public getCompanyProfit = (value: number, commission: number): number => (value / this.moneyDivider) * commission;
-
-  public getInputPriceModel = (value: number): string => {
-    const stringVal = value.toString().replace('.', ',');
-    if (stringVal.indexOf(',') === stringVal.length - 1 || stringVal.indexOf(',') === -1) {
-      return `${stringVal},00`;
-    } else if (stringVal.indexOf(',') === stringVal.length - this.lastButOneIndex) {
-      return `${stringVal}0`;
-    }
-
-    return stringVal;
-  };
 
   public deleteService = (serviceId: string): Observable<void> =>
     this.confirmationService.confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE').pipe(
