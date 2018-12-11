@@ -1,7 +1,7 @@
 // tslint:disable:max-file-line-count
 // tslint:disable:max-line-length
 import { IState, reducer } from './activities.reducer';
-import { ActivitiesApiActions, ActivitiesPageActions } from '../actions';
+import { ActivitiesApiActions, ActivitiesPageActions, ActivitiesActions } from '../actions';
 
 describe('activities.reducer', () => {
   const initialState: IState = {
@@ -23,7 +23,21 @@ describe('activities.reducer', () => {
       expect(result).toEqual(initialState);
     });
   });
-  describe('LoadExpertAllActivitiesSuccess', () => {
+  describe('LoadExpertActivitiesWithBalance', () => {
+    it('should start loading', () => {
+      const result_one = reducer(
+        { ...initialState, isLoaded: true },
+        new ActivitiesActions.LoadCompanyActivitiesWithBalanceAction(),
+      );
+      expect(result_one).toEqual(initialState);
+      const result_two = reducer(
+        { ...initialState, isLoaded: true },
+        new ActivitiesActions.LoadExpertActivitiesWithBalanceAction(),
+      );
+      expect(result_two).toEqual(initialState);
+    });
+  });
+  describe('LoadActivitiesWithImportantSuccessAction', () => {
     it('should populate values', () => {
       const payload = {
         importantActivitiesList: {
@@ -48,6 +62,26 @@ describe('activities.reducer', () => {
         currentOffset: 4,
         importantActivitiesShow: false,
         displayedImportantActivitiesIds: ['one', 'two'],
+        offsetIterator: 10,
+        importantActivitiesOffset: 3,
+      } as any);
+    });
+  });
+  describe('LoadActivitiesWithImportantFailureAction', () => {
+    it('should populate values', () => {
+      const result = reducer(
+        initialState,
+        new ActivitiesApiActions.LoadActivitiesWithImportantFailureAction(new Error('oups!')),
+      );
+      expect(result).toEqual({
+        importantActivitiesList: [],
+        importantActivitiesCount: 0,
+        activitiesList: [],
+        activitiesCount: 0,
+        isLoaded: true,
+        currentOffset: 0,
+        importantActivitiesShow: false,
+        displayedImportantActivitiesIds: [],
         offsetIterator: 10,
         importantActivitiesOffset: 3,
       } as any);
@@ -206,7 +240,6 @@ describe('activities.reducer', () => {
       } as any);
     });
   });
-
   describe('LoadExpertActivitySuccess', () => {
     it('should add activity to important list, and not change activitiesList', () => {
       const state = {

@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import * as fromActivities from '@platform/features/dashboard/views/activities/reducers';
 import { ActivitiesWsActions } from '@platform/features/dashboard/views/activities/actions';
 import { Logger } from '@platform/core/logger';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface IActivitiesData {
   importantActivitiesList: GetProfileActivities;
@@ -95,8 +96,8 @@ export class ActivitiesListService extends Logger {
   ): Observable<IActivitiesData> {
     return forkJoin([
       this.activitiesService.getOrganizationProfileImportantActivitiesRoute().pipe(
-        catchError(error => {
-          this.loggerService.warn(`Can not get company important activities view: ${error}`);
+        catchError((error: HttpErrorResponse) => {
+          this.loggerService.warn(`Can not get company important activities view: ${error.error.message}`);
 
           return throwError(error);
         }),
