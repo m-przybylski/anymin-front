@@ -16,7 +16,7 @@ import {
   EmployeesInviteModalComponent,
   IEmployeeInvitePayload,
 } from '../invitations/employees-invite/employees-invite.component';
-import { GetService, PostServiceInvitation, PutService, ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { GetInvitation, GetService, PutService, ServiceWithOwnerProfile } from '@anymind-ng/api';
 import { Logger } from '@platform/core/logger';
 import { CONSULTATION_DETAILS } from './create-edit-consultation';
 import { COMMISSION, ICommission } from '@platform/core/commission';
@@ -28,7 +28,7 @@ export interface ICreateEditConsultationPayload {
   isOwnerEmployee: boolean;
   serviceDetails?: ServiceWithOwnerProfile;
   tags?: ReadonlyArray<string>;
-  pendingInvitations?: PostServiceInvitation[];
+  pendingInvitations?: GetInvitation[];
 }
 
 @Component({
@@ -178,8 +178,6 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   });
 
   private getPutServiceModel = (): PutService => ({
-    // TODO remove invitations after https://anymind.atlassian.net/browse/PLAT-538
-    invitations: typeof this.payload.pendingInvitations !== 'undefined' ? this.payload.pendingInvitations : [],
     isOwnerEmployee: this.payload.isOwnerEmployee,
     name: this.formControls[this.nameControlName].value,
     description: this.formControls[this.descriptionControlName].value,

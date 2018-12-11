@@ -44,7 +44,7 @@ export class ActivityDetailsViewComponentService extends Logger {
           typeof callDetails.expertProfile.expertDetails !== 'undefined'
             ? callDetails.expertProfile.expertDetails.name
             : '',
-        financialOperation: callDetails.serviceUsageDetails.financialOperation,
+        financialOperation: callDetails.serviceUsageDetails.amount,
         rate: callDetails.rate,
         comment: this.getComment(callDetails),
       })),
