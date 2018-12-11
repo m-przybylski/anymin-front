@@ -244,17 +244,13 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     userId: string,
     getConsultationDetails: ICompanyConsultationDetails,
   ): IConsultationFooterData => ({
-    accountBalance: getConsultationDetails.balance,
-    defaultPayment: getConsultationDetails.payment,
+    defaultPaymentMethod: getConsultationDetails.defaultPaymentMethod,
     expertsIdList: getConsultationDetails.employeesList.map(employee => employee.id),
     isExpertAvailable: false,
     isFreelance: getConsultationDetails.serviceDetails.serviceDetails.isFreelance,
     ownerId: getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
-    price: {
-      grossPrice: getConsultationDetails.serviceDetails.serviceDetails.price,
-      // TODO FIX_NEW_FINANCE_MODEL
-      price: getConsultationDetails.serviceDetails.serviceDetails.price,
-    },
+    price: getConsultationDetails.serviceDetails.serviceDetails.price,
     userId,
+    creditCards: getConsultationDetails.creditCards,
   });
 }

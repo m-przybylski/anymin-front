@@ -110,8 +110,8 @@ describe('CompanyConsultationDetailsViewService', () => {
           employeeId: employmentWithExpertProfile.employeeProfile.id,
         },
       ],
-      payment: {},
-      balance: { amount: 0, currency: '' },
+      defaultPaymentMethod: {},
+      creditCards: [],
     };
 
     const expected = cold('--(a|)', { a: result });

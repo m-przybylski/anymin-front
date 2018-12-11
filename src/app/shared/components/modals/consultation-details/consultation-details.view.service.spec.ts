@@ -14,6 +14,7 @@ import {
   GetProfileWithDocuments,
   ExpertProfileView,
   GetServiceTags,
+  EmploymentWithExpertProfile,
 } from '@anymind-ng/api';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
@@ -23,6 +24,7 @@ import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { ConsultationFootersService } from './consultation-footers.service';
+import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 
 describe('ConsultationDetailsViewService', () => {
   let consultationDetailsViewService: ConsultationDetailsViewService;
@@ -77,26 +79,35 @@ describe('ConsultationDetailsViewService', () => {
               serviceId: 'serviceId1',
               employeeProfile: {
                 id: '123444',
+                name: 'asdasdasd',
+                avatar: 'asdasdasd',
+                description: 'adasdasd',
               },
+              vatRateType: VatRateTypeEnum.COMPANY0,
             },
             {
               id: 'employeeId2',
               serviceId: 'serviceId2',
               employeeProfile: {
                 id: '123445',
+                name: 'asdasdasd',
               },
+              vatRateType: VatRateTypeEnum.COMPANY0,
             },
             {
               id: 'employeeId3',
               serviceId: 'serviceId3',
               employeeProfile: {
                 id: '123446',
+                name: 'asdasdasd',
               },
+              vatRateType: VatRateTypeEnum.COMPANY0,
             },
           ] as any,
           serviceDetails: {
             id: serviceId,
             createdAt: new Date(),
+            vatRateType: VatRateTypeEnum.COMPANY0,
             description: 'jajaja',
             isFreelance: false,
             isSuspended: false,
@@ -159,14 +170,11 @@ describe('ConsultationDetailsViewService', () => {
         expertProfileViewDetails: expertProfileView,
         getServiceWithEmployees: getServiceWithEmployees[0],
         expertIds: ['123444', '123445', '123446'],
-        payment: {},
-        balance: {
-          amount: 0,
-          currency: '',
-        },
         employmentId: 'employmentId1',
         getComments,
-      } as any;
+        defaultPaymentMethod: {},
+        creditCards: [],
+      };
       serviceService.postServiceWithEmployeesRoute = jasmine
         .createSpy('postServiceWithEmployeesRoute')
         .and.returnValue(cold('a|', { a: getServiceWithEmployees }));

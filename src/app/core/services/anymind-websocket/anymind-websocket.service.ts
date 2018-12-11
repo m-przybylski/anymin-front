@@ -2,7 +2,7 @@
 // tslint:disable:max-file-line-count
 import { Injectable } from '@angular/core';
 import { LoggerFactory } from '@anymind-ng/core';
-import { Subject, ReplaySubject, Observable, interval, iif, of } from 'rxjs';
+import { Subject, ReplaySubject, Observable, interval, of, iif } from 'rxjs';
 import { switchMapTo, takeUntil, switchMap, first } from 'rxjs/operators';
 import { WebSocketService } from '../websocket/websocket.service.rxjs';
 import { WebSocketServiceFactory } from '../websocket/websocket.factory';

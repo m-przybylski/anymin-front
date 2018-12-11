@@ -20,7 +20,7 @@ export class ConsultationFooterLeaveComponent extends Logger implements IFooterO
   }
   public get grossPrice(): string {
     return (
-      this.moneyPipe.transform(this.data.price && this.data.price.grossPrice) ||
+      this.moneyPipe.transform(this.data.price && this.data.price) ||
       this.moneyPipe.transform({ amount: 0, currency: '' })
     );
   }
@@ -30,11 +30,11 @@ export class ConsultationFooterLeaveComponent extends Logger implements IFooterO
       this.moneyPipe.transform(
         this.data.price && {
           amount:
-            this.data.price.price.amount *
+            this.data.price.amount *
             (1 -
               (this.commissionConfig.freelanceConsultationAnyMindCommission +
                 this.commissionConfig.freelanceConsultationCompanyCommission)),
-          currency: this.data.price.price.currency,
+          currency: this.data.price.currency,
         },
       ) || this.moneyPipe.transform({ amount: 0, currency: '' })
     );

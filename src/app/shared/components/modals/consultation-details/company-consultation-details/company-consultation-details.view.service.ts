@@ -8,6 +8,7 @@ import {
   PaymentsService,
   GetServiceWithEmployees,
   GetDefaultPaymentMethod,
+  GetCreditCard,
 } from '@anymind-ng/api';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { map, switchMap, catchError } from 'rxjs/operators';
@@ -22,8 +23,8 @@ export interface ICompanyConsultationDetails {
   tagsList: ReadonlyArray<string>;
   serviceDetails: GetServiceWithEmployees;
   employeesList: ReadonlyArray<ICompanyEmployeeRowComponent>;
-  payment: GetDefaultPaymentMethod;
-  balance: { amount: number; currency: string };
+  defaultPaymentMethod: GetDefaultPaymentMethod;
+  creditCards: ReadonlyArray<GetCreditCard>;
 }
 
 @Injectable()
@@ -69,25 +70,26 @@ export class CompanyConsultationDetailsViewService extends Logger {
             .pipe(map(profileDetails => ({ getServiceWithEmployees, profileDetails }))),
         ),
       ),
-      // TODO FIX_NEW_FINANCE_MODEL
       this.paymentsService.getDefaultPaymentMethodRoute().pipe(
-        /**
-         * return {} object when error on the server
-         * error happens for not logged user 401 response.
-         * represents the same response as no default payment
-         */
-        catchError(() => of({})),
+        switchMap(defaultPaymentMethod =>
+          iif(
+            () => defaultPaymentMethod.creditCardId !== undefined,
+            forkJoin(of(defaultPaymentMethod), this.paymentsService.getCreditCardsRoute()),
+            forkJoin(of(defaultPaymentMethod), of([])),
+          ),
+        ),
+        catchError(() => forkJoin(of({}), of([]))),
       ),
     ).pipe(
       map(
-        ([tagsList, serviceDetails, payment]): ICompanyConsultationDetails => ({
+        ([tagsList, serviceDetails, payments]): ICompanyConsultationDetails => ({
           tagsList,
           serviceDetails: serviceDetails.getServiceWithEmployees,
           employeesList: serviceDetails.getServiceWithEmployees.employeesDetails.map(employee =>
             this.mapEmployeesList(employee),
           ),
-          payment,
-          balance: { amount: 0, currency: '' },
+          defaultPaymentMethod: payments[0],
+          creditCards: payments[1],
         }),
       ),
       catchError(error => {

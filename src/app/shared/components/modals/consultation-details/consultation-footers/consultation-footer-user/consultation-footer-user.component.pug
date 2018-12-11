@@ -12,18 +12,13 @@ plat-consultation-footer
       span
         p {{"CONSULTATION_DETAILS.FOOTER.NA_1" | translate}}
         p {{"CONSULTATION_DETAILS.FOOTER.NA_2" | translate}}
-    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.paymentCard')
-      span(plat-icon iconClass='payment-card')
-      p {{"CONSULTATION_DETAILS.FOOTER.CARD" |translate: {method: defaultPayment | creditCard} }}
-    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.paymentAnyMind')
-      span(plat-icon iconClass='wallet')
-      p
-        | {{"CONSULTATION_DETAILS.FOOTER.ACCOUNT" | translate }}
-        strong  AnyMind
-        | : {{ balance }} zł.
-        span.consultation-footer__duration
-          span(*ngIf='duration') {{"CONSULTATION_DETAILS.FOOTER.TALKLAST" | translate:{duration: duration} }}
-          a  {{"CONSULTATION_DETAILS.FOOTER.TOPUP" | translate}}
+    span.consultation-footer__card(*ngSwitchCase='middlePanelStatusTypes.paymentCard')
+      div
+        span(plat-icon iconClass='payment-card')
+        p {{"CONSULTATION_DETAILS.FOOTER.CARD" | translate: {card: card } }}
+      div
+        span(plat-icon iconClass='information-stroke')
+        p {{ invoiceTrKey | translate}}
   //right part of the screen
   .consultation-footer__right
     a(plat-large-icon-button, color='success', *ngIf="isExpertAvailable else offlineDesktop", (click)='onCall()')
