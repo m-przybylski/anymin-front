@@ -129,7 +129,7 @@ describe('ActivityDetailsViewComponentService', () => {
           amount: 123,
           currency: 'PLN',
         },
-        financialOperation: {
+        amount: {
           amount: 234,
           currency: 'PLN',
         },
@@ -237,7 +237,7 @@ describe('ActivityDetailsViewComponentService', () => {
           amount: 123,
           currency: 'PLN',
         },
-        financialOperation: {
+        amount: {
           amount: 234,
           currency: 'PLN',
         },

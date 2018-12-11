@@ -6,7 +6,7 @@ import {
   CompanyConsultationDetailsViewService,
   ICompanyConsultationDetails,
 } from './company-consultation-details.view.service';
-import { GetServiceWithEmployees, PostServiceInvitation } from '@anymind-ng/api';
+import { GetServiceWithEmployees } from '@anymind-ng/api';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Animations, LoggerFactory } from '@anymind-ng/core';
@@ -82,9 +82,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
   private userType: UserTypeEnum | undefined;
   private accountId: string;
   private destroyed$ = new Subject<void>();
-  // TODO remove this after https://anymind.atlassian.net/browse/PLAT-538
-  // tslint:disable-next-line:readonly-array
-  private pendingInvitations: PostServiceInvitation[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -173,16 +170,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
         avatar: item.avatar || '',
         employeeId: item.employeeId || '',
       }));
-      this.pendingInvitations = response.map(invitation => {
-        if (typeof invitation.msisdn !== 'undefined') {
-          return { msisdn: invitation.msisdn };
-        }
-        if (typeof invitation.email !== 'undefined') {
-          return { email: invitation.email };
-        }
-
-        return { accountId: invitation.invitedExpertAccountId };
-      });
       this.isPendingInvitationLoaded = false;
     });
   };
@@ -242,8 +229,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
               employee =>
                 employee.employeeProfile.id === getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
             ),
-            // todo delete this after https://anymind.atlassian.net/browse/PLAT-538
-            pendingInvitations: this.pendingInvitations,
           },
         };
         this.consultationDetailsActionsService[value].call(this.consultationDetailsActionsService, payload);
