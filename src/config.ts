@@ -180,4 +180,6 @@ export class Config {
     min: 50,
     max: 9900,
   };
+  public static readonly animationContentHeightTimeDuration = 300;
+
 }

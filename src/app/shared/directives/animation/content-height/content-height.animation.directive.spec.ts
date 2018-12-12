@@ -8,6 +8,7 @@ import { AnimationBuilder, AnimationFactory } from '@angular/animations';
 import { By } from '@angular/platform-browser';
 import { AnimationPlayer } from '@angular/animations/src/players/animation_player';
 import { BehaviorSubject } from 'rxjs';
+import { StickyModalFooterService } from '@platform/shared/components/modals/modal/animation/sticky-modal-footer.directive.service';
 
 @Component({
   template: `
@@ -34,6 +35,10 @@ describe('Directive: ContentHeightAnimateDirective', () => {
           provide: ElementRef,
           useValue: createSpyObj('ElementRef', ['element']),
         },
+        {
+          provide: StickyModalFooterService,
+          useValue: createSpyObj('StickyModalFooterService', ['onAnimationStart$']),
+        },
       ],
     });
   });
@@ -49,6 +54,7 @@ describe('Directive: ContentHeightAnimateDirective', () => {
       play: (): void => {},
       destroy: (): void => {},
       onDone: (): void => {},
+      onStart: (): void => {},
     };
 
     animationBuilder.build = (): AnimationFactory => ({

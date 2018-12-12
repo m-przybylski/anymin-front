@@ -1,5 +1,6 @@
 .modal-component
-  .modal-component__scroll(pinElement="modal-component__header")
+  .modal-component__scroll(pinElement="modal-component__header",
+    stickyModalFooter, [modalContentElement]="contentModalElement", [footerModalElement]="footerModalElement")
     .modal-component__container([ngClass]="setModalContainerWidth()")
       plat-modal-header(
       [titleTrHeader]="modalTrTitleHeader",
@@ -8,11 +9,11 @@
       (backwardClick)="onBackClick()"
       )
 
-      .modal-component__content(modalAnimationComponent)
+      .modal-component__content(modalAnimationComponent, #contentModalElement)
         .modal-component__content--loading(*ngIf="isLoading")
           span(plat-icon, iconClass='loading')
         div(contentHeightAnimation, *ngIf="!isLoading")
           ng-content
 
-      .modal-component__footer
+      .modal-component__footer(#footerModalElement)
         ng-content(select=".modal-footer")
