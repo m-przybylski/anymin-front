@@ -60,7 +60,11 @@ export class NavbarUserAvatarComponent {
           filter(event => !this.element.nativeElement.contains(event.target)),
           takeUntil(this.navbarMenuClose$),
         )
-        .subscribe(this.toggleMenuVisibility);
+        .subscribe(() => {
+          this.ngZone.run(() => {
+            this.toggleMenuVisibility();
+          });
+        });
     });
   };
 }

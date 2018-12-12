@@ -51,7 +51,9 @@ export class NavbarHelpComponent {
           takeUntil(this.navbarHelpMenuClose$),
         )
         .subscribe(() => {
-          this.toggleHelpMenuVisibility();
+          this.ngZone.run(() => {
+            this.toggleHelpMenuVisibility();
+          });
         });
     });
   };
