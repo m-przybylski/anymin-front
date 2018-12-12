@@ -1,0 +1,35 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "../../content-loader-default-variables"
+@import "../../../../../template/core/helpers/mixins"
+
+$s-title-width:               20%
+$s-subtitle-width:            40%
+
+.list-item-loader
+  +list-row
+  max-width: 840px
+  height: 88px
+
+  .content-loader
+    display: flex
+    align-items: center
+    height: 100%
+
+    &__title
+      height: $s-bar-height
+      width: $s-title-width
+      x: 0
+      y: 0
+
+    &__subtitle
+      display: block
+      width: $s-subtitle-width
+      height: $s-bar-height
+      y: calc(#{$s-bar-height} + #{$s-vertical-margin})
+      x: 0
+
+    &__button
+      x: calc(100% - #{$s-button-width})
+      width: $s-button-width
+      height: $s-bar-height
+      y: $s-vertical-margin

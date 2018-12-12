@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { SettingsViewComponent } from './settings.view.component';
 import { SharedModule } from '@platform/shared/shared.module';
 import { ButtonModule, IconModule } from '@platform/shared/components/atomic-components';
+import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ButtonModule, IconModule } from '@platform/shared/components/atomic-com
     SettingsComponentsModule,
     ButtonModule,
     IconModule,
+    ContentLoaderModule,
   ],
   exports: [],
   providers: [],

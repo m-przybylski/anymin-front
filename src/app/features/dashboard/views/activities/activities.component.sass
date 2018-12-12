@@ -65,7 +65,7 @@
       margin: 0 0 24px
 
     &__header
-      padding: 24px 8px 16px 8px
+      padding: 24px 8px 16px
       display: flex
       justify-content: space-between
 
@@ -91,15 +91,15 @@
 
   .all-list
     &__header
-      padding: 0 8px 16px 8px
+      padding: 24px 8px 16px
       display: flex
       justify-content: space-between
 
       +smm
-        padding: 0 16px 24px 16px
+        padding: 24px 16px
 
       +mdm
-        padding: 0 24px 24px 24px
+        padding: 24px
 
       > span
         +button-small
@@ -134,3 +134,14 @@
     max-height: 88px
     min-height: 88px
     padding: 32px 24px
+
+.activity-loader-list
+  &__item
+    width: 100%
+    background: $c-half-white
+    border-radius: 4px
+    min-height: 128px
+
+    +mdm
+      max-height: 88px
+      min-height: 88px

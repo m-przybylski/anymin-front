@@ -1,15 +1,10 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
-
+@import "../../../../../../../template/core/helpers/mixins"
 \:host
   display: block
 
 .setting-option
-  padding: 20px 24px
-  background-color: $c-white
-  display: flex
-  justify-content: space-between
-  align-items: center
-  border-radius: 4px
+  +option-row
   max-width: 840px
 
   &__left

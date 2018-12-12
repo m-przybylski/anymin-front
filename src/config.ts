@@ -172,4 +172,5 @@ export class Config {
   };
 
   public static readonly moneyDivider = 100;
+  public static readonly contentLoaderDelayMilliseconds = 350;
 }
