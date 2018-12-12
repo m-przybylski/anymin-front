@@ -1,5 +1,5 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
-@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "~@anymind-ng/core/src/template/stylesheets/interface/input/input-containers"
 
 .pin-code-view
   .send-again
@@ -14,3 +14,7 @@
       +button-small
       font-weight: 500
       color: $c-primary
+
+  form
+    > am-core-submit-button
+      margin: 16px 0 0

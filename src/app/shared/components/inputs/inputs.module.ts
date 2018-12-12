@@ -6,9 +6,18 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AnymindComponentsModule } from '@anymind-ng/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonModule, IconModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, AnymindComponentsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AnymindComponentsModule,
+    TranslateModule,
+    ButtonModule,
+    IconModule,
+  ],
   exports: [InputSwitchComponent, InputSetPasswordComponent, InputAddItemComponent],
   declarations: [InputSwitchComponent, InputSetPasswordComponent, InputAddItemComponent],
   providers: [],

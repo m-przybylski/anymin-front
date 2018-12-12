@@ -17,11 +17,9 @@
       .drag-and-drop__title
         span.icon.icon-upload-files
         p([translate]="'FILE_UPLOADER.DRAG_AND_DROP.TITLE'")
-        a.button.button--tertiary(
-          [ngClass]="{'button--tertiary--disabled': isDisabled}",
-          (click)="inputFile.click()"
-        )
-          span([translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'")
+
+        a.button-mobile(plat-stroked-button, [ngClass]="{'button--tertiary--disabled': isDisabled}",
+          (click)="inputFile.click()", [translate]="'FILE_UPLOADER.DRAG_AND_DROP.BUTTON'")
 
     .drag-and-drop__counter
       span.counter__length {{ validUserFilesCounter }}

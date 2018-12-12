@@ -25,82 +25,92 @@ $s-title-cell-position: calc(#{$s-horizontal-margin} + #{$s-thumb-width})
 $s-short-desc-cell-position: calc(#{$s-title-cell-position} + #{$s-title-width} + #{$s-horizontal-margin-big})
 $s-long-desc-cell-position: calc(#{$s-short-desc-cell-position} + #{$s-description-short-width} + #{$s-horizontal-margin-big})
 
-svg
-  height: 100%
-  width: 100%
-
-  rect
-    height: inherit
-    width: 100%
-
-.content-loader
+plat-content-loader
   display: block
   width: 100%
   height: 100%
 
-  &__thumb
-    width: $s-thumb-width
-    height: $s-thumb-width
-    x: 0
-    y: 0
+.content-loader-continer
+  height: 100%
+  width: 100%
+  display: block
 
-  &__title
-    width: $s-description-long-width
-    height: $s-bar-height
-    x: $s-title-cell-position
-    y: $s-vertical-margin
+  svg
+    height: 100%
+    width: 100%
 
-    +mdm
-      width: $s-title-width
+    rect
+      height: inherit
+      width: 100%
+
+  .content-loader
+    display: block
+    width: 100%
+    height: 100%
+
+    &__thumb
+      width: $s-thumb-width
+      height: $s-thumb-width
+      x: 0
       y: 0
 
-  &__subtitle
-    display: none
-
-    +mdm
-      display: block
-      width: $s-subtitle-width
+    &__title
+      width: $s-description-long-width
       height: $s-bar-height
-      y: calc(#{$s-bar-height} + #{$s-vertical-margin})
       x: $s-title-cell-position
+      y: $s-vertical-margin
 
-  &__description
-    height: $s-bar-height
+      +mdm
+        width: $s-title-width
+        y: 0
 
-    &--long
-      width: calc(100% - #{$s-horizontal-margin} - #{$s-thumb-width})
-      y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big})
-      x: $s-title-cell-position
+    &__subtitle
+      display: none
 
-      +smm
-        width: calc(#{$s-description-long-width} * 2)
+      +mdm
+        display: block
+        width: $s-subtitle-width
+        height: $s-bar-height
+        y: calc(#{$s-bar-height} + #{$s-vertical-margin})
+        x: $s-title-cell-position
+
+    &__description
+      height: $s-bar-height
+
+      &--long
+        width: calc(100% - #{$s-horizontal-margin} - #{$s-thumb-width})
         y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big})
         x: $s-title-cell-position
 
-      +mdm
-        width: $s-description-long-width
-        y: $s-vertical-margin
-        x: $s-long-desc-cell-position
+        +smm
+          width: calc(#{$s-description-long-width} * 2)
+          y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big})
+          x: $s-title-cell-position
 
-    &--short
-      width: $s-description-short-width
-      y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big} + #{$s-bar-height} + #{$s-vertical-margin-big})
-      x: $s-title-cell-position
+        +mdm
+          width: $s-description-long-width
+          y: $s-vertical-margin
+          x: $s-long-desc-cell-position
 
-      +smm
-        width: calc(#{$s-button-width} + #{$s-vertical-margin})
-
-      +mdm
-        y: $s-vertical-margin
-        x: $s-short-desc-cell-position
+      &--short
         width: $s-description-short-width
+        y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big} + #{$s-bar-height} + #{$s-vertical-margin-big})
+        x: $s-title-cell-position
 
-  &__button
-    y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big} + #{$s-bar-height} + #{$s-vertical-margin-big})
-    x: calc(100% - #{$s-button-width})
-    width: $s-button-width
-    height: $s-bar-height
+        +smm
+          width: calc(#{$s-button-width} + #{$s-vertical-margin})
 
-    +mdm
-      y: $s-vertical-margin
+        +mdm
+          y: $s-vertical-margin
+          x: $s-short-desc-cell-position
+          width: $s-description-short-width
+
+    &__button
+      y: calc(#{$s-vertical-margin} + #{$s-bar-height} + #{$s-vertical-margin-big} + #{$s-bar-height} + #{$s-vertical-margin-big})
+      x: calc(100% - #{$s-button-width})
+      width: $s-button-width
+      height: $s-bar-height
+
+      +mdm
+        y: $s-vertical-margin
 

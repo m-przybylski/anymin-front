@@ -1,0 +1,28 @@
+@import "../../core/core"
+
+.container
+  +make-container
+
+.mobile-hidden
+  display: none
+
+  +lgm
+    display: inline
+
+.desktop-hidden
+  +lgm
+    display: none
+
+.smm-only
+  +smm
+    display: none
+
+.xsm-hidden
+  display: none !important
+
+  +smm
+    display: inherit !important
+
+.xsm-only
+  +smm
+    display: none !important

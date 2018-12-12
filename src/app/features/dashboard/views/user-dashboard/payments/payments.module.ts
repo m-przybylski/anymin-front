@@ -11,6 +11,7 @@ import { PaymentsResolver } from '@platform/features/dashboard/views/user-dashbo
 import { PayPalAccountComponent } from '@platform/features/dashboard/views/user-dashboard/payments/components/payout-method/components/paypal-account/paypal-account.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { CompanyInvoiceDetailsComponent } from './components/invoice-details/components/company-invoice-details/company-invoice-details.component';
+import { ButtonModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { CompanyInvoiceDetailsComponent } from './components/invoice-details/com
       },
     ]),
     TranslateModule,
+    ButtonModule,
   ],
   exports: [],
   providers: [PaymentsResolver],

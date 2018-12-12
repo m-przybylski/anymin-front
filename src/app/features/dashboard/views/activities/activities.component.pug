@@ -44,8 +44,8 @@
             (activityRowClicked)="onActivityRowClicked(profileActivity.activity, profileActivity.isImportant)",
             )
       .bottom
-        a.button.button--tertiary.button--small((click)="loadMore()",
-        *ngIf="isMoreActivity$ | async") {{"EXPERT_ACTIVITIES.LOAD_MORE" | translate}}
+        button.button-mobile(plat-stroked-button, *ngIf="isMoreActivity$ | async", (click)="loadMore()")
+          span {{ 'EXPERT_ACTIVITIES.LOAD_MORE' | translate }}
 
 ng-template(#loader)
   .container

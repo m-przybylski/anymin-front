@@ -17,10 +17,10 @@ import { UserAvatarModule } from '../../user-avatar/user-avatar.module';
 import { CommonModule } from '@angular/common';
 import { ProfileLinksComponentService } from '@platform/shared/components/modals/profile/components/profile-links/profile-links.component.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IconModule } from '@platform/shared/components/atomic-components';
+import { IconModule, ButtonModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
-  imports: [CommonModule, ModalsModule, InputsModule, UserAvatarModule, ReactiveFormsModule, IconModule],
+  imports: [CommonModule, ModalsModule, InputsModule, UserAvatarModule, ReactiveFormsModule, IconModule, ButtonModule],
   entryComponents: [CreateProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
   providers: [
     CreateProfileModalComponentService,

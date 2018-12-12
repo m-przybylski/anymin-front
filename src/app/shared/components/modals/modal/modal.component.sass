@@ -1,6 +1,5 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
-@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
-@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/animations"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "~@anymind-ng/core/src/template/stylesheets/interface/animations/animations"
 @import "../../../../template/core/core"
 
 .modal-component
@@ -17,6 +16,9 @@
     overflow: auto
     max-height: 100vh
     width: 100vw
+
+    +smm
+      padding: 48px 24px
 
     +mdm
       padding: 48px 0
@@ -125,7 +127,7 @@
         width: $s-modal-container-medium
 
     &--small
-      +xsm
+      +smm
         width: $s-modal-container-small
 
     &--no-padding
