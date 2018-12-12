@@ -1,14 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'plat-content-loader',
-  templateUrl: 'content-loader.component.html',
+  templateUrl: './content-loader.component.html',
+  styleUrls: ['./content-loader.component.sass'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ContentLoaderComponent implements OnInit {
-  @Input()
-  public width = 400;
-  @Input()
-  public height = 130;
   @Input()
   public speed = 2;
   @Input()
@@ -24,22 +22,15 @@ export class ContentLoaderComponent implements OnInit {
   public gradientY2: string;
   public attrToAnimate: 'x' | 'y';
   public orientation: 'portrait' | 'landscape';
-
   private readonly hundred = 100;
 
+  constructor(private element: ElementRef) {}
+
   public ngOnInit(): void {
-    const ratio = `${(this.hundred / Math.max(this.width, this.height)) * Math.min(this.width, this.height)}%`;
-    if (this.width > this.height) {
-      this.orientation = 'landscape';
-      this.gradientX2 = '100%';
-      this.gradientY2 = ratio;
-      this.attrToAnimate = 'x';
-    } else {
-      this.orientation = 'portrait';
-      this.gradientY2 = '100%';
-      this.gradientX2 = ratio;
-      this.attrToAnimate = 'y';
-    }
+    this.calculateAttrSvgGradientAnimation({
+      width: this.element.nativeElement.clientWidth,
+      height: this.element.nativeElement.clientHeight,
+    });
   }
 
   public get fillStyle(): { fill: string } {
@@ -50,6 +41,23 @@ export class ContentLoaderComponent implements OnInit {
 
   public get clipStyle(): string {
     return `url(${window.location.href}#${this.clipId})`;
+  }
+
+  private calculateAttrSvgGradientAnimation(sizes: IContentLoaderSize): void {
+    const rectSidesRatio = `${(this.hundred / Math.max(sizes.width, sizes.height)) *
+      Math.min(sizes.width, sizes.height)}%`;
+
+    if (sizes.width > sizes.height) {
+      this.orientation = 'landscape';
+      this.gradientX2 = '100%';
+      this.gradientY2 = rectSidesRatio;
+      this.attrToAnimate = 'x';
+    } else {
+      this.orientation = 'portrait';
+      this.gradientY2 = '100%';
+      this.gradientX2 = rectSidesRatio;
+      this.attrToAnimate = 'y';
+    }
   }
 
   /**
@@ -63,4 +71,9 @@ export class ContentLoaderComponent implements OnInit {
       .toString(32)
       .substring(2);
   }
+}
+
+export interface IContentLoaderSize {
+  width: number;
+  height: number;
 }

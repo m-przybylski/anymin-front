@@ -9,6 +9,8 @@ import * as fromCore from '@platform/core/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { delay } from 'rxjs/operators';
+import { Config } from '../../../../../../config';
 
 @Component({
   selector: 'plat-settings',
@@ -21,7 +23,7 @@ export class SettingsViewComponent implements OnInit {
   constructor(private ngbModalService: NgbModal, private store: Store<fromCore.IState>) {}
 
   public ngOnInit(): void {
-    this.session$ = getNotUndefinedSession(this.store);
+    this.session$ = getNotUndefinedSession(this.store).pipe(delay(Config.contentLoaderDelayMilliseconds));
   }
 
   public openChangeNumberModal = (): void => {
