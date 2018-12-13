@@ -1,118 +1,83 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { DefaultConsultationPriceService } from './consulatation-price-services/default-consultation-price.service';
-import { FreelanceConsultationPriceService } from './consulatation-price-services/freelance-consultation-price.service';
-import { IConsultationPriceComponentService } from './consulatation-price-services/consultation-price-component-service.interface';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ConsultationPriceComponentService } from './consultation-price.component.service';
+import { Config } from '../../../../config';
 
 @Component({
   selector: 'plat-consultation-price',
   templateUrl: './consultation-price.component.html',
   styleUrls: ['./consultation-price.component.sass'],
+  providers: [ConsultationPriceComponentService],
 })
-export class ConsultationPriceComponent implements OnInit {
+export class ConsultationPriceComponent implements AfterViewInit {
   @Input()
-  public labelWithoutCommission: string;
-
-  @Input()
-  public withoutCommissionControlName: string;
-
-  @Input()
-  public nettControlName: string;
+  public priceControlName: string;
 
   @Input()
   public form: FormGroup;
 
   @Input()
-  public isRequired = false;
-
-  @Input()
   public isDisabled = false;
 
   @Input()
-  public taxValue = 0.23;
-
-  @Input()
-  public commission = 0;
+  public isCompanyService = false;
 
   @Input()
   public set isFreelanceService(isFreelance: boolean) {
     this._isFreelanceService = isFreelance;
-    if (isFreelance) {
-      this.consultationPriceComponentService = new FreelanceConsultationPriceService(this.taxValue, this.commission);
-      this.assignValidationValues();
-    } else {
-      this.consultationPriceComponentService = new DefaultConsultationPriceService(this.taxValue, this.commission);
-      this.assignValidationValues();
+    this.anyMindCommissionForUI = this.consultationPriceComponentService.getAnyMindCommission(isFreelance);
+    if (this.isFormControlValue()) {
+      /**
+       * Value of priceControl is string
+       * so we have to convert it to number
+       */
+      this.onInputPriceChange(Number(this.form.controls[this.priceControlName].value.replace(',', '.')));
     }
+  }
+
+  public get isFreelanceService(): boolean {
+    return this._isFreelanceService;
   }
 
   @Input()
-  public set nettPrice(value: number | undefined) {
+  public set consultationPrice(value: number | undefined) {
     if (typeof value !== 'undefined') {
-      setTimeout(() => {
-        this.calculatePriceWithoutCommission(value);
-      });
+      const price = value / Config.moneyDivider;
+      this.form.controls[this.priceControlName].setValue(
+        this.consultationPriceComponentService.createInputPriceModel(price),
+      );
+      this.onInputPriceChange(price);
     }
   }
 
-  public minValidPriceWithoutCommission: number;
-  public maxValidPriceWithoutCommission: number;
-  public _isFreelanceService: boolean;
+  public readonly minValidPrice = Config.consultationPriceValidationValues.min;
+  public readonly maxValidPrice = Config.consultationPriceValidationValues.max;
+  public priceAfterAnyMindCommission: string;
+  public anyMindCommissionForUI: string;
+  public freelancerProfit: string;
 
-  private readonly lastButOneIndex = 2;
-  private consultationPriceComponentService: IConsultationPriceComponentService;
+  private _isFreelanceService: boolean;
 
-  public ngOnInit(): void {
-    this.form.addControl(this.nettControlName, new FormControl());
+  constructor(private consultationPriceComponentService: ConsultationPriceComponentService) {}
+
+  public ngAfterViewInit(): void {
+    if (this.isFormControlValue()) {
+      this.onInputPriceChange(Number(this.form.controls[this.priceControlName].value.replace(',', '.')));
+    }
   }
 
-  public calculateGrossPrice = (inputValue: number): void => {
-    if (this.isFormControlValid(this.withoutCommissionControlName)) {
-      this.form.controls[this.nettControlName].setValue(
-        this.consultationPriceComponentService.getNettPrice(inputValue),
-      );
-    } else {
-      this.displayFormControlError(this.withoutCommissionControlName);
-      this.form.controls[this.nettControlName].setValue('');
+  public onInputPriceChange = (inputValue: number): void => {
+    this.priceAfterAnyMindCommission = this.consultationPriceComponentService.getPriceAfterAnyMindCommission(
+      inputValue,
+      this.isFreelanceService,
+    );
+
+    if (this.isFreelanceService) {
+      this.freelancerProfit = this.consultationPriceComponentService.getFreelancerProfit(inputValue);
     }
   };
 
-  public calculatePriceWithoutCommission = (inputValue: number): void => {
-    if (this._isFreelanceService && this.isFormControlValid(this.nettControlName)) {
-      const priceWithoutCommission = this.consultationPriceComponentService.getPriceWithoutCommission(inputValue);
-      this.form.controls[this.withoutCommissionControlName].setValue(
-        this.createInputPriceModel(priceWithoutCommission),
-      );
-
-      return;
-    }
-
-    if (!this._isFreelanceService && this.isFormControlValid(this.nettControlName)) {
-      this.form.controls[this.withoutCommissionControlName].setValue(this.createInputPriceModel(inputValue));
-
-      return;
-    }
-  };
-
-  private createInputPriceModel = (value: number): string => {
-    const stringVal = value.toString().replace('.', ',');
-    if (stringVal.indexOf(',') === stringVal.length - 1 || stringVal.indexOf(',') === -1) {
-      return `${stringVal},00`;
-    } else if (stringVal.indexOf(',') === stringVal.length - this.lastButOneIndex) {
-      return `${stringVal}0`;
-    }
-
-    return stringVal;
-  };
-
-  private isFormControlValid = (controlName: string): boolean => this.form.controls[controlName].valid;
-
-  private displayFormControlError = (controlName: string): void => {
-    this.form.controls[controlName].markAsTouched();
-  };
-
-  private assignValidationValues = (): void => {
-    this.minValidPriceWithoutCommission = this.consultationPriceComponentService.getMinValidPriceWithoutCommission();
-    this.maxValidPriceWithoutCommission = this.consultationPriceComponentService.getMaxValidPriceWithoutCommission();
-  };
+  private isFormControlValue(): boolean {
+    return this.form.contains(this.priceControlName) && this.form.controls[this.priceControlName].value !== null;
+  }
 }

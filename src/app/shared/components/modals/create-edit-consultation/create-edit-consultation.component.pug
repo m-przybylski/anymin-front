@@ -5,10 +5,10 @@ plat-modal-component(
     form(
     contentHeightAnimation,
     [id]="formId",
-    [formGroup]="createConsultationForm",
+    [formGroup]="consultationForm",
     novalidate
     )
-      div(*ngIf="!payload.isExpertConsultation")
+      div(*ngIf="isCompanyService")
         header.modal-component__content__header
           span([translate]="'CREATE_COMPANY_CONSULTATION.CONSULTATION_TYPE_SECTION.TITLE'")
 
@@ -49,7 +49,7 @@ plat-modal-component(
         [maxLength]="maxValidNameLength",
         [controlName]="nameControlName",
         [isDisabled]="isRequestPending",
-        [form]="createConsultationForm",
+        [form]="consultationForm",
         [initialFocus]="true",
         [errorTextKey]="'CREATE_EXPERT_CONSULTATION.MAIN_DATA_SECTION.NAME_LENGTH_ERROR'"
         )
@@ -62,7 +62,7 @@ plat-modal-component(
         [minLength]="minValidDescriptionLength",
         [maxLength]="maxValidDescriptionLength",
         [controlName]="descriptionControlName",
-        [form]="createConsultationForm",
+        [form]="consultationForm",
         [isDisabled]="isRequestPending",
         [errorTextKey]="'CREATE_EXPERT_CONSULTATION.MAIN_DATA_SECTION.DESCRIPTION_LENGTH_ERROR'"
         )
@@ -78,7 +78,7 @@ plat-modal-component(
         [label]="'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.TAGS_LABEL'",
         [placeholder]="'CREATE_EXPERT_CONSULTATION.CONSULTATION_SECTION.TAGS_PLACEHOLDER'",
         [isRequired]="true",
-        [form]="createConsultationForm",
+        [form]="consultationForm",
         [controlName]="tagControlName",
         [descriptionControlName]="descriptionControlName",
         [nameControlName]="nameControlName",
@@ -95,23 +95,13 @@ plat-modal-component(
         )
 
       plat-consultation-price(
-      [labelWithoutCommission]="labelTrKey",
-      [isRequired]="true",
-      [form]="createConsultationForm",
-      [withoutCommissionControlName]="priceWithoutCommissionControlName",
-      [nettControlName]="nettPriceControlName",
-      [isDisabled]="isRequestPending",
-      [commission]="totalCommission",
-      [nettPrice]="nettPrice",
-      [isFreelanceService]="isFreelance"
+        [form]="consultationForm",
+        [priceControlName]="priceControlName",
+        [isDisabled]="isRequestPending",
+        [consultationPrice]="consultationPrice",
+        [isFreelanceService]="isFreelance",
+        [isCompanyService]="isCompanyService",
       )
-
-      .modal-form__row.calculation-data
-        p.calculation-data__title {{ 'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.COMMISSION.TITLE' | translate }}
-          span.calculation-data__value {{ getCommissionValueForUI() }}
-
-        p.calculation-data__title(*ngIf="isFreelance") {{ 'CREATE_COMPANY_CONSULTATION.PRICE_SECTION.YOUR_PROFIT.TITLE' | translate }}
-          span.calculation-data__value {{ getCompanyProfitForUI() }}
 
       .create-consultation__submit-button-container
         a.create-consultation__remove-consultation(

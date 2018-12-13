@@ -1,9 +1,6 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
 
 .consultation-price
-  display: flex
-  flex-wrap: wrap
-
   .input-container
     display: flex
     width: 100%
@@ -41,4 +38,17 @@
         +h5
         font-weight: 300
         color: $c-placeholder
+
+  .calculation-data
+    margin: 8px 0 48px
+
+    &__title
+      +subtitle
+      color: $c-label
+
+    &__value
+      +subtitle
+      color: $c-text-primary
+      font-weight: 500
+      margin: 0 0 0 4px
 
