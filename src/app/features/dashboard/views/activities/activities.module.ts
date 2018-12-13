@@ -12,6 +12,7 @@ import { ActivitiesEffects } from '@platform/features/dashboard/views/activities
 import { reducers } from '@platform/features/dashboard/views/activities/reducers';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { IconModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
     ActivitiesCounterModule,
     StoreModule.forFeature('activities', reducers),
     EffectsModule.forFeature([ActivitiesEffects]),
+    IconModule,
   ],
   declarations: [ActivitiesComponent],
   exports: [ActivitiesComponent],

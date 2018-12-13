@@ -1,32 +1,80 @@
-@import "~@anymind-ng/core/src/template/stylesheets/stylesheets"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
 
 .activities
-  padding: 24px 0 0
+  padding: 16px 0 0
   background: $c-base-background
 
   +smm
     padding: 32px 0 0
 
-  &__profit
-    text-align: center
+  &__profit-container
+    overflow-y: hidden
+    overflow-x: scroll
+    display: flex
 
-    > span
-      display: block
+    +lgm
+      overflow: hidden
+
+  &__profit
+    background: $c-white
+    height: 88px
+    min-width: 272px
+    margin: 0 8px
+    padding: 16px
+    border-radius: 4px
+
+    +smm
+      height: 110px
+      min-width: 320px
+      margin: 0 12px
+
+      &:first-child
+        margin: 0 12px 0 0
+
+    +lgm
+      height: 116px
+      min-width: 384px
+
+    &--split
+      display: flex
+
+    &__container
+      display: flex
+      justify-content: center
+      text-align: center
+      flex-wrap: wrap
+      width: 50%
+
+      &:first-child
+        border-right: 1px solid $c-lines
+
+      >p
+        +h6
+        font-weight: 500
+        color: $c-text-primary
+        padding: 2px 0 0
 
     &__header
+      display: flex
+      align-items: center
+
+    &__label
       +label
       font-weight: 500
       text-transform: uppercase
       color: $c-label
+      margin: 0 4px 0 0
 
     &__money
-      +h3
-      font-weight: 300
+      +h4
+      font-weight: 500
       color: $c-text-primary
 
       +smm
+        +h3
+
+      +lgm
         +h2
-        font-weight: 300
 
   .non-activities
     margin: 64px 0
@@ -65,12 +113,12 @@
       margin: 0 0 24px
 
     &__header
-      padding: 24px 8px 16px
+      padding: 16px 8px
       display: flex
       justify-content: space-between
 
       +smm
-        padding: 24px 16px
+        padding: 24px 0
 
       +mdm
         padding: 24px
@@ -89,14 +137,23 @@
     li
       margin: 0 0 4px 0
 
+    &__container
+      margin: 0 -4px
+
+      +smm
+        margin: 0 -16px
+
+      +lgm
+        margin: 0
+
   .all-list
     &__header
-      padding: 24px 8px 16px
+      padding: 16px 8px
       display: flex
       justify-content: space-between
 
       +smm
-        padding: 24px 16px
+        padding: 24px 0
 
       +mdm
         padding: 24px
@@ -113,6 +170,26 @@
 
     li
       margin: 0 0 4px 0
+
+    &__container
+      margin: 0 -4px
+
+      +smm
+        margin: 0 -16px
+
+      +lgm
+        margin: 0
+
+    &__filter
+      display: none
+      align-items: center
+      justify-content: space-around
+
+      +lgm
+        display: flex
+
+      >span
+        padding: 0 4px
 
   .bottom
     display: flex

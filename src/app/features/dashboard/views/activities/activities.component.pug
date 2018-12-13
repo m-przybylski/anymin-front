@@ -1,8 +1,30 @@
 .activities(*ngIf="profileActivities$ | async as profileActivities")
   .container(*ngIf="isLoaded$ | async; else loader")
-    .activities__profit
-      span.activities__profit__header {{ "EXPERT_ACTIVITIES.PROFIT_HEADER" | translate }}
-      span.activities__profit__money(*ngIf="(balance$ | async) as balance") {{ balance.amount | currency: balance.currency:'symbol-narrow' }}
+    .activities__profit-container
+      .activities__profit
+        .activities__profit__header
+          span.activities__profit__label {{ "ACTIVITIES.PROFIT_HEADER" | translate }}
+          am-core-tooltip(
+          [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
+          )
+        p.activities__profit__money {{ 123 | currency:'PLN':'symbol-narrow' }}
+
+      .activities__profit
+        .activities__profit__header
+            span.activities__profit__label {{ "ACTIVITIES.BLOCKED_PROFIT_HEADER" | translate }}
+            am-core-tooltip(
+            [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
+            )
+        p.activities__profit__money {{ 123 | currency:'PLN':'symbol-narrow' }}
+
+      .activities__profit.activities__profit--split
+        .activities__profit__container
+          span.activities__profit__label {{ "ACTIVITIES.WORKERS_PROFIT_HEADER" | translate }}
+          p {{ 123 | currency:'PLN':'symbol-narrow' }}
+
+        .activities__profit__container
+          span.activities__profit__label {{ "ACTIVITIES.FREELANCE_PROFIT_HEADER" | translate }}
+          p {{ 123 | currency:'PLN':'symbol-narrow' }}
 
     .non-activities(*ngIf="!profileActivities.length")
       am-core-image-display.non-activities__image(imgName="activities")
@@ -32,7 +54,9 @@
       .all-list
         .all-list__header
           span {{"EXPERT_ACTIVITIES.ALL_LIST_COUNTER_TITLE" | translate}}
-          a([hidden]="true") {{ "EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS" | translate }}
+          a.all-list__filter
+            span(plat-icon, iconClass="filters")
+            span {{ "EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS" | translate }}
 
         ul.all-list__container
           li(*ngFor='let profileActivity of profileActivities; trackBy:trackByActivities', [@animation])
