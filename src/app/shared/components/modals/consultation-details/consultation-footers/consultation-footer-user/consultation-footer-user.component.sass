@@ -17,6 +17,20 @@
     &-currency
       color: $c-half-white
 
+  &__card
+    padding: 0 10px 0 0
+    display: block
+
+    > div
+      display: flex
+      align-items: center
+
+    span
+      margin: 0 12px 0 0
+
+    p
+     +caption
+
   &__text
     display: inline-flex
     align-items: center
@@ -30,6 +44,7 @@
 
       strong
         font-weight: 700
+
       a
         +caption
         color: $c-white

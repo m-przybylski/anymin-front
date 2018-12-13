@@ -1,8 +1,9 @@
 // tslint:disable:max-line-length
 // tslint:disable:max-file-line-count
-import { ExpertProfileView, GetProfileWithDocuments } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, ExpertProfileView, GetProfileWithDocuments } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 import { IExpertProfile } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard-resolver.service';
+import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 
 export const expertProfileView: ExpertProfileView = {
   expertProfile: {
@@ -17,8 +18,10 @@ export const expertProfileView: ExpertProfileView = {
     {
       id: '6c693138-b53d-4c49-bec1-f587e7a6ff77',
       ratingCounter: 2,
+      vatRateType: VatRateTypeEnum.COMPANY0,
       serviceDetails: {
         id: '75d15bc1-0520-43af-9180-b538e5e4f8f3',
+        vatRateType: VatRateTypeEnum.COMPANY0,
         ownerProfile: {
           id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
           isActive: true,
@@ -58,8 +61,10 @@ export const expertProfileView: ExpertProfileView = {
     {
       id: 'f7c0982e-7d79-40f0-ac5c-138c554f68fd',
       ratingCounter: 2,
+      vatRateType: VatRateTypeEnum.COMPANY0,
       serviceDetails: {
         id: '02927c7d-53b3-4294-9a11-9c288640c22b',
+        vatRateType: VatRateTypeEnum.COMPANY0,
         ownerProfile: {
           id: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
           isActive: true,
@@ -166,8 +171,10 @@ export const expertProfileView1: ExpertProfileView = {
     {
       id: '6c693138-b53d-4c49-bec1-f587e7a6ff77',
       ratingCounter: 2,
+      vatRateType: VatRateTypeEnum.COMPANY0,
       serviceDetails: {
         id: '75d15bc1-0520-43af-9180-b538e5e4f8f3',
+        vatRateType: VatRateTypeEnum.COMPANY0,
         ownerProfile: {
           id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
           isActive: true,
@@ -208,8 +215,10 @@ export const expertProfileView1: ExpertProfileView = {
     {
       id: 'f7c0982e-7d79-40f0-ac5c-138c554f68fd',
       ratingCounter: 2,
+      vatRateType: VatRateTypeEnum.COMPANY0,
       serviceDetails: {
         id: '02927c7d-53b3-4294-9a11-9c288640c22b',
+        vatRateType: VatRateTypeEnum.COMPANY0,
         ownerProfile: {
           id: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
           isActive: true,
@@ -263,8 +272,10 @@ export const expertProfileViewResult1: IExpertCompanyDashboardResolverData<IExpe
         {
           id: 'f7c0982e-7d79-40f0-ac5c-138c554f68fd',
           ratingCounter: 2,
+          vatRateType: VatRateTypeEnum.COMPANY0,
           serviceDetails: {
             id: '02927c7d-53b3-4294-9a11-9c288640c22b',
+            vatRateType: VatRateTypeEnum.COMPANY0,
             ownerProfile: {
               id: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
               isActive: true,

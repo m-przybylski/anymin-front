@@ -8,12 +8,13 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
-import { GetDefaultPaymentMethod } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, GetDefaultPaymentMethod } from '@anymind-ng/api';
+import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 
 export enum MiddlePanelStatusTypes {
   freeMinute,
   paymentCard,
-  paymentAnyMind,
+  promoCode,
   notAvailable,
 }
 
@@ -25,32 +26,17 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
     return this._actionTaken$.asObservable();
   }
+
   public get grossPrice(): string {
-    return (
-      this.moneyPipe.transform(this.data.price && this.data.price.grossPrice) ||
-      this.moneyPipe.transform({ amount: 0, currency: '' })
-    );
+    return this.moneyPipe.transform(this.data.price) || this.moneyPipe.transform({ amount: 0, currency: '' });
   }
 
   public get isExpertAvailable(): boolean {
     return this.data.userId === undefined || this.data.isExpertAvailable;
   }
 
-  public get balance(): string {
-    return this.moneyPipe.transform(this.data.accountBalance);
-  }
-
-  public get duration(): number {
-    const grossPrice = (this.data.price && this.data.price.grossPrice.amount) || 0;
-    if (grossPrice === 0) {
-      return 0;
-    }
-
-    return Math.round(this.data.accountBalance.amount / grossPrice);
-  }
-
   public get defaultPayment(): GetDefaultPaymentMethod {
-    return this.data.defaultPayment;
+    return this.data.defaultPaymentMethod;
   }
 
   public get middlePanel(): MiddlePanelStatusTypes {
@@ -61,17 +47,42 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     if (!this.data.isExpertAvailable) {
       return MiddlePanelStatusTypes.notAvailable;
     }
-    // TODO FIX_NEW_FINANCE_MODEL
-    if (this.data.defaultPayment.creditCardId === undefined) {
-      return MiddlePanelStatusTypes.paymentAnyMind;
+
+    if (this.data.defaultPaymentMethod.creditCardId === undefined) {
+      return MiddlePanelStatusTypes.promoCode;
     }
 
     return MiddlePanelStatusTypes.paymentCard;
   }
 
   public middlePanelStatusTypes = MiddlePanelStatusTypes;
+
+  public get card(): string {
+    const currentCreditCard = this.data.creditCards.find(
+      creditCard => creditCard.id === this.data.defaultPaymentMethod.creditCardId,
+    );
+
+    return currentCreditCard !== undefined ? `${currentCreditCard.cardType}${currentCreditCard.maskedNumber}` : '';
+  }
+
+  public get invoiceTrKey(): string {
+    switch (this.data.vatRateType) {
+      case VatRateTypeEnum.COMPANY0:
+        return 'CONSULTATION_DETAILS.FOOTER.INVOICE_0';
+      case VatRateTypeEnum.COMPANY23:
+        return 'CONSULTATION_DETAILS.FOOTER.INVOICE_23';
+      case VatRateTypeEnum.NATURALPERSON:
+        return 'CONSULTATION_DETAILS.FOOTER.NO_INVOICE';
+      default:
+        this.loggerService.error('Unknow vat rate state');
+
+        return '';
+    }
+  }
+
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
+
   constructor(@Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('ConsultationFooterUserComponent'));
   }

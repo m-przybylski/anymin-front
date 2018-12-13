@@ -24,33 +24,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
       return '';
     }
 
-    return this.moneyPipe.transform(this.data.price && this.data.price.grossPrice);
-  }
-
-  public get netPrice(): string {
-    if (this.data.price === undefined) {
-      return '';
-    }
-
-    return this.moneyPipe.transform(this.data.price && this.data.price.price);
-  }
-
-  public get netFreelancerPrice(): string {
-    if (this.data.price === undefined) {
-      return '';
-    }
-    const freelancerPrice =
-      this.data.price.price.amount *
-      (1 -
-        (this.commissionConfig.freelanceConsultationAnyMindCommission +
-          this.commissionConfig.freelanceConsultationCompanyCommission));
-
-    return this.moneyPipe.transform(
-      this.data.price && {
-        amount: freelancerPrice,
-        currency: this.data.price.price.currency,
-      },
-    );
+    return this.moneyPipe.transform(this.data.price && this.data.price);
   }
 
   public get organizationPrice(): string {
@@ -59,8 +33,8 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     }
 
     return this.moneyPipe.transform({
-      amount: this.data.price.price.amount * this.commissionConfig.freelanceConsultationCompanyCommission,
-      currency: this.data.price.price.currency,
+      amount: this.data.price.amount * this.commissionConfig.freelanceConsultationCompanyCommission,
+      currency: this.data.price.currency,
     });
   }
 
@@ -71,11 +45,11 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
 
     return this.moneyPipe.transform({
       amount:
-        this.data.price.price.amount *
+        this.data.price.amount *
         (1 -
           (this.commissionConfig.freelanceConsultationCompanyCommission +
             this.commissionConfig.freelanceConsultationAnyMindCommission)),
-      currency: this.data.price.price.currency,
+      currency: this.data.price.currency,
     });
   }
 

@@ -10,9 +10,10 @@ import {
   GetComment,
   PaymentsService,
   GetDefaultPaymentMethod,
+  GetCreditCard,
 } from '@anymind-ng/api';
-import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap, filter, catchError, take } from 'rxjs/operators';
+import { Observable, forkJoin, of, iif } from 'rxjs';
+import { map, switchMap, filter, take, catchError } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
@@ -55,11 +56,19 @@ export class ConsultationDetailsViewService extends Logger {
             this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
             this.viewsService.getWebExpertProfileRoute(employeeId),
             this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId)),
-            // TODO FIX_NEW_FINANCE_MODEL
-            this.paymentsService.getDefaultPaymentMethodRoute().pipe(catchError(() => of({}))),
+            this.paymentsService.getDefaultPaymentMethodRoute().pipe(
+              switchMap(defaultPaymentMethod =>
+                iif(
+                  () => defaultPaymentMethod.creditCardId !== undefined,
+                  forkJoin(of(defaultPaymentMethod), this.paymentsService.getCreditCardsRoute()),
+                  forkJoin(of(defaultPaymentMethod), of([])),
+                ),
+              ),
+              catchError(() => forkJoin(of({}), of([]))),
+            ),
           ).pipe(
             map(
-              ([expertDetails, expertProfileViewDetails, getComments, payment]): IConsultationDetails => ({
+              ([expertDetails, expertProfileViewDetails, getComments, payments]): IConsultationDetails => ({
                 expertDetails,
                 expertProfileViewDetails,
                 getServiceWithEmployees,
@@ -67,9 +76,8 @@ export class ConsultationDetailsViewService extends Logger {
                 expertIds: getServiceWithEmployees.employeesDetails.map(
                   employeesDetails => employeesDetails.employeeProfile.id,
                 ),
-                payment,
-                // TODO FIX_NEW_FINANCE_MODEL
-                balance: { amount: 0, currency: '' },
+                defaultPaymentMethod: payments[0],
+                creditCards: payments[1],
                 getComments,
               }),
             ),
@@ -140,7 +148,7 @@ export interface IConsultationDetails {
   getServiceWithEmployees: GetServiceWithEmployees;
   employmentId: string;
   expertIds: ReadonlyArray<string>;
-  payment: GetDefaultPaymentMethod;
-  balance: { amount: number; currency: string };
+  defaultPaymentMethod: GetDefaultPaymentMethod;
+  creditCards: ReadonlyArray<GetCreditCard>;
   getComments: ReadonlyArray<GetComment>;
 }

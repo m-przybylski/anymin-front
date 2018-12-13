@@ -8,7 +8,7 @@ import {
   IConsultationDetailActionParameters,
 } from './consultation-details-actions.service';
 import { forkJoin, Subject } from 'rxjs';
-import { EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
@@ -19,13 +19,15 @@ import { ConsultationFooterResolver } from './consultation-footers/consultation-
 import { ICreateEditConsultationPayload } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
 import { ServiceWithOwnerProfile } from '@anymind-ng/api/model/serviceWithOwnerProfile';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import { Logger } from '@platform/core/logger';
+import { LoggerFactory } from '@anymind-ng/core';
 
 @Component({
   selector: 'plat-consultation-details-view',
   templateUrl: './consultation-details.view.component.html',
   styleUrls: ['./consultation-details.view.component.sass'],
 })
-export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
+export class ConsultationDetailsViewComponent extends Logger implements OnInit, OnDestroy {
   public readonly avatarSize96: AvatarSizeEnum = AvatarSizeEnum.X_96;
   public readonly modalType: ModalContainerTypeEnum = ModalContainerTypeEnum.NO_PADDING;
 
@@ -74,7 +76,10 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     private consultationDetailsActionsService: ConsultationDetailsActionsService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private activeModal: NgbActiveModal,
+    loggerFactory: LoggerFactory,
   ) {
+    super(loggerFactory.createLoggerService('ConsultationDetailsViewComponent'));
+
     this.store
       .pipe(
         select(fromCore.getSessionAndUserType),
@@ -236,15 +241,29 @@ export class ConsultationDetailsViewComponent implements OnInit, OnDestroy {
     expertsIdList: getServiceDetails.expertIds,
     isExpertAvailable: expertIsAvailable,
     isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
-    defaultPayment: getServiceDetails.payment,
-    accountBalance: getServiceDetails.balance,
-    price: {
-      grossPrice: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
-      // TODO FIX_NEW_FINANCE_MODEL
-      price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
-    },
+    defaultPaymentMethod: getServiceDetails.defaultPaymentMethod,
+    creditCards: getServiceDetails.creditCards,
+    price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
+    vatRateType: this.selectVatRateType(getServiceDetails),
   });
+
+  private selectVatRateType = (getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum =>
+    getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance
+      ? getServiceDetails.getServiceWithEmployees.serviceDetails.vatRateType
+      : this.getEmployeeVatRateType(getServiceDetails);
 
   private isExpertConsultation = (serviceDetails: ServiceWithOwnerProfile): boolean =>
     typeof serviceDetails.ownerProfile.organizationDetails === 'undefined';
+
+  private getEmployeeVatRateType(getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum {
+    try {
+      return getServiceDetails.getServiceWithEmployees.employeesDetails.filter(
+        employment => getServiceDetails.employmentId === employment.id,
+      )[0].vatRateType;
+    } catch (error) {
+      this.loggerService.error('Can not find employment', error);
+
+      return EmploymentWithExpertProfile.VatRateTypeEnum.NATURALPERSON;
+    }
+  }
 }

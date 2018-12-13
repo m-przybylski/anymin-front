@@ -46,14 +46,11 @@ describe('ConsultationFooterUserComponent', () => {
       isExpertAvailable: false,
       isFreelance: false,
       userId: '1234',
-      price: {
-        grossPrice: { amount: 123, currency: 'PLN' },
-        price: { amount: 100, currency: 'PLN' },
-      },
-      defaultPayment: {
+      price: { amount: 100, currency: 'PLN' },
+      defaultPaymentMethod: {
         creditCardId: 'id',
       },
-      accountBalance: { amount: 0, currency: 'PLN' },
+      creditCards: [],
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -66,14 +63,11 @@ describe('ConsultationFooterUserComponent', () => {
       expertsIdList: [] as any,
       isExpertAvailable: true,
       isFreelance: false,
-      price: {
-        grossPrice: { amount: 123, currency: 'PLN' },
-        price: { amount: 100, currency: 'PLN' },
-      },
-      defaultPayment: {
+      price: { amount: 123, currency: 'PLN' },
+      defaultPaymentMethod: {
         creditCardId: 'id',
       },
-      accountBalance: { amount: 0, currency: 'PLN' },
+      creditCards: [],
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -86,14 +80,11 @@ describe('ConsultationFooterUserComponent', () => {
       expertsIdList: ['asdf'] as any,
       isExpertAvailable: true,
       isFreelance: false,
-      price: {
-        grossPrice: { amount: 123, currency: 'PLN' },
-        price: { amount: 100, currency: 'PLN' },
-      },
-      defaultPayment: {
+      price: { amount: 123, currency: 'PLN' },
+      defaultPaymentMethod: {
         creditCardId: 'id',
       },
-      accountBalance: { amount: 0, currency: 'PLN' },
+      creditCards: [],
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -108,40 +99,18 @@ describe('ConsultationFooterUserComponent', () => {
       isExpertAvailable: true,
       isFreelance: false,
       userId: '123',
-      price: {
-        grossPrice: { amount: 123, currency: 'PLN' },
-        price: { amount: 100, currency: 'PLN' },
-      },
-      defaultPayment: {
+      price: { amount: 123, currency: 'PLN' },
+      defaultPaymentMethod: {
         creditCardId: 'id',
       },
-      accountBalance: { amount: 0, currency: 'PLN' },
+      creditCards: [],
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
 
     expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.paymentCard);
   });
-  // TODO FIX_NEW_FINANCE_MODEL
-  // it('should return MiddlePanelStatusTypes.paymentAnyMind when expert list is populated', () => {
-  //   data = {
-  //     ownerId: 'asdf',
-  //     expertsIdList: [] as any,
-  //     isExpertAvailable: true,
-  //     isFreelance: false,
-  //     userId: '123',
-  //     price: {
-  //       grossPrice: { amount: 123, currency: 'PLN' },
-  //       price: { amount: 100, currency: 'PLN' },
-  //     },
-  //     defaultPayment: {},
-  //     accountBalance: { amount: 0, currency: 'PLN' },
-  //   };
-  //   const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
-  //   consultationFooterUserComponent = componentFixture.componentInstance;
-  //
-  //   expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.paymentAnyMind);
-  // });
+
   it('should return false isExpertAvailable if userId is not provided', () => {
     data = {
       ownerId: 'asdf',
@@ -149,12 +118,9 @@ describe('ConsultationFooterUserComponent', () => {
       isExpertAvailable: true,
       isFreelance: false,
       userId: undefined,
-      price: {
-        grossPrice: { amount: 123, currency: 'PLN' },
-        price: { amount: 100, currency: 'PLN' },
-      },
-      defaultPayment: {},
-      accountBalance: { amount: 0, currency: 'PLN' },
+      price: { amount: 100, currency: 'PLN' },
+      defaultPaymentMethod: {},
+      creditCards: [],
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
