@@ -1,18 +1,32 @@
-import { MoneyDto } from '@anymind-ng/api';
+import { GetProfileBalance, MoneyDto } from '@anymind-ng/api';
 import { BalanceApiActions, ActivitiesWsActions } from '../actions';
 import { Config } from '../../../../../../config';
 
 const moneyDivider = Config.moneyDivider;
 
 export interface IState {
-  balance: MoneyDto;
+  balance: GetProfileBalance;
   isLoaded: boolean;
 }
 
 const initialState: IState = {
   balance: {
-    amount: 0,
-    currency: '',
+    profileAmount: {
+      value: 0,
+      currency: 'PLN',
+    },
+    partnerAmount: {
+      value: 0,
+      currency: 'PLN',
+    },
+    profileBlockedAmount: {
+      value: 0,
+      currency: 'PLN',
+    },
+    partnerBlockedAmount: {
+      value: 0,
+      currency: 'PLN',
+    },
   },
   isLoaded: false,
 };
@@ -40,8 +54,18 @@ export function reducer(
   }
 }
 
-export const getBalance = (state: IState): MoneyDto => ({
+export const getBalance = (state: IState): GetProfileBalance => ({
   ...state.balance,
-  amount: state.balance.amount / moneyDivider,
 });
+
+export const getWholeBalance = (state: IState): MoneyDto => ({
+  value: (state.balance.partnerAmount.value + state.balance.profileAmount.value) / moneyDivider,
+  currency: state.balance.profileAmount.currency,
+});
+
+export const getBlockedBalance = (state: IState): MoneyDto => ({
+  value: (state.balance.partnerBlockedAmount.value + state.balance.profileBlockedAmount.value) / moneyDivider,
+  currency: state.balance.profileBlockedAmount.currency,
+});
+
 export const getIsLoaded = (state: IState): boolean => state.isLoaded;

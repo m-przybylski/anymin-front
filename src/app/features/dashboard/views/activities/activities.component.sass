@@ -20,6 +20,7 @@
     height: 88px
     min-width: 272px
     margin: 0 8px
+    width: 100%
     padding: 16px
     border-radius: 4px
 
@@ -27,6 +28,11 @@
       height: 110px
       min-width: 320px
       margin: 0 12px
+      padding: 24px 16px
+
+    +lgm
+      padding: 24px
+
 
       &:first-child
         margin: 0 12px 0 0
@@ -76,6 +82,10 @@
       +lgm
         +h2
 
+    &:first-child
+      >p
+        color: $c-primary
+
   .non-activities
     margin: 64px 0
     width: 100%
@@ -107,10 +117,6 @@
         font-weight: 300
 
   .important-list
-    margin: 0 0 16px
-
-    +smm
-      margin: 0 0 24px
 
     &__header
       padding: 16px 8px
@@ -189,6 +195,7 @@
         display: flex
 
       >span
+        +button-small
         padding: 0 4px
 
   .bottom

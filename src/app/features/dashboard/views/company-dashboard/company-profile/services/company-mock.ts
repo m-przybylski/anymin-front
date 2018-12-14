@@ -24,7 +24,7 @@ export const organizationProfileView: OrganizationProfileView = {
         description:
           'To jest opis mojej konsultacji. Ona jest najlepsza w tym serwisie. Mam jeszcze kilka innych, ale pewnie nie chciałbyś tego widzieć',
         price: {
-          amount: 581,
+          value: 581,
           currency: 'PLN',
         },
         language: 'pl',
@@ -59,7 +59,7 @@ export const organizationProfileView: OrganizationProfileView = {
         name: 'dlubanie w nosie',
         description: 'bunga bunga i takie tam inne rzeczy',
         price: {
-          amount: 1533,
+          value: 1533,
           currency: 'PLN',
         },
         language: 'pl',
@@ -77,7 +77,7 @@ export const organizationProfileView: OrganizationProfileView = {
         description:
           'opis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opis',
         price: {
-          amount: 8049,
+          value: 8049,
           currency: 'PLN',
         },
         language: 'pl',
@@ -94,7 +94,7 @@ export const organizationProfileView: OrganizationProfileView = {
         name: 'sfadsfsdfasdfasdf',
         description: 'safasdfasdfasdfasdfasd',
         price: {
-          amount: 115,
+          value: 115,
           currency: 'PLN',
         },
         language: 'pl',
@@ -156,7 +156,7 @@ export const organizationProfileView1: OrganizationProfileView = {
         description:
           'To jest opis mojej konsultacji. Ona jest najlepsza w tym serwisie. Mam jeszcze kilka innych, ale pewnie nie chciałbyś tego widzieć',
         price: {
-          amount: 581,
+          value: 581,
           currency: 'PLN',
         },
         language: 'pl',
@@ -191,7 +191,7 @@ export const organizationProfileView1: OrganizationProfileView = {
         name: 'dlubanie w nosie',
         description: 'bunga bunga i takie tam inne rzeczy',
         price: {
-          amount: 1533,
+          value: 1533,
           currency: 'PLN',
         },
         language: 'pl',
@@ -209,7 +209,7 @@ export const organizationProfileView1: OrganizationProfileView = {
         description:
           'opis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opisopis, opis, opis, opis, opis',
         price: {
-          amount: 8049,
+          value: 8049,
           currency: 'PLN',
         },
         language: 'pl',
@@ -227,7 +227,7 @@ export const organizationProfileView1: OrganizationProfileView = {
         name: 'sfadsfsdfasdfasdf',
         description: 'safasdfasdfasdfasdfasd',
         price: {
-          amount: 115,
+          value: 115,
           currency: 'PLN',
         },
         language: 'pl',
@@ -262,7 +262,7 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
             description:
               'To jest opis mojej konsultacji. Ona jest najlepsza w tym serwisie. Mam jeszcze kilka innych, ale pewnie nie chciałbyś tego widzieć',
             price: {
-              amount: 581,
+              value: 581,
               currency: 'PLN',
             },
             language: 'pl',
@@ -297,7 +297,7 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
             name: 'dlubanie w nosie',
             description: 'bunga bunga i takie tam inne rzeczy',
             price: {
-              amount: 1533,
+              value: 1533,
               currency: 'PLN',
             },
             language: 'pl',

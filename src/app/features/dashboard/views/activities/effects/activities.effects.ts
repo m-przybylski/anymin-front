@@ -15,7 +15,7 @@ import {
   ActivityDetailsViewComponent,
   MODAL_CLOSED_WITH_ERROR,
 } from '@platform/shared/components/modals/activity-details/activity-details.view.component';
-import { GetProfileActivities, GetProfileActivity, MoneyDto } from '@anymind-ng/api';
+import { GetProfileActivities, GetProfileActivity, GetProfileBalance } from '@anymind-ng/api';
 import { Action } from '@ngrx/store';
 import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/activities/activities.component';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
@@ -132,7 +132,7 @@ export class ActivitiesEffects {
   }
 
   private loadAllActivitiesWithBalance(
-    getProfilePayment: () => Observable<MoneyDto>,
+    getProfilePayment: () => Observable<GetProfileBalance>,
     getAllActivities: () => Observable<IActivitiesData>,
   ): (source: Observable<Action>) => Observable<Action> {
     return (source: Observable<Action>): Observable<Action> =>

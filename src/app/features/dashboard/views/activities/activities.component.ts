@@ -29,6 +29,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   public displayedImportantActivities$ = this.store.pipe(select(fromActivities.getDisplayedImportantActivities));
   public importantActivitiesCounter$ = this.store.pipe(select(fromActivities.getImportantActivitiesCount));
   public balance$ = this.store.pipe(select(fromActivities.getBalanceAmount));
+  public wholeBalanceAmount$ = this.store.pipe(select(fromActivities.getWholeBalanceAmount));
+  public blockedBalanceAmount = this.store.pipe(select(fromActivities.getBlockedBalanceAmount));
   public importantActivitiesOffset$ = this.store.pipe(select(fromActivities.getImportantActivitiesOffset));
   public profileActivities$ = this.store.pipe(
     select(fromActivities.getAllActivitiesList),
@@ -37,14 +39,14 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     ),
   );
   public isLoaded$ = this.store.pipe(select(fromActivities.getIsLoaded));
-
+  public activityListTypeEnum = ActivityListTypeEnum;
+  public listType: ActivityListTypeEnum;
   /**
    * because only one subscription is kept in component
    * there is a better to unsubscribe manually.
    * less code, less memory usage
    */
   private wsSubscription: Subscription;
-  private listType: ActivityListTypeEnum;
 
   constructor(
     private store: Store<fromActivities.IState>,

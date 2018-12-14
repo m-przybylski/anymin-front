@@ -39,7 +39,7 @@ export class FinancialOperationDetailsComponent extends Logger {
     /**
      * multiple by -1 to make amount as positive number
      */
-    this.payout = { amount: activityDetails.payoutValue.amount * -1, currency: activityDetails.payoutValue.currency };
+    this.payout = { value: activityDetails.payoutValue.value * -1, currency: activityDetails.payoutValue.currency };
   };
 
   private assignPayoutMethodForUI = (payoutMethod: GetPayoutMethod): void => {

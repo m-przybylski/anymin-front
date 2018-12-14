@@ -33,7 +33,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     }
 
     return this.moneyPipe.transform({
-      amount: this.data.price.amount * this.commissionConfig.freelanceConsultationCompanyCommission,
+      value: this.data.price.value * this.commissionConfig.freelanceConsultationCompanyCommission,
       currency: this.data.price.currency,
     });
   }
@@ -44,8 +44,8 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     }
 
     return this.moneyPipe.transform({
-      amount:
-        this.data.price.amount *
+      value:
+        this.data.price.value *
         (1 -
           (this.commissionConfig.freelanceConsultationCompanyCommission +
             this.commissionConfig.freelanceConsultationAnyMindCommission)),

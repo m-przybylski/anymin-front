@@ -7,7 +7,7 @@
           am-core-tooltip(
           [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
           )
-        p.activities__profit__money {{ 123 | currency:'PLN':'symbol-narrow' }}
+        p.activities__profit__money(*ngIf="(wholeBalanceAmount$ | async) as balance") {{ balance.value | currency:balance.currency:'symbol-narrow' }}
 
       .activities__profit
         .activities__profit__header
@@ -15,16 +15,16 @@
             am-core-tooltip(
             [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
             )
-        p.activities__profit__money {{ 123 | currency:'PLN':'symbol-narrow' }}
+        p.activities__profit__money(*ngIf="(blockedBalanceAmount | async) as balance") {{ balance.value | currency:balance.currency:'symbol-narrow' }}
 
-      .activities__profit.activities__profit--split
+      .activities__profit.activities__profit--split(*ngIf="listType === activityListTypeEnum.COMPANY && (balance$ | async) as balance")
         .activities__profit__container
           span.activities__profit__label {{ "ACTIVITIES.WORKERS_PROFIT_HEADER" | translate }}
-          p {{ 123 | currency:'PLN':'symbol-narrow' }}
+          p {{ balance.profileAmount.value | currency:balance.profileAmount.currency:'symbol-narrow' }}
 
         .activities__profit__container
           span.activities__profit__label {{ "ACTIVITIES.FREELANCE_PROFIT_HEADER" | translate }}
-          p {{ 123 | currency:'PLN':'symbol-narrow' }}
+          p {{ balance.partnerAmount.value | currency:balance.partnerAmount.currency:'symbol-narrow' }}
 
     .non-activities(*ngIf="!profileActivities.length")
       am-core-image-display.non-activities__image(imgName="activities")
@@ -71,10 +71,14 @@
         *ngIf="isMoreActivity$ | async") {{"EXPERT_ACTIVITIES.LOAD_MORE" | translate}}
 
 ng-template(#loader)
+  // add loader
   .container
     .activities__profit
-      span.activities__profit__header {{ "EXPERT_ACTIVITIES.PROFIT_HEADER" | translate }}
-      span.activities__profit__money {{ 0 | currency: 'PLN':'symbol-narrow' }}
+    .activities__profit
+
+    .activities__profit.activities__profit--split
+      .activities__profit__container
+      .activities__profit__container
 
     .activities-lists
       .all-list

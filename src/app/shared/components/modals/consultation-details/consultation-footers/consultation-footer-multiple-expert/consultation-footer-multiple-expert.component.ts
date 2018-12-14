@@ -20,7 +20,7 @@ export class ConsultationFooterMultipleExpertComponent extends Logger implements
   public get grossPrice(): string {
     return (
       this.moneyPipe.transform(this.data.price && this.data.price) ||
-      this.moneyPipe.transform({ amount: 0, currency: '' })
+      this.moneyPipe.transform({ value: 0, currency: '' })
     );
   }
 

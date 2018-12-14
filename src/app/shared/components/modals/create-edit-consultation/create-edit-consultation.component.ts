@@ -154,7 +154,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
      * as it is accepted value for backend
      */
     price: {
-      amount: Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
+      value: Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
       currency: this.polishCurrency,
     },
     tags: [...this.selectedTags],
@@ -201,7 +201,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     const serviceDetails = this.payload.serviceDetails;
     if (typeof serviceDetails !== 'undefined') {
       this.isEditModal = true;
-      this.consultationPrice = serviceDetails.price.amount;
+      this.consultationPrice = serviceDetails.price.value;
       this.formControls[this.nameControlName].setValue(serviceDetails.name);
       this.formControls[this.descriptionControlName].setValue(serviceDetails.description);
       this.successAlertTrKey = 'ALERT.EDIT_CONSULTATION.SUCCESS';

@@ -24,7 +24,6 @@ import { COMMISSION, ICommission } from '@platform/core/commission';
 export class AcceptRejectInvitationModalComponent extends Logger implements OnInit {
   public isFreelance: boolean;
   public price: string;
-  public grossPrice: string;
   public avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_96;
 
   // consultation
@@ -66,14 +65,13 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
         this.serviceDescription = data.serviceDescription;
         this.isFreelance = data.isFreelance;
         this.price = this.moneyPipe.transform({
-          amount:
-            data.price.amount *
+          value:
+            data.price.value *
             (1 -
               (this.commissionConfig.freelanceConsultationCompanyCommission +
                 this.commissionConfig.freelanceConsultationAnyMindCommission)),
           currency: data.price.currency,
         });
-        this.grossPrice = this.moneyPipe.transform(data.grossPrice);
       });
   }
 

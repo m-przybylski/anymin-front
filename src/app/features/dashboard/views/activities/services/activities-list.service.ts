@@ -3,8 +3,8 @@ import {
   ActivitiesService,
   FinancesService,
   GetProfileActivities,
-  MoneyDto,
   GetProfileActivity,
+  GetProfileBalance,
 } from '@anymind-ng/api';
 import { Observable, forkJoin, throwError, merge } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -65,13 +65,8 @@ export class ActivitiesListService extends Logger {
     return this.activitiesService.getExpertProfileActivitiesRoute(`${activitiesLimit}`, `${activitiesOffset}`);
   }
 
-  public getExpertProfilePayment(): Observable<MoneyDto> {
-    return (
-      this.financesService
-        .getExpertProfileBalanceRoute()
-        // TODO FIX_NEW_FINANCE_MODEL - partnerBalance?
-        .pipe(map(getProfileBalance => getProfileBalance.profileBalance))
-    );
+  public getExpertProfilePayment(): Observable<GetProfileBalance> {
+    return this.financesService.getExpertProfileBalanceRoute();
   }
 
   public getExpertActivity(activityId: string): Observable<GetProfileActivity> {
@@ -118,13 +113,8 @@ export class ActivitiesListService extends Logger {
     return this.activitiesService.getOrganizationProfileActivitiesRoute(`${activitiesLimit}`, `${activitiesOffset}`);
   }
 
-  public getCompanyProfilePayment(): Observable<MoneyDto> {
-    return (
-      this.financesService
-        .getOrganizationProfileBalanceRoute()
-        // TODO FIX_NEW_FINANCE_MODEL - partnerBalance?
-        .pipe(map(getProfileBalance => getProfileBalance.profileBalance))
-    );
+  public getCompanyProfilePayment(): Observable<GetProfileBalance> {
+    return this.financesService.getOrganizationProfileBalanceRoute();
   }
 
   public getCompanyActivity(activityId: string): Observable<GetProfileActivity> {
