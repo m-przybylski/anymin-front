@@ -58,12 +58,12 @@ export const getBalance = (state: IState): GetProfileBalance => ({
   ...state.balance,
 });
 
-export const getWholeBalance = (state: IState): MoneyDto => ({
+export const getCombinedBalance = (state: IState): MoneyDto => ({
   value: (state.balance.partnerAmount.value + state.balance.profileAmount.value) / moneyDivider,
   currency: state.balance.profileAmount.currency,
 });
 
-export const getBlockedBalance = (state: IState): MoneyDto => ({
+export const getCombinedBlockedBalance = (state: IState): MoneyDto => ({
   value: (state.balance.partnerBlockedAmount.value + state.balance.profileBlockedAmount.value) / moneyDivider,
   currency: state.balance.profileBlockedAmount.currency,
 });

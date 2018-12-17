@@ -30,61 +30,67 @@
       margin: 0 12px
       padding: 24px 16px
 
-    +lgm
-      padding: 24px
-
-
       &:first-child
         margin: 0 12px 0 0
 
+      &:last-child
+        margin: 0 0 0 12px
+
     +lgm
       height: 116px
+      padding: 24px
       min-width: 384px
 
     &--split
       display: flex
 
-    &__container
-      display: flex
-      justify-content: center
-      text-align: center
-      flex-wrap: wrap
-      width: 50%
+    &--loader
+      padding: 0
 
-      &:first-child
-        border-right: 1px solid $c-lines
+  &__split-container
+    display: flex
+    justify-content: center
+    text-align: center
+    flex-wrap: wrap
+    width: 50%
 
-      >p
-        +h6
-        font-weight: 500
-        color: $c-text-primary
-        padding: 2px 0 0
+    &--loader
+      padding: 0
 
-    &__header
-      display: flex
-      align-items: center
+    &:first-child
+      border-right: 1px solid $c-lines
 
-    &__label
+    >p
+      +h6
+      font-weight: 500
+      color: $c-text-primary
+      padding: 2px 0 0
+
+  &__profit-money
+    +h4
+    font-weight: 500
+    color: $c-text-primary
+
+    +smm
+      +h3
+
+    +lgm
+      +h2
+
+  &:first-child
+    >p
+      color: $c-primary
+
+  &__profit-label
       +label
       font-weight: 500
       text-transform: uppercase
       color: $c-label
       margin: 0 4px 0 0
 
-    &__money
-      +h4
-      font-weight: 500
-      color: $c-text-primary
-
-      +smm
-        +h3
-
-      +lgm
-        +h2
-
-    &:first-child
-      >p
-        color: $c-primary
+  &__profit-header
+    display: flex
+    align-items: center
 
   .non-activities
     margin: 64px 0
@@ -186,23 +192,22 @@
       +lgm
         margin: 0
 
-    &__filter
-      display: none
-      align-items: center
-      justify-content: space-around
-
-      +lgm
-        display: flex
-
-      >span
-        +button-small
-        padding: 0 4px
-
   .bottom
     display: flex
     justify-content: center
     margin: 40px 0
 
+  &__filter-button
+    display: none
+
+    +mdm
+      display: flex
+      align-items: center
+      justify-content: space-around
+
+    >span
+      +button-small
+      padding: 0 4px
 
 .activity-row
   width: 100%

@@ -29,8 +29,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   public displayedImportantActivities$ = this.store.pipe(select(fromActivities.getDisplayedImportantActivities));
   public importantActivitiesCounter$ = this.store.pipe(select(fromActivities.getImportantActivitiesCount));
   public balance$ = this.store.pipe(select(fromActivities.getBalanceAmount));
-  public wholeBalanceAmount$ = this.store.pipe(select(fromActivities.getWholeBalanceAmount));
-  public blockedBalanceAmount = this.store.pipe(select(fromActivities.getBlockedBalanceAmount));
+  public wholeBalanceAmount$ = this.store.pipe(select(fromActivities.getCombinedBalance));
+  public blockedBalanceAmount$ = this.store.pipe(select(fromActivities.getCombinedBlockedBalance));
   public importantActivitiesOffset$ = this.store.pipe(select(fromActivities.getImportantActivitiesOffset));
   public profileActivities$ = this.store.pipe(
     select(fromActivities.getAllActivitiesList),

@@ -83,8 +83,8 @@ export const getCurrentOffsets = createSelector(getCurrentOffset, getOffsetItera
  */
 const getBalance = createSelector(getActivitiesState, state => state.balance);
 export const getBalanceAmount = createSelector(getBalance, fromBalance.getBalance);
-export const getWholeBalanceAmount = createSelector(getBalance, fromBalance.getWholeBalance);
-export const getBlockedBalanceAmount = createSelector(getBalance, fromBalance.getBlockedBalance);
+export const getCombinedBalance = createSelector(getBalance, fromBalance.getCombinedBalance);
+export const getCombinedBlockedBalance = createSelector(getBalance, fromBalance.getCombinedBlockedBalance);
 export const getBalanceIsLoaded = createSelector(getBalance, fromBalance.getIsLoaded);
 
 export const getIsLoaded = createSelector(
