@@ -25,7 +25,8 @@ plat-modal-component(
           .preview-wrapper
             iframe.widget-preview(
               [src]="iframeSrc",
-              (load)="iframeLoaded()"
+              (load)="iframeLoaded()",
+              sandbox="allow-same-origin"
               )
             .widget-preview__loader(*ngIf="isIframeLoading")
               span(plat-icon, iconClass='loading')

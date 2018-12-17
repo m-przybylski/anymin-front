@@ -204,13 +204,26 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
       );
 
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
-        const payload: IConsultationDetailActionParameters = {
+        const initialPayload: IConsultationDetailActionParameters = {
           serviceId: this.serviceId,
           modal: this.activeModal,
           employmentId: this.employmentId,
           expertId: this.expertId,
           createEditConsultationPayload: this.editConsultationPayload,
         };
+        /**
+         * This is consultation details view, but it may happen that we are still in organization context
+         * To determine if service belongs to organization we need to check if following field is populated
+         * GetServiceWithEmployees -> (serviceDetails: ServiceWithOwnerProfile) -> (ownerProfile: GetProfile)
+         * -> (organizationDetails: GetOrganizationDetails) != undefined
+         * Once we are in context of organization we need to remove expertID from sharing consultation.
+         */
+        const payload =
+          getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.organizationDetails !== undefined &&
+          value === 'share'
+            ? { ...initialPayload, expertId: undefined }
+            : initialPayload;
+
         this.consultationDetailsActionsService[value].call(this.consultationDetailsActionsService, payload);
       });
 
