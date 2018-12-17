@@ -3,13 +3,13 @@ import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 import { GENERATE_WIDGET_DATA, IGenerateWidgetData } from '../../tokens';
 import { GenerateWidgetDataService } from '../../services/generate-widget.data.service';
-import { of, BehaviorSubject, Subject } from 'rxjs';
-import { AccountPresenceStatus } from '@anymind-ng/api';
-import { finalize, filter, first, takeUntil, switchMap, map } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { WidgetButtonType } from '../generate-widget-button-type/generate-widget-button-type.component';
 import { trigger, transition, style, animate, state, AnimationEvent } from '@angular/animations';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 interface IShareLink {
   url: string;
@@ -28,19 +28,13 @@ interface IShareLink {
   ],
 })
 export class GenerateWidgetComponent extends Logger implements OnInit, AfterViewInit, OnDestroy {
-  public serviceId: string;
-  public expertId?: string;
   public widgetLink: string;
   public widgetId: string;
   public headScript: string;
-  public avatarToken: string;
-  public expertName: string;
-  public consultationHeader: string;
-  public cosultationDescription: string;
-  public consultationPrice: string;
   public buttonCode = '';
+  public iframeSrc: SafeResourceUrl;
+  public isIframeLoading = true;
 
-  public readonly available = of(AccountPresenceStatus.StatusEnum.Available);
   public readonly undefinedSelectedButtonType = -1;
   public readonly socialMediaLinks: ReadonlyArray<IShareLink> = [
     { url: '', iconName: 'linkedin' },
@@ -52,10 +46,6 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   public selectedButtonType: WidgetButtonType = this.undefinedSelectedButtonType;
 
   private readonly initialModalHeight = '100px';
-  /**
-   * used to show if component loaded data from the server
-   */
-  private componentLoaded = new BehaviorSubject<boolean>(false);
   /**
    * used to trigger when component is destroyed
    */
@@ -72,29 +62,12 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('GenerateWidgetComponent'));
-    this.serviceId = data.serviceId;
-    this.expertId = data.expertId;
     this.widgetId = data.widgetId;
   }
   public ngOnInit(): void {
     this.widgetLink = this.generateWidgetDataService.getWidgetLink(this.widgetId);
     this.headScript = this.generateWidgetDataService.getWidgetSdkLink(this.widgetId);
-    this.generateWidgetDataService
-      .resolve(this.widgetId)
-      .pipe(
-        finalize(() => {
-          this.componentLoaded.next(true);
-        }),
-      )
-      .subscribe(generateWidgetResolveData => {
-        if (generateWidgetResolveData) {
-          this.avatarToken = generateWidgetResolveData.expertAvatar || '';
-          this.expertName = generateWidgetResolveData.expertName || '';
-          this.consultationHeader = generateWidgetResolveData.serviceName;
-          this.cosultationDescription = generateWidgetResolveData.serviceDesc;
-          this.consultationPrice = generateWidgetResolveData.servicePrice;
-        }
-      });
+    this.iframeSrc = this.generateWidgetDataService.getRendertronLink(this.widgetLink);
     this.buttonType = new FormControl('');
     /**
      * once value is changes in the form
@@ -127,18 +100,14 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     /**
      * before stopping loader need to wait for data to be loaded
      */
-    this.componentLoaded
-      .pipe(
-        filter(loaded => loaded),
-        first(),
-      )
-      .subscribe(() => {
-        this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight);
-      });
+    this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight);
   }
   public ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+  public iframeLoaded(): void {
+    this.isIframeLoading = false;
   }
   public animationDone(animationEvent: AnimationEvent): void {
     if (animationEvent.toState === 'void') {

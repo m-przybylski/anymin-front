@@ -22,26 +22,13 @@ plat-modal-component(
             button(plat-stroked-button, (click)='stepper.next()') {{ 'GENERATE_WIDGET_MODAL.CONTENT.INSTALL' | translate}}
         .generate-widget-step-content-panel-separator
         .generate-widget-step-content-panel
-          .generate-widget-preview
-            .generate-widget-preview-header
-              span {{"GENERATE_WIDGET_MODAL.CONTENT.PREVIEW" | translate}}
-            .generate-widget-preview-content
-              .generate-widget-preview-expert
-                plat-user-avatar([avatarToken]='avatarToken')
-                .generate-widget-preview-expert-details
-                  span.generate-widget-preview-expert-details-name {{expertName}}
-                  plat-expert-availability([expertAvailable$]='available')
-              .generate-widget-preview-title {{consultationHeader}}
-              .generate-widget-preview-description {{cosultationDescription}}
-            .generate-widget-preview-footer
-              .generate-widget-preview-footer-button
-                .generate-widget-preview-footer-button-left
-                  .generate-widget-preview-footer-button-text {{ consultationPrice }} zł/min
-                  .generate-widget-preview-footer-button-subtext {{"GENERATE_WIDGET_MODAL.CONTENT.FIRST_MINUTE" | translate}}
-                .generate-widget-preview-footer-button-right
-                  span(plat-icon-button, color='secondary')
-                    span(plat-icon, iconClass='headphone')
-              .generate-widget-preview-footer-text {{ "WIDGET.POWERED_BY_ANYMIND" | translate:"{missing: 'Powered by AnyMind'}" }}
+          .preview-wrapper
+            iframe.widget-preview(
+              [src]="iframeSrc",
+              (load)="iframeLoaded()"
+              )
+            .widget-preview__loader(*ngIf="isIframeLoading")
+              span(plat-icon, iconClass='loading')
     plat-step
       .generate-widget-step-content
         .generate-widget-step-content-panel
