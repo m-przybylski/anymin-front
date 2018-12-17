@@ -38,6 +38,7 @@ export class Config {
     widgetSdk: `${window.location.origin}/sdk/widget-sdk.js`,
     widget: `${window.location.origin}/widget`,
     assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL',
+    rendertron: 'https://app.anymind.com/rendertron/render/',
   };
 
   // TODO delete this object name after removing AngularJS

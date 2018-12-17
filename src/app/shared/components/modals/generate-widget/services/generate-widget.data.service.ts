@@ -1,33 +1,12 @@
 // tslint:disable:max-line-length
 import { Injectable } from '@angular/core';
-import { Logger } from '@platform/core/logger';
-import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
-import { WidgetService, ServiceService, GetServiceWithEmployees } from '@anymind-ng/api';
-import { switchMap, map, filter } from 'rxjs/operators';
-import { Observable, of, EMPTY, defer } from 'rxjs';
 import { WidgetButtonType } from '../components/generate-widget-button-type/generate-widget-button-type.component';
-import { TranslateService } from '@ngx-translate/core';
 import { Config } from '../../../../../../config';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Injectable()
-export class GenerateWidgetDataService extends Logger {
-  /**
-   * This object is used to provide some data when there is noone
-   * assigned to the consultation. It may happen that there are pending
-   * invitations and none of thosee has been accepted.
-   */
-  private readonly dummyExpertName = 'GENERATE_WIDGET_MODAL.CONTENT.DUMMY_NAME';
-
-  private moneyToAmount: MoneyToAmount;
-  constructor(
-    private widgetService: WidgetService,
-    private serviceService: ServiceService,
-    private translateService: TranslateService,
-    loggerFactory: LoggerFactory,
-  ) {
-    super(loggerFactory.createLoggerService('GenerateWidgetDataService'));
-    this.moneyToAmount = new MoneyToAmount(this.loggerService);
-  }
+export class GenerateWidgetDataService {
+  constructor(private sanitizer: DomSanitizer) {}
 
   public getWidgetLink(widgetId: string): string {
     return `${Config.links.widget}/${widgetId}`;
@@ -47,75 +26,12 @@ export class GenerateWidgetDataService extends Logger {
     }"></button>`;
   }
 
-  public resolve(widgetId: string): Observable<IGenerateWidgetResolveData | undefined> {
-    return this.widgetService.getWidgetRoute(widgetId).pipe(
-      filter(getWidget => typeof getWidget.serviceId !== 'undefined'),
-      switchMap(getWidget =>
-        this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [getWidget.serviceId as string] }).pipe(
-          map(getServiceWithEmployeesList =>
-            getServiceWithEmployeesList.find(
-              getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === getWidget.serviceId,
-            ),
-          ),
-          switchMap(getServiceWithEmployees => {
-            if (getServiceWithEmployees) {
-              const foundExpertDetails = getServiceWithEmployees.employeesDetails.find(
-                employmentWithExpertProfile => employmentWithExpertProfile.employeeProfile.id === getWidget.expertId,
-              );
-
-              /**
-               * expertId is not required. If expertId === undefined pick first from the list
-               */
-              const expertDetails = foundExpertDetails
-                ? foundExpertDetails
-                : getServiceWithEmployees.employeesDetails.length
-                  ? getServiceWithEmployees.employeesDetails[0]
-                  : undefined;
-
-              return defer(
-                () =>
-                  expertDetails !== undefined
-                    ? of(
-                        this.mapServiceAndExpert(
-                          getServiceWithEmployees,
-                          expertDetails.employeeProfile.name,
-                          expertDetails.employeeProfile.avatar,
-                        ),
-                      )
-                    : this.translateService
-                        .get(this.dummyExpertName)
-                        .pipe(
-                          map((expertName: string) => this.mapServiceAndExpert(getServiceWithEmployees, expertName)),
-                        ),
-              );
-            }
-
-            this.loggerService.warn(`Backend did not respond to serviceId: ${getWidget.serviceId}`);
-
-            return EMPTY;
-          }),
-        ),
-      ),
-    );
+  public getRendertronLink(widgetLink: string): SafeResourceUrl {
+    /**
+     * should return something like that:
+     * does not work on localhost :(
+     * https://app.anymind.com/rendertron/render/http://stage.anymind.com/widget/DoqwiYhinf0
+     */
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`${Config.links.rendertron}${widgetLink}`);
   }
-
-  private mapServiceAndExpert = (
-    getServiceWithEmployees: GetServiceWithEmployees,
-    expertName: string,
-    expertAvatar?: string,
-  ): IGenerateWidgetResolveData => ({
-    serviceName: getServiceWithEmployees.serviceDetails.name,
-    serviceDesc: getServiceWithEmployees.serviceDetails.description,
-    servicePrice: this.moneyToAmount.transform(getServiceWithEmployees.serviceDetails.price),
-    expertName,
-    expertAvatar,
-  });
-}
-
-export interface IGenerateWidgetResolveData {
-  serviceName: string;
-  serviceDesc: string;
-  servicePrice: string;
-  expertName: string | undefined;
-  expertAvatar: string | undefined;
 }
