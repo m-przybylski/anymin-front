@@ -2117,5 +2117,6 @@
   "ACTIVITIES.FREELANCE_PROFIT_HEADER": "z konsultacji Freelancerskich",
   "ACTIVITIES.WORKERS_PROFIT_HEADER": "z konsultacji pracowniczych",
   "ACTIVITIES.BLOCKED_PROFIT_HEADER": "kwota zablokowana",
-  "ACTIVITIES.PROFIT_HEADER": "Przychód"
+  "ACTIVITIES.PROFIT_HEADER": "Przychód",
+  "ACTIVITIES.PROFIT_HEADER_COMPANY": "Przychód Organizacji"
 }

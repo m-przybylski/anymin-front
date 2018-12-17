@@ -1,8 +1,5 @@
 import { GetProfileBalance, MoneyDto } from '@anymind-ng/api';
 import { BalanceApiActions, ActivitiesWsActions } from '../actions';
-import { Config } from '../../../../../../config';
-
-const moneyDivider = Config.moneyDivider;
 
 export interface IState {
   balance: GetProfileBalance;
@@ -59,12 +56,12 @@ export const getBalance = (state: IState): GetProfileBalance => ({
 });
 
 export const getCombinedBalance = (state: IState): MoneyDto => ({
-  value: (state.balance.partnerAmount.value + state.balance.profileAmount.value) / moneyDivider,
+  value: state.balance.partnerAmount.value + state.balance.profileAmount.value,
   currency: state.balance.profileAmount.currency,
 });
 
 export const getCombinedBlockedBalance = (state: IState): MoneyDto => ({
-  value: (state.balance.partnerBlockedAmount.value + state.balance.profileBlockedAmount.value) / moneyDivider,
+  value: state.balance.partnerBlockedAmount.value + state.balance.profileBlockedAmount.value,
   currency: state.balance.profileBlockedAmount.currency,
 });
 

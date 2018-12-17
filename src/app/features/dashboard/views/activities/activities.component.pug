@@ -1,31 +1,8 @@
 .activities(*ngIf="profileActivities$ | async as profileActivities")
-  .container(*ngIf="isLoaded$ | async; else loader")
-    .activities__profit-container
-      .activities__profit
-        .activities__profit-header
-          span.activities__profit-label {{ "ACTIVITIES.PROFIT_HEADER" | translate }}
-          am-core-tooltip(
-          [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
-          )
-        p.activities__profit-money(*ngIf="(wholeBalanceAmount$ | async) as balance") {{ balance.value | currency:balance.currency:'symbol-narrow' }}
-
-      .activities__profit
-        .activities__profit-header
-            span.activities__profit-label {{ "ACTIVITIES.BLOCKED_PROFIT_HEADER" | translate }}
-            am-core-tooltip(
-            [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
-            )
-        p.activities__profit-money(*ngIf="(blockedBalanceAmount$ | async) as balance") {{ balance.value | currency:balance.currency:'symbol-narrow' }}
-
-      .activities__profit.activities__profit--split(*ngIf="listType === activityListTypeEnum.COMPANY && (balance$ | async) as balance")
-        .activities__split-container
-          span.activities__profit-label {{ "ACTIVITIES.WORKERS_PROFIT_HEADER" | translate }}
-          p {{ balance.profileAmount.value | currency:balance.profileAmount.currency:'symbol-narrow' }}
-
-        .activities__split-container
-          span.activities__profit-label {{ "ACTIVITIES.FREELANCE_PROFIT_HEADER" | translate }}
-          p {{ balance.partnerAmount.value | currency:balance.partnerAmount.currency:'symbol-narrow' }}
-
+  .container(*ngIf="isLoaded$  | async as isLoaded; else loader")
+    plat-activities-balance([activityListType]="listType", [isLoaded]="isLoaded",
+    [combinedBalance]="combinedBalance$ | async",
+    [combinedBlockedBalance]="combinedBlockedBalance$ | async", [balance]="balance$ | async")
     .non-activities(*ngIf="!profileActivities.length")
       am-core-image-display.non-activities__image(imgName="activities")
       span {{ "EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER" | translate }}
@@ -72,17 +49,7 @@
 
 ng-template(#loader)
   .container
-    .activities__profit-container
-      .activities__profit.activities__profit--loader
-        plat-balance-loader
-      .activities__profit.activities__profit--loader
-        plat-balance-loader
-      .activities__profit.activities__profit--split.activities__profit--loader(*ngIf="listType === " +
-      "activityListTypeEnum.COMPANY")
-        .activities__split-container
-          plat-balance-loader
-        .activities__split-container
-          plat-balance-loader
+    plat-activities-balance([activityListType]="listType")
     .activities-lists
       .all-list
         .all-list__header
