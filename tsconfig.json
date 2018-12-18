@@ -16,35 +16,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "downlevelIteration": true,
     "baseUrl": "./src",
     "paths": {
       "@platform/*": ["app/*"],
       "@testing-app/*": ["./projects/testing-app/src/app/*"]
     },
-    "typeRoots": ["node_modules/@types"],
-    "types": [
-      "angular",
-      "angular-animate",
-      "angular-cookies",
-      "angular-dynamic-locale",
-      "angular-mocks",
-      "angular-permission",
-      "angular-resource",
-      "angular-translate",
-      "angular-ui-bootstrap",
-      "angular-ui-router",
-      "braintree-web",
-      "node",
-      "croppie",
-      "jasmine",
-      "jquery",
-      "lodash",
-      "perfect-scrollbar",
-      "ng-file-upload",
-      "raven-js",
-      "webrtc"
-    ]
+    "typeRoots": ["node_modules/@types"]
   }
 }

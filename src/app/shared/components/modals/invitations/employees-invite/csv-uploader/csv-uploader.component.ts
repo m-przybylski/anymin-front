@@ -88,7 +88,7 @@ export class CsvUploaderComponent implements OnInit {
     }
   };
 
-  public onLoadFile = (csv: ReadonlyArray<string>): void => {
+  public onFileLoaded(csv: ReadonlyArray<string>): void {
     const emailsOrMsisdns = csv
       .reduce((a, b) => a.concat(b), [] as ReadonlyArray<string>)
       .filter(str => str.length > 0)
@@ -113,7 +113,7 @@ export class CsvUploaderComponent implements OnInit {
         }
       },
     );
-  };
+  }
 
   public showValidationAlert = (): string => {
     const controlErrors = this.form.controls[this.controlName].errors;

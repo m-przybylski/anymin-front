@@ -131,7 +131,7 @@ export class PushNotificationService extends Logger {
             title: this.translate.instant('PUSH.WELCOME.TITLE'),
             message: this.translate.instant('PUSH.WELCOME.MESSAGE'),
             /* Leave commented for the notification to not open a window on Chrome and Firefox
-          * (on Safari, it opens to your webpage) */
+             * (on Safari, it opens to your webpage) */
             // "url": ""
           },
         })
@@ -152,7 +152,11 @@ export class PushNotificationService extends Logger {
           return oneSignal;
         });
     } catch (err) {
-      return Promise.reject(`OneSignal is not present in the window, unsupported, or not loaded properly. ${err}`);
+      return new Promise(
+        (_, reject): void => {
+          reject(`OneSignal is not present in the window, unsupported, or not loaded properly. ${err}`);
+        },
+      );
     }
   }
 }

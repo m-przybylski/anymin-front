@@ -18,10 +18,7 @@ export class ExpertAvailabilityService implements OnDestroy {
     this.timestamp = new Date().getTime();
   }
   public ngOnDestroy(): void {
-    // tslint:disable-next-line:no-loop-statement
-    for (const expertPresence of this.expertPresenceMap.values()) {
-      expertPresence.subject.complete();
-    }
+    this.expertPresenceMap.forEach(expertPresence => expertPresence.subject.complete());
     this.destroyed$.next();
     this.destroyed$.complete();
   }
@@ -33,7 +30,7 @@ export class ExpertAvailabilityService implements OnDestroy {
       if (this.pollingSubscription !== undefined) {
         this.pollingSubscription.unsubscribe();
       }
-      // create new stream to and assing it to experts object
+      // create new stream to and assign it to experts object
       const stream$ = new ReplaySubject<AccountPresenceStatus.StatusEnum>(1);
       // share this stream so there is no value will be cashed for other requests
       this.expertPresenceMap.set(id, { subject: stream$, obs: stream$.asObservable() });

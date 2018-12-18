@@ -39,7 +39,11 @@ export class UploaderService {
 
   public uploadFile = (file: File, postProcessOptions: PostFileDetails): Promise<IUploadFileInfo> => {
     if (!file || !(file instanceof File)) {
-      return Promise.reject(`Expected File, got ${typeof file}`);
+      return new Promise(
+        (_, reject): void => {
+          reject(`Expected File, got ${typeof file}`);
+        },
+      );
     }
     const promise = this.addFileToQueue(file, postProcessOptions);
     this.processUpload();

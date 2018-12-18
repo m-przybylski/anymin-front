@@ -1,19 +1,16 @@
-// tslint:disable:no-require-imports
-// tslint:disable:no-var-requires
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, EventEmitter, Output } from '@angular/core';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { ParseError, ParseResult } from 'papaparse';
-const Papa = require('papaparse');
+import * as Papa from 'papaparse';
 
 @Directive({
   selector: '[csvUploader]',
 })
 export class CsvUploaderDirective {
-  @Input()
-  public onLoadFile: (result: ReadonlyArray<string>) => void;
+  @Output()
+  public fileLoaded = new EventEmitter<ReadonlyArray<string>>();
 
-  @Input()
-  public showCSVstatus: (error: ReadonlyArray<ParseError>) => void;
+  @Output()
+  public showCSVstatus = new EventEmitter<ReadonlyArray<Papa.ParseError>>();
 
   private logger: LoggerService;
 
@@ -28,9 +25,9 @@ export class CsvUploaderDirective {
         const reader = new FileReader();
         reader.onload = (): void => {
           Papa.parse(event.target.files[0], {
-            complete: (result: ParseResult): void => {
-              this.onLoadFile(result.data);
-              this.showCSVstatus(result.errors);
+            complete: (result): void => {
+              this.fileLoaded.emit(result.data);
+              this.showCSVstatus.emit(result.errors);
             },
           });
           event.target.value = '';
