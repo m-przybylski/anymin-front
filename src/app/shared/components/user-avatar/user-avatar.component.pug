@@ -3,14 +3,4 @@
     span.icon--profile.icon--profile_preload(*ngIf='!loaded', plat-icon, [iconClass]='isOrganizationAvatar ? "organization" : "avatar"')
     img.user-avatar__img([src]="avatarUrl", (load)='loaded = true', [ngClass]='{ "user-avatar__img--empty": !loaded, "user-avatar__img--loaded": loaded }', imageBroken)
   ng-template(#iconAvatar)
-    span.icon--profile(plat-icon, *ngIf="!avatarErrorValidation && !avatarError", [iconClass]='isOrganizationAvatar ? "organization" : "avatar"')
-
-    .user-avatar__error(*ngIf="avatarError")
-      div
-        span.icon.icon-warning
-        p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_BIG_SIZE' | translate }}
-
-    .user-avatar__error(*ngIf="avatarErrorValidation && !avatarError")
-      div
-        span.icon.icon-warning
-        p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.REQUIRED' | translate }}
+    span.icon--profile(plat-icon, [iconClass]='isOrganizationAvatar ? "organization" : "avatar"')

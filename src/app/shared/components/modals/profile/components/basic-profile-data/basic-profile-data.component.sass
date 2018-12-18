@@ -3,31 +3,19 @@
 @import "../../../../../../template/core/partials/grid"
 
 \:host
-	display: block
-	width: 100%
-	
-	.default-avatar
-		background: $c-text-secondary
-		border: 1px solid $c-lines
-		width: 152px
-		height: 152px
-		border-radius: 50%
-		
-		span
-			color: $c-white
-			font-size: 152px
+  display: block
+  width: 100%
 
-	.basic-profile-data
-		&__content
-			+smm
-				display: flex
-				justify-content: flex-start
-				align-items: center
-			
-			am-core-input-text
-				flex: 1
-				margin: 32px 0 0
-				
-				+smm
-					margin: 32px 0 0 48px
-	
+  .basic-profile-data
+    &__content
+      +smm
+        display: flex
+        justify-content: flex-start
+        align-items: center
+
+      am-core-input-text
+        flex: 1
+        margin: 32px 0 0
+
+        +smm
+          margin: 32px 0 0 48px

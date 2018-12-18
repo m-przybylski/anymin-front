@@ -1,39 +1,36 @@
 // tslint:disable:no-object-literal-type-assertion
 import { Component, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrganizationModalComponentService } from './create-organization.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
-import { HttpErrorResponse } from '@angular/common/http';
 import { PutOrganizationDetails } from '@anymind-ng/api';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { NavbarActions } from '@platform/core/actions';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { waitForSession } from '@platform/core/utils/wait-for-session';
+import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
 
 @Component({
-  selector: 'app-create-organization',
+  selector: 'plat-create-organization',
   templateUrl: './create-organization.component.html',
   styleUrls: ['./create-organization.component.sass'],
 })
 export class CreateOrganizationModalComponent implements OnInit {
   public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
   public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
-  public readonly createOrganizationNameFormControl = 'createOrganizationNameFormControl';
-  public readonly avatarFormControl = 'avatarFormControl';
   public readonly descriptionFormControl = 'descriptionFormControl';
   public readonly profileLinksFormControl = 'profileLinksFormControl';
-  public createOrganizationFormGroup = new FormGroup({});
+  public createOrganizationFormGroup: FormGroup;
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   public isInputDisabled = false;
   public maxValidFileSize = 30000000;
@@ -45,10 +42,17 @@ export class CreateOrganizationModalComponent implements OnInit {
   public linksList: ReadonlyArray<string> = [];
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isProfileHasConsultations = false;
-  public isExpert: boolean;
-  public isCompany: boolean;
   public avatarToken: string;
   public modalHeaderTr: string;
+
+  /** form controls */
+  public avatarTokenProfileNameFormControl = new FormControl();
+
+  /**
+   * flag shows if company exists on modal open.
+   * based on that flag user logic determines if navigate to profile or not
+   */
+  private isCompany = false;
 
   private readonly modalHeaderTrKeys = {
     createProfile: 'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.CREATE_TITLE',
@@ -68,6 +72,10 @@ export class CreateOrganizationModalComponent implements OnInit {
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CreateOrganizationModalComponent');
+
+    this.createOrganizationFormGroup = new FormGroup({
+      avatarTokenProfileName: this.avatarTokenProfileNameFormControl,
+    });
   }
 
   public ngOnDestroy(): void {
@@ -77,13 +85,27 @@ export class CreateOrganizationModalComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.modalAnimationComponentService.startLoadingAnimation();
     this.createOrganizationModalComponentService
-      .getSession()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(
-        session => this.adjustProfileDetails(session),
-        err => this.handleResponseError(err, 'Can not get session'),
-      );
+      .getModalData()
+      .pipe(
+        finalize(() => {
+          this.modalAnimationComponentService.stopLoadingAnimation();
+          this.handleResponseError();
+        }),
+      )
+      .subscribe(modalData => {
+        if (modalData.getProfileWithDocuments !== undefined) {
+          /** company exists prepare for edit */
+          this.modalHeaderTr = this.modalHeaderTrKeys.editProfile;
+          this.isCompany = true;
+          this.setCompanyFormValues(modalData.getProfileWithDocuments);
+        } else {
+          /** company does exist prepare for create */
+          this.modalHeaderTr = this.modalHeaderTrKeys.createProfile;
+        }
+        this.isProfileHasConsultations = modalData.hasConsultations;
+      });
   }
 
   public onUploadingFile = (isUploading: boolean): void => {
@@ -108,86 +130,24 @@ export class CreateOrganizationModalComponent implements OnInit {
     }
   };
 
-  private adjustProfileDetails = (session: GetSessionWithAccount): void => {
-    this.isExpert = session.isExpert;
-    this.isCompany = session.isCompany;
-    if (this.isCompany) {
-      this.assignOrganizationDetails();
-      this.modalHeaderTr = this.modalHeaderTrKeys.editProfile;
-
-      return;
-    }
-    this.checkExpertConsultationsLength(session.account.id);
-    this.modalHeaderTr = this.modalHeaderTrKeys.createProfile;
-  };
-
+  /** update organization callbacks */
   private sendOrganizationProfile = (): void => {
     this.createOrganizationModalComponentService
-      .createOrganizationProfile(this.assignFormValues())
+      .createOrganizationProfile(this.getFormValues())
       .pipe(
         tap(() => this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.COMPANY))),
         waitForSession(this.store),
         takeUntil(this.ngUnsubscribe$),
+        finalize(() => this.handleResponseError()),
       )
-      .subscribe(
-        val => {
-          !this.isCompany ? this.redirectToOrganizationState(val.id) : this.onModalClose();
-        },
-        err => this.handleResponseError(err, 'Can not send company profile'),
-      );
+      .subscribe(getProfile => {
+        !this.isCompany ? this.redirectToOrganizationState(getProfile.id) : this.onModalClose();
+      });
   };
 
-  private assignOrganizationDetails = (): void => {
-    this.modalAnimationComponentService.isPendingRequest().next(true);
-    this.createOrganizationModalComponentService
-      .getProfileDetails()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(
-        companyProfileDetails => {
-          this.setCompanyFormValues(companyProfileDetails);
-          this.checkExpertConsultationsLength(companyProfileDetails.profile.id);
-          this.isPending = false;
-        },
-        err => this.handleResponseError(err, 'Can not get user session'),
-      );
-  };
-
-  private checkExpertConsultationsLength = (accountId: string): void => {
-    this.modalAnimationComponentService.isPendingRequest().next(true);
-    this.createOrganizationModalComponentService
-      .getProfileService(accountId)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(
-        consultations => {
-          this.isProfileHasConsultations = consultations.length > 0;
-          this.isPending = false;
-          this.modalAnimationComponentService.isPendingRequest().next(this.isPending);
-        },
-        err => this.handleResponseError(err, 'Can not get profile consultations'),
-      );
-  };
-
-  private setCompanyFormValues = (companyProfileDetails: GetProfileWithDocuments): void => {
-    if (companyProfileDetails.profile.organizationDetails !== undefined) {
-      this.createOrganizationFormGroup.controls[this.createOrganizationNameFormControl].setValue(
-        companyProfileDetails.profile.organizationDetails.name,
-      );
-      this.createOrganizationFormGroup.controls[this.avatarFormControl].setValue(
-        companyProfileDetails.profile.organizationDetails.logo,
-      );
-      this.createOrganizationFormGroup.controls[this.descriptionFormControl].setValue(
-        companyProfileDetails.profile.organizationDetails.description,
-      );
-      this.profileLinksList = companyProfileDetails.profile.organizationDetails.links;
-      this.profileDocumentsList = companyProfileDetails.organizationDocuments;
-      this.avatarToken = companyProfileDetails.profile.organizationDetails.logo;
-      this.fileUploadTokensList = companyProfileDetails.organizationDocuments.map(file => file.token);
-    }
-  };
-
-  private redirectToOrganizationState = (id: string): void => {
+  private redirectToOrganizationState = (profileId: string): void => {
     this.router
-      .navigate([`/dashboard/company/profile/${id}`])
+      .navigate([`/dashboard/company/profile/${profileId}`])
       .then(isRedirectSuccessful => {
         this.onModalClose();
         if (!isRedirectSuccessful) {
@@ -197,19 +157,37 @@ export class CreateOrganizationModalComponent implements OnInit {
       })
       .catch(this.logger.error.bind(this));
   };
+  /** end update organization callbacks */
 
-  private assignFormValues = (): PutOrganizationDetails =>
+  /** initialize modal callbacks */
+  private setCompanyFormValues = (companyProfileDetails: GetProfileWithDocuments): void => {
+    if (companyProfileDetails.profile.organizationDetails !== undefined) {
+      const basicDataValue: IBasicProfileData = {
+        name: companyProfileDetails.profile.organizationDetails.name,
+        avatarToken: companyProfileDetails.profile.organizationDetails.logo,
+      };
+      this.avatarTokenProfileNameFormControl.setValue(basicDataValue);
+      this.createOrganizationFormGroup.controls[this.descriptionFormControl].setValue(
+        companyProfileDetails.profile.organizationDetails.description,
+      );
+      this.profileLinksList = companyProfileDetails.profile.organizationDetails.links;
+      this.profileDocumentsList = companyProfileDetails.organizationDocuments;
+      this.avatarToken = companyProfileDetails.profile.organizationDetails.logo;
+      this.fileUploadTokensList = companyProfileDetails.organizationDocuments.map(file => file.token);
+    }
+  };
+  /** end initialize modal callbacks */
+
+  private getFormValues = (): PutOrganizationDetails =>
     ({
-      name: this.createOrganizationFormGroup.controls[this.createOrganizationNameFormControl].value,
-      logo: this.createOrganizationFormGroup.controls[this.avatarFormControl].value,
+      name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
+      logo: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
       description: this.createOrganizationFormGroup.controls[this.descriptionFormControl].value,
       files: this.fileUploadTokensList,
       links: this.linksList,
     } as PutOrganizationDetails);
 
-  private handleResponseError = (error: HttpErrorResponse, errorMsg: string): void => {
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-    this.logger.warn(errorMsg, error);
+  private handleResponseError = (): void => {
     this.isPending = false;
     this.isInputDisabled = false;
   };

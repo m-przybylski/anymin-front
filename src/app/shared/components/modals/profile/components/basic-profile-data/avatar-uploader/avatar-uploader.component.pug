@@ -1,18 +1,33 @@
-.avatar-uploader([formGroup]="form")
-  input([formControlName]="controlName", hidden)
-
+.avatar-uploader
   plat-user-avatar(
-  [avatarSize]="avatarSize",
-  [avatarToken]="avatarToken",
-  [avatarError]="isError",
-  [avatarErrorValidation]="isFieldInvalid()",
-  [isOrganizationAvatar]="isOrganizationAvatar"
+    [avatarSize]="avatarSize",
+    [avatarToken]="avatarToken",
+    [isOrganizationAvatar]="isOrganizationAvatar"
   )
+  .user-avatar__error(*ngIf="tooLargeError")
+    div
+      span.icon.icon-warning
+      p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_BIG_SIZE' | translate }}
 
-  .avatar-uploader__button.avatar-uploader__button--add(*ngIf="!avatarToken")
+  .user-avatar__error(*ngIf="requiredError")
+    div
+      span.icon.icon-warning
+      p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.REQUIRED' | translate }}
+
+  .avatar-uploader__button.avatar-uploader__button--remove(
+    *ngIf="avatarToken || tooLargeError; else add",
+    (click)="onClickClear()"
+  )
+    span(plat-icon, iconClass='trash')
+
+ng-template(#add)
+  .avatar-uploader__button.avatar-uploader__button--add
     label
-      input(type='file', appAvatarUploader, [onAvatarError]="onError", #appAvatarUploader, accept="image/png, image/jpeg")
-      span.icon.icon-add
-
-  .avatar-uploader__button.avatar-uploader__button--remove((click)="onClickClear()", *ngIf="avatarToken")
-    span.icon.icon-trash
+      input(
+        type='file',
+        appAvatarUploader,
+        (avatarTokenChange)="onAvatarTokenChange($event)",
+        (avatarTooLargeError)="onAvatarTooLarge()",
+        accept="image/png, image/jpeg"
+        )
+      span(plat-icon, iconClass='add')

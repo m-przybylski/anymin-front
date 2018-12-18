@@ -28,12 +28,6 @@ export class UserAvatarComponent {
   }
 
   @Input()
-  public avatarError = false;
-
-  @Input()
-  public avatarErrorValidation = false;
-
-  @Input()
   public isOrganizationAvatar = false;
 
   public avatarUrl?: string;

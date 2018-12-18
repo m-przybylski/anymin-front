@@ -1,36 +1,64 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/variables/variables"
+@import "~@anymind-ng/core/src/template/stylesheets/core/helpers/helpers"
+
 
 .avatar-uploader
-	position: relative
-	width: 156px
-	min-width: 156px
-	min-height: 156px
-	height: 156px
-	padding: 0
+  position: relative
+  width: 156px
+  min-width: 156px
+  min-height: 156px
+  height: 156px
+  padding: 0
 
-	&__button
-		position: absolute
-		right: 0
-		bottom: 0
+  &__button
+    position: absolute
+    right: 0
+    bottom: 0
 
-		&--remove
-			span
-				background: $c-error-secondary
+    &--remove
+      span
+        background: $c-error-secondary
 
-		&--add
-			span
-				background: $c-primary
+    &--add
+      span
+        background: $c-primary
 
-		span
-			width: 48px
-			height: 48px
-			display: flex
-			align-items: center
-			justify-content: center
-			border-radius: 50%
-			cursor: pointer
-			border: 4px solid $c-white
-			color: $c-white
+    span
+      width: 48px
+      height: 48px
+      display: flex
+      align-items: center
+      justify-content: center
+      border-radius: 50%
+      cursor: pointer
+      border: 4px solid $c-white
+      color: $c-white
 
-		input
-			display: none
+    input
+      display: none
+
+.user-avatar__error
+  position: absolute
+  top: 0
+  width: 0
+  background: $c-white
+  border: 1px solid $c-error-primary
+  border-radius: 50%
+  height: 100%
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  padding: 0 24px
+
+  .icon-warning
+    font-size: $f-icon-24
+    color: $c-error-primary
+
+  p
+    +label
+    font-weight: 400
+    font-size: $f-button-small
+    text-transform: none
+    color: $c-error-primary

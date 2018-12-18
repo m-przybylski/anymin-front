@@ -1,79 +1,148 @@
-import { AfterContentInit, Component, Input, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { CreateProfileModalComponentService } from '../../create-profile/create-profile.component.service';
-import { catchError, takeUntil } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { Subject, of } from 'rxjs';
+import { Component, Input, forwardRef, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  Validator,
+  AbstractControl,
+  Validators,
+} from '@angular/forms';
 import { Config } from '../../../../../../../config';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+export const BASIC_PROFILE_DATA_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
+  useExisting: forwardRef(() => BasicProfileDataComponent),
+  multi: true,
+};
+
+export const BASIC_PROFILE_DATA_VALIDATOR = {
+  provide: NG_VALIDATORS,
+  // tslint:disable-next-line:no-use-before-declare
+  useExisting: forwardRef(() => BasicProfileDataComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'plat-basic-profile-data',
   styleUrls: ['./basic-profile-data.component.sass'],
   templateUrl: './basic-profile-data.component.html',
+  providers: [BASIC_PROFILE_DATA_ACCESSOR, BASIC_PROFILE_DATA_VALIDATOR],
 })
-export class BasicProfileDataComponent implements OnDestroy, AfterContentInit {
+export class BasicProfileDataComponent implements ControlValueAccessor, Validator, AfterViewInit, OnDestroy {
   @Input()
-  public form: FormGroup;
-
-  @Input()
-  public profileNameControlName: string;
-
-  @Input()
-  public avatarControlName: string;
-
-  @Input()
-  public isRequired = false;
-
-  @Input()
-  public isDisabled = false;
-
-  @Input()
-  public isOrganizationAvatar = false;
-
+  public isOrganizationAvatar: boolean;
   @Input()
   public inputTextLabel?: string;
-
   @Input()
   public inputTextPlaceholder?: string;
-
   @Input()
-  public avatarToken?: string;
+  public formControl: FormControl;
+  @Input()
+  public set isRequired(val: boolean) {
+    this._isRequired = val;
+    this.avatarFormControl.setValidators(Validators.required);
+    /**
+     * does not work at the moment, validators are overridden by am-core-input-text
+     * TODO: after form controls refactor - uncomment to add validator to control
+     */
+    // this.textInputFormControl.setValidators(Validators.required);
+  }
+  public get isRequired(): boolean {
+    return this._isRequired;
+  }
+  @Input()
+  public isDisabled: boolean;
+
+  /** DEPRECATED subject to remove do not use them */
+  public profileNameControlName = 'profileNameFormControl';
+  /** end DEPRECATED */
+
+  public avatarFormControl = new FormControl('');
+  public textInputFormControl = new FormControl('');
+
+  public profileDataForm = new FormGroup({
+    avatarFormControl: this.avatarFormControl,
+    /**
+     * TODO: uncomment line below after form refactor.
+     */
+    // profileNameFormControl: this.textInputFormControl
+  });
 
   public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;
   public readonly profileNameMinlength = Config.inputsLength.profileNameMinlength;
-  public profileNameNgModel = '';
-  private logger: LoggerService;
-  private ngUnsubscribe = new Subject<string>();
 
-  constructor(
-    private createProfileModalComponentService: CreateProfileModalComponentService,
-    private alertService: AlertService,
-    loggerFactory: LoggerFactory,
-  ) {
-    this.logger = loggerFactory.createLoggerService('BasicProfileDataComponent');
-  }
+  // tslint:disable-next-line:no-any
+  private onModelChange: (obj?: any) => any;
+  // tslint:disable-next-line:no-any
+  private onTouch: (obj?: any) => any;
+  private onDestroy$ = new Subject<void>();
+  private _isRequired: boolean;
 
-  public ngAfterContentInit(): void {
-    this.createProfileModalComponentService.userName
-      .pipe(catchError(err => of(this.handleGetPrevoiusValueError(err))))
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(this.setPreviousUserNameValue);
+  public ngAfterViewInit(): void {
+    /**
+     * hack - am-core-input-text internally adds formControl to the scope
+     * TODO: depends on forms controls core refactor
+     * once refactored it can be moved to ngOnInit hook for control over modal animation
+     */
+    this.profileDataForm.valueChanges.pipe(takeUntil(this.onDestroy$)).subscribe(data => {
+      const value = {
+        name: data.profileNameFormControl,
+        avatarToken: data.avatarFormControl,
+      };
+      this.onModelChange(value);
+    });
   }
 
   public ngOnDestroy(): void {
-    this.createProfileModalComponentService.setUserName(this.form.controls[this.profileNameControlName].value);
-    this.form.reset();
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
-  private handleGetPrevoiusValueError = (httpError: HttpErrorResponse): void => {
-    this.logger.error('Error when handling previous value', httpError);
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  };
+  public validate(c: AbstractControl): { [key: string]: boolean } | null {
+    const controlValue: IBasicProfileData | null = c.value;
+    /**
+     * this validator runs multiple times based on how many controls are added to the form.
+     * make sure this code is quick
+     */
+    if (this.isRequired) {
+      if (controlValue === null || !controlValue.avatarToken || !controlValue.name) {
+        return { required: true };
+      }
+    }
 
-  private setPreviousUserNameValue = (value: string): void => {
-    this.profileNameNgModel = value;
-  };
+    // tslint:disable-next-line:no-null-keyword
+    return null;
+  }
+
+  //#region ControlValueAccessor interface
+  /**
+   * write value - control.setValue()
+   */
+  public writeValue(obj?: IBasicProfileData | null): void {
+    if (obj !== null && obj !== undefined) {
+      this.profileDataForm.patchValue({
+        avatarFormControl: obj.avatarToken,
+        profileNameFormControl: obj.name,
+      });
+    }
+  }
+  // tslint:disable-next-line:no-any
+  public registerOnChange(fn: any): void {
+    this.onModelChange = fn;
+  }
+  // tslint:disable-next-line:no-any
+  public registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+  //#endregion
+}
+
+export interface IBasicProfileData {
+  name: string;
+  avatarToken: string;
 }

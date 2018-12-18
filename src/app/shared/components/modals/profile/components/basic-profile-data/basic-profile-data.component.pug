@@ -1,24 +1,19 @@
 .basic-profile-data
-  .basic-profile-data__content
-    .crop-photo
-      app-avatar-uploader(
-      [form]="form",
-      [controlName]="avatarControlName",
-      [isRequired]="isRequired",
+  .basic-profile-data__content([formGroup]='profileDataForm')
+    plat-avatar-uploader(
+      [formControl]="avatarFormControl",
       [isOrganizationAvatar]="isOrganizationAvatar",
-      [avatarToken]="avatarToken"
-      )
+    )
 
     am-core-input-text(
-    [label]="inputTextLabel",
-    [placeholder]="inputTextPlaceholder",
-    [errorTextKey]="'EDIT_PROFILE.INPUT.INPUT_NAME.VALIDATION.ERROR'",
-    [form]="form",
-    [controlName]="profileNameControlName",
-    [inputValue]="profileNameNgModel",
-    [isRequired]="isRequired",
-    [isDisabled] = "isDisabled",
-    [minLength]="profileNameMinlength",
-    [maxLength]="profileNameMaxlength",
-    [initialFocus]="true"
+      [label]="inputTextLabel",
+      [placeholder]="inputTextPlaceholder",
+      [errorTextKey]="'EDIT_PROFILE.INPUT.INPUT_NAME.VALIDATION.ERROR'",
+      [form]="profileDataForm",
+      [controlName]="profileNameControlName",
+      [isRequired]="isRequired",
+      [isDisabled] = "isDisabled",
+      [minLength]="profileNameMinlength",
+      [maxLength]="profileNameMaxlength",
+      [initialFocus]="true"
     )

@@ -10,7 +10,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateProfileModalComponentService } from '../../../create-profile/create-profile.component.service';
 import { Alerts, AlertService, WindowRef, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalContainerTypeEnum } from '../../../../modal/modal.component';
@@ -53,7 +52,6 @@ export class ImageCropModalComponent implements OnDestroy, AfterViewInit {
     private alertService: AlertService,
     private windowRef: WindowRef,
     private imageCropService: ImageCropService,
-    private createProfileModalComponentService: CreateProfileModalComponentService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ImageCropModalComponent');
@@ -94,31 +92,34 @@ export class ImageCropModalComponent implements OnDestroy, AfterViewInit {
       });
   }
 
-  public onModalClose = (): void => this.activeModal.close();
+  public onModalClose(avatarToken: string): void {
+    this.activeModal.close(avatarToken);
+  }
 
-  public onImgUrlSubmit = (): void => {
+  public onImgUrlSubmit(): void {
     this.isPending = true;
     this.imageCropService
       .uploadFile(this.cropModalData, this.croppieElement)
       .then(response => {
-        this.createProfileModalComponentService.setAvatarToken(response.token);
         this.isPending = false;
-        this.onModalClose();
+        this.onModalClose(response.token);
       })
       .catch(err => this.handleUploadFileError(err));
-  };
+  }
 
-  private assignCroppieWidth = (): void => {
+  private assignCroppieWidth(): void {
     this.windowRef.nativeWindow.innerWidth <= Config.screenWidth.mobileLarge
       ? (this.croppieResolution = this.mobileResolution)
       : (this.croppieResolution = this.largeMobileResolution);
-  };
+  }
 
-  private onZoomChange = (value: number): void => this.croppieElement.setZoom(value);
+  private onZoomChange(value: number): void {
+    this.croppieElement.setZoom(value);
+  }
 
-  private handleUploadFileError = (error: HttpErrorResponse): void => {
+  private handleUploadFileError(error: HttpErrorResponse): void {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('Can not upload image', error);
     this.isPending = false;
-  };
+  }
 }

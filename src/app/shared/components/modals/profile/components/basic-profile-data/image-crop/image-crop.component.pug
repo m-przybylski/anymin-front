@@ -1,8 +1,8 @@
 plat-modal-component(
-[modalTrTitleHeader]="'EDIT_PROFILE.IMAGE_CROP.TITLE'",
-[modalContainerClass]="modalClass",
-[isCloseButtonVisible]="false"
-)
+  [modalTrTitleHeader]="'EDIT_PROFILE.IMAGE_CROP.TITLE'",
+  [modalContainerClass]="modalClass",
+  [isCloseButtonVisible]="false"
+  )
   .image-crop
     .image-crop__container(#imageCroppContainer)
       #visual-source
@@ -17,8 +17,8 @@ plat-modal-component(
           | {{ 'EDIT_PROFILE.IMAGE_CROP.BUTTON.CANCEL' | translate }}
 
         am-core-submit-button(
-        (click)="onImgUrlSubmit()",
-        [titleText]="'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE'",
-        [isDisabled]="isPending",
-        [isButtonSmall]="true"
-      )
+          (click)="onImgUrlSubmit()",
+          [titleText]="'EDIT_PROFILE.IMAGE_CROP.BUTTON.SAVE'",
+          [isDisabled]="isPending",
+          [isButtonSmall]="true"
+        )

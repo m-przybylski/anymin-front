@@ -4,17 +4,22 @@
 @import "../../../../../shared/components/modals/modal/modal.component"
 
 \:host
-	display: block
-	width: 100%
+  display: block
+  width: 100%
 
-	.modal-component
-		&__handler
-			.form
-				flex: 1
+.modal-component
+  &__handler
+    .form
+      flex: 1
 
-				+smm
-					margin: 32px 0 0 48px
+      +smm
+        margin: 32px 0 0 48px
 
-		&__action
-			&--expert
-				justify-content: center
+  &__action
+    justify-content: center
+
+    &--expert
+      justify-content: space-between
+
+.expert-details
+  overflow: hidden

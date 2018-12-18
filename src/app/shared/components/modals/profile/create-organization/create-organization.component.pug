@@ -23,15 +23,12 @@ plat-modal-component(
 
     .modal-form__row
       plat-basic-profile-data(
-      [form]="createOrganizationFormGroup",
-      [profileNameControlName]="createOrganizationNameFormControl",
-      [avatarControlName]="avatarFormControl",
-      [avatarToken]="avatarToken",
-      [isRequired]="true",
-      [isDisabled]="isInputDisabled",
-      [isOrganizationAvatar]="true",
-      [inputTextLabel]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.LABEL'",
-      [inputTextPlaceholder]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.PLACEHOLDER'"
+        [formControl]="avatarTokenProfileNameFormControl",
+        [isRequired]="true",
+        [isDisabled]="isInputDisabled",
+        [isOrganizationAvatar]="true",
+        [inputTextLabel]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.LABEL'",
+        [inputTextPlaceholder]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.PLACEHOLDER'"
       )
 
     .modal-form__row.modal-form__row--small

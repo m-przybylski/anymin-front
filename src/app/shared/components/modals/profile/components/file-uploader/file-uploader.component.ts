@@ -36,7 +36,9 @@ interface IFile {
 })
 export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input()
-  public profileDocuments: ProfileDocument[] = [];
+  public set profileDocuments(value: ProfileDocument[]) {
+    this.getFilesInfo(value);
+  }
 
   @Input()
   public maxFilesCount = 1;
@@ -114,7 +116,6 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.getFilesInfo();
     this.assignFileValidationValues();
   }
 
@@ -184,9 +185,9 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     return fileName;
   };
 
-  private getFilesInfo = (): void => {
-    this.tokensList = this.profileDocuments.map(document => document.token);
-    this.userFiles = this.profileDocuments.map(document => ({
+  private getFilesInfo(profileDocuments: ProfileDocument[]): void {
+    this.tokensList = profileDocuments.map(document => document.token);
+    this.userFiles = profileDocuments.map(document => ({
       fileInfo: {
         name: document.name,
         token: document.token,
@@ -196,7 +197,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
       fileStatus: FileStatus.VALID,
     }));
     this.validUserFilesCounter = this.userFiles.length;
-  };
+  }
 
   private uploadFile = (fileToUpload: IFile): void => {
     if (fileToUpload.file) {

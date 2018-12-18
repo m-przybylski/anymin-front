@@ -1,86 +1,73 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CreateProfileModalComponentService } from '../../../create-profile/create-profile.component.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { catchError, takeUntil } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Subject, of } from 'rxjs';
+import { Component, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import { AvatarSizeEnum } from '../../../../../user-avatar/user-avatar.component';
 
+export const AVATAR_UPLOAD_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
+  useExisting: forwardRef(() => AvatarUploaderComponent),
+  multi: true,
+};
+
+/**
+ * Avatar uploader. Use as standard control in your form.
+ * It can be used in Reactive forms and template driver forms
+ * Internal validator:
+ * If image size over is over threshold it is considered to be an error
+ * and formControl will be marked as INVALID
+ */
 @Component({
-  selector: 'app-avatar-uploader',
+  selector: 'plat-avatar-uploader',
   templateUrl: './avatar-uploader.component.html',
   styleUrls: ['./avatar-uploader.component.sass'],
+  providers: [AVATAR_UPLOAD_ACCESSOR],
 })
-export class AvatarUploaderComponent implements OnDestroy, OnInit {
-  @Input()
-  public avatarToken: string;
-
-  @Input()
-  public controlName: string;
-
-  @Input()
-  public form: FormGroup;
-
-  @Input()
-  public isRequired = false;
-
+export class AvatarUploaderComponent implements ControlValueAccessor {
   @Input()
   public isOrganizationAvatar = false;
 
-  public isError = false;
+  @Input()
+  public formControl: FormControl;
+
   public readonly avatarSize = AvatarSizeEnum.X_156;
 
-  private logger: LoggerService;
-  private destroyed$ = new Subject<void>();
+  public avatarToken: string;
+  private onModelChange: (obj?: string) => void;
+  // tslint:disable-next-line:no-any
+  private onTouch: (obj?: any) => void;
 
-  constructor(
-    private formUtils: FormUtilsService,
-    private alertService: AlertService,
-    private createProfileModalComponentService: CreateProfileModalComponentService,
-    loggerFactory: LoggerFactory,
-  ) {
-    this.logger = loggerFactory.createLoggerService('AvatarUploaderComponent');
-  }
-
-  public ngOnInit(): void {
-    this.form.addControl(this.controlName, new FormControl('', this.isRequired ? Validators.required.bind(this) : []));
-
-    this.createProfileModalComponentService.avatarToken
-      .pipe(
-        catchError(err => of(this.handleGetPrevoiusUrlAvatarError(err))),
-        takeUntil(this.destroyed$),
-      )
-      .subscribe((avatarToken: string) => {
-        this.setAvatarToken(avatarToken);
-      });
-  }
-
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.form, this.controlName);
-
-  public onError = (isError: boolean): void => {
-    this.isError = isError;
+  private readonly controlErrorCodes = {
+    tooLarge: 'tooLarge',
+    required: 'required',
   };
 
-  public ngOnDestroy(): void {
-    this.createProfileModalComponentService.setAvatarToken(this.form.controls[this.controlName].value);
-    this.destroyed$.next();
-    this.destroyed$.complete();
+  public onAvatarTooLarge(): void {
+    this.formControl.setErrors({ [this.controlErrorCodes.tooLarge]: false });
   }
-
-  public onClickClear = (): void => {
-    this.isError = false;
-    this.form.controls[this.controlName].setValue('');
-    this.createProfileModalComponentService.setAvatarToken('');
-  };
-
-  private handleGetPrevoiusUrlAvatarError = (httpError: HttpErrorResponse): void => {
-    this.logger.error('Error when handling previous avatar src', httpError);
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  };
-
-  private setAvatarToken = (avatarToken: string): void => {
+  public onClickClear(): void {
+    this.onAvatarTokenChange('');
+  }
+  public onAvatarTokenChange(avatarToken: string): void {
+    // tslint:disable-next-line:no-null-keyword
+    this.formControl.setErrors(null);
     this.avatarToken = avatarToken;
-    this.form.controls[this.controlName].setValue(avatarToken);
-  };
+    this.onModelChange(avatarToken);
+  }
+  public writeValue(avatarToken: string): void {
+    this.avatarToken = avatarToken;
+  }
+  // tslint:disable-next-line:no-any
+  public registerOnChange(fn: any): void {
+    this.onModelChange = fn;
+  }
+  // tslint:disable-next-line:no-any
+  public registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+  public get requiredError(): boolean {
+    return this.formControl.hasError(this.controlErrorCodes.required);
+  }
+  public get tooLargeError(): boolean {
+    return this.formControl.hasError(this.controlErrorCodes.tooLarge);
+  }
 }
