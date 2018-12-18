@@ -45,10 +45,10 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
         if (previousHeight !== this.currentHeight) {
           const animation = this.animationBuilder.build([
             animate(
-              `${this.timeDuration}ms ease-in-out`,
+              `${this.timeDuration}ms`,
               keyframes([
                 style({ height: previousHeight, offset: 0 }),
-                style({ height: '*', offset: 0.5 }),
+                style({ height: '*', offset: 0.99 }),
                 style({ height: 'auto', offset: 1 }),
               ]),
             ),
@@ -60,7 +60,7 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
           const player = animation.create(element);
 
           player.onStart(() => {
-            this.stickyModalFooterService.pushAnimationEvent();
+            this.stickyModalFooterService.pushAnimationEvent(Number(this.currentHeight));
           });
 
           player.onDone(() => {

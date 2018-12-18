@@ -152,7 +152,7 @@
     padding: 24px + $s-modal-header 16px 24px
     min-height: 100vh
 
-    +smm
+    +mdm
       min-height: 256px
       padding: 32px + $s-modal-header 48px 32px
 
@@ -160,12 +160,17 @@
       padding: 48px + $s-modal-header 48px 48px
 
     &--loading
-      height: calc(256px - #{$s-modal-header})
       display: flex
       justify-content: center
       align-items: center
+      height: 100%
+      width: 100%
+      position: absolute
+      left: 0
+      top: 0
 
       span
+        margin: $s-modal-header 0 0
         display: block
         width: 24px
         height: 24px
@@ -209,18 +214,16 @@
         margin: initial
 
   &__footer
-    bottom: -100%
-    position: static
+    position: fixed
+    left: inherit
+    width: inherit
+    bottom: 0
 
     +mdm
-      transition: bottom 0.15s 0.3s
+      position: static
 
     &--fixed
-      transition: bottom 0.15s 0.3s
       position: fixed
-      left: inherit
-      width: inherit
-      bottom: 0
 
       &::ng-deep
         .consultation-footer

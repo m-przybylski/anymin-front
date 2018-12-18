@@ -1,13 +1,13 @@
 import { Subject, Observable } from 'rxjs';
 
 export class StickyModalFooterService {
-  private onStartSticky$ = new Subject<void>();
+  private onStartSticky$ = new Subject<number>();
 
-  public get newAnimationEvent$(): Observable<void> {
+  public get newAnimationEvent$(): Observable<number> {
     return this.onStartSticky$.asObservable();
   }
 
-  public pushAnimationEvent(): void {
-    this.onStartSticky$.next();
+  public pushAnimationEvent(contentHeight: number): void {
+    this.onStartSticky$.next(contentHeight);
   }
 }

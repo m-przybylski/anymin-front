@@ -2,41 +2,32 @@ import { AfterViewInit, Directive, ElementRef, Input, NgZone, OnDestroy } from '
 import { WindowRef } from '@anymind-ng/core';
 import { StickyModalFooterService } from '@platform/shared/components/modals/modal/animation/sticky-modal-footer.directive.service';
 import { Subject, fromEvent } from 'rxjs';
-import { delay, takeUntil } from 'rxjs/operators';
+import { tap, takeUntil } from 'rxjs/operators';
 import { Config } from '../../../../../config';
 
 @Directive({
   selector: '[stickyModalFooter]',
 })
 export class StickyFooterDirective implements AfterViewInit, OnDestroy {
-  private static readonly contentHeightAnimationDelay = Config.animationContentHeightTimeDuration;
-
   @Input()
   public footerModalElement: HTMLElement;
 
   @Input()
   public modalContentElement: HTMLElement;
 
+  public modalHeightAfterAnimation: number;
+  private currentScrollTopHeight = 0;
   private paddingTop: number;
   private windowHeight: number;
   private ngUnsubscribe$ = new Subject<void>();
+  private isAbleToMarkAsFixedAgain = false;
 
   constructor(
     private element: ElementRef,
     private stickyModalFooterService: StickyModalFooterService,
     private windowRef: WindowRef,
     private ngZone: NgZone,
-  ) {
-    this.ngZone.runOutsideAngular(() => {
-      fromEvent(this.element.nativeElement, 'scroll')
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => {
-          if (this.isAbleToBeFixed()) {
-            this.markFooterElementAsFixed();
-          }
-        });
-    });
-  }
+  ) {}
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
@@ -44,37 +35,102 @@ export class StickyFooterDirective implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.stickyModalFooterService.newAnimationEvent$
-      .pipe(
-        delay(StickyFooterDirective.contentHeightAnimationDelay),
-        takeUntil(this.ngUnsubscribe$),
-      )
-      .subscribe(() => {
-        this.checkIsFooterFixed();
-      });
+    if (this.isModalFooterExist()) {
+      this.listenOnScroll();
 
-    this.paddingTop = Number(
-      this.windowRef.nativeWindow.getComputedStyle(this.element.nativeElement).paddingTop.replace('px', ''),
-    );
+      this.stickyModalFooterService.newAnimationEvent$
+        .pipe(
+          tap((height: number) => this.stickModalFooter(height)),
+          takeUntil(this.ngUnsubscribe$),
+        )
+        .subscribe();
 
-    this.windowHeight = this.windowRef.nativeWindow.innerHeight;
+      this.paddingTop = Number(
+        this.windowRef.nativeWindow.getComputedStyle(this.element.nativeElement).paddingTop.replace('px', ''),
+      );
+      this.windowHeight = this.windowRef.nativeWindow.innerHeight;
+    }
   }
 
-  private markFooterElementAsFixed = (): void => {
-    this.addPositionFixedClassToFooter();
-    this.modalContentElement.style.paddingBottom = `${this.footerModalElement.clientHeight - this.paddingTop}px`;
-  };
-
-  private checkIsFooterFixed = (): void => {
-    if (this.isAbleToBeFixed()) {
-      this.addPositionFixedClassToFooter();
+  private detectScrollOrientation = (): void => {
+    if (this.element.nativeElement.scrollTop > this.currentScrollTopHeight) {
+      if (this.element.nativeElement.scrollTop === this.getDownModalBreakPointValue()) {
+        this.markFooterElementAsStatic();
+        this.isAbleToMarkAsFixedAgain = true;
+      }
+      this.setCurrentScrollHeight();
+    } else {
+      if (this.element.nativeElement.scrollTop <= this.getDownModalBreakPointValue()) {
+        if (this.isAbleToMarkAsFixedAgain) {
+          this.markFooterElementAsFixed();
+          this.element.nativeElement.scrollTop = this.getDownModalBreakPointValue();
+          this.isAbleToMarkAsFixedAgain = false;
+        }
+      }
+      this.setCurrentScrollHeight();
     }
   };
 
-  private addPositionFixedClassToFooter = (): void => {
-    this.footerModalElement.classList.add('modal-component__footer--fixed');
+  private listenOnScroll = (): void => {
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent(this.element.nativeElement, 'scroll')
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => {
+          if (this.isAbleToBeFixed() && this.isModalFooterExist()) {
+            this.detectScrollOrientation();
+          }
+        });
+    });
+  };
+
+  private setCurrentScrollHeight = (): void => (this.currentScrollTopHeight = this.element.nativeElement.scrollTop);
+
+  private getDownModalBreakPointValue = (): number =>
+    this.modalHeightAfterAnimation -
+    (this.windowHeight -
+      this.footerModalElement.clientHeight -
+      this.paddingTop -
+      (this.footerModalElement.clientHeight - this.paddingTop));
+
+  private stickModalFooter = (modalHeight: number): void => {
+    this.modalHeightAfterAnimation = modalHeight;
+
+    if (modalHeight !== 0 && this.isAbleToBeFixed()) {
+      const halfDivider = 2;
+
+      // It's space between modalContent and edge of screen before animation start
+      const breakpointToFixFooter =
+        this.windowRef.nativeWindow.innerHeight -
+        (this.modalContentElement.clientHeight +
+          this.footerModalElement.clientHeight +
+          (this.footerModalElement.clientHeight - this.paddingTop)) /
+          halfDivider;
+
+      // It's counts time when ModalFooter touch down window edge during animation
+      const timeDelay = (Config.animationContentHeightTimeDuration * breakpointToFixFooter) / modalHeight;
+
+      setTimeout(() => {
+        this.markFooterElementAsFixed();
+      }, timeDelay);
+    }
+  };
+
+  private markFooterElementAsFixed = (): void => {
+    this.ngZone.run(() => {
+      this.footerModalElement.classList.add('modal-component__footer--fixed');
+      this.modalContentElement.style.paddingBottom = `${this.footerModalElement.clientHeight - this.paddingTop}px`;
+    });
+  };
+
+  private markFooterElementAsStatic = (): void => {
+    this.ngZone.run(() => {
+      this.footerModalElement.classList.remove('modal-component__footer--fixed');
+      this.modalContentElement.style.paddingBottom = '0px';
+    });
   };
 
   private isAbleToBeFixed = (): boolean =>
-    this.windowRef.nativeWindow.innerHeight < this.modalContentElement.clientHeight;
+    this.windowRef.nativeWindow.innerHeight - this.footerModalElement.clientHeight <= this.modalHeightAfterAnimation;
+
+  private isModalFooterExist = (): boolean => this.footerModalElement.childElementCount !== 0;
 }
