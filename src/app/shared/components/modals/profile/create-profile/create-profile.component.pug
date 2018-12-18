@@ -1,6 +1,6 @@
 plat-modal-component(
 [modalTrTitleHeader]="modalHeaderTr",
-[isBackwardVisible]="isExpertForm && !isExpert && !isOpenAsExpert",
+[isBackwardVisible]="isExpertForm && !isExpert && !isOpenedAsExpert",
 (backwardClick)="onBackToClientStep()"
   )
 
@@ -64,7 +64,7 @@ plat-modal-component(
             (linksListEmitter$)="onAddProfileLink($event)"
           )
 
-    .modal-component__action([ngClass]="{'modal-component__action--expert': isOpenAsExpert}")
+    .modal-component__action([ngClass]="{'modal-component__action--expert': isOpenedAsExpert}")
       a.button.button--link.button--small((click)="toggleIsExpert()", *ngIf="!isOpenedAsExpert")
         | {{ (isExpertForm ? 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' : 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON') | translate }}
 
