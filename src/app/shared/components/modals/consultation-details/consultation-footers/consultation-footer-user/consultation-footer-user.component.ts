@@ -28,7 +28,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public get grossPrice(): string {
-    return this.moneyPipe.transform(this.data.price) || this.moneyPipe.transform({ amount: 0, currency: '' });
+    return this.moneyPipe.transform(this.data.price) || this.moneyPipe.transform({ value: 0, currency: '' });
   }
 
   public get isExpertAvailable(): boolean {

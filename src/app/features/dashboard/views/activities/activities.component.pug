@@ -1,9 +1,8 @@
 .activities(*ngIf="profileActivities$ | async as profileActivities")
-  .container(*ngIf="isLoaded$ | async; else loader")
-    .activities__profit
-      span.activities__profit__header {{ "EXPERT_ACTIVITIES.PROFIT_HEADER" | translate }}
-      span.activities__profit__money(*ngIf="(balance$ | async) as balance") {{ balance.amount | currency: balance.currency:'symbol-narrow' }}
-
+  .container(*ngIf="isLoaded$  | async as isLoaded; else loader")
+    plat-activities-balance([activityListType]="listType", [isLoaded]="isLoaded",
+    [combinedBalance]="combinedBalance$ | async",
+    [combinedBlockedBalance]="combinedBlockedBalance$ | async", [balance]="balance$ | async")
     .non-activities(*ngIf="!profileActivities.length")
       am-core-image-display.non-activities__image(imgName="activities")
       span {{ "EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER" | translate }}
@@ -32,7 +31,9 @@
       .all-list
         .all-list__header
           span {{"EXPERT_ACTIVITIES.ALL_LIST_COUNTER_TITLE" | translate}}
-          a([hidden]="true") {{ "EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS" | translate }}
+          a.activities__filter-button
+            span(plat-icon, iconClass="filters")
+            span {{ "EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS" | translate }}
 
         ul.all-list__container
           li(*ngFor='let profileActivity of profileActivities; trackBy:trackByActivities', [@animation])
@@ -48,10 +49,7 @@
 
 ng-template(#loader)
   .container
-    .activities__profit
-      span.activities__profit__header {{ "EXPERT_ACTIVITIES.PROFIT_HEADER" | translate }}
-      span.activities__profit__money {{ 0 | currency: 'PLN':'symbol-narrow' }}
-
+    plat-activities-balance([activityListType]="listType")
     .activities-lists
       .all-list
         .all-list__header

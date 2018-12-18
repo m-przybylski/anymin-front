@@ -1,6 +1,6 @@
 // tslint:disable:max-classes-per-file
 import { Action } from '@ngrx/store';
-import { MoneyDto } from '@anymind-ng/api';
+import { GetProfileBalance } from '@anymind-ng/api';
 
 export enum ActivitiesWsActionTypes {
   NewExpertActivityNotification = '[Activities WS] New Expert Activity Notification',
@@ -23,7 +23,7 @@ export class NewCompanyActivityNotificationAction implements Action {
 export class BalanceUpdateAction implements Action {
   public readonly type = ActivitiesWsActionTypes.BalanceUpdate;
 
-  constructor(public payload: MoneyDto) {}
+  constructor(public payload: GetProfileBalance) {}
 }
 export type ActivitiesWsActionUnion =
   | NewExpertActivityNotificationAction

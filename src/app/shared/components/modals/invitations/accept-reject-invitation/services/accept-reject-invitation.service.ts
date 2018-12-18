@@ -36,7 +36,6 @@ export class AcceptRejectInvitationService extends Logger {
       map(([service, tagList]: [GetService, ReadonlyArray<string>]) => ({
         isFreelance: service.isFreelance,
         price: service.price,
-        grossPrice: service.price,
         serviceDescription: service.description,
         tagList,
       })),
@@ -106,7 +105,6 @@ export class AcceptRejectInvitationService extends Logger {
 export interface IConsultationDetails {
   isFreelance: boolean;
   price: MoneyDto;
-  grossPrice: MoneyDto;
   serviceDescription: string;
   tagList: ReadonlyArray<string>;
 }

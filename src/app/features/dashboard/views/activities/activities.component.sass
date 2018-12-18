@@ -1,32 +1,11 @@
-@import "~@anymind-ng/core/src/template/stylesheets/stylesheets"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
 
 .activities
-  padding: 24px 0 0
+  padding: 16px 0 0
   background: $c-base-background
 
   +smm
     padding: 32px 0 0
-
-  &__profit
-    text-align: center
-
-    > span
-      display: block
-
-    &__header
-      +label
-      font-weight: 500
-      text-transform: uppercase
-      color: $c-label
-
-    &__money
-      +h3
-      font-weight: 300
-      color: $c-text-primary
-
-      +smm
-        +h2
-        font-weight: 300
 
   .non-activities
     margin: 64px 0
@@ -59,18 +38,14 @@
         font-weight: 300
 
   .important-list
-    margin: 0 0 16px
-
-    +smm
-      margin: 0 0 24px
 
     &__header
-      padding: 24px 8px 16px
+      padding: 16px 8px
       display: flex
       justify-content: space-between
 
       +smm
-        padding: 24px 16px
+        padding: 24px 0
 
       +mdm
         padding: 24px
@@ -89,14 +64,23 @@
     li
       margin: 0 0 4px 0
 
+    &__container
+      margin: 0 -4px
+
+      +smm
+        margin: 0 -16px
+
+      +lgm
+        margin: 0
+
   .all-list
     &__header
-      padding: 24px 8px 16px
+      padding: 16px 8px
       display: flex
       justify-content: space-between
 
       +smm
-        padding: 24px 16px
+        padding: 24px 0
 
       +mdm
         padding: 24px
@@ -114,11 +98,31 @@
     li
       margin: 0 0 4px 0
 
+    &__container
+      margin: 0 -4px
+
+      +smm
+        margin: 0 -16px
+
+      +lgm
+        margin: 0
+
   .bottom
     display: flex
     justify-content: center
     margin: 40px 0
 
+  &__filter-button
+    display: none
+
+    +mdm
+      display: flex
+      align-items: center
+      justify-content: space-around
+
+    >span
+      +button-small
+      padding: 0 4px
 
 .activity-row
   width: 100%

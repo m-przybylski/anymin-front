@@ -46,7 +46,7 @@ describe('ConsultationFooterUserComponent', () => {
       isExpertAvailable: false,
       isFreelance: false,
       userId: '1234',
-      price: { amount: 100, currency: 'PLN' },
+      price: { value: 100, currency: 'PLN' },
       defaultPaymentMethod: {
         creditCardId: 'id',
       },
@@ -63,7 +63,7 @@ describe('ConsultationFooterUserComponent', () => {
       expertsIdList: [] as any,
       isExpertAvailable: true,
       isFreelance: false,
-      price: { amount: 123, currency: 'PLN' },
+      price: { value: 123, currency: 'PLN' },
       defaultPaymentMethod: {
         creditCardId: 'id',
       },
@@ -80,7 +80,7 @@ describe('ConsultationFooterUserComponent', () => {
       expertsIdList: ['asdf'] as any,
       isExpertAvailable: true,
       isFreelance: false,
-      price: { amount: 123, currency: 'PLN' },
+      price: { value: 123, currency: 'PLN' },
       defaultPaymentMethod: {
         creditCardId: 'id',
       },
@@ -99,7 +99,7 @@ describe('ConsultationFooterUserComponent', () => {
       isExpertAvailable: true,
       isFreelance: false,
       userId: '123',
-      price: { amount: 123, currency: 'PLN' },
+      price: { value: 123, currency: 'PLN' },
       defaultPaymentMethod: {
         creditCardId: 'id',
       },
@@ -118,7 +118,7 @@ describe('ConsultationFooterUserComponent', () => {
       isExpertAvailable: true,
       isFreelance: false,
       userId: undefined,
-      price: { amount: 100, currency: 'PLN' },
+      price: { value: 100, currency: 'PLN' },
       defaultPaymentMethod: {},
       creditCards: [],
     };

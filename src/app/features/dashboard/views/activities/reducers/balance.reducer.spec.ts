@@ -4,8 +4,22 @@ import { BalanceApiActions } from '../actions';
 describe('balance.reducer', () => {
   const initialState: IState = {
     balance: {
-      amount: 0,
-      currency: '',
+      profileAmount: {
+        value: 0,
+        currency: 'PLN',
+      },
+      partnerAmount: {
+        value: 0,
+        currency: 'PLN',
+      },
+      profileBlockedAmount: {
+        value: 0,
+        currency: 'PLN',
+      },
+      partnerBlockedAmount: {
+        value: 0,
+        currency: 'PLN',
+      },
     },
     isLoaded: false,
   };
@@ -22,24 +36,69 @@ describe('balance.reducer', () => {
     it('should update store', () => {
       const result = reducer(
         initialState,
-        new BalanceApiActions.LoadBalanceSuccessAction({ amount: 5, currency: 'PLN' }),
+        new BalanceApiActions.LoadBalanceSuccessAction({
+          profileAmount: {
+            value: 5,
+            currency: 'PLN',
+          },
+          partnerAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          profileBlockedAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          partnerBlockedAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+        }),
       );
       expect(result).toEqual({
         balance: {
-          amount: 5,
-          currency: 'PLN',
+          profileAmount: {
+            value: 5,
+            currency: 'PLN',
+          },
+          partnerAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          profileBlockedAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          partnerBlockedAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
         },
         isLoaded: true,
       });
     });
   });
   describe('LoadBalanceFailre', () => {
-    it('should update store', () => {
+    it('should update store failed', () => {
       const result = reducer(initialState, new BalanceApiActions.LoadBalanceFailureAction('oups'));
       expect(result).toEqual({
         balance: {
-          amount: 0,
-          currency: '',
+          profileAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          partnerAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          profileBlockedAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
+          partnerBlockedAmount: {
+            value: 0,
+            currency: 'PLN',
+          },
         },
         isLoaded: true,
       });

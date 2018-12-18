@@ -43,7 +43,7 @@ describe('CreateEditConsultationService', () => {
       name: 'superService',
       description: 'someDesc',
       price: {
-        amount: 123,
+        value: 123,
         currency: 'PLN',
       },
       tags: [{ name: 'tag' }],
@@ -63,7 +63,7 @@ describe('CreateEditConsultationService', () => {
       name: 'superService',
       description: 'someDesc',
       price: {
-        amount: 123,
+        value: 123,
         currency: 'PLN',
       },
       tags: [{ name: 'tag' }],

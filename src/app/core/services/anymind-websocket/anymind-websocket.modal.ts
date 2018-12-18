@@ -1,6 +1,6 @@
-import { MoneyDto } from '@anymind-ng/api';
+import { GetProfileBalance } from '@anymind-ng/api';
 
 export interface IProfileCallProfit {
-  balanceAfter: MoneyDto;
-  operation: MoneyDto;
+  balanceAfter: GetProfileBalance;
+  operation: GetProfileBalance;
 }

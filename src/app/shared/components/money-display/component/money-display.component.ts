@@ -12,7 +12,7 @@ export class MoneyDisplayComponent {
   }
 
   @Input()
-  public sign: string;
+  public sign = '';
 
   private _money: MoneyDto;
 

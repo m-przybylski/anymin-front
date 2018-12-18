@@ -12,6 +12,9 @@ import { ActivitiesEffects } from '@platform/features/dashboard/views/activities
 import { reducers } from '@platform/features/dashboard/views/activities/reducers';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { IconModule } from '@platform/shared/components/atomic-components';
+import { ActivitiesBalanceComponent } from '@platform/features/dashboard/views/activities/components/activities-balance.component';
+import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 
 @NgModule({
   imports: [
@@ -24,8 +27,10 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
     ActivitiesCounterModule,
     StoreModule.forFeature('activities', reducers),
     EffectsModule.forFeature([ActivitiesEffects]),
+    IconModule,
+    MoneyDisplayModule,
   ],
-  declarations: [ActivitiesComponent],
+  declarations: [ActivitiesComponent, ActivitiesBalanceComponent],
   exports: [ActivitiesComponent],
   providers: [ActivitiesListService],
 })

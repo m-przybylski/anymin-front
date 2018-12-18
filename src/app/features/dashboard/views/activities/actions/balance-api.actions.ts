@@ -1,6 +1,6 @@
 // tslint:disable:max-classes-per-file
 import { Action } from '@ngrx/store';
-import { MoneyDto } from '@anymind-ng/api';
+import { GetProfileBalance } from '@anymind-ng/api';
 
 export enum BalanceApiActionTypes {
   LoadBalanceSuccess = '[Balance API] Load Balance Success',
@@ -10,7 +10,7 @@ export enum BalanceApiActionTypes {
 export class LoadBalanceSuccessAction implements Action {
   public readonly type = BalanceApiActionTypes.LoadBalanceSuccess;
 
-  constructor(public payload: MoneyDto) {}
+  constructor(public payload: GetProfileBalance) {}
 }
 
 export class LoadBalanceFailureAction implements Action {

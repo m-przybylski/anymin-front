@@ -98,7 +98,7 @@ describe('ActivityDetailsViewComponentService', () => {
         name: 'superService',
         description: 'the best service',
         price: {
-          amount: 123,
+          value: 123,
           currency: 'PLN',
         },
         language: 'PL',
@@ -126,11 +126,11 @@ describe('ActivityDetailsViewComponentService', () => {
         ratelRoomId: 'ratelRoomId',
         answeredAt: mockDate,
         ratePerMinute: {
-          amount: 123,
+          value: 123,
           currency: 'PLN',
         },
         amount: {
-          amount: 234,
+          value: 234,
           currency: 'PLN',
         },
         callDuration: 22,
@@ -145,11 +145,11 @@ describe('ActivityDetailsViewComponentService', () => {
       answeredAt: mockDate,
       callDuration: 22,
       servicePrice: {
-        amount: 123,
+        value: 123,
         currency: 'PLN',
       },
       financialOperation: {
-        amount: 234,
+        value: 234,
         currency: 'PLN',
       },
       recommendedTags: 'superTag',
@@ -212,7 +212,7 @@ describe('ActivityDetailsViewComponentService', () => {
         name: 'superService',
         description: 'the best service',
         price: {
-          amount: 123,
+          value: 123,
           currency: 'PLN',
         },
         language: 'PL',
@@ -234,11 +234,11 @@ describe('ActivityDetailsViewComponentService', () => {
         ratelRoomId: 'ratelRoomId',
         answeredAt: mockDate,
         ratePerMinute: {
-          amount: 123,
+          value: 123,
           currency: 'PLN',
         },
         amount: {
-          amount: 234,
+          value: 234,
           currency: 'PLN',
         },
         callDuration: 22,
@@ -253,11 +253,11 @@ describe('ActivityDetailsViewComponentService', () => {
       answeredAt: mockDate,
       callDuration: 22,
       servicePrice: {
-        amount: 123,
+        value: 123,
         currency: 'PLN',
       },
       financialOperation: {
-        amount: 234,
+        value: 234,
         currency: 'PLN',
       },
       recommendedTags: 'superTag',

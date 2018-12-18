@@ -114,7 +114,7 @@ describe('ConsultationDetailsViewService', () => {
             language: 'PL',
             name: 'tytytyt',
             price: {
-              amount: 100,
+              value: 100,
               currency: 'PLN',
             },
             ownerProfile: {
