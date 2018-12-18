@@ -1,12 +1,13 @@
-svg(attr.viewBox="0 0 100 100")
-  rect([attr.clip-path]="clipStyle", [ngStyle]="fillStyle", x="0" y="0")/
-  defs
-    clipPath([attr.id]="clipId")
-      ng-content
+.content-loader-continer
+  svg(attr.viewBox="0 0 100 100")
+    rect([attr.clip-path]="clipStyle", [ngStyle]="fillStyle", x="0" y="0")/
+    defs
+      clipPath([attr.id]="clipId")
+        ng-content
 
-    linearGradient(x1="0%", y1="0%", [attr.x2]="gradientX2", [attr.y2]="gradientY2", [attr.id]="gradientId")
-      animate([attr.attributeName]="attrToAnimate + 1", from="-400%", to="400%", dur="1.8s", repeatCount="indefinite")/
-      animate([attr.attributeName]="attrToAnimate + 2", from="-300%", to="500%", dur="1.8s", repeatCount="indefinite")/
-      stop(offset="0", [attr.stop-color]="color", [attr.stop-opacity]="primaryOpacity")/
-      stop(offset="0.5", [attr.stop-color]="color", [attr.stop-opacity]="secondaryOpacity")/
-      stop(offset="1", [attr.stop-color]="color", [attr.stop-opacity]="primaryOpacity")/
+      linearGradient(x1="0%", y1="0%", [attr.x2]="gradientX2", [attr.y2]="gradientY2", [attr.id]="gradientId")
+        animate([attr.attributeName]="attrToAnimate + 1", from="-400%", to="400%", dur="1.8s", repeatCount="indefinite")/
+        animate([attr.attributeName]="attrToAnimate + 2", from="-300%", to="500%", dur="1.8s", repeatCount="indefinite")/
+        stop(offset="0", [attr.stop-color]="color", [attr.stop-opacity]="primaryOpacity")/
+        stop(offset="0.5", [attr.stop-color]="color", [attr.stop-opacity]="secondaryOpacity")/
+        stop(offset="1", [attr.stop-color]="color", [attr.stop-opacity]="primaryOpacity")/

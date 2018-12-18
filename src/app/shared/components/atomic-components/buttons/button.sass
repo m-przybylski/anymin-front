@@ -1,4 +1,4 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/variables/colors"
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
 
 %display
   display: inline-block
@@ -69,6 +69,9 @@
   @extend %font-size-14
   @extend %transition
   +outline-button(20px)
+
+  span
+    @extend %font-size-14
 
   &:hover
     border-color: $c-text-primary

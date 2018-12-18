@@ -92,7 +92,7 @@ export class ImageCropModalComponent implements OnDestroy, AfterViewInit {
       });
   }
 
-  public onModalClose(avatarToken: string): void {
+  public onModalClose(avatarToken = ''): void {
     this.activeModal.close(avatarToken);
   }
 

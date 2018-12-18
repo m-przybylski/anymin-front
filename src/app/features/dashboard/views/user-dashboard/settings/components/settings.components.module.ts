@@ -13,9 +13,10 @@ import { ChangeMsisdnComponent } from '@platform/features/dashboard/views/user-d
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component';
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
+import { ButtonModule } from '@platform/shared/components/atomic-components';
 
 @NgModule({
-  imports: [CommonModule, ModalsModule, InputsModule, DropdownModule],
+  imports: [CommonModule, ModalsModule, InputsModule, DropdownModule, ButtonModule],
   exports: [
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,

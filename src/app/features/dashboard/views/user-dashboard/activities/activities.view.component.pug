@@ -12,6 +12,7 @@
           span.activities__tabs__title([translate]="'ACTIVITIES.CLIENT_TAB_HEADER'")
           plat-activities-counter([counter]="headerCounter.clientActivitiesCount",
           *ngIf="headerCounter.clientActivitiesCount > 0")
+
   .activities__container
     router-outlet
 

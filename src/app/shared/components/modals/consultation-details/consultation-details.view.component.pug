@@ -33,7 +33,7 @@ plat-modal-component(
           )
 
       .consultation-comments__actions(*ngIf="isLoadMoreCommentsBtnVisible")
-        a.button.button--tertiary((click)="onLoadMoreComments()")
-          span {{ "CONSULTATION_DETAILS.BUTTON.MORE.TITLE" | translate }}
+        a.button(plat-stroked-button, (click)="onLoadMoreComments()", [translate]="'CONSULTATION_DETAILS.BUTTON.MORE.TITLE'")
+
   .modal-footer
     ng-container(#footerContainer)

@@ -20,11 +20,11 @@
       [autofocus]="initialFocus"
       )
 
-		a.button.button--secondary.button--small.xsm-hidden((click)="onAddLinkClick()")
+		a.button.xsm-hidden(plat-stroked-button, (click)="onAddLinkClick()")
 			span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.BUTTON' | translate }}
 
-		a.button.button--secondary.button--small.button--circle.xsm-only((click)="onAddLinkClick()")
-			span.icon.icon-add
+		a.button.xsm-only(plat-icon-button, (click)="onAddLinkClick()")
+			span(plat-icon, iconClass='add')
 
 	.input__alert
 		am-core-validation-alert(

@@ -7,12 +7,13 @@
     [title]="'DASHBOARD.PAYMENTS.INVOICE.TITLE'",
     [description]="'DASHBOARD.PAYMENTS.INVOICE.DESCRIPTION'"
     )
-      button.button.button--small.button--tertiary((click)="openInvoiceModal()")
+
+      button.button-mobile(plat-stroked-button, (click)="openInvoiceModal()")
         span {{ 'DASHBOARD.PAYMENTS.BUTTON.CHANGE' | translate }}
 
     plat-setting-option(
     [title]="'DASHBOARD.PAYMENTS.PAYOUTS.TITLE'",
     [description]="'DASHBOARD.PAYMENTS.PAYOUTS.DESCRIPTION'",
     )
-      button.button.button--small.button--tertiary((click)="openPayoutMethod()")
+      button.button-mobile(plat-stroked-button, (click)="openPayoutMethod()")
         span {{ 'DASHBOARD.PAYMENTS.BUTTON.CHANGE' | translate }}
