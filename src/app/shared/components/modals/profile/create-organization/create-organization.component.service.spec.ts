@@ -7,6 +7,8 @@ import { importStore, provideMockFactoryLogger, dispatchLoggedUser } from 'testi
 import { Deceiver } from 'deceiver-core';
 import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
+import { AlertService } from '@anymind-ng/core';
+import { of } from 'rxjs';
 
 describe('CreateOrganizationModalComponentService', () => {
   let store: Store<any>;
@@ -21,9 +23,15 @@ describe('CreateOrganizationModalComponentService', () => {
         {
           provide: ProfileService,
           useValue: Deceiver(ProfileService, {
-            putOrganizationProfileRoute: jasmine.createSpy('putOrganizationProfileRoute'),
+            putOrganizationProfileRoute: jasmine
+              .createSpy('putOrganizationProfileRoute')
+              .and.returnValue(of(undefined)),
             getProfileRoute: jasmine.createSpy('getProfileRoute'),
           }),
+        },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
         },
         {
           provide: ServiceService,
@@ -40,19 +48,6 @@ describe('CreateOrganizationModalComponentService', () => {
     dispatchLoggedUser(store, { account: { id: '123' } });
   });
 
-  it('getProfileDetails ', () => {
-    (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: 'ok' }));
-    expect(service.getProfileDetails()).toBeObservable(cold('-a', { a: 'ok' }));
-  });
-
-  it('should get organization profile', () => {
-    const serviceService = TestBed.get(ServiceService);
-    const accountId = '1234';
-
-    service.getProfileService(accountId);
-    expect(serviceService.getProfileServicesRoute).toHaveBeenCalledWith(accountId);
-  });
-
   it('should create organization profile', () => {
     const clientDetailsObject: PutOrganizationDetails = {
       name: 'name',
@@ -64,5 +59,58 @@ describe('CreateOrganizationModalComponentService', () => {
 
     service.createOrganizationProfile(clientDetailsObject);
     expect(profileService.putOrganizationProfileRoute).toHaveBeenCalledWith(clientDetailsObject);
+  });
+
+  describe('getModalData', () => {
+    it('should return data if company exists and account consultation exists flag', () => {
+      const serviceService = TestBed.get(ServiceService);
+      // mock isCompany
+      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: true });
+      const expected = cold('--(a|)', { a: { getProfileWithDocuments: 'jest!', hasConsultations: true } });
+
+      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-(a|)', { a: 'jest!' }));
+      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      expect(service.getModalData()).toBeObservable(expected);
+    });
+    it('should return empty data if company not exists in session and account consultation exists flag', () => {
+      const serviceService = TestBed.get(ServiceService);
+      // mock isCompany
+      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
+      const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
+
+      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-----(a|)', { a: 'jest!' }));
+      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      expect(service.getModalData()).toBeObservable(expected);
+    });
+    it('should return empty data if company not false if no consultation exists', () => {
+      const serviceService = TestBed.get(ServiceService);
+      // mock isCompany
+      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
+      const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
+
+      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-----(a|)', { a: 'jest!' }));
+      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      expect(service.getModalData()).toBeObservable(expected);
+    });
+    it('should throw error on getProfileServicesRoute HTTP error', () => {
+      const serviceService = TestBed.get(ServiceService);
+      // mock isCompany
+      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
+      const expected = cold('--#', {}, 'error');
+
+      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-----(a|)', { a: 'jest!' }));
+      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--#', {}, 'error'));
+      expect(service.getModalData()).toBeObservable(expected);
+    });
+    it('should throw error on getProfileRoute HTTP error', () => {
+      const serviceService = TestBed.get(ServiceService);
+      // mock isCompany
+      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: true });
+      const expected = cold('--#', {}, 'error');
+
+      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('--#', { a: 'jest!' }));
+      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      expect(service.getModalData()).toBeObservable(expected);
+    });
   });
 });

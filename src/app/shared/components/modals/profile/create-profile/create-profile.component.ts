@@ -1,34 +1,37 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:max-file-line-count
-import { Component, Input, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { CreateProfileModalComponentService } from './create-profile.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
-import { HttpErrorResponse } from '@angular/common/http';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../config';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import { takeUntil, take, map } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
-import { NavbarActions, SessionActions } from '@platform/core/actions';
+import { NavbarActions, SessionUpdateApiActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
+import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
+import { Animations } from '@platform/shared/animations/animations';
 
 @Component({
   selector: 'plat-create-profile',
   styleUrls: ['./create-profile.component.sass'],
   templateUrl: './create-profile.component.html',
+  animations: Animations.collapse,
 })
-export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CreateProfileModalComponent implements OnInit, OnDestroy {
+  /** form fields */
   public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
   public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
   public readonly expertFormControlName = 'expertNameProfileControl';
@@ -37,8 +40,12 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   public readonly expertFormControlLink = 'expertLinkControl';
   public readonly clientFormControlName = 'clientNameProfileControl';
   public readonly clientFormControlAvatar = 'clientAvatarProfileControl';
-  public clientNameForm = new FormGroup({});
-  public expertNameForm = new FormGroup({});
+
+  public avatarTokenProfileNameFormControl = new FormControl();
+  public profileForm = new FormGroup({
+    avatarTokenProfileName: this.avatarTokenProfileNameFormControl,
+  });
+
   public isFileUploading: boolean;
   public maxValidFileSize = 30000000;
   public maxValidFilesCount = 20;
@@ -55,11 +62,19 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   public isPending = false;
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isInputDisabled = false;
-  public isOpenAsExpert: boolean;
+  /**
+   * filed used to disable possibility to collapse modal to only client profile
+   */
+  public isOpenedAsExpert: boolean;
   public isExpert: boolean;
   public isCompany: boolean;
   public modalHeaderTr: string;
 
+  /**
+   * provided as external parameter when opened modal
+   * indicated if modal will store expert data or only
+   * client data.
+   */
   @Input()
   public isExpertForm = true;
 
@@ -84,82 +99,52 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   }
 
   public ngOnInit(): void {
-    this.isOpenAsExpert = this.isExpertForm;
-    this.store
+    this.isPending = true;
+    this.createProfileModalComponentService
+      .getModalData()
       .pipe(
-        select(fromCore.getSession),
-        map(getSessionWithAccount => {
-          if (getSessionWithAccount === undefined) {
-            throw new Error('no session');
-          }
-
-          return getSessionWithAccount;
+        finalize(() => {
+          this.handleResponseError();
+          this.modalAnimationComponentService.stopLoadingAnimation();
         }),
-        take(1),
       )
-      .subscribe(
-        session => {
-          /**
-           * this code determines if user is expert or organization
-           * and assign corresponding parameters to class properties
-           */
-          this.branchProfileType(session);
-        },
-        err => {
-          /**
-           * No session. Log show error message to the user
-           */
-          this.handleResponseError(err, 'Can not get session');
-        },
-      );
-  }
-
-  public ngAfterViewInit(): void {
-    /**
-     * need to turn off modal animation;
-     */
-    this.modalAnimationComponentService.stopLoadingAnimation();
+      .subscribe(({ getSessionWithAccount, getProfileWithDocuments }) => {
+        this.setBasicProfileData(getSessionWithAccount);
+        this.setExpertFormValues(getProfileWithDocuments);
+        this.isOpenedAsExpert = getSessionWithAccount.isExpert;
+        this.modalHeaderTr = this.isOpenedAsExpert
+          ? this.modalHeaderTrKeys.editProfile
+          : this.modalHeaderTrKeys.createProfile;
+      });
   }
 
   public ngOnDestroy(): void {
     this.modalAnimationComponentService.getPreviousHeight$().next('inherit');
-    this.createProfileModalComponentService.setAvatarToken('');
-    this.createProfileModalComponentService.setUserName('');
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
 
-  public onCreateExpertFormSubmit = (expertFormGroup: FormGroup): void => {
-    if (expertFormGroup.valid && !this.isPending) {
-      this.isInputDisabled = true;
-      this.sendExpertProfile();
+  public onSaveProfile(): void {
+    // 1. expert or client?
+    if (this.isExpertForm) {
+      this.onCreateExpertFormSubmit(this.profileForm);
     } else {
-      this.formUtils.validateAllFormFields(expertFormGroup);
+      this.onClientFormSubmit(this.profileForm);
     }
-  };
-
-  public onClientFormSubmit = (clientNameForm: FormGroup): void => {
-    if (clientNameForm.valid && !this.isPending) {
-      const clientAvatar = clientNameForm.controls[this.clientFormControlAvatar].value;
-
-      this.isInputDisabled = true;
-      this.sendClientProfile({
-        nickname: clientNameForm.controls[this.clientFormControlName].value,
-        avatar: clientAvatar.length > 0 ? clientAvatar : undefined,
-      });
-    } else {
-      this.formUtils.validateAllFormFields(clientNameForm);
-    }
-  };
-
+    // 2. update session in store
+    this.store.dispatch(
+      new SessionUpdateApiActions.CreateUpdateNameAndAvatarAction({
+        ...(this.avatarTokenProfileNameFormControl.value as IBasicProfileData),
+      }),
+    );
+  }
   public onBackToClientStep = (): void => {
     this.isExpertForm = false;
     this.modalAnimationComponentService.onModalContentChange().next(true);
   };
 
-  public onCreateExpertAccount = (): void => {
+  public toggleIsExpert = (): void => {
     this.isExpertForm = !this.isExpertForm;
-    this.modalAnimationComponentService.onModalContentChange().next(true);
   };
 
   public onUploadingFile = (isUploading: boolean): void => {
@@ -176,109 +161,91 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
     this.fileUploadTokensList = tokenList;
   };
 
-  private branchProfileType = (session: GetSessionWithAccount): void => {
-    this.isExpert = session.isExpert;
-    this.isCompany = session.isCompany;
-    if (this.isExpert) {
-      this.assignExpertProfileDetails();
-      this.modalHeaderTr = this.modalHeaderTrKeys.editProfile;
-
-      return;
+  private onCreateExpertFormSubmit = (expertFormGroup: FormGroup): void => {
+    if (expertFormGroup.valid && !this.isPending) {
+      this.isInputDisabled = true;
+      this.sendExpertProfile();
+    } else {
+      this.formUtils.validateAllFormFields(expertFormGroup);
     }
-    this.assignClientProfileDetails(session);
-    this.modalHeaderTr = this.modalHeaderTrKeys.createProfile;
+  };
+
+  private onClientFormSubmit = (clientNameForm: FormGroup): void => {
+    if (clientNameForm.valid && !this.isPending) {
+      this.isInputDisabled = true;
+      this.sendClientProfile(this.getClientDetails());
+    } else {
+      this.formUtils.validateAllFormFields(clientNameForm);
+    }
   };
 
   private sendClientProfile = (data: PutGeneralSettings): void => {
     this.createProfileModalComponentService.createClientProfile(data).subscribe(
       () => {
-        this.store.dispatch(new SessionActions.FetchSessionAction());
         this.onModalClose();
       },
-      err => this.handleResponseError(err, 'Can not set client profile'),
+      () => this.handleResponseError(),
     );
   };
 
-  private assignClientProfileDetails = (session: GetSessionWithAccount): void => {
-    this.isExpertForm ? this.setClientFormValuesAsExpert(session) : this.setClientFormValues(session);
-  };
+  //#region init callbacks
+  private setBasicProfileData(accountDetails: GetSessionWithAccount): void {
+    const basicProfileData: IBasicProfileData = {
+      name: accountDetails.account.details.nickname || '',
+      avatarToken: accountDetails.account.details.avatar || '',
+    };
+    this.avatarTokenProfileNameFormControl.patchValue(basicProfileData);
+  }
 
-  private assignExpertProfileDetails = (): void => {
-    this.modalAnimationComponentService.startLoadingAnimation();
-    this.createProfileModalComponentService.getProfileDetails().subscribe(
-      profileDetails => {
-        this.setExpertFormValues(profileDetails);
-        this.modalAnimationComponentService.stopLoadingAnimation();
-      },
-      err => this.handleResponseError(err, 'Can not get expert file profile'),
-    );
-  };
-
-  private setClientFormValues = (accountDetails: GetSessionWithAccount): void => {
-    if (
-      typeof accountDetails.account.details.nickname !== 'undefined' ||
-      typeof accountDetails.account.details.avatar !== 'undefined'
-    ) {
-      this.clientNameForm.controls[this.clientFormControlName].setValue(accountDetails.account.details.nickname);
-      this.clientNameForm.controls[this.clientFormControlAvatar].setValue(accountDetails.account.details.avatar);
-      this.createProfileModalComponentService.setAvatarToken(accountDetails.account.details.avatar);
+  private setExpertFormValues = (profileDetails?: GetProfileWithDocuments): void => {
+    if (profileDetails === undefined) {
+      return;
     }
-  };
-
-  private setClientFormValuesAsExpert = (accountDetails: GetSessionWithAccount): void => {
-    if (
-      typeof accountDetails.account.details.nickname !== 'undefined' ||
-      typeof accountDetails.account.details.avatar !== 'undefined'
-    ) {
-      this.expertNameForm.controls[this.expertFormControlName].setValue(accountDetails.account.details.nickname);
-      this.expertNameForm.controls[this.expertFormControlAvatar].setValue(accountDetails.account.details.avatar);
-      this.createProfileModalComponentService.setAvatarToken(accountDetails.account.details.avatar);
-    }
-  };
-
-  private setExpertFormValues = (profileDetails: GetProfileWithDocuments): void => {
     if (profileDetails.profile.expertDetails !== undefined) {
-      this.expertNameForm.controls[this.expertFormControlName].setValue(profileDetails.profile.expertDetails.name);
-      this.expertNameForm.controls[this.expertFormControlAvatar].setValue(profileDetails.profile.expertDetails.avatar);
-      this.expertNameForm.controls[this.expertFormControlDescription].setValue(
+      this.profileForm.controls[this.expertFormControlDescription].setValue(
         profileDetails.profile.expertDetails.description,
       );
       this.profileLinksList = profileDetails.profile.expertDetails.links;
       this.profileDocumentsList = profileDetails.expertDocuments;
       this.fileUploadTokensList = profileDetails.expertDocuments.map(file => file.token);
-      this.createProfileModalComponentService.setAvatarToken(profileDetails.profile.expertDetails.avatar);
     }
   };
+  //#endregion init callbacks
 
-  private getExpertDetails = (): PutExpertDetails =>
-    ({
-      name: this.expertNameForm.controls[this.expertFormControlName].value,
-      avatar: this.expertNameForm.controls[this.expertFormControlAvatar].value,
-      description: this.expertNameForm.controls[this.expertFormControlDescription].value.toString(),
+  private getExpertDetails(): PutExpertDetails {
+    return {
+      name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
+      avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
+      description: this.profileForm.controls[this.expertFormControlDescription].value.toString(),
       links: this.linksList,
       files: this.fileUploadTokensList,
-    } as PutExpertDetails);
+    } as PutExpertDetails;
+  }
+  private getClientDetails(): PutGeneralSettings {
+    return {
+      nickname: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
+      avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
+    };
+  }
 
   private sendExpertProfile = (): void => {
+    /** to sync session name and avatar with expert need to update client as well */
     this.createProfileModalComponentService
-      .createExpertProfile(this.getExpertDetails())
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .createClientProfile(this.getClientDetails())
+      /** and update expert profile */
+      .pipe(switchMap(() => this.createProfileModalComponentService.createExpertProfile(this.getExpertDetails())))
       .subscribe(
-        val => {
+        getProfile => {
           this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.EXPERT));
           this.store.dispatch(new VisibilityInitActions.FetchInitVisibilityAction());
-          this.sendClientProfile({
-            nickname: this.expertNameForm.controls[this.expertFormControlName].value,
-            avatar: this.expertNameForm.controls[this.expertFormControlAvatar].value,
-          });
           /* It have to be refactor, for now we don't want to redirect users from invitations list view */
           !this.isExpert &&
           this.router.url !== '/dashboard/user/discover' &&
           this.router.url !== '/dashboard/user/invitations/list'
-            ? this.redirectToExpertState(val.id)
+            ? this.redirectToExpertState(getProfile.id)
             : this.onModalClose();
         },
-        err => this.handleResponseError(err, 'Can not create expert profile'),
+        () => this.handleResponseError(),
       );
   };
 
@@ -295,9 +262,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
       .catch(this.logger.error.bind(this));
   };
 
-  private handleResponseError = (error: HttpErrorResponse, errorMsg: string): void => {
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-    this.logger.warn(errorMsg, error);
+  private handleResponseError = (): void => {
     this.isPending = false;
     this.isInputDisabled = false;
   };

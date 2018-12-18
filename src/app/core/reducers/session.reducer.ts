@@ -1,6 +1,6 @@
 // tslint:disable:cyclomatic-complexity
 import { GetSessionWithAccount } from '@anymind-ng/api';
-import { SessionActions, AuthActions } from '@platform/core/actions';
+import { SessionActions, AuthActions, SessionUpdateApiActions } from '@platform/core/actions';
 
 export interface IState {
   isFromBackend: boolean;
@@ -15,11 +15,13 @@ export const initialState: IState = {
   isPending: false,
 };
 
+type ActionsUnion =
+  | SessionActions.FetchActionsUnion
+  | AuthActions.AuthActionsUnion
+  | SessionUpdateApiActions.SessionUpdateApiActionUnion;
+
 // tslint:disable-next-line:only-arrow-functions
-export function reducer(
-  state = initialState,
-  action: SessionActions.FetchActionsUnion | AuthActions.AuthActionsUnion,
-): IState {
+export function reducer(state = initialState, action: ActionsUnion): IState {
   switch (action.type) {
     case AuthActions.AuthActionTypes.Login:
     case SessionActions.SessionActionTypes.FetchSessionFromServer: {
@@ -65,6 +67,20 @@ export function reducer(
         isFromBackend: true,
         isPending: false,
       };
+    }
+    case SessionUpdateApiActions.SessionUpdateApiActionTypes.CreateUpdateNameAndAvatar: {
+      if (state.session === undefined) {
+        return state;
+      }
+      const newAccountDetails = {
+        ...state.session.account.details,
+        nickname: action.payload.name,
+        avatar: action.payload.avatarToken,
+      };
+      const newAccount = { ...state.session.account, details: newAccountDetails };
+      const newSession = { ...state.session, account: newAccount };
+
+      return { ...state, session: newSession };
     }
 
     default: {

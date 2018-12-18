@@ -63,9 +63,9 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * callback when edit profile is triggered.
    * Modal resolves to true if user changes something.
    */
-  public onEditProfile = (): void => {
+  public onEditProfile(): void {
     this.openModalWithReload(CreateOrganizationModalComponent);
-  };
+  }
 
   /**
    * callback when openGallery is triggered.
