@@ -4,7 +4,6 @@ import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } 
 import { FormGroup, FormControl } from '@angular/forms';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { Config } from '../../../../../../config';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrganizationModalComponentService } from './create-organization.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
@@ -26,27 +25,20 @@ import { IBasicProfileData } from '@platform/shared/components/modals/profile/co
   styleUrls: ['./create-organization.component.sass'],
 })
 export class CreateOrganizationModalComponent implements OnInit {
-  public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
-  public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
   public readonly descriptionFormControl = 'descriptionFormControl';
-  public readonly profileLinksFormControl = 'profileLinksFormControl';
   public createOrganizationFormGroup: FormGroup;
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   public isInputDisabled = false;
-  public maxValidFileSize = 30000000;
-  public maxValidFilesCount = 20;
   public isPending = true;
   public isFileUploading = false;
   public fileUploadTokensList: ReadonlyArray<string>;
-  public profileLinksList: ReadonlyArray<string> = [];
-  public linksList: ReadonlyArray<string> = [];
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isProfileHasConsultations = false;
-  public avatarToken: string;
   public modalHeaderTr: string;
 
   /** form controls */
   public avatarTokenProfileNameFormControl = new FormControl();
+  public profileLinksFormControl = new FormControl();
 
   /**
    * flag shows if company exists on modal open.
@@ -75,6 +67,7 @@ export class CreateOrganizationModalComponent implements OnInit {
 
     this.createOrganizationFormGroup = new FormGroup({
       avatarTokenProfileName: this.avatarTokenProfileNameFormControl,
+      profileLinks: this.profileLinksFormControl,
     });
   }
 
@@ -108,17 +101,6 @@ export class CreateOrganizationModalComponent implements OnInit {
       });
   }
 
-  public onUploadingFile = (isUploading: boolean): void => {
-    this.isFileUploading = isUploading;
-    this.isInputDisabled = isUploading;
-    this.isPending = isUploading;
-  };
-
-  public onUploadFile = (tokenList: ReadonlyArray<string>): ReadonlyArray<string> =>
-    (this.fileUploadTokensList = tokenList);
-
-  public onAddProfileLink = (links: ReadonlyArray<string>): ReadonlyArray<string> => (this.linksList = links);
-
   public onModalClose = (): void => this.activeModal.close(true);
 
   public onCreateOrganizationProfile = (formGroup: FormGroup): void => {
@@ -129,6 +111,14 @@ export class CreateOrganizationModalComponent implements OnInit {
       this.formUtils.validateAllFormFields(formGroup);
     }
   };
+
+  public onFileUploadingStatusChange(isUploading: boolean): void {
+    if (isUploading) {
+      this.createOrganizationFormGroup.disable();
+    } else {
+      this.createOrganizationFormGroup.enable();
+    }
+  }
 
   /** update organization callbacks */
   private sendOrganizationProfile = (): void => {
@@ -170,9 +160,8 @@ export class CreateOrganizationModalComponent implements OnInit {
       this.createOrganizationFormGroup.controls[this.descriptionFormControl].setValue(
         companyProfileDetails.profile.organizationDetails.description,
       );
-      this.profileLinksList = companyProfileDetails.profile.organizationDetails.links;
+      this.profileLinksFormControl.setValue(companyProfileDetails.profile.organizationDetails.links);
       this.profileDocumentsList = companyProfileDetails.organizationDocuments;
-      this.avatarToken = companyProfileDetails.profile.organizationDetails.logo;
       this.fileUploadTokensList = companyProfileDetails.organizationDocuments.map(file => file.token);
     }
   };
@@ -184,7 +173,7 @@ export class CreateOrganizationModalComponent implements OnInit {
       logo: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
       description: this.createOrganizationFormGroup.controls[this.descriptionFormControl].value,
       files: this.fileUploadTokensList,
-      links: this.linksList,
+      links: this.profileLinksFormControl.value,
     } as PutOrganizationDetails);
 
   private handleResponseError = (): void => {

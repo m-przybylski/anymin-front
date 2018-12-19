@@ -1,11 +1,11 @@
 // tslint:disable:max-file-line-count
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, OnDestroy } from '@angular/core';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { EmployeeInvitationTypeEnum, EmployeesInviteService } from './employees-invite.service';
 import { ExpertProfileWithEmployments } from '@anymind-ng/api/model/expertProfileWithEmployments';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { AvatarSizeEnum } from '../../../user-avatar/user-avatar.component';
-import { Alerts, AlertService, Animations, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, Animations, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable, Subject, forkJoin } from 'rxjs';
@@ -40,12 +40,12 @@ export interface IEmployeesInviteComponent {
   animations: Animations.addItemAnimation,
   providers: [ModalAnimationComponentService],
 })
-export class EmployeesInviteModalComponent implements OnInit {
+export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
   @Output()
   public linksListEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter<ReadonlyArray<string>>();
 
   public readonly avatarSize = AvatarSizeEnum.X_24;
-  public readonly emailPattern: RegExp;
+  public readonly pattern: RegExp;
   public readonly inviteEmployeesControlName = 'inviteEmployeesControl';
   public readonly csvControlName = 'csvControlName';
   public inviteEmployeesFormGroupName = new FormGroup({});
@@ -55,6 +55,7 @@ export class EmployeesInviteModalComponent implements OnInit {
   public isChangeOnSubmit = false;
   public serviceName = '';
   public usedContactList: ReadonlyArray<string> = [];
+  public inviteFormControl = new FormControl('', { updateOn: 'change' });
 
   private readonly initialModalHeight = '100px';
   private dropdownItems: ReadonlyArray<IEmployeesInviteComponent> = [];
@@ -66,18 +67,21 @@ export class EmployeesInviteModalComponent implements OnInit {
     private modalAnimationComponentService: ModalAnimationComponentService,
     private alertService: AlertService,
     private employeesInviteService: EmployeesInviteService,
-    private formUtils: FormUtilsService,
     private activeModal: NgbActiveModal,
     private phoneNumberUnifyService: PhoneNumberUnifyService,
     @Inject(INVITATION_PAYLOAD) public payload: IEmployeeInvitePayload,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('EmployeesInviteModalComponent');
-    this.emailPattern = Config.patterns.emailPattern;
+    this.pattern = new RegExp(`${Config.patterns.emailPattern.source}|${Config.patterns.phonePattern.source}`);
   }
 
   public ngOnInit(): void {
+    // TODO: code smell. State in service, this may backfire.
     this.accountId = this.employeesInviteService.getUserAccountId();
+    this.inviteFormControl.valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(value => this.onInputChangeValue(value));
 
     forkJoin(
       this.employeesInviteService.mapEmployeeList(this.payload.serviceId),
@@ -106,6 +110,11 @@ export class EmployeesInviteModalComponent implements OnInit {
       });
   }
 
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+  }
+
   public onClickSend = (formGroup: FormGroup): void => {
     if (this.invitedEmployeeList.length !== 0 && formGroup.valid) {
       this.employeesInviteService
@@ -122,10 +131,7 @@ export class EmployeesInviteModalComponent implements OnInit {
   };
 
   public onEnter = (value: string): void => {
-    if (
-      !this.isDropdownListVisible &&
-      this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName].value.length > 0
-    ) {
+    if (!this.isDropdownListVisible && value.length > 0) {
       this.addEmployeeInvitationByType(
         this.employeesInviteService.checkInvitationType(value.toLowerCase(), this.payload.isFreelanceService),
         value.toLowerCase(),
@@ -203,8 +209,7 @@ export class EmployeesInviteModalComponent implements OnInit {
   };
 
   private setEmployeesInvitationError = (errorMsg: { [key: string]: boolean }): void => {
-    this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName].setErrors(errorMsg);
-    this.formUtils.isFieldInvalid(this.inviteEmployeesFormGroupName, this.inviteEmployeesControlName);
+    this.inviteFormControl.setErrors(errorMsg);
   };
 
   private adjustEmployeeInvitationObject = (): ReadonlyArray<PostInvitation> =>
@@ -220,19 +225,19 @@ export class EmployeesInviteModalComponent implements OnInit {
       this.invitedEmployeeList = [...this.invitedEmployeeList, expertProfile];
       this.usedContactList = [...this.usedContactList, expertProfile.name];
       this.employeesInviteService.setInvitedEmployeeList(this.invitedEmployeeList);
-      this.inviteEmployeesFormGroupName.controls[this.inviteEmployeesControlName].setValue('');
+      this.inviteFormControl.setValue('');
     } else {
       this.addEmployeeInvitationByType(EmployeeInvitationTypeEnum.IS_ALREADY_ADDED, expertProfile.name);
     }
   };
 
-  private filterItem = (value: string): ReadonlyArray<IEmployeesInviteComponent> =>
-    (this.filteredItems = this.dropdownItems.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1));
+  private filterItem(value: string): void {
+    this.filteredItems = this.dropdownItems.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1);
+  }
 
-  private filterOwnEmployeesDropdownList = (
-    expertProfile: IEmployeesInviteComponent,
-  ): ReadonlyArray<IEmployeesInviteComponent> =>
-    (this.dropdownItems = this.dropdownItems.filter(item => item !== expertProfile));
+  private filterOwnEmployeesDropdownList(expertProfile: IEmployeesInviteComponent): void {
+    this.dropdownItems = this.dropdownItems.filter(item => item !== expertProfile);
+  }
 
   private isValueExist = (value: string): boolean =>
     this.invitedEmployeeList.filter(item => item.name === value).length > 0;

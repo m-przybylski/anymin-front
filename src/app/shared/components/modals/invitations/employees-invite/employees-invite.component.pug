@@ -15,25 +15,21 @@ plat-modal-component(
 
       .dropdown__handler
         plat-add-item(
-        [label]="'INVITE_EMPLOYEES.INPUT.LABEL'",
-        [placeholder]="''",
-        [form]="inviteEmployeesFormGroupName",
-        [controlName]="inviteEmployeesControlName",
-        [onChange]="onInputChangeValue",
-        [isChangeOnSubmit]="isChangeOnSubmit",
-        [pattern]="emailPattern",
-        [initialFocus]="true",
-        (onEnterClick)="onEnter($event)",
+          [label]="'INVITE_EMPLOYEES.INPUT.LABEL'",
+          [placeholder]="''",
+          [pattern]="pattern",
+          [inputFormControl]="inviteFormControl",
+          [initialFocus]="true",
+          (valueAdded)="onEnter($event)"
         )
-
         plat-dropdown(
-        [form]="inviteEmployeesFormGroupName",
-        [controlName]="inviteEmployeesControlName",
-        [isDropdownListVisible]="isDropdownListVisible",
-        [dropdownItems]="filteredItems",
-        (onSelectItemEmiter)="onSelectItem($event)",
-        (onCloseEmiter)="onCloseDropdown($event)",
-        [isDropdownListOnly]="true"
+          [form]="inviteEmployeesFormGroupName",
+          [controlName]="inviteEmployeesControlName",
+          [isDropdownListVisible]="isDropdownListVisible",
+          [dropdownItems]="filteredItems",
+          (onSelectItemEmiter)="onSelectItem($event)",
+          (onCloseEmiter)="onCloseDropdown($event)",
+          [isDropdownListOnly]="true"
         )
 
       .csv-uploader

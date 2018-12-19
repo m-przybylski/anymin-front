@@ -52,7 +52,12 @@ export class CsvUploaderComponent implements OnInit {
   private mailPattern: RegExp;
   private phonePattern: RegExp;
   private consultationInvitationsMaxCount: number;
-  private errorsMsg: IValidatorsErrorMsg = { SOMETHING_WENT_WRONG: 'CSV_UPLOADER.ERROR.SOMETHING_WENT_WRONG' };
+  private errorsMsg: IValidatorsErrorMsg = {
+    SOMETHING_WENT_WRONG: {
+      code: 'SOMETHING_WENT_WRONG',
+      text: 'CSV_UPLOADER.ERROR.SOMETHING_WENT_WRONG',
+    },
+  };
 
   constructor(
     private formUtils: FormUtilsService,
@@ -120,7 +125,7 @@ export class CsvUploaderComponent implements OnInit {
     if (controlErrors !== null) {
       const errorCode = Object.keys(controlErrors)[0];
 
-      return Object.keys(this.errorsMsg).includes(errorCode) ? this.errorsMsg[errorCode] : errorCode;
+      return Object.keys(this.errorsMsg).includes(errorCode) ? this.errorsMsg[errorCode].text : errorCode;
     } else {
       return '';
     }

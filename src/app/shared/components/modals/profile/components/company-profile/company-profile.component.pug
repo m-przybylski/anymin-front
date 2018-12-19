@@ -1,0 +1,55 @@
+form.form.form--create-organization(
+  [formGroup]="profileForm",
+  id="createOrganizationForm",
+  contentHeightAnimation,
+  novalidate
+)
+  .modal-form__row--small(*ngIf="isProfileHasConsultations")
+    .alert-content.alert-content--error
+      span.icon.icon-warning
+      p {{'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.HAS_GOT_CONSULTATION.ALERT' | translate }}
+
+  .modal-form__row.modal-form__row--small
+    header.modal-component__content__header
+      span {{'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.ADD_BASIC_DATA.TITLE' | translate }}
+        am-core-tooltip(
+        [tooltipText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.TOOLTIP.DESCRIPTION'"
+      )
+
+  .modal-form__row
+    plat-basic-profile-data(
+      formControlName="avatarTokenProfileName",
+      [isRequired]="true",
+      [isOrganizationAvatar]="true",
+      [inputTextLabel]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.LABEL'",
+      [inputTextPlaceholder]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.PLACEHOLDER'"
+    )
+
+  .modal-form__row.modal-form__row--small
+    header.modal-component__content__header
+      span {{ 'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.HEADER.TITLE' | translate }}
+
+    am-core-textarea-primary(
+      [maxLength]="profileDescriptionMaxLength",
+      [minLength]="profileDescriptionMinLength",
+      [placeholder]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.PLACEHOLDER'",
+      [form]="profileForm",
+      [controlName]="descriptionFormControl",
+      [errorTextKey]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.ERROR'",
+      [label]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.LABEL'",
+      [isRequired]="true",
+      [isDisabled]="isInputDisabled"
+      )
+
+  .modal-form__row.modal-form__row--small
+    plat-file-uploader(
+      [maxFileSize]="maxValidFileSize",
+      [maxFilesCount]="maxValidFilesCount",
+      [fileCategory]="fileCategory",
+      [profileDocuments]="profileDocumentsList",
+      (uploadingFile)="onUploadingFile($event)",
+      (fileTokensList)="onUploadFile($event)",
+      [isDisabled]="isInputDisabled"
+    )
+  .modal-form__row.modal-form__row--small
+    plat-profile-links(formControlName="profileLinks")

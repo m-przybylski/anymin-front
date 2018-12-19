@@ -1,0 +1,54 @@
+.modal-form
+  form.form.form--expert(
+    [formGroup]="profileForm"
+    id="profileNameForm",
+    novalidate
+  )
+
+    header.modal-component__content__header
+      span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
+        am-core-tooltip(
+        [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+        )
+
+    .modal-form__row
+      plat-basic-profile-data(
+        formControlName="avatarTokenProfileName",
+        [isRequired]="isExpertForm",
+        [inputTextLabel]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'"
+      )
+    .expert-details(
+      *ngIf="isExpertForm",
+      [@collapse]
+    )
+      .modal-form__row.modal-form__row--small
+        header.modal-component__content__header
+          span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.TITLE' | translate }}
+
+        am-core-textarea-primary(
+          [maxLength]="profileDescriptionMaxLength",
+          [minLength]="profileDescriptionMinLength",
+          [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.PLACEHOLDER'",
+          [form]="profileForm",
+          [controlName]="expertFormControlDescription",
+          [errorTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.ERROR'",
+          [label]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.LABEL'",
+          [isRequired]="isExpertForm",
+          [isDisabled]="isInputDisabled"
+          )
+
+      .modal-form__row.modal-form__row--small
+        plat-file-uploader(
+          [maxFileSize]="maxValidFileSize",
+          [maxFilesCount]="maxValidFilesCount",
+          [fileCategory]="fileCategory",
+          [profileDocuments]="profileDocumentsList",
+          (uploadingFile)="onUploadingFile($event)",
+          (fileTokensList)="onUploadFile($event)",
+          [isDisabled]="isInputDisabled"
+        )
+
+      .modal-form__row.modal-form__row--small
+        plat-profile-links(
+          formControlName="links",
+        )

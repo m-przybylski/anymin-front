@@ -1,76 +1,21 @@
 plat-modal-component(
-[modalTrTitleHeader]="modalHeaderTr",
-[isBackwardVisible]="isExpertForm && !isExpert && !isOpenedAsExpert",
-(backwardClick)="onBackToClientStep()"
+  [modalTrTitleHeader]="modalHeaderTr",
+  [isBackwardVisible]="isExpertForm && !isExpert && !isOpenedAsExpert",
+  (backwardClick)="onBackToClientStep()"
   )
-
-  .modal-form
-    form.form.form--expert(
-      [formGroup]="profileForm",
-      id="profileNameForm",
-      novalidate
+  plat-expert-client-profile(
+    [profileForm]="profileForm",
+    [isExpertForm]="isExpertForm",
+    [isInputDisabled]="isInputDisabled",
+    [profileDocumentsList]="profileDocumentsList",
+    (fileUploadingStatusChange)="onFileUploadingStatusChange($event)"
+  )
+  .modal-component__action([ngClass]="{'modal-component__action--expert': isOpenedAsExpert}")
+    a.button.button--link.button--small((click)="toggleIsExpert()", *ngIf="!isOpenedAsExpert")
+      | {{ (isExpertForm ? 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' : 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON') | translate }}
+    am-core-submit-button(
+      (click)="onSaveProfile()",
+      [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
+      [isDisabled]="isFileUploading || isPending || isInputDisabled",
+      [isLoading]="isFileUploading || isPending || isInputDisabled"
     )
-
-      header.modal-component__content__header
-        span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
-          am-core-tooltip(
-          [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
-          )
-
-      .modal-form__row
-        plat-basic-profile-data(
-          [formControl]="avatarTokenProfileNameFormControl",
-          [isRequired]="isExpertForm",
-          [isDisabled]="isInputDisabled",
-          [inputTextLabel]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'"
-        )
-      .expert-details(
-        *ngIf="isExpertForm",
-        [@collapse]
-      )
-        .modal-form__row.modal-form__row--small
-          header.modal-component__content__header
-            span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.TITLE' | translate }}
-
-          am-core-textarea-primary(
-            [maxLength]="profileDescriptionMaxLength",
-            [minLength]="profileDescriptionMinLength",
-            [placeholder]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.PLACEHOLDER'",
-            [form]="profileForm",
-            [controlName]="expertFormControlDescription",
-            [errorTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.ERROR'",
-            [label]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.LABEL'",
-            [isRequired]="isExpertForm",
-            [isDisabled]="isInputDisabled"
-            )
-
-        .modal-form__row.modal-form__row--small
-          plat-file-uploader(
-            [maxFileSize]="maxValidFileSize",
-            [maxFilesCount]="maxValidFilesCount",
-            [fileCategory]="fileCategory",
-            [profileDocuments]="profileDocumentsList",
-            (uploadingFile)="onUploadingFile($event)",
-            (fileTokensList)="onUploadFile($event)",
-            [isDisabled]="isInputDisabled"
-          )
-
-        .modal-form__row.modal-form__row--small
-          plat-profile-links(
-            [form]="profileForm",
-            [controlName]="expertFormControlLink",
-            [itemsList]="profileLinksList",
-            [isDisabled]="isInputDisabled",
-            (linksListEmitter$)="onAddProfileLink($event)"
-          )
-
-    .modal-component__action([ngClass]="{'modal-component__action--expert': isOpenedAsExpert}")
-      a.button.button--link.button--small((click)="toggleIsExpert()", *ngIf="!isOpenedAsExpert")
-        | {{ (isExpertForm ? 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' : 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON') | translate }}
-
-      am-core-submit-button(
-        (click)="onSaveProfile()",
-        [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
-        [isDisabled]="isFileUploading || isPending || isInputDisabled",
-        [isLoading]="isFileUploading || isPending || isInputDisabled"
-      )

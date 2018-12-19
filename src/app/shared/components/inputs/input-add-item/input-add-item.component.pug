@@ -1,33 +1,30 @@
 .input-add-item.input(
-[formGroup]="formGroup",
-[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
-	.input__handler
-		.input__container
-			.input__label-container
-				label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
-				span.input__required-asterix(*ngIf="isRequired") *
+  [ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}"
+)
+  .input__handler
+    .input__container
+      .input__label-container
+        label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+        span.input__required-asterix(*ngIf="isRequired") *
 
-			input(
-			platValidation,
-			(blur)="onBlur()",
-			(keydown.enter)="onEnter()",
-			[formControlName]="controlName",
-			(focus)="onFocus()",
-			placeholder="{{placeholderTrKey | translate}}",
-			type="text",
-			[(ngModel)]="inputValue",
-			(change)="onInputChange",
-      [autofocus]="initialFocus"
+      input(
+        type="text",
+        placeholder="{{placeholderTrKey | translate}}",
+        [autofocus]="initialFocus",
+        [formControl]='inputFormControl',
+        (blur)="onBlur()",
+        (keydown.enter)="$event.target.blur();onEnter()",
+        (focus)="onFocus()",
       )
 
-		a.button.xsm-hidden(plat-stroked-button, (click)="onAddLinkClick()")
-			span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.BUTTON' | translate }}
+    a.button.xsm-hidden(plat-stroked-button, (click)="onAddLinkClick()")
+      span {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.BUTTON' | translate }}
 
-		a.button.xsm-only(plat-icon-button, (click)="onAddLinkClick()")
-			span(plat-icon, iconClass='add')
+    a.button.xsm-only(plat-icon-button, (click)="onAddLinkClick()")
+      span(plat-icon, iconClass='add')
 
-	.input__alert
-		am-core-validation-alert(
-		[isVisible]="!formGroup.valid",
-		[validationTextKey]="showValidationAlert()"
-		)
+  .input__alert
+    am-core-validation-alert(
+    [isVisible]="isFieldInvalid()",
+    [validationTextKey]="showValidationAlert()"
+    )
