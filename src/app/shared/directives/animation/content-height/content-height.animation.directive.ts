@@ -3,17 +3,21 @@ import { animate, AnimationBuilder, keyframes, style } from '@angular/animations
 import { first, takeUntil } from 'rxjs/operators';
 import { ContentHeightAnimationService } from '../../../services/animation/content-height/content-height.animation.service';
 import { Subject } from 'rxjs';
+import { StickyModalFooterService } from '@platform/shared/components/modals/modal/animation/sticky-modal-footer.directive.service';
+import { Config } from '../../../../../config';
 
 @Directive({
   selector: '[contentHeightAnimation]',
 })
 export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
   private currentHeight: string;
+  private timeDuration = Config.animationContentHeightTimeDuration;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
     private element: ElementRef,
     private animationBuilder: AnimationBuilder,
+    private stickyModalFooterService: StickyModalFooterService,
     private contentHeightService: ContentHeightAnimationService,
   ) {}
 
@@ -41,10 +45,10 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
         if (previousHeight !== this.currentHeight) {
           const animation = this.animationBuilder.build([
             animate(
-              '300ms ease-in-out',
+              `${this.timeDuration}ms`,
               keyframes([
                 style({ height: previousHeight, offset: 0 }),
-                style({ height: '*', offset: 0.5 }),
+                style({ height: '*', offset: 0.99 }),
                 style({ height: 'auto', offset: 1 }),
               ]),
             ),
@@ -54,9 +58,15 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
           // https://github.com/angular/angular/issues/20585
 
           const player = animation.create(element);
+
+          player.onStart(() => {
+            this.stickyModalFooterService.pushAnimationEvent(Number(this.currentHeight));
+          });
+
           player.onDone(() => {
             player.destroy();
           });
+
           player.play();
         }
       });

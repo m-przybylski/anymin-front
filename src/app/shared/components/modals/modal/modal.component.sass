@@ -110,10 +110,6 @@
     width: 100%
     border-radius: 8px
     overflow: hidden
-    display: flex
-    justify-content: space-between
-    flex-direction: column
-    min-height: 100vh
 
     +smm
       display: block
@@ -153,23 +149,28 @@
 
   &__content
     position: relative
-    min-height: 128px
     padding: 24px + $s-modal-header 16px 24px
-    flex: 1
+    min-height: 100vh
 
-    +smm
+    +mdm
+      min-height: 256px
       padding: 32px + $s-modal-header 48px 32px
 
     +lgm
       padding: 48px + $s-modal-header 48px 48px
 
     &--loading
-      height: calc(128px - #{$s-modal-header})
       display: flex
       justify-content: center
       align-items: center
+      height: 100%
+      width: 100%
+      position: absolute
+      left: 0
+      top: 0
 
       span
+        margin: $s-modal-header 0 0
         display: block
         width: 24px
         height: 24px
@@ -211,3 +212,19 @@
 
       > *
         margin: initial
+
+  &__footer
+    position: fixed
+    left: inherit
+    width: inherit
+    bottom: 0
+
+    +mdm
+      position: static
+
+    &--fixed
+      position: fixed
+
+      &::ng-deep
+        .consultation-footer
+          border-radius: 0
