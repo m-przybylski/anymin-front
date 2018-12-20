@@ -16,6 +16,6 @@ plat-modal-component(
     am-core-submit-button(
       (click)="onSaveProfile()",
       [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
-      [isDisabled]="isFileUploading || isPending || isInputDisabled",
-      [isLoading]="isFileUploading || isPending || isInputDisabled"
+      [isDisabled]="isPending || isInputDisabled",
+      [isLoading]="isPending || isInputDisabled"
     )
