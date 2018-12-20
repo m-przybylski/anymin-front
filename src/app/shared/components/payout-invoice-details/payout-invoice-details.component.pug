@@ -1,0 +1,37 @@
+.payout-invoice-details(contentHeightAnimation)
+  .payout-invoice-details__section(*ngIf="!isCompanyProfile")
+    h6.section-title {{ 'DASHBOARD.PAYMENTS.INVOICE_MODAL.DESCRIPTION' | translate }}
+    .options-container
+      .options-container__item(
+        [class.options-container__item--selected]="selectedInvoiceDetailsType === invoiceDetailsTypeEnum.NATURALPERSON",
+        [class.options-container__item--disabled]="isRequestPending",
+        (click)="selectedNaturalPersonSettlementMethod()"
+      )
+        span {{ 'DASHBOARD.PAYMENTS.INVOICE_MODAL.PERSON.TITLE' | translate }}
+
+      .options-container__item(
+        [class.options-container__item--selected]="selectedInvoiceDetailsType === invoiceDetailsTypeEnum.COMPANY",
+        [class.options-container__item--disabled]="isRequestPending",
+        (click) = "selectCompanySettlementMethod()"
+      )
+        span {{ 'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.TITLE' | translate }}
+
+  h6.section-title {{ formHeaderTrKey | translate }}
+  plat-stepper(
+    #stepper='platStepper',
+    [selectedIndex]="initialStepIndex"
+  )
+    plat-step
+      plat-natural-person-form(
+        [form]="form",
+        [isRequestPending]="isRequestPending",
+        [invoiceDetails]="invoiceData"
+      )
+
+    plat-step
+      plat-company-form(
+        [form]="form",
+        [isRequestPending]="isRequestPending",
+        [invoiceDetails]="invoiceData",
+        [isCompanyProfile]="isCompanyProfile"
+      )

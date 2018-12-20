@@ -1,23 +1,38 @@
 import { Observable } from 'rxjs';
-import { AccountService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { ICompanyInvoiceDetails } from './components/company-invoice-details/company-invoice-details.component';
-import { map } from 'rxjs/operators';
+import { AccountService, PostCompanyDetails, GetInvoiceDetails, PostNaturalPersonDetails } from '@anymind-ng/api';
+import { map, switchMap, take } from 'rxjs/operators';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { IInvoiceDetails } from './invoice-details.component';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
+export type PostInvoiceDetails = PostNaturalPersonDetails | PostCompanyDetails;
 @Injectable()
 export class InvoiceDetailsComponentService {
-  constructor(private accountService: AccountService) {}
+  constructor(private store: Store<fromCore.IState>, private accountService: AccountService) {}
 
-  public getInvoiceDetails = (): Observable<ICompanyInvoiceDetails> =>
-    // TODO FIX_NEW_FINANCE_MODEL
-    this.accountService.getInvoiceDetailsRoute().pipe(
-      map(response => ({
-        vatNumber: response.vatNumber,
-        companyName: response.companyName,
-        address: response.address.street,
-        city: response.address.city,
-        postalCode: response.address.postalCode,
-        email: 'response.email',
-      })),
+  public getInvoiceDetails(): Observable<IInvoiceDetails> {
+    return getNotUndefinedSession(this.store).pipe(
+      map(session => session.isCompany),
+      switchMap(isCompanyProfile =>
+        this.accountService.getInvoiceDetailsRoute().pipe(
+          map(invoiceDetails => ({
+            invoiceDetails,
+            isCompanyProfile,
+          })),
+        ),
+      ),
+      map(invoiceDetails => invoiceDetails),
+      take(1),
     );
+  }
+
+  public updateCompanyInvoiceDetails(invoiceDetails: PostCompanyDetails): Observable<GetInvoiceDetails> {
+    return this.accountService.postCompanyDetailsRoute(invoiceDetails);
+  }
+
+  public updateNaturalPersonInvoiceDetails(invoiceDetails: PostNaturalPersonDetails): Observable<GetInvoiceDetails> {
+    return this.accountService.postNaturalPersonDetailsRoute(invoiceDetails);
+  }
 }

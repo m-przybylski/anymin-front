@@ -1,0 +1,105 @@
+.company-form.invoice-details([formGroup]="form")
+  .modal-form([formGroupName]="companyFormName")
+    .modal-form__section
+      .modal-form__row.input-container
+        am-core-input-prefix.input-container__input(
+        label="DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.COUNTRY_LABEL",
+        [value]="'Polska'"
+        )
+        .input-container__input
+
+      .modal-form__row.input-container
+        am-core-input-text.input-container__input(
+        [label]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.COMPANY_NAME_LABEL'",
+        [isRequired]="true",
+        [controlName]="companyControlNames.COMPANY_NAME",
+        [isDisabled]="isRequestPending",
+        [form]="companyForm",
+        )
+        am-core-custom-input-numeric.input-container__input(
+        [inputType]="'tel'",
+        [inputMask]="'999-999-99-99'",
+        [label]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.VAT_NUMBER_LABEL'",
+        [isRequired]="true",
+        [controlName]="companyControlNames.VAT_NUMBER",
+        [isDisabled]="isRequestPending",
+        [form]="companyForm",
+        [initialFocus]="true",
+        [errorTextKey]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.VAT_NUMBER_ERROR'",
+        [validatorFn]="vatNumberValidatorFn"
+        )
+
+      .modal-form__row.input-container
+        am-core-input-text.input-container__input(
+        [label]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.ADDERS_LABEL'",
+        [isRequired]="true",
+        [controlName]="companyControlNames.STREET",
+        [isDisabled]="isRequestPending",
+        [form]="companyForm",
+        )
+        .input-container.input-container-address
+          am-core-input-text.input-container__input(
+          [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.PERSON.STREET_NUMBER.LABEL'",
+          [isRequired]="true",
+          [controlName]="companyControlNames.STREET_NUMBER",
+          [isDisabled]="isRequestPending",
+          [form]="companyForm",
+          )
+          am-core-input-text.input-container__input(
+          [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.PERSON.APARTMENT_NUMBER.LABEL'",
+          [controlName]="companyControlNames.APARTMENT_NUMBER",
+          [isDisabled]="isRequestPending",
+          [form]="companyForm",
+          )
+
+      .modal-form__row.input-container
+        am-core-input-text.input-container__input(
+        [label]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.CITY_LABEL'",
+        [isRequired]="true",
+        [controlName]="companyControlNames.CITY",
+        [isDisabled]="isRequestPending",
+        [form]="companyForm",
+        )
+        .input-container.input-container-address
+          am-core-custom-input-numeric.input-container__input(
+          [inputType]="'tel'",
+          [inputMask]="'99-999'",
+          [label]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.POSTAL_CODE_LABEL'",
+          [isRequired]="true",
+          [controlName]="companyControlNames.POSTAL_CODE",
+          [isDisabled]="isRequestPending",
+          [form]="companyForm",
+          [errorTextKey]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.POSTAL_CODE_ERROR'",
+          [pattern]="postalCodePattern"
+          )
+          .input-container__input
+
+    .modal-form__section
+      h6.section__title {{ 'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.VAT.TITLE' | translate }}
+      .vat-type-container
+        am-core-input-radio.vat-type-container__input(
+          [value]="vatRateType._0",
+          [controlName]="companyControlNames.VAT_RATE",
+          [form]="companyForm",
+          [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.VAT_0.LABEL'",
+          [isDisabled]="isRequestPending",
+        )
+        am-core-input-radio.vat-type-container__input(
+          [value]="vatRateType._23",
+          [controlName]="companyControlNames.VAT_RATE",
+          [form]="companyForm",
+          [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.VAT_23.LABEL'",
+          [isDisabled]="isRequestPending",
+        )
+
+    .modal-form__section(*ngIf="isCompanyProfile && !isEditForm")
+      h6.section__title {{ 'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.TERMS.TITLE' | translate }}
+      am-core-input-checkbox(
+        [errorTextKey]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.TERMS.ERROR'",
+        [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.TERMS.LABEL'",
+        [isRequired]="true",
+        [form]="companyForm",
+        [controlName]="companyControlNames.COMPANY_TERMS",
+        [isDisabled]="isRequestPending"
+      )
+

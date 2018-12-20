@@ -1,0 +1,56 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.invoice-details
+  .modal-form
+    &__section
+      margin: 0
+
+      +xsm
+        margin: 0 0 24px
+
+    &__row
+      margin: 0
+
+      +smm
+        margin: 0 0 8px
+
+    .section__title
+      +h6
+      font-weight: 500
+      margin: 0 0 24px
+
+    .input-container
+      display: flex
+      flex-direction: column
+
+      +smm
+        flex-direction: row
+
+      &.input-container-address
+        flex: 1
+        flex-direction: row
+
+        .input-container__input
+          flex: 1
+
+          &:first-child
+            margin: 0 24px 0 0
+
+      &__input
+        +smm
+          flex: 1
+
+          &:first-child
+            margin: 0 24px 0 0
+
+    .vat-type-container
+      display: flex
+      flex-direction: column
+
+      +xsm
+        flex-direction: row
+
+      &__input
+        +xsm
+          &:first-child
+            margin: 0 24px 0 0
