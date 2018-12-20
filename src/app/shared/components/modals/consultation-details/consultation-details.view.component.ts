@@ -258,6 +258,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
     creditCards: getServiceDetails.creditCards,
     price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
     vatRateType: this.selectVatRateType(getServiceDetails),
+    getCommissions: getServiceDetails.getCommissions,
   });
 
   private selectVatRateType = (getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum =>

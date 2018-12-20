@@ -252,5 +252,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     price: getConsultationDetails.serviceDetails.serviceDetails.price,
     userId,
     creditCards: getConsultationDetails.creditCards,
+    getCommissions: getConsultationDetails.getCommissions,
   });
 }

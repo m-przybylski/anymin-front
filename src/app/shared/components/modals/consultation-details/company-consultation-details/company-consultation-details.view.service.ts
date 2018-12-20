@@ -9,6 +9,9 @@ import {
   GetServiceWithEmployees,
   GetDefaultPaymentMethod,
   GetCreditCard,
+  GetCommissions,
+  PostCommissions,
+  FinancesService,
 } from '@anymind-ng/api';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { map, switchMap, catchError } from 'rxjs/operators';
@@ -25,6 +28,7 @@ export interface ICompanyConsultationDetails {
   employeesList: ReadonlyArray<ICompanyEmployeeRowComponent>;
   defaultPaymentMethod: GetDefaultPaymentMethod;
   creditCards: ReadonlyArray<GetCreditCard>;
+  getCommissions: GetCommissions;
 }
 
 @Injectable()
@@ -35,6 +39,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
     private invitationService: InvitationService,
     private profileService: ProfileService,
     private paymentsService: PaymentsService,
+    private financesService: FinancesService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewService'));
@@ -65,31 +70,26 @@ export class CompanyConsultationDetailsViewService extends Logger {
           return getServiceWithEmployees;
         }),
         switchMap((getServiceWithEmployees: GetServiceWithEmployees) =>
-          this.profileService
-            .getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id)
-            .pipe(map(profileDetails => ({ getServiceWithEmployees, profileDetails }))),
+          this.getCommission({
+            amount: getServiceWithEmployees.serviceDetails.price,
+            isFreelance: getServiceWithEmployees.serviceDetails.isFreelance,
+          }).pipe(map(getCommissions => ({ getServiceWithEmployees, getCommissions }))),
         ),
       ),
-      this.paymentsService.getDefaultPaymentMethodRoute().pipe(
-        switchMap(defaultPaymentMethod =>
-          iif(
-            () => defaultPaymentMethod.creditCardId !== undefined,
-            forkJoin(of(defaultPaymentMethod), this.paymentsService.getCreditCardsRoute()),
-            forkJoin(of(defaultPaymentMethod), of([])),
-          ),
-        ),
-        catchError(() => forkJoin(of({}), of([]))),
-      ),
+      this.getPaymentMethod(),
     ).pipe(
       map(
-        ([tagsList, serviceDetails, payments]): ICompanyConsultationDetails => ({
+        ([
           tagsList,
-          serviceDetails: serviceDetails.getServiceWithEmployees,
-          employeesList: serviceDetails.getServiceWithEmployees.employeesDetails.map(employee =>
-            this.mapEmployeesList(employee),
-          ),
-          defaultPaymentMethod: payments[0],
-          creditCards: payments[1],
+          { getServiceWithEmployees, getCommissions },
+          { defaultPaymentMethod, getCreditCard },
+        ]): ICompanyConsultationDetails => ({
+          tagsList,
+          serviceDetails: getServiceWithEmployees,
+          employeesList: getServiceWithEmployees.employeesDetails.map(employee => this.mapEmployeesList(employee)),
+          defaultPaymentMethod,
+          creditCards: getCreditCard,
+          getCommissions,
         }),
       ),
       catchError(error => {
@@ -113,13 +113,15 @@ export class CompanyConsultationDetailsViewService extends Logger {
       ),
       switchMap(invitations => {
         const employees = invitations.filter(item => item.employeeId);
-        const pendingInvitations = invitations.filter(item => typeof item.employeeId === 'undefined').map(item => ({
-          name: item.msisdn || item.email || '',
-          id: item.id,
-          // todo delete email, msisdn properties after https://anymind.atlassian.net/browse/PLAT-538
-          email: item.email,
-          msisdn: item.msisdn,
-        }));
+        const pendingInvitations = invitations
+          .filter(item => typeof item.employeeId === 'undefined')
+          .map(item => ({
+            name: item.msisdn || item.email || '',
+            id: item.id,
+            // todo delete email, msisdn properties after https://anymind.atlassian.net/browse/PLAT-538
+            email: item.email,
+            msisdn: item.msisdn,
+          }));
 
         return iif(
           () => employees.length > 0,
@@ -165,4 +167,28 @@ export class CompanyConsultationDetailsViewService extends Logger {
   });
   private getPendingInvitation = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>
     this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
+
+  private getPaymentMethod(): Observable<IPaymentMethod> {
+    return this.paymentsService.getDefaultPaymentMethodRoute().pipe(
+      switchMap(defaultPaymentMethod =>
+        defaultPaymentMethod.creditCardId !== undefined
+          ? this.paymentsService.getCreditCardsRoute().pipe(
+              map(getCreditCard => ({
+                defaultPaymentMethod,
+                getCreditCard,
+              })),
+            )
+          : of({ defaultPaymentMethod, getCreditCard: [] }),
+      ),
+      catchError(() => of({ defaultPaymentMethod: {}, getCreditCard: [] })),
+    );
+  }
+
+  private getCommission(servicePrice: PostCommissions): Observable<GetCommissions> {
+    return this.financesService.postCommissionsRoute(servicePrice);
+  }
+}
+interface IPaymentMethod {
+  defaultPaymentMethod: GetDefaultPaymentMethod;
+  getCreditCard: ReadonlyArray<GetCreditCard>;
 }

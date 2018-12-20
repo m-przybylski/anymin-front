@@ -1,4 +1,10 @@
-import { MoneyDto, GetDefaultPaymentMethod, GetCreditCard, ServiceWithOwnerProfile } from '@anymind-ng/api';
+import {
+  MoneyDto,
+  GetDefaultPaymentMethod,
+  GetCreditCard,
+  ServiceWithOwnerProfile,
+  GetCommissions,
+} from '@anymind-ng/api';
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
@@ -15,6 +21,7 @@ export interface IConsultationFooterData {
   vatRateType?: ServiceWithOwnerProfile.VatRateTypeEnum;
   creditCards: ReadonlyArray<GetCreditCard>;
   defaultPaymentMethod: GetDefaultPaymentMethod;
+  getCommissions: GetCommissions;
 }
 
 // tslint:disable:readonly-array

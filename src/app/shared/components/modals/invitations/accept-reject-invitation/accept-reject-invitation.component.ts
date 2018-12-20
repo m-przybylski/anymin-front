@@ -14,7 +14,6 @@ import { GetSessionWithAccount } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
-import { COMMISSION, ICommission } from '@platform/core/commission';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -24,7 +23,10 @@ import { COMMISSION, ICommission } from '@platform/core/commission';
 export class AcceptRejectInvitationModalComponent extends Logger implements OnInit {
   public isFreelance: boolean;
   public price: string;
+  public expertPrice: string;
   public avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_96;
+
+  public isLoaded = false;
 
   // consultation
   public avatarToken: string;
@@ -37,7 +39,6 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
 
   constructor(
     @Inject(INVITATION) public invitation: IInvitation,
-    @Inject(COMMISSION) private commissionConfig: ICommission,
     private activeModal: NgbActiveModal,
     private acceptRejectInvitationService: AcceptRejectInvitationService,
     private loader: ModalAnimationComponentService,
@@ -51,35 +52,33 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   }
 
   public ngOnInit(): void {
-    this.loader.startLoadingAnimation();
     if (!this.invitation.isVisited) {
       this.acceptRejectInvitationService.markInvitationAsRead(this.invitation.id).subscribe();
     }
     this.acceptRejectInvitationService
       .getInvitationDetails(this.invitation)
-      .pipe(finalize(() => this.loader.stopLoadingAnimation()))
+      .pipe(
+        finalize(() => {
+          this.loader.stopLoadingAnimation();
+          this.isLoaded = true;
+        }),
+      )
       .subscribe(data => {
         this.avatarToken = this.invitation.serviceOwnerAvatarToken;
         this.expertName = this.invitation.serviceOwnerName;
         this.serviceName = this.invitation.serviceName;
         this.serviceDescription = data.serviceDescription;
         this.isFreelance = data.isFreelance;
-        this.price = this.moneyPipe.transform({
-          value:
-            data.price.value *
-            (1 -
-              (this.commissionConfig.freelanceConsultationCompanyCommission +
-                this.commissionConfig.freelanceConsultationAnyMindCommission)),
-          currency: data.price.currency,
-        });
+        this.price = this.moneyPipe.transform(data.price);
+        this.expertPrice = this.moneyPipe.transform(data.getCommissions.profileAmount);
       });
   }
 
-  public onRejectClicked = (): void => {
+  public onRejectClicked(): void {
     this.acceptRejectInvitationService.rejectInvitation(this.invitation.id, this.activeModal).subscribe();
-  };
+  }
 
-  public onAcceptClicked = (): void => {
+  public onAcceptClicked(): void {
     getNotUndefinedSession(this.store)
       .pipe(
         first(),
@@ -94,5 +93,5 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
         }),
       )
       .subscribe();
-  };
+  }
 }
