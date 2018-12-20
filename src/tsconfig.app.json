@@ -2,27 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "module": "commonjs",
-    "types": ["angular", "jquery", "perfect-scrollbar", "node"]
+    "module": "commonjs"
   },
-  "files": [
-    "app/features/confirm-email/confirm-email.module.ts",
-    "app/features/unsupported/unsupported.module.ts",
-    "app/features/login/login.module.ts",
-    "app/features/communicator/communicator.module.ts",
-    "app/features/account/account.module.ts",
-    "app/features/forgot-password/forgot-password.module.ts",
-    "app/features/dashboard/dashboard.module.ts",
-    "app/features/dashboard/views/company-dashboard/company-profile/company-profile.module.ts",
-    "app/features/dashboard/views/user-dashboard/expert-dashboard/expert-dashboard.module.ts",
-    "app/features/dashboard/views/user-dashboard/invitations/invitations.module.ts",
-    "app/features/dashboard/views/user-dashboard/welcome/welcome.module.ts",
-    "app/features/dashboard/views/company-dashboard/company-dashboard.module.ts",
-    "app/features/browse/browse.module.ts",
-    "app/features/dashboard/views/user-dashboard/activities/user-dashboard-activities.module.ts",
-    "app/features/dashboard/views/company-dashboard/activities/company-dashboard-activities.module.ts",
-    "polyfills.ts",
-    "main.ts"
-  ],
   "exclude": ["test.ts", "**/*.spec.ts", "wallabyTest.ts"]
 }

@@ -4,7 +4,13 @@
   .csv-uploader__handler
     .csv-uploader__button
       label
-        input(type='file', csvUploader, [onLoadFile]="onLoadFile", [showCSVstatus]="showCSVstatus", #csvUploader, accept="text/csv")
+        input(
+          csvUploader,
+          type='file',
+          (fileLoaded)="onFileLoaded($event)",
+          (showCSVstatus)="showCSVstatus($event)",
+          accept="text/csv"
+        )
         span([innerHTML]="'CSV_UPLOADER.TITLE' | translate ")
 
     am-core-tooltip(

@@ -10,11 +10,6 @@
       "assets": [
         "assets",
         {
-          "glob": "*.js",
-          "input": "../node_modules/angular-i18n",
-          "output": "./assets/angular-i18n"
-        },
-        {
           "glob": "*",
           "input": "./root/",
           "output": "./"
@@ -28,10 +23,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": ["styles.sass"],
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"
-      ],
+      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -62,13 +54,7 @@
     {
       "project": "src/tsconfig.app.json",
       "tslintConfig": "./tslint.app.json",
-      "exclude": [
-        "**/node_modules/**",
-        "**/angularjs/**/*.ts",
-        "**/generated_modules/**",
-        "**/*actions.ts",
-        "**/*.spec.ts"
-      ]
+      "exclude": ["**/node_modules/**", "**/generated_modules/**", "**/*actions.ts", "**/*.spec.ts", "**/testing/**"]
     },
     {
       "project": "src/tsconfig.app.json",

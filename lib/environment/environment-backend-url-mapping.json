@@ -1,7 +1,5 @@
 {
-  "": "https://dev.anymind.com",
-  "development": "https://dev.anymind.com",
+  "": "https://stage.anymind.com",
   "staging": "https://stage.anymind.com",
-  "demo": "https://demo.anymind.com",
   "production": "https://app.anymind.com"
 }

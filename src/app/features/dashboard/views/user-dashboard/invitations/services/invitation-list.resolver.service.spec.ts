@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { InvitationListResolverService } from './invitation-list.resolver.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { fakeAsync, tick } from '@angular/core/testing';
-import * as Mocks from './invitation-list.resolver.service.mocks';
+import * as Mocks from './invitation-list.resolver.service.mocks.spec';
 
 describe('InvitationListResolverService', () => {
   const getProfileId = (profileId: string): any => of(Mocks.profileMap.get(profileId));
