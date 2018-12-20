@@ -1,5 +1,5 @@
-import { AcceptRejectInvitationService } from './accept-reject-invitation.service';
-import { InvitationService, ServiceService } from '@anymind-ng/api';
+import { AcceptRejectInvitationService, IConsultationDetails } from './accept-reject-invitation.service';
+import { InvitationService, ServiceService, FinancesService, GetService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { TestBed } from '@angular/core/testing';
 import { provideMockFactoryLogger } from 'testing/testing';
@@ -14,6 +14,7 @@ describe('AcceptRejectInvitationService', () => {
   let alertService: AlertService;
   let serviceService: ServiceService;
   let activeModal: NgbActiveModal;
+  let financesService: FinancesService;
 
   beforeEach(() => {
     invitationService = Deceiver(InvitationService, {
@@ -38,41 +39,45 @@ describe('AcceptRejectInvitationService', () => {
         { provide: InvitationService, useValue: invitationService },
         { provide: AlertService, useValue: alertService },
         { provide: ServiceService, useValue: serviceService },
+        { provide: FinancesService, useValue: FinancesService },
       ],
     });
 
     service = TestBed.get(AcceptRejectInvitationService);
+    financesService = TestBed.get(FinancesService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  // TODO FIX_NEW_FINANCE_MODEL
-  // it('should map data from correct calls', () => {
-  //   const getService: Partial<GetService> = {
-  //     isFreelance: true,
-  //     price: { amount: 100, currency: 'PLN' },
-  //     description: 'desc',
-  //   };
-  //   const postServicesTags: any = [{ tags: [{ name: 'asd' }, { name: 'sdf' }, { name: 'dfg' }] }];
-  //   const result: IConsultationDetails = {
-  //     isFreelance: true,
-  //     grossPrice: { amount: 123, currency: 'PLN' },
-  //     price: { amount: 100, currency: 'PLN' },
-  //     serviceDescription: 'desc',
-  //     tagList: ['asd', 'sdf', 'dfg'],
-  //   };
-  //   const getServiceRoute = cold('-(a|)', { a: getService });
-  //   const postServicesTagsRoute = cold('--(a|)', { a: postServicesTags });
-  //   const expected = cold('--(a|)', { a: result });
-  //
-  //   const sessionService = TestBed.get(ServiceService);
-  //   sessionService.getServiceRoute.and.returnValue(getServiceRoute);
-  //   sessionService.postServicesTagsRoute.and.returnValue(postServicesTagsRoute);
-  //
-  //   expect(service.getInvitationDetails({ id: '1234' } as any)).toBeObservable(expected);
-  // });
+  it('should map data from correct calls', () => {
+    const getService: Partial<GetService> = {
+      isFreelance: true,
+      price: { value: 100, currency: 'PLN' },
+      description: 'desc',
+    };
+    const postServicesTags: any = [{ tags: [{ name: 'asd' }, { name: 'sdf' }, { name: 'dfg' }] }];
+    const result: IConsultationDetails = {
+      isFreelance: true,
+      price: { value: 100, currency: 'PLN' },
+      serviceDescription: 'desc',
+      tagList: ['asd', 'sdf', 'dfg'],
+      getCommissions: {
+        profileAmount: { value: 100, currency: 'PLN' },
+      },
+    };
+    const getServiceRoute = cold('-(a|)', { a: getService });
+    const postServicesTagsRoute = cold('--(a|)', { a: postServicesTags });
+    const postCommissions = cold('(a|)', { a: { profileAmount: { value: 100, currency: 'PLN' } } });
+    const expected = cold('--(a|)', { a: result });
+    const sessionService = TestBed.get(ServiceService);
+    sessionService.getServiceRoute.and.returnValue(getServiceRoute);
+    sessionService.postServicesTagsRoute.and.returnValue(postServicesTagsRoute);
+    financesService.postCommissionsRoute = jasmine.createSpy('').and.returnValue(postCommissions);
+
+    expect(service.getInvitationDetails({ id: '1234' } as any)).toBeObservable(expected);
+  });
 
   describe('Accept/reject', () => {
     it('should call accept invite, close modal and show message', () => {

@@ -15,8 +15,9 @@ import {
   ExpertProfileView,
   GetServiceTags,
   EmploymentWithExpertProfile,
+  FinancesService,
 } from '@anymind-ng/api';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { LoggerFactory } from '@anymind-ng/core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { cold } from 'jasmine-marbles';
 import { TestBed } from '@angular/core/testing';
@@ -25,10 +26,12 @@ import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { ConsultationFootersService } from './consultation-footers.service';
 import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
+import { provideMockFactoryLogger } from 'testing/testing';
 
 describe('ConsultationDetailsViewService', () => {
   let consultationDetailsViewService: ConsultationDetailsViewService;
   let store: Store<fromCore.IState>;
+  let loggerFactory: LoggerFactory;
 
   const serviceService: ServiceService = Deceiver(ServiceService);
   const profileService: ProfileService = Deceiver(ProfileService);
@@ -37,9 +40,7 @@ describe('ConsultationDetailsViewService', () => {
   const paymentsService: PaymentsService = Deceiver(PaymentsService);
   const expertAvailabilityService: ExpertAvailabilityService = Deceiver(ExpertAvailabilityService);
   const consultationFootersService: ConsultationFootersService = Deceiver(ConsultationFootersService);
-  const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
-    createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
-  });
+  const financesService: FinancesService = Deceiver(FinancesService);
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -48,8 +49,10 @@ describe('ConsultationDetailsViewService', () => {
           core: combineReducers(fromCore.reducers),
         }),
       ],
+      providers: [provideMockFactoryLogger()],
     });
     store = TestBed.get(Store);
+    loggerFactory = TestBed.get(LoggerFactory);
     consultationDetailsViewService = new ConsultationDetailsViewService(
       serviceService,
       profileService,
@@ -58,6 +61,7 @@ describe('ConsultationDetailsViewService', () => {
       paymentsService,
       expertAvailabilityService,
       consultationFootersService,
+      financesService,
       loggerFactory,
     );
   });
@@ -174,6 +178,16 @@ describe('ConsultationDetailsViewService', () => {
         getComments,
         defaultPaymentMethod: {},
         creditCards: [],
+        getCommissions: {
+          partnerAmount: {
+            value: 100,
+            currency: 'PLN',
+          },
+          profileAmount: {
+            value: 100,
+            currency: 'PLN',
+          },
+        },
       };
       serviceService.postServiceWithEmployeesRoute = jasmine
         .createSpy('postServiceWithEmployeesRoute')
@@ -193,6 +207,10 @@ describe('ConsultationDetailsViewService', () => {
       paymentsService.getDefaultPaymentMethodRoute = jasmine
         .createSpy('getDefaultPaymentMethodRoute')
         .and.returnValue(cold('#', {}, 'oups'));
+
+      financesService.postCommissionsRoute = jasmine
+        .createSpy('')
+        .and.returnValue(cold('(a|)', { a: result.getCommissions }));
 
       expect(consultationDetailsViewService.getServiceDetails(serviceId, employeeId)).toBeObservable(expected);
     });

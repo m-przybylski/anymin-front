@@ -10,20 +10,20 @@ plat-modal-component(
       [serviceDescription]="serviceDescription",
       [tagList]="tagList",
     )
-  .modal-footer
+  .modal-footer(*ngIf='isLoaded')
     plat-consultation-footer
       .consultation-footer__left-price(*ngIf="isFreelance")
         .accept-reject-invitation__billing-detail-price
-          span.accept-reject-invitation__billing-detail-price-money {{grossPrice}}
+          span.accept-reject-invitation__billing-detail-price-money {{price}}
           span.accept-reject-invitation__billing-detail-price-currency  zł/min
       .consultation-footer__left-text
         .accept-reject-invitation__billing-detail-text
           span(plat-icon="", iconClass="information", color="secondary")
           p(*ngIf="isFreelance;else organizationDescription")
             span
-              strong {{price}} zł/min
+              strong {{expertPrice}} zł/min
               | {{"INVITE_ACCEPT_REJECT.FREELANCE" | translate}}
-              strong {{grossPrice}} zł/min.
+              strong {{price}} zł/min.
       .consultation-footer__right--mobile
         a.accept-reject-invitation__buttons-button((click)="onRejectClicked()", plat-icon-button, color="secondary")
           span(plat-icon="", iconClass="clear")
@@ -32,6 +32,6 @@ plat-modal-component(
       .consultation-footer__right
         a.accept-reject-invitation__buttons-button((click)="onRejectClicked()", plat-stroked-button, color="secondary") {{"ACCEPT_REJECT_INVITATION.REJECT" | translate}}
         a.accept-reject-invitation__buttons-button((click)="onAcceptClicked()", plat-button, color="primary") {{"ACCEPT_REJECT_INVITATION.ACCEPT" | translate}}
-ng-template(#organizationDescription="")
+ng-template(#organizationDescription)
   p {{"INVITE_ACCEPT_REJECT.ORGANIZATION" | translate}}
     a {{"INVITE_ACCEPT_REJECT.ORGANIZATION.FIND_MORE" | translate }}

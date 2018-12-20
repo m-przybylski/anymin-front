@@ -51,6 +51,9 @@ describe('ConsultationFooterUserComponent', () => {
         creditCardId: 'id',
       },
       creditCards: [],
+      getCommissions: {
+        profileAmount: { value: 100, currency: 'PLN' },
+      },
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -68,6 +71,9 @@ describe('ConsultationFooterUserComponent', () => {
         creditCardId: 'id',
       },
       creditCards: [],
+      getCommissions: {
+        profileAmount: { value: 123, currency: 'PLN' },
+      },
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -85,6 +91,9 @@ describe('ConsultationFooterUserComponent', () => {
         creditCardId: 'id',
       },
       creditCards: [],
+      getCommissions: {
+        profileAmount: { value: 123, currency: 'PLN' },
+      },
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -104,6 +113,9 @@ describe('ConsultationFooterUserComponent', () => {
         creditCardId: 'id',
       },
       creditCards: [],
+      getCommissions: {
+        profileAmount: { value: 123, currency: 'PLN' },
+      },
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
@@ -121,6 +133,9 @@ describe('ConsultationFooterUserComponent', () => {
       price: { value: 100, currency: 'PLN' },
       defaultPaymentMethod: {},
       creditCards: [],
+      getCommissions: {
+        profileAmount: { value: 100, currency: 'PLN' },
+      },
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;

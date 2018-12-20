@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
-import { InvitationService, ServiceService, GetService, MoneyDto } from '@anymind-ng/api';
+import {
+  InvitationService,
+  ServiceService,
+  GetService,
+  MoneyDto,
+  GetCommissions,
+  FinancesService,
+} from '@anymind-ng/api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, AlertService } from '@anymind-ng/core';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable, forkJoin } from 'rxjs';
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
@@ -14,6 +21,7 @@ export class AcceptRejectInvitationService extends Logger {
     private invitationService: InvitationService,
     private alertService: AlertService,
     private serviceService: ServiceService,
+    private financesService: FinancesService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('AcceptRejectInvitationService'));
@@ -22,27 +30,24 @@ export class AcceptRejectInvitationService extends Logger {
   /**
    * Fetch information from backend server following endpoints are involved:
    * GET /api/services/{serviceId}
-   * GET /api/services/{serviceId}/gross-price
+   * POST /api/finances/commissions { MoneyDto }
    * POST /api/services/tags {serviceIds:[serviceId]}
    * @param invitation invitation object where serviceId is require
    * @returns mapped details about service to display for the user
    */
   public getInvitationDetails = (invitation: IInvitation): Observable<IConsultationDetails> =>
-    forkJoin(
-      this.serviceService.getServiceRoute(invitation.serviceId),
-      this.getTagsForService(invitation.serviceId),
-    ).pipe(
-      // TODO FIX_NEW_FINANCE_MODEL
-      map(([service, tagList]: [GetService, ReadonlyArray<string>]) => ({
-        isFreelance: service.isFreelance,
-        price: service.price,
-        serviceDescription: service.description,
+    forkJoin(this.getServiceDetails(invitation.serviceId), this.getTagsForService(invitation.serviceId)).pipe(
+      map(([{ getCommissions, getService }, tagList]) => ({
+        isFreelance: getService.isFreelance,
+        price: getService.price,
+        serviceDescription: getService.description,
         tagList,
+        getCommissions,
       })),
     );
 
   /**
-   * Accepts invitation. endpoint envolved
+   * Accepts invitation. endpoint involved
    * POST /api/invitations/{invitationId}/accept
    * @param invitationId id of invitation to be accepted
    * @param activeModal modal to be closed
@@ -52,7 +57,7 @@ export class AcceptRejectInvitationService extends Logger {
     this.acceptRejectInvitation('ACCEPT')(invitationId, activeModal);
 
   /**
-   * Rejects invitation. endpoint envolved
+   * Rejects invitation. endpoint involved
    * POST /api/invitations/{invitationId}/reject
    * @param invitationId id of invitation to be rejected
    * @param activeModal modal to be closed
@@ -63,6 +68,19 @@ export class AcceptRejectInvitationService extends Logger {
 
   public markInvitationAsRead = (invitation: string): Observable<void> =>
     this.invitationService.postInvitationsDisplayedRoute(invitation);
+
+  private getServiceDetails(serviceId: string): Observable<{ getCommissions: GetCommissions; getService: GetService }> {
+    return this.serviceService.getServiceRoute(serviceId).pipe(
+      switchMap(getService =>
+        this.financesService
+          .postCommissionsRoute({
+            amount: getService.price,
+            isFreelance: getService.isFreelance,
+          })
+          .pipe(map(getCommissions => ({ getCommissions, getService }))),
+      ),
+    );
+  }
 
   private getTagsForService = (serviceId: string): Observable<ReadonlyArray<string>> =>
     this.serviceService
@@ -107,4 +125,5 @@ export interface IConsultationDetails {
   price: MoneyDto;
   serviceDescription: string;
   tagList: ReadonlyArray<string>;
+  getCommissions: GetCommissions;
 }

@@ -7,10 +7,10 @@ import {
 } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer-helpers';
 import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
-import { COMMISSION, ICommission } from '@platform/core/commission';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 
 @Component({
+  selector: 'plat-consultation-footer-edit',
   templateUrl: 'consultation-footer-edit.component.html',
   styleUrls: ['consultation-footer-edit.component.sass'],
 })
@@ -28,29 +28,15 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
   }
 
   public get organizationPrice(): string {
-    if (this.data.price === undefined) {
+    if (this.data.getCommissions.partnerAmount === undefined) {
       return '';
     }
 
-    return this.moneyPipe.transform({
-      value: this.data.price.value * this.commissionConfig.freelanceConsultationCompanyCommission,
-      currency: this.data.price.currency,
-    });
+    return this.moneyPipe.transform(this.data.getCommissions.partnerAmount);
   }
 
   public get expertPrice(): string {
-    if (this.data.price === undefined) {
-      return '';
-    }
-
-    return this.moneyPipe.transform({
-      value:
-        this.data.price.value *
-        (1 -
-          (this.commissionConfig.freelanceConsultationCompanyCommission +
-            this.commissionConfig.freelanceConsultationAnyMindCommission)),
-      currency: this.data.price.currency,
-    });
+    return this.moneyPipe.transform(this.data.getCommissions.profileAmount);
   }
 
   public get isFreelance(): boolean {
@@ -60,11 +46,7 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
 
-  constructor(
-    @Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData,
-    @Inject(COMMISSION) private commissionConfig: ICommission,
-    loggerFactory: LoggerFactory,
-  ) {
+  constructor(@Inject(CONSULTATION_FOOTER_DATA) public data: IConsultationFooterData, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('ConsultationFooterEditComponent'));
   }
 

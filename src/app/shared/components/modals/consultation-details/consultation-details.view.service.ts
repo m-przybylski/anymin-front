@@ -11,8 +11,11 @@ import {
   PaymentsService,
   GetDefaultPaymentMethod,
   GetCreditCard,
+  FinancesService,
+  PostCommissions,
+  GetCommissions,
 } from '@anymind-ng/api';
-import { Observable, forkJoin, of, iif } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { map, switchMap, filter, take, catchError } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
@@ -34,56 +37,55 @@ export class ConsultationDetailsViewService extends Logger {
     private paymentsService: PaymentsService,
     private expertAvailabilityService: ExpertAvailabilityService,
     private consultationFootersService: ConsultationFootersService,
+    private financesService: FinancesService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationDetailsViewService'));
   }
 
   public getServiceDetails = (serviceId: string, employeeId: string): Observable<IConsultationDetails> =>
-    this.serviceService
-      .postServiceWithEmployeesRoute({ serviceIds: [serviceId] })
-      .pipe(
-        map(getServiceWithEmployeesList =>
-          getServiceWithEmployeesList.find(
-            getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === serviceId,
-          ),
+    this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [serviceId] }).pipe(
+      map(getServiceWithEmployeesList =>
+        getServiceWithEmployeesList.find(
+          getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === serviceId,
         ),
-        filter(getServiceWithEmployee => getServiceWithEmployee !== undefined),
-      )
-      .pipe(
-        switchMap((getServiceWithEmployees: GetServiceWithEmployees) =>
-          forkJoin(
-            this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
-            this.viewsService.getWebExpertProfileRoute(employeeId),
-            this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId)),
-            this.paymentsService.getDefaultPaymentMethodRoute().pipe(
-              switchMap(defaultPaymentMethod =>
-                iif(
-                  () => defaultPaymentMethod.creditCardId !== undefined,
-                  forkJoin(of(defaultPaymentMethod), this.paymentsService.getCreditCardsRoute()),
-                  forkJoin(of(defaultPaymentMethod), of([])),
-                ),
+      ),
+      filter(getServiceWithEmployee => getServiceWithEmployee !== undefined),
+      switchMap((getServiceWithEmployees: GetServiceWithEmployees) =>
+        forkJoin(
+          this.profileService.getProfileRoute(getServiceWithEmployees.serviceDetails.ownerProfile.id),
+          this.viewsService.getWebExpertProfileRoute(employeeId),
+          this.getComments(this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId)),
+          this.getPaymentMethod(),
+          this.getCommission({
+            amount: getServiceWithEmployees.serviceDetails.price,
+            isFreelance: getServiceWithEmployees.serviceDetails.isFreelance,
+          }),
+        ).pipe(
+          map(
+            ([
+              expertDetails,
+              expertProfileViewDetails,
+              getComments,
+              { defaultPaymentMethod, getCreditCard },
+              getCommissions,
+            ]): IConsultationDetails => ({
+              expertDetails,
+              expertProfileViewDetails,
+              getServiceWithEmployees,
+              employmentId: this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId),
+              expertIds: getServiceWithEmployees.employeesDetails.map(
+                employeesDetails => employeesDetails.employeeProfile.id,
               ),
-              catchError(() => forkJoin(of({}), of([]))),
-            ),
-          ).pipe(
-            map(
-              ([expertDetails, expertProfileViewDetails, getComments, payments]): IConsultationDetails => ({
-                expertDetails,
-                expertProfileViewDetails,
-                getServiceWithEmployees,
-                employmentId: this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId),
-                expertIds: getServiceWithEmployees.employeesDetails.map(
-                  employeesDetails => employeesDetails.employeeProfile.id,
-                ),
-                defaultPaymentMethod: payments[0],
-                creditCards: payments[1],
-                getComments,
-              }),
-            ),
+              defaultPaymentMethod,
+              creditCards: getCreditCard,
+              getComments,
+              getCommissions,
+            }),
           ),
         ),
-      );
+      ),
+    );
 
   public getServicesTagList = (serviceId: string): Observable<ReadonlyArray<string>> =>
     this.serviceService
@@ -140,6 +142,26 @@ export class ConsultationDetailsViewService extends Logger {
 
     return employeeDetail ? employeeDetail.id : '';
   };
+
+  private getPaymentMethod(): Observable<IPaymentMethod> {
+    return this.paymentsService.getDefaultPaymentMethodRoute().pipe(
+      switchMap(defaultPaymentMethod =>
+        defaultPaymentMethod.creditCardId !== undefined
+          ? this.paymentsService.getCreditCardsRoute().pipe(
+              map(getCreditCard => ({
+                defaultPaymentMethod,
+                getCreditCard,
+              })),
+            )
+          : of({ defaultPaymentMethod, getCreditCard: [] }),
+      ),
+      catchError(() => of({ defaultPaymentMethod: {}, getCreditCard: [] })),
+    );
+  }
+
+  private getCommission(servicePrice: PostCommissions): Observable<GetCommissions> {
+    return this.financesService.postCommissionsRoute(servicePrice);
+  }
 }
 
 export interface IConsultationDetails {
@@ -151,4 +173,10 @@ export interface IConsultationDetails {
   defaultPaymentMethod: GetDefaultPaymentMethod;
   creditCards: ReadonlyArray<GetCreditCard>;
   getComments: ReadonlyArray<GetComment>;
+  getCommissions: GetCommissions;
+}
+
+interface IPaymentMethod {
+  defaultPaymentMethod: GetDefaultPaymentMethod;
+  getCreditCard: ReadonlyArray<GetCreditCard>;
 }

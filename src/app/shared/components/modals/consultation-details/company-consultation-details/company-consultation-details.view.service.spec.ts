@@ -1,4 +1,11 @@
-import { EmploymentService, InvitationService, ProfileService, ServiceService, PaymentsService } from '@anymind-ng/api';
+import {
+  EmploymentService,
+  InvitationService,
+  ProfileService,
+  ServiceService,
+  PaymentsService,
+  FinancesService,
+} from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { TestBed } from '@angular/core/testing';
 import { provideMockFactoryLogger } from 'testing/testing';
@@ -32,6 +39,10 @@ describe('CompanyConsultationDetailsViewService', () => {
           provide: PaymentsService,
           useValue: Deceiver(PaymentsService),
         },
+        {
+          provide: FinancesService,
+          useValue: Deceiver(FinancesService),
+        },
         provideMockFactoryLogger(),
       ],
     });
@@ -45,6 +56,7 @@ describe('CompanyConsultationDetailsViewService', () => {
     const profileService = TestBed.get(ProfileService);
     const serviceService = TestBed.get(ServiceService);
     const paymentsService: PaymentsService = TestBed.get(PaymentsService);
+    const financesService: FinancesService = TestBed.get(FinancesService);
 
     const getServiceTags = {
       serviceId: '1234',
@@ -112,9 +124,12 @@ describe('CompanyConsultationDetailsViewService', () => {
       ],
       defaultPaymentMethod: {},
       creditCards: [],
+      getCommissions: {
+        profileAmount: moneyDto,
+      },
     };
 
-    const expected = cold('--(a|)', { a: result });
+    const expected = cold('-(a|)', { a: result });
 
     const postServicesTagsRoute = cold('-(a|)', { a: [getServiceTags] });
     const getProfileRoute = cold('-(a|)', { a: getProfileWithDocuments });
@@ -132,6 +147,9 @@ describe('CompanyConsultationDetailsViewService', () => {
       .createSpy('postServiceWithEmployeesRoute')
       .and.returnValue(postServiceWithEmployeesRoute);
 
+    financesService.postCommissionsRoute = jasmine
+      .createSpy('')
+      .and.returnValue(cold('(a|)', { a: result.getCommissions }));
     expect(service.getConsultationDetails('1234')).toBeObservable(expected);
   });
 
