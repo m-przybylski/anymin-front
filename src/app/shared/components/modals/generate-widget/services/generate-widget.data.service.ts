@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { WidgetButtonType } from '../components/generate-widget-button-type/generate-widget-button-type.component';
 import { Config } from '../../../../../../config';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Environment, EnvironmentService } from '@platform/core/services/environment/environment.service';
 
 @Injectable()
 export class GenerateWidgetDataService {
@@ -32,6 +33,11 @@ export class GenerateWidgetDataService {
      * does not work on localhost :(
      * https://app.anymind.com/rendertron/render/http://stage.anymind.com/widget/DoqwiYhinf0
      */
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`${Config.links.rendertron}${widgetLink}`);
+    const rendertronLink =
+      EnvironmentService.get() === Environment.STAGING
+        ? Config.links.rendertronStage
+        : Config.links.rendertronProduction;
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`${rendertronLink}${widgetLink}`);
   }
 }
