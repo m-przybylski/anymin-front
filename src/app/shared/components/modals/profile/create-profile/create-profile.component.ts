@@ -9,7 +9,6 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { Config } from '../../../../../../config';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
 import { finalize, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -18,7 +17,6 @@ import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccou
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { NavbarActions, SessionUpdateApiActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
-import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { Store } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
 import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
@@ -32,27 +30,12 @@ import { Animations } from '@platform/shared/animations/animations';
 })
 export class CreateProfileModalComponent implements OnInit, OnDestroy {
   /** form fields */
-  public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
-  public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
-  public readonly expertFormControlName = 'expertNameProfileControl';
-  public readonly expertFormControlAvatar = 'expertAvatarProfileControl';
+  // TODO: remove once not needed
   public readonly expertFormControlDescription = 'expertDescriptionControl';
-  public readonly expertFormControlLink = 'expertLinkControl';
-  public readonly clientFormControlName = 'clientNameProfileControl';
-  public readonly clientFormControlAvatar = 'clientAvatarProfileControl';
 
-  public avatarTokenProfileNameFormControl = new FormControl();
-  public profileForm = new FormGroup({
-    avatarTokenProfileName: this.avatarTokenProfileNameFormControl,
-  });
+  public profileForm: FormGroup;
 
-  public isFileUploading: boolean;
-  public maxValidFileSize = 30000000;
-  public maxValidFilesCount = 20;
-  public profileDetails: GetProfileWithDocuments;
   public fileUploadTokensList: ReadonlyArray<string>;
-  public linksList: ReadonlyArray<string> = [];
-  public profileLinksList: ReadonlyArray<string> = [];
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   /**
    * start modal with pending set to false
@@ -60,7 +43,6 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
    * This is potential candidate to be removed.
    */
   public isPending = false;
-  public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public isInputDisabled = false;
   /**
    * filed used to disable possibility to collapse modal to only client profile
@@ -69,7 +51,6 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   public isExpert: boolean;
   public isCompany: boolean;
   public modalHeaderTr: string;
-
   /**
    * provided as external parameter when opened modal
    * indicated if modal will store expert data or only
@@ -84,6 +65,8 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   };
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
+  private avatarTokenProfileNameFormControl = new FormControl();
+  private linksFormControl = new FormControl();
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -96,6 +79,10 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CreateProfileModalComponent');
+    this.profileForm = new FormGroup({
+      avatarTokenProfileName: this.avatarTokenProfileNameFormControl,
+      links: this.linksFormControl,
+    });
   }
 
   public ngOnInit(): void {
@@ -125,18 +112,22 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   }
 
   public onSaveProfile(): void {
-    // 1. expert or client?
-    if (this.isExpertForm) {
-      this.onCreateExpertFormSubmit(this.profileForm);
+    if (this.profileForm.valid) {
+      // 1. expert or client?
+      if (this.isExpertForm) {
+        this.sendExpertProfile();
+      } else {
+        this.sendClientProfile(this.getClientDetails());
+      }
+      // 2. update session in store
+      this.store.dispatch(
+        new SessionUpdateApiActions.CreateUpdateNameAndAvatarAction({
+          ...(this.avatarTokenProfileNameFormControl.value as IBasicProfileData),
+        }),
+      );
     } else {
-      this.onClientFormSubmit(this.profileForm);
+      this.formUtils.validateAllFormFields(this.profileForm);
     }
-    // 2. update session in store
-    this.store.dispatch(
-      new SessionUpdateApiActions.CreateUpdateNameAndAvatarAction({
-        ...(this.avatarTokenProfileNameFormControl.value as IBasicProfileData),
-      }),
-    );
   }
   public onBackToClientStep = (): void => {
     this.isExpertForm = false;
@@ -147,37 +138,13 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     this.isExpertForm = !this.isExpertForm;
   };
 
-  public onUploadingFile = (isUploading: boolean): void => {
-    this.isFileUploading = isUploading;
-    this.isInputDisabled = isUploading;
-    this.isPending = isUploading;
-  };
-
-  public onAddProfileLink = (links: ReadonlyArray<string>): void => {
-    this.linksList = links;
-  };
-
-  public onUploadFile = (tokenList: ReadonlyArray<string>): void => {
-    this.fileUploadTokensList = tokenList;
-  };
-
-  private onCreateExpertFormSubmit = (expertFormGroup: FormGroup): void => {
-    if (expertFormGroup.valid && !this.isPending) {
-      this.isInputDisabled = true;
-      this.sendExpertProfile();
+  public onFileUploadingStatusChange(isUploading: boolean): void {
+    if (isUploading) {
+      this.profileForm.disable();
     } else {
-      this.formUtils.validateAllFormFields(expertFormGroup);
+      this.profileForm.enable();
     }
-  };
-
-  private onClientFormSubmit = (clientNameForm: FormGroup): void => {
-    if (clientNameForm.valid && !this.isPending) {
-      this.isInputDisabled = true;
-      this.sendClientProfile(this.getClientDetails());
-    } else {
-      this.formUtils.validateAllFormFields(clientNameForm);
-    }
-  };
+  }
 
   private sendClientProfile = (data: PutGeneralSettings): void => {
     this.createProfileModalComponentService.createClientProfile(data).subscribe(
@@ -202,10 +169,10 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
       return;
     }
     if (profileDetails.profile.expertDetails !== undefined) {
+      this.linksFormControl.setValue(profileDetails.profile.expertDetails.links);
       this.profileForm.controls[this.expertFormControlDescription].setValue(
         profileDetails.profile.expertDetails.description,
       );
-      this.profileLinksList = profileDetails.profile.expertDetails.links;
       this.profileDocumentsList = profileDetails.expertDocuments;
       this.fileUploadTokensList = profileDetails.expertDocuments.map(file => file.token);
     }
@@ -217,7 +184,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
       name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
       avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
       description: this.profileForm.controls[this.expertFormControlDescription].value.toString(),
-      links: this.linksList,
+      links: this.linksFormControl.value,
       files: this.fileUploadTokensList,
     } as PutExpertDetails;
   }
@@ -267,5 +234,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     this.isInputDisabled = false;
   };
 
-  private onModalClose = (): void => this.activeModal.close(true);
+  private onModalClose(): void {
+    this.activeModal.close(true);
+  }
 }

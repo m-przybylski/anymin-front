@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { ProfileLinksComponentService } from '@platform/shared/components/modals/profile/components/profile-links/profile-links.component.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconModule, ButtonModule } from '@platform/shared/components/atomic-components';
+import { ExpertClientProfileComponent } from './components/expert-client-profile/expert-client-profile.component';
+import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 
 @NgModule({
   imports: [CommonModule, ModalsModule, InputsModule, UserAvatarModule, ReactiveFormsModule, IconModule, ButtonModule],
@@ -37,6 +39,8 @@ import { IconModule, ButtonModule } from '@platform/shared/components/atomic-com
     AvatarUploaderComponent,
     AvatarUploaderDirective,
     FileUploaderComponent,
+    ExpertClientProfileComponent,
+    CompanyProfileComponent,
   ],
 })
 export class ProfileModalModule {}

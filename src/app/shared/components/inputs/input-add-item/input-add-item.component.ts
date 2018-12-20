@@ -2,12 +2,15 @@
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-null-keyword
 
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
 
 export interface IValidatorsErrorMsg {
-  [key: string]: string;
+  [key: string]: {
+    code: string;
+    text: string;
+  };
 }
 
 export enum AddItemTypeEnum {
@@ -24,114 +27,114 @@ export enum AddItemTypeEnum {
 export class InputAddItemComponent {
   @Input('label')
   public labelTrKey: string;
-
   @Input('placeholder')
   public placeholderTrKey: string;
 
   @Input()
-  public controlName: string;
-
-  @Input('form')
-  public formGroup: FormGroup;
-
+  public isDisabled = false;
   @Input()
   public isRequired = false;
-
   @Input()
   public pattern?: RegExp;
 
-  @Input()
-  public onChange?: (value: string) => void;
-
   @Output()
-  public onEnterClick?: EventEmitter<string> = new EventEmitter<string>();
-
-  @Input()
-  public isDisabled = false;
-
+  public valueAdded = new EventEmitter<string>();
   @Input()
   public isChangeOnSubmit = true;
-
   @Input()
   public initialFocus = false;
-
   public inputValue = '';
-
   public isFocused = false;
 
+  @Input()
+  public inputFormControl: FormControl;
+
+  private isBlured = false;
   private readonly errorsMsg: IValidatorsErrorMsg = {
-    pattern: 'VALIDATOR.ERROR.PATTERN',
-    required: 'VALIDATOR.ERROR.REQUIRED',
+    pattern: {
+      code: 'pattern',
+      text: 'VALIDATOR.ERROR.PATTERN',
+    },
+    required: {
+      code: 'required',
+      text: 'VALIDATOR.ERROR.REQUIRED',
+    },
   };
 
   constructor(public formUtils: FormUtilsService) {}
 
-  @HostListener('input', ['$event'])
-  public onInputChange = (): void => {
-    if (typeof this.onChange === 'function' && !this.isChangeOnSubmit) {
-      this.onChange(this.formGroup.controls[this.controlName].value);
-    }
-  };
-
   public ngOnInit(): void {
-    this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
+    /**
+     * setting up internal validators based on required and pattern input
+     */
+    this.inputFormControl.setValidators(this.createValidator());
   }
 
-  public isFieldInvalid = (): boolean =>
-    this.formUtils.isFieldInvalid(this.formGroup, this.controlName) &&
-    this.formGroup.controls[this.controlName].value.length > 0;
-
-  public showValidationAlert = (): string => {
-    const controlErrors = this.formGroup.controls[this.controlName].errors;
-    if (controlErrors !== null && this.formGroup.controls[this.controlName].value.length > 0) {
+  public showValidationAlert(): string {
+    const controlErrors = this.inputFormControl.errors;
+    const controlValue = this.inputFormControl.value;
+    if (controlErrors !== null && controlValue.length > 0) {
       const errorCode = Object.keys(controlErrors)[0];
 
-      return Object.keys(this.errorsMsg).includes(errorCode) ? this.errorsMsg[errorCode] : errorCode;
+      return Object.keys(this.errorsMsg).includes(errorCode) ? this.errorsMsg[errorCode].text : errorCode;
     } else {
       return '';
     }
-  };
+  }
 
-  public onBlur = (): void => {
-    const controlErrors = this.formGroup.controls[this.controlName].errors;
-    if (controlErrors === null && this.formGroup.controls[this.controlName].value.length > 0) {
-      this.setDefaultValidators();
-    }
-
+  public onBlur(): void {
+    this.isBlured = true;
+    this.inputFormControl.updateValueAndValidity();
     this.isFocused = false;
-  };
+  }
 
   public onFocus = (): void => {
-    this.formGroup.controls[this.controlName].clearValidators();
+    this.inputFormControl.setErrors(null);
     this.isFocused = true;
   };
 
-  public onAddLinkClick = (): void => {
-    this.setDefaultValidators();
+  public onAddLinkClick(): void {
     this.onAddItem();
-  };
+  }
 
-  public onEnter = (): void => this.onAddItem();
+  public onEnter(): void {
+    this.onBlur();
+    this.onAddItem();
+  }
 
-  private setDefaultValidators = (): void => {
-    this.formGroup.controls[this.controlName].setValidators(this.getValidators());
-    this.formGroup.controls[this.controlName].updateValueAndValidity();
-  };
+  public isFieldInvalid(): boolean {
+    return this.inputFormControl.touched && this.inputFormControl.invalid && this.isBlured;
+  }
 
-  private onAddItem = (): void => {
-    if (this.onChange !== undefined) {
-      this.onChange(this.formGroup.controls[this.controlName].value);
+  private createValidator(): ValidatorFn {
+    // tslint:disable-next-line:cyclomatic-complexity
+    const validate = (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      /**
+       * it is fine to do coercion here, because '', null, undefined is evaluated to false;
+       * the only problem is 0;
+       */
+      if (this.isRequired && !value && value !== 0) {
+        return { [this.errorsMsg.required.code]: this.errorsMsg.required.text };
+      }
+      /** if filed is not required and value is empty no need to checkout for patter */
+      if (!this.isRequired && value === '') {
+        return null;
+      }
+
+      if (this.pattern !== undefined && !this.pattern.test(value)) {
+        return { [this.errorsMsg.pattern.code]: this.errorsMsg.pattern.text };
+      }
+
+      return null;
+    };
+
+    return validate;
+  }
+
+  private onAddItem(): void {
+    if (this.inputFormControl.valid) {
+      this.valueAdded.emit(this.inputFormControl.value);
     }
-    if (this.onEnterClick !== undefined) {
-      this.onEnterClick.emit(this.formGroup.controls[this.controlName].value);
-    }
-  };
-
-  private getValidators = (): ValidatorFn[] => this.getRequiredValidator(this.getPatternValidator([]));
-
-  private getRequiredValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.isRequired ? [...arr, Validators.required.bind(this)] : arr;
-
-  private getPatternValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.pattern ? [...arr, Validators.pattern(this.pattern)] : arr;
+  }
 }

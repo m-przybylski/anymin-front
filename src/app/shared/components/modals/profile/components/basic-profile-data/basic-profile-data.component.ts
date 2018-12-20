@@ -139,6 +139,9 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }
+  public setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
   //#endregion
 }
 

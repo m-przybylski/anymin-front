@@ -36,8 +36,8 @@ interface IFile {
 })
 export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input()
-  public set profileDocuments(value: ProfileDocument[]) {
-    this.getFilesInfo(value);
+  public set profileDocuments(value: ProfileDocument[] | undefined) {
+    this.getFilesInfo(value || []);
   }
 
   @Input()
@@ -160,8 +160,8 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   public removeFile = (fileToRemove: IFile): void => {
     this.userFiles = this.userFiles.filter(userFile => userFile !== fileToRemove);
-    this.tokensList = this.tokensList.filter(
-      token => (fileToRemove.fileInfo ? fileToRemove.fileInfo.token !== token : token),
+    this.tokensList = this.tokensList.filter(token =>
+      fileToRemove.fileInfo ? fileToRemove.fileInfo.token !== token : token,
     );
     this.fileTokensList.emit(this.tokensList);
     if (fileToRemove.fileStatus === FileStatus.VALID || fileToRemove.fileStatus === FileStatus.UPLOAD_FAILURE) {
