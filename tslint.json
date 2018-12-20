@@ -142,7 +142,7 @@
     "max-classes-per-file": [true, 1],
     "max-file-line-count": [true, 250],
     "restrict-plus-operands": true,
-    "max-line-length": [true, { "limit": 120, "ignore-pattern": "^import" }],
+    "max-line-length": [true, { "limit": 120, "ignore-pattern": "^import |^} from" }],
     "no-magic-numbers": true,
     "array-type": [true, "array"],
     "object-literal-shorthand": true,

@@ -10,8 +10,9 @@ import { BankAccountComponent } from '@platform/features/dashboard/views/user-da
 import { PaymentsResolver } from '@platform/features/dashboard/views/user-dashboard/payments/payments.resolver';
 import { PayPalAccountComponent } from '@platform/features/dashboard/views/user-dashboard/payments/components/payout-method/components/paypal-account/paypal-account.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
-import { CompanyInvoiceDetailsComponent } from './components/invoice-details/components/company-invoice-details/company-invoice-details.component';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
+import { PayoutInvoiceDetailsModule } from '@platform/shared/components/payout-invoice-details/payout-invoice-details.module';
+import { AnymindComponentsModule } from '@anymind-ng/core';
 
 @NgModule({
   imports: [
@@ -28,6 +29,8 @@ import { ButtonModule } from '@platform/shared/components/atomic-components';
     ]),
     TranslateModule,
     ButtonModule,
+    PayoutInvoiceDetailsModule,
+    AnymindComponentsModule,
   ],
   exports: [],
   providers: [PaymentsResolver],
@@ -37,7 +40,6 @@ import { ButtonModule } from '@platform/shared/components/atomic-components';
     BankAccountComponent,
     PayPalAccountComponent,
     InvoiceDetailsComponent,
-    CompanyInvoiceDetailsComponent,
   ],
   entryComponents: [PayoutMethodComponent, InvoiceDetailsComponent],
 })

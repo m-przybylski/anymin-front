@@ -125,6 +125,7 @@ export class Config {
         '\\',
       ),
     ),
+    postalCode: '^[0-9]{5}$',
   };
 
   public static readonly imageSizeInBytes = {

@@ -1,5 +1,20 @@
 plat-modal-component.invoice-details(
   [modalTrTitleHeader]="'DASHBOARD.PAYMENTS.INVOICE_DETAILS.MODAL_HEADER'",
-  [modalContainerClass]="modalClass"
 )
-  plat-company-invoice-details([invoiceDetails]="companyInvoiceDetails")
+  form(
+    contentHeightAnimation,
+    (submit)="onSubmit()",
+    novalidate
+  )
+    plat-payout-invoice-details(
+      [invoiceDetails]="invoiceDetails",
+      [form]="invoiceDetailsForm",
+      [isRequestPending]="isRequestPending",
+      [isCompanyProfile]="isCompanyProfile",
+      (onSelectInvoiceDetailsType)="onSelectInvoiceDetailsType($event)"
+    )
+
+    am-core-submit-button(
+      titleText="CREATE_EXPERT_CONSULTATION.SUBMIT_BUTTON",
+      [isLoading]="isRequestPending",
+    )
