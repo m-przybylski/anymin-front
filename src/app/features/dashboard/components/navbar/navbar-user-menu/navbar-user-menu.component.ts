@@ -12,6 +12,7 @@ import { CreateProfileModalComponent } from '@platform/shared/components/modals/
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { Animations } from '@platform/shared/animations/animations';
+import { Config } from '../../../../../../config';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -128,6 +129,14 @@ export class NavbarUserMenuComponent implements OnInit {
   };
 
   public openCreateOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
+
+  public openGooglePlay = (): void => {
+    window.open(Config.links.googlePlay, '_blank');
+  };
+
+  public openAppStore = (): void => {
+    window.open(Config.links.appStore, '_blank');
+  };
 
   private groupMenuItems = (menuItems: ReadonlyArray<INavigationItem> | undefined): void => {
     if (typeof menuItems !== 'undefined') {

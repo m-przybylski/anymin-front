@@ -76,3 +76,12 @@
             [avatarToken]="switchAccountAvatarToken"
           )
           span.option-title([translate]="switchAccountTrKey")
+
+    li.menu-list__section.menu-list__section--application-download(*ngIf="userType !== userTypeEnum.USER")
+      ul
+        li.menu-list__row
+          span.option-title {{ 'NAVBAR_USER_MENU.APPLICATION_DOWNLOAD' | translate }}
+          .application-download((click)="openAppStore()")
+            span.icon.icon-appstore
+          .application-download((click)="openGooglePlay()")
+            span.icon.icon-playstore

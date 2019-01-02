@@ -42,6 +42,8 @@ export class Config {
     rendertronStage: 'https://stage.anymind.com/rendertron/render/',
     facebookShare: 'https://www.facebook.com/sharer/sharer.php?u=',
     linkedinShare: 'https://www.linkedin.com/shareArticle?mini=true&url=',
+    googlePlay: 'https://play.google.com/store/apps/details?id=com.anymind.app',
+    appStore: 'https://itunes.apple.com/us/app/anymind-konsultant/id1423610480?ls=1&mt=8',
   };
 
   // TODO delete this object name after removing AngularJS
@@ -102,9 +104,6 @@ export class Config {
       extra: VERSION.version,
     },
   };
-
-  public static readonly googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.anymind.app';
-  public static readonly appStoreUrl = 'https://itunes.apple.com/us/app/anymind-konsultant/id1423610480?ls=1&mt=8';
 
   public static readonly assetsUrl = {
     images: '/assets/images',
