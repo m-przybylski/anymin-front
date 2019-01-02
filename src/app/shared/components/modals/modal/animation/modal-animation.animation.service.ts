@@ -20,6 +20,7 @@ export class ModalAnimationComponentService {
   public startLoadingAnimation = (): void => {
     this.isChanged$.next(true);
   };
+
   public stopLoadingAnimation = (initialHeight?: string): void => {
     this.isChanged$.next(false);
     if (typeof initialHeight !== 'undefined') {
