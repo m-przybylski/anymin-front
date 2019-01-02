@@ -8,6 +8,7 @@ plat-modal-component(
     [isExpertForm]="isExpertForm",
     [isInputDisabled]="isInputDisabled",
     [profileDocumentsList]="profileDocumentsList",
+    (fileUploadTokensList)="onFileUploadTokensList($event)",
     (fileUploadingStatusChange)="onFileUploadingStatusChange($event)"
   )
   .modal-component__action([ngClass]="{'modal-component__action--expert': isOpenedAsExpert}")

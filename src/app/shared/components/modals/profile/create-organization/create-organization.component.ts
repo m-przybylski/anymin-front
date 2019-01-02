@@ -115,10 +115,16 @@ export class CreateOrganizationModalComponent implements OnInit {
   public onFileUploadingStatusChange(isUploading: boolean): void {
     if (isUploading) {
       this.createOrganizationFormGroup.disable();
+      this.isInputDisabled = true;
     } else {
       this.createOrganizationFormGroup.enable();
+      this.isInputDisabled = false;
     }
   }
+
+  public onFileUploadTokensList = (tokenList: ReadonlyArray<string>): void => {
+    this.fileUploadTokensList = tokenList;
+  };
 
   /** update organization callbacks */
   private sendOrganizationProfile = (): void => {

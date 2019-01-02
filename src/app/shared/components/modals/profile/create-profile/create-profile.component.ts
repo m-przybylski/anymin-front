@@ -138,11 +138,17 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     this.isExpertForm = !this.isExpertForm;
   };
 
+  public onFileUploadTokensList = (tokenList: ReadonlyArray<string>): void => {
+    this.fileUploadTokensList = tokenList;
+  };
+
   public onFileUploadingStatusChange(isUploading: boolean): void {
     if (isUploading) {
       this.profileForm.disable();
+      this.isInputDisabled = true;
     } else {
       this.profileForm.enable();
+      this.isInputDisabled = false;
     }
   }
 

@@ -4,6 +4,7 @@ plat-modal-component([modalTrTitleHeader]="modalHeaderTr")
     [isInputDisabled]="isInputDisabled",
     [profileDocumentsList]="profileDocumentsList",
     [isProfileHasConsultations]="isProfileHasConsultations",
+    (fileUploadTokensList)="onFileUploadTokensList($event)",
     (fileUploadingStatusChange)="onFileUploadingStatusChange($event)"
   )
   .modal-component__action.modal-component__action--create-organization
