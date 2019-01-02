@@ -59,6 +59,14 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ModalComponent');
+
+    this.modalAnimationComponentService
+      .onModalContentChange()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(
+        onChange => this.callAnimationOnChangeModalContent(onChange),
+        err => this.handleModalAnimationServiceError(err, 'Can not get on change value'),
+      );
   }
 
   public ngOnDestroy(): void {
@@ -69,7 +77,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngOnInit(): void {
     this.setModalContainerWidth();
-
     if (this.modalContainerClass === ModalContainerTypeEnum.CROP_WIDTH) {
       this.isLoading = false;
     }
@@ -82,14 +89,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(
         isPending => this.callAnimationOnRequest(isPending),
         err => this.handleModalAnimationServiceError(err, 'Can not get pending value'),
-      );
-
-    this.modalAnimationComponentService
-      .onModalContentChange()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(
-        onChange => this.callAnimationOnChangeModalContent(onChange),
-        err => this.handleModalAnimationServiceError(err, 'Can not get on change value'),
       );
   }
 

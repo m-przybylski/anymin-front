@@ -8,9 +8,8 @@ import { CreateProfileModalComponentService } from './create-profile.component.s
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
-import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import { finalize, switchMap } from 'rxjs/operators';
+import { finalize, switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
@@ -20,13 +19,12 @@ import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
 import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
-import { Animations } from '@platform/shared/animations/animations';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 
 @Component({
   selector: 'plat-create-profile',
   styleUrls: ['./create-profile.component.sass'],
   templateUrl: './create-profile.component.html',
-  animations: Animations.collapse,
 })
 export class CreateProfileModalComponent implements OnInit, OnDestroy {
   /** form fields */
@@ -86,10 +84,12 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.isPending = true;
+    this.modalAnimationComponentService.startLoadingAnimation();
+
     this.createProfileModalComponentService
       .getModalData()
       .pipe(
+        takeUntil(this.ngUnsubscribe$),
         finalize(() => {
           this.handleResponseError();
           this.modalAnimationComponentService.stopLoadingAnimation();
