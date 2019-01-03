@@ -10,11 +10,13 @@ import { WidgetButtonType } from '../generate-widget-button-type/generate-widget
 import { trigger, transition, style, animate, state, AnimationEvent } from '@angular/animations';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { Config } from '../../../../../../../config';
 
 interface IShareLink {
   url: string;
   iconName: string;
 }
+
 @Component({
   selector: 'plat-generate-widget',
   templateUrl: 'generate-widget.component.html',
@@ -34,13 +36,9 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   public buttonCode = '';
   public iframeSrc: SafeResourceUrl;
   public isIframeLoading = true;
+  public socialMediaLinks: ReadonlyArray<IShareLink>;
 
   public readonly undefinedSelectedButtonType = -1;
-  public readonly socialMediaLinks: ReadonlyArray<IShareLink> = [
-    { url: '', iconName: 'linkedin' },
-    { url: '', iconName: 'instagram' },
-    { url: '', iconName: 'facebook' },
-  ];
 
   public buttonType: FormControl;
   public selectedButtonType: WidgetButtonType = this.undefinedSelectedButtonType;
@@ -64,11 +62,22 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
     super(loggerFactory.createLoggerService('GenerateWidgetComponent'));
     this.widgetId = data.widgetId;
   }
+
   public ngOnInit(): void {
     this.widgetLink = this.generateWidgetDataService.getWidgetLink(this.widgetId);
     this.headScript = this.generateWidgetDataService.getWidgetSdkLink(this.widgetId);
     this.iframeSrc = this.generateWidgetDataService.getRendertronLink(this.widgetLink);
     this.buttonType = new FormControl('');
+    this.socialMediaLinks = [
+      {
+        url: `${Config.links.linkedinShare}${this.widgetLink}`,
+        iconName: 'linkedin',
+      },
+      {
+        url: `${Config.links.facebookShare}${this.widgetLink}`,
+        iconName: 'facebook',
+      },
+    ];
     /**
      * once value is changes in the form
      * wait for animation to finish
@@ -96,24 +105,29 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
         this.buttonCode = this.generateWidgetDataService.getButtonCode(this.widgetId, buttonType);
       });
   }
+
   public ngAfterViewInit(): void {
     /**
      * before stopping loader need to wait for data to be loaded
      */
     this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight);
   }
+
   public ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
   }
+
   public iframeLoaded(): void {
     this.isIframeLoading = false;
   }
+
   public animationDone(animationEvent: AnimationEvent): void {
     if (animationEvent.toState === 'void') {
       this.fadeOutComplete$.next();
     }
   }
+
   public get displayButtonCode(): boolean {
     return this.selectedButtonType === WidgetButtonType.BANNER || this.selectedButtonType === WidgetButtonType.STATIC;
   }

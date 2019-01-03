@@ -13,7 +13,7 @@ plat-modal-component(
             .generate-widget-social-share
               .generate-widget-social-link(*ngFor='let icon of socialMediaLinks')
                 button(plat-icon-button)
-                  span(plat-icon, [iconClass]='icon.iconName')
+                  a(plat-icon, [iconClass]='icon.iconName', [href]='icon.url', target='_blank')
           .generate-widget-step-content-section
             p(innerHtml="{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT2' | translate}}")
             .generate-widget-copy([plat-copy-to-clipboard]="widgetId") {{ widgetId }}
