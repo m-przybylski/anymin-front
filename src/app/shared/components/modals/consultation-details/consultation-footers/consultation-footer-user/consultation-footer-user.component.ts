@@ -74,7 +74,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
       case VatRateTypeEnum.NATURALPERSON:
         return 'CONSULTATION_DETAILS.FOOTER.NO_INVOICE';
       default:
-        this.loggerService.error('Unknow vat rate state');
+        this.loggerService.error('Unknown vat rate state');
 
         return '';
     }
