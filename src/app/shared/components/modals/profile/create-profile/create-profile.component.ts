@@ -202,6 +202,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   }
 
   private sendExpertProfile = (): void => {
+    this.isInputDisabled = true;
     /** to sync session name and avatar with expert need to update client as well */
     this.createProfileModalComponentService
       .createClientProfile(this.getClientDetails())
@@ -241,6 +242,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   };
 
   private onModalClose(): void {
+    this.isInputDisabled = false;
     this.activeModal.close(true);
   }
 }
