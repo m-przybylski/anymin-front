@@ -108,6 +108,7 @@ plat-modal-component(
         *ngIf="isEditModal",
         plat-stroked-large-button,
         color='primary',
+        [ngClass]="{'create-consultation__remove-consultation--disabled': isRequestPending }",
         (click)="deleteConsultation(payload.serviceDetails.id)") {{ 'CREATE_EXPERT_CONSULTATION.REMOVE_BUTTON' | translate }}
 
         am-core-submit-button(
