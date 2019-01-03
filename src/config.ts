@@ -40,6 +40,8 @@ export class Config {
     assignForClosedBeta: 'https://anymind.com/?modal=experts-form-T-PL',
     rendertronProduction: 'https://app.anymind.com/rendertron/render/',
     rendertronStage: 'https://stage.anymind.com/rendertron/render/',
+    facebookShare: 'https://www.facebook.com/sharer/sharer.php?u=',
+    linkedinShare: 'https://www.linkedin.com/shareArticle?mini=true&url=',
   };
 
   // TODO delete this object name after removing AngularJS
