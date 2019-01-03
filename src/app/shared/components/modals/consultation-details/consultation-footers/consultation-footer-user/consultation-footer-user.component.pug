@@ -5,10 +5,10 @@ plat-consultation-footer
   //middle part of the screen
   .consultation-footer__left-text([ngSwitch]='middlePanel')
     span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.freeMinute')
-      span(plat-icon iconClass='information-stroke')
+      span(plat-icon iconClass='information')
       p {{"CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE" | translate}}
     span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.notAvailable')
-      span(plat-icon iconClass='information-stroke')
+      span(plat-icon iconClass='information')
       span
         p {{"CONSULTATION_DETAILS.FOOTER.NA_1" | translate}}
         p {{"CONSULTATION_DETAILS.FOOTER.NA_2" | translate}}
@@ -17,7 +17,7 @@ plat-consultation-footer
         span(plat-icon iconClass='payment-card')
         p {{"CONSULTATION_DETAILS.FOOTER.CARD" | translate: {card: card } }}
       div
-        span(plat-icon iconClass='information-stroke')
+        span(plat-icon iconClass='information')
         p {{ invoiceTrKey | translate}}
   //right part of the screen
   .consultation-footer__right
