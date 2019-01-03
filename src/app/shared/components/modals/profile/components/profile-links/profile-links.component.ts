@@ -1,5 +1,5 @@
 // tslint:disable:readonly-array
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { Animations } from '@anymind-ng/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -26,12 +26,13 @@ export const PROFILE_LINKS_ACCESSOR = {
   providers: [PROFILE_LINKS_ACCESSOR],
 })
 export class ProfileLinksComponent implements ControlValueAccessor {
+  @Input()
+  public isDisabled = false;
   /**
    * http patter from: https://www.regextester.com/94502
    */
   public readonly urlPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   public linksList: ILinkList[] = [];
-  public isDisabled: boolean;
   public linksFormControl = new FormControl('', {
     updateOn: 'change',
   });
@@ -46,9 +47,11 @@ export class ProfileLinksComponent implements ControlValueAccessor {
       items.forEach(item => this.addLink(item));
     }
   }
+
   public registerOnChange(fn: (value: string[]) => void): void {
     this.onModelChange = fn;
   }
+
   // tslint:disable-next-line:no-any
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
