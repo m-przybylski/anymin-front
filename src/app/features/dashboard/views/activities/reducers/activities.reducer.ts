@@ -13,6 +13,7 @@ export interface IState {
   activitiesList: ReadonlyArray<GetProfileActivity>;
   activitiesCount: number;
   isLoaded: boolean;
+  isListFiltered: boolean;
   currentOffset: number;
   importantActivitiesShow: boolean;
   displayedImportantActivitiesIds: ReadonlyArray<string>;
@@ -26,6 +27,7 @@ const initialState: IState = {
   activitiesList: [],
   activitiesCount: 0,
   isLoaded: false,
+  isListFiltered: false,
   currentOffset: 0,
   importantActivitiesShow: false,
   displayedImportantActivitiesIds: [],
@@ -52,6 +54,14 @@ export function reducer(state = initialState, action: ActionUnion): IState {
       return {
         ...state,
         isLoaded: false,
+        isListFiltered: false,
+      };
+
+    case ActivitiesPageActions.ActivitiesPageActionTypes.LoadFilteredCompanyActivities:
+      return {
+        ...state,
+        isLoaded: false,
+        isListFiltered: true,
       };
 
     case ActivitiesApiActions.ActivitiesApiActionTypes.LoadActivitiesWithImportantSuccess:
@@ -79,6 +89,21 @@ export function reducer(state = initialState, action: ActionUnion): IState {
         activitiesCount: action.payload.count,
         isLoaded: true,
         currentOffset: state.currentOffset + action.payload.activities.length,
+      };
+
+    case ActivitiesApiActions.ActivitiesApiActionTypes.LoadFilteredActivitiesSuccess:
+      return {
+        ...state,
+        activitiesList: action.payload.activities,
+        activitiesCount: action.payload.count,
+        isLoaded: true,
+        currentOffset: action.payload.activities.length,
+      };
+
+    case ActivitiesApiActions.ActivitiesApiActionTypes.LoadFilteredActivitiesFailure:
+      return {
+        ...state,
+        isLoaded: true,
       };
 
     case ActivitiesPageActions.ActivitiesPageActionTypes.ShowImportantActivities:
@@ -147,3 +172,4 @@ export const getDisplayedImportantActivitiesIds = (state: IState): ReadonlyArray
   state.displayedImportantActivitiesIds;
 export const getImportantActivitiesOffset = (state: IState): number => state.importantActivitiesOffset;
 export const getIsLoaded = (state: IState): boolean => state.isLoaded;
+export const getIsListFiltered = (state: IState): boolean => state.isListFiltered;

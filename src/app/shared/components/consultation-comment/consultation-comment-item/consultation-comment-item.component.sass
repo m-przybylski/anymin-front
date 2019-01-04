@@ -82,40 +82,5 @@
       right: 0
       top: 0
 
-    &:hover
-      span
-        color: $c-primary
-
     span
       cursor: pointer
-
-    &__dropdown
-      background: $c-text-primary
-      padding: 8px 16px
-      border-radius: 8px
-      min-width: 186px
-      position: absolute
-      right: 0
-      top: 100%
-      z-index: $z-index-100
-      cursor: auto
-
-      li
-        display: flex
-        align-items: center
-        justify-content: center
-        min-height: 56px
-        padding: 8px
-        border-bottom: 1px solid rgba($c-white, 0.15)
-        cursor: pointer
-
-        &:hover
-          span
-            color: $c-white
-
-        &:last-child
-          border: 0
-
-        span
-          +button-small
-          color: rgba($c-white, 0.75)

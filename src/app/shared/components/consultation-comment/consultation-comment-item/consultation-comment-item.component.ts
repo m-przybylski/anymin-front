@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
-import { Animations } from '../../../animations/animations';
 import { GetComment, GetReport } from '@anymind-ng/api';
 import { AnimationEvent } from '@angular/animations';
+import { Animations } from '@platform/shared/animations/animations';
 
 export enum ConsultationCommentTypeAnswer {
   ANSWER,

@@ -112,17 +112,20 @@
     justify-content: center
     margin: 40px 0
 
-  &__filter-button
-    display: none
+.filter-button
+  display: flex
+  align-items: center
+  justify-content: space-around
+  position: relative
+  color: $c-primary
 
-    +mdm
-      display: flex
-      align-items: center
-      justify-content: space-around
+  +mdm
+    display: flex
+    align-items: center
+    justify-content: space-around
 
-    >span
-      +button-small
-      padding: 0 4px
+  &__text
+    padding: 0 4px
 
 .activity-row
   width: 100%

@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, TrackByFunction, OnDestroy } from '@angular/core';
 import { GetProfileActivity } from '@anymind-ng/api';
-import { Animations } from '@anymind-ng/core';
 import { Store, select } from '@ngrx/store';
 import * as fromActivities from './reducers';
 import { take, map } from 'rxjs/operators';
@@ -9,6 +8,7 @@ import { ActivitiesPageActions, ActivitiesActions } from '@platform/features/das
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.interface';
+import { Animations } from '@platform/shared/animations/animations';
 
 export interface IProfileActivitiesWithStatus {
   activity: GetProfileActivity;
@@ -16,12 +16,17 @@ export interface IProfileActivitiesWithStatus {
   isCompany?: boolean;
 }
 
+export enum ActivitiesFilterEnum {
+  EMPLOYEES = 'EMPLOYEES',
+  FREELANCE = 'FREELANCE',
+}
+
 @Component({
   selector: 'plat-activities',
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: Animations.addItemAnimation,
+  animations: [Animations.addItemAnimation],
 })
 export class ActivitiesComponent implements OnInit, OnDestroy {
   public isImportantListShown$ = this.store.pipe(select(fromActivities.getShowImportantActivities));
@@ -39,8 +44,12 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     ),
   );
   public isLoaded$ = this.store.pipe(select(fromActivities.getIsLoaded));
+  public isListFiltered$ = this.store.pipe(select(fromActivities.getIsListFiltered));
   public listType: ActivityListTypeEnum;
   public activityListTypeEnum = ActivityListTypeEnum;
+  public activitiesFilterEnum = ActivitiesFilterEnum;
+  public dropdownVisibility: 'hidden' | 'visible' = 'hidden';
+  public currentFilter?: ActivitiesFilterEnum;
   /**
    * because only one subscription is kept in component
    * there is a better to unsubscribe manually.
@@ -76,7 +85,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
   public trackByImportantActivities: TrackByFunction<GetProfileActivity> = (_, item): string => item.id;
 
-  public loadMore = (): void => {
+  public onLoadMoreActivities = (): void => {
     this.store
       .pipe(
         select(fromActivities.getCurrentOffsets),
@@ -105,6 +114,10 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ActivitiesPageActions.HideImportantActivitiesAction());
   };
 
+  public toggleDropdown = (isVisible: boolean): void => {
+    isVisible ? (this.dropdownVisibility = 'visible') : (this.dropdownVisibility = 'hidden');
+  };
+
   public onActivityRowClicked = (selectedGetProfileActivity: GetProfileActivity, isImportant: boolean): void => {
     this.store.dispatch(
       this.listType === ActivityListTypeEnum.EXPERT
@@ -117,6 +130,11 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
             isImportant,
           }),
     );
+  };
+
+  public onDropdownChoose = (type?: ActivitiesFilterEnum): void => {
+    this.currentFilter = type;
+    this.store.dispatch(new ActivitiesPageActions.LoadFilteredCompanyActivitiesAction({ filter: type }));
   };
 
   private updateActivitiesStatus(

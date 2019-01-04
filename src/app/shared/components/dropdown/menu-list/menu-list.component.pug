@@ -1,0 +1,8 @@
+ul.dropdown-menu(
+ #dropdownMenu,
+ [@dropdownAnimation]="dropdownVisibility",
+ (@dropdownAnimation.start)="onAnimationStart($event, dropdownMenu)",
+ (@dropdownAnimation.done)="onAnimationDone($event, dropdownMenu)"
+)
+  ng-content
+

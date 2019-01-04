@@ -109,8 +109,13 @@ export class ActivitiesListService extends Logger {
   public getCompanyActivities(
     activitiesLimit = this.activitiesLimit,
     activitiesOffset = this.activitiesOffset,
+    filters?: string,
   ): Observable<GetProfileActivities> {
-    return this.activitiesService.getOrganizationProfileActivitiesRoute(`${activitiesLimit}`, `${activitiesOffset}`);
+    return this.activitiesService.getOrganizationProfileActivitiesRoute(
+      `${activitiesLimit}`,
+      `${activitiesOffset}`,
+      filters,
+    );
   }
 
   public getCompanyProfilePayment(): Observable<GetProfileBalance> {
