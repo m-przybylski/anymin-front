@@ -8,12 +8,12 @@ describe('Directive: ToggleElementDirective', () => {
   let directive: ToggleElementDirective;
 
   beforeEach(() => {
-    element = Deceiver(ElementRef, { nativeElement: { contains: jasmine.createSpy('contains') } });
+    element = Deceiver(ElementRef, { nativeElement: { contains: jest.fn() } });
     directive = new ToggleElementDirective(element);
   });
 
   it('should click on element', fakeAsync(() => {
-    (element.nativeElement.contains as jasmine.Spy).and.returnValue(true);
+    (element.nativeElement.contains as jest.Mock).mockReturnValue(true);
 
     directive.isClickedElement.subscribe((val: boolean) => {
       expect(val).toEqual(true);
@@ -23,7 +23,7 @@ describe('Directive: ToggleElementDirective', () => {
   }));
 
   it('should unclick', fakeAsync(() => {
-    (element.nativeElement.contains as jasmine.Spy).and.returnValue(false);
+    (element.nativeElement.contains as jest.Mock).mockReturnValue(false);
 
     directive.isClickedElement.subscribe((val: boolean) => {
       expect(val).toEqual(false);

@@ -5,7 +5,7 @@ import { expertsLimitToken } from './consultation-experts';
 
 @Pipe({ name: 'translate' })
 class MockPipe implements PipeTransform {
-  public transform = jasmine.createSpy('').and.stub();
+  public transform = jest.fn();
 }
 
 describe('ConsultationExpertsComponent', () => {

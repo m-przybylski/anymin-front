@@ -48,6 +48,7 @@ export interface IEmployeesList {
 
 @Injectable()
 export class EmployeesInviteService {
+  public isValidNumber = isValidNumber;
   private readonly maxInvitationLength: number;
   private employeesWithPendingInvitations: ReadonlyArray<IEmployeesPendingInvitation> = [];
   private emailPattern: RegExp;
@@ -100,7 +101,7 @@ export class EmployeesInviteService {
     if (this.isInvitationPending(value) || this.isInvitationPending(unifiedPhoneNumber)) {
       return EmployeeInvitationTypeEnum.IS_PENDING;
     }
-    if (isValidNumber(unifiedPhoneNumber)) {
+    if (this.isValidNumber(unifiedPhoneNumber)) {
       /**
        * if consultation is freelance we need to check if user provided his msisdn
        * because he can not invite himself to freelance service

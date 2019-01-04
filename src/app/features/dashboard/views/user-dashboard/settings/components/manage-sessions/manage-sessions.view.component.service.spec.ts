@@ -29,28 +29,28 @@ describe('Service: ManageSessionsViewComponentService', () => {
         {
           provide: SessionService,
           useValue: Deceiver(SessionService, {
-            getSessionsRoute: jasmine.createSpy('getSessionsRoute'),
-            logoutRoute: jasmine.createSpy('logoutRoute'),
+            getSessionsRoute: jest.fn(),
+            logoutRoute: jest.fn(),
           }),
         },
         {
           provide: AlertService,
           useValue: Deceiver(AlertService, {
-            pushDangerAlert: jasmine.createSpy('pushDangerAlert'),
-            pushSuccessAlert: jasmine.createSpy('pushSuccessAlert'),
+            pushDangerAlert: jest.fn(),
+            pushSuccessAlert: jest.fn(),
           }),
         },
         {
           provide: NgbActiveModal,
-          useValue: Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') }),
+          useValue: Deceiver(NgbActiveModal, { close: jest.fn() }),
         },
         {
           provide: UserSessionService,
-          useValue: Deceiver(UserSessionService, { logout: jasmine.createSpy('logout') }),
+          useValue: Deceiver(UserSessionService, { logout: jest.fn() }),
         },
         {
           provide: Router,
-          useValue: Deceiver(Router, { navigate: jasmine.createSpy('navigate') }),
+          useValue: Deceiver(Router, { navigate: jest.fn() }),
         },
         provideMockFactoryLogger(),
       ],
@@ -65,7 +65,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on desktop device', () => {
-    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
+    (mockSessionService.getSessionsRoute as jest.Mock).mockReturnValue(
       of([
         {
           accountId: 'id',
@@ -90,7 +90,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on mobile device', () => {
-    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
+    (mockSessionService.getSessionsRoute as jest.Mock).mockReturnValue(
       of([
         {
           accountId: 'id',
@@ -115,7 +115,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on mobile device with device name and without city name', () => {
-    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
+    (mockSessionService.getSessionsRoute as jest.Mock).mockReturnValue(
       of([
         {
           accountId: 'id',
@@ -139,7 +139,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions with session on unknown device', () => {
-    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
+    (mockSessionService.getSessionsRoute as jest.Mock).mockReturnValue(
       of([
         {
           accountId: 'id',
@@ -164,7 +164,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   });
 
   it('should get active sessions without user agent data', () => {
-    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(
+    (mockSessionService.getSessionsRoute as jest.Mock).mockReturnValue(
       of([
         {
           accountId: 'id',
@@ -191,7 +191,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const activeModal = TestBed.get(NgbActiveModal);
 
-    (mockSessionService.getSessionsRoute as jasmine.Spy).and.returnValue(throwError({}));
+    (mockSessionService.getSessionsRoute as jest.Mock).mockReturnValue(throwError({}));
 
     manageSessionsService.getActiveSessions().subscribe();
     expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
@@ -201,7 +201,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
   it('should logout session', () => {
     const mockAlertService = TestBed.get(AlertService);
 
-    (mockSessionService.logoutRoute as jasmine.Spy).and.returnValue(of({}));
+    (mockSessionService.logoutRoute as jest.Mock).mockReturnValue(of({}));
 
     manageSessionsService.logoutSession('apiKey').subscribe(() => {
       expect(mockAlertService.pushSuccessAlert).toHaveBeenCalledWith(Alerts.SessionLoggedOutSuccess);
@@ -210,7 +210,7 @@ describe('Service: ManageSessionsViewComponentService', () => {
 
   it('should show alert when logout session failed', () => {
     const mockAlertService = TestBed.get(AlertService);
-    (mockSessionService.logoutRoute as jasmine.Spy).and.returnValue(throwError({}));
+    (mockSessionService.logoutRoute as jest.Mock).mockReturnValue(throwError({}));
     manageSessionsService.logoutSession('apiKey').subscribe();
     expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
   });

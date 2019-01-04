@@ -18,7 +18,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            getInvoiceDetailsRoute: jasmine.createSpy('getInvoiceDetailsRoute'),
+            getInvoiceDetailsRoute: jest.fn(),
           }),
         },
       ],
@@ -53,7 +53,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
       },
     });
 
-    (accountService.getInvoiceDetailsRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: mockInvoiceDetails }));
+    (accountService.getInvoiceDetailsRoute as jest.Mock).mockReturnValue(cold('-a|', { a: mockInvoiceDetails }));
     expect(service.getInvoiceDetails()).toBeObservable(expected);
   });
 });

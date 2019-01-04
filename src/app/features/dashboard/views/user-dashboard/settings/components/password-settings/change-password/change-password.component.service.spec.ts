@@ -3,7 +3,6 @@
 // tslint:disable:max-line-length
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AccountService, RecoverPasswordService, GetRecoverMethod } from '@anymind-ng/api';
-import createSpyObj = jasmine.createSpyObj;
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { of, throwError } from 'rxjs';
 import {
@@ -12,12 +11,13 @@ import {
   ResetPasswordStatusEnum,
 } from './change-password.component.service';
 import { BackendErrors } from '../../../../../../../../shared/models/backend-error/backend-error';
+import { Deceiver } from 'deceiver-core';
+import { provideMockFactoryLogger } from 'testing/testing';
 
 describe('Service: ChangePasswordComponentService', () => {
   const mockActualPassword = 'actualPassword';
   const mockNewPassword = 'newPassword';
   const mockPhoneNumber = '+48555555555';
-  const logger: LoggerService = new LoggerService(1);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,17 +25,22 @@ describe('Service: ChangePasswordComponentService', () => {
         ChangePasswordComponentService,
         {
           provide: AccountService,
-          useValue: createSpyObj('AccountService', ['changePasswordRoute']),
+          useValue: Deceiver(AccountService, { changePasswordRoute: jest.fn() }),
         },
         {
           provide: RecoverPasswordService,
-          useValue: createSpyObj('RecoverPasswordService', ['postRecoverPasswordRoute']),
+          useValue: Deceiver(RecoverPasswordService, { postRecoverPasswordRoute: jest.fn() }),
         },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert', 'pushSuccessAlert']) },
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, {
+            pushDangerAlert: jest.fn(),
+            pushSuccessAlert: jest.fn(),
+          }),
+        },
+        provideMockFactoryLogger(),
       ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
   }));
 
   it('should return SUCCESS status and show success alert when change password pass', fakeAsync(() => {
@@ -43,7 +48,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockAccountService.changePasswordRoute.and.returnValue(of({}));
+    mockAccountService.changePasswordRoute.mockReturnValue(of({}));
 
     changePasswordComponentService
       .changePassword(mockActualPassword, mockNewPassword)
@@ -59,7 +64,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockAccountService.changePasswordRoute.and.returnValue(
+    mockAccountService.changePasswordRoute.mockReturnValue(
       throwError({
         error: {
           error: {},
@@ -84,7 +89,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const mockAlertService = TestBed.get(AlertService);
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-      mockAccountService.changePasswordRoute.and.returnValue(
+      mockAccountService.changePasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: 1,
@@ -109,7 +114,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAccountService = TestBed.get(AccountService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockAccountService.changePasswordRoute.and.returnValue(
+    mockAccountService.changePasswordRoute.mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -135,7 +140,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const mockAccountService = TestBed.get(AccountService);
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-      mockAccountService.changePasswordRoute.and.returnValue(
+      mockAccountService.changePasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.BadAuthenticationCredentials,
@@ -162,7 +167,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const mockAccountService = TestBed.get(AccountService);
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-      mockAccountService.changePasswordRoute.and.returnValue(
+      mockAccountService.changePasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.ToManyIncorrectPasswordAttempts,
@@ -186,7 +191,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(
       of({
         method: GetRecoverMethod.MethodEnum.EMAIL,
       }),
@@ -202,7 +207,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(
       of({
         method: GetRecoverMethod.MethodEnum.SMS,
       }),
@@ -219,7 +224,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
     const alertService = TestBed.get(AlertService);
 
-    mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(
       of({
         method: 'unknown',
       }),
@@ -240,7 +245,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
       const alertService = TestBed.get(AlertService);
 
-      mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(
+      mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.CreateAnotherPinCodeTokenRecently,
@@ -266,7 +271,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
       const alertService = TestBed.get(AlertService);
 
-      mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(
+      mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.PincodeSentTooRecently,
@@ -291,7 +296,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
       const alertService = TestBed.get(AlertService);
 
-      mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(
+      mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: 1,
@@ -316,7 +321,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
       const alertService = TestBed.get(AlertService);
 
-      mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(throwError({}));
+      mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(throwError({}));
 
       changePasswordComponentService.resetPassword(mockPhoneNumber).subscribe((status: ResetPasswordStatusEnum) => {
         expect(alertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);

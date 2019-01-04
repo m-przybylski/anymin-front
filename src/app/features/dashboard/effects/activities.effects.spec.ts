@@ -20,9 +20,7 @@ describe('DashboardEffects', () => {
         {
           provide: ActivitiesService,
           useValue: Deceiver(ActivitiesService, {
-            getImportantActivitiesCountersRoute: jasmine.createSpy(
-              'ActivitiesService.getImportantActivitiesCountersRoute',
-            ),
+            getImportantActivitiesCountersRoute: jest.fn(),
           }),
         },
         provideMockActions(() => actions$),
@@ -43,7 +41,7 @@ describe('DashboardEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: counters });
       const expected = cold('--b', { b: completion });
-      activitiesService.getImportantActivitiesCountersRoute = jasmine.createSpy('').and.returnValue(response);
+      activitiesService.getImportantActivitiesCountersRoute = jest.fn(() => response);
 
       expect(dashboardEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
     });
@@ -56,7 +54,7 @@ describe('DashboardEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-#', {}, error);
       const expected = cold('--b', { b: completion });
-      activitiesService.getImportantActivitiesCountersRoute = jasmine.createSpy('').and.returnValue(response);
+      activitiesService.getImportantActivitiesCountersRoute = jest.fn(() => response);
 
       expect(dashboardEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
     });

@@ -19,7 +19,7 @@ describe('SessionEffects', () => {
         SessionEffects,
         {
           provide: SessionService,
-          useValue: Deceiver(SessionService, { checkRoute: jasmine.createSpy('SessionService.login') }),
+          useValue: Deceiver(SessionService, { checkRoute: jest.fn() }),
         },
         provideMockActions(() => actions$),
       ],
@@ -39,7 +39,7 @@ describe('SessionEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: session });
       const expected = cold('--b', { b: completion });
-      sessionService.checkRoute = jasmine.createSpy('').and.returnValue(response);
+      sessionService.checkRoute = jest.fn().mockReturnValue(response);
 
       expect(sessionEffects.fetchSession$).toBeObservable(expected);
     });
@@ -52,7 +52,7 @@ describe('SessionEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-#', {}, error);
       const expected = cold('--b', { b: completion });
-      sessionService.checkRoute = jasmine.createSpy('').and.returnValue(response);
+      sessionService.checkRoute = jest.fn().mockReturnValue(response);
 
       expect(sessionEffects.fetchSession$).toBeObservable(expected);
     });

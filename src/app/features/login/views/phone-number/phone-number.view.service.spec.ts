@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { PhoneNumberViewService } from './phone-number.view.service';
 import { GetRegistrationStatus, RegistrationService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
-import createSpyObj = jasmine.createSpyObj;
 import { AlertService } from '@anymind-ng/core';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { of } from 'rxjs';
@@ -20,18 +19,21 @@ describe('Service: PhoneNumberService', () => {
         LoginHelperService,
         {
           provide: RegistrationService,
-          useValue: createSpyObj('RegistrationService', ['checkRegistrationStatusRoute']),
+          useValue: Deceiver(RegistrationService, { checkRegistrationStatusRoute: jest.fn() }),
         },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
+        },
         provideMockFactoryLogger(),
         {
           provide: RegistrationInvitationService,
-          useValue: createSpyObj('RegistrationInvitationService', ['getInvitationObject']),
+          useValue: Deceiver(RegistrationInvitationService, { getInvitationObject: jest.fn() }),
         },
         {
           provide: Router,
           useValue: Deceiver(Router, {
-            navigate: jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true)),
+            navigate: jest.fn(() => Promise.resolve(true)),
           }),
         },
       ],
@@ -43,7 +45,7 @@ describe('Service: PhoneNumberService', () => {
     const router = TestBed.get(Router);
     const registrationService = TestBed.get(RegistrationService);
 
-    registrationService.checkRegistrationStatusRoute.and.returnValue(
+    registrationService.checkRegistrationStatusRoute = jest.fn(() =>
       of({ status: GetRegistrationStatus.StatusEnum.BLOCKED }),
     );
 
@@ -56,7 +58,7 @@ describe('Service: PhoneNumberService', () => {
     const router = TestBed.get(Router);
     const registrationService = TestBed.get(RegistrationService);
 
-    registrationService.checkRegistrationStatusRoute.and.returnValue(
+    registrationService.checkRegistrationStatusRoute = jest.fn(() =>
       of({ status: GetRegistrationStatus.StatusEnum.REGISTERED }),
     );
 
@@ -69,7 +71,7 @@ describe('Service: PhoneNumberService', () => {
     const router = TestBed.get(Router);
     const registrationService = TestBed.get(RegistrationService);
 
-    registrationService.checkRegistrationStatusRoute.and.returnValue(
+    registrationService.checkRegistrationStatusRoute = jest.fn(() =>
       of({ status: GetRegistrationStatus.StatusEnum.UNREGISTERED }),
     );
 
@@ -82,7 +84,7 @@ describe('Service: PhoneNumberService', () => {
     const router = TestBed.get(Router);
     const registrationService = TestBed.get(RegistrationService);
 
-    registrationService.checkRegistrationStatusRoute.and.returnValue(
+    registrationService.checkRegistrationStatusRoute = jest.fn(() =>
       of({ status: GetRegistrationStatus.StatusEnum.NOPASSWORD }),
     );
 
@@ -97,7 +99,7 @@ describe('Service: PhoneNumberService', () => {
     const alerService = TestBed.get(AlertService);
     const registrationService = TestBed.get(RegistrationService);
 
-    registrationService.checkRegistrationStatusRoute.and.returnValue(
+    registrationService.checkRegistrationStatusRoute = jest.fn(() =>
       of({ status: GetRegistrationStatus.StatusEnum.VERIFICATIONATTEMPTSEXCEEDED }),
     );
 
@@ -112,7 +114,7 @@ describe('Service: PhoneNumberService', () => {
     const alerService = TestBed.get(AlertService);
     const registrationService = TestBed.get(RegistrationService);
 
-    registrationService.checkRegistrationStatusRoute.and.returnValue(of({ status: undefined }));
+    registrationService.checkRegistrationStatusRoute = jest.fn(() => of({ status: undefined }));
 
     phoneNumberService.handlePhoneNumber(correctPhoneNumber).subscribe();
     expect(alerService.pushDangerAlert).toHaveBeenCalledWith('ALERT.SOMETHING_WENT_WRONG');

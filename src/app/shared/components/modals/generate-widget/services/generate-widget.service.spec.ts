@@ -9,10 +9,10 @@ import { Deceiver } from 'deceiver-core';
 describe('GenerateWidgetService', () => {
   let service: GenerateWidgetService;
   let modalService: NgbModal;
-  const clipboardService: ClipboardService = Deceiver(ClipboardService, { writeText: jasmine.createSpy('writeText') });
+  const clipboardService: ClipboardService = Deceiver(ClipboardService, { writeText: jest.fn() });
   const alertService: AlertService = Deceiver(AlertService, {
-    pushSuccessAlert: jasmine.createSpy('pushSuccessAlert'),
-    pushWarningAlert: jasmine.createSpy('pushWarningAlert'),
+    pushSuccessAlert: jest.fn(),
+    pushWarningAlert: jest.fn(),
   });
 
   beforeEach(() => {
@@ -34,8 +34,8 @@ describe('GenerateWidgetService', () => {
   });
 
   beforeEach(() => {
-    (alertService.pushSuccessAlert as jasmine.Spy).calls.reset();
-    (alertService.pushWarningAlert as jasmine.Spy).calls.reset();
+    (alertService.pushSuccessAlert as jest.Mock).mockClear();
+    (alertService.pushWarningAlert as jest.Mock).mockClear();
   });
 
   describe('openModal', () => {
@@ -48,14 +48,14 @@ describe('GenerateWidgetService', () => {
   describe('saveToClipboard', () => {
     it('should copy value to clipboard and display confirmation', fakeAsync(() => {
       // operation success
-      (clipboardService.writeText as jasmine.Spy).and.returnValue(Promise.resolve());
+      (clipboardService.writeText as jest.Mock).mockReturnValue(Promise.resolve());
       service.saveToClipboard('MackoXXXX');
       flushMicrotasks();
       expect(alertService.pushSuccessAlert).toHaveBeenCalled();
     }));
     it('should fail value to clipboard and display warning', fakeAsync(() => {
       // operation success
-      (clipboardService.writeText as jasmine.Spy).and.returnValue(Promise.reject('u stupid'));
+      (clipboardService.writeText as jest.Mock).mockReturnValue(Promise.reject('u stupid'));
       service.saveToClipboard('MackoXXXX');
       flushMicrotasks();
       expect(alertService.pushWarningAlert).toHaveBeenCalled();

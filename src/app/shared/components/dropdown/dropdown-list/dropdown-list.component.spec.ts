@@ -56,7 +56,7 @@ describe('Component: DropdownListComponent', () => {
     component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
     const indexNumber = 3;
-    spyOn(component, 'selectItem');
+    jest.spyOn(component, 'selectItem');
     component.onItemClicked(indexNumber);
     expect(component.selectItem).toHaveBeenCalled();
   });
@@ -68,7 +68,7 @@ describe('Component: DropdownListComponent', () => {
 
     component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
-    spyOn(component, 'selectItem');
+    jest.spyOn(component, 'selectItem');
 
     component.onSelectEnter();
     expect(component.selectItem).toHaveBeenCalled();

@@ -20,9 +20,9 @@ describe('LoginEffects', () => {
   let callInvitationService: CallInvitationService;
   let actions$: Observable<any>;
   const loggerService: LoggerService = Deceiver(LoggerService, {
-    debug: jasmine.createSpy(''),
-    warn: jasmine.createSpy(''),
-    error: jasmine.createSpy(''),
+    debug: jest.fn(),
+    warn: jest.fn(),
+    error: jest.fn(),
   });
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,29 +30,29 @@ describe('LoginEffects', () => {
         LoginEffects,
         {
           provide: SessionService,
-          useValue: Deceiver(SessionService, { checkRoute: jasmine.createSpy('SessionService.login') }),
+          useValue: Deceiver(SessionService, { checkRoute: jest.fn() }),
         },
         {
           provide: AlertService,
           useValue: Deceiver(AlertService, {
-            pushDangerAlert: jasmine.createSpy('pushDangerAlert'),
-            closeAllAlerts: jasmine.createSpy('closeAllAlerts'),
+            pushDangerAlert: jest.fn(),
+            closeAllAlerts: jest.fn(),
           }),
         },
         {
           provide: Router,
-          useValue: Deceiver(Router, { navigate: jasmine.createSpy('') }),
+          useValue: Deceiver(Router, { navigate: jest.fn() }),
         },
         provideMockFactoryLogger(loggerService),
         provideMockActions(() => actions$),
         {
           provide: ModalStack,
-          useValue: Deceiver(ModalStack, { dismissAll: jasmine.createSpy('dismissAll') }),
+          useValue: Deceiver(ModalStack, { dismissAll: jest.fn() }),
         },
         {
           provide: CallInvitationService,
           useValue: Deceiver(CallInvitationService, {
-            unregisterFromPushNotifications: jasmine.createSpy('unregisterFromPushNotifications'),
+            unregisterFromPushNotifications: jest.fn(),
           }),
         },
       ],
@@ -62,9 +62,9 @@ describe('LoginEffects', () => {
     sessionService = TestBed.get(SessionService);
     actions$ = TestBed.get(Actions);
     callInvitationService = TestBed.get(CallInvitationService);
-    (loggerService.error as jasmine.Spy).calls.reset();
-    (loggerService.warn as jasmine.Spy).calls.reset();
-    (loggerService.debug as jasmine.Spy).calls.reset();
+    (loggerService.error as jest.Mock).mockClear();
+    (loggerService.warn as jest.Mock).mockClear();
+    (loggerService.debug as jest.Mock).mockClear();
   });
 
   describe('login$', () => {
@@ -77,7 +77,7 @@ describe('LoginEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: session });
       const expected = cold('--b', { b: completion });
-      sessionService.login = jasmine.createSpy('').and.returnValue(response);
+      sessionService.login = jest.fn().mockReturnValue(response);
 
       expect(loginEffects.login$).toBeObservable(expected);
     });
@@ -91,7 +91,7 @@ describe('LoginEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-#', {}, error);
       const expected = cold('--b', { b: completion });
-      sessionService.login = jasmine.createSpy('').and.returnValue(response);
+      sessionService.login = jest.fn().mockReturnValue(response);
 
       expect(loginEffects.login$).toBeObservable(expected);
     });
@@ -102,7 +102,7 @@ describe('LoginEffects', () => {
       const router: Router = TestBed.get(Router);
       const action = new AuthActions.LoginRedirectAction();
       actions$ = of(action);
-      (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
+      (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       loginEffects.loginRedirect$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
       });
@@ -114,7 +114,7 @@ describe('LoginEffects', () => {
       const router: Router = TestBed.get(Router);
       const action = new AuthActions.LoginRedirectAction();
       actions$ = of(action);
-      (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+      (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
       loginEffects.loginRedirect$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
       });
@@ -128,7 +128,7 @@ describe('LoginEffects', () => {
       const alertServide: AlertService = TestBed.get(AlertService);
       const action = new AuthActions.LoginRedirectAction();
       actions$ = of(action);
-      (router.navigate as jasmine.Spy).and.returnValue(Promise.reject('error'));
+      (router.navigate as jest.Mock).mockReturnValue(Promise.reject('error'));
       loginEffects.loginRedirect$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
       });
@@ -147,8 +147,8 @@ describe('LoginEffects', () => {
       const response = cold('-a|', { a: undefined });
       const pushResponse = cold('-|');
       const expected = cold('---c', { c: completion });
-      sessionService.logoutCurrentRoute = jasmine.createSpy('').and.returnValue(response);
-      (callInvitationService.unregisterFromPushNotifications as jasmine.Spy).and.returnValue(pushResponse);
+      sessionService.logoutCurrentRoute = jest.fn().mockReturnValue(response);
+      (callInvitationService.unregisterFromPushNotifications as jest.Mock).mockReturnValue(pushResponse);
 
       expect(loginEffects.logout$).toBeObservable(expected);
     });
@@ -161,8 +161,8 @@ describe('LoginEffects', () => {
       const response = cold('-#', {}, error);
       const pushResponse = cold('-|');
       const expected = cold('---b', { b: completion });
-      sessionService.logoutCurrentRoute = jasmine.createSpy('').and.returnValue(response);
-      (callInvitationService.unregisterFromPushNotifications as jasmine.Spy).and.returnValue(pushResponse);
+      sessionService.logoutCurrentRoute = jest.fn().mockReturnValue(response);
+      (callInvitationService.unregisterFromPushNotifications as jest.Mock).mockReturnValue(pushResponse);
 
       expect(loginEffects.logout$).toBeObservable(expected);
     });
@@ -195,7 +195,7 @@ describe('LoginEffects', () => {
       const router: Router = TestBed.get(Router);
       const action = new AuthActions.DashboardRedirectAction();
       actions$ = of(action);
-      (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
+      (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       loginEffects.dashboardRedirect$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
       });
@@ -207,7 +207,7 @@ describe('LoginEffects', () => {
       const router: Router = TestBed.get(Router);
       const action = new AuthActions.DashboardRedirectAction();
       actions$ = of(action);
-      (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+      (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
       loginEffects.dashboardRedirect$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
       });
@@ -221,7 +221,7 @@ describe('LoginEffects', () => {
       const alertServide: AlertService = TestBed.get(AlertService);
       const action = new AuthActions.DashboardRedirectAction();
       actions$ = of(action);
-      (router.navigate as jasmine.Spy).and.returnValue(Promise.reject('error'));
+      (router.navigate as jest.Mock).mockReturnValue(Promise.reject('error'));
       loginEffects.dashboardRedirect$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
       });

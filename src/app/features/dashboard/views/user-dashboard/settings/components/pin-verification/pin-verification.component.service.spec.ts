@@ -24,20 +24,20 @@ describe('Service: PinVerificationComponentService', () => {
         {
           provide: RecoverPasswordService,
           useValue: Deceiver(RecoverPasswordService, {
-            postRecoverPasswordVerifyMsisdnRoute: jasmine.createSpy('postRecoverPasswordVerifyMsisdnRoute'),
-            postRecoverPasswordRoute: jasmine.createSpy('postRecoverPasswordRoute'),
+            postRecoverPasswordVerifyMsisdnRoute: jest.fn(),
+            postRecoverPasswordRoute: jest.fn(),
           }),
         },
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            confirmMsisdnVerificationRoute: jasmine.createSpy('confirmMsisdnVerificationRoute'),
-            newMsisdnVerificationRoute: jasmine.createSpy('newMsisdnVerificationRoute'),
+            confirmMsisdnVerificationRoute: jest.fn(),
+            newMsisdnVerificationRoute: jest.fn(),
           }),
         },
         {
           provide: AlertService,
-          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
         },
         provideMockFactoryLogger(),
       ],
@@ -53,7 +53,7 @@ describe('Service: PinVerificationComponentService', () => {
   it('should return SUCCESS status when verify recover password token pass', fakeAsync(() => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(of({}));
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(of({}));
 
     pinVerificationComponentService
       .verifyResetPasswordPinToken(mockToken, mockPhoneNumber)
@@ -69,7 +69,7 @@ describe('Service: PinVerificationComponentService', () => {
     () => {
       const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+      mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.MsisdnVerificationTokenIncorrect,
@@ -90,7 +90,7 @@ describe('Service: PinVerificationComponentService', () => {
   it('should return CAN_NOT_FIND_TOKEN status when check pin token failed with backend error CannotFindMsisdnToken', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.CannotFindMsisdnToken,
@@ -110,7 +110,7 @@ describe('Service: PinVerificationComponentService', () => {
   it('should return TOO_MANY_ATTEMPTS status when check pin token failed with backend error TooManyMsisdnTokenAttempts', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.TooManyMsisdnTokenAttempts,
@@ -130,7 +130,7 @@ describe('Service: PinVerificationComponentService', () => {
   it('should return INVALID_TOKEN status when check pin token failed with backend error IncorrectValidation', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
 
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -151,7 +151,7 @@ describe('Service: PinVerificationComponentService', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const mockAlertService = TestBed.get(AlertService);
 
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           code: 1,
@@ -173,7 +173,7 @@ describe('Service: PinVerificationComponentService', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const mockAlertService = TestBed.get(AlertService);
 
-    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.postRecoverPasswordVerifyMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           error: {},
@@ -192,7 +192,7 @@ describe('Service: PinVerificationComponentService', () => {
   it('should return SUCCESS status when verify change msisdn token pass', () => {
     const mockAccountService = TestBed.get(AccountService);
 
-    mockAccountService.confirmMsisdnVerificationRoute.and.returnValue(of({}));
+    mockAccountService.confirmMsisdnVerificationRoute.mockReturnValue(of({}));
 
     pinVerificationComponentService.verifyChangeMsisdnPinToken(mockToken).subscribe((status: PinVerificationStatus) => {
       expect(status).toEqual(PinVerificationStatus.SUCCESS);
@@ -205,7 +205,7 @@ describe('Service: PinVerificationComponentService', () => {
     () => {
       const mockAccountService = TestBed.get(AccountService);
 
-      mockAccountService.confirmMsisdnVerificationRoute.and.returnValue(
+      mockAccountService.confirmMsisdnVerificationRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.CanNotFindMsisdnVerification,
@@ -225,7 +225,7 @@ describe('Service: PinVerificationComponentService', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const mockAlertService = TestBed.get(AlertService);
 
-    mockRecoverPasswordService.postRecoverPasswordRoute.and.returnValue(throwError({}));
+    mockRecoverPasswordService.postRecoverPasswordRoute.mockReturnValue(throwError({}));
 
     pinVerificationComponentService.sendNewRecoverPasswordToken(mockPhoneNumber).subscribe();
     expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
@@ -235,7 +235,7 @@ describe('Service: PinVerificationComponentService', () => {
     const mockAccountService = TestBed.get(AccountService);
     const mockAlertService = TestBed.get(AlertService);
 
-    mockAccountService.newMsisdnVerificationRoute.and.returnValue(throwError({}));
+    mockAccountService.newMsisdnVerificationRoute.mockReturnValue(throwError({}));
 
     pinVerificationComponentService.sendNewChangeMsisdnToken(mockPhoneNumber).subscribe();
     expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);

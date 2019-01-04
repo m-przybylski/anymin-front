@@ -1,42 +1,40 @@
 // tslint:disable:no-empty
 import { TestBed, inject } from '@angular/core/testing';
 import { LoggerFactory } from '@anymind-ng/core';
-import createSpyObj = jasmine.createSpyObj;
 import { ConsultationTagsComponentService, TagValidationStatus } from './consultation-tags.component.service';
 import { SearchService } from '@anymind-ng/api';
+import { provideMockFactoryLogger } from 'testing/testing';
+import { Deceiver } from 'deceiver-core';
 
 describe('ConsultationTagsComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConsultationTagsComponentService,
-        {provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService'])},
+      providers: [
+        ConsultationTagsComponentService,
+        provideMockFactoryLogger(),
         {
-          provide: SearchService, useValue: createSpyObj('SearchService', ['postTagsSuggestionsRoute'
-            ]
-          )
+          provide: SearchService,
+          useValue: Deceiver(SearchService, { postTagsSuggestionsRoute: jest.fn() }),
         },
-      ]
+      ],
     });
 
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
-      warn: (): void => {
-      },
-      error: (): void => {
-      }
+    TestBed.get(LoggerFactory).createLoggerService.mockReturnValue({
+      warn: (): void => {},
+      error: (): void => {},
     });
   });
 
-  it('should be created', inject([ConsultationTagsComponentService],
-    (service: ConsultationTagsComponentService) => {
-      expect(service).toBeTruthy();
-    }));
+  it('should be created', inject([ConsultationTagsComponentService], (service: ConsultationTagsComponentService) => {
+    expect(service).toBeTruthy();
+  }));
 
   it('should get suggested tags', () => {
     const service = TestBed.get(ConsultationTagsComponentService);
     const searchService = TestBed.get(SearchService);
     const query = {
       query: 'query',
-      tags: ['tag']
+      tags: ['tag'],
     };
     service.getSuggestedTags(query);
     expect(searchService.postTagsSuggestionsRoute).toHaveBeenCalledWith(query);

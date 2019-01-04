@@ -25,7 +25,7 @@ describe('ConsultationDetailsAcrionsService', () => {
   const alertService: AlertService = Deceiver(AlertService);
   const confirmationService: ConfirmationService = Deceiver(ConfirmationService);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
-    createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
+    createLoggerService: jest.fn().mockReturnValue(Deceiver(LoggerService)),
   });
   const dummyInputObject = {
     expertId: '',
@@ -64,7 +64,7 @@ describe('ConsultationDetailsAcrionsService', () => {
   });
 
   describe('makeCall', () => {
-    const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('call') });
+    const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
     it('should redirect to login when user is not logged in', fakeAsync(() => {
       // make sure user is not logged
       store.dispatch(new AuthActions.LogoutSuccessAction());
@@ -89,32 +89,28 @@ describe('ConsultationDetailsAcrionsService', () => {
 
   describe('deleteConsultation', () => {
     it('should not close modal when user did not confirm', fakeAsync(() => {
-      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
-      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: false }));
+      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: false }));
       consultationDetailsAcrionsService.deleteConsultation({ ...dummyInputObject, serviceId: 'asdf', modal });
       getTestScheduler().flush();
       expect(modal.close).not.toHaveBeenCalled();
     }));
     it('should close modal when user did confirm', () => {
-      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
-      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
-      serviceService.deleteServiceRoute = jasmine
-        .createSpy('deleteServiceRoute')
-        .and.returnValue(cold('-a|', { a: 'okey' }));
-      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
+      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: true }));
+      serviceService.deleteServiceRoute = jest.fn(() => cold('-a|', { a: 'okey' }));
+      alertService.pushSuccessAlert = jest.fn();
       consultationDetailsAcrionsService.deleteConsultation({ ...dummyInputObject, serviceId: 'asdf', modal });
       getTestScheduler().flush();
       expect(serviceService.deleteServiceRoute).toHaveBeenCalledWith('asdf');
       expect(modal.close).toHaveBeenCalledWith('asdf');
     });
     it('should not close modal when user confirmed but there was error on backend', () => {
-      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
-      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
-      serviceService.deleteServiceRoute = jasmine
-        .createSpy('deleteServiceRoute')
-        .and.returnValue(cold('-#', {}, 'oups'));
-      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
-      alertService.pushDangerAlert = jasmine.createSpy('pushDangerAlert');
+      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: true }));
+      serviceService.deleteServiceRoute = jest.fn(() => cold('-#', {}, 'oups'));
+      alertService.pushSuccessAlert = jest.fn();
+      alertService.pushDangerAlert = jest.fn();
       consultationDetailsAcrionsService.deleteConsultation({ ...dummyInputObject, serviceId: 'asdf', modal });
       getTestScheduler().flush();
       expect(serviceService.deleteServiceRoute).toHaveBeenCalledWith('asdf');
@@ -123,8 +119,8 @@ describe('ConsultationDetailsAcrionsService', () => {
   });
   describe('leaveConsultation', () => {
     it('should not close modal when user did not confirm', fakeAsync(() => {
-      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
-      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: false }));
+      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      confirmationService.confirm = jest.fn(() => cold('--a|', { a: false }));
       consultationDetailsAcrionsService.leaveConsultation({
         ...dummyInputObject,
         serviceId: 'asdf',
@@ -135,12 +131,10 @@ describe('ConsultationDetailsAcrionsService', () => {
       expect(modal.close).not.toHaveBeenCalled();
     }));
     it('should close modal when user did confirm', () => {
-      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
-      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
-      employmentService.deleteEmploymentRoute = jasmine
-        .createSpy('deleteEmploymentRoute')
-        .and.returnValue(cold('-a|', { a: 'okey' }));
-      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
+      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: true }));
+      employmentService.deleteEmploymentRoute = jest.fn(() => cold('-a|', { a: 'okey' }));
+      alertService.pushSuccessAlert = jest.fn();
       consultationDetailsAcrionsService.leaveConsultation({
         ...dummyInputObject,
         serviceId: 'asdf',
@@ -152,13 +146,11 @@ describe('ConsultationDetailsAcrionsService', () => {
       expect(modal.close).toHaveBeenCalledWith('asdf');
     });
     it('should not close modal when user confirmed but there was error on backend', () => {
-      const modal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
-      confirmationService.confirm = jasmine.createSpy('confirm').and.returnValue(cold('--a|', { a: true }));
-      employmentService.deleteEmploymentRoute = jasmine
-        .createSpy('deleteEmploymentRoute')
-        .and.returnValue(cold('-#', {}, 'oups'));
-      alertService.pushSuccessAlert = jasmine.createSpy('pushSuccessAlert');
-      alertService.pushDangerAlert = jasmine.createSpy('pushDangerAlert');
+      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      confirmationService.confirm = jest.fn(() => cold('--a|', { a: true }));
+      employmentService.deleteEmploymentRoute = jest.fn(() => cold('-#', {}, 'oups'));
+      alertService.pushSuccessAlert = jest.fn();
+      alertService.pushDangerAlert = jest.fn();
       consultationDetailsAcrionsService.leaveConsultation({
         ...dummyInputObject,
         serviceId: 'asdf',

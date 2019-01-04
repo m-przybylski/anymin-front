@@ -7,20 +7,18 @@ import * as fromCore from '@platform/core/reducers';
 import { AuthActions } from '@platform/core/actions';
 
 const mockLoggerService = Deceiver(LoggerService, {
-  warn: jasmine.createSpy('warn'),
-  debug: jasmine.createSpy('debug'),
-  error: jasmine.createSpy('error'),
-  info: jasmine.createSpy('info'),
-  log: jasmine.createSpy('log'),
-  trace: jasmine.createSpy('trace'),
+  warn: jest.fn(),
+  debug: jest.fn(),
+  error: jest.fn(),
+  info: jest.fn(),
+  log: jest.fn(),
+  trace: jest.fn(),
 });
 
 export const provideMockFactoryLogger = (loggerService?: LoggerService): Provider => ({
   provide: LoggerFactory,
   useValue: Deceiver(LoggerFactory, {
-    createLoggerService: jasmine
-      .createSpy('')
-      .and.returnValue(typeof loggerService === 'undefined' ? mockLoggerService : loggerService),
+    createLoggerService: jest.fn(() => (typeof loggerService === 'undefined' ? mockLoggerService : loggerService)),
   }),
 });
 

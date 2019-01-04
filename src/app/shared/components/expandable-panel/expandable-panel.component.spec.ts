@@ -4,13 +4,13 @@ import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('ExpandablePanelComponent', () => {
   let component: ExpandablePanelComponent;
-  const document = jasmine.createSpyObj('document', ['createElement']);
+  const document = { createElement: jest.fn() };
   beforeEach(() => {
-    component = new ExpandablePanelComponent(document);
+    component = new ExpandablePanelComponent(document as any);
   });
 
   it('should change state when toggled', fakeAsync(() => {
-    (document.createElement as jasmine.Spy).and.returnValue({ style: {} });
+    document.createElement.mockReturnValue({ style: {} });
     (component as any).content = {
       nativeElement: {
         appendChild: (): void => {},

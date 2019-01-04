@@ -37,7 +37,7 @@ describe('Component: DropdownComponent', () => {
     const component = fixture.componentInstance;
 
     const isVisible = false;
-    spyOn(component, 'onCloseDropdownList');
+    jest.spyOn(component, 'onCloseDropdownList');
     component.onToggleDropdown(isVisible);
     expect(component.onCloseDropdownList).toHaveBeenCalledWith(isVisible);
     expect(component.isDropdownListVisible).toBe(isVisible);
@@ -49,7 +49,7 @@ describe('Component: DropdownComponent', () => {
     component.onCloseEmiter = new EventEmitter<boolean>();
     const isVisible = false;
 
-    const spy = spyOn(component.onCloseEmiter, 'emit');
+    const spy = jest.spyOn(component.onCloseEmiter, 'emit');
     component.onCloseDropdownList(isVisible);
     expect(spy).toHaveBeenCalledWith(isVisible);
   });
@@ -62,7 +62,7 @@ describe('Component: DropdownComponent', () => {
     const component = fixture.componentInstance;
     component.isDropdownListOnly = true;
 
-    const spy = spyOn(component.onSelectItemEmiter, 'emit');
+    const spy = jest.spyOn(component.onSelectItemEmiter, 'emit');
     component.onSelectItem(mockValue);
     expect(spy).toHaveBeenCalledWith(mockValue);
   });
@@ -80,7 +80,7 @@ describe('Component: DropdownComponent', () => {
 
     component.form.controls[component.controlName].setValue(mockValue.name);
 
-    const spy = spyOn(component.form.controls[component.controlName], 'setValue');
+    const spy = jest.spyOn(component.form.controls[component.controlName], 'setValue');
     component.onSelectItem(mockValue);
     expect(spy).toHaveBeenCalledWith(mockValue.name);
     expect(component.isDropdownListVisible).toBe(false);

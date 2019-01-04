@@ -59,37 +59,7 @@ describe('balance.reducer', () => {
         storeWithSession,
         new SessionUpdateApiActions.CreateUpdateNameAndAvatarAction({ name: 'Artuś', avatarToken: '💩' }),
       );
-      expect(result).toEqual({
-        isFromBackend: true,
-        isPending: false,
-        session: {
-          account: {
-            id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
-            msisdn: '+48607508372',
-            email: 'maciej.przybylski@anymind.com',
-            registeredAt: new Date('2018-08-09T10:00:35.039Z'),
-            details: {
-              nickname: 'Artuś',
-              avatar: '💩',
-            },
-            isBlocked: false,
-            hasPassword: true,
-            isAnonymous: true,
-          },
-          session: {
-            accountId: '123',
-            apiKey: 'zxxx',
-            city: 'sdf',
-            country: 'aaa',
-            ipAddress: '13123',
-            isExpired: false,
-            lastActivityAt: new Date('2018-11-09T10:00:35.039Z'),
-            userAgent: 'aa',
-          },
-          isCompany: false,
-          isExpert: false,
-        },
-      } as any);
+      expect(result).toMatchSnapshot();
     });
   });
 });

@@ -3,17 +3,14 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { ProfileLinksComponentService } from './profile-links.component.service';
 import { LoggerFactory } from '@anymind-ng/core';
-import createSpyObj = jasmine.createSpyObj;
+import { provideMockFactoryLogger } from 'testing/testing';
 
 describe('ProfileLinksComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ProfileLinksComponentService,
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
-      ],
+      providers: [ProfileLinksComponentService, provideMockFactoryLogger()],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
+    TestBed.get(LoggerFactory).createLoggerService.mockReturnValue({
       warn: (): void => {},
       error: (): void => {},
     });

@@ -22,15 +22,15 @@ describe('VisibilityEffects', () => {
         {
           provide: PresenceService,
           useValue: Deceiver(PresenceService, {
-            expertVisibilityRoute: jasmine.createSpy('PresenceService.expertVisibilityRoute'),
-            expertVisibleRoute: jasmine.createSpy('PresenceService.expertVisibleRoute'),
-            expertInvisibleRoute: jasmine.createSpy('PresenceService.expertInvisibleRoute'),
+            expertVisibilityRoute: jest.fn(),
+            expertVisibleRoute: jest.fn(),
+            expertInvisibleRoute: jest.fn(),
           }),
         },
         {
           provide: AlertService,
           useValue: Deceiver(AlertService, {
-            pushDangerAlert: jasmine.createSpy('AlertService.pushDangerAlert'),
+            pushDangerAlert: jest.fn(),
           }),
         },
         provideMockActions(() => actions$),
@@ -56,7 +56,7 @@ describe('VisibilityEffects', () => {
     const response = cold('-a|', { a: visibility });
     const expected = cold('--b', { b: result });
 
-    presenceService.expertVisibilityRoute = jasmine.createSpy('').and.returnValue(response);
+    presenceService.expertVisibilityRoute = jest.fn().mockReturnValue(response);
     expect(visibilityEffects.fetchVisibilityStatus$).toBeObservable(expected);
   });
 
@@ -68,7 +68,7 @@ describe('VisibilityEffects', () => {
     const response = cold('-a|');
     const expected = cold('--b', { b: result });
 
-    presenceService.expertVisibleRoute = jasmine.createSpy('').and.returnValue(response);
+    presenceService.expertVisibleRoute = jest.fn().mockReturnValue(response);
     expect(visibilityEffects.setVisibilityVisible$).toBeObservable(expected);
   });
 
@@ -80,7 +80,7 @@ describe('VisibilityEffects', () => {
     const response = cold('-#', {});
     const expected = cold('--b', { b: result });
 
-    presenceService.expertVisibleRoute = jasmine.createSpy('').and.returnValue(response);
+    presenceService.expertVisibleRoute = jest.fn().mockReturnValue(response);
     expect(visibilityEffects.setVisibilityVisible$).toBeObservable(expected);
   });
 
@@ -92,7 +92,7 @@ describe('VisibilityEffects', () => {
     const response = cold('-a|');
     const expected = cold('--b', { b: result });
 
-    presenceService.expertInvisibleRoute = jasmine.createSpy('').and.returnValue(response);
+    presenceService.expertInvisibleRoute = jest.fn().mockReturnValue(response);
     expect(visibilityEffects.setVisibilityInvisible$).toBeObservable(expected);
   });
 
@@ -104,7 +104,7 @@ describe('VisibilityEffects', () => {
     const response = cold('-#', {});
     const expected = cold('--b', { b: result });
 
-    presenceService.expertInvisibleRoute = jasmine.createSpy('').and.returnValue(response);
+    presenceService.expertInvisibleRoute = jest.fn().mockReturnValue(response);
     expect(visibilityEffects.setVisibilityInvisible$).toBeObservable(expected);
   });
 });

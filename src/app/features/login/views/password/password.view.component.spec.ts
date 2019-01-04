@@ -27,13 +27,13 @@ describe('Component: PasswordViewComponent', () => {
         {
           provide: FormUtilsService,
           useValue: Deceiver(FormUtilsService, {
-            validateAllFormFields: jasmine.createSpy('validateAllFormFields'),
-            isFieldInvalid: jasmine.createSpy('isFieldInvalid'),
+            validateAllFormFields: jest.fn(),
+            isFieldInvalid: jest.fn(),
           }),
         },
         {
           provide: PasswordViewService,
-          useValue: Deceiver(PasswordViewService, { login: jasmine.createSpy('login') }),
+          useValue: Deceiver(PasswordViewService, { login: jest.fn() }),
         },
         LoginHelperService,
       ],
@@ -42,7 +42,7 @@ describe('Component: PasswordViewComponent', () => {
 
   beforeEach(() => {
     passwordViewService = TestBed.get(PasswordViewService);
-    (passwordViewService.login as jasmine.Spy).and.returnValue(cold('-a|', { a: PasswordLoginStatus.SUCCESS }));
+    (passwordViewService.login as jest.Mock).mockReturnValue(cold('-a|', { a: PasswordLoginStatus.SUCCESS }));
   });
 
   it('should number be equal router param', async(() => {

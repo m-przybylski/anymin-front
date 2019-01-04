@@ -6,6 +6,7 @@ import { importStore } from 'testing/testing';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@platform/core/actions';
 import { cold } from 'jasmine-marbles';
+import { Deceiver } from 'deceiver-core';
 
 describe('ProfileGuard', () => {
   let guard: ProfileGuard;
@@ -65,20 +66,20 @@ describe('ProfileGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, importStore()],
+      imports: [importStore(), RouterTestingModule],
     });
   });
 
   beforeEach(() => {
     loggerFactory = {
       createLoggerService: (_: string): any => ({
-        debug: jasmine.createSpy('debug').and.stub(),
+        debug: jest.fn(),
       }),
     };
 
     store = TestBed.get(Store);
     router = TestBed.get(Router);
-    spyOn(router, 'navigate').and.stub();
+    router.navigate = jest.fn();
     guard = new ProfileGuard(router, store, loggerFactory, routerConfig);
   });
 
@@ -97,12 +98,9 @@ describe('ProfileGuard', () => {
     const expected = cold('(a|)', { a: false });
     expect(guard.canActivate(undefined as any, { url: 'browse/user/profile/123' } as any)).toBeObservable(expected);
     tick();
-    const navigate: jasmine.Spy = router.navigate as jasmine.Spy;
-    expect(navigate.calls.count()).toBe(1, 'navigate called once');
-    expect(navigate.calls.mostRecent().args).toEqual(
-      [['dashboard', 'user', 'profile', '123']],
-      'navigate to specific path',
-    );
+    const navigate: jest.Mock = router.navigate as jest.Mock;
+    expect(navigate.mock.calls.length).toBe(1);
+    expect(navigate.mock.calls[0]).toEqual([['dashboard', 'user', 'profile', '123']]);
   }));
 
   it('should redirect when user is not logged and logged path is active', fakeAsync(() => {
@@ -112,11 +110,8 @@ describe('ProfileGuard', () => {
     const expected = cold('(a|)', { a: false });
     expect(guard.canActivate(undefined as any, { url: 'dashboard/user/profile/123' } as any)).toBeObservable(expected);
     tick();
-    const navigate: jasmine.Spy = router.navigate as jasmine.Spy;
-    expect(navigate.calls.count()).toBe(1, 'navigate called once');
-    expect(navigate.calls.mostRecent().args).toEqual(
-      [['browse', 'user', 'profile', '123']],
-      'navigate to specific path',
-    );
+    const navigate: jest.Mock = router.navigate as jest.Mock;
+    expect(navigate.mock.calls.length).toBe(1);
+    expect(navigate.mock.calls[0]).toEqual([['browse', 'user', 'profile', '123']]);
   }));
 });

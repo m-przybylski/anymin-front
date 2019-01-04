@@ -290,3 +290,14 @@ export const result4: any = [
 ];
 
 export const result6: any = [];
+
+/**
+ * file is calles xxx.spec.ts so it will be picked by test runner
+ * and will be lint by test linter. Some test runners can throw
+ * if no test inside the file
+ */
+describe('hack jest', () => {
+  it('should be true', () => {
+    expect(true).toBe(true);
+  });
+});

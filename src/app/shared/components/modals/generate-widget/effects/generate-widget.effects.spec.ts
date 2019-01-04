@@ -19,9 +19,9 @@ describe('GenerateWidgetEffects', () => {
   const generateWidgetService: GenerateWidgetService = Deceiver(GenerateWidgetService);
 
   beforeEach(() => {
-    widgetService.postGenerateWidgetRoute = jasmine.createSpy('postGenerateWidgetRoute');
-    alertService.pushWarningAlert = jasmine.createSpy('pushWarningAlert');
-    generateWidgetService.openModal = jasmine.createSpy('openModal');
+    widgetService.postGenerateWidgetRoute = jest.fn();
+    alertService.pushWarningAlert = jest.fn();
+    generateWidgetService.openModal = jest.fn();
     TestBed.configureTestingModule({
       providers: [
         GenerateWidgetEffects,
@@ -46,15 +46,15 @@ describe('GenerateWidgetEffects', () => {
     actions$ = TestBed.get(Actions);
   });
   beforeEach(() => {
-    [widgetService.postGenerateWidgetRoute, alertService.pushWarningAlert].forEach((fn: jasmine.Spy) => {
-      fn.calls.reset();
+    [widgetService.postGenerateWidgetRoute, alertService.pushWarningAlert].forEach((fn: jest.Mock) => {
+      fn.mockClear();
     });
   });
   describe('fetchWidgetId$', () => {
     it('should fetch data from backend and return Success Action', () => {
       const widget = { id: 'widget1', expertId: 'expert123', serviceId: 'service123' };
       const backend = cold('-a|', { a: widget });
-      (widgetService.postGenerateWidgetRoute as jasmine.Spy).and.returnValue(backend);
+      (widgetService.postGenerateWidgetRoute as jest.Mock).mockReturnValue(backend);
 
       const payload = { expertId: 'expert123', serviceId: 'service123' };
       const action = new GenerateWidgetActions.FetchWidgetIdAction(payload);
@@ -70,7 +70,7 @@ describe('GenerateWidgetEffects', () => {
     });
     it('should fetch data from backend with error and return Faulure Action', () => {
       const backend = cold('-#', {}, 'oups');
-      (widgetService.postGenerateWidgetRoute as jasmine.Spy).and.returnValue(backend);
+      (widgetService.postGenerateWidgetRoute as jest.Mock).mockReturnValue(backend);
 
       const payload = { expertId: 'expert123', serviceId: 'service123' };
       const action = new GenerateWidgetActions.FetchWidgetIdAction(payload);
@@ -96,7 +96,7 @@ describe('GenerateWidgetEffects', () => {
       const expected = cold('---r-', { r: outputAction });
 
       // mock executeion
-      (widgetService.postGenerateWidgetRoute as jasmine.Spy).and.returnValue(backendResponse);
+      (widgetService.postGenerateWidgetRoute as jest.Mock).mockReturnValue(backendResponse);
       actions$ = hot('--a--', { a: inputAction });
 
       // expect
@@ -111,7 +111,7 @@ describe('GenerateWidgetEffects', () => {
       const expected = cold('---r-', { r: outputAction });
 
       // mock executeion
-      (widgetService.postGenerateWidgetRoute as jasmine.Spy).and.returnValue(backendResponse);
+      (widgetService.postGenerateWidgetRoute as jest.Mock).mockReturnValue(backendResponse);
       actions$ = hot('--a--', { a: inputAction });
 
       // expect

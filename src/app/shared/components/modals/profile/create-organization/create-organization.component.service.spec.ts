@@ -23,19 +23,17 @@ describe('CreateOrganizationModalComponentService', () => {
         {
           provide: ProfileService,
           useValue: Deceiver(ProfileService, {
-            putOrganizationProfileRoute: jasmine
-              .createSpy('putOrganizationProfileRoute')
-              .and.returnValue(of(undefined)),
-            getProfileRoute: jasmine.createSpy('getProfileRoute'),
+            putOrganizationProfileRoute: jest.fn(() => of({})),
+            getProfileRoute: jest.fn(),
           }),
         },
         {
           provide: AlertService,
-          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
         },
         {
           provide: ServiceService,
-          useValue: Deceiver(ServiceService, { getProfileServicesRoute: jasmine.createSpy('getProfileServicesRoute') }),
+          useValue: Deceiver(ServiceService, { getProfileServicesRoute: jest.fn() }),
         },
       ],
     });
@@ -68,8 +66,8 @@ describe('CreateOrganizationModalComponentService', () => {
       dispatchLoggedUser(store, { account: { id: '123' }, isCompany: true });
       const expected = cold('--(a|)', { a: { getProfileWithDocuments: 'jest!', hasConsultations: true } });
 
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-(a|)', { a: 'jest!' }));
-      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      profileService.getProfileRoute = jest.fn(() => cold('-(a|)', { a: 'jest!' }));
+      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should return empty data if company not exists in session and account consultation exists flag', () => {
@@ -78,8 +76,8 @@ describe('CreateOrganizationModalComponentService', () => {
       dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
       const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
 
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-----(a|)', { a: 'jest!' }));
-      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
+      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should return empty data if company not false if no consultation exists', () => {
@@ -88,8 +86,8 @@ describe('CreateOrganizationModalComponentService', () => {
       dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
       const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
 
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-----(a|)', { a: 'jest!' }));
-      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
+      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should throw error on getProfileServicesRoute HTTP error', () => {
@@ -98,8 +96,8 @@ describe('CreateOrganizationModalComponentService', () => {
       dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
       const expected = cold('--#', {}, 'error');
 
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-----(a|)', { a: 'jest!' }));
-      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--#', {}, 'error'));
+      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
+      serviceService.getProfileServicesRoute = jest.fn(() => cold('--#', {}, 'error'));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should throw error on getProfileRoute HTTP error', () => {
@@ -108,8 +106,8 @@ describe('CreateOrganizationModalComponentService', () => {
       dispatchLoggedUser(store, { account: { id: '123' }, isCompany: true });
       const expected = cold('--#', {}, 'error');
 
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('--#', { a: 'jest!' }));
-      (serviceService.getProfileServicesRoute as jasmine.Spy).and.returnValue(cold('--(a|)', { a: [1] }));
+      profileService.getProfileRoute = jest.fn(() => cold('--#', { a: 'jest!' }));
+      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
   });

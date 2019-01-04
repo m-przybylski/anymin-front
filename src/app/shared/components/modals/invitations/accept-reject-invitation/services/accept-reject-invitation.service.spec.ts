@@ -18,18 +18,18 @@ describe('AcceptRejectInvitationService', () => {
 
   beforeEach(() => {
     invitationService = Deceiver(InvitationService, {
-      postInvitationAcceptRoute: jasmine.createSpy('postInvitationAcceptRoute'),
-      postInvitationRejectRoute: jasmine.createSpy('postInvitationRejectRoute'),
+      postInvitationAcceptRoute: jest.fn(),
+      postInvitationRejectRoute: jest.fn(),
     });
     alertService = Deceiver(AlertService, {
-      pushSuccessAlert: jasmine.createSpy('pushSuccessAlert'),
-      pushDangerAlert: jasmine.createSpy('pushDangerAlert'),
+      pushSuccessAlert: jest.fn(),
+      pushDangerAlert: jest.fn(),
     });
     serviceService = Deceiver(ServiceService, {
-      getServiceRoute: jasmine.createSpy('getServiceRoute'),
-      postServicesTagsRoute: jasmine.createSpy('postServicesTagsRoute'),
+      getServiceRoute: jest.fn(),
+      postServicesTagsRoute: jest.fn(),
     });
-    activeModal = Deceiver(NgbActiveModal, { close: jasmine.createSpy('close') });
+    activeModal = Deceiver(NgbActiveModal, { close: jest.fn() });
   });
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -71,10 +71,10 @@ describe('AcceptRejectInvitationService', () => {
     const postServicesTagsRoute = cold('--(a|)', { a: postServicesTags });
     const postCommissions = cold('(a|)', { a: { profileAmount: { value: 100, currency: 'PLN' } } });
     const expected = cold('--(a|)', { a: result });
-    const sessionService = TestBed.get(ServiceService);
-    sessionService.getServiceRoute.and.returnValue(getServiceRoute);
-    sessionService.postServicesTagsRoute.and.returnValue(postServicesTagsRoute);
-    financesService.postCommissionsRoute = jasmine.createSpy('').and.returnValue(postCommissions);
+    const sessionService: ServiceService = TestBed.get(ServiceService);
+    sessionService.getServiceRoute = jest.fn(() => getServiceRoute);
+    sessionService.postServicesTagsRoute = jest.fn(() => postServicesTagsRoute);
+    financesService.postCommissionsRoute = jest.fn(() => postCommissions);
 
     expect(service.getInvitationDetails({ id: '1234' } as any)).toBeObservable(expected);
   });
@@ -83,7 +83,7 @@ describe('AcceptRejectInvitationService', () => {
     it('should call accept invite, close modal and show message', () => {
       const postInvitationAcceptRoute = cold('-(a|)', { a: undefined });
       const expected = cold('-(a|)', { a: undefined });
-      (invitationService.postInvitationAcceptRoute as jasmine.Spy).and.returnValue(postInvitationAcceptRoute);
+      (invitationService.postInvitationAcceptRoute as jest.Mock).mockReturnValue(postInvitationAcceptRoute);
 
       expect(service.acceptInvitation('asdf', activeModal)).toBeObservable(expected);
       expect(activeModal.close).toHaveBeenCalledWith('asdf');
@@ -93,7 +93,7 @@ describe('AcceptRejectInvitationService', () => {
     it('should call not accept invite, not close modal and show message on error', () => {
       const postInvitationAcceptRoute = cold('-#', {});
       const expected = cold('-#', {});
-      (invitationService.postInvitationAcceptRoute as jasmine.Spy).and.returnValue(postInvitationAcceptRoute);
+      (invitationService.postInvitationAcceptRoute as jest.Mock).mockReturnValue(postInvitationAcceptRoute);
 
       expect(service.acceptInvitation('asdf', activeModal)).toBeObservable(expected);
       expect(activeModal.close).not.toHaveBeenCalled();
@@ -103,7 +103,7 @@ describe('AcceptRejectInvitationService', () => {
     it('should call reject invite, close modal and show message', () => {
       const postInvitationAcceptRoute = cold('-(a|)', { a: undefined });
       const expected = cold('-(a|)', { a: undefined });
-      (invitationService.postInvitationRejectRoute as jasmine.Spy).and.returnValue(postInvitationAcceptRoute);
+      (invitationService.postInvitationRejectRoute as jest.Mock).mockReturnValue(postInvitationAcceptRoute);
 
       expect(service.rejectInvitation('asdf', activeModal)).toBeObservable(expected);
       expect(activeModal.close).toHaveBeenCalledWith('asdf');

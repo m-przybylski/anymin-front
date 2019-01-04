@@ -21,7 +21,6 @@ describe('Service: PinCode service', () => {
   let router: Router;
   let logger: LoggerService;
   let store: Store<any>;
-  let dispatchSpy: jasmine.Spy;
   let accountService: AccountService;
   beforeEach(async(() => {
     logger = Deceiver(LoggerService);
@@ -35,14 +34,20 @@ describe('Service: PinCode service', () => {
       providers: [
         PinCodeViewService,
         provideMockFactoryLogger(logger),
-        { provide: ActivatedRoute, useValue: jasmine.createSpyObj('ActivatedRoute', ['params']) },
+        {
+          provide: ActivatedRoute,
+          useValue: Deceiver(ActivatedRoute),
+        },
         {
           provide: RegistrationService,
           useValue: Deceiver(RegistrationService),
         },
-        { provide: AlertService, useValue: jasmine.createSpyObj('AlertService', ['pushDangerAlert']) },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
+        },
         { provide: AccountService, useValue: Deceiver(AccountService) },
-        { provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) },
+        { provide: Router, useValue: Deceiver(Router, { navigate: jest.fn() }) },
       ],
     });
     TestBed.get(ActivatedRoute).params = of({ msisdn: mockPhoneNumber });
@@ -52,12 +57,11 @@ describe('Service: PinCode service', () => {
     mockRegistrationService = TestBed.get(RegistrationService);
     mockAlertService = TestBed.get(AlertService);
     store = TestBed.get(Store);
-    dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
   }));
 
   it('should redirect user to set password', fakeAsync(() => {
-    accountService.putMarketingSettingsRoute = jasmine.createSpy('putMarketingSettingsRoute').and.returnValue(of({}));
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    accountService.putMarketingSettingsRoute = jest.fn().mockReturnValue(of({}));
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       of({
         session: {
           accountId: '12',
@@ -66,15 +70,15 @@ describe('Service: PinCode service', () => {
     );
     const action = new SessionActions.FetchSessionSuccessAction(of({ session: {} }) as any);
     store.dispatch(action);
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
     tick();
     expect(router.navigate).toHaveBeenCalledWith(['/account/set-password']);
   }));
 
   it('should not be able to redirect user to set password and display alert to user', fakeAsync(() => {
-    accountService.putMarketingSettingsRoute = jasmine.createSpy('putMarketingSettingsRoute').and.returnValue(of({}));
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    accountService.putMarketingSettingsRoute = jest.fn(() => of({}));
+    mockRegistrationService.confirmVerificationRoute = jest.fn(() =>
       of({
         session: {
           accountId: '12',
@@ -83,7 +87,7 @@ describe('Service: PinCode service', () => {
     );
     const action = new SessionActions.FetchSessionSuccessAction(of({ session: {} }) as any);
     store.dispatch(action);
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
     spyOn(logger, 'warn');
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
@@ -93,7 +97,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display error if user try to create another token', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.CreateAnotherPinCodeTokenRecently,
@@ -102,7 +106,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
     tick();
@@ -110,7 +114,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display error if user try to send pin code too recently', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.PincodeSentTooRecently,
@@ -119,7 +123,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
     tick();
@@ -127,7 +131,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status incorrect verification of token', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.MsisdnVerificationTokenIncorrect,
@@ -136,7 +140,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
     pinCodeViewService.handleRegistration('123', 'token').subscribe(
       _ => _,
       (error: PinCodeServiceStatus) => {
@@ -147,7 +151,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status can not find the token ', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.CannotFindMsisdnToken,
@@ -156,7 +160,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe(
       _ => _,
@@ -168,7 +172,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status incorrect validation', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -177,7 +181,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe(
       _ => _,
@@ -189,7 +193,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should return status too many msisdn token attempts', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.TooManyMsisdnTokenAttempts,
@@ -198,7 +202,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe(
       _ => _,
@@ -210,7 +214,7 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display alert and return error status on unhandled backend error', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn().mockReturnValue(
       throwError({
         error: {
           code: 123,
@@ -219,7 +223,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
     pinCodeViewService.handleRegistration('123', 'token').subscribe(
       _ => _,
       (error: PinCodeServiceStatus) => {
@@ -231,12 +235,12 @@ describe('Service: PinCode service', () => {
   }));
 
   it('should display alert and return error status on undefined errors from backend', fakeAsync(() => {
-    mockRegistrationService.confirmVerificationRoute = jasmine.createSpy('confirmVerificationRoute').and.returnValue(
+    mockRegistrationService.confirmVerificationRoute = jest.fn(() =>
       throwError({
         error: {},
       }),
     );
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(false));
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
 
     pinCodeViewService.handleRegistration('123', 'token').subscribe(
       _ => _,

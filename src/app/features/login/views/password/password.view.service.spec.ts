@@ -2,13 +2,14 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RegistrationService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
-import createSpyObj = jasmine.createSpyObj;
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { RegistrationInvitationService } from '../../../../shared/services/registration-invitation/registration-invitation.service';
 import { PasswordLoginStatus, PasswordViewService } from './password.view.service';
 import { LocalStorageWrapperService } from '../../../../shared/services/local-storage/local-storage.service';
 import { UserSessionService } from '../../../../core/services/user-session/user-session.service';
 import { throwError } from 'rxjs';
+import { Deceiver } from 'deceiver-core';
+import { provideMockFactoryLogger } from 'testing/testing';
 
 describe('Service: PasswordService', () => {
   const correctPhoneNumber = '+48555555555';
@@ -20,20 +21,29 @@ describe('Service: PasswordService', () => {
         PasswordViewService,
         {
           provide: RegistrationService,
-          useValue: createSpyObj('RegistrationService', ['checkRegistrationStatusRoute']),
+          useValue: Deceiver(RegistrationService, { checkRegistrationStatusRoute: jest.fn() }),
         },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert']) },
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
-        { provide: UserSessionService, useValue: createSpyObj('UserSessionService', ['login']) },
-        { provide: LocalStorageWrapperService, useValue: createSpyObj('LocalStorageWrapperService', ['removeItem']) },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
+        },
+        provideMockFactoryLogger(),
+        {
+          provide: UserSessionService,
+          useValue: Deceiver(UserSessionService, { login: jest.fn() }),
+        },
+        {
+          provide: LocalStorageWrapperService,
+          useValue: Deceiver(LocalStorageWrapperService, { removeItem: jest.fn() }),
+        },
         {
           provide: RegistrationInvitationService,
-          useValue: createSpyObj('RegistrationInvitationService', ['getInvitationObject']),
+          useValue: Deceiver(RegistrationInvitationService, { getInvitationObject: jest.fn() }),
         },
-        { provide: Router, useValue: createSpyObj('Router', ['navigate']) },
+        { provide: Router, useValue: Deceiver(Router, { navigate: jest.fn() }) },
       ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue({
+    TestBed.get(LoggerFactory).createLoggerService.mockReturnValue({
       warn: (): void => {},
       error: (): void => {},
     });
@@ -45,8 +55,8 @@ describe('Service: PasswordService', () => {
     const registrationService = TestBed.get(RegistrationInvitationService);
     const expectedStatus: PasswordLoginStatus = PasswordLoginStatus.TOO_MANY_ATTEMPTS;
 
-    userSessionService.login.and.returnValue(throwError({ error: { code: 345, message: 'errorMessage' } }));
-    registrationService.getInvitationObject.and.returnValue({});
+    userSessionService.login.mockReturnValue(throwError({ error: { code: 345, message: 'errorMessage' } }));
+    registrationService.getInvitationObject.mockReturnValue({});
     passwordService.login(correctPhoneNumber, correctPassword).subscribe((status: PasswordLoginStatus) => {
       expect(status).toEqual(expectedStatus);
     });
@@ -59,8 +69,8 @@ describe('Service: PasswordService', () => {
     const registrationService = TestBed.get(RegistrationInvitationService);
     const expectedStatus: PasswordLoginStatus = PasswordLoginStatus.WRONG_PASSWORD;
 
-    userSessionService.login.and.returnValue(throwError({ error: { code: 200, message: 'errorMessage' } }));
-    registrationService.getInvitationObject.and.returnValue({});
+    userSessionService.login.mockReturnValue(throwError({ error: { code: 200, message: 'errorMessage' } }));
+    registrationService.getInvitationObject.mockReturnValue({});
     passwordService.login(correctPhoneNumber, correctPassword).subscribe((status: PasswordLoginStatus) => {
       expect(status).toEqual(expectedStatus);
     });
@@ -73,8 +83,8 @@ describe('Service: PasswordService', () => {
     const registrationService = TestBed.get(RegistrationInvitationService);
     const expectedStatus: PasswordLoginStatus = PasswordLoginStatus.WRONG_PASSWORD;
 
-    userSessionService.login.and.returnValue(throwError({ error: { code: 101, message: 'errorMessage' } }));
-    registrationService.getInvitationObject.and.returnValue({});
+    userSessionService.login.mockReturnValue(throwError({ error: { code: 101, message: 'errorMessage' } }));
+    registrationService.getInvitationObject.mockReturnValue({});
     passwordService.login(correctPhoneNumber, correctPassword).subscribe((status: PasswordLoginStatus) => {
       expect(status).toEqual(expectedStatus);
     });
@@ -87,8 +97,8 @@ describe('Service: PasswordService', () => {
     const registrationService = TestBed.get(RegistrationInvitationService);
     const expectedStatus: PasswordLoginStatus = PasswordLoginStatus.ERROR;
 
-    userSessionService.login.and.returnValue(throwError({ error: { code: 0, message: 'errorMessage' } }));
-    registrationService.getInvitationObject.and.returnValue({});
+    userSessionService.login.mockReturnValue(throwError({ error: { code: 0, message: 'errorMessage' } }));
+    registrationService.getInvitationObject.mockReturnValue({});
     passwordService.login(correctPhoneNumber, correctPassword).subscribe((status: PasswordLoginStatus) => {
       expect(status).toEqual(expectedStatus);
     });
@@ -101,8 +111,8 @@ describe('Service: PasswordService', () => {
     const registrationService = TestBed.get(RegistrationInvitationService);
     const expectedStatus: PasswordLoginStatus = PasswordLoginStatus.ERROR;
 
-    userSessionService.login.and.returnValue(throwError(Error('error')));
-    registrationService.getInvitationObject.and.returnValue({});
+    userSessionService.login.mockReturnValue(throwError(Error('error')));
+    registrationService.getInvitationObject.mockReturnValue({});
     passwordService.login(correctPhoneNumber, correctPassword).subscribe((status: PasswordLoginStatus) => {
       expect(status).toEqual(expectedStatus);
     });

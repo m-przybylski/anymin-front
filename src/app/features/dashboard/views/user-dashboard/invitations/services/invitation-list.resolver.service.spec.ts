@@ -15,11 +15,11 @@ describe('InvitationListResolverService', () => {
   const routerStateSnapshot: RouterStateSnapshot = Deceiver(RouterStateSnapshot);
   beforeEach(() => {
     invitationService = Deceiver(InvitationService, {
-      getInvitationsRoute: jasmine.createSpy('').and.returnValue(of(Mocks.invitationsMock)),
+      getInvitationsRoute: jest.fn().mockReturnValue(of(Mocks.invitationsMock)),
     });
 
     profileService = Deceiver(ProfileService, {
-      getProfileRoute: jasmine.createSpy('').and.callFake(getProfileId),
+      getProfileRoute: jest.fn().mockImplementation(getProfileId),
     });
 
     invitationListResolverService = new InvitationListResolverService(invitationService, profileService);
@@ -29,7 +29,7 @@ describe('InvitationListResolverService', () => {
     expect(invitationListResolverService).toBeTruthy();
   });
 
-  it('should call intivations', fakeAsync(() => {
+  it('should call invitations', fakeAsync(() => {
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe();
     tick();
     expect(invitationService.getInvitationsRoute).toHaveBeenCalledTimes(1);
@@ -44,14 +44,14 @@ describe('InvitationListResolverService', () => {
 
   it('should call profile only once', fakeAsync(() => {
     const two = 2;
-    (invitationService.getInvitationsRoute as jasmine.Spy).and.returnValue(of(Mocks.invitationsMock2));
+    (invitationService.getInvitationsRoute as jest.Mock).mockReturnValue(of(Mocks.invitationsMock2));
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe();
     tick();
     expect(profileService.getProfileRoute).toHaveBeenCalledTimes(two);
   }));
 
   it('should not throw if not organization details returned', fakeAsync(() => {
-    (invitationService.getInvitationsRoute as jasmine.Spy).and.returnValue(of(Mocks.invitationsMock3));
+    (invitationService.getInvitationsRoute as jest.Mock).mockReturnValue(of(Mocks.invitationsMock3));
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe(data => {
       expect(data).toEqual(Mocks.result3);
     });
@@ -60,7 +60,7 @@ describe('InvitationListResolverService', () => {
   }));
 
   it('should sort array by date descending', fakeAsync(() => {
-    (invitationService.getInvitationsRoute as jasmine.Spy).and.returnValue(of(Mocks.invitationsMock4));
+    (invitationService.getInvitationsRoute as jest.Mock).mockReturnValue(of(Mocks.invitationsMock4));
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe(data => {
       expect(data).toEqual(Mocks.result4);
     });
@@ -68,14 +68,14 @@ describe('InvitationListResolverService', () => {
 
   it('should filter invitations and take only new', fakeAsync(() => {
     const two = 2;
-    (invitationService.getInvitationsRoute as jasmine.Spy).and.returnValue(of(Mocks.invitationsMock5));
+    (invitationService.getInvitationsRoute as jest.Mock).mockReturnValue(of(Mocks.invitationsMock5));
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe(data => {
       expect(data.length).toEqual(two);
     });
   }));
 
   it('should return empty array if there is are no pending intites', fakeAsync(() => {
-    (invitationService.getInvitationsRoute as jasmine.Spy).and.returnValue(of(Mocks.invitationsMock6));
+    (invitationService.getInvitationsRoute as jest.Mock).mockReturnValue(of(Mocks.invitationsMock6));
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe(data => {
       expect(data).toEqual(Mocks.result6);
     });

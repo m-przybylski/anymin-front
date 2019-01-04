@@ -15,7 +15,7 @@ describe('ActivityDetailsViewComponentService', () => {
   let service: ActivityDetailsViewComponentService;
 
   const loggerService: LoggerService = Deceiver(LoggerService, {
-    warn: jasmine.createSpy('warn'),
+    warn: jest.fn(),
   });
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('ActivityDetailsViewComponentService', () => {
 
   beforeEach(() => {
     service = TestBed.get(ActivityDetailsViewComponentService);
-    (loggerService.warn as jasmine.Spy).calls.reset();
+    (loggerService.warn as jest.Mock).mockClear();
   });
 
   it('should get activity details with client avatar and expert avatar', () => {
@@ -181,9 +181,7 @@ describe('ActivityDetailsViewComponentService', () => {
     const expectedResult = cold('-(a|)', { a: expectedValue });
     const getCallDetails = cold('-(a|)', { a: response });
 
-    viewsService.getDashboardCallDetailsRoute = jasmine
-      .createSpy('getDashboardCallDetailsRoute')
-      .and.returnValue(getCallDetails);
+    viewsService.getDashboardCallDetailsRoute = jest.fn(() => getCallDetails);
     expect(service.getCallDetails(mockSueId, mockAccountId)).toBeObservable(expectedResult);
   });
 
@@ -269,9 +267,7 @@ describe('ActivityDetailsViewComponentService', () => {
     const expectedResult = cold('-(a|)', { a: expectedValue });
     const getCallDetails = cold('-(a|)', { a: response });
 
-    viewsService.getDashboardCallDetailsRoute = jasmine
-      .createSpy('getDashboardCallDetailsRoute')
-      .and.returnValue(getCallDetails);
+    viewsService.getDashboardCallDetailsRoute = jest.fn(() => getCallDetails);
     expect(service.getCallDetails(mockSueId, mockAccountId)).toBeObservable(expectedResult);
   });
 
@@ -281,9 +277,7 @@ describe('ActivityDetailsViewComponentService', () => {
     const mockActivityId = 'mockActivityId';
     const expected = cold('-|');
 
-    activitiesService.putUnimportantProfileActivityRoute = jasmine
-      .createSpy('putUnimportantProfileActivityRoute')
-      .and.returnValue(putUnimportantActivity);
+    activitiesService.putUnimportantProfileActivityRoute = jest.fn(() => putUnimportantActivity);
 
     expect(service.markActivityAsUnimportant(mockActivityId)).toBeObservable(expected);
     expect(loggerService.warn).toHaveBeenCalledWith('Error when try to mark activity as unimportant', 'someError');
