@@ -10,6 +10,7 @@ export enum ActivitiesPageActionTypes {
   ActivityDetailsClosed = '[Activities Page] Activity Details Closed',
   ExpertActivityRowClick = '[Activity Page] Expert Activity Row Click',
   CompanyActivityRowClick = '[Activity Page] Company Activity Row Click',
+  LoadFilteredCompanyActivities = '[Activity Page] Load Filtered Company Activities',
 }
 
 export class LoadMoreExpertActivitiesAction implements Action {
@@ -50,6 +51,12 @@ export class CompanyActivityRowClickAction implements Action {
   constructor(public payload: { getProfileActivity: GetProfileActivity; isImportant: boolean }) {}
 }
 
+export class LoadFilteredCompanyActivitiesAction implements Action {
+  public readonly type = ActivitiesPageActionTypes.LoadFilteredCompanyActivities;
+
+  constructor(public payload: { filter?: string }) {}
+}
+
 export type ActivitiesPageActionUnion =
   | LoadMoreExpertActivitiesAction
   | LoadMoreCompanyActivitiesAction
@@ -57,4 +64,5 @@ export type ActivitiesPageActionUnion =
   | ShowImportantActivitiesAction
   | ActivityDetailsClosedAction
   | ExpertActivityRowClickAction
-  | CompanyActivityRowClickAction;
+  | CompanyActivityRowClickAction
+  | LoadFilteredCompanyActivitiesAction;

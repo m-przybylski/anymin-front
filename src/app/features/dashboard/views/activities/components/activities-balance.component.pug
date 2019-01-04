@@ -1,41 +1,47 @@
 .activities-balance
   .activities-balance__profit-container(*ngIf="isLoaded; else loader")
-    .activities-balance__profit
-      .activities-balance__profit-header
-        span.activities-balance__profit-label(*ngIf="activityListType === activityListTypeEnum.EXPERT") {{ "ACTIVITIES.PROFIT_HEADER" | translate }}
-        span.activities-balance__profit-label(*ngIf="activityListType === activityListTypeEnum.COMPANY") {{ "ACTIVITIES.PROFIT_HEADER_COMPANY" | translate }}
-        am-core-tooltip(
-        [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
-        )
-      p.activities-balance__profit-money {{ combinedBalance.value | moneyDivider | currency: combinedBalance.currency:'symbol-narrow' }}
+    .activities-balance__wrapper
+      .activities-balance__profit
+        .activities-balance__profit-header
+          span.activities-balance__profit-label(*ngIf="activityListType === activityListTypeEnum.EXPERT") {{ "ACTIVITIES.PROFIT_HEADER" | translate }}
+          span.activities-balance__profit-label(*ngIf="activityListType === activityListTypeEnum.COMPANY") {{ "ACTIVITIES.PROFIT_HEADER_COMPANY" | translate }}
+          am-core-tooltip(
+          [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
+          )
+        p.activities-balance__profit-money {{ combinedBalance.value | moneyDivider | currency: combinedBalance.currency:'symbol-narrow' }}
 
-    .activities-balance__profit
-      .activities-balance__profit-header
-        span.activities-balance__profit-label {{ "ACTIVITIES.BLOCKED_PROFIT_HEADER" | translate }}
-        am-core-tooltip(
-        [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
-        )
-      p.activities-balance__profit-money {{ combinedBlockedBalance.value | moneyDivider | currency: combinedBlockedBalance.currency:'symbol-narrow' }}
+    .activities-balance__wrapper
+      .activities-balance__profit
+        .activities-balance__profit-header
+          span.activities-balance__profit-label {{ "ACTIVITIES.BLOCKED_PROFIT_HEADER" | translate }}
+          am-core-tooltip(
+          [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
+          )
+        p.activities-balance__profit-money {{ combinedBlockedBalance.value | moneyDivider | currency: combinedBlockedBalance.currency:'symbol-narrow' }}
 
-    .activities-balance__profit.activities-balance__profit--split(*ngIf="activityListType === activityListTypeEnum.COMPANY")
-      .activities-balance__split-container
-        span.activities-balance__profit-label {{ "ACTIVITIES.WORKERS_PROFIT_HEADER" | translate }}
-        p {{ balance.profileAmount.value | moneyDivider | currency: balance.profileAmount.currency:'symbol-narrow' }}
+    .activities-balance__wrapper(*ngIf="activityListType === activityListTypeEnum.COMPANY")
+      .activities-balance__profit.activities-balance__profit--split
+        .activities-balance__split-container
+          span.activities-balance__profit-label {{ "ACTIVITIES.WORKERS_PROFIT_HEADER" | translate }}
+          p {{ balance.profileAmount.value | moneyDivider | currency: balance.profileAmount.currency:'symbol-narrow' }}
 
-      .activities-balance__split-container
-        span.activities-balance__profit-label {{ "ACTIVITIES.FREELANCE_PROFIT_HEADER" | translate }}
-        p {{ balance.partnerAmount.value | moneyDivider | currency: balance.partnerAmount.currency:'symbol-narrow' }}
+        .activities-balance__split-container
+          span.activities-balance__profit-label {{ "ACTIVITIES.FREELANCE_PROFIT_HEADER" | translate }}
+          p {{ balance.partnerAmount.value | moneyDivider | currency: balance.partnerAmount.currency:'symbol-narrow' }}
 
 
 
   ng-template(#loader)
     .activities-balance__profit-container
-      .activities-balance__profit.activities-balance__profit--loader
-        plat-balance-loader
-      .activities-balance__profit.activities-balance__profit--loader
-        plat-balance-loader
-      .activities-balance__profit.activities-balance__profit--split.activities-balance__profit--loader(*ngIf="activityListType === activityListTypeEnum.COMPANY")
-        .activities-balance__split-container
+      .activities-balance__wrapper
+        .activities-balance__profit.activities-balance__profit--loader
           plat-balance-loader
-        .activities-balance__split-container
+      .activities-balance__wrapper
+        .activities-balance__profit.activities-balance__profit--loader
           plat-balance-loader
+      .activities-balance__wrapper(*ngIf="activityListType === activityListTypeEnum.COMPANY")
+        .activities-balance__profit.activities-balance__profit--split.activities-balance__profit--loader
+          .activities-balance__split-container
+            plat-balance-loader
+          .activities-balance__split-container
+            plat-balance-loader

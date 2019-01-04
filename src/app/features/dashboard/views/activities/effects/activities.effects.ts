@@ -67,6 +67,20 @@ export class ActivitiesEffects {
   );
 
   @Effect()
+  public loadFilteredCompanyActivities$ = this.actions$.pipe(
+    ofType<ActivitiesPageActions.LoadFilteredCompanyActivitiesAction>(
+      ActivitiesPageActions.ActivitiesPageActionTypes.LoadFilteredCompanyActivities,
+    ),
+    map(action => action.payload),
+    exhaustMap(config =>
+      this.activitiesListService.getCompanyActivities(undefined, undefined, config.filter).pipe(
+        map(getProfileActivities => new ActivitiesApiActions.LoadFilteredActivitiesSuccessAction(getProfileActivities)),
+        catchError(error => of(new ActivitiesApiActions.LoadFilteredActivitiesFailureAction(error))),
+      ),
+    ),
+  );
+
+  @Effect()
   public openExpertActivityDetails$ = this.actions$.pipe(
     ofType<ActivitiesPageActions.ExpertActivityRowClickAction>(
       ActivitiesPageActions.ActivitiesPageActionTypes.ExpertActivityRowClick,

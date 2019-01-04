@@ -1,13 +1,13 @@
 .activities(*ngIf="profileActivities$ | async as profileActivities")
-  .container(*ngIf="isLoaded$  | async as isLoaded; else loader")
+  .container(*ngIf="(isLoaded$ | async) || (isListFiltered$ | async) as isLoaded; else loader")
     plat-activities-balance([activityListType]="listType", [isLoaded]="isLoaded",
     [combinedBalance]="combinedBalance$ | async",
     [combinedBlockedBalance]="combinedBlockedBalance$ | async", [balance]="balance$ | async")
-    .non-activities(*ngIf="!profileActivities.length")
+    .non-activities(*ngIf="!profileActivities.length && !(isListFiltered$ | async)")
       am-core-image-display.non-activities__image(imgName="activities")
       span {{ "EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER" | translate }}
 
-    .activities-lists(*ngIf="profileActivities.length")
+    .activities-lists(*ngIf="profileActivities.length || (isListFiltered$ | async)")
       .important-list(*ngIf="importantActivitiesCounter$ | async as importantActivitiesCounter")
         .important-list__header
           span {{"EXPERT_ACTIVITIES.IMPORTANT_LIST_COUNTER_TITLE" | translate: {currentValue: (displayedImportantActivities$ | async).length, counter: importantActivitiesCounter} }}
@@ -29,23 +29,53 @@
             )
 
       .all-list
-        .all-list__header
-          span {{"EXPERT_ACTIVITIES.ALL_LIST_COUNTER_TITLE" | translate}}
-          a.activities__filter-button
+        .all-list__header([ngSwitch]="currentFilter")
+          span(*ngSwitchCase="activitiesFilterEnum.EMPLOYEES") {{"EXPERT_ACTIVITIES.EMPLOYEES_LIST_COUNTER_TITLE" | translate}}
+          span(*ngSwitchCase="activitiesFilterEnum.FREELANCE") {{"EXPERT_ACTIVITIES.FREELANCERS_LIST_COUNTER_TITLE" | translate}}
+          span(*ngSwitchDefault) {{"EXPERT_ACTIVITIES.ALL_LIST_COUNTER_TITLE" | translate}}
+          .filter-button(*ngIf="listType === activityListTypeEnum.COMPANY", toggleElementDirective, (isClickedElement)="toggleDropdown($event)")
             span(plat-icon, iconClass="filters")
-            span {{ "EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS" | translate }}
+            span(plat-button-link).filter-button__text {{ "EXPERT_ACTIVITIES.ALL_LIST_SHOW_FILTERS" | translate }}
 
-        ul.all-list__container
-          li(*ngFor='let profileActivity of profileActivities; trackBy:trackByActivities', [@animation])
-            plat-activity-row(
-            [activity]="profileActivity.activity",
-            [isImportant]="profileActivity.isImportant",
-            [listType]="listType",
-            (activityRowClicked)="onActivityRowClicked(profileActivity.activity, profileActivity.isImportant)",
-            )
-      .bottom
-        button.button-mobile(plat-stroked-button, *ngIf="isMoreActivity$ | async", (click)="loadMore()")
-          span {{ 'EXPERT_ACTIVITIES.LOAD_MORE' | translate }}
+            plat-menu-list([dropdownVisibility]="dropdownVisibility")
+
+              li((click)="onDropdownChoose()", [ngClass]="{'active': !currentFilter}")
+                span {{ 'ACTIVITIES.FILTERS_MENU.ALL' | translate }}
+
+              li((click)="onDropdownChoose(activitiesFilterEnum.EMPLOYEES)", [ngClass]="{'active': currentFilter === activitiesFilterEnum.EMPLOYEES}")
+                span {{ 'ACTIVITIES.FILTERS_MENU.WORKERS' | translate }}
+
+              li((click)="onDropdownChoose(activitiesFilterEnum.FREELANCE)", [ngClass]="{'active': currentFilter === activitiesFilterEnum.FREELANCE}")
+                span {{ 'ACTIVITIES.FILTERS_MENU.FREELANCE' | translate }}
+
+        .all-list__container(*ngIf="(isLoaded$ | async) || !(isListFiltered$ | async); else listLoader")
+          ul
+            li(*ngFor='let profileActivity of profileActivities; trackBy:trackByActivities', [@animation])
+              plat-activity-row(
+              [activity]="profileActivity.activity",
+              [isImportant]="profileActivity.isImportant",
+              [listType]="listType",
+              (activityRowClicked)="onActivityRowClicked(profileActivity.activity, profileActivity.isImportant)",
+              )
+
+          .non-activities(*ngIf="!profileActivities.length && (isListFiltered$ | async)")
+            am-core-image-display.non-activities__image(imgName="activities")
+            span {{ "EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER" | translate }}
+
+        ng-template(#listLoader)
+          ul.activity-loader-list
+            li.activity-loader-list__item
+              plat-consultation-row-loader
+            li.activity-loader-list__item
+              plat-consultation-row-loader
+            li.activity-loader-list__item
+              plat-consultation-row-loader
+            li.activity-loader-list__item
+              plat-consultation-row-loader
+
+        .bottom
+          a(plat-stroked-button, (click)="onLoadMoreActivities()",
+          *ngIf="(isMoreActivity$ | async) && (isLoaded$ | async)") {{"EXPERT_ACTIVITIES.LOAD_MORE" | translate}}
 
 ng-template(#loader)
   .container

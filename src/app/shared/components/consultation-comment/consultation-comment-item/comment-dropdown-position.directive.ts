@@ -12,8 +12,7 @@ export class CommentDropdownPositionDirective {
   @HostListener('document:click', ['$event'])
   public handleClick(event: Event): void {
     if (this.isElementClicked(event)) {
-      const dropdownElement = this.element.nativeElement.lastElementChild;
-
+      const dropdownElement = this.element.nativeElement.lastElementChild.firstElementChild;
       if (this.commentDropdownParentElement.offsetHeight > dropdownElement.clientHeight) {
         dropdownElement.style.top = '100%';
         dropdownElement.style.bottom = 'unset';

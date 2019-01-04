@@ -10,6 +10,8 @@ export enum ActivitiesApiActionTypes {
   LoadActivitiesWithImportantFailure = '[Activities API] Load All Activities Failure',
   LoadActivitySuccess = '[Activities API] Load Activity Success',
   LoadActivityFailure = '[Activities API] Load Activity Failure',
+  LoadFilteredActivitiesSuccess = '[Activities API] Load Filtered Activities Success',
+  LoadFilteredActivitiesFailure = '[Activities API] Load Filtered Activities Failure',
 }
 
 export class LoadActivitiesWithImportantSuccessAction implements Action {
@@ -50,10 +52,26 @@ export class LoadActivityFailureAction implements Action {
   // tslint:disable-next-line:no-any
   constructor(public payload: any) {}
 }
+
+export class LoadFilteredActivitiesSuccessAction implements Action {
+  public readonly type = ActivitiesApiActionTypes.LoadFilteredActivitiesSuccess;
+
+  constructor(public payload: GetProfileActivities) {}
+}
+
+export class LoadFilteredActivitiesFailureAction implements Action {
+  public readonly type = ActivitiesApiActionTypes.LoadFilteredActivitiesFailure;
+
+  // tslint:disable-next-line:no-any
+  constructor(public payload: any) {}
+}
+
 export type ActivitiesApiActionUnion =
   | LoadActivitiesWithImportantSuccessAction
   | LoadActivitiesWithImportantFailureAction
   | LoadActivitiesSuccessAction
   | LoadActivitiesFailureAction
   | LoadActivitySuccessAction
-  | LoadActivityFailureAction;
+  | LoadActivityFailureAction
+  | LoadFilteredActivitiesSuccessAction
+  | LoadFilteredActivitiesFailureAction;

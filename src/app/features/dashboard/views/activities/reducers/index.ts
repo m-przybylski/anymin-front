@@ -28,21 +28,55 @@ export const getActivitiesState = createFeatureSelector<IState, IActivitiesState
 /**
  * selectors for activieties
  */
-const getActivities = createSelector(getActivitiesState, state => state.activities);
+const getActivities = createSelector(
+  getActivitiesState,
+  state => state.activities,
+);
 
-export const getActivitiesList = createSelector(getActivities, fromActivites.getActivitiesList);
-export const getActivitiesCount = createSelector(getActivities, fromActivites.getActivitiesCount);
-export const getImportantActivitiesList = createSelector(getActivities, fromActivites.getImportantActivitiesList);
-export const getImportantActivitiesCount = createSelector(getActivities, fromActivites.getImportantActivitiesCount);
-export const getActivitiesIsLoaded = createSelector(getActivities, fromActivites.getIsLoaded);
-export const getCurrentOffset = createSelector(getActivities, fromActivites.getCurrentOffset);
-export const getOffsetIterator = createSelector(getActivities, fromActivites.getOffsetIterator);
-export const getShowImportantActivities = createSelector(getActivities, fromActivites.getShowImportantActivities);
+export const getActivitiesList = createSelector(
+  getActivities,
+  fromActivites.getActivitiesList,
+);
+export const getActivitiesCount = createSelector(
+  getActivities,
+  fromActivites.getActivitiesCount,
+);
+export const getImportantActivitiesList = createSelector(
+  getActivities,
+  fromActivites.getImportantActivitiesList,
+);
+export const getImportantActivitiesCount = createSelector(
+  getActivities,
+  fromActivites.getImportantActivitiesCount,
+);
+export const getActivitiesIsLoaded = createSelector(
+  getActivities,
+  fromActivites.getIsLoaded,
+);
+export const getIsListFiltered = createSelector(
+  getActivities,
+  fromActivites.getIsListFiltered,
+);
+export const getCurrentOffset = createSelector(
+  getActivities,
+  fromActivites.getCurrentOffset,
+);
+export const getOffsetIterator = createSelector(
+  getActivities,
+  fromActivites.getOffsetIterator,
+);
+export const getShowImportantActivities = createSelector(
+  getActivities,
+  fromActivites.getShowImportantActivities,
+);
 export const getDisplayedImportantActivitiesIds = createSelector(
   getActivities,
   fromActivites.getDisplayedImportantActivitiesIds,
 );
-export const getImportantActivitiesOffset = createSelector(getActivities, fromActivites.getImportantActivitiesOffset);
+export const getImportantActivitiesOffset = createSelector(
+  getActivities,
+  fromActivites.getImportantActivitiesOffset,
+);
 /**
  * selectors for activieties with logic
  * combine selectors for activites and important activites
@@ -74,18 +108,37 @@ export const getDisplayedImportantActivities = createSelector(
 /**
  * select both offsets in one hit
  */
-export const getCurrentOffsets = createSelector(getCurrentOffset, getOffsetIterator, (current, iterator) => ({
-  current,
-  iterator,
-}));
+export const getCurrentOffsets = createSelector(
+  getCurrentOffset,
+  getOffsetIterator,
+  (current, iterator) => ({
+    current,
+    iterator,
+  }),
+);
 /**
  * selectors for balance
  */
-const getBalance = createSelector(getActivitiesState, state => state.balance);
-export const getBalanceAmount = createSelector(getBalance, fromBalance.getBalance);
-export const getCombinedBalance = createSelector(getBalance, fromBalance.getCombinedBalance);
-export const getCombinedBlockedBalance = createSelector(getBalance, fromBalance.getCombinedBlockedBalance);
-export const getBalanceIsLoaded = createSelector(getBalance, fromBalance.getIsLoaded);
+const getBalance = createSelector(
+  getActivitiesState,
+  state => state.balance,
+);
+export const getBalanceAmount = createSelector(
+  getBalance,
+  fromBalance.getBalance,
+);
+export const getCombinedBalance = createSelector(
+  getBalance,
+  fromBalance.getCombinedBalance,
+);
+export const getCombinedBlockedBalance = createSelector(
+  getBalance,
+  fromBalance.getCombinedBlockedBalance,
+);
+export const getBalanceIsLoaded = createSelector(
+  getBalance,
+  fromBalance.getIsLoaded,
+);
 
 export const getIsLoaded = createSelector(
   getBalanceIsLoaded,

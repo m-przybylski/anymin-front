@@ -28,11 +28,8 @@
       )
         span.icon.icon-options-more(toggleElementDirective, (isClickedElement)="toggleDropdown($event)")
 
-        ul.consultation-comment-item__edit__dropdown(
-          #commentDropdown,
-          [@dropdownAnimation]="dropdownVisibility",
-          (@dropdownAnimation.start)="onAnimationStart($event, commentDropdown)",
-          (@dropdownAnimation.done)="onAnimationDone($event, commentDropdown)"
+        plat-menu-list.consultation-comment-item__edit__dropdown(
+          [dropdownVisibility]="dropdownVisibility"
         )
 
           li(*ngIf="!_isReported", (click)="onDropdownChoose(dropdownNavigationList.REASON_REPORT)")

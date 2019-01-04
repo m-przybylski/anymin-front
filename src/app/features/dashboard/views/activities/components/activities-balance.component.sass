@@ -5,34 +5,49 @@
     overflow-y: hidden
     overflow-x: scroll
     display: flex
+    margin: 0 -8px 0 0
+
+    +smm
+      margin: 0 -24px 0 0
 
     +lgm
       overflow: hidden
 
-  &__profit
-    background: $c-white
-    height: 88px
-    min-width: 272px
+  &__wrapper
     margin: 0 8px
     width: 100%
-    padding: 16px
-    border-radius: 4px
-
-    &:first-child
-      >p
-        color: $c-primary
 
     +smm
-      height: 110px
-      min-width: 320px
       margin: 0 12px
-      padding: 24px 16px
 
       &:first-child
         margin: 0 12px 0 0
 
       &:last-child
         margin: 0 0 0 12px
+
+    &:first-child
+      p
+       color: $c-primary
+
+    &:last-child
+      padding: 0 16px 0 0
+
+      +smm
+        padding: 0 24px 0 0
+
+  &__profit
+    background: $c-white
+    height: 88px
+    min-width: 272px
+    width: 100%
+    padding: 16px
+    border-radius: 4px
+
+    +smm
+      height: 110px
+      min-width: 320px
+      padding: 24px 16px
 
     +lgm
       height: 116px

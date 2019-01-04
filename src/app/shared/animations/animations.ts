@@ -1,4 +1,5 @@
 // tslint:disable:readonly-array
+// tslint:disable:no-magic-numbers
 import {
   animate,
   AnimationTriggerMetadata,
@@ -8,6 +9,7 @@ import {
   transition,
   trigger,
   state,
+  keyframes,
 } from '@angular/animations';
 
 export class Animations {
@@ -61,6 +63,31 @@ export class Animations {
       state('show', style({ transform: 'translate3D(0, 0 ,0)' })),
       state('hide', style({ transform: 'translate3D(calc(100% + 16px), 0, 0)' })),
       transition('show <=> hide', [animate('300ms ease-in-out')]),
+    ]),
+  ];
+
+  public static addItemAnimation: AnimationTriggerMetadata[] = [
+    trigger('animation', [
+      transition(':enter', [
+        animate(
+          300,
+          keyframes([
+            style({ opacity: 0, height: '0px', offset: 0 }),
+            style({ opacity: 0, height: '*', transform: 'translateY(-8px)', offset: 0.3 }),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1 }),
+          ]),
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          300,
+          keyframes([
+            style({ opacity: 1, offset: 0 }),
+            style({ opacity: 0, height: '*', offset: 0.5 }),
+            style({ opacity: 0, height: '0px', offset: 1 }),
+          ]),
+        ),
+      ]),
     ]),
   ];
 }

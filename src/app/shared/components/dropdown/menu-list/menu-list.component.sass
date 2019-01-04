@@ -1,0 +1,40 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.dropdown-menu
+  background: $c-text-primary
+  padding: 8px 16px
+  border-radius: 8px
+  min-width: 155px
+  position: absolute
+  right: 0
+  top: 32px
+  z-index: $z-index-100
+  cursor: auto
+
+  &::ng-deep
+    li
+      display: flex
+      align-items: center
+      justify-content: center
+      min-height: 56px
+      padding: 8px
+      border-bottom: 1px solid rgba($c-white, 0.15)
+      cursor: pointer
+
+      &:hover
+        span
+          color: $c-white
+
+      &:last-child
+        border: 0
+
+      span
+        +button-small
+        color: rgba($c-white, 0.75)
+
+      &.active
+        cursor: default
+        pointer-events: none
+
+        >span
+          color: $c-half-white
