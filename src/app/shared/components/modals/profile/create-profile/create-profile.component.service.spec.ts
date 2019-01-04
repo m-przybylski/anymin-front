@@ -26,7 +26,7 @@ describe('CreateProfileModalComponentService', () => {
         },
         {
           provide: AlertService,
-          useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
         },
         {
           provide: AccountService,
