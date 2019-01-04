@@ -1,23 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import createSpyObj = jasmine.createSpyObj;
 import { FilesService, PostFileDetails } from '@anymind-ng/api';
 import { IUploadFileInfo, UploaderService } from './uploader.service';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
 import { of } from 'rxjs';
+import { Deceiver } from 'deceiver-core';
 
 describe('Service: UploaderService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         UploaderService,
-        { provide: FilesService, useValue: createSpyObj('FilesService', ['createFileTokenRoute']) },
+        { provide: FilesService, useValue: Deceiver(FilesService, { createFileTokenRoute: jest.fn(of) }) },
       ],
     });
   });
 
   it('should upload file', () => {
     const uploaderService = TestBed.get(UploaderService);
-    const filesService = TestBed.get(FilesService);
     const fileDetails: PostFileDetails = {
       croppingDetails: undefined,
       fileType: FileTypeEnum.PROFILE,
@@ -32,7 +31,6 @@ describe('Service: UploaderService', () => {
       name: 'name',
     };
     const file: File = new File([], 'fileName');
-    filesService.createFileTokenRoute.and.returnValue(of());
     uploaderService.uploadFile(file, fileDetails).then((response: IUploadFileInfo) => {
       expect(response).toEqual(uploadedFileResponse);
     });

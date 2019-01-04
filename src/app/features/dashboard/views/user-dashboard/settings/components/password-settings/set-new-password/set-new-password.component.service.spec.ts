@@ -1,17 +1,18 @@
 // tslint:disable:no-empty
+// tslint:disable:max-line-length
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RecoverPasswordService } from '@anymind-ng/api';
-import createSpyObj = jasmine.createSpyObj;
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { of, throwError } from 'rxjs';
 import { SetNewPasswordComponentService, SetNewPasswordStatusEnum } from './set-new-password.component.service';
 import { BackendErrors } from '@platform/shared/models/backend-error/backend-error';
+import { Deceiver } from 'deceiver-core';
+import { provideMockFactoryLogger } from 'testing/testing';
 
 describe('Service: SetNewPasswordComponentService', () => {
   const mockPassword = 'password';
   const mockPhoneNumber = '+48555555555';
   const mockToken = 'token';
-  const logger: LoggerService = new LoggerService(1);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,13 +20,15 @@ describe('Service: SetNewPasswordComponentService', () => {
         SetNewPasswordComponentService,
         {
           provide: RecoverPasswordService,
-          useValue: createSpyObj('RecoverPasswordService', ['putRecoverPasswordMsisdnRoute']),
+          useValue: Deceiver(RecoverPasswordService, { putRecoverPasswordMsisdnRoute: jest.fn() }),
         },
-        { provide: AlertService, useValue: createSpyObj('AlertService', ['pushDangerAlert', 'pushSuccessAlert']) },
-        { provide: LoggerFactory, useValue: createSpyObj('LoggerFactory', ['createLoggerService']) },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn(), pushSuccessAlert: jest.fn() }),
+        },
+        provideMockFactoryLogger(),
       ],
     });
-    TestBed.get(LoggerFactory).createLoggerService.and.returnValue(logger);
   }));
 
   it('should return SUCCESS status and show success alert when set new password pass', fakeAsync(() => {
@@ -33,7 +36,7 @@ describe('Service: SetNewPasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const setNewPasswordComponentService = TestBed.get(SetNewPasswordComponentService);
 
-    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.and.returnValue(of({}));
+    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.mockReturnValue(of({}));
 
     setNewPasswordComponentService
       .setNewPassword(mockPhoneNumber, mockToken, mockPassword)
@@ -49,7 +52,7 @@ describe('Service: SetNewPasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const setNewPasswordComponentService = TestBed.get(SetNewPasswordComponentService);
 
-    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           error: {},
@@ -72,7 +75,7 @@ describe('Service: SetNewPasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const setNewPasswordComponentService = TestBed.get(SetNewPasswordComponentService);
 
-    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           code: 1,
@@ -100,7 +103,7 @@ describe('Service: SetNewPasswordComponentService', () => {
       const mockAlertService = TestBed.get(AlertService);
       const setNewPasswordComponentService = TestBed.get(SetNewPasswordComponentService);
 
-      mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.and.returnValue(
+      mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.CannotFindMsisdnToken,
@@ -125,7 +128,7 @@ describe('Service: SetNewPasswordComponentService', () => {
     const mockRecoverPasswordService = TestBed.get(RecoverPasswordService);
     const setNewPasswordComponentService = TestBed.get(SetNewPasswordComponentService);
 
-    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.and.returnValue(
+    mockRecoverPasswordService.putRecoverPasswordMsisdnRoute.mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,

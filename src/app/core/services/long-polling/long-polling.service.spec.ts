@@ -1,7 +1,6 @@
 // tslint:disable:no-magic-numbers
 // tslint:disable:no-parameter-reassignment
-
-import { TestBed, inject, fakeAsync, flush, tick as _tick } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick as _tick } from '@angular/core/testing';
 import { Subscriber, Observable } from 'rxjs';
 import { async } from 'rxjs/scheduler/async';
 import { LongPollingService } from './long-polling.service';
@@ -54,7 +53,7 @@ describe('LongPollingService', () => {
     tick = ((): ((millis: number) => void) => {
       // tslint:disable-next-line
       let currentTime = 0;
-      spyOn(async, 'now').and.callFake(() => currentTime);
+      jest.spyOn(async, 'now').mockImplementation(() => currentTime);
 
       return (millis: number): void => {
         currentTime = millis;
@@ -67,6 +66,11 @@ describe('LongPollingService', () => {
     TestBed.configureTestingModule({
       providers: [LongPollingService],
     });
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('should be created', inject([LongPollingService], (service: LongPollingService) => {
@@ -76,7 +80,7 @@ describe('LongPollingService', () => {
   it('should start polling data from observable', fakeAsync(
     inject([LongPollingService], (service: LongPollingService) => {
       const request$ = new Observable(observer(1));
-      const callback = jasmine.createSpy('callbackSpy');
+      const callback = jest.fn();
       service.longPollData(request$, interval).subscribe(callback);
       expect(callback).toHaveBeenCalled();
     }),
@@ -85,26 +89,23 @@ describe('LongPollingService', () => {
   it('should retry to poll data after one interval and expect result', fakeAsync(
     inject([LongPollingService], (service: LongPollingService) => {
       const stream$ = new Observable(observer(0));
-      const callback = jasmine.createSpy('callbackSpy');
+      const callback = jest.fn();
       service.longPollData(stream$, interval).subscribe(callback);
-      tick(500);
       expect(callback).not.toHaveBeenCalled();
-      tick(1000);
+      jest.runAllTimers();
       expect(callback).toHaveBeenCalledWith(1);
-      flush();
     }),
   ));
 
   it('should retry to poll data three times and wait total of 5 seconds', fakeAsync(
     inject([LongPollingService], (service: LongPollingService) => {
       const stream$ = new Observable(observer(2));
-      const callback = jasmine.createSpy('callbackSpy');
+      const callback = jest.fn();
       service.longPollData(stream$, interval).subscribe(callback);
-      tick(4999);
+      jest.advanceTimersByTime(4999);
       expect(callback).not.toHaveBeenCalled();
-      tick(5000);
+      jest.advanceTimersByTime(5000);
       expect(callback).toHaveBeenCalledWith(2);
-      flush();
     }),
   ));
 });

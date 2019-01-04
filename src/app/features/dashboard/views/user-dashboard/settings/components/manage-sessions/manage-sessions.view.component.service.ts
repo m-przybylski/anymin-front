@@ -52,28 +52,24 @@ export class ManageSessionsViewComponentService {
   }
 
   public getActiveSessions = (): Observable<ReadonlyArray<IActiveSession>> =>
-    this.sessionService
-      .getSessionsRoute()
-      .pipe(mergeMap(this.handleActiveSessions))
-      .pipe(catchError(error => this.handleGetActiveSessionsError(error)));
+    this.sessionService.getSessionsRoute().pipe(
+      mergeMap(this.handleActiveSessions),
+      catchError(error => this.handleGetActiveSessionsError(error)),
+    );
 
   public logoutCurrentSession(): void {
     this.userSessionService.logout();
   }
 
-  // tslint:disable-next-line:no-any
-  public logoutSession = (apiKey: string): Observable<any> =>
-    this.sessionService
-      .logoutRoute(apiKey)
-      .pipe(
-        map(() => {
-          this.alertService.pushSuccessAlert(Alerts.SessionLoggedOutSuccess);
-        }),
-      )
-      .pipe(catchError(this.handleLogoutSessionError));
+  public logoutSession = (apiKey: string): Observable<void> =>
+    this.sessionService.logoutRoute(apiKey).pipe(
+      map(() => {
+        this.alertService.pushSuccessAlert(Alerts.SessionLoggedOutSuccess);
+      }),
+      catchError(this.handleLogoutSessionError),
+    );
 
-  // tslint:disable-next-line:no-any
-  private handleLogoutSessionError = (error: HttpErrorResponse): Observable<any> => {
+  private handleLogoutSessionError = (error: HttpErrorResponse): Observable<void> => {
     this.logger.warn('error when try to logout session', error);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 

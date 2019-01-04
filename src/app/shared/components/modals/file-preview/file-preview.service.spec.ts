@@ -13,7 +13,7 @@ describe('FilePreviewService', () => {
 
   const windowRef: WindowRef = Deceiver(WindowRef);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
-    createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
+    createLoggerService: jest.fn().mockReturnValue(Deceiver(LoggerService)),
   });
 
   beforeEach(() => {

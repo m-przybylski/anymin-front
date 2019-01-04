@@ -4,7 +4,6 @@ import { ProfileService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
-import SpyObj = jasmine.SpyObj;
 import { NavbarComponentService } from '@platform/features/dashboard/components/navbar/navbar.component.service';
 import {
   INavigationItem,
@@ -16,10 +15,10 @@ import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import * as fromDashboard from '@platform/features/dashboard/reducers';
 
 describe('NavbarComponentService', () => {
-  let navbarComponentService: SpyObj<NavbarComponentService>;
+  let navbarComponentService: NavbarComponentService;
   let store: Store<fromDashboard.IState>;
   const loggerService: LoggerService = Deceiver(LoggerService, {
-    error: jasmine.createSpy(''),
+    error: jest.fn(),
   });
   const mockSession: GetSessionWithAccount = {
     account: {
@@ -107,7 +106,7 @@ describe('NavbarComponentService', () => {
         provideMockFactoryLogger(loggerService),
       ],
     });
-    (loggerService.error as jasmine.Spy).calls.reset();
+    (loggerService.error as jest.Mock).mockClear();
     store = TestBed.get(Store);
     navbarComponentService = TestBed.get(NavbarComponentService);
   });

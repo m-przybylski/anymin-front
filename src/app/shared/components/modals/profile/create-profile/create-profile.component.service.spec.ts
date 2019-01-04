@@ -20,8 +20,8 @@ describe('CreateProfileModalComponentService', () => {
         {
           provide: ProfileService,
           useValue: Deceiver(ProfileService, {
-            putExpertProfileRoute: jasmine.createSpy('putExpertProfileRoute'),
-            getProfileRoute: jasmine.createSpy('getProfileRoute'),
+            putExpertProfileRoute: jest.fn(),
+            getProfileRoute: jest.fn(),
           }),
         },
         {
@@ -31,7 +31,7 @@ describe('CreateProfileModalComponentService', () => {
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            putGeneralSettingsRoute: jasmine.createSpy('putGeneralSettingsRoute'),
+            putGeneralSettingsRoute: jest.fn(),
           }),
         },
       ],
@@ -45,7 +45,7 @@ describe('CreateProfileModalComponentService', () => {
   });
 
   it('should create expert profile', () => {
-    (profileService.putExpertProfileRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: 'OK' }));
+    (profileService.putExpertProfileRoute as jest.Mock).mockReturnValue(cold('-a|', { a: 'OK' }));
     const expertDetailsObject: PutExpertDetails = {
       name: 'name',
       avatar: 'avaar',
@@ -60,7 +60,7 @@ describe('CreateProfileModalComponentService', () => {
 
   it('should create client profile', () => {
     const accountService: AccountService = TestBed.get(AccountService);
-    (accountService.putGeneralSettingsRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: 'OK' }));
+    (accountService.putGeneralSettingsRoute as jest.Mock).mockReturnValue(cold('-a|', { a: 'OK' }));
     const clientDetailsObject: PutGeneralSettings = {
       nickname: 'nick',
       avatar: 'avatar',
@@ -73,7 +73,7 @@ describe('CreateProfileModalComponentService', () => {
   describe('getModalData', () => {
     it('should get modal data for expert', () => {
       dispatchLoggedUser(store, { account: { id: 123 }, isExpert: true });
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-a|', { a: 'XD' }));
+      profileService.getProfileRoute = jest.fn(() => cold('-a|', { a: 'XD' }));
       const result = {
         getSessionWithAccount: { account: { id: 123 }, isExpert: true },
         getProfileWithDocuments: 'XD',
@@ -83,7 +83,7 @@ describe('CreateProfileModalComponentService', () => {
     });
     it('should get modal data for non expert profile', () => {
       dispatchLoggedUser(store, { account: { id: 123 }, isExpert: false });
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('---a|', { a: 'XD' }));
+      profileService.getProfileRoute = jest.fn(() => cold('---a|', { a: 'XD' }));
       const result = {
         getSessionWithAccount: { account: { id: 123 }, isExpert: false },
         getProfileWithDocuments: undefined,
@@ -93,7 +93,7 @@ describe('CreateProfileModalComponentService', () => {
     });
     it('should throw error when profile errors out', () => {
       dispatchLoggedUser(store, { account: { id: 123 }, isExpert: true });
-      (profileService.getProfileRoute as jasmine.Spy).and.returnValue(cold('-#', {}, 'error'));
+      profileService.getProfileRoute = jest.fn(() => cold('-#', {}, 'error'));
       const expected = cold('-#', {}, 'error');
       expect(service.getModalData()).toBeObservable(expected);
     });

@@ -15,7 +15,7 @@ import * as AuthActions from '@platform/core/actions/login.actions';
 describe('InvitationsGuard', () => {
   let guard: InvitationsGuard;
   let store: Store<any>;
-  let dispatchSpy: jasmine.Spy;
+  let dispatchSpy: jest.Mock;
   let routeParams = {};
   const invitionMock = {
     token: '123',
@@ -24,22 +24,22 @@ describe('InvitationsGuard', () => {
     email: undefined,
   };
   const router: Router = Deceiver(Router, {
-    navigate: jasmine.createSpy('navigate'),
+    navigate: jest.fn(),
   });
   const alertService: AlertService = Deceiver(AlertService, {
-    pushDangerAlert: jasmine.createSpy('pushDangerAlert'),
+    pushDangerAlert: jest.fn(),
   });
   const registrationInvitationService: RegistrationInvitationService = Deceiver(RegistrationInvitationService, {
-    setInvitationObject: jasmine.createSpy('setInvitationObject'),
+    setInvitationObject: jest.fn(),
   });
   const invitationService: InvitationService = Deceiver(InvitationService, {
-    getInvitationRoute: jasmine.createSpy('getInvitationRoute'),
+    getInvitationRoute: jest.fn(),
   });
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
-    createLoggerService: jasmine.createSpy('createLoggerService').and.returnValue(Deceiver(LoggerService)),
+    createLoggerService: jest.fn().mockReturnValue(Deceiver(LoggerService)),
   });
   const route: ActivatedRouteSnapshot = Deceiver(ActivatedRouteSnapshot, {
-    params: jasmine.createSpy('params'),
+    params: jest.fn(),
   });
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -74,8 +74,8 @@ describe('InvitationsGuard', () => {
   it('should redirect to login if user has not got session', fakeAsync(() => {
     const getInvitation = cold('-a|', { a: invitionMock });
     const action = new SessionActions.FetchSessionErrorAction('401');
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
-    (invitationService.getInvitationRoute as jasmine.Spy).and.returnValue(getInvitation);
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
+    (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
     route.params = { token: invitionMock.token };
 
     store.dispatch(action);
@@ -93,8 +93,8 @@ describe('InvitationsGuard', () => {
     const action = new AuthActions.LoginSuccessAction({} as any);
     store.dispatch(action);
 
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
-    (invitationService.getInvitationRoute as jasmine.Spy).and.returnValue(getInvitation);
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
+    (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
     route.params = { token: invitionMock.token };
 
     store.dispatch(action);
@@ -110,8 +110,8 @@ describe('InvitationsGuard', () => {
   it('should throw error if invitation does not exist', () => {
     const getInvitation = cold('-#', {}, 'Something went wrong');
     const action = new SessionActions.FetchSessionErrorAction('401');
-    (router.navigate as jasmine.Spy).and.returnValue(Promise.resolve(true));
-    (invitationService.getInvitationRoute as jasmine.Spy).and.returnValue(getInvitation);
+    (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
+    (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
     route.params = { token: invitionMock.token };
     const expected = cold('-(b|)', { b: false });
     store.dispatch(action);

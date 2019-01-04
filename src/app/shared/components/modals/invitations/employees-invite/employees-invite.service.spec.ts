@@ -7,11 +7,11 @@ import { EmploymentService, GetSessionWithAccount, InvitationService, ServiceSer
 import { cold } from 'jasmine-marbles';
 import { Deceiver } from 'deceiver-core';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
-import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { TestBed } from '@angular/core/testing';
-import * as fromRoot from '@platform/reducers';
-import * as AuthActions from '@platform/core/actions/login.actions';
+import { importStore, dispatchLoggedUser } from 'testing/testing';
+import { isValidNumber } from 'libphonenumber-js';
 
 describe('EmployeesInviteService', () => {
   let employeesInviteService: EmployeesInviteService;
@@ -46,20 +46,15 @@ describe('EmployeesInviteService', () => {
   const serviceService: ServiceService = Deceiver(ServiceService);
   const invitationService: InvitationService = Deceiver(InvitationService);
   const phoneNumberUnifyService: PhoneNumberUnifyService = Deceiver(PhoneNumberUnifyService, {
-    unifyPhoneNumber: jasmine.createSpy('unifyPhoneNumber').and.returnValue(''),
+    unifyPhoneNumber: jest.fn(),
   });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({
-          ...fromRoot.reducers,
-          core: combineReducers(fromCore.reducers),
-        }),
-      ],
+      imports: [importStore()],
     });
     store = TestBed.get(Store);
-    store.dispatch(new AuthActions.LoginSuccessAction(mockSession));
+    dispatchLoggedUser(store, mockSession);
 
     employeesInviteService = new EmployeesInviteService(
       employmentService,
@@ -68,6 +63,7 @@ describe('EmployeesInviteService', () => {
       invitationService,
       store,
     );
+    employeesInviteService.isValidNumber = jest.fn();
   });
 
   it('should be created', () => {
@@ -159,12 +155,8 @@ describe('EmployeesInviteService', () => {
     };
 
     const expected$ = cold('-(a|)', { a: result });
-    employmentService.getEmployeesRoute = jasmine
-      .createSpy('getEmployeesRoute')
-      .and.returnValue(cold('-(a|)', { a: expertProfileWithEmployments }));
-    serviceService.postServiceInvitationsRoute = jasmine
-      .createSpy('postServiceInvitationsRoute')
-      .and.returnValue(cold('-(a|)', { a: getServiceWithInvitations }));
+    employmentService.getEmployeesRoute = jest.fn(() => cold('-(a|)', { a: expertProfileWithEmployments }));
+    serviceService.postServiceInvitationsRoute = jest.fn(() => cold('-(a|)', { a: getServiceWithInvitations }));
     expect(employeesInviteService.mapEmployeeList(serviceId)).toBeObservable(expected$);
   });
 
@@ -256,12 +248,8 @@ describe('EmployeesInviteService', () => {
     };
 
     const expected$ = cold('-(a|)', { a: result });
-    employmentService.getEmployeesRoute = jasmine
-      .createSpy('getEmployeesRoute')
-      .and.returnValue(cold('-(a|)', { a: expertProfileWithEmployments }));
-    serviceService.postServiceInvitationsRoute = jasmine
-      .createSpy('postServiceInvitationsRoute')
-      .and.returnValue(cold('-(a|)', { a: getServiceWithInvitations }));
+    employmentService.getEmployeesRoute = jest.fn(() => cold('-(a|)', { a: expertProfileWithEmployments }));
+    serviceService.postServiceInvitationsRoute = jest.fn(() => cold('-(a|)', { a: getServiceWithInvitations }));
     expect(employeesInviteService.mapEmployeeList(serviceId)).toBeObservable(expected$);
   });
 
@@ -297,7 +285,8 @@ describe('EmployeesInviteService', () => {
   );
 
   it('should return IS_MSISDN status when provided invitation msisdn is correct', () => {
-    phoneNumberUnifyService.unifyPhoneNumber = jasmine.createSpy('unifyPhoneNumber').and.returnValue('+48555555555');
+    phoneNumberUnifyService.unifyPhoneNumber = jest.fn();
+    employeesInviteService.isValidNumber = jest.fn(() => true);
     expect(employeesInviteService.checkInvitationType('+48555555555', false)).toBe(
       EmployeeInvitationTypeEnum.IS_MSISDN,
     );
@@ -307,7 +296,8 @@ describe('EmployeesInviteService', () => {
     'should return OWNER_USER status when provided invitation msisdn is correct and' +
       'is the same as user msisdn, service is freelance type',
     () => {
-      phoneNumberUnifyService.unifyPhoneNumber = jasmine.createSpy('unifyPhoneNumber').and.returnValue('+48555555555');
+      phoneNumberUnifyService.unifyPhoneNumber = jest.fn(_ => _);
+      employeesInviteService.isValidNumber = jest.fn(() => true);
       expect(employeesInviteService.checkInvitationType('+48555555555', true)).toBe(
         EmployeeInvitationTypeEnum.OWNER_USER,
       );

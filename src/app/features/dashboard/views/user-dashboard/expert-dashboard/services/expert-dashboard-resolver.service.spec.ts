@@ -10,20 +10,20 @@ import { importStore, dispatchLoggedUser } from 'testing/testing';
 
 describe('ExpertDashboardResolverService', () => {
   const paramMap: ParamMap = {
-    get: jasmine.createSpy('get').and.returnValue('123'),
-    has: jasmine.createSpy('has'),
-    getAll: jasmine.createSpy('getAll'),
+    get: jest.fn(),
+    has: jest.fn(),
+    getAll: jest.fn(),
     keys: [],
   };
   const viewsService: ViewsService = Deceiver(ViewsService, {
-    getWebExpertProfileRoute: jasmine.createSpy('getWebExpertProfileRoute'),
+    getWebExpertProfileRoute: jest.fn(),
   });
   const router: Router = Deceiver(Router);
   const route: ActivatedRouteSnapshot = Deceiver(ActivatedRouteSnapshot, {
     paramMap,
   });
   const profileService: ProfileService = Deceiver(ProfileService, {
-    getProfileRoute: jasmine.createSpy('getProfileRoute'),
+    getProfileRoute: jest.fn(),
   });
 
   let service: ExpertDashboardResolverService;
@@ -39,7 +39,7 @@ describe('ExpertDashboardResolverService', () => {
 
   beforeEach(() => {
     const getProfile = cold('-a|', { a: Mocks.getProfileWithDocuments });
-    (profileService.getProfileRoute as jasmine.Spy).and.returnValue(getProfile);
+    (profileService.getProfileRoute as jest.Mock).mockReturnValue(getProfile);
   });
 
   it('should make return resolved data', fakeAsync(() => {
@@ -47,7 +47,7 @@ describe('ExpertDashboardResolverService', () => {
     const expertView = cold('-a|', { a: Mocks.expertProfileView });
 
     // mock functions
-    (viewsService.getWebExpertProfileRoute as jasmine.Spy).and.returnValue(expertView);
+    (viewsService.getWebExpertProfileRoute as jest.Mock).mockReturnValue(expertView);
 
     // expect result
     service.resolve(route).subscribe(value => {
@@ -60,7 +60,7 @@ describe('ExpertDashboardResolverService', () => {
     const expertView = cold('-a|', { a: Mocks.expertProfileView1 });
 
     // mock functoins
-    (viewsService.getWebExpertProfileRoute as jasmine.Spy).and.returnValue(expertView);
+    (viewsService.getWebExpertProfileRoute as jest.Mock).mockReturnValue(expertView);
 
     // expect result
     service.resolve(route).subscribe(value => {

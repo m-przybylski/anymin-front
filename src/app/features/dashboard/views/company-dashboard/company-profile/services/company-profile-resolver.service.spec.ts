@@ -10,16 +10,16 @@ import { Store } from '@ngrx/store';
 
 describe('CompanyProfileResolverService', () => {
   const paramMap: ParamMap = {
-    get: jasmine.createSpy('get').and.returnValue('123'),
-    has: jasmine.createSpy('has'),
-    getAll: jasmine.createSpy('getAll'),
+    get: jest.fn(),
+    has: jest.fn(),
+    getAll: jest.fn(),
     keys: [],
   };
   const viewsService: ViewsService = Deceiver(ViewsService, {
-    getWebOrganizationProfileRoute: jasmine.createSpy('getWebOrganizationProfileRoute'),
+    getWebOrganizationProfileRoute: jest.fn(),
   });
   const router: Router = Deceiver(Router);
-  const profileService: ProfileService = Deceiver(ProfileService, { getProfileRoute: jasmine.createSpy('') });
+  const profileService: ProfileService = Deceiver(ProfileService, { getProfileRoute: jest.fn() });
   const route: ActivatedRouteSnapshot = Deceiver(ActivatedRouteSnapshot, {
     paramMap,
   });
@@ -42,8 +42,8 @@ describe('CompanyProfileResolverService', () => {
     const profile = cold('-a|', { a: Mocks.profileWithDocuments });
 
     // mock functoins
-    (viewsService.getWebOrganizationProfileRoute as jasmine.Spy).and.returnValue(organizationView);
-    (profileService.getProfileRoute as jasmine.Spy).and.returnValue(profile);
+    (viewsService.getWebOrganizationProfileRoute as jest.Mock).mockReturnValue(organizationView);
+    (profileService.getProfileRoute as jest.Mock).mockReturnValue(profile);
     // expect result
     service.resolve(route).subscribe(value => {
       expect(value).toEqual(Mocks.companyProfileView);
@@ -56,8 +56,8 @@ describe('CompanyProfileResolverService', () => {
     const profile = cold('-a|', { a: Mocks.profileWithDocuments });
 
     // mock functoins
-    (viewsService.getWebOrganizationProfileRoute as jasmine.Spy).and.returnValue(organizationView);
-    (profileService.getProfileRoute as jasmine.Spy).and.returnValue(profile);
+    (viewsService.getWebOrganizationProfileRoute as jest.Mock).mockReturnValue(organizationView);
+    (profileService.getProfileRoute as jest.Mock).mockReturnValue(profile);
     // expect result
     service.resolve(route).subscribe(value => {
       expect(value).toEqual(Mocks.companyProfileView1);

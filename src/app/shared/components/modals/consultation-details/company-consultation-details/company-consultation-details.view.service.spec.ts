@@ -136,16 +136,10 @@ describe('CompanyConsultationDetailsViewService', () => {
     const postServiceWithEmployeesRoute = cold('-(a|)', { a: [getServiceWithEmployees] });
     const getDefaultPaymentMethodRoute = cold('-#');
 
-    serviceService.postServicesTagsRoute = jasmine
-      .createSpy('postServicesTagsRoute')
-      .and.returnValue(postServicesTagsRoute);
-    profileService.getProfileRoute = jasmine.createSpy('getProfileRoute').and.returnValue(getProfileRoute);
-    paymentsService.getDefaultPaymentMethodRoute = jasmine
-      .createSpy('getDefaultPaymentMethodRoute')
-      .and.returnValue(getDefaultPaymentMethodRoute);
-    serviceService.postServiceWithEmployeesRoute = jasmine
-      .createSpy('postServiceWithEmployeesRoute')
-      .and.returnValue(postServiceWithEmployeesRoute);
+    serviceService.postServicesTagsRoute = jest.fn(() => postServicesTagsRoute);
+    profileService.getProfileRoute = jest.fn(() => getProfileRoute);
+    paymentsService.getDefaultPaymentMethodRoute = jest.fn(() => getDefaultPaymentMethodRoute);
+    serviceService.postServiceWithEmployeesRoute = jest.fn(() => postServiceWithEmployeesRoute);
 
     financesService.postCommissionsRoute = jasmine
       .createSpy('')
@@ -167,17 +161,11 @@ describe('CompanyConsultationDetailsViewService', () => {
     const getProfileRoute = cold('-(a|)', { a: {} });
     const postServiceWithEmployeesRoute = cold('-(a|)', { a: [] });
 
-    serviceService.postServicesTagsRoute = jasmine
-      .createSpy('postServicesTagsRoute')
-      .and.returnValue(postServicesTagsRoute);
-    serviceService.getServiceRoute = jasmine.createSpy('getServiceRoute').and.returnValue(getServiceRoute);
-    profileService.getProfileRoute = jasmine.createSpy('getProfileRoute').and.returnValue(getProfileRoute);
-    serviceService.postServiceWithEmployeesRoute = jasmine
-      .createSpy('postServiceWithEmployeesRoute')
-      .and.returnValue(postServiceWithEmployeesRoute);
-    paymentsService.getDefaultPaymentMethodRoute = jasmine
-      .createSpy('getDefaultPaymentMethodRoute')
-      .and.returnValue(cold('-#'));
+    serviceService.postServicesTagsRoute = jest.fn(() => postServicesTagsRoute);
+    serviceService.getServiceRoute = jest.fn(() => getServiceRoute);
+    profileService.getProfileRoute = jest.fn(() => getProfileRoute);
+    serviceService.postServiceWithEmployeesRoute = jest.fn(() => postServiceWithEmployeesRoute);
+    paymentsService.getDefaultPaymentMethodRoute = jest.fn(() => cold('-#'));
 
     expect(service.getConsultationDetails('1234')).toBeObservable(expected);
   });

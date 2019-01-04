@@ -24,15 +24,15 @@ describe('ActivitiesEffects', () => {
         {
           provide: ActivitiesListService,
           useValue: Deceiver(ActivitiesListService, {
-            getExpertProfilePayment: jasmine.createSpy('getExpertProfilePayment'),
-            getExpertAllActivities: jasmine.createSpy('getExpertAllActivities'),
-            getExpertActivities: jasmine.createSpy('getExpertActivities'),
+            getExpertProfilePayment: jest.fn(),
+            getExpertAllActivities: jest.fn(),
+            getExpertActivities: jest.fn(),
           }),
         },
         {
           provide: NgbModal,
           useValue: Deceiver(NgbModal, {
-            open: jasmine.createSpy('open'),
+            open: jest.fn(),
           }),
         },
       ],
@@ -51,10 +51,8 @@ describe('ActivitiesEffects', () => {
       const balancePayload = 'balance';
       const getAllActivietiesPayload = 'getAllActivieties';
 
-      (activitiesListService.getExpertProfilePayment as jasmine.Spy).and.returnValue(
-        cold('-a|', { a: balancePayload }),
-      );
-      (activitiesListService.getExpertAllActivities as jasmine.Spy).and.returnValue(
+      (activitiesListService.getExpertProfilePayment as jest.Mock).mockReturnValue(cold('-a|', { a: balancePayload }));
+      (activitiesListService.getExpertAllActivities as jest.Mock).mockReturnValue(
         cold('-a|', { a: getAllActivietiesPayload }),
       );
 
@@ -68,8 +66,8 @@ describe('ActivitiesEffects', () => {
       const action = new ActivitiesActions.LoadExpertActivitiesWithBalanceAction();
       actions$ = hot('-a---', { a: action });
 
-      (activitiesListService.getExpertProfilePayment as jasmine.Spy).and.returnValue(cold('-#', {}, 'error'));
-      (activitiesListService.getExpertAllActivities as jasmine.Spy).and.returnValue(cold('-#', {}, 'error1'));
+      (activitiesListService.getExpertProfilePayment as jest.Mock).mockReturnValue(cold('-#', {}, 'error'));
+      (activitiesListService.getExpertAllActivities as jest.Mock).mockReturnValue(cold('-#', {}, 'error1'));
 
       const balance = new BalanceApiActions.LoadBalanceFailureAction('error');
       const load = new ActivitiesApiActions.LoadActivitiesWithImportantFailureAction('error');
@@ -86,7 +84,7 @@ describe('ActivitiesEffects', () => {
         });
         actions$ = hot('-a--', { a: action });
         const getActivieties = 'getActivieties';
-        (activitiesListService.getExpertActivities as jasmine.Spy).and.returnValue(cold('-a|', { a: getActivieties }));
+        (activitiesListService.getExpertActivities as jest.Mock).mockReturnValue(cold('-a|', { a: getActivieties }));
 
         const loadExpertActivitiesSuccessAction = new ActivitiesApiActions.LoadActivitiesSuccessAction(
           getActivieties as any,
@@ -101,7 +99,7 @@ describe('ActivitiesEffects', () => {
           offsetIterator: 2,
         });
         actions$ = hot('-a--', { a: action });
-        (activitiesListService.getExpertActivities as jasmine.Spy).and.returnValue(cold('-#', {}, 'error'));
+        (activitiesListService.getExpertActivities as jest.Mock).mockReturnValue(cold('-#', {}, 'error'));
 
         const loadActivitiesFailureAction = new ActivitiesApiActions.LoadActivitiesFailureAction('error');
         const expected = cold('--b', { b: loadActivitiesFailureAction });
@@ -115,7 +113,7 @@ describe('ActivitiesEffects', () => {
       describe('non important activity', () => {
         const isImportant = false;
         it('should open dialog and emit empty value for non important activity', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: of('') });
+          (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -126,7 +124,7 @@ describe('ActivitiesEffects', () => {
           expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
         });
         it('should open dialog and emit empty value for non important activity with correct value', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
+          (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -140,7 +138,7 @@ describe('ActivitiesEffects', () => {
       describe('non important activity', () => {
         const isImportant = false;
         it('should open dialog and emit empty value', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: of('') });
+          (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -151,7 +149,7 @@ describe('ActivitiesEffects', () => {
           expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
         });
         it('should open dialog and emit empty value with correct value', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
+          (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -162,7 +160,7 @@ describe('ActivitiesEffects', () => {
           expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
         });
         it('should open dialog and emit empty value with rejected promise', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: throwError(new Error('oups')) });
+          (modalService.open as jest.Mock).mockReturnValue({ result: throwError(new Error('oups')) });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -176,7 +174,7 @@ describe('ActivitiesEffects', () => {
       describe('important activity', () => {
         const isImportant = true;
         it('should open dialog and emit empty value', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: of('') });
+          (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -190,7 +188,7 @@ describe('ActivitiesEffects', () => {
           expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
         });
         it('should open dialog and emit empty value with correct value', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
+          (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,
@@ -201,7 +199,7 @@ describe('ActivitiesEffects', () => {
           expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
         });
         it('should open dialog and emit empty value with rejected promise', () => {
-          (modalService.open as jasmine.Spy).and.returnValue({ result: throwError(new Error('oups')) });
+          (modalService.open as jest.Mock).mockReturnValue({ result: throwError(new Error('oups')) });
           const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
             getProfileActivity,
             isImportant,

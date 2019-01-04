@@ -1,7 +1,6 @@
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { PhoneNumberViewComponent } from './phone-number.view.component';
 import { PhoneNumberViewService, PhoneNumberServiceStatus } from './phone-number.view.service';
-import createSpyObj = jasmine.createSpyObj;
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormUtilsService, InputPhoneNumberService } from '@anymind-ng/core';
 import { LoginContentComponent } from '../../../../shared/components/login-content/login-content.component';
@@ -27,17 +26,17 @@ describe('Component: PhoneNumberViewComponent', () => {
         provideMockFactoryLogger(),
         {
           provide: InputPhoneNumberService,
-          useValue: Deceiver(InputPhoneNumberService, { getValidators: jasmine.createSpy('getValidators') }),
+          useValue: Deceiver(InputPhoneNumberService, { getValidators: jest.fn() }),
         },
         {
           provide: FormUtilsService,
-          useValue: createSpyObj('FormUtilsService', ['validateAllFormFields', 'isFieldInvalid']),
+          useValue: Deceiver(FormUtilsService, { validateAllFormFields: jest.fn(), isFieldInvalid: jest.fn() }),
         },
         {
           provide: PhoneNumberViewService,
           useValue: Deceiver(PhoneNumberViewService, {
-            getPhoneNumberFromInvitation: jasmine.createSpy('getPhoneNumberFromInvitation').and.returnValue(of({})),
-            handlePhoneNumber: jasmine.createSpy('handlePhoneNumber'),
+            getPhoneNumberFromInvitation: jest.fn().mockReturnValue(of({})),
+            handlePhoneNumber: jest.fn(),
           }),
         },
       ],
@@ -53,7 +52,7 @@ describe('Component: PhoneNumberViewComponent', () => {
   it('should display validation error cause number is invalid', () => {
     const formUtilsService: FormUtilsService = TestBed.get(FormUtilsService);
     const phoneNumberViewService: PhoneNumberViewService = TestBed.get(PhoneNumberViewService);
-    (phoneNumberViewService.handlePhoneNumber as jasmine.Spy).and.returnValue(
+    (phoneNumberViewService.handlePhoneNumber as jest.Mock).mockReturnValue(
       throwError(PhoneNumberServiceStatus.MSISDN_INVALID),
     );
 
@@ -65,21 +64,21 @@ describe('Component: PhoneNumberViewComponent', () => {
 
   it('should populate not value from locale storage when empty', () => {
     const phoneNumberViewService: PhoneNumberViewService = TestBed.get(PhoneNumberViewService);
-    (phoneNumberViewService.getPhoneNumberFromInvitation as jasmine.Spy).and.returnValue(undefined);
+    (phoneNumberViewService.getPhoneNumberFromInvitation as jest.Mock).mockReturnValue(undefined);
     component.ngOnInit();
     expect(component.msisdnForm.controls[component.msisdnControlName].value).toBeFalsy();
   });
 
   it('should populate value from locale storage', () => {
     const phoneNumberViewService: PhoneNumberViewService = TestBed.get(PhoneNumberViewService);
-    (phoneNumberViewService.getPhoneNumberFromInvitation as jasmine.Spy).and.returnValue('666666666');
+    (phoneNumberViewService.getPhoneNumberFromInvitation as jest.Mock).mockReturnValue('666666666');
     component.ngOnInit();
     expect(component.msisdnForm.controls[component.msisdnControlName].value).toEqual('666666666');
   });
 
   it('should valid phone number and send it to service', () => {
     const phoneNumberViewService: PhoneNumberViewService = TestBed.get(PhoneNumberViewService);
-    (phoneNumberViewService.handlePhoneNumber as jasmine.Spy).and.returnValue(of(PhoneNumberServiceStatus.SUCCESS));
+    (phoneNumberViewService.handlePhoneNumber as jest.Mock).mockReturnValue(of(PhoneNumberServiceStatus.SUCCESS));
 
     component.ngOnInit();
     component.msisdnForm.controls[component.msisdnControlName].setValue('555555555');

@@ -6,7 +6,7 @@ import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
  * this is more like integration test not unit test
  * checks if class overrides value correctly
  */
-describe('ModalStack', () => {
+describe.skip('ModalStack', () => {
   let modalStack: ModalStack;
   let modal: NgbModal;
   beforeEach(() => {

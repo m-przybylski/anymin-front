@@ -9,7 +9,7 @@ import { AuthActions, SessionActions } from '@platform/core/actions';
 describe('SessionGuard', () => {
   let guard: SessionGuard;
   let store: Store<any>;
-  let dispatchSpy: jasmine.Spy;
+  let dispatchSpy: jest.Mock;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

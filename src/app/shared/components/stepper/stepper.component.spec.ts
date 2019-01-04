@@ -11,7 +11,7 @@ describe('StepperComponent', () => {
   beforeEach(() => {
     steps = Deceiver(QueryList, {
       changes: of(stepsArray),
-      toArray: jasmine.createSpy('toArray').and.returnValue(stepsArray),
+      toArray: jest.fn().mockReturnValue(stepsArray),
       length: 2,
     });
     stepperComponent = new StepperComponent();
@@ -62,7 +62,7 @@ describe('StepperComponent', () => {
     const stepsArrayThree: ReadonlyArray<any> = [{ content: 'asdf' }, { content: 'qwww' }, { content: 'aaaa' }];
     stepperComponent.steps = Deceiver(QueryList, {
       changes: of(stepsArrayThree),
-      toArray: jasmine.createSpy('toArray').and.returnValue(stepsArrayThree),
+      toArray: jest.fn().mockReturnValue(stepsArrayThree),
       length: 3,
     });
     stepperComponent.next();

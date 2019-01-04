@@ -189,28 +189,13 @@ describe('ConsultationDetailsViewService', () => {
           },
         },
       };
-      serviceService.postServiceWithEmployeesRoute = jasmine
-        .createSpy('postServiceWithEmployeesRoute')
-        .and.returnValue(cold('a|', { a: getServiceWithEmployees }));
-
-      employmentService.getEmploymentCommentsRoute = jasmine
-        .createSpy('getEmploymentCommentsRoute')
-        .and.returnValue(cold('-(a|)', { a: getComments }));
-      profileService.getProfileRoute = jasmine
-        .createSpy('getProfileRoute')
-        .and.returnValue(cold('--(a|)', { a: getProfileWithDocuments }));
-      viewsService.getWebExpertProfileRoute = jasmine
-        .createSpy('getWebExpertProfileRoute')
-        .and.returnValue(cold('(a|)', { a: expertProfileView }));
       const expected = cold('--(a|)', { a: result });
-
-      paymentsService.getDefaultPaymentMethodRoute = jasmine
-        .createSpy('getDefaultPaymentMethodRoute')
-        .and.returnValue(cold('#', {}, 'oups'));
-
-      financesService.postCommissionsRoute = jasmine
-        .createSpy('')
-        .and.returnValue(cold('(a|)', { a: result.getCommissions }));
+      serviceService.postServiceWithEmployeesRoute = jest.fn(() => cold('a|', { a: getServiceWithEmployees }));
+      employmentService.getEmploymentCommentsRoute = jest.fn(() => cold('-(a|)', { a: getComments }));
+      profileService.getProfileRoute = jest.fn(() => cold('--(a|)', { a: getProfileWithDocuments }));
+      viewsService.getWebExpertProfileRoute = jest.fn(() => cold('(a|)', { a: expertProfileView }));
+      paymentsService.getDefaultPaymentMethodRoute = jest.fn(() => cold('#', {}, 'oups'));
+      financesService.postCommissionsRoute = jest.fn(() => cold('(a|)', { a: result.getCommissions }));
 
       expect(consultationDetailsViewService.getServiceDetails(serviceId, employeeId)).toBeObservable(expected);
     });
@@ -237,9 +222,7 @@ describe('ConsultationDetailsViewService', () => {
         },
       ];
       const expected$ = cold('--a|', { a: ['ohohoh', 'ahahah'] });
-      serviceService.postServicesTagsRoute = jasmine
-        .createSpy('postServicesTagsRoute')
-        .and.returnValue(cold('--a|', { a: tagsFromServer }));
+      serviceService.postServicesTagsRoute = jest.fn(() => cold('--a|', { a: tagsFromServer }));
       expect(consultationDetailsViewService.getServicesTagList(serviceId)).toBeObservable(expected$);
     });
     it('should return empty array if no serviceid found in response ', () => {
@@ -262,9 +245,7 @@ describe('ConsultationDetailsViewService', () => {
         },
       ];
       const expected$ = cold('--a|', { a: [] });
-      serviceService.postServicesTagsRoute = jasmine
-        .createSpy('postServicesTagsRoute')
-        .and.returnValue(cold('--a|', { a: tagsFromServer }));
+      serviceService.postServicesTagsRoute = jest.fn(() => cold('--a|', { a: tagsFromServer }));
       expect(consultationDetailsViewService.getServicesTagList(serviceId)).toBeObservable(expected$);
     });
   });

@@ -9,7 +9,7 @@ import { cold } from 'jasmine-marbles';
 describe('AnonymousGuard', () => {
   let guard: AnonymousGuard;
   let store: Store<any>;
-  let dispatchSpy: jasmine.Spy;
+  let dispatchSpy: jest.Mock;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
