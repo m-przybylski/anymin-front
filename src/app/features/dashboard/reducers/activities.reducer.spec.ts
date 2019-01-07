@@ -5,7 +5,7 @@ import { DashboardActions } from '../actions';
 describe('activities.reducer', () => {
   const initialState: IState = {
     isPending: false,
-    counters: {
+    activitiesCounters: {
       clientActivitiesCount: 0,
       expertProfileActivitiesCount: 0,
       organizationProfileActivitiesCount: 0,
@@ -31,7 +31,7 @@ describe('activities.reducer', () => {
       );
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: 2,
           expertProfileActivitiesCount: 5,
           organizationProfileActivitiesCount: 1,
@@ -44,7 +44,7 @@ describe('activities.reducer', () => {
       const result = reducer(initialState, new DashboardActions.IncrementImportantExpertActivitiesCounterAction());
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: 0,
           expertProfileActivitiesCount: 1,
           organizationProfileActivitiesCount: 0,
@@ -57,7 +57,7 @@ describe('activities.reducer', () => {
       const result = reducer(initialState, new DashboardActions.DecrementImportantExpertActivitiesCounterAction());
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: 0,
           expertProfileActivitiesCount: -1,
           organizationProfileActivitiesCount: 0,
@@ -70,7 +70,7 @@ describe('activities.reducer', () => {
       const result = reducer(initialState, new DashboardActions.IncrementImportantClientActivitiesCounterAction());
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: 1,
           expertProfileActivitiesCount: 0,
           organizationProfileActivitiesCount: 0,
@@ -83,7 +83,7 @@ describe('activities.reducer', () => {
       const result = reducer(initialState, new DashboardActions.DecrementImportantClientActivitiesCounterAction());
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: -1,
           expertProfileActivitiesCount: 0,
           organizationProfileActivitiesCount: 0,
@@ -99,7 +99,7 @@ describe('activities.reducer', () => {
       );
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: 0,
           expertProfileActivitiesCount: 0,
           organizationProfileActivitiesCount: 1,
@@ -115,7 +115,7 @@ describe('activities.reducer', () => {
       );
       expect(result).toEqual({
         isPending: false,
-        counters: {
+        activitiesCounters: {
           clientActivitiesCount: 0,
           expertProfileActivitiesCount: 0,
           organizationProfileActivitiesCount: -1,

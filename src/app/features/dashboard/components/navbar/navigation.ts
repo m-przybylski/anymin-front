@@ -21,6 +21,7 @@ export interface INavigationItem {
   callbackFnName?: string;
   isCounter?: boolean;
   counter?: Observable<number>;
+  hasInvitationsCounter?: boolean;
   isVisible?(session: GetSessionWithAccount): boolean;
 }
 
@@ -129,6 +130,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
     isUser: true,
     isExpert: true,
     isCompany: false,
+    hasInvitationsCounter: true,
     group: NavigationItemGroupsEnum.ADDITIONAL,
   },
   // TODO uncomment this after Beta release ends

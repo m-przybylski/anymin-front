@@ -2,7 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import { DashboardActions, VisibilityWSActions, VisibilityInitActions } from '@platform/features/dashboard/actions';
+import {
+  DashboardActions,
+  VisibilityWSActions,
+  VisibilityInitActions,
+  InvitationsWsActions,
+  InvitationsActions,
+} from '@platform/features/dashboard/actions';
 import { Subject, merge } from 'rxjs';
 import { takeUntil, map, take } from 'rxjs/operators';
 import { GetExpertVisibility } from '@anymind-ng/api';
@@ -38,6 +44,7 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(new DashboardActions.FetchImportantActivitiesCounterAction());
+    this.store.dispatch(new InvitationsActions.FetchInvitationsAction());
 
     /**
      * web socket handler.
@@ -48,6 +55,9 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
      * and visibility.
      */
     merge(
+      this.anymindWebsocketService.newInvitation.pipe(
+        map(() => new InvitationsWsActions.IncrementWsInvitationsCounterAction()),
+      ),
       this.anymindWebsocketService.importantClientActivity.pipe(
         map(() => new DashboardActions.IncrementImportantClientActivitiesCounterAction()),
       ),
@@ -58,11 +68,10 @@ export class DashboardViewComponent implements OnInit, OnDestroy {
         map(() => new DashboardActions.IncrementImportantOrganizationActivitiesCounterAction()),
       ),
       this.anymindWebsocketService.expertPresence.pipe(
-        map(
-          getExpertVisibility =>
-            getExpertVisibility === GetExpertVisibility.VisibilityEnum.Visible
-              ? new VisibilityWSActions.SetWSVisibilityVisibleAction()
-              : new VisibilityWSActions.SetWSVisibilityInvisibleAction(),
+        map(getExpertVisibility =>
+          getExpertVisibility === GetExpertVisibility.VisibilityEnum.Visible
+            ? new VisibilityWSActions.SetWSVisibilityVisibleAction()
+            : new VisibilityWSActions.SetWSVisibilityInvisibleAction(),
         ),
       ),
     )

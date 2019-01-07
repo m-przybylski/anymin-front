@@ -6,7 +6,7 @@ import { Subject, ReplaySubject, Observable, interval, of, iif } from 'rxjs';
 import { switchMapTo, takeUntil, switchMap, first } from 'rxjs/operators';
 import { WebSocketService } from '../websocket/websocket.service.rxjs';
 import { WebSocketServiceFactory } from '../websocket/websocket.factory';
-import { GetExpertVisibility } from '@anymind-ng/api';
+import { GetExpertVisibility, GetInvitation } from '@anymind-ng/api';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Logger } from '@platform/core/logger';
@@ -69,7 +69,7 @@ export class AnymindWebsocketService extends Logger {
   private readonly heartbeatEvent$ = new Subject<Date>();
   private readonly profileCallProfitEvent$ = new Subject<any>();
   private readonly profileCallRefundEvent$ = new Subject<any>();
-  private readonly newInvitationEvent$ = new Subject<any>();
+  private readonly newInvitationEvent$ = new Subject<ReadonlyArray<GetInvitation>>();
   private readonly expertPresenceEvent$ = new Subject<GetExpertVisibility.VisibilityEnum>();
   private readonly heartbeatConfigEvent$ = new ReplaySubject<IHeartbeatConfig>();
   private readonly creditCardAddedEvent$ = new Subject<any>();
@@ -227,7 +227,7 @@ export class AnymindWebsocketService extends Logger {
     return this.profileCallProfitEvent$.asObservable();
   }
 
-  public get newInvitation(): Observable<any> {
+  public get newInvitation(): Observable<ReadonlyArray<GetInvitation>> {
     return this.newInvitationEvent$.asObservable();
   }
 

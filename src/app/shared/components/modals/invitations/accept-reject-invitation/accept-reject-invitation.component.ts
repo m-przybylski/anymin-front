@@ -14,6 +14,7 @@ import { GetSessionWithAccount } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { InvitationsApiActions } from '@platform/features/dashboard/actions';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -75,7 +76,9 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
   }
 
   public onRejectClicked(): void {
-    this.acceptRejectInvitationService.rejectInvitation(this.invitation.id, this.activeModal).subscribe();
+    this.acceptRejectInvitationService.rejectInvitation(this.invitation.id, this.activeModal).subscribe(() => {
+      this.store.dispatch(new InvitationsApiActions.DecrementApiInvitationsCounterAction());
+    });
   }
 
   public onAcceptClicked(): void {
@@ -92,6 +95,8 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
           return EMPTY;
         }),
       )
-      .subscribe();
+      .subscribe(() => {
+        this.store.dispatch(new InvitationsApiActions.DecrementApiInvitationsCounterAction());
+      });
   }
 }
