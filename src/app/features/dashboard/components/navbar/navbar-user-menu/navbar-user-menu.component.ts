@@ -104,6 +104,19 @@ export class NavbarUserMenuComponent implements OnInit {
     );
   }
 
+  public getRouterLink(): string {
+    switch (this.userType) {
+      case this.userTypeEnum.USER:
+        return this.userProfileUrl;
+      case this.userTypeEnum.EXPERT:
+        return this.userProfileUrl;
+      case this.userTypeEnum.COMPANY:
+        return this.companyProfileUrl;
+      default:
+        return this.userProfileUrl;
+    }
+  }
+
   public onClick = (fnName: string): void => {
     // tslint:disable-next-line:no-any
     if (typeof (this as any)[fnName] === 'function') {

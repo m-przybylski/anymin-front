@@ -22,10 +22,12 @@
     &__header
       display: flex
       align-items: center
+      cursor: pointer
       justify-content: space-between
       padding: 16px
 
     .user-name-container
+      flex: 0 0 50%
       &__title
         +input-label
         display: block
@@ -179,3 +181,6 @@
   .button--link
     +button-small
     color: $c-primary
+
+.profile-link
+  padding: 0 0 0 8px
