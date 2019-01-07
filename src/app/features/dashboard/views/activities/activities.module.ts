@@ -15,6 +15,7 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
 import { IconModule } from '@platform/shared/components/atomic-components';
 import { ActivitiesBalanceComponent } from '@platform/features/dashboard/views/activities/components/activities-balance.component';
 import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
+import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.mo
     EffectsModule.forFeature([ActivitiesEffects]),
     IconModule,
     MoneyDisplayModule,
+    TooltipModule,
     DropdownModule,
   ],
   declarations: [ActivitiesComponent, ActivitiesBalanceComponent],

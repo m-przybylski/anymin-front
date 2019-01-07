@@ -32,6 +32,7 @@ import { FileUrlResolveService } from '@platform/shared/services/file-url-resolv
 import { CookieNotificationModule } from '@platform/shared/components/cookie-notification/cookie-notification.module';
 import { InvitationsGuard } from '@platform/features/invitations/invitations.guard';
 import { InvitationsComponent } from '@platform/features/invitations/invitations.component';
+import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
 @NgModule({
   imports: [
     FormsModule,
@@ -45,6 +46,7 @@ import { InvitationsComponent } from '@platform/features/invitations/invitations
     ButtonModule,
     InputsModule,
     CookieNotificationModule,
+    TooltipModule,
   ],
   declarations: [
     LoginBackgroundComponent,

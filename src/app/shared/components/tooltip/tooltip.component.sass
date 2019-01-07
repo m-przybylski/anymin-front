@@ -1,0 +1,99 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+$s-tooltip-width: 24px
+$s-tooltip-array-indent: 15px
+$s-tooltip-array-width: 8px
+
+\:host
+	display: block
+
+.tooltip
+	max-height: $s-tooltip-width
+	max-width: $s-tooltip-width
+	position: relative
+	
+	&--center
+		.tooltip__content
+			right: 0
+			left: 0
+			bottom: auto
+			transform: translate(0, 0)
+			width: calc(100vw - 24px) !important
+		
+			+xsm
+				width: auto
+				max-width: 280px
+			
+			&::after
+				content: none
+	
+	&--left
+		.tooltip__content
+			right: 0 !important
+			left: auto !important
+			bottom: auto
+			transform: translate(#{$s-tooltip-array-indent - ($s-tooltip-array-width / 2)}, -$s-tooltip-array-indent)
+			
+			&::after
+				left: auto
+				right: 15px
+	
+	&--right
+		.tooltip__content
+			right: auto !important
+			left: 0 !important
+			bottom: auto
+			transform: translate(-#{$s-tooltip-array-indent - ($s-tooltip-array-width / 2)}, -$s-tooltip-array-indent)
+		
+			&::after
+				right: auto
+				left: 15px
+		
+		&__header
+			display: inline-flex
+			width: auto
+			cursor: pointer
+	
+	.icon
+		width: $s-tooltip-width
+		min-width: $s-tooltip-width
+		height: $s-tooltip-width
+		min-height: $s-tooltip-width
+		font-size: $s-tooltip-width
+		color: $c-label
+	
+	&__content
+		+tooltip-text
+		position: absolute
+		left: 0
+		bottom: 100%
+		right: -12px
+		border-radius: 8px
+		background: $c-white
+		text-align: left
+		padding: 12px 16px
+		box-shadow: 0 2px 8px 0 $c-lines
+		z-index: -$z-index-1000
+		margin: 0 0 12px
+		opacity: 0
+		
+		&--visible
+			z-index: $z-index-1000
+			opacity: 1
+		
+		&::after
+			content: ""
+			position: absolute
+			width: 0
+			height: 0
+			bottom: -7px
+			margin: auto
+			border-top: $s-tooltip-array-width solid $c-white
+			border-right: $s-tooltip-array-width solid transparent
+			border-left: $s-tooltip-array-width solid transparent
+			right: $s-tooltip-array-indent
+		
+		p
+			+tooltip-text
+			display: inline-block
+			white-space: pre

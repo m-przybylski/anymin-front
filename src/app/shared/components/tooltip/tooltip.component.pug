@@ -1,0 +1,7 @@
+.tooltip(tooltipPositionDirective, [contentTooltipElement]="contentTooltipElement", [textContent]="textContent", [tooltipText]="tooltipText | translate", (onClick)="toggleTooltip($event)")
+  .tooltip__header
+    span.tooltip__title
+      span(plat-icon, iconClass='questionmark')
+
+  .tooltip__content([ngClass]="{'tooltip__content--visible': isVisible}", #contentTooltipElement)
+    p([innerHTML]="tooltipText | translate", #textContent)
