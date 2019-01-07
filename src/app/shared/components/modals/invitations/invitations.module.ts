@@ -15,6 +15,7 @@ import { ConsultationDetailsComponentModule } from '@platform/features/dashboard
 import { ConsultationFooterModule } from '../consultation-details/consultation-footers/consultation-footer.module';
 import { ConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/consultation-details.view.module';
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
+import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.mo
     ConsultationDetailsComponentModule,
     ConsultationFooterModule,
     DropdownModule,
+    TooltipModule,
   ],
   entryComponents: [AcceptRejectInvitationModalComponent, EmployeesInviteModalComponent],
   declarations: [

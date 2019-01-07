@@ -20,9 +20,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IconModule, ButtonModule } from '@platform/shared/components/atomic-components';
 import { ExpertClientProfileComponent } from './components/expert-client-profile/expert-client-profile.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
+import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
 
 @NgModule({
-  imports: [CommonModule, ModalsModule, InputsModule, UserAvatarModule, ReactiveFormsModule, IconModule, ButtonModule],
+  imports: [
+    CommonModule,
+    ModalsModule,
+    InputsModule,
+    UserAvatarModule,
+    ReactiveFormsModule,
+    IconModule,
+    ButtonModule,
+    TooltipModule,
+  ],
   entryComponents: [CreateProfileModalComponent, CreateOrganizationModalComponent, ImageCropModalComponent],
   providers: [
     CreateProfileModalComponentService,

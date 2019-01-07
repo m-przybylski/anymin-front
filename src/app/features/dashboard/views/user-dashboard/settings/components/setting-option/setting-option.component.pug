@@ -5,7 +5,7 @@
         h3.description-container__title
           | {{ title | translate }}
           span.description-container__optional-text {{ titleOptionalText | translate }}
-        am-core-tooltip(
+        plat-tooltip(
         *ngIf="tooltipTrText",
         [tooltipText]="tooltipTrText | translate"
         )

@@ -9,7 +9,7 @@
           )
         .title-container
           h6 {{ titleTrKey | translate  }}
-            am-core-tooltip(
+            plat-tooltip(
               *ngIf="tooltipText",
               [tooltipText]="tooltipText",
               placement="top-right"
