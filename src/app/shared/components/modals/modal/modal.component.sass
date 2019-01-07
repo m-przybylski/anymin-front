@@ -216,10 +216,14 @@
   &__footer
     position: fixed
     left: inherit
-    width: inherit
     bottom: 0
+    width: inherit
+    
+    +smm
+      width: calc(100% - 48px)
 
     +mdm
+      width: inherit
       position: static
 
     &--fixed
