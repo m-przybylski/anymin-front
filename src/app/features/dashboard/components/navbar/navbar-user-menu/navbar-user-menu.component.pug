@@ -5,7 +5,9 @@
       span.icon.icon-clear
 
   ul.menu-list
-    li.menu-list__header
+    li.menu-list__header(
+      [routerLink]="getRouterLink()"
+    )
       .user-name-container(*ngIf="userName; else anonymous")
         span.user-name-container__title([translate]="'NAVBAR_USER_MENU.WELCOME'")
         span.user-name-container__user-name {{ userName }}
@@ -15,26 +17,27 @@
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.ANONYMOUS'")
           span.user-name-container__user-name([translate]="'NAVBAR_USER_MENU.FILL_PROFILE'")
 
-      ng-container([ngSwitch]="userType")
-        // TODO uncomment this after Beta release ends
-        //a(
-        //  plat-button-link,
-        //  *ngSwitchCase="userTypeEnum.USER",
-        //  [routerLink]="userProfileUrl",
-        //  [translate]="'NAVBAR_USER_MENU.EDIT'"
-        //)
-        a(
-          plat-button-link,
-          *ngSwitchCase="userTypeEnum.EXPERT",
-          [routerLink]="userProfileUrl",
-          [translate]="'NAVBAR_USER_MENU.SHOW'"
-        )
-        a(
-          plat-button-link,
-          *ngSwitchCase="userTypeEnum.COMPANY",
-          [routerLink]="companyProfileUrl",
-          [translate]="'NAVBAR_USER_MENU.SHOW'"
-        )
+      .profile-link
+        ng-container([ngSwitch]="userType")
+          //- TODO uncomment this after Beta release ends
+          //- a.profile-link__anchor(
+          //-   plat-button-link,
+          //-   *ngSwitchCase="userTypeEnum.USER",
+          //-   [routerLink]="userProfileUrl",
+          //-   [translate]="'NAVBAR_USER_MENU.EDIT'"
+          //- )
+          a.profile-link__anchor(
+            plat-button-link,
+            *ngSwitchCase="userTypeEnum.EXPERT",
+            [routerLink]="userProfileUrl",
+            [translate]="'NAVBAR_USER_MENU.SHOW'"
+          )
+          a.profile-link__anchor(
+            plat-button-link,
+            *ngSwitchCase="userTypeEnum.COMPANY",
+            [routerLink]="companyProfileUrl",
+            [translate]="'NAVBAR_USER_MENU.SHOW'"
+          )
 
     li.menu-list__section(*ngIf="userType === userTypeEnum.EXPERT")
       ul
