@@ -4,13 +4,13 @@ import { GetImportantActivitiesCounters } from '@anymind-ng/api';
 import { createSelector } from '@ngrx/store';
 
 export interface IState {
-  counters: GetImportantActivitiesCounters;
+  activitiesCounters: GetImportantActivitiesCounters;
   isPending: boolean;
 }
 
 export const initialState: IState = {
   isPending: false,
-  counters: {
+  activitiesCounters: {
     clientActivitiesCount: 0,
     expertProfileActivitiesCount: 0,
     organizationProfileActivitiesCount: 0,
@@ -38,85 +38,85 @@ export function reducer(state = initialState, action: DashboardActions.Dashboard
       return {
         ...state,
         isPending: false,
-        counters: action.payload,
+        activitiesCounters: action.payload,
       };
     }
 
     case DashboardActions.DashboardActionTypes.IncrementImportantExpertActivitiesCounter: {
       const incrementedCounters = {
-        ...state.counters,
-        expertProfileActivitiesCount: state.counters.expertProfileActivitiesCount + 1,
+        ...state.activitiesCounters,
+        expertProfileActivitiesCount: state.activitiesCounters.expertProfileActivitiesCount + 1,
       };
 
       return {
         ...state,
         isPending: false,
-        counters: incrementedCounters,
+        activitiesCounters: incrementedCounters,
       };
     }
 
     case DashboardActions.DashboardActionTypes.DecrementImportantExpertActivitiesCounter: {
       const decrementedCounters = {
-        ...state.counters,
-        expertProfileActivitiesCount: state.counters.expertProfileActivitiesCount - 1,
+        ...state.activitiesCounters,
+        expertProfileActivitiesCount: state.activitiesCounters.expertProfileActivitiesCount - 1,
       };
 
       return {
         ...state,
         isPending: false,
-        counters: decrementedCounters,
+        activitiesCounters: decrementedCounters,
       };
     }
 
     case DashboardActions.DashboardActionTypes.IncrementImportantClientActivitiesCounter: {
       const incrementedCounters = {
-        ...state.counters,
-        clientActivitiesCount: state.counters.clientActivitiesCount + 1,
+        ...state.activitiesCounters,
+        clientActivitiesCount: state.activitiesCounters.clientActivitiesCount + 1,
       };
 
       return {
         ...state,
         isPending: false,
-        counters: incrementedCounters,
+        activitiesCounters: incrementedCounters,
       };
     }
 
     case DashboardActions.DashboardActionTypes.DecrementImportantClientActivitiesCounter: {
       const decrementedCounters = {
-        ...state.counters,
-        clientActivitiesCount: state.counters.clientActivitiesCount - 1,
+        ...state.activitiesCounters,
+        clientActivitiesCount: state.activitiesCounters.clientActivitiesCount - 1,
       };
 
       return {
         ...state,
         isPending: false,
-        counters: decrementedCounters,
+        activitiesCounters: decrementedCounters,
       };
     }
 
     case DashboardActions.DashboardActionTypes.IncrementImportantOrganizationActivitiesCounter: {
       const incrementedCounters = {
-        ...state.counters,
-        organizationProfileActivitiesCount: state.counters.organizationProfileActivitiesCount + 1,
+        ...state.activitiesCounters,
+        organizationProfileActivitiesCount: state.activitiesCounters.organizationProfileActivitiesCount + 1,
       };
 
       return {
         ...state,
         isPending: false,
-        counters: incrementedCounters,
+        activitiesCounters: incrementedCounters,
       };
     }
 
     case DashboardActions.DashboardActionTypes.DecrementImportantOrganizationActivitiesCounter: {
       const decrementedCounters = {
-        ...state.counters,
-        organizationProfileActivitiesCount: state.counters.organizationProfileActivitiesCount - 1,
+        ...state.activitiesCounters,
+        organizationProfileActivitiesCount: state.activitiesCounters.organizationProfileActivitiesCount - 1,
       };
 
       return {
         ...state,
         isPending: false,
-        counters: decrementedCounters,
+        activitiesCounters: decrementedCounters,
       };
     }
 
@@ -127,12 +127,13 @@ export function reducer(state = initialState, action: DashboardActions.Dashboard
 }
 
 export const getPending = (state: IState): boolean => state.isPending;
-export const getCounters = (state: IState): GetImportantActivitiesCounters => state.counters;
-export const getExpertCounter = (state: IState): number => state.counters.expertProfileActivitiesCount;
-export const getClientCounter = (state: IState): number => state.counters.clientActivitiesCount;
-export const getCompanyCounter = (state: IState): number => state.counters.organizationProfileActivitiesCount;
+export const getCounters = (state: IState): GetImportantActivitiesCounters => state.activitiesCounters;
+export const getExpertActivitiesCounter = (state: IState): number =>
+  state.activitiesCounters.expertProfileActivitiesCount;
+export const getClientCounter = (state: IState): number => state.activitiesCounters.clientActivitiesCount;
+export const getCompanyCounter = (state: IState): number => state.activitiesCounters.organizationProfileActivitiesCount;
 export const getCombineCounters = createSelector(
-  getExpertCounter,
+  getExpertActivitiesCounter,
   getClientCounter,
   (expertCounter, clientCounter) => expertCounter + clientCounter,
 );

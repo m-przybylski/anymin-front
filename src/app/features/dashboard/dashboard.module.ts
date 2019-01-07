@@ -23,6 +23,7 @@ import { DashboardEffects } from '@platform/features/dashboard/effects/activitie
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 import { WelcomeModule } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.module';
+import { InvitationsEffects } from '@platform/features/dashboard/effects/invitations/invitations.effects';
 
 @NgModule({
   declarations: [DashboardViewComponent, UserDashboardComponent, FavouritesComponent, NotFoundComponent],
@@ -41,7 +42,7 @@ import { WelcomeModule } from '@platform/features/dashboard/views/user-dashboard
     DashboardComponentsModule,
     GenerateWidgetModule,
     StoreModule.forFeature('dashboard', reducers),
-    EffectsModule.forFeature([DashboardEffects, VisibilityEffects]),
+    EffectsModule.forFeature([DashboardEffects, VisibilityEffects, InvitationsEffects]),
   ],
   providers: [EmployeesInviteService, DashboardResolver],
 })

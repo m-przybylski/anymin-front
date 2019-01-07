@@ -103,17 +103,17 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
     );
 
   /**
-   * Filter invitation by status only new
-   */
-  private filterByNewStatus = (invitations: ReadonlyArray<GetInvitation>): ReadonlyArray<GetInvitation> =>
-    invitations.filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW);
-  /**
    * Sorts array by date in ascending order without mutating original array
    */
   private sortByDate = (invitations: ReadonlyArray<IInvitation>): ReadonlyArray<IInvitation> =>
     invitations
       .slice()
       .sort((left: IInvitation, right: IInvitation) => right.inviteDate.getTime() - left.inviteDate.getTime());
+  /**
+   * Filter invitation by status only new
+   */
+  private filterByNewStatus = (invitations: ReadonlyArray<GetInvitation>): ReadonlyArray<GetInvitation> =>
+    invitations.filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW);
 }
 
 interface IInvitationMap {
