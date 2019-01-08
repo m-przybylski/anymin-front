@@ -6,6 +6,11 @@
     [avatarToken]="avatarToken",
     [isOrganizationAvatar]="isOrganizationAvatar"
   )
+  .user-avatar__error(*ngIf="tooSmallDimensionsError")
+    div
+      span.icon.icon-warning
+      p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_SMALL_DIMENSIONS' | translate }}
+
   .user-avatar__error(*ngIf="tooLargeError")
     div
       span.icon.icon-warning
@@ -17,7 +22,7 @@
       p {{ 'EDIT_PROFILE.IMAGE_CROP.ERROR.REQUIRED' | translate }}
 
   .avatar-uploader__button.avatar-uploader__button--remove(
-    *ngIf="avatarToken || tooLargeError; else add",
+    *ngIf="avatarToken || fileUploadError; else add",
     [class.avatar-uploader__button--disabled]="isDisabled",
     (click)="onClickClear()"
   )
@@ -30,7 +35,7 @@ ng-template(#add)
         type='file',
         appAvatarUploader,
         (avatarTokenChange)="onAvatarTokenChange($event)",
-        (avatarTooLargeError)="onAvatarTooLarge()",
+        (avatarError)="onAvatarError($event)",
         accept="image/png, image/jpeg"
         )
       span(plat-icon, iconClass='add')
