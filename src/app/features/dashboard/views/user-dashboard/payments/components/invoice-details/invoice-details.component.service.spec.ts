@@ -26,8 +26,8 @@ describe('Service: InvoiceDetailsComponentService', () => {
     store = TestBed.get(Store);
   }));
 
-  it('should get invoice details', () => {
-    dispatchLoggedUser(store, { isCompany: true });
+  it('should get initial data', () => {
+    dispatchLoggedUser(store, { isCompany: true, account: { countryISO: 'mockIsoCode' } });
     const service = TestBed.get(InvoiceDetailsComponentService);
     const accountService = TestBed.get(AccountService);
     const mockInvoiceDetails: GetInvoiceDetails = {
@@ -50,10 +50,11 @@ describe('Service: InvoiceDetailsComponentService', () => {
       b: {
         invoiceDetails: mockInvoiceDetails,
         isCompanyProfile: true,
+        countryIsoCode: 'mockIsoCode',
       },
     });
 
     (accountService.getInvoiceDetailsRoute as jest.Mock).mockReturnValue(cold('-a|', { a: mockInvoiceDetails }));
-    expect(service.getInvoiceDetails()).toBeObservable(expected);
+    expect(service.getInitialData()).toBeObservable(expected);
   });
 });

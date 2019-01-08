@@ -1,25 +1,37 @@
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AccountService, PostCompanyDetails, GetInvoiceDetails, PostNaturalPersonDetails } from '@anymind-ng/api';
-import { map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { IInvoiceDetails } from './invoice-details.component';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { httpCodes } from '@platform/shared/constants/httpCodes';
 
 export type PostInvoiceDetails = PostNaturalPersonDetails | PostCompanyDetails;
+
 @Injectable()
 export class InvoiceDetailsComponentService {
   constructor(private store: Store<fromCore.IState>, private accountService: AccountService) {}
 
-  public getInvoiceDetails(): Observable<IInvoiceDetails> {
+  public getInitialData(): Observable<IInvoiceDetails> {
     return getNotUndefinedSession(this.store).pipe(
-      map(session => session.isCompany),
-      switchMap(isCompanyProfile =>
+      map(session => ({
+        isCompanyProfile: session.isCompany,
+        countryIsoCode: session.account.countryISO,
+      })),
+      switchMap(sessionData =>
         this.accountService.getInvoiceDetailsRoute().pipe(
+          catchError(err => {
+            if (err.status === httpCodes.notFound) {
+              return of(undefined);
+            }
+
+            return throwError(err);
+          }),
           map(invoiceDetails => ({
             invoiceDetails,
-            isCompanyProfile,
+            ...sessionData,
           })),
         ),
       ),
