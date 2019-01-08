@@ -1,7 +1,7 @@
-import { ProfileService, ServiceService } from '@anymind-ng/api';
+import { ProfileService, ServiceService, AccountService, GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, AlertService, Alerts } from '@anymind-ng/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, forkJoin, of } from 'rxjs';
 import { switchMap, map, take, catchError } from 'rxjs/operators';
 import { GetProfile } from '@anymind-ng/api/model/getProfile';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
@@ -10,8 +10,15 @@ import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostProfileDetails } from '@anymind-ng/api/model/postProfileDetails';
 import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
+import { httpCodes } from '@platform/shared/constants/httpCodes';
+import {
+  CompanyInvoiceDetailsFormControlNames,
+  COMPANY_FORM_NAME,
+} from '../../../payout-invoice-details/components/company-form/company-form.component';
+import { FormGroup } from '@angular/forms';
 
 export interface ICreateOrganizationModalData {
+  getInvoiceDetails?: GetInvoiceDetails;
   countryIso: string;
   hasConsultations: boolean;
 }
@@ -23,6 +30,7 @@ export class CreateOrganizationComponentService {
     private profileService: ProfileService,
     private serviceService: ServiceService,
     private alertService: AlertService,
+    private accountService: AccountService,
     private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
@@ -39,8 +47,23 @@ export class CreateOrganizationComponentService {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
       switchMap(getSessionWithAccount =>
-        this.serviceService.getProfileServicesRoute(getSessionWithAccount.account.id).pipe(
-          map(getServices => ({
+        forkJoin(
+          this.accountService.getInvoiceDetailsRoute().pipe(
+            /**
+             * in case user does not have any invoice details (old account) do not throw error
+             */
+            catchError((err: HttpErrorResponse) => {
+              if (err.status === httpCodes.notFound) {
+                return of(undefined);
+              }
+
+              return throwError(err);
+            }),
+          ),
+          this.serviceService.getProfileServicesRoute(getSessionWithAccount.account.id),
+        ).pipe(
+          map(([getInvoiceDetails, getServices]) => ({
+            getInvoiceDetails,
             countryIso: getSessionWithAccount.account.countryISO,
             hasConsultations: getServices.length > 0,
           })),
@@ -57,6 +80,43 @@ export class CreateOrganizationComponentService {
       .pipe(this.handleResponseError('error when try to validate organization details'));
   }
 
+  public getInvoiceDetailsFromForm(invoiceDetailsForm: FormGroup, accountCountryIsoCode: string): PostCompanyDetails {
+    const controls = (invoiceDetailsForm.get(COMPANY_FORM_NAME) as FormGroup).controls;
+
+    return {
+      companyName: controls[CompanyInvoiceDetailsFormControlNames.COMPANY_NAME].value,
+      vatNumber: controls[CompanyInvoiceDetailsFormControlNames.VAT_NUMBER].value,
+      address: {
+        street: controls[CompanyInvoiceDetailsFormControlNames.STREET].value,
+        streetNumber: controls[CompanyInvoiceDetailsFormControlNames.STREET_NUMBER].value,
+        apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
+        city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
+        postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
+        countryISO: accountCountryIsoCode,
+      },
+      vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
+    };
+  }
+
+  public patchInvoiceDetailsForm(formGroup: FormGroup, getInvoiceDetails: GetInvoiceDetails): void {
+    if (!formGroup.contains(COMPANY_FORM_NAME)) {
+      return;
+    }
+    const companyInvoiceDetailFormGroup = formGroup.get(COMPANY_FORM_NAME) as FormGroup;
+    if (getInvoiceDetails.invoiceDetailsType === GetInvoiceDetails.InvoiceDetailsTypeEnum.COMPANY) {
+      companyInvoiceDetailFormGroup.patchValue({
+        [CompanyInvoiceDetailsFormControlNames.COMPANY_NAME]: getInvoiceDetails.companyName,
+        [CompanyInvoiceDetailsFormControlNames.VAT_NUMBER]: getInvoiceDetails.vatNumber,
+        [CompanyInvoiceDetailsFormControlNames.STREET]: getInvoiceDetails.address.street,
+        [CompanyInvoiceDetailsFormControlNames.STREET_NUMBER]: getInvoiceDetails.address.streetNumber,
+        [CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER]: getInvoiceDetails.address.apartmentNumber,
+        [CompanyInvoiceDetailsFormControlNames.CITY]: getInvoiceDetails.address.city,
+        [CompanyInvoiceDetailsFormControlNames.POSTAL_CODE]: getInvoiceDetails.address.postalCode,
+        [CompanyInvoiceDetailsFormControlNames.VAT_RATE]: getInvoiceDetails.vatRateType,
+      });
+    }
+  }
+
   private handleResponseError<T>(errorMsg: string): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> =>
       source.pipe(
@@ -67,5 +127,14 @@ export class CreateOrganizationComponentService {
           return throwError(error);
         }),
       );
+  }
+
+  /**
+   * converts '00000' to '00-000'
+   */
+  private getPostalCode(postCodeValue: string): string {
+    const firstPartOfPostalCode = 2;
+
+    return `${postCodeValue.slice(0, firstPartOfPostalCode)}-${postCodeValue.slice(firstPartOfPostalCode)}`;
   }
 }

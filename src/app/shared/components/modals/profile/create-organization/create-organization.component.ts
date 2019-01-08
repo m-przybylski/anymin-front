@@ -15,11 +15,7 @@ import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { StepperComponent } from '@platform/shared/components/stepper/stepper.component';
-import {
-  COMPANY_FORM_NAME,
-  CompanyInvoiceDetailsFormControlNames,
-} from '@platform/shared/components/payout-invoice-details/components/company-form/company-form.component';
-import { PostCompanyDetails } from '@anymind-ng/api/model/postCompanyDetails';
+import { COMPANY_FORM_NAME } from '@platform/shared/components/payout-invoice-details/components/company-form/company-form.component';
 import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { NavbarActions } from '@platform/core/actions';
@@ -98,10 +94,13 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
           return EMPTY;
         }),
       )
-      .subscribe(response => {
+      .subscribe(({ countryIso, hasConsultations, getInvoiceDetails }) => {
         this.modalAnimationComponentService.stopLoadingAnimation();
-        this.hasProfileConsultationsAsExpert = response.hasConsultations;
-        this.accountCountryIsoCode = response.countryIso;
+        this.hasProfileConsultationsAsExpert = hasConsultations;
+        this.accountCountryIsoCode = countryIso;
+        if (getInvoiceDetails !== undefined) {
+          this.createOrganizationComponentService.patchInvoiceDetailsForm(this.invoiceDetailsForm, getInvoiceDetails);
+        }
       });
   }
 
@@ -187,36 +186,14 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
     };
   }
 
-  private getInvoiceDetails(): PostCompanyDetails {
-    const formGroup = <FormGroup>this.invoiceDetailsForm.controls[COMPANY_FORM_NAME];
-    const controls = formGroup.controls;
-
-    return {
-      companyName: controls[CompanyInvoiceDetailsFormControlNames.COMPANY_NAME].value,
-      vatNumber: controls[CompanyInvoiceDetailsFormControlNames.VAT_NUMBER].value,
-      address: {
-        street: controls[CompanyInvoiceDetailsFormControlNames.STREET].value,
-        streetNumber: controls[CompanyInvoiceDetailsFormControlNames.STREET_NUMBER].value,
-        apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
-        city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
-        postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.accountCountryIsoCode,
-      },
-      vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
-    };
-  }
-
   private getOrganizationProfileData(): PostProfileWithInvoiceDetails {
     return {
       profileDetails: this.getOrganizationDetails(),
-      companyDetails: this.getInvoiceDetails(),
+      companyDetails: this.createOrganizationComponentService.getInvoiceDetailsFromForm(
+        this.invoiceDetailsForm,
+        this.accountCountryIsoCode,
+      ),
     };
-  }
-
-  private getPostalCode(postCodeValue: string): string {
-    const firstPartOfPostalCode = 2;
-
-    return `${postCodeValue.slice(0, firstPartOfPostalCode)}-${postCodeValue.slice(firstPartOfPostalCode)}`;
   }
 
   private isCreateOrganizationDataValid(): boolean {
