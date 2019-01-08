@@ -1,5 +1,5 @@
-.tooltip(tooltipPositionDirective, [contentTooltipElement]="contentTooltipElement", [textContent]="textContent", [tooltipText]="tooltipText | translate", (onClick)="toggleTooltip($event)")
-  .tooltip__header
+.tooltip(tooltipPositionDirective, [tooltipHeader]="tooltipHeader", [contentTooltipElement]="contentTooltipElement", [textContent]="textContent", [tooltipText]="tooltipText | translate", (onClick)="toggleTooltip($event)")
+  .tooltip__header(#tooltipHeader)
     span.tooltip__title
       span(plat-icon, iconClass='questionmark')
 
