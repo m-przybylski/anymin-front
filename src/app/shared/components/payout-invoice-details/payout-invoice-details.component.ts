@@ -32,7 +32,18 @@ export class PayoutInvoiceDetailsComponent extends Logger implements OnInit {
   public form: FormGroup;
 
   @Input()
-  public isCompanyProfile: boolean;
+  public set isCompanyProfile(value: boolean) {
+    this._isCompanyProfile = value;
+    if (value) {
+      this.initialStepIndex = this.companyStepIndex;
+      this.formHeaderTrKey = this.translationKeys.companyInvoice;
+      this.selectedInvoiceDetailsType = GetInvoiceDetails.InvoiceDetailsTypeEnum.COMPANY;
+    }
+  }
+
+  public get isCompanyProfile(): boolean {
+    return this._isCompanyProfile;
+  }
 
   @Output()
   public onSelectInvoiceDetailsType = new EventEmitter<GetInvoiceDetails.InvoiceDetailsTypeEnum>();
@@ -40,18 +51,19 @@ export class PayoutInvoiceDetailsComponent extends Logger implements OnInit {
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
 
-  public invoiceDetailsTypeEnum = GetInvoiceDetails.InvoiceDetailsTypeEnum;
-  public selectedInvoiceDetailsType: GetInvoiceDetails.InvoiceDetailsTypeEnum;
-  public initialStepIndex: number;
-  public formHeaderTrKey: string;
-
-  private readonly naturalPersonStepIndex = 0;
-  private readonly companyStepIndex = 1;
-  private readonly translationKeys = {
+  public readonly naturalPersonStepIndex = 0;
+  public readonly companyStepIndex = 1;
+  public readonly translationKeys = {
     naturalPersonInvoice: 'DASHBOARD.PAYMENTS.INVOICE_MODAL.NATURAL_PERSON_INVOICE.TITLE',
     companyInvoice: 'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY_INVOICE.TITLE',
   };
+  public invoiceDetailsTypeEnum = GetInvoiceDetails.InvoiceDetailsTypeEnum;
+  public selectedInvoiceDetailsType = GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON;
+  public initialStepIndex = this.naturalPersonStepIndex;
+  public formHeaderTrKey = this.translationKeys.naturalPersonInvoice;
+
   private _invoiceDetails: GetInvoiceDetails;
+  private _isCompanyProfile: boolean;
 
   constructor(loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('CompanyInvoiceDetailsComponent'));

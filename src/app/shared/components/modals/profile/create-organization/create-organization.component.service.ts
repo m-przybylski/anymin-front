@@ -1,21 +1,22 @@
-import { ProfileService, ServiceService, GetProfileWithDocuments } from '@anymind-ng/api';
+import { ProfileService, ServiceService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, AlertService, Alerts } from '@anymind-ng/core';
-import { Observable, of, forkJoin, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { switchMap, map, take, catchError } from 'rxjs/operators';
-import { PutOrganizationDetails } from '@anymind-ng/api/model/putOrganizationDetails';
 import { GetProfile } from '@anymind-ng/api/model/getProfile';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import * as fromRoot from '@platform/reducers';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PostProfileDetails } from '@anymind-ng/api/model/postProfileDetails';
+import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
 
 export interface ICreateOrganizationModalData {
-  getProfileWithDocuments?: GetProfileWithDocuments;
+  countryIso: string;
   hasConsultations: boolean;
 }
 @Injectable()
-export class CreateOrganizationModalComponentService {
+export class CreateOrganizationComponentService {
   private logger: LoggerService;
 
   constructor(
@@ -25,32 +26,35 @@ export class CreateOrganizationModalComponentService {
     private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    this.logger = loggerFactory.createLoggerService('CreateOrganizationModalComponentService');
+    this.logger = loggerFactory.createLoggerService('CreateOrganizationComponentService');
   }
 
-  public createOrganizationProfile = (data: PutOrganizationDetails): Observable<GetProfile> =>
-    this.profileService.putOrganizationProfileRoute(data).pipe(this.handleResponseError('Not able to create/update'));
+  public createOrganizationProfile(data: PostProfileWithInvoiceDetails): Observable<GetProfile> {
+    return this.profileService
+      .postCreateProfileWithInvoiceDetailsRoute(data)
+      .pipe(this.handleResponseError('Not able to create organization profile'));
+  }
 
-  public getModalData(): Observable<ICreateOrganizationModalData> {
+  public getInitialData(): Observable<ICreateOrganizationModalData> {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
       switchMap(getSessionWithAccount =>
-        forkJoin([
-          getSessionWithAccount.isCompany
-            ? this.profileService
-                .getProfileRoute(getSessionWithAccount.account.id)
-                .pipe(this.handleResponseError('Not able to get profile data'))
-            : of(undefined),
-          this.serviceService
-            .getProfileServicesRoute(getSessionWithAccount.account.id)
-            .pipe(this.handleResponseError('Not able to get services')),
-        ]),
+        this.serviceService.getProfileServicesRoute(getSessionWithAccount.account.id).pipe(
+          map(getServices => ({
+            countryIso: getSessionWithAccount.account.countryISO,
+            hasConsultations: getServices.length > 0,
+          })),
+          this.handleResponseError('Not able to get services'),
+        ),
       ),
-      map(([getProfileWithDocuments, getServices]) => ({
-        getProfileWithDocuments,
-        hasConsultations: getServices.length > 0,
-      })),
+      map(modalData => modalData),
     );
+  }
+
+  public validateOrganizationDetails(data: PostProfileDetails): Observable<void> {
+    return this.profileService
+      .postProfileValidateRoute(data)
+      .pipe(this.handleResponseError('error when try to validate organization details'));
   }
 
   private handleResponseError<T>(errorMsg: string): (source: Observable<T>) => Observable<T> {

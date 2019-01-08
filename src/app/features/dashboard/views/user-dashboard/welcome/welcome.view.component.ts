@@ -12,7 +12,7 @@ export class WelcomeViewComponent {
   constructor(private modalService: NgbModal) {}
 
   public onCreateExpertAccount(): void {
-    this.modalService.open(CreateProfileModalComponent).componentInstance.isExpertForm = false;
+    this.modalService.open(CreateProfileModalComponent);
   }
 
   public onCreateCompanyAccount(): void {

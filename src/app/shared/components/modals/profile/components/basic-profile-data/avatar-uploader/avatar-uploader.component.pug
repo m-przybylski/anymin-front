@@ -1,4 +1,6 @@
-.avatar-uploader
+.avatar-uploader(
+  [class.avatar-uploader--disabled]="isDisabled"
+)
   plat-user-avatar(
     [avatarSize]="avatarSize",
     [avatarToken]="avatarToken",
@@ -16,6 +18,7 @@
 
   .avatar-uploader__button.avatar-uploader__button--remove(
     *ngIf="avatarToken || tooLargeError; else add",
+    [class.avatar-uploader__button--disabled]="isDisabled",
     (click)="onClickClear()"
   )
     span(plat-icon, iconClass='trash')

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Animations } from '@platform/shared/animations/animations';
 import { Config } from 'config';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
-import { GetProfileWithDocuments, ProfileDocument } from '@anymind-ng/api';
+import { ProfileDocument } from '@anymind-ng/api';
 
 @Component({
   selector: 'plat-expert-client-profile',
@@ -14,15 +14,11 @@ import { GetProfileWithDocuments, ProfileDocument } from '@anymind-ng/api';
 export class ExpertClientProfileComponent {
   public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
   public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
-  public readonly expertFormControlDescription = 'expertDescriptionControl';
 
   public isFileUploading: boolean;
-  public linksList: ReadonlyArray<string> = [];
-
   public maxValidFileSize = 30000000;
   public maxValidFilesCount = 20;
   public fileCategory = FileCategoryEnum.EXPERT_FILE;
-  public profileDetails: GetProfileWithDocuments;
 
   @Input()
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
@@ -32,6 +28,14 @@ export class ExpertClientProfileComponent {
   public isExpertForm: boolean;
   @Input()
   public isInputDisabled: boolean;
+  @Input()
+  public descriptionControlName: string;
+  @Input()
+  public linksControlName: string;
+  @Input()
+  public basicProfileDataControlName: string;
+  @Input()
+  public isValidated = false;
 
   @Output()
   public fileUploadTokensList = new EventEmitter<ReadonlyArray<string>>();
@@ -39,8 +43,6 @@ export class ExpertClientProfileComponent {
   public fileUploadingStatusChange = new EventEmitter<boolean>();
 
   public onUploadingFile(isUploading: boolean): void {
-    this.isFileUploading = isUploading;
-    this.isInputDisabled = isUploading;
     this.fileUploadingStatusChange.emit(isUploading);
   }
 

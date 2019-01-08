@@ -1,68 +1,56 @@
-import { Observable, of, defer, throwError } from 'rxjs';
-import {
-  AccountService,
-  GetProfile,
-  ProfileService,
-  PutGeneralSettings,
-  GetSessionWithAccount,
-  GetProfileWithDocuments,
-} from '@anymind-ng/api';
+import { Observable, throwError } from 'rxjs';
+import { AccountService, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import * as fromRoot from '@platform/reducers';
-import { Store } from '@ngrx/store';
-import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
-import { take, switchMap, map, catchError } from 'rxjs/operators';
+import { catchError, map, take } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
+import { PostProfileDetails } from '@anymind-ng/api/model/postProfileDetails';
+import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
 
-export interface ICreateProfileModalData {
-  getProfileWithDocuments?: GetProfileWithDocuments;
-  getSessionWithAccount: GetSessionWithAccount;
+export interface ICreateProfileInitialData {
+  countryISO: string;
+  hasProfile: boolean;
 }
 @Injectable()
-export class CreateProfileModalComponentService extends Logger {
+export class CreateProfileComponentService extends Logger {
   constructor(
-    private store: Store<fromRoot.IState>,
     private profileService: ProfileService,
     private accountService: AccountService,
     private alertService: AlertService,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory.createLoggerService('CreateProfileModalComponentService'));
+    super(loggerFactory.createLoggerService('CreateProfileComponentService'));
   }
 
-  public createClientProfile = (formData: PutGeneralSettings): Observable<PutGeneralSettings> =>
-    this.accountService
-      .putGeneralSettingsRoute({
-        nickname: formData.nickname,
-        avatar: formData.avatar,
-      })
-      .pipe(this.handleResponseError('Can not create client profile'));
-
-  public createExpertProfile = (data: PutExpertDetails): Observable<GetProfile> =>
-    this.profileService.putExpertProfileRoute(data).pipe(this.handleResponseError('Can not create expert profile'));
-
-  public getModalData(): Observable<ICreateProfileModalData> {
+  public getCountryIsoAndProfile(): Observable<ICreateProfileInitialData> {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
-      switchMap(getSessionWithAccount =>
-        defer(
-          () =>
-            getSessionWithAccount.isExpert
-              ? this.profileService
-                  .getProfileRoute(getSessionWithAccount.account.id)
-                  .pipe(this.handleResponseError('cannot get profile data'))
-              : of(undefined),
-        ).pipe(
-          map(getProfileWithDocuments => ({
-            getProfileWithDocuments,
-            getSessionWithAccount,
-          })),
-        ),
-      ),
+      map(session => ({ countryISO: session.account.countryISO, hasProfile: session.isExpert || session.isCompany })),
+      this.handleResponseError('error when try to get country ISO code'),
     );
+  }
+
+  public createClientProfile(formData: PutGeneralSettings): Observable<PutGeneralSettings> {
+    return this.accountService
+      .putGeneralSettingsRoute(formData)
+      .pipe(this.handleResponseError('Can not create client profile'));
+  }
+
+  public createExpertProfile(data: PostProfileWithInvoiceDetails): Observable<GetProfile> {
+    return this.profileService
+      .postCreateProfileWithInvoiceDetailsRoute(data)
+      .pipe(this.handleResponseError('Can not create expert profile'));
+  }
+
+  public validateProfileDetails(data: PostProfileDetails): Observable<void> {
+    return this.profileService
+      .postProfileValidateRoute(data)
+      .pipe(this.handleResponseError('error when validate profile details'));
   }
 
   private handleResponseError<T>(errorMsg: string): (source: Observable<T>) => Observable<T> {

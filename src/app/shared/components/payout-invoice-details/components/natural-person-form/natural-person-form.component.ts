@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { GetInvoiceDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
 
-export const NATURAL_PERSON_FORM_NAME = 'naturalPerson';
+export const NATURAL_PERSON_FORM_NAME = 'naturalPersonInvoice';
 
 export enum NaturalPersonInvoiceDetailsFormControlNames {
   FIRST_NAME = 'firstName',

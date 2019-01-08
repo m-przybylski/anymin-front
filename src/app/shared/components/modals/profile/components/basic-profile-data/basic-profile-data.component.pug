@@ -2,6 +2,7 @@
   .basic-profile-data__content([formGroup]='profileDataForm')
     plat-avatar-uploader(
       [formControl]="avatarFormControl",
+      [isDisabled]="isDisabled",
       [isOrganizationAvatar]="isOrganizationAvatar",
     )
 

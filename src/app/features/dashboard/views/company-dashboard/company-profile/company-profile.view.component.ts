@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
-import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 import {
   CreateEditConsultationModalComponent,
   ICreateEditConsultationPayload,
@@ -15,6 +14,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { Store, select } from '@ngrx/store';
 import * as fromCompanyDashboard from '../reducers';
+import { EditOrganizationModalComponent } from '@platform/shared/components/modals/profile/edit-organization/edit-organization.component';
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
@@ -64,7 +64,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public onEditProfile(): void {
-    this.openModalWithReload(CreateOrganizationModalComponent);
+    this.openModalWithReload(EditOrganizationModalComponent);
   }
 
   /**

@@ -85,8 +85,8 @@ export class LoginEffects extends Logger {
           }
         })
         .catch(err => {
-          this.loggerService.error('Something went wrong, redirecting to "/dashboard/user/activities"');
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect, err);
+          this.loggerService.error('Something went wrong, redirecting to "/dashboard/user/activities"', err);
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
         });
     }),
   );

@@ -29,6 +29,9 @@ export class AvatarUploaderComponent implements ControlValueAccessor {
   @Input()
   public formControl: FormControl;
 
+  @Input()
+  public isDisabled = false;
+
   public readonly avatarSize = AvatarSizeEnum.X_156;
 
   public avatarToken: string;
@@ -46,12 +49,18 @@ export class AvatarUploaderComponent implements ControlValueAccessor {
   }
   public onClickClear(): void {
     this.onAvatarTokenChange('');
+    /**
+     * We need to markAsTouched to trigger required error
+     */
+    this.formControl.markAsTouched();
   }
   public onAvatarTokenChange(avatarToken: string): void {
-    // tslint:disable-next-line:no-null-keyword
-    this.formControl.setErrors(null);
-    this.avatarToken = avatarToken;
-    this.onModelChange(avatarToken);
+    if (!this.isDisabled) {
+      // tslint:disable-next-line:no-null-keyword
+      this.formControl.setErrors(null);
+      this.avatarToken = avatarToken;
+      this.onModelChange(avatarToken);
+    }
   }
   public writeValue(avatarToken: string): void {
     this.avatarToken = avatarToken;
@@ -65,7 +74,7 @@ export class AvatarUploaderComponent implements ControlValueAccessor {
     this.onTouch = fn;
   }
   public get requiredError(): boolean {
-    return this.formControl.hasError(this.controlErrorCodes.required);
+    return this.formControl.touched && this.formControl.hasError(this.controlErrorCodes.required);
   }
   public get tooLargeError(): boolean {
     return this.formControl.hasError(this.controlErrorCodes.tooLarge);

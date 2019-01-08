@@ -4,7 +4,7 @@ form.form.form--create-organization(
   contentHeightAnimation,
   novalidate
 )
-  .modal-form__row--small(*ngIf="isProfileHasConsultations")
+  .modal-form__row--small(*ngIf="hasProfileConsultationsAsExpert")
     .alert-content.alert-content--error
       span.icon.icon-warning
       p {{'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.HAS_GOT_CONSULTATION.ALERT' | translate }}
@@ -18,8 +18,10 @@ form.form.form--create-organization(
 
   .modal-form__row
     plat-basic-profile-data(
-      formControlName="avatarTokenProfileName",
       [isRequired]="true",
+      [isValidated]="isValidated",
+      [formControlName]="basicProfileDataControlName",
+      [isDisabled]="isInputDisabled",
       [isOrganizationAvatar]="true",
       [inputTextLabel]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.LABEL'",
       [inputTextPlaceholder]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.PLACEHOLDER'"
@@ -34,7 +36,7 @@ form.form.form--create-organization(
       [minLength]="profileDescriptionMinLength",
       [placeholder]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.PLACEHOLDER'",
       [form]="profileForm",
-      [controlName]="descriptionFormControl",
+      [controlName]="descriptionControlName",
       [errorTextKey]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.ERROR'",
       [label]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.DESCRIPTION.LABEL'",
       [isRequired]="true",
@@ -52,4 +54,7 @@ form.form.form--create-organization(
       [isDisabled]="isInputDisabled"
     )
   .modal-form__row.modal-form__row--small
-    plat-profile-links(formControlName="profileLinks", [isDisabled]="isInputDisabled")
+    plat-profile-links(
+      [formControlName]="linksControlName",
+      [isDisabled]="isInputDisabled"
+    )

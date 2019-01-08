@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Config } from 'config';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
-import { GetProfileWithDocuments, ProfileDocument } from '@anymind-ng/api';
+import { ProfileDocument } from '@anymind-ng/api';
 
 @Component({
   selector: 'plat-company-profile',
@@ -12,15 +12,10 @@ import { GetProfileWithDocuments, ProfileDocument } from '@anymind-ng/api';
 export class CompanyProfileComponent {
   public readonly profileDescriptionMinLength = Config.inputsLengthNumbers.profileDescriptionMinLength;
   public readonly profileDescriptionMaxLength = Config.inputsLengthNumbers.profileDescriptionMaxLength;
-  public readonly descriptionFormControl = 'descriptionFormControl';
-
-  public isFileUploading: boolean;
-  public linksList: ReadonlyArray<string> = [];
 
   public maxValidFileSize = 30000000;
   public maxValidFilesCount = 20;
   public fileCategory = FileCategoryEnum.EXPERT_FILE;
-  public profileDetails: GetProfileWithDocuments;
 
   @Input()
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
@@ -29,7 +24,15 @@ export class CompanyProfileComponent {
   @Input()
   public isInputDisabled: boolean;
   @Input()
-  public isProfileHasConsultations: boolean;
+  public hasProfileConsultationsAsExpert: boolean;
+  @Input()
+  public descriptionControlName: string;
+  @Input()
+  public linksControlName: string;
+  @Input()
+  public isValidated = false;
+  @Input()
+  public basicProfileDataControlName: string;
 
   @Output()
   public fileUploadTokensList = new EventEmitter<ReadonlyArray<string>>();
@@ -37,8 +40,6 @@ export class CompanyProfileComponent {
   public fileUploadingStatusChange = new EventEmitter<boolean>();
 
   public onUploadingFile(isUploading: boolean): void {
-    this.isFileUploading = isUploading;
-    this.isInputDisabled = isUploading;
     this.fileUploadingStatusChange.emit(isUploading);
   }
 

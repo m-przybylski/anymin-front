@@ -13,11 +13,6 @@ export interface IValidatorsErrorMsg {
   };
 }
 
-export enum AddItemTypeEnum {
-  INCORRECT_VALUE,
-  VALUE_ADDED,
-}
-
 @Component({
   selector: 'plat-add-item',
   templateUrl: './input-add-item.component.html',
@@ -72,8 +67,8 @@ export class InputAddItemComponent {
 
   public showValidationAlert(): string {
     const controlErrors = this.inputFormControl.errors;
-    const controlValue = this.inputFormControl.value;
-    if (controlErrors !== null && controlValue.length > 0) {
+    // const controlValue = this.inputFormControl.value;
+    if (controlErrors !== null) {
       const errorCode = Object.keys(controlErrors)[0];
 
       return Object.keys(this.errorsMsg).includes(errorCode) ? this.errorsMsg[errorCode].text : errorCode;
@@ -133,7 +128,8 @@ export class InputAddItemComponent {
   }
 
   private onAddItem(): void {
-    if (this.inputFormControl.valid) {
+    if (!this.isDisabled && this.inputFormControl.valid && this.inputFormControl.value) {
+      this.isBlured = false;
       this.valueAdded.emit(this.inputFormControl.value);
     }
   }

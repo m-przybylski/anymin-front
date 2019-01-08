@@ -12,6 +12,12 @@ import {
 import { Config } from '../../../../../../../config';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FormUtilsService } from '@anymind-ng/core';
+
+export interface IBasicProfileData {
+  name: string;
+  avatarToken: string;
+}
 
 export const BASIC_PROFILE_DATA_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -40,8 +46,7 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
   public inputTextLabel?: string;
   @Input()
   public inputTextPlaceholder?: string;
-  @Input()
-  public formControl: FormControl;
+
   @Input()
   public set isRequired(val: boolean) {
     this._isRequired = val;
@@ -52,18 +57,26 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
      */
     // this.textInputFormControl.setValidators(Validators.required);
   }
+
   public get isRequired(): boolean {
     return this._isRequired;
   }
+
   @Input()
   public isDisabled: boolean;
 
-  /** DEPRECATED subject to remove do not use them */
-  public profileNameControlName = 'profileNameFormControl';
-  /** end DEPRECATED */
+  @Input()
+  public set isValidated(value: boolean) {
+    if (value) {
+      this.formUtils.validateAllFormFields(this.profileDataForm);
+    }
+  }
 
   public avatarFormControl = new FormControl('');
   public textInputFormControl = new FormControl('');
+  /** DEPRECATED subject to remove do not use them */
+  public profileNameControlName = 'profileNameFormControl';
+  /** end DEPRECATED */
 
   public profileDataForm = new FormGroup({
     avatarFormControl: this.avatarFormControl,
@@ -82,6 +95,8 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
   private onTouch: (obj?: any) => any;
   private onDestroy$ = new Subject<void>();
   private _isRequired: boolean;
+
+  constructor(private formUtils: FormUtilsService) {}
 
   public ngAfterViewInit(): void {
     /**
@@ -115,8 +130,15 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
       }
     }
 
-    // tslint:disable-next-line:no-null-keyword
-    return null;
+    /**
+     * because we can not control internal profileName (am-core-input-text) control validators
+     */
+    if (!this.profileDataForm.contains(this.profileNameControlName)) {
+      // tslint:disable-next-line:no-null-keyword
+      return null;
+    }
+
+    return this.profileDataForm.controls[this.profileNameControlName].errors;
   }
 
   //#region ControlValueAccessor interface
@@ -131,17 +153,21 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
       });
     }
   }
+
   // tslint:disable-next-line:no-any
   public registerOnChange(fn: any): void {
     this.onModelChange = fn;
   }
+
   // tslint:disable-next-line:no-any
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }
+
   public setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
+
   //#endregion
 }
 

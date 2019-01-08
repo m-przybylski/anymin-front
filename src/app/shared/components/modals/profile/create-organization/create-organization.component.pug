@@ -1,16 +1,49 @@
-plat-modal-component([modalTrTitleHeader]="modalHeaderTr")
-  plat-company-profile(
-    [profileForm]="createOrganizationFormGroup",
-    [isInputDisabled]="isInputDisabled",
-    [profileDocumentsList]="profileDocumentsList",
-    [isProfileHasConsultations]="isProfileHasConsultations",
-    (fileUploadTokensList)="onFileUploadTokensList($event)",
-    (fileUploadingStatusChange)="onFileUploadingStatusChange($event)"
+plat-modal-component(
+  [modalTrTitleHeader]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.CREATE_TITLE'",
+  [isBackwardVisible]="currentModalStep === modalSteps.INVOICE_DETAILS",
+  (backwardClick)="onBackwardClick()"
+)
+  form(
+    [formGroup]='organizationForm',
+    (ngSubmit)="onSaveProfile()"
   )
-  .modal-component__action.modal-component__action--create-organization
-    am-core-submit-button(
-    (click)="onCreateOrganizationProfile(createOrganizationFormGroup)",
-    [titleText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.BUTTON.SAVE_PROFILE'",
-    [isDisabled]="isFileUploading || isPending || isInputDisabled",
-    [isLoading]="isFileUploading || isPending || isInputDisabled"
+    plat-stepper(#stepper='platStepper')
+      plat-step
+        plat-company-profile(
+          [profileForm]="organizationForm",
+          [isInputDisabled]="isRequestPending",
+          [isValidated]="isValidated",
+          [descriptionControlName]="descriptionControlName",
+          [basicProfileDataControlName]="basicProfileDataControlName",
+          [linksControlName]="linksControlName",
+          [profileDocumentsList]="profileDocumentsList",
+          [hasProfileConsultationsAsExpert]="hasProfileConsultationsAsExpert",
+          (fileUploadingStatusChange)="onFileUploadingStatusChange($event)",
+          (fileUploadTokensList)="onFileUploadTokensList($event)"
+        )
+
+      plat-step
+        plat-payout-invoice-details(
+          [isRequestPending]="isRequestPending",
+          [form]="invoiceDetailsForm",
+          [isCompanyProfile]="true"
+        )
+
+    .modal-component__action.modal-component__action--center(
+      *ngIf="currentModalStep === modalSteps.ORGANIZATION_DETAILS; else createOrganizationButton"
     )
+      am-core-submit-button(
+        (click)="onVerifyProfile()",
+        [isSubmitType]="false",
+        [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.NEXT'",
+        [isDisabled]="isRequestPending || isFileUploading",
+        [isLoading]="isRequestPending"
+      )
+
+    ng-template(#createOrganizationButton)
+      .modal-component__action.modal-component__action--center
+        am-core-submit-button(
+          [titleText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.BUTTON.SAVE_PROFILE'",
+          [isDisabled]="isRequestPending",
+          [isLoading]="isRequestPending"
+        )
