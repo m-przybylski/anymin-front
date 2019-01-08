@@ -4,7 +4,7 @@ import { vatNumberValidator } from './vat-number.validator';
 import { GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
 
-export const COMPANY_FORM_NAME = 'company';
+export const COMPANY_FORM_NAME = 'companyInvoice';
 
 export enum CompanyInvoiceDetailsFormControlNames {
   COMPANY_NAME = 'firstName',

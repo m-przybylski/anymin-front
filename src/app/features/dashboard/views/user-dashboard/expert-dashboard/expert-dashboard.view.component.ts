@@ -2,7 +2,6 @@ import { Component, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { EmploymentWithService, ProfileDocument } from '@anymind-ng/api';
-import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { takeUntil, pluck } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
@@ -15,6 +14,7 @@ import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { IExpertProfile } from './services/expert-dashboard-resolver.service';
+import { EditProfileModalComponent } from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-expert-dashboard',
@@ -61,7 +61,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public editProfile = (): void => {
-    this.openModalWithReload(CreateProfileModalComponent);
+    this.openModalWithReload(EditProfileModalComponent);
   };
   /**
    * callback when add consultation is triggered

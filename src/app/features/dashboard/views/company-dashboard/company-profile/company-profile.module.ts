@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../../../shared/shared.module';
+import { SharedModule } from '@platform/shared/shared.module';
 import { DashboardComponentsModule } from '../../../components/components.module';
 import { RouterModule } from '@angular/router';
 import { CompanyProfileComponent } from './company-profile.view.component';

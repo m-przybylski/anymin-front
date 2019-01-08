@@ -141,9 +141,7 @@ describe('CompanyConsultationDetailsViewService', () => {
     paymentsService.getDefaultPaymentMethodRoute = jest.fn(() => getDefaultPaymentMethodRoute);
     serviceService.postServiceWithEmployeesRoute = jest.fn(() => postServiceWithEmployeesRoute);
 
-    financesService.postCommissionsRoute = jasmine
-      .createSpy('')
-      .and.returnValue(cold('(a|)', { a: result.getCommissions }));
+    financesService.postCommissionsRoute = jest.fn(() => cold('(a|)', { a: result.getCommissions }));
     expect(service.getConsultationDetails('1234')).toBeObservable(expected);
   });
 

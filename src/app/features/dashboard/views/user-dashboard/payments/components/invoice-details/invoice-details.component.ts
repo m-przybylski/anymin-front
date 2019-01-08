@@ -20,6 +20,7 @@ import {
   COMPANY_FORM_NAME,
   CompanyInvoiceDetailsFormControlNames,
 } from '@platform/shared/components/payout-invoice-details/components/company-form/company-form.component';
+import { httpCodes } from '@platform/shared/constants/httpCodes';
 
 export interface IInvoiceDetails {
   invoiceDetails: GetInvoiceDetails;
@@ -160,9 +161,11 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
           this.modalAnimationComponentService.stopLoadingAnimation();
         }),
         catchError(err => {
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-          this.loggerService.warn('error when try to get invoice details', err);
-          this.activeModal.close();
+          if (err.status !== httpCodes.notFound) {
+            this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+            this.loggerService.warn('error when try to get invoice details', err);
+            this.activeModal.close();
+          }
 
           return EMPTY;
         }),

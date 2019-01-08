@@ -1,0 +1,22 @@
+plat-modal-component([modalTrTitleHeader]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.EDIT_TITLE'")
+  form(
+    [formGroup]="organizationFormGroup",
+    (ngSubmit)="onEditOrganizationProfile()"
+  )
+    plat-company-profile(
+      [profileForm]="organizationFormGroup",
+      [isInputDisabled]="isRequestPending",
+      [descriptionControlName]="descriptionControlName",
+      [basicProfileDataControlName]="basicProfileDataControlName",
+      [profileDocumentsList]="profileDocumentsList",
+      [linksControlName]="linksControlName",
+      [hasProfileConsultationsAsExpert]="hasProfileConsultationsAsExpert",
+      (fileUploadingStatusChange)="onFileUploadingStatusChange($event)",
+      (fileUploadTokensList)="onFileUploadTokensList($event)"
+    )
+    .modal-component__action.modal-component__action--center
+      am-core-submit-button(
+        [titleText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.BUTTON.SAVE_PROFILE'",
+        [isDisabled]="isRequestPending || isFileUploading",
+        [isLoading]="isRequestPending"
+      )

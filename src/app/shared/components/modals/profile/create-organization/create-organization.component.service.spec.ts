@@ -1,30 +1,37 @@
-// tslint:disable:no-empty
-
 import { TestBed } from '@angular/core/testing';
-import { ProfileService, PutOrganizationDetails, ServiceService } from '@anymind-ng/api';
-import { CreateOrganizationModalComponentService } from './create-organization.component.service';
+import { ProfileService, ServiceService, PostProfileDetails } from '@anymind-ng/api';
+import { CreateOrganizationComponentService } from './create-organization.component.service';
 import { importStore, provideMockFactoryLogger, dispatchLoggedUser } from 'testing/testing';
 import { Deceiver } from 'deceiver-core';
 import { Store } from '@ngrx/store';
-import { cold } from 'jasmine-marbles';
 import { AlertService } from '@anymind-ng/core';
-import { of } from 'rxjs';
+import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
+import { cold } from 'jasmine-marbles';
 
-describe('CreateOrganizationModalComponentService', () => {
+describe('CreateOrganizationComponentService', () => {
   let store: Store<any>;
-  let service: CreateOrganizationModalComponentService;
+  let service: CreateOrganizationComponentService;
   let profileService: ProfileService;
+  let alertService: AlertService;
+  const organizationDetailsObject: PostProfileDetails = {
+    profileType: PostProfileDetails.ProfileTypeEnum.ORG,
+    name: 'name',
+    avatar: 'logo',
+    description: 'description',
+    files: [],
+    links: [],
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [importStore()],
       providers: [
-        CreateOrganizationModalComponentService,
+        CreateOrganizationComponentService,
         provideMockFactoryLogger(),
         {
           provide: ProfileService,
           useValue: Deceiver(ProfileService, {
-            putOrganizationProfileRoute: jest.fn(() => of({})),
-            getProfileRoute: jest.fn(),
+            postCreateProfileWithInvoiceDetailsRoute: jest.fn(),
+            postProfileValidateRoute: jest.fn(),
           }),
         },
         {
@@ -41,74 +48,52 @@ describe('CreateOrganizationModalComponentService', () => {
 
   beforeEach(() => {
     store = TestBed.get(Store);
-    service = TestBed.get(CreateOrganizationModalComponentService);
+    service = TestBed.get(CreateOrganizationComponentService);
     profileService = TestBed.get(ProfileService);
-    dispatchLoggedUser(store, { account: { id: '123' } });
+    alertService = TestBed.get(AlertService);
+    dispatchLoggedUser(store, { account: { id: '123', countryISO: 'pl' } });
+  });
+
+  it('should get initial data', () => {
+    const serviceService: ServiceService = TestBed.get(ServiceService);
+    serviceService.getProfileServicesRoute = jest.fn(() => cold('-a|', { a: [] }));
+    const result = {
+      countryIso: 'pl',
+      hasConsultations: false,
+    };
+    const expected = cold('-a|', { a: result });
+    expect(service.getInitialData()).toBeObservable(expected);
   });
 
   it('should create organization profile', () => {
-    const clientDetailsObject: PutOrganizationDetails = {
-      name: 'name',
-      logo: 'logo',
-      description: 'description',
-      files: [],
-      links: [],
+    profileService.postCreateProfileWithInvoiceDetailsRoute = jest.fn(() => cold('-a|', { a: 'OK' }));
+    const organizationProfileObject: PostProfileWithInvoiceDetails = {
+      profileDetails: organizationDetailsObject,
     };
-
-    service.createOrganizationProfile(clientDetailsObject);
-    expect(profileService.putOrganizationProfileRoute).toHaveBeenCalledWith(clientDetailsObject);
+    service.createOrganizationProfile(organizationProfileObject);
+    expect(profileService.postCreateProfileWithInvoiceDetailsRoute).toHaveBeenCalledWith(organizationProfileObject);
   });
 
-  describe('getModalData', () => {
-    it('should return data if company exists and account consultation exists flag', () => {
-      const serviceService = TestBed.get(ServiceService);
-      // mock isCompany
-      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: true });
-      const expected = cold('--(a|)', { a: { getProfileWithDocuments: 'jest!', hasConsultations: true } });
+  it('should throw error when create organization details failed', () => {
+    profileService.postCreateProfileWithInvoiceDetailsRoute = jest.fn(() => cold('-#', {}, 'error'));
+    const organizationProfileObject: PostProfileWithInvoiceDetails = {
+      profileDetails: organizationDetailsObject,
+    };
+    const expected = cold('-#', {}, 'error');
+    expect(service.createOrganizationProfile(organizationProfileObject)).toBeObservable(expected);
+    expect(alertService.pushDangerAlert).toHaveBeenCalled();
+  });
 
-      profileService.getProfileRoute = jest.fn(() => cold('-(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
-      expect(service.getModalData()).toBeObservable(expected);
-    });
-    it('should return empty data if company not exists in session and account consultation exists flag', () => {
-      const serviceService = TestBed.get(ServiceService);
-      // mock isCompany
-      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
-      const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
+  it('should validate organization details', () => {
+    profileService.postProfileValidateRoute = jest.fn(() => cold('-a|', { a: 'OK' }));
+    service.validateOrganizationDetails(organizationDetailsObject);
+    expect(profileService.postProfileValidateRoute).toHaveBeenCalledWith(organizationDetailsObject);
+  });
 
-      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
-      expect(service.getModalData()).toBeObservable(expected);
-    });
-    it('should return empty data if company not false if no consultation exists', () => {
-      const serviceService = TestBed.get(ServiceService);
-      // mock isCompany
-      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
-      const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
-
-      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
-      expect(service.getModalData()).toBeObservable(expected);
-    });
-    it('should throw error on getProfileServicesRoute HTTP error', () => {
-      const serviceService = TestBed.get(ServiceService);
-      // mock isCompany
-      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: false });
-      const expected = cold('--#', {}, 'error');
-
-      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--#', {}, 'error'));
-      expect(service.getModalData()).toBeObservable(expected);
-    });
-    it('should throw error on getProfileRoute HTTP error', () => {
-      const serviceService = TestBed.get(ServiceService);
-      // mock isCompany
-      dispatchLoggedUser(store, { account: { id: '123' }, isCompany: true });
-      const expected = cold('--#', {}, 'error');
-
-      profileService.getProfileRoute = jest.fn(() => cold('--#', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
-      expect(service.getModalData()).toBeObservable(expected);
-    });
+  it('should throw error when validate organization details failed', () => {
+    profileService.postProfileValidateRoute = jest.fn(() => cold('-#', {}, 'error'));
+    const expected = cold('-#', {}, 'error');
+    expect(service.validateOrganizationDetails(organizationDetailsObject)).toBeObservable(expected);
+    expect(alertService.pushDangerAlert).toHaveBeenCalled();
   });
 });

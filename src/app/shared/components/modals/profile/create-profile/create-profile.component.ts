@@ -1,51 +1,78 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:max-file-line-count
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+// tslint:disable:readonly-array
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { CreateProfileModalComponentService } from './create-profile.component.service';
-import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
+import { CreateProfileComponentService } from './create-profile.component.service';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
-import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
-import { finalize, switchMap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
+import { catchError, finalize, switchMap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
-import { GetSessionWithAccount } from '@anymind-ng/api/model/getSessionWithAccount';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
-import { NavbarActions, SessionUpdateApiActions } from '@platform/core/actions';
+import { NavbarActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
+import { StepperComponent } from '@platform/shared/components/stepper/stepper.component';
+import { GetInvoiceDetails, PostCompanyDetails, PostProfileDetails } from '@anymind-ng/api';
+import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
+import { PostNaturalPersonDetails } from '@anymind-ng/api/model/postNaturalPersonDetails';
+import {
+  NATURAL_PERSON_FORM_NAME,
+  NaturalPersonInvoiceDetailsFormControlNames,
+} from '@platform/shared/components/payout-invoice-details/components/natural-person-form/natural-person-form.component';
+import {
+  COMPANY_FORM_NAME,
+  CompanyInvoiceDetailsFormControlNames,
+} from '@platform/shared/components/payout-invoice-details/components/company-form/company-form.component';
 import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
-import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
+
+enum CreateProfileModalSteps {
+  PROFILE_DETAILS,
+  INVOICE_DETAILS,
+}
 
 @Component({
   selector: 'plat-create-profile',
   styleUrls: ['./create-profile.component.sass'],
   templateUrl: './create-profile.component.html',
 })
-export class CreateProfileModalComponent implements OnInit, OnDestroy {
+export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterViewInit {
   /** form fields */
   // TODO: remove once not needed
-  public readonly expertFormControlDescription = 'expertDescriptionControl';
+  public readonly descriptionControlName = 'description';
+  public readonly basicProfileDataControlName = 'basicProfileData';
+  public readonly linksControlName = 'links';
 
   public profileForm: FormGroup;
-
-  public fileUploadTokensList: ReadonlyArray<string>;
+  public invoiceDetailsForm: FormGroup;
+  public avatarTokenProfileNameFormControl = new FormControl('', Validators.required);
+  public fileUploadTokensList: ReadonlyArray<string> = [];
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
+  public currentModalStep = CreateProfileModalSteps.PROFILE_DETAILS;
+  public modalSteps = CreateProfileModalSteps;
   /**
    * start modal with pending set to false
    * initial information are from store.
    * This is potential candidate to be removed.
    */
-  public isPending = false;
-  public isInputDisabled = false;
+  public isRequestPending = false;
+  public isFileUploading = false;
+  public isValidated = false;
+
+  /**
+   * determines weather user has already create a profile.
+   * If profile exists do not show invoice details.
+   */
+  public hasProfile = false;
   /**
    * filed used to disable possibility to collapse modal to only client profile
    */
-  public isOpenedAsExpert: boolean;
+  public isOpenedAsExpert = true;
   public isExpert: boolean;
   public isCompany: boolean;
   public modalHeaderTr: string;
@@ -57,143 +84,133 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   @Input()
   public isExpertForm = true;
 
-  private readonly modalHeaderTrKeys = {
-    createProfile: 'EDIT_PROFILE.CREATE_TITLE',
-    editProfile: 'EDIT_PROFILE.EDIT_TITLE',
-  };
+  @ViewChild(StepperComponent)
+  public stepper: StepperComponent;
+
+  private userCountryIsoCode: string;
   private logger: LoggerService;
-  private ngUnsubscribe$ = new Subject<void>();
-  private avatarTokenProfileNameFormControl = new FormControl();
   private linksFormControl = new FormControl();
+  private selectedInvoiceDetailsType = GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON;
+  private selectedInvoiceDetailsFormName = NATURAL_PERSON_FORM_NAME;
 
   constructor(
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
     private formUtils: FormUtilsService,
-    private createProfileModalComponentService: CreateProfileModalComponentService,
+    private createProfileComponentService: CreateProfileComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private router: Router,
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('CreateProfileModalComponent');
-    this.profileForm = new FormGroup({
-      avatarTokenProfileName: this.avatarTokenProfileNameFormControl,
-      links: this.linksFormControl,
-    });
   }
 
   public ngOnInit(): void {
-    this.modalAnimationComponentService.startLoadingAnimation();
-
-    this.createProfileModalComponentService
-      .getModalData()
+    this.createProfileComponentService
+      .getCountryIsoAndProfile()
       .pipe(
-        takeUntil(this.ngUnsubscribe$),
-        finalize(() => {
-          this.handleResponseError();
-          this.modalAnimationComponentService.stopLoadingAnimation();
+        catchError(() => {
+          this.onModalClose();
+
+          return EMPTY;
         }),
       )
-      .subscribe(({ getSessionWithAccount, getProfileWithDocuments }) => {
-        this.setBasicProfileData(getSessionWithAccount);
-        this.setExpertFormValues(getProfileWithDocuments);
-        this.isOpenedAsExpert = getSessionWithAccount.isExpert;
-        this.modalHeaderTr = this.isOpenedAsExpert
-          ? this.modalHeaderTrKeys.editProfile
-          : this.modalHeaderTrKeys.createProfile;
+      .subscribe(({ countryISO, hasProfile }) => {
+        this.userCountryIsoCode = countryISO;
+        this.hasProfile = hasProfile;
       });
+    this.invoiceDetailsForm = new FormGroup({});
+    this.profileForm = new FormGroup({
+      [this.basicProfileDataControlName]: this.avatarTokenProfileNameFormControl,
+      [this.linksControlName]: this.linksFormControl,
+    });
+  }
+
+  public ngAfterViewInit(): void {
+    this.modalAnimationComponentService.stopLoadingAnimation();
   }
 
   public ngOnDestroy(): void {
     this.modalAnimationComponentService.getPreviousHeight$().next('inherit');
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
   }
 
-  public onSaveProfile(): void {
+  public onVerifyProfile(): void {
+    this.isValidated = true;
     if (this.profileForm.valid) {
-      // 1. expert or client?
+      this.isRequestPending = true;
       if (this.isExpertForm) {
-        this.sendExpertProfile();
+        this.validateProfileDetails();
       } else {
         this.sendClientProfile(this.getClientDetails());
       }
-      // 2. update session in store
-      this.store.dispatch(
-        new SessionUpdateApiActions.CreateUpdateNameAndAvatarAction({
-          ...(this.avatarTokenProfileNameFormControl.value as IBasicProfileData),
-        }),
-      );
     } else {
       this.formUtils.validateAllFormFields(this.profileForm);
     }
   }
-  public onBackToClientStep = (): void => {
-    this.isExpertForm = false;
-    this.modalAnimationComponentService.onModalContentChange().next(true);
-  };
 
-  public toggleIsExpert = (): void => {
-    this.isExpertForm = !this.isExpertForm;
-  };
-
-  public onFileUploadTokensList = (tokenList: ReadonlyArray<string>): void => {
-    this.fileUploadTokensList = tokenList;
-  };
-
-  public onFileUploadingStatusChange(isUploading: boolean): void {
-    if (isUploading) {
-      this.profileForm.disable();
-      this.isInputDisabled = true;
+  public onSaveProfile(): void {
+    if (this.isCreateProfileDataValid()) {
+      this.isRequestPending = true;
+      this.sendExpertProfile();
     } else {
-      this.profileForm.enable();
-      this.isInputDisabled = false;
+      this.validateInvoiceForm();
     }
   }
 
-  private sendClientProfile = (data: PutGeneralSettings): void => {
-    this.createProfileModalComponentService.createClientProfile(data).subscribe(
+  public onBackwardClick(): void {
+    this.stepper.previous();
+    this.currentModalStep = CreateProfileModalSteps.PROFILE_DETAILS;
+  }
+
+  public onFileUploadingStatusChange(isUploading: boolean): void {
+    this.isFileUploading = isUploading;
+  }
+
+  public onFileUploadTokensList(files: ReadonlyArray<string>): void {
+    this.fileUploadTokensList = files;
+  }
+
+  // TODO uncomment this after Beta release ends
+  // public toggleIsExpertForm(): void {
+  //   this.isExpertForm = !this.isExpertForm;
+  // }
+
+  public onSelectInvoiceDetailsType(type: GetInvoiceDetails.InvoiceDetailsTypeEnum): void {
+    this.selectedInvoiceDetailsType = type;
+    this.selectedInvoiceDetailsFormName =
+      type === GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON ? NATURAL_PERSON_FORM_NAME : COMPANY_FORM_NAME;
+  }
+
+  private sendClientProfile(data: PutGeneralSettings): void {
+    this.createProfileComponentService.createClientProfile(data).subscribe(
       () => {
         this.onModalClose();
       },
       () => this.handleResponseError(),
     );
-  };
+  }
 
-  //#region init callbacks
-  private setBasicProfileData(accountDetails: GetSessionWithAccount): void {
-    const basicProfileData: IBasicProfileData = {
-      name: accountDetails.account.details.nickname || '',
-      avatarToken: accountDetails.account.details.avatar || '',
+  private getProfileWithInvoiceDetails(): PostProfileWithInvoiceDetails {
+    const postProfileWithInvoiceDetails: PostProfileWithInvoiceDetails = {
+      profileDetails: this.getProfileDetails(),
     };
-    this.avatarTokenProfileNameFormControl.patchValue(basicProfileData);
-  }
-
-  private setExpertFormValues = (profileDetails?: GetProfileWithDocuments): void => {
-    if (profileDetails === undefined) {
-      return;
+    if (this.hasProfile) {
+      return postProfileWithInvoiceDetails;
     }
-    if (profileDetails.profile.expertDetails !== undefined) {
-      this.linksFormControl.setValue(profileDetails.profile.expertDetails.links);
-      this.profileForm.controls[this.expertFormControlDescription].setValue(
-        profileDetails.profile.expertDetails.description,
-      );
-      this.profileDocumentsList = profileDetails.expertDocuments;
-      this.fileUploadTokensList = profileDetails.expertDocuments.map(file => file.token);
+    if (this.selectedInvoiceDetailsType === GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON) {
+      return {
+        ...postProfileWithInvoiceDetails,
+        naturalPersonDetails: this.getNaturalPersonInvoiceDetails(),
+      };
     }
-  };
-  //#endregion init callbacks
 
-  private getExpertDetails(): PutExpertDetails {
     return {
-      name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
-      avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
-      description: this.profileForm.controls[this.expertFormControlDescription].value.toString(),
-      links: this.linksFormControl.value,
-      files: this.fileUploadTokensList,
-    } as PutExpertDetails;
+      ...postProfileWithInvoiceDetails,
+      companyDetails: this.getCompanyInvoiceDetails(),
+    };
   }
+
   private getClientDetails(): PutGeneralSettings {
     return {
       nickname: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
@@ -201,16 +218,16 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     };
   }
 
-  private sendExpertProfile = (): void => {
-    this.isInputDisabled = true;
-    /** to sync session name and avatar with expert need to update client as well */
-    this.createProfileModalComponentService
+  private sendExpertProfile(): void {
+    this.createProfileComponentService
       .createClientProfile(this.getClientDetails())
       /** and update expert profile */
-      .pipe(switchMap(() => this.createProfileModalComponentService.createExpertProfile(this.getExpertDetails())))
+      .pipe(
+        switchMap(() => this.createProfileComponentService.createExpertProfile(this.getProfileWithInvoiceDetails())),
+      )
       .subscribe(
         getProfile => {
-          this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.EXPERT));
+          this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.EXPERT));
           this.store.dispatch(new VisibilityInitActions.FetchInitVisibilityAction());
           /* It have to be refactor, for now we don't want to redirect users from invitations list view */
           !this.isExpert &&
@@ -221,11 +238,11 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
         },
         () => this.handleResponseError(),
       );
-  };
+  }
 
-  private redirectToExpertState = (val: string): void => {
+  private redirectToExpertState(id: string): void {
     this.router
-      .navigate([`dashboard/user/profile/${val}`])
+      .navigate([`dashboard/user/profile/${id}`])
       .then(isRedirectSuccessful => {
         this.onModalClose();
         if (!isRedirectSuccessful) {
@@ -234,15 +251,97 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
         }
       })
       .catch(this.logger.error.bind(this));
-  };
+  }
 
-  private handleResponseError = (): void => {
-    this.isPending = false;
-    this.isInputDisabled = false;
-  };
+  private handleResponseError(): void {
+    this.isRequestPending = false;
+  }
 
   private onModalClose(): void {
-    this.isInputDisabled = false;
     this.activeModal.close(true);
+  }
+
+  private getProfileDetails(): PostProfileDetails {
+    const formControls = this.profileForm.controls;
+
+    return {
+      profileType: PostProfileDetails.ProfileTypeEnum.EXP,
+      name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
+      avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
+      description: formControls[this.descriptionControlName].value,
+      files: [...this.fileUploadTokensList],
+      links: this.linksFormControl.value,
+    };
+  }
+
+  private getNaturalPersonInvoiceDetails(): PostNaturalPersonDetails {
+    const formGroup = <FormGroup>this.invoiceDetailsForm.controls[NATURAL_PERSON_FORM_NAME];
+    const controls = formGroup.controls;
+
+    return {
+      firstName: controls[NaturalPersonInvoiceDetailsFormControlNames.FIRST_NAME].value,
+      lastName: controls[NaturalPersonInvoiceDetailsFormControlNames.LAST_NAME].value,
+      address: {
+        street: controls[NaturalPersonInvoiceDetailsFormControlNames.STREET].value,
+        streetNumber: controls[NaturalPersonInvoiceDetailsFormControlNames.STREET_NUMBER].value,
+        apartmentNumber: controls[NaturalPersonInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
+        city: controls[NaturalPersonInvoiceDetailsFormControlNames.CITY].value,
+        postalCode: this.getPostalCode(controls[NaturalPersonInvoiceDetailsFormControlNames.POSTAL_CODE].value),
+        countryISO: this.userCountryIsoCode,
+      },
+    };
+  }
+
+  private getCompanyInvoiceDetails(): PostCompanyDetails {
+    const formGroup = <FormGroup>this.invoiceDetailsForm.controls[COMPANY_FORM_NAME];
+    const controls = formGroup.controls;
+
+    return {
+      companyName: controls[CompanyInvoiceDetailsFormControlNames.COMPANY_NAME].value,
+      vatNumber: controls[CompanyInvoiceDetailsFormControlNames.VAT_NUMBER].value,
+      address: {
+        street: controls[CompanyInvoiceDetailsFormControlNames.STREET].value,
+        streetNumber: controls[CompanyInvoiceDetailsFormControlNames.STREET_NUMBER].value,
+        apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
+        city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
+        postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
+        countryISO: this.userCountryIsoCode,
+      },
+      vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
+    };
+  }
+
+  private getPostalCode(postCodeValue: string): string {
+    const firstPartOfPostalCode = 2;
+
+    return `${postCodeValue.slice(0, firstPartOfPostalCode)}-${postCodeValue.slice(firstPartOfPostalCode)}`;
+  }
+
+  private isCreateProfileDataValid(): boolean {
+    if (this.hasProfile) {
+      return this.profileForm.valid;
+    } else {
+      return this.profileForm.valid && this.invoiceDetailsForm.controls[this.selectedInvoiceDetailsFormName].valid;
+    }
+  }
+
+  private validateInvoiceForm(): void {
+    this.formUtils.validateAllFormFields(this.invoiceDetailsForm.controls[
+      this.selectedInvoiceDetailsFormName
+    ] as FormGroup);
+  }
+
+  private validateProfileDetails(): void {
+    this.createProfileComponentService
+      .validateProfileDetails(this.getProfileDetails())
+      .pipe(
+        finalize(() => {
+          this.isRequestPending = false;
+        }),
+      )
+      .subscribe(() => {
+        this.currentModalStep = CreateProfileModalSteps.INVOICE_DETAILS;
+        this.stepper.next();
+      });
   }
 }
