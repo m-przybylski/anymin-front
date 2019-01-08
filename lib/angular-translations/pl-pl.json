@@ -1958,6 +1958,8 @@
   "ACTIVITIES.EXPERT_TAB_HEADER": "Konsultant",
   "ACTIVITIES.CLIENT_TAB_HEADER": "Klient",
   "EXPERT_ACTIVITIES.PROFIT_HEADER": "Twój zysk",
+  "ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION": "Środki zarobione na konsultacjach od ostatniej wypłaty (brutto).",
+  "ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION": "Środki zamrożone na wypadek ewentualnych reklamacji od klientów lub podczas ich rozpatrywania.",
   "EXPERT_ACTIVITIES.NON_ACTIVITIES_HEADER": "Brak aktywności",
   "EXPERT_ACTIVITIES.IMPORTANT_LIST_COUNTER_TITLE": "Ważne {{currentValue}} z {{counter}}",
   "EXPERT_ACTIVITIES.IMPORTANT_LIST_SHOW_ALL": "Rozwiń listę",
