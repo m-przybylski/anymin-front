@@ -11,6 +11,8 @@ $s-tooltip-array-width: 8px
 	max-height: $s-tooltip-width
 	max-width: $s-tooltip-width
 	position: relative
+	width: $s-tooltip-width
+	height: $s-tooltip-width
 	
 	&--center
 		.tooltip__content
@@ -49,11 +51,11 @@ $s-tooltip-array-width: 8px
 				right: auto
 				left: 15px
 		
-		&__header
-			display: inline-flex
-			width: auto
-			cursor: pointer
-	
+	&__header
+		display: inline-flex
+		width: auto
+		cursor: pointer
+
 	.icon
 		width: $s-tooltip-width
 		min-width: $s-tooltip-width

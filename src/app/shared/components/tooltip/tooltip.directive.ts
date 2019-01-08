@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { WindowRef } from '@anymind-ng/core';
 
 enum TooltipPosition {
@@ -15,7 +15,7 @@ interface ITooltipPosition {
 @Directive({
   selector: '[tooltipPositionDirective]',
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnInit {
   @Output()
   public onClick = new EventEmitter<boolean>();
 
@@ -27,6 +27,9 @@ export class TooltipDirective {
 
   @Input()
   public contentTooltipElement: HTMLElement;
+
+  @Input()
+  public tooltipHeader: HTMLElement;
 
   private readonly tooltipContentMaxWidth = 280;
   private readonly mobileDevicesPadding = 12;
@@ -40,24 +43,38 @@ export class TooltipDirective {
 
   @HostListener('document:click', ['$event'])
   public handleClick(event: Event): void {
-    this.isVisible = this.element.nativeElement.contains(event.target);
-    this.onClick.emit(this.isVisible);
+    if (!this.element.nativeElement.contains(event.target)) {
+      this.isVisible = false;
+      this.onClick.emit(this.isVisible);
+    }
   }
 
-  @HostListener('click', ['$event'])
-  public onClickEvent = (event: HTMLSelectElement): void => {
-    if (!this.isVisible) {
-      this.resetTooltipValues();
+  public ngOnInit(): void {
+    this.handleTooltipHeader();
+  }
 
-      this.horizontalPadding = this.getTooltipContentPadding();
-
-      if (this.isTextLong()) {
-        this.textContent.style.whiteSpace = 'normal';
-        this.contentTooltipElement.style.width = `${this.tooltipContentMaxWidth}px`;
+  private handleTooltipHeader = (): void => {
+    this.tooltipHeader.addEventListener('click', (event: MouseEvent) => {
+      if (!this.isVisible) {
+        this.prepareDefaultTooltipSettings(event);
       }
-      this.setTooltipPosition(event);
-      this.checkTooltipContentPosition();
+
+      this.isVisible = !this.isVisible;
+      this.onClick.emit(this.isVisible);
+    });
+  };
+
+  private prepareDefaultTooltipSettings = (event: MouseEvent): void => {
+    this.resetTooltipValues();
+
+    this.horizontalPadding = this.getTooltipContentPadding();
+
+    if (this.isTextLong()) {
+      this.textContent.style.whiteSpace = 'normal';
+      this.contentTooltipElement.style.width = `${this.tooltipContentMaxWidth}px`;
     }
+    this.setTooltipPosition(event);
+    this.checkTooltipContentPosition();
   };
 
   private checkTooltipContentPosition = (): void => {
@@ -99,7 +116,7 @@ export class TooltipDirective {
     this.contentTooltipElement.style.bottom = `8px`;
   };
 
-  private setTooltipPosition = (event: HTMLSelectElement): void => {
+  private setTooltipPosition = (event: MouseEvent): void => {
     this.tooltipPosition = {
       offsetLeft: event.pageX,
       offsetTop: event.pageY,
