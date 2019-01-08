@@ -5,10 +5,15 @@
     overflow-y: hidden
     overflow-x: scroll
     display: flex
-    margin: 0 -8px 0 0
+    // Below trick is because of tooltip contains a lot of text
+    // and to enable scrolling we have to setup overflow-x: scroll
+    // which results in hiding of tooltip content.
+    margin: -112px -8px 0 0
+    padding: 112px 0 0
 
     +smm
-      margin: 0 -24px 0 0
+      margin: -112px -24px 0 0
+      padding: 112px 0 0
 
     +lgm
       overflow: hidden
