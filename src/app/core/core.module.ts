@@ -47,7 +47,7 @@ export function getLogLevel(): LogLevel {
     TranslateModule.forRoot({
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: PlatMissingTranslationHandler },
     }),
-    CommunicatorModule.forRoot(CommunicatorConfigFactory, Config.communicator.reconnectTimeout),
+    CommunicatorModule.forRoot(CommunicatorConfigFactory),
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
   ],

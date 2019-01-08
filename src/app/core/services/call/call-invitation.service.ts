@@ -109,7 +109,7 @@ export class CallInvitationService extends Logger {
             }),
             of(() => {
               if (this.session) {
-                this.communicatorService.disconnect(this.session);
+                this.communicatorService.disconnect();
                 this.missingCallCounter = 0;
               }
             }),
