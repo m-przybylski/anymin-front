@@ -6,9 +6,12 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { cold } from 'jasmine-marbles';
 import { dispatchLoggedUser, importStore } from 'testing/testing';
+import { throwError } from 'rxjs';
 
 describe('Service: InvoiceDetailsComponentService', () => {
   let store: Store<fromCore.IState>;
+  let service: InvoiceDetailsComponentService;
+  let accountService: AccountService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,12 +27,12 @@ describe('Service: InvoiceDetailsComponentService', () => {
       ],
     });
     store = TestBed.get(Store);
+    service = TestBed.get(InvoiceDetailsComponentService);
+    accountService = TestBed.get(AccountService);
+    dispatchLoggedUser(store, { isCompany: true, account: { countryISO: 'mockIsoCode' } });
   }));
 
-  it('should get invoice details', () => {
-    dispatchLoggedUser(store, { isCompany: true });
-    const service = TestBed.get(InvoiceDetailsComponentService);
-    const accountService = TestBed.get(AccountService);
+  it('should get initial data', () => {
     const mockInvoiceDetails: GetInvoiceDetails = {
       id: 'invitationId',
       accountId: 'id',
@@ -50,10 +53,41 @@ describe('Service: InvoiceDetailsComponentService', () => {
       b: {
         invoiceDetails: mockInvoiceDetails,
         isCompanyProfile: true,
+        countryIsoCode: 'mockIsoCode',
       },
     });
 
     (accountService.getInvoiceDetailsRoute as jest.Mock).mockReturnValue(cold('-a|', { a: mockInvoiceDetails }));
-    expect(service.getInvoiceDetails()).toBeObservable(expected);
+    expect(service.getInitialData()).toBeObservable(expected);
+  });
+
+  it('should throw error when get invoice details failed', () => {
+    const err = {
+      code: 500,
+      error: {},
+      message: 'errorMessage',
+    };
+    const expected = cold('-#', '', err);
+
+    (accountService.getInvoiceDetailsRoute as jest.Mock).mockReturnValue(cold('-#', {}, err));
+    expect(service.getInitialData()).toBeObservable(expected);
+  });
+
+  it('should get initial data even get invoice details would be not found', () => {
+    const err = {
+      status: 404,
+      error: {},
+      message: 'errorMessage',
+    };
+    const expected = cold('-(b|)', {
+      b: {
+        invoiceDetails: undefined,
+        isCompanyProfile: true,
+        countryIsoCode: 'mockIsoCode',
+      },
+    });
+
+    (accountService.getInvoiceDetailsRoute as jest.Mock).mockReturnValue(cold('-#', {}, err));
+    expect(service.getInitialData()).toBeObservable(expected);
   });
 });

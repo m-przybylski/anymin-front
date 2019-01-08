@@ -20,11 +20,11 @@ import {
   COMPANY_FORM_NAME,
   CompanyInvoiceDetailsFormControlNames,
 } from '@platform/shared/components/payout-invoice-details/components/company-form/company-form.component';
-import { httpCodes } from '@platform/shared/constants/httpCodes';
 
 export interface IInvoiceDetails {
-  invoiceDetails: GetInvoiceDetails;
+  invoiceDetails?: GetInvoiceDetails;
   isCompanyProfile: boolean;
+  countryIsoCode: string;
 }
 
 @Component({
@@ -51,6 +51,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
   );
 
   private invoiceType: GetInvoiceDetails.InvoiceDetailsTypeEnum;
+  private countryIsoCode: string;
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
@@ -113,7 +114,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
         apartmentNumber: controls[NaturalPersonInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[NaturalPersonInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[NaturalPersonInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.invoiceDetails.address.countryISO,
+        countryISO: this.countryIsoCode,
       },
     };
   }
@@ -131,7 +132,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
         apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.invoiceDetails.address.countryISO,
+        countryISO: this.countryIsoCode,
       },
       vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
     };
@@ -155,25 +156,30 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
 
   private getInitialData(): void {
     this.invoiceDetailsService
-      .getInvoiceDetails()
+      .getInitialData()
       .pipe(
         finalize(() => {
           this.modalAnimationComponentService.stopLoadingAnimation();
         }),
         catchError(err => {
-          if (err.status !== httpCodes.notFound) {
-            this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-            this.loggerService.warn('error when try to get invoice details', err);
-            this.activeModal.close();
-          }
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+          this.loggerService.warn('error when try to get invoice details', err);
+          this.activeModal.close();
 
           return EMPTY;
         }),
       )
       .subscribe(response => {
-        this.invoiceDetails = response.invoiceDetails;
         this.isCompanyProfile = response.isCompanyProfile;
-        this.invoiceType = response.invoiceDetails.invoiceDetailsType;
+        this.countryIsoCode = response.countryIsoCode;
+        if (response.invoiceDetails !== undefined) {
+          this.invoiceDetails = response.invoiceDetails;
+          this.invoiceType = response.invoiceDetails.invoiceDetailsType;
+        } else {
+          this.isCompanyProfile
+            ? (this.invoiceType = GetInvoiceDetails.InvoiceDetailsTypeEnum.COMPANY)
+            : (this.invoiceType = GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON);
+        }
       });
   }
 }
