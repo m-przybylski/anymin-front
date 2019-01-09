@@ -28,8 +28,8 @@ plat-modal-component.manage-sessions(
                 [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.DEVICE_IN_USE'"
               )
             p.information__session {{ session.details }}
-            a.button(plat-stroked-button, (click)="onLogoutSession(session.apiKey)",
-            [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON'")
+          a.button(plat-stroked-button, (click)="onLogoutSession(session.apiKey)",
+          [translate]="'DASHBOARD.SETTINGS.MANAGE_SESSIONS.LOGOUT_BUTTON'")
 
         div.session-container(*ngSwitchCase="deviceTypes.UNKNOWN")
           span.icon.icon-questionmark
