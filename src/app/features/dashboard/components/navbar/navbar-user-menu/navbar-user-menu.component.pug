@@ -5,7 +5,9 @@
       span.icon.icon-clear
 
   ul.menu-list
+    //- keep in mind to remove some props once user added to platform
     li.menu-list__header(
+      [ngClass]="{'menu-list__header--user': userType === userTypeEnum.USER}",
       [routerLink]="getRouterLink()"
     )
       .user-name-container(*ngIf="userName; else anonymous")
@@ -13,7 +15,8 @@
         span.user-name-container__user-name {{ userName }}
 
       ng-template(#anonymous)
-        .user-name-container
+        //- keep in mind to remove some props once user added to platform
+        .user-name-container([ngClass]="{'user-name-container--user': userType === userTypeEnum.USER}")
           span.user-name-container__title([translate]="'NAVBAR_USER_MENU.ANONYMOUS'")
           span.user-name-container__user-name([translate]="'NAVBAR_USER_MENU.FILL_PROFILE'")
 

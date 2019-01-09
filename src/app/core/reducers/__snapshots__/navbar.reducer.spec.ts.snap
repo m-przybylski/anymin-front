@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navbar.reducer LogoutRemote should remove userType once logout 1`] = `
+Object {
+  "userType": undefined,
+}
+`;
+
+exports[`navbar.reducer LogoutSuccess should remove userType once logout 1`] = `
+Object {
+  "userType": undefined,
+}
+`;
+
+exports[`navbar.reducer SetUserType should set user type if no beginner state 1`] = `
+Object {
+  "isNavbarHelpMenuVisible": false,
+  "isNavbarUserMenuVisible": false,
+  "userType": 1,
+}
+`;
+
+exports[`navbar.reducer SetUserType should update user type when state exists 1`] = `
+Object {
+  "isNavbarHelpMenuVisible": false,
+  "isNavbarUserMenuVisible": false,
+  "userType": 1,
+}
+`;
+
+exports[`navbar.reducer ToggleHelpMenuVisibility should toggle help visibility 1`] = `
+Object {
+  "isNavbarHelpMenuVisible": true,
+  "isNavbarUserMenuVisible": false,
+}
+`;
+
+exports[`navbar.reducer ToggleUserMenuVisibility should toggle menu visibility 1`] = `
+Object {
+  "isNavbarHelpMenuVisible": false,
+  "isNavbarUserMenuVisible": true,
+}
+`;
+
+exports[`navbar.reducer UpdateSessionAndUserType should set user type if no beginner state 1`] = `
+Object {
+  "isNavbarHelpMenuVisible": false,
+  "isNavbarUserMenuVisible": false,
+  "userType": 1,
+}
+`;
+
+exports[`navbar.reducer UpdateSessionAndUserType should update user type when state exists 1`] = `
+Object {
+  "isNavbarHelpMenuVisible": false,
+  "isNavbarUserMenuVisible": false,
+  "userType": 1,
+}
+`;
