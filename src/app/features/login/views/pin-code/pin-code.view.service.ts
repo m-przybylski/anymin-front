@@ -9,7 +9,7 @@ import { BackendErrors, isBackendError } from '@platform/shared/models/backend-e
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { SessionActions } from '@platform/core/actions';
+import { SessionApiActions } from '@platform/core/actions';
 import { waitForSession } from '@platform/core/utils/wait-for-session';
 
 export enum PinCodeServiceStatus {
@@ -49,7 +49,7 @@ export class PinCodeViewService {
     isMarketingAllowed = false,
   ): Observable<PinCodeServiceStatus> =>
     this.registrationService.confirmVerificationRoute({ sessionId, token }).pipe(
-      tap(session => this.store.dispatch(new SessionActions.FetchSessionSuccessAction(session))),
+      tap(session => this.store.dispatch(new SessionApiActions.VerifyAccountByPinAction(session))),
       waitForSession(this.store),
       mergeMap(() => this.sendMarketingStatus(isMarketingAllowed)),
       map(() => {

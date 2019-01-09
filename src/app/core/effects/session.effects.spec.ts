@@ -6,7 +6,7 @@ import { SessionService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
-import { SessionActions } from '@platform/core/actions';
+import { SessionActions, SessionApiActions } from '@platform/core/actions';
 
 describe('SessionEffects', () => {
   let sessionEffects: SessionEffects;
@@ -34,7 +34,7 @@ describe('SessionEffects', () => {
     it('should return a FetchSessionSuccessAction, with session if fetch succeeds', () => {
       const session = {} as any;
       const action = new SessionActions.FetchSessionAction();
-      const completion = new SessionActions.FetchSessionSuccessAction(session);
+      const completion = new SessionApiActions.FetchSessionSuccessAction(session);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: session });
@@ -47,7 +47,7 @@ describe('SessionEffects', () => {
     it('should return a FetchSessionErrorAction, with error if fetch fails', () => {
       const error = 'Something is wrong';
       const action = new SessionActions.FetchSessionAction();
-      const completion = new SessionActions.FetchSessionErrorAction(error);
+      const completion = new SessionApiActions.FetchSessionErrorAction(error);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-#', {}, error);
