@@ -11,12 +11,23 @@ export class MoneyDisplayComponent {
     this._money = value;
   }
 
+  public get money(): MoneyDto {
+    return this._money || { value: 0, currency: 'PLN' };
+  }
+
   @Input()
-  public sign = '';
+  public set sign(value: string) {
+    this._sign = value;
+  }
+
+  public get sign(): string {
+    if (this._sign && this.money.value !== 0) {
+      return this._sign;
+    }
+
+    return '';
+  }
 
   private _money: MoneyDto;
-
-  public get money(): MoneyDto {
-    return this._money || { amount: 0, currency: 'PLN' };
-  }
+  private _sign: string;
 }
