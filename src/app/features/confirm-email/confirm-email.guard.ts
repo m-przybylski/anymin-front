@@ -5,6 +5,9 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AccountService } from '@anymind-ng/api';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import * as fromRoot from '@platform/reducers';
+import { SessionApiActions } from '@platform/core/actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ConfirmEmailGuard implements CanActivate {
@@ -14,6 +17,7 @@ export class ConfirmEmailGuard implements CanActivate {
     private alertService: AlertService,
     private router: Router,
     private accountService: AccountService,
+    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ConfirmEmailGuard');
@@ -25,7 +29,8 @@ export class ConfirmEmailGuard implements CanActivate {
     return this.accountService
       .postAccountVerifyEmailRoute(token)
       .pipe(
-        map(() => {
+        map(getSessionWithAccount => {
+          this.store.dispatch(new SessionApiActions.VerifyAccountByEmailAction(getSessionWithAccount));
           this.logger.log('valid email token, allow access');
           this.alertService.pushSuccessAlert(Alerts.SetEmailViewSuccess);
           this.redirectToDashboard();

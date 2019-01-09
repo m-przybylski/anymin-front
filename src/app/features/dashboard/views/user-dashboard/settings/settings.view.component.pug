@@ -28,7 +28,7 @@
         plat-setting-option(
           [title]="'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE'",
           [titleOptionalText]="session.account.unverifiedEmail ? 'DASHBOARD.SETTINGS.CHANGE_EMAIL_TITLE.UNVERIFIED' : ''",
-          [description]="session.account.email || session.account.unverifiedEmail")
+          [description]="session.account.unverifiedEmail|| session.account.email")
           button.button-tablet(plat-stroked-button, (click)="openChangeEmailModal()") {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
           button.button-mobile(plat-icon-button)
             span(plat-icon iconClass='stroke-edit', (click)="openChangeEmailModal()")

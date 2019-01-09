@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`balance.reducer CreateUpdateNameAndAvatarAction should update store even if session exists 1`] = `
+exports[`session.reducer CreateUpdateNameAndAvatarAction should update store even if session exists 1`] = `
 Object {
   "isFromBackend": true,
   "isPending": false,
@@ -10,13 +10,51 @@ Object {
         "avatar": "💩",
         "nickname": "Artuś",
       },
-      "email": "maciej.przybylski@anymind.com",
+      "email": "fgg@hfd.pl",
       "hasPassword": true,
       "id": "c3d262b0-48d7-41b5-9aeb-9f59affdd0f3",
       "isAnonymous": true,
       "isBlocked": false,
-      "msisdn": "+48607508372",
+      "msisdn": "81927398127",
       "registeredAt": 2018-08-09T10:00:35.039Z,
+    },
+    "isCompany": false,
+    "isExpert": false,
+    "session": Object {
+      "accountId": "123",
+      "apiKey": "zxxx",
+      "city": "sdf",
+      "country": "aaa",
+      "ipAddress": "13123",
+      "isExpired": false,
+      "lastActivityAt": 2018-11-09T10:00:35.039Z,
+      "userAgent": "aa",
+    },
+  },
+}
+`;
+
+exports[`session.reducer UpdateAccountInSession should update account in GetSessionWithAccount object 1`] = `
+Object {
+  "isFromBackend": true,
+  "isPending": false,
+  "session": Object {
+    "account": Object {
+      "countryISO": "PL",
+      "currency": "PLN",
+      "details": Object {
+        "avatar": "6d3587a32aba453e8ad47199324f4c67",
+        "clientId": "c3d262b0-48d7-41b5-9aeb-9f59affdd0f3",
+        "nickname": "🦄🦄🦄🦄🦄🦄🦄🦄",
+      },
+      "email": "🦄🦄@🦄🦄.pl",
+      "hasPassword": true,
+      "id": "c3d262b0-48d7-41b5-9aeb-9f59affdd0f3",
+      "isAnonymous": true,
+      "isBlocked": false,
+      "msisdn": "🦄",
+      "registeredAt": 2018-08-09T10:00:35.039Z,
+      "vatRateType": "COMPANY_23",
     },
     "isCompany": false,
     "isExpert": false,

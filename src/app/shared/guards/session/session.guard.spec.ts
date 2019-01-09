@@ -4,12 +4,12 @@ import { cold } from 'jasmine-marbles';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { SessionGuard } from './session.guard';
-import { AuthActions, SessionActions } from '@platform/core/actions';
+import { AuthActions, SessionActions, SessionApiActions } from '@platform/core/actions';
 
 describe('SessionGuard', () => {
   let guard: SessionGuard;
   let store: Store<any>;
-  let dispatchSpy: jest.Mock;
+  let dispatchSpy: jest.SpyInstance;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,12 +23,12 @@ describe('SessionGuard', () => {
     });
 
     store = TestBed.get(Store);
-    dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    dispatchSpy = jest.spyOn(store, 'dispatch');
     guard = TestBed.get(SessionGuard);
   });
 
   it('should return false if the user state is not logged in', () => {
-    const action = new SessionActions.FetchSessionErrorAction('401');
+    const action = new SessionApiActions.FetchSessionErrorAction('401');
     store.dispatch(action);
     const expected = cold('(a|)', { a: false });
 

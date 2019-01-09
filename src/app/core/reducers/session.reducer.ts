@@ -1,6 +1,6 @@
 // tslint:disable:cyclomatic-complexity
 import { GetSessionWithAccount } from '@anymind-ng/api';
-import { SessionActions, AuthActions, SessionUpdateApiActions } from '@platform/core/actions';
+import { SessionActions, AuthActions, SessionUpdateApiActions, SessionApiActions } from '@platform/core/actions';
 
 export interface IState {
   isFromBackend: boolean;
@@ -18,7 +18,8 @@ export const initialState: IState = {
 type ActionsUnion =
   | SessionActions.FetchActionsUnion
   | AuthActions.AuthActionsUnion
-  | SessionUpdateApiActions.SessionUpdateApiActionUnion;
+  | SessionUpdateApiActions.SessionUpdateApiActionUnion
+  | SessionApiActions.SessionAPIActionUnion;
 
 // tslint:disable-next-line:only-arrow-functions
 export function reducer(state = initialState, action: ActionsUnion): IState {
@@ -32,7 +33,9 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       };
     }
     case AuthActions.AuthActionTypes.LoginSuccess:
-    case SessionActions.SessionActionTypes.FetchSessionFromServerSuccess: {
+    case SessionApiActions.SessionWithAccountApiActionTypes.VerifyAccountByPin:
+    case SessionApiActions.SessionWithAccountApiActionTypes.VerifyAccountByEmail:
+    case SessionApiActions.SessionWithAccountApiActionTypes.FetchSessionSuccess: {
       return {
         ...state,
         session: action.payload,
@@ -42,7 +45,7 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
     }
 
     case AuthActions.AuthActionTypes.LoginError:
-    case SessionActions.SessionActionTypes.FetchSessionFromServerError: {
+    case SessionApiActions.SessionWithAccountApiActionTypes.FetchSessionError: {
       return {
         ...state,
         session: undefined,
@@ -81,6 +84,14 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       const newSession = { ...state.session, account: newAccount };
 
       return { ...state, session: newSession };
+    }
+
+    case SessionApiActions.SessionWithAccountApiActionTypes.UpdateAccount: {
+      if (state.session === undefined) {
+        return state;
+      }
+
+      return { ...state, session: { ...state.session, account: action.payload } };
     }
 
     default: {

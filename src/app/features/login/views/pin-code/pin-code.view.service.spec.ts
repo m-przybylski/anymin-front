@@ -10,7 +10,7 @@ import { provideMockFactoryLogger } from 'testing/testing';
 import { Deceiver } from 'deceiver-core';
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
-import { SessionActions } from '@platform/core/actions';
+import { SessionApiActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
 
 describe('Service: PinCode service', () => {
@@ -68,7 +68,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    const action = new SessionActions.FetchSessionSuccessAction(of({ session: {} }) as any);
+    const action = new SessionApiActions.VerifyAccountByPinAction(of({ session: {} }) as any);
     store.dispatch(action);
     (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
     pinCodeViewService.handleRegistration('123', 'token').subscribe();
@@ -85,7 +85,7 @@ describe('Service: PinCode service', () => {
         },
       }),
     );
-    const action = new SessionActions.FetchSessionSuccessAction(of({ session: {} }) as any);
+    const action = new SessionApiActions.VerifyAccountByPinAction(of({ session: {} }) as any);
     store.dispatch(action);
     (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
     spyOn(logger, 'warn');

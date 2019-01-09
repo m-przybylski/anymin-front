@@ -13,9 +13,6 @@ import {
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
-import { Store } from '@ngrx/store';
-import * as fromCore from '@platform/core/reducers';
-import { SessionActions } from '@platform/core/actions';
 
 @Component({
   selector: 'plat-change-email',
@@ -45,7 +42,6 @@ export class ChangeEmailViewComponent implements OnDestroy, AfterViewInit {
     private formUtils: FormUtilsService,
     private alertService: AlertService,
     private modalAnimationComponentService: ModalAnimationComponentService,
-    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ChangeEmailViewComponent');
@@ -88,7 +84,6 @@ export class ChangeEmailViewComponent implements OnDestroy, AfterViewInit {
         this.isEmailChanged = true;
         this.headerTrKey = this.headerTrKeys.confirmation;
         this.modalAnimationComponentService.onModalContentChange().next(true);
-        this.store.dispatch(new SessionActions.FetchSessionAction());
         break;
 
       case ChangeEmailStatusEnum.ERROR:
