@@ -10,9 +10,10 @@ plat-consultation-footer
       [grossPrice]='grossPrice',
       [organizationPrice]='organizationPrice')
     ng-template(#organization)
-      plat-consultation-footer-freelance(
-        [price]='expertPrice',
-        [grossPrice]='grossPrice')
+      span.consultation-footer__text
+        span(plat-icon iconClass='information')
+        p
+          span([innerHTML]="'CONSULTATION_MODAL.ORGANIZATION_EDIT' | translate: {price: expertPrice, grossPrice: grossPrice}")
   //right part of the screen
   .consultation-footer__right
     a.consultation-footer__right-button((click)='onEdit()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.EDIT" | translate}}

@@ -1953,6 +1953,7 @@
   "INVITE_ACCEPT_REJECT.ACCEPT.FAILURE": "Błąd podczas akceptowania konsultacji.",
   "INVITE_ACCEPT_REJECT.REJECT.FAILURE": "Błąd podczas odrzucania konsultacji.",
   "INVITE_ACCEPT_REJECT.FREELANCE": " to kwota brutto, którą zarobisz na tej konsultacji. Klient zobaczy kwotę brutto ",
+  "CONSULTATION_MODAL.ORGANIZATION_EDIT": "<strong>{{ price }}</strong> to kwota brutto, którą zarobisz na tej konsultacji. Klient zobaczy kwotę <strong>{{ grossPrice }}</strong> brutto. Z pracownikami rozliczasz się poza AnyMind.",
   "INVITE_ACCEPT_REJECT.ORGANIZATION": "Zarobione przez Ciebie pieniądze trafiają na konto właściciela konsultacji, rozliczacie się ze sobą we własnym zakresie.",
   "INVITE_ACCEPT_REJECT.ORGANIZATION.FIND_MORE": " Dowiedz się więcej o konsultacjach pracowniczych.",
   "ACTIVITIES.HEADER_TITTLE": "Aktywności",
