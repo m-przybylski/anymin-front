@@ -50,20 +50,20 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
     });
   }
 
-  public onInvitationClicked = (invitationId: string): void => {
+  public onOpenInvitation = (invitationId: string): void => {
     const injector = this.setupInjector(invitationId);
 
     if (typeof injector === 'undefined') {
-      this.loggerService.info('Not able to create injector');
+      this.loggerService.warn('Not able to create injector');
 
       return;
     }
-    this.openInvitationModal(invitationId);
+    this.openInvitationModal(injector);
   };
 
-  private openInvitationModal(invitationId: string): void {
+  private openInvitationModal(injector: Injector): void {
     const modalOptions: NgbModalOptions = {
-      injector: this.setupInjector(invitationId),
+      injector,
     };
     const modal = this.modalService.open(AcceptRejectInvitationModalComponent, modalOptions);
     from(modal.result)
@@ -96,7 +96,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
       )
       .subscribe(session => {
         session && session.isExpert
-          ? this.openInvitationModal(invitationId)
+          ? this.onOpenInvitation(invitationId)
           : this.modalService.open(CreateProfileModalComponent);
       });
   }
