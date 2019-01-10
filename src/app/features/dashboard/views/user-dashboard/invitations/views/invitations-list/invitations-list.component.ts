@@ -12,6 +12,7 @@ import { RegistrationInvitationService } from '@platform/shared/services/registr
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Component({
   templateUrl: 'invitations-list.component.html',
@@ -19,6 +20,7 @@ import { CreateProfileModalComponent } from '@platform/shared/components/modals/
 })
 export class InvitationsListComponent extends Logger implements OnDestroy, OnInit {
   public invitations: ReadonlyArray<IInvitation>;
+  public unverifiedEmail?: string;
 
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -48,6 +50,11 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
         this.registrationInvitationService.removeInvitationObject();
       }
     });
+    getNotUndefinedSession(this.store)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(session => {
+        this.unverifiedEmail = session.account.unverifiedEmail;
+      });
   }
 
   public onOpenInvitation = (invitationId: string): void => {

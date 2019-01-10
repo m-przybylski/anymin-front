@@ -1841,6 +1841,7 @@
   "INVITATIONS.EMPTY_DESCRIPTION_ONE": "…do prowadzenia konsultacji należących do organizacji.",
   "INVITATIONS.EMPTY_DESCRIPTION_TWO": " Żeby dowiedzieć się więcej, jak działają takie konsultacje, przeczytaj ",
   "INVITATIONS.EMPTY_LINK": "<a href='https://anymind.zendesk.com/hc/pl/articles/360009918991--Kt%C3%B3re-konto-AnyMind-wybra%C4%87-' target='_blank'>ten artykuł.</a>",
+  "INVITATIONS.WARNING_INFO": "Nie zobaczysz zaproszeń kierowanych na adres email {{ email }}, ponieważ jest on niezweryfikowany",
 
   "DASHBOARD.PAYMENTS.BUTTON.CHANGE": "Edytuj",
   "DASHBOARD.WELCOME.TITLE": "Witaj w AnyMind!",
