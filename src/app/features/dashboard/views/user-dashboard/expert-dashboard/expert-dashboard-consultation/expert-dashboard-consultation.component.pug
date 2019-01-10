@@ -8,9 +8,10 @@
         span(plat-icon iconClass='add')
       span.expert-dashboard-consultation-row__text {{'EXPERT_DASHBOARD.ADD_CONSULTATION' | translate}}
 
-    .alert-information(*ngIf="isOwnProfile && isCompany")
-      span(plat-icon iconClass='warning')
-      p {{'EXPERT_DASHBOARD.ALERT_INFORMATION' | translate }}
+    .alert-information-conteiner(*ngIf="isOwnProfile && isCompany")
+      plat-warning-information(
+        [warningText]="'EXPERT_DASHBOARD.ALERT_INFORMATION'",
+      )
         a((click)="onAlertInformationLinkClick()", [translate]="'EXPERT_DASHBOARD.ALERT_INFORMATION.LINK'")
 
   plat-consultation-row.expert-dashboard-consultation-row__row(*ngFor='let consultation of consultations',

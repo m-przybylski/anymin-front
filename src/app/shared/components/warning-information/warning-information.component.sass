@@ -1,0 +1,18 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+
+.warning-information
+  width: 100%
+  padding: 8px 12px
+  display: flex
+  align-items: center
+  justify-content: center
+  min-height: 40px
+  border-radius: 4px
+  background-color: $c-error-background
+
+  &__text
+    +caption
+    margin: 0 0 0 12px
+
+  &__text, &__icon
+    color: $c-error-primary
