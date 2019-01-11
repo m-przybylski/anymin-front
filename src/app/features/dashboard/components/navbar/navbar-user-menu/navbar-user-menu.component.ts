@@ -107,6 +107,7 @@ export class NavbarUserMenuComponent implements OnInit {
   public getRouterLink(): string {
     switch (this.userType) {
       case this.userTypeEnum.USER:
+        // TODO: consider refactor once client is released to platform
         return '';
       case this.userTypeEnum.EXPERT:
         return this.userProfileUrl;
