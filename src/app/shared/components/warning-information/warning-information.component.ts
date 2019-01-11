@@ -14,9 +14,7 @@ export class WarningInformationComponent {
   public warningText: string;
 
   @Input()
-  public translateParamObject: ITranslateParamObject = {
-    key: '',
-  };
+  public translateParamObject: ITranslateParamObject = {};
 
   @Input()
   public paramName: string;
