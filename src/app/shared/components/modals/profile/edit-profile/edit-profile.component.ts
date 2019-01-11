@@ -15,7 +15,6 @@ import { NavbarActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { Animations } from '@platform/shared/animations/animations';
-import { GetAccountDetails } from '@anymind-ng/api/model/getAccountDetails';
 import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
 import { waitForSession } from '@platform/core/utils/wait-for-session';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
@@ -91,9 +90,20 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe(({ getSessionWithAccount, getProfileWithDocuments }) => {
-        this.setBasicProfileData(getSessionWithAccount.account.details);
-        this.setExpertFormValues(getProfileWithDocuments);
         this.isOpenedAsExpert = getSessionWithAccount.isExpert;
+        if (this.isOpenedAsExpert) {
+          this.setExpertFormValues(getProfileWithDocuments);
+        }
+        if (
+          !this.isOpenedAsExpert &&
+          typeof getSessionWithAccount.account.details.nickname !== 'undefined' &&
+          typeof getSessionWithAccount.account.details.avatar !== 'undefined'
+        ) {
+          this.setBasicProfileData({
+            name: getSessionWithAccount.account.details.nickname,
+            avatarToken: getSessionWithAccount.account.details.avatar,
+          });
+        }
       });
   }
 
@@ -108,7 +118,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       if (this.isExpertForm) {
         this.sendExpertProfile();
       } else {
-        this.sendClientProfile(this.getClientDetails());
+        this.sendClientProfile();
       }
     } else {
       this.formUtils.validateAllFormFields(this.profileForm);
@@ -123,9 +133,9 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.fileUploadTokensList = files;
   }
 
-  private sendClientProfile(data: PutGeneralSettings): void {
+  private sendClientProfile(): void {
     this.editProfileComponentService
-      .editClientProfile(data)
+      .editClientProfile(this.getClientDetails())
       .pipe(
         tap(() => this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.USER))),
         waitForSession(this.store),
@@ -139,14 +149,8 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   }
 
   /** #region init callbacks */
-  private setBasicProfileData(accountDetails: GetAccountDetails): void {
-    if (accountDetails.nickname === undefined || accountDetails.avatar === undefined) {
-      return;
-    }
-    this.avatarTokenProfileNameFormControl.patchValue({
-      avatarToken: accountDetails.avatar,
-      name: accountDetails.nickname,
-    } as IBasicProfileData);
+  private setBasicProfileData(data: IBasicProfileData): void {
+    this.avatarTokenProfileNameFormControl.patchValue({ ...data });
   }
 
   private setExpertFormValues(profileDetails?: GetProfileWithDocuments): void {
@@ -154,6 +158,10 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       return;
     }
     if (profileDetails.profile.expertDetails !== undefined) {
+      this.setBasicProfileData({
+        name: profileDetails.profile.expertDetails.name,
+        avatarToken: profileDetails.profile.expertDetails.avatar,
+      });
       this.linksFormControl.setValue(profileDetails.profile.expertDetails.links);
       this.profileForm.controls[this.descriptionControlName].setValue(profileDetails.profile.expertDetails.description);
       this.profileDocumentsList = profileDetails.expertDocuments;
