@@ -2,7 +2,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { AlertService, FormUtilsService, LoggerFactory, Alerts } from '@anymind-ng/core';
 import { EditProfileComponentService } from './edit-profile.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
@@ -18,6 +18,7 @@ import { Animations } from '@platform/shared/animations/animations';
 import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
 import { waitForSession } from '@platform/core/utils/wait-for-session';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import { Logger } from '@platform/core/logger';
 
 @Component({
   selector: 'plat-edit-profile',
@@ -25,7 +26,7 @@ import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
   templateUrl: './edit-profile.component.html',
   animations: Animations.collapse,
 })
-export class EditProfileModalComponent implements OnInit, OnDestroy {
+export class EditProfileModalComponent extends Logger implements OnInit, OnDestroy {
   /** form fields */
   // TODO: remove once not needed
   public readonly descriptionControlName = 'description';
@@ -56,7 +57,6 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
   @Input()
   public isExpertForm = true;
 
-  private logger: LoggerService;
   private linksFormControl = new FormControl();
 
   constructor(
@@ -68,7 +68,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
-    this.logger = loggerFactory.createLoggerService('EditProfileModalComponent');
+    super(loggerFactory.createLoggerService('EditProfileModalComponent'));
   }
 
   public ngOnInit(): void {
@@ -84,25 +84,38 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
           this.modalAnimationComponentService.stopLoadingAnimation();
         }),
         catchError(() => {
-          this.onModalClose();
+          this.closeModal();
 
           return EMPTY;
         }),
       )
       .subscribe(({ getSessionWithAccount, getProfileWithDocuments }) => {
+        /**
+         * account details and expert details should be aligned (statement from 2019.01.11)
+         * but for safety reasons we pass name and avatar from different places.
+         * For client it is from account object tight to session and for expert from expert profile
+         */
         this.isOpenedAsExpert = getSessionWithAccount.isExpert;
-        if (this.isOpenedAsExpert) {
-          this.setExpertFormValues(getProfileWithDocuments);
+        if (!this.isOpenedAsExpert) {
+          this.setBasicProfileData(
+            getSessionWithAccount.account.details.avatar,
+            getSessionWithAccount.account.details.nickname,
+          );
+
+          return;
         }
-        if (
-          !this.isOpenedAsExpert &&
-          typeof getSessionWithAccount.account.details.nickname !== 'undefined' &&
-          typeof getSessionWithAccount.account.details.avatar !== 'undefined'
-        ) {
-          this.setBasicProfileData({
-            name: getSessionWithAccount.account.details.nickname,
-            avatarToken: getSessionWithAccount.account.details.avatar,
-          });
+        if (getProfileWithDocuments && getProfileWithDocuments.profile.expertDetails) {
+          this.setExpertFormValues(getProfileWithDocuments);
+          this.setBasicProfileData(
+            getProfileWithDocuments.profile.expertDetails.avatar,
+            getProfileWithDocuments.profile.expertDetails.name,
+          );
+        } else {
+          this.loggerService.error('Edit profile opened in expert mode but no expert details available');
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+          this.closeModal();
+
+          return;
         }
       });
   }
@@ -142,26 +155,22 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         () => {
-          this.onModalClose();
+          this.closeModal();
         },
         () => this.handleResponseError(),
       );
   }
 
   /** #region init callbacks */
-  private setBasicProfileData(data: IBasicProfileData): void {
-    this.avatarTokenProfileNameFormControl.patchValue({ ...data });
+  private setBasicProfileData(avatar?: string, name?: string): void {
+    this.avatarTokenProfileNameFormControl.patchValue({
+      avatarToken: avatar || '',
+      name: name || '',
+    });
   }
 
-  private setExpertFormValues(profileDetails?: GetProfileWithDocuments): void {
-    if (profileDetails === undefined) {
-      return;
-    }
+  private setExpertFormValues(profileDetails: GetProfileWithDocuments): void {
     if (profileDetails.profile.expertDetails !== undefined) {
-      this.setBasicProfileData({
-        name: profileDetails.profile.expertDetails.name,
-        avatarToken: profileDetails.profile.expertDetails.avatar,
-      });
       this.linksFormControl.setValue(profileDetails.profile.expertDetails.links);
       this.profileForm.controls[this.descriptionControlName].setValue(profileDetails.profile.expertDetails.description);
       this.profileDocumentsList = profileDetails.expertDocuments;
@@ -199,7 +208,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         () => {
-          this.onModalClose();
+          this.closeModal();
           this.alertService.pushSuccessAlert('EDIT_PROFILE.SUCCESS_ALERT');
         },
         () => this.handleResponseError(),
@@ -210,7 +219,7 @@ export class EditProfileModalComponent implements OnInit, OnDestroy {
     this.isRequestPending = false;
   }
 
-  private onModalClose(): void {
+  private closeModal(): void {
     this.activeModal.close(true);
   }
 }
