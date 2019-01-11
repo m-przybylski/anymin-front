@@ -27,6 +27,7 @@ import { EditProfileModalComponent } from './edit-profile/edit-profile.component
 import { EditProfileComponentService } from './edit-profile/edit-profile.component.service';
 import { EditOrganizationModalComponent } from './edit-organization/edit-organization.component';
 import { EditOrganizationComponentService } from './edit-organization/edit-organization.component.service';
+import { WarningInformationModule } from '@platform/shared/components/warning-information/warning-information.module';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { EditOrganizationComponentService } from './edit-organization/edit-organ
     ButtonModule,
     PayoutInvoiceDetailsModule,
     StepperModule,
+    WarningInformationModule,
   ],
   entryComponents: [
     CreateProfileModalComponent,

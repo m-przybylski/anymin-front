@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InvitationListResolverService } from './services/invitation-list.resolver.service';
 import { AnymindComponentsModule } from '@anymind-ng/core';
 import { InvitationsModalsModule } from '@platform/shared/components/modals/invitations/invitations.module';
+import { WarningInformationModule } from '@platform/shared/components/warning-information/warning-information.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { InvitationsModalsModule } from '@platform/shared/components/modals/invi
     InvitationsModalsModule,
     InvitationsRoutingModule,
     AnymindComponentsModule,
+    WarningInformationModule,
   ],
   exports: [],
   providers: [InvitationListResolverService],

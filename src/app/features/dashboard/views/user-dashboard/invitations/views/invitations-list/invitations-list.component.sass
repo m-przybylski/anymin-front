@@ -43,13 +43,15 @@
   margin: 20px auto 0 auto
   min-width: 304px
   max-width: 343px
-  min-height: calc(100vh - 56px)
+  // 56px is mobile navbar height, 86px is alert-information-container height
+  min-height: calc(100vh - 56px - 86px)
 
   @media (min-height: 672px)
-    margin-top: 0px
+    margin-top: 0
 
   +xsm
-    min-height: calc(100vh - 80px)
+    // 80px is navbar height, 86px is alert-information-container height
+    min-height: calc(100vh - 80px - 86px)
 
   +smm
     max-width: 639px
@@ -72,3 +74,9 @@
       display: flex
       flex-direction: column
       padding: 0
+
+.alert-information-container
+  min-height: 86px
+  display: flex
+  align-items: center
+  justify-content: center

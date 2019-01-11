@@ -1,4 +1,9 @@
 .container
+  .alert-information-container(*ngIf="unverifiedEmail.email")
+    plat-warning-information(
+      [warningText]="'INVITATIONS.WARNING_INFO'",
+      [translateParamObject]="unverifiedEmail",
+    )
   .invitations-list-layout(*ngIf='invitations.length; else emptyList')
     span.invitations-list-layout__header {{ 'INVITATIONS.HEADER' | translate }}
     ul.invitations-list-layout__list

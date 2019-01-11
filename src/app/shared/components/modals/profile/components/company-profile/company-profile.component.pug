@@ -5,9 +5,9 @@ form.form.form--create-organization(
   novalidate
 )
   .modal-form__row--small(*ngIf="hasProfileConsultationsAsExpert")
-    .alert-content.alert-content--error
-      span.icon.icon-warning
-      p {{'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.HAS_GOT_CONSULTATION.ALERT' | translate }}
+    plat-warning-information(
+      [warningText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.HAS_GOT_CONSULTATION.ALERT'",
+    )
 
   .modal-form__row.modal-form__row--small
     header.modal-component__content__header
