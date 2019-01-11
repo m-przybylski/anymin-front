@@ -1,5 +1,4 @@
-import { NavbarActions } from '@platform/core/actions';
-import { NavbarActionTypes } from '@platform/core/actions/navbar.actions';
+import { NavbarActions, AuthActions } from '@platform/core/actions';
 
 export enum UserTypeEnum {
   USER,
@@ -18,34 +17,38 @@ export const initialState: IState = {
   isNavbarHelpMenuVisible: false,
 };
 
+type ActionsUnion = NavbarActions.NavbarActionsUnion | AuthActions.AuthActionsUnion;
+
 // tslint:disable-next-line:only-arrow-functions
-export function reducer(state = initialState, action: NavbarActions.NavbarActionsUnion): IState {
+export function reducer(state = initialState, action: ActionsUnion): IState {
   switch (action.type) {
-    case NavbarActionTypes.SetUserType: {
+    case NavbarActions.NavbarActionTypes.UpdateSessionAndUserType:
+    case NavbarActions.NavbarActionTypes.SetUserType: {
       return {
         ...state,
         userType: action.payload,
       };
     }
 
-    case NavbarActionTypes.UpdateSessionAndUserType: {
-      return {
-        ...state,
-        userType: action.payload,
-      };
-    }
-
-    case NavbarActionTypes.ToggleUserMenuVisibility: {
+    case NavbarActions.NavbarActionTypes.ToggleUserMenuVisibility: {
       return {
         ...state,
         isNavbarUserMenuVisible: !state.isNavbarUserMenuVisible,
       };
     }
 
-    case NavbarActionTypes.ToggleHelpMenuVisibility: {
+    case NavbarActions.NavbarActionTypes.ToggleHelpMenuVisibility: {
       return {
         ...state,
         isNavbarHelpMenuVisible: !state.isNavbarHelpMenuVisible,
+      };
+    }
+
+    case AuthActions.AuthActionTypes.LogoutRemote:
+    case AuthActions.AuthActionTypes.LogoutSuccess: {
+      return {
+        ...state,
+        userType: undefined,
       };
     }
 
