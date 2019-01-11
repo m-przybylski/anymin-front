@@ -48,6 +48,9 @@ export class EditProfileComponentService extends Logger {
       .pipe(this.handleResponseError('Can not edit expert profile'));
   }
 
+  /**
+   * return session and if backend claims that user is not an expert return undefined as profile data
+   */
   public getModalData(): Observable<ICreateProfileModalData> {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
