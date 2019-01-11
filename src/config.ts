@@ -183,4 +183,9 @@ export class Config {
     max: 9900,
   };
   public static readonly animationContentHeightTimeDuration = 300;
+
+  public static readonly avatarDimensions = {
+    minHeight: 312,
+    minWidth: 312,
+  };
 }

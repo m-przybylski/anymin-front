@@ -4,22 +4,24 @@ import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/
 import { ImageCropModalComponent } from '../image-crop/image-crop.component';
 import { ContentHeightAnimationService } from '../../../../../../services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../../../../config';
+import { AvatarErrorEnum } from '@platform/shared/components/modals/profile/components/basic-profile-data/avatar-uploader/avatar-uploader.component';
 
 @Directive({
   selector: '[appAvatarUploader]',
 })
 export class AvatarUploaderDirective {
   /**
-   * emits value when file it too large
+   * emits value when file it too large or has to small dimensions
    * this is only logical check. Does not emit any value if transfer fails.
    */
   @Output()
-  public avatarTooLargeError = new EventEmitter<void>();
+  public avatarError = new EventEmitter<AvatarErrorEnum>();
   /**
    * once new image is loaded new avatarToken is emitted
    */
   @Output()
   public avatarTokenChange = new EventEmitter<string>();
+
   private logger: LoggerService;
 
   constructor(
@@ -38,18 +40,7 @@ export class AvatarUploaderDirective {
       if (event.target.value) {
         const reader = new FileReader();
         reader.onload = (): void => {
-          const modalRef = this.modalService.open(ImageCropModalComponent);
-          (modalRef.componentInstance as ImageCropModalComponent).cropModalData = {
-            imgSrc: reader.result,
-            file: event.target.files[0],
-          };
-          modalRef.result
-            .then(avatarToken => {
-              this.avatarTokenChange.emit(avatarToken);
-            })
-            .catch(() => {
-              this.avatarTokenChange.emit('');
-            });
+          this.checkImageDimensions(event, reader);
         };
         reader.onerror = (err: ErrorEvent): void => {
           this.logger.error('Can not read file', err);
@@ -59,7 +50,7 @@ export class AvatarUploaderDirective {
         reader.readAsDataURL(event.target.files[0]);
       }
     } else {
-      this.avatarTooLargeError.emit();
+      this.avatarError.emit(AvatarErrorEnum.TOO_LARGE);
       this.logger.warn('Too big file');
       this.alertService.pushDangerAlert('EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_BIG_SIZE');
     }
@@ -71,4 +62,36 @@ export class AvatarUploaderDirective {
       event.target.value = '';
     }
   };
+
+  private checkImageDimensions(event: HTMLSelectElement, reader: FileReader): void {
+    const img = new Image();
+    img.src = URL.createObjectURL(event.target.files[0]);
+
+    img.onload = (): void => {
+      if (this.hasFileMinDimensions(img)) {
+        this.openCroppieModal(event, reader);
+      } else {
+        this.avatarError.emit(AvatarErrorEnum.TOO_SMALL_DIMENSIONS);
+      }
+    };
+  }
+
+  private hasFileMinDimensions = (img: HTMLImageElement): boolean =>
+    img.naturalWidth >= Config.avatarDimensions.minWidth && img.naturalHeight >= Config.avatarDimensions.minHeight;
+
+  private openCroppieModal(event: HTMLSelectElement, reader: FileReader): void {
+    const modalRef = this.modalService.open(ImageCropModalComponent);
+    (modalRef.componentInstance as ImageCropModalComponent).cropModalData = {
+      imgSrc: reader.result,
+      file: event.target.files[0],
+    };
+
+    modalRef.result
+      .then(avatarToken => {
+        this.avatarTokenChange.emit(avatarToken);
+      })
+      .catch(() => {
+        this.avatarTokenChange.emit('');
+      });
+  }
 }
