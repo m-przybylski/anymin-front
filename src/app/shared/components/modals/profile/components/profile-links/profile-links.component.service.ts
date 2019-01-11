@@ -12,7 +12,7 @@ interface IShortLink {
 @Injectable()
 export class ProfileLinksComponentService {
   private readonly httpPattern = /^(?:http?:\/\/)?(?:www\.)|(?:http?:\/\/)/i;
-  private readonly httpsPattern = /^(?:https?:\/\/)/i;
+  private readonly httpsPattern = /^(?:https?:\/\/)?(?:www\.)|(?:https?:\/\/)/i;
 
   constructor() {}
 
@@ -84,5 +84,5 @@ export class ProfileLinksComponentService {
   };
 
   private setSocialLinkSSLProtocol = (addressUrl: string): string =>
-    `https://www.${addressUrl.replace(this.httpsPattern, '')}`;
+    `https://${addressUrl.replace(this.httpsPattern, '')}`;
 }

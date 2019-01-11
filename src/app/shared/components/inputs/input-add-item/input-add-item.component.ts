@@ -38,7 +38,6 @@ export class InputAddItemComponent {
   public isChangeOnSubmit = true;
   @Input()
   public initialFocus = false;
-  public inputValue = '';
   public isFocused = false;
 
   @Input()
@@ -86,6 +85,7 @@ export class InputAddItemComponent {
   public onFocus = (): void => {
     this.inputFormControl.setErrors(null);
     this.isFocused = true;
+    this.isBlured = false;
   };
 
   public onAddLinkClick(): void {
@@ -129,7 +129,6 @@ export class InputAddItemComponent {
 
   private onAddItem(): void {
     if (!this.isDisabled && this.inputFormControl.valid && this.inputFormControl.value) {
-      this.isBlured = false;
       this.valueAdded.emit(this.inputFormControl.value);
     }
   }
