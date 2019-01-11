@@ -48,7 +48,7 @@ describe('ProfileLinksComponentService', () => {
     [ProfileLinksComponentService],
     (service: ProfileLinksComponentService) => {
       const value = 'https://wp.pl';
-      expect(service.unifyLinkProtocol(value)).toBe('https://wp.pl');
+      expect(service.unifyLinkProtocol(value)).toBe('https://www.wp.pl');
     },
   ));
 
@@ -56,7 +56,7 @@ describe('ProfileLinksComponentService', () => {
     [ProfileLinksComponentService],
     (service: ProfileLinksComponentService) => {
       const value = 'https://www.wp.pl';
-      expect(service.unifyLinkProtocol(value)).toBe('https://wp.pl');
+      expect(service.unifyLinkProtocol(value)).toBe('https://www.wp.pl');
     },
   ));
 
@@ -65,16 +65,16 @@ describe('ProfileLinksComponentService', () => {
     (service: ProfileLinksComponentService) => {
       const value = 'https://twitter.com/j_lewandowski';
       service.unifyLinkProtocol(value);
-      expect(service.unifyLinkProtocol(value)).toBe('https://twitter.com/j_lewandowski');
+      expect(service.unifyLinkProtocol(value)).toBe('https://www.twitter.com/j_lewandowski');
     },
   ));
 
   it('expect return correct social url without ssl protocol', inject(
     [ProfileLinksComponentService],
     (service: ProfileLinksComponentService) => {
-      const value = 'http://www.twitter.com/j_lewandowski';
+      const value = 'http://twitter.com/j_lewandowski';
       service.unifyLinkProtocol(value);
-      expect(service.unifyLinkProtocol(value)).toBe('https://twitter.com/j_lewandowski');
+      expect(service.unifyLinkProtocol(value)).toBe('https://www.twitter.com/j_lewandowski');
     },
   ));
 
