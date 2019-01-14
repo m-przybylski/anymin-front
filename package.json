@@ -12,7 +12,7 @@
     "serve-ssl": "npm run start -- --ssl",
     "start-mobile": "pug src/app -P --doctype html --watch | ng serve --live-reload false  --proxy-config proxy.conf.js",
     "serve-mobile": "npm run start-mobile",
-    "build": "npm run postinstall && npm run pug && ng build --prod --i18nLocale=i18nLocale",
+    "build": "npm run postinstall && npm run pug && ng build --prod --i18n-locale pl",
     "test": "npm run pug-watch | jest --watchAll",
     "test-single": "npm run pug && jest",
     "lint": "ng lint",
