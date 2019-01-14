@@ -2,7 +2,7 @@ import { AccountService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { BackendErrors, isBackendError } from '../../../../../../../../shared/models/backend-error/backend-error';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 

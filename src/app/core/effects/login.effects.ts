@@ -7,9 +7,9 @@ import { SessionService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
-import { ModalStack } from '@platform/core/services/modal/modal.service';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 export class LoginEffects extends Logger {
@@ -65,7 +65,7 @@ export class LoginEffects extends Logger {
     ofType(AuthActions.AuthActionTypes.LogoutSuccess, AuthActions.AuthActionTypes.LogoutRemote),
     tap(() => {
       this.alertService.closeAllAlerts();
-      this.modalService.dismissAll();
+      this.ngbModal.dismissAll();
     }),
     switchMap(() => of(new AuthActions.LoginRedirectAction())),
   );
@@ -96,8 +96,8 @@ export class LoginEffects extends Logger {
     private sessionService: SessionService,
     private router: Router,
     private alertService: AlertService,
-    private modalService: ModalStack,
     private callInvitationService: CallInvitationService,
+    private ngbModal: NgbModal,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('LoginEffects'));

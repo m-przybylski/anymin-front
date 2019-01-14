@@ -43,8 +43,6 @@ export class AvatarUploaderComponent implements ControlValueAccessor {
   public avatarToken: string;
   public isError = false;
   private onModelChange: (obj?: string) => void;
-  // tslint:disable-next-line:no-any
-  private onTouch: (obj?: any) => void;
 
   private readonly controlErrorCodes = {
     tooLarge: 'tooLarge',
@@ -79,10 +77,8 @@ export class AvatarUploaderComponent implements ControlValueAccessor {
   }
 
   // tslint:disable-next-line:no-any
-  public registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
-
+  // tslint:disable-next-line:no-empty
+  public registerOnTouched(_fn: any): void {}
   public get requiredError(): boolean {
     return this.formControl.touched && this.formControl.hasError(this.controlErrorCodes.required);
   }

@@ -50,7 +50,6 @@ export class CsvUploaderComponent implements OnInit {
   public uploadedFilesLength = 0;
   private logger: LoggerService;
   private mailPattern: RegExp;
-  private phonePattern: RegExp;
   private consultationInvitationsMaxCount: number;
   private errorsMsg: IValidatorsErrorMsg = {
     SOMETHING_WENT_WRONG: {
@@ -163,7 +162,6 @@ export class CsvUploaderComponent implements OnInit {
   private assignValidationValues = (): void => {
     this.consultationInvitationsMaxCount = Config.inputsLengthNumbers.consultationInvitationsMaxCount;
     this.mailPattern = Config.patterns.emailPattern;
-    this.phonePattern = Config.patterns.phonePattern;
   };
 
   private areCSVErrorOccurs = (loadedNumber: number, errors: ReadonlyArray<ParseError>): boolean =>

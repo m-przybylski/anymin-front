@@ -13,7 +13,7 @@ describe('StepperComponent', () => {
       changes: of(stepsArray),
       toArray: jest.fn().mockReturnValue(stepsArray),
       length: 2,
-    });
+    }) as any;
     stepperComponent = new StepperComponent();
     stepperComponent.steps = steps as any;
   });
@@ -64,7 +64,7 @@ describe('StepperComponent', () => {
       changes: of(stepsArrayThree),
       toArray: jest.fn().mockReturnValue(stepsArrayThree),
       length: 3,
-    });
+    }) as any;
     stepperComponent.next();
     expect(stepperComponent.getAnimationState(0)).toBe('previous');
     expect(stepperComponent.getAnimationState(1)).toBe('current');

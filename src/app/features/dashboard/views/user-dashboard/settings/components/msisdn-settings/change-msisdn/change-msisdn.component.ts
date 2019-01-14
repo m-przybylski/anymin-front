@@ -1,18 +1,16 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IDropdownComponent } from '../../../../../../../../shared/components/dropdown/dropdown.component';
+import { IDropdownComponent } from '@platform/shared/components/dropdown/dropdown.component';
 import { ChangeMsisdnComponentService, VerifyMsisdnStatusEnum } from './change-msisdn.component.service';
 import {
   Alerts,
   AlertService,
   FormUtilsService,
   InputPhoneNumberService,
-  LoggerFactory,
-  LoggerService,
   inputPhoneNumberErrorMessages,
 } from '@anymind-ng/core';
 import { finalize, map, filter, take } from 'rxjs/operators';
-import { ModalAnimationComponentService } from '../../../../../../../../shared/components/modals/modal/animation/modal-animation.animation.service';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../../../../config';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { Store } from '@ngrx/store';
@@ -59,7 +57,6 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
     [VerifyMsisdnStatusEnum.ERROR, Alerts.SomethingWentWrong],
   ]);
   private currentUserMsisdn: string;
-  private logger: LoggerService;
   private fullMsisdn: string;
 
   constructor(
@@ -69,10 +66,7 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
     private changeMsisdnService: ChangeMsisdnComponentService,
     private inputPhoneNumberService: InputPhoneNumberService,
     private modalAnimationComponentService: ModalAnimationComponentService,
-    loggerFactory: LoggerFactory,
-  ) {
-    this.logger = loggerFactory.createLoggerService('ChangeMsisdnComponent');
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.changeMsisdnForm = new FormGroup({});

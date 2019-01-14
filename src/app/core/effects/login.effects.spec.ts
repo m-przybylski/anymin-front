@@ -10,9 +10,9 @@ import { SessionService, LoginCredentials } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { AlertService, LoggerService } from '@anymind-ng/core';
 import { provideMockFactoryLogger } from 'testing/testing';
-import { ModalStack } from '@platform/core/services/modal/modal.service';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
@@ -46,8 +46,8 @@ describe('LoginEffects', () => {
         provideMockFactoryLogger(loggerService),
         provideMockActions(() => actions$),
         {
-          provide: ModalStack,
-          useValue: Deceiver(ModalStack, { dismissAll: jest.fn() }),
+          provide: NgbModal,
+          useValue: Deceiver(NgbModal, { dismissAll: jest.fn() }),
         },
         {
           provide: CallInvitationService,

@@ -22,7 +22,7 @@ export class SmoothScrollDirective implements OnInit {
   constructor(private element: ElementRef) {}
 
   @HostListener('scroll', ['$event'])
-  public onArrowBottomDown(event: HTMLSelectElement): void {
+  public onArrowBottomDown(event: IntersectionObserverEntry): void {
     const currentScrollPosition = event.target.scrollTop;
     this.updateScrollPosition(currentScrollPosition);
   }

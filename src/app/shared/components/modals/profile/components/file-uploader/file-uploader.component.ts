@@ -2,6 +2,7 @@
 // tslint:disable:strict-boolean-expressions
 // tslint:disable:no-duplicate-imports
 // tslint:disable:newline-before-return
+// tslint:disable:max-file-line-count
 import { Component, EventEmitter, HostListener, Input, Output, OnDestroy, OnInit } from '@angular/core';
 import { PostFileDetails } from '@anymind-ng/api';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
@@ -111,6 +112,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     this.isDragFile = false;
     event.preventDefault();
     event.stopPropagation();
+    // @ts-ignore
     const files: File[] = Array.from((<DragEvent>event).dataTransfer.files);
     this.saveFiles(files);
   }
@@ -128,7 +130,8 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     (<HTMLInputElement>event.target).value = '';
   };
 
-  public onInputFileChange = (event: HTMLSelectElement): void => {
+  public onInputFileChange = (event: MSInputMethodContext): void => {
+    // @ts-ignore
     const files: File[] = Array.from(event.target.files);
     this.saveFiles(files);
   };

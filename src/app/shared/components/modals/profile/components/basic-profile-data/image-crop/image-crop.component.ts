@@ -59,6 +59,7 @@ export class ImageCropModalComponent implements OnDestroy, AfterViewInit {
 
   @HostListener('input', ['$event'])
   public onInputRangeChange = (event: HTMLSelectElement): void => {
+    // @ts-ignore
     this.onZoomChange(event.target.value);
   };
 

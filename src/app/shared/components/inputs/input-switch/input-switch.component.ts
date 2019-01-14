@@ -36,8 +36,6 @@ export class InputSwitchComponent implements ControlValueAccessor {
   private onModelChange: (obj?: any) => any;
   private animationInProgress = false;
   // tslint:disable-next-line:no-any
-  private onTouch: (obj?: any) => any;
-  // tslint:disable-next-line:no-any
   public writeValue(obj: any): void {
     this.isChecked = obj;
   }
@@ -46,9 +44,8 @@ export class InputSwitchComponent implements ControlValueAccessor {
     this.onModelChange = fn;
   }
   // tslint:disable-next-line:no-any
-  public registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
+  // tslint:disable-next-line:no-empty
+  public registerOnTouched(_fn: any): void {}
   public setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }

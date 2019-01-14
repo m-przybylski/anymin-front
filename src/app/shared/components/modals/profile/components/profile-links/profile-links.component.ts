@@ -38,7 +38,6 @@ export class ProfileLinksComponent implements ControlValueAccessor {
   });
 
   private onModelChange: (value: string[]) => void;
-  private onTouch: () => void;
 
   constructor(private profileLinksComponentService: ProfileLinksComponentService) {}
 
@@ -53,9 +52,8 @@ export class ProfileLinksComponent implements ControlValueAccessor {
   }
 
   // tslint:disable-next-line:no-any
-  public registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
+  // tslint:disable-next-line:no-empty
+  public registerOnTouched(_fn: any): void {}
 
   public setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;

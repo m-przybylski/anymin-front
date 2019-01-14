@@ -1,7 +1,7 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:readonly-array
 import { Component, OnInit } from '@angular/core';
-import { AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
+import { AlertService, FormUtilsService } from '@anymind-ng/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
@@ -37,8 +37,6 @@ export class EditOrganizationModalComponent implements OnInit {
   public hasProfileConsultationsAsExpert = false;
   public linksFormControl = new FormControl();
 
-  private logger: LoggerService;
-
   constructor(
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
@@ -46,10 +44,7 @@ export class EditOrganizationModalComponent implements OnInit {
     private modalAnimationComponentService: ModalAnimationComponentService,
     private editOrganizationModalComponentService: EditOrganizationComponentService,
     private store: Store<fromCore.IState>,
-    loggerFactory: LoggerFactory,
-  ) {
-    this.logger = loggerFactory.createLoggerService('EditOrganizationModalComponent');
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.organizationFormGroup = new FormGroup({
@@ -110,6 +105,7 @@ export class EditOrganizationModalComponent implements OnInit {
         () => this.handleResponseError(),
       );
   }
+
   /** end update organization callbacks */
 
   /** initialize modal callbacks */
@@ -127,6 +123,7 @@ export class EditOrganizationModalComponent implements OnInit {
       this.fileUploadTokensList = companyProfileDetails.organizationDocuments.map(file => file.token);
     }
   }
+
   /** end initialize modal callbacks */
 
   private getFormValues(): PutOrganizationDetails {

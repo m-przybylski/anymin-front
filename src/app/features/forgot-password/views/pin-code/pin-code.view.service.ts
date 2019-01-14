@@ -5,7 +5,7 @@ import { AlertService, Alerts, LoggerFactory, LoggerService } from '@anymind-ng/
 import { Observable, of } from 'rxjs';
 import { RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, map } from 'rxjs/operators';
-import { BackendErrors, isBackendError } from '../../../../shared/models/backend-error/backend-error';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginHelperService } from '../../../login/services/login-helper.service';
 

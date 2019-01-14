@@ -151,12 +151,12 @@ export class ClipboardService extends Logger {
     const sel = document.getSelection();
     const range = document.createRange();
     range.selectNodeContents(elem);
-    sel.removeAllRanges();
-    sel.addRange(range);
+    (sel as Selection).removeAllRanges();
+    (sel as Selection).addRange(range);
   }
 
   private selectionClear(): void {
-    document.getSelection().removeAllRanges();
+    (document.getSelection() as Selection).removeAllRanges();
   }
 
   /**

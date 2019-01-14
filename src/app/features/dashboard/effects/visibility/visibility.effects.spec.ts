@@ -11,7 +11,6 @@ import { AlertService } from '@anymind-ng/core';
 
 describe('VisibilityEffects', () => {
   let visibilityEffects: VisibilityEffects;
-  let alertService: AlertService;
   let presenceService: PresenceService;
   let actions$: Observable<any>;
 
@@ -38,7 +37,6 @@ describe('VisibilityEffects', () => {
     });
     visibilityEffects = TestBed.get(VisibilityEffects);
     presenceService = TestBed.get(PresenceService);
-    alertService = TestBed.get(AlertService);
     actions$ = TestBed.get(Actions);
   });
 

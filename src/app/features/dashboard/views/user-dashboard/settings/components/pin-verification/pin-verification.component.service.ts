@@ -1,14 +1,11 @@
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { BackendErrors, isBackendError } from '../../../../../../../shared/models/backend-error/backend-error';
-import { map, catchError, take } from 'rxjs/operators';
+import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
+import { map, catchError } from 'rxjs/operators';
 import { AccountService, RecoverPasswordService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { GetRecoverMethod } from '@anymind-ng/api/model/getRecoverMethod';
-import { Store } from '@ngrx/store';
-import * as fromRoot from '@platform/reducers';
-import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 export enum PinVerificationStatus {
   SUCCESS,
@@ -31,22 +28,14 @@ export class PinVerificationComponentService {
     [BackendErrors.TooManyMsisdnTokenAttempts, PinVerificationStatus.TOO_MANY_ATTEMPTS],
   ]);
   private logger: LoggerService;
-  private userAccountId: string;
 
   constructor(
     private alertService: AlertService,
     private recoverPasswordService: RecoverPasswordService,
     private accountService: AccountService,
-    private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('PinVerificationComponentService');
-
-    getNotUndefinedSession(this.store)
-      .pipe(take(1))
-      .subscribe(getSessionWithAccount => {
-        this.userAccountId = getSessionWithAccount.account.id;
-      });
   }
 
   public verifyResetPasswordPinToken = (token: string, msisdn: string): Observable<PinVerificationStatus> =>

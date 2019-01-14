@@ -154,6 +154,7 @@ export class NavbarUserMenuComponent implements OnInit {
 
   private groupMenuItems = (menuItems: ReadonlyArray<INavigationItem> | undefined): void => {
     if (typeof menuItems !== 'undefined') {
+      // @ts-ignore
       this.groupedMenuItems = Object.values(
         menuItems.reduce((groupedItems, menuItem) => {
           groupedItems[menuItem.group] = [...(groupedItems[menuItem.group] || []), menuItem];
