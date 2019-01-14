@@ -14,8 +14,6 @@ export class ProfileLinksComponentService {
   private readonly httpPattern = /^(?:http?:\/\/)?(?:www\.)|(?:http?:\/\/)/i;
   private readonly httpsPattern = /^(?:https?:\/\/)?(?:www\.)|(?:https?:\/\/)/i;
 
-  constructor() {}
-
   public unifyLinkProtocol = (value: string): string => {
     if (this.isSocialLink(value)) {
       return this.setSocialLinkSSLProtocol(value);

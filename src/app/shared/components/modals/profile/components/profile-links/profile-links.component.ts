@@ -4,6 +4,7 @@ import { Animations } from '@anymind-ng/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ProfileLinksComponentService } from './profile-links.component.service';
+import { Config } from '../../../../../../../config';
 
 export interface ILinkList {
   link: string;
@@ -28,10 +29,8 @@ export const PROFILE_LINKS_ACCESSOR = {
 export class ProfileLinksComponent implements ControlValueAccessor {
   @Input()
   public isDisabled = false;
-  /**
-   * http patter from: https://www.regextester.com/94502
-   */
-  public readonly urlPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+
+  public readonly urlPattern = Config.patterns.url;
   public linksList: ILinkList[] = [];
   public linksFormControl = new FormControl('', {
     updateOn: 'change',
@@ -60,13 +59,14 @@ export class ProfileLinksComponent implements ControlValueAccessor {
   }
 
   public onChangeValue(inputValue: string): void {
-    if (this.isValueExist(this.unifyLinkProtocol(inputValue))) {
+    const value = inputValue.toLocaleLowerCase();
+    if (this.isValueExist(this.unifyLinkProtocol(value))) {
       this.linksFormControl.setErrors({
         'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.ADD_LINK.VALIDATION.VALUE_EXIST': true,
       });
     } else {
       /** no error add link to the list and clear input */
-      this.addLink(this.unifyLinkProtocol(inputValue));
+      this.addLink(this.unifyLinkProtocol(value));
       this.linksFormControl.setValue('');
     }
   }

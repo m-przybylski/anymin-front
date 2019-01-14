@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "node lib/version/version.js",
     "ng": "ng",
+    "jest": "jest",
     "start": "npm run pug-watch | ng serve  --proxy-config proxy.conf.js",
     "serve": "npm run start",
     "serve:demo": "ng serve --app=demo-app --port 4201 --proxy-config proxy.conf.js",
