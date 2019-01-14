@@ -19,25 +19,26 @@ export class CsvUploaderDirective {
   }
 
   @HostListener('change', ['$event'])
-  public inputChanged = (event: HTMLSelectElement): void => {
-    if (event.target.files[0]) {
-      if (event.target.value) {
+  public inputChanged = (event: MSInputMethodContext): void => {
+    const element = event.target as HTMLInputElement;
+    if (element.files !== null && element.files[0]) {
+      if (element.value) {
         const reader = new FileReader();
         reader.onload = (): void => {
-          Papa.parse(event.target.files[0], {
+          Papa.parse((element.files as FileList)[0], {
             complete: (result): void => {
               this.fileLoaded.emit(result.data);
               this.showCSVstatus.emit(result.errors);
             },
           });
-          event.target.value = '';
+          element.value = '';
         };
-        reader.onerror = (err: ErrorEvent): void => {
+        (reader.onerror as any) = (err: ErrorEvent): void => {
           this.logger.error('Can not read file', err);
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         };
 
-        reader.readAsDataURL(event.target.files[0]);
+        reader.readAsDataURL(element.files[0]);
       }
     } else {
       this.logger.warn('No file');

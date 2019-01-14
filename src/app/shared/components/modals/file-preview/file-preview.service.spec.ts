@@ -1,4 +1,4 @@
-import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import { combineReducers, StoreModule } from '@ngrx/store';
 import * as fromCore from 'app/core/reducers/index';
 import { Deceiver } from 'deceiver-core';
 import { ProfileDocument } from '@anymind-ng/api';
@@ -9,7 +9,6 @@ import { LoggerFactory, LoggerService, WindowRef } from '@anymind-ng/core';
 
 describe('FilePreviewService', () => {
   let filePreviewService: FilePreviewService;
-  let store: Store<fromCore.IState>;
 
   const windowRef: WindowRef = Deceiver(WindowRef);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
@@ -25,7 +24,6 @@ describe('FilePreviewService', () => {
         }),
       ],
     });
-    store = TestBed.get(Store);
     filePreviewService = new FilePreviewService(windowRef, loggerFactory);
   });
 

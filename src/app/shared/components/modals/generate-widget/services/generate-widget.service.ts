@@ -1,7 +1,7 @@
 // tslint:disable:max-line-length
 import { Injectable, Injector } from '@angular/core';
 import { Logger } from '@platform/core/logger';
-import { LoggerFactory, MoneyToAmount, AlertService } from '@anymind-ng/core';
+import { LoggerFactory, AlertService } from '@anymind-ng/core';
 import { GenerateWidgetComponent } from '../components/generate-widget/generate-widget.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { GENERATE_WIDGET_DATA, IGenerateWidgetData } from '../tokens';
@@ -9,7 +9,6 @@ import { ClipboardService } from '@platform/core/services/clipboard/clipboard.se
 
 @Injectable()
 export class GenerateWidgetService extends Logger {
-  private moneyToAmount: MoneyToAmount;
   constructor(
     private injector: Injector,
     private modalService: NgbModal,
@@ -18,7 +17,6 @@ export class GenerateWidgetService extends Logger {
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('GenerateWidgetService'));
-    this.moneyToAmount = new MoneyToAmount(this.loggerService);
   }
 
   public openModal({ serviceId, expertId, widgetId }: IGenerateWidgetData): NgbModalRef {

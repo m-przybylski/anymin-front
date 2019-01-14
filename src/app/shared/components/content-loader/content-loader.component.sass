@@ -1,24 +1,17 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
 @import "content-loader-default-variables"
 
-/**/
-/*----------*//*----------*//*----------*/
-/* If you want to overwrite default variables you have to import
-/* 'template/components/content-loader-default-variables' into component sass file
-/* example: option-row-loader.component.sss
 /*
-/*
-/*----------*//*----------*//*----------*/
-/* HOW IT's WORKS
-/*----------*//*----------*//*----------*/
-/*
-/* Position of any cols it's a sum of previous columns width + their margins
-/* example: $s-second-col-position = #{$s-horizontal-margin} + #{$s-thumb-width}
-/*        : $s-second-col-position = 18px + 20px
-/*
-/*
-/*----------*//*----------*//*----------*/
-/**/
+ *
+ * If you want to overwrite default variables you have to import
+ * 'template/components/content-loader-default-variables' into component sass file
+ * example: option-row-loader.component.sss
+ *
+ * HOW IT's WORKS
+ * Position of any cols it's a sum of previous columns width + their margins
+ * example: $s-second-col-position = #{$s-horizontal-margin} + #{$s-thumb-width}
+ *        : $s-second-col-position = 18px + 20px
+ */
 
 $s-thumb-cell-position: #{$s-thumb-width}
 $s-title-cell-position: calc(#{$s-horizontal-margin} + #{$s-thumb-width})

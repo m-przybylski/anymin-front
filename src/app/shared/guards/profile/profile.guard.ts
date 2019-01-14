@@ -10,7 +10,7 @@ import {
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { RouterPaths, RouterPathsToken } from '../../routes/routes';
+import { RouterPaths, ROUTER_PATHS_TOKEN } from '../../routes/routes';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { isUserLogged } from '@platform/shared/guards/session.helper';
@@ -32,7 +32,7 @@ export class ProfileGuard implements CanActivate {
     private router: Router,
     private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
-    @Inject(RouterPathsToken) private routerPaths: typeof RouterPaths,
+    @Inject(ROUTER_PATHS_TOKEN) private routerPaths: typeof RouterPaths,
   ) {
     this.logger = loggerFactory.createLoggerService('ProfileGuard');
   }

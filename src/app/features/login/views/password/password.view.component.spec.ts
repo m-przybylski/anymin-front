@@ -6,11 +6,12 @@ import { PasswordViewComponent } from './password.view.component';
 import { PasswordLoginStatus, PasswordViewService } from './password.view.service';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { getCoreConfig } from '../../../../core/factories/core-config/core-config.facotry';
+import { getCoreConfig } from '@platform/core/factories/core-config/core-config.facotry';
 import { LoginHelperService } from '../../services/login-helper.service';
 import { Deceiver } from 'deceiver-core';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { cold } from 'jasmine-marbles';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('Component: PasswordViewComponent', () => {
   const activatedRouteMock: any = { snapshot: { params: { msisdn: '48555555555' } } };
@@ -24,6 +25,7 @@ describe('Component: PasswordViewComponent', () => {
       providers: [
         provideMockFactoryLogger(),
         { provide: ActivatedRoute, useValue: activatedRouteMock },
+        { provide: TranslateService, useValue: {} },
         {
           provide: FormUtilsService,
           useValue: Deceiver(FormUtilsService, {

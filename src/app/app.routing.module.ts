@@ -5,7 +5,7 @@ import { SessionGuard } from './shared/guards/session/session.guard';
 import { AnonymousGuard } from './shared/guards/anonymous/anonymous.guard';
 import { ConfirmEmailComponent } from './features/confirm-email/confirm-email.component';
 import { ConfirmEmailGuard } from './features/confirm-email/confirm-email.guard';
-import { RouterPaths, RouterPathsToken } from './shared/routes/routes';
+import { RouterPaths } from './shared/routes/routes';
 import { ProfileGuard } from './shared/guards/profile/profile.guard';
 import { InvitationsGuard } from '@platform/features/invitations/invitations.guard';
 import { InvitationsComponent } from '@platform/features/invitations/invitations.component';
@@ -53,7 +53,7 @@ const appRoutes: Routes = [
       onSameUrlNavigation: 'reload',
     }),
   ],
-  providers: [ProfileGuard, { provide: RouterPathsToken, useValue: RouterPaths }],
+  providers: [ProfileGuard],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

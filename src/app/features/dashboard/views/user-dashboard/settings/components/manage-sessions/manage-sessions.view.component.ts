@@ -8,7 +8,6 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil, finalize, map, take } from 'rxjs/operators';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Animations } from '@platform/shared/animations/animations';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { Store } from '@ngrx/store';
@@ -28,15 +27,12 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
 
   private currentSessionApiKey: string;
   private ngUnsubscribe$ = new Subject<void>();
-  private logger: LoggerService;
 
   constructor(
     private manageSessionsService: ManageSessionsViewComponentService,
     private modalAnimationComponentService: ModalAnimationComponentService,
     private store: Store<fromRoot.IState>,
-    loggerFactory: LoggerFactory,
   ) {
-    this.logger = loggerFactory.createLoggerService('ManageSessionsViewComponent');
     getNotUndefinedSession(this.store)
       .pipe(
         map(session => session.session.apiKey),

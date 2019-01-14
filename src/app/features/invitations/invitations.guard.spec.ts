@@ -53,7 +53,6 @@ describe('InvitationsGuard', () => {
       providers: [InvitationsGuard],
     });
 
-    routeParams = {};
     store = TestBed.get(Store);
     dispatchSpy = jest.spyOn(store, 'dispatch');
     guard = new InvitationsGuard(

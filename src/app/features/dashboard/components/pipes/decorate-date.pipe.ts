@@ -1,15 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import * as moment from 'moment';
 
 @Pipe({ name: 'decorateDate' })
 export class DecorateDatePipe implements PipeTransform {
-  private logger: LoggerService;
   private moment = moment;
-
-  constructor(loggerFactory: LoggerFactory) {
-    this.logger = loggerFactory.createLoggerService('DecorateDatePipe');
-  }
 
   public transform(date: Date): string {
     this.moment.updateLocale('pl', {

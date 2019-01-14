@@ -10,7 +10,6 @@ import {
 import { OrganizationProfile } from './services/company-profile-resolver.service';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { Store, select } from '@ngrx/store';
 import * as fromCompanyDashboard from '../reducers';
@@ -29,16 +28,13 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   public links: ReadonlyArray<string>;
   public organizationId: string;
   public organizationDocuments: ReadonlyArray<ProfileDocument> = [];
-  private logger: LoggerService;
 
   constructor(
     protected route: ActivatedRoute,
     protected injector: Injector,
     private store: Store<fromCompanyDashboard.IState>,
-    loggerFactory: LoggerFactory,
   ) {
     super(injector);
-    this.logger = loggerFactory.createLoggerService('CompanyProfileComponent');
     this.route.data
       .pipe(
         takeUntil(this.destroyed$),

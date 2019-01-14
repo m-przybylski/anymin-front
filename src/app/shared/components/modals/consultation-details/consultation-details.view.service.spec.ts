@@ -21,7 +21,7 @@ import { LoggerFactory } from '@anymind-ng/core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { cold } from 'jasmine-marbles';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule, combineReducers } from '@ngrx/store';
+import { StoreModule, combineReducers } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
 import { ConsultationFootersService } from './consultation-footers.service';
@@ -30,7 +30,6 @@ import { provideMockFactoryLogger } from 'testing/testing';
 
 describe('ConsultationDetailsViewService', () => {
   let consultationDetailsViewService: ConsultationDetailsViewService;
-  let store: Store<fromCore.IState>;
   let loggerFactory: LoggerFactory;
 
   const serviceService: ServiceService = Deceiver(ServiceService);
@@ -51,7 +50,6 @@ describe('ConsultationDetailsViewService', () => {
       ],
       providers: [provideMockFactoryLogger()],
     });
-    store = TestBed.get(Store);
     loggerFactory = TestBed.get(LoggerFactory);
     consultationDetailsViewService = new ConsultationDetailsViewService(
       serviceService,

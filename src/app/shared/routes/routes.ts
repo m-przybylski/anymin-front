@@ -93,6 +93,7 @@ export const RouterPaths = {
   },
 };
 
-export const RouterPathsToken: InjectionToken<typeof RouterPaths> = new InjectionToken<typeof RouterPaths>(
+export const ROUTER_PATHS_TOKEN: InjectionToken<typeof RouterPaths> = new InjectionToken<typeof RouterPaths>(
   'Injection token for injecting RouterPaths',
+  { providedIn: 'root', factory: (): typeof RouterPaths => RouterPaths },
 );

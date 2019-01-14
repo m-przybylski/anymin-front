@@ -1,6 +1,6 @@
 // tslint:disable:strict-type-predicates
 import { Injectable, OnDestroy } from '@angular/core';
-import { LongPollingService } from '../../../../core/services/long-polling/long-polling.service';
+import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
 import { PresenceService, AccountPresenceStatus } from '@anymind-ng/api';
 import { Observable, ReplaySubject, Subscription, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -13,10 +13,7 @@ export class ExpertAvailabilityService implements OnDestroy {
 
   private readonly destroyed$ = new Subject<void>();
   private pollingSubscription: Subscription | undefined;
-  private timestamp: number;
-  constructor(private pollingService: LongPollingService, private presenceService: PresenceService) {
-    this.timestamp = new Date().getTime();
-  }
+  constructor(private pollingService: LongPollingService, private presenceService: PresenceService) {}
   public ngOnDestroy(): void {
     this.expertPresenceMap.forEach(expertPresence => expertPresence.subject.complete());
     this.destroyed$.next();

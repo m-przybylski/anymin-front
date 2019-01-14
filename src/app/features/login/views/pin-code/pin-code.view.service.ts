@@ -24,8 +24,8 @@ export enum PinCodeServiceStatus {
 
 @Injectable()
 export class PinCodeViewService {
+  public msisdn: string;
   private logger: LoggerService;
-  private msisdn: string;
 
   constructor(
     private route: ActivatedRoute,

@@ -1,12 +1,12 @@
-import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
-import { AvatarSizeEnum } from '../../../../shared/components/user-avatar/user-avatar.component';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'plat-dashboard-profile-header',
   templateUrl: './dashboard-profile-header.component.html',
   styleUrls: ['./dashboard-profile-header.component.sass'],
 })
-export class DashboardProfileHeaderComponent implements OnInit {
+export class DashboardProfileHeaderComponent {
   @Input()
   public avatarToken: string;
   @Input()
@@ -36,20 +36,6 @@ export class DashboardProfileHeaderComponent implements OnInit {
   public openGallery: EventEmitter<void> = new EventEmitter();
 
   public readonly avatarSize = AvatarSizeEnum.X_156;
-
-  private profileId: string;
-  private isExpertProfile = false;
-
-  public ngOnInit(): void {
-    if (typeof this.expertId !== 'undefined') {
-      this.profileId = this.expertId;
-      this.isExpertProfile = true;
-    }
-    if (typeof this.companyId !== 'undefined') {
-      this.profileId = this.companyId;
-      this.isExpertProfile = false;
-    }
-  }
 
   public get isGalleryPreviewVisible(): boolean {
     return this.attachments.length > 0;

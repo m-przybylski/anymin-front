@@ -11,12 +11,11 @@ import {
   NAVIGATIONITEMS,
 } from '@platform/features/dashboard/components/navbar/navigation';
 import { provideMockFactoryLogger } from '../../../../../testing/testing';
-import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import { combineReducers, StoreModule } from '@ngrx/store';
 import * as fromDashboard from '@platform/features/dashboard/reducers';
 
 describe('NavbarComponentService', () => {
   let navbarComponentService: NavbarComponentService;
-  let store: Store<fromDashboard.IState>;
   const loggerService: LoggerService = Deceiver(LoggerService, {
     error: jest.fn(),
   });
@@ -106,8 +105,7 @@ describe('NavbarComponentService', () => {
         provideMockFactoryLogger(loggerService),
       ],
     });
-    (loggerService.error as jest.Mock).mockClear();
-    store = TestBed.get(Store);
+    (loggerService.error as  jest.Mock).mockClear();
     navbarComponentService = TestBed.get(NavbarComponentService);
   });
 

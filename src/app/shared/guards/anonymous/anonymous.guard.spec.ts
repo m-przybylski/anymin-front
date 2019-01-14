@@ -9,7 +9,6 @@ import { cold } from 'jasmine-marbles';
 describe('AnonymousGuard', () => {
   let guard: AnonymousGuard;
   let store: Store<any>;
-  let dispatchSpy: jest.SpyInstance;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -23,7 +22,6 @@ describe('AnonymousGuard', () => {
 
     guard = TestBed.get(AnonymousGuard);
     store = TestBed.get(Store);
-    dispatchSpy = jest.spyOn(store, 'dispatch');
   });
 
   it('should return true if user is not logged in', () => {

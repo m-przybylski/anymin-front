@@ -2,7 +2,7 @@ import { Directive, HostListener, EventEmitter, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { ImageCropModalComponent } from '../image-crop/image-crop.component';
-import { ContentHeightAnimationService } from '../../../../../../services/animation/content-height/content-height.animation.service';
+import { ContentHeightAnimationService } from '@platform/shared/services/animation/content-height/content-height.animation.service';
 import { Config } from '../../../../../../../../config';
 import { AvatarErrorEnum } from '@platform/shared/components/modals/profile/components/basic-profile-data/avatar-uploader/avatar-uploader.component';
 
@@ -34,20 +34,21 @@ export class AvatarUploaderDirective {
   }
 
   @HostListener('change', ['$event'])
-  public inputChanged = (event: HTMLSelectElement): void => {
-    if (event.target.files[0].size < Config.imageSizeInBytes.imageCropMaxSize) {
+  public inputChanged = (event: MSInputMethodContext): void => {
+    const element = <HTMLInputElement>event.target;
+    if (element.files !== null && element.files[0].size < Config.imageSizeInBytes.imageCropMaxSize) {
       this.contentHeightService.getPreviousHeight$().next('0');
-      if (event.target.value) {
+      if (element.value) {
         const reader = new FileReader();
         reader.onload = (): void => {
           this.checkImageDimensions(event, reader);
         };
-        reader.onerror = (err: ErrorEvent): void => {
+        (<any>reader.onerror) = (err: ErrorEvent): void => {
           this.logger.error('Can not read file', err);
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         };
 
-        reader.readAsDataURL(event.target.files[0]);
+        reader.readAsDataURL(element.files[0]);
       }
     } else {
       this.avatarError.emit(AvatarErrorEnum.TOO_LARGE);
@@ -57,33 +58,36 @@ export class AvatarUploaderDirective {
   };
 
   @HostListener('click', ['$event'])
-  public inputClick = (event: HTMLSelectElement): void => {
-    if (event.target.value) {
-      event.target.value = '';
+  public inputClick = (event: MSInputMethodContext): void => {
+    if ((<HTMLInputElement>event.target).value) {
+      (<HTMLInputElement>event.target).value = '';
     }
   };
 
-  private checkImageDimensions(event: HTMLSelectElement, reader: FileReader): void {
+  private checkImageDimensions(event: MSInputMethodContext, reader: FileReader): void {
     const img = new Image();
-    img.src = URL.createObjectURL(event.target.files[0]);
+    const files = (event.target as HTMLInputElement).files;
+    if (files !== null) {
+      img.src = URL.createObjectURL(files[0]);
 
-    img.onload = (): void => {
-      if (this.hasFileMinDimensions(img)) {
-        this.openCroppieModal(event, reader);
-      } else {
-        this.avatarError.emit(AvatarErrorEnum.TOO_SMALL_DIMENSIONS);
-      }
-    };
+      img.onload = (): void => {
+        if (this.hasFileMinDimensions(img)) {
+          this.openCroppieModal(files, reader);
+        } else {
+          this.avatarError.emit(AvatarErrorEnum.TOO_SMALL_DIMENSIONS);
+        }
+      };
+    }
   }
 
   private hasFileMinDimensions = (img: HTMLImageElement): boolean =>
     img.naturalWidth >= Config.avatarDimensions.minWidth && img.naturalHeight >= Config.avatarDimensions.minHeight;
 
-  private openCroppieModal(event: HTMLSelectElement, reader: FileReader): void {
+  private openCroppieModal(fileList: FileList, reader: FileReader): void {
     const modalRef = this.modalService.open(ImageCropModalComponent);
     (modalRef.componentInstance as ImageCropModalComponent).cropModalData = {
-      imgSrc: reader.result,
-      file: event.target.files[0],
+      imgSrc: reader.result as string,
+      file: fileList[0],
     };
 
     modalRef.result

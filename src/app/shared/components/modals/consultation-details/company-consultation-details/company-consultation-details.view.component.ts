@@ -77,7 +77,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
 
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
-  private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private isCompany: boolean;
   private userType: UserTypeEnum | undefined;
   private accountId: string;
@@ -122,7 +121,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       const employment = this.consultationDetails.employeesDetails.find(
         item => item.employeeProfile.id === (getSession && getSession.account.id),
       );
-      this.footerComponent = this.attachFooter(this.accountId, getConsultationDetails, employment && employment.id);
+      this.attachFooter(this.accountId, getConsultationDetails, employment && employment.id);
       this.modalAnimationComponentService.stopLoadingAnimation();
       this.isPending = false;
     });
