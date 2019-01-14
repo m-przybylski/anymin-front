@@ -25,6 +25,7 @@ describe('Service: FileUploaderComponentService', () => {
     const file: File = new File(validFileSize, 'application/pdf');
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
+      minFileSize: 10,
       maxFilesCount: 15,
       fileCategory: FileCategoryEnum.EXPERT_FILE,
     };
@@ -39,6 +40,7 @@ describe('Service: FileUploaderComponentService', () => {
     const file: File = new File(1, 'exe');
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
+      minFileSize: 10,
       maxFilesCount: 15,
       fileCategory: FileCategoryEnum.EXPERT_FILE,
     };
@@ -55,6 +57,7 @@ describe('Service: FileUploaderComponentService', () => {
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
       maxFilesCount: 15,
+      minFileSize: 0,
       fileCategory: FileCategoryEnum.EXPERT_FILE,
     };
     expect(fileUploaderComponentService.getFileErrorStatus(file, currentFilesCount, validationValues)).toEqual(
@@ -69,6 +72,7 @@ describe('Service: FileUploaderComponentService', () => {
     const file: File = new File(validFileSize, 'application/pdf');
     const validationValues: IFileValidationValues = {
       maxFileSize: 10000000,
+      minFileSize: 10,
       maxFilesCount: 15,
       fileCategory: FileCategoryEnum.EXPERT_FILE,
     };

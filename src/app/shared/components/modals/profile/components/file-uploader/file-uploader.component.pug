@@ -75,3 +75,7 @@
               *ngSwitchCase="fileStatusEnum.INVALID_SIZE",
               [translate]="'FILE_UPLOADER.SIZE_ERROR'"
             )
+            span.uploaded-files__error-text(
+              *ngSwitchCase="fileStatusEnum.INVALID_MIN_SIZE",
+              [translate]="'FEATURE.COMMUNICATOR.MESSENGER.UPLOAD_ERROR.TO_SMALL_SIZE'"
+            )

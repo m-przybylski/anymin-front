@@ -14,6 +14,7 @@ import { Animations } from '../../../../../animations/animations';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FileCategoryEnum } from '../../../../../services/uploader/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
+import { Config } from '../../../../../../../config';
 
 interface IFileInfo {
   token: string;
@@ -45,7 +46,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   public maxFilesCount = 1;
 
   @Input()
-  public maxFileSize = 30000000;
+  public maxFileSize = Config.uploadFilesProperties.maxSize;
 
   @Input()
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
@@ -59,6 +60,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   @Output()
   public uploadingFile: EventEmitter<boolean> = new EventEmitter<false>();
 
+  public readonly minFileSize = Config.uploadFilesProperties.minSize;
   public readonly isMultipleFilesAllowed = true;
   public userFiles: ReadonlyArray<IFile> = [];
   public fileStatusEnum: typeof FileStatus = FileStatus;
@@ -238,6 +240,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     this.fileValidationValues = {
       maxFilesCount: this.maxFilesCount,
       maxFileSize: this.maxFileSize,
+      minFileSize: this.minFileSize,
       fileCategory: this.fileCategory,
     };
   };

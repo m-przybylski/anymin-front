@@ -11,42 +11,47 @@ export enum FileStatus {
   UPLOAD_FAILURE,
   INVALID_COUNT,
   INVALID_SIZE,
-  INVALID_TYPE
+  INVALID_MIN_SIZE,
+  INVALID_TYPE,
 }
 
 export interface IFileValidationValues {
   maxFilesCount: number;
   maxFileSize: number;
+  minFileSize: number;
   fileCategory: FileCategoryEnum;
 }
 
 @Injectable()
 export class FileUploaderComponentService {
-
   constructor(private FilesService: FilesService) {}
 
-  public getFileInformation = (token: string): Observable<GetFileInfo> =>
-    this.FilesService.fileInfoRoute(token)
+  public getFileInformation = (token: string): Observable<GetFileInfo> => this.FilesService.fileInfoRoute(token);
 
-  public getFileErrorStatus = (file: File,
-                               currentUserFilesCount: number,
-                               validationValues: IFileValidationValues): FileStatus => {
+  public getFileErrorStatus = (
+    file: File,
+    currentUserFilesCount: number,
+    validationValues: IFileValidationValues,
+  ): FileStatus => {
     if (!this.isFilesCountValid(currentUserFilesCount, validationValues.maxFilesCount)) {
       return FileStatus.INVALID_COUNT;
     }
     if (!FileTypeChecker.isFileFormatValid(file, validationValues.fileCategory)) {
       return FileStatus.INVALID_TYPE;
     }
-    if (!this.isFileSizeValid(file.size, validationValues.maxFileSize)) {
+    if (!this.isFileMaxSizeValid(file.size, validationValues.maxFileSize)) {
       return FileStatus.INVALID_SIZE;
     }
+    if (!this.isFileMinSizeValid(file.size, validationValues.minFileSize)) {
+      return FileStatus.INVALID_MIN_SIZE;
+    }
     return FileStatus.VALID;
-  }
+  };
 
   private isFilesCountValid = (currentUserFilesCount: number, maxFilesCount: number): boolean =>
-    currentUserFilesCount < maxFilesCount
+    currentUserFilesCount < maxFilesCount;
 
-  private isFileSizeValid = (fileSize: number, maxFileSize: number): boolean =>
-    fileSize <= maxFileSize
+  private isFileMaxSizeValid = (fileSize: number, maxFileSize: number): boolean => fileSize <= maxFileSize;
 
+  private isFileMinSizeValid = (fileSize: number, minFileSize: number): boolean => fileSize >= minFileSize;
 }
