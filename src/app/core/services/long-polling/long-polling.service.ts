@@ -1,22 +1,10 @@
-import { Injectable, Inject, Optional } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import {
-  Observable,
-  of,
-  Subject,
-  fromEvent,
-  EMPTY,
-  concat,
-  throwError,
-  timer,
-  asyncScheduler,
-  SchedulerLike,
-} from 'rxjs';
+import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer } from 'rxjs';
 import { switchMap, startWith, delay, tap, skip, retryWhen, mergeMap } from 'rxjs/operators';
 // this is realated to TypeScript typing system error for Document
 // tslint:disable-next-line:rxjs-no-internal
 import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
-import { SCHEDULER } from '@platform/core/tokens';
 
 const second = 1000;
 const power = 2;
@@ -28,14 +16,7 @@ const defaultRetryConfiguration = {
 
 @Injectable()
 export class LongPollingService {
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    @Optional() @Inject(SCHEDULER) private scheduler?: SchedulerLike,
-  ) {
-    if (this.scheduler === undefined) {
-      this.scheduler = asyncScheduler;
-    }
-  }
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   public longPollData = <T>(request$: Observable<T>, interval: number): Observable<T> => {
     // helper subject to used to determine when trigger fetch
@@ -44,7 +25,7 @@ export class LongPollingService {
     const inner = request$.pipe(retryWhen(this.retryStrategy({ retryAttempts: 3 })));
     // refresh rate. This will be trigger after request completes.
     const refresh$ = of(undefined).pipe(
-      delay(interval, this.scheduler),
+      delay(interval),
       tap(() => trigger$.next(undefined)),
       skip(1),
     );
@@ -87,7 +68,7 @@ export class LongPollingService {
           }
           const delayTime = Math.min(maxDelay, createDelay(attemptCount));
 
-          return timer(delayTime, this.scheduler);
+          return timer(delayTime);
         }),
       );
   }
