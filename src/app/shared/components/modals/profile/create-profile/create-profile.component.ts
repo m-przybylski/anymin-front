@@ -89,7 +89,11 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
 
   private userCountryIsoCode: string;
   private logger: LoggerService;
-  private linksFormControl = new FormControl();
+  /**
+   * Initial value is empty array
+   * because backend requires it if user does not add any link
+   */
+  private linksFormControl = new FormControl([]);
   private selectedInvoiceDetailsType = GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON;
   private selectedInvoiceDetailsFormName = NATURAL_PERSON_FORM_NAME;
 
