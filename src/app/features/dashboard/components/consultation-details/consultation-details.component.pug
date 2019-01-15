@@ -16,7 +16,7 @@
       .user-details__data
         .user-details__data__name(*ngIf="expertName")
           p {{ expertName }}
-            span.for(*ngIf="companyName") dla
+            span.for(*ngIf="companyName") {{ "CONSULTATION_DETAILS.CONSULTATION_FOR" | translate }}
             span {{ companyName }}
 
         .user-details__data__availbility(*ngIf="expertId")
