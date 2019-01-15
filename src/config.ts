@@ -191,4 +191,9 @@ export class Config {
     minHeight: 312,
     minWidth: 312,
   };
+
+  public static readonly uploadFilesProperties = {
+    maxSize: 30000000,
+    minSize: 1,
+  };
 }
