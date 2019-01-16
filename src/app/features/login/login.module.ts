@@ -1,31 +1,28 @@
-// tslint:disable:no-empty
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PhoneNumberViewComponent } from './views/phone-number/phone-number.view.component';
+import { LoginViewComponent } from './views/login/login.view.component';
 import { LoginRoutingModule } from './login.routing.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { PhoneNumberViewService } from './views/phone-number/phone-number.view.service';
-import { PasswordViewComponent } from './views/password/password.view.component';
-import { PinCodeViewComponent } from './views/pin-code/pin-code.view.component';
-import { PasswordViewService } from './views/password/password.view.service';
-import { PinCodeViewService } from './views/pin-code/pin-code.view.service';
-import { PinCodeViewResolver } from './views/pin-code/pin-code.view.resolver';
-import { LimitedAccessViewComponent } from './views/limited-access/limited-access.view.component';
+import { LoginViewService } from './views/login/login.view.service';
 import { BlockedViewComponent } from './views/blocked/blocked.view.component';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
+import { AnymindComponentsModule } from '@anymind-ng/core';
+import { IconModule } from '@platform/shared/components/atomic-components';
+import { LoginComponentsModule } from '@platform/shared/components/login/login-components.module';
 
 @NgModule({
-  declarations: [
-    PhoneNumberViewComponent,
-    PasswordViewComponent,
-    PinCodeViewComponent,
-    LimitedAccessViewComponent,
-    BlockedViewComponent,
+  declarations: [LoginViewComponent, BlockedViewComponent],
+  providers: [LoginViewService],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    LoginRoutingModule,
+    SharedModule,
+    InputsModule,
+    AnymindComponentsModule,
+    IconModule,
+    LoginComponentsModule,
   ],
-  providers: [PhoneNumberViewService, PasswordViewService, PinCodeViewService, PinCodeViewResolver],
-  imports: [ReactiveFormsModule, CommonModule, LoginRoutingModule, SharedModule, InputsModule],
 })
-export class LoginModule {
-  constructor() {}
-}
+export class LoginModule {}

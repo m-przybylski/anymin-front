@@ -1,0 +1,43 @@
+.login-view
+  plat-login-background
+    plat-login-content(
+      contentHeightAnimation,
+      titleText="LOGIN.TITLE"
+    )
+      form.login-view__form(
+        [id]="loginFormId",
+        [formGroup]="loginForm",
+        novalidate,
+        (ngSubmit)="onFormSubmit(loginForm)"
+      )
+        .input-icon-container
+          span(plat-icon, iconClass='headphone')
+          am-core-input-phone-email(
+            label="LOGIN.PASSWORD.ENTER_LOGIN.LABEL",
+            placeholder="LOGIN.PASSWORD.ENTER_LOGIN.PLACEHOLDER",
+            [inputFormControl]="loginControl",
+            [isInitiallyFocused]="true",
+            [isDisabled]="isRequestPending$ | async",
+            [isRequired]="true",
+            (inputValueChange)="onLoginValueChange($event)"
+          )
+
+        .input-icon-container
+          span(plat-icon, iconClass='lock-closed')
+          am-core-input-password(
+            label="LOGIN.PASSWORD.ENTER_PASSWORD.LABEL",
+            placeholder="LOGIN.PASSWORD.ENTER_PASSWORD.PLACEHOLDER",
+            [form]="loginForm",
+            [controlName]="passwordControlName",
+            [isDisabled]="isRequestPending$ | async"
+          )
+
+        am-core-submit-button(
+          titleText="LOGIN.LOGIN",
+          [isLoading]="isRequestPending$ | async"
+        )
+
+      .login-view__links
+        a.forgot-password([routerLink]="['/forgot-password/']") {{ "LOGIN.PASSWORD.RESET_PASSWORD" | translate }}
+        p.register {{ "LOGIN.PASSWORD.REGISTER" | translate }}
+          a(routerLink="/register") {{ "LOGIN.PASSWORD.REGISTER_LINK" | translate }}

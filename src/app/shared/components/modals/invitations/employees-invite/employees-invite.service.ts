@@ -54,7 +54,7 @@ export class EmployeesInviteService {
   private emailPattern: RegExp;
   private invitedEmployeeList: ReadonlyArray<IEmployeesInviteComponent> = [];
   private accountId: string;
-  private accountMsisdn: string;
+  private accountMsisdn?: string;
   private accountEmail: string;
 
   constructor(

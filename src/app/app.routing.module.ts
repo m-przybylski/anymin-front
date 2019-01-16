@@ -24,7 +24,11 @@ const appRoutes: Routes = [
         path: 'forgot-password',
         loadChildren: './features/forgot-password/forgot-password.module#ForgotPasswordModule',
       },
-      { path: 'account', canActivate: [SessionGuard], loadChildren: './features/account/account.module#AccountModule' },
+      {
+        canActivate: [AnonymousGuard],
+        path: 'register',
+        loadChildren: './features/register/register.module#RegisterModule',
+      },
       {
         path: 'dashboard',
         canActivate: [ProfileGuard],

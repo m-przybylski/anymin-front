@@ -1,7 +1,7 @@
 import { AuthActions, SessionActions } from '@platform/core/actions';
 
 export interface IState {
-  error?: string;
+  error?: any;
   isPending: boolean;
 }
 

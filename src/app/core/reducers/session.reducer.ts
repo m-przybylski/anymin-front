@@ -1,6 +1,14 @@
 // tslint:disable:cyclomatic-complexity
 import { GetSessionWithAccount } from '@anymind-ng/api';
-import { SessionActions, AuthActions, SessionUpdateApiActions, SessionApiActions } from '@platform/core/actions';
+import {
+  SessionActions,
+  AuthActions,
+  SessionUpdateApiActions,
+  SessionApiActions,
+  RegisterActions,
+  RegisterApiActions,
+  SetNewPasswordActions,
+} from '@platform/core/actions';
 
 export interface IState {
   isFromBackend: boolean;
@@ -19,12 +27,16 @@ type ActionsUnion =
   | SessionActions.FetchActionsUnion
   | AuthActions.AuthActionsUnion
   | SessionUpdateApiActions.SessionUpdateApiActionUnion
-  | SessionApiActions.SessionAPIActionUnion;
+  | SessionApiActions.SessionAPIActionUnion
+  | RegisterActions.RegisterActionsUnion
+  | RegisterApiActions.RegisterAPIActionsUnion
+  | SetNewPasswordActions.SetNewPasswordSuccessAction;
 
 // tslint:disable-next-line:only-arrow-functions
 export function reducer(state = initialState, action: ActionsUnion): IState {
   switch (action.type) {
     case AuthActions.AuthActionTypes.Login:
+    case RegisterActions.RegisterActionsTypes.Register:
     case SessionActions.SessionActionTypes.FetchSessionFromServer: {
       return {
         ...state,
@@ -33,6 +45,8 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       };
     }
     case AuthActions.AuthActionTypes.LoginSuccess:
+    case SetNewPasswordActions.SetNewPasswordActionsTypes.SetNewPasswordSuccess:
+    case RegisterApiActions.RegisterApiActionsTypes.RegisterSuccess:
     case SessionApiActions.SessionWithAccountApiActionTypes.VerifyAccountByPin:
     case SessionApiActions.SessionWithAccountApiActionTypes.VerifyAccountByEmail:
     case SessionApiActions.SessionWithAccountApiActionTypes.FetchSessionSuccess: {
@@ -45,6 +59,7 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
     }
 
     case AuthActions.AuthActionTypes.LoginError:
+    case RegisterApiActions.RegisterApiActionsTypes.RegisterError:
     case SessionApiActions.SessionWithAccountApiActionTypes.FetchSessionError: {
       return {
         ...state,
@@ -101,5 +116,6 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
 }
 
 export const getPending = (state: IState): boolean => state.isPending;
+export const getError = (state: IState): any | undefined => state.error;
 export const getSession = (state: IState): GetSessionWithAccount | undefined => state.session;
 export const getFromBackend = (state: IState): boolean => state.isFromBackend;

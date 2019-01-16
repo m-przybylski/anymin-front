@@ -7,13 +7,15 @@ export class PhoneNumberUnifyService {
   private prefixNumber = '48';
   private prefix = '+48';
 
-  public unifyPhoneNumber = (phoneNumber: string): string =>
-    this.getPrefixPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)));
+  public unifyPhoneNumber(phoneNumber: string): string {
+    return this.getPrefixPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)));
+  }
 
-  public getPrettyPhoneNumber = (phoneNumber: string): string =>
-    this.makePreatyPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)));
+  public getPrettyPhoneNumber(phoneNumber: string): string {
+    return this.makePrettyPhoneNumber(this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber)));
+  }
 
-  private getNumberWithoutPrefix = (phonenumber: string): string => {
+  public getNumberWithoutPrefix(phonenumber: string): string {
     // tslint:disable:no-magic-numbers
     const twoIndexes = 2;
     const threeIndexes = 3;
@@ -28,14 +30,21 @@ export class PhoneNumberUnifyService {
     } else {
       return phonenumber;
     }
-  };
+  }
 
-  private getPrefixPhoneNumber = (phoneNumber: string): string => `${this.prefix}${phoneNumber}`;
+  private getPrefixPhoneNumber(phoneNumber: string): string {
+    return `${this.prefix}${phoneNumber}`;
+  }
 
-  private makePreatyPhoneNumber = (phoneNumber: string): string =>
-    `${this.prefix} ${this.formatPhoneNumber(phoneNumber)}`;
+  private makePrettyPhoneNumber(phoneNumber: string): string {
+    return `${this.prefix} ${this.formatPhoneNumber(phoneNumber)}`;
+  }
 
-  private formatPhoneNumber = (phoneNumber: string): string => formatNumber(phoneNumber, this.country, 'National');
+  private formatPhoneNumber(phoneNumber: string): string {
+    return formatNumber(phoneNumber, this.country, 'National');
+  }
 
-  private deleteIncorrectPhoneSigns = (value: string): string => value.replace(/ /g, '').replace(/-/g, '');
+  private deleteIncorrectPhoneSigns(value: string): string {
+    return value.replace(/ /g, '').replace(/-/g, '');
+  }
 }

@@ -6,11 +6,7 @@ import { UnsupportedGuard } from '../features/unsupported/unsupported.guard';
 import { SessionGuard } from './guards/session/session.guard';
 import { AnonymousGuard } from './guards/anonymous/anonymous.guard';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginBackgroundComponent } from './components/login-background/login-background.component';
-import { LoginContentComponent } from './components/login-content/login-content.component';
-import { LoginMobileFooterComponent } from './components/login-mobile-footer/login-mobile-footer.component';
 import { RouterModule } from '@angular/router';
-import { MsisdnGuard } from './guards/msisdn/msisdn.guard';
 import { LocalStorageWrapperService } from './services/local-storage/local-storage.service';
 import { RegistrationInvitationService } from './services/registration-invitation/registration-invitation.service';
 import { PinCodeTimerService } from './services/pin-code-timer/pin-code.timer.service';
@@ -49,9 +45,6 @@ import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.modul
     TooltipModule,
   ],
   declarations: [
-    LoginBackgroundComponent,
-    LoginContentComponent,
-    LoginMobileFooterComponent,
     ContentHeightAnimateDirective,
     PreloaderContainerComponent,
     ConsultationTagsComponent,
@@ -67,9 +60,6 @@ import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.modul
     AnymindComponentsModule,
     CookieNotificationModule,
     TranslateModule,
-    LoginBackgroundComponent,
-    LoginContentComponent,
-    LoginMobileFooterComponent,
     ContentHeightAnimateDirective,
     PreloaderContainerComponent,
     ConsultationTagsComponent,
@@ -86,7 +76,6 @@ import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.modul
     AnonymousGuard,
     InvitationsGuard,
     SessionGuard,
-    MsisdnGuard,
     LocalStorageWrapperService,
     RegistrationInvitationService,
     PinCodeTimerService,

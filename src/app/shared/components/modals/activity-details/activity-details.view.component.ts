@@ -2,8 +2,7 @@ import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/co
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { ActivityDetailsViewComponentService } from '@platform/shared/components/modals/activity-details/activity-details.view.component.service';
 import { ACTIVITY_DETAILS_DATA } from '@platform/shared/components/modals/activity-details/activity-details-helpers';
-import { GetClientActivity, GetProfileActivity, GetSessionWithAccount } from '@anymind-ng/api';
-import ActivityTypeEnum = GetClientActivity.ActivityTypeEnum;
+import { GetProfileActivity, GetSessionWithAccount } from '@anymind-ng/api';
 import { catchError, switchMap, map, filter, first } from 'rxjs/operators';
 import { EMPTY, of, BehaviorSubject } from 'rxjs';
 import { Logger } from '@platform/core/logger';
@@ -18,6 +17,7 @@ import * as fromRoot from '@platform/reducers';
 import { IRefundOperationDetails } from '@platform/shared/components/modals/activity-details/refund-details/refund-details.component';
 import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/activities/activities.component';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import ActivityTypeEnum = GetProfileActivity.ActivityTypeEnum;
 
 export const MODAL_CLOSED_WITH_ERROR = 'MODAL_CLOSED_WITH_ERROR';
 

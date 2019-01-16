@@ -66,7 +66,6 @@ export class InputAddItemComponent {
 
   public showValidationAlert(): string {
     const controlErrors = this.inputFormControl.errors;
-    // const controlValue = this.inputFormControl.value;
     if (controlErrors !== null) {
       const errorCode = Object.keys(controlErrors)[0];
 

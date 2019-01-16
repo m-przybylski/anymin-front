@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PasswordSettingsViewComponent } from './components/password-settings/password-settings.view.component';
+import { ChangePasswordViewComponent } from './components/change-password/change-password.view.component';
 import { ChangeEmailViewComponent } from './components/change-email/change-email.view.component';
 import { ManageSessionsViewComponent } from './components/manage-sessions/manage-sessions.view.component';
 import { MsisdnSettingsViewComponent } from './components/msisdn-settings/msisdn-settings.view.component';
@@ -31,7 +31,7 @@ export class SettingsViewComponent implements OnInit {
   };
 
   public openChangePasswordModal = (): void => {
-    this.ngbModalService.open(PasswordSettingsViewComponent);
+    this.ngbModalService.open(ChangePasswordViewComponent);
   };
 
   public openChangeEmailModal = (): void => {

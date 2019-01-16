@@ -8,6 +8,7 @@ import {
   FormUtilsService,
   InputPhoneNumberService,
   inputPhoneNumberErrorMessages,
+  LoggerFactory,
 } from '@anymind-ng/core';
 import { finalize, map, filter, take } from 'rxjs/operators';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
@@ -15,6 +16,7 @@ import { Config } from '../../../../../../../../../config';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
+import { Logger } from '@platform/core/logger';
 
 export interface IVerifyMsisdnStatus {
   msisdn: string;
@@ -27,11 +29,11 @@ export interface IVerifyMsisdnStatus {
   styleUrls: ['./change-msisdn.component.sass'],
   providers: [ChangeMsisdnComponentService],
 })
-export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
+export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewInit {
   @Output()
   public msisdnVerificationStatusChange: EventEmitter<IVerifyMsisdnStatus> = new EventEmitter();
 
-  public readonly changeMsisdnFormId = 'msisdnForm';
+  public readonly changeMsisdnFormId = 'loginForm';
   public readonly msisdnControlName = 'msisdn';
   public readonly msisdnPrefixControlName = 'msisdnPrefix';
   public readonly msisdnPrefixes: ReadonlyArray<IDropdownComponent> = [
@@ -66,7 +68,10 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
     private changeMsisdnService: ChangeMsisdnComponentService,
     private inputPhoneNumberService: InputPhoneNumberService,
     private modalAnimationComponentService: ModalAnimationComponentService,
-  ) {}
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory.createLoggerService('ChangeMsisdnComponent'));
+  }
 
   public ngOnInit(): void {
     this.changeMsisdnForm = new FormGroup({});
@@ -86,8 +91,10 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
     getNotUndefinedSession(this.store)
       .pipe(take(1))
       .subscribe(getSessionWithAccount => {
-        if (getSessionWithAccount.account.msisdn) {
+        if (typeof getSessionWithAccount.account.msisdn !== 'undefined') {
           this.currentUserMsisdn = getSessionWithAccount.account.msisdn.slice(this.prefixLength);
+        } else {
+          this.loggerService.error('There should be msisdn but got: ', getSessionWithAccount.account.msisdn);
         }
         this.changeMsisdnForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
         this.changeMsisdnForm.controls[this.msisdnControlName].setValue(this.currentUserMsisdn);

@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, MissingTranslationHandler } from '@ngx-translate/core';
 import { getCoreConfig } from './factories/core-config/core-config.facotry';
 import { LongPollingService } from './services/long-polling/long-polling.service';
-import { LoginHelperService } from '../features/login/services/login-helper.service';
+import { MsisdnHelperService } from './services/msisdn-helper/msisdn-helper.service';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
@@ -29,6 +29,7 @@ import { RemoteLogoutService } from '@platform/core/services/remote-logout/remot
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { CallService } from '@platform/core/services/call/call.service';
 import { CallSessionService } from '@platform/core/services/call/call-session.service';
+import { RegisterEffects } from '@platform/core/effects/register.effects';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -47,12 +48,12 @@ export function getLogLevel(): LogLevel {
     }),
     CommunicatorModule.forRoot(CommunicatorConfigFactory),
     StoreModule.forFeature('core', reducers),
-    EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects]),
+    EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects, RegisterEffects]),
   ],
   providers: [
     UserSessionService,
     LongPollingService,
-    LoginHelperService,
+    MsisdnHelperService,
     ClipboardService,
     CallSessionService,
     provideCommission(),

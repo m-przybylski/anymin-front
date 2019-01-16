@@ -72,11 +72,12 @@ describe('LoginEffects', () => {
       const user: LoginCredentials = { msisdn: 'dog', password: 'woof' };
       const session = {} as any;
       const action = new AuthActions.LoginAction(user);
-      const completion = new AuthActions.LoginSuccessAction(session);
+      const completionLoginSuccess = new AuthActions.LoginSuccessAction(session);
+      const completionDashboardRedirect = new AuthActions.DashboardRedirectAction();
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: session });
-      const expected = cold('--b', { b: completion });
+      const expected = cold('--(bc)', { b: completionLoginSuccess, c: completionDashboardRedirect });
       sessionService.login = jest.fn().mockReturnValue(response);
 
       expect(loginEffects.login$).toBeObservable(expected);

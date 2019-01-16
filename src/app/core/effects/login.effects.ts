@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of, concat } from 'rxjs';
+import { of, concat, from } from 'rxjs';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';
-import { AuthActions } from '@platform/core/actions';
+import { AuthActions, RegisterActions } from '@platform/core/actions';
 import { SessionService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
@@ -19,7 +19,9 @@ export class LoginEffects extends Logger {
     map(action => action.payload),
     switchMap(loginCredentials =>
       this.sessionService.login(loginCredentials).pipe(
-        map(session => new AuthActions.LoginSuccessAction(session)),
+        switchMap(session =>
+          from([new AuthActions.LoginSuccessAction(session), new AuthActions.DashboardRedirectAction()]),
+        ),
         catchError(error => of(new AuthActions.LoginErrorAction(error))),
       ),
     ),
@@ -72,7 +74,7 @@ export class LoginEffects extends Logger {
 
   @Effect({ dispatch: false })
   public dashboardRedirect$ = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.DashboardRedirect),
+    ofType(AuthActions.AuthActionTypes.DashboardRedirect, RegisterActions.RegisterActionsTypes.RedirectToDashboard),
     tap(() => {
       this.loggerService.debug('Redirecting to dashboard');
       this.router

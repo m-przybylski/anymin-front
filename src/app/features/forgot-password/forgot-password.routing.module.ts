@@ -3,22 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { SetNewPasswordFromEmailViewComponent } from './views/set-new-password-from-email/set-new-password-from-email.view.component';
 import { EmailViewComponent } from './views/email/email.view.component';
 import { ForgotPasswordPinCodeViewComponent } from './views/pin-code/pin-code.view.component';
-import { ForgotPasswordGuard } from './forgot-password.guard';
 import { SetNewPasswordFromMsisdnViewComponent } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.component';
 import { SetNewPasswordFromMsisdnViewGuard } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard';
-import { SetNewPasswordFromEmailViewGuard } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
-import { MsisdnGuard } from '../../shared/guards/msisdn/msisdn.guard';
+import { MsisdnGuard } from './msisdn.guard';
+import { SetNewPasswordFromEmailViewResolver } from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
+import { ForgotPasswordViewComponent } from './views/forgot-password/forgot-password.view.component';
+import { ForgotPasswordWidgetInformationViewComponent } from './views/widget-information/widget-information.view.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: ForgotPasswordViewComponent,
     pathMatch: 'full',
-    redirectTo: '/',
-  },
-  {
-    path: ':msisdn',
-    pathMatch: 'full',
-    canActivate: [MsisdnGuard, ForgotPasswordGuard],
   },
   {
     path: 'pin-code/:msisdn',
@@ -26,14 +22,19 @@ const routes: Routes = [
     canActivate: [MsisdnGuard],
   },
   {
-    path: 'email/:msisdn',
+    path: 'email',
     component: EmailViewComponent,
-    canActivate: [MsisdnGuard],
+  },
+  {
+    path: 'widget-information',
+    component: ForgotPasswordWidgetInformationViewComponent,
   },
   {
     path: 'email/set-new-password/:token',
     component: SetNewPasswordFromEmailViewComponent,
-    canActivate: [SetNewPasswordFromEmailViewGuard],
+    resolve: {
+      login: SetNewPasswordFromEmailViewResolver,
+    },
   },
   {
     path: 'set-new-password/:msisdn',

@@ -1,0 +1,78 @@
+@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "../../../../template/interface/animations/animations"
+
+\:host
+  background: $c-white
+  display: block
+
+  +xsm
+    border-radius: 8px
+
+.login-content
+  opacity: 0
+  animation: fadeIn 0.3s 0.2s
+  animation-fill-mode: forwards
+  display: flex
+  align-items: center
+
+  +xsm
+    height: auto
+
+  &__container
+    min-width: 320px
+    width: 100vw
+    padding: 48px 16px
+    text-align: center
+    min-height: 100vh
+    display: flex
+    flex-wrap: wrap
+    align-content: space-between
+    justify-content: center
+    background: $c-white
+    border-radius: 8px
+
+    +xsm
+      display: block
+      min-width: 480px
+      max-width: 480px
+      height: auto
+      min-height: auto
+      padding: 48px
+
+  .main
+    width: 100%
+
+  .logo
+    display: flex
+    justify-content: center
+    margin: 0 0 32px
+
+    img
+      height: 48px
+
+  .title-container
+    margin: 0 0 32px
+    text-align: center
+
+    h6
+      +h6
+      display: inline-flex
+      align-items: center
+      text-align: center
+
+    &__subtitle
+      +subtitle-small
+      color: $c-text-secondary
+
+      span
+        color: $c-text-secondary
+
+      &__msisdn
+        margin: 0 4px
+
+      &__link
+        +button-small
+        color: $c-primary
+
+      &--info
+        margin: 16px 0 0

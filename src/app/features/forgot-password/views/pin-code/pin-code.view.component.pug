@@ -20,7 +20,7 @@
               [controlName]="pinCodeControlName",
               errorTextKey="LOGIN.PIN_CODE.ENTER_CODE.VALIDATION_MESSAGE",
               [isDisabled]="isRequestPending",
-              [initialFocus]="isInputInitialFocused"
+              [initialFocus]="true"
             )
 
           am-core-submit-button(
@@ -32,12 +32,12 @@
         .send-again
           p([translate]="'LOGIN.PIN_CODE.SMS_CODE'")
           p(
-            *ngIf="isCountingDown()",
+            *ngIf="isCountingDown",
             [translate]="'LOGIN.PIN_CODE.SEND_AGAIN.COUNTER'",
             [translateParams]="{seconds: timeLeft}"
           )
           a.send-again__link(
-            *ngIf="!isCountingDown()",
+            *ngIf="!isCountingDown",
             (click)="resendPinCode()",
             [translate]="'LOGIN.PIN_CODE.SEND_AGAIN'"
           )

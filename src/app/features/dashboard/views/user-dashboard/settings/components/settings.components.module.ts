@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeEmailViewComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-email/change-email.view.component';
-import { ManageSessionsViewComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/manage-sessions/manage-sessions.view.component';
-import { MsisdnSettingsViewComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/msisdn-settings/msisdn-settings.view.component';
-import { PasswordSettingsViewComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/password-settings/password-settings.view.component';
-import { ChangePasswordComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/password-settings/change-password/change-password.component';
-import { EmailConfirmationComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/password-settings/email-confirmation/email-confirmation.component';
-import { SetNewPasswordComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/password-settings/set-new-password/set-new-password.component';
+import { ChangeEmailViewComponent } from './change-email/change-email.view.component';
+import { ManageSessionsViewComponent } from './manage-sessions/manage-sessions.view.component';
+import { MsisdnSettingsViewComponent } from './msisdn-settings/msisdn-settings.view.component';
+import { ChangePasswordViewComponent } from './change-password/change-password.view.component';
 import { PinVerificationComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/pin-verification/pin-verification.component';
 import { ModalsModule } from '@platform/shared/components/modals/modals.module';
-import { ChangeMsisdnComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/msisdn-settings/change-msisdn/change-msisdn.component';
+import { ChangeMsisdnComponent } from './msisdn-settings/change-msisdn/change-msisdn.component';
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
-import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component';
+import { ChangeAnonymityComponent } from './change-anonymity/change-anonymity.component';
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ChangeNotificationComponent } from './change-notifications/change-notifications.component';
@@ -22,10 +19,7 @@ import { ChangeNotificationComponent } from './change-notifications/change-notif
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
     MsisdnSettingsViewComponent,
-    PasswordSettingsViewComponent,
-    ChangePasswordComponent,
-    EmailConfirmationComponent,
-    SetNewPasswordComponent,
+    ChangePasswordViewComponent,
     PinVerificationComponent,
     ChangeMsisdnComponent,
     ChangeAnonymityComponent,
@@ -35,10 +29,7 @@ import { ChangeNotificationComponent } from './change-notifications/change-notif
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
     MsisdnSettingsViewComponent,
-    PasswordSettingsViewComponent,
-    ChangePasswordComponent,
-    EmailConfirmationComponent,
-    SetNewPasswordComponent,
+    ChangePasswordViewComponent,
     PinVerificationComponent,
     ChangeMsisdnComponent,
     ChangeAnonymityComponent,
@@ -49,7 +40,7 @@ import { ChangeNotificationComponent } from './change-notifications/change-notif
     MsisdnSettingsViewComponent,
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
-    PasswordSettingsViewComponent,
+    ChangePasswordViewComponent,
   ],
 })
 export class SettingsComponentsModule {}

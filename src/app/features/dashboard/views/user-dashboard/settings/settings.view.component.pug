@@ -10,7 +10,7 @@
           [description]="'DASHBOARD.SETTINGS.ANONYMITY.DESCRIPTION'",
           [tooltipTrText]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE.TOOLTIP'")
           plat-change-anonymity
-      li.settings-list__item
+      li.settings-list__item(*ngIf="session.account.msisdn")
         plat-setting-option(
           [title]="'DASHBOARD.SETTINGS.NOTIFICATIONS.TITLE'",
           [description]="'DASHBOARD.SETTINGS.NOTIFICATIONS.DESCRIPTION'",
