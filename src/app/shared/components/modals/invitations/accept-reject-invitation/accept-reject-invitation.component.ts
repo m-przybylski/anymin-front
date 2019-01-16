@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
-import { EMPTY } from 'rxjs';
+import { EMPTY, from, Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { InvitationsApiActions } from '@platform/features/dashboard/actions';
 
@@ -85,15 +85,25 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
     getNotUndefinedSession(this.store)
       .pipe(
         first(),
-        switchMap((session: GetSessionWithAccount) => {
-          if (session.isExpert) {
-            return this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal);
-          }
-          this.alertService.pushWarningAlert('INVITATIONS.ACCEPT_REJECT_MODAL.EXPERT_ACCOUNT_WARNING_ALERT');
-          this.modalService.open(CreateProfileModalComponent);
+        switchMap(
+          (session: GetSessionWithAccount): Observable<void> => {
+            if (session.isExpert) {
+              return this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal);
+            }
+            this.alertService.pushWarningAlert('INVITATIONS.ACCEPT_REJECT_MODAL.EXPERT_ACCOUNT_WARNING_ALERT');
+            const profileModalInstance = this.modalService.open(CreateProfileModalComponent);
 
-          return EMPTY;
-        }),
+            return from(profileModalInstance.result).pipe(
+              switchMap(status => {
+                if (status) {
+                  return this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal);
+                } else {
+                  return EMPTY;
+                }
+              }),
+            );
+          },
+        ),
       )
       .subscribe(() => {
         this.store.dispatch(new InvitationsApiActions.DecrementApiInvitationsCounterAction());
