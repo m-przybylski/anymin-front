@@ -171,7 +171,7 @@
 
       span
         margin: $s-modal-header 0 0
-        display: block
+        display: flex
         width: 24px
         height: 24px
         color: $c-primary
@@ -222,14 +222,17 @@
     width: inherit
 
     +smm
-      width: calc(100% - 48px)
-
-    +mdm
       width: inherit
       position: static
 
     &--fixed
       position: fixed
+
+      +smm
+        width: calc(100% - 48px)
+
+      +mdm
+        width: inherit
 
       &::ng-deep
         .consultation-footer
