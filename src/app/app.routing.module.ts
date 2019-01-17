@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UnsupportedGuard } from './features/unsupported/unsupported.guard';
 import { SessionGuard } from './shared/guards/session/session.guard';
 import { AnonymousGuard } from './shared/guards/anonymous/anonymous.guard';
@@ -50,6 +50,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes, {
       useHash: false,
+      preloadingStrategy: PreloadAllModules,
       onSameUrlNavigation: 'reload',
     }),
   ],
