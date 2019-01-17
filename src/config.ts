@@ -121,6 +121,10 @@ export class Config {
   };
 
   public static readonly patterns = {
+    url: new RegExp(
+      '^(http://www.|https://www.|http://|https://)?[a-zA-Z0-9]' +
+        '+([-.]{1}[a-zA-Z0-9]{1,63})*.[a-zA-Z]{2,5}(:[0-9]{1,5})?(/.*)?$',
+    ),
     emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+([\.]{1}[a-zA-Z]{2,6})+([\.]{1}[a-zA-Z]{2,6})?$/,
     smsCodePattern: /^[0-9]{4}$/,
     phonePattern: /^\+?\d+(\s\d+)*$/,
