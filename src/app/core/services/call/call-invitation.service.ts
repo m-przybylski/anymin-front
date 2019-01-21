@@ -20,7 +20,6 @@ import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 
 import { Logger } from '@platform/core/logger';
 import { Router } from '@angular/router';
-import { ExpertCallService } from '@platform/core/services/call/expert-call.service';
 import { CreateIncomingCallComponent } from '@platform/shared/components/modals/call-modals/incoming-call/incoming-call.component';
 import { CreateCallSummaryComponent } from '@platform/shared/components/modals/call-modals/call-summary/call-summary.component';
 import { Store } from '@ngrx/store';
@@ -29,6 +28,8 @@ import { httpCodes } from '@platform/shared/constants/httpCodes';
 import { INCOMING_CALL } from '@platform/shared/components/modals/call-modals/incoming-call/token';
 import { PushNotificationService } from './push-notifications.service';
 import { selectNewSession } from '@platform/core/utils/select-new-session';
+import { CallService } from '@platform/core/services/call/call.service';
+import { CallSessionService } from '@platform/core/services/call/call-session.service';
 
 @Injectable()
 export class CallInvitationService extends Logger {
@@ -38,7 +39,6 @@ export class CallInvitationService extends Logger {
   private readonly callAnswered$ = new Subject<void>();
 
   private navigatorWrapper = new NavigatorWrapper();
-  private session?: Session;
   private missingCallCounter = 0;
   private unregisterFactory?: () => Promise<void>;
 
@@ -49,11 +49,12 @@ export class CallInvitationService extends Logger {
     private callFactory: CallFactory,
     private modalsService: NgbModal,
     private router: Router,
-    private callService: ExpertCallService,
+    private callService: CallService,
     private store: Store<fromCore.IState>,
     private alertService: AlertService,
     private pushNotificationService: PushNotificationService,
     private injector: Injector,
+    private callSessionService: CallSessionService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CallInvitationService'));
@@ -65,7 +66,6 @@ export class CallInvitationService extends Logger {
       this.checkIncomingCalls(connected);
       this.checkPullableCalls(connected);
       this.handlePushNotificationRegistration(connected.session);
-      this.session = connected.session;
     });
 
     this.communicatorService.callInvitationEvent$.subscribe(inv => this.onExpertCallIncoming(inv.call));
@@ -84,8 +84,9 @@ export class CallInvitationService extends Logger {
   public initialize = (): void => {
     this.pushNotificationService.pushChange$.subscribe(
       enabled => {
-        if (enabled && this.session) {
-          this.handlePushNotificationRegistration(this.session);
+        const callSession = this.callSessionService.getCallSession();
+        if (enabled && callSession) {
+          this.handlePushNotificationRegistration(callSession);
         } else {
           this.unregisterFromPushNotifications().subscribe(() => this.loggerService.info('Unregistered from push'));
         }
@@ -108,7 +109,7 @@ export class CallInvitationService extends Logger {
               return this.connectToCallWebsocket(sessionAccount);
             }),
             of(() => {
-              if (this.session) {
+              if (this.callSessionService.getCallSession()) {
                 this.communicatorService.disconnect();
                 this.missingCallCounter = 0;
               }
@@ -329,7 +330,7 @@ export class CallInvitationService extends Logger {
   ): void => {
     const currentMediaTracks = localStreams.getTracks();
     currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
-    const session = this.session;
+    const session = this.callSessionService.getCallSession();
     const currentExpertCall = this.callFactory.createExpertCall(call, incomingCallDetails);
     if (session) {
       currentExpertCall.answer(session, currentMediaTracks).then(

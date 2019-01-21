@@ -218,7 +218,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
           serviceId: this.consultationId,
           modal: this.activeModal,
           employmentId,
-          expertId: undefined,
+          expertId: employmentId,
           createEditConsultationPayload: {
             isExpertConsultation: false,
             // make a copy of an object. Not sure what if other component does not mutate the object

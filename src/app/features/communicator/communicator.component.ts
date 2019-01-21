@@ -3,6 +3,8 @@ import { GetProfile, GetService } from '@anymind-ng/api';
 import {
   AvatarSize,
   CommunicatorService,
+  CurrentCall,
+  CurrentClientCall,
   CurrentExpertCall,
   LoggerFactory,
   MicrophoneService,
@@ -14,9 +16,9 @@ import {
 import { ReplaySubject, Subject, race } from 'rxjs';
 import { takeUntil, first } from 'rxjs/operators';
 import { Location } from '@angular/common';
-import { ExpertCallService, IExpertSessionCall } from '../../core/services/call/expert-call.service';
 import { CallReason } from 'machoke-sdk';
 import { Logger } from '@platform/core/logger';
+import { CallService, IClientSessionCall, IExpertSessionCall } from '@platform/core/services/call/call.service';
 
 @Component({
   selector: 'plat-communicator',
@@ -37,6 +39,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   public isMessenger = false;
   public serviceName: string;
   public expertName: string;
+  public expertAvatar: string;
 
   @Input()
   public minimizeCommunicator: () => void;
@@ -57,20 +60,20 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   public isReconnecting = false;
   public isExpertOffline = false;
   public AvatarSizeEnum: typeof AvatarSize = AvatarSize;
-  public newCallEvent = new ReplaySubject<CurrentExpertCall>(1);
+  public newCallEvent = new ReplaySubject<CurrentExpertCall | CurrentClientCall>(1);
   public currentMicrophoneStateEnum: MicrophoneStateEnum = MicrophoneStateEnum.GOOD;
   public microphoneStateEnums: typeof MicrophoneStateEnum = MicrophoneStateEnum;
   public isUserInactive = false;
   public clientName?: string;
 
   private ngUnsubscribe$ = new Subject<void>();
-  private currentCall: CurrentExpertCall;
+  private currentCall: CurrentCall;
 
   constructor(
     private navigationService: NavigationService,
     private microphoneService: MicrophoneService,
     private location: Location,
-    private callService: ExpertCallService,
+    private callService: CallService,
     loggerFactory: LoggerFactory,
     communicatorService: CommunicatorService,
   ) {
@@ -89,7 +92,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.microphoneService.onMicrophoneStatusChange(state => (this.currentMicrophoneStateEnum = state));
     this.AvatarSizeEnum = AvatarSize;
     this.callService.newCall$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => {
-      this.registerExpertCall(call);
+      this.callService.isExpertCall(call) ? this.registerExpertCall(call) : this.registerClientCall(call);
     });
   }
 
@@ -133,6 +136,19 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     }
   };
 
+  private registerClientCall = (clientSessionCall: IClientSessionCall): void => {
+    const expertDetails = clientSessionCall.currentClientCall.getExpert().expertDetails;
+    this.newCallEvent.next(clientSessionCall.currentClientCall);
+    this.registerCommonCallEvents(clientSessionCall.currentClientCall);
+    this.serviceName = clientSessionCall.currentClientCall.getService().name;
+    this.expertName = expertDetails ? expertDetails.name : '';
+    this.expertAvatar = expertDetails ? expertDetails.avatar : '';
+    this.isClosed = false;
+    clientSessionCall.currentClientCall.answered$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => (this.isConnecting = false));
+  };
+
   private registerExpertCall = (expertSessionCall: IExpertSessionCall): void => {
     this.newCallEvent.next(expertSessionCall.currentExpertCall);
     this.registerCommonCallEvents(expertSessionCall.currentExpertCall);
@@ -143,7 +159,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.isClosed = false;
   };
 
-  private registerCommonCallEvents = (call: CurrentExpertCall): void => {
+  private registerCommonCallEvents = (call: CurrentCall): void => {
     this.currentCall = call;
     call.localMediaTrack$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onLocalMediaTrack);
     call.remoteMediaTrack$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onRemoteMediaTrack);

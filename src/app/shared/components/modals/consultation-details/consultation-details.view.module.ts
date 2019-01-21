@@ -16,6 +16,7 @@ import { ConsultationCommentModule } from '@platform/shared/components/consultat
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 import { ConsultationFootersService } from './consultation-footers.service';
 import { ConsultationDetailsViewService } from './consultation-details.view.service';
+import { CreateCallModule } from '@platform/shared/services/client-call/create-call.module';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ConsultationDetailsViewService } from './consultation-details.view.serv
     ExpertAvailabilityModule,
     ConsultationCommentModule,
     DropdownModule,
+    CreateCallModule,
   ],
   declarations: [ConsultationDetailsViewComponent],
   providers: [ConsultationDetailsActionsService, ConsultationFootersService, ConsultationDetailsViewService],

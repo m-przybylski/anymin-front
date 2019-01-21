@@ -15,6 +15,7 @@ import { ConfirmationService } from '@platform/shared/components/modals/confirma
 import { ConsultationDetailsActionsService } from './consultation-details-actions.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Injector } from '@angular/core';
+import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
 
 describe('ConsultationDetailsAcrionsService', () => {
   let consultationDetailsAcrionsService: ConsultationDetailsActionsService;
@@ -55,6 +56,7 @@ describe('ConsultationDetailsAcrionsService', () => {
       Deceiver(Router),
       Deceiver(ActivatedRoute),
       TestBed.get(Injector),
+      Deceiver(CreateCallService),
       loggerFactory,
     );
   });
