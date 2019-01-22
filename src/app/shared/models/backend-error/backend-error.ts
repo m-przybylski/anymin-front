@@ -43,6 +43,12 @@ export enum BackendErrors {
   TooManyMsisdnTokenAttempts = 344,
   ToManyIncorrectPasswordAttempts = 345,
   MsisdnBlocked = 346,
+  onGoingCall = 405,
+  unavailableExpert = 419,
+  callYourself = 404,
+  callPending = 401,
+  recipientUnavailable = 418,
+  creditCardUncharged = 471,
   MissingTokenModelId = 408,
   MissingPermissionForCreatingFreeConsultation = 216,
 }

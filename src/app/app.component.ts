@@ -8,6 +8,7 @@ import { EnvironmentService } from './core/services/environment/environment.serv
 import { CallInvitationService } from './core/services/call/call-invitation.service';
 import * as moment from 'moment';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
+import { CallSessionService } from '@platform/core/services/call/call-session.service';
 
 const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 
@@ -22,6 +23,7 @@ export class AppComponent {
     private logger: LoggerService,
     private expertCallService: CallInvitationService,
     private remoteLogoutService: RemoteLogoutService,
+    private callSessionService: CallSessionService,
     translate: TranslateService,
   ) {
     this.printVersion();
@@ -41,6 +43,7 @@ export class AppComponent {
     moment.locale('pl-PL');
 
     // Initialize communicator after translations are loaded
+    this.callSessionService.listenForSession();
     this.expertCallService.initialize();
 
     this.remoteLogoutService.listenForRemovedSession();

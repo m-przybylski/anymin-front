@@ -20,7 +20,6 @@ import { CommunicatorConfigFactory } from '@platform/shared/factories/communicat
 import { WebSocketServiceFactory } from '@platform/core/services/websocket/websocket.factory';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
-import { ExpertCallService } from '@platform/core/services/call/expert-call.service';
 import { UserTypeEffects } from '@platform/core/effects/user-type.effects';
 import { provideCommission } from './commission';
 import { ClipboardService } from './services/clipboard/clipboard.service';
@@ -28,6 +27,8 @@ import { PlatMissingTranslationHandler } from './services/missing-translation/mi
 import { PushNotificationService } from './services/call/push-notifications.service';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { CallService } from '@platform/core/services/call/call.service';
+import { CallSessionService } from '@platform/core/services/call/call-session.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -53,6 +54,7 @@ export function getLogLevel(): LogLevel {
     LongPollingService,
     LoginHelperService,
     ClipboardService,
+    CallSessionService,
     provideCommission(),
     {
       provide: HTTP_INTERCEPTORS,
@@ -63,7 +65,7 @@ export function getLogLevel(): LogLevel {
     AnymindWebsocketService,
     CallInvitationService,
     PushNotificationService,
-    ExpertCallService,
+    CallService,
     RemoteLogoutService,
     ExpertAvailabilityService,
   ],

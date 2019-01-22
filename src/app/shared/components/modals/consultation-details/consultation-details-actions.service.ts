@@ -16,6 +16,7 @@ import {
 } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
 
 @Injectable()
 export class ConsultationDetailsActionsService extends Logger {
@@ -29,6 +30,7 @@ export class ConsultationDetailsActionsService extends Logger {
     private router: Router,
     private route: ActivatedRoute,
     private injector: Injector,
+    private createCallService: CreateCallService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationDetailsActionsService'));
@@ -102,7 +104,7 @@ export class ConsultationDetailsActionsService extends Logger {
         });
     }
   };
-  public makeCall = ({ modal }: IConsultationDetailActionParameters): void => {
+  public makeCall = ({ serviceId, modal, expertId }: IConsultationDetailActionParameters): void => {
     // check if user is logged. If not navigate to login page
     modal.close();
     this.store
@@ -115,8 +117,9 @@ export class ConsultationDetailsActionsService extends Logger {
         }),
       )
       .subscribe();
-
-    // TODO: implement functionality
+    if (expertId) {
+      this.createCallService.call(serviceId, expertId);
+    }
   };
   public notifyUser = (): void => {
     // TODO: implement functionality
