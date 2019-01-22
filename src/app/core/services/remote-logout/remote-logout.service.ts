@@ -8,13 +8,13 @@ import { AuthActions } from '@platform/core/actions';
 import { switchMap, filter, map } from 'rxjs/operators';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
-import { ExpertCallService } from '@platform/core/services/call/expert-call.service';
+import { CallService, IExpertSessionCall } from '@platform/core/services/call/call.service';
 
 @Injectable()
 export class RemoteLogoutService extends Logger {
   constructor(
     private store: Store<fromCore.IState>,
-    private expertCallService: ExpertCallService,
+    private callService: CallService,
     private anymindWebsocket: AnymindWebsocketService,
     loggerFactory: LoggerFactory,
   ) {
@@ -30,10 +30,10 @@ export class RemoteLogoutService extends Logger {
           ),
         ),
         switchMap(() =>
-          this.expertCallService.newCall$.pipe(
-            map(res => {
+          this.callService.newCall$.pipe(
+            map((res: IExpertSessionCall) => {
               if (res.currentExpertCall.getState() === CallState.PENDING) {
-                this.expertCallService.pushHangupCallEvent();
+                this.callService.pushHangupCallEvent();
               }
             }),
           ),
