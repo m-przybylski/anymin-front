@@ -115,7 +115,7 @@ export class CreateCallService extends Logger {
 
   private onAnsweredCallEnd = (currentClientCall: CurrentClientCall): void => {
     const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
-    summaryModal.componentInstance.currentCall = currentClientCall;
+    summaryModal.componentInstance.currentClientCall = currentClientCall;
     this.pushNotificationService.pushEnableButtonStatus(true);
     this.soundsService
       .playCallEnded()

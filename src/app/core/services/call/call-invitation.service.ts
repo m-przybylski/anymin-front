@@ -387,7 +387,7 @@ export class CallInvitationService extends Logger {
 
   private onAnsweredCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
-    summaryModal.componentInstance.currentCall = currentExpertCall;
+    summaryModal.componentInstance.currentExpertCall = currentExpertCall;
     this.pushNotificationService.pushEnableButtonStatus(true);
     this.soundsService
       .playCallEnded()

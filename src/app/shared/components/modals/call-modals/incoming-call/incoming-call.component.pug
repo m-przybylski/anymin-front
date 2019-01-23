@@ -5,8 +5,8 @@
     am-core-equalizer([isConnecting]="isConnecting")
 
   .client-call-modal__description
-    p.client-call-modal__description--name(*ngIf="clientName") {{ clientName }}
-    p.client-call-modal__description--name(*ngIf="!clientName", [translate]="'COMMUNICATOR.MODALS.CLIENT_CALL.TITLE'")
+    p.client-call-modal__description--name(*ngIf="name") {{ name }}
+    p.client-call-modal__description--name(*ngIf="!name", [translate]="'COMMUNICATOR.MODALS.CLIENT_CALL.TITLE'")
     header.client-call-modal__description--title
       span {{ serviceName }}
 

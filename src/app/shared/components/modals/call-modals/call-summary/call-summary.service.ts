@@ -1,5 +1,11 @@
 import { Observable, Subject, race } from 'rxjs';
-import { ExpertCallSummary, PostTechnicalProblem, ServiceUsageEventService, ViewsService } from '@anymind-ng/api';
+import {
+  ClientCallSummary,
+  ExpertCallSummary,
+  PostTechnicalProblem,
+  ServiceUsageEventService,
+  ViewsService,
+} from '@anymind-ng/api';
 import { CurrentCall } from '@anymind-ng/core';
 import { first, takeUntil } from 'rxjs/operators';
 import { Injectable, OnDestroy } from '@angular/core';
@@ -7,8 +13,8 @@ import { AnymindWebsocketService } from '@platform/core/services/anymind-websock
 import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
 
 @Injectable()
-export class ExpertCallSummaryService implements OnDestroy {
-  private readonly callSummarySubject = new Subject<ExpertCallSummary>();
+export class CallSummaryService implements OnDestroy {
+  private readonly callSummarySubject = new Subject<any>();
   private readonly ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -27,11 +33,20 @@ export class ExpertCallSummaryService implements OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public getCallSummary = (call: CurrentCall): Observable<ExpertCallSummary> => {
+  public getExpertCallSummary = (call: CurrentCall): Observable<ExpertCallSummary> => {
     const intervalTime = 3000;
 
     return race(
       this.longPollingService.longPollData(this.viewsService.getExpertCallSummaryRoute(call.getSueId()), intervalTime),
+      this.callSummarySubject,
+    ).pipe(first());
+  };
+
+  public getClientCallSummary = (call: CurrentCall): Observable<ClientCallSummary> => {
+    const intervalTime = 3000;
+
+    return race(
+      this.longPollingService.longPollData(this.viewsService.getClientCallSummaryRoute(call.getSueId()), intervalTime),
       this.callSummarySubject,
     ).pipe(first());
   };

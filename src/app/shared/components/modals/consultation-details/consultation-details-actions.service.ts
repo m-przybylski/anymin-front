@@ -104,7 +104,7 @@ export class ConsultationDetailsActionsService extends Logger {
         });
     }
   };
-  public makeCall = ({ serviceId, modal, expertId }: IConsultationDetailActionParameters): void => {
+  public makeCall = ({ serviceId, modal, expertId, employmentId }: IConsultationDetailActionParameters): void => {
     // check if user is logged. If not navigate to login page
     modal.close();
     this.store
@@ -117,8 +117,10 @@ export class ConsultationDetailsActionsService extends Logger {
         }),
       )
       .subscribe();
-    if (expertId) {
-      this.createCallService.call(serviceId, expertId);
+
+    const id = expertId || employmentId;
+    if (id) {
+      this.createCallService.call(serviceId, id);
     }
   };
   public notifyUser = (): void => {

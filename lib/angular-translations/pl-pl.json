@@ -2038,6 +2038,7 @@
   "CALL_SUMMARY.HEADER.TITLE": "Podsumowanie rozmowy",
   "CALL_SUMMARY.TIME_HEADER": "Czas:",
   "CALL_SUMMARY.MONEY_HEADER": "Przychód:",
+  "CALL_SUMMARY.COST_HEADER": "Koszt:",
   "CALL_SUMMARY.REPORT_LINK": "Zgłoś rozmówcę",
   "CALL_SUMMARY.TECHNICAL_PROBLEM_LINK": "Problemy techniczne",
   "CALL_SUMMARY.COMMENT_LABEL": "Twój komentarz:",

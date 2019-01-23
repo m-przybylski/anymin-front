@@ -1,11 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AlertService, CurrentCall, LoggerFactory } from '@anymind-ng/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertService, CurrentClientCall, CurrentExpertCall, LoggerFactory } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { ExpertCallSummaryService } from './call-summary.service';
+import { CallSummaryService } from './call-summary.service';
 import { Logger } from '@platform/core/logger';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
-import { MoneyDto, PostTechnicalProblem } from '@anymind-ng/api';
+import { ClientCallSummary, ExpertCallSummary, MoneyDto, PostTechnicalProblem } from '@anymind-ng/api';
 import { FormGroup } from '@angular/forms';
 import { Config } from '../../../../../../config';
 import { Subject } from 'rxjs';
@@ -22,11 +22,11 @@ enum SummaryStateEnum {
   selector: 'plat-call-summary',
   templateUrl: './call-summary.component.html',
   styleUrls: ['./call-summary.component.sass'],
-  providers: [ExpertCallSummaryService],
+  providers: [CallSummaryService],
 })
 export class CreateCallSummaryComponent extends Logger implements OnInit, OnDestroy {
-  @Input()
-  public currentCall: CurrentCall;
+  public currentExpertCall: CurrentExpertCall;
+  public currentClientCall: CurrentClientCall;
 
   public readonly avatarSize = AvatarSizeEnum.X_80;
   public readonly modalContainerClass = ModalContainerTypeEnum.SMALL_NO_PADDING;
@@ -40,10 +40,12 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
 
   public isCommentInputDisabled = false;
   public currentSummaryState = SummaryStateEnum.SUMMARY_DETAILS;
-  public clientAvatarToken?: string;
-  public clientName: string;
+  public avatarToken?: string;
+  public name: string;
   public title: string;
   public callDuration: number;
+  public isClientCall: boolean;
+  public callCost?: MoneyDto;
   public callProfit: MoneyDto;
   public modalHeaderTr = 'CALL_SUMMARY.HEADER.TITLE';
   public onBackwardClick: () => void;
@@ -60,7 +62,7 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
-    private expertCallSummaryService: ExpertCallSummaryService,
+    private callSummaryService: CallSummaryService,
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
@@ -71,20 +73,7 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
     this.commentForm = new FormGroup({});
     this.technicalProblemForm = new FormGroup({});
     this.modalAnimationComponentService.isPendingRequest().next(false);
-    this.expertCallSummaryService
-      .getCallSummary(this.currentCall)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(summary => {
-        this.clientAvatarToken = summary.clientDetails.avatar;
-        this.clientName = summary.clientDetails.nickname
-          ? summary.clientDetails.nickname
-          : 'CALL_SUMMARY.ANONYMOUS_CLIENT';
-        this.title = summary.service.name;
-        this.callDuration = summary.callDuration;
-        this.callProfit = summary.profit;
-        this.sueId = summary.sueId;
-        this.modalAnimationComponentService.isPendingRequest().next(false);
-      });
+    this.fetchCallSummary();
   }
 
   public ngOnDestroy(): void {
@@ -114,7 +103,7 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
       technicalProblemSelectedValue !== this.postTechnicalProblemEnum.OTHER
     ) {
       this.isTechnicalProblemInputDisabled = true;
-      this.expertCallSummaryService.reportTechnicalProblem(this.sueId, technicalProblemSelectedValue).subscribe(
+      this.callSummaryService.reportTechnicalProblem(this.sueId, technicalProblemSelectedValue).subscribe(
         () => {
           this.backToCallDetails();
           this.isTechnicalProblemReported = true;
@@ -140,7 +129,7 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
   private submitReportClientForm = (): void => {
     if (this.commentForm.valid) {
       this.isCommentInputDisabled = true;
-      this.expertCallSummaryService
+      this.callSummaryService
         .reportClient(this.sueId, this.commentForm.controls[this.commentControlName].value)
         .subscribe(
           () => {
@@ -160,21 +149,19 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
 
   private submitTechnicalProblemComment = (): void => {
     this.isCommentInputDisabled = true;
-    this.expertCallSummaryService
-      .reportTechnicalProblem(this.sueId, PostTechnicalProblem.ProblemTypeEnum.OTHER)
-      .subscribe(
-        () => {
-          this.backToCallDetails();
-          this.isTechnicalProblemReported = true;
-          this.alertService.pushSuccessAlert('CALL_SUMMARY.ALERT_TECHNICAL_PROBLEM_REPORTED_SUCCESSFULLY');
-          this.isCommentInputDisabled = false;
-        },
-        error => {
-          this.loggerService.warn(`Can not send technical problem: ${error}`);
-          this.alertService.pushDangerAlert('CALL_SUMMARY.ALERT_TECHNICAL_PROBLEM_REPORTED_FAILED');
-          this.isCommentInputDisabled = false;
-        },
-      );
+    this.callSummaryService.reportTechnicalProblem(this.sueId, PostTechnicalProblem.ProblemTypeEnum.OTHER).subscribe(
+      () => {
+        this.backToCallDetails();
+        this.isTechnicalProblemReported = true;
+        this.alertService.pushSuccessAlert('CALL_SUMMARY.ALERT_TECHNICAL_PROBLEM_REPORTED_SUCCESSFULLY');
+        this.isCommentInputDisabled = false;
+      },
+      error => {
+        this.loggerService.warn(`Can not send technical problem: ${error}`);
+        this.alertService.pushDangerAlert('CALL_SUMMARY.ALERT_TECHNICAL_PROBLEM_REPORTED_FAILED');
+        this.isCommentInputDisabled = false;
+      },
+    );
   };
 
   private goToTechnicalProblemSecondStep = (): void => {
@@ -193,5 +180,44 @@ export class CreateCallSummaryComponent extends Logger implements OnInit, OnDest
   private backToTechnicalProblem = (): void => {
     this.currentSummaryState = SummaryStateEnum.TECHNICAL_PROBLEM;
     this.onBackwardClick = this.backToCallDetails;
+  };
+
+  private fetchCallSummary = (): void => {
+    if (this.currentExpertCall) {
+      this.callSummaryService
+        .getExpertCallSummary(this.currentExpertCall)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(summary => {
+          this.setExpertData(summary);
+        });
+    } else {
+      this.callSummaryService
+        .getClientCallSummary(this.currentClientCall)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(summary => {
+          this.setClientData(summary);
+        });
+    }
+  };
+
+  private setClientData = (summary: ClientCallSummary): void => {
+    this.avatarToken = summary.expertProfile.expertDetails ? summary.expertProfile.expertDetails.avatar : '';
+    this.name = summary.expertProfile.expertDetails ? summary.expertProfile.expertDetails.name : '';
+    this.title = summary.service.name;
+    this.callDuration = summary.callDuration;
+    this.callCost = summary.promoCodeCost || summary.creditCardCost || { value: 0, currency: 'PLN' };
+    this.sueId = summary.sueId;
+    this.modalAnimationComponentService.isPendingRequest().next(false);
+    this.isClientCall = true;
+  };
+
+  private setExpertData = (summary: ExpertCallSummary): void => {
+    this.avatarToken = summary.clientDetails.avatar;
+    this.name = summary.clientDetails.nickname ? summary.clientDetails.nickname : 'CALL_SUMMARY.ANONYMOUS_CLIENT';
+    this.title = summary.service.name;
+    this.callDuration = summary.callDuration;
+    this.callProfit = summary.profit;
+    this.sueId = summary.sueId;
+    this.modalAnimationComponentService.isPendingRequest().next(false);
   };
 }
