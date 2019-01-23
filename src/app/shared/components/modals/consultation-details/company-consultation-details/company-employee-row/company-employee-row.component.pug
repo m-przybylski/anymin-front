@@ -14,7 +14,7 @@
             [expertId]="employeeDetails.employeeId",
             [isTextVisible]="false"
             )
-          span(*ngIf="employeeDetails.name") {{ employeeDetails.name }}
+          span.expert-name(*ngIf="employeeDetails.name") {{ employeeDetails.name }}
 
         .expert-details__statistics(*ngIf="isStatisticsVisible")
           plat-consultation-stat(
