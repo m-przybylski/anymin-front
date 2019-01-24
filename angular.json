@@ -25,8 +25,8 @@
             "assets": [
               "src/assets",
               {
-                "glob": "*",
-                "input": "./root/",
+                "glob": "**/*",
+                "input": "./src/root/",
                 "output": "./"
               }
             ],
