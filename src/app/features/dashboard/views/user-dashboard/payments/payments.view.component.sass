@@ -1,17 +1,70 @@
 @import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "../../../../../template/core/core"
 
 .payments
-	padding: 48px 0 72px
-	margin: 0 auto
-	max-width: 840px
+  padding: 48px 0 72px
+  margin: 0 auto
+  max-width: 840px
 
-	plat-setting-option
-		margin: 0 0 4px 0
+  plat-setting-option
+    margin: 0 0 4px 0
 
-	&__header
-		+h5
-		display: block
-		margin: 0 0 24px 24px
+  &__methods
+    +smm
+      display: flex
+      align-items: flex-start
+      justify-content: space-between
+      margin: 0 -12px
+
+  &__type
+    flex-grow: 1
+
+    > div
+      +smm
+        display: flex
+        align-items: center
+        justify-content: center
+        margin: 0 12px
+
+  &__header
+    +h5
+    display: block
+    margin: 0 0 24px 24px
+
+  &__container
+    &--method
+      margin: 0 0 48px
+
+    &--list
+      margin: 0 0 20px
+
+  %transition
+    transition: background 0.3s ease, color 0.3s ease
+
+  .button
+    +option-row
+    justify-content: center
+    flex-grow: 1
+
+    &--add
+      display: flex
+      align-items: center
+
+      &:hover
+        span
+          color: $c-primary
+          background-color: transparent
+
+        span
+          @extend %transition
+          color: $c-primary
+
+
+    &__text
+      +paragraph-small
+      font-weight: 500
+      margin: 0 0 0 16px
+
 
 .options-container
   display: flex

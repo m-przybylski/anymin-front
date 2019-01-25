@@ -1,0 +1,21 @@
+.payment-method-money-radio([formGroup]="form")
+  label
+    .input__wrapper
+      .input-checkbox([ngClass]="{'input-checkbox--checked': selectedCardId === id}")
+        input((click)="onCardClick($event)", type="radio", [formControlName]="controlName", [attr.name]="controlName", id="{{ id }}", value="{{ id }}")
+        span.checkmark
+
+      span.icon-wallet(plat-icon iconClass='card')
+
+      .input__label
+        span.label {{ cardType }}
+        span.account-number-mask {{ maskedNumber }}
+
+        .expiry-date.mobile-only
+          span(*ngIf="expiryDate") {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.EXPIRE' | translate }} {{ expiryDate }}
+
+  .input__handler
+    .expiry-date
+      span(*ngIf="expiryDate") {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.EXPIRE' | translate }} {{ expiryDate }}
+
+    button((click)="deleteCard($event)", plat-stroked-button) {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.DELETE' | translate }}

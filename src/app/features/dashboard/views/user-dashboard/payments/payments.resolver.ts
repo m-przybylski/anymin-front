@@ -1,19 +1,19 @@
 import { Resolve } from '@angular/router';
-import { GetPayoutMethod, PayoutsService } from '@anymind-ng/api';
-import { Observable, of } from 'rxjs';
+import { GetCreditCard, GetDefaultPaymentMethod, PaymentsService } from '@anymind-ng/api';
+import { forkJoin, Observable } from 'rxjs';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class PaymentsResolver extends Logger implements Resolve<GetPayoutMethod> {
+export class PaymentsResolver extends Logger
+  implements Resolve<[GetDefaultPaymentMethod, ReadonlyArray<GetCreditCard>]> {
   protected loggerService: LoggerService;
 
-  constructor(private payoutsService: PayoutsService, loggerFactory: LoggerFactory) {
+  constructor(private paymentsService: PaymentsService, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('PaymentsResolver'));
   }
 
-  public resolve = (): Observable<GetPayoutMethod> =>
-    this.payoutsService.getPayoutMethodsRoute().pipe(catchError(() => of({})));
+  public resolve = (): Observable<[GetDefaultPaymentMethod, ReadonlyArray<GetCreditCard>]> =>
+    forkJoin([this.paymentsService.getDefaultPaymentMethodRoute(), this.paymentsService.getCreditCardsRoute()]);
 }

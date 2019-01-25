@@ -9,6 +9,7 @@ const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-flat-fab',
   'plat-flat',
   'plat-button',
+  'plat-button-primary',
   'plat-button-link',
   'plat-large-icon-button',
   'plat-large-button',
@@ -26,7 +27,7 @@ const ButtonMixinBase = mixinColor(ButtonBase);
              button[plat-flat-fab], button[plat-flat],
              button[plat-large-button], button[plat-stroked-large-button],
              [plat-icon-button], [plat-stroked-button],
-             [plat-button], [plat-mini-flat-fab],
+             [plat-button], [plat-button-primary], [plat-mini-flat-fab],
              [plat-flat-fab], [plat-flat], [plat-button-link],
              [plat-large-icon-button], [plat-large-button],
              [plat-stroked-large-button]

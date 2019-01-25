@@ -1,3 +1,5 @@
+// tslint:disable:max-file-line-count
+
 import { LogLevel } from '@anymind-ng/core';
 import { VERSION } from '../generated_modules/version/version';
 import { Environment, EnvironmentService } from './app/core/services/environment/environment.service';
@@ -134,6 +136,7 @@ export class Config {
         '\\',
       ),
     ),
+    expireDate: '^(0[1-9]|1[0-2])\\/?([0-9]{4}|[0-9]{2})$',
     postalCode: '^[0-9]{5}$',
   };
 
@@ -199,5 +202,57 @@ export class Config {
   public static readonly uploadFilesProperties = {
     maxSize: 30000000,
     minSize: 1,
+  };
+
+  public static readonly errorCodes = {
+    badAuthCreds: 101,
+    badLoginRequest: 200,
+    msisdnVerificationTokenIncorrect: 343,
+    cannotFindMsisdnToken: 322,
+    tooManyPinCodeAttempts: 344,
+    notAllowedToLogin: 108,
+    invalidPassword: 101,
+    invalidPasswordValidation: 200,
+    tooManyPasswordChangeAttempts: 345,
+    cannotFindToken: 331,
+    smsSentTooRecently: 333,
+    invalidMsisdn: 340,
+    incorrectToken: 343,
+    tokenAttemptsExceeded: 344,
+    loginAttemptsExceeded: 345,
+    notEnoughMoney: 400,
+    onGoingCall: 405,
+    unavailableExpert: 419,
+    callYourself: 404,
+    callPending: 401,
+    ratelRestError: 406,
+    recipientUnavailable: 418,
+    creditCardUncharged: 471,
+    pincodeSentTooRecently: 333,
+    creditCardWrongDate: 467,
+    creditCardExpired: 466,
+    creditCardCVV: 468,
+    creditCardUnknown: 472,
+    noSuchPromoCode: 473,
+    promoCodeExpired: 474,
+    promoCodeRedeemed: 475,
+  };
+
+  public static readonly paymentCardDetails = {
+    minMaxCardNumberLength: 16,
+    minMaxLengthCodeCVC: 3,
+  };
+
+  public static readonly paymentCardPublicKeys = {
+    productionKey:
+      `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcLydHYupN/YAUgow6lmBY/FIJ` +
+      `fVr1n9c7aFfNVk94hTLXqULjy3rQXy4eiBvh36F/yKnKIXZWZqTVr1iyz2vH4q3k` +
+      `sk0GTI0U+e/cd8nLLzEPs3vBPec0ffnhnuq+D4X/rgRRHvhLDq/ZY8bphdFHu/Oj` +
+      `U9lCaIGtthdqOAOBCwIDAQAB`,
+
+    stageKey:
+      `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDEiHO2qNvAmsCww13H5baQtXqYjcZlYxnNq42rtGAI2fDB1iwl977LZ` +
+      `aPu+JhL2wn23xFh0ZrVf+qQDje8V8s1w33evXxZwLXCDZ+n2ToIsFADphZuGN2qNzuGEMSsZmx1nqTNEFh/AvoUPAtCEn` +
+      `C5E9gN/SG6xqhvfFcgAZ9VtwIDAQAB`,
   };
 }

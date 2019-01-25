@@ -7,6 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class TooltipComponent {
   @Input()
+  public iconClass = 'questionmark';
+
+  @Input()
   public tooltipText: string;
 
   public isVisible = false;

@@ -24,6 +24,7 @@ import { VisibilityEffects } from '@platform/features/dashboard/effects/visibili
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
 import { WelcomeModule } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.module';
 import { InvitationsEffects } from '@platform/features/dashboard/effects/invitations/invitations.effects';
+import { AddPaymentCardModule } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.module';
 
 @NgModule({
   declarations: [DashboardViewComponent, UserDashboardComponent, FavouritesComponent, NotFoundComponent],
@@ -41,6 +42,7 @@ import { InvitationsEffects } from '@platform/features/dashboard/effects/invitat
     RecommendFriendsModule,
     DashboardComponentsModule,
     GenerateWidgetModule,
+    AddPaymentCardModule,
     StoreModule.forFeature('dashboard', reducers),
     EffectsModule.forFeature([DashboardEffects, VisibilityEffects, InvitationsEffects]),
   ],

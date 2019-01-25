@@ -1,0 +1,87 @@
+plat-modal-component(
+[modalTrTitleHeader]="modalHeaderTitle",
+[modalContainerClass]="modalWidth"
+)
+  .add-payment-card
+    plat-stepper(
+      #stepper='platStepper'
+    )
+
+      plat-step
+        .add-payment-card.add-payment-card--form
+          form.form([formGroup]="addPaymentCardFormGroup", (ngSubmit)="onSendClick()")
+            .form__row
+              am-core-input-text(
+              [form]="addPaymentCardFormGroup",
+              [controlName]="nameSurnameControl",
+              [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.NAME_FIELD'",
+              [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.NAME_FIELD_PLACEHOLDER'",
+              [isRequired]="true",
+              )
+            .form__row
+              am-core-input-email(
+              [form]="addPaymentCardFormGroup",
+              [controlName]="emailControl",
+              [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.EMAIL_FIELD'",
+              [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.EMAIL_FIELD_PLACEHOLDER'",
+              [isRequired]="true",
+              )
+            .form__row
+              am-input-card-number(
+              [form]="addPaymentCardFormGroup",
+              [controlName]="cardNumberControlName",
+              [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CARD_NUMBER_FIELD'",
+              [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CARD_NUMBER_FIELD_PLACEHOLDER'",
+              [errorTextKey]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CARD_NUMBER_FIELD.ERROR'",
+              [inputType]="'tel'",
+              [inputMask]="'9999-9999-9999-9999'",
+              (creditCardType)="onCreditCardTypeChange($event)",
+              )
+
+            .form__wrapper
+              .form__row
+                div
+                  am-core-custom-input-numeric(
+                  [form]="addPaymentCardFormGroup",
+                  [inputMask]="'99/99'",
+                  [controlName]="expireDateControlName",
+                  [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.DATE_EXPIRES_FIELD'",
+                  [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.DATE_EXPIRES_FIELD_PLACEHOLDER'",
+                  [errorTextKey]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.DATE_EXPIRES_FIELD.ERROR'",
+                  [inputType]="'tel'",
+                  [isDisabled]="isPending",
+                  [isRequired]="true",
+                  [pattern]="expireDatePattern",
+                  )
+
+              .form__row
+                div
+                  plat-input-numeric(
+                  [form]="addPaymentCardFormGroup",
+                  [controlName]="codeCVControlName",
+                  [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CVV_CODE_FIELD'",
+                  [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CVV_CODE_FIELD_PLACEHOLDER'",
+                  [errorTextKey]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CVV_CODE_FIELD.ERROR'",
+                  [inputType]="'tel'",
+                  [inputMask]="'999'",
+                  [isRequired]="true",
+                  [tooltipTranslate]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CVV_CODE_TOOLTIP'"
+                  )
+
+            .form__action
+              am-core-submit-button(
+              [titleText]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.BUTTON'",
+              [isLoading]="isPending",
+              [isDisabled]="!addPaymentCardFormGroup.valid && !isPending"
+              )
+
+      plat-step
+        .add-payment-card.add-payment-card--authorize
+          am-core-content-default([titleText]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.AUTHORIZE.TITLE'", [imgName]="'3d-secure'")
+          a.button.button--default.button--authorize(plat-button-primary, color="primary", (click)="authorizeCard()", [attr.target]="'_blank'", [attr.href]="urlRedirect")
+            | {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.AUTHORIZE.BUTTON' | translate }}
+
+      plat-step
+        .add-payment-card.add-payment-card--authorize-pending
+          am-core-content-default([titleText]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.AUTHORIZE.PENDING'", [imgName]="'payment-in-progress'")
+          span.loading(plat-icon, iconClass="loading")
