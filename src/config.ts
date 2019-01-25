@@ -93,7 +93,7 @@ export class Config {
         : '90ce371c-12f1-4b4e-a0b2-01c8870eaf25',
     autoRegister: false,
     persistNotification: true,
-    notifyButtonEnabled: true,
+    notifyButtonEnabled: false,
     notificationClickHandlerMatch: 'origin',
     notificationClickHandlerAction: 'focus',
     prenotify: true /* Show an icon with 1 unread message for first-time site visitors */,

@@ -1,11 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChangeAnonymityComponentService } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component.service';
 import { FormControl } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
-import { Logger } from '@platform/core/logger';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
@@ -17,21 +14,26 @@ import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-u
   styleUrls: ['./change-anonymity.component.sass'],
   providers: [ChangeAnonymityComponentService],
 })
-export class ChangeAnonymityComponent extends Logger implements OnDestroy {
+export class ChangeAnonymityComponent implements OnDestroy, OnInit {
   public anonymityControl: FormControl;
-  private isAnonymous: boolean;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private anonymityComponentService: ChangeAnonymityComponentService,
-    private alertService: AlertService,
     private store: Store<fromCore.IState>,
-    loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory.createLoggerService('ChangeAnonymityComponent'));
-    this.getIsAnonymousFromSession();
-    this.anonymityControl = new FormControl(this.isAnonymous);
-    this.anonymityControl.valueChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onAnonymityChange);
+    this.anonymityControl = new FormControl();
+  }
+
+  public ngOnInit(): void {
+    getNotUndefinedSession(this.store)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((session: GetSessionWithAccount) => {
+        this.anonymityControl.setValue(session.account.isAnonymous);
+      });
+    this.anonymityControl.valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(isAnonymous => this.onAnonymityChange(isAnonymous));
   }
 
   public ngOnDestroy(): void {
@@ -39,26 +41,11 @@ export class ChangeAnonymityComponent extends Logger implements OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public onAnonymityChange = (isAnonymous: boolean): void => {
-    this.anonymityComponentService
-      .changeAnonymity(isAnonymous)
-      .pipe(catchError(err => this.handleChangeAnonymityError(err, isAnonymous)))
-      .subscribe();
-  };
-
-  private handleChangeAnonymityError = (err: HttpErrorResponse, isAnonymous: boolean): Observable<void> => {
-    this.anonymityControl.setValue(!isAnonymous, { emitEvent: false });
-    this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-    this.loggerService.warn('error when try to change anonymity', err);
-
-    return of();
-  };
-
-  private getIsAnonymousFromSession = (): void => {
-    getNotUndefinedSession(this.store)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((session: GetSessionWithAccount) => {
-        this.isAnonymous = session.account.isAnonymous;
-      });
-  };
+  public onAnonymityChange(isAnonymous: boolean): void {
+    this.anonymityComponentService.changeAnonymity(isAnonymous).subscribe({
+      error: (): void => {
+        this.anonymityControl.setValue(!isAnonymous, { emitEvent: false });
+      },
+    });
+  }
 }

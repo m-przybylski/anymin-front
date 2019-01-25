@@ -102,8 +102,7 @@ export class CallInvitationService extends Logger {
             () => sessionAccount !== undefined,
             of(() => {
               if (sessionAccount) {
-                this.pushNotificationService.initialize();
-                this.pushNotificationService.registerForPushNotifications().subscribe();
+                this.pushNotificationService.initialize(sessionAccount);
               }
 
               return this.connectToCallWebsocket(sessionAccount);
@@ -211,7 +210,6 @@ export class CallInvitationService extends Logger {
     this.serviceUsageEventService.getSueDetailsForExpertRoute(call.id).subscribe(
       expertSueDetails => {
         this.soundsService.callIncomingSound().play();
-        this.pushNotificationService.pushEnableButtonStatus(false);
         const options: NgbModalOptions = {
           injector: Injector.create({
             providers: [
@@ -304,7 +302,6 @@ export class CallInvitationService extends Logger {
     call: BusinessCall,
   ): void => {
     this.callAnsweredOnOtherDeviceEvent$.next();
-    this.pushNotificationService.pushEnableButtonStatus(true);
     this.loggerService.debug('Call was answered on other device', callActiveDevice);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
@@ -313,7 +310,6 @@ export class CallInvitationService extends Logger {
 
   private handleCallEndedBeforeAnswering = (callEnd: callEvents.Ended, callingModal: NgbModalRef): void => {
     this.loggerService.debug('Call was ended before expert answer', callEnd);
-    this.pushNotificationService.pushEnableButtonStatus(true);
     if (callEnd.reason !== EndReason.CallRejected) {
       callingModal.close();
       this.showMissedCallAlert();
@@ -368,7 +364,6 @@ export class CallInvitationService extends Logger {
 
     call.reject(CallReason.CallRejected).then(
       () => {
-        this.pushNotificationService.pushEnableButtonStatus(true);
         this.soundsService.callIncomingSound().stop();
         this.soundsService
           .playCallRejected()
@@ -388,7 +383,6 @@ export class CallInvitationService extends Logger {
   private onAnsweredCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
     summaryModal.componentInstance.currentExpertCall = currentExpertCall;
-    this.pushNotificationService.pushEnableButtonStatus(true);
     this.soundsService
       .playCallEnded()
       .then(

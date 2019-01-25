@@ -14,7 +14,6 @@ import { Logger } from '@platform/core/logger';
 import { BackendErrors } from '@platform/shared/models/backend-error/backend-error';
 import { first, takeUntil } from 'rxjs/operators';
 import { CreateCallSummaryComponent } from '@platform/shared/components/modals/call-modals/call-summary/call-summary.component';
-import { PushNotificationService } from '@platform/core/services/call/push-notifications.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { race } from 'rxjs';
 import { Session } from 'machoke-sdk';
@@ -27,7 +26,6 @@ export class CreateCallService extends Logger {
     private callSessionService: CallSessionService,
     private clientCallService: ClientCallService,
     private alertService: AlertService,
-    private pushNotificationService: PushNotificationService,
     private modalsService: NgbModal,
     private soundsService: SoundsService,
     loggerFactory: LoggerFactory,
@@ -116,7 +114,6 @@ export class CreateCallService extends Logger {
   private onAnsweredCallEnd = (currentClientCall: CurrentClientCall): void => {
     const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
     summaryModal.componentInstance.currentClientCall = currentClientCall;
-    this.pushNotificationService.pushEnableButtonStatus(true);
     this.soundsService
       .playCallEnded()
       .then(

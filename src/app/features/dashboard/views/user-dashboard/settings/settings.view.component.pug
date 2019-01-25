@@ -12,6 +12,12 @@
           plat-change-anonymity
       li.settings-list__item
         plat-setting-option(
+          [title]="'DASHBOARD.SETTINGS.NOTIFICATIONS.TITLE'",
+          [description]="'DASHBOARD.SETTINGS.NOTIFICATIONS.DESCRIPTION'",
+          [tooltipTrText]="'DASHBOARD.SETTINGS.NOTIFICATIONS.TOOLTIP'")
+          plat-change-notifications
+      li.settings-list__item
+        plat-setting-option(
           [title]="'DASHBOARD.SETTINGS.CHANGE_NUMBER_TITLE'",
           [description]="session.account.msisdn")
           button.button-tablet(plat-stroked-button, (click)="openChangeNumberModal()") {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}

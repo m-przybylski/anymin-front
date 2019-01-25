@@ -14,6 +14,7 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { ChangeAnonymityComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-anonymity/change-anonymity.component';
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
+import { ChangeNotificationComponent } from './change-notifications/change-notifications.component';
 
 @NgModule({
   imports: [CommonModule, ModalsModule, InputsModule, DropdownModule, ButtonModule],
@@ -28,6 +29,7 @@ import { ButtonModule } from '@platform/shared/components/atomic-components';
     PinVerificationComponent,
     ChangeMsisdnComponent,
     ChangeAnonymityComponent,
+    ChangeNotificationComponent,
   ],
   declarations: [
     ChangeEmailViewComponent,
@@ -40,6 +42,7 @@ import { ButtonModule } from '@platform/shared/components/atomic-components';
     PinVerificationComponent,
     ChangeMsisdnComponent,
     ChangeAnonymityComponent,
+    ChangeNotificationComponent,
   ],
   providers: [],
   entryComponents: [
