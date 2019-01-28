@@ -1,3 +1,4 @@
+// tslint:disable:max-file-line-count
 import { Injectable, Injector } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
@@ -15,12 +16,17 @@ import {
   ActivityDetailsViewComponent,
   MODAL_CLOSED_WITH_ERROR,
 } from '@platform/shared/components/modals/activity-details/activity-details.view.component';
-import { GetProfileActivities, GetProfileActivity, GetProfileBalance } from '@anymind-ng/api';
+import { GetProfileActivity, GetProfileBalance } from '@anymind-ng/api';
 import { Action } from '@ngrx/store';
 import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/activities/activities.component';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { DashboardActions } from '@platform/features/dashboard/actions';
-import { IActivitiesData } from '@platform/features/dashboard/views/activities/activities.interface';
+import {
+  IActivitiesData,
+  IActivity,
+  IGetActivities,
+} from '@platform/features/dashboard/views/activities/activities.interface';
+import { ActivitiesUtilsService } from '@platform/features/dashboard/views/activities/services/activities-utils.service';
 
 const EMPTY_ACTION = of({ type: 'NO_ACTION' });
 
@@ -45,6 +51,20 @@ export class ActivitiesEffects {
   );
 
   @Effect()
+  public loadAllClientActivities = this.actions$.pipe(
+    ofType(ActivitiesActions.ActivitiesActionTypes.LoadClientActivities),
+    exhaustMap(_ =>
+      this.activitiesListService.getClientAllActivities().pipe(
+        map(
+          getClientActivities =>
+            new ActivitiesApiActions.LoadClientActivitiesWithImportantSuccessAction(getClientActivities),
+        ),
+        catchError(error => of(new ActivitiesApiActions.LoadClientActivitiesWithImportantFailureAction(error))),
+      ),
+    ),
+  );
+
+  @Effect()
   public loadMoreExpertActivities$ = this.actions$.pipe(
     ofType<ActivitiesPageActions.LoadMoreCompanyActivitiesAction>(
       ActivitiesPageActions.ActivitiesPageActionTypes.LoadMoreExpertActivities,
@@ -63,6 +83,19 @@ export class ActivitiesEffects {
     map(action => action.payload),
     this.loadMoreActivities(offsetConfig =>
       this.activitiesListService.getCompanyActivities(offsetConfig.offsetIterator, offsetConfig.currentOffset),
+    ),
+  );
+
+  @Effect()
+  public loadMoreClientActivities$ = this.actions$.pipe(
+    ofType<ActivitiesPageActions.LoadMoreClientActivitiesAction>(
+      ActivitiesPageActions.ActivitiesPageActionTypes.LoadMoreClientActivities,
+    ),
+    map(action => action.payload),
+    this.loadMoreActivities(offsetConfig =>
+      this.activitiesListService
+        .getClientActivities(offsetConfig.offsetIterator, offsetConfig.currentOffset)
+        .pipe(map(getClientActivities => ActivitiesUtilsService.mapGetClientActivities(getClientActivities))),
     ),
   );
 
@@ -114,6 +147,19 @@ export class ActivitiesEffects {
     ),
     map(action => action.payload),
     this.loadActivityId(activityId => this.activitiesListService.getCompanyActivity(activityId)),
+  );
+
+  @Effect()
+  public loadClientActivityById$ = this.actions$.pipe(
+    ofType<ActivitiesWsActions.NewClientActivityNotificationAction>(
+      ActivitiesWsActions.ActivitiesWsActionTypes.NewClientActivityNotification,
+    ),
+    map(action => action.payload),
+    this.loadActivityId(activityId =>
+      this.activitiesListService
+        .getClientActivity(activityId)
+        .pipe(map(getClientActivities => ActivitiesUtilsService.mapClientActivity(getClientActivities))),
+    ),
   );
 
   private get openCompanyActivityDetails(): (createAction: ActionFromModalResultFactory) => ModalResultToActionMapper {
@@ -171,9 +217,7 @@ export class ActivitiesEffects {
   }
 
   private loadMoreActivities(
-    getActivities: (
-      offsetConfig: { currentOffset: number; offsetIterator: number },
-    ) => Observable<GetProfileActivities>,
+    getActivities: (offsetConfig: { currentOffset: number; offsetIterator: number }) => Observable<IGetActivities>,
   ): (source: Observable<{ currentOffset: number; offsetIterator: number }>) => Observable<Action> {
     return (source: Observable<{ currentOffset: number; offsetIterator: number }>): Observable<Action> =>
       source.pipe(
@@ -223,7 +267,7 @@ export class ActivitiesEffects {
   }
 
   private loadActivityId(
-    getActivity: (activityId: string) => Observable<GetProfileActivity>,
+    getActivity: (activityId: string) => Observable<IActivity>,
   ): (source: Observable<string>) => Observable<Action> {
     return (source: Observable<string>): Observable<Action> =>
       source.pipe(
@@ -237,9 +281,10 @@ export class ActivitiesEffects {
   }
 }
 
-type ActionFromModalResultFactory = (
-  payload: { getProfileActivity: GetProfileActivity; isImportant: boolean },
-) => ReadonlyArray<Action>;
+type ActionFromModalResultFactory = (payload: {
+  getProfileActivity: GetProfileActivity;
+  isImportant: boolean;
+}) => ReadonlyArray<Action>;
 type ModalResultToActionMapper = (
   source: Observable<{
     getProfileActivity: GetProfileActivity;

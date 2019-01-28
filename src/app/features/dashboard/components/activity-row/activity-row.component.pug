@@ -25,6 +25,6 @@
     .activity-row__money([ngSwitch]="activityType")
       span.date {{ date | decorateDate | translate }}
       span(*ngSwitchCase="activityTypes.SERVICEUSAGEEVENT")
-        plat-money-display.money([money]="operationAmount", sign="+")
+        plat-money-display.money([money]="operationAmount", [sign]="moneySign")
       span(*ngSwitchDefault)
         plat-money-display.money([money]="operationAmount")

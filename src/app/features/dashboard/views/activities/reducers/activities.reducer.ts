@@ -1,5 +1,7 @@
 import { GetProfileActivity } from '@anymind-ng/api';
 import { ActivitiesActions, ActivitiesApiActions, ActivitiesPageActions, ActivitiesWsActions } from '../actions';
+import { IActivity } from '@platform/features/dashboard/views/activities/activities.interface';
+import { ActivitiesUtilsService } from '@platform/features/dashboard/views/activities/services/activities-utils.service';
 
 type ActionUnion =
   | ActivitiesActions.ActivitiesActionUnion
@@ -8,9 +10,9 @@ type ActionUnion =
   | ActivitiesWsActions.ActivitiesWsActionUnion;
 
 export interface IState {
-  importantActivitiesList: ReadonlyArray<GetProfileActivity>;
+  importantActivitiesList: ReadonlyArray<IActivity>;
   importantActivitiesCount: number;
-  activitiesList: ReadonlyArray<GetProfileActivity>;
+  activitiesList: ReadonlyArray<IActivity>;
   activitiesCount: number;
   isLoaded: boolean;
   isListFiltered: boolean;
@@ -51,6 +53,7 @@ export function reducer(state = initialState, action: ActionUnion): IState {
   switch (action.type) {
     case ActivitiesActions.ActivitiesActionTypes.LoadExpertActivitiesWithBalance:
     case ActivitiesActions.ActivitiesActionTypes.LoadCompanyActivitiesWithBalance:
+    case ActivitiesActions.ActivitiesActionTypes.LoadClientActivities:
       return {
         ...state,
         isLoaded: false,
@@ -74,6 +77,22 @@ export function reducer(state = initialState, action: ActionUnion): IState {
         isLoaded: true,
         currentOffset: action.payload.activitiesList.activities.length,
         displayedImportantActivitiesIds: sliceImportantActivities(action.payload.importantActivitiesList.activities),
+      };
+
+    case ActivitiesApiActions.ActivitiesApiActionTypes.LoadClientActivitiesWithImportantSuccess:
+      return {
+        ...state,
+        importantActivitiesList: ActivitiesUtilsService.mapClientActivities(
+          action.payload.importantActivitiesList.activities,
+        ),
+        importantActivitiesCount: action.payload.importantActivitiesList.count,
+        activitiesList: ActivitiesUtilsService.mapClientActivities(action.payload.activitiesList.activities),
+        activitiesCount: action.payload.activitiesList.count,
+        isLoaded: true,
+        currentOffset: action.payload.activitiesList.activities.length,
+        displayedImportantActivitiesIds: sliceImportantActivities(
+          ActivitiesUtilsService.mapClientActivities(action.payload.importantActivitiesList.activities),
+        ),
       };
 
     case ActivitiesApiActions.ActivitiesApiActionTypes.LoadActivitiesWithImportantFailure:
@@ -163,7 +182,9 @@ export function reducer(state = initialState, action: ActionUnion): IState {
 export const getImportantActivitiesList = (state: IState): ReadonlyArray<GetProfileActivity> =>
   state.importantActivitiesList;
 export const getImportantActivitiesCount = (state: IState): number => state.importantActivitiesCount;
-export const getActivitiesList = (state: IState): ReadonlyArray<GetProfileActivity> => state.activitiesList;
+export const getActivitiesList = (
+  state: IState,
+): ReadonlyArray<GetProfileActivity> | ReadonlyArray<GetProfileActivity> => state.activitiesList;
 export const getActivitiesCount = (state: IState): number => state.activitiesCount;
 export const getCurrentOffset = (state: IState): number => state.currentOffset;
 export const getOffsetIterator = (state: IState): number => state.offsetIterator;

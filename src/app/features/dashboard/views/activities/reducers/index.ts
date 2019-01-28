@@ -21,12 +21,12 @@ export const reducers: ActionReducerMap<IActivitiesState, any> = {
 
 /**
  * selector for activities part of the store
- * from lazdy loaded module
+ * from lazy loaded module
  */
 export const getActivitiesState = createFeatureSelector<IState, IActivitiesState>('activities');
 
 /**
- * selectors for activieties
+ * selectors for activities
  */
 const getActivities = createSelector(
   getActivitiesState,
@@ -78,8 +78,8 @@ export const getImportantActivitiesOffset = createSelector(
   fromActivites.getImportantActivitiesOffset,
 );
 /**
- * selectors for activieties with logic
- * combine selectors for activites and important activites
+ * selectors for activities with logic
+ * combine selectors for activities and important activities
  */
 export const getAllActivitiesList = createSelector(
   getActivitiesList,
@@ -143,5 +143,5 @@ export const getBalanceIsLoaded = createSelector(
 export const getIsLoaded = createSelector(
   getBalanceIsLoaded,
   getActivitiesIsLoaded,
-  (balanceIsLoaded, activitiesIsLoaded) => balanceIsLoaded && activitiesIsLoaded,
+  (isBalanceLoaded, isActivitiesLoaded) => isBalanceLoaded && isActivitiesLoaded,
 );

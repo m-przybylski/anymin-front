@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   ActivitiesService,
   FinancesService,
+  GetClientActivities,
+  GetClientActivity,
   GetProfileActivities,
   GetProfileActivity,
   GetProfileBalance,
@@ -15,6 +17,7 @@ import * as fromActivities from '@platform/features/dashboard/views/activities/r
 import { ActivitiesWsActions } from '@platform/features/dashboard/views/activities/actions';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IActivitiesClientData } from '@platform/features/dashboard/views/activities/activities.interface';
 
 export interface IActivitiesData {
   importantActivitiesList: GetProfileActivities;
@@ -34,6 +37,42 @@ export class ActivitiesListService extends Logger {
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ActivitiesService'));
+  }
+
+  /* CLIENT ACTIVITIES METHODS */
+  public getClientAllActivities(
+    activitiesLimit = this.activitiesLimit,
+    activitiesOffset = this.activitiesOffset,
+  ): Observable<IActivitiesClientData> {
+    return forkJoin([
+      this.activitiesService.getClientImportantActivitiesRoute().pipe(
+        catchError(error => {
+          this.loggerService.warn(`Can not get client important activities view: ${error}`);
+
+          return throwError(error);
+        }),
+      ),
+      this.activitiesService.getClientActivitiesRoute(`${activitiesLimit}`, `${activitiesOffset}`),
+    ]).pipe(
+      map(([importantActivitiesList, activitiesList]) => ({
+        importantActivitiesList,
+        activitiesList,
+      })),
+    );
+  }
+
+  public getClientActivities(activitiesLimit: number, activitiesOffset: number): Observable<GetClientActivities> {
+    return this.activitiesService.getClientActivitiesRoute(`${activitiesLimit}`, `${activitiesOffset}`);
+  }
+
+  public listenToClientWS(): Observable<void> {
+    return this.anymindWebSocket.importantClientActivity.pipe(
+      tap(activityId => this.store.dispatch(new ActivitiesWsActions.NewClientActivityNotificationAction(activityId))),
+    );
+  }
+
+  public getClientActivity(activityId: string): Observable<GetClientActivity> {
+    return this.activitiesService.getClientActivityRoute(activityId);
   }
 
   /* EXPERT ACTIVITIES METHODS */
@@ -129,7 +168,9 @@ export class ActivitiesListService extends Logger {
   public listenToCompanyWS(): Observable<void> {
     return merge(
       this.anymindWebSocket.importantCompanyActivity.pipe(
-        tap(activityId => this.store.dispatch(new ActivitiesWsActions.NewExpertActivityNotificationAction(activityId))),
+        tap(activityId =>
+          this.store.dispatch(new ActivitiesWsActions.NewCompanyActivityNotificationAction(activityId)),
+        ),
       ),
       this.anymindWebSocket.profileCallProfit.pipe(
         tap(({ balanceAfter }) => this.store.dispatch(new ActivitiesWsActions.BalanceUpdateAction(balanceAfter))),

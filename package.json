@@ -76,7 +76,7 @@
     "papaparse": "^4.6.2",
     "raven-js": "^3.10.0",
     "reset.css": "^2.0.2",
-    "rxjs": "^6.3.3",
+    "rxjs": "6.3.3",
     "symbol-observable": "^1.2.0",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.26"

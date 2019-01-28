@@ -1,7 +1,12 @@
 // tslint:disable:max-classes-per-file
 import { Action } from '@ngrx/store';
-import { GetProfileActivities, GetProfileActivity } from '@anymind-ng/api';
-import { IActivitiesData } from '@platform/features/dashboard/views/activities/activities.interface';
+import { GetProfileActivities } from '@anymind-ng/api';
+import {
+  IActivitiesClientData,
+  IActivitiesData,
+  IActivity,
+  IGetActivities,
+} from '@platform/features/dashboard/views/activities/activities.interface';
 
 export enum ActivitiesApiActionTypes {
   LoadActivitiesSuccess = '[Activities API] Load Activities Success',
@@ -10,6 +15,8 @@ export enum ActivitiesApiActionTypes {
   LoadActivitiesWithImportantFailure = '[Activities API] Load All Activities Failure',
   LoadActivitySuccess = '[Activities API] Load Activity Success',
   LoadActivityFailure = '[Activities API] Load Activity Failure',
+  LoadClientActivitiesWithImportantSuccess = '[Activities API] Load Client Activity Success',
+  LoadClientActivitiesWithImportantFailure = '[Activities API] Load Client Activity Failure',
   LoadFilteredActivitiesSuccess = '[Activities API] Load Filtered Activities Success',
   LoadFilteredActivitiesFailure = '[Activities API] Load Filtered Activities Failure',
 }
@@ -27,10 +34,23 @@ export class LoadActivitiesWithImportantFailureAction implements Action {
   constructor(public payload: any) {}
 }
 
+export class LoadClientActivitiesWithImportantSuccessAction implements Action {
+  public readonly type = ActivitiesApiActionTypes.LoadClientActivitiesWithImportantSuccess;
+
+  constructor(public payload: IActivitiesClientData) {}
+}
+
+export class LoadClientActivitiesWithImportantFailureAction implements Action {
+  public readonly type = ActivitiesApiActionTypes.LoadClientActivitiesWithImportantFailure;
+
+  // tslint:disable-next-line:no-any
+  constructor(public payload: any) {}
+}
+
 export class LoadActivitiesSuccessAction implements Action {
   public readonly type = ActivitiesApiActionTypes.LoadActivitiesSuccess;
 
-  constructor(public payload: GetProfileActivities) {}
+  constructor(public payload: IGetActivities) {}
 }
 
 export class LoadActivitiesFailureAction implements Action {
@@ -43,7 +63,7 @@ export class LoadActivitiesFailureAction implements Action {
 export class LoadActivitySuccessAction implements Action {
   public readonly type = ActivitiesApiActionTypes.LoadActivitySuccess;
 
-  constructor(public payload: GetProfileActivity) {}
+  constructor(public payload: IActivity) {}
 }
 
 export class LoadActivityFailureAction implements Action {
@@ -69,6 +89,8 @@ export class LoadFilteredActivitiesFailureAction implements Action {
 export type ActivitiesApiActionUnion =
   | LoadActivitiesWithImportantSuccessAction
   | LoadActivitiesWithImportantFailureAction
+  | LoadClientActivitiesWithImportantSuccessAction
+  | LoadClientActivitiesWithImportantFailureAction
   | LoadActivitiesSuccessAction
   | LoadActivitiesFailureAction
   | LoadActivitySuccessAction

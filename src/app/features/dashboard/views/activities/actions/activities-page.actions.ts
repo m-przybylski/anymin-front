@@ -5,11 +5,13 @@ import { GetProfileActivity } from '@anymind-ng/api';
 export enum ActivitiesPageActionTypes {
   LoadMoreExpertActivities = '[Activities Page] Load More Expert Activities',
   LoadMoreCompanyActivities = '[Activities Page] Load More Company Activities',
+  LoadMoreClientActivities = '[Activity Page] Load More Client Activities',
   ShowImportantActivities = '[Activities Page] Show Important Activities',
   HideImportantActivities = '[Activities Page] Hide Important Activities',
   ActivityDetailsClosed = '[Activities Page] Activity Details Closed',
   ExpertActivityRowClick = '[Activity Page] Expert Activity Row Click',
   CompanyActivityRowClick = '[Activity Page] Company Activity Row Click',
+  ClientActivityRowClick = '[Activity Page] Client Activity Row Click',
   LoadFilteredCompanyActivities = '[Activity Page] Load Filtered Company Activities',
 }
 
@@ -21,6 +23,12 @@ export class LoadMoreExpertActivitiesAction implements Action {
 
 export class LoadMoreCompanyActivitiesAction implements Action {
   public readonly type = ActivitiesPageActionTypes.LoadMoreCompanyActivities;
+
+  constructor(public payload: { currentOffset: number; offsetIterator: number }) {}
+}
+
+export class LoadMoreClientActivitiesAction implements Action {
+  public readonly type = ActivitiesPageActionTypes.LoadMoreClientActivities;
 
   constructor(public payload: { currentOffset: number; offsetIterator: number }) {}
 }
@@ -51,6 +59,12 @@ export class CompanyActivityRowClickAction implements Action {
   constructor(public payload: { getProfileActivity: GetProfileActivity; isImportant: boolean }) {}
 }
 
+export class ClientActivityRowClickAction implements Action {
+  public readonly type = ActivitiesPageActionTypes.ClientActivityRowClick;
+
+  constructor(public payload: { getProfileActivity: GetProfileActivity; isImportant: boolean }) {}
+}
+
 export class LoadFilteredCompanyActivitiesAction implements Action {
   public readonly type = ActivitiesPageActionTypes.LoadFilteredCompanyActivities;
 
@@ -65,4 +79,6 @@ export type ActivitiesPageActionUnion =
   | ActivityDetailsClosedAction
   | ExpertActivityRowClickAction
   | CompanyActivityRowClickAction
-  | LoadFilteredCompanyActivitiesAction;
+  | LoadFilteredCompanyActivitiesAction
+  | LoadMoreClientActivitiesAction
+  | ClientActivityRowClickAction;

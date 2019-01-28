@@ -1,14 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, TrackByFunction, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
 import { GetProfileActivity } from '@anymind-ng/api';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as fromActivities from './reducers';
-import { take, map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { ActivitiesPageActions, ActivitiesActions } from '@platform/features/dashboard/views/activities/actions';
+import { ActivitiesActions, ActivitiesPageActions } from '@platform/features/dashboard/views/activities/actions';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.interface';
 import { Animations } from '@platform/shared/animations/animations';
+import { Logger } from '@platform/core/logger';
+import { LoggerFactory } from '@anymind-ng/core';
 
 export interface IProfileActivitiesWithStatus {
   activity: GetProfileActivity;
@@ -28,7 +30,8 @@ export enum ActivitiesFilterEnum {
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [Animations.addItemAnimation],
 })
-export class ActivitiesComponent implements OnInit, OnDestroy {
+export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
+  public listType: ActivityListTypeEnum = this.route.snapshot.data.activityListType;
   public isImportantListShown$ = this.store.pipe(select(fromActivities.getShowImportantActivities));
   public isMoreActivity$ = this.store.pipe(select(fromActivities.isMoreActivity));
   public displayedImportantActivities$ = this.store.pipe(select(fromActivities.getDisplayedImportantActivities));
@@ -43,9 +46,12 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.updateActivitiesStatus(activitiesList, importantActivitiesList),
     ),
   );
-  public isLoaded$ = this.store.pipe(select(fromActivities.getIsLoaded));
+  public isLoaded$ = this.store.pipe(
+    select(
+      this.listType !== ActivityListTypeEnum.CLIENT ? fromActivities.getIsLoaded : fromActivities.getActivitiesIsLoaded,
+    ),
+  );
   public isListFiltered$ = this.store.pipe(select(fromActivities.getIsListFiltered));
-  public listType: ActivityListTypeEnum;
   public activityListTypeEnum = ActivityListTypeEnum;
   public activitiesFilterEnum = ActivitiesFilterEnum;
   public dropdownVisibility: 'hidden' | 'visible' = 'hidden';
@@ -61,20 +67,28 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     private store: Store<fromActivities.IState>,
     private activitiesService: ActivitiesListService,
     private route: ActivatedRoute,
-  ) {}
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory.createLoggerService('ActivitiesComponent'));
+  }
 
   public ngOnInit(): void {
-    const activityListType: ActivityListTypeEnum = this.route.snapshot.data.activityListType;
-    this.store.dispatch(
-      activityListType === ActivityListTypeEnum.EXPERT
-        ? new ActivitiesActions.LoadExpertActivitiesWithBalanceAction()
-        : new ActivitiesActions.LoadCompanyActivitiesWithBalanceAction(),
-    );
-    this.listType = this.route.snapshot.data.activityListType;
-    this.wsSubscription =
-      this.listType === ActivityListTypeEnum.EXPERT
-        ? this.activitiesService.listenToExpertWS().subscribe()
-        : this.activitiesService.listenToCompanyWS().subscribe();
+    switch (this.listType) {
+      case ActivityListTypeEnum.EXPERT:
+        this.store.dispatch(new ActivitiesActions.LoadExpertActivitiesWithBalanceAction());
+        this.wsSubscription = this.activitiesService.listenToExpertWS().subscribe();
+        break;
+      case ActivityListTypeEnum.COMPANY:
+        this.store.dispatch(new ActivitiesActions.LoadCompanyActivitiesWithBalanceAction());
+        this.wsSubscription = this.activitiesService.listenToCompanyWS().subscribe();
+        break;
+      case ActivityListTypeEnum.CLIENT:
+        this.store.dispatch(new ActivitiesActions.LoadClientActivitiesAction());
+        this.wsSubscription = this.activitiesService.listenToClientWS().subscribe();
+        break;
+      default:
+        this.loggerService.error('Unhandled activities list type');
+    }
   }
 
   public ngOnDestroy(): void {
@@ -92,17 +106,23 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
         take(1),
       )
       .subscribe(({ current, iterator }) => {
-        this.store.dispatch(
-          this.listType === ActivityListTypeEnum.EXPERT
-            ? new ActivitiesPageActions.LoadMoreExpertActivitiesAction({
-                currentOffset: current,
-                offsetIterator: iterator,
-              })
-            : new ActivitiesPageActions.LoadMoreCompanyActivitiesAction({
-                currentOffset: current,
-                offsetIterator: iterator,
-              }),
-        );
+        const payload = {
+          currentOffset: current,
+          offsetIterator: iterator,
+        };
+        switch (this.listType) {
+          case ActivityListTypeEnum.EXPERT:
+            this.store.dispatch(new ActivitiesPageActions.LoadMoreExpertActivitiesAction(payload));
+            break;
+          case ActivityListTypeEnum.COMPANY:
+            this.store.dispatch(new ActivitiesPageActions.LoadMoreCompanyActivitiesAction(payload));
+            break;
+          case ActivityListTypeEnum.CLIENT:
+            this.store.dispatch(new ActivitiesPageActions.LoadMoreClientActivitiesAction(payload));
+            break;
+          default:
+            this.loggerService.error('Unhandled activities list type');
+        }
       });
   };
 
@@ -119,17 +139,24 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   };
 
   public onActivityRowClicked = (selectedGetProfileActivity: GetProfileActivity, isImportant: boolean): void => {
-    this.store.dispatch(
-      this.listType === ActivityListTypeEnum.EXPERT
-        ? new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity: selectedGetProfileActivity,
-            isImportant,
-          })
-        : new ActivitiesPageActions.CompanyActivityRowClickAction({
-            getProfileActivity: selectedGetProfileActivity,
-            isImportant,
-          }),
-    );
+    const payload = {
+      getProfileActivity: selectedGetProfileActivity,
+      isImportant,
+    };
+
+    switch (this.listType) {
+      case ActivityListTypeEnum.EXPERT:
+        this.store.dispatch(new ActivitiesPageActions.ExpertActivityRowClickAction(payload));
+        break;
+      case ActivityListTypeEnum.COMPANY:
+        this.store.dispatch(new ActivitiesPageActions.CompanyActivityRowClickAction(payload));
+        break;
+      case ActivityListTypeEnum.CLIENT:
+        this.store.dispatch(new ActivitiesPageActions.ClientActivityRowClickAction(payload));
+        break;
+      default:
+        this.loggerService.error('Unhandled activities list type');
+    }
   };
 
   public onDropdownChoose = (type?: ActivitiesFilterEnum): void => {

@@ -5,6 +5,7 @@ import { GetProfileBalance } from '@anymind-ng/api';
 export enum ActivitiesWsActionTypes {
   NewExpertActivityNotification = '[Activities WS] New Expert Activity Notification',
   NewCompanyActivityNotification = '[Activities WS] New Company Activity Notification',
+  NewClientActivityNotification = '[Activities WS] New Client Activity Notification',
   BalanceUpdate = '[Activities WS] Balance Update',
 }
 
@@ -20,6 +21,12 @@ export class NewCompanyActivityNotificationAction implements Action {
   constructor(public payload: string) {}
 }
 
+export class NewClientActivityNotificationAction implements Action {
+  public readonly type = ActivitiesWsActionTypes.NewClientActivityNotification;
+
+  constructor(public payload: string) {}
+}
+
 export class BalanceUpdateAction implements Action {
   public readonly type = ActivitiesWsActionTypes.BalanceUpdate;
 
@@ -28,4 +35,5 @@ export class BalanceUpdateAction implements Action {
 export type ActivitiesWsActionUnion =
   | NewExpertActivityNotificationAction
   | NewCompanyActivityNotificationAction
+  | NewClientActivityNotificationAction
   | BalanceUpdateAction;

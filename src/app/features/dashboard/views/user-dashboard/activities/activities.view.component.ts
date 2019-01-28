@@ -10,8 +10,6 @@ import { GetImportantActivitiesCounters } from '@anymind-ng/api';
   providers: [ActivitiesService],
 })
 export class ActivitiesViewComponent {
-  public readonly isProductionReady = false;
-
   public counters: Observable<GetImportantActivitiesCounters>;
 
   constructor(activitiesService: ActivitiesService) {

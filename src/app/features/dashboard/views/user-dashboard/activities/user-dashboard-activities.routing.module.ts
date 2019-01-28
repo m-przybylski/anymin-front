@@ -26,7 +26,8 @@ const routes: Routes = [
       },
       {
         path: RouterPaths.dashboard.user.activities.client.getName,
-        redirectTo: '/dashboard/user/activities/expert',
+        component: ActivitiesComponent,
+        data: { activityListType: ActivityListTypeEnum.CLIENT },
       },
     ],
   },
