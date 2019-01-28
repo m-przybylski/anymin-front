@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoggerFactory } from '@anymind-ng/core';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
 import { Store } from '@ngrx/store';
@@ -36,7 +36,13 @@ export class ChangeNotificationComponent extends Logger implements OnInit, OnDes
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(isSubscribed => this.changeNotificationSubscription(isSubscribed));
 
-    this.changeNotificationComponentService.getNotificationSubscription().subscribe(isSubscribed => {
+    forkJoin(
+      this.changeNotificationComponentService.getPermissions(),
+      this.changeNotificationComponentService.getNotificationSubscription(),
+    ).subscribe(([isPermissionGranted, isSubscribed]) => {
+      if (!isPermissionGranted) {
+        this.anonymityControl.disable();
+      }
       this.anonymityControl.setValue(isSubscribed);
     });
   }

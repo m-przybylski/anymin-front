@@ -11,9 +11,14 @@ import { GetSessionWithAccount } from '@anymind-ng/api';
  * OneSignal web push SDK
  * https://documentation.onesignal.com/docs/web-push-sdk
  */
+export enum NotificationPermission {
+  default = 'default',
+  granted = 'granted',
+  denied = 'denied',
+}
 interface IOneSignal {
   isPushNotificationsEnabled(): Promise<boolean>;
-  getNotificationPermission(): Promise<'default' | 'granted' | 'denied'>;
+  getNotificationPermission(): Promise<NotificationPermission>;
   showHttpPrompt(options?: { force: boolean }): void;
   getUserId(): Promise<string | null>;
   getSubscription(): Promise<boolean>;
@@ -63,6 +68,10 @@ export class PushNotificationService extends Logger {
     return this.oneSignal$.pipe(mergeMap(oneSignal => from(oneSignal.getSubscription())));
   }
 
+  public getNotificationPermission(): Observable<NotificationPermission> {
+    return this.oneSignal$.pipe(mergeMap(oneSignal => from(oneSignal.getNotificationPermission())));
+  }
+
   public setSubscription(isSubscription: boolean): Observable<void> {
     return this.oneSignal$.pipe(
       map(oneSignal => {
@@ -73,22 +82,18 @@ export class PushNotificationService extends Logger {
 
   private registerForPushNotifications(oneSignal: IOneSignal, getSessionWithAccount: GetSessionWithAccount): void {
     if (!getSessionWithAccount.isExpert) {
-      return undefined;
+      return;
     }
     oneSignal
       .getNotificationPermission()
       .then(permission => {
-        if (permission === 'default') {
+        if (permission === NotificationPermission.default) {
           oneSignal.showHttpPrompt({ force: true });
-
-          return Promise.resolve();
         }
 
         if (permission === 'denied') {
           this.loggerService.warn('User does not want to receive notifications');
         }
-
-        return undefined;
       })
       .then(() => oneSignal.sendTag('accountId', getSessionWithAccount.account.id));
   }
@@ -119,9 +124,9 @@ export class PushNotificationService extends Logger {
             enable: false,
           },
           promptOptions: {
-            actionMessage: 'Poniewaz jestes ekspertem chcialbym wysalc Ci powiadomienia o nadchodzacych polaczeniach.',
-            acceptButtonText: 'Jasne, spamuj!',
-            cancelButtonText: 'Spierdalaj',
+            actionMessage: this.translate.instant('PUSH.PERMISSIONS.QUESTION'),
+            acceptButtonText: this.translate.instant('PUSH.PERMISSIONS.ACCEPT'),
+            cancelButtonText: this.translate.instant('PUSH.PERMISSIONS.REJECT'),
           },
           welcomeNotification: {
             title: this.translate.instant('PUSH.WELCOME.TITLE'),

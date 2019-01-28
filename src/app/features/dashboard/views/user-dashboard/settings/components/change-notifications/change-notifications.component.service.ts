@@ -3,8 +3,11 @@ import { Observable, throwError, EMPTY } from 'rxjs';
 import { AlertService, LoggerFactory, Alerts } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, take } from 'rxjs/operators';
-import { PushNotificationService } from '@platform/core/services/call/push-notifications.service';
+import { catchError, take, map } from 'rxjs/operators';
+import {
+  PushNotificationService,
+  NotificationPermission,
+} from '@platform/core/services/call/push-notifications.service';
 
 @Injectable()
 export class ChangeNotificationComponentService extends Logger {
@@ -28,6 +31,18 @@ export class ChangeNotificationComponentService extends Logger {
 
   public getNotificationSubscription(): Observable<boolean> {
     return this.pushNotificationService.getSubscription().pipe(take(1));
+  }
+
+  public getPermissions(): Observable<boolean> {
+    return this.pushNotificationService.getNotificationPermission().pipe(
+      map(permissions => {
+        if (permissions === NotificationPermission.granted) {
+          return true;
+        }
+
+        return false;
+      }),
+    );
   }
 
   private handleChangeAnonymityError(err: HttpErrorResponse): Observable<void> {
