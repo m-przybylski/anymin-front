@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AvatarSizeEnum } from 'app/shared/components/user-avatar/user-avatar.component';
+import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'plat-consultation-details',

@@ -1,8 +1,8 @@
 import { combineReducers, StoreModule } from '@ngrx/store';
-import * as fromCore from 'app/core/reducers/index';
+import * as fromCore from '@platform/core/reducers/index';
 import { Deceiver } from 'deceiver-core';
 import { ProfileDocument } from '@anymind-ng/api';
-import * as fromRoot from 'app/reducers/index';
+import * as fromRoot from '@platform/reducers/index';
 import { TestBed } from '@angular/core/testing';
 import { FilePreviewService, IFileType } from '@platform/shared/components/modals/file-preview/file-preview.service';
 import { LoggerFactory, LoggerService, WindowRef } from '@anymind-ng/core';
