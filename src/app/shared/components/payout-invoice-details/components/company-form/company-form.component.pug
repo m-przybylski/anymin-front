@@ -78,14 +78,14 @@
       h6.section__title {{ 'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.VAT.TITLE' | translate }}
       .vat-type-container
         am-core-input-radio.vat-type-container__input(
-          [value]="vatRateType._0",
+          [value]="vatRateType.COMPANY0",
           [controlName]="companyControlNames.VAT_RATE",
           [form]="companyForm",
           [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.VAT_0.LABEL'",
           [isDisabled]="isRequestPending",
         )
         am-core-input-radio.vat-type-container__input(
-          [value]="vatRateType._23",
+          [value]="vatRateType.COMPANY23",
           [controlName]="companyControlNames.VAT_RATE",
           [form]="companyForm",
           [label]="'DASHBOARD.PAYMENTS.INVOICE_MODAL.COMPANY.VAT_23.LABEL'",
