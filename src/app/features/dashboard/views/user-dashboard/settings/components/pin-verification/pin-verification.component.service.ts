@@ -3,9 +3,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { map, catchError } from 'rxjs/operators';
-import { AccountService, RecoverPasswordService } from '@anymind-ng/api';
+import { AccountService, PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { GetRecoverMethod } from '@anymind-ng/api/model/getRecoverMethod';
+import ClientAppTypeEnum = PostRecoverPassword.ClientAppTypeEnum;
 
 export enum PinVerificationStatus {
   SUCCESS,
@@ -38,11 +38,11 @@ export class PinVerificationComponentService {
     this.logger = loggerFactory.createLoggerService('PinVerificationComponentService');
   }
 
-  public verifyResetPasswordPinToken = (token: string, msisdn: string): Observable<PinVerificationStatus> =>
+  public verifyResetPasswordPinToken = (_token: string, msisdn: string): Observable<PinVerificationStatus> =>
     this.recoverPasswordService
-      .postRecoverPasswordVerifyMsisdnRoute({
-        token,
+      .postRecoverPasswordRoute({
         msisdn,
+        clientAppType: ClientAppTypeEnum.PLATFORM,
       })
       .pipe(
         map(() => PinVerificationStatus.SUCCESS),
@@ -59,15 +59,20 @@ export class PinVerificationComponentService {
         catchError(err => of(this.handleError(err))),
       );
 
-  public sendNewRecoverPasswordToken = (msisdn: string): Observable<GetRecoverMethod> =>
-    this.recoverPasswordService.postRecoverPasswordRoute({ msisdn }).pipe(catchError(this.handleResendPinCodeError));
+  public sendNewRecoverPasswordToken = (msisdn: string): Observable<undefined> =>
+    this.recoverPasswordService
+      .postRecoverPasswordRoute({
+        msisdn,
+        clientAppType: ClientAppTypeEnum.PLATFORM,
+      })
+      .pipe(catchError(this.handleResendPinCodeError));
 
   public sendNewChangeMsisdnToken = (msisdn: string): Observable<void> =>
     this.accountService
       .newMsisdnVerificationRoute({ unverifiedMsisdn: msisdn })
       .pipe(catchError(this.handleResendPinCodeError));
 
-  private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<GetRecoverMethod> => {
+  private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<undefined> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('error when try to recover password', httpError);
 

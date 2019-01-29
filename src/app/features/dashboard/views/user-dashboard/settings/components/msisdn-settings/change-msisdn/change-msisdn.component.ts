@@ -86,7 +86,9 @@ export class ChangeMsisdnComponent implements OnInit, AfterViewInit {
     getNotUndefinedSession(this.store)
       .pipe(take(1))
       .subscribe(getSessionWithAccount => {
-        this.currentUserMsisdn = getSessionWithAccount.account.msisdn.slice(this.prefixLength);
+        if (getSessionWithAccount.account.msisdn) {
+          this.currentUserMsisdn = getSessionWithAccount.account.msisdn.slice(this.prefixLength);
+        }
         this.changeMsisdnForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
         this.changeMsisdnForm.controls[this.msisdnControlName].setValue(this.currentUserMsisdn);
         this.modalAnimationComponentService.isPendingRequest().next(false);

@@ -4,7 +4,7 @@ import { ServiceWithEmployments, EmploymentWithExpertProfile } from '@anymind-ng
 import { CompanyProfileApiActions } from '../actions';
 
 export interface IState {
-  consultations: ServiceWithEmployments[];
+  consultations: ReadonlyArray<ServiceWithEmployments>;
 }
 
 type ActionUnion = CompanyProfileApiActions.CompanyProfileApiActionsUnion;
@@ -12,12 +12,12 @@ type ActionUnion = CompanyProfileApiActions.CompanyProfileApiActionsUnion;
 /** helper functions */
 const removeEmployment = (
   employmentId: string,
-  employments: EmploymentWithExpertProfile[],
+  employments: ReadonlyArray<EmploymentWithExpertProfile>,
 ): EmploymentWithExpertProfile[] => employments.filter(employment => employment.id !== employmentId);
 
 const removeExpertByEmployment = (
   employmentId: string,
-  consultations: ServiceWithEmployments[],
+  consultations: ReadonlyArray<ServiceWithEmployments>,
 ): ServiceWithEmployments[] =>
   consultations.map(consultation => ({
     ...consultation,
@@ -46,4 +46,4 @@ export function reducer(state: IState = initialState, action: ActionUnion): ISta
   }
 }
 
-export const getConsultations = (state: IState): ServiceWithEmployments[] => state.consultations;
+export const getConsultations = (state: IState): ReadonlyArray<ServiceWithEmployments> => state.consultations;

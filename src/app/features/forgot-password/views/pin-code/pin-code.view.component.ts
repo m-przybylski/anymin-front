@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, InputPinCodeErrorsEnum, LoggerService } from '@anymind-ng/core';
-import { RecoverPasswordService } from '@anymind-ng/api';
+import { PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { VerifiedCodeService } from '../../verified-code.service';
@@ -11,6 +11,7 @@ import { ForgotPasswordPinCodeViewService, ForgotPasswordPinCodeServiceStatus } 
 import { HttpErrorResponse } from '@angular/common/http';
 import { PinCodeTimerService } from '../../../../shared/services/pin-code-timer/pin-code.timer.service';
 import { LoginHelperService } from '../../../login/services/login-helper.service';
+import ClientAppTypeEnum = PostRecoverPassword.ClientAppTypeEnum;
 
 @Component({
   templateUrl: './pin-code.view.component.html',
@@ -72,7 +73,7 @@ export class ForgotPasswordPinCodeViewComponent implements OnInit, OnDestroy {
   public resendPinCode = (): void => {
     this.startPinCodeTimer();
     this.recoverPasswordService
-      .postRecoverPasswordRoute({ msisdn: this.msisdn })
+      .postRecoverPasswordRoute({ msisdn: this.msisdn, clientAppType: ClientAppTypeEnum.PLATFORM })
       .pipe(catchError(this.handleResendPinCodeError))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe();

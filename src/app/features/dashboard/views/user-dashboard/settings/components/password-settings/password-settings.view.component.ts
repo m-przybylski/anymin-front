@@ -1,6 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { ModalContainerTypeEnum } from '@platform//shared/components/modals/modal/modal.component';
-import { PostRecoverPassword } from '@anymind-ng/api';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { PinVerificationStatus } from '../pin-verification/pin-verification.component.service';
 import { IPinVerificationStatus, PinVerificationPurposeEnum } from '../pin-verification/pin-verification.component';
@@ -54,22 +53,9 @@ export class PasswordSettingsViewComponent implements AfterViewInit {
     this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
-  public onRecoverPassword = (recoverMethod: PostRecoverPassword.MethodEnum): void => {
-    switch (recoverMethod) {
-      case PostRecoverPassword.MethodEnum.EMAIL:
-        this.modalStep = ChangePasswordModalStepEnum.EMAIL_CONFIRMATION;
-        this.modalHeaderTrKey = this.modalHeaderTranslations.emailConfirmation;
-        break;
-
-      case PostRecoverPassword.MethodEnum.SMS:
-        this.modalStep = ChangePasswordModalStepEnum.PIN_VERIFICATION;
-        this.modalHeaderTrKey = this.modalHeaderTranslations.pinVerification;
-        break;
-
-      default:
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-        this.logger.error('unhandled password recover method', recoverMethod);
-    }
+  public onRecoverPassword = (): void => {
+    this.modalStep = ChangePasswordModalStepEnum.EMAIL_CONFIRMATION;
+    this.modalHeaderTrKey = this.modalHeaderTranslations.emailConfirmation;
   };
 
   public onPinVerification = (pinVerification: IPinVerificationStatus): void => {
@@ -91,7 +77,7 @@ export class PasswordSettingsViewComponent implements AfterViewInit {
     getNotUndefinedSession(this.store)
       .pipe(take(1))
       .subscribe(getSessionWithAccount => {
-        this.msisdn = getSessionWithAccount.account.msisdn;
+        this.msisdn = getSessionWithAccount.account.msisdn ? getSessionWithAccount.account.msisdn : '';
       });
   };
 }

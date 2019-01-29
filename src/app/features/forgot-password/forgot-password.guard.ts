@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { PostRecoverPassword, RecoverPasswordService, GetRecoverMethod } from '@anymind-ng/api';
+import { PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
 import { BackendErrors, isBackendError } from '../../shared/models/backend-error/backend-error';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { LoginHelperService } from '../login/services/login-helper.service';
+import ClientAppTypeEnum = PostRecoverPassword.ClientAppTypeEnum;
 
 @Injectable()
 export class ForgotPasswordGuard implements CanActivate {
@@ -25,57 +26,27 @@ export class ForgotPasswordGuard implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.recoverPasswordService
-      .postRecoverPasswordRoute({ msisdn: this.helper.addPlusToPhoneNumber(route.params.msisdn) })
-      .pipe(
-        tap(getRecoverMethod =>
-          this.redirect(getRecoverMethod.method, this.helper.trimPhoneNumber(route.params.msisdn)),
-        ),
-      )
+      .postRecoverPasswordRoute({
+        msisdn: this.helper.addPlusToPhoneNumber(route.params.msisdn),
+        clientAppType: ClientAppTypeEnum.PLATFORM,
+      })
+      .pipe(tap(_ => this.redirect(this.helper.trimPhoneNumber(route.params.msisdn))))
       .pipe(catchError(this.handleError))
       .pipe(map(() => false));
   }
 
-  private redirect = (methodType: PostRecoverPassword.MethodEnum, msisdn: string): void => {
-    switch (methodType) {
-      case PostRecoverPassword.MethodEnum.EMAIL:
-        this.router
-          .navigate([`/forgot-password/email/${msisdn}`])
-          .then(isRedirectSuccessful => {
-            if (!isRedirectSuccessful) {
-              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Can not redirect to forgot-password/email by method: ', methodType);
-            }
-          })
-          .catch(this.logger.error.bind(this));
-        break;
-
-      case PostRecoverPassword.MethodEnum.SMS:
-        this.router
-          .navigate([`/forgot-password/pin-code/${msisdn}`])
-          .then(isRedirectSuccessful => {
-            if (!isRedirectSuccessful) {
-              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Can not redirect to forgot-password/pin-code by method: ', methodType);
-            }
-          })
-          .catch(this.logger.error.bind(this));
-        break;
-
-      default:
-        this.logger.error('unhandled recover password method ', methodType);
-        this.router
-          .navigate(['/login'])
-          .then(isRedirectSuccessful => {
-            if (!isRedirectSuccessful) {
-              this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-              this.logger.warn('Can not redirect to login by method: ', methodType);
-            }
-          })
-          .catch(this.logger.error.bind(this));
-    }
+  private redirect = (msisdn: string): void => {
+    this.router
+      .navigate([`/forgot-password/email/${msisdn}`])
+      .then(isRedirectSuccessful => {
+        if (!isRedirectSuccessful) {
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+        }
+      })
+      .catch(this.logger.error.bind(this));
   };
 
-  private handleError = (httpError: HttpErrorResponse): Observable<GetRecoverMethod> => {
+  private handleError = (httpError: HttpErrorResponse): Observable<undefined> => {
     const err = httpError.error;
 
     if (isBackendError(err)) {

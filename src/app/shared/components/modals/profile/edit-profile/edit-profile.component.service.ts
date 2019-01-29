@@ -33,7 +33,7 @@ export class EditProfileComponentService extends Logger {
     super(loggerFactory.createLoggerService('EditProfileComponentService'));
   }
 
-  public editClientProfile(formData: PutGeneralSettings): Observable<PutGeneralSettings> {
+  public editClientProfile(formData: PutGeneralSettings): Observable<undefined> {
     return this.accountService
       .putGeneralSettingsRoute({
         nickname: formData.nickname,

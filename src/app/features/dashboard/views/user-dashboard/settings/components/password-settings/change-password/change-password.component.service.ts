@@ -1,4 +1,4 @@
-import { AccountService, RecoverPasswordService, GetRecoverMethod, PostRecoverPassword } from '@anymind-ng/api';
+import { AccountService, RecoverPasswordService, PostRecoverPassword } from '@anymind-ng/api';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -39,28 +39,11 @@ export class ChangePasswordComponentService {
       .pipe(map(this.handleChangePassword))
       .pipe(catchError(err => of(this.handleChangePasswordError(err))));
 
-  public resetPassword = (msisdn: string): Observable<ResetPasswordStatusEnum> =>
-    this.recoverPasswordService
-      .postRecoverPasswordRoute({ msisdn })
-      .pipe(map(this.handleResetPassword))
-      .pipe(catchError(err => of(this.handleResetPasswordError(err))));
-
-  private handleResetPassword = (recoverMethod: GetRecoverMethod): ResetPasswordStatusEnum => {
-    const method: PostRecoverPassword.MethodEnum = recoverMethod.method;
-    switch (method) {
-      case PostRecoverPassword.MethodEnum.EMAIL:
-        return ResetPasswordStatusEnum.RECOVER_BY_EMAIL;
-
-      case PostRecoverPassword.MethodEnum.SMS:
-        return ResetPasswordStatusEnum.RECOVER_BY_SMS;
-
-      default:
-        this.logger.error('unhandled recover password method ', method);
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-
-        return ResetPasswordStatusEnum.ERROR;
-    }
-  };
+  public resetPassword = (login: PostRecoverPassword): Observable<ResetPasswordStatusEnum> =>
+    this.recoverPasswordService.postRecoverPasswordRoute(login).pipe(
+      map(() => ResetPasswordStatusEnum.RECOVER_BY_SMS),
+      catchError(err => of(this.handleResetPasswordError(err))),
+    );
 
   private handleResetPasswordError = (httpError: HttpErrorResponse): ResetPasswordStatusEnum => {
     const err = httpError.error;

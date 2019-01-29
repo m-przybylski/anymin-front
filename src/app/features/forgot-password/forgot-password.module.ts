@@ -12,7 +12,6 @@ import { SetNewPasswordFromEmailViewComponent } from './views/set-new-password-f
 import { SetNewPasswordFromMsisdnViewComponent } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.component';
 import { SetNewPasswordFromMsisdnViewGuard } from './views/set-new-password-from-msisdn/set-new-password-from-msisdn.view.guard';
 import { SetNewPasswordFromEmailViewGuard } from './views/set-new-password-from-email/set-new-password-from-email.view.guard';
-import { SetNewPasswordFromEmailViewResolver } from './views/set-new-password-from-email/set-new-password-from-email.view.resolver';
 import { InputsModule } from '../../shared/components/inputs/inputs.module';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { InputsModule } from '../../shared/components/inputs/inputs.module';
     VerifiedCodeService,
     SetNewPasswordFromMsisdnViewGuard,
     SetNewPasswordFromEmailViewGuard,
-    SetNewPasswordFromEmailViewResolver,
   ],
   imports: [CommonModule, ReactiveFormsModule, ForgotPasswordRoutingModule, SharedModule, InputsModule],
 })

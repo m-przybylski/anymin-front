@@ -16,8 +16,8 @@ import {
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { InputSetPasswordErrors } from '../../../../../../../../shared/components/inputs/input-set-password/input-set-password.component';
-import { ModalAnimationComponentService } from '../../../../../../../../shared/components/modals/modal/animation/modal-animation.animation.service';
+import { InputSetPasswordErrors } from '@platform/shared/components/inputs/input-set-password/input-set-password.component';
+import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { PostRecoverPassword } from '@anymind-ng/api';
 
 @Component({
@@ -29,19 +29,15 @@ import { PostRecoverPassword } from '@anymind-ng/api';
 export class ChangePasswordComponent implements OnDestroy {
   @Input()
   public msisdn: string;
-
   @Output()
-  public resetPasswordMethodEmitter$: EventEmitter<PostRecoverPassword.MethodEnum> = new EventEmitter<
-    PostRecoverPassword.MethodEnum
+  public resetPasswordMethodEmitter$: EventEmitter<ResetPasswordStatusEnum> = new EventEmitter<
+    ResetPasswordStatusEnum
   >();
-
   public readonly passwordFormId = 'passwordForm';
   public readonly currentPasswordControlName = 'currentPassword';
   public readonly newPasswordControlName = 'newPassword';
-
   public passwordForm: FormGroup = new FormGroup({});
   public isRequestPending = false;
-
   private logger: LoggerService;
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -67,7 +63,6 @@ export class ChangePasswordComponent implements OnDestroy {
       this.isRequestPending = true;
       const currentPassword = passwordForm.value[this.currentPasswordControlName];
       const newPassword = passwordForm.value[this.newPasswordControlName];
-
       this.passwordService
         .changePassword(currentPassword, newPassword)
         .pipe(finalize(() => (this.isRequestPending = false)))
@@ -77,20 +72,20 @@ export class ChangePasswordComponent implements OnDestroy {
       this.formUtils.validateAllFormFields(passwordForm);
     }
   };
-
   public onResetPassword = (): void => {
     this.modalAnimationComponentService.isPendingRequest().next(true);
     this.passwordService
-      .resetPassword(this.msisdn)
+      .resetPassword({
+        msisdn: this.msisdn,
+        clientAppType: PostRecoverPassword.ClientAppTypeEnum.PLATFORM,
+      })
       .pipe(finalize(() => this.modalAnimationComponentService.isPendingRequest().next(false)))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(this.handleResetPasswordStatus);
   };
-
   private arePasswordsTheSame = (): boolean =>
     this.passwordForm.controls[this.currentPasswordControlName].value ===
     this.passwordForm.controls[this.newPasswordControlName].value;
-
   private updateValidationNewPasswordInput = (): void => {
     if (this.arePasswordsTheSame()) {
       this.passwordForm.controls[this.newPasswordControlName].setErrors({
@@ -100,14 +95,12 @@ export class ChangePasswordComponent implements OnDestroy {
       this.passwordForm.controls[this.newPasswordControlName].updateValueAndValidity();
     }
   };
-
   private displayIncorrectPasswordError = (): void => {
     this.passwordForm.controls[this.currentPasswordControlName].setErrors({
       [InputPasswordErrorsEnum.IncorrectPassword]: true,
     });
     this.formUtils.validateAllFormFields(this.passwordForm);
   };
-
   private displayTooManyUnsuccessfulAttemptsError = (): void => {
     this.passwordForm.controls[this.currentPasswordControlName].setErrors({
       [InputPasswordErrorsEnum.ToManyUnsuccessfulAttempts]: true,
@@ -120,19 +113,15 @@ export class ChangePasswordComponent implements OnDestroy {
       case ChangePasswordStatusEnum.SUCCESS:
         this.activeModal.close();
         break;
-
       case ChangePasswordStatusEnum.WRONG_PASSWORD:
         this.displayIncorrectPasswordError();
         break;
-
       case ChangePasswordStatusEnum.TOO_MANY_ATTEMPTS:
         this.displayTooManyUnsuccessfulAttemptsError();
         break;
-
       case ChangePasswordStatusEnum.ERROR:
         this.logger.info('handle change password ERROR status');
         break;
-
       default:
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('unhandled change password status', status);
@@ -142,21 +131,17 @@ export class ChangePasswordComponent implements OnDestroy {
   private handleResetPasswordStatus = (status: ResetPasswordStatusEnum): void => {
     switch (status) {
       case ResetPasswordStatusEnum.RECOVER_BY_EMAIL:
-        this.resetPasswordMethodEmitter$.emit(PostRecoverPassword.MethodEnum.EMAIL);
+        this.resetPasswordMethodEmitter$.emit(ResetPasswordStatusEnum.RECOVER_BY_EMAIL);
         break;
-
       case ResetPasswordStatusEnum.RECOVER_BY_SMS:
-        this.resetPasswordMethodEmitter$.emit(PostRecoverPassword.MethodEnum.SMS);
+        this.resetPasswordMethodEmitter$.emit(ResetPasswordStatusEnum.RECOVER_BY_SMS);
         break;
-
       case ResetPasswordStatusEnum.CREATE_PIN_CODE_TOO_RECENTLY:
         this.logger.info('handled CREATE_PIN_CODE_TOO_RECENTLY status');
         break;
-
       case ResetPasswordStatusEnum.ERROR:
         this.logger.info('handle ERROR status');
         break;
-
       default:
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
         this.logger.error('unhandled change password status', status);

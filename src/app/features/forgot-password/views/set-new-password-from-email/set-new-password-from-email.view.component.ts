@@ -50,7 +50,7 @@ export class SetNewPasswordFromEmailViewComponent extends Logger implements OnIn
       )
       .subscribe(session => {
         if (typeof session !== 'undefined') {
-          this.msisdn = session.account.msisdn;
+          this.msisdn = session.account.msisdn ? session.account.msisdn : '';
         }
       });
   }

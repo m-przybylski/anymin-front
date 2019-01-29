@@ -28,16 +28,13 @@ export class PhoneNumberViewService extends Logger {
     ],
     [GetRegistrationStatus.StatusEnum.UNREGISTERED, { route: ['/login/pin-code', this.helper.trimPhoneNumber] }],
     [
-      GetRegistrationStatus.StatusEnum.NOPASSWORD,
+      GetRegistrationStatus.StatusEnum.UNREGISTERED,
       {
         route: ['/login/pin-code', this.helper.trimPhoneNumber],
         command: { queryParams: { noPasswordRegistrationStatus: true } },
       },
     ],
     [GetRegistrationStatus.StatusEnum.BLOCKED, { route: ['/login/blocked'] }],
-  ]);
-  private alertMap = new Map<GetRegistrationStatus.StatusEnum, string>([
-    [GetRegistrationStatus.StatusEnum.VERIFICATIONATTEMPTSEXCEEDED, 'ALERT.MSISDN_VERIFICATION_ATTEMPTS_EXCEEDED'],
   ]);
 
   constructor(
@@ -79,10 +76,6 @@ export class PhoneNumberViewService extends Logger {
       this.navigateToRoute(redirectTo.route, msisdn, redirectTo.command, status);
     }
 
-    const showAlert = this.alertMap.get(status);
-    if (showAlert !== undefined) {
-      this.alertService.pushDangerAlert(showAlert, { msisdn });
-    }
     this.removeInvitation(msisdn);
 
     return PhoneNumberServiceStatus.SUCCESS;

@@ -70,7 +70,7 @@ export class EmployeesInviteService {
       .pipe(first())
       .subscribe((session: GetSessionWithAccount) => {
         this.accountId = session.account.id;
-        this.accountMsisdn = session.account.msisdn;
+        this.accountMsisdn = session.account.msisdn ? session.account.msisdn : '';
         if (typeof session.account.email !== 'undefined') {
           this.accountEmail = session.account.email;
 
@@ -189,11 +189,13 @@ export class EmployeesInviteService {
   private getUnAcceptedInvitations = (
     serviceWithInvitation: GetServiceWithInvitations,
   ): ReadonlyArray<IEmployeesPendingInvitation> =>
-    serviceWithInvitation.invitations.filter(item => item.status === 'NEW').map(item => ({
-      email: item.email,
-      msisdn: item.msisdn,
-      employeeId: item.employeeId,
-    }));
+    serviceWithInvitation.invitations
+      .filter(item => item.status === 'NEW')
+      .map(item => ({
+        email: item.email,
+        msisdn: item.msisdn,
+        employeeId: item.employeeId,
+      }));
 
   private isMaxLengthInvitationReached = (): boolean => this.invitedEmployeeList.length >= this.maxInvitationLength;
   private isValidEmailAddress = (value: string): boolean => this.emailPattern.test(value);

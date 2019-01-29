@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService, Alerts, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Observable, of } from 'rxjs';
-import { RecoverPasswordService } from '@anymind-ng/api';
+import { PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
 import { catchError, map } from 'rxjs/operators';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginHelperService } from '../../../login/services/login-helper.service';
+import ClientAppTypeEnum = PostRecoverPassword.ClientAppTypeEnum;
 
 export enum ForgotPasswordPinCodeServiceStatus {
   SUCCESS,
@@ -35,10 +36,10 @@ export class ForgotPasswordPinCodeViewService {
     this.logger = loggerFactory.createLoggerService('ForgotPasswordPinCodeViewService');
   }
 
-  public checkPinCode = (token: string): Observable<ForgotPasswordPinCodeServiceStatus> =>
+  public checkPinCode = (_token: string): Observable<ForgotPasswordPinCodeServiceStatus> =>
     this.recoverPasswordService
-      .postRecoverPasswordVerifyMsisdnRoute({
-        token,
+      .postRecoverPasswordRoute({
+        clientAppType: ClientAppTypeEnum.PLATFORM,
         msisdn: this.msisdn,
       })
       .pipe(map(() => ForgotPasswordPinCodeServiceStatus.SUCCESS))

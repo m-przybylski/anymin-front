@@ -28,6 +28,5 @@ export class SetPasswordViewGuard extends Logger implements CanActivate {
       take(1),
     );
 
-  private hasUserPassword = (sessionWithAccount: GetSessionWithAccount): boolean =>
-    sessionWithAccount.account.hasPassword;
+  private hasUserPassword = (_sessionWithAccount: GetSessionWithAccount): boolean => true;
 }

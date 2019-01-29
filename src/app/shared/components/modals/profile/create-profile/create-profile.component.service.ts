@@ -35,7 +35,7 @@ export class CreateProfileComponentService extends Logger {
     );
   }
 
-  public createClientProfile(formData: PutGeneralSettings): Observable<PutGeneralSettings> {
+  public createClientProfile(formData: PutGeneralSettings): Observable<undefined> {
     return this.accountService
       .putGeneralSettingsRoute(formData)
       .pipe(this.handleResponseError('Can not create client profile'));

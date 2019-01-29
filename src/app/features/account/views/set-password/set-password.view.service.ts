@@ -101,7 +101,7 @@ export class SetPasswordViewService {
     return of(SetPasswordStatus.ERROR);
   };
 
-  private checkIsEmailExists = (email: string): Observable<SetPasswordStatus> =>
+  private checkIsEmailExists = (email: string): Observable<undefined> =>
     this.accountService.getAccountEmailExistsRoute(email);
 
   private isInvitationByEmail = (invitation?: IInvitationObject): boolean =>
