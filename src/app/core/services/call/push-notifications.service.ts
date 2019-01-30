@@ -88,7 +88,7 @@ export class PushNotificationService extends Logger {
       .getNotificationPermission()
       .then(permission => {
         if (permission === NotificationPermission.default) {
-          oneSignal.showHttpPrompt({ force: true });
+          oneSignal.showHttpPrompt();
         }
 
         if (permission === 'denied') {
