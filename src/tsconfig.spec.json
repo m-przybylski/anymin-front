@@ -6,6 +6,5 @@
     "allowJs": true,
     "types": ["jest", "node"]
   },
-  "files": ["test.ts", "app/app.module.ts", "polyfills.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

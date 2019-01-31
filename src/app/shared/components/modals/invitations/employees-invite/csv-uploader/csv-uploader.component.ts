@@ -10,7 +10,7 @@ import { Config } from '../../../../../../../config';
 
 @Component({
   selector: 'plat-csv-uploader',
-  templateUrl: './csv-uploader.html',
+  templateUrl: './csv-uploader.component.html',
   styleUrls: ['./csv-uploader.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

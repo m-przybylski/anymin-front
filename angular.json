@@ -78,15 +78,9 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "styles": ["src/styles.sass"],
-            "scripts": [],
-            "assets": []
+            "no-cache": true
           }
         },
         "lint": {

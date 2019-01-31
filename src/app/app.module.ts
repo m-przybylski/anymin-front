@@ -8,7 +8,6 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { RavenErrorHandler } from './shared/providers/raven-error-handler/raven-error-handler';
-import { ConfirmEmailModule } from './features/confirm-email/confirm-email.module';
 import { ModalsModule } from './shared/components/modals/modals.module';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './reducers';
@@ -33,7 +32,6 @@ registerLocaleData(localePl, getLocale);
     ModalsModule,
     CoreModule,
     SharedModule,
-    ConfirmEmailModule,
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
      * function or object map of reducer functions. If passed an object of

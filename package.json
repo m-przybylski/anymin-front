@@ -78,6 +78,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "@angular-builders/jest": "^7.2.1",
     "@angular-devkit/build-angular": "^0.11.4",
     "@angular/cli": "7.2.0",
     "@angular/compiler-cli": "7.2.0",
@@ -108,6 +109,7 @@
     "jest-zone-patch": "0.0.8",
     "lint-staged": "^7.2.2",
     "mkdirp": "^0.5.1",
+    "ngx-wallaby-jest": "0.0.1",
     "prettier": "^1.14.2",
     "promised-io": "^0.3.5",
     "pug": "^2.0.0-rc.4",
