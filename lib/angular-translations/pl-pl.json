@@ -36,6 +36,7 @@
   "ALERT.USER_HAS_CALL_ALREADY": "Aktualnie prowadzisz inną rozmowe, spróbuj ponownie po jej zakończeniu",
   "ALERT.CANT_CALL_YOURSELF": "Nie możesz zadzwonić do siebie",
   "ALERT.CANNOT_ACCESS_CAMERA": "Brak dostępu do kamery. Jeśli nie wyraziłeś zgody, możesz to zmienić w ustawieniach przeglądarki. W innym wypadku spróbuj zrestartować swój komputer.",
+  "ALERT.CONSULTATION_CONNECTION_BROKEN": "Konsultacja została przerwana. Twoje urządzenie zmieniło lub utraciło sieć.",
   "APP.BROWSER.FIREFOX": "Firefox",
   "APP.BROWSER.SUPPORT.CHROME": "Chrome",
   "APP.BROWSER.SUPPORT.INSTRUCTION": "Jeśli chcesz wykonywać połączenia, użyyj jednej z poniższych przeglądarek:",
