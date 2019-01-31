@@ -15,6 +15,7 @@ import { InputSetPasswordErrors } from '@platform/shared/components/inputs/input
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { SetNewPasswordActions, ForgotPasswordActions } from '@platform/core/actions';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
 
 @Injectable()
 export class SetNewPasswordFromMsisdnViewService {
@@ -29,6 +30,7 @@ export class SetNewPasswordFromMsisdnViewService {
     private alertService: AlertService,
     private msisdnHelper: MsisdnHelperService,
     private registrationInvitationService: RegistrationInvitationService,
+    private userSessionService: UserSessionService,
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
@@ -57,6 +59,7 @@ export class SetNewPasswordFromMsisdnViewService {
             tap(session => {
               this.store.dispatch(new SetNewPasswordActions.SetNewPasswordSuccessAction(session));
               this.determinateRedirectPath();
+              this.userSessionService.removeAllSessionsExceptCurrent();
               this.store.dispatch(new ForgotPasswordActions.UnsetMsisdnTokenAction());
             }),
             catchError(err => this.handleSetNewPasswordError(err, passwordControl)),

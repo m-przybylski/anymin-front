@@ -1,10 +1,11 @@
 import { AccountService } from '@anymind-ng/api';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { LoggerService, LoggerFactory, Alerts, AlertService } from '@anymind-ng/core';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
 
 export enum ChangePasswordStatusEnum {
   SUCCESS,
@@ -19,6 +20,7 @@ export class ChangePasswordComponentService {
 
   constructor(
     private accountService: AccountService,
+    private userSessionService: UserSessionService,
     private alertService: AlertService,
     loggerFactory: LoggerFactory,
   ) {
@@ -28,12 +30,13 @@ export class ChangePasswordComponentService {
   public changePassword(actualPassword: string, newPassword: string): Observable<ChangePasswordStatusEnum> {
     return this.accountService.changePasswordRoute({ actualPassword, newPassword }).pipe(
       map(() => this.handleChangePassword()),
-      catchError(err => of(this.handleChangePasswordError(err))),
+      catchError(err => throwError(this.handleChangePasswordError(err))),
     );
   }
 
   private handleChangePassword(): ChangePasswordStatusEnum {
     this.alertService.pushSuccessAlert(Alerts.ChangePasswordSuccess);
+    this.userSessionService.removeAllSessionsExceptCurrent();
 
     return ChangePasswordStatusEnum.SUCCESS;
   }

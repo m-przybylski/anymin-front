@@ -8,6 +8,8 @@ import { ChangePasswordComponentService, ChangePasswordStatusEnum } from './chan
 import { Deceiver } from 'deceiver-core';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { BackendErrors } from '@platform/shared/models/backend-error/backend-error';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 
 describe('Service: ChangePasswordComponentService', () => {
   const mockActualPassword = 'actualPassword';
@@ -24,6 +26,10 @@ describe('Service: ChangePasswordComponentService', () => {
         {
           provide: RecoverPasswordService,
           useValue: Deceiver(RecoverPasswordService, { postRecoverPasswordRoute: jest.fn() }),
+        },
+        {
+          provide: UserSessionService,
+          useValue: Deceiver(UserSessionService, { removeAllSessionsExceptCurrent: jest.fn() }),
         },
         {
           provide: AlertService,
@@ -53,7 +59,7 @@ describe('Service: ChangePasswordComponentService', () => {
     tick();
   }));
 
-  it('should return ERROR status and show danger alert when change password failed without backend error', fakeAsync(() => {
+  it('should return ERROR status and show danger alert when change password failed without backend error', () => {
     const mockAccountService = TestBed.get(AccountService);
     const mockAlertService = TestBed.get(AlertService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
@@ -73,8 +79,7 @@ describe('Service: ChangePasswordComponentService', () => {
         expect(err).toEqual(ChangePasswordStatusEnum.ERROR);
       },
     );
-    tick();
-  }));
+  });
   it(
     'should return ERROR status and show danger alert when change password failed with' + 'unhandled backend error',
     fakeAsync(() => {
@@ -179,4 +184,16 @@ describe('Service: ChangePasswordComponentService', () => {
       tick();
     }),
   );
+
+  it('should remove all session after password change', () => {
+    const mockAccountService: AccountService = TestBed.get(AccountService);
+    const userSessionService: UserSessionService = TestBed.get(UserSessionService);
+    const changePasswordComponentService: ChangePasswordComponentService = TestBed.get(ChangePasswordComponentService);
+    (mockAccountService.changePasswordRoute as jest.Mock).mockReturnValue(cold('--a|', { a: undefined }));
+    getTestScheduler().flush();
+    expect(changePasswordComponentService.changePassword('🔥🔥🔥', '🌊🌊🌊')).toBeObservable(
+      cold('--a|', { a: ChangePasswordStatusEnum.SUCCESS }),
+    );
+    expect(userSessionService.removeAllSessionsExceptCurrent).toHaveBeenCalled();
+  });
 });

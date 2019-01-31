@@ -5,7 +5,7 @@ import * as fromCore from '@platform/core/reducers';
 import { Logger } from '@platform/core/logger';
 import { CallState, LoggerFactory } from '@anymind-ng/core';
 import { AuthActions } from '@platform/core/actions';
-import { switchMap, filter, map } from 'rxjs/operators';
+import { switchMap, filter, map, tap } from 'rxjs/operators';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { CallService, IExpertSessionCall } from '@platform/core/services/call/call.service';
@@ -21,7 +21,7 @@ export class RemoteLogoutService extends Logger {
     super(loggerFactory.createLoggerService('RemoteLogoutService'));
   }
 
-  public listenForRemovedSession = (): void => {
+  public listenForRemovedSession(): void {
     getNotUndefinedSession(this.store)
       .pipe(
         switchMap((sessionWithAccount: GetSessionWithAccount) =>
@@ -29,6 +29,9 @@ export class RemoteLogoutService extends Logger {
             filter(deletedSessionApiKey => deletedSessionApiKey === sessionWithAccount.session.apiKey),
           ),
         ),
+        tap(() => {
+          this.store.dispatch(new AuthActions.LogoutRemoteAction());
+        }),
         switchMap(() =>
           this.callService.newCall$.pipe(
             map((res: IExpertSessionCall) => {
@@ -41,7 +44,6 @@ export class RemoteLogoutService extends Logger {
       )
       .subscribe(() => {
         this.loggerService.debug('User logout remotely');
-        this.store.dispatch(new AuthActions.LogoutRemoteAction());
       });
-  };
+  }
 }

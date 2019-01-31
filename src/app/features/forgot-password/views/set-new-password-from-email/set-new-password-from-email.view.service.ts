@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { InputSetPasswordErrors } from '@platform/shared/components/inputs/input-set-password/input-set-password.component';
 import { AbstractControl } from '@angular/forms';
+import { UserSessionService } from '@platform/core/services/user-session/user-session.service';
 
 @Injectable()
 export class SetNewPasswordFromEmailViewService {
@@ -28,6 +29,7 @@ export class SetNewPasswordFromEmailViewService {
     private route: ActivatedRoute,
     private store: Store<fromCore.IState>,
     private registrationInvitationService: RegistrationInvitationService,
+    private userSessionService: UserSessionService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewService');
@@ -41,6 +43,7 @@ export class SetNewPasswordFromEmailViewService {
       .pipe(
         tap(session => {
           this.store.dispatch(new SetNewPasswordActions.SetNewPasswordSuccessAction(session));
+          this.userSessionService.removeAllSessionsExceptCurrent();
           this.determinateRedirectPath();
         }),
       )
