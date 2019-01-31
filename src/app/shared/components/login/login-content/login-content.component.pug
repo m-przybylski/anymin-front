@@ -8,7 +8,7 @@
             alt="AnyMind_logo"
           )
         .title-container
-          h6 {{ titleTrKey | translate  }}
+          h6([innerHTML]="titleTrKey | translate")
             plat-tooltip(
               *ngIf="tooltipText",
               [tooltipText]="tooltipText",
