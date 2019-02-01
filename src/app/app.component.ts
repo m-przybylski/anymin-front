@@ -1,5 +1,3 @@
-// tslint:disable:no-var-requires
-// tslint:disable:no-require-imports
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
@@ -9,8 +7,6 @@ import { CallInvitationService } from './core/services/call/call-invitation.serv
 import * as moment from 'moment';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
 import { CallSessionService } from '@platform/core/services/call/call-session.service';
-
-const polishTranslations = require('../../lib/angular-translations/pl-pl.json');
 
 @Component({
   selector: 'app-root',
@@ -29,11 +25,8 @@ export class AppComponent {
     this.printVersion();
     this.printEnvironment();
 
-    translate.setTranslation('pl', polishTranslations);
-    translate.addLangs(['pl']);
-
-    translate.setDefaultLang('pl');
-    translate.use('pl');
+    translate.setDefaultLang('pl-pl');
+    translate.use('pl-pl');
 
     // no maintain of english translations. Turn back on when
     // specific decision is taken

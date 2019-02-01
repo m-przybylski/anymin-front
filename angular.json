@@ -26,6 +26,11 @@
               "src/assets",
               {
                 "glob": "**/*",
+                "input": "./lib/angular-translations/",
+                "output": "./assets/i18n/"
+              },
+              {
+                "glob": "**/*",
                 "input": "./src/root/",
                 "output": "./"
               }
