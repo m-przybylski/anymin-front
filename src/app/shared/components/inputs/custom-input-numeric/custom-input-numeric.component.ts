@@ -2,6 +2,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormUtilsService } from '@anymind-ng/core';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 export type InputTypes = 'tel' | 'number';
 
@@ -49,6 +50,9 @@ export class InputNumericComponent {
 
   @Input()
   public inputMask = '';
+
+  @Input()
+  public tooltipType: TooltipComponentDestinationEnum;
 
   public isFocused = false;
 

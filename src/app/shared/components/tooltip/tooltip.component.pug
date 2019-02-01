@@ -1,7 +1,7 @@
-.tooltip(tooltipPositionDirective, [tooltipHeader]="tooltipHeader", [contentTooltipElement]="contentTooltipElement", [textContent]="textContent", [tooltipText]="tooltipText | translate", (onClick)="toggleTooltip($event)")
+.tooltip(tooltipPositionDirective,
+  [tooltipHeader]="tooltipHeader",
+  (onClick)="toggleTooltip($event)")
+
   .tooltip__header(#tooltipHeader)
     span.tooltip__title
       span(plat-icon, iconClass="{{iconClass}}")
-
-  .tooltip__content([ngClass]="{'tooltip__content--visible': isVisible}", #contentTooltipElement)
-    p([innerHTML]="tooltipText | translate", #textContent)

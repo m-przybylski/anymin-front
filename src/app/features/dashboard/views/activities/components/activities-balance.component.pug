@@ -6,7 +6,8 @@
           span.activities-balance__profit-label(*ngIf="activityListType === activityListTypeEnum.EXPERT") {{ "ACTIVITIES.PROFIT_HEADER" | translate }}
           span.activities-balance__profit-label(*ngIf="activityListType === activityListTypeEnum.COMPANY") {{ "ACTIVITIES.PROFIT_HEADER_COMPANY" | translate }}
           plat-tooltip(
-          [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
+          [tooltipText]="'ACTIVITIES.PROFIT_HEADER.TOOLTIP.DESCRIPTION'",
+          [tooltipType]="tooltipType",
           )
         p.activities-balance__profit-money {{ combinedBalance.value | moneyDivider | currency: combinedBalance.currency:'symbol-narrow' }}
 
@@ -15,7 +16,8 @@
         .activities-balance__profit-header
           span.activities-balance__profit-label {{ "ACTIVITIES.BLOCKED_PROFIT_HEADER" | translate }}
           plat-tooltip(
-          [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'"
+          [tooltipText]="'ACTIVITIES.BLOCKED_PROFIT_HEADER.TOOLTIP.DESCRIPTION'",
+          [tooltipType]="tooltipType",
           )
         p.activities-balance__profit-money {{ combinedBlockedBalance.value | moneyDivider | currency: combinedBlockedBalance.currency:'symbol-narrow' }}
 

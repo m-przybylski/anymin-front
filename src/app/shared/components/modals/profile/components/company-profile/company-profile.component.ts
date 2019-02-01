@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Config } from 'src/config';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 @Component({
   selector: 'plat-company-profile',
@@ -16,6 +17,7 @@ export class CompanyProfileComponent {
   public maxValidFileSize = 30000000;
   public maxValidFilesCount = 20;
   public fileCategory = FileCategoryEnum.EXPERT_FILE;
+  public tooltipType = TooltipComponentDestinationEnum.MODAL;
 
   @Input()
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];

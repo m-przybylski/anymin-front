@@ -13,8 +13,9 @@ form.form.form--create-organization(
     header.modal-component__content__header
       span {{'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.ADD_BASIC_DATA.TITLE' | translate }}
         plat-tooltip(
-        [tooltipText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.TOOLTIP.DESCRIPTION'"
-      )
+        [tooltipText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.TOOLTIP.DESCRIPTION'",
+        [tooltipType]="tooltipType"
+        )
 
   .modal-form__row
     plat-basic-profile-data(

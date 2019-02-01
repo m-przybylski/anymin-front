@@ -1,0 +1,72 @@
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+
+$s-tooltip-content-max-width: 240px
+$s-tooltip-width: 24px
+$s-tooltip-array-indent: 15px
+$s-tooltip-array-width: 8px
+
+.tooltip-content
+  position: absolute
+  bottom: auto
+  border-radius: 8px
+  background: $c-white
+  text-align: left
+  box-shadow: 0 2px 8px 0 $c-lines
+  z-index: $z-index-1000
+  width: auto
+  max-width: $s-tooltip-content-max-width
+  padding: 8px 16px
+  
+  +smm
+    margin: 0
+
+  &::after
+    content: ""
+    position: absolute
+    width: 0
+    height: 0
+    bottom: -7px
+    margin: auto
+    border-top: $s-tooltip-array-width solid $c-white
+    border-right: $s-tooltip-array-width solid transparent
+    border-left: $s-tooltip-array-width solid transparent
+    right: $s-tooltip-array-indent
+  
+  &--center
+    right: 0
+    left: 0
+    transform: translateY(-$s-tooltip-array-indent)
+    width: calc(100vw - 24px) !important
+    margin: auto
+    
+    +xsm
+      width: auto
+      max-width: $s-tooltip-content-max-width
+    
+    &::after
+      content: none
+  
+  &--left
+    transform: translate(36px, -$s-tooltip-array-indent)
+    
+    &::after
+      left: auto
+      right: 15px
+  
+  &--right
+    transform: translate(-#{$s-tooltip-array-indent - ($s-tooltip-array-width / 2)}, -$s-tooltip-array-indent)
+    
+    &::after
+      right: auto
+      left: 15px
+  
+  &--component
+    p
+      white-space: pre
+  
+  .content
+    +tooltip-text
+    
+  
+  p
+    +tooltip-text

@@ -4,6 +4,7 @@ import { Animations } from '@platform/shared/animations/animations';
 import { Config } from 'src/config';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 @Component({
   selector: 'plat-expert-client-profile',
@@ -19,6 +20,7 @@ export class ExpertClientProfileComponent {
   public maxValidFileSize = 30000000;
   public maxValidFilesCount = 20;
   public fileCategory = FileCategoryEnum.EXPERT_FILE;
+  public tooltipType = TooltipComponentDestinationEnum.MODAL;
 
   @Input()
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];

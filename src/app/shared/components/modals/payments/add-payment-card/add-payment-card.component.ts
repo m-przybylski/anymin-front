@@ -16,6 +16,7 @@ import {
   FetchInitDefaultPaymentMethodAction,
   FetchInitPaymentsMethodAction,
 } from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-init.actions';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 export interface ICreditCardForm {
   codeCVControlName: string;
@@ -38,6 +39,7 @@ export class AddPaymentCard implements OnInit, AfterViewInit {
   public readonly nameSurnameControl = 'nameSurnameControl';
   public readonly emailControl = 'emailControl';
   public readonly cvcCardType = 'cvcCardType';
+  public readonly tooltipType: TooltipComponentDestinationEnum = TooltipComponentDestinationEnum.MODAL;
 
   public modalHeaderTitle = 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.MODAL.TITLE';
   public addPaymentCardFormGroup: FormGroup;

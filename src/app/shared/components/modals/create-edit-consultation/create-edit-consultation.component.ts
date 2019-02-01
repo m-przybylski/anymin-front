@@ -2,7 +2,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, Injector, OnInit } from '@angular/core';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory } from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
-import { Observable, EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { Config } from '../../../../../config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -20,6 +20,7 @@ import { Logger } from '@platform/core/logger';
 import { CONSULTATION_DETAILS } from './create-edit-consultation';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
@@ -54,7 +55,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   public modalHeaderTrKey = 'CREATE_EXPERT_CONSULTATION.HEADER.TITLE';
   public isEditModal = false;
   public isCompanyService = false;
-
+  public tooltipType: TooltipComponentDestinationEnum = TooltipComponentDestinationEnum.MODAL;
   private readonly polishCurrency = 'PLN';
   private readonly polandISOcode = 'pl';
   private readonly editConsultationTrKey = 'EDIT_EXPERT_CONSULTATION.HEADER.TITLE';

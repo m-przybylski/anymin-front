@@ -9,7 +9,8 @@
     header.modal-component__content__header
       span {{'EDIT_PROFILE.CONTENT.TITLE' | translate }}
         plat-tooltip(
-        [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'"
+        [tooltipText]="'EDIT_PROFILE.TOOLTIP.DESCRIPTION'",
+        [tooltipType]="tooltipType"
         )
 
     .modal-form__row

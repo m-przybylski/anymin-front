@@ -1,0 +1,12 @@
+.tooltip-content(
+  tooltipContentPositionDirective,
+  [tooltipCords]="tooltipHeaderPosition",
+  [contentTooltipElement]="contentTooltipElement",
+  [textContent]="textContent",
+  [tooltipText]="description | translate",
+  [DOMDestination]="DOMDestination",
+  #contentTooltipElement)
+
+  .content
+    p([innerHTML]="description | translate", #textContent)
+

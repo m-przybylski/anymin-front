@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.interface';
 import { GetProfileBalance, MoneyDto } from '@anymind-ng/api';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 @Component({
   selector: 'plat-activities-balance',
@@ -20,5 +21,6 @@ export class ActivitiesBalanceComponent {
   @Input()
   public activityListType: ActivityListTypeEnum;
 
+  public tooltipType = TooltipComponentDestinationEnum.COMPONENT;
   public activityListTypeEnum = ActivityListTypeEnum;
 }
