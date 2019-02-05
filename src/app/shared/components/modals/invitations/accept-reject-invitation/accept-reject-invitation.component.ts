@@ -70,6 +70,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
         this.serviceName = this.invitation.serviceName;
         this.serviceDescription = data.serviceDescription;
         this.isFreelance = data.isFreelance;
+        this.tagList = data.tagList;
         this.price = this.moneyPipe.transform(data.price);
         this.expertPrice = this.moneyPipe.transform(data.getCommissions.profileAmount);
       });
