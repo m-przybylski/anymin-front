@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Alerts, FormUtilsService, LoggerFactory, AlertService, InputEmailComponent } from '@anymind-ng/core';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { Subject, Observable } from 'rxjs';
 import { filter, skip, takeUntil } from 'rxjs/operators';
-import { RegisterActions } from '@platform/core/actions';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { Logger } from '@platform/core/logger';
+import { RegisterViewService } from '@platform/features/register/register.view.service';
 
 @Component({
   templateUrl: './register.view.component.html',
   styleUrls: ['./register.view.component.sass'],
 })
-export class RegisterViewComponent extends Logger implements OnInit, OnDestroy {
+export class RegisterViewComponent extends Logger implements OnInit, OnDestroy, AfterViewInit {
   public readonly registerFormId = 'pinCodeForm';
   public readonly loginControlName = 'login';
   public readonly passwordControlName = 'password';
@@ -29,6 +29,7 @@ export class RegisterViewComponent extends Logger implements OnInit, OnDestroy {
     private formUtils: FormUtilsService,
     private store: Store<fromCore.IState>,
     private alertService: AlertService,
+    private registerViewService: RegisterViewService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('RegisterViewComponent'));
@@ -53,6 +54,10 @@ export class RegisterViewComponent extends Logger implements OnInit, OnDestroy {
       });
   }
 
+  public ngAfterViewInit(): void {
+    this.registerForm.controls[this.loginControlName].patchValue(this.registerViewService.getLoginFromInvitation());
+  }
+
   public ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
@@ -60,13 +65,11 @@ export class RegisterViewComponent extends Logger implements OnInit, OnDestroy {
 
   public onFormSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.store.dispatch(
-        new RegisterActions.RegisterAction({
-          email: form.value[this.loginControlName],
-          password: form.value[this.passwordControlName],
-          isMarketingAllowed: form.value[this.termsOfMarketingControlName],
-        }),
-      );
+      this.registerViewService.register({
+        email: form.value[this.loginControlName],
+        password: form.value[this.passwordControlName],
+        isMarketingAllowed: form.value[this.termsOfMarketingControlName],
+      });
     } else {
       this.formUtils.validateAllFormFields(form);
     }

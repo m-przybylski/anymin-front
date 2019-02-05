@@ -59,4 +59,16 @@ export class RegistrationInvitationService {
       this.logger.error('RegistrationInvitationService: can not remove invitation item ', error);
     }
   };
+
+  public removeInvitationForDifferentUser(email?: string): void {
+    /**
+     * if user provide different login that it is in invitation
+     * we have to delete invitation from local storage
+     */
+    const invitationObject = this.getInvitationObject();
+    const loginFromInvitation = invitationObject && invitationObject.email;
+    if (loginFromInvitation !== undefined && email !== loginFromInvitation) {
+      this.removeInvitationObject();
+    }
+  }
 }

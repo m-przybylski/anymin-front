@@ -11,8 +11,8 @@ export class SetMsisdnToken implements Action {
   constructor(public payload: string) {}
 }
 
-export class UnsetMsisdnTokenAction implements Action {
+export class DeleteMsisdnTokenAction implements Action {
   public readonly type = ForgotPasswordApiActionsTypes.DeleteMsisdnToken;
 }
 
-export type ForgotPasswordApiActionsUnion = SetMsisdnToken | UnsetMsisdnTokenAction;
+export type ForgotPasswordApiActionsUnion = SetMsisdnToken | DeleteMsisdnTokenAction;

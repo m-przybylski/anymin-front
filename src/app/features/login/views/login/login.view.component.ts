@@ -48,7 +48,15 @@ export class LoginViewComponent extends Logger implements OnInit, OnDestroy {
     this.loginForm = new FormGroup({
       [this.loginControlName]: this.loginControl,
     });
-    this.loginControl.patchValue(this.loginService.getPhoneNumberFromInvitation());
+    /**
+     * if there is invitation in local storage
+     * we want to use login from it
+     */
+    const loginFromInvitation = this.loginService.getLoginFromInvitation();
+    if (loginFromInvitation) {
+      this.loginControl.patchValue(loginFromInvitation);
+      this.loginObject = { email: loginFromInvitation };
+    }
 
     this.store
       .pipe(

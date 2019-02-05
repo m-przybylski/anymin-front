@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { InputSwitchComponent } from './input-switch/input-switch.component';
-import { InputSetPasswordComponent } from './input-set-password/input-set-password.component';
 import { InputAddItemComponent } from './input-add-item/input-add-item.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -29,7 +28,6 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
   ],
   exports: [
     InputSwitchComponent,
-    InputSetPasswordComponent,
     InputAddItemComponent,
     InputNumericComponent,
     SelectPaymentMethodCardRadioComponent,
@@ -37,7 +35,6 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
   ],
   declarations: [
     InputSwitchComponent,
-    InputSetPasswordComponent,
     InputAddItemComponent,
     InputNumericComponent,
     SelectPaymentMethodCardRadioComponent,

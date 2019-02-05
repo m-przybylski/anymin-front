@@ -47,6 +47,8 @@ export class LoginRedirectAction implements Action {
 }
 export class DashboardRedirectAction implements Action {
   public readonly type = AuthActionTypes.DashboardRedirect;
+
+  constructor(public payload: GetSessionWithAccount) {}
 }
 export class LogoutRemoteAction implements Action {
   public readonly type = AuthActionTypes.LogoutRemote;

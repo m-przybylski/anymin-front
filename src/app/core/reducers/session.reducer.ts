@@ -45,7 +45,6 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       };
     }
     case AuthActions.AuthActionTypes.LoginSuccess:
-    case SetNewPasswordActions.SetNewPasswordActionsTypes.SetNewPasswordSuccess:
     case RegisterApiActions.RegisterApiActionsTypes.RegisterSuccess:
     case SessionApiActions.SessionWithAccountApiActionTypes.VerifyAccountByPin:
     case SessionApiActions.SessionWithAccountApiActionTypes.VerifyAccountByEmail:
@@ -53,6 +52,15 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       return {
         ...state,
         session: action.payload,
+        isFromBackend: true,
+        isPending: false,
+      };
+    }
+
+    case SetNewPasswordActions.SetNewPasswordActionsTypes.SetNewPasswordSuccess: {
+      return {
+        ...state,
+        session: action.payload.session,
         isFromBackend: true,
         isPending: false,
       };

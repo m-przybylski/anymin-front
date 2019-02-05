@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of, concat, from } from 'rxjs';
+import { of, concat, from, Observable } from 'rxjs';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';
-import { AuthActions, RegisterActions } from '@platform/core/actions';
-import { SessionService } from '@anymind-ng/api';
+import { AuthActions, RegisterActions, SetNewPasswordActions } from '@platform/core/actions';
+import { GetSessionWithAccount, SessionService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
 
 @Injectable()
 export class LoginEffects extends Logger {
@@ -20,7 +21,7 @@ export class LoginEffects extends Logger {
     switchMap(loginCredentials =>
       this.sessionService.login(loginCredentials).pipe(
         switchMap(session =>
-          from([new AuthActions.LoginSuccessAction(session), new AuthActions.DashboardRedirectAction()]),
+          from([new AuthActions.LoginSuccessAction(session), new AuthActions.DashboardRedirectAction(session)]),
         ),
         catchError(error => of(new AuthActions.LoginErrorAction(error))),
       ),
@@ -32,19 +33,7 @@ export class LoginEffects extends Logger {
     ofType(AuthActions.AuthActionTypes.LoginRedirect),
     tap(() => {
       this.loggerService.debug('Redirecting to login page');
-      this.router
-        .navigate(['/login'])
-        .then(success => {
-          if (success) {
-            this.loggerService.debug('Redirecting to login page success');
-          } else {
-            this.loggerService.warn('Redirecting to login page failed');
-          }
-        })
-        .catch(() => {
-          this.loggerService.error('Something went wrong, redirecting to "/login"');
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-        });
+      this.redirect('/login');
     }),
   );
 
@@ -74,23 +63,21 @@ export class LoginEffects extends Logger {
 
   @Effect({ dispatch: false })
   public dashboardRedirect$ = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.DashboardRedirect, RegisterActions.RegisterActionsTypes.RedirectToDashboard),
-    tap(() => {
-      this.loggerService.debug('Redirecting to dashboard');
-      this.router
-        .navigate([RouterPaths.dashboard.user.welcome.asPath])
-        .then(success => {
-          if (success) {
-            this.loggerService.debug('Redirecting to dashboard success');
-          } else {
-            this.loggerService.warn('Redirecting to dashboard failed');
-          }
-        })
-        .catch(err => {
-          this.loggerService.error('Something went wrong, redirecting to "/dashboard/user/activities"', err);
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-        });
-    }),
+    ofType<AuthActions.DashboardRedirectAction | RegisterActions.RegisterRedirectToDashboardsAction>(
+      AuthActions.AuthActionTypes.DashboardRedirect,
+      RegisterActions.RegisterActionsTypes.RedirectToDashboard,
+    ),
+    map(action => action.payload),
+    this.handleInvitation(),
+  );
+
+  @Effect({ dispatch: false })
+  public dashboardRedirectOnSetNewPassword$ = this.actions$.pipe(
+    ofType<SetNewPasswordActions.SetNewPasswordRedirectDashboardAction>(
+      SetNewPasswordActions.SetNewPasswordActionsTypes.SetNewPasswordRedirectDashboard,
+    ),
+    map(action => action.payload.session),
+    this.handleInvitation(),
   );
 
   constructor(
@@ -100,8 +87,42 @@ export class LoginEffects extends Logger {
     private alertService: AlertService,
     private callInvitationService: CallInvitationService,
     private ngbModal: NgbModal,
+    private registrationInvitationService: RegistrationInvitationService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('LoginEffects'));
+  }
+
+  private redirect(url: string): void {
+    this.router
+      .navigate([url])
+      .then(success => {
+        if (success) {
+          this.loggerService.debug(`Redirecting to ${url} success`);
+        } else {
+          this.loggerService.warn(`Redirecting to ${url} failed`);
+        }
+      })
+      .catch(err => {
+        this.loggerService.error(`Something went wrong, redirecting to ${url}`, err);
+        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
+      });
+  }
+
+  private handleInvitation(): (source: Observable<GetSessionWithAccount>) => Observable<GetSessionWithAccount> {
+    return (source: Observable<GetSessionWithAccount>): Observable<GetSessionWithAccount> =>
+      source.pipe(
+        tap(session => {
+          const invitationObject = this.registrationInvitationService.getInvitationObject();
+          if (invitationObject !== undefined) {
+            this.registrationInvitationService.removeInvitationForDifferentUser(session.account.email);
+            this.redirect(RouterPaths.dashboard.user.invitations.asPath);
+            this.loggerService.debug('Redirecting to invitations');
+          } else {
+            this.redirect(RouterPaths.dashboard.user.welcome.asPath);
+            this.loggerService.debug('Redirecting to dashboard/welcome-to-anymind');
+          }
+        }),
+      );
   }
 }

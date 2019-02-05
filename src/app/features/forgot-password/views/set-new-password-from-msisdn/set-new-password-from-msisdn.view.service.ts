@@ -2,16 +2,13 @@
 import { throwError, Observable } from 'rxjs';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import { GetSessionWithAccount, PostRecoverPassword, RecoverPasswordService } from '@anymind-ng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { LoggerFactory, LoggerService, Alerts, AlertService } from '@anymind-ng/core';
-import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+import { LoggerFactory, LoggerService, Alerts, AlertService, InputSetPasswordErrors } from '@anymind-ng/core';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RouterPaths } from '@platform/shared/routes/routes';
 import { MsisdnHelperService } from '@platform/core/services/msisdn-helper/msisdn-helper.service';
 import { AbstractControl } from '@angular/forms';
-import { InputSetPasswordErrors } from '@platform/shared/components/inputs/input-set-password/input-set-password.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { SetNewPasswordActions, ForgotPasswordActions } from '@platform/core/actions';
@@ -24,12 +21,10 @@ export class SetNewPasswordFromMsisdnViewService {
   private logger: LoggerService;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private recoverPasswordService: RecoverPasswordService,
     private alertService: AlertService,
     private msisdnHelper: MsisdnHelperService,
-    private registrationInvitationService: RegistrationInvitationService,
     private userSessionService: UserSessionService,
     private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
@@ -57,10 +52,14 @@ export class SetNewPasswordFromMsisdnViewService {
           })
           .pipe(
             tap(session => {
-              this.store.dispatch(new SetNewPasswordActions.SetNewPasswordSuccessAction(session));
-              this.determinateRedirectPath();
+              this.store.dispatch(
+                new SetNewPasswordActions.SetNewPasswordSuccessAction({
+                  session,
+                  appType: this.clientAppType,
+                }),
+              );
               this.userSessionService.removeAllSessionsExceptCurrent();
-              this.store.dispatch(new ForgotPasswordActions.UnsetMsisdnTokenAction());
+              this.store.dispatch(new ForgotPasswordActions.DeleteMsisdnTokenAction());
             }),
             catchError(err => this.handleSetNewPasswordError(err, passwordControl)),
           ),
@@ -99,29 +98,8 @@ export class SetNewPasswordFromMsisdnViewService {
     return throwError('error when try to set new password');
   }
 
-  private determinateRedirectPath(): void {
-    if (this.clientAppType === PostRecoverPassword.ClientAppTypeEnum.WIDGET) {
-      this.redirect('/forgot-password/widget-information');
-      return;
-    }
-    const invitationObject = this.registrationInvitationService.getInvitationObject();
-    this.alertService.pushSuccessAlert(Alerts.ChangePasswordSuccess);
-    invitationObject !== undefined
-      ? this.redirect(`/invitations/${invitationObject.token}`)
-      : this.redirect(RouterPaths.dashboard.user.welcome.asPath);
-  }
-
   private displayIncorrectPasswordError(control: AbstractControl): void {
     control.setErrors({ [InputSetPasswordErrors.IncorrectPassword]: true });
     control.markAsTouched();
-  }
-
-  private redirect(url: string): void {
-    this.router.navigate([url]).then(isRedirectSuccessful => {
-      if (!isRedirectSuccessful) {
-        this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-        this.logger.warn(`Error when redirect to ${url}`);
-      }
-    });
   }
 }

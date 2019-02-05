@@ -2,7 +2,8 @@
   plat-login-background
     plat-login-content(
       contentHeightAnimation,
-      titleText="REGISTER.TITLE"
+      titleText="REGISTER.TITLE",
+      subTitle="REGISTER.SUBTITLE"
     )
       form.register-view__form(
         [id]="registerFormId",
@@ -11,7 +12,7 @@
         (ngSubmit)="onFormSubmit(registerForm)"
       )
         .input-icon-container
-          span(plat-icon, iconClass='mail')
+          span(plat-icon, iconClass='avatar')
           am-core-input-email(
             label="REGISTER.LOGIN.LABEL",
             placeholder="REGISTER.LOGIN.PLACEHOLDER",
@@ -24,7 +25,7 @@
 
         .input-icon-container
           span(plat-icon, iconClass='lock-closed')
-          plat-input-set-password(
+          am-core-input-set-password(
             label="LOGIN.PASSWORD.ENTER_PASSWORD.LABEL",
             placeholder="LOGIN.PASSWORD.ENTER_PASSWORD.PLACEHOLDER",
             [form]="registerForm",
@@ -55,5 +56,7 @@
         )
 
       .register-view__links
-        p {{ "REGISTER.HAVE_ACCOUNT" | translate }}
+        p.login {{ "REGISTER.HAVE_ACCOUNT" | translate }}
           a(routerLink="/login") {{ "REGISTER.LOG_IN" | translate }}
+
+        p.rodo-policy([innerHTML]="'LOGIN.PIN_CODE.RODO_POLICY' | translate")

@@ -1,6 +1,13 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { ModalContainerTypeEnum } from '@platform//shared/components/modals/modal/modal.component';
-import { Alerts, AlertService, FormUtilsService, InputPasswordErrorsEnum, LoggerFactory } from '@anymind-ng/core';
+import {
+  Alerts,
+  AlertService,
+  FormUtilsService,
+  InputPasswordErrorsEnum,
+  InputSetPasswordErrors,
+  LoggerFactory,
+} from '@anymind-ng/core';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { Store } from '@ngrx/store';
@@ -10,7 +17,6 @@ import { Logger } from '@platform/core/logger';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { InputSetPasswordErrors } from '@platform/shared/components/inputs/input-set-password/input-set-password.component';
 import { ChangePasswordComponentService, ChangePasswordStatusEnum } from './change-password.component.service';
 
 @Component({

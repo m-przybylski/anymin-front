@@ -1,5 +1,5 @@
 import { AccountService } from '@anymind-ng/api';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -30,7 +30,7 @@ export class ChangePasswordComponentService {
   public changePassword(actualPassword: string, newPassword: string): Observable<ChangePasswordStatusEnum> {
     return this.accountService.changePasswordRoute({ actualPassword, newPassword }).pipe(
       map(() => this.handleChangePassword()),
-      catchError(err => throwError(this.handleChangePasswordError(err))),
+      catchError(err => of(this.handleChangePasswordError(err))),
     );
   }
 

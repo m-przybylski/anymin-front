@@ -31,6 +31,7 @@ import { CallService } from '@platform/core/services/call/call.service';
 import { CallSessionService } from '@platform/core/services/call/call-session.service';
 import { RegisterEffects } from '@platform/core/effects/register.effects';
 import { TranslationAssetsLoader } from './services/translations/translation-loader';
+import { SetNewPasswordEffects } from '@platform/core/effects/set-new-password.effects';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -50,7 +51,7 @@ export function getLogLevel(): LogLevel {
     }),
     CommunicatorModule.forRoot(CommunicatorConfigFactory),
     StoreModule.forFeature('core', reducers),
-    EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects, RegisterEffects]),
+    EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects, RegisterEffects, SetNewPasswordEffects]),
   ],
   providers: [
     UserSessionService,

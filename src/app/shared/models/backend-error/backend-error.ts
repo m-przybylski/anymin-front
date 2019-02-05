@@ -46,6 +46,7 @@ export enum BackendErrors {
   TooManyMsisdnTokenAttempts = 344,
   ToManyIncorrectPasswordAttempts = 345,
   MsisdnBlocked = 346,
+  AccountAlreadyconfirmedEmail = 353,
   onGoingCall = 405,
   unavailableExpert = 419,
   callYourself = 404,

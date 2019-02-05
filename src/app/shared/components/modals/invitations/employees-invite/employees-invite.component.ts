@@ -73,7 +73,7 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('EmployeesInviteModalComponent');
-    this.pattern = new RegExp(`${Config.patterns.emailPattern.source}|${Config.patterns.phonePattern.source}`);
+    this.pattern = new RegExp(`${Config.patterns.emailPattern.source}`);
   }
 
   public ngOnInit(): void {

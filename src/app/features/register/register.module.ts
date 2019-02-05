@@ -8,6 +8,7 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { IconModule } from '@platform/shared/components/atomic-components';
 import { LoginComponentsModule } from '@platform/shared/components/login/login-components.module';
 import { RouterModule } from '@angular/router';
+import { RegisterViewService } from '@platform/features/register/register.view.service';
 
 @NgModule({
   declarations: [RegisterViewComponent],
@@ -26,5 +27,6 @@ import { RouterModule } from '@angular/router';
       },
     ]),
   ],
+  providers: [RegisterViewService],
 })
 export class RegisterModule {}

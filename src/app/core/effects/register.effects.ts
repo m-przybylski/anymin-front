@@ -6,6 +6,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import { LoggerFactory } from '@anymind-ng/core';
 import { AccountService } from '@anymind-ng/api';
+import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
 
 @Injectable()
 export class RegisterEffects extends Logger {
@@ -15,18 +16,40 @@ export class RegisterEffects extends Logger {
     map(action => action.payload),
     switchMap(postAccount =>
       this.accountService.postAccountRoute(postAccount).pipe(
-        switchMap(session =>
-          from([
-            new RegisterApiActions.RegisterSuccessAction(session),
-            new RegisterActions.RegisterRedirectToDashboardsAction(),
-          ]),
-        ),
+        switchMap(session => {
+          const invitationObject = this.registrationInvitationService.getInvitationObject();
+          /**
+           * confirm email only if user get here from invitation
+           * and he logs in to the same account that is in invitation
+           */
+          if (invitationObject !== undefined && invitationObject.email === session.account.unverifiedEmail) {
+            return this.accountService.postConfirmEmailViaInvitationRoute(invitationObject.token).pipe(
+              switchMap(account =>
+                from([
+                  new RegisterApiActions.RegisterSuccessAction({ ...session, account }),
+                  new RegisterActions.RegisterRedirectToDashboardsAction({ ...session, account }),
+                ]),
+              ),
+              catchError(error => of(new RegisterApiActions.RegisterErrorAction(error))),
+            );
+          } else {
+            return from([
+              new RegisterApiActions.RegisterSuccessAction(session),
+              new RegisterActions.RegisterRedirectToDashboardsAction(session),
+            ]);
+          }
+        }),
         catchError(error => of(new RegisterApiActions.RegisterErrorAction(error))),
       ),
     ),
   );
 
-  constructor(private actions$: Actions, private accountService: AccountService, loggerFactory: LoggerFactory) {
+  constructor(
+    private actions$: Actions,
+    private accountService: AccountService,
+    private registrationInvitationService: RegistrationInvitationService,
+    loggerFactory: LoggerFactory,
+  ) {
     super(loggerFactory.createLoggerService('RegisterEffects'));
   }
 }

@@ -1,3 +1,4 @@
+// tslint:disable:max-file-line-count
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
@@ -13,10 +14,12 @@ import { provideMockFactoryLogger } from 'testing/testing';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
   let sessionService: SessionService;
+  let registrationInvitationService: RegistrationInvitationService;
   let callInvitationService: CallInvitationService;
   let actions$: Observable<any>;
   const loggerService: LoggerService = Deceiver(LoggerService, {
@@ -31,6 +34,13 @@ describe('LoginEffects', () => {
         {
           provide: SessionService,
           useValue: Deceiver(SessionService, { checkRoute: jest.fn() }),
+        },
+        {
+          provide: RegistrationInvitationService,
+          useValue: Deceiver(RegistrationInvitationService, {
+            removeInvitationForDifferentUser: jest.fn(),
+            getInvitationObject: jest.fn(),
+          }),
         },
         {
           provide: AlertService,
@@ -60,6 +70,7 @@ describe('LoginEffects', () => {
 
     loginEffects = TestBed.get(LoginEffects);
     sessionService = TestBed.get(SessionService);
+    registrationInvitationService = TestBed.get(RegistrationInvitationService);
     actions$ = TestBed.get(Actions);
     callInvitationService = TestBed.get(CallInvitationService);
     (loggerService.error as jest.Mock).mockClear();
@@ -73,7 +84,7 @@ describe('LoginEffects', () => {
       const session = {} as any;
       const action = new AuthActions.LoginAction(user);
       const completionLoginSuccess = new AuthActions.LoginSuccessAction(session);
-      const completionDashboardRedirect = new AuthActions.DashboardRedirectAction();
+      const completionDashboardRedirect = new AuthActions.DashboardRedirectAction(session);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: session });
@@ -140,7 +151,7 @@ describe('LoginEffects', () => {
     }));
   });
   describe('logout$', () => {
-    it('should return Auth.LogoutSuccessAction if logout is succeded', () => {
+    it('should return Auth.LogoutSuccessAction if logout is succeeded', () => {
       const action = new AuthActions.LogoutAction();
       const completion = new AuthActions.LogoutSuccessAction();
 
@@ -153,7 +164,7 @@ describe('LoginEffects', () => {
 
       expect(loginEffects.logout$).toBeObservable(expected);
     });
-    it('should return Auth.LogoutErrorAction if logout is succeded', () => {
+    it('should return Auth.LogoutErrorAction if logout is succeeded', () => {
       const error = 'Something went wrong';
       const action = new AuthActions.LogoutAction();
       const completion = new AuthActions.LogoutErrorAction(error);
@@ -194,7 +205,8 @@ describe('LoginEffects', () => {
     it('should call router.navigate when action received', fakeAsync(() => {
       const two = 2;
       const router: Router = TestBed.get(Router);
-      const action = new AuthActions.DashboardRedirectAction();
+      const payload = { account: { email: 'spoko@janek.com' } } as any;
+      const action = new AuthActions.DashboardRedirectAction(payload);
       actions$ = of(action);
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       loginEffects.dashboardRedirect$.subscribe(() => {
@@ -206,7 +218,8 @@ describe('LoginEffects', () => {
 
     it('should call router.navigate when action received', fakeAsync(() => {
       const router: Router = TestBed.get(Router);
-      const action = new AuthActions.DashboardRedirectAction();
+      const payload = { account: { email: 'spoko@janek.com' } } as any;
+      const action = new AuthActions.DashboardRedirectAction(payload);
       actions$ = of(action);
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
       loginEffects.dashboardRedirect$.subscribe(() => {
@@ -219,8 +232,9 @@ describe('LoginEffects', () => {
 
     it('should call router.navigate when action received', fakeAsync(() => {
       const router: Router = TestBed.get(Router);
-      const alertServide: AlertService = TestBed.get(AlertService);
-      const action = new AuthActions.DashboardRedirectAction();
+      const payload = { account: { email: 'spoko@janek.com' } } as any;
+      const alertService: AlertService = TestBed.get(AlertService);
+      const action = new AuthActions.DashboardRedirectAction(payload);
       actions$ = of(action);
       (router.navigate as jest.Mock).mockReturnValue(Promise.reject('error'));
       loginEffects.dashboardRedirect$.subscribe(() => {
@@ -229,7 +243,22 @@ describe('LoginEffects', () => {
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(1);
       expect(loggerService.error).toHaveBeenCalledTimes(1);
-      expect(alertServide.pushDangerAlert).toHaveBeenCalledTimes(1);
+      expect(alertService.pushDangerAlert).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should call navigate to invitations when action received and there is invitation object in local storage', fakeAsync(() => {
+      const two = 2;
+      const router: Router = TestBed.get(Router);
+      const payload = { account: { email: 'spoko@janek.com' } } as any;
+      const action = new AuthActions.DashboardRedirectAction(payload);
+      actions$ = of(action);
+      (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
+      (registrationInvitationService.getInvitationObject as jest.Mock).mockReturnValue({ invitationId: '123' });
+      loginEffects.dashboardRedirect$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.invitations.asPath]);
+      });
+      tick();
+      expect(loggerService.debug).toHaveBeenCalledTimes(two);
     }));
   });
 });
