@@ -4,8 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { Config } from '../../../../../../config';
 import { AddPaymentCardComponentService } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.component.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { EMPTY, Observable } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
 import { BackendError, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { Alerts, AlertService } from '@anymind-ng/core';
 import { ThreeDSecureUrl } from '@anymind-ng/api';
@@ -13,6 +13,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StepperComponent } from '@platform/shared/components/stepper/stepper.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
+import { Store } from '@ngrx/store';
+import * as fromPayments from '../../../../../features/dashboard/views/user-dashboard/payments/reducers';
+import {
+  FetchInitDefaultPaymentMethodAction,
+  FetchInitPaymentsMethodAction,
+} from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-init.actions';
 
 @Component({
   selector: 'plat-add-payment-card',
@@ -43,6 +49,7 @@ export class AddPaymentCard implements OnInit {
     private alertService: AlertService,
     private anymindWebSocket: AnymindWebsocketService,
     private addPaymentCardComponentService: AddPaymentCardComponentService,
+    private store: Store<fromPayments.IState>,
   ) {}
 
   public ngOnInit(): void {
@@ -75,19 +82,24 @@ export class AddPaymentCard implements OnInit {
       .sendPaymentCard(this.addPaymentCardFormGroup)
       .pipe(
         catchError(er => this.handlePostCreditCardError(er)),
-        map((threeDSecureUrl: ThreeDSecureUrl) => {
+        switchMap((threeDSecureUrl: ThreeDSecureUrl) => {
           if (typeof threeDSecureUrl.url !== 'undefined') {
             this.urlRedirect = threeDSecureUrl.url;
             this.stepper.next();
             this.modalHeaderTitle = 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.MODAL.CARD_AUTHORIZE.TITLE';
-          } else {
-            this.alertService.pushSuccessAlert('DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.ADDED');
+
+            return this.anymindWebSocket.creditCardAdded;
           }
+
+          return of(threeDSecureUrl);
         }),
-        switchMap(() => this.anymindWebSocket.creditCardAdded.pipe(map(response => this.activeModal.close(response)))),
       )
       .subscribe(() => {
         this.isPending = false;
+        this.store.dispatch(new FetchInitPaymentsMethodAction());
+        this.store.dispatch(new FetchInitDefaultPaymentMethodAction());
+        this.alertService.pushSuccessAlert('DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.ADDED');
+        this.activeModal.close();
       });
   };
 

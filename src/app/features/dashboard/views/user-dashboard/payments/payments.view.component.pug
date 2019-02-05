@@ -3,19 +3,37 @@
     span {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.TITLE' | translate }}
 
   form.payments__container.payments__container--list([formGroup]="paymentsCardFormGroup")
-    ul.payments-method-list
-      li.payments-method-list__item(*ngFor="let card of paymentsCardList; let i = index")
+    ul.payments-method-list(*ngIf="!(isPending$ | async); else loader")
+      li.payments-method-list__item(*ngFor="let card of (paymentsCardList$ | async); let i = index")
         plat-select-payment-method-card-radio(
           [form]="paymentsCardFormGroup",
           [controlName]="paymentsCardControlName",
           [expiryDate]="card.expiryDate",
           [maskedNumber]="card.maskedNumber",
           [id]="card.id",
-          [selectedCardId]="currentCreditCardId",
+          [selectedCardId]="currentPaymentMethodId",
           [cardType]="card.cardType",
           (onSelectCard)="onSelectCard($event)",
           (onDeleteCard)="onDeleteCard($event)",
         )
+      li.payments-method-list__item.payments-method-list__item--promocode(*ngFor="let promoCode of promoCodeList$ | async; let i = index")
+        plat-select-promo-code-radio(
+          [form]="paymentsCardFormGroup",
+          [controlName]="paymentsCardControlName",
+          [expiryDate]="promoCode.expiresAt",
+          [id]="promoCode.id",
+          [selectedCardId]="currentPaymentMethodId",
+          [promoCodeAmount]="promoCode.amount",
+          (onSelectCard)="onSelectPromoCode($event)",
+        )
+
+    ng-template(#loader)
+      ul.settings-list-loader
+        li.settings-list-loader__item
+          plat-list-item-loader
+        li.settings-list-loader__item
+          plat-list-item-loader
+        li.settings-list-loader__item
 
   .payments__container.payments__container--method
     .payments__methods
@@ -28,7 +46,7 @@
 
       .payments__type.payments__type--promo-code
         div
-          a.button.button--add
+          a.button.button--add((click)="onAddPromoCode()")
             span(plat-flat-fab color='primary')
               span(plat-icon iconClass='add')
             span.button__text {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_PROMO_CODE' | translate }}

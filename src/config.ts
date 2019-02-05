@@ -241,6 +241,7 @@ export class Config {
   public static readonly paymentCardDetails = {
     minMaxCardNumberLength: 16,
     minMaxLengthCodeCVC: 3,
+    promoCodeMinMaxLength: 10,
   };
 
   public static readonly paymentCardPublicKeys = {

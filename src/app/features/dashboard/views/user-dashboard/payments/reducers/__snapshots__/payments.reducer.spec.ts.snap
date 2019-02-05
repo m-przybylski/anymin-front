@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`payments.reducer FetchInitPromoCodesAction should start FetchInitPromoCodesAction action 1`] = `
+Object {
+  "defaultPaymentMethod": Object {},
+  "isPending": false,
+  "paymentsList": Array [],
+  "promoCodesList": Array [],
+}
+`;
+
+exports[`payments.reducer FetchPaymentsDetailsInit should start FetchPaymentsDetailsInit action 1`] = `
+Object {
+  "defaultPaymentMethod": Object {},
+  "isPending": true,
+  "paymentsList": Array [],
+  "promoCodesList": Array [],
+}
+`;
+
+exports[`payments.reducer LoadDefaultPaymentsMethodSuccessAction should start LoadDefaultPaymentsMethodSuccessAction action 1`] = `
+Object {
+  "defaultPaymentMethod": Object {},
+  "isPending": false,
+  "paymentsList": Array [],
+  "promoCodesList": Array [
+    Object {
+      "amount": Object {
+        "currency": "PLN",
+        "value": 2,
+      },
+      "createdAt": 1970-01-01T00:00:00.000Z,
+      "expiresAt": 1970-01-01T00:00:00.000Z,
+      "id": "string",
+      "issuer": "string",
+      "status": "NEW",
+      "token": "string",
+      "updatedAt": 1970-01-01T00:00:00.000Z,
+    },
+  ],
+}
+`;
+
+exports[`payments.reducer LoadDefaultPaymentsMethodSuccessAction should start LoadDefaultPaymentsMethodSuccessAction action 2`] = `
+Object {
+  "defaultPaymentMethod": Object {
+    "creditCardId": "string",
+    "promoCodeId": "string",
+  },
+  "isPending": false,
+  "paymentsList": Array [],
+  "promoCodesList": Array [],
+}
+`;
+
+exports[`payments.reducer LoadPaymentsMethodError should start LoadPaymentsMethodError action 1`] = `
+Object {
+  "defaultPaymentMethod": Object {},
+  "isPending": false,
+  "paymentsList": Array [],
+  "promoCodesList": Array [],
+}
+`;
+
+exports[`payments.reducer LoadPaymentsMethodSuccessAction should start LoadPaymentsMethodSuccessAction action 1`] = `
+Object {
+  "defaultPaymentMethod": Object {},
+  "isPending": false,
+  "paymentsList": Array [
+    Object {
+      "cardType": "VISA",
+      "createdAt": 1970-01-01T00:00:00.000Z,
+      "expiryDate": "string",
+      "id": "string",
+      "maskedNumber": "string",
+    },
+  ],
+  "promoCodesList": Array [],
+}
+`;
+
+exports[`payments.reducer undefined Action should return the default state 1`] = `
+Object {
+  "defaultPaymentMethod": Object {},
+  "isPending": false,
+  "paymentsList": Array [],
+  "promoCodesList": Array [],
+}
+`;

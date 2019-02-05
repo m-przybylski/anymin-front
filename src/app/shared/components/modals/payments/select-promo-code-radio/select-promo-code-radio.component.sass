@@ -4,7 +4,7 @@
 \:host
   display: block
 
-.payment-method-money-radio
+.payment-promo-code-radio
   +option-row
   width: 100%
 
@@ -38,7 +38,7 @@
     &:hover
       .checkmark
         border: 1px solid $c-primary
-  
+
     .input__wrapper
       display: flex
       align-items: center
@@ -94,22 +94,36 @@
     &__label
       span
         &.label
-          +button
-          color: $c-text-primary
-          font-weight: 500
-          margin: 0 8px 0 0
+          display: flex
+          align-items: center
 
-          +smm
-            display: block
-            margin: 0
+          &__title
+            +button
+            color: $c-text-primary
+            font-weight: 500
+            margin: 0 4px 0 0
+            align-items: center
+            display: none
+
+            +smm
+              display: flex
+
+            &.mobile-only
+              display: inline-block
+
+              +smm
+                display: none
+
+          &__money
+            font-weight: 400
 
         &.account-number-mask
           +subtitle-small
 
-  .icon-card
+  .icon-wallet
     color: $c-placeholder
     margin: 0 8px 0 0
 
     +smm
-      font-size: $f-icon-32 !important
+      font-size: $f-icon-32
       margin: 0 16px 0 0

@@ -11,6 +11,8 @@ import { InputNumericComponent } from '@platform/shared/components/inputs/custom
 import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
 import { SelectPaymentMethodCardRadioComponent } from '@platform/shared/components/modals/payments/select-payment-method-card-radio/select-payment-method-card-radio.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { SelectPromoCodeRadioComponent } from '@platform/shared/components/modals/payments/select-promo-code-radio/select-promo-code-radio.component';
+import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 
 @NgModule({
   imports: [
@@ -23,6 +25,7 @@ import { NgxMaskModule } from 'ngx-mask';
     ButtonModule,
     IconModule,
     TooltipModule,
+    MoneyDisplayModule,
   ],
   exports: [
     InputSwitchComponent,
@@ -30,6 +33,7 @@ import { NgxMaskModule } from 'ngx-mask';
     InputAddItemComponent,
     InputNumericComponent,
     SelectPaymentMethodCardRadioComponent,
+    SelectPromoCodeRadioComponent,
   ],
   declarations: [
     InputSwitchComponent,
@@ -37,6 +41,7 @@ import { NgxMaskModule } from 'ngx-mask';
     InputAddItemComponent,
     InputNumericComponent,
     SelectPaymentMethodCardRadioComponent,
+    SelectPromoCodeRadioComponent,
   ],
   providers: [],
 })

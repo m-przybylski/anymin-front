@@ -4,18 +4,18 @@ import { Observable } from 'rxjs';
 import { Environment, EnvironmentService } from '@platform/core/services/environment/environment.service';
 import { FormGroup } from '@angular/forms';
 import { Config } from '../../../../../../config';
-import { JSEncrypt } from 'jsencrypt';
+// tslint:disable-next-line
+const jsencrypt = require('jsencrypt');
 
 @Injectable()
 export class AddPaymentCardComponentService {
   private readonly monthSignsLength = 2;
 
   // tslint:disable-next-line:no-any
-  private jsencrypt: JSEncrypt;
+  private jsencrypt: any;
 
   constructor(private paymentsService: PaymentsService) {
     this.createTPayPublicKey();
-    this.jsencrypt = new JSEncrypt({});
   }
 
   public sendPaymentCard = (paymentCardForm: FormGroup): Observable<ThreeDSecureUrl> =>
@@ -39,6 +39,7 @@ export class AddPaymentCardComponentService {
 
   private createTPayPublicKey = (): void => {
     const environment = EnvironmentService.get();
+    this.jsencrypt = new jsencrypt.JSEncrypt();
 
     switch (environment) {
       case Environment.PRODUCTION:

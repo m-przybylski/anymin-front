@@ -4,14 +4,19 @@ import { PayoutMethodComponent } from '@platform/features/dashboard/views/user-d
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { AddPaymentCard } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { GetCreditCard } from '@anymind-ng/api';
+import { PutDefaultPaymentMethod } from '@anymind-ng/api';
 import { PaymentsViewComponentService } from '@platform/features/dashboard/views/user-dashboard/payments/payments.view.component.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, from } from 'rxjs';
-import { filter, map, switchMap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { PromoCodeComponent } from '@platform/shared/components/modals/payments/promo-code/promo-code.component';
+import { select, Store } from '@ngrx/store';
+import * as fromPayments from './reducers';
+import { FetchPaymentsDetailsInitAction } from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-init.actions';
+import { LoadPaymentsMethodOnDeleteSuccessAction } from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-api.actions';
 
 @Component({
   selector: 'plat-payments',
@@ -22,10 +27,16 @@ import { filter, map, switchMap, catchError } from 'rxjs/operators';
 export class PaymentsViewComponent extends Logger implements OnInit {
   public paymentsCardFormGroup = new FormGroup({});
   public paymentsCardControlName = 'paymentsCardControlName';
-  public currentCreditCardId = '';
-  public paymentsCardList: ReadonlyArray<GetCreditCard> = [];
+  public currentPaymentMethodId = '';
+  public promoCodeList$ = this.store.pipe(select(fromPayments.getPromoCodesList));
+  public paymentsCardList$ = this.store.pipe(select(fromPayments.getPaymentsMethodList));
+
+  public isPending$ = this.store.pipe(select(fromPayments.isPaymentMethodsPending));
+  private currentPromoCodeId = '';
+  private currentPaymentCardId = '';
 
   constructor(
+    private store: Store<fromPayments.IState>,
     private route: ActivatedRoute,
     private alertService: AlertService,
     private ngbModalService: NgbModal,
@@ -41,11 +52,7 @@ export class PaymentsViewComponent extends Logger implements OnInit {
       paymentsCardControlName: '',
     });
 
-    if (this.route.snapshot.data.getPayoutMethod[0].creditCardId) {
-      this.currentCreditCardId = this.route.snapshot.data.getPayoutMethod[0].creditCardId;
-    }
-
-    this.paymentsCardList = this.route.snapshot.data.getPayoutMethod[1];
+    this.assignStoreData();
   }
 
   public openInvoiceModal = (): void => {
@@ -59,29 +66,33 @@ export class PaymentsViewComponent extends Logger implements OnInit {
   };
 
   public onAddPaymentCard = (): void => {
-    const addPaymentCardModalRef = this.ngbModalService.open(AddPaymentCard);
-    from(addPaymentCardModalRef.result)
-      .pipe(
-        filter(paymentCard => typeof paymentCard !== 'undefined'),
-        switchMap(card =>
-          this.paymentsViewComponentService.getPaymentCardList().pipe(
-            map((paymentCards: ReadonlyArray<GetCreditCard>) => {
-              this.paymentsCardList = paymentCards;
-              this.currentCreditCardId = card.creditCardId;
-            }),
-          ),
-        ),
-      )
-      .subscribe();
+    this.ngbModalService.open(AddPaymentCard);
+  };
+
+  public onAddPromoCode = (): void => {
+    this.ngbModalService.open(PromoCodeComponent);
   };
 
   public onSelectCard = (id: string): void => {
-    const _currentId = this.currentCreditCardId;
+    const currentId = this.currentPaymentMethodId;
+    this.currentPaymentCardId = id;
 
     this.paymentsViewComponentService
-      .setDefaultPaymentMethod(id)
-      .pipe(catchError(error => this.handleError(error, _currentId)))
-      .subscribe(() => (this.currentCreditCardId = id));
+      .setDefaultPaymentMethod(this.mapCurrentPaymentMethod())
+      .pipe(catchError(error => this.handleErrorOnSelect(error, currentId)))
+      .subscribe(() => (this.currentPaymentMethodId = id));
+  };
+
+  public onSelectPromoCode = (id: string): void => {
+    const currentId = this.currentPaymentMethodId;
+    this.currentPromoCodeId = id;
+
+    this.paymentsViewComponentService
+      .setDefaultPaymentMethod(this.mapCurrentPaymentMethod(id))
+      .pipe(catchError(error => this.handleErrorOnSelect(error, currentId)))
+      .subscribe(() => {
+        this.currentPaymentMethodId = id;
+      });
   };
 
   public onDeleteCard = (id: string): void => {
@@ -96,12 +107,46 @@ export class PaymentsViewComponent extends Logger implements OnInit {
         }),
       )
       .subscribe(() => {
-        this.paymentsCardList = [...this.paymentsCardList.filter(item => item.id !== id)];
+        this.store.dispatch(new LoadPaymentsMethodOnDeleteSuccessAction());
       });
   };
 
-  private handleError = (error: HttpErrorResponse, currentId: string): Observable<void> => {
-    this.currentCreditCardId = currentId;
+  private assignStoreData = (): void => {
+    this.store.dispatch(new FetchPaymentsDetailsInitAction());
+
+    this.store.pipe(select(fromPayments.getDefaultPaymentMethod)).subscribe(currentPaymentMethod => {
+      this.currentPaymentMethodId = currentPaymentMethod.promoCodeId || currentPaymentMethod.creditCardId || '';
+      this.currentPromoCodeId = currentPaymentMethod.promoCodeId || '';
+      this.currentPaymentCardId = currentPaymentMethod.creditCardId || '';
+    });
+  };
+
+  private mapCurrentPaymentMethod = (promoCodeId?: string): PutDefaultPaymentMethod => {
+    if (this.currentPaymentCardId && promoCodeId) {
+      return {
+        creditCardId: this.currentPaymentCardId,
+        promoCodeId: this.currentPromoCodeId,
+      };
+    } else if (promoCodeId) {
+      return {
+        promoCodeId,
+      };
+    } else {
+      return {
+        creditCardId: this.currentPaymentCardId,
+      };
+    }
+  };
+
+  // private handleError = (error: HttpErrorResponse, msg: string): Observable<void> => {
+  //   this.loggerService.warn(msg, error);
+  //   this.alertService.pushDangerAlert('DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.SET_AS_DEFAULT.ALERT');
+  //
+  //   return of();
+  // };
+
+  private handleErrorOnSelect = (error: HttpErrorResponse, currentId: string): Observable<void> => {
+    this.currentPaymentMethodId = currentId;
     this.loggerService.warn('Can not set default payment card', error);
     this.alertService.pushDangerAlert('DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.SET_AS_DEFAULT.ALERT');
 
