@@ -1,0 +1,214 @@
+@import "../../core/core"
+@import "../../interface/animations/animations"
+
+\:host
+  display: flex
+
+.input
+  display: block
+  position: relative
+  padding: 0
+  margin: 0 0 24px
+  width: 100%
+  height: auto
+  text-align: left
+  background: none
+
+  &::before
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: auto
+    height: 1px
+    width: 100%
+    background: $c-lines
+    z-index: 0
+
+  &::after
+    transition: width 0.3s ease-out
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: auto
+    height: 1px
+    width: 100%
+    animation: input-border-line-animation-out 0.3s ease-in
+
+  &__label
+    +input-label
+    display: block
+
+  &__alert
+    position: absolute
+    top: 100%
+
+  &__container
+    input
+      +inputTextSmall
+      padding: 0
+      width: 100%
+      height: $s-input-height
+      align-self: flex-end
+      background: none
+      position: relative
+
+      &::placeholder
+        +placeholderSmall
+
+      &::-webkit-input-placeholder
+        +placeholderSmall
+
+      &::-moz-placeholder
+        +placeholderSmall
+        line-height: $f-input-line-height
+
+      &:-ms-input-placeholder
+        +placeholderSmall
+        line-height: $f-input-line-height
+
+  &__handler
+    display: flex
+    align-items: center
+
+  //----------------------------input type START
+
+  &--small-margin
+    margin: 0 0 16px
+
+  &--medium
+    input
+      +inputTextMedium
+      height: $s-input-medium-height
+
+      &::placeholder
+        +placeholderMedium
+
+      &::-webkit-input-placeholder
+        +placeholderMedium
+
+      &::-moz-placeholder
+        +placeholderMedium
+        line-height: $f-input-medium-line-height
+
+      &:-ms-input-placeholder
+        +placeholderMedium
+        line-height: $f-input-medium-line-height
+
+  &--big
+    input
+      +h2
+      height: $s-input-big-height
+
+      &::placeholder
+        +placeholderBig
+
+      &::-webkit-input-placeholder
+        +placeholderBig
+
+      &::-moz-placeholder
+        +placeholderBig
+        line-height: $f-input-big-line-height
+
+      &:-ms-input-placeholder
+        +placeholderBig
+        line-height: $f-input-big-line-height
+
+  //----------------------------input type END
+
+
+  //----------------------------input status START
+
+  &:hover
+    &::after
+      animation: input-border-line-animation 0.3s ease-in-out
+      animation-fill-mode: forwards
+
+  &--invalid
+    &::after
+      animation: input-border-line-animation-error 0.3s ease-in
+
+    &::before
+      background: $c-error-primary
+
+  &--focused
+    &::after
+      animation: input-border-line-animation 0.3s ease-in-out
+      animation-fill-mode: forwards
+
+    .input
+      &__label
+        color: $c-text-primary
+
+    input
+      &::placeholder
+        color: transparent
+
+  &--disabled
+    &::after
+      animation: none !important
+      background: none
+      height: auto
+      top: 0
+
+    &:hover
+      &::after
+        animation: none !important
+
+    &::before
+      background: $c-lines !important
+
+    .input
+      &__label
+        color: $c-placeholder !important
+
+    .icon-dropdown
+      color: $c-lines
+
+    input
+      color: $c-placeholder !important
+      cursor: not-allowed !important
+
+      &::placeholder
+        color: $c-placeholder !important
+
+      &::-webkit-input-placeholder
+        color: $c-placeholder !important
+
+      &::-moz-placeholder
+        color: $c-placeholder !important
+
+      &:-ms-input-placeholder
+        color: $c-placeholder !important
+
+  //----------------------------input status END
+
+  &__label-container
+    display: flex
+    align-items: center
+
+    &--tooltip
+      justify-content: space-between
+
+  &__required-asterix
+    +input-label
+    color: $c-error-primary
+    margin: 0 0 0 4px
+
+  &__counter
+    padding: 4px 0 0
+    position: absolute
+    right: 0
+    top: 100%
+    gst
+
+    span
+      +label
+      color: $c-label
+      padding: 0 0 0 4px
+      text-transform: none
+
+input
+  &:focus
+    color: $c-text-primary

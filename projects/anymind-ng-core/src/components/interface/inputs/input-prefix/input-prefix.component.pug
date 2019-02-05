@@ -1,0 +1,9 @@
+.input-prefix.input.input--disabled
+	.input__container
+		label.input__label(*ngIf="label") {{ label }}
+
+		input(
+		type="text",
+		readonly,
+		value="{{ value }}"
+		)

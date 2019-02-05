@@ -1,0 +1,104 @@
+@import "../core/variables/variables"
+@import "../core/helpers/helpers"
+
+.button
+  font-weight: 500
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  font-size: $f-button
+  border-radius: 48px
+  padding: 0 $s-button-small
+  position: relative
+  z-index: 1
+  overflow: hidden
+  cursor: pointer
+  letter-spacing: -0.5px
+  text-align: center
+  width: auto
+  white-space: nowrap
+
+  &--disabled
+    background-color: rgba(44,47,52,0.15) !important
+
+  &--default
+    height: $s-button
+    color: $c-white
+    background: $c-primary
+    border-color: $c-primary
+
+    &:hover
+      transition: background 0.3s
+      background: $c-secondary
+
+  &--secondary
+    height: $s-button
+    background: $c-white
+    border: 1px solid $c-lines
+    color: $c-text-primary
+    transition: border-color 0.3s
+    
+    &:hover
+      border-color: $c-text-primary
+
+      span
+        color: $c-text-primary
+    
+    &--disabled
+      background-color: $c-white
+      border-color: $c-lines
+      
+      span
+        color: $c-white
+  
+    span
+      color: $c-text-primary
+
+  &--tertiary
+    height: $s-button-small
+    border: 1px solid $c-lines
+    padding: 0 24px
+    transition: border-color 0.3s
+
+    span
+      +subtitle-small
+      font-weight: 500
+      color: $c-text-primary
+
+    &:hover
+      transition: border-color 0.3s
+      border-color: $c-text-primary
+
+    &--disabled
+      cursor: default
+
+      span
+        color: $c-placeholder
+
+      &:hover
+        border-color: $c-lines
+
+  &--small
+    +button-small
+    height: $s-button-small
+    padding: 0 24px
+
+    span
+      +button-small
+
+  &--link
+    padding: 0
+    border-radius: 0
+    color: $c-primary
+  
+  &--circle
+    width: $s-button
+    height: $s-button
+    padding: 0
+    
+    &.button
+      &--small
+        width: $s-button-small
+        height: $s-button-small
+        padding: 0
+  

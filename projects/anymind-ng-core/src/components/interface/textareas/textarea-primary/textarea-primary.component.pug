@@ -1,0 +1,35 @@
+.textarea-primary.textarea(
+	[formGroup]="formGroup",
+	[ngClass]="{'textarea--focused': isFocused, 'textarea--invalid': isFieldInvalid(), 'textarea--disabled': isDisabled}")
+
+	.textarea__container
+		.textarea__label-container
+			label.textarea__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+			span.textarea__required-asterix(*ngIf="isRequired") *
+
+		textarea(
+		autoheight,
+		maxlength="{{maxLength}}",
+		[formControlName]="controlName",
+		(focus)="onFocus()",
+		(blur)="onBlur()",
+		placeholder="{{ placeholderTrKey | translate }}",
+		[(ngModel)]="inputValue",
+		[autofocus]="initialFocus",
+    [readonly]="isDisabled"
+    )
+
+	.textarea__counter(*ngIf="minLength || maxLength")
+		span {{ inputValue.length || 0 }}
+		span / {{ maxLength }} {{ 'INPUT.CHARACTERS.TITLE'	 | translate }}
+
+	.textarea__alert
+		am-core-validation-alert(
+		[isVisible]="isFieldValueInvalid()",
+		[validationTextKey]="errorTrKey"
+		)
+
+		am-core-validation-alert(
+		[isVisible]="isRequiredError()",
+		[validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"
+		)

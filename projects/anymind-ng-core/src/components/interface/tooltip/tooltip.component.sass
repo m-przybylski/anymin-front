@@ -1,0 +1,77 @@
+@import "../../../template/stylesheets/core/core"
+@import "../../../template/stylesheets/interface/animations/animations"
+
+\:host
+	display: inline-flex
+	align-items: center
+
+.tooltip
+	max-height: 24px
+	max-width: 24px
+	position: relative
+
+	&--big
+		.tooltip__content
+			width: 280px
+
+			p
+				white-space: pre-wrap
+
+	&--center
+		position: static
+
+		.tooltip__content
+			left: 0 !important
+			right: 0
+			bottom: auto
+			margin: -12px auto 0
+			transform: translate(16px, 16px)
+
+			&::after
+				content: none
+
+	&__header
+		display: inline-flex
+		width: auto
+		cursor: pointer
+
+	.icon
+		width: 24px
+		min-width: 24px
+		height: 24px
+		min-height: 24px
+		font-size: 24px
+		color: $c-label
+
+	&__content
+		+tooltip-text
+		animation: tooltipFadeInY 0.3s
+		animation-fill-mode: forwards
+		position: absolute
+		left: 0
+		bottom: 100%
+		right: -12px
+		border-radius: 8px
+		background: $c-white
+		text-align: left
+		padding: 12px 16px
+		box-shadow: 0 2px 8px 0 $c-lines
+		max-width: 280px
+		z-index: $z-index-1000
+		margin: 0 0 12px
+
+		&::after
+			content: ""
+			position: absolute
+			width: 0
+			height: 0
+			bottom: -7px
+			margin: auto
+			border-top: 8px solid $c-white
+			border-right: 8px solid transparent
+			border-left: 8px solid transparent
+			right: 15px
+
+		p
+			+tooltip-text
+			white-space: pre

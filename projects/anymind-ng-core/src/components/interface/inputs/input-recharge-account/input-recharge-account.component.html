@@ -1,0 +1,14 @@
+
+<div class="input-recharge-account input input--big" [formGroup]="formGroup" [ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}">
+  <div class="input__container">
+    <div class="input__label-container">
+      <label class="input__label" *ngIf="labelTrKey">{{ labelTrKey | translate }}</label><span class="input__required-asterix" *ngIf="isRequired">*</span>
+    </div>
+    <div class="input-recharge-account__hidden-content" *ngIf="isFocused || invisibleModel.length &gt; 0"><span class="input-recharge-account__value">{{ invisibleModel }}</span><span class="input-recharge-account__currency">zł</span></div>
+    <input mask="{{inputMask}}" [ngModel]="invisibleModel" [formControlName]="controlName" (focus)="onFocus()" (blur)="onBlur()" placeholder="{{ placeholderTrKey | translate }}" type="tel" [readonly]="isDisabled">
+  </div>
+  <div class="input__alert">
+    <am-core-validation-alert [isVisible]="isFieldValueInvalid()" [validationTextKey]="errorTrKey"></am-core-validation-alert>
+    <am-core-validation-alert [isVisible]="isRequiredError()" [validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"></am-core-validation-alert>
+  </div>
+</div>

@@ -1,0 +1,149 @@
+@import "../../../template/stylesheets/core/variables/colors"
+@import "../../../template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../template/stylesheets/core/helpers/rwd"
+
+.navigation
+  position: relative
+
+  &__gradient
+    position: fixed
+    z-index: 0
+    bottom: 0
+    left: 0
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(135, 73, 110, 0.00) 100%)
+    height: 256px
+    width: 100%
+
+  &__time, &__cost
+    text-align: center
+
+    p
+      +label
+      color: $c-text-secondary
+      text-transform: none
+
+    span
+      +inputText
+      font-weight: 500
+      color: $c-white
+
+  &__container
+    position: relative
+    transition: transform 0.3s ease 0s
+
+    &--hideable
+      transform: translateY(100px)
+
+    +smm
+      display: flex
+      justify-content: space-between
+
+    > *
+      +smm
+        flex: 1
+
+  &__list
+    display: flex
+    justify-content: center
+    padding: 0 0 16px
+
+    &--bottom
+
+      +smm
+        justify-content: flex-end
+
+      li
+        width: 64px
+        text-align: center
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        align-content: flex-start
+
+        margin: 0 16px 0 0
+
+        &:last-child
+          margin: 0 0 0 0
+
+          +smm
+            margin: 0 0 0 16px
+
+        a
+          margin: 0 0 4px 0
+
+        +smm
+          margin: 0 0 0 16px
+
+        &:hover
+
+          .btn-nav
+            &--communicator
+              border: 1px solid $c-white
+
+        &.disabled
+          opacity: 0.35
+
+          .btn-nav
+            border: 1px solid rgba(#fff, 0.35)
+            cursor: default
+
+    .icon-title
+      +label
+      color: $c-white
+      text-transform: none
+
+    .btn-nav
+      display: flex
+      align-items: center
+      justify-content: center
+      max-width: 42px
+      max-height: 42px
+      width: 42px
+      height: 42px
+      border-radius: 50%
+      cursor: pointer
+      transition: background-color 0.2s ease, border 0.2s ease
+
+      .icon
+        color: $c-white
+        transition: color 0.2s ease
+
+        &.icon-chat-numbers
+          position: relative
+          color: $c-success-primary
+
+      &--selected
+        background-color: $c-white
+
+        .icon
+          color: $c-black
+
+      &--error
+        background-color: transparent
+
+        .icon
+          color: $c-error-primary
+
+      &--communicator
+        border: 1px solid rgba(#fff, 0.35)
+
+      &--cancel-conversation
+        width: 56px
+        height: 56px
+        max-width: 56px
+        max-height: 56px
+        background: $c-error-primary
+        border: none
+        margin: 0 16px
+
+      &--switch-device
+
+      &--chat-switcher
+
+.unseen-messages
+  top: 2px
+  font-size: 11px
+  font-weight: 700
+  position: absolute
+  color: $c-white
+

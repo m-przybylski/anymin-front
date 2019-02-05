@@ -1,0 +1,2 @@
+
+<div class="user-avatar" [class.user-avatar--big]="avatarSizes.BIG === avatarSize" [class.user-avatar--small]="avatarSizes.SMALL === avatarSize"><img *ngIf="!isBrokenImage" [src]="avatarUrl" (error)="brokenImageHandler($event.target)"><span class="icon icon-avatar" *ngIf="isBrokenImage"></span></div>

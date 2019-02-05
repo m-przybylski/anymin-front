@@ -1,0 +1,94 @@
+@import "../../../../template/stylesheets/interface/input/input"
+
+.input-radio
+	.input
+		&::after,
+		&::before
+			content: none
+
+		&__label
+			+checkbox-label
+			color: $c-text-primary
+			text-transform: none
+			display: flex
+			cursor: pointer
+
+		&__alert
+			left: 38px
+
+		&__checkbox
+			input
+				display: none
+
+				&:checked + .input__label
+					position: relative
+
+					&::after
+						content: ""
+						position: absolute
+						top: 6px
+						left: 4px
+						width: 12px
+						height: 12px
+						border-radius: 50%
+						background: $c-primary
+
+					&:hover
+						&::before
+							border-color: $c-lines
+
+				& + .input__label
+					&::before
+						content: ""
+						font-size: 120px
+						display: inline-flex
+						align-items: center
+						justify-content: center
+						width: 20px
+						min-width: 20px
+						height: 20px
+						min-height: 20px
+						border: 1px solid $c-lines
+						color: $c-white
+						margin: 2px 18px 0 0
+						padding: 1px 0 0
+						border-radius: 50%
+						transition: background 0.3s, border-color 0.3s, box-shadow 0.3s
+
+					&:hover
+						&::before
+							border-color: $c-primary
+
+		//----------------------------input status START
+
+		&--invalid
+			.input__label
+			&::before
+				border-color: $c-error-primary
+
+			input
+				& + .input__label
+					&::before
+						border-color: $c-error-primary
+
+		&--disabled
+			cursor: not-allowed
+			color: $c-placeholder
+			position: relative
+
+			&::after
+				content: ""
+				display: block
+				z-index: 1
+				position: absolute
+
+			& + .input__label
+				&::before
+					border-color: $c-placeholder
+
+			&:hover
+				& + .input__label
+					&::before
+						border-color: $c-placeholder
+
+//----------------------------input status END

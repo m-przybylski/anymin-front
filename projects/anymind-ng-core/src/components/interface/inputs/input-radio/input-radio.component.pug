@@ -1,0 +1,23 @@
+.input-radio
+  .input(
+    [ngClass]="{'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled, 'input--small-margin': smallMargin}",
+    [formGroup]="formGroup"
+  )
+
+    .input__container
+      .input__checkbox
+        label
+          input(
+            type='radio',
+            [formControlName]="controlName",
+            [readonly]="isDisabled",
+            [attr.name]="controlName",
+            [value]="value"
+          )
+          span.input__label([innerHTML]="labelTrKey | translate")
+
+    .input__alert
+      am-core-validation-alert(
+        [isVisible]="isFieldInvalid()",
+        [validationTextKey]="errorTrKey"
+      )

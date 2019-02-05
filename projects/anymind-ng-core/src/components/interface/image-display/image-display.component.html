@@ -1,0 +1,8 @@
+
+<div class="image-display">
+  <picture>
+    <source *ngIf="desktopImgName" media="(min-width: 1280px)" srcset="{{urlIconsDesktop}}/{{imgName}}@2x.{{imgFormat}} 2x">
+    <source *ngIf="smallDesktopImgName" media="(min-width: 960px)" srcset="{{urlIconsSmallDesktop}}/{{smallDesktopImgName}}@2x.{{imgFormat}} 2x">
+    <source *ngIf="tabletImgName" media="(min-width: 768px)" srcset="{{urlIconsTablet}}/{{tabletImgName}}@2x.{{imgFormat}} 2x"><img *ngIf="imgName" src="{{urlIcons}}/{{imgName}}.{{imgFormat}}" srcset="{{urlIcons}}/{{imgName}}@2x.{{imgFormat}} 2x" [alt]="altDescription">
+  </picture>
+</div>

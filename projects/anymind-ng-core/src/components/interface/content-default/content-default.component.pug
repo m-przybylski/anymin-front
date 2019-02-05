@@ -1,0 +1,10 @@
+.content-default
+  .content-default__thumb
+    am-core-image-display(
+      [imgName]="imgName",
+      [isWidget]="isWidgetPath"
+    )
+
+  .content-default__title
+    h3([innerHTML]="titleTrKey | translate")
+    p([innerHTML]="descriptionTrKey | translate")

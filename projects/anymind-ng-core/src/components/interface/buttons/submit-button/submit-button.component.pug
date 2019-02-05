@@ -1,0 +1,10 @@
+button.button.button--default.visible-content(
+	[ngClass]="{'button--small': isButtonSmall, 'loading': isLoading, 'button--disabled': isDisabled}",
+	[attr.form]="formName",
+	[disabled]="isLoading || isDisabled",
+	[type]="isSubmitType ? 'submit' : 'button'"
+)
+
+	span.button__title {{ titleText | translate }}
+	.hidden-content(*ngIf="isLoading")
+		am-core-loader

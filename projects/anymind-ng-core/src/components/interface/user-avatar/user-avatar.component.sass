@@ -1,0 +1,39 @@
+@import "../../../template/stylesheets/core/variables/colors"
+@import "../../../template/stylesheets/core/variables/fonts-size"
+
+$s-default-avatar: 56px
+$s-small-avatar: 128px
+$s-big-avatar: 192px
+
+=dimensions($value)
+	height: $value
+	width: $value
+
+.user-avatar
+	img
+		position: relative
+		+dimensions($s-default-avatar)
+		border-radius: 50%
+	
+	.icon
+		+dimensions(inherit)
+		font-size: $f-56
+		border-radius: 50%
+		color: $c-white
+		background: $c-dark-grey
+	
+	&--big
+		img
+			+dimensions($s-big-avatar)
+		
+		.icon
+			+dimensions($s-big-avatar)
+			font-size: $s-big-avatar
+	
+	&--small
+		img
+			+dimensions($s-small-avatar)
+		
+		.icon
+			+dimensions($s-small-avatar)
+			font-size: $s-small-avatar

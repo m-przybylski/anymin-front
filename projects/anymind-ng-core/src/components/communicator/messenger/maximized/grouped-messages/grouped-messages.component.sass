@@ -1,0 +1,152 @@
+@import "../../../../../template/stylesheets/core/variables/colors"
+@import "../../../../../template/stylesheets/core/variables/z-index"
+@import "../../../../../template/stylesheets/core/variables/fonts-size"
+@import "../../../../../template/stylesheets/core/helpers/mixins/mixins"
+@import "grouped-messages-mixins.component"
+
+$c-light-grey: #f6f6f7
+$c-dirty-white: #FDFDFD
+$z-index-3: 3
+
+.grouped-messages
+  margin: 0 0 8px
+
+  &__error-text
+    +label
+    color: $c-error-primary
+    text-transform: none
+    text-align: right
+    margin: 0 0 4px 0
+
+  .message
+    +message
+
+    &--pending
+      cursor: pointer
+
+      span
+        opacity: 0.35
+
+      .avatar
+        opacity: 0.35
+
+  &__row
+    display: flex
+    justify-content: flex-end
+    align-items: flex-end
+    flex-wrap: wrap
+
+    &:first-of-type
+      +message-first-of-type
+
+    &:last-of-type
+      +message-last-of-type
+
+    &--interlocutor
+      justify-content: flex-start
+
+      &:first-of-type
+        +message-first-of-type--interlocutor
+
+      &:last-of-type
+        +message-last-of-type--interlocutor
+
+      .message
+        +message--interlocutor
+
+
+.icon-loading
+  margin: 8px 0
+  position: relative
+  animation: rotate360deg 1s infinite linear
+
+@keyframes rotate360deg
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)
+
+.message-files
+  display: flex
+  justify-content: center
+
+  &__close
+    // TODO unhandled action
+    display: none
+    position: absolute
+    top: 4px
+    right: 4px
+    cursor: pointer
+
+    .icon
+      color: $c-text-secondary
+      font-size: $f-paragraph
+      height: 16px
+      width: 16px
+
+
+@keyframes opacity
+  0%
+    opacity: .2
+    transform: translateY(0px)
+
+  20%
+    opacity: 1
+
+  50%
+    transform: translateY(-4px)
+    opacity: .2
+
+  75%
+    opacity: 1
+
+  100%
+    transform: translateY(0)
+    opacity: .2
+
+.typing-dot
+  height: 4px
+  width: 4px
+  margin-right: 4px
+  background-color: $c-white
+  display: inline-block
+  border-radius: 50%
+  animation: opacity 1.4s infinite
+  animation-fill-mode: both
+
+  &:nth-child(2)
+    animation-delay: .2s
+
+  &:nth-child(3)
+    animation-delay: .4s
+
+.avatar
+  position: absolute
+  display: flex
+  align-items: flex-end
+  z-index: $z-index-3
+  height: 24px
+  width: 24px
+  bottom: 0
+  overflow: hidden
+  border-radius: 50%
+
+  &--right
+    right: -32px
+
+  &--left
+    left: -32px
+
+  img
+    height: 24px
+    width: 24px
+    position: relative
+
+  .icon-avatar
+    display: flex
+    font-size: 24px
+    width: 24px
+    height: 24px
+    background-color: $c-black
+    color: $c-half-white

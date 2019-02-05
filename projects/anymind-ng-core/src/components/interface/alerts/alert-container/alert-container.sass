@@ -1,0 +1,76 @@
+@import "../../../../template/stylesheets/core/variables/z-index"
+@import "../../../../template/stylesheets/core/variables/colors"
+@import "../../../../template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../template/stylesheets/core/helpers/rwd"
+
+.alert-container
+  position: fixed
+  bottom: 0
+  left: 0
+  z-index: $z-index-1200
+
+  width: 100%
+  padding: 0 16px 8px
+
+  +smm
+    width: auto
+
+  > div
+    margin: 0 0 8px 0px
+    overflow: hidden
+
+    +smm
+      display: flex
+
+  .alert
+    position: static
+    background: $c-text-primary
+    box-shadow: 0 2px 4px 0 $c-lines
+    padding: 12px 24px 12px 8px
+    border-radius: $s-border-radius
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    &-danger
+      .alert__close
+        color: $c-error-primary
+
+        &:hover
+          color: $c-error-secondary
+
+    &-warning
+      .alert__close
+        color: $c-warning-primary
+
+        &:hover
+          color: $c-warning-secondary
+
+    &-success
+      .alert__close
+        color: $c-success-primary
+
+        &:hover
+          color: $c-success-secondary
+
+    &__icon-container
+      display: flex
+      align-items: center
+
+    &__message
+      +alert-message
+
+    &__close
+      +alert-message
+      margin: 0 0 0 24px
+      cursor: pointer
+
+    &__icon
+      color: $c-white
+      margin: 0 8px 0 0
+      display: flex
+      align-items: center
+      font-size: $f-icon-24
+
+      &::before
+        font-family: 'icons' !important

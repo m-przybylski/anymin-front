@@ -1,0 +1,6 @@
+
+<div class="alert-container">
+  <div *ngFor="let alert of alerts" [@animation]>
+    <ngb-alert [type]="alert.type" [dismissible]="false"><span class="alert__icon-container"><span class="alert__icon icon-icon icon-information"></span><span class="alert__message">{{ alert.message }}</span></span><span class="alert__close" (click)="closeAlert(alert, true)">{{ "ALERT.CLOSE.BUTTON" | translate }}</span></ngb-alert>
+  </div>
+</div>

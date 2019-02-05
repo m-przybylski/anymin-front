@@ -140,7 +140,8 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     const expertDetails = clientSessionCall.currentClientCall.getExpert().expertDetails;
     this.newCallEvent.next(clientSessionCall.currentClientCall);
     this.registerCommonCallEvents(clientSessionCall.currentClientCall);
-    this.serviceName = clientSessionCall.currentClientCall.getService().name;
+    const service = clientSessionCall.currentClientCall.getService();
+    this.serviceName = (service && service.name) || '';
     this.expertName = expertDetails ? expertDetails.name : '';
     this.expertAvatar = expertDetails ? expertDetails.avatar : '';
     this.isClosed = false;

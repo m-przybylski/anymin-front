@@ -1,0 +1,14 @@
+
+<nav>
+  <div class="navigation__list">
+    <div class="navigation__time">
+      <p>{{ 'FEATURE.COMMUNICATOR.TIME' | translate }}</p><span *ngIf="callLengthInSeconds">{{ callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}</span><span *ngIf="!callLengthInSeconds">00:00:00</span>
+    </div>
+    <ul (click)="hangupCall()">
+      <li><a class="btn-nav btn-nav--communicator btn-nav--cancel-conversation"><span class="icon icon-end-call"></span></a></li>
+    </ul>
+    <div class="navigation__cost">
+      <p>{{ 'FEATURE.COMMUNICATOR.PRICE' | translate }}</p><span *ngIf="callCost">{{ callCost | moneyToString }}</span><span *ngIf="!callCost">0.00 PLN</span>
+    </div>
+  </div>
+</nav>

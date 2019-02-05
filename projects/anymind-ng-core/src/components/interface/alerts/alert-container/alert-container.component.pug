@@ -1,0 +1,7 @@
+.alert-container
+  div(*ngFor="let alert of alerts", [@animation])
+    ngb-alert([type]="alert.type", [dismissible]="false")
+      span.alert__icon-container
+        span.alert__icon.icon-icon.icon-information
+        span.alert__message {{ alert.message }}
+      span.alert__close((click)="closeAlert(alert, true)") {{ "ALERT.CLOSE.BUTTON" | translate }}

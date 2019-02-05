@@ -1,0 +1,19 @@
+.input-checkbox
+	.input(
+	[ngClass]="{'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}",
+	[formGroup]="formGroup")
+
+		.input__container
+			.input__checkbox
+				label
+					input(
+					type='checkbox',
+					[formControlName]="controlName"
+					)
+					span.input__label([innerHTML]="labelTrKey | translate")
+
+		.input__alert
+			am-core-validation-alert(
+			[isVisible]="isFieldInvalid()",
+			[validationTextKey]="errorTrKey"
+			)

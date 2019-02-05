@@ -1,0 +1,54 @@
+@import "../../core/core"
+@import "icon-font"
+
+@function unquoted-code($code)
+  @return unquote("\"\\#{$code}\"")
+
+=make-icons($iconsMap: $icons)
+  @each $iconName, $code in $iconsMap
+    .icon-#{$iconName}::before
+      content: unquoted-code($code)
+
+@charset "UTF-8"
+
+@font-face
+	font-family: 'icons'
+	src: url('#{$anymind-font-path}/AnyMind.eot') format("embedded-opentype"), url('#{$anymind-font-path}/AnyMind.woff2') format("woff2"), url('#{$anymind-font-path}/AnyMind.woff') format("woff"), url('#{$anymind-font-path}/AnyMind.ttf') format("truetype"), url('#{$anymind-font-path}/AnyMind.svg') format("svg")
+	font-weight: normal
+	font-style: normal
+
+.icon
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	font-family: 'icons' !important
+	speak: none
+	text-transform: none
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+
+.icon
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	font-size: $f-icon-24
+	
+	&[class*="10"]
+		font-size: $f-icon-24
+	
+	&[class*="12"]
+		font-size: $f-icon-24
+	
+	&[class*="16"]
+		font-size: $f-icon-24
+	
+	&[class*="24"]
+		font-size: $f-icon-24
+	
+	&[class*="48"]
+		font-size: $f-icon-48
+	
+	&[class*="128"]
+		font-size: $f-icon-128
+
++make-icons

@@ -1,0 +1,12 @@
+
+<div class="input-phone-number input" [formGroup]="formGroup" [ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}">
+  <div class="input__container">
+    <div class="input__label-container">
+      <label class="input__label" *ngIf="labelTrKey">{{ labelTrKey | translate }}</label><span class="input__required-asterix" *ngIf="isRequired">*</span>
+    </div>
+    <input mask="{{inputMask}}" [formControlName]="controlName" placeholder="{{ placeholderTrKey | translate }}" pattern="[0-9]*" type="tel" [autofocus]="initialFocus" (blur)="onBlur()" (focus)="onFocus()" [readonly]="isDisabled">
+  </div>
+  <div class="input__alert">
+    <am-core-validation-alert [isVisible]="!formGroup.controls[controlName].valid" [validationTextKey]="getValidationTrKey()"></am-core-validation-alert>
+  </div>
+</div>

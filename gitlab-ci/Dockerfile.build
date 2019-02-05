@@ -9,6 +9,6 @@ RUN npm install && npm run ci-deploy
 
 ## Dist lightweight container ##
 FROM nginx:alpine
-COPY --from=build-env /project/dist /dist
+COPY --from=build-env /project/dist/anymind-platform /dist
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

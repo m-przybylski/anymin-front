@@ -4,7 +4,7 @@ import { Animations } from '@anymind-ng/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ProfileLinksComponentService } from './profile-links.component.service';
-import { Config } from '../../../../../../../config';
+import { Config } from 'src/config';
 
 export interface ILinkList {
   link: string;

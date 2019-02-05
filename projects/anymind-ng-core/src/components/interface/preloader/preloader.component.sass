@@ -1,0 +1,48 @@
+@import "../../../template/stylesheets/core/core"
+@import "../../../template/stylesheets/interface/animations/animations"
+
+\:host
+	position: fixed
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: $z-index-1200
+	margin: auto
+	width: 100%
+	padding: 0 16px 8px
+	display: flex
+	justify-content: center
+
+	+smm
+		width: auto
+
+
+.preloader
+	position: static
+	background: $c-text-primary
+	box-shadow: 0 2px 4px 0 $c-lines
+	padding: 12px 24px 12px 8px
+	display: flex
+	align-items: center
+	justify-content: space-between
+	border-radius: 4px
+
+	&__icon-container
+		display: flex
+		align-items: center
+
+		.icon
+			animation: 0.6s linear rotate360Deg infinite
+
+	&__message
+		+preloader-message
+
+	&__icon
+		color: $c-white
+		margin: 0 8px 0 0
+		display: flex
+		align-items: center
+		font-size: $f-icon-24
+
+		&::before
+			font-family: 'icons' !important

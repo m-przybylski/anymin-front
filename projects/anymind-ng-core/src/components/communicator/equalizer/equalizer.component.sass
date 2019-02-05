@@ -1,0 +1,55 @@
+@import "../../../template/stylesheets/core/variables/colors"
+
+.communicator-equalizer
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+
+  &.is-active
+    span
+      animation: none
+      display: none
+
+    &.is-offline
+      span
+        animation: communicator-bounce 1.8s infinite ease-in-out
+        display: block
+
+  span
+    border-radius: 50%
+    position: absolute
+    background: $c-placeholder
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    margin: auto
+    animation: communicator-bounce 1.8s infinite ease-in-out
+
+    &:nth-child(1)
+      width: 100%
+      height: 100%
+
+    &:nth-child(2)
+      width: calc(100% - 8px)
+      height: calc(100% - 8px)
+
+    &:nth-child(3)
+      width: calc(100% - 16px)
+      height: calc(100% - 16px)
+
+    @for $i from 1 through 3
+      &:nth-child(#{$i})
+        animation-delay: $i * 0.2s
+
+@keyframes communicator-bounce
+  0%
+    transform: scale(1.0)
+
+  50%
+    transform: scale(1.2)
+
+  100%
+    transform: scale(1.0)

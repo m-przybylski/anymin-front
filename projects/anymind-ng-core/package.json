@@ -1,0 +1,9 @@
+{
+  "name": "anymind-ng-core",
+  "version": "0.12.17",
+  "description": "Component library for anymind frontend project",
+  "author": "AnyMind",
+  "publishConfig": {
+    "registry": "https://nexus.anymind.com/repository/npm-private"
+  }
+}

@@ -11,7 +11,6 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { TestBed } from '@angular/core/testing';
 import { importStore, dispatchLoggedUser } from 'testing/testing';
-import { isValidNumber } from 'libphonenumber-js';
 
 describe('EmployeesInviteService', () => {
   let employeesInviteService: EmployeesInviteService;

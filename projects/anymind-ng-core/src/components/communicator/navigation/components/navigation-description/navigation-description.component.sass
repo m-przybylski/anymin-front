@@ -1,0 +1,50 @@
+@import "../../../../../template/stylesheets/core/variables/colors"
+@import "../../../../../template/stylesheets/core/helpers/mixins/mixins"
+
+.navigation
+	position: relative
+
+	&__time, &__cost
+		text-align: center
+		width: 96px
+
+		p
+			+label
+			color: $c-half-white
+			text-transform: none
+
+		span
+			+inputText
+			font-weight: 500
+			color: $c-white
+
+	&__list
+		display: flex
+		justify-content: center
+		padding: 0 0 16px
+
+		.btn-nav
+			display: flex
+			align-items: center
+			justify-content: center
+			max-width: 42px
+			max-height: 42px
+			width: 42px
+			height: 42px
+			border-radius: 50%
+			cursor: pointer
+			transition: background-color 0.2s ease
+
+			.icon
+				color: $c-white
+				font-size: 32px
+				transition: color 0.2s ease
+
+			&--cancel-conversation
+				width: 56px
+				height: 56px
+				max-width: 56px
+				max-height: 56px
+				background: $c-error-primary
+				border: none
+				margin: 0 16px

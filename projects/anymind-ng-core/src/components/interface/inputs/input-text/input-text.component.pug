@@ -1,0 +1,38 @@
+.input-text.input(
+[formGroup]="formGroup",
+[class]="inputSize",
+[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
+
+  .input__container
+    .input__label-container
+      label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+      span.input__required-asterix(*ngIf="isRequired") *
+
+    input(
+    mask="{{inputMask}}",
+    [formControlName]="controlName",
+    (focus)="onFocus()",
+    (blur)="onBlur()",
+    placeholder="{{ placeholderTrKey | translate }}",
+    type="text",
+    [readonly]="isDisabled",
+    [(ngModel)]="inputValue",
+    maxlength="{{maxLength}}",
+    [autofocus]="initialFocus"
+    )
+
+  .input__alert
+    am-core-validation-alert(
+    [isVisible]="isFieldValueInvalid()",
+    [validationTextKey]="errorTrKey"
+    )
+
+    am-core-validation-alert(
+    [isVisible]="isRequiredError()",
+    [validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"
+    )
+
+  .input__counter(*ngIf="minLength || maxLength")
+    span.input__counter__length(*ngIf="inputValue") {{ inputValue.length }}
+    span.input__counter__length(*ngIf="!inputValue") 0
+    span.input__counter__limit / {{ maxLength }} {{ 'INPUT.CHARACTERS.TITLE' | translate }}

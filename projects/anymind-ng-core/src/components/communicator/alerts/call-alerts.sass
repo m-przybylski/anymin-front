@@ -1,0 +1,100 @@
+@import "../../../template/stylesheets/core/variables/variables"
+@import "../../../template/stylesheets/core/variables/colors"
+@import "../../../template/stylesheets/core/helpers/mixins/mixins"
+
+\:host
+	display: block
+
+.communicator-alert
+	padding: 16px
+	width: 100%
+	background-color: $c-text-primary
+	display: flex
+	align-items: center
+	justify-content: center
+
+	&--call-limit
+		//display: block
+
+	&__text-container
+		margin: 0 0 0 12px
+
+		.communicator-alert__text
+			margin: 0
+
+	&__disable-text
+		+subtitle-small
+		color: $c-error-primary
+		margin: 12px 0 0 0
+		display: block
+		cursor: pointer
+
+	&__icon
+		font-size: 24px
+		padding: 12px 0 0 0
+		color: $c-white
+		align-self: flex-start
+		height: 24px
+		width: 24px
+
+	&__active-dot
+		background-color: $c-success-primary
+		height: 8px
+		width: 8px
+		border-radius: 50%
+
+	&__text
+		+subtitle-small
+		color: $c-white
+		font-weight: 500
+		margin: 0 0 0 12px
+
+	&__loader
+		font-size: 2px
+		text-indent: -9999em
+		width: 11em
+		height: 11em
+		border-radius: 50%
+		background: $c-white
+		background: linear-gradient(to right, $c-white 10%, rgba(255, 215, 92, 0) 42%)
+		position: relative
+		animation: load3 1s infinite linear
+		transform: translateZ(0)
+
+		&:before
+			width: 50%
+			height: 50%
+			background: $c-white
+			border-radius: 100% 0 0 0
+			position: absolute
+			top: 0
+			left: 0
+			content: ''
+
+		&:after
+			background: $c-text-primary
+			width: 75%
+			height: 75%
+			border-radius: 50%
+			content: ''
+			margin: auto
+			position: absolute
+			top: 0
+			left: 0
+			bottom: 0
+			right: 0
+
+	@-webkit-keyframes load3
+		0%
+			transform: rotate(0deg)
+
+		100%
+			transform: rotate(360deg)
+
+	@keyframes load3
+		0%
+			transform: rotate(0deg)
+
+		100%
+			transform: rotate(360deg)
+

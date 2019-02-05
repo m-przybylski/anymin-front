@@ -1,0 +1,57 @@
+@import "../../variables/colors"
+@import "../../variables/fonts-size"
+
+=inputText
+  +h6
+
+=inputTextSmall
+  +paragraph-small
+
+=inputTextMedium
+  +h5
+  font-weight: 300
+
+=inputTextBig
+  +h3
+
+=placeholder
+  +inputText
+  color: $c-placeholder
+
+=placeholderSmall
+  +inputTextSmall
+  color: $c-placeholder
+
+=placeholderMedium
+  +inputTextMedium
+  color: $c-placeholder
+
+=placeholderBig
+  +inputTextBig
+  color: $c-placeholder
+
+=navigationText
+  +caption
+  color: $c-label
+
+=tooltip-text
+  +caption
+  color: $c-text-secondary
+
+=alert-message
+  +caption
+  font-weight: 500
+  color: $c-white
+
+=preloader-message
+  +alert-message
+
+=checkbox-label
+  +subtitle-small
+
+=input-label
+  +label
+  font-weight: 500
+  margin: 0
+  color: $c-label
+  text-transform: uppercase

@@ -2,24 +2,16 @@ import { TestBed } from '@angular/core/testing';
 
 import { DropdownComponent, IDropdownComponent } from './dropdown.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { getCoreConfig } from '../../../core/factories/core-config/core-config.facotry';
-import { BrowserModule } from '@angular/platform-browser';
-import { AnymindComponentsCoreModule, AnymindComponentsModule } from '@anymind-ng/core';
 import { DropdownListComponent } from './dropdown-list/dropdown-list.component';
 import { UserAvatarComponent } from '../user-avatar/user-avatar.component';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('Component: DropdownComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DropdownComponent, DropdownListComponent, UserAvatarComponent],
-      imports: [
-        AnymindComponentsCoreModule.forRoot(getCoreConfig),
-        AnymindComponentsModule,
-        BrowserModule,
-        ReactiveFormsModule,
-        FormsModule,
-      ],
+      imports: [TranslateModule.forRoot(), ReactiveFormsModule, FormsModule],
       schemas: [NO_ERRORS_SCHEMA],
     });
   });

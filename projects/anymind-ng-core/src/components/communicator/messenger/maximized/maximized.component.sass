@@ -1,0 +1,165 @@
+@import "../../../../template/stylesheets/core/core"
+@import "../../../../template/stylesheets/interface/animations/animations"
+@import "grouped-messages/grouped-messages-mixins.component"
+
+.messenger-maximized
+	transition: all 0.3s ease
+	position: absolute
+	bottom: 0
+	right: 0
+	height: 100%
+	width: 100%
+	background-color: #FDFDFD
+	z-index: 1
+	overflow: hidden
+	display: flex
+	flex-direction: column
+	
+	+mdm
+		right: 32px
+		bottom: 120px
+		height: 480px
+		width: 320px
+		border-radius: 8px
+	
+	&--before-animation
+		height: 0px
+		width: 0px
+	
+	&__header
+		min-height: 56px
+		display: flex
+		align-items: center
+		justify-content: space-between
+		border-bottom: solid 1px $c-lines
+		background-color: $c-white
+		padding: 0 12px
+		
+		&.mobile-visible
+			display: inherit
+			+mdm
+				display: none
+		
+		&.desktop-visible
+			border-radius: 8px 8px 0 0
+			
+			display: none
+			+mdm
+				display: inherit
+		
+		span
+			+subtitle
+			color: $c-text-secondary
+			
+			&:first-of-type
+				width: 100%
+				text-align: center
+		
+		&__back-button
+			transition: background-color 0.1s ease
+			display: flex
+			align-items: center
+			justify-content: center
+			border-radius: 50%
+			background-color: $c-placeholder
+			height: 24px
+			width: 24px
+			cursor: pointer
+			
+			&:hover
+				background-color: $c-text-primary
+			
+			span
+				font-size: 24px
+				color: $c-white
+	
+	&__messages
+		border-radius: 8px
+		display: flex
+		flex-direction: column
+		height: 100%
+		background-color: #FDFDFD
+		top: 48px
+		padding: 8px 44px 4px
+		overflow-y: scroll
+
+		> :first-child
+			margin-top: auto
+		
+		+mdm
+			position: relative
+			top: inherit
+	
+	&__incoming
+		margin: 0 0 12px
+		
+		span
+			+caption
+			text-transform: none
+			color: $c-placeholder
+	
+	am-core-grouped-messages
+		margin: 0 0 4px 0
+		width: 100%
+
+		&.dot-message
+			margin: -4px 0 0
+
+	.message-list
+		&--typing
+			.messenger-maximized__grouped-messages
+				&:last-child
+					.grouped-messages
+						.grouped-messages__row--interlocutor
+							&:last-child
+								+message--typing
+
+								.avatar
+									&--left
+										opacity: 0
+
+	.file-loader
+		.preloader-container
+			width: 100%
+			height: 64px
+			text-align: center
+			position: relative
+			background: transparent
+			
+			.content-loader
+				position: absolute
+				display: flex
+				align-items: center
+				justify-content: flex-end
+				width: 100%
+				min-width: 64px
+				top: 0
+				left: 0
+				margin: auto 0
+				height: 100%
+				content: ""
+				
+				span
+					width: 32px
+					height: 32px
+					border: 1px solid $c-lines
+					border-top-color: $c-primary
+					border-radius: 50%
+					animation: loader-rotate 1s linear infinite
+
+.file-upload-error
+	+label
+	color: $c-error-primary
+	text-align: right
+	margin: 0 0 8px
+	
+	+mdm
+		text-align: center
+	
+	&--status
+		text-align: right
+
+		span
+			+label
+			color: $c-error-primary
+			text-align: right

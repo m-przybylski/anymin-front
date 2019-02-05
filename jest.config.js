@@ -6,6 +6,7 @@ module.exports = {
   setupTestFrameworkScriptFile: '<rootDir>/src/setupJest.ts',
   moduleNameMapper: {
     '@platform/(.*)$': '<rootDir>/src/app/$1',
+    '@anymind-ng/core': '<rootDir>/projects/anymind-ng-core/index.ts',
     '^testing/testing$': '<rootDir>/src/testing/testing.ts',
   },
   transform: {

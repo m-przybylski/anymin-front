@@ -1,0 +1,14 @@
+
+<div class="messenger-minimized">
+  <div class="messenger-messages">
+    <div class="messenger-scroll-minimize">
+      <div class="grouped-messages">
+        <div>
+          <div class="grouped-messages__message" *ngFor="let message of messages" (click)="onMessageClick(message)" [@animation] [ngClass]="{'is-active': message.isNew}" [messageType]="message">
+            <div class="content"><span [innerHTML]="message | message"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

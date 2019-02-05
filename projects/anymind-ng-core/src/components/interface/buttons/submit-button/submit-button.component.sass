@@ -1,0 +1,35 @@
+@import "../../../../template/stylesheets/core/variables/colors"
+@import "../../../../template/stylesheets/core/helpers/mixins/mixins"
+@import "../../../../template/stylesheets/interface/buttons"
+
+\:host
+  display: block
+
+.button
+  overflow: hidden
+
+  &.loading
+    .hidden-content
+      top: 0
+      cursor: not-allowed
+
+  &__title
+    +button
+    color: $c-white
+
+  &--small
+    .button__title
+    +button-small
+    color: $c-white
+
+.hidden-content
+  border-radius: 48px
+  top: 100%
+  position: absolute
+  transition: all .1s ease-out
+  background: $c-secondary
+  height: 100%
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center

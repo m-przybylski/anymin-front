@@ -1,0 +1,15 @@
+
+<div class="input-radio">
+  <div class="input" [ngClass]="{'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled, 'input--small-margin': smallMargin}" [formGroup]="formGroup">
+    <div class="input__container">
+      <div class="input__checkbox">
+        <label>
+          <input type="radio" [formControlName]="controlName" [readonly]="isDisabled" [attr.name]="controlName" [value]="value"><span class="input__label" [innerHTML]="labelTrKey | translate"></span>
+        </label>
+      </div>
+    </div>
+    <div class="input__alert">
+      <am-core-validation-alert [isVisible]="isFieldInvalid()" [validationTextKey]="errorTrKey"></am-core-validation-alert>
+    </div>
+  </div>
+</div>

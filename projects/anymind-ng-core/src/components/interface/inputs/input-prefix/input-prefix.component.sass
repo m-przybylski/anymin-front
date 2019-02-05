@@ -1,0 +1,14 @@
+@import "../../../../template/stylesheets/interface/input/input"
+@import "../../../../template/stylesheets/core/variables/colors"
+
+.input-prefix
+  .input__container
+    .input__label
+      color: $c-placeholder
+
+    &:hover
+      &::after
+        animation: none
+
+    input
+      color: $c-placeholder

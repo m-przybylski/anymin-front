@@ -1,0 +1,56 @@
+@import "../../../../../template/stylesheets/core/variables/z-index"
+@import "../../../../../template/stylesheets/core/variables/colors"
+@import "../../../../../template/stylesheets/core/helpers/rwd"
+@import "../../../../../template/stylesheets/core/helpers/mixins/mixins"
+
+\:host
+  height: 60px
+
+.messenger-input
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-radius: 0 0 8px 8px
+  width: 100%
+  bottom: 0
+  left: 0
+  z-index: $z-index-300
+  padding: 0 12px 12px 12px
+  background-color: #FDFDFD
+
+  +mdm
+    bottom: 0
+    
+  label
+    display: block
+    cursor: pointer
+    
+    &.disable
+      opacity: 0.5
+      cursor: not-allowed
+
+  input
+    +paragraph-small
+    font-weight: 400
+    color: $c-black
+    background-color: $c-element-background
+    border-radius: 8px
+    height: 40px
+    line-height: 40px
+    flex: 1
+    border: 0
+    margin: 0 8px
+    padding: 0 12px
+
+    &[type="file"]
+      display: none
+
+    &::placeholder
+      +paragraph-small
+      line-height: 40px
+      font-weight: 400
+      color: $c-placeholder
+
+  .icon
+    color: $c-primary
+    font-size: 24px

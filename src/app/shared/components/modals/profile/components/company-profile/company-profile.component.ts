@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Config } from 'config';
+import { Config } from 'src/config';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api';
 

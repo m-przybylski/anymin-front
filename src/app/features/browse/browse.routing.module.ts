@@ -11,12 +11,12 @@ const routes: Routes = [
       {
         path: RouterPaths.browse.user.getName,
         loadChildren:
-          'app/features/dashboard/views/user-dashboard/expert-dashboard/expert-dashboard.module#ExpertDashboardModule',
+          '../dashboard/views/user-dashboard/expert-dashboard/expert-dashboard.module#ExpertDashboardModule',
       },
       {
         path: RouterPaths.browse.company.getName,
         loadChildren:
-          'app/features/dashboard/views/company-dashboard/company-profile/company-profile.module#CompanyProfileModule',
+          '../dashboard/views/company-dashboard/company-profile/company-profile.module#CompanyProfileModule',
       },
     ],
   },

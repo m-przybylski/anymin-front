@@ -1,0 +1,10 @@
+.messenger-minimized
+  .messenger-messages
+    .messenger-scroll-minimize
+      .grouped-messages
+        div
+          .grouped-messages__message(*ngFor="let message of messages", (click)="onMessageClick(message)", [@animation],
+          [ngClass]="{'is-active': message.isNew}",
+          [messageType]="message")
+            .content
+              span([innerHTML]="message | message")

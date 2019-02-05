@@ -1,0 +1,16 @@
+nav
+  .navigation__list
+    .navigation__time
+      p {{ 'FEATURE.COMMUNICATOR.TIME' | translate }}
+      span(*ngIf="callLengthInSeconds") {{ callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}
+      span(*ngIf="!callLengthInSeconds") 00:00:00
+
+    ul((click)="hangupCall()")
+      li
+        a.btn-nav.btn-nav--communicator.btn-nav--cancel-conversation()
+          span.icon.icon-end-call
+
+    .navigation__cost
+      p {{ 'FEATURE.COMMUNICATOR.PRICE' | translate }}
+      span(*ngIf="callCost") {{ callCost | moneyToString }}
+      span(*ngIf="!callCost") 0.00 PLN

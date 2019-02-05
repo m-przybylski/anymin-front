@@ -1,0 +1,36 @@
+.input-pin-code.input(
+	[formGroup]="formGroup",
+	[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
+
+	.input__container
+		.input__label-container
+			label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+			span.input__required-asterix *
+
+		input(
+		mask="{{inputMask}}",
+		[autofocus]="initialFocus",
+		[formControlName]="controlName",
+		(focus)="onFocus()",
+		(blur)="onBlur()",
+		placeholder="{{ placeholderTrKey | translate }}",
+		type="tel",
+		[readonly]="isDisabled"
+		)
+
+	.input__alert
+		am-core-validation-alert(
+		[isVisible]="isIncorrectPinCode()",
+		[validationTextKey]="'INPUT_PIN_CODE.INCORRECT_PIN_CODE_VALIDATION_ERROR'"
+		)
+
+		am-core-validation-alert(
+		[isVisible]="isToManyUnsuccessfulAttempts()",
+		[validationTextKey]="'INPUT_PIN_CODE.UNSUCCESSFUL_ATTEMPTS_VALIDATION_ERROR'"
+		)
+
+		am-core-validation-alert(
+		[isVisible]="isRequiredError()",
+		[validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"
+		)
+

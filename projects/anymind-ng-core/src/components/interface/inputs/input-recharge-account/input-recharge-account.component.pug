@@ -1,0 +1,34 @@
+.input-recharge-account.input.input--big(
+[formGroup]="formGroup",
+[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
+
+  .input__container
+    .input__label-container
+      label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+      span.input__required-asterix(*ngIf="isRequired") *
+
+    .input-recharge-account__hidden-content(*ngIf="isFocused || invisibleModel.length > 0")
+      span.input-recharge-account__value {{ invisibleModel }}
+      span.input-recharge-account__currency zł
+
+    input(
+    mask="{{inputMask}}",
+    [ngModel]="invisibleModel",
+    [formControlName]="controlName",
+    (focus)="onFocus()",
+    (blur)="onBlur()",
+    placeholder="{{ placeholderTrKey | translate }}",
+    type="tel",
+    [readonly]="isDisabled"
+    )
+
+  .input__alert
+    am-core-validation-alert(
+    [isVisible]="isFieldValueInvalid()",
+    [validationTextKey]="errorTrKey"
+    )
+
+    am-core-validation-alert(
+    [isVisible]="isRequiredError()",
+    [validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"
+    )

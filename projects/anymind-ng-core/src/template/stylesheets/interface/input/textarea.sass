@@ -1,0 +1,159 @@
+@import "../../core/core"
+@import "../../interface/animations/animations"
+
+.textarea
+	display: block
+	position: relative
+	padding: 0
+	margin: 0 0 24px
+	width: 100%
+	height: auto
+	text-align: left
+	background: none
+
+	&::before
+		content: ''
+		position: absolute
+		bottom: 0
+		left: 0
+		right: auto
+		height: 1px
+		width: 100%
+		background: $c-lines
+		z-index: 0
+
+	&::after
+		transition: width 0.3s ease-out
+		content: ''
+		position: absolute
+		bottom: 0
+		left: 0
+		right: auto
+		height: 1px
+		width: 100%
+		animation: input-border-line-animation-out 0.3s ease-in
+
+	&__label
+		+input-label
+
+	&__alert
+		position: absolute
+		top: 100%
+
+	&__container
+		textarea
+			+inputTextSmall
+			padding: 0
+			width: 100%
+			height: $s-input-height
+			align-self: flex-end
+			background: none
+			position: relative
+
+			&::placeholder,
+			&::-webkit-input-placeholder
+				+placeholderSmall
+
+			&::-moz-placeholder,
+			&:-ms-input-placeholder,
+			&:-moz-placeholder
+				+placeholderSmall
+				line-height: $f-input-line-height
+
+	//----------------------------textarea type START
+
+	&--big
+		textarea
+			+h2
+			height: $s-input-big-height
+
+			&::placeholder,
+			&::-webkit-input-placeholder
+				+placeholderBig
+
+			&::-moz-placeholder,
+			&:-ms-input-placeholder,
+			&:-moz-placeholder
+				+placeholderBig
+				line-height: $f-input-big-line-height
+
+	//----------------------------textarea type END
+
+
+	//----------------------------textarea status START
+
+	&:hover
+		&::after
+			animation: input-border-line-animation 0.3s ease-in-out
+			animation-fill-mode: forwards
+
+	&--invalid
+		&::after
+			animation: input-border-line-animation-error 0.3s ease-in
+
+		&::before
+			background: $c-error-primary
+
+	&--focused
+		&::after
+			animation: input-border-line-animation 0.3s ease-in-out
+			animation-fill-mode: forwards
+
+		.textarea
+			&__label
+				color: $c-text-primary
+
+		textarea
+			&::placeholder
+				color: transparent
+
+	&--disabled
+		&::after
+			animation: none !important
+			background: none
+			height: auto
+			top: 0
+
+		&:hover
+			&::after
+				animation: none !important
+
+		&::before
+			background: $c-lines !important
+
+		.textarea
+			&__label
+				color: $c-placeholder !important
+
+		textarea
+			color: $c-lines !important
+			cursor: not-allowed !important
+
+			&::placeholder
+				color: $c-lines !important
+
+	//----------------------------textarea status END
+
+	&__label-container
+		display: flex
+		align-items: center
+
+		&--tooltip
+			justify-content: space-between
+
+	&__required-asterix
+		+input-label
+		font-weight: 400
+		color: $c-error-primary
+		margin: 0 0 0 4px
+		
+	&__counter
+		padding: 4px 0 0
+		position: absolute
+		right: 0
+		top: 100%
+		
+		span
+			+label
+			color: $c-label
+			text-transform: none

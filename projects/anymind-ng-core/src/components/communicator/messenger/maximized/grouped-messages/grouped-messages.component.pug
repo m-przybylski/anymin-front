@@ -1,0 +1,28 @@
+.grouped-messages
+  .grouped-messages__row([class.grouped-messages__row--interlocutor]="!isMine",
+  *ngFor="let message of messages; let last = last",
+  [ngClass]="{'is-active': message.isNew}")
+    .message(
+    (click)="resendMessage(message)",
+    [messageType]="message",
+    [ngClass]="{'message--pending': message.sendState === localMessageStates.PENDING || message.sendState === localMessageStates.FAILED}")
+      .message__content
+        .message-files
+          ng-container(*ngIf="isPendingImage(message)")
+            .icon.icon-loading
+
+            .message-files__close
+              span.icon.icon-clear
+
+        span.message__text([innerHTML]="message | message")
+
+      .avatar.avatar--left(*ngIf="last && !isMine")
+        img.icon.circle([src]="participantAvatarUrl", *ngIf="participantAvatarUrl" imageBroken)
+        span.icon.icon-avatar(*ngIf="!participantAvatarUrl")
+
+      .avatar.avatar--right(*ngIf="last && isMine")
+        img.icon.circle([src]="mineAvatarUrl", *ngIf="mineAvatarUrl", imageBroken)
+        span.icon.icon-avatar(*ngIf="!mineAvatarUrl")
+
+    span.grouped-messages__error-text(*ngIf="message.sendState === localMessageStates.FAILED")
+      | {{ 'FEATURE.COMMUNICATOR.MESSENGER.MESSAGE_SEND_FAILED' | translate }}

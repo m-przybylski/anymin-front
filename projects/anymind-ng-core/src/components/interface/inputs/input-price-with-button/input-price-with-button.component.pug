@@ -1,0 +1,29 @@
+.input-price.input.input--big(
+	[formGroup]="formGroup",
+	[ngClass]="{'input--focused': isFocused, 'input--invalid': isFieldInvalid(), 'input--disabled': isDisabled}")
+
+	.input__container
+		.input__label-container
+			label.input__label(*ngIf="labelTrKey") {{ labelTrKey | translate }}
+			span.input__required-asterix(*ngIf="isRequired") *
+
+		input(
+		[formControlName]="controlName",
+		(focus)="onFocus()",
+		(blur)="onBlur()",
+		placeholder="{{ placeholderTrKey | translate }}",
+		type="text",
+		[readonly]="isDisabled"
+		)
+		am-core-submit-button([isButtonSmall]="true", [titleText]="buttonTitle")
+
+	.input__alert
+		am-core-validation-alert(
+		[isVisible]="isFieldValueInvalid()",
+		[validationTextKey]="errorTrKey"
+		)
+
+		am-core-validation-alert(
+		[isVisible]="isRequiredError()",
+		[validationTextKey]="'INPUT.REQUIRED_VALIDATION_ERROR'"
+		)

@@ -1,0 +1,14 @@
+
+<div class="input-phone-email input" [ngClass]="{'input--focused': isFocused, 'input--invalid': inputFormControl.touched &amp;&amp; inputFormControl.invalid, 'input--disabled': isDisabled}">
+  <div class="input__container">
+    <div class="input__label-container">
+      <label class="input__label" *ngIf="label">{{ label | translate }}</label><span class="input__required-asterix" *ngIf="isRequired">*</span>
+    </div>
+    <div class="input__handler">
+      <input [autofocus]="isInitiallyFocused" (focus)="onFocus()" (blur)="onBlur()" [formControl]="inputFormControl" placeholder="{{ placeholder | translate }}" type="text" [readonly]="isDisabled">
+    </div>
+  </div>
+  <div class="input__alert">
+    <am-core-validation-alert [isVisible]="inputFormControl.invalid &amp;&amp; inputFormControl.touched" [validationTextKey]="getValidationAlert()"></am-core-validation-alert>
+  </div>
+</div>

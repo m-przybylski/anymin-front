@@ -1,0 +1,204 @@
+// Single message styles
+
+=message
+	max-width: 350px
+	position: relative
+
+	&__content
+		min-height: 32px
+		margin: 0 0 4px 0
+		border-radius: 8px 0 0 8px
+		background: $c-light-grey
+		padding: 8px 12px
+		display: flex
+		align-items: center
+
+	&__text
+		+subtitle-small
+		line-height: 20px
+		color: $c-text-secondary
+		word-break: break-all
+		display: flex
+		align-content: center
+		margin: 0
+
+		a
+			color: $c-text-secondary
+
+			&:hover
+				span
+					&:last-child
+						text-decoration: underline
+
+	&__download
+		display: flex
+		margin: 0
+
+	.icon
+		&:not(.icon-avatar)
+			display: flex
+			align-self: flex-start
+			margin: 2px 4px 0 0
+			cursor: pointer
+
+		&-download-file
+			font-size: $f-h5
+			line-height: 16px
+
+		&-download
+			font-size: 24px
+			color: $c-text-secondary
+
+
+	//----------------------------input type START
+
+	&--image
+		width: 65%
+		padding: 0
+
+		.message__content
+			border-radius: 8px !important
+			background: transparent
+			border: 1px solid $c-lines
+			padding: 0
+			justify-content: center
+
+			&:after, &:before
+				display: none
+
+			.icon
+				&-download
+					position: absolute
+					left: -36px
+					top: 0
+					bottom: 0
+					margin: auto
+					width: 24px
+					height: 24px
+					color: $c-text-secondary
+
+		.message__text
+			line-height: 0
+			display: block
+			overflow: hidden
+			border-radius: 8px
+
+	&--pending-image
+		.message__content
+			border: 1px solid $c-lines
+			border-radius: 8px
+			display: block
+			padding: 12px
+
+			&::after, &::before
+				content: none !important
+
+	&--pdf, &--file
+		.file
+			color: $c-text-secondary
+
+	&--file
+		display: flex
+		align-items: center
+
+	//----------------------------input type end
+
+=message-first-of-type
+	.message__content
+		border-radius: 8px 8px 0 8px
+
+=message-last-of-type
+	.message__content
+		margin: 0
+
+		&::after
+			content: ''
+			bottom: 0
+			right: -4px
+			position: absolute
+			height: 8px
+			width: 12px
+			background: $c-light-grey
+
+		&::before
+			content: ''
+			background: $c-dirty-white
+			height: 16px
+			width: 16px
+			right: -16px
+			bottom: -1px
+			position: absolute
+			border-radius: 8px
+			z-index: 2
+
+=message--typing
+	.message
+		&__content
+			border-radius: 0 8px 8px 0
+
+			&::after,
+			&::before
+				content: none
+
+	&:first-child
+		.message
+			&__content
+				border-radius: 8px 8px 8px 0
+
+=message--interlocutor
+	&__content
+		border-radius: 0 8px 8px 0
+		background: $c-primary
+
+	&__text
+		color: $c-white
+
+		a
+			color: $c-white
+
+	//----------------------------input type START
+
+	&--image
+		.message__content
+			.icon
+				flex-direction: row-reverse
+				color: $c-white
+
+				&-download
+					left: auto
+					right: -36px
+					color: $c-text-secondary
+					opacity: 0.35
+
+	&--pdf, &--file
+		.file
+			color: $c-white
+
+	&--file
+		.icon
+			&-download
+				margin: 2px 0 0 4px
+				flex-direction: row-reverse
+				color: $c-white
+
+	//----------------------------input type end
+
+=message-first-of-type--interlocutor
+	.message__content
+		border-radius: 8px 8px 8px 0
+
+=message-last-of-type--interlocutor
+	.message__content
+		border-radius: 0 8px 8px 8px
+
+		&::after
+			background: $c-primary
+			right: auto
+			left: -4px
+
+		&::before
+			right: auto
+			left: -16px
+
+.message-link
+	border-bottom: 1px solid

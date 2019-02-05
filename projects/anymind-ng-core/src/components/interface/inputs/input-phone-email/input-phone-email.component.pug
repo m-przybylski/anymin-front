@@ -1,0 +1,24 @@
+.input-phone-email.input(
+  [ngClass]="{'input--focused': isFocused, 'input--invalid': inputFormControl.touched && inputFormControl.invalid, 'input--disabled': isDisabled}"
+)
+
+  .input__container
+    .input__label-container
+      label.input__label(*ngIf="label") {{ label | translate }}
+      span.input__required-asterix(*ngIf="isRequired") *
+
+    .input__handler
+      input(
+        [autofocus]="isInitiallyFocused",
+        (focus)="onFocus()",
+        (blur)="onBlur()",
+        [formControl]="inputFormControl",
+        placeholder="{{ placeholder | translate }}",
+        type="text",
+        [readonly]="isDisabled"
+      )
+  .input__alert
+    am-core-validation-alert(
+      [isVisible]="inputFormControl.invalid && inputFormControl.touched",
+      [validationTextKey]="getValidationAlert()"
+    )

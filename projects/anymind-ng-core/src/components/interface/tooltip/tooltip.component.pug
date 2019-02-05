@@ -1,0 +1,10 @@
+.tooltip(
+  tooltipPositionDetector="tooltip__content",
+  [tooltipText]="tooltipText | translate"
+)
+  .tooltip__header((click)="toggleTooltip()")
+    span.tooltip__title
+      span.icon.icon-questionmark
+
+  .tooltip__content(*ngIf="isVisible")
+    p([innerHTML]="tooltipText | translate")
