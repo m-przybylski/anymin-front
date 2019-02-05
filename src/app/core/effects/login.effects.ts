@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of, concat, from, Observable } from 'rxjs';
+import { of, concat, from } from 'rxjs';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';
-import { AuthActions, RegisterActions, SetNewPasswordActions } from '@platform/core/actions';
-import { GetSessionWithAccount, SessionService } from '@anymind-ng/api';
+import { AuthActions, RegisterActions } from '@platform/core/actions';
+import { SessionService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';

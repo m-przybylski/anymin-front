@@ -123,6 +123,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
       .subscribe(({ countryISO, hasProfile }) => {
         this.userCountryIsoCode = countryISO;
         this.hasProfile = hasProfile;
+        // this.setBasicProfileData(accountDetails.avatar, accountDetails.nickname);
       });
     this.invoiceDetailsForm = new FormGroup({});
     this.profileForm = new FormGroup({
@@ -175,16 +176,22 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
     this.fileUploadTokensList = files;
   }
 
-  // TODO uncomment this after Beta release ends
-  // public toggleIsExpertForm(): void {
-  //   this.isExpertForm = !this.isExpertForm;
-  // }
+  public toggleIsExpertForm(): void {
+    this.isExpertForm = !this.isExpertForm;
+  }
 
   public onSelectInvoiceDetailsType(type: GetInvoiceDetails.InvoiceDetailsTypeEnum): void {
     this.selectedInvoiceDetailsType = type;
     this.selectedInvoiceDetailsFormName =
       type === GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON ? NATURAL_PERSON_FORM_NAME : COMPANY_FORM_NAME;
   }
+
+  // private setBasicProfileData(avatar?: string, name?: string): void {
+  //   this.avatarTokenProfileNameFormControl.setValue({
+  //     avatarToken: avatar || '',
+  //     name: name || '',
+  //   });
+  // }
 
   private sendClientProfile(data: PutGeneralSettings): void {
     this.createProfileComponentService.createClientProfile(data).subscribe(

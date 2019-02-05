@@ -24,7 +24,6 @@ const routes: Routes = [
         children: [
           {
             path: RouterPaths.dashboard.user.activities.getName,
-            canActivate: [ExpertDashboardGuard],
             loadChildren:
               './views/user-dashboard/activities/user-dashboard-activities.module#UserDashboardActivitiesModule',
           },

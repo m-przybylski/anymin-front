@@ -1,5 +1,5 @@
 import { Observable, throwError } from 'rxjs';
-import { AccountService, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
+import { AccountService, GetAccountDetails, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { catchError, map, take } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,7 +14,9 @@ import * as fromCore from '@platform/core/reducers';
 export interface ICreateProfileInitialData {
   countryISO: string;
   hasProfile: boolean;
+  accountDetails: GetAccountDetails;
 }
+
 @Injectable()
 export class CreateProfileComponentService extends Logger {
   constructor(
@@ -30,7 +32,11 @@ export class CreateProfileComponentService extends Logger {
   public getCountryIsoAndProfile(): Observable<ICreateProfileInitialData> {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
-      map(session => ({ countryISO: session.account.countryISO, hasProfile: session.isExpert || session.isCompany })),
+      map(session => ({
+        countryISO: session.account.countryISO,
+        hasProfile: session.isExpert || session.isCompany,
+        accountDetails: session.account.details,
+      })),
       this.handleResponseError('error when try to get country ISO code'),
     );
   }

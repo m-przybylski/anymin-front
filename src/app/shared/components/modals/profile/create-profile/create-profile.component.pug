@@ -33,20 +33,22 @@ plat-modal-component(
           (onSelectInvoiceDetailsType)="onSelectInvoiceDetailsType($event)"
         )
 
-    .modal-component__action(
-      [ngClass]="{'modal-component__action--center': isOpenedAsExpert}"
-    )
-      //- TODO uncomment this after Beta release ends
-      //-a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="!isOpenedAsExpert")
-      //-  | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
-      am-core-submit-button(
-        *ngIf="currentModalStep === modalSteps.PROFILE_DETAILS && !hasProfile; else createProfileButton",
-        (click)="onVerifyProfile()",
-        [isSubmitType]="false",
-        [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.NEXT'",
-        [isDisabled]="isRequestPending || isFileUploading",
-        [isLoading]="isRequestPending"
-      )
+    .modal-component__action
+      .client-type-wrapper(*ngIf="currentModalStep === modalSteps.PROFILE_DETAILS && !hasProfile; else createProfileButton")
+        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="isExpertForm && !hasProfile")
+          | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
+
+        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="!isExpertForm && !hasProfile")
+          | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
+
+        am-core-submit-button(
+          (click)="onVerifyProfile()",
+          [isSubmitType]="false",
+          [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.NEXT'",
+          [isDisabled]="isRequestPending || isFileUploading",
+          [isLoading]="isRequestPending"
+        )
+
       ng-template(#createProfileButton)
         am-core-submit-button(
           [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
