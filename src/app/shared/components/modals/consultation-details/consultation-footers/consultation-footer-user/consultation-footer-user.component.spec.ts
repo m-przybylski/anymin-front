@@ -7,6 +7,8 @@ import {
   IConsultationFooterData,
 } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer-helpers';
 import { provideMockFactoryLogger } from 'testing/testing';
+import { Router } from '@angular/router';
+import { Deceiver } from 'deceiver-core';
 
 @Pipe({
   name: 'translate',
@@ -28,6 +30,10 @@ describe('ConsultationFooterUserComponent', () => {
         {
           provide: CONSULTATION_FOOTER_DATA,
           useFactory: (): IConsultationFooterData => data,
+        },
+        {
+          provide: Router,
+          useValue: Deceiver(Router, { navigate: jest.fn() }),
         },
         provideMockFactoryLogger(),
       ],

@@ -19,6 +19,12 @@ plat-consultation-footer
       div
         span(plat-icon iconClass='information')
         p {{ invoiceTrKey | translate}}
+    span.consultation-footer__text(*ngSwitchDefault)
+      span(plat-icon iconClass='money')
+      span
+        p {{"CONSULTATION_DETAILS.FOOTER.NO_PAYMENTS_METHOD" | translate}}
+        p((click)="redirectToPayments()")
+          a {{"CONSULTATION_DETAILS.FOOTER.CHOOSE_PAYMENT_METHOD" | translate}}
   //right part of the screen
   .consultation-footer__right
     a(plat-large-icon-button, color='success', *ngIf="isExpertAvailable else offlineDesktop", (click)='onCall()')

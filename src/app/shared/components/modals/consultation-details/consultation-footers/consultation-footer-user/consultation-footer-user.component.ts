@@ -10,6 +10,8 @@ import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 import { EmploymentWithExpertProfile, GetDefaultPaymentMethod } from '@anymind-ng/api';
 import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
+import { Router } from '@angular/router';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 export enum MiddlePanelStatusTypes {
   freeMinute,
@@ -83,7 +85,11 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
 
-  constructor(@Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData, loggerFactory: LoggerFactory) {
+  constructor(
+    @Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData,
+    private router: Router,
+    loggerFactory: LoggerFactory,
+  ) {
     super(loggerFactory.createLoggerService('ConsultationFooterUserComponent'));
   }
 
@@ -92,10 +98,19 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public onCall = (): void => {
-    this._actionTaken$.next('makeCall');
+    if (this.defaultPayment.creditCardId || this.defaultPayment.promoCodeId) {
+      this._actionTaken$.next('makeCall');
+    } else {
+      this.redirectToPayments();
+    }
   };
 
   public onNotifyUser = (): void => {
     this._actionTaken$.next('notifyUser');
+  };
+
+  public redirectToPayments = (): void => {
+    this.router.navigate([RouterPaths.dashboard.user.payments.asPath]);
+    this._actionTaken$.complete();
   };
 }

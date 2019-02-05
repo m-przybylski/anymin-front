@@ -112,15 +112,18 @@ export class ConsultationDetailsViewService extends Logger {
 
     return [...commentsList_first_part, comment, ...commentsList_second_part];
   };
+
   public loadMoreComments = (
     commentsList: ReadonlyArray<GetComment>,
     commentsConsultation: ReadonlyArray<GetComment>,
   ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
+
   public getExpertAvailability = (expertId: string): Observable<boolean> =>
     this.expertAvailabilityService.getExpertPresence(expertId).pipe(
       take(1),
       map(status => status === 'available'),
     );
+
   public getComments = (employmentId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
     this.employmentService.getEmploymentCommentsRoute(employmentId, limit, offset);
 
