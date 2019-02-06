@@ -15,7 +15,7 @@ export class ActivitiesService {
     return this.store.pipe(select(fromActivities.getCounters));
   }
 
-  public hasExpertProfile(): Observable<boolean> {
+  public hasUserProfile(): Observable<boolean> {
     return getNotUndefinedSession(this.coreStore).pipe(map(session => session.isExpert || session.isCompany));
   }
 }

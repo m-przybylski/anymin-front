@@ -3,7 +3,8 @@ import { GetSessionWithAccount, PostAccount } from '@anymind-ng/api';
 
 export enum RegisterActionsTypes {
   Register = '[register] Register',
-  RedirectToDashboard = '[register] RedirectToDashboard',
+  RedirectToDashboardInvitations = '[register] Redirect to invitation list',
+  RedirectToDashboardActivities = '[register] Register to activities',
 }
 
 export class RegisterAction implements Action {
@@ -11,10 +12,17 @@ export class RegisterAction implements Action {
 
   constructor(public payload: PostAccount) {}
 }
-export class RegisterRedirectToDashboardsAction implements Action {
-  public readonly type = RegisterActionsTypes.RedirectToDashboard;
+export class RegisterRedirectToDashboardsInvitationsAction implements Action {
+  public readonly type = RegisterActionsTypes.RedirectToDashboardInvitations;
 
   constructor(public payload: GetSessionWithAccount) {}
 }
 
-export type RegisterActionsUnion = RegisterAction | RegisterRedirectToDashboardsAction;
+export class RegisterRedirectToDashboardsActivitiesAction implements Action {
+  public readonly type = RegisterActionsTypes.RedirectToDashboardActivities;
+}
+
+export type RegisterActionsUnion =
+  | RegisterAction
+  | RegisterRedirectToDashboardsInvitationsAction
+  | RegisterRedirectToDashboardsActivitiesAction;

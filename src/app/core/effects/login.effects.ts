@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of, concat, from } from 'rxjs';
+import { of, concat, from, Observable, Observer } from 'rxjs';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';
-import { AuthActions, RegisterActions } from '@platform/core/actions';
-import { SessionService } from '@anymind-ng/api';
+import { AuthActions, RegisterActions, SetNewPasswordActions } from '@platform/core/actions';
+import { GetSessionWithAccount, SessionService } from '@anymind-ng/api';
 import { Router } from '@angular/router';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
@@ -11,6 +11,8 @@ import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+
+const EMPTY_ACTION = of({ type: 'NO_ACTION' });
 
 @Injectable()
 export class LoginEffects extends Logger {
@@ -63,9 +65,9 @@ export class LoginEffects extends Logger {
 
   @Effect({ dispatch: false })
   public dashboardRedirect$ = this.actions$.pipe(
-    ofType<AuthActions.DashboardRedirectAction | RegisterActions.RegisterRedirectToDashboardsAction>(
+    ofType<AuthActions.DashboardRedirectAction>(
       AuthActions.AuthActionTypes.DashboardRedirect,
-      RegisterActions.RegisterActionsTypes.RedirectToDashboard,
+      RegisterActions.RegisterActionsTypes.RedirectToDashboardInvitations,
     ),
     map(action => action.payload),
     this.handleInvitation(),
@@ -78,6 +80,35 @@ export class LoginEffects extends Logger {
     ),
     map(action => action.payload.session),
     this.handleInvitation(),
+  );
+
+  @Effect()
+  public dashboardRedirectAfterRegister$ = this.actions$.pipe(
+    ofType(RegisterActions.RegisterActionsTypes.RedirectToDashboardActivities),
+    switchMap(() => {
+      this.loggerService.debug('Redirecting to dashboard');
+
+      return Observable.create((observer: Observer<any>) => {
+        this.router
+          .navigate([RouterPaths.dashboard.user.activities.client.asPath])
+          .then(redirectSuccess => {
+            if (redirectSuccess) {
+              this.loggerService.debug('Redirecting to dashboard success');
+
+              return new AuthActions.FirstLoginAfterRegistrationAction();
+            } else {
+              this.loggerService.warn('Redirecting to dashboard failed');
+
+              return EMPTY_ACTION;
+            }
+          })
+          .catch(() => EMPTY_ACTION)
+          .then((action: any) => {
+            observer.next(action);
+            observer.complete();
+          });
+      });
+    }),
   );
 
   constructor(
@@ -119,8 +150,8 @@ export class LoginEffects extends Logger {
             this.redirect(RouterPaths.dashboard.user.invitations.asPath);
             this.loggerService.debug('Redirecting to invitations');
           } else {
-            this.redirect(RouterPaths.dashboard.user.welcome.asPath);
-            this.loggerService.debug('Redirecting to dashboard/welcome-to-anymind');
+            this.redirect(RouterPaths.dashboard.user.activities.client.asPath);
+            this.loggerService.debug('Redirecting to dashboard/user/activities');
           }
         }),
       );

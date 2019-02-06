@@ -21,7 +21,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
 import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
-import { WelcomeModule } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.module';
 import { InvitationsEffects } from '@platform/features/dashboard/effects/invitations/invitations.effects';
 import { AddPaymentCardModule } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.module';
 import { PromoCodeModule } from '@platform/shared/components/modals/payments/promo-code/promo-code.module';
@@ -38,7 +37,6 @@ import { PaymentsEffects } from '@platform/features/dashboard/views/user-dashboa
     ProfileModalModule,
     InputsModule,
     SettingsModule,
-    WelcomeModule,
     RecommendFriendsModule,
     DashboardComponentsModule,
     GenerateWidgetModule,

@@ -13,6 +13,7 @@ import { CreateOrganizationModalComponent } from '@platform/shared/components/mo
 import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { Animations } from '@platform/shared/animations/animations';
 import { Config } from '../../../../../../config';
+import { EditProfileModalComponent } from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -129,9 +130,15 @@ export class NavbarUserMenuComponent implements OnInit {
     this.logger.error('provided function name does not exist in this class: ', fnName);
   };
 
-  public openCreateProfileModalAsExpert = (): NgbModalRef => this.modalService.open(CreateProfileModalComponent);
+  public openCreateProfileModalAsClient = (): void => {
+    this.modalService.open(CreateProfileModalComponent);
+  };
 
-  public openEditProfileModal = (): boolean =>
+  public openCreateProfileModalAsExpert = (): void => {
+    this.modalService.open(EditProfileModalComponent);
+  };
+
+  public openCreateProfileModal = (): boolean =>
     (this.modalService.open(CreateProfileModalComponent).componentInstance.isExpertForm = false);
 
   public onSwitchAccount = (switchAccountUserType: UserTypeEnum): void => {

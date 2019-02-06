@@ -47,7 +47,7 @@ const appRoutes: Routes = [
     ],
   },
   { path: 'unsupported', loadChildren: './features/unsupported/unsupported.module#UnsupportedModule' },
-  { path: '**', redirectTo: RouterPaths.dashboard.user.welcome.asPath },
+  { path: '**', redirectTo: RouterPaths.dashboard.user.activities.client.asPath },
 ];
 
 @NgModule({

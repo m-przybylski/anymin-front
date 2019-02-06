@@ -60,6 +60,11 @@ export const getSessionPending = createSelector(
   selectSession,
   fromSession.getPending,
 );
+
+export const getFirstLogin = createSelector(
+  selectSession,
+  fromSession.isFirstLogin,
+);
 export const getSessionError = createSelector(
   selectSession,
   fromSession.getError,

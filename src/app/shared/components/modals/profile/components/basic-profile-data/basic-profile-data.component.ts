@@ -1,12 +1,12 @@
-import { Component, Input, forwardRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, forwardRef, Input, OnDestroy } from '@angular/core';
 import {
+  AbstractControl,
   ControlValueAccessor,
   FormControl,
   FormGroup,
-  NG_VALUE_ACCESSOR,
   NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
   Validator,
-  AbstractControl,
   Validators,
 } from '@angular/forms';
 import { Config } from '../../../../../../../config';
@@ -50,12 +50,10 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
   @Input()
   public set isRequired(val: boolean) {
     this._isRequired = val;
-    this.avatarFormControl.setValidators(Validators.required);
-    /**
-     * does not work at the moment, validators are overridden by am-core-input-text
-     * TODO: after form controls refactor - uncomment to add validator to control
-     */
-    // this.textInputFormControl.setValidators(Validators.required);
+    if (this._isRequired) {
+      this.avatarFormControl.setValidators(Validators.required);
+      this.textInputFormControl.setValidators(Validators.required);
+    }
   }
 
   public get isRequired(): boolean {
@@ -68,6 +66,11 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
   @Input()
   public set isValidated(value: boolean) {
     if (value) {
+      setTimeout(() => {
+        this.avatarFormControl.updateValueAndValidity();
+        this.textInputFormControl.updateValueAndValidity();
+      });
+
       this.formUtils.validateAllFormFields(this.profileDataForm);
     }
   }
@@ -78,12 +81,11 @@ export class BasicProfileDataComponent implements ControlValueAccessor, Validato
   public profileNameControlName = 'profileNameFormControl';
   /** end DEPRECATED */
 
+  public avatarToken: string;
+
   public profileDataForm = new FormGroup({
     avatarFormControl: this.avatarFormControl,
-    /**
-     * TODO: uncomment line below after form refactor.
-     */
-    // profileNameFormControl: this.textInputFormControl
+    profileNameFormControl: this.textInputFormControl,
   });
 
   public readonly profileNameMaxlength = Config.inputsLength.profileNameMaxlength;

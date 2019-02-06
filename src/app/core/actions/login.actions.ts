@@ -11,6 +11,8 @@ export enum AuthActionTypes {
   LoginRedirect = '[auth] Login redirect',
   DashboardRedirect = '[auth] Dashboard redirect',
   LogoutRemote = '[auth] Logout by remote event',
+  FirstLoginAfterRegistration = '[auth] First login and redirect after registration',
+  UpdateFirstTimeLoginStatus = '[auth] First login and redirect update status',
 }
 
 export class LoginAction implements Action {
@@ -53,6 +55,12 @@ export class DashboardRedirectAction implements Action {
 export class LogoutRemoteAction implements Action {
   public readonly type = AuthActionTypes.LogoutRemote;
 }
+export class FirstLoginAfterRegistrationAction implements Action {
+  public readonly type = AuthActionTypes.FirstLoginAfterRegistration;
+}
+export class UpdateFirstTimeLoginStatusAction implements Action {
+  public readonly type = AuthActionTypes.UpdateFirstTimeLoginStatus;
+}
 
 export type AuthActionsUnion =
   | LoginAction
@@ -63,4 +71,6 @@ export type AuthActionsUnion =
   | LogoutErrorAction
   | LogoutSuccessAction
   | DashboardRedirectAction
+  | FirstLoginAfterRegistrationAction
+  | UpdateFirstTimeLoginStatusAction
   | LogoutRemoteAction;

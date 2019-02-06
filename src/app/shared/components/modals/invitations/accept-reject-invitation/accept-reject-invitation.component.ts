@@ -93,6 +93,7 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
             }
             this.alertService.pushWarningAlert('INVITATIONS.ACCEPT_REJECT_MODAL.EXPERT_ACCOUNT_WARNING_ALERT');
             const profileModalInstance = this.modalService.open(CreateProfileModalComponent);
+            profileModalInstance.componentInstance.isExpertForm = true;
 
             return from(profileModalInstance.result).pipe(
               switchMap(status => {

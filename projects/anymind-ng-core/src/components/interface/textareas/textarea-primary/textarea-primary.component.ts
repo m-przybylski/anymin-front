@@ -1,14 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormUtilsService } from '../../../../services/form-utils/form-utils.service';
 import { ValidatorFn } from '@angular/forms/src/directives/validators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'am-core-textarea-primary',
   templateUrl: './textarea-primary.component.html',
   styleUrls: ['./textarea-primary.component.sass'],
 })
-export class TextareaPrimaryComponent implements OnInit {
+export class TextareaPrimaryComponent implements OnInit, OnDestroy {
   @Input('label')
   public labelTrKey: string;
 
@@ -42,6 +44,8 @@ export class TextareaPrimaryComponent implements OnInit {
   public isFocused = false;
   public inputValue = '';
 
+  private ngUnsubscribe$ = new Subject<void>();
+
   constructor(public formUtils: FormUtilsService) {}
 
   public isRequiredError = (): boolean => {
@@ -55,7 +59,22 @@ export class TextareaPrimaryComponent implements OnInit {
   };
 
   public ngOnInit(): void {
-    this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
+    if (!this.formGroup.contains(this.controlName)) {
+      this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
+    } else {
+      this.formGroup.controls[this.controlName].setValidators(this.getValidators());
+    }
+
+    this.formGroup.controls[this.controlName].valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((value: string) => {
+        this.inputValue = value;
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   public isFieldValueInvalid = (): boolean => this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;

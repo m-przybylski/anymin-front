@@ -14,9 +14,9 @@
 
     .modal-form__row
       plat-basic-profile-data(
-        [isRequired]="isExpertForm",
         [isValidated]="isValidated",
         [isDisabled]="isInputDisabled",
+        [isRequired]="isExpertForm",
         [formControlName]="basicProfileDataControlName",
         [inputTextLabel]="'EDIT_PROFILE.INPUT.INPUT_NAME.LABEL'"
       )
@@ -37,8 +37,9 @@
           [errorTextKey]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.ERROR'",
           [label]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.DESCRIPTION.LABEL'",
           [isRequired]="isExpertForm",
-          [isDisabled]="isInputDisabled"
-          )
+          [isDisabled]="isInputDisabled",
+          [initialFocus]="true"
+        )
 
       .modal-form__row.modal-form__row--small
         plat-file-uploader(

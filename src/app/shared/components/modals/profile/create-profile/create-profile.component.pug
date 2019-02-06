@@ -1,57 +1,72 @@
 plat-modal-component(
-  [modalTrTitleHeader]="'EDIT_PROFILE.CREATE_TITLE'",
-  [isBackwardVisible]="currentModalStep === modalSteps.INVOICE_DETAILS",
-  (backwardClick)="onBackwardClick()"
-  )
+[modalTrTitleHeader]="'EDIT_PROFILE.CREATE_TITLE'",
+[isBackwardVisible]="currentModalStep === modalSteps.INVOICE_DETAILS",
+(backwardClick)="onBackwardClick()"
+)
 
   form(
-    [formGroup]='profileForm',
-    (ngSubmit)="onSaveProfile()"
+  [formGroup]='profileForm',
+  (ngSubmit)="onSaveProfile()"
   )
     plat-stepper(
-      #stepper='platStepper'
+    #stepper='platStepper'
     )
       plat-step
         plat-expert-client-profile(
-          [profileForm]="profileForm",
-          [isValidated]="isValidated",
-          [isExpertForm]="isExpertForm",
-          [isInputDisabled]="isRequestPending",
-          [descriptionControlName]="descriptionControlName",
-          [basicProfileDataControlName]="basicProfileDataControlName",
-          [linksControlName]="linksControlName",
-          [profileDocumentsList]="profileDocumentsList",
-          (fileUploadingStatusChange)="onFileUploadingStatusChange($event)",
-          (fileUploadTokensList)="onFileUploadTokensList($event)"
+        [profileForm]="profileForm",
+        [isValidated]="isValidated",
+        [isExpertForm]="isExpertForm",
+        [isInputDisabled]="isRequestPending",
+        [descriptionControlName]="descriptionControlName",
+        [basicProfileDataControlName]="basicProfileDataControlName",
+        [linksControlName]="linksControlName",
+        [profileDocumentsList]="profileDocumentsList",
+        (fileUploadingStatusChange)="onFileUploadingStatusChange($event)",
+        (fileUploadTokensList)="onFileUploadTokensList($event)"
         )
 
       plat-step
         plat-payout-invoice-details(
-          [isRequestPending]="isRequestPending",
-          [form]="invoiceDetailsForm",
-          [isCompanyProfile]="false",
-          (onSelectInvoiceDetailsType)="onSelectInvoiceDetailsType($event)"
+        [isRequestPending]="isRequestPending",
+        [form]="invoiceDetailsForm",
+        [isCompanyProfile]="false",
+        (onSelectInvoiceDetailsType)="onSelectInvoiceDetailsType($event)"
         )
 
     .modal-component__action
-      .client-type-wrapper(*ngIf="currentModalStep === modalSteps.PROFILE_DETAILS && !hasProfile; else createProfileButton")
-        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="isExpertForm && !hasProfile")
+      .client-type-wrapper
+        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="isExpertForm && !hasProfile && !isPayoutModal")
           | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
 
         a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="!isExpertForm && !hasProfile")
           | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
 
         am-core-submit-button(
-          (click)="onVerifyProfile()",
-          [isSubmitType]="false",
-          [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.NEXT'",
-          [isDisabled]="isRequestPending || isFileUploading",
-          [isLoading]="isRequestPending"
+        *ngIf="!isExpertForm && !hasProfile; else createProfileButton",
+        (click)="onVerifyProfile()",
+        [isSubmitType]="false",
+        [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
+        [isDisabled]="isRequestPending || isFileUploading",
+        [isLoading]="isRequestPending"
         )
 
       ng-template(#createProfileButton)
+        a.button.button--link.button--small((click)="onBackwardClick()", *ngIf="isExpertForm && !hasProfile && isPayoutModal")
+          | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
+
         am-core-submit-button(
-          [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
-          [isDisabled]="isRequestPending",
-          [isLoading]="isRequestPending"
+        *ngIf="!isPayoutModal",
+        [isSubmitType]="false",
+        (click)="onVerifyProfile()",
+        [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.NEXT'",
+        [isDisabled]="isRequestPending || isFileUploading",
+        [isLoading]="isRequestPending"
+        )
+
+        am-core-submit-button(
+        *ngIf="isPayoutModal",
+        [isSubmitType]="true",
+        [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
+        [isDisabled]="isRequestPending",
+        [isLoading]="isRequestPending"
         )

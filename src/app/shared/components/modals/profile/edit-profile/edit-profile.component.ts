@@ -47,7 +47,6 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
   /**
    * filed used to disable possibility to collapse modal to only client profile
    */
-  public isOpenedAsExpert: boolean;
   public isCompany: boolean;
   /**
    * provided as external parameter when opened modal
@@ -56,7 +55,9 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
    */
   @Input()
   public isExpertForm = true;
+  public isValidated = false;
 
+  private isOpenedAsExpert = false;
   private linksFormControl = new FormControl();
 
   constructor(
@@ -104,6 +105,7 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
 
           return;
         }
+
         if (getProfileWithDocuments && getProfileWithDocuments.profile.expertDetails) {
           this.setExpertFormValues(getProfileWithDocuments);
           this.setBasicProfileData(
@@ -181,8 +183,8 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
 
   private getExpertDetails(): PutExpertDetails {
     return {
-      name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
-      avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
+      name: this.avatarTokenProfileNameFormControl.value.name,
+      avatar: this.avatarTokenProfileNameFormControl.value.avatarToken,
       description: this.profileForm.controls[this.descriptionControlName].value.toString(),
       links: this.linksFormControl.value,
       files: [...this.fileUploadTokensList],

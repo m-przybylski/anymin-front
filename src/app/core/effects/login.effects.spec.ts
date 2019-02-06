@@ -15,6 +15,7 @@ import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+import { Store } from '@ngrx/store';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
@@ -210,7 +211,7 @@ describe('LoginEffects', () => {
       actions$ = of(action);
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       loginEffects.dashboardRedirect$.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.activities.client.asPath]);
       });
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(two);
@@ -223,7 +224,7 @@ describe('LoginEffects', () => {
       actions$ = of(action);
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(false));
       loginEffects.dashboardRedirect$.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.activities.client.asPath]);
       });
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(1);
@@ -238,7 +239,7 @@ describe('LoginEffects', () => {
       actions$ = of(action);
       (router.navigate as jest.Mock).mockReturnValue(Promise.reject('error'));
       loginEffects.dashboardRedirect$.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.welcome.asPath]);
+        expect(router.navigate).toHaveBeenCalledWith([RouterPaths.dashboard.user.activities.client.asPath]);
       });
       tick();
       expect(loggerService.debug).toHaveBeenCalledTimes(1);

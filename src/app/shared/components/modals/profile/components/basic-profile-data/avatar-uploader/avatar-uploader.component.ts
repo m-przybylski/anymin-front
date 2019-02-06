@@ -40,7 +40,7 @@ export class AvatarUploaderComponent implements ControlValueAccessor {
   public readonly avatarSize = AvatarSizeEnum.X_156;
   public avatarErrorType: typeof AvatarErrorEnum = AvatarErrorEnum;
 
-  public avatarToken: string;
+  public avatarToken = '';
   public isError = false;
   private onModelChange: (obj?: string) => void;
 

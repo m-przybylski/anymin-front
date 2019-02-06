@@ -22,13 +22,12 @@
 
       .profile-link
         ng-container([ngSwitch]="userType")
-          //- TODO uncomment this after Beta release ends
-          //- a.profile-link__anchor(
-          //-   plat-button-link,
-          //-   *ngSwitchCase="userTypeEnum.USER",
-          //-   [routerLink]="userProfileUrl",
-          //-   [translate]="'NAVBAR_USER_MENU.EDIT'"
-          //- )
+          a.profile-link__anchor(
+            (click)="openCreateProfileModalAsClient()",
+            plat-button-link,
+            *ngSwitchCase="userTypeEnum.USER",
+            [translate]="'NAVBAR_USER_MENU.EDIT'"
+          )
           a.profile-link__anchor(
             plat-button-link,
             *ngSwitchCase="userTypeEnum.EXPERT",

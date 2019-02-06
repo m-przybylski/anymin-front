@@ -42,7 +42,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
   },
   {
     trKey: 'NAVBAR.ACTIVITIES',
-    url: '/dashboard/user/activities',
+    url: '/dashboard/user/activities/expert',
     iconClass: 'list',
     isUser: false,
     isExpert: true,
@@ -69,6 +69,24 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
   //   isCompany: false,
   //   group: NavigationItemGroupsEnum.NAVBAR,
   // },
+  {
+    trKey: 'NAVBAR_USER_MENU.ACTIVITIES',
+    url: '/dashboard/user/activities/client',
+    iconClass: 'activities',
+    isUser: false,
+    isExpert: false,
+    isCompany: false,
+    group: NavigationItemGroupsEnum.NAVBAR,
+  },
+  {
+    trKey: 'NAVBAR_USER_MENU.ACTIVITIES',
+    url: '/dashboard/user/activities/client',
+    iconClass: 'activities',
+    isUser: true,
+    isExpert: false,
+    isCompany: false,
+    group: NavigationItemGroupsEnum.NAVBAR,
+  },
   {
     trKey: 'NAVBAR_USER_MENU.SETTINGS',
     url: '/dashboard/user/settings',

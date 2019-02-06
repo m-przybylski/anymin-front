@@ -1,12 +1,12 @@
 // tslint:disable:cyclomatic-complexity
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import {
-  SessionActions,
   AuthActions,
-  SessionUpdateApiActions,
-  SessionApiActions,
   RegisterActions,
   RegisterApiActions,
+  SessionActions,
+  SessionApiActions,
+  SessionUpdateApiActions,
   SetNewPasswordActions,
 } from '@platform/core/actions';
 
@@ -16,6 +16,7 @@ export interface IState {
   session?: GetSessionWithAccount;
   // tslint:disable-next-line:no-any
   error?: any;
+  isFirstTimeLogin?: boolean;
 }
 
 export const initialState: IState = {
@@ -117,6 +118,18 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       return { ...state, session: { ...state.session, account: action.payload } };
     }
 
+    case AuthActions.AuthActionTypes.FirstLoginAfterRegistration:
+      return {
+        ...state,
+        isFirstTimeLogin: true,
+      };
+
+    case AuthActions.AuthActionTypes.UpdateFirstTimeLoginStatus:
+      return {
+        ...state,
+        isFirstTimeLogin: false,
+      };
+
     default: {
       return state;
     }
@@ -126,4 +139,4 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
 export const getPending = (state: IState): boolean => state.isPending;
 export const getError = (state: IState): any | undefined => state.error;
 export const getSession = (state: IState): GetSessionWithAccount | undefined => state.session;
-export const getFromBackend = (state: IState): boolean => state.isFromBackend;
+export const isFirstLogin = (state: IState): boolean | undefined => state.isFirstTimeLogin;

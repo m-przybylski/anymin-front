@@ -9,11 +9,11 @@ import { CreateProfileComponentService } from './create-profile.component.servic
 import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { catchError, finalize, switchMap } from 'rxjs/operators';
+import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
-import { NavbarActions } from '@platform/core/actions';
+import { NavbarActions, SessionUpdateApiActions } from '@platform/core/actions';
 import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
@@ -30,6 +30,7 @@ import {
   CompanyInvoiceDetailsFormControlNames,
 } from '@platform/shared/components/payout-invoice-details/components/company-form/company-form.component';
 import { IBasicProfileData } from '@platform/shared/components/modals/profile/components/basic-profile-data/basic-profile-data.component';
+import { waitForSession } from '@platform/core/utils/wait-for-session';
 
 enum CreateProfileModalSteps {
   PROFILE_DETAILS,
@@ -50,7 +51,8 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
 
   public profileForm: FormGroup;
   public invoiceDetailsForm: FormGroup;
-  public avatarTokenProfileNameFormControl = new FormControl('', Validators.required);
+  public avatarTokenProfileNameFormControl = new FormControl('');
+  public descriptionFormControl = new FormControl('', Validators.required);
   public fileUploadTokensList: ReadonlyArray<string> = [];
   public profileDocumentsList: ReadonlyArray<ProfileDocument> = [];
   public currentModalStep = CreateProfileModalSteps.PROFILE_DETAILS;
@@ -61,6 +63,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
    * This is potential candidate to be removed.
    */
   public isRequestPending = false;
+  public isPayoutModal = false;
   public isFileUploading = false;
   public isValidated = false;
 
@@ -72,17 +75,15 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   /**
    * filed used to disable possibility to collapse modal to only client profile
    */
-  public isOpenedAsExpert = true;
   public isExpert: boolean;
   public isCompany: boolean;
-  public modalHeaderTr: string;
   /**
    * provided as external parameter when opened modal
    * indicated if modal will store expert data or only
    * client data.
    */
   @Input()
-  public isExpertForm = true;
+  public isExpertForm = false;
 
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
@@ -111,6 +112,11 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   }
 
   public ngOnInit(): void {
+    this.profileForm = new FormGroup({
+      [this.basicProfileDataControlName]: this.avatarTokenProfileNameFormControl,
+      [this.linksControlName]: this.linksFormControl,
+    });
+
     this.createProfileComponentService
       .getCountryIsoAndProfile()
       .pipe(
@@ -120,16 +126,13 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
           return EMPTY;
         }),
       )
-      .subscribe(({ countryISO, hasProfile }) => {
+      .subscribe(({ countryISO, hasProfile, accountDetails }) => {
         this.userCountryIsoCode = countryISO;
         this.hasProfile = hasProfile;
-        // this.setBasicProfileData(accountDetails.avatar, accountDetails.nickname);
+        this.setBasicProfileData(accountDetails.avatar, accountDetails.nickname);
       });
+
     this.invoiceDetailsForm = new FormGroup({});
-    this.profileForm = new FormGroup({
-      [this.basicProfileDataControlName]: this.avatarTokenProfileNameFormControl,
-      [this.linksControlName]: this.linksFormControl,
-    });
   }
 
   public ngAfterViewInit(): void {
@@ -142,29 +145,21 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
 
   public onVerifyProfile(): void {
     this.isValidated = true;
+
     if (this.profileForm.valid) {
       this.isRequestPending = true;
+
       if (this.isExpertForm) {
         this.validateProfileDetails();
       } else {
         this.sendClientProfile(this.getClientDetails());
       }
-    } else {
-      this.formUtils.validateAllFormFields(this.profileForm);
-    }
-  }
-
-  public onSaveProfile(): void {
-    if (this.isCreateProfileDataValid()) {
-      this.isRequestPending = true;
-      this.sendExpertProfile();
-    } else {
-      this.validateInvoiceForm();
     }
   }
 
   public onBackwardClick(): void {
     this.stepper.previous();
+    this.isPayoutModal = false;
     this.currentModalStep = CreateProfileModalSteps.PROFILE_DETAILS;
   }
 
@@ -178,6 +173,13 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
 
   public toggleIsExpertForm(): void {
     this.isExpertForm = !this.isExpertForm;
+
+    if (this.isExpertForm) {
+      this.profileForm.addControl(this.descriptionControlName, this.descriptionFormControl);
+    } else {
+      this.avatarTokenProfileNameFormControl.clearValidators();
+      this.profileForm.removeControl(this.descriptionControlName);
+    }
   }
 
   public onSelectInvoiceDetailsType(type: GetInvoiceDetails.InvoiceDetailsTypeEnum): void {
@@ -186,20 +188,46 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
       type === GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON ? NATURAL_PERSON_FORM_NAME : COMPANY_FORM_NAME;
   }
 
-  // private setBasicProfileData(avatar?: string, name?: string): void {
-  //   this.avatarTokenProfileNameFormControl.setValue({
-  //     avatarToken: avatar || '',
-  //     name: name || '',
-  //   });
-  // }
+  public onSaveProfile(): void {
+    if (this.invoiceDetailsForm.controls[this.selectedInvoiceDetailsFormName].valid) {
+      this.isRequestPending = true;
+      // 1. expert or client?
+      if (this.isExpertForm) {
+        this.sendExpertProfile();
+      } else {
+        this.sendClientProfile(this.getClientDetails());
+      }
+      // 2. update session in store
+      this.store.dispatch(
+        new SessionUpdateApiActions.CreateUpdateNameAndAvatarAction({
+          ...(this.avatarTokenProfileNameFormControl.value as IBasicProfileData),
+        }),
+      );
+    } else {
+      this.formUtils.validateAllFormFields(this.invoiceDetailsForm);
+    }
+  }
+
+  private setBasicProfileData(avatar?: string, name?: string): void {
+    this.avatarTokenProfileNameFormControl.patchValue({
+      avatarToken: avatar || '',
+      name: name || '',
+    });
+  }
 
   private sendClientProfile(data: PutGeneralSettings): void {
-    this.createProfileComponentService.createClientProfile(data).subscribe(
-      () => {
-        this.onModalClose();
-      },
-      () => this.handleResponseError(),
-    );
+    this.createProfileComponentService
+      .createClientProfile(data)
+      .pipe(
+        tap(() => this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.USER))),
+        waitForSession(this.store),
+      )
+      .subscribe(
+        () => {
+          this.onModalClose();
+        },
+        () => this.handleResponseError(),
+      );
   }
 
   private getProfileWithInvoiceDetails(): PostProfileWithInvoiceDetails {
@@ -238,6 +266,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
       )
       .subscribe(
         getProfile => {
+          this.isRequestPending = false;
           this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.EXPERT));
           this.store.dispatch(new VisibilityInitActions.FetchInitVisibilityAction());
           /* It have to be refactor, for now we don't want to redirect users from invitations list view */
@@ -328,26 +357,13 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
     return `${postCodeValue.slice(0, firstPartOfPostalCode)}-${postCodeValue.slice(firstPartOfPostalCode)}`;
   }
 
-  private isCreateProfileDataValid(): boolean {
-    if (this.hasProfile) {
-      return this.profileForm.valid;
-    } else {
-      return this.profileForm.valid && this.invoiceDetailsForm.controls[this.selectedInvoiceDetailsFormName].valid;
-    }
-  }
-
-  private validateInvoiceForm(): void {
-    this.formUtils.validateAllFormFields(this.invoiceDetailsForm.controls[
-      this.selectedInvoiceDetailsFormName
-    ] as FormGroup);
-  }
-
   private validateProfileDetails(): void {
     this.createProfileComponentService
       .validateProfileDetails(this.getProfileDetails())
       .pipe(
         finalize(() => {
           this.isRequestPending = false;
+          this.isPayoutModal = true;
         }),
       )
       .subscribe(() => {

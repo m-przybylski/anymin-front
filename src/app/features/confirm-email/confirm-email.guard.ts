@@ -52,7 +52,7 @@ export class ConfirmEmailGuard implements CanActivate {
 
   private redirectToDashboard(): void {
     this.router
-      .navigate([RouterPaths.dashboard.user.welcome.asPath])
+      .navigate([RouterPaths.dashboard.user.activities.client.asPath])
       .then(isRedirectSuccessful => {
         if (!isRedirectSuccessful) {
           this.logger.warn('Can not redirect to /dashboard/user/activities');

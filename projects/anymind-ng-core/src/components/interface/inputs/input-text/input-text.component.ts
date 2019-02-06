@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormUtilsService } from '../../../../services/form-utils/form-utils.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 export enum InputSize {
   DEFAULT = '',
@@ -12,7 +14,7 @@ export enum InputSize {
   templateUrl: './input-text.component.html',
   styleUrls: ['./input-text.component.sass'],
 })
-export class InputTextComponent {
+export class InputTextComponent implements OnInit, OnDestroy {
   @Input('label')
   public labelTrKey: string;
 
@@ -49,15 +51,31 @@ export class InputTextComponent {
   @Input()
   public inputSize = InputSize.DEFAULT;
 
-  @Input()
   public inputValue = '';
-
   public isFocused = false;
+
+  private ngUnsubscribe$ = new Subject<void>();
 
   constructor(public formUtils: FormUtilsService) {}
 
   public ngOnInit(): void {
-    this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
+    if (!this.formGroup.contains(this.controlName)) {
+      this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
+    } else {
+      this.formGroup.controls[this.controlName].setValidators(this.getValidators());
+      this.inputValue = this.formGroup.controls[this.controlName].value;
+    }
+
+    this.formGroup.controls[this.controlName].valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((value: string) => {
+        this.inputValue = value;
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);

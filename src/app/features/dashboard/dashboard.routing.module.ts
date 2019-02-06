@@ -7,7 +7,6 @@ import { UserDashboardComponent } from './views/user-dashboard/user-dashboard.vi
 import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
-import { WelcomeViewGuard } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.view.guard';
 import { ExpertDashboardGuard } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard.guard';
 import { PaymentsResolver } from '@platform/features/dashboard/views/user-dashboard/payments/payments.resolver';
 
@@ -48,11 +47,6 @@ const routes: Routes = [
           {
             path: RouterPaths.dashboard.user.invitations.getName,
             loadChildren: './views/user-dashboard/invitations/invitations.module#InvitationsModule',
-          },
-          {
-            path: RouterPaths.dashboard.user.welcome.getName,
-            canActivate: [WelcomeViewGuard],
-            loadChildren: './views/user-dashboard/welcome/welcome.module#WelcomeModule',
           },
         ],
       },
