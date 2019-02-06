@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import localePl from '@angular/common/locales/pl';
 import { registerLocaleData } from '@angular/common';
+import { ConfirmEmailModule } from './features/confirm-email/confirm-email.module';
 
 export function getLocale(): string {
   return 'pl';
@@ -26,6 +27,7 @@ registerLocaleData(localePl, getLocale);
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ConfirmEmailModule,
     RouterModule,
     BrowserModule,
     AppRoutingModule,
