@@ -6,6 +6,7 @@ import * as fromRoot from '@platform/reducers/index';
 import { TestBed } from '@angular/core/testing';
 import { FilePreviewService, IFileType } from '@platform/shared/components/modals/file-preview/file-preview.service';
 import { LoggerFactory, LoggerService, WindowRef } from '@anymind-ng/core';
+import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
 
 describe('FilePreviewService', () => {
   let filePreviewService: FilePreviewService;
@@ -13,6 +14,11 @@ describe('FilePreviewService', () => {
   const windowRef: WindowRef = Deceiver(WindowRef);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
     createLoggerService: jest.fn().mockReturnValue(Deceiver(LoggerService)),
+  });
+
+  const fileUrlResolveService: FileUrlResolveService = Deceiver(FileUrlResolveService, {
+    getFilePreviewDownloadUrl: jest.fn(a => `preview/${a}`),
+    getFileDownloadUrl: jest.fn(a => `${a}`),
   });
 
   beforeEach(() => {
@@ -24,7 +30,7 @@ describe('FilePreviewService', () => {
         }),
       ],
     });
-    filePreviewService = new FilePreviewService(windowRef, loggerFactory);
+    filePreviewService = new FilePreviewService(windowRef, fileUrlResolveService, loggerFactory);
   });
 
   it('should be created', () => {
@@ -40,11 +46,11 @@ describe('FilePreviewService', () => {
     };
 
     const result = {
-      name: 'name',
-      token: file.token,
-      previews: ['www.anymind.com/files/12345/download/0', 'www.anymind.com/files/123456/download/1'],
       contentType: IFileType.PDF,
-      fileUrl: `${window.location.origin}/files/1234567890/download`,
+      fileUrl: `1234567890`,
+      name: 'name',
+      previews: ['www.anymind.com/files/12345/download/0', 'www.anymind.com/files/123456/download/1'],
+      token: '1234567890',
     };
 
     expect(filePreviewService.checkTypeOfFile(file)).toEqual(result);
@@ -59,11 +65,11 @@ describe('FilePreviewService', () => {
     };
 
     const result = {
-      name: 'name',
-      token: file.token,
-      previews: [`${window.location.origin}/files/123/download`],
       contentType: IFileType.IMAGE_JPG,
-      fileUrl: `${window.location.origin}/files/123/download`,
+      fileUrl: `123`,
+      name: 'name',
+      previews: [`preview/123`],
+      token: '123',
     };
 
     expect(filePreviewService.checkTypeOfFile(file)).toEqual(result);
@@ -79,10 +85,10 @@ describe('FilePreviewService', () => {
 
     const result = {
       name: 'name',
-      token: file.token,
+      token: 'token',
       previews: [''],
       contentType: IFileType.OTHER,
-      fileUrl: `${window.location.origin}/files/token/download`,
+      fileUrl: `token`,
     };
 
     expect(filePreviewService.checkTypeOfFile(file)).toEqual(result);
@@ -97,10 +103,10 @@ describe('FilePreviewService', () => {
 
     const result = {
       name: 'DASHBOARD.PROFILE.FILES.PREVIEW.NAME',
-      token: file.token,
+      token: 'token',
       previews: [''],
       contentType: IFileType.OTHER,
-      fileUrl: `${window.location.origin}/files/token/download`,
+      fileUrl: `token`,
     };
 
     expect(filePreviewService.checkTypeOfFile(file)).toEqual(result);

@@ -32,7 +32,6 @@ export class Config {
   };
 
   public static readonly links = {
-    imageUrl: `${window.location.origin}/files/%s/download`,
     zendesk: 'https://anymind.zendesk.com/hc/pl/categories/115000117831-PANEL-KONSULTANTA',
     zendeskAboutConsultation:
       'https://anymind.zendesk.com/hc/pl/articles/360002462272--Jaka-jest-r%C3%B3%C5%BCnica' +

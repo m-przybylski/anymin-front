@@ -5,6 +5,7 @@ export function getCoreConfig(): CoreConfig {
   return new CoreConfig({
     files: window.location.origin,
     fileDownload: '/files/%s/download',
-    fileUpload: '/files/%s/upload'
+    filePreviewDownload: '/files/%s/download/preview',
+    fileUpload: '/files/%s/upload',
   });
 }

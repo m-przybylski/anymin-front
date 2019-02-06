@@ -121,7 +121,7 @@ export class FilePreviewComponent implements OnInit {
     } else {
       this.filePreviewTemplate.createEmbeddedView(this.filePreviewTemplate_IMG);
 
-      this.currentPreviewList = this.currentFileDetails.previews;
+      this.currentPreviewList = [this.currentFileDetails.fileUrl];
     }
   };
 

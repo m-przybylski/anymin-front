@@ -118,5 +118,5 @@ export class MessagePipe implements PipeTransform {
   };
 
   private resolveFileUrl = (fileId: string): string =>
-    this.coreConfig.urls.files + this.coreConfig.urls.fileDownload.replace('%s', fileId);
+    this.coreConfig.urls.files + this.coreConfig.urls.filePreviewDownload.replace('%s', fileId);
 }

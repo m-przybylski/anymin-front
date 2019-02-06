@@ -8,7 +8,7 @@ import { LoggerModule, AnymindComponentsCoreModule, LogLevel, CommunicatorModule
 import { Config } from '../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, MissingTranslationHandler, TranslateLoader } from '@ngx-translate/core';
-import { getCoreConfig } from './factories/core-config/core-config.facotry';
+import { getCoreConfig } from './factories/core-config/core-config.factory';
 import { LongPollingService } from './services/long-polling/long-polling.service';
 import { MsisdnHelperService } from './services/msisdn-helper/msisdn-helper.service';
 import { StoreModule } from '@ngrx/store';

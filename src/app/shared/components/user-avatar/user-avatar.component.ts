@@ -1,5 +1,6 @@
 // tslint:disable:strict-boolean-expressions
 import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
 
 export enum AvatarSizeEnum {
   X_24,
@@ -33,7 +34,9 @@ export class UserAvatarComponent {
   public avatarUrl?: string;
   public loaded = false;
 
-  public setAvatarClass = (): string => {
+  constructor(private fileUrlResolveService: FileUrlResolveService) {}
+
+  public setAvatarClass(): string {
     // tslint:disable-next-line:cyclomatic-complexity
     switch (this.avatarSize) {
       case AvatarSizeEnum.X_24:
@@ -63,7 +66,9 @@ export class UserAvatarComponent {
       default:
         return 'user-avatar--x48';
     }
-  };
+  }
 
-  private resolveFileUrl = (avatarToken: string): string => `${window.location.origin}/files/${avatarToken}/download`;
+  private resolveFileUrl(avatarToken: string): string {
+    return this.fileUrlResolveService.getFilePreviewDownloadUrl(avatarToken);
+  }
 }

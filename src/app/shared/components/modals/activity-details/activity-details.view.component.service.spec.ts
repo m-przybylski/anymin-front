@@ -47,6 +47,7 @@ describe('ActivityDetailsViewComponentService', () => {
           useValue: Deceiver(FileUrlResolveService, {
             getFileDownloadUrl: (token: string): string =>
               token ? `http://www.anymind.com/files/${token}/download` : '',
+            getFilePreviewDownloadUrl: jest.fn(token => `preview/${token}`),
           }),
         },
         provideMockFactoryLogger(loggerService),
@@ -63,7 +64,7 @@ describe('ActivityDetailsViewComponentService', () => {
     const viewsService = TestBed.get(ViewsService);
     const mockSueId = 'id123';
     const mockAccountId = 'serviceOwnerProfileId';
-    const mockDate = new Date();
+    const mockDate = new Date(0);
     const response: GetCallDetails = {
       isRecommended: true,
       isRecommendable: true,
@@ -140,8 +141,8 @@ describe('ActivityDetailsViewComponentService', () => {
       sueId: mockSueId,
       serviceName: 'superService',
       clientName: 'MalyRozbojnik123',
-      clientAvatarUrl: 'http://www.anymind.com/files/clientAvatar/download',
-      expertAvatarUrl: 'http://www.anymind.com/files/expertAvatar/download',
+      clientAvatarUrl: 'preview/clientAvatar',
+      expertAvatarUrl: 'preview/expertAvatar',
       answeredAt: mockDate,
       callDuration: 22,
       servicePrice: {
@@ -177,92 +178,6 @@ describe('ActivityDetailsViewComponentService', () => {
         createdAt: mockDate,
       },
       rate: undefined,
-    };
-    const expectedResult = cold('-(a|)', { a: expectedValue });
-    const getCallDetails = cold('-(a|)', { a: response });
-
-    viewsService.getDashboardCallDetailsRoute = jest.fn(() => getCallDetails);
-    expect(service.getCallDetails(mockSueId, mockAccountId)).toBeObservable(expectedResult);
-  });
-
-  it('should activity details without client, expert avatar, comment', () => {
-    const viewsService = TestBed.get(ViewsService);
-    const mockSueId = 'id123';
-    const mockAccountId = 'id123';
-    const mockDate = new Date();
-    const response = {
-      isRecommended: true,
-      isRecommendable: true,
-      recommendedTags: [
-        {
-          id: 'id',
-          name: 'superTag',
-          status: GetTag.StatusEnum.ACCEPTED,
-        },
-      ],
-      clientDetails: {
-        clientId: 'clientId',
-        nickname: 'MalyRozbojnik123',
-      },
-      service: {
-        id: 'serviceId',
-        ownerId: 'ownerId',
-        name: 'superService',
-        description: 'the best service',
-        price: {
-          value: 123,
-          currency: 'PLN',
-        },
-        language: 'PL',
-        isSuspended: false,
-        isFreelance: false,
-        createdAt: new Date(),
-      },
-      serviceOwnerProfile: {
-        id: 'serviceOwnerProfileId',
-        isActive: true,
-      },
-      expertProfile: {
-        id: 'expertProfileId',
-        isActive: true,
-      },
-      serviceUsageDetails: {
-        serviceUsageEventId: 'serviceUsageEventId',
-        ratelCallId: 'ratelCallId',
-        ratelRoomId: 'ratelRoomId',
-        answeredAt: mockDate,
-        ratePerMinute: {
-          value: 123,
-          currency: 'PLN',
-        },
-        amount: {
-          value: 234,
-          currency: 'PLN',
-        },
-        callDuration: 22,
-      },
-    };
-    const expectedValue: ISueDetails = {
-      sueId: mockSueId,
-      serviceName: 'superService',
-      clientName: 'MalyRozbojnik123',
-      clientAvatarUrl: '',
-      expertAvatarUrl: '',
-      answeredAt: mockDate,
-      callDuration: 22,
-      servicePrice: {
-        value: 123,
-        currency: 'PLN',
-      },
-      financialOperation: {
-        value: 234,
-        currency: 'PLN',
-      },
-      recommendedTags: 'superTag',
-      isSueExpert: false,
-      expertName: '',
-      rate: undefined,
-      comment: undefined,
     };
     const expectedResult = cold('-(a|)', { a: expectedValue });
     const getCallDetails = cold('-(a|)', { a: response });

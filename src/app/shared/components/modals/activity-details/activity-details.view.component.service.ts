@@ -30,10 +30,10 @@ export class ActivityDetailsViewComponentService extends Logger {
         sueId,
         serviceName: callDetails.service.name,
         clientName: callDetails.clientDetails.nickname,
-        clientAvatarUrl: this.fileUrlService.getFileDownloadUrl(callDetails.clientDetails.avatar),
+        clientAvatarUrl: this.fileUrlService.getFilePreviewDownloadUrl(callDetails.clientDetails.avatar),
         expertAvatarUrl:
           typeof callDetails.expertProfile.expertDetails !== 'undefined'
-            ? this.fileUrlService.getFileDownloadUrl(callDetails.expertProfile.expertDetails.avatar)
+            ? this.fileUrlService.getFilePreviewDownloadUrl(callDetails.expertProfile.expertDetails.avatar)
             : '',
         answeredAt: callDetails.serviceUsageDetails.answeredAt,
         callDuration: callDetails.serviceUsageDetails.callDuration,

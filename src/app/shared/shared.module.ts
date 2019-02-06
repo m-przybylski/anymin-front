@@ -24,7 +24,6 @@ import { IconModule, ButtonModule } from './components/atomic-components/';
 import { InputsModule } from './components/inputs/inputs.module';
 import { TagListComponent } from '@platform/shared/components/tag-list/tag-list.component';
 import { SettingOptionComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/setting-option/setting-option.component';
-import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
 import { CookieNotificationModule } from '@platform/shared/components/cookie-notification/cookie-notification.module';
 import { InvitationsGuard } from '@platform/features/invitations/invitations.guard';
 import { InvitationsComponent } from '@platform/features/invitations/invitations.component';
@@ -81,7 +80,6 @@ import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.modul
     PinCodeTimerService,
     ContentHeightAnimationService,
     PhoneNumberUnifyService,
-    FileUrlResolveService,
   ],
 })
 export class SharedModule {}

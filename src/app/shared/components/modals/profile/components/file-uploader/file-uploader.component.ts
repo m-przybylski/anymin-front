@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FileCategoryEnum } from '../../../../../services/uploader/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { Config } from '../../../../../../../config';
+import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
 
 interface IFileInfo {
   token: string;
@@ -82,6 +83,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   constructor(
     private fileUploaderService: FileUploaderComponentService,
     private uploaderService: UploaderService,
+    private fileUrlResolveService: FileUrlResolveService,
     loggerFactory: LoggerFactory,
   ) {
     this.loggerService = loggerFactory.createLoggerService('FileUploaderComponent');
@@ -245,7 +247,9 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     };
   };
 
-  private resolveFileUrl = (avatarToken: string): string => `${window.location.origin}/files/${avatarToken}/download`;
+  private resolveFileUrl(avatarToken: string): string {
+    return this.fileUrlResolveService.getFilePreviewDownloadUrl(avatarToken);
+  }
 
   private setFileType = (fileName: string): string => {
     const divideFileName = fileName.split('.');

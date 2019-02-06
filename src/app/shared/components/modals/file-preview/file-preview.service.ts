@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProfileDocument } from '@anymind-ng/api';
 import { LoggerFactory, WindowRef } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
+import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
 
 export enum IFileType {
   IMAGE_JPG = 'image/jpeg',
@@ -25,7 +26,11 @@ export interface IFilePreviewPayload {
 export class FilePreviewService extends Logger {
   private readonly noFileNameTr = 'DASHBOARD.PROFILE.FILES.PREVIEW.NAME';
 
-  constructor(private windowRef: WindowRef, loggerFactory: LoggerFactory) {
+  constructor(
+    private windowRef: WindowRef,
+    private fileUrlResolveService: FileUrlResolveService,
+    loggerFactory: LoggerFactory,
+  ) {
     super(loggerFactory.createLoggerService('FilePreviewService'));
   }
 
@@ -73,15 +78,21 @@ export class FilePreviewService extends Logger {
   private prepareImagePreviews = (file: ProfileDocument): IFilePreviewDetails => ({
     name: typeof file.name !== 'undefined' ? file.name : this.noFileNameTr,
     token: file.token,
-    previews: [this.resolveFileUrl(file.token)],
+    previews: [this.resolveFilePreviewUrl(file.token)],
     contentType: IFileType.IMAGE_JPG,
     fileUrl: this.resolveFileUrl(file.token),
   });
 
-  private resolveFileUrl = (avatarToken: string): string => `${window.location.origin}/files/${avatarToken}/download`;
+  private resolveFileUrl(avatarToken: string): string {
+    return this.fileUrlResolveService.getFileDownloadUrl(avatarToken);
+  }
+  private resolveFilePreviewUrl(avatarToken: string): string {
+    return this.fileUrlResolveService.getFilePreviewDownloadUrl(avatarToken);
+  }
 
-  private resolvePdfFileUrl = (avatarTokens: ReadonlyArray<string>): ReadonlyArray<string> =>
-    avatarTokens.map(preview => preview.replace('files//', 'files/'));
+  private resolvePdfFileUrl(avatarTokens: ReadonlyArray<string>): ReadonlyArray<string> {
+    return avatarTokens.map(preview => preview.replace('files//', 'files/'));
+  }
 
   private prepareHtmlPageToPrint = (imageUrl: ReadonlyArray<string>): string => {
     // tslint:disable-next-line:no-let
