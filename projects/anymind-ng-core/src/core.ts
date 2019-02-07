@@ -23,7 +23,6 @@ export { MoneyToCurrency } from './shared/pipes/money-to-currency/money-to-curre
 
 // File uploader
 export { UploaderService } from './services/uploader/uploader.service';
-export { FileUploader } from './services/uploader/uploader';
 
 // Logger
 export { LoggerModule } from './modules/logger.module';
@@ -110,3 +109,4 @@ export {
   IInputPhoneEmailValueObject,
 } from './components/interface/inputs/input-phone-email/input-phone-email.component';
 export { InputSetPasswordErrors } from './components/interface/inputs/input-set-password/input-set-password.component';
+export { IUploadFileInfo } from './services/uploader/uploader.service';

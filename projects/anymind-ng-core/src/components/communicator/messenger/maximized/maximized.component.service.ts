@@ -15,16 +15,22 @@ export class MaximizedComponentService {
     private messengerService: MessengerService,
   ) {}
 
-  public session$ = (): Observable<Session> =>
-    this.communicatorService.connectionEstablishedEvent$.pipe(map(connected => connected.session));
-
-  public uploadFile = (
+  public session$(): Observable<Session> {
+    return this.communicatorService.connectionEstablishedEvent$.pipe(map(connected => connected.session));
+  }
+  public uploadFile(
     file: File,
     postProcessOptions: PostFileDetails,
     onProgress: (data: IUploadFileInfo) => void,
-  ): Promise<IUploadFileInfo> => this.uploaderService.uploadFile(file, postProcessOptions, onProgress);
+  ): Promise<IUploadFileInfo> {
+    return this.uploaderService.uploadFile(file, postProcessOptions, onProgress);
+  }
 
-  public resetMessages = (): void => this.messengerService.resetMessages();
+  public resetMessages(): void {
+    this.messengerService.resetMessages();
+  }
 
-  public addUnseenMessage = (): void => this.messengerService.addUnseenMessage();
+  public addUnseenMessage(): void {
+    this.messengerService.addUnseenMessage();
+  }
 }

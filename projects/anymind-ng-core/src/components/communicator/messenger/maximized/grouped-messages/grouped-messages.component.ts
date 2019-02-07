@@ -51,8 +51,9 @@ export class GroupedMessagesComponent implements OnInit, OnDestroy {
     this.ngDestroy$.complete();
   }
 
-  public isPendingImage = (msg: roomEvents.CustomMessageSent | ILocalMessage): boolean =>
-    MessagesUtils.isPendingImage(msg);
+  public isPendingImage(msg: roomEvents.CustomMessageSent | ILocalMessage): boolean {
+    return MessagesUtils.isPendingImage(msg);
+  }
 
   public isImage = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isImage(msg);
 

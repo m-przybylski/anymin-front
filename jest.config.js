@@ -16,13 +16,18 @@ module.exports = {
     '<rootDir>/src/app/**/*.spec.ts',
     '<rootDir>/projects/anymind-ng-core/**/*.spec.ts',
   ],
+  collectCoverageFrom: [
+    '<rootDir>/src/app/**/*.ts',
+    '!<rootDir>/src/app/**/*.module.ts',
+    '!<rootDir>/src/app/**/*.config.ts',
+  ],
   coverageDirectory: '<rootDir>/test-coverage',
   coverageThreshold: {
     global: {
-      branches: 25,
-      functions: 25,
-      lines: 25,
-      statements: 25,
+      branches: 30,
+      functions: 30,
+      lines: 30,
+      statements: 30,
     },
   },
   transformIgnorePatterns: [`/node_modules/(?!${esModules})`],

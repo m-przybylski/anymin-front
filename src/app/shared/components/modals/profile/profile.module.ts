@@ -1,7 +1,6 @@
 // tslint:disable:no-implicit-dependencies
 import { NgModule } from '@angular/core';
 import { ModalsModule } from '../../modals/modals.module';
-import { UploaderService } from '../../../services/uploader/uploader.service';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { CreateProfileModalComponent } from './create-profile/create-profile.component';
 import { ImageCropModalComponent } from './components/basic-profile-data/image-crop/image-crop.component';
@@ -55,7 +54,6 @@ import { WarningInformationModule } from '@platform/shared/components/warning-in
     EditProfileComponentService,
     CreateOrganizationComponentService,
     EditOrganizationComponentService,
-    UploaderService,
     ProfileLinksComponentService,
   ],
   declarations: [

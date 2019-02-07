@@ -7,8 +7,7 @@ import { Component, EventEmitter, HostListener, Input, Output, OnDestroy, OnInit
 import { PostFileDetails } from '@anymind-ng/api';
 import FileTypeEnum = PostFileDetails.FileTypeEnum;
 import { Subject } from 'rxjs';
-import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { IUploadFileInfo, UploaderService } from '../../../../../services/uploader/uploader.service';
+import { LoggerFactory, LoggerService, IUploadFileInfo, UploaderService } from '@anymind-ng/core';
 import { FileStatus, FileUploaderComponentService, IFileValidationValues } from './file-uploader.component.service';
 import { Animations } from '../../../../../animations/animations';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -176,12 +175,12 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     }
   };
 
-  public removeFileFromUpload = (iFile: IFile): void => {
+  public removeFileFromUpload(iFile: IFile): void {
     this.removeFile(iFile);
     if (iFile.file) {
       this.uploaderService.removeFileFromUpload(iFile.file);
     }
-  };
+  }
 
   public createFileName = (fileName: string): string => {
     if (fileName.length > this.maxFileNameLength) {
@@ -210,7 +209,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     if (fileToUpload.file) {
       this.uploadingFile.emit(true);
       this.uploaderService
-        .uploadFile(fileToUpload.file, this.postProcessOptions)
+        .uploadFile(fileToUpload.file, this.postProcessOptions, (_data): void => undefined)
         .then(response => this.onFileUploadSuccess(response, fileToUpload))
         .catch(error => this.onFileUploadError(error, fileToUpload));
     }

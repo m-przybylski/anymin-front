@@ -1,6 +1,5 @@
 import { Input, ElementRef, Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { throttle } from 'lodash';
-// tslint:disable-next-line:no-duplicate-imports
 // tslint:disable:readonly-array
 import {
   ILocalMessage,
@@ -146,6 +145,8 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
         }
       })
       .catch(err => {
+        this.onFileUploadError();
+        this.removeGroupedMessage(localMessage);
         this.logger.error('MaximizedComponent: fileupload error:', err);
       });
   }
@@ -215,6 +216,15 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
       }
     }
     this.scrollToBottom();
+  }
+  private removeGroupedMessage(localMsg: ILocalMessage): void {
+    const idToRemove = localMsg.messageId;
+    this.groupedMessages.forEach(groupedMessages => {
+      const messageFound = groupedMessages.find(message => message.messageId === idToRemove);
+      if (messageFound) {
+        groupedMessages.splice(groupedMessages.indexOf(messageFound), 1);
+      }
+    });
   }
 
   // tslint:disable-next-line:cyclomatic-complexity
@@ -327,7 +337,7 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
   private uploadFile(file: File): Promise<chatEvents.Received | void> {
     return this.maximizedComponentService
       .uploadFile(file, this.postProcessOptions, data => this.onUploadProgress(data))
-      .then(res => this.onFileUpload(res), () => this.onFileUploadError());
+      .then(res => this.onFileUpload(res));
   }
 
   private generateId(): number {

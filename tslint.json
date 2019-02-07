@@ -102,7 +102,6 @@
     "no-use-before-declare": true,
     "no-var-requires": true,
     // "no-void-expression": true, // to be enabled
-    // "no-unused-variable": true,
     "number-literal-format": true,
     "one-variable-per-declaration": true,
     "only-arrow-functions": true,
