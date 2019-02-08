@@ -1,4 +1,5 @@
 // tslint:disable:max-file-line-count
+// tslint:disable:max-line-length
 
 import { LogLevel } from '@anymind-ng/core';
 import { VERSION } from '../generated_modules/version/version';
@@ -126,7 +127,7 @@ export class Config {
       '^(http://www.|https://www.|http://|https://)?[a-zA-Z0-9]' +
         '+([-.]{1}[a-zA-Z0-9]{1,63})*.[a-zA-Z]{2,5}(:[0-9]{1,5})?(/.*)?$',
     ),
-    emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+([\.]{1}[a-zA-Z]{2,6})+([\.]{1}[a-zA-Z]{2,6})?$/,
+    emailPattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     smsCodePattern: /^[0-9]{4}$/,
     phonePattern: /^\+?\d+(\s\d+)*$/,
     passwordPattern: new RegExp(

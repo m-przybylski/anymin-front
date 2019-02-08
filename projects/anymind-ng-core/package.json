@@ -1,6 +1,6 @@
 {
   "name": "anymind-ng-core",
-  "version": "0.12.17",
+  "version": "0.12.18",
   "description": "Component library for anymind frontend project",
   "author": "AnyMind",
   "publishConfig": {
