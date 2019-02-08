@@ -1,36 +1,36 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 
 \:host
 	display: block
-	
+
 .csv-uploader
 	&__handler
 		display: flex
 		align-items: center
-		
+
 	&__alert
 		margin: 0 0 48px
 		position: relative
-		
+
 		p
 			+subtitle-small
 			color: $c-label
 			cursor: pointer
-			
+
 		am-core-validation-alert
 			position: absolute
 			top: 100%
 			left: 0
-		
+
 	span
 		+subtitle-small
 		color: $c-primary
 		cursor: pointer
-		
+
 		&::ng-deep
 			span
 				+subtitle-small
 				color: $c-label
-			
+
 	input
 		display: none

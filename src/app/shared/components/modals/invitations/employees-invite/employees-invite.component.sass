@@ -1,18 +1,18 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 
 \:host
 	width: 100%
-	
+
 .invite-employees
 	.modal-component
 		&__content
 			&__header
 				margin: 0 0 48px
-				
+
 				span
 					+h6
 					font-weight: 700
-					
+
 					+smm
 						+h4
 						font-weight: 700
@@ -45,25 +45,25 @@
 
 	&__list
 		margin: 0 0 48px
-		
+
 		+smm
 			display: flex
 			flex-wrap: wrap
 			margin: 0 -4px 40px
-		
+
 		&__item
 			padding: 0 0 8px
-			
+
 			+smm
 				padding: 0 4px 8px
 				flex: 0 0 50%
 				max-width: 50%
-		
+
 	&__title
 		flex: 1
 		padding: 0 0 0 8px
 		max-width: calc(100% - 56px)
-		
+
 		span
 			+checkbox-label
 			overflow: hidden
@@ -71,24 +71,23 @@
 			display: block
 			white-space: nowrap
 			max-width: 100%
-		
+
 	&__delete
 		span
 			cursor: pointer
 			transition: color 0.3s
-			
+
 			&:hover
 				color: $c-secondary
 
 	.dropdown__handler
 		margin: 0 0 8px
-		
+
 	.modal-component
 		&__action
 			&--invite-employees
 				display: flex
 				justify-content: center
-				
+
 .csv-uploader
 	margin: 0 0 24px
-		

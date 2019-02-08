@@ -1,4 +1,4 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 
 $s-tooltip-width: 24px
 $s-tooltip-array-indent: 15px
@@ -13,7 +13,7 @@ $s-tooltip-array-width: 8px
 	position: relative
 	width: $s-tooltip-width
 	height: $s-tooltip-width
-	
+
 	&--center
 		.tooltip__content
 			right: 0
@@ -21,36 +21,36 @@ $s-tooltip-array-width: 8px
 			bottom: auto
 			transform: translate(0, 0)
 			width: calc(100vw - 24px) !important
-		
+
 			+xsm
 				width: auto
 				max-width: 280px
-			
+
 			&::after
 				content: none
-	
+
 	&--left
 		.tooltip__content
 			right: 0 !important
 			left: auto !important
 			bottom: auto
 			transform: translate(#{$s-tooltip-array-indent - ($s-tooltip-array-width / 2)}, -$s-tooltip-array-indent)
-			
+
 			&::after
 				left: auto
 				right: 15px
-	
+
 	&--right
 		.tooltip__content
 			right: auto !important
 			left: 0 !important
 			bottom: auto
 			transform: translate(-#{$s-tooltip-array-indent - ($s-tooltip-array-width / 2)}, -$s-tooltip-array-indent)
-		
+
 			&::after
 				right: auto
 				left: 15px
-		
+
 	&__header
 		display: inline-flex
 		width: auto
@@ -63,7 +63,7 @@ $s-tooltip-array-width: 8px
 		min-height: $s-tooltip-width
 		font-size: $s-tooltip-width
 		color: $c-label
-	
+
 	&__content
 		+tooltip-text
 		position: absolute
@@ -78,11 +78,11 @@ $s-tooltip-array-width: 8px
 		z-index: -$z-index-1000
 		margin: 0 0 12px
 		opacity: 0
-		
+
 		&--visible
 			z-index: $z-index-1000
 			opacity: 1
-		
+
 		&::after
 			content: ""
 			position: absolute
@@ -94,7 +94,7 @@ $s-tooltip-array-width: 8px
 			border-right: $s-tooltip-array-width solid transparent
 			border-left: $s-tooltip-array-width solid transparent
 			right: $s-tooltip-array-indent
-		
+
 		p
 			+tooltip-text
 			display: inline-block

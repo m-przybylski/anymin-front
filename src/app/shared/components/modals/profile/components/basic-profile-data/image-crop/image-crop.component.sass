@@ -1,22 +1,22 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 @import "../../../../../../../template/vendors/croppie/croppie"
 
 \:host
 	display: block
 	width: 100%
-	
+
 	app-image-crop
 		width: 100%
 		display: block
-		
+
 .image-crop
 	&__container
 		margin: 0
 		position: relative
-		
+
 	.modal-component__action--crop
 		padding: 24px
-		
+
 		+smm
 			display: flex
 			justify-content: space-between
@@ -24,17 +24,17 @@
 
 		> div
 			text-align: center
-			
+
 			+smm
 				display: flex
-			
+
 			> *
 				margin: 0 8px
 				display: inline-flex
-				
+
 				+smm
 					margin: 0 0 0 16px
-			
+
 	p
 		&.hint
 			color: $c-white
@@ -49,7 +49,7 @@
 			line-height: 16px
 			width: auto
 			text-align: center
-	
+
 	input
 		&[type="range"]
 			width: 100%
@@ -57,29 +57,29 @@
 			margin: 0 24px 0 0
 			appearance: none
 			-webkit-appearance: none
-			
+
 			+smm
 				width: 214px
-			
+
 			&::-moz-range-progress
 				background: $c-primary
-			
+
 			&::-moz-range-track
 				background: $c-primary
-			
+
 			&::-ms-fill-upper
 				background: $c-primary
-			
+
 			&::-ms-fill-lower
 				background: $c-primary
-			
+
 			&::-webkit-slider-runnable-track
 				-webkit-appearance: none
 				height: 4px
 				background: $c-primary
 				border: none
 				border-radius: 4px
-			
+
 			&::-moz-range-thumb
 				background: $c-white
 				box-shadow: none
@@ -89,7 +89,7 @@
 				border-radius: 50%
 				position: relative
 				top: -1px
-			
+
 			&::-ms-thumb
 				background: $c-white
 				box-shadow: none
@@ -99,7 +99,7 @@
 				border-radius: 50%
 				position: relative
 				top: -1px
-			
+
 			&::-webkit-slider-thumb
 				-webkit-appearance: none
 				background: $c-white

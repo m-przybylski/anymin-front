@@ -1,8 +1,8 @@
-@import "~@anymind-ng/core/src/template/stylesheets/core/core"
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 
 \:host
 	display: block
-	
+
 .dropdown-list
 	position: absolute
 	width: 100%
@@ -12,30 +12,30 @@
 	box-shadow: 0 2px 8px $c-lines
 	z-index: $z-index-1000
 	padding: 8px 0
-	
+
 	ul
 		max-height: 180px
 		overflow-y: scroll
 		width: 100%
-		
+
 	&__item
 		padding: 8px 16px
 		cursor: pointer
 		display: block
-		
+
 		&--active
 			transition: background-color 0.2s
 			background: $c-primary-background
-			
+
 			span
 				color: $c-primary
-			
+
 		&__handler
 			display: flex
 			align-items: center
-		
+
 			plat-user-avatar
 				margin: 0 16px 0 0
-			
+
 			span
 				+paragraph-small
