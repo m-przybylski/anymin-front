@@ -1,5 +1,8 @@
 const { readFile } = require('fs');
 
+
+const removeNotRelevantEndings = ['.none', '.single', '.few', '.many', '.other', 'DATE_PIPE'];
+
 const getFileContent = path =>
   new Promise((resolve, reject) => {
     readFile(path, 'UTF-8', (err, data) => {
@@ -13,8 +16,17 @@ const getFileContent = path =>
 
 const translationExists = (fileContent, translation) => ({
   key: translation.key,
-  found: fileContent.includes(translation.key),
+  found: translationKeyExistsInFile(translation.key, fileContent),
 });
+
+const translationKeyExistsInFile = (translationKey, fileContent) => {
+  const reservedEndingFound = removeNotRelevantEndings.find(ending => translationKey.includes(ending))
+  if (reservedEndingFound) {
+    console.log(translationKey)
+    return true;
+  }
+  return fileContent.includes(translationKey);
+}
 
 const checkFileAsync = translationsList => async file => {
   const fileContent = await getFileContent(file);

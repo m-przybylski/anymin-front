@@ -12,8 +12,8 @@ export class ConsultationStatComponent {
   public commentCounter: number;
   @Input()
   public rating: number;
-  public readonly callsMapping = this.buildTraslationMap('CONSULTATION_INFO.CONSULTATION_ROW.CALLS');
-  public readonly commentMapping = this.buildTraslationMap('CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS');
+  public readonly callsMapping = this.buildTranslationsMap('CONSULTATION_INFO.CONSULTATION_ROW.CALLS');
+  public readonly commentMapping = this.buildTranslationsMap('CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS');
   public readonly ratingMapping = {
     '=0': 'CONSULTATION_INFO.CONSULTATION_ROW.RATING.none',
     '=-': 'CONSULTATION_INFO.CONSULTATION_ROW.RATING.none',
@@ -24,7 +24,7 @@ export class ConsultationStatComponent {
    * helper function to build object for singular and plural
    * @param token token to build translation object
    */
-  private buildTraslationMap(token: string): { [kay: string]: string } {
+  private buildTranslationsMap(token: string): { [kay: string]: string } {
     return {
       '=0': `${token}.none`,
       '=1': `${token}.single`,
