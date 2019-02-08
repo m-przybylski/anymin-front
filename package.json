@@ -29,7 +29,11 @@
     "build:core": "npm run pug:core && ng build anymind-ng-core && npm run copy-core-styles",
     "pug:core": "pug projects/anymind-ng-core -P --doctype html",
     "publish:core": "npm run build:core && npm publish ./dist/anymind-ng-core",
-    "copy-core-styles": "scp -r projects/anymind-ng-core/src/template dist/anymind-ng-core/src"
+    "copy-core-styles": "scp -r projects/anymind-ng-core/src/template dist/anymind-ng-core/src",
+    "get-not-used-translations": "node tools/translations/index.js"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "lint-staged": {
     "*.{ts,json}": [

@@ -1,0 +1,4 @@
+to execute run node index.js <options>
+
+possible options
+--fix - removes from given translation file not needed entries.
