@@ -4,19 +4,23 @@
   .navbar__right-container
     .navbar__navigation-menu
 
-      plat-user-navigation(
-        [navigationItems]="navigationItems",
-        [userAvatarToken]="userAvatarToken",
-        [userName]="userName",
-        [userType]="userType",
-        [accountId]="accountId",
-        [switchAccountAvatarToken]="switchAccountAvatarToken",
-        [switchAccountType]="switchAccountType",
-        [isUserMenuVisible]="isUserMenuVisible$ | async",
+      plat-unlogged-navigation(
+        *ngIf="!isUserLoggedIn else userNavigation",
         [isHelpMenuVisible]="isHelpMenuVisible$ | async",
-        (switchAccount)="onSwitchAccount($event)",
-        [isUserVisible]="isUserVisible$ | async",
-        (changeVisibility)="onSwitchVisibility($event)"
       )
 
-
+      ng-template(#userNavigation)
+        plat-user-navigation(
+          [navigationItems]="navigationItems",
+          [userAvatarToken]="userAvatarToken",
+          [userName]="userName",
+          [userType]="userType",
+          [accountId]="accountId",
+          [switchAccountAvatarToken]="switchAccountAvatarToken",
+          [switchAccountType]="switchAccountType",
+          [isUserMenuVisible]="isUserMenuVisible$ | async",
+          [isHelpMenuVisible]="isHelpMenuVisible$ | async",
+          (switchAccount)="onSwitchAccount($event)",
+          [isUserVisible]="isUserVisible$ | async",
+          (changeVisibility)="onSwitchVisibility($event)"
+        )

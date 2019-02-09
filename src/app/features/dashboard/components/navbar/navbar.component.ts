@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility, GetProfileWithDocuments, GetSessionWithAccount } from '@anymind-ng/api';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
@@ -28,6 +28,9 @@ interface INavbarData {
   providers: [NavbarComponentService],
 })
 export class NavbarComponent extends Logger implements OnInit, OnDestroy {
+  @Input()
+  public isUserLoggedIn: boolean;
+
   public navigationItems: ReadonlyArray<INavigationItem>;
   public userAvatarToken: string;
   public userName: string;
@@ -67,10 +70,12 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
       )
       .subscribe(navbarData => this.assignValues(navbarData));
   }
+
   public ngOnDestroy(): void {
     this.onDestroyed$.next();
     this.onDestroyed$.complete();
   }
+
   public onSwitchVisibility(toVisible: boolean): void {
     if (toVisible) {
       this.store.dispatch(new VisibilityUiActions.SetUiVisibilityVisibleAction());

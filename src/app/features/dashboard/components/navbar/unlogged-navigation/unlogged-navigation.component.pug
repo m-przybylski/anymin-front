@@ -1,0 +1,10 @@
+.unlogged-navigation
+  ul.unlogged-navigation__list
+    li
+      plat-navbar-help([isHelpMenuVisible]="isHelpMenuVisible")
+    li
+      span.mobile-only(plat-button-link, routerLink="/login") {{ 'UNLOGGED_NAVIGATION.LOGIN' | translate }}
+      span.desktop-only(plat-stroked-button, routerLink="/login") {{ 'UNLOGGED_NAVIGATION.LOGIN' | translate }}
+    li
+      span.mobile-only(plat-button-link, routerLink="/register") {{ 'UNLOGGED_NAVIGATION.REGISTER' | translate }}
+      span.desktop-only(plat-stroked-button, routerLink="/register") {{ 'UNLOGGED_NAVIGATION.REGISTER' | translate }}

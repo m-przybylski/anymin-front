@@ -1,0 +1,26 @@
+@import "../../../../../template/core/core"
+
+.unlogged-navigation
+  height: 100%
+  position: relative
+
+  &__list
+    display: flex
+    align-items: center
+    height: 100%
+
+    .mobile-only
+      display: inline
+      color: $c-text-primary
+
+      +smm
+        display: none
+
+    .desktop-only
+      display: none
+
+      +smm
+        display: inline
+
+    li:not(:last-child)
+      margin: 0 16px 0 0

@@ -14,6 +14,7 @@ import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { NAVIGATIONITEMS, navigationItems } from '@platform/features/dashboard/components/navbar/navigation';
 import { ActivitiesCounterModule } from '@platform/features/dashboard/components/activities-counter/activities-counter.module';
 import { NavbarHelpModule } from '@platform/features/dashboard/components/navbar/navbar-help/navbar-help.module';
+import { UnloggedNavigationComponent } from './unlogged-navigation/unlogged-navigation.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { NavbarHelpModule } from '@platform/features/dashboard/components/navbar
     UserNavigationUnderlineDirective,
     NavbarUserAvatarComponent,
     NavbarUserMenuComponent,
+    UnloggedNavigationComponent,
   ],
   exports: [NavbarComponent],
   providers: [

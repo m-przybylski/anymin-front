@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template: `Some Navbar should be here
-  <router-outlet></router-outlet>`,
+  templateUrl: './browse.component.html',
+  styleUrls: ['./browse.component.sass'],
 })
 export class BrowseComponent {}
