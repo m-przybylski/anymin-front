@@ -1,5 +1,10 @@
 ## AnyMind Angular Core library changelog
 
+<a name="February 11, 2019"></a>
+### v0.12.23 - February 11, 2019
+Feature:
+* fix autofocus directive
+
 <a name="February 05, 2019"></a>
 ### v0.12.17 - February 05, 2019
 Feature:
