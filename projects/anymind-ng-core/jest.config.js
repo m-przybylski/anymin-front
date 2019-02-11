@@ -13,8 +13,12 @@ module.exports = {
     '^.+\\.(ts|js|html)$': '<rootDir>/node_modules/jest-preset-angular/preprocessor.js',
   },
   testMatch: [
-    '<rootDir>/src/app/**/*.spec.ts',
     '<rootDir>/projects/anymind-ng-core/**/*.spec.ts',
+  ],
+  collectCoverageFrom: [
+    '<rootDir>/src/app/**/*.ts',
+    '!<rootDir>/src/app/**/*.module.ts',
+    '!<rootDir>/src/app/**/*.config.ts',
   ],
   coverageDirectory: '<rootDir>/test-coverage',
   coverageThreshold: {

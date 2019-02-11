@@ -7,7 +7,7 @@
     "postinstall": "node lib/version/version.js",
     "ng": "ng",
     "jest": "jest",
-    "start": "npm run pug-watch | ng serve  --proxy-config proxy.conf.js",
+    "start": "npm run pug-watch:core | npm run pug-watch | ng serve  --proxy-config proxy.conf.js",
     "serve": "npm run start",
     "serve:demo": "ng serve --app=demo-app --port 4201 --proxy-config proxy.conf.js",
     "serve-ssl": "npm run start -- --ssl",
@@ -28,6 +28,7 @@
     "env-production": "npm run env production",
     "build:core": "npm run pug:core && ng build anymind-ng-core && npm run copy-core-styles",
     "pug:core": "pug projects/anymind-ng-core -P --doctype html",
+    "pug-watch:core": "npm run pug:core -- --watch",
     "publish:core": "npm run build:core && npm publish ./dist/anymind-ng-core",
     "copy-core-styles": "scp -r projects/anymind-ng-core/src/template dist/anymind-ng-core/src",
     "get-not-used-translations": "node tools/translations/index.js"

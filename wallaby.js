@@ -10,18 +10,20 @@ module.exports = function(wallaby) {
     files: [
       'generated_modules/version/version.ts',
       'generated_modules/environment/environment.json',
-      'src/**/*.+(ts|html|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg)',
+      'src/**/*.+(ts|html|json|snap|sass)',
+      'projects/anymind-ng-core/**/*.+(ts|html|json|snap|sass)',
       'tsconfig.json',
       'tsconfig.spec.json',
       'jest.config.js',
+      '!projects/anymind-ng-core/**/*.spec.ts',
       '!src/**/*.spec.ts',
     ],
 
-    tests: ['src/**/*.spec.ts'],
+    tests: ['src/**/*.spec.ts', 'projects/anymind-ng-core/**/*.spec.ts'],
 
     env: {
       type: 'node',
-      runner: 'node'
+      runner: 'node',
     },
     compilers: {
       '**/*.ts?(x)': wallaby.compilers.typeScript(compilerOptions),
@@ -29,6 +31,7 @@ module.exports = function(wallaby) {
     preprocessors: {
       // This translate templateUrl and styleUrls to the right implementation
       // For wallaby
+      'projects/**/*.component.ts': ngxWallabyJest,
       'src/**/*.component.ts': ngxWallabyJest,
       'src/**/button.ts': ngxWallabyJest,
     },
