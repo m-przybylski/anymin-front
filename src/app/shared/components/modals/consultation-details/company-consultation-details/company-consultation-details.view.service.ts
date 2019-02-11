@@ -21,6 +21,8 @@ import { ICompanyEmployeeRowComponent } from './company-employee-row/company-emp
 import { EmploymentWithExpertProfile } from '@anymind-ng/api/model/employmentWithExpertProfile';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
+import { HttpErrorResponse } from '@angular/common/http';
+import { httpCodes } from '@platform/shared/constants/httpCodes';
 
 export interface ICompanyConsultationDetails {
   tagsList: ReadonlyArray<string>;
@@ -185,7 +187,21 @@ export class CompanyConsultationDetailsViewService extends Logger {
   }
 
   private getCommission(servicePrice: PostCommissions): Observable<GetCommissions> {
-    return this.financesService.postCommissionsRoute(servicePrice);
+    return this.financesService.postCommissionsRoute(servicePrice).pipe(
+      // for not logged user
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === httpCodes.unauthorized) {
+          return of({
+            profileAmount: {
+              value: 0,
+              currency: '',
+            },
+          });
+        }
+
+        return throwError(err);
+      }),
+    );
   }
 }
 interface IPaymentMethod {

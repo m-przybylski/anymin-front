@@ -15,7 +15,7 @@ import {
   PostCommissions,
   GetCommissions,
 } from '@anymind-ng/api';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, throwError } from 'rxjs';
 import { map, switchMap, filter, take, catchError } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
@@ -26,6 +26,8 @@ import {
   FooterComponentConstructor,
   IConsultationFooterData,
 } from './consultation-footers/consultation-footer-helpers';
+import { httpCodes } from '@platform/shared/constants/httpCodes';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ConsultationDetailsViewService extends Logger {
@@ -163,7 +165,21 @@ export class ConsultationDetailsViewService extends Logger {
   }
 
   private getCommission(servicePrice: PostCommissions): Observable<GetCommissions> {
-    return this.financesService.postCommissionsRoute(servicePrice);
+    return this.financesService.postCommissionsRoute(servicePrice).pipe(
+      // for not logged user
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === httpCodes.unauthorized) {
+          return of({
+            profileAmount: {
+              value: 0,
+              currency: '',
+            },
+          });
+        }
+
+        return throwError(err);
+      }),
+    );
   }
 }
 

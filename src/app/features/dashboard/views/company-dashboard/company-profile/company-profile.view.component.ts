@@ -12,7 +12,7 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { Store, select } from '@ngrx/store';
-import * as fromCompanyDashboard from '../reducers';
+import * as fromCompanyDashboard from './reducers';
 import { EditOrganizationModalComponent } from '@platform/shared/components/modals/profile/edit-organization/edit-organization.component';
 @Component({
   templateUrl: 'company-profile.view.component.html',
@@ -32,7 +32,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
   constructor(
     protected route: ActivatedRoute,
     protected injector: Injector,
-    private store: Store<fromCompanyDashboard.IState>,
+    private store: Store<fromCompanyDashboard.ICompanyProfileState>,
   ) {
     super(injector);
     this.route.data

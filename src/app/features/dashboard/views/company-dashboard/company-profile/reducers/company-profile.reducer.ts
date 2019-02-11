@@ -2,6 +2,12 @@
 // tslint:disable:readonly-array
 import { ServiceWithEmployments, EmploymentWithExpertProfile } from '@anymind-ng/api';
 import { CompanyProfileApiActions } from '../actions';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromRoot from '@platform/reducers';
+
+export interface ICompanyProfileState extends fromRoot.IState {
+  companyProfile: IState;
+}
 
 export interface IState {
   consultations: ReadonlyArray<ServiceWithEmployments>;
@@ -46,4 +52,9 @@ export function reducer(state: IState = initialState, action: ActionUnion): ISta
   }
 }
 
-export const getConsultations = (state: IState): ReadonlyArray<ServiceWithEmployments> => state.consultations;
+export const companyProfile = createFeatureSelector<ICompanyProfileState, IState>('companyProfile');
+
+export const getConsultations = createSelector(
+  companyProfile,
+  (state): ReadonlyArray<ServiceWithEmployments> => state.consultations,
+);
