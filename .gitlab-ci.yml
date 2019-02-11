@@ -42,11 +42,7 @@ stage-deploy:
   before_script:
     - cd gitlab-ci
     - ./configuration.sh
-    - kubectl config use-context gke_dev-country-188109_europe-west3-b_anymind-stage-eu
-    - helm init --service-account default
   script:
-    - helm del --purge am-stage-frontend
-    - helm install --wait --name am-stage-frontend helm/ -f helm/values-stage.yaml --set image.repository=eu.gcr.io/dev-country-188109/profitelo-frontend,image.tag=release-$CI_COMMIT_SHA
     - kubectl config use-context gke_dev-country-188109_europe-west2-b_tf-anymind-stage
     - kubectl set image deployment.v1beta1.extensions/frontend-deployment frontend-container=$CONTAINER_RELEASE_IMAGE_URL --record
   only:
