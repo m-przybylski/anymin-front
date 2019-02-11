@@ -156,7 +156,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   };
 
   private isClientCall(call: CurrentClientCall | CurrentExpertCall): call is CurrentClientCall {
-    return call.hasOwnProperty('answered$');
+    return 'answered$' in call;
   }
 
   private turnOnSecondCamera = (): void => {

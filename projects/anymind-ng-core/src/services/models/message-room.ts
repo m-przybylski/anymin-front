@@ -35,9 +35,7 @@ export class MessageRoom {
 
   public getUsers = (): Promise<ReadonlyArray<ID>> => this.room.getUsers();
 
-  public indicateTyping(): void {
-    return this.room.indicateTyping();
-  }
+  public indicateTyping = (): void => this.room.indicateTyping();
 
   public sendMessage = (msg: string, context: Context): Observable<chatEvents.Received> =>
     this.room.sendCustom(msg, MessageRoom.customMessageTag, context);

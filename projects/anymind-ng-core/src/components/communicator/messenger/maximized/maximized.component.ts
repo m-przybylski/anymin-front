@@ -232,6 +232,7 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
       this.groupedMessages.push([message]);
     }
   }
+
   private resendMessage(id: number, messageBody: string): () => Promise<void> {
     return (): Promise<void> => {
       this.groupedMessages = this.removeMessage(id);
@@ -260,7 +261,7 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
   }
 
   private isClientCall(call: CurrentClientCall | CurrentExpertCall): call is CurrentClientCall {
-    return call.hasOwnProperty('answered$');
+    return 'answered$' in call;
   }
 
   private expertInit(expertSueDetails: GetExpertSueDetails): void {
@@ -328,6 +329,7 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
       .uploadFile(file, this.postProcessOptions, data => this.onUploadProgress(data))
       .then(res => this.onFileUpload(res), () => this.onFileUploadError());
   }
+
   private generateId(): number {
     const id = this.messageId;
     this.messageId++;

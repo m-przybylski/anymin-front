@@ -42,6 +42,6 @@ export class MessageTypeDirective implements OnInit {
   }
 
   private isLocalMessage(msg: ILocalMessage | roomEvents.CustomMessageSent): msg is ILocalMessage {
-    return msg.hasOwnProperty('resendMessage');
+    return 'resendMessage' in msg;
   }
 }
