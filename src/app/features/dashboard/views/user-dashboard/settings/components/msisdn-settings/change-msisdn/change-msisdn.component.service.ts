@@ -33,7 +33,7 @@ export class ChangeMsisdnComponentService {
   }
 
   public verifyMsisdn = (unverifiedMsisdn: string): Observable<VerifyMsisdnStatusEnum> =>
-    this.accountService.newMsisdnVerificationRoute({ unverifiedMsisdn }).pipe(
+    this.accountService.putMsisdnRoute({ msisdn: unverifiedMsisdn }).pipe(
       map(() => VerifyMsisdnStatusEnum.SUCCESS),
       catchError(err => of(this.handleError(err))),
     );

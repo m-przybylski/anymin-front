@@ -141,21 +141,21 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   }
 
   private assignExpertNavigationDetails(profileDetails?: GetProfileWithDocuments): void {
-    if (typeof profileDetails !== 'undefined' && typeof profileDetails.profile.expertDetails !== 'undefined') {
-      this.userName = profileDetails.profile.expertDetails.name;
-      this.userAvatarToken = profileDetails.profile.expertDetails.avatar;
+    if (typeof profileDetails !== 'undefined') {
+      this.userName = profileDetails.profile.name;
+      this.userAvatarToken = profileDetails.profile.avatar;
     }
     this.assignSwitchAccountCompanyDetails(profileDetails);
   }
 
   private assignCompanyNavigationDetails(profileDetails?: GetProfileWithDocuments): void {
-    if (typeof profileDetails !== 'undefined' && typeof profileDetails.profile.organizationDetails !== 'undefined') {
-      this.userName = profileDetails.profile.organizationDetails.name;
-      this.userAvatarToken = profileDetails.profile.organizationDetails.logo;
+    if (typeof profileDetails !== 'undefined') {
+      this.userName = profileDetails.profile.name;
+      this.userAvatarToken = profileDetails.profile.avatar;
     }
 
-    if (typeof profileDetails !== 'undefined' && typeof profileDetails.profile.expertDetails !== 'undefined') {
-      this.switchAccountAvatarToken = profileDetails.profile.expertDetails.avatar;
+    if (typeof profileDetails !== 'undefined') {
+      this.switchAccountAvatarToken = profileDetails.profile.avatar;
       this.switchAccountType = UserTypeEnum.EXPERT;
 
       return;
@@ -171,8 +171,8 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   }
 
   private assignSwitchAccountCompanyDetails(profileDetails?: GetProfileWithDocuments): void {
-    if (typeof profileDetails !== 'undefined' && typeof profileDetails.profile.organizationDetails !== 'undefined') {
-      this.switchAccountAvatarToken = profileDetails.profile.organizationDetails.logo;
+    if (typeof profileDetails !== 'undefined') {
+      this.switchAccountAvatarToken = profileDetails.profile.avatar;
       this.switchAccountType = UserTypeEnum.COMPANY;
 
       return;

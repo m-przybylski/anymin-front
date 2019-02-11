@@ -19,7 +19,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
         ChangeMsisdnComponentService,
         {
           provide: AccountService,
-          useValue: Deceiver(AccountService, { newMsisdnVerificationRoute: jest.fn() }),
+          useValue: Deceiver(AccountService, { putMsisdnRoute: jest.fn() }),
         },
         {
           provide: AlertService,
@@ -33,7 +33,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
   }));
 
   it('should return SUCCESS status when verify msisdn pass', fakeAsync(() => {
-    mockAccountService.newMsisdnVerificationRoute = jest.fn(() => of({}));
+    mockAccountService.putMsisdnRoute = jest.fn(() => of({}));
 
     changeMsisdnComponentService.verifyMsisdn(mockMsisdn).subscribe((status: VerifyMsisdnStatusEnum) => {
       expect(status).toEqual(VerifyMsisdnStatusEnum.SUCCESS);
@@ -42,7 +42,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
   }));
 
   it('should return WRONG_MSISDN status when verify msisdn failed with backend error IncorrectValidation', fakeAsync(() => {
-    mockAccountService.newMsisdnVerificationRoute = jest.fn(() =>
+    mockAccountService.putMsisdnRoute = jest.fn(() =>
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -59,7 +59,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
   }));
 
   it('should return ALREADY_EXISTS status when verify msisdn failed with backend error AccountAlreadyExists', fakeAsync(() => {
-    mockAccountService.newMsisdnVerificationRoute = jest.fn(() =>
+    mockAccountService.putMsisdnRoute = jest.fn(() =>
       throwError({
         error: {
           code: BackendErrors.AccountAlreadyExists,
@@ -76,7 +76,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
   }));
 
   it('should return BLOCKED status when verify msisdn failed with backend error MsisdnBlocked', fakeAsync(() => {
-    mockAccountService.newMsisdnVerificationRoute = jest.fn(() =>
+    mockAccountService.putMsisdnRoute = jest.fn(() =>
       throwError({
         error: {
           code: BackendErrors.MsisdnBlocked,
@@ -96,7 +96,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
     'should return CREATE_PIN_CODE_TOO_RECENTLY status when' +
       'verify msisdn failed with backend error CreateAnotherPinCodeTokenRecently',
     fakeAsync(() => {
-      mockAccountService.newMsisdnVerificationRoute = jest.fn(() =>
+      mockAccountService.putMsisdnRoute = jest.fn(() =>
         throwError({
           error: {
             code: BackendErrors.CreateAnotherPinCodeTokenRecently,
@@ -116,7 +116,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
   it(
     'should show danger alert and return ERROR status when' + 'verify msisdn failed with unhandled backend error',
     fakeAsync(() => {
-      mockAccountService.newMsisdnVerificationRoute = jest.fn(() =>
+      mockAccountService.putMsisdnRoute = jest.fn(() =>
         throwError({
           error: {
             code: 1,
@@ -136,7 +136,7 @@ describe('Service: ChangeMsisdnComponentService', () => {
   it(
     'should show danger alert and return ERROR status when' + 'verify msisdn failed without backend error',
     fakeAsync(() => {
-      mockAccountService.newMsisdnVerificationRoute = jest.fn(() =>
+      mockAccountService.putMsisdnRoute = jest.fn(() =>
         throwError({
           error: {
             error: {},

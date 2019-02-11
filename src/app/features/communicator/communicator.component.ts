@@ -141,7 +141,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   };
 
   private registerClientCall = (clientSessionCall: IClientSessionCall): void => {
-    const expertDetails = clientSessionCall.currentClientCall.getExpert().expertDetails;
+    const expertDetails = clientSessionCall.currentClientCall.getExpert();
     this.newCallEvent.next(clientSessionCall.currentClientCall);
     this.registerCommonCallEvents(clientSessionCall.currentClientCall);
     const service = clientSessionCall.currentClientCall.getService();

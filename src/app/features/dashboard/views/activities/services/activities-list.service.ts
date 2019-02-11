@@ -7,17 +7,17 @@ import {
   GetProfileActivities,
   GetProfileActivity,
   GetProfileBalance,
+  GetSessionWithAccount,
 } from '@anymind-ng/api';
-import { Observable, forkJoin, throwError, merge } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { Observable, forkJoin, throwError, merge, EMPTY } from 'rxjs';
+import { map, catchError, tap, switchMap, take, filter } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
-import { Store } from '@ngrx/store';
-import * as fromActivities from '@platform/features/dashboard/views/activities/reducers';
+import { select, Store } from '@ngrx/store';
 import { ActivitiesWsActions } from '@platform/features/dashboard/views/activities/actions';
 import { Logger } from '@platform/core/logger';
-import { HttpErrorResponse } from '@angular/common/http';
 import { IActivitiesClientData } from '@platform/features/dashboard/views/activities/activities.interface';
+import * as fromCore from '@platform/core/reducers';
 
 export interface IActivitiesData {
   importantActivitiesList: GetProfileActivities;
@@ -33,7 +33,7 @@ export class ActivitiesListService extends Logger {
     private activitiesService: ActivitiesService,
     private financesService: FinancesService,
     private anymindWebSocket: AnymindWebsocketService,
-    private store: Store<fromActivities.IState>,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ActivitiesService'));
@@ -81,7 +81,15 @@ export class ActivitiesListService extends Logger {
     activitiesOffset = this.activitiesOffset,
   ): Observable<IActivitiesData> {
     return forkJoin([
-      this.activitiesService.getExpertProfileImportantActivitiesRoute().pipe(
+      this.store.pipe(
+        select(fromCore.getSession),
+        filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+        take(1),
+        switchMap((sessionWithAccount: GetSessionWithAccount) =>
+          sessionWithAccount.session.expertProfileId
+            ? this.activitiesService.getProfileImportantActivitiesRoute(sessionWithAccount.session.expertProfileId)
+            : EMPTY,
+        ),
         catchError(error => {
           this.loggerService.warn(`Can not get expert important activities view: ${error}`);
 
@@ -101,11 +109,33 @@ export class ActivitiesListService extends Logger {
     activitiesLimit = this.activitiesLimit,
     activitiesOffset = this.activitiesOffset,
   ): Observable<GetProfileActivities> {
-    return this.activitiesService.getExpertProfileActivitiesRoute(`${activitiesLimit}`, `${activitiesOffset}`);
+    return this.store.pipe(
+      select(fromCore.getSession),
+      filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+      take(1),
+      switchMap((sessionWithAccount: GetSessionWithAccount) =>
+        sessionWithAccount.session.expertProfileId
+          ? this.activitiesService.getProfileActivitiesRoute(
+              sessionWithAccount.session.expertProfileId,
+              `${activitiesLimit}`,
+              `${activitiesOffset}`,
+            )
+          : EMPTY,
+      ),
+    );
   }
 
   public getExpertProfilePayment(): Observable<GetProfileBalance> {
-    return this.financesService.getExpertProfileBalanceRoute();
+    return this.store.pipe(
+      select(fromCore.getSession),
+      filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+      take(1),
+      switchMap((sessionWithAccount: GetSessionWithAccount) =>
+        sessionWithAccount.session.expertProfileId
+          ? this.financesService.getProfileBalanceRoute_1(sessionWithAccount.session.expertProfileId)
+          : EMPTY,
+      ),
+    );
   }
 
   public getExpertActivity(activityId: string): Observable<GetProfileActivity> {
@@ -129,14 +159,24 @@ export class ActivitiesListService extends Logger {
     activitiesOffset = this.activitiesOffset,
   ): Observable<IActivitiesData> {
     return forkJoin([
-      this.activitiesService.getOrganizationProfileImportantActivitiesRoute().pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.loggerService.warn(`Can not get company important activities view: ${error.error.message}`);
+      this.store.pipe(
+        select(fromCore.getSession),
+        filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+        take(1),
+        switchMap((sessionWithAccount: GetSessionWithAccount) =>
+          sessionWithAccount.session.organizationProfileId
+            ? this.activitiesService.getProfileImportantActivitiesRoute(
+                sessionWithAccount.session.organizationProfileId,
+              )
+            : EMPTY,
+        ),
+        catchError(error => {
+          this.loggerService.warn(`Can not get expert important activities view: ${error}`);
 
           return throwError(error);
         }),
       ),
-      this.getCompanyActivities(activitiesLimit, activitiesOffset),
+      this.getExpertActivities(activitiesLimit, activitiesOffset),
     ]).pipe(
       map(([importantActivitiesList, activitiesList]) => ({
         importantActivitiesList,
@@ -150,15 +190,34 @@ export class ActivitiesListService extends Logger {
     activitiesOffset = this.activitiesOffset,
     filters?: string,
   ): Observable<GetProfileActivities> {
-    return this.activitiesService.getOrganizationProfileActivitiesRoute(
-      `${activitiesLimit}`,
-      `${activitiesOffset}`,
-      filters,
+    return this.store.pipe(
+      select(fromCore.getSession),
+      filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+      take(1),
+      switchMap((sessionWithAccount: GetSessionWithAccount) =>
+        sessionWithAccount.session.organizationProfileId
+          ? this.activitiesService.getProfileActivitiesRoute(
+              sessionWithAccount.session.organizationProfileId,
+              `${activitiesLimit}`,
+              `${activitiesOffset}`,
+              filters,
+            )
+          : EMPTY,
+      ),
     );
   }
 
   public getCompanyProfilePayment(): Observable<GetProfileBalance> {
-    return this.financesService.getOrganizationProfileBalanceRoute();
+    return this.store.pipe(
+      select(fromCore.getSession),
+      filter(getSessionWithAccount => typeof getSessionWithAccount !== 'undefined'),
+      take(1),
+      switchMap((sessionWithAccount: GetSessionWithAccount) =>
+        sessionWithAccount.session.organizationProfileId
+          ? this.financesService.getProfileBalanceRoute_1(sessionWithAccount.session.organizationProfileId)
+          : EMPTY,
+      ),
+    );
   }
 
   public getCompanyActivity(activityId: string): Observable<GetProfileActivity> {

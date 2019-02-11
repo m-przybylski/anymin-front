@@ -31,8 +31,8 @@ describe('Service: PinVerificationComponentService', () => {
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            confirmMsisdnVerificationRoute: jest.fn(),
-            newMsisdnVerificationRoute: jest.fn(),
+            postMsisdnConfirmRoute: jest.fn(),
+            putMsisdnRoute: jest.fn(),
           }),
         },
         {
@@ -192,7 +192,7 @@ describe('Service: PinVerificationComponentService', () => {
   it('should return SUCCESS status when verify change msisdn token pass', () => {
     const mockAccountService = TestBed.get(AccountService);
 
-    mockAccountService.confirmMsisdnVerificationRoute.mockReturnValue(of({}));
+    mockAccountService.postMsisdnConfirmRoute.mockReturnValue(of({}));
 
     pinVerificationComponentService.verifyChangeMsisdnPinToken(mockToken).subscribe((status: PinVerificationStatus) => {
       expect(status).toEqual(PinVerificationStatus.SUCCESS);
@@ -205,7 +205,7 @@ describe('Service: PinVerificationComponentService', () => {
     () => {
       const mockAccountService = TestBed.get(AccountService);
 
-      mockAccountService.confirmMsisdnVerificationRoute.mockReturnValue(
+      mockAccountService.postMsisdnConfirmRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.CanNotFindMsisdnVerification,
@@ -235,7 +235,7 @@ describe('Service: PinVerificationComponentService', () => {
     const mockAccountService = TestBed.get(AccountService);
     const mockAlertService = TestBed.get(AlertService);
 
-    mockAccountService.newMsisdnVerificationRoute.mockReturnValue(throwError({}));
+    mockAccountService.putMsisdnRoute.mockReturnValue(throwError({}));
 
     pinVerificationComponentService.sendNewChangeMsisdnToken(mockPhoneNumber).subscribe();
     expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);

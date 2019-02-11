@@ -292,7 +292,7 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
   }
 
   private clientInit(expert: GetProfile): void {
-    const details = expert.expertDetails;
+    const details = expert;
     this.mineAvatar = '';
     this.participantAvatar = details && details.avatar ? UrlService.resolveFileUrl(details.avatar) : '';
     this.participantName = details ? details.name : '';

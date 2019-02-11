@@ -3,12 +3,12 @@ import {
   AccountService,
   GetProfile,
   ProfileService,
-  PutGeneralSettings,
+  PutDetails,
   GetSessionWithAccount,
   GetProfileWithDocuments,
+  PutProfileDetails,
 } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
 import * as fromRoot from '@platform/reducers';
 import { Store } from '@ngrx/store';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
@@ -33,18 +33,18 @@ export class EditProfileComponentService extends Logger {
     super(loggerFactory.createLoggerService('EditProfileComponentService'));
   }
 
-  public editClientProfile(formData: PutGeneralSettings): Observable<undefined> {
+  public editClientProfile(formData: PutDetails): Observable<undefined> {
     return this.accountService
-      .putGeneralSettingsRoute({
+      .putDetailsRoute({
         nickname: formData.nickname,
         avatar: formData.avatar,
       })
       .pipe(this.handleResponseError('Can not edit client profile'));
   }
 
-  public editExpertProfile(data: PutExpertDetails): Observable<GetProfile> {
+  public editExpertProfile(data: PutProfileDetails, profileId: string): Observable<GetProfile> {
     return this.profileService
-      .putExpertProfileRoute(data)
+      .putProfileRoute(data, profileId)
       .pipe(this.handleResponseError('Can not edit expert profile'));
   }
 

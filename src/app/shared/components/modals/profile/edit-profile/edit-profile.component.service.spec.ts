@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AccountService, ProfileService, PutExpertDetails, PutGeneralSettings } from '@anymind-ng/api';
+import { AccountService, ProfileService, PutDetails, PutProfileDetails } from '@anymind-ng/api';
 import { EditProfileComponentService } from './edit-profile.component.service';
 import { Deceiver } from 'deceiver-core';
 import { importStore, provideMockFactoryLogger, dispatchLoggedUser } from 'testing/testing';
@@ -20,7 +20,7 @@ describe('EditProfileComponentService', () => {
         {
           provide: ProfileService,
           useValue: Deceiver(ProfileService, {
-            putExpertProfileRoute: jasmine.createSpy('putExpertProfileRoute'),
+            putProfileRoute: jasmine.createSpy('putExpertProfileRoute'),
             getProfileRoute: jasmine.createSpy('getProfileRoute'),
           }),
         },
@@ -31,7 +31,7 @@ describe('EditProfileComponentService', () => {
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            putGeneralSettingsRoute: jasmine.createSpy('putGeneralSettingsRoute'),
+            putDetailsRoute: jasmine.createSpy('putDetailsRoute'),
           }),
         },
       ],
@@ -45,8 +45,8 @@ describe('EditProfileComponentService', () => {
   });
 
   it('should edit expert profile', () => {
-    profileService.putExpertProfileRoute = jest.fn(() => cold('-a|', { a: 'OK' }));
-    const expertDetailsObject: PutExpertDetails = {
+    profileService.putProfileRoute = jest.fn(() => cold('-a|', { a: 'OK' }));
+    const expertDetailsObject: PutProfileDetails = {
       name: 'name',
       avatar: 'avaar',
       description: 'description',
@@ -54,20 +54,20 @@ describe('EditProfileComponentService', () => {
       links: [],
     };
 
-    service.editExpertProfile(expertDetailsObject);
-    expect(profileService.putExpertProfileRoute).toHaveBeenCalledWith(expertDetailsObject);
+    service.editExpertProfile(expertDetailsObject, 'idProfile');
+    expect(profileService.putProfileRoute).toHaveBeenCalledWith(expertDetailsObject, 'idProfile');
   });
 
   it('should edit client profile', () => {
     const accountService: AccountService = TestBed.get(AccountService);
-    accountService.putGeneralSettingsRoute = jest.fn(() => cold('-a|', { a: 'OK' }));
-    const clientDetailsObject: PutGeneralSettings = {
+    accountService.putDetailsRoute = jest.fn(() => cold('-a|', { a: 'OK' }));
+    const clientDetailsObject: PutDetails = {
       nickname: 'nick',
       avatar: 'avatar',
     };
 
     service.editClientProfile(clientDetailsObject);
-    expect(accountService.putGeneralSettingsRoute).toHaveBeenCalledWith(clientDetailsObject);
+    expect(accountService.putDetailsRoute).toHaveBeenCalledWith(clientDetailsObject);
   });
 
   describe('getModalData', () => {

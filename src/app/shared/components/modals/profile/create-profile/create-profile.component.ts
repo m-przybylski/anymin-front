@@ -15,7 +15,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { CreateProfileComponentService } from './create-profile.component.service';
-import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
@@ -27,7 +26,7 @@ import * as fromCore from '@platform/core/reducers';
 import { Store } from '@ngrx/store';
 import { VisibilityInitActions } from '@platform/features/dashboard/actions';
 import { StepperComponent } from '@platform/shared/components/stepper/stepper.component';
-import { GetInvoiceDetails, PostCompanyDetails, PostProfileDetails } from '@anymind-ng/api';
+import { GetInvoiceDetails, PostCompanyDetails, PostProfileDetails, PutDetails } from '@anymind-ng/api';
 import { PostProfileWithInvoiceDetails } from '@anymind-ng/api/model/postProfileWithInvoiceDetails';
 import { PostNaturalPersonDetails } from '@anymind-ng/api/model/postNaturalPersonDetails';
 import {
@@ -222,7 +221,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
     });
   }
 
-  private sendClientProfile(data: PutGeneralSettings): void {
+  private sendClientProfile(data: PutDetails): void {
     this.createProfileComponentService
       .createClientProfile(data)
       .pipe(
@@ -257,7 +256,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
     };
   }
 
-  private getClientDetails(): PutGeneralSettings {
+  private getClientDetails(): PutDetails {
     return {
       nickname: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
       avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,

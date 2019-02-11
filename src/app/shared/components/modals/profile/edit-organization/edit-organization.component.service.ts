@@ -1,9 +1,14 @@
-import { ProfileService, ServiceService, GetProfileWithDocuments } from '@anymind-ng/api';
+import {
+  ProfileService,
+  ServiceService,
+  GetProfileWithDocuments,
+  PutProfileDetails,
+  GetSessionWithAccount,
+} from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, AlertService, Alerts } from '@anymind-ng/core';
 import { Observable, of, forkJoin, throwError } from 'rxjs';
-import { switchMap, map, take, catchError } from 'rxjs/operators';
-import { PutOrganizationDetails } from '@anymind-ng/api/model/putOrganizationDetails';
+import { switchMap, map, take, catchError, filter } from 'rxjs/operators';
 import { GetProfile } from '@anymind-ng/api/model/getProfile';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import * as fromRoot from '@platform/reducers';
@@ -14,6 +19,7 @@ export interface IEditOrganizationModalData {
   getProfileWithDocuments?: GetProfileWithDocuments;
   hasConsultations: boolean;
 }
+
 @Injectable()
 export class EditOrganizationComponentService {
   private logger: LoggerService;
@@ -28,22 +34,23 @@ export class EditOrganizationComponentService {
     this.logger = loggerFactory.createLoggerService('EditOrganizationComponentService');
   }
 
-  public editOrganizationProfile(data: PutOrganizationDetails): Observable<GetProfile> {
-    return this.profileService.putOrganizationProfileRoute(data).pipe(this.handleResponseError('Not able to update'));
+  public editOrganizationProfile(data: PutProfileDetails, profileId: string): Observable<GetProfile> {
+    return this.profileService.putProfileRoute(data, profileId).pipe(this.handleResponseError('Not able to update'));
   }
 
   public getModalData(): Observable<IEditOrganizationModalData> {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
-      switchMap(getSessionWithAccount =>
+      filter(getSessionWithAccount => typeof getSessionWithAccount.session.organizationProfileId !== 'undefined'),
+      switchMap((getSessionWithAccount: GetSessionWithAccount) =>
         forkJoin([
           getSessionWithAccount.isCompany
             ? this.profileService
-                .getProfileRoute(getSessionWithAccount.account.id)
+                .getProfileRoute(getSessionWithAccount.session.organizationProfileId as string)
                 .pipe(this.handleResponseError('Not able to get profile data'))
             : of(undefined),
           this.serviceService
-            .getProfileServicesRoute(getSessionWithAccount.account.id)
+            .getProfileServicesRoute(getSessionWithAccount.session.organizationProfileId as string)
             .pipe(this.handleResponseError('Not able to get services')),
         ]),
       ),

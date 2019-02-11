@@ -62,6 +62,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private selectedTags: PostServiceTag[] = [];
   private formControls = this.consultationForm.controls;
   private successAlertTrKey: string = Alerts.CreateConsultationSuccess;
+  private profileId: string;
 
   constructor(
     private formUtils: FormUtilsService,
@@ -142,7 +143,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
 
   private getPostServiceModel = (): PostService => ({
     ...this.getPutServiceModel(),
-    ...{ isFreelance: this.isFreelance },
+    ...{ isFreelance: this.isFreelance, profileId: this.profileId },
   });
 
   private getPutServiceModel = (): PutService => ({

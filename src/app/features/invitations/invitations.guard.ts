@@ -56,7 +56,7 @@ export class InvitationsGuard extends Logger implements CanActivate {
   }
 
   private determinatePathToRedirect(isLoggedIn: boolean, invitationData: IInvitationData): Observable<Account> {
-    return this.accountService.postConfirmEmailViaInvitationRoute(invitationData.token).pipe(
+    return this.accountService.postEmailConfirmInvitationRoute({ token: invitationData.token }).pipe(
       catchError(httpError => {
         // if user has account and already confirmed email
         if (isBackendError(httpError.error) && httpError.error.code === BackendErrors.AccountAlreadyconfirmedEmail) {

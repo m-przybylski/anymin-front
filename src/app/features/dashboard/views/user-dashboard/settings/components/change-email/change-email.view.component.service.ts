@@ -1,11 +1,10 @@
 import { AccountService } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
-import { map, catchError, take, switchMap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrors, isBackendError } from '../../../../../../../shared/models/backend-error/backend-error';
-import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { SessionApiActions } from '@platform/core/actions';
@@ -31,22 +30,16 @@ export class ChangeEmailViewComponentService {
   }
 
   public changeEmail(email: string): Observable<ChangeEmailStatusEnum> {
-    return getNotUndefinedSession(this.store).pipe(
-      map(session => session.account.id),
-      take(1),
-      switchMap(accountId =>
-        this.accountService
-          .patchUpdateAccountRoute(accountId, { unverifiedEmail: email })
-          .pipe(
-            map(account => {
-              this.store.dispatch(new SessionApiActions.UpdateAccountInSession(account));
+    return this.accountService
+      .putEmailRoute({ email })
+      .pipe(
+        map(account => {
+          this.store.dispatch(new SessionApiActions.UpdateAccountInSession(account));
 
-              return ChangeEmailStatusEnum.SUCCESS;
-            }),
-          )
-          .pipe(catchError(error => of(this.handleError(error)))),
-      ),
-    );
+          return ChangeEmailStatusEnum.SUCCESS;
+        }),
+      )
+      .pipe(catchError(error => of(this.handleError(error))));
   }
 
   private handleError(httpError: HttpErrorResponse): ChangeEmailStatusEnum {

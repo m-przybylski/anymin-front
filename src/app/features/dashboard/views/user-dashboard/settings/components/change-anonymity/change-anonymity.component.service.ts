@@ -18,7 +18,7 @@ export class ChangeAnonymityComponentService extends Logger {
 
   public changeAnonymity(isAnonymous: boolean): Observable<void> {
     return this.accountService
-      .putAnonymitySettingsRoute({ isAnonymous })
+      .putAnonymityRoute({ isAnonymous })
       .pipe(catchError(err => this.handleChangeAnonymityError(err)));
   }
 

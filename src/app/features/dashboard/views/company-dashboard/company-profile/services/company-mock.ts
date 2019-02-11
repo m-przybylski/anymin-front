@@ -1,16 +1,18 @@
 // tslint:disable:max-line-length
 // tslint:disable:max-file-line-count
 
-import { OrganizationProfileView, GetProfileWithDocuments, Account } from '@anymind-ng/api';
+import { OrganizationProfileView, GetProfileWithDocuments, Account, PostProfileDetails } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 import { IOrganizationProfile } from './company-profile.service';
 import VatRateTypeEnum = Account.VatRateTypeEnum;
+import ProfileTypeEnum = PostProfileDetails.ProfileTypeEnum;
 
 export const organizationProfileView: OrganizationProfileView = {
   organizationProfile: {
     id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    accountId: 'c3d262b0-48d7-41b5-2323239aeb-9f59affdd0f3',
     name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
-    logo: '3759ae044d9e400591d104e254c58f89',
+    avatar: '3759ae044d9e400591d104e254c58f89',
     description:
       'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
     documents: [],
@@ -40,6 +42,7 @@ export const organizationProfileView: OrganizationProfileView = {
           vatRateType: VatRateTypeEnum.NATURALPERSON,
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+            accountId: 'c3d26223232b0-48d7-41b5-9aeb-9f59affdd0f3',
             name: 'Filip Franczak',
             avatar: '6d3587a32aba453e8ad47199324f4c67',
             description:
@@ -111,24 +114,16 @@ export const organizationProfileView: OrganizationProfileView = {
 export const profileWithDocuments: GetProfileWithDocuments = {
   profile: {
     id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    accountId: 'c3d2622222b0-48d7-41b5-9aeb-9f59affdd0f3',
     isActive: true,
-    organizationDetails: {
-      name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
-      logo: '3759ae044d9e400591d104e254c58f89',
-      description:
-        'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
-      links: [],
-    },
-    expertDetails: {
-      name: 'Filip Franczak',
-      avatar: '6d3587a32aba453e8ad47199324f4c67',
-      description:
-        'Podczas konsultacji pomogę Ci dobrać odpowiednią msakfeqwih ffh dsa fh;weoah faweuhf iuwaehf liwhfliuawehfiuuhawlief uaw;fawliufha iwuhf liawegef liawgfliauwgfliuawgfil awlif wliuf . awliu fiwaehf liaw hf iawh fiawhfliuawhfliawhifag wlefgawifliweli fliagilfgwau fgwlifeg awlifg iawegfliaweg fliawegfi awg ifluawg iufagwlifugawliuflwiwuuhfe ilwahfuawe sjdfasojfoiwje wfj woiefj awefjaweoi;jef wjoi jwaeofij woifj wo;ije oiwajef o;iawjf ;oiawijfoi awjfo;iawj foejawo;eif jaw;oijf oawfi wafu hwoiefj awo',
-      links: ['https://www.facebook.com/romuald.rumun', 'http://www.goledupyzeslaska.com'],
-    },
+    profileType: ProfileTypeEnum.EXP,
+    name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
+    avatar: '3759ae044d9e400591d104e254c58f89',
+    description:
+      'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
+    links: [],
   },
-  organizationDocuments: [],
-  expertDocuments: [],
+  documents: [],
 };
 
 export const companyProfileView: IExpertCompanyDashboardResolverData<IOrganizationProfile> = {
@@ -144,8 +139,9 @@ export const companyProfileView: IExpertCompanyDashboardResolverData<IOrganizati
 export const organizationProfileView1: OrganizationProfileView = {
   organizationProfile: {
     id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    accountId: 'c3d22262b0-48d7-41b5-9aeb-9f59affdd0f3',
     name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
-    logo: '3759ae044d9e400591d104e254c58f89',
+    avatar: '3759ae044d9e400591d104e254c58f89',
     description:
       'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
     documents: [],
@@ -175,6 +171,7 @@ export const organizationProfileView1: OrganizationProfileView = {
           vatRateType: VatRateTypeEnum.NATURALPERSON,
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+            accountId: 'c3d262b02323-48d7-41b5-9aeb-9f59affdd0f3',
             name: 'Filip Franczak',
             avatar: '6d3587a32aba453e8ad47199324f4c67',
             description:
@@ -250,8 +247,9 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<IOrganizat
     organization: {
       organizationProfile: {
         id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+        accountId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
         name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
-        logo: '3759ae044d9e400591d104e254c58f89',
+        avatar: '3759ae044d9e400591d104e254c58f89',
         description:
           'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
         documents: [],
@@ -281,6 +279,7 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<IOrganizat
               vatRateType: VatRateTypeEnum.NATURALPERSON,
               employeeProfile: {
                 id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+                accountId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
                 name: 'Filip Franczak',
                 avatar: '6d3587a32aba453e8ad47199324f4c67',
                 description:

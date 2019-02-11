@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { InvitationService, GetInvitation, ProfileService, GetOrganizationDetails } from '@anymind-ng/api';
+import { InvitationService, GetInvitation, ProfileService, GetProfile } from '@anymind-ng/api';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -15,11 +15,11 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
   }
 
   /**
-   * Function groups service owners and make only necessery calls to API
-   * to retrive profiles.
+   * Function groups service owners and make only necessary calls to API
+   * to retrieve profiles.
    *
-   * @param invitations$ stream with list of invitarions
-   * @return list of inviations with additional information from profile
+   * @param invitations$ stream with list of invitations
+   * @return list of invitations with additional information from profile
    */
   private concatProfiles = (invitations$: Observable<ReadonlyArray<GetInvitation>>): Observable<IInvitationMap> =>
     invitations$.pipe(
@@ -36,7 +36,7 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
     );
 
   /**
-   * Remove duplacated serviceOwnersId from invitations
+   * Remove duplicated serviceOwnersId from invitations
    * @param invitations list of invitations
    * @return list of owner service is without duplicates
    */
@@ -50,10 +50,10 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
     );
 
   /**
-   * Function makes concurent calls to API to retrieve list of profiles.
-   * If backend does not return organization details item is ommited.
+   * Function makes concurrent calls to API to retrieve list of profiles.
+   * If backend does not return organization details item is omitted.
    */
-  private getProfiles = (profilesId: ReadonlyArray<string>): Observable<Map<string, GetOrganizationDetails>> => {
+  private getProfiles = (profilesId: ReadonlyArray<string>): Observable<Map<string, GetProfile>> => {
     /**
      * forkJoin once received empty array completes the stream
      * required to pass empty array down the stream when no profiles to fetch
@@ -65,21 +65,12 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
     return profiles$.pipe(
       map(
         profilesList =>
-          new Map(
-            profilesList
-              .filter(profile => typeof profile.profile.organizationDetails !== 'undefined')
-              .map(
-                (profile): [string, GetOrganizationDetails] => [
-                  profile.profile.id,
-                  profile.profile.organizationDetails as GetOrganizationDetails,
-                ],
-              ),
-          ),
+          new Map(profilesList.map((profile): [string, GetProfile] => [profile.profile.id, profile.profile])),
       ),
     );
   };
   /**
-   * Maper function to blend array of invitations and map of profiles
+   * Mapper function to blend array of invitations and map of profiles
    * into single array.
    */
   private mapInvitationToList = (invitationsMap$: Observable<IInvitationMap>): Observable<ReadonlyArray<IInvitation>> =>
@@ -94,7 +85,7 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
             serviceId: invitation.serviceId,
             serviceName: invitation.serviceName,
             serviceOwnerName: serviceOwner ? serviceOwner.name : '',
-            serviceOwnerAvatarToken: serviceOwner ? serviceOwner.logo : '',
+            serviceOwnerAvatarToken: serviceOwner ? serviceOwner.avatar : '',
             invitationStatus: invitation.status,
             isVisited: typeof invitation.displayedAt !== 'undefined',
           };
@@ -118,7 +109,7 @@ export class InvitationListResolverService implements Resolve<ReadonlyArray<IInv
 
 interface IInvitationMap {
   invitations: ReadonlyArray<GetInvitation>;
-  profilesList: Map<string, GetOrganizationDetails>;
+  profilesList: Map<string, GetProfile>;
 }
 
 export interface IInvitation {

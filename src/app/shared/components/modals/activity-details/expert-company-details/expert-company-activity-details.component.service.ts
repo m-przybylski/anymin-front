@@ -52,28 +52,22 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
   public getCallDetails = (data: IGetCallDetailsData): Observable<IExpertCompanyActivityDetails> =>
     getNotUndefinedSession(this.store).pipe(
       first(),
-      map(getSession => getSession.account.id),
-      switchMap(accountId =>
+      map(getSession => getSession.session.organizationProfileId || getSession.session.expertProfileId),
+      switchMap((profileId: string) =>
         forkJoin(
-          this.viewsService.getDashboardCallDetailsRoute(data.sueId).pipe(
+          this.viewsService.getDashboardCallDetailsProfileRoute(data.sueId, profileId).pipe(
             map((callDetails: GetCallDetails) => ({
               sueId: data.sueId,
               serviceName: callDetails.service.name,
               clientName: callDetails.clientDetails.nickname,
               clientAvatarUrl: this.fileUrlService.getFilePreviewDownloadUrl(callDetails.clientDetails.avatar),
-              expertAvatarUrl:
-                typeof callDetails.expertProfile.expertDetails !== 'undefined'
-                  ? this.fileUrlService.getFilePreviewDownloadUrl(callDetails.expertProfile.expertDetails.avatar)
-                  : '',
+              expertAvatarUrl: this.fileUrlService.getFilePreviewDownloadUrl(callDetails.expertProfile.avatar),
               answeredAt: callDetails.serviceUsageDetails.answeredAt,
               callDuration: callDetails.serviceUsageDetails.callDuration,
               servicePrice: callDetails.service.price,
               recommendedTags: callDetails.recommendedTags.map(tag => tag.name).join(', '),
-              isSueExpert: accountId === callDetails.expertProfile.id,
-              expertName:
-                typeof callDetails.expertProfile.expertDetails !== 'undefined'
-                  ? callDetails.expertProfile.expertDetails.name
-                  : '',
+              isSueExpert: profileId === callDetails.expertProfile.id,
+              expertName: callDetails.expertProfile.name,
               isRecommendable: callDetails.serviceUsageDetails.isRecommendable,
               financialOperation: callDetails.serviceUsageDetails.amount,
               rate: callDetails.rate,

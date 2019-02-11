@@ -17,6 +17,7 @@ import { EditOrganizationModalComponent } from '@platform/shared/components/moda
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CompanyProfilePageActions } from './actions';
 import { GetService } from '@anymind-ng/api';
+
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
@@ -33,7 +34,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     super(injector);
   }
   public getAvatarToken(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
-    return data.profile.organization.organizationProfile.logo;
+    return data.profile.organization.organizationProfile.avatar;
   }
   public getOrganizationId(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
     return data.profile.organization.organizationProfile.id;
@@ -56,7 +57,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     return data.isLogged;
   }
   public getLinks(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): ReadonlyArray<string> | undefined {
-    return data.profile.profile.profile.organizationDetails && data.profile.profile.profile.organizationDetails.links;
+    return  data.profile.profile.profile.links;
   }
 
   public ngOnInit(): void {

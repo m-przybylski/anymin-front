@@ -20,7 +20,7 @@ describe('Service: ChangeEmailViewComponentService', () => {
         ChangeEmailViewComponentService,
         {
           provide: AccountService,
-          useValue: Deceiver(AccountService, { patchUpdateAccountRoute: jest.fn() }),
+          useValue: Deceiver(AccountService, { putEmailRoute: jest.fn() }),
         },
         {
           provide: AlertService,
@@ -37,20 +37,10 @@ describe('Service: ChangeEmailViewComponentService', () => {
     dispatchLoggedUser(store, { account: { id: '123' } });
   });
 
-  it('should call method with data from store', () => {
-    const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
-
-    (mockAccountService.patchUpdateAccountRoute as jest.Mock).mockReturnValue(of({}));
-
-    changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe();
-    const calls = (mockAccountService.patchUpdateAccountRoute as jest.Mock).mock.calls.pop();
-    expect(calls && calls.includes('123')).toBeTruthy();
-  });
-
   it('should return SUCCESS status when set email pass', () => {
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    (mockAccountService.patchUpdateAccountRoute as jest.Mock).mockReturnValue(of({}));
+    (mockAccountService.putEmailRoute as jest.Mock).mockReturnValue(of({}));
 
     changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
       expect(status).toEqual(ChangeEmailStatusEnum.SUCCESS);
@@ -60,7 +50,7 @@ describe('Service: ChangeEmailViewComponentService', () => {
   it('should return INVALID status when try to set email with backend error IncorrectValidation', () => {
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    (mockAccountService.patchUpdateAccountRoute as jest.Mock).mockReturnValue(
+    (mockAccountService.putEmailRoute as jest.Mock).mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -78,7 +68,7 @@ describe('Service: ChangeEmailViewComponentService', () => {
   it('should return ALREADY_EXIST status when try to set email with backend error EmailAlreadyExists', () => {
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    (mockAccountService.patchUpdateAccountRoute as jest.Mock).mockReturnValue(
+    (mockAccountService.putEmailRoute as jest.Mock).mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.EmailAlreadyExists,
@@ -97,7 +87,7 @@ describe('Service: ChangeEmailViewComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    (mockAccountService.patchUpdateAccountRoute as jest.Mock).mockReturnValue(
+    (mockAccountService.putEmailRoute as jest.Mock).mockReturnValue(
       throwError({
         error: {
           code: 1,
@@ -117,7 +107,7 @@ describe('Service: ChangeEmailViewComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const changeEmailViewComponentService = TestBed.get(ChangeEmailViewComponentService);
 
-    (mockAccountService.patchUpdateAccountRoute as jest.Mock).mockReturnValue(throwError({}));
+    (mockAccountService.putEmailRoute as jest.Mock).mockReturnValue(throwError({}));
 
     changeEmailViewComponentService.changeEmail(mockNewEmail).subscribe((status: ChangeEmailStatusEnum) => {
       expect(mockAlertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);

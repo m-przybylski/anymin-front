@@ -4,6 +4,7 @@ import {
   GetCallDetails,
   GetClientComplaint,
   GetTag,
+  PostProfileDetails,
   ServiceUsageEventService,
   ViewsService,
 } from '@anymind-ng/api';
@@ -20,6 +21,7 @@ import {
 } from '@platform/shared/components/modals/activity-details/expert-company-details/expert-company-activity-details.component.service';
 import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
 import { BackendErrors } from '@platform/shared/models/backend-error/backend-error';
+import ProfileTypeEnum = PostProfileDetails.ProfileTypeEnum;
 
 describe('ExpertCompanyActivityDetailsComponentService', () => {
   let service: ExpertCompanyActivityDetailsComponentService;
@@ -76,22 +78,29 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
     },
     serviceOwnerProfile: {
       id: 'serviceOwnerProfileId',
+      accountId: 'accserviceOwnerProfileId',
+      profileType: ProfileTypeEnum.ORG,
+      name: 'SuperMajssster',
+      avatar: 'expertAvatar',
+      description: 'bedzie pan zadowolony',
+      links: [],
       isActive: true,
     },
     expertProfile: {
       id: 'expertProfileId',
+      accountId: 'accserviceOwnerProfileId',
       isActive: true,
-      expertDetails: {
-        name: 'SuperMajster',
-        avatar: 'expertAvatar',
-        description: 'bedzie pan zadowolony',
-        links: [],
-      },
+      profileType: ProfileTypeEnum.EXP,
+      name: 'SuperMajster',
+      avatar: 'expertAvatar',
+      description: 'bedzie pan zadowolony',
+      links: [],
     },
     serviceUsageDetails: {
       serviceUsageEventId: 'serviceUsageEventId',
       ratelCallId: 'ratelCallId',
       ratelRoomId: 'ratelRoomId',
+      isRecommendable: true,
       answeredAt: date,
       ratePerMinute: {
         value: 12,
@@ -170,6 +179,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
           value: 12,
           currency: 'PLN',
         },
+        isRecommendable: true,
         recommendedTags: 'budowanieDachu, developerkaNaPropsie',
         isSueExpert: false,
         expertName: 'SuperMajster',
@@ -196,8 +206,11 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       chatHistory: [],
     };
 
-    dispatchLoggedUser(store, { account: { id: 'accId' } });
-    viewsService.getDashboardCallDetailsRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
+    dispatchLoggedUser(store, {
+      account: { id: 'accId' },
+      session: { organizationProfileId: 'organizationProfileId' },
+    });
+    viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
     serviceUsageEventService.getClientComplaintForExpertRoute = jest
       .fn()
       .mockReturnValue(cold('-(b|)', { b: getClientComplaint }));
@@ -234,6 +247,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
             value: 12,
             currency: 'PLN',
           },
+          isRecommendable: true,
           recommendedTags: 'budowanieDachu, developerkaNaPropsie',
           isSueExpert: false,
           expertName: 'SuperMajster',
@@ -259,8 +273,13 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
         chatHistory: [],
       };
 
-      dispatchLoggedUser(store, { account: { id: 'accId' } });
-      viewsService.getDashboardCallDetailsRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
+      dispatchLoggedUser(store, {
+        account: { id: 'accId' },
+        session: { organizationProfileId: 'organizationProfileId' },
+      });
+      viewsService.getDashboardCallDetailsProfileRoute = jest
+        .fn()
+        .mockReturnValue(cold('-(a|)', { a: getCallDetails }));
       serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(
         cold(
           '-#',
@@ -289,8 +308,11 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
   );
 
   it('should log warn when mark important activity fails', () => {
-    dispatchLoggedUser(store, { account: { id: 'accId' } });
-    viewsService.getDashboardCallDetailsRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
+    dispatchLoggedUser(store, {
+      account: { id: 'accId' },
+      session: { organizationProfileId: 'organizationProfileId' },
+    });
+    viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
     serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(cold('-(b|)', { b: {} }));
     activitiesService.putUnimportantProfileActivityRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
 
@@ -307,8 +329,11 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
   });
 
   it('should log warn when get client complaints fails', () => {
-    dispatchLoggedUser(store, { account: { id: 'accId' } });
-    viewsService.getDashboardCallDetailsRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
+    dispatchLoggedUser(store, {
+      account: { id: 'accId' },
+      session: { organizationProfileId: 'organizationProfileId' },
+    });
+    viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
     serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
 
     const expected = cold('-#', {}, 'someError');
@@ -324,9 +349,12 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
   });
 
   it('should log warn when get call details fails', () => {
-    dispatchLoggedUser(store, { account: { id: 'accId' } });
+    dispatchLoggedUser(store, {
+      account: { id: 'accId' },
+      session: { organizationProfileId: 'organizationProfileId' },
+    });
     serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(cold('-#', {}, 'err'));
-    viewsService.getDashboardCallDetailsRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
+    viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
     const expected = cold('-#', {}, 'someError');
 
     expect(

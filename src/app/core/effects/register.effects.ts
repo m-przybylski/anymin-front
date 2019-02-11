@@ -25,15 +25,17 @@ export class RegisterEffects extends Logger {
            */
           return iif(
             () => invitationObject !== undefined && invitationObject.email === session.account.unverifiedEmail,
-            this.accountService.postConfirmEmailViaInvitationRoute(invitationObject ? invitationObject.token : '').pipe(
-              switchMap(account =>
-                from([
-                  new RegisterApiActions.RegisterSuccessAction({ ...session, account }),
-                  new RegisterActions.RegisterRedirectToDashboardsInvitationsAction({ ...session, account }),
-                ]),
+            this.accountService
+              .postEmailConfirmInvitationRoute({ token: invitationObject ? invitationObject.token : '' })
+              .pipe(
+                switchMap(account =>
+                  from([
+                    new RegisterApiActions.RegisterSuccessAction({ ...session, account }),
+                    new RegisterActions.RegisterRedirectToDashboardsInvitationsAction({ ...session, account }),
+                  ]),
+                ),
+                catchError(error => of(new RegisterApiActions.RegisterErrorAction(error))),
               ),
-              catchError(error => of(new RegisterApiActions.RegisterErrorAction(error))),
-            ),
             from([
               new RegisterApiActions.RegisterSuccessAction(session),
               new RegisterActions.RegisterRedirectToDashboardsActivitiesAction(),

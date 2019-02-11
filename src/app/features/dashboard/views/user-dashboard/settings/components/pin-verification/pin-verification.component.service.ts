@@ -50,7 +50,7 @@ export class PinVerificationComponentService {
 
   public verifyChangeMsisdnPinToken = (token: string): Observable<PinVerificationStatus> =>
     this.accountService
-      .confirmMsisdnVerificationRoute({
+      .postMsisdnConfirmRoute({
         token,
       })
       .pipe(
@@ -64,9 +64,7 @@ export class PinVerificationComponentService {
       .pipe(catchError(this.handleResendPinCodeError));
 
   public sendNewChangeMsisdnToken = (msisdn: string): Observable<void> =>
-    this.accountService
-      .newMsisdnVerificationRoute({ unverifiedMsisdn: msisdn })
-      .pipe(catchError(this.handleResendPinCodeError));
+    this.accountService.putMsisdnRoute({ msisdn }).pipe(catchError(this.handleResendPinCodeError));
 
   private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);

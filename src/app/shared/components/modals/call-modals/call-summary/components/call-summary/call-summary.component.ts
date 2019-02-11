@@ -334,8 +334,8 @@ export class CallSummaryComponent implements OnInit {
   }
 
   private setClientData(summary: ClientCallSummary): void {
-    this.avatarToken = summary.expertProfile.expertDetails ? summary.expertProfile.expertDetails.avatar : '';
-    this.name = summary.expertProfile.expertDetails ? summary.expertProfile.expertDetails.name : '';
+    this.avatarToken = summary.expertProfile.avatar;
+    this.name = summary.expertProfile.name;
     this.title = summary.service.name;
     this.callDuration = summary.callDuration;
     this.callCost = summary.promoCodeCost || summary.creditCardCost || { value: 0, currency: 'PLN' };

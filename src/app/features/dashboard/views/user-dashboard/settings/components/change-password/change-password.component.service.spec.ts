@@ -21,7 +21,7 @@ describe('Service: ChangePasswordComponentService', () => {
         ChangePasswordComponentService,
         {
           provide: AccountService,
-          useValue: Deceiver(AccountService, { changePasswordRoute: jest.fn() }),
+          useValue: Deceiver(AccountService, { putPasswordRoute: jest.fn() }),
         },
         {
           provide: RecoverPasswordService,
@@ -48,7 +48,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockAccountService.changePasswordRoute.mockReturnValue(of({}));
+    mockAccountService.putPasswordRoute.mockReturnValue(of({}));
 
     changePasswordComponentService
       .changePassword(mockActualPassword, mockNewPassword)
@@ -64,7 +64,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAlertService = TestBed.get(AlertService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockAccountService.changePasswordRoute.mockReturnValue(
+    mockAccountService.putPasswordRoute.mockReturnValue(
       throwError({
         error: {
           error: {},
@@ -87,7 +87,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const mockAlertService = TestBed.get(AlertService);
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-      mockAccountService.changePasswordRoute.mockReturnValue(
+      mockAccountService.putPasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: 1,
@@ -112,7 +112,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAccountService = TestBed.get(AccountService);
     const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-    mockAccountService.changePasswordRoute.mockReturnValue(
+    mockAccountService.putPasswordRoute.mockReturnValue(
       throwError({
         error: {
           code: BackendErrors.IncorrectValidation,
@@ -138,7 +138,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const mockAccountService = TestBed.get(AccountService);
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-      mockAccountService.changePasswordRoute.mockReturnValue(
+      mockAccountService.putPasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.BadAuthenticationCredentials,
@@ -165,7 +165,7 @@ describe('Service: ChangePasswordComponentService', () => {
       const mockAccountService = TestBed.get(AccountService);
       const changePasswordComponentService = TestBed.get(ChangePasswordComponentService);
 
-      mockAccountService.changePasswordRoute.mockReturnValue(
+      mockAccountService.putPasswordRoute.mockReturnValue(
         throwError({
           error: {
             code: BackendErrors.ToManyIncorrectPasswordAttempts,
@@ -189,7 +189,7 @@ describe('Service: ChangePasswordComponentService', () => {
     const mockAccountService: AccountService = TestBed.get(AccountService);
     const userSessionService: UserSessionService = TestBed.get(UserSessionService);
     const changePasswordComponentService: ChangePasswordComponentService = TestBed.get(ChangePasswordComponentService);
-    (mockAccountService.changePasswordRoute as jest.Mock).mockReturnValue(cold('--a|', { a: undefined }));
+    (mockAccountService.putPasswordRoute as jest.Mock).mockReturnValue(cold('--a|', { a: undefined }));
     getTestScheduler().flush();
     expect(changePasswordComponentService.changePassword('🔥🔥🔥', '🌊🌊🌊')).toBeObservable(
       cold('--a|', { a: ChangePasswordStatusEnum.SUCCESS }),

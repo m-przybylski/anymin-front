@@ -1,9 +1,10 @@
-import { InvitationService, ProfileService } from '@anymind-ng/api';
+import { GetProfileWithDocuments, InvitationService, PostProfileDetails, ProfileService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
 import { of } from 'rxjs';
 import { InvitationListResolverService } from './invitation-list.resolver.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { fakeAsync, tick } from '@angular/core/testing';
+import ProfileTypeEnum = PostProfileDetails.ProfileTypeEnum;
 
 // tslint:disable:max-line-length
 // tslint:disable:max-file-line-count
@@ -156,30 +157,22 @@ export const invitationsMock6: ReadonlyArray<any> = [
   },
 ];
 
-export const profileMap = new Map<string, any>([
+export const profileMap = new Map<string, GetProfileWithDocuments>([
   [
     'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     {
       profile: {
         id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+        accountId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
         isActive: true,
-        organizationDetails: {
-          name: 'Salta ,salta',
-          logo: '3759ae044d9e400591d104e254c58f89',
-          description:
-            'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
-          links: [],
-        },
-        expertDetails: {
-          name: 'Filip Franczak',
-          avatar: '6d3587a32aba453e8ad47199324f4c67',
-          description:
-            'Podczas konsultacji pomogę Ci dobrać odpowiednią msakfeqwih ffh dsa fh;weoah faweuhf iuwaehf liwhfliuawehfiuuhawlief uaw;fawliufha iwuhf liawegef liawgfliauwgfliuawgfil awlif wliuf . awliu fiwaehf liaw hf iawh fiawhfliuawhfliawhifag wlefgawifliweli fliagilfgwau fgwlifeg awlifg iawegfliaweg fliawegfi awg ifluawg iufagwlifugawliuflwiwuuhfe ilwahfuawe sjdfasojfoiwje wfj woiefj awefjaweoi;jef wjoi jwaeofij woifj wo;ije oiwajef o;iawjf ;oiawijfoi awjfo;iawj foejawo;eif jaw;oijf oawfi wafu hwoiefj awo',
-          links: ['https://www.facebook.com/romuald.rumun', 'http://www.goledupyzeslaska.com'],
-        },
+        profileType: ProfileTypeEnum.ORG,
+        name: 'Salta ,salta',
+        avatar: '3759ae044d9e400591d104e254c58f89',
+        description:
+          'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
+        links: [],
       },
-      organizationDocuments: [],
-      expertDocuments: [],
+      documents: [],
     },
   ],
   [
@@ -187,24 +180,16 @@ export const profileMap = new Map<string, any>([
     {
       profile: {
         id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+        accountId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+        profileType: ProfileTypeEnum.ORG,
         isActive: true,
-        organizationDetails: {
-          name: 'Salta ,salta',
-          logo: '3759ae044d9e400591d104e254c58f89',
-          description:
-            'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
-          links: [],
-        },
-        expertDetails: {
-          name: 'Filip Franczak',
-          avatar: '6d3587a32aba453e8ad47199324f4c67',
-          description:
-            'Podczas konsultacji pomogę Ci dobrać odpowiednią msakfeqwih ffh dsa fh;weoah faweuhf iuwaehf liwhfliuawehfiuuhawlief uaw;fawliufha iwuhf liawegef liawgfliauwgfliuawgfil awlif wliuf . awliu fiwaehf liaw hf iawh fiawhfliuawhfliawhifag wlefgawifliweli fliagilfgwau fgwlifeg awlifg iawegfliaweg fliawegfi awg ifluawg iufagwlifugawliuflwiwuuhfe ilwahfuawe sjdfasojfoiwje wfj woiefj awefjaweoi;jef wjoi jwaeofij woifj wo;ije oiwajef o;iawjf ;oiawijfoi awjfo;iawj foejawo;eif jaw;oijf oawfi wafu hwoiefj awo',
-          links: ['https://www.facebook.com/romuald.rumun', 'http://www.goledupyzeslaska.com'],
-        },
+        name: 'Salta ,salta',
+        avatar: '3759ae044d9e400591d104e254c58f89',
+        description:
+          'To jest jakis madry opis. Bedzie tez bardzo dlugi po to, zeby zobaczyc jak sie tekst lamie na roznych urzadzeniach. A moze ja to porostu skopiuje. Albo zapisze sobie cos. Hmmm. Moze very slow = sluggy, very poor = destitute xD xD Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  ',
+        links: [],
       },
-      organizationDocuments: [],
-      expertDocuments: [],
+      documents: [],
     },
   ],
   [
@@ -212,17 +197,16 @@ export const profileMap = new Map<string, any>([
     {
       profile: {
         id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
+        accountId: 'ca3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
         isActive: true,
-        expertDetails: {
-          name: 'Filip Franczak',
-          avatar: '6d3587a32aba453e8ad47199324f4c67',
-          description:
-            'Podczas konsultacji pomogę Ci dobrać odpowiednią msakfeqwih ffh dsa fh;weoah faweuhf iuwaehf liwhfliuawehfiuuhawlief uaw;fawliufha iwuhf liawegef liawgfliauwgfliuawgfil awlif wliuf . awliu fiwaehf liaw hf iawh fiawhfliuawhfliawhifag wlefgawifliweli fliagilfgwau fgwlifeg awlifg iawegfliaweg fliawegfi awg ifluawg iufagwlifugawliuflwiwuuhfe ilwahfuawe sjdfasojfoiwje wfj woiefj awefjaweoi;jef wjoi jwaeofij woifj wo;ije oiwajef o;iawjf ;oiawijfoi awjfo;iawj foejawo;eif jaw;oijf oawfi wafu hwoiefj awo',
-          links: ['https://www.facebook.com/romuald.rumun', 'http://www.goledupyzeslaska.com'],
-        },
+        profileType: ProfileTypeEnum.ORG,
+        name: 'Filip Franczak',
+        avatar: '6d3587a32aba453e8ad47199324f4c67',
+        description:
+          'Podczas konsultacji pomogę Ci dobrać odpowiednią msakfeqwih ffh dsa fh;weoah faweuhf iuwaehf liwhfliuawehfiuuhawlief uaw;fawliufha iwuhf liawegef liawgfliauwgfliuawgfil awlif wliuf . awliu fiwaehf liaw hf iawh fiawhfliuawhfliawhifag wlefgawifliweli fliagilfgwau fgwlifeg awlifg iawegfliaweg fliawegfi awg ifluawg iufagwlifugawliuflwiwuuhfe ilwahfuawe sjdfasojfoiwje wfj woiefj awefjaweoi;jef wjoi jwaeofij woifj wo;ije oiwajef o;iawjf ;oiawijfoi awjfo;iawj foejawo;eif jaw;oijf oawfi wafu hwoiefj awo',
+        links: ['https://www.facebook.com/romuald.rumun', 'http://www.goledupyzeslaska.com'],
       },
-      organizationDocuments: [],
-      expertDocuments: [],
+      documents: [],
     },
   ],
 ]);
@@ -356,6 +340,8 @@ describe('InvitationListResolverService', () => {
     invitationListResolverService.resolve(activatedRouteSnapshot, routerStateSnapshot).subscribe(data => {
       expect(data).toEqual(result4);
     });
+    // this this tick will drain all times and makes sure that resolve does not throw
+    tick();
   }));
 
   it('should filter invitations and take only new', fakeAsync(() => {

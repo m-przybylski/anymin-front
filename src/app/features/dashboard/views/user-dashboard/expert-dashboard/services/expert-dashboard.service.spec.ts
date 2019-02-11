@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, ParamMap, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Deceiver } from 'deceiver-core';
 import { ViewsService, ProfileService } from '@anymind-ng/api';
 import { ExpertDashboardService } from './expert-dashboard.service';

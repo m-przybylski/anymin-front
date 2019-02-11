@@ -107,12 +107,8 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     ).subscribe(([{ getSession, getUserType }, getConsultationDetails]) => {
       this.tagList = getConsultationDetails.tagsList;
       this.consultationDetails = getConsultationDetails.serviceDetails;
-      this.expertName =
-        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails &&
-        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails.name;
-      this.avatarToken =
-        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails &&
-        this.consultationDetails.serviceDetails.ownerProfile.organizationDetails.logo;
+      this.expertName = this.consultationDetails.serviceDetails.ownerProfile.name;
+      this.avatarToken = this.consultationDetails.serviceDetails.ownerProfile.avatar;
       this.employeesList = getConsultationDetails.employeesList;
       this.isEmployeesListExist = this.employeesList.length > 0;
       this.isCompany = (getSession && getSession.isCompany) || false;

@@ -8,7 +8,7 @@ import {
 import { Observable, Subject, defer, of } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
-import { EmploymentWithExpertProfile, GetDefaultPaymentMethod, AccountPresenceStatus } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, ExpertPresenceStatus, GetDefaultPaymentMethod } from '@anymind-ng/api';
 import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
@@ -123,7 +123,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
       }
       if (this.data.selectedExpertId !== undefined) {
         return this.expertAvailabilityService.getExpertPresence(this.data.selectedExpertId).pipe(
-          map(presence => presence === AccountPresenceStatus.StatusEnum.Available),
+          map(presence => presence === ExpertPresenceStatus.StatusEnum.Available),
           startWith(this.data.isExpertAvailable),
         );
       }

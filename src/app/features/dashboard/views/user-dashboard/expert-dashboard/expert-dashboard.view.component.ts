@@ -59,9 +59,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
 
   public getLinks(data: IExpertCompanyDashboardResolverData<IExpertProfile>): ReadonlyArray<string> {
     return (
-      (data.profile.getProfileWithDocuments.profile.expertDetails &&
-        data.profile.getProfileWithDocuments.profile.expertDetails.links) ||
-      []
+        data.profile.getProfileWithDocuments.profile.links
     );
   }
 

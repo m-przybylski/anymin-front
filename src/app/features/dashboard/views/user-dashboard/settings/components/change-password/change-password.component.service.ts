@@ -27,8 +27,8 @@ export class ChangePasswordComponentService {
     this.logger = loggerFactory.createLoggerService('ChangePasswordComponentService');
   }
 
-  public changePassword(actualPassword: string, newPassword: string): Observable<ChangePasswordStatusEnum> {
-    return this.accountService.changePasswordRoute({ actualPassword, newPassword }).pipe(
+  public changePassword(currentPassword: string, newPassword: string): Observable<ChangePasswordStatusEnum> {
+    return this.accountService.putPasswordRoute({ currentPassword, newPassword }).pipe(
       map(() => this.handleChangePassword()),
       catchError(err => of(this.handleChangePasswordError(err))),
     );

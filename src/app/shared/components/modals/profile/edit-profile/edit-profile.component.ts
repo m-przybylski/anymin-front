@@ -5,10 +5,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertService, FormUtilsService, LoggerFactory, Alerts } from '@anymind-ng/core';
 import { EditProfileComponentService } from './edit-profile.component.service';
 import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDocuments';
-import { PutGeneralSettings } from '@anymind-ng/api/model/putGeneralSettings';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
-import { PutExpertDetails } from '@anymind-ng/api/model/putExpertDetails';
 import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { NavbarActions } from '@platform/core/actions';
@@ -19,6 +17,7 @@ import { IBasicProfileData } from '@platform/shared/components/modals/profile/co
 import { waitForSession } from '@platform/core/utils/wait-for-session';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Logger } from '@platform/core/logger';
+import { PutDetails, PutProfileDetails } from '@anymind-ng/api';
 import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 
 @Component({
@@ -56,7 +55,8 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
   public isValidated = false;
 
   private isOpenedAsExpert = false;
-  private linksFormControl = new FormControl([]);
+  private linksFormControl = new FormControl();
+  private profileId: string;
 
   constructor(
     @Optional() @Inject(IS_EXPERT_FORM) public isExpertForm = true,
@@ -105,13 +105,9 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
 
           return;
         }
-
-        if (getProfileWithDocuments && getProfileWithDocuments.profile.expertDetails) {
+        if (getProfileWithDocuments && getProfileWithDocuments.profile) {
           this.setExpertFormValues(getProfileWithDocuments);
-          this.setBasicProfileData(
-            getProfileWithDocuments.profile.expertDetails.avatar,
-            getProfileWithDocuments.profile.expertDetails.name,
-          );
+          this.setBasicProfileData(getProfileWithDocuments.profile.avatar, getProfileWithDocuments.profile.name);
         } else {
           this.loggerService.error('Edit profile opened in expert mode but no expert details available');
           this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
@@ -172,26 +168,26 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
   }
 
   private setExpertFormValues(profileDetails: GetProfileWithDocuments): void {
-    if (profileDetails.profile.expertDetails !== undefined) {
-      this.linksFormControl.setValue(profileDetails.profile.expertDetails.links);
-      this.profileForm.controls[this.descriptionControlName].setValue(profileDetails.profile.expertDetails.description);
-      this.profileDocumentsList = profileDetails.expertDocuments;
-      this.fileUploadTokensList = profileDetails.expertDocuments.map(file => file.token);
-    }
+    this.profileId = profileDetails.profile.id;
+    this.linksFormControl.setValue(profileDetails.profile.links);
+    this.profileForm.controls[this.descriptionControlName].setValue(profileDetails.profile.description);
+    this.profileDocumentsList = profileDetails.documents;
+    this.fileUploadTokensList = profileDetails.documents.map(file => file.token);
   }
+
   /** #endregion init callbacks */
 
-  private getExpertDetails(): PutExpertDetails {
+  private getExpertDetails(): PutProfileDetails {
     return {
-      name: this.avatarTokenProfileNameFormControl.value.name,
-      avatar: this.avatarTokenProfileNameFormControl.value.avatarToken,
+      name: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
+      avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
       description: this.profileForm.controls[this.descriptionControlName].value.toString(),
       links: this.linksFormControl.value,
       files: [...this.fileUploadTokensList],
     };
   }
 
-  private getClientDetails(): PutGeneralSettings {
+  private getClientDetails(): PutDetails {
     return {
       nickname: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).name,
       avatar: (this.avatarTokenProfileNameFormControl.value as IBasicProfileData).avatarToken,
@@ -204,7 +200,7 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
       .editClientProfile(this.getClientDetails())
       /** and update expert profile */
       .pipe(
-        switchMap(() => this.editProfileComponentService.editExpertProfile(this.getExpertDetails())),
+        switchMap(() => this.editProfileComponentService.editExpertProfile(this.getExpertDetails(), this.profileId)),
         tap(() => this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.EXPERT))),
         waitForSession(this.store),
       )

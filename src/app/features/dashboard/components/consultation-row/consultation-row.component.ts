@@ -21,8 +21,7 @@ export class ConsultationRowComponent {
   public get company(): string | undefined {
     return this.consultation.employeeId === this.consultation.serviceDetails.ownerProfile.id
       ? undefined
-      : this.consultation.serviceDetails.ownerProfile.organizationDetails &&
-          this.consultation.serviceDetails.ownerProfile.organizationDetails.name;
+      : this.consultation.serviceDetails.ownerProfile && this.consultation.serviceDetails.ownerProfile.name;
   }
 
   public get price(): MoneyDto {

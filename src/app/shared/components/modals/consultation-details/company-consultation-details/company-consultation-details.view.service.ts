@@ -132,9 +132,9 @@ export class CompanyConsultationDetailsViewService extends Logger {
               this.profileService.getProfileRoute(employee.employeeId as string).pipe(
                 map(
                   (res: GetProfileWithDocuments): ICompanyEmployeeRowComponent => ({
-                    name: res.profile.expertDetails ? res.profile.expertDetails.name : '',
+                    name: res.profile.name,
                     id: res.profile.id,
-                    avatar: res.profile.expertDetails ? res.profile.expertDetails.avatar : '',
+                    avatar: res.profile.avatar,
                     employeeId: employee.id,
                     invitedExpertAccountId: res.profile.id,
                   }),

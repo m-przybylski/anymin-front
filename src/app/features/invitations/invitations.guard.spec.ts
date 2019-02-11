@@ -45,7 +45,7 @@ describe('InvitationsGuard', () => {
   const registrationInvitationService: RegistrationInvitationService = Deceiver(RegistrationInvitationService, {
     setInvitationObject: jest.fn(),
   });
-  const accountService: AccountService = Deceiver(AccountService, { postConfirmEmailViaInvitationRoute: jest.fn() });
+  const accountService: AccountService = Deceiver(AccountService, { postEmailConfirmInvitationRoute: jest.fn() });
   const invitationService: InvitationService = Deceiver(InvitationService, {
     getInvitationRoute: jest.fn(),
   });
@@ -91,7 +91,7 @@ describe('InvitationsGuard', () => {
     const action = new SessionApiActions.FetchSessionErrorAction('401');
     (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
     (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
-    (accountService.postConfirmEmailViaInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
+    (accountService.postEmailConfirmInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
     route.params = { token: invitationMock.token };
 
     store.dispatch(action);
@@ -111,7 +111,7 @@ describe('InvitationsGuard', () => {
 
     (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
     (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
-    (accountService.postConfirmEmailViaInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
+    (accountService.postEmailConfirmInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
     route.params = { token: invitationMock.token };
 
     store.dispatch(action);
@@ -139,7 +139,7 @@ describe('InvitationsGuard', () => {
       const action = new SessionApiActions.FetchSessionErrorAction('401');
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
-      (accountService.postConfirmEmailViaInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
+      (accountService.postEmailConfirmInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
       route.params = { token: invitationMock.token };
 
       store.dispatch(action);
@@ -169,7 +169,7 @@ describe('InvitationsGuard', () => {
 
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
-      (accountService.postConfirmEmailViaInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
+      (accountService.postEmailConfirmInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
       route.params = { token: invitationMock.token };
 
       store.dispatch(action);
@@ -198,7 +198,7 @@ describe('InvitationsGuard', () => {
       const action = new SessionApiActions.FetchSessionErrorAction('401');
       (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
       (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
-      (accountService.postConfirmEmailViaInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
+      (accountService.postEmailConfirmInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
       route.params = { token: invitationMock.token };
 
       store.dispatch(action);
@@ -221,7 +221,7 @@ describe('InvitationsGuard', () => {
     const action = new SessionApiActions.FetchSessionErrorAction('401');
     (router.navigate as jest.Mock).mockReturnValue(Promise.resolve(true));
     (invitationService.getInvitationRoute as jest.Mock).mockReturnValue(getInvitation);
-    (accountService.postConfirmEmailViaInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
+    (accountService.postEmailConfirmInvitationRoute as jest.Mock).mockReturnValue(confirmEmail);
     route.params = { token: invitationMock.token };
 
     store.dispatch(action);

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   AccountService,
   ProfileService,
-  PutGeneralSettings,
+  PutDetails,
   PostProfileDetails,
   PostProfileWithInvoiceDetails,
 } from '@anymind-ng/api';
@@ -49,7 +49,7 @@ describe('CreateProfileComponentService', () => {
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            putGeneralSettingsRoute: jest.fn(),
+            putDetailsRoute: jest.fn(),
           }),
         },
       ],
@@ -88,19 +88,19 @@ describe('CreateProfileComponentService', () => {
   });
 
   it('should create client profile', () => {
-    (accountService.putGeneralSettingsRoute as jest.Mock).mockReturnValue(cold('-a|', { a: 'OK' }));
-    const clientDetailsObject: PutGeneralSettings = {
+    (accountService.putDetailsRoute as jest.Mock).mockReturnValue(cold('-a|', { a: 'OK' }));
+    const clientDetailsObject: PutDetails = {
       nickname: 'nick',
       avatar: 'avatar',
     };
     service.createClientProfile(clientDetailsObject);
-    expect(accountService.putGeneralSettingsRoute).toHaveBeenCalledWith(clientDetailsObject);
+    expect(accountService.putDetailsRoute).toHaveBeenCalledWith(clientDetailsObject);
   });
 
   it('should throw error when create client profile failed', () => {
-    accountService.putGeneralSettingsRoute = jest.fn(() => cold('-#', {}, 'error'));
+    accountService.putDetailsRoute = jest.fn(() => cold('-#', {}, 'error'));
     const expected = cold('-#', {}, 'error');
-    const clientDetailsObject: PutGeneralSettings = {
+    const clientDetailsObject: PutDetails = {
       nickname: 'nick',
       avatar: 'avatar',
     };

@@ -1,5 +1,5 @@
 import { Observable, throwError } from 'rxjs';
-import { AccountService, GetAccountDetails, GetProfile, ProfileService, PutGeneralSettings } from '@anymind-ng/api';
+import { AccountService, GetAccountDetails, GetProfile, ProfileService, PutDetails } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { catchError, map, take } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -41,9 +41,9 @@ export class CreateProfileComponentService extends Logger {
     );
   }
 
-  public createClientProfile(formData: PutGeneralSettings): Observable<undefined> {
+  public createClientProfile(formData: PutDetails): Observable<undefined> {
     return this.accountService
-      .putGeneralSettingsRoute(formData)
+      .putDetailsRoute(formData)
       .pipe(this.handleResponseError('Can not create client profile'));
   }
 

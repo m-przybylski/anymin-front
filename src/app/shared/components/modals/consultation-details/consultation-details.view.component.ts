@@ -8,7 +8,13 @@ import {
   IConsultationDetailActionParameters,
 } from './consultation-details-actions.service';
 import { forkJoin, Subject } from 'rxjs';
-import { EmploymentWithExpertProfile, EmploymentWithService, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
+import {
+  EmploymentWithExpertProfile,
+  EmploymentWithService,
+  GetComment,
+  GetProfile,
+  GetSessionWithAccount,
+} from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
@@ -155,13 +161,13 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
     this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
     this.employmentId = employmentId;
 
-    if (expertDetails.profile.organizationDetails !== undefined) {
-      this.companyName = expertDetails.profile.organizationDetails.name;
-      this.companyLogo = expertDetails.profile.organizationDetails.logo;
+    if (expertDetails.profile.profileType === GetProfile.ProfileTypeEnum.ORG) {
+      this.companyName = expertDetails.profile.name;
+      this.companyLogo = expertDetails.profile.avatar;
     }
-    if (expertDetails.profile.expertDetails !== undefined) {
-      this.expertName = expertDetails.profile.expertDetails.name;
-      this.expertAvatar = expertDetails.profile.expertDetails.avatar;
+    if (expertDetails.profile.profileType === GetProfile.ProfileTypeEnum.EXP) {
+      this.expertName = expertDetails.profile.name;
+      this.expertAvatar = expertDetails.profile.avatar;
     }
 
     this.modalAnimationComponentService.onModalContentChange().next(false);
@@ -216,12 +222,12 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
          * This is consultation details view, but it may happen that we are still in organization context
          * To determine if service belongs to organization we need to check if following field is populated
          * GetServiceWithEmployees -> (serviceDetails: ServiceWithOwnerProfile) -> (ownerProfile: GetProfile)
-         * -> (organizationDetails: GetOrganizationDetails) != undefined
+         * -> ownerProfile.profileType !== GetProfile.ProfileTypeEnum.ORG
          * Once we are in context of organization we need to remove expertID from sharing consultation.
          */
         const payload =
-          getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.organizationDetails !== undefined &&
-          value === 'share'
+          getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.profileType !==
+            GetProfile.ProfileTypeEnum.ORG && value === 'share'
             ? { ...initialPayload, expertId: undefined }
             : initialPayload;
 
@@ -270,7 +276,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
       : this.getEmployeeVatRateType(getServiceDetails);
 
   private isExpertConsultation = (serviceDetails: ServiceWithOwnerProfile): boolean =>
-    typeof serviceDetails.ownerProfile.organizationDetails === 'undefined';
+    serviceDetails.ownerProfile.profileType !== GetProfile.ProfileTypeEnum.ORG;
 
   private getEmployeeVatRateType(getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum {
     try {

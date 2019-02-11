@@ -1,7 +1,7 @@
 // tslint:disable:strict-type-predicates
 import { Injectable, OnDestroy } from '@angular/core';
 import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
-import { PresenceService, AccountPresenceStatus } from '@anymind-ng/api';
+import { ExpertPresenceStatus, PresenceService } from '@anymind-ng/api';
 import { Observable, ReplaySubject, Subscription, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
@@ -20,7 +20,7 @@ export class ExpertAvailabilityService implements OnDestroy {
     this.destroyed$.complete();
   }
 
-  public getExpertPresence(id: string): Observable<AccountPresenceStatus.StatusEnum> {
+  public getExpertPresence(id: string): Observable<ExpertPresenceStatus.StatusEnum> {
     // check if this expert was not added before
     if (!this.expertPresenceMap.has(id)) {
       // unsubscribe if subscribed to backend
@@ -28,7 +28,7 @@ export class ExpertAvailabilityService implements OnDestroy {
         this.pollingSubscription.unsubscribe();
       }
       // create new stream to and assign it to experts object
-      const stream$ = new ReplaySubject<AccountPresenceStatus.StatusEnum>(1);
+      const stream$ = new ReplaySubject<ExpertPresenceStatus.StatusEnum>(1);
       // share this stream so there is no value will be cashed for other requests
       this.expertPresenceMap.set(id, { subject: stream$, obs: stream$.asObservable() });
       // start pooling data
@@ -52,7 +52,7 @@ export class ExpertAvailabilityService implements OnDestroy {
       .subscribe();
   }
 
-  private handleExpertPresenceResponse(response: AccountPresenceStatus): void {
+  private handleExpertPresenceResponse(response: ExpertPresenceStatus): void {
     // just in case something went wrong
     if (!this.expertPresenceMap.has(response.expertId)) {
       return;
@@ -63,7 +63,7 @@ export class ExpertAvailabilityService implements OnDestroy {
     (this.expertPresenceMap.get(response.expertId) as IExpertPresence).subject.next(response.status);
   }
 
-  private fetchExpertPresence(expertIds: ReadonlyArray<string>): Observable<ReadonlyArray<AccountPresenceStatus>> {
+  private fetchExpertPresence(expertIds: ReadonlyArray<string>): Observable<ReadonlyArray<ExpertPresenceStatus>> {
     return this.presenceService.userPresenceRoute({ expertIds: [...expertIds] });
   }
 
@@ -83,6 +83,6 @@ export class ExpertAvailabilityService implements OnDestroy {
   }
 }
 interface IExpertPresence {
-  subject: ReplaySubject<AccountPresenceStatus.StatusEnum>;
-  obs: Observable<AccountPresenceStatus.StatusEnum>;
+  subject: ReplaySubject<ExpertPresenceStatus.StatusEnum>;
+  obs: Observable<ExpertPresenceStatus.StatusEnum>;
 }

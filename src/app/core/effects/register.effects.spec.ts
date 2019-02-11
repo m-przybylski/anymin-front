@@ -22,7 +22,7 @@ describe('RegisterEffects', () => {
         {
           provide: AccountService,
           useValue: Deceiver(AccountService, {
-            postConfirmEmailViaInvitationRoute: jest.fn(() => cold('--')),
+            postEmailConfirmInvitationRoute: jest.fn(() => cold('--')),
           }),
         },
         {
@@ -78,7 +78,7 @@ describe('RegisterEffects', () => {
           const expected = cold('---(ab)-', { a: registerSuccess, b: redirect });
           actions$ = hot('--a--', { a: new RegisterActions.RegisterAction(sessionPayload) });
           accountService.postAccountRoute = jest.fn(() => cold('a|', { a: sessionPayload }));
-          accountService.postConfirmEmailViaInvitationRoute = jest.fn(() => cold('-a|', { a: newAccount }));
+          accountService.postEmailConfirmInvitationRoute = jest.fn(() => cold('-a|', { a: newAccount }));
           expect(registerEffects.register$).toBeObservable(expected);
         });
       });
