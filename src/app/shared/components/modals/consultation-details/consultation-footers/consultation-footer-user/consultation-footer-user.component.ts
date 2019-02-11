@@ -1,17 +1,19 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import {
   IFooterOutput,
   CONSULTATION_FOOTER_DATA,
   IConsultationFooterData,
 } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer-helpers';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, defer, of, EMPTY } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
-import { EmploymentWithExpertProfile, GetDefaultPaymentMethod } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, GetDefaultPaymentMethod, AccountPresenceStatus } from '@anymind-ng/api';
 import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { startWith, map, share } from 'rxjs/operators';
 
 export enum MiddlePanelStatusTypes {
   freeMinute,
@@ -24,17 +26,13 @@ export enum MiddlePanelStatusTypes {
   templateUrl: 'consultation-footer-user.component.html',
   styleUrls: ['consultation-footer-user.component.sass'],
 })
-export class ConsultationFooterUserComponent extends Logger implements IFooterOutput, OnDestroy {
+export class ConsultationFooterUserComponent extends Logger implements IFooterOutput, OnDestroy, OnInit {
   public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
     return this._actionTaken$.asObservable();
   }
 
   public get grossPrice(): string {
     return this.moneyPipe.transform(this.data.price) || this.moneyPipe.transform({ value: 0, currency: '' });
-  }
-
-  public get isExpertAvailable(): boolean {
-    return this.data.userId === undefined || this.data.isExpertAvailable;
   }
 
   public get defaultPayment(): GetDefaultPaymentMethod {
@@ -58,6 +56,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public middlePanelStatusTypes = MiddlePanelStatusTypes;
+  public isExpertAvailable$: Observable<boolean>;
 
   public get card(): string {
     const currentCreditCard = this.data.creditCards.find(
@@ -87,10 +86,32 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
 
   constructor(
     @Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData,
+    private expertAvailabilityService: ExpertAvailabilityService,
     private router: Router,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationFooterUserComponent'));
+  }
+
+  public ngOnInit(): void {
+    /** there will be one element if user have selected expert */
+    this.isExpertAvailable$ = defer(() => {
+      /**
+       * For not logged user userId will be undefined
+       * so do not send expert availability
+       */
+      if (this.data.userId === undefined) {
+        return EMPTY;
+      }
+      if (this.data.selectedExpertId !== undefined) {
+        return this.expertAvailabilityService.getExpertPresence(this.data.selectedExpertId).pipe(
+          map(presence => presence === AccountPresenceStatus.StatusEnum.Available),
+          startWith(this.data.isExpertAvailable),
+        );
+      }
+
+      return of(this.data.isExpertAvailable);
+    }).pipe(share());
   }
 
   public ngOnDestroy(): void {

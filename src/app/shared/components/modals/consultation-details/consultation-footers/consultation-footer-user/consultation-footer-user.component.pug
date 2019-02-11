@@ -27,7 +27,7 @@ plat-consultation-footer
           a {{"CONSULTATION_DETAILS.FOOTER.CHOOSE_PAYMENT_METHOD" | translate}}
   //right part of the screen
   .consultation-footer__right
-    a(plat-large-icon-button, color='success', *ngIf="isExpertAvailable else offlineDesktop", (click)='onCall()')
+    a(plat-large-icon-button, color='success', *ngIf="(isExpertAvailable$ | async) else offlineDesktop", (click)='onCall()')
       span(plat-icon iconClass='headphone')
       span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
     ng-template(#offlineDesktop)
@@ -37,11 +37,11 @@ plat-consultation-footer
   //right panel on the screen on mobile
   .consultation-footer__right--mobile
     div.button-large
-      a(plat-large-icon-button color='success', *ngIf="isExpertAvailable else offlineMobileLarge", (click)='onCall()')
+      a(plat-large-icon-button color='success', *ngIf="(isExpertAvailable$ | async) else offlineMobileLarge", (click)='onCall()')
         span(plat-icon iconClass='headphone')
         span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
     div.button-small
-      a(plat-flat-fab color='success', *ngIf="isExpertAvailable else offlineMobile", (click)='onCall()')
+      a(plat-flat-fab color='success', *ngIf="(isExpertAvailable$ | async) else offlineMobile", (click)='onCall()')
         span(plat-icon iconClass='headphone')
     ng-template(#offlineMobileLarge)
       div.button-large

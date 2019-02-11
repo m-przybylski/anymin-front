@@ -17,15 +17,17 @@ export class CompanyDashboardGuard implements CanActivate {
   }
 
   public canActivate(): Observable<boolean> {
-    return this.store.pipe(dashboardGuardHelper(this.navigateToSettingsWhenNotCompany));
+    return this.store.pipe(
+      dashboardGuardHelper(getSessionWithAccount => this.navigateToSettingsWhenNotCompany(getSessionWithAccount)),
+    );
   }
 
-  private navigateToSettingsWhenNotCompany = (getSessionWithAccount: GetSessionWithAccount): boolean => {
+  private navigateToSettingsWhenNotCompany(getSessionWithAccount: GetSessionWithAccount): boolean {
     if (!getSessionWithAccount.isCompany) {
       this.logger.warn('You shall not pass - redirecting to settings');
       void this.router.navigate([RouterPaths.dashboard.user.settings.asPath]);
     }
 
     return getSessionWithAccount.isCompany;
-  };
+  }
 }

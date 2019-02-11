@@ -14,6 +14,7 @@ export const CONSULTATION_FOOTER_DATA = new InjectionToken<IConsultationFooterDa
 export interface IConsultationFooterData {
   ownerId: string;
   expertsIdList: ReadonlyArray<string>;
+  selectedExpertId?: string;
   isExpertAvailable: boolean;
   userId?: string;
   isFreelance: boolean;

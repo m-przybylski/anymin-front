@@ -108,7 +108,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
       this.tagList = tags;
       this.assignExpertConsultationDetails(getServiceDetails);
       this.assignEditConsultationPayload(getServiceDetails);
-      this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable);
+      this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable, this.expertId);
     });
   }
 
@@ -188,6 +188,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
     userId: string,
     getServiceDetails: IConsultationDetails,
     expertIsAvailable: boolean,
+    selectedExpertId: string,
   ): ComponentRef<IFooterOutput> | undefined {
     const component = ConsultationFooterResolver.resolve(
       this.userType,
@@ -200,7 +201,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
       const footerComponent = this.consultationDetailsViewService.attachFooter(
         component,
         this.viewContainerRef,
-        this.buildFooterData(userId, getServiceDetails, expertIsAvailable),
+        this.buildFooterData(userId, getServiceDetails, expertIsAvailable, selectedExpertId),
       );
 
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
@@ -248,6 +249,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
     userId: string,
     getServiceDetails: IConsultationDetails,
     expertIsAvailable: boolean,
+    selectedExpertId: string,
   ): IConsultationFooterData => ({
     userId,
     ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
@@ -259,6 +261,7 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
     price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
     vatRateType: this.selectVatRateType(getServiceDetails),
     getCommissions: getServiceDetails.getCommissions,
+    selectedExpertId,
   });
 
   private selectVatRateType = (getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum =>

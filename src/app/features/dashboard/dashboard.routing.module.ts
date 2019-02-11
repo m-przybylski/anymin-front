@@ -8,7 +8,6 @@ import { SessionGuard } from '../../shared/guards/session/session.guard';
 import { DashboardViewComponent } from '@platform/features/dashboard/dashboard.view.component';
 import { DashboardResolver } from './dashboard.resolver';
 import { WelcomeViewGuard } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.view.guard';
-import { CompanyDashboardGuard } from '@platform/features/dashboard/views/company-dashboard/services/company-dashboard.guard';
 import { ExpertDashboardGuard } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard.guard';
 import { PaymentsResolver } from '@platform/features/dashboard/views/user-dashboard/payments/payments.resolver';
 
@@ -60,7 +59,6 @@ const routes: Routes = [
       },
       {
         path: RouterPaths.dashboard.company.getName,
-        canActivate: [CompanyDashboardGuard],
         loadChildren: './views/company-dashboard/company-dashboard.module#CompanyDashboardModule',
       },
     ],
@@ -70,6 +68,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyDashboardGuard, ExpertDashboardGuard, PaymentsResolver],
+  providers: [ExpertDashboardGuard, PaymentsResolver],
 })
 export class DashboardRoutingModule {}

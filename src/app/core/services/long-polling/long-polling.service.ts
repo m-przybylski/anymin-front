@@ -2,9 +2,6 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer } from 'rxjs';
 import { switchMap, startWith, delay, tap, skip, retryWhen, mergeMap } from 'rxjs/operators';
-// this is realated to TypeScript typing system error for Document
-// tslint:disable-next-line:rxjs-no-internal
-import { FromEventTarget } from 'rxjs/internal/observable/fromEvent';
 
 const second = 1000;
 const power = 2;
@@ -18,7 +15,7 @@ const defaultRetryConfiguration = {
 export class LongPollingService {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
-  public longPollData = <T>(request$: Observable<T>, interval: number): Observable<T> => {
+  public longPollData<T>(request$: Observable<T>, interval: number): Observable<T> {
     // helper subject to used to determine when trigger fetch
     const trigger$: Subject<void> = new Subject<void>();
     // modify request with retry strategy
@@ -29,7 +26,7 @@ export class LongPollingService {
       tap(() => trigger$.next(undefined)),
       skip(1),
     );
-    const result = fromEvent(this.document as FromEventTarget<Document>, 'visibilitychange').pipe(
+    const result = fromEvent(this.document, 'visibilitychange').pipe(
       startWith(undefined),
       switchMap(() => {
         if (!this.pageIsActive()) {
@@ -44,9 +41,11 @@ export class LongPollingService {
     );
 
     return result as Observable<T>;
-  };
+  }
 
-  private pageIsActive = (): boolean => !this.document.hidden;
+  private pageIsActive(): boolean {
+    return !this.document.hidden;
+  }
 
   /**
    * strategy to retry on pull

@@ -26,7 +26,6 @@ import { ClipboardService } from './services/clipboard/clipboard.service';
 import { PlatMissingTranslationHandler } from './services/translations/missing-translation.hander';
 import { PushNotificationService } from './services/call/push-notifications.service';
 import { RemoteLogoutService } from '@platform/core/services/remote-logout/remote-logout.service';
-import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { CallService } from '@platform/core/services/call/call.service';
 import { CallSessionService } from '@platform/core/services/call/call-session.service';
 import { RegisterEffects } from '@platform/core/effects/register.effects';
@@ -71,7 +70,6 @@ export function getLogLevel(): LogLevel {
     PushNotificationService,
     CallService,
     RemoteLogoutService,
-    ExpertAvailabilityService,
   ],
 })
 export class CoreModule {}

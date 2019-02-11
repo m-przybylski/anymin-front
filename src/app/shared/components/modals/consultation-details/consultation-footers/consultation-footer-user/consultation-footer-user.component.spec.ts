@@ -9,6 +9,8 @@ import {
 import { provideMockFactoryLogger } from 'testing/testing';
 import { Router } from '@angular/router';
 import { Deceiver } from 'deceiver-core';
+import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
+import { cold } from 'jasmine-marbles';
 
 @Pipe({
   name: 'translate',
@@ -34,6 +36,10 @@ describe('ConsultationFooterUserComponent', () => {
         {
           provide: Router,
           useValue: Deceiver(Router, { navigate: jest.fn() }),
+        },
+        {
+          provide: ExpertAvailabilityService,
+          useValue: Deceiver(ExpertAvailabilityService, { getExpertPresence: jest.fn() }),
         },
         provideMockFactoryLogger(),
       ],
@@ -145,7 +151,8 @@ describe('ConsultationFooterUserComponent', () => {
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
+    consultationFooterUserComponent.ngOnInit();
 
-    expect(consultationFooterUserComponent.isExpertAvailable).toEqual(true);
+    expect(consultationFooterUserComponent.isExpertAvailable$).toBeObservable(cold('|'));
   });
 });

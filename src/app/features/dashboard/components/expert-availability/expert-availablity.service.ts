@@ -7,7 +7,7 @@ import { map, takeUntil } from 'rxjs/operators';
 
 const pollingRate = 5000;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ExpertAvailabilityService implements OnDestroy {
   private expertPresenceMap = new Map<string, IExpertPresence>();
 
@@ -20,7 +20,7 @@ export class ExpertAvailabilityService implements OnDestroy {
     this.destroyed$.complete();
   }
 
-  public getExpertPresence = (id: string): Observable<AccountPresenceStatus.StatusEnum> => {
+  public getExpertPresence(id: string): Observable<AccountPresenceStatus.StatusEnum> {
     // check if this expert was not added before
     if (!this.expertPresenceMap.has(id)) {
       // unsubscribe if subscribed to backend
@@ -36,9 +36,9 @@ export class ExpertAvailabilityService implements OnDestroy {
     }
 
     return (this.expertPresenceMap.get(id) as IExpertPresence).obs;
-  };
+  }
 
-  private startPooling = (expertPresence: Map<string, IExpertPresence>): Subscription | undefined => {
+  private startPooling(expertPresence: Map<string, IExpertPresence>): Subscription | undefined {
     if (expertPresence.size === 0) {
       return undefined;
     }
@@ -47,12 +47,12 @@ export class ExpertAvailabilityService implements OnDestroy {
       .longPollData(this.fetchExpertPresence(Array.from(expertPresence.keys())), pollingRate)
       .pipe(
         takeUntil(this.destroyed$),
-        map(statuses => statuses.map(this.handleExpertPresenceResponse)),
+        map(statuses => statuses.map(status => this.handleExpertPresenceResponse(status))),
       )
       .subscribe();
-  };
+  }
 
-  private handleExpertPresenceResponse = (response: AccountPresenceStatus): void => {
+  private handleExpertPresenceResponse(response: AccountPresenceStatus): void {
     // just in case something went wrong
     if (!this.expertPresenceMap.has(response.expertId)) {
       return;
@@ -61,12 +61,13 @@ export class ExpertAvailabilityService implements OnDestroy {
       return this.stopPolling(response.expertId);
     }
     (this.expertPresenceMap.get(response.expertId) as IExpertPresence).subject.next(response.status);
-  };
+  }
 
-  private fetchExpertPresence = (expertIds: ReadonlyArray<string>): Observable<ReadonlyArray<AccountPresenceStatus>> =>
-    this.presenceService.userPresenceRoute({ expertIds: [...expertIds] });
+  private fetchExpertPresence(expertIds: ReadonlyArray<string>): Observable<ReadonlyArray<AccountPresenceStatus>> {
+    return this.presenceService.userPresenceRoute({ expertIds: [...expertIds] });
+  }
 
-  private stopPolling = (expertId: string): void => {
+  private stopPolling(expertId: string): void {
     if (this.expertPresenceMap.has(expertId)) {
       // unsubscribe if subscribed to backend
       if (this.pollingSubscription) {
@@ -79,7 +80,7 @@ export class ExpertAvailabilityService implements OnDestroy {
       // start pooling data
       this.pollingSubscription = this.startPooling(this.expertPresenceMap);
     }
-  };
+  }
 }
 interface IExpertPresence {
   subject: ReplaySubject<AccountPresenceStatus.StatusEnum>;
