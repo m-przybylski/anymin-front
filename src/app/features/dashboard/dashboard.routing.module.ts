@@ -10,6 +10,7 @@ import { DashboardResolver } from './dashboard.resolver';
 import { WelcomeViewGuard } from '@platform/features/dashboard/views/user-dashboard/welcome/welcome.view.guard';
 import { CompanyDashboardGuard } from '@platform/features/dashboard/views/company-dashboard/services/company-dashboard.guard';
 import { ExpertDashboardGuard } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard.guard';
+import { PaymentsResolver } from '@platform/features/dashboard/views/user-dashboard/payments/payments.resolver';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
           },
           {
             path: RouterPaths.dashboard.user.payments.getName,
+            resolve: { getPayoutMethod: PaymentsResolver },
             loadChildren: './views/user-dashboard/payments/payments.module#PaymentsModule',
           },
           {
@@ -68,6 +70,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyDashboardGuard, ExpertDashboardGuard],
+  providers: [CompanyDashboardGuard, ExpertDashboardGuard, PaymentsResolver],
 })
 export class DashboardRoutingModule {}

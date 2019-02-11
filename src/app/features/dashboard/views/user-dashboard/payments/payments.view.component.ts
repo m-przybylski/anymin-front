@@ -140,7 +140,7 @@ export class PaymentsViewComponent extends Logger implements OnInit {
 
   // private handleError = (error: HttpErrorResponse, msg: string): Observable<void> => {
   //   this.loggerService.warn(msg, error);
-  //   this.alertService.pushDangerAlert('DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.SET_AS_DEFAULT.ALERT');
+  //   this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
   //
   //   return of();
   // };
