@@ -22,7 +22,10 @@ export class SmoothScrollDirective implements OnInit {
   constructor(private element: ElementRef) {}
 
   @HostListener('scroll', ['$event'])
-  public onArrowBottomDown(event: IntersectionObserverEntry): void {
+  // It should have type: IntersectionObserver, but safari do not support it.
+  // We do not want to install polyfill for this.
+  // tslint:disable-next-line:no-any
+  public onArrowBottomDown(event: any): void {
     const currentScrollPosition = event.target.scrollTop;
     this.updateScrollPosition(currentScrollPosition);
   }
