@@ -11,12 +11,11 @@ import {
   SoundsService,
 } from '@anymind-ng/core';
 import { Injectable, Injector } from '@angular/core';
-import { iif, of, race, Subject, Observable, from, EMPTY } from 'rxjs';
+import { EMPTY, from, iif, Observable, of, race, Subject } from 'rxjs';
 import { BusinessCall, Call, callEvents, CallReason, Session } from 'machoke-sdk';
 import { GetExpertSueDetails, GetSessionWithAccount, ServiceUsageEventService } from '@anymind-ng/api';
-import { first, takeUntil, switchMap, mergeMap, catchError, finalize } from 'rxjs/operators';
-import EndReason = callEvents.EndReason;
-import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { catchError, finalize, first, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Logger } from '@platform/core/logger';
 import { Router } from '@angular/router';
@@ -30,6 +29,7 @@ import { PushNotificationService } from './push-notifications.service';
 import { selectNewSession } from '@platform/core/utils/select-new-session';
 import { CallService } from '@platform/core/services/call/call.service';
 import { CallSessionService } from '@platform/core/services/call/call-session.service';
+import EndReason = callEvents.EndReason;
 
 @Injectable()
 export class CallInvitationService extends Logger {
@@ -348,6 +348,10 @@ export class CallInvitationService extends Logger {
           });
         },
         err => {
+          currentExpertCall.reject();
+          currentExpertCall.hangup(CallReason.ConnectionDropped);
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+          localStreams.getTracks().forEach(t => t.stop());
           this.soundsService.callIncomingSound().stop();
           this.loggerService.error('ExpertCallService: Could not answer the call', err);
         },
