@@ -18,7 +18,7 @@
     "test-single": "npm run pug && jest",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
-    "ci-test": "npm run env && npm run postinstall && npm run lint && npm run pug && jest --coverage",
+    "ci-test": "npm run env && npm run postinstall && npm run lint && npm run pug && npm run pug:core && jest --coverage",
     "ci-deploy": "npm run env && npm run build",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "pug": "pug src -P --doctype html",

@@ -1,7 +1,0 @@
-
-<div class="messenger-input"><a>
-    <label [class.disable]="isFileUploading">
-      <input platFileUploader (fileError)="onShowFileUploadStatus($event)" (uploadFile)="onUploadFiles($event)" type="file" [autofocus]="true" [attr.disabled]="isFileUploading ? '' : null"><span class="icon icon-attachment"></span>
-    </label></a>
-  <input placeholder="{{'FEATURE.COMMUNICATOR.MESSENGER.INPUT_PLACEHOLDER' | translate }}" [(ngModel)]="inputModel" (keyup.enter)="onSendMessage(chatInput.value)" (keyup)="onKeyup($event)" #chatInput><a (click)="onSendMessage(chatInput.value)"><span class="icon icon-send"></span></a>
-</div>

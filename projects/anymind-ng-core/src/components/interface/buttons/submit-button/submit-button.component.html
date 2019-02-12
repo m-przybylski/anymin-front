@@ -1,6 +1,0 @@
-
-<button class="button button--default visible-content" [ngClass]="{'button--small': isButtonSmall, 'loading': isLoading, 'button--disabled': isDisabled}" [attr.form]="formName" [disabled]="isLoading || isDisabled" [type]="isSubmitType ? 'submit' : 'button'"><span class="button__title">{{ titleText | translate }}</span>
-  <div class="hidden-content" *ngIf="isLoading">
-    <am-core-loader></am-core-loader>
-  </div>
-</button>

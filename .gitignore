@@ -10,9 +10,8 @@
 /node_modules
 
 # To support pug-cli
-/src/angularjs/app/**/*.html
-/src/angularjs/common/**/*.html
 /src/app/**/*.html
+/projects/**/*.html
 /src/environments/version.ts
 
 

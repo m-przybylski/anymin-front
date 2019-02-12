@@ -1,7 +1,0 @@
-
-<div class="tooltip" tooltipPositionDetector="tooltip__content" [tooltipText]="tooltipText | translate">
-  <div class="tooltip__header" (click)="toggleTooltip()"><span class="tooltip__title"><span class="icon icon-questionmark"></span></span></div>
-  <div class="tooltip__content" *ngIf="isVisible">
-    <p [innerHTML]="tooltipText | translate"></p>
-  </div>
-</div>
