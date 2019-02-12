@@ -141,7 +141,7 @@ export class Config {
   };
 
   public static readonly imageSizeInBytes = {
-    imageCropMaxSize: 3145728,
+    imageCropMaxSize: 10485760,
   };
 
   public static readonly screenWidth = {
