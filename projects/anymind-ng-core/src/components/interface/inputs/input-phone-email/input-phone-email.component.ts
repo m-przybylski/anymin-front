@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { PhoneNumberService } from './phone-number.service';
+import { COMPONENTS_CONFIG } from '../../../../shared/injection-tokens/injection-tokens';
+import { Config } from '../../../../config';
 
 export interface IValidatorsErrorMsg {
   [key: string]: {
@@ -65,7 +67,7 @@ export class InputPhoneEmailComponent implements OnInit {
     },
   };
 
-  constructor(private phoneNumberService: PhoneNumberService) {}
+  constructor(@Inject(COMPONENTS_CONFIG) private config: Config, private phoneNumberService: PhoneNumberService) {}
 
   public ngOnInit(): void {
     this.inputFormControl.setValidators(this.createValidator());
@@ -113,7 +115,7 @@ export class InputPhoneEmailComponent implements OnInit {
         return null;
       }
 
-      return Validators.email(control);
+      return Validators.pattern(this.config.validation.email.regex);
     };
   }
 
