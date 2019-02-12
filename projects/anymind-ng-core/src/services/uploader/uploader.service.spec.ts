@@ -1,5 +1,5 @@
 // tslint:disable:no-magic-numbers
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick, flushMicrotasks } from '@angular/core/testing';
 import { FilesService, PostFileDetails } from '@anymind-ng/api';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { IUploadFileInfo, UploaderService } from './uploader.service';
@@ -9,6 +9,8 @@ import { Deceiver } from 'deceiver-core';
 import { CORE_CONFIG } from '../../shared/injection-tokens/injection-tokens';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { cold, getTestScheduler } from 'jasmine-marbles';
+
+const stubFunction = (): void => undefined;
 
 describe('Service: UploaderService', () => {
   let httpClient: HttpClient;
@@ -87,7 +89,7 @@ describe('Service: UploaderService', () => {
       name: 'name',
     };
     const file: File = new File([], 'fileName');
-    uploaderService.uploadFile(file, fileDetails, undefined).then((response: IUploadFileInfo) => {
+    uploaderService.uploadFile(file, fileDetails, stubFunction).then((response: IUploadFileInfo) => {
       expect(response).toEqual(uploadedFileResponse);
     });
     const request = httpTestingController.match({ method: 'POST' });
@@ -95,17 +97,11 @@ describe('Service: UploaderService', () => {
     request[0].flush(uploadedFileResponse);
   });
 
-  it('should reject upload because of there is no file', () => {
+  it('should reject upload because of there is no file', fakeAsync(() => {
     const fileDetails: PostFileDetails = {
       croppingDetails: undefined,
       fileType: FileTypeEnum.PROFILE,
     };
-    const file: File = new File([], 'fileName');
-    uploaderService.uploadFile(file, fileDetails, undefined).catch((error: string) => {
-      expect(error).toEqual('Expected File, got object');
-    });
-    const request = httpTestingController.match({ method: 'POST' });
-    expect(request.length).toEqual(1);
     const httpError = {
       colno: 123,
       error: '',
@@ -113,12 +109,17 @@ describe('Service: UploaderService', () => {
       lineno: 23,
       message: 'oups',
     };
+    const file: File = new File([], 'fileName');
+    expect(uploaderService.uploadFile(file, fileDetails, stubFunction)).rejects.toBeTruthy();
+    const request = httpTestingController.match({ method: 'POST' });
+    expect(request.length).toEqual(1);
     request[0].error(httpError as ErrorEvent);
-  });
+    flushMicrotasks();
+  }));
 
   it('should cancel downloading file', fakeAsync(() => {
     httpClient.post = jest.fn(() => http$);
-    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, undefined);
+    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, stubFunction);
     expect(uploadResult).rejects.toBeTruthy();
     setTimeout(() => {
       uploaderService.removeFileFromUpload(mockFile);
@@ -141,7 +142,7 @@ describe('Service: UploaderService', () => {
 
   it('should report inProgress when file is uploading', fakeAsync(() => {
     httpClient.post = jest.fn(() => http$);
-    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, undefined);
+    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, stubFunction);
     expect(uploadResult).resolves.toBeTruthy();
     tick(50);
     expect(uploaderService.isAnyFileUploading).toBeTruthy();
@@ -152,13 +153,13 @@ describe('Service: UploaderService', () => {
   it('should reject sending file when token request fails', fakeAsync(() => {
     const token = cold('--#', {}, 'error');
     filesService.createFileTokenRoute = jest.fn(() => token);
-    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, undefined);
+    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, stubFunction);
     getTestScheduler().flush();
     expect(uploadResult).rejects.toEqual('error');
     expect(uploaderService.isAnyFileUploading).toBeFalsy();
   }));
   it('should not start to uploading when canceled before token received', fakeAsync(() => {
-    const token = Observable.create(observer => {
+    const token = Observable.create((observer: Observer<string>) => {
       setTimeout(() => {
         observer.next('1234567890');
         observer.complete();
@@ -166,7 +167,7 @@ describe('Service: UploaderService', () => {
     });
     filesService.createFileTokenRoute = jest.fn(() => token);
     httpClient.post = jest.fn();
-    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, undefined);
+    const uploadResult = uploaderService.uploadFile(mockFile, mockFileDetails, stubFunction);
     setTimeout(() => {
       uploaderService.removeFileFromUpload(mockFile);
     }, 20);
@@ -174,8 +175,9 @@ describe('Service: UploaderService', () => {
     tick(300);
     expect(httpClient.post).not.toHaveBeenCalled();
   }));
-  it('should reject when no file is provided', () => {
-    const uploadResult = uploaderService.uploadFile(undefined as File, mockFileDetails, undefined);
+  it('should reject when no file is provided', fakeAsync(() => {
+    const uploadResult = uploaderService.uploadFile(undefined as any, mockFileDetails, stubFunction);
     expect(uploadResult).rejects.toEqual('Expected File, got undefined');
-  });
+    flushMicrotasks();
+  }));
 });
