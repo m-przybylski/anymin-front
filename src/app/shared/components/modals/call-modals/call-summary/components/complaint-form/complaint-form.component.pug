@@ -1,0 +1,36 @@
+form.complain-form(
+[id]="'complainForm'",
+[formGroup]="complaintForm",
+novalidate)
+
+  p.complain-form__title {{ 'CALL_SUMMARY.COMPLAINT_TITLE' | translate }}
+
+  .complain-form__radio
+    am-core-input-radio(label="CALL_SUMMARY.COMPLAIN_INCOMPETENT_EXPERT_LABEL",
+    [value]="postClientComplaintEnum.INCOMPETENTEXPERT", [form]="complaintForm",
+    [controlName]="complaintFormControlName")
+    am-core-input-radio(label="CALL_SUMMARY.COMPLAIN_IMPOLITE_EXPERT_LABEL",
+    [value]="postClientComplaintEnum.IMPOLITEEXPERT", [form]="complaintForm", [controlName]="complaintFormControlName")
+    am-core-input-radio(label="CALL_SUMMARY.COMPLAIN_TECHNICAL_ISSUES_LABEL",
+    [value]="postClientComplaintEnum.TECHNICALISSUES", [form]="complaintForm", [controlName]="complaintFormControlName")
+    am-core-input-radio(label="CALL_SUMMARY.COMPLAIN_OTHER_LABEL",
+    [value]="postClientComplaintEnum.OTHER", [form]="complaintForm", [controlName]="complaintFormControlName")
+
+  .compain-form__comment
+    am-core-textarea-primary(
+    [label]="'CALL_SUMMARY.COMPLAIN_COMMENT_LABEL'",
+    [placeholder]="'CALL_SUMMARY.COMPLAIN_COMMENT_PLACEHOLDER'",
+    [isRequired]="false",
+    [controlName]="complaintCommentFormControlName",
+    [form]="complaintForm",
+    [isDisabled]="isComplaintInputDisabled",
+    [errorTextKey]="'CALL_SUMMARY.COMPLAIN_COMMENT_ERROR'"
+    )
+
+  .complain-form__button-wrapper
+    am-core-submit-button(
+    (click)="onSubmitComplaintForm()",
+    [titleText]="'CALL_SUMMARY.COMPLAIN_BUTTON_SEND'",
+    [isDisabled]="isDisabled",
+    [isLoading]="isComplaintInputDisabled"
+    )

@@ -11,7 +11,7 @@
   border-width: 1px
   border-color: $c-lines
   border-radius: $radius
-  background-color: transparent
+  background: transparent
   outline: none
 
 %button-padding
@@ -55,7 +55,7 @@
     @extend %transition
 
     &:hover
-      background-color: $c-primary
+      background: $c-primary
       color: $c-white
 
   &.plat-secondary
@@ -96,16 +96,24 @@
   color: $c-white
 
   &.plat-primary
-    background-color: $c-primary
+    background: $c-primary
 
     &:hover
-      background-color: $c-secondary
+      background: $c-secondary
 
   &.plat-success
-    background-color: $c-success-primary
+    background: $c-success-primary
 
     &:hover
-      background-color: $c-success-secondary
+      background: $c-success-secondary
+
+  &.plat-secondary
+    color: $c-primary
+    background: $c-white
+    border: 1px solid rgba($c-primary, 0.15)
+
+    &:hover
+      border-color: $c-primary
 
 .plat-large-icon-button
   @extend %font-size-16
@@ -115,18 +123,27 @@
   padding: 16px 40px 16px 32px
   border-radius: 28px
   color: $c-white
+  align-items: center
 
   &.plat-primary
-    background-color: $c-primary
+    background: $c-primary
 
     &:hover
-      background-color: $c-secondary
+      background: $c-secondary
 
   &.plat-success
-    background-color: $c-success-primary
+    background: $c-success-primary
 
     &:hover
-      background-color: $c-success-secondary
+      background: $c-success-secondary
+
+  &.plat-secondary
+    color: $c-primary
+    background: $c-white
+    border: 1px solid rgba($c-primary, 0.15)
+
+    &:hover
+      border-color: $c-primary
 
   span.icon
     display: inline-flex
@@ -146,13 +163,13 @@
 
     &:hover
       color: $c-white
-      background-color: $c-secondary
+      background: $c-secondary
       border-color: $c-secondary
 
 .plat-mini-flat-fab
   @extend %display
   display: inline-block
-  background-color: transparent
+  background: transparent
   width: 24px
   height: 24px
   padding: 0
@@ -165,19 +182,19 @@
   &.plat-primary
     color: $c-white
     border-color: $c-primary
-    background-color: $c-primary
+    background: $c-primary
 
     &:hover
       color: $c-primary
       border-color: $c-primary
-      background-color: $c-white
+      background: $c-white
 
   &.plat-success
     color: $c-white
-    background-color: $c-success-primary
+    background: $c-success-primary
 
     &:hover
-      background-color: $c-success-secondary
+      background: $c-success-secondary
 
 .plat-button
   @extend %button-padding
@@ -187,10 +204,10 @@
 
   &.plat-primary
     color: $c-white
-    background-color: $c-primary
+    background: $c-primary
 
     &:hover
-      background-color: $c-secondary
+      background: $c-secondary
 
 .plat-button-primary
   +outline-button(56px)
@@ -205,10 +222,10 @@
 
   &.plat-primary
     color: $c-white
-    background-color: $c-primary
+    background: $c-primary
 
     &:hover
-      background-color: $c-secondary
+      background: $c-secondary
 
 .plat-button-link
   @extend %transition

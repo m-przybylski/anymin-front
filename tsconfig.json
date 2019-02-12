@@ -23,7 +23,8 @@
       "@testing-app/*": ["projects/testing-app/src/app/*"],
       "@anymind-ng/core": ["projects/anymind-ng-core"],
       "@anymind-ng/core/*": ["projects/anymind-ng-core/*"],
-      "testing/testing": ["src/testing/testing.ts"]
+      "testing/testing": ["src/testing/testing.ts"],
+      "config": ["src/config.ts"]
     },
     "typeRoots": ["node_modules/@types"]
   }

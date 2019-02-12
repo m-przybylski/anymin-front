@@ -1,0 +1,13 @@
+.tags-selection
+  .tags-selection__title {{ 'CALL_SUMMARY.TAG_RECOMMENDATION.TITLE' | translate }}
+
+  .tags-selection__tag-list
+    ng-container(*ngFor="let singleTag of tagList")
+      .single-tag((click)="clickTag(singleTag)", [class.selected]="isTagSelected(singleTag)") {{ singleTag.name }}
+
+  .tags-selection__buttons-container
+    a(plat-large-button, color="secondary", (click)="omitStep()") {{ 'CALL_SUMMARY.TAG_RECOMMENDATION_OMIT' | translate }}
+    am-core-submit-button(
+    (click)="saveTags()",
+    [titleText] = "'CALL_SUMMARY.TAG_RECOMMENDATION_SAVE'",
+    [isDisabled]="isSendTagsButtonDisabled")

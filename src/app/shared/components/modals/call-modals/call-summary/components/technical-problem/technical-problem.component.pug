@@ -1,0 +1,23 @@
+form.technical-problem(
+[id]="'technicalForm'",
+[formGroup]="technicalProblemForm",
+novalidate)
+
+  .technical-problem__radio
+    am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_CONNECTIONINTERRUPTED_LABEL",
+    [value]="postTechnicalProblemEnum.CONNECTIONINTERRUPTED", [form]="technicalProblemForm",
+    [controlName]="technicalProblemControlName")
+    am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_CHATPROBLEM_LABEL",
+    [value]="postTechnicalProblemEnum.CHATPROBLEM", [form]="technicalProblemForm", [controlName]="technicalProblemControlName")
+    am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_IMAGEORSOUNDPROBLEM_LABEL",
+    [value]="postTechnicalProblemEnum.IMAGEORSOUNDPROBLEM", [form]="technicalProblemForm", [controlName]="technicalProblemControlName")
+    am-core-input-radio(label="CALL_SUMMARY.TECHNICAL_PROBLEM_OTHER_LABEL",
+    [value]="postTechnicalProblemEnum.OTHER", [form]="technicalProblemForm", [controlName]="technicalProblemControlName")
+
+  .technical-problem__button-wrapper
+    am-core-submit-button(
+    (click)="onSubmitTechnicalProblem()",
+    [titleText]="technicalProblemButtonTr()",
+    [isDisabled]="isDisabled",
+    [isLoading]="isTechnicalProblemInputDisabled"
+    )

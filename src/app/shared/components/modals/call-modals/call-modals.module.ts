@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@platform/shared/shared.module';
 import { NgModule } from '@angular/core';
-import { IconModule } from '@platform/shared/components/atomic-components';
+import { ButtonModule, IconModule } from '@platform/shared/components/atomic-components';
 import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateIncomingCallComponent } from '@platform/shared/components/modals/call-modals/incoming-call/incoming-call.component';
@@ -9,6 +9,9 @@ import { CreateCallSummaryComponent } from '@platform/shared/components/modals/c
 import { ModalComponentsModule } from '@platform/shared/components/modals/modal/modal.components.module';
 import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-avatar.module';
 import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
+import { TagsSelectionComponent } from '@platform/shared/components/modals/call-modals/call-summary/components/tags-selection/tags-selection.component';
+import { ComplaintFormComponent } from '@platform/shared/components/modals/call-modals/call-summary/components/complaint-form/complaint-form.component';
+import { TechnicalProblemComponent } from '@platform/shared/components/modals/call-modals/call-summary/components/technical-problem/technical-problem.component';
 
 @NgModule({
   imports: [
@@ -21,8 +24,15 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
     ReactiveFormsModule,
     IconModule,
     MoneyDisplayModule,
+    ButtonModule,
   ],
-  declarations: [CreateIncomingCallComponent, CreateCallSummaryComponent],
+  declarations: [
+    CreateIncomingCallComponent,
+    CreateCallSummaryComponent,
+    TagsSelectionComponent,
+    ComplaintFormComponent,
+    TechnicalProblemComponent,
+  ],
   exports: [],
   entryComponents: [CreateIncomingCallComponent, CreateCallSummaryComponent],
 })

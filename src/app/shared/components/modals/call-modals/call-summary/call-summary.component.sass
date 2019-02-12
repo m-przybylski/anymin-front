@@ -6,7 +6,7 @@
   width: 100%
 
   .call-summary
-    height: calc(100vh - 56px)
+    height: calc(100vh - 154px)
     padding: 48px 16px
     display: flex
     flex-direction: column
@@ -58,7 +58,7 @@
     &__footer
       position: absolute
       bottom: 0
-      padding: 0 0 48px 0
+      padding: 0 0 32px 0
 
       +xsm-landscape
         padding: 0
@@ -67,23 +67,40 @@
         position: relative
         padding: 0
 
-      &__button
-        font-weight: 500
-        font-size: 14px
-        line-height: 24px
-        color: $c-primary
-        display: block
+    &__footer-button
+      font-weight: 500
+      font-size: 14px
+      line-height: 24px
+      color: $c-primary
+      display: block
+
+      &:last-child
+        margin: 16px 0 0
+
+      &--disabled
+        color: $c-lines
+        cursor: default
+        pointer-events: none
+
+    &__client-rate
+      margin: -40px 0 0
+
+    &__client-rate-buttons
+      display: flex
+      justify-content: space-between
+      margin: 24px 0
+
+      > a
+        max-width: 134px
+
+        +smm
+          max-width: 174px
 
         &:first-child
-          margin: 0 0 16px
-
-        &--disabled
-          color: $c-lines
-          cursor: default
-          pointer-events: none
+          margin: 0 16px 0 0
 
   .comment-section
-    height: calc(100vh - 56px)
+    height: calc(100vh - 154px)
     padding: 48px 16px
     display: flex
     flex-direction: column
@@ -114,6 +131,20 @@
       right: 0
       margin: 0 0 48px 0
       height: 56px
+      display: flex
+      justify-content: center
+
+      >a
+        width: 128px
+
+        &:first-child
+          margin: 0 24px 0 0
+
+    &__header-wrapper
+      +subtitle
+      color: $c-text-secondary
+      position: absolute
+      top: 94px
 
   .report-client-section
     height: calc(100vh - 56px)
@@ -127,20 +158,17 @@
       min-height: 488px
       height: auto
 
-    &__form
-      width: 100%
+  .complaint-section
+    height: calc(100vh - 56px)
+    padding: 48px 16px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    text-align: center
 
-    &__radio
-      +smm
-        margin: -48px 0 0
+    +smm
+      padding: 48px
+      min-height: 488px
+      height: auto
 
-    &__button-wrapper
-      position: absolute
-      display: flex
-      justify-content: center
-      width: 100%
-      bottom: 0
-      left: 0
-      right: 0
-      margin: 0 0 48px 0
-      height: 56px
