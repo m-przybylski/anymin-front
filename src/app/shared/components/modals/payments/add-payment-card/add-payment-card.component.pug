@@ -14,6 +14,7 @@ plat-modal-component(
               am-core-input-text(
               [form]="addPaymentCardFormGroup",
               [controlName]="nameSurnameControl",
+              [isDisabled]="isPending",
               [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.NAME_FIELD'",
               [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.NAME_FIELD_PLACEHOLDER'",
               [isRequired]="true",
@@ -22,6 +23,7 @@ plat-modal-component(
               am-core-input-email(
               [form]="addPaymentCardFormGroup",
               [controlName]="emailControl",
+              [isDisabled]="isPending",
               [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.EMAIL_FIELD'",
               [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.EMAIL_FIELD_PLACEHOLDER'",
               [isRequired]="true",
@@ -30,6 +32,7 @@ plat-modal-component(
               am-input-card-number(
               [form]="addPaymentCardFormGroup",
               [controlName]="cardNumberControlName",
+              [isDisabled]="isPending",
               [label]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CARD_NUMBER_FIELD'",
               [placeholder]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CARD_NUMBER_FIELD_PLACEHOLDER'",
               [errorTextKey]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CARD_NUMBER_FIELD.ERROR'",
@@ -64,6 +67,7 @@ plat-modal-component(
                   [errorTextKey]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CVV_CODE_FIELD.ERROR'",
                   [inputType]="'tel'",
                   [inputMask]="'999'",
+                  [isDisabled]="isPending",
                   [isRequired]="true",
                   [tooltipTranslate]="'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD.CVV_CODE_TOOLTIP'"
                   )

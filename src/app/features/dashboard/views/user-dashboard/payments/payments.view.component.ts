@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PayoutMethodComponent } from '@platform/features/dashboard/views/user-dashboard/payments/components/payout-method/payout-method.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
@@ -10,8 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { PromoCodeComponent } from '@platform/shared/components/modals/payments/promo-code/promo-code.component';
 import { select, Store } from '@ngrx/store';
 import * as fromPayments from './reducers';
@@ -24,7 +24,7 @@ import { LoadPaymentsMethodOnDeleteSuccessAction } from '@platform/features/dash
   styleUrls: ['./payments.view.component.sass'],
   providers: [PaymentsViewComponentService],
 })
-export class PaymentsViewComponent extends Logger implements OnInit {
+export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
   public paymentsCardFormGroup = new FormGroup({});
   public paymentsCardControlName = 'paymentsCardControlName';
   public currentPaymentMethodId = '';
@@ -34,6 +34,7 @@ export class PaymentsViewComponent extends Logger implements OnInit {
   public isPending$ = this.store.pipe(select(fromPayments.isPaymentMethodsPending));
   private currentPromoCodeId = '';
   private currentPaymentCardId = '';
+  private destroyed$ = new Subject<void>();
 
   constructor(
     private store: Store<fromPayments.IState>,
@@ -53,6 +54,10 @@ export class PaymentsViewComponent extends Logger implements OnInit {
     });
 
     this.assignStoreData();
+  }
+  public ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   public openInvoiceModal = (): void => {
@@ -114,11 +119,16 @@ export class PaymentsViewComponent extends Logger implements OnInit {
   private assignStoreData = (): void => {
     this.store.dispatch(new FetchPaymentsDetailsInitAction());
 
-    this.store.pipe(select(fromPayments.getDefaultPaymentMethod)).subscribe(currentPaymentMethod => {
-      this.currentPaymentMethodId = currentPaymentMethod.promoCodeId || currentPaymentMethod.creditCardId || '';
-      this.currentPromoCodeId = currentPaymentMethod.promoCodeId || '';
-      this.currentPaymentCardId = currentPaymentMethod.creditCardId || '';
-    });
+    this.store
+      .pipe(
+        select(fromPayments.getDefaultPaymentMethod),
+        takeUntil(this.destroyed$),
+      )
+      .subscribe(currentPaymentMethod => {
+        this.currentPaymentMethodId = currentPaymentMethod.promoCodeId || currentPaymentMethod.creditCardId || '';
+        this.currentPromoCodeId = currentPaymentMethod.promoCodeId || '';
+        this.currentPaymentCardId = currentPaymentMethod.creditCardId || '';
+      });
   };
 
   private mapCurrentPaymentMethod = (promoCodeId?: string): PutDefaultPaymentMethod => {
@@ -137,13 +147,6 @@ export class PaymentsViewComponent extends Logger implements OnInit {
       };
     }
   };
-
-  // private handleError = (error: HttpErrorResponse, msg: string): Observable<void> => {
-  //   this.loggerService.warn(msg, error);
-  //   this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  //
-  //   return of();
-  // };
 
   private handleErrorOnSelect = (error: HttpErrorResponse, currentId: string): Observable<void> => {
     this.currentPaymentMethodId = currentId;

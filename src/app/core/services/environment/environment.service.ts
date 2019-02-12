@@ -14,7 +14,7 @@ export class EnvironmentService {
     return fileEnv ? fileEnv : EnvironmentService.getEnvFromHostname();
   };
 
-  private static getEnvFromHostname = (): Environment => {
+  private static getEnvFromHostname(): Environment {
     const urlEnvPrefix = window.location.hostname.split('.')[0];
     switch (urlEnvPrefix) {
       case 'localhost':
@@ -26,9 +26,9 @@ export class EnvironmentService {
       default:
         return Environment.PRODUCTION;
     }
-  };
+  }
 
-  private static getEnvFromLocalFile = (): Environment | undefined =>
-    // tslint:disable
-    <any>Environment[environment];
+  private static getEnvFromLocalFile(): Environment | undefined {
+    return Environment[environment.toUpperCase()] as Environment | undefined;
+  }
 }

@@ -15,6 +15,12 @@ export class BackendError {
   public readonly code: number;
   public readonly message: string;
   public readonly errors: ReadonlyArray<SingleBackendError>;
+
+  constructor(code: number, message: string, errors: ReadonlyArray<SingleBackendError>) {
+    this.code = code;
+    this.message = message;
+    this.errors = errors;
+  }
 }
 
 export class SingleBackendError {

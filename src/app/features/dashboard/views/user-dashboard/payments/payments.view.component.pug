@@ -1,8 +1,8 @@
 .payments
-  //-.payments__header
+  //- .payments__header
   //-  span {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.TITLE' | translate }}
 
-  //-form.payments__container.payments__container--list([formGroup]="paymentsCardFormGroup")
+  //- form.payments__container.payments__container--list([formGroup]="paymentsCardFormGroup")
   //-  ul.payments-method-list(*ngIf="!(isPending$ | async); else loader")
   //-    li.payments-method-list__item(*ngFor="let card of (paymentsCardList$ | async); let i = index")
   //-      plat-select-payment-method-card-radio(
@@ -26,7 +26,7 @@
   //-        [promoCodeAmount]="promoCode.amount",
   //-        (onSelectCard)="onSelectPromoCode($event)",
   //-      )
-  //-
+
   //-  ng-template(#loader)
   //-    ul.settings-list-loader
   //-      li.settings-list-loader__item
@@ -34,8 +34,8 @@
   //-      li.settings-list-loader__item
   //-        plat-list-item-loader
   //-      li.settings-list-loader__item
-  //-
-  //-.payments__container.payments__container--method
+
+  //- .payments__container.payments__container--method
   //-  .payments__methods
   //-    .payments__type.payments__type--card
   //-      div
@@ -43,7 +43,7 @@
   //-          span(plat-flat-fab color='primary')
   //-            span(plat-icon iconClass='add')
   //-          span.button__text {{ 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.ADD_CARD' | translate }}
-  //-
+
   //-    .payments__type.payments__type--promo-code
   //-      div
   //-        a.button.button--add((click)="onAddPromoCode()")
