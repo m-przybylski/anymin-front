@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
 import { EnvironmentService } from './core/services/environment/environment.service';
@@ -20,13 +19,9 @@ export class AppComponent {
     private expertCallService: CallInvitationService,
     private remoteLogoutService: RemoteLogoutService,
     private callSessionService: CallSessionService,
-    translate: TranslateService,
   ) {
     this.printVersion();
     this.printEnvironment();
-
-    translate.setDefaultLang('pl-pl');
-    translate.use('pl-pl');
 
     // no maintain of english translations. Turn back on when
     // specific decision is taken

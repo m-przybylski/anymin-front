@@ -31,6 +31,7 @@ import { CallSessionService } from '@platform/core/services/call/call-session.se
 import { RegisterEffects } from '@platform/core/effects/register.effects';
 import { TranslationAssetsLoader } from './services/translations/translation-loader';
 import { SetNewPasswordEffects } from '@platform/core/effects/set-new-password.effects';
+import { provideTranslations } from './initialize';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -59,6 +60,7 @@ export function getLogLevel(): LogLevel {
     ClipboardService,
     CallSessionService,
     provideCommission(),
+    provideTranslations(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptor,
