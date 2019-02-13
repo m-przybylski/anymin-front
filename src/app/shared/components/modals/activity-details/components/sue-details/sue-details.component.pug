@@ -1,11 +1,21 @@
 .sue-details.activity-details
-  header.activity-details__header {{ serviceName }}
-  .activity-section
+  .activity-section.activity-section--client(*ngIf="isClientActivity")
     ul.basic-data
-      li.basic-data__item(*ngIf="!isSueExpert")
+      li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.EXPERT_NAME' | translate }}
         span.basic-data__value {{ expertName }}
       li.basic-data__item
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CONSULTATION_NAME' | translate }}
+        span.basic-data__value {{ serviceName | translate}}
+
+  header.activity-details__header(*ngIf="!isClientActivity") {{ serviceName }}
+
+  .activity-section
+    ul.basic-data
+      li.basic-data__item(*ngIf="!isSueExpert && !isClientActivity")
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.EXPERT_NAME' | translate }}
+        span.basic-data__value {{ expertName }}
+      li.basic-data__item(*ngIf="!isClientActivity")
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CLIENT_NAME' | translate }}
         span.basic-data__value {{ clientName | translate}}
       li.basic-data__item
@@ -25,9 +35,9 @@
   .activity-section.activity-section-financial
     ul.basic-data.basic-data-financial
       li.basic-data__item
-        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION' | translate }}
+        span.basic-data__title {{ financialOperationTrKey | translate }}
         span
-          plat-money-display.basic-data__value([money]="financialOperation", sign="+")
+          plat-money-display.basic-data__value([money]="financialOperation", [sign]="isClientActivity ? '' : '+'")
 
   .activity-section
     ul.basic-data
@@ -36,7 +46,12 @@
         a.basic-data__value((click)="onOpenChatClick()") {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.CHAT_OPEN' | translate }}
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION' | translate }}
-        span.basic-data__value {{ rate | translate }}
+        span.basic-data__value(*ngIf="!isClientActivity") {{ rateTrKey | translate }}
+        span.basic-data__value(
+          *ngIf="isClientActivity",
+          (click)="onRateConsultationClick()",
+          [ngClass]="{'link': !rateValue}"
+        ) {{ rateTrKey | translate }}
       li.basic-data__item.basic-data-tags
         span.basic-data__title(*ngIf="recommendedTags") {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDED_TAGS' | translate }}
         span.basic-data__value {{ recommendedTags }}

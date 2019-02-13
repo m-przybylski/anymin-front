@@ -1,0 +1,24 @@
+plat-modal-component(
+  [modalTrTitleHeader]="modalHeaderTrKey",
+  [isBackwardVisible]="isBackwardVisible",
+  (backwardClick)="onBackwardClick()"
+)
+
+  .activity-details-modal(contentHeightAnimation)
+    plat-stepper(
+      #stepper='platStepper'
+    )
+      plat-step
+        plat-sue-details(
+        [sueDetails]="sueDetails",
+        [isChatHistoryVisible]="isChatHistoryVisible",
+        [isCompanyActivity]="false",
+        [isClientActivity]="true",
+        (openChat)="onOpenChat()"
+        )
+      plat-step
+        plat-chat-history(
+          [groupedMessages]="groupedMessages",
+          [clientAvatarUrl]="expertAvatarUrl",
+          [expertAvatarUrl]="userAvatarUrl"
+        )

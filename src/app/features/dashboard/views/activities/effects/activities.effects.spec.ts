@@ -5,7 +5,7 @@ import { hot, cold } from 'jasmine-marbles';
 import { ActivitiesActions, BalanceApiActions, ActivitiesApiActions, ActivitiesPageActions } from '../actions';
 import { Deceiver } from 'deceiver-core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MODAL_CLOSED_WITH_ERROR } from '@platform/shared/components/modals/activity-details/activity-details.view.component';
+import { MODAL_CLOSED_WITH_ERROR } from '@platform/shared/components/modals/activity-details/expert-company-details/expert-company-activity-details.component';
 import { DashboardActions } from '@platform/features/dashboard/actions';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ActivitiesEffects } from './activities.effects';

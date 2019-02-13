@@ -16,6 +16,7 @@ export interface ISueDetails {
   financialOperation?: MoneyDto;
   rate?: GetCallDetails.RateEnum;
   comment?: GetComment;
+  ratelRoomId?: string;
 }
 
 @Component({
@@ -31,6 +32,9 @@ export class SueDetailsComponent {
   public isCompanyActivity: boolean;
 
   @Input()
+  public isClientActivity: boolean;
+
+  @Input()
   public set sueDetails(value: ISueDetails | undefined) {
     if (typeof value !== 'undefined') {
       this.assignValuesForUI(value);
@@ -40,6 +44,9 @@ export class SueDetailsComponent {
   @Output()
   public openChat: EventEmitter<void> = new EventEmitter();
 
+  @Output()
+  public rateConsultation: EventEmitter<void> = new EventEmitter();
+
   public clientName: string;
   public serviceName: string;
   public sueId: string;
@@ -47,16 +54,24 @@ export class SueDetailsComponent {
   public callDuration: number;
   public servicePrice: MoneyDto;
   public financialOperation: MoneyDto;
-  public rate: string;
+  public rateTrKey: string;
+  public rateValue?: GetCallDetails.RateEnum;
   public commentDetails?: GetComment;
   public recommendedTags: string;
   public isSueExpert: boolean;
   public expertName: string;
+  public financialOperationTrKey: string;
 
   private readonly oneSecondInMilliseconds = 1000;
 
   public onOpenChatClick = (): void => {
     this.openChat.emit();
+  };
+
+  public onRateConsultationClick = (): void => {
+    if (typeof this.rateValue === 'undefined') {
+      this.rateConsultation.emit();
+    }
   };
 
   private assignValuesForUI = (value: ISueDetails): void => {
@@ -72,7 +87,8 @@ export class SueDetailsComponent {
      */
     this.callDuration = value.callDuration * this.oneSecondInMilliseconds;
     this.servicePrice = value.servicePrice;
-    this.rate = this.getRateStatus(value.rate);
+    this.rateTrKey = this.getRateTrKey(value.rate);
+    this.rateValue = value.rate;
     this.commentDetails = value.comment;
     this.recommendedTags = value.recommendedTags;
     this.isSueExpert = value.isSueExpert;
@@ -80,9 +96,12 @@ export class SueDetailsComponent {
      * if user is expert who provides the service we do not want to show his name
      */
     this.expertName = this.isSueExpert ? '' : value.expertName;
+    this.financialOperationTrKey = this.isClientActivity
+      ? 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION.EXPENSE'
+      : 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION.INCOME';
   };
 
-  private getRateStatus = (rate?: GetCallDetails.RateEnum): string => {
+  private getRateTrKey = (rate?: GetCallDetails.RateEnum): string => {
     switch (rate) {
       case GetCallDetails.RateEnum.POSITIVE:
         return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_POSITIVE';
@@ -91,7 +110,9 @@ export class SueDetailsComponent {
         return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NEGATIVE';
 
       default:
-        return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NONE';
+        return this.isClientActivity
+          ? 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_RATE'
+          : 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NONE';
     }
   };
 }

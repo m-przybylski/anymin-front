@@ -11,11 +11,11 @@ import {
 import { exhaustMap, catchError, switchMap, map } from 'rxjs/operators';
 import { forkJoin, from, of, defer, Observable } from 'rxjs';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ACTIVITY_DETAILS_DATA } from '@platform/shared/components/modals/activity-details/activity-details-helpers';
+import { ACTIVITY_DETAILS_DATA } from '@platform/shared/components/modals/activity-details/expert-company-details/expert-company-activity-details-helper';
 import {
-  ActivityDetailsViewComponent,
+  ExpertCompanyActivityDetailsComponent,
   MODAL_CLOSED_WITH_ERROR,
-} from '@platform/shared/components/modals/activity-details/activity-details.view.component';
+} from '@platform/shared/components/modals/activity-details/expert-company-details/expert-company-activity-details.component';
 import { GetProfileActivity, GetProfileBalance } from '@anymind-ng/api';
 import { Action } from '@ngrx/store';
 import { IProfileActivitiesWithStatus } from '@platform/features/dashboard/views/activities/activities.component';
@@ -27,6 +27,11 @@ import {
   IGetActivities,
 } from '@platform/features/dashboard/views/activities/activities.interface';
 import { ActivitiesUtilsService } from '@platform/features/dashboard/views/activities/services/activities-utils.service';
+import {
+  ClientActivityDetailsComponent,
+  IClientActivityData,
+} from '@platform/shared/components/modals/activity-details/client-details/client-activity-details.component';
+import { CLIENT_ACTIVITY_DETAILS_DATA } from '@platform/shared/components/modals/activity-details/client-details/client-activity-details-helper';
 
 const EMPTY_ACTION = of({ type: 'NO_ACTION' });
 
@@ -132,6 +137,15 @@ export class ActivitiesEffects {
   );
 
   @Effect()
+  public openClientActivityDetails$ = this.actions$.pipe(
+    ofType<ActivitiesPageActions.ClientActivityRowClickAction>(
+      ActivitiesPageActions.ActivitiesPageActionTypes.ClientActivityRowClick,
+    ),
+    map(action => action.payload),
+    this.openClientActivityDetails(actionPayload => this.createClientActions(actionPayload.getProfileActivity)),
+  );
+
+  @Effect()
   public loadExpertActivityById$ = this.actions$.pipe(
     ofType<ActivitiesWsActions.NewExpertActivityNotificationAction>(
       ActivitiesWsActions.ActivitiesWsActionTypes.NewExpertActivityNotification,
@@ -177,6 +191,37 @@ export class ActivitiesEffects {
     private injector: Injector,
   ) {}
 
+  private openClientActivityDetails(createAction: ActionFromModalResultFactory): ModalResultToActionMapper {
+    return (source: Observable<{ getProfileActivity: GetProfileActivity; isImportant: boolean }>): Observable<Action> =>
+      source.pipe(
+        exhaustMap(({ getProfileActivity, isImportant }) => {
+          const profileActivity: IClientActivityData = {
+            activityId: getProfileActivity.id,
+            isImportant,
+          };
+          const options: NgbModalOptions = {
+            injector: Injector.create({
+              providers: [{ provide: CLIENT_ACTIVITY_DETAILS_DATA, useValue: profileActivity }],
+              parent: this.injector,
+            }),
+          };
+
+          return from(this.modalService.open(ClientActivityDetailsComponent, options).result).pipe(
+            switchMap((result: string) => {
+              if (isImportant && result !== MODAL_CLOSED_WITH_ERROR) {
+                return from(createAction({ getProfileActivity, isImportant }));
+              }
+
+              return EMPTY_ACTION;
+            }),
+            catchError(() =>
+              defer(() => (isImportant ? from(createAction({ getProfileActivity, isImportant })) : EMPTY_ACTION)),
+            ),
+          );
+        }),
+      );
+  }
+
   private createExpertActions(getProfileActivity: GetProfileActivity): ReadonlyArray<Action> {
     return [
       new DashboardActions.DecrementImportantExpertActivitiesCounterAction(),
@@ -187,6 +232,13 @@ export class ActivitiesEffects {
   private createCompanyActions(getProfileActivity: GetProfileActivity): ReadonlyArray<Action> {
     return [
       new DashboardActions.DecrementImportantOrganizationActivitiesCounterAction(),
+      new ActivitiesPageActions.ActivityDetailsClosedAction(getProfileActivity),
+    ];
+  }
+
+  private createClientActions(getProfileActivity: GetProfileActivity): ReadonlyArray<Action> {
+    return [
+      new DashboardActions.DecrementImportantClientActivitiesCounterAction(),
       new ActivitiesPageActions.ActivityDetailsClosedAction(getProfileActivity),
     ];
   }
@@ -250,7 +302,7 @@ export class ActivitiesEffects {
             }),
           };
 
-          return from(this.modalService.open(ActivityDetailsViewComponent, options).result).pipe(
+          return from(this.modalService.open(ExpertCompanyActivityDetailsComponent, options).result).pipe(
             switchMap((result: string) => {
               if (isImportant && result !== MODAL_CLOSED_WITH_ERROR) {
                 return from(createAction({ getProfileActivity, isImportant }));
@@ -281,10 +333,12 @@ export class ActivitiesEffects {
   }
 }
 
-type ActionFromModalResultFactory = (payload: {
-  getProfileActivity: GetProfileActivity;
-  isImportant: boolean;
-}) => ReadonlyArray<Action>;
+type ActionFromModalResultFactory = (
+  payload: {
+    getProfileActivity: GetProfileActivity;
+    isImportant: boolean;
+  },
+) => ReadonlyArray<Action>;
 type ModalResultToActionMapper = (
   source: Observable<{
     getProfileActivity: GetProfileActivity;

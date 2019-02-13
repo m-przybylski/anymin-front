@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { GetPayoutMethod, MoneyDto } from '@anymind-ng/api';
-import { Logger } from '@platform/core/logger';
+import { Logger } from '../../../../../../core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
 
 export interface IFinancialOperationDetails {

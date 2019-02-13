@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { ActivitiesActions, ActivitiesPageActions } from '@platform/features/dashboard/views/activities/actions';
 import { ActivitiesListService } from '@platform/features/dashboard/views/activities/services/activities-list.service';
 import { ActivatedRoute } from '@angular/router';
-import { ActivityListTypeEnum } from '@platform/features/dashboard/views/activities/activities.interface';
+import { ActivityListTypeEnum, IActivity } from '@platform/features/dashboard/views/activities/activities.interface';
 import { Animations } from '@platform/shared/animations/animations';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory } from '@anymind-ng/core';
@@ -138,7 +138,7 @@ export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
     isVisible ? (this.dropdownVisibility = 'visible') : (this.dropdownVisibility = 'hidden');
   };
 
-  public onActivityRowClicked = (selectedGetProfileActivity: GetProfileActivity, isImportant: boolean): void => {
+  public onActivityRowClicked = (selectedGetProfileActivity: IActivity, isImportant: boolean): void => {
     const payload = {
       getProfileActivity: selectedGetProfileActivity,
       isImportant,

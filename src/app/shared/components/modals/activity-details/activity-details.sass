@@ -30,6 +30,9 @@
       +xsm
         padding: 32px 0 0
 
+    &--client
+      border-bottom: 1px solid $c-lines
+
     .basic-data
       &__item
         display: flex
@@ -55,8 +58,10 @@
         +xsm
           +subtitle
 
-      a
+      .link, a
         color: $c-primary
+        font-weight: 500
+        cursor: pointer
 
     .basic-data-comment,
     .basic-data-tags
