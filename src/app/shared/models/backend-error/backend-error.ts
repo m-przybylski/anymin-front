@@ -38,6 +38,7 @@ export enum BackendErrors {
   InvalidBankAccountNumber = 207,
   MsisdnInvalid = 214,
   InvalidServicePrice = 216,
+  MissingPermissionForCreatingFreeConsultation = 216,
   NoSuchAccount = 300,
   CanNotFindAccount = 302,
   CannotFindMsisdnToken = 322,
@@ -60,5 +61,6 @@ export enum BackendErrors {
   recipientUnavailable = 418,
   creditCardUncharged = 471,
   MissingTokenModelId = 408,
-  MissingPermissionForCreatingFreeConsultation = 216,
+  CannotGetClientComplaint = 448,
+  UserIsNotExpertInSue = 455,
 }

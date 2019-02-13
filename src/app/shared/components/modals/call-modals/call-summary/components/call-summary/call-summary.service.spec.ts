@@ -1,13 +1,13 @@
-import { CallSummaryService } from '@platform/shared/components/modals/call-modals/call-summary/call-summary.service';
+import { CallSummaryService } from './call-summary.service';
 import { Deceiver } from 'deceiver-core';
 import { PostClientComplaint, PostTechnicalProblem, ServiceUsageEventService, ViewsService } from '@anymind-ng/api';
-import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
-import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 import { LoggerFactory } from '@anymind-ng/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { cold } from 'jasmine-marbles';
 import { NEVER, Subject } from 'rxjs';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
+import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
 
 describe('CallSummaryService', () => {
   let callSummaryService: CallSummaryService;

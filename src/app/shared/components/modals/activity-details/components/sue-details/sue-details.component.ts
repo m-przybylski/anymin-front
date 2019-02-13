@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { GetCallDetails, GetComment, MoneyDto } from '@anymind-ng/api';
+import { GetCallDetails, GetClientComplaint, GetComment, MoneyDto } from '@anymind-ng/api';
 
 export interface ISueDetails {
   serviceName: string;
@@ -17,6 +17,7 @@ export interface ISueDetails {
   rate?: GetCallDetails.RateEnum;
   comment?: GetComment;
   ratelRoomId?: string;
+  complaint?: GetClientComplaint;
 }
 
 @Component({
@@ -35,6 +36,9 @@ export class SueDetailsComponent {
   public isClientActivity: boolean;
 
   @Input()
+  public isReportComplaintOptionVisible = false;
+
+  @Input()
   public set sueDetails(value: ISueDetails | undefined) {
     if (typeof value !== 'undefined') {
       this.assignValuesForUI(value);
@@ -46,6 +50,9 @@ export class SueDetailsComponent {
 
   @Output()
   public rateConsultation: EventEmitter<void> = new EventEmitter();
+
+  @Output()
+  public reportComplaint: EventEmitter<void> = new EventEmitter();
 
   public clientName: string;
   public serviceName: string;
@@ -64,17 +71,21 @@ export class SueDetailsComponent {
 
   private readonly oneSecondInMilliseconds = 1000;
 
-  public onOpenChatClick = (): void => {
+  public onOpenChatClick(): void {
     this.openChat.emit();
-  };
+  }
 
-  public onRateConsultationClick = (): void => {
+  public onReportComplaintClick(): void {
+    this.reportComplaint.emit();
+  }
+
+  public onRateConsultationClick(): void {
     if (typeof this.rateValue === 'undefined') {
       this.rateConsultation.emit();
     }
-  };
+  }
 
-  private assignValuesForUI = (value: ISueDetails): void => {
+  private assignValuesForUI(value: ISueDetails): void {
     this.clientName = value.clientName || 'ACTIVITY_DETAILS.DETAIL_TITLE.CLIENT_NAME_ANONYMOUS';
     this.serviceName = value.serviceName;
     this.sueId = value.sueId;
@@ -99,9 +110,9 @@ export class SueDetailsComponent {
     this.financialOperationTrKey = this.isClientActivity
       ? 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION.EXPENSE'
       : 'ACTIVITY_DETAILS.DETAIL_TITLE.FINANCIAL_OPERATION.INCOME';
-  };
+  }
 
-  private getRateTrKey = (rate?: GetCallDetails.RateEnum): string => {
+  private getRateTrKey(rate?: GetCallDetails.RateEnum): string {
     switch (rate) {
       case GetCallDetails.RateEnum.POSITIVE:
         return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_POSITIVE';
@@ -114,5 +125,5 @@ export class SueDetailsComponent {
           ? 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_RATE'
           : 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NONE';
     }
-  };
+  }
 }

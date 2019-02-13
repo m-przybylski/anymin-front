@@ -3,6 +3,10 @@ import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { GetComment, GetReport } from '@anymind-ng/api';
 import { AnimationEvent } from '@angular/animations';
 import { Animations } from '@platform/shared/animations/animations';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@platform/core/reducers';
+import { take } from 'rxjs/operators';
 
 export enum ConsultationCommentTypeAnswer {
   ANSWER,
@@ -62,11 +66,19 @@ export class ConsultationCommentItemComponent implements OnInit {
   public isReportAccepted = false;
   public dropdownVisibility: 'hidden' | 'visible' = 'hidden';
   public isCommentOptionShown: boolean;
+  public isOwnerOfComment: boolean;
   public _isTemporaryAnswer: boolean;
   public _isReported: boolean;
 
+  constructor(private store: Store<fromCore.IState>) {}
+
   public ngOnInit(): void {
     this.checkIsCommentOptionShown();
+    getNotUndefinedSession(this.store)
+      .pipe(take(1))
+      .subscribe(session => {
+        this.isOwnerOfComment = this.comment.clientDetails.clientId === session.account.details.clientId;
+      });
   }
 
   public toggleDropdown = (isVisible: boolean): void => {

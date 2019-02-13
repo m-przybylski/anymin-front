@@ -16,7 +16,7 @@ novalidate)
     am-core-input-radio(label="CALL_SUMMARY.COMPLAIN_OTHER_LABEL",
     [value]="postClientComplaintEnum.OTHER", [form]="complaintForm", [controlName]="complaintFormControlName")
 
-  .compain-form__comment
+  .complain-form__comment
     am-core-textarea-primary(
     [label]="'CALL_SUMMARY.COMPLAIN_COMMENT_LABEL'",
     [placeholder]="'CALL_SUMMARY.COMPLAIN_COMMENT_PLACEHOLDER'",
@@ -24,6 +24,8 @@ novalidate)
     [controlName]="complaintCommentFormControlName",
     [form]="complaintForm",
     [isDisabled]="isComplaintInputDisabled",
+    [maxLength]="maxValidDescriptionLength",
+    [minLength]="minValidDescriptionLength",
     [errorTextKey]="'CALL_SUMMARY.COMPLAIN_COMMENT_ERROR'"
     )
 

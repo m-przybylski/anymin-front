@@ -1,0 +1,77 @@
+.summary-container([ngSwitch]="currentSummaryState")
+  .call-summary(*ngSwitchCase="summaryStateEnum.SUMMARY_DETAILS")
+    plat-user-avatar.call-summary__client-avatar([avatarToken]='avatarToken', [avatarSize]='avatarSize')
+    span.call-summary__client-name {{ name | translate }}
+    span.call-summary__title {{ title }}
+    .call-summary__call-details
+      .call-summary__data-container
+        p.call-summary__data-container--header([translate]="'CALL_SUMMARY.TIME_HEADER'")
+        p.call-summary__data-container--data(*ngIf="callDuration") {{ callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+      .call-summary__data-container(*ngIf="!isClientCall")
+        p.call-summary__data-container--header {{ 'CALL_SUMMARY.MONEY_HEADER' | translate }}
+        p
+          plat-money-display.call-summary__data-container--data([money]="callProfit")
+      .call-summary__data-container(*ngIf="isClientCall")
+        p.call-summary__data-container--header() {{ 'CALL_SUMMARY.COST_HEADER' | translate }}
+        p
+          plat-money-display.call-summary__data-container--data([money]="callCost")
+    .call-summary__footer
+      .call-summary__client-rate(*ngIf="isClientCall && !isClientRated && isRecommendable")
+        p {{ 'CALL_SUMMARY.RATING_HEADER' | translate }}
+        .call-summary__client-rate-buttons
+          a(plat-large-icon-button, color='secondary', (click)='onSwitchToTags()')
+            span(plat-icon iconClass='thumb-up')
+            span {{ 'CALL_SUMMARY.RATING_POSITIVE_SCORE' | translate }}
+          a(plat-large-icon-button, color='secondary', (click)='onSwitchToNegativeRatingComment()')
+            span(plat-icon iconClass='thumb-down')
+            span {{ 'CALL_SUMMARY.RATING_NEGATIVE_SCORE' | translate }}
+
+      a.call-summary__footer-button([translate]="'CALL_SUMMARY.REPORT_LINK'", (click)="onSwitchToReportClient()",
+      [ngClass]="{'call-summary__footer-button--disabled': isClientReported}", *ngIf="!isClientCall")
+      a.call-summary__footer-button([translate]="'CALL_SUMMARY.TECHNICAL_PROBLEM_LINK'",
+      (click)="onSwitchToTechnicalProblem()",
+      [ngClass]="{'call-summary__footer-button--disabled': isTechnicalProblemReported}")
+      a.call-summary__footer-button(
+      (click)="onSwitchToComplain()",
+      *ngIf="isClientCall",
+      [ngClass]="{'call-summary__footer-button--disabled': isClientComplained}") {{ 'CALL_SUMMARY.CLIENT_COMPLAIN_LINK' | translate }}
+
+  .comment-section(*ngSwitchDefault)
+
+    p.comment-section__header-wrapper(*ngIf="isNegativeScore") {{ 'CALL_SUMMARY.NEGATIVE_RATING_HEADER' | translate }}
+
+    form.comment-section__form(
+    [id]="formId",
+    [formGroup]="commentForm",
+    novalidate)
+
+      .comment-section__textarea-wrapper
+        am-core-textarea-primary(
+        [label]="'CALL_SUMMARY.COMMENT_LABEL'",
+        [placeholder]="'CALL_SUMMARY.COMMENT_PLACEHOLDER'",
+        [isRequired]="true",
+        [initialFocus]="true",
+        [minLength]="minValidDescriptionLength",
+        [maxLength]="maxValidDescriptionLength",
+        [controlName]="commentControlName",
+        [form]="commentForm",
+        [isDisabled]="isCommentInputDisabled",
+        [errorTextKey]="'CALL_SUMMARY.COMMENT_ERROR'"
+        )
+
+      .comment-section__button-wrapper
+        a(plat-large-button, color="secondary", *ngIf="isPositiveScore", (click)="backToCallDetails()") {{ 'CALL_SUMMARY.COMMENT_OMIT' | translate }}
+        am-core-submit-button(
+        (click)="onSubmitComment()",
+        [titleText]="'CALL_SUMMARY.COMMENT_BUTTON'",
+        [isDisabled]="isCommentInputDisabled",
+        [isLoading]="isCommentInputDisabled"
+        )
+
+  .report-client-section(*ngSwitchCase="summaryStateEnum.TECHNICAL_PROBLEM")
+    plat-technical-problem([isTechnicalProblemInputDisabled]="isTechnicalInputDisabled", (submitFormEmitter$)="onSubmitTechnicalProblem($event)")
+  .complaint-section(*ngSwitchCase="summaryStateEnum.COMPLAIN")
+    plat-complaint-form([isComplaintInputDisabled]="isComplaintInputDisabled", (submitFormEmitter$)="onSubmitComplainForm($event)")
+
+  .tags-section(*ngSwitchCase="summaryStateEnum.TAGS")
+    plat-tags-selection([tagList]="tagList", (savedTagsEmitter$)="onTagsSaved($event)")

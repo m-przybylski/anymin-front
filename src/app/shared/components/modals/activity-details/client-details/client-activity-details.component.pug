@@ -2,19 +2,26 @@ plat-modal-component(
   [modalTrTitleHeader]="modalHeaderTrKey",
   [isBackwardVisible]="isBackwardVisible",
   (backwardClick)="onBackwardClick()"
-)
+).client-activity-details
 
   .activity-details-modal(contentHeightAnimation)
     plat-stepper(
-      #stepper='platStepper'
+      [selectedIndex]="currentModalStep"
     )
       plat-step
+        plat-complaint-details(
+          *ngIf="isComplaint",
+          [complaint]="complaint"
+        )
         plat-sue-details(
         [sueDetails]="sueDetails",
         [isChatHistoryVisible]="isChatHistoryVisible",
         [isCompanyActivity]="false",
         [isClientActivity]="true",
-        (openChat)="onOpenChat()"
+        [isReportComplaintOptionVisible]="!isComplaint",
+        (openChat)="onOpenChat()",
+        (reportComplaint)="onReportComplaintClick()",
+        (rateConsultation)="onRateConsultationClick()"
         )
       plat-step
         plat-chat-history(
@@ -22,3 +29,20 @@ plat-modal-component(
           [clientAvatarUrl]="expertAvatarUrl",
           [expertAvatarUrl]="userAvatarUrl"
         )
+      plat-step
+        .client-activity-details--center
+          plat-complaint-form(
+            [isComplaintInputDisabled]="isRequestPending",
+            (submitFormEmitter$)="onSubmitComplaint($event)"
+          )
+      plat-step(*ngIf="sueId && isRateOptionVisible")
+        .client-activity-details--center
+          plat-call-summary(
+            [isClientComplained]="isComplaint",
+            [sueIdFromClientActivity]="sueId",
+            [currentSummaryState]="currentSummaryState",
+            (stateChange)="onCallSummaryStateChange($event)",
+            (complaintSubmit)="assignComplaintValue($event)",
+            (rateSubmit)="onRateSubmit($event)",
+            (recommendedTags)="onRecommendTags($event)"
+          )

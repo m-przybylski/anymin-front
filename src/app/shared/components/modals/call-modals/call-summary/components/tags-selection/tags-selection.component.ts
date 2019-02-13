@@ -13,9 +13,9 @@ export class TagsSelectionComponent extends Logger implements OnInit {
   public tagList: ReadonlyArray<GetTag>;
 
   @Output()
-  public savedTagsEmitter$: EventEmitter<ReadonlyArray<string>> = new EventEmitter();
+  public savedTagsEmitter$: EventEmitter<ReadonlyArray<GetTag>> = new EventEmitter();
 
-  public selectedTags: ReadonlyArray<string> = [];
+  public selectedTags: ReadonlyArray<GetTag> = [];
   public isSendTagsButtonDisabled = false;
 
   constructor(loggerFactory: LoggerFactory) {
@@ -27,13 +27,13 @@ export class TagsSelectionComponent extends Logger implements OnInit {
   }
 
   public clickTag = (tag: GetTag): void => {
-    this.selectedTags = this.selectedTags.includes(tag.id)
-      ? this.selectedTags.filter(t => t !== tag.id)
-      : [...this.selectedTags, tag.id];
+    this.selectedTags = this.isTagSelected(tag)
+      ? this.selectedTags.filter(t => t.id !== tag.id)
+      : [...this.selectedTags, tag];
     this.isSendTagsButtonDisabled = this.selectedTags.length === 0;
   };
 
-  public isTagSelected = (tag: GetTag): boolean => this.selectedTags.includes(tag.id);
+  public isTagSelected = (tag: GetTag): boolean => this.selectedTags.includes(tag);
 
   public saveTags(): void {
     if (!this.isSendTagsButtonDisabled) {

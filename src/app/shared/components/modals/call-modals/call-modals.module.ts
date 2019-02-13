@@ -12,6 +12,7 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
 import { TagsSelectionComponent } from '@platform/shared/components/modals/call-modals/call-summary/components/tags-selection/tags-selection.component';
 import { ComplaintFormComponent } from '@platform/shared/components/modals/call-modals/call-summary/components/complaint-form/complaint-form.component';
 import { TechnicalProblemComponent } from '@platform/shared/components/modals/call-modals/call-summary/components/technical-problem/technical-problem.component';
+import { CallSummaryComponent } from './call-summary/components/call-summary/call-summary.component';
 
 @NgModule({
   imports: [
@@ -32,8 +33,9 @@ import { TechnicalProblemComponent } from '@platform/shared/components/modals/ca
     TagsSelectionComponent,
     ComplaintFormComponent,
     TechnicalProblemComponent,
+    CallSummaryComponent,
   ],
-  exports: [],
+  exports: [CallSummaryComponent, ComplaintFormComponent],
   entryComponents: [CreateIncomingCallComponent, CreateCallSummaryComponent],
 })
 export class CallModalsModule {}

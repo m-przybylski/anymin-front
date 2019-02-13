@@ -1,0 +1,69 @@
+.complaint-details
+  .activity-details
+    header.activity-details__header {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.TITLE' | translate }}
+
+    .activity-section.activity-section--border
+      ul.basic-data
+        li.basic-data__item
+          span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.STATUS' | translate }}
+          span.basic-data__value {{ status | translate }}
+        li.basic-data__item
+          span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.REASON' | translate }}
+          span.basic-data__value {{ reason | translate }}
+        li.basic-data__item(*ngIf="description")
+          span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.DESCRIPTION' | translate }}
+          span.basic-data__value {{ description }}
+        li.basic-data__item.complaint-action(*ngIf="isSueExpert && isComplaintActionsVisible", [@collapse])
+          span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION' | translate }}
+          .complaint-action-container
+            plat-stepper(
+            #stepper='platStepper'
+            )
+              plat-step
+                .complaint-action-container__buttons
+                  span(
+                    (click)="onRejectClick()",
+                    plat-button-primary,
+                    color="secondary"
+                  ) {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.REJECT_BUTTON' | translate }}
+                  am-core-submit-button(
+                  titleText="ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.ACCEPT_BUTTON",
+                  [isDisabled]="isRequestPending",
+                  [isSubmitType]="false",
+                  (click)="onAcceptClick()"
+                  )
+                .complaint-action-container__info
+                  span(plat-icon, iconClass='information')
+                  span.info {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.INFO' | translate }}
+
+              plat-step
+                .complaint-reject-container
+                  .header-container
+                    header.header-container__header {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.REJECT_REASON.TITLE' | translate }}
+                    span(
+                      (click)="onCloseRejectActionClick()",
+                      plat-icon,
+                      iconClass='clear')
+                  form(
+                    [formGroup]="rejectComplaintForm",
+                    (ngSubmit)="onSubmitRejectClick()"
+                    novalidate
+                  )
+                    am-core-textarea-primary(
+                      label="ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.REJECT_REASON.LABEL",
+                      placeholder="ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.REJECT_REASON.PLACEHOLDER",
+                      [controlName]="rejectReasonControlName",
+                      [form]="rejectComplaintForm",
+                      [maxLength]="rejectReasonMaxLength",
+                      [minLength]="rejectReasonMinLength",
+                      [initialFocus]="true",
+                      [isRequired]="true",
+                      [isDisabled]="isRequestPending",
+                      errorTextKey="ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.REJECT_REASON.ERROR"
+                    )
+                    .complaint-reject-container__button-container
+                      am-core-submit-button(
+                        titleText="ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.EXPERT_DECISION.REJECT_REASON.SUBMIT_BUTTON",
+                        [isDisabled]="isRequestPending",
+                        [isButtonSmall]="true",
+                      )

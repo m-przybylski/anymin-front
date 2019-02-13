@@ -12,9 +12,9 @@ import {
 import { CurrentCall, LoggerFactory } from '@anymind-ng/core';
 import { catchError, first, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Injectable, OnDestroy } from '@angular/core';
-import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
-import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
 import { Logger } from '@platform/core/logger';
+import { LongPollingService } from '@platform/core/services/long-polling/long-polling.service';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 @Injectable()
 export class CallSummaryService extends Logger implements OnDestroy {
@@ -37,6 +37,10 @@ export class CallSummaryService extends Logger implements OnDestroy {
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  public getClientCallSummaryBySueId(sueId: string): Observable<ClientCallSummary> {
+    return this.viewsService.getClientCallSummaryRoute(sueId);
   }
 
   public getExpertCallSummary = (call: CurrentCall): Observable<ExpertCallSummary> => {

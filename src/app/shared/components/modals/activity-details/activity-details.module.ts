@@ -14,16 +14,24 @@ import { RefundDetailsComponent } from './components/refund-details/refund-detai
 import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 import { ClientActivityDetailsComponent } from './client-details/client-activity-details.component';
 import { ActivityDetailsService } from './activity-details.service';
+import { ComplaintDetailsComponent } from './components/complaint-details/complaint-details.component';
+import { ButtonModule, IconModule } from '@platform/shared/components/atomic-components';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CallModalsModule } from '@platform/shared/components/modals/call-modals/call-modals.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     ModalComponentsModule,
     TranslateModule,
     AnymindComponentsModule,
     StepperModule,
     ConsultationCommentModule,
     MoneyDisplayModule,
+    ButtonModule,
+    IconModule,
+    CallModalsModule,
   ],
   entryComponents: [ExpertCompanyActivityDetailsComponent, ClientActivityDetailsComponent],
   declarations: [
@@ -34,6 +42,7 @@ import { ActivityDetailsService } from './activity-details.service';
     UuidTrimmerPipe,
     RefundDetailsComponent,
     ClientActivityDetailsComponent,
+    ComplaintDetailsComponent,
   ],
   providers: [ActivityDetailsService],
 })

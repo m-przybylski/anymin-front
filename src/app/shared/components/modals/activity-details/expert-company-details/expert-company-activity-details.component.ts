@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { ExpertCompanyActivityDetailsComponentService } from './expert-company-activity-details.component.service';
 import { ACTIVITY_DETAILS_DATA } from './expert-company-activity-details-helper';
-import { GetProfileActivity } from '@anymind-ng/api';
+import { GetClientComplaint, GetProfileActivity } from '@anymind-ng/api';
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { Logger } from '@platform/core/logger';
@@ -37,6 +37,7 @@ export class ExpertCompanyActivityDetailsComponent extends Logger implements OnI
   public expertAvatarUrl: string;
   public isBackwardVisible = false;
   public isCompanyActivity?: boolean;
+  public complaint?: GetClientComplaint;
 
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
@@ -115,6 +116,7 @@ export class ExpertCompanyActivityDetailsComponent extends Logger implements OnI
           }),
         )
         .subscribe(response => {
+          this.complaint = response.complaint;
           this.sueDetails = response.activityDetails;
           this.clientAvatarUrl = response.activityDetails.clientAvatarUrl;
           this.expertAvatarUrl = response.activityDetails.expertAvatarUrl;

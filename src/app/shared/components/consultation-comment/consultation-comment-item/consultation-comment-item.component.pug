@@ -7,10 +7,14 @@
         )
 
       .user-details__data
-        .user-details__data__name
-          p(*ngIf="comment.clientDetails.nickname") {{ comment.clientDetails.nickname }}
-          p(*ngIf="!comment.clientDetails.nickname")
-            | {{ 'CONSULTATION_DETAILS.COMMENTS.ANONYMOUS_COMMENT' | translate }}
+        .user-details__data__name(*ngIf="isOwnerOfComment else clientData")
+          p {{ 'CONSULTATION_DETAILS.COMMENTS.YOUR_COMMENT' | translate }}
+
+        ng-template(#clientData)
+          .user-details__data__name
+            p(*ngIf="comment.clientDetails.nickname") {{ comment.clientDetails.nickname }}
+            p(*ngIf="!comment.clientDetails.nickname")
+              | {{ 'CONSULTATION_DETAILS.COMMENTS.ANONYMOUS_COMMENT' | translate }}
 
         .user-details__time
           .user-details__time__consultation-time

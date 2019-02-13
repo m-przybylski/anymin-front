@@ -1,9 +1,10 @@
-import { ActivitiesService, GetDetailedClientActivity, GetTag } from '@anymind-ng/api';
+// tslint:disable:max-file-line-count
+import { ActivitiesService, GetDetailedClientActivity, GetTag, ServiceUsageEventService } from '@anymind-ng/api';
 import { dispatchLoggedUser, importStore, provideMockFactoryLogger } from 'testing/testing';
 import { TestBed } from '@angular/core/testing';
 import { Deceiver } from 'deceiver-core';
 import { cold } from 'jasmine-marbles';
-import { LoggerService } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerService } from '@anymind-ng/core';
 import {
   ClientActivityDetailsComponentService,
   IClientActivityDetails,
@@ -17,6 +18,8 @@ describe('ClientActivityDetailsComponentService', () => {
   let store: Store<any>;
   let activitiesService: ActivitiesService;
   let activityDetailsService: ActivityDetailsService;
+  let serviceUsageEventService: ServiceUsageEventService;
+  let alertService: AlertService;
 
   const loggerService: LoggerService = Deceiver(LoggerService, {
     warn: jest.fn(),
@@ -54,6 +57,12 @@ describe('ClientActivityDetailsComponentService', () => {
         status: GetTag.StatusEnum.ACCEPTED,
       },
     ],
+    comment: {
+      commentId: 'commentId',
+      expertId: 'expertId',
+      content: 'super consultation - hot as fire',
+      createdAt: date,
+    },
     details: {
       expertAvatar: 'expertAvatar',
       expertName: 'Lolita',
@@ -80,9 +89,20 @@ describe('ClientActivityDetailsComponentService', () => {
           useValue: Deceiver(ActivityDetailsService),
         },
         {
+          provide: ServiceUsageEventService,
+          useValue: Deceiver(ServiceUsageEventService),
+        },
+        {
           provide: FileUrlResolveService,
           useValue: Deceiver(FileUrlResolveService, {
             getFilePreviewDownloadUrl: jest.fn(token => `preview/${token}`),
+          }),
+        },
+        {
+          provide: AlertService,
+          useValue: Deceiver(AlertService, {
+            pushSuccessAlert: jest.fn(),
+            pushDangerAlert: jest.fn(),
           }),
         },
         provideMockFactoryLogger(loggerService),
@@ -95,6 +115,8 @@ describe('ClientActivityDetailsComponentService', () => {
     service = TestBed.get(ClientActivityDetailsComponentService);
     activitiesService = TestBed.get(ActivitiesService);
     activityDetailsService = TestBed.get(ActivityDetailsService);
+    serviceUsageEventService = TestBed.get(ServiceUsageEventService);
+    alertService = TestBed.get(AlertService);
     (loggerService.warn as jest.Mock).mockClear();
   });
 
@@ -102,7 +124,7 @@ describe('ClientActivityDetailsComponentService', () => {
     const expectedResponse: IClientActivityDetails = {
       activityDetails: {
         serviceName: 'HotRelax',
-        clientAvatarUrl: '',
+        clientAvatarUrl: 'preview/clientAvatar',
         expertAvatarUrl: 'preview/expertAvatar',
         sueId: 'serviceUsageEventId',
         answeredAt: date,
@@ -119,12 +141,24 @@ describe('ClientActivityDetailsComponentService', () => {
           currency: 'PLN',
         },
         rate: undefined,
-        comment: undefined,
+        comment: {
+          commentId: 'commentId',
+          content: 'super consultation - hot as fire',
+          expertId: 'expertId',
+          sueId: 'serviceUsageEventId',
+          callDurationInSeconds: 44,
+          clientDetails: {
+            clientId: 'clientId',
+            avatar: 'clientAvatar',
+          },
+          createdAt: date,
+        },
         ratelRoomId: 'ratelRoomId',
       },
       chatHistory: [],
     };
 
+    dispatchLoggedUser(store, { account: { details: { clientId: 'clientId', avatar: 'clientAvatar' } } });
     activitiesService.getClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getClientActivityRoute }));
     activitiesService.putUnimportantClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: undefined }));
     activityDetailsService.getChatHistory = jest.fn().mockReturnValue(cold('--(b|)', { b: [] }));
@@ -135,6 +169,7 @@ describe('ClientActivityDetailsComponentService', () => {
   });
 
   it('should log warn when mark important activity as viewed fails', () => {
+    dispatchLoggedUser(store, { account: { details: { clientId: 'clientId', avatar: 'clientAvatar' } } });
     activitiesService.getClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getClientActivityRoute }));
     activitiesService.putUnimportantClientActivityRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
     activityDetailsService.getChatHistory = jest.fn().mockReturnValue(cold('--(b|)', { b: [] }));
@@ -191,7 +226,7 @@ describe('ClientActivityDetailsComponentService', () => {
     const expectedResponse: IClientActivityDetails = {
       activityDetails: {
         serviceName: 'HotRelax',
-        clientAvatarUrl: '',
+        clientAvatarUrl: 'preview/clientAvatar',
         expertAvatarUrl: 'preview/expertAvatar',
         sueId: 'serviceUsageEventId',
         answeredAt: date,
@@ -212,6 +247,7 @@ describe('ClientActivityDetailsComponentService', () => {
       },
       chatHistory: [],
     };
+    dispatchLoggedUser(store, { account: { details: { clientId: 'clientId', avatar: 'clientAvatar' } } });
     activitiesService.getClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: response }));
     activitiesService.putUnimportantClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: undefined }));
 
@@ -221,6 +257,7 @@ describe('ClientActivityDetailsComponentService', () => {
   });
 
   it('should log warn when get activity details fails', () => {
+    dispatchLoggedUser(store, { account: { details: { clientId: 'clientId', avatar: 'clientAvatar' } } });
     activitiesService.getClientActivityRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
     const expected = cold('-#', {}, 'someError');
 
@@ -228,9 +265,22 @@ describe('ClientActivityDetailsComponentService', () => {
     expect(loggerService.warn).toHaveBeenCalledWith('error when try to get client activity details ', 'someError');
   });
 
-  it('should get user avatar from store', () => {
-    dispatchLoggedUser(store, { account: { details: { avatar: 'someAvatar' } } });
-    const expected = cold('(a|)', { a: 'preview/someAvatar' });
-    expect(service.getUserAvatarUrl()).toBeObservable(expected);
+  it('should show success alert when report complaint succeed', () => {
+    serviceUsageEventService.postClientComplaintRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: undefined }));
+    const expected = cold('-(a|)', { a: undefined });
+
+    expect(service.reportComplaint('sueID', { message: '', complaintType: 'OTHER' })).toBeObservable(expected);
+    expect(alertService.pushSuccessAlert).toHaveBeenCalledWith(
+      'ACTIVITY_DETAILS.DETAIL_TITLE.COMPLAINT.CLIENT_REPORT.SUCCESS',
+    );
+  });
+
+  it('should show danger alert, log warn when report complaint fails', () => {
+    serviceUsageEventService.postClientComplaintRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
+    const expected = cold('-|', {});
+
+    expect(service.reportComplaint('sueID', { message: '', complaintType: 'OTHER' })).toBeObservable(expected);
+    expect(alertService.pushDangerAlert).toHaveBeenCalledWith(Alerts.SomethingWentWrong);
+    expect(loggerService.warn).toHaveBeenCalledWith('Error when try to report complaint', 'someError');
   });
 });

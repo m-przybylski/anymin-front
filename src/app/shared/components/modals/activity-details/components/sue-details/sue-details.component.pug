@@ -1,5 +1,5 @@
 .sue-details.activity-details
-  .activity-section.activity-section--client(*ngIf="isClientActivity")
+  .activity-section.activity-section--border(*ngIf="isClientActivity")
     ul.basic-data
       li.basic-data__item
         span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.EXPERT_NAME' | translate }}
@@ -63,3 +63,6 @@
             [commentDetails]="commentDetails",
             [expertName]="expertName"
           )
+      li.basic-data__item(*ngIf="isReportComplaintOptionVisible")
+        span.basic-data__title {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.OPTIONS' | translate }}
+        a.basic-data__value((click)="onReportComplaintClick()") {{ 'ACTIVITY_DETAILS.DETAIL_TITLE.REPORT_COMPLAINT' | translate }}

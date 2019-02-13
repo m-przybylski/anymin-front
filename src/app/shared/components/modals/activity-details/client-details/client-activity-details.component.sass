@@ -1,0 +1,30 @@
+@import "../activity-details"
+
+.client-activity-details
+  &--center
+    display: flex
+    justify-content: center
+
+    plat-complaint-form
+      max-width: 384px
+      text-align: center
+      &::ng-deep
+        .complain-form__radio
+          am-core-input-radio
+            .input
+              margin: 0 0 16px
+
+        .complain-form__comment
+          margin: 0 0 80px
+
+    plat-call-summary
+      max-width: 384px
+      &::ng-deep
+        .call-summary
+          padding: 0
+        plat-tags-selection
+          .tags-selection
+            padding: 0
+
+        .complaint-section
+          padding: 0

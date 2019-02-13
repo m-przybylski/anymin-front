@@ -1,0 +1,79 @@
+@import "../../activity-details"
+@import "../../../../../../../../projects/anymind-ng-core/src/template/stylesheets/core/core"
+
+.complaint-details
+  .activity-details
+    .activity-section
+      margin: 0 0 24px
+      padding: 24px 0
+
+      +xsm
+        padding: 32px 0
+        margin: 0 0 32px
+
+      .basic-data__item
+        flex-direction: column
+
+        +xsm
+          flex-direction: row
+
+      .complaint-action
+        flex-direction: column
+
+        +smm
+          margin: 32px 0 0
+          flex-direction: row
+
+        .basic-data__title
+          margin: 0 0 24px
+
+          +xsm
+            flex: 0
+
+          +smm
+            flex: 0 0 204px
+            margin: 0
+
+        .complaint-action-container
+          &__buttons
+            display: flex
+            margin: 0 0 24px
+            justify-content: center
+
+            +smm
+              justify-content: flex-start
+
+            span
+              margin: 0 24px 0 0
+
+          &__info
+            display: flex
+            align-items: center
+
+            span.icon
+              color: $c-placeholder
+              margin: 0 8px 0 0
+
+            span.info
+              color: $c-text-secondary
+              +caption
+
+        .complaint-reject-container
+          .icon
+            cursor: pointer
+
+          .header-container
+            display: flex
+            justify-content: space-between
+            margin: 0 0 24px
+
+            &__header
+              +subtitle
+              font-weight: 500
+
+          am-core-textarea-primary
+            margin: 0 0 16px
+
+          &__button-container
+            display: flex
+            justify-content: flex-end
