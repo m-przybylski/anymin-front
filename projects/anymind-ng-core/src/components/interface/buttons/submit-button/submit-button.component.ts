@@ -6,8 +6,8 @@ import { COMPONENTS_CONFIG } from '../../../../shared/injection-tokens/injection
 
 @Component({
   selector: 'am-core-submit-button',
-  templateUrl: 'submit-button.component.html',
-  styleUrls: ['submit-button.component.sass'],
+  templateUrl: './submit-button.component.html',
+  styleUrls: ['./submit-button.component.sass'],
 })
 export class SubmitButtonComponent implements OnDestroy {
   @Input()

@@ -1,5 +1,10 @@
 ## AnyMind Angular Core library changelog
 
+<a name="February 13, 2019"></a>
+### v0.12.24 - February 13, 2019
+Feature:
+* fix submit-button component html path
+
 <a name="February 11, 2019"></a>
 ### v0.12.23 - February 11, 2019
 Feature:
