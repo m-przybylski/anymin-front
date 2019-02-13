@@ -53,7 +53,7 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
   public currentModalStep = CreateOrganizationModalSteps.ORGANIZATION_DETAILS;
 
   /** form controls */
-  public linksFormControl = new FormControl();
+  public linksFormControl = new FormControl([]);
 
   private logger: LoggerService;
   private accountCountryIsoCode: string;
