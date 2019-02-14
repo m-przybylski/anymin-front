@@ -45,5 +45,84 @@ describe('config', () => {
       const result = passwordRegExp.test('!2QsflssdfkhasdfoihYUGJHGAJHSDdfsdfhjsadg@@@DDsadasjhJHGJJsdfHdga');
       expect(result).toBeFalsy();
     });
+    describe('email regexp', () => {
+      expect.extend({
+        toBeValidEmail(received, regexp): { pass: boolean; message(): string } {
+          const pass = regexp.test(received);
+          if (pass) {
+            return {
+              message: (): string => `Valid email`,
+              pass: true,
+            };
+          } else {
+            return {
+              message: (): string => `Email ${received} didn't pass regexp while it should`,
+              pass: false,
+            };
+          }
+        },
+        toBeInvalidEmail(received, regexp): { pass: boolean; message(): string } {
+          const pass = !regexp.test(received);
+          if (pass) {
+            return {
+              message: (): string => `Valid email`,
+              pass: true,
+            };
+          } else {
+            return {
+              message: (): string => `Email ${received} passed regexp while it shouldn't`,
+              pass: false,
+            };
+          }
+        },
+      });
+      let emailRegExp: RegExp;
+      const validEmails: ReadonlyArray<string> = [
+        'email@domain.com',
+        'firstname.lastname@domain.com',
+        'email@subdomain.domain.com',
+        'firstname+lastname@domain.com',
+        'email@[123.123.123.123]',
+        '"email"@domain.com',
+        '1234567890@domain.com',
+        'email@domain-one.com',
+        '_______@domain.com',
+        'email@domain.name',
+        'email@domain.co.jp',
+        'firstname-lastname@domain.com',
+      ];
+
+      const invalidEmails: ReadonlyArray<string> = [
+        'plainAddress',
+        '#@%^%#$@#$@#.com',
+        '@anymind.com',
+        'email.anymind.com',
+        'email@anymind@anymind.com',
+        '.email@anymind.com',
+        'email.@anymind.com',
+        'email..email@anymind.com',
+        'email@anymind',
+        'email@anymind..com',
+        'email@-nymind.com',
+        'email@123.123.123.123',
+      ];
+
+      beforeEach(() => {
+        config = TestBed.get(CORE_CONFIG);
+        emailRegExp = new RegExp(config.validation.email.regex);
+      });
+
+      it('should pass all correct email validation', () => {
+        validEmails.forEach(email => {
+          expect(email).toBeValidEmail(emailRegExp);
+        });
+      });
+
+      it('should pass all incorrect email validation', () => {
+        invalidEmails.forEach(email => {
+          expect(email).toBeInvalidEmail(emailRegExp);
+        });
+      });
+    });
   });
 });
