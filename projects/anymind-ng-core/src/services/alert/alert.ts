@@ -26,8 +26,8 @@ export class Alert {
     return this.closedByUserEvent$.asObservable();
   }
 
-  public alertClosedByUser = (): void => {
+  public alertClosedByUser(): void {
     this.closedByUserEvent$.next();
     this.closedByUserEvent$.complete();
-  };
+  }
 }

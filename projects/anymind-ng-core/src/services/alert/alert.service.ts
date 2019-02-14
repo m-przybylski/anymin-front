@@ -43,39 +43,35 @@ export class AlertService {
     return this.closeAllEvent$.asObservable();
   }
 
-  public closeAllAlerts = (): void => {
+  public closeAllAlerts(): void {
     this.closeAllEvent$.next();
-  };
+  }
 
-  public pushSuccessAlert = (
+  public pushSuccessAlert(
     translationKey: string,
     interpolateParams?: {},
     alertOption?: IAlertOption,
-  ): Observable<void> => {
+  ): Observable<void> {
     const alert = new Alert(AlertType.SUCCESS, this.translate.instant(translationKey, interpolateParams), alertOption);
 
     return this.pushAlert(alert);
-  };
+  }
 
-  public pushWarningAlert = (
+  public pushWarningAlert(
     translationKey: string,
     interpolateParams?: {},
     alertOption?: IAlertOption,
-  ): Observable<void> => {
+  ): Observable<void> {
     const alert = new Alert(AlertType.WARNING, this.translate.instant(translationKey, interpolateParams), alertOption);
 
     return this.pushAlert(alert);
-  };
+  }
 
-  public pushDangerAlert = (
-    translationKey: string,
-    interpolateParams?: {},
-    alertOption?: IAlertOption,
-  ): Observable<void> => {
+  public pushDangerAlert(translationKey: string, interpolateParams?: {}, alertOption?: IAlertOption): Observable<void> {
     const alert = new Alert(AlertType.DANGER, this.translate.instant(translationKey, interpolateParams), alertOption);
 
     return this.pushAlert(alert);
-  };
+  }
 
   private pushAlert(alert: Alert): Observable<void> {
     this.alertEvent.next(alert);
