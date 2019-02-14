@@ -2,131 +2,90 @@
 import { TestBed } from '@angular/core/testing';
 import { getTestScheduler, cold } from 'jasmine-marbles';
 import { LongPollingService } from './long-polling.service';
-import { TestScheduler } from 'rxjs/testing';
-
+import { DOCUMENT } from '@angular/common';
+import { SCHEDULER } from '@platform/core/tokens';
+import { Deceiver } from 'deceiver-core';
 describe('LongPollingService', () => {
-  let testScheduler: TestScheduler;
+  const documentHidden = Deceiver(Document, {
+    addEventListener: (_eventType: any, listener: any): void => {
+      listener();
+    },
+    removeEventListener: (): void => void 0,
+    hidden: true,
+  });
+  const documentShown = Deceiver(Document, {
+    addEventListener: (_eventType: any, listener: any): void => {
+      listener();
+    },
+    removeEventListener: (): void => void 0,
+    hidden: false,
+  });
+
   let service: LongPollingService;
   const interval = 30;
-  // const observer:
-  // (attempts: number) =>
-  //   (obs: Subscriber<any>) => void =
-  // (executionAttempts = 0): any => (
-  //   obs: Subscriber<any>,
-  // ): any => {
-  //   if (executionAttempts === 0) {
-  //     obs.error();
-  //     executionAttempts = executionAttempts + 1;
 
-  //     return;
-  //   }
+  describe('document visible', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          LongPollingService,
+          { provide: DOCUMENT, useValue: documentShown },
+          { provide: SCHEDULER, useValue: getTestScheduler() },
+        ],
+      });
+    });
+    beforeEach(() => {
+      service = TestBed.get(LongPollingService);
+    });
 
-  //   if (executionAttempts === 1) {
-  //     obs.next(1);
-  //     executionAttempts = executionAttempts + 1;
+    it('should be created', () => {
+      expect(service).toBeTruthy();
+    });
 
-  //     return;
-  //   }
+    it('should start polling data from observable', () => {
+      const request$ = cold('-a|', { a: 'ok' });
+      const expected = cold('-a----a----a----a----a----a----a----a----a----a----a----a----a----a----a', { a: 'ok' });
+      expect(service.longPollData(request$, interval)).toBeObservable(expected);
+    });
 
-  //   if (executionAttempts === 2) {
-  //     obs.error();
-  //     executionAttempts = executionAttempts + 1;
+    it('should retry couple of times and error out', () => {
+      /**
+       * default retry is 3 retry attempts so there will be 4 requests
+       * -# 1s -# 4s -# 9s -# -> 14s 40ms # because error triggers retry in the same frame
+       */
+      const request$ = cold('-#', undefined, '💩💩💩💩💩');
 
-  //     return;
-  //   }
-  //   if (executionAttempts === 3) {
-  //     obs.error();
-  //     executionAttempts = executionAttempts + 1;
-
-  //     return;
-  //   }
-  //   if (executionAttempts === 4) {
-  //     obs.next(2);
-  //     executionAttempts = executionAttempts + 1;
-
-  //     return;
-  //   }
-
-  //   obs.complete();
-  // };
-
-  beforeEach(() => {
-    testScheduler = getTestScheduler();
-    TestBed.configureTestingModule({
-      providers: [LongPollingService],
+      const scheduler = getTestScheduler();
+      /**
+       * for some reason static helpers for cold hot does not support time progression
+       */
+      scheduler.run(helpers => {
+        const expectedMarble = '14040ms #';
+        const expectedError = '💩💩💩💩💩';
+        helpers
+          .expectObservable(service.longPollData(request$, interval))
+          .toBe(expectedMarble, undefined, expectedError);
+      });
     });
   });
 
-  beforeEach(() => {
-    service = TestBed.get(LongPollingService);
+  describe('document not visible', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          LongPollingService,
+          { provide: DOCUMENT, useValue: documentHidden },
+          { provide: SCHEDULER, useValue: getTestScheduler() },
+        ],
+      });
+    });
+    beforeEach(() => {
+      service = TestBed.get(LongPollingService);
+    });
+
+    it('should not poll when document is hidden', () => {
+      const request$ = cold('-a|', { a: 'ok' });
+      expect(service.longPollData(request$, interval)).toBeObservable(cold('--'));
+    });
   });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  /*
-    The newest version of Jest is not working with RXJS timers
-    those test should be write on marbles.
-    https://jestjs.io/blog/2016/09/01/jest-15.html
-  */
-  // it('should start polling data from observable', () => {
-  //   const request$ = cold('-a|', { a: 'ok' });
-  //   const expected = cold('-a----a----a----a----a----a----a----a----a----a----a----a----a----a----a', { a: 'ok' });
-  //   expect(service.longPollData(request$, interval)).toBeObservable(expected);
-  // });
-  // it('should retry to poll data after one interval and expect result',
-  // (done: () => void) => {
-  // let error = 0;
-  /**
-   * first subscription result an error second actual value
-   */
-  // const stream$ = cold('-(a|)', { a: 'ok' }).pipe(
-  //   observeOn(getTestScheduler()),
-  //   map(obj => {
-  //     if (error === 0) {
-  //       error++;
-  //       console.error('------ERROR!!!!!');
-
-  //       throw new Error('oups');
-  //     } else {
-  //       error++;
-  //       console.error('------NO--ERROR!!!!!');
-
-  //       return obj;
-  //     }
-  //   }),
-  // );
-  // stream$.subscribe(_ => _, err => {
-  //   console.error(err);
-  //   expect(err).toEqual(new Error('oups'));
-
-  // }, () => {
-  //   console.error('completed!');
-  //   done();
-  // });
-
-  // service.longPollData(stream$, interval).subscribe(
-  //   result => {
-  //     expect(result).toEqual({ a: 'ok' });
-  //     done();
-  //   },
-  //   err => expect('was called').toBeFalsy(),
-  //   () => console.log('completed')
-  // );
-  // testScheduler.flush();
-  // },
-  // );
-
-  // it.skip('should retry to poll data three times and wait total of 5 seconds', fakeAsync(
-  //   inject([LongPollingService], (service: LongPollingService) => {
-  //     const stream$ = new Observable(observer(2));
-  //     const callback = jest.fn();
-  //     service.longPollData(stream$, interval).subscribe(callback);
-  //     jest.advanceTimersByTime(4999);
-  //     expect(callback).not.toHaveBeenCalled();
-  //     jest.advanceTimersByTime(5000);
-  //     expect(callback).toHaveBeenCalledWith(2);
-  //   }),
-  // ));
 });

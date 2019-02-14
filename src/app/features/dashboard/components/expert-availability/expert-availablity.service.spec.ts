@@ -5,6 +5,8 @@ import { Deceiver } from 'deceiver-core';
 import { cold } from 'jasmine-marbles';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { SCHEDULER } from '@platform/core/tokens';
+import { asyncScheduler } from 'rxjs';
 
 describe('ExpertAvailabilityService', () => {
   let expertAvailabilityService: ExpertAvailabilityService;
@@ -49,7 +51,12 @@ describe('ExpertAvailabilityService', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
-        providers: [ExpertAvailabilityService, PresenceService, LongPollingService],
+        providers: [
+          ExpertAvailabilityService,
+          PresenceService,
+          LongPollingService,
+          { provide: SCHEDULER, useValue: asyncScheduler },
+        ],
       });
     });
 

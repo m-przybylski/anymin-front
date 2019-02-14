@@ -3,14 +3,11 @@ import { EnvironmentService, Environment } from '@platform/core/services/environ
 import { Config } from 'src/config';
 import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-// tslint:disable-next-line
-const jsencrypt = require('jsencrypt');
+import { JSEncrypt } from 'jsencrypt';
 
 @Injectable({ providedIn: 'root' })
 export class TPayService {
-  // tslint:disable-next-line:no-any
-  private jsencrypt: any;
+  private jsencrypt: JSEncrypt;
 
   constructor() {
     this.setTPayPublicKey();
@@ -24,7 +21,7 @@ export class TPayService {
 
   private setTPayPublicKey(): void {
     const environment = EnvironmentService.get();
-    this.jsencrypt = new jsencrypt.JSEncrypt();
+    this.jsencrypt = new JSEncrypt({});
 
     switch (environment) {
       case Environment.PRODUCTION:

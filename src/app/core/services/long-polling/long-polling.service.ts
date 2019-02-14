@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer } from 'rxjs';
+import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer, SchedulerLike } from 'rxjs';
 import { switchMap, startWith, delay, tap, skip, retryWhen, mergeMap } from 'rxjs/operators';
+import { SCHEDULER } from '@platform/core/tokens';
 
 const second = 1000;
 const power = 2;
@@ -13,7 +14,7 @@ const defaultRetryConfiguration = {
 
 @Injectable()
 export class LongPollingService {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(@Inject(DOCUMENT) private document: Document, @Inject(SCHEDULER) private scheduler: SchedulerLike) {}
 
   public longPollData<T>(request$: Observable<T>, interval: number): Observable<T> {
     // helper subject to used to determine when trigger fetch
@@ -22,7 +23,7 @@ export class LongPollingService {
     const inner = request$.pipe(retryWhen(this.retryStrategy({ retryAttempts: 3 })));
     // refresh rate. This will be trigger after request completes.
     const refresh$ = of(undefined).pipe(
-      delay(interval),
+      delay(interval, this.scheduler),
       tap(() => trigger$.next(undefined)),
       skip(1),
     );
@@ -60,14 +61,14 @@ export class LongPollingService {
     // tslint:disable-next-line:no-any
     return (source: Observable<any>): Observable<number> =>
       source.pipe(
-        mergeMap((_error, i) => {
+        mergeMap((error, i) => {
           const attemptCount = i + 1;
           if (retryAttempts !== 0 && attemptCount > retryAttempts) {
-            return throwError(new Error('Attempt limit reached'));
+            return throwError(error);
           }
           const delayTime = Math.min(maxDelay, createDelay(attemptCount));
 
-          return timer(delayTime);
+          return timer(delayTime, this.scheduler);
         }),
       );
   }
