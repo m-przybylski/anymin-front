@@ -80,7 +80,7 @@ export class Config {
   public readonly validation = {
     password: {
       // password verification: one lower case, one upper case, digit or special character, length 8 - 64
-      regex: /^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[ !"#$%&\'()*+,-./:;<=>?@[\\\]^_`{|}~])).{8,64}$/g,
+      regex: /^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[ !"#$%&\'()*+,-./:;<=>?@[\\\]^_`{|}~])).{8,64}$/,
     },
     email: {
       regex: new RegExp(

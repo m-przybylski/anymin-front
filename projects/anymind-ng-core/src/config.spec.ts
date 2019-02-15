@@ -37,6 +37,11 @@ describe('config', () => {
       const result = passwordRegExp.test('!2Qwwwwwww');
       expect(result).toBeTruthy();
     });
+    it('should be return twice the same result', () => {
+      const result = passwordRegExp.test('Stokrotka3134');
+      const result2 = passwordRegExp.test('Stokrotka3134');
+      expect(result).toEqual(result2);
+    });
     it('should be !2Qwwww NOT correct password', () => {
       const result = passwordRegExp.test('!2Qwwww');
       expect(result).toBeFalsy();
