@@ -27,6 +27,7 @@ describe('ActivitiesEffects', () => {
             getExpertProfilePayment: jest.fn(),
             getExpertAllActivities: jest.fn(),
             getExpertActivities: jest.fn(),
+            getClientAllActivities: jest.fn(),
           }),
         },
         {
@@ -75,143 +76,160 @@ describe('ActivitiesEffects', () => {
 
       expect(activitiesEffects.loadAllExpertActivitiesWithBalance$).toBeObservable(expected);
     });
-
-    describe('LoadExpertActivitiesWithBalanceAction$', () => {
-      it('should dispatch LoadExpertActivitiesSuccessAction on success', () => {
-        const action = new ActivitiesPageActions.LoadMoreExpertActivitiesAction({
-          currentOffset: 1,
-          offsetIterator: 2,
-        });
-        actions$ = hot('-a--', { a: action });
-        const getActivieties = 'getActivieties';
-        (activitiesListService.getExpertActivities as jest.Mock).mockReturnValue(cold('-a|', { a: getActivieties }));
-
-        const loadExpertActivitiesSuccessAction = new ActivitiesApiActions.LoadActivitiesSuccessAction(
-          getActivieties as any,
-        );
-        const expected = cold('--b', { b: loadExpertActivitiesSuccessAction });
-
-        expect(activitiesEffects.loadMoreExpertActivities$).toBeObservable(expected);
+  });
+  describe('LoadExpertActivitiesWithBalanceAction$', () => {
+    it('should dispatch LoadExpertActivitiesSuccessAction on success', () => {
+      const action = new ActivitiesPageActions.LoadMoreExpertActivitiesAction({
+        currentOffset: 1,
+        offsetIterator: 2,
       });
-      it('should dispatch LoadExpertActivitiesFailureAction on failure', () => {
-        const action = new ActivitiesPageActions.LoadMoreExpertActivitiesAction({
-          currentOffset: 1,
-          offsetIterator: 2,
+      actions$ = hot('-a--', { a: action });
+      const getActivieties = 'getActivieties';
+      (activitiesListService.getExpertActivities as jest.Mock).mockReturnValue(cold('-a|', { a: getActivieties }));
+
+      const loadExpertActivitiesSuccessAction = new ActivitiesApiActions.LoadActivitiesSuccessAction(
+        getActivieties as any,
+      );
+      const expected = cold('--b', { b: loadExpertActivitiesSuccessAction });
+
+      expect(activitiesEffects.loadMoreExpertActivities$).toBeObservable(expected);
+    });
+    it('should dispatch LoadExpertActivitiesFailureAction on failure', () => {
+      const action = new ActivitiesPageActions.LoadMoreExpertActivitiesAction({
+        currentOffset: 1,
+        offsetIterator: 2,
+      });
+      actions$ = hot('-a--', { a: action });
+      (activitiesListService.getExpertActivities as jest.Mock).mockReturnValue(cold('-#', {}, 'error'));
+
+      const loadActivitiesFailureAction = new ActivitiesApiActions.LoadActivitiesFailureAction('error');
+      const expected = cold('--b', { b: loadActivitiesFailureAction });
+
+      expect(activitiesEffects.loadMoreExpertActivities$).toBeObservable(expected);
+    });
+  });
+
+  describe('openExpertActivityDetails$', () => {
+    const getProfileActivity: any = 'getProfileActivity';
+    describe('non important activity', () => {
+      const isImportant = false;
+      it('should open dialog and emit empty value for non important activity', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
         });
-        actions$ = hot('-a--', { a: action });
-        (activitiesListService.getExpertActivities as jest.Mock).mockReturnValue(cold('-#', {}, 'error'));
+        actions$ = hot('-a---', { a: action });
 
-        const loadActivitiesFailureAction = new ActivitiesApiActions.LoadActivitiesFailureAction('error');
-        const expected = cold('--b', { b: loadActivitiesFailureAction });
+        const expected = cold('-b', { b: { type: 'NO_ACTION' } });
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+      });
+      it('should open dialog and emit empty value for non important activity with correct value', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
+        });
+        actions$ = hot('-a---', { a: action });
 
-        expect(activitiesEffects.loadMoreExpertActivities$).toBeObservable(expected);
+        const expected = cold('-b', { b: { type: 'NO_ACTION' } });
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
       });
     });
-
-    describe('openActivityDetails$', () => {
-      const getProfileActivity: any = 'getProfileActivity';
-      describe('non important activity', () => {
-        const isImportant = false;
-        it('should open dialog and emit empty value for non important activity', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
-
-          const expected = cold('-b', { b: { type: 'NO_ACTION' } });
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+    describe('non important activity', () => {
+      const isImportant = false;
+      it('should open dialog and emit empty value', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
         });
-        it('should open dialog and emit empty value for non important activity with correct value', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
+        actions$ = hot('-a---', { a: action });
 
-          const expected = cold('-b', { b: { type: 'NO_ACTION' } });
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
-        });
+        const expected = cold('-b', { b: { type: 'NO_ACTION' } });
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
       });
-      describe('non important activity', () => {
-        const isImportant = false;
-        it('should open dialog and emit empty value', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
-
-          const expected = cold('-b', { b: { type: 'NO_ACTION' } });
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+      it('should open dialog and emit empty value with correct value', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
         });
-        it('should open dialog and emit empty value with correct value', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
+        actions$ = hot('-a---', { a: action });
 
-          const expected = cold('-b', { b: { type: 'NO_ACTION' } });
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
-        });
-        it('should open dialog and emit empty value with rejected promise', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: throwError(new Error('oups')) });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
-
-          const expected = cold('-b', { b: { type: 'NO_ACTION' } });
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
-        });
+        const expected = cold('-b', { b: { type: 'NO_ACTION' } });
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
       });
-      describe('important activity', () => {
-        const isImportant = true;
-        it('should open dialog and emit empty value', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
-
-          const decrement = new DashboardActions.DecrementImportantExpertActivitiesCounterAction();
-          const closed = new ActivitiesPageActions.ActivityDetailsClosedAction(getProfileActivity);
-          const expected = cold('-(bc)', { b: decrement, c: closed });
-
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+      it('should open dialog and emit empty value with rejected promise', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: throwError(new Error('oups')) });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
         });
-        it('should open dialog and emit empty value with correct value', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
+        actions$ = hot('-a---', { a: action });
 
-          const expected = cold('-b', { b: { type: 'NO_ACTION' } });
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
-        });
-        it('should open dialog and emit empty value with rejected promise', () => {
-          (modalService.open as jest.Mock).mockReturnValue({ result: throwError(new Error('oups')) });
-          const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
-            getProfileActivity,
-            isImportant,
-          });
-          actions$ = hot('-a---', { a: action });
-          const decrement = new DashboardActions.DecrementImportantExpertActivitiesCounterAction();
-          const closed = new ActivitiesPageActions.ActivityDetailsClosedAction(getProfileActivity);
-          const expected = cold('-(bc)', { b: decrement, c: closed });
-
-          expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
-        });
+        const expected = cold('-b', { b: { type: 'NO_ACTION' } });
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
       });
+    });
+    describe('important activity', () => {
+      const isImportant = true;
+      it('should open dialog and emit empty value', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: of('') });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
+        });
+        actions$ = hot('-a---', { a: action });
+
+        const decrement = new DashboardActions.DecrementImportantExpertActivitiesCounterAction();
+        const closed = new ActivitiesPageActions.ActivityDetailsClosedAction(getProfileActivity);
+        const expected = cold('-(bc)', { b: decrement, c: closed });
+
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+      });
+      it('should open dialog and emit empty value with correct value', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: of(MODAL_CLOSED_WITH_ERROR) });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
+        });
+        actions$ = hot('-a---', { a: action });
+
+        const expected = cold('-b', { b: { type: 'NO_ACTION' } });
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+      });
+      it('should open dialog and emit empty value with rejected promise', () => {
+        (modalService.open as jest.Mock).mockReturnValue({ result: throwError(new Error('oups')) });
+        const action = new ActivitiesPageActions.ExpertActivityRowClickAction({
+          getProfileActivity,
+          isImportant,
+        });
+        actions$ = hot('-a---', { a: action });
+        const decrement = new DashboardActions.DecrementImportantExpertActivitiesCounterAction();
+        const closed = new ActivitiesPageActions.ActivityDetailsClosedAction(getProfileActivity);
+        const expected = cold('-(bc)', { b: decrement, c: closed });
+
+        expect(activitiesEffects.openExpertActivityDetails$).toBeObservable(expected);
+      });
+    });
+  });
+
+  describe('with switching between view', () => {
+    it('should get only latest value', () => {
+      const actionOne = new ActivitiesActions.LoadExpertActivitiesWithBalanceAction();
+      const actionTwo = new ActivitiesActions.LoadClientActivitiesAction();
+      actions$ = hot('-a-b-', { a: actionOne, b: actionTwo });
+      const balancePayload = 'balance';
+      const getAllActivietiesPayload = 'getAllActivieties';
+
+      activitiesListService.getExpertProfilePayment = jest.fn(() => cold('---a|', { a: balancePayload }));
+      activitiesListService.getExpertAllActivities = jest.fn(() => cold('-a|', { a: getAllActivietiesPayload }));
+      activitiesListService.getClientAllActivities = jest.fn(() => cold('--a|', { a: 'something' }));
+
+      const load = new ActivitiesApiActions.LoadClientActivitiesWithImportantSuccessAction('something' as any);
+      const expected = cold('-----c', { c: load });
+      expect(activitiesEffects.loadAllExpertActivitiesWithBalance$).toBeObservable(expected);
     });
   });
 });

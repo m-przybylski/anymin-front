@@ -39,34 +39,39 @@ const EMPTY_ACTION = of({ type: 'NO_ACTION' });
 export class ActivitiesEffects {
   @Effect()
   public loadAllExpertActivitiesWithBalance$ = this.actions$.pipe(
-    ofType(ActivitiesActions.ActivitiesActionTypes.LoadExpertActivitiesWithBalance),
-    this.loadAllActivitiesWithBalance(
-      () => this.activitiesListService.getExpertProfilePayment(),
-      () => this.activitiesListService.getExpertAllActivities(),
+    ofType<ActivitiesActions.ActivitiesActionUnion>(
+      ActivitiesActions.ActivitiesActionTypes.LoadExpertActivitiesWithBalance,
+      ActivitiesActions.ActivitiesActionTypes.LoadCompanyActivitiesWithBalance,
+      ActivitiesActions.ActivitiesActionTypes.LoadClientActivities,
     ),
-  );
+    map(action => action.type),
+    switchMap(actionType => {
+      if (actionType === ActivitiesActions.ActivitiesActionTypes.LoadClientActivities) {
+        return this.activitiesListService.getClientAllActivities().pipe(
+          map(
+            getClientActivities =>
+              new ActivitiesApiActions.LoadClientActivitiesWithImportantSuccessAction(getClientActivities),
+          ),
+          catchError(error => of(new ActivitiesApiActions.LoadClientActivitiesWithImportantFailureAction(error))),
+        );
+      }
 
-  @Effect()
-  public loadAllCompanyActivitiesWithBalance$ = this.actions$.pipe(
-    ofType(ActivitiesActions.ActivitiesActionTypes.LoadCompanyActivitiesWithBalance),
-    this.loadAllActivitiesWithBalance(
-      () => this.activitiesListService.getCompanyProfilePayment(),
-      () => this.activitiesListService.getAllCompanyActivities(),
-    ),
-  );
+      const { getPayments, getActivities } =
+        actionType === ActivitiesActions.ActivitiesActionTypes.LoadExpertActivitiesWithBalance
+          ? {
+              getPayments: this.activitiesListService.getExpertProfilePayment,
+              getActivities: this.activitiesListService.getExpertAllActivities,
+            }
+          : {
+              getPayments: this.activitiesListService.getCompanyProfilePayment,
+              getActivities: this.activitiesListService.getAllCompanyActivities,
+            };
 
-  @Effect()
-  public loadAllClientActivities = this.actions$.pipe(
-    ofType(ActivitiesActions.ActivitiesActionTypes.LoadClientActivities),
-    exhaustMap(_ =>
-      this.activitiesListService.getClientAllActivities().pipe(
-        map(
-          getClientActivities =>
-            new ActivitiesApiActions.LoadClientActivitiesWithImportantSuccessAction(getClientActivities),
-        ),
-        catchError(error => of(new ActivitiesApiActions.LoadClientActivitiesWithImportantFailureAction(error))),
-      ),
-    ),
+      return this.loadAllActivities(
+        getPayments.bind(this.activitiesListService),
+        getActivities.bind(this.activitiesListService),
+      );
+    }),
   );
 
   @Effect()
@@ -243,29 +248,24 @@ export class ActivitiesEffects {
     ];
   }
 
-  private loadAllActivitiesWithBalance(
+  private loadAllActivities(
     getProfilePayment: () => Observable<GetProfileBalance>,
     getAllActivities: () => Observable<IActivitiesData>,
-  ): (source: Observable<Action>) => Observable<Action> {
-    return (source: Observable<Action>): Observable<Action> =>
-      source.pipe(
-        exhaustMap(() =>
-          forkJoin(getProfilePayment(), getAllActivities()).pipe(
-            switchMap(([getProfileBalance, activitiesData]) =>
-              from([
-                new BalanceApiActions.LoadBalanceSuccessAction(getProfileBalance),
-                new ActivitiesApiActions.LoadActivitiesWithImportantSuccessAction(activitiesData),
-              ]),
-            ),
-            catchError(error =>
-              from([
-                new BalanceApiActions.LoadBalanceFailureAction(error),
-                new ActivitiesApiActions.LoadActivitiesWithImportantFailureAction(error),
-              ]),
-            ),
-          ),
-        ),
-      );
+  ): Observable<Action> {
+    return forkJoin(getProfilePayment(), getAllActivities()).pipe(
+      switchMap(([getProfileBalance, activitiesData]) =>
+        from([
+          new BalanceApiActions.LoadBalanceSuccessAction(getProfileBalance),
+          new ActivitiesApiActions.LoadActivitiesWithImportantSuccessAction(activitiesData),
+        ]),
+      ),
+      catchError(error =>
+        from([
+          new BalanceApiActions.LoadBalanceFailureAction(error),
+          new ActivitiesApiActions.LoadActivitiesWithImportantFailureAction(error),
+        ]),
+      ),
+    );
   }
 
   private loadMoreActivities(
