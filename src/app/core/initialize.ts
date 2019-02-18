@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 
 // tslint:disable-next-line:only-arrow-functions
-function appInitializerFactory(translate: TranslateService, loggerService: LoggerService): () => Promise<void> {
+export function appInitializerFactory(translate: TranslateService, loggerService: LoggerService): () => Promise<void> {
   return (): Promise<void> =>
     new Promise<void>(
       (resolve): void => {
