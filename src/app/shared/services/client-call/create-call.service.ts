@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Alerts,
   AlertService,
+  CallState,
   ClientCallService,
   CurrentClientCall,
   LoggerFactory,
@@ -112,8 +113,10 @@ export class CreateCallService extends Logger {
   };
 
   private onAnsweredCallEnd = (currentClientCall: CurrentClientCall): void => {
-    const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
-    summaryModal.componentInstance.currentClientCall = currentClientCall;
+    if (currentClientCall.getState() !== CallState.CANCELLED) {
+      const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
+      summaryModal.componentInstance.currentClientCall = currentClientCall;
+    }
     this.soundsService
       .playCallEnded()
       .then(
