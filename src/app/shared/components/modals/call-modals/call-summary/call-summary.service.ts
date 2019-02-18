@@ -1,4 +1,4 @@
-import { Observable, Subject, race, of, EMPTY } from 'rxjs';
+import { Observable, Subject, race, of, EMPTY, ReplaySubject } from 'rxjs';
 import {
   ClientCallSummary,
   ExpertCallSummary,
@@ -18,7 +18,7 @@ import { Logger } from '@platform/core/logger';
 
 @Injectable()
 export class CallSummaryService extends Logger implements OnDestroy {
-  private readonly callSummarySubject = new Subject<any>();
+  private readonly callSummarySubject = new ReplaySubject<any>(1);
   private readonly ngUnsubscribe$ = new Subject<void>();
 
   constructor(
