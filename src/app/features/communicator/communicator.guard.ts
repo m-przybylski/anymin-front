@@ -1,4 +1,4 @@
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CallState, LoggerFactory } from '@anymind-ng/core';
 import { Observable } from 'rxjs';
@@ -8,25 +8,33 @@ import { CallService, IClientSessionCall, IExpertSessionCall } from '@platform/c
 
 @Injectable()
 export class CommunicatorGuard extends Logger implements CanActivate {
-  constructor(private callService: CallService, loggerFactory: LoggerFactory) {
+  constructor(private callService: CallService, private router: Router, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('CommunicatorGuard'));
   }
 
   public canActivate(): Observable<boolean> {
     return this.callService.newCall$.pipe(
-      map(callSession =>
-        this.callService.isExpertCall(callSession)
-          ? CommunicatorGuard.checkIsExpertCallPending(callSession)
-          : CommunicatorGuard.checkIsClientCallPending(callSession),
-      ),
+      map((callSession?: IExpertSessionCall | IClientSessionCall) => {
+        let result = false;
+        if (callSession !== undefined) {
+          result = this.callService.isExpertCall(callSession)
+            ? this.checkIsExpertCallPending(callSession)
+            : this.checkIsClientCallPending(callSession);
+        }
+        if (!result) {
+          this.router.navigate(['/']);
+        }
+
+        return result;
+      }),
     );
   }
 
-  private static checkIsExpertCallPending(expertCallSession: IExpertSessionCall): boolean {
+  private checkIsExpertCallPending(expertCallSession: IExpertSessionCall): boolean {
     return expertCallSession.currentExpertCall.getState() === CallState.PENDING;
   }
 
-  private static checkIsClientCallPending(clientCallSession: IClientSessionCall): boolean {
+  private checkIsClientCallPending(clientCallSession: IClientSessionCall): boolean {
     return clientCallSession.currentClientCall.getState() === CallState.NEW;
   }
 }

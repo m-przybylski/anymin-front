@@ -14,7 +14,7 @@ import {
   NavigationServiceState,
 } from '@anymind-ng/core';
 import { ReplaySubject, Subject, race } from 'rxjs';
-import { takeUntil, first } from 'rxjs/operators';
+import { takeUntil, first, filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { CallReason } from 'machoke-sdk';
 import { Logger } from '@platform/core/logger';
@@ -91,9 +91,14 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.navigationService.userActivity$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onUserInactivity);
     this.microphoneService.onMicrophoneStatusChange(state => (this.currentMicrophoneStateEnum = state));
     this.AvatarSizeEnum = AvatarSize;
-    this.callService.newCall$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => {
-      this.callService.isExpertCall(call) ? this.registerExpertCall(call) : this.registerClientCall(call);
-    });
+    this.callService.newCall$
+      .pipe(
+        filter(call => call !== undefined),
+        takeUntil(this.ngUnsubscribe$),
+      )
+      .subscribe((call: IExpertSessionCall | IClientSessionCall) => {
+        this.callService.isExpertCall(call) ? this.registerExpertCall(call) : this.registerClientCall(call);
+      });
   }
 
   public ngOnDestroy(): void {

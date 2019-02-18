@@ -15,10 +15,13 @@ export interface IClientSessionCall {
 
 @Injectable()
 export class CallService {
-  private readonly newCallEvent$ = new ReplaySubject<IExpertSessionCall | IClientSessionCall>(1);
+  private readonly newCallEvent$ = new ReplaySubject<IExpertSessionCall | IClientSessionCall | undefined>(1);
   private readonly hangupCallEvent$ = new Subject<void>();
 
-  public get newCall$(): Observable<IExpertSessionCall | IClientSessionCall> {
+  constructor() {
+    this.newCallEvent$.next(undefined);
+  }
+  public get newCall$(): Observable<IExpertSessionCall | IClientSessionCall | undefined> {
     return this.newCallEvent$.asObservable();
   }
 
@@ -36,6 +39,5 @@ export class CallService {
 
   public isExpertCall = (
     sessionCallObject: IExpertSessionCall | IClientSessionCall,
-    // tslint:disable-next-line
-  ): sessionCallObject is IExpertSessionCall => (<IExpertSessionCall>sessionCallObject).currentExpertCall !== undefined;
+  ): sessionCallObject is IExpertSessionCall => 'currentExpertCall' in sessionCallObject;
 }
