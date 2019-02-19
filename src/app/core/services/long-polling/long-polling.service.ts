@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer, SchedulerLike } from 'rxjs';
 import { switchMap, startWith, delay, tap, skip, retryWhen, mergeMap } from 'rxjs/operators';
@@ -14,7 +14,10 @@ const defaultRetryConfiguration = {
 
 @Injectable()
 export class LongPollingService {
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(SCHEDULER) private scheduler: SchedulerLike) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Optional() @Inject(SCHEDULER) private scheduler?: SchedulerLike,
+  ) {}
 
   public longPollData<T>(request$: Observable<T>, interval: number): Observable<T> {
     // helper subject to used to determine when trigger fetch
