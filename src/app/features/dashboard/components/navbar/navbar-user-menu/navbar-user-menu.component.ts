@@ -112,7 +112,19 @@ export class NavbarUserMenuComponent implements OnInit {
   }
 
   public navigateToProfile(): void {
-    this.router.navigate([this.userProfileUrl]);
+    switch (this.userType) {
+      case this.userTypeEnum.COMPANY:
+        this.router.navigate([this.companyProfileUrl]);
+        break;
+
+      case this.userTypeEnum.USER:
+      case this.userTypeEnum.EXPERT:
+        this.router.navigate([this.userProfileUrl]);
+        break;
+
+      default:
+        return;
+    }
   }
 
   public onClick = (fnName: string): void => {
