@@ -15,7 +15,6 @@ import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
-import { Store } from '@ngrx/store';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;

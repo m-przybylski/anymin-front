@@ -17,7 +17,7 @@ export class RegisterEffects extends Logger {
     switchMap(postAccount =>
       this.accountService.postAccountRoute(postAccount).pipe(
         switchMap(session => {
-          const invitationObject = this.registrationInvitationService.getInvitationObject();
+          const invitationObject = this.registrationInvitationService.getInvitationObject(); //?
           /**
            * confirm email only if user get here from invitation
            * and he logs in to the same account that is in invitation
