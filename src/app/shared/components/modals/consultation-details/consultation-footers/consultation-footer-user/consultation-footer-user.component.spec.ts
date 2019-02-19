@@ -141,7 +141,7 @@ describe('ConsultationFooterUserComponent', () => {
     expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.paymentCard);
   });
 
-  it('should return false isExpertAvailable if userId is not provided', () => {
+  it('should return true isExpertAvailable if userId is not provided', () => {
     data = {
       ownerId: 'asdf',
       expertsIdList: [] as any,
@@ -158,7 +158,7 @@ describe('ConsultationFooterUserComponent', () => {
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
     consultationFooterUserComponent.ngOnInit();
-
-    expect(consultationFooterUserComponent.isExpertAvailable$).toBeObservable(cold('|'));
+    componentFixture.detectChanges();
+    expect(componentFixture).toMatchSnapshot();
   });
 });

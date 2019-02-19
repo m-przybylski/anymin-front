@@ -5,7 +5,7 @@ import {
   CONSULTATION_FOOTER_DATA,
   IConsultationFooterData,
 } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer-helpers';
-import { Observable, Subject, defer, of, EMPTY } from 'rxjs';
+import { Observable, Subject, defer, of } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 import { EmploymentWithExpertProfile, GetDefaultPaymentMethod, AccountPresenceStatus } from '@anymind-ng/api';
@@ -117,7 +117,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
        * so do not send expert availability
        */
       if (this.data.userId === undefined) {
-        return EMPTY;
+        return of(true);
       }
       if (this.data.selectedExpertId !== undefined) {
         return this.expertAvailabilityService.getExpertPresence(this.data.selectedExpertId).pipe(
@@ -142,7 +142,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     this.ngDestroy$.complete();
   }
 
-  public onCall = (): void => {
+  public onCall(): void {
     if (this.defaultPayment.creditCardId || this.defaultPayment.promoCodeId || this.checkIsFreeConsultation()) {
       if (!this.isCallButtonLoading) {
         this.isCallButtonLoading = true;
@@ -151,16 +151,16 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     } else {
       this.redirectToPayments();
     }
-  };
+  }
 
-  public onNotifyUser = (): void => {
+  public onNotifyUser(): void {
     this._actionTaken$.next('notifyUser');
-  };
+  }
 
-  public redirectToPayments = (): void => {
+  public redirectToPayments(): void {
     this.router.navigate([RouterPaths.dashboard.user.payments.asPath]);
     this._actionTaken$.complete();
-  };
+  }
 
   private checkIsFreeConsultation(): boolean {
     return this.data.price !== undefined && this.data.price.value === 0;

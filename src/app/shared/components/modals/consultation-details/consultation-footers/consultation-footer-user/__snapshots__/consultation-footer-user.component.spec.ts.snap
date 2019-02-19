@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConsultationFooterUserComponent should return true isExpertAvailable if userId is not provided 1`] = `
+<ng-component
+  _actionTaken$={[Function Subject]}
+  callStatusService={[Function Object]}
+  data={[Function Object]}
+  expertAvailabilityService={[Function Object]}
+  isCallButtonLoading="false"
+  isExpertAvailable$={[Function Observable]}
+  loggerService={[Function Object]}
+  middlePanelStatusTypes={[Function Object]}
+  moneyPipe={[Function MoneyToAmount]}
+  ngDestroy$={[Function Subject]}
+  router={[Function Object]}
+>
+  <plat-consultation-footer>
+    <div
+      class="consultation-footer__left-price"
+    >
+      <plat-consultation-footer-price />
+    </div>
+    <div
+      class="consultation-footer__left-text"
+      ng-reflect-ng-switch="0"
+    >
+      
+      <span
+        class="consultation-footer__text"
+      >
+        <span
+          iconclass="information"
+          plat-icon=""
+        />
+        <p>
+          CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE
+        </p>
+      </span>
+      
+      
+      
+      
+      
+    </div>
+    <div
+      class="consultation-footer__right"
+    >
+      
+      <a
+        color="success"
+        plat-large-icon-button=""
+      >
+        <span
+          iconclass="headphone"
+          plat-icon=""
+        />
+        
+        <span>
+          CONSULTATION_DETAILS.FOOTER.CALL
+        </span>
+        
+      </a>
+      
+    </div>
+    <div
+      class="consultation-footer__right--mobile"
+    >
+      <div
+        class="button-large"
+      >
+        
+        <a
+          color="success"
+          plat-large-icon-button=""
+        >
+          
+          <span
+            iconclass="headphone"
+            plat-icon=""
+          />
+          
+          <span>
+            CONSULTATION_DETAILS.FOOTER.CALL
+          </span>
+          
+        </a>
+      </div>
+      <div
+        class="button-small"
+      >
+        
+        <a
+          color="success"
+          plat-flat-fab=""
+        >
+          
+          <span
+            iconclass="headphone"
+            plat-icon=""
+          />
+          
+        </a>
+      </div>
+      
+      
+    </div>
+  </plat-consultation-footer>
+</ng-component>
+`;
