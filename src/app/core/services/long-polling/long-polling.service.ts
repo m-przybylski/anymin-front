@@ -1,6 +1,17 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Observable, of, Subject, fromEvent, EMPTY, concat, throwError, timer, SchedulerLike } from 'rxjs';
+import {
+  Observable,
+  of,
+  Subject,
+  fromEvent,
+  EMPTY,
+  concat,
+  throwError,
+  timer,
+  SchedulerLike,
+  asyncScheduler,
+} from 'rxjs';
 import { switchMap, startWith, delay, tap, skip, retryWhen, mergeMap } from 'rxjs/operators';
 import { SCHEDULER } from '@platform/core/tokens';
 
@@ -16,8 +27,12 @@ const defaultRetryConfiguration = {
 export class LongPollingService {
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    @Optional() @Inject(SCHEDULER) private scheduler?: SchedulerLike,
-  ) {}
+    @Optional() @Inject(SCHEDULER) private scheduler: SchedulerLike,
+  ) {
+    if ((this.scheduler as SchedulerLike | null) === null) {
+      this.scheduler = asyncScheduler;
+    }
+  }
 
   public longPollData<T>(request$: Observable<T>, interval: number): Observable<T> {
     // helper subject to used to determine when trigger fetch
