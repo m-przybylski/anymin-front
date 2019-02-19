@@ -8,7 +8,7 @@
     //- keep in mind to remove some props once user added to platform
     li.menu-list__header(
       [ngClass]="{'menu-list__header--user': userType === userTypeEnum.USER}",
-      [routerLink]="getRouterLink()"
+      (click)="navigateToProfile()",
     )
       .user-name-container(*ngIf="userName; else anonymous")
         span.user-name-container__title([translate]="'NAVBAR_USER_MENU.WELCOME'")
@@ -23,7 +23,7 @@
       .profile-link
         ng-container([ngSwitch]="userType")
           a.profile-link__anchor(
-            (click)="openCreateProfileModalAsClient()",
+            (click)="openCreateProfileModalAsClient($event)",
             plat-button-link,
             *ngSwitchCase="userTypeEnum.USER",
             [translate]="'NAVBAR_USER_MENU.EDIT'"

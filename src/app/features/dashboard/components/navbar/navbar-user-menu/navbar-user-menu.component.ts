@@ -14,6 +14,7 @@ import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { Animations } from '@platform/shared/animations/animations';
 import { Config } from '../../../../../../config';
 import { EditProfileModalComponent } from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -93,7 +94,12 @@ export class NavbarUserMenuComponent implements OnInit {
   private _switchAccountType?: UserTypeEnum;
   private _isVisible: boolean;
 
-  constructor(private modalService: NgbModal, private store: Store<fromCore.IState>, loggerFactory: LoggerFactory) {
+  constructor(
+    private modalService: NgbModal,
+    private router: Router,
+    private store: Store<fromCore.IState>,
+    loggerFactory: LoggerFactory,
+  ) {
     this.logger = loggerFactory.createLoggerService('NavbarUserMenuComponent');
   }
 
@@ -105,18 +111,8 @@ export class NavbarUserMenuComponent implements OnInit {
     );
   }
 
-  public getRouterLink(): string {
-    switch (this.userType) {
-      case this.userTypeEnum.USER:
-        // TODO: consider refactor once client is released to platform
-        return '';
-      case this.userTypeEnum.EXPERT:
-        return this.userProfileUrl;
-      case this.userTypeEnum.COMPANY:
-        return this.companyProfileUrl;
-      default:
-        return this.userProfileUrl;
-    }
+  public navigateToProfile(): void {
+    this.router.navigate([this.userProfileUrl]);
   }
 
   public onClick = (fnName: string): void => {
@@ -130,7 +126,8 @@ export class NavbarUserMenuComponent implements OnInit {
     this.logger.error('provided function name does not exist in this class: ', fnName);
   };
 
-  public openCreateProfileModalAsClient = (): void => {
+  public openCreateProfileModalAsClient = (e: Event): void => {
+    e.stopPropagation();
     this.modalService.open(CreateProfileModalComponent);
   };
 
