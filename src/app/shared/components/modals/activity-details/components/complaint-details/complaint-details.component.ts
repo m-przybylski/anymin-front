@@ -30,9 +30,9 @@ export class ComplaintDetailsComponent implements OnInit {
   public description: string;
   public isComplaintActionsVisible: boolean;
   public isRequestPending = false;
+  public isSueExpert: boolean;
 
   public readonly rejectReasonControlName = 'rejectReason';
-  private isSueExpert: boolean;
 
   constructor(
     private complaintDetailsComponentService: ComplaintDetailsComponentService,
