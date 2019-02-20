@@ -1,7 +1,7 @@
 import { RatelService, GetSUERatelCall } from '@anymind-ng/api';
 import * as MachokeSDK from 'machoke-sdk';
-import { Injectable } from '@angular/core';
-import { ReplaySubject, Observable, Subject } from 'rxjs';
+import { Injectable, Optional } from '@angular/core';
+import { ReplaySubject, Observable, Subject, merge } from 'rxjs';
 import { CurrentClientCall } from '../call/current-client-call';
 import { NavigatorWrapper } from '../models/navigator-wrapper';
 import { CommunicatorService, IConnected, IRoomInvitation } from '../communicator.service';
@@ -13,8 +13,6 @@ import { LoggerFactory } from '../../factories/logger.factory';
 import { take, takeUntil } from 'rxjs/operators';
 import { CallState } from '../call/current-call';
 
-// tslint:disable:max-file-line-count
-
 @Injectable()
 export class ClientCallService {
   protected static readonly events = {
@@ -23,7 +21,7 @@ export class ClientCallService {
     callOwnHangup: new Subject<CallState>(),
   };
 
-  private navigatorWrapper = new NavigatorWrapper();
+  private navigatorWrapper: NavigatorWrapper;
   private call?: Promise<CurrentClientCall | void>;
   private currentMediaTracks: ReadonlyArray<MediaStreamTrack> = [];
   private connection?: IConnected;
@@ -36,23 +34,36 @@ export class ClientCallService {
     private soundsService: SoundsService,
     private ratelService: RatelService,
     private alertService: AlertService,
+    @Optional() navigatorWrapper: NavigatorWrapper,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('ClientCallService');
-    this.communicatorService.connectionEstablishedEvent$.subscribe(connection => (this.connection = connection));
+    this.communicatorService.connectionEstablishedEvent$.subscribe(connection => {
+      this.connection = connection;
+    });
+    this.navigatorWrapper =
+      (navigatorWrapper as NavigatorWrapper | null) === null
+        ? new NavigatorWrapper()
+        : (this.navigatorWrapper = navigatorWrapper);
   }
 
-  public getConnection = (): IConnected | undefined => this.connection;
+  public onCallRemotelyHangup(): Observable<CallState> {
+    return ClientCallService.events.callRemotelyHangup;
+  }
 
-  public onCallRemotelyHangup = (): Observable<CallState> => ClientCallService.events.callRemotelyHangup;
+  public onCallOwnHangup(): Observable<CallState> {
+    return ClientCallService.events.callOwnHangup;
+  }
 
-  public onCallOwnHangup = (): Observable<CallState> => ClientCallService.events.callOwnHangup;
+  public onNewCall(): Observable<CurrentClientCall> {
+    return ClientCallService.events.onNewCall;
+  }
 
-  public onNewCall = (): Observable<CurrentClientCall> => ClientCallService.events.onNewCall;
+  public isCallInProgress(): boolean {
+    return typeof this.call !== 'undefined';
+  }
 
-  public isCallInProgress = (): boolean => typeof this.call !== 'undefined';
-
-  public callServiceId = (serviceId: string, expertId: string): Promise<CurrentClientCall | void> => {
+  public callServiceId(serviceId: string, expertId: string): Promise<CurrentClientCall | void> {
     if (this.call) {
       this.logger.error('Cannot start a call, there is one already');
 
@@ -67,18 +78,18 @@ export class ClientCallService {
       return Promise.reject('There is no client session');
     }
     this.call = this.createCall(serviceId, expertId)
-      .then(this.onCreateCallSuccess)
-      .then(this.startCall)
-      .catch(this.onStartCallError);
+      .then(currentClientCall => this.onCreateCallSuccess(currentClientCall))
+      .then(currentClientCall => this.startCall(currentClientCall))
+      .catch(err => this.onStartCallError(err));
 
     return this.call;
-  };
+  }
 
   public get hangup$(): Observable<void> {
     return this.hangupEvent;
   }
 
-  public handleMyOwnHangup = (call: CurrentClientCall): void => {
+  public handleMyOwnHangup(call: CurrentClientCall): void {
     const callState = call.getState();
     this.hangupEvent.next();
     this.call = undefined;
@@ -87,22 +98,26 @@ export class ClientCallService {
     this.currentMediaTracks.forEach(track => track.stop());
     ClientCallService.events.callOwnHangup.next(callState);
     this.logger.debug('Call ended with callState: ', callState);
-  };
+  }
 
-  private createCall = (serviceId: string, expertId: string): Promise<CurrentClientCall> =>
-    this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(stream => {
-      this.currentMediaTracks = [...this.currentMediaTracks, ...stream.getTracks()];
+  private createCall(serviceId: string, expertId: string): Promise<CurrentClientCall> {
+    return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
+      stream => {
+        this.currentMediaTracks = [...this.currentMediaTracks, ...stream.getTracks()];
 
-      this.currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
+        this.currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
 
-      return this.createRatelCall(expertId, serviceId).then(sueRatelCall =>
-        this.getRatelCallById(sueRatelCall.callDetails.id, expertId, stream.getTracks()).then(ratelCall =>
-          this.callFactory.createClientCall(sueRatelCall.expert, ratelCall, sueRatelCall, stream.getTracks()),
-        ),
-      );
-    }, this.handleMediaStreamError);
+        return this.createRatelCall(expertId, serviceId).then(sueRatelCall =>
+          this.getRatelCallById(sueRatelCall.callDetails.id, expertId, stream.getTracks()).then(ratelCall =>
+            this.callFactory.createClientCall(sueRatelCall.expert, ratelCall, sueRatelCall, stream.getTracks()),
+          ),
+        );
+      },
+      err => this.handleMediaStreamError(err),
+    );
+  }
 
-  private handleMediaStreamError = (err: { code: number; message: string; name: string }): Promise<any> => {
+  private handleMediaStreamError(err: { code: number; message: string; name: string }): Promise<any> {
     this.logger.warn('ClientCallService: get media error', err);
     switch (err.name) {
       case 'NotFoundError':
@@ -113,9 +128,9 @@ export class ClientCallService {
     }
 
     return Promise.reject(err);
-  };
+  }
 
-  private createRatelCall = (expertId: string, serviceId: string): Promise<GetSUERatelCall> => {
+  private createRatelCall(expertId: string, serviceId: string): Promise<GetSUERatelCall> {
     const deviceId = this.getDeviceId();
 
     return this.ratelService
@@ -128,26 +143,24 @@ export class ClientCallService {
         undefined,
       )
       .toPromise();
-  };
+  }
 
-  private getRatelCallById = (
+  private getRatelCallById(
     ratelCallId: string,
     peerId: string,
     tracks: ReadonlyArray<MediaStreamTrack>,
-  ): Promise<MachokeSDK.BusinessCall> => {
+  ): Promise<MachokeSDK.BusinessCall> {
     if (!this.connection) {
       throw new Error('There is no ratel session');
     }
 
-    return (
-      this.connection.session.machoke
-        .getPrestartedCall(ratelCallId, peerId, tracks)
-        // tslint:disable-next-line:no-angle-bracket-type-assertion
-        .then(call => <MachokeSDK.BusinessCall>call)
-    );
-  };
+    return this.connection.session.machoke.getPrestartedCall(ratelCallId, peerId, tracks) as Promise<
+      MachokeSDK.BusinessCall
+    >;
+  }
 
-  private onCreateCallSuccess = (call: CurrentClientCall): CurrentClientCall => {
+  private onCreateCallSuccess(call: CurrentClientCall): CurrentClientCall {
+    const joinRoom = this.onRoomInvitation(call);
     ClientCallService.events.onNewCall.next(call);
     this.soundsService.callConnectingSound().play();
     call.callDestroyed$.subscribe(() => this.onCallDestroyedRemotely(call));
@@ -160,58 +173,63 @@ export class ClientCallService {
     this.communicatorService.roomInvitationEvent$
       .pipe(
         take(1),
-        takeUntil(call.callDestroyed$),
-        takeUntil(this.hangup$),
+        takeUntil(merge(call.callDestroyed$, this.hangup$)),
       )
-      .subscribe(this.onRoomInvitation(call));
+      .subscribe(joinRoom);
 
     return call;
-  };
+  }
 
-  private onRoomInvitation = (call: CurrentClientCall): ((roomInvitationWithSession: IRoomInvitation) => void) => (
-    roomInvitationWithSession,
-  ): void => {
-    // FIXME check invitation ID
-    roomInvitationWithSession.session.machoke
-      .getRoom(roomInvitationWithSession.roomInvitation.roomId)
-      .then(room => {
-        call.joinRoom(room as MachokeSDK.BusinessRoom).catch(this.logger.error.bind(this));
-      })
-      .catch(er => this.logger.error('Could not get room for received invitation', er));
-  };
+  private onRoomInvitation(call: CurrentClientCall): ((roomInvitationWithSession: IRoomInvitation) => void) {
+    return (roomInvitationWithSession): Promise<void> => {
+      if (this.connection === undefined) {
+        return Promise.reject('No connection');
+      }
 
-  private startCall = (call: CurrentClientCall): Promise<CurrentClientCall> => {
+      // FIXME check invitation ID
+      return this.connection.session.machoke
+        .getRoom(roomInvitationWithSession.roomInvitation.roomId)
+        .then(room =>
+          call.joinRoom(room as MachokeSDK.BusinessRoom).catch(err => {
+            this.logger.error(err);
+          }),
+        )
+        .catch(er => this.logger.error('Could not get room for received invitation', er));
+    };
+  }
+
+  private startCall(call: CurrentClientCall): Promise<CurrentClientCall> {
     const deviceId = this.getDeviceId();
 
     return this.ratelService
       .postStartCallRoute(call.getSueId(), deviceId, undefined)
       .toPromise()
       .then(() => call);
-  };
+  }
 
   // tslint:disable-next-line:no-any
-  private onStartCallError = (err: any): void => {
+  private onStartCallError(err: any): void {
     this.logger.warn('onStartCallError err: ', err);
     this.call = undefined;
     this.soundsService.callConnectingSound().stop();
     this.soundsService.playCallRejected();
     this.currentMediaTracks.forEach(track => track.stop());
     throw new Error(err.error.code);
-  };
+  }
 
-  private onCallDestroyedRemotely = (call: CurrentClientCall): void => {
+  private onCallDestroyedRemotely(call: CurrentClientCall): void {
     this.call = undefined;
     this.currentMediaTracks.forEach(track => track.stop());
     const callState = call.getState();
     this.logger.debug(`ClientCallService: finalizing call, reason: ${CallState[callState]}`);
     ClientCallService.events.callRemotelyHangup.next(callState);
-  };
+  }
 
-  private onCallAnswered = (): void => {
+  private onCallAnswered(): void {
     this.soundsService.callConnectingSound().stop();
-  };
+  }
 
-  private getDeviceId = (): string => {
+  private getDeviceId(): string {
     if (!this.connection) {
       this.alertService.pushDangerAlert('ALERT.SOMETHING_WENT_WRONG');
       this.logger.error('There is no deviceId');
@@ -220,5 +238,5 @@ export class ClientCallService {
     } else {
       return this.connection.hello.deviceId;
     }
-  };
+  }
 }

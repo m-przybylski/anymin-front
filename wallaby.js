@@ -19,7 +19,10 @@ module.exports = function(wallaby) {
       '!src/**/*.spec.ts',
     ],
 
-    tests: ['src/**/*.spec.ts', 'projects/anymind-ng-core/**/*.spec.ts'],
+    tests: [
+      'src/**/*.spec.ts',
+      'projects/anymind-ng-core/**/*.spec.ts',
+    ],
 
     env: {
       type: 'node',

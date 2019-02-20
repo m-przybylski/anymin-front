@@ -20,6 +20,7 @@ module.exports = {
     '<rootDir>/src/app/**/*.ts',
     '!<rootDir>/src/app/**/*.module.ts',
     '!<rootDir>/src/app/**/*.config.ts',
+    '!<rootDir>/src/app/**/index.ts'
   ],
   coverageDirectory: '<rootDir>/test-coverage',
   coverageThreshold: {

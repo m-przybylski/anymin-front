@@ -16,7 +16,6 @@ export interface ICallInvitation {
 }
 
 export interface IRoomInvitation {
-  session: Session;
   roomInvitation: roomEvents.Invited;
 }
 
@@ -116,7 +115,7 @@ export class CommunicatorService {
     });
 
     chat.roomInvitation$.subscribe((roomInvitation: roomEvents.Invited) =>
-      this.roomInvitationEvent.next({ session, roomInvitation }),
+      this.roomInvitationEvent.next({ roomInvitation }),
     );
 
     this.connectionSubscription = chat.connection$.subscribe((hello: serverEvents.Hello) => {

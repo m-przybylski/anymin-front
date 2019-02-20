@@ -25,7 +25,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["projects/anymind-ng-core/tsconfig.lib.json", "projects/anymind-ng-core/tsconfig.spec.json"],
+            "tsConfig": ["projects/anymind-ng-core/tsconfig.lib.json"],
             "exclude": ["**/node_modules/**"]
           }
         }
@@ -122,14 +122,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": [
-              "**/node_modules/**",
-              "**/generated_modules/**",
-              "**/*actions.ts",
-              "**/*.spec.ts",
-              "**/testing/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "**/generated_modules/**", "**/*actions.ts"]
           }
         }
       }
