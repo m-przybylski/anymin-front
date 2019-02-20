@@ -74,6 +74,7 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
                 typeof callDetails.expertProfile.expertDetails !== 'undefined'
                   ? callDetails.expertProfile.expertDetails.name
                   : '',
+              isRecommendable: callDetails.serviceUsageDetails.isRecommendable,
               financialOperation: callDetails.serviceUsageDetails.amount,
               rate: callDetails.rate,
               comment: this.getComment(callDetails),

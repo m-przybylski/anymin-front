@@ -62,6 +62,7 @@ export class ClientActivityDetailsComponentService extends Logger {
               recommendedTags: this.getTags(activityDetails.recommendedTags),
               isSueExpert: false,
               expertName: activityDetails.details.expertName ? activityDetails.details.expertName : '',
+              isRecommendable: sue.isRecommendable,
               financialOperation: sue.amount,
               rate: activityDetails.rating ? activityDetails.rating.rate : undefined,
               comment: this.getComment(activityDetails, clientDetails),

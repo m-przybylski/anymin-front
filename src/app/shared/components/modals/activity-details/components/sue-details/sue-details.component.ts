@@ -12,6 +12,7 @@ export interface ISueDetails {
   recommendedTags: string;
   isSueExpert: boolean;
   expertName: string;
+  isRecommendable: boolean;
   clientName?: string;
   financialOperation?: MoneyDto;
   rate?: GetCallDetails.RateEnum;
@@ -66,6 +67,7 @@ export class SueDetailsComponent {
   public commentDetails?: GetComment;
   public recommendedTags: string;
   public isSueExpert: boolean;
+  public canClientRateConsultation: boolean;
   public expertName: string;
   public financialOperationTrKey: string;
 
@@ -80,9 +82,7 @@ export class SueDetailsComponent {
   }
 
   public onRateConsultationClick(): void {
-    if (typeof this.rateValue === 'undefined') {
-      this.rateConsultation.emit();
-    }
+    this.rateConsultation.emit();
   }
 
   private assignValuesForUI(value: ISueDetails): void {
@@ -98,6 +98,7 @@ export class SueDetailsComponent {
      */
     this.callDuration = value.callDuration * this.oneSecondInMilliseconds;
     this.servicePrice = value.servicePrice;
+    this.canClientRateConsultation = value.isRecommendable && !value.rate;
     this.rateTrKey = this.getRateTrKey(value.rate);
     this.rateValue = value.rate;
     this.commentDetails = value.comment;
@@ -121,7 +122,7 @@ export class SueDetailsComponent {
         return 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NEGATIVE';
 
       default:
-        return this.isClientActivity
+        return this.isClientActivity && this.canClientRateConsultation
           ? 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_RATE'
           : 'ACTIVITY_DETAILS.DETAIL_TITLE.RECOMMENDATION_NONE';
     }

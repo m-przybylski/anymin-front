@@ -38,7 +38,8 @@
 
   .comment-section(*ngSwitchDefault)
 
-    p.comment-section__header-wrapper(*ngIf="isNegativeScore") {{ 'CALL_SUMMARY.NEGATIVE_RATING_HEADER' | translate }}
+    p.comment-section__header-wrapper(*ngIf="currentSummaryState === summaryStateEnum.COMMENT",
+    ) {{ 'CALL_SUMMARY.NEGATIVE_RATING_HEADER' | translate }}
 
     form.comment-section__form(
     [id]="formId",
@@ -60,7 +61,12 @@
         )
 
       .comment-section__button-wrapper
-        a(plat-large-button, color="secondary", *ngIf="isPositiveScore", (click)="backToCallDetails()") {{ 'CALL_SUMMARY.COMMENT_OMIT' | translate }}
+        a(
+          plat-large-button,
+          color="secondary",
+          *ngIf="currentSummaryState === summaryStateEnum.POSITIVE_COMMENT",
+          (click)="backToCallDetails()"
+        ) {{ 'CALL_SUMMARY.COMMENT_OMIT' | translate }}
         am-core-submit-button(
         (click)="onSubmitComment()",
         [titleText]="'CALL_SUMMARY.COMMENT_BUTTON'",
@@ -69,7 +75,7 @@
         )
 
   .report-client-section(*ngSwitchCase="summaryStateEnum.TECHNICAL_PROBLEM")
-    plat-technical-problem([isTechnicalProblemInputDisabled]="isTechnicalInputDisabled", (submitFormEmitter$)="onSubmitTechnicalProblem($event)")
+    plat-technical-problem([isTechnicalProblemInputDisabled]="isTechnicalProblemInputDisabled", (submitFormEmitter$)="onSubmitTechnicalProblem($event)")
   .complaint-section(*ngSwitchCase="summaryStateEnum.COMPLAIN")
     plat-complaint-form([isComplaintInputDisabled]="isComplaintInputDisabled", (submitFormEmitter$)="onSubmitComplainForm($event)")
 

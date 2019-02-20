@@ -1,3 +1,4 @@
+// tslint:disable:max-file-line-count
 import { Component, Inject, OnInit } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import { ISueDetails } from '@platform/shared/components/modals/activity-details/components/sue-details/sue-details.component';
@@ -7,13 +8,16 @@ import { ModalAnimationComponentService } from '@platform/shared/components/moda
 import { LoggerFactory } from '@anymind-ng/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, finalize } from 'rxjs/operators';
-import { GetCallDetails, GetClientActivity, GetClientComplaint } from '@anymind-ng/api';
+import { GetClientActivity, GetClientComplaint } from '@anymind-ng/api';
 import { MODAL_CLOSED_WITH_ERROR } from '@platform/shared/components/modals/activity-details/expert-company-details/expert-company-activity-details.component';
 import ActivityTypeEnum = GetClientActivity.ActivityTypeEnum;
 import { CLIENT_ACTIVITY_DETAILS_DATA } from './client-activity-details-helper';
 import { ClientActivityDetailsComponentService } from './client-activity-details.component.service';
 import { IComplaintFormData } from '@platform/shared/components/modals/call-modals/call-summary/components/complaint-form/complaint-form.component';
-import { CallSummaryStateEnum } from '@platform/shared/components/modals/call-modals/call-summary/components/call-summary/call-summary.component';
+import {
+  CallSummaryStateEnum,
+  ICallSummaryRateData,
+} from '@platform/shared/components/modals/call-modals/call-summary/components/call-summary/call-summary.component';
 
 export interface IClientActivityData {
   activityId: string;
@@ -110,8 +114,27 @@ export class ClientActivityDetailsComponent extends Logger implements OnInit {
       });
   }
 
-  public onRateSubmit(rate: GetCallDetails.RateEnum): void {
-    this.sueDetails = { ...this.sueDetails, rate };
+  public onRateSubmit(data: ICallSummaryRateData): void {
+    /**
+     * for properties: commentId, expertId, clientId we assign empty string
+     * because we dont have this data here and we just want to "mock" this GetComment model
+     * to display it on UI without request to backend
+     */
+    this.sueDetails = {
+      ...this.sueDetails,
+      rate: data.rate,
+      comment: {
+        commentId: '',
+        content: data.commentMessage,
+        expertId: '',
+        sueId: this.sueDetails.sueId,
+        callDurationInSeconds: this.sueDetails.callDuration,
+        clientDetails: {
+          clientId: '',
+        },
+        createdAt: new Date(),
+      },
+    };
   }
 
   public onRecommendTags(tags: ReadonlyArray<string>): void {
@@ -149,6 +172,24 @@ export class ClientActivityDetailsComponent extends Logger implements OnInit {
       default:
         this.loggerService.error('unhandled call summary state:', state);
     }
+  }
+
+  public assignComplaintValue(complaintData: IComplaintFormData): void {
+    this.complaint = {
+      /**
+       * for properties: id, expertId, clientId we assign empty string
+       * because we dont have this data here and we just want to "mock" this GetClientComplaint model
+       * to display it on UI without request to backend
+       */
+      id: '',
+      expertId: '',
+      clientId: '',
+      sueId: this.sueDetails.sueId,
+      message: complaintData.comment,
+      complaintType: complaintData.selectedComplaint,
+      status: GetClientComplaint.StatusEnum.NEW,
+    };
+    this.isComplaint = true;
   }
 
   private setModalValues(headerTrKey: string, isBackwardVisible: boolean, state: CallSummaryStateEnum): void {
@@ -198,24 +239,6 @@ export class ClientActivityDetailsComponent extends Logger implements OnInit {
           this.complaint = response.activityDetails.complaint;
         }
       });
-  }
-
-  private assignComplaintValue(complaintData: IComplaintFormData): void {
-    this.complaint = {
-      /**
-       * for properties: id, expertId, clientId we assign empty string
-       * because we dont have this data here and we just want to "mock" this GetClientComplaint model
-       * to display it on UI without request to backend
-       */
-      id: '',
-      expertId: '',
-      clientId: '',
-      sueId: this.sueDetails.sueId,
-      message: complaintData.comment,
-      complaintType: complaintData.selectedComplaint,
-      status: GetClientComplaint.StatusEnum.NEW,
-    };
-    this.isComplaint = true;
   }
 
   private assignModalData(modalStep: ClientActivityModalSteps, headerTrKey: string, isBackwardVisible: boolean): void {

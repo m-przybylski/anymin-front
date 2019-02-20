@@ -29,6 +29,11 @@ export enum CallSummaryStateEnum {
   TAGS,
 }
 
+export interface ICallSummaryRateData {
+  rate: GetCallDetails.RateEnum;
+  commentMessage: string;
+}
+
 @Component({
   selector: 'plat-call-summary',
   templateUrl: './call-summary.component.html',
@@ -50,10 +55,18 @@ export class CallSummaryComponent implements OnInit {
 
   @Input()
   public set currentSummaryState(value: CallSummaryStateEnum) {
-    if (value === CallSummaryStateEnum.COMMENT || value === CallSummaryStateEnum.TECHNICAL_PROBLEM_COMMENT) {
-      this.clearCommentInput();
-    }
     this._currentSummaryState = value;
+    switch (value) {
+      case CallSummaryStateEnum.COMMENT:
+      case CallSummaryStateEnum.TECHNICAL_PROBLEM_COMMENT:
+      case CallSummaryStateEnum.POSITIVE_COMMENT:
+        this.clearCommentInput();
+
+        return;
+
+      default:
+        return;
+    }
   }
 
   public get currentSummaryState(): CallSummaryStateEnum {
@@ -67,14 +80,14 @@ export class CallSummaryComponent implements OnInit {
   public complaintSubmit = new EventEmitter<IComplaintFormData>();
 
   @Output()
-  public rateSubmit = new EventEmitter<GetCallDetails.RateEnum>();
+  public rateSubmit = new EventEmitter<ICallSummaryRateData>();
 
   @Output()
   public recommendedTags = new EventEmitter<ReadonlyArray<string>>();
 
   public readonly avatarSize = AvatarSizeEnum.X_80;
   public readonly modalContainerClass = ModalContainerTypeEnum.SMALL_NO_PADDING;
-  public readonly summaryStateEnum = CallSummaryStateEnum;
+  public readonly summaryStateEnum: typeof CallSummaryStateEnum = CallSummaryStateEnum;
   public readonly minValidDescriptionLength = Config.inputsLengthNumbers.callSummaryCommentMinLength;
   public readonly maxValidDescriptionLength = Config.inputsLengthNumbers.callSummaryCommentMaxLength;
   public readonly commentControlName = 'comment';
@@ -254,7 +267,10 @@ export class CallSummaryComponent implements OnInit {
         this.isClientRated = true;
         this.alertService.pushSuccessAlert('CALL_SUMMARY.ALERT_RATED_NEGATIVE_SUCCESSFULLY');
         this.isCommentInputDisabled = false;
-        this.rateSubmit.emit(GetCallDetails.RateEnum.NEGATIVE);
+        this.rateSubmit.emit({
+          rate: GetCallDetails.RateEnum.NEGATIVE,
+          commentMessage: comment,
+        });
       },
       _ => {
         this.alertService.pushDangerAlert('CALL_SUMMARY.ALERT_RATED_NEGATIVE_FAILED');
@@ -274,7 +290,10 @@ export class CallSummaryComponent implements OnInit {
           this.isClientRated = true;
           this.alertService.pushSuccessAlert('CALL_SUMMARY.ALERT_RATED_POSITIVE_SUCCESSFULLY');
           this.isCommentInputDisabled = false;
-          this.rateSubmit.emit(GetCallDetails.RateEnum.POSITIVE);
+          this.rateSubmit.emit({
+            rate: GetCallDetails.RateEnum.POSITIVE,
+            commentMessage: comment,
+          });
         },
         _ => {
           this.alertService.pushDangerAlert('CALL_SUMMARY.ALERT_RATED_POSITIVE_FAILED');
@@ -325,6 +344,7 @@ export class CallSummaryComponent implements OnInit {
     this.isClientCall = true;
     this.tagList = summary.serviceTags;
     this.isRecommendable = summary.isRecommendable;
+    this.isTechnicalProblemReported = typeof summary.technicalProblem !== 'undefined';
   }
 
   private setExpertData(summary: ExpertCallSummary): void {
