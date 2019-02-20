@@ -19,6 +19,8 @@ plat-consultation-footer
       div
         span(plat-icon iconClass='information')
         p {{ invoiceTrKey | translate}}
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.freeConsultation')
+    span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.promoCodes')
     span.consultation-footer__text(*ngSwitchDefault)
       span(plat-icon iconClass='money')
       span
@@ -27,9 +29,14 @@ plat-consultation-footer
           a {{"CONSULTATION_DETAILS.FOOTER.CHOOSE_PAYMENT_METHOD" | translate}}
   //right part of the screen
   .consultation-footer__right
-    a(plat-large-icon-button, color='success', *ngIf="(isExpertAvailable$ | async) else offlineDesktop", (click)='onCall()')
+    a(plat-large-icon-button, color='success', *ngIf="(isExpertAvailable$ | async) else offlineDesktop",
+    (click)='onCall()', [class.loading]="isCallButtonLoading")
       span(plat-icon iconClass='headphone')
-      span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+      span(*ngIf="!isCallButtonLoading") {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+      .spinner(*ngIf="isCallButtonLoading", @fadeInWithDelay)
+        .bounce-1
+        .bounce-2
+        .bounce-3
     ng-template(#offlineDesktop)
       a(plat-large-icon-button color='primary', (click)='onNotifyUser()')
         span(plat-icon iconClass='bell')
@@ -38,11 +45,19 @@ plat-consultation-footer
   .consultation-footer__right--mobile
     div.button-large
       a(plat-large-icon-button color='success', *ngIf="(isExpertAvailable$ | async) else offlineMobileLarge", (click)='onCall()')
-        span(plat-icon iconClass='headphone')
-        span {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+        span(plat-icon iconClass='headphone', *ngIf="!isCallButtonLoading", [class.loading]="isCallButtonLoading")
+        span(*ngIf="!isCallButtonLoading") {{ "CONSULTATION_DETAILS.FOOTER.CALL" | translate }}
+        .spinner(*ngIf="isCallButtonLoading", @fadeInWithDelay)
+          .bounce-1
+          .bounce-2
+          .bounce-3
     div.button-small
       a(plat-flat-fab color='success', *ngIf="(isExpertAvailable$ | async) else offlineMobile", (click)='onCall()')
-        span(plat-icon iconClass='headphone')
+        span(plat-icon iconClass='headphone', *ngIf="!isCallButtonLoading")
+        .spinner(*ngIf="isCallButtonLoading", @fadeInWithDelay)
+          .bounce-1
+          .bounce-2
+          .bounce-3
     ng-template(#offlineMobileLarge)
       div.button-large
         a(plat-large-icon-button color='primary', (click)='onNotifyUser()')

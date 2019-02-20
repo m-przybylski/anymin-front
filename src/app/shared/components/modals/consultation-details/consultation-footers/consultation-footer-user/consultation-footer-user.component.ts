@@ -13,18 +13,23 @@ import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
-import { startWith, map, share } from 'rxjs/operators';
+import { startWith, map, share, takeUntil } from 'rxjs/operators';
+import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
+import { Animations } from '@platform/shared/animations/animations';
 
 export enum MiddlePanelStatusTypes {
   freeMinute,
   paymentCard,
-  promoCode,
+  noPaymentMethod,
   notAvailable,
+  freeConsultation,
+  promoCodes,
 }
 
 @Component({
   templateUrl: 'consultation-footer-user.component.html',
   styleUrls: ['consultation-footer-user.component.sass'],
+  animations: [Animations.fadeOut, Animations.fadeInWithDelay],
 })
 export class ConsultationFooterUserComponent extends Logger implements IFooterOutput, OnDestroy, OnInit {
   public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
@@ -48,8 +53,16 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
       return MiddlePanelStatusTypes.notAvailable;
     }
 
+    if (this.checkIsFreeConsultation()) {
+      return MiddlePanelStatusTypes.freeConsultation;
+    }
+
+    if (this.data.defaultPaymentMethod.promoCodeId !== undefined) {
+      return MiddlePanelStatusTypes.promoCodes;
+    }
+
     if (this.data.defaultPaymentMethod.creditCardId === undefined) {
-      return MiddlePanelStatusTypes.promoCode;
+      return MiddlePanelStatusTypes.noPaymentMethod;
     }
 
     return MiddlePanelStatusTypes.paymentCard;
@@ -57,6 +70,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
 
   public middlePanelStatusTypes = MiddlePanelStatusTypes;
   public isExpertAvailable$: Observable<boolean>;
+  public isCallButtonLoading = false;
 
   public get card(): string {
     const currentCreditCard = this.data.creditCards.find(
@@ -83,11 +97,13 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
 
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
+  private ngDestroy$ = new Subject<void>();
 
   constructor(
     @Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData,
     private expertAvailabilityService: ExpertAvailabilityService,
     private router: Router,
+    private callStatusService: CallStatusService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationFooterUserComponent'));
@@ -112,14 +128,23 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
 
       return of(this.data.isExpertAvailable);
     }).pipe(share());
+
+    this.callStatusService.callStatus$.pipe(takeUntil(this.ngDestroy$)).subscribe((isCallStarted: boolean) => {
+      if (isCallStarted) {
+        this.isCallButtonLoading = false;
+      }
+    });
   }
 
   public ngOnDestroy(): void {
     this._actionTaken$.complete();
+    this.ngDestroy$.next();
+    this.ngDestroy$.complete();
   }
 
   public onCall = (): void => {
-    if (this.defaultPayment.creditCardId || this.defaultPayment.promoCodeId) {
+    if (this.defaultPayment.creditCardId || this.defaultPayment.promoCodeId || this.checkIsFreeConsultation()) {
+      this.isCallButtonLoading = true;
       this._actionTaken$.next('makeCall');
     } else {
       this.redirectToPayments();
@@ -134,4 +159,8 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     this.router.navigate([RouterPaths.dashboard.user.payments.asPath]);
     this._actionTaken$.complete();
   };
+
+  private checkIsFreeConsultation(): boolean {
+    return this.data.price !== undefined && this.data.price.value === 0;
+  }
 }

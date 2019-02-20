@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Deceiver } from 'deceiver-core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
 import { cold } from 'jasmine-marbles';
+import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
+import { Observable } from 'rxjs';
 
 @Pipe({
   name: 'translate',
@@ -40,6 +42,10 @@ describe('ConsultationFooterUserComponent', () => {
         {
           provide: ExpertAvailabilityService,
           useValue: Deceiver(ExpertAvailabilityService, { getExpertPresence: jest.fn() }),
+        },
+        {
+          provide: CallStatusService,
+          useValue: Deceiver(CallStatusService, { callStatus$: new Observable<boolean>() }),
         },
         provideMockFactoryLogger(),
       ],

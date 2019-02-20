@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, switchMap, catchError, tap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { EMPTY, from } from 'rxjs';
 import { AuthActions } from '@platform/core/actions';
 import { GenerateWidgetActions } from '@platform/shared/components/modals/generate-widget/actions';
 import {
@@ -17,6 +17,7 @@ import {
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
+import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
 
 @Injectable()
 export class ConsultationDetailsActionsService extends Logger {
@@ -31,6 +32,7 @@ export class ConsultationDetailsActionsService extends Logger {
     private route: ActivatedRoute,
     private injector: Injector,
     private createCallService: CreateCallService,
+    private callStatusService: CallStatusService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationDetailsActionsService'));
@@ -104,25 +106,34 @@ export class ConsultationDetailsActionsService extends Logger {
         });
     }
   };
+
   public makeCall = ({ serviceId, modal, expertId, employmentId }: IConsultationDetailActionParameters): void => {
-    // check if user is logged. If not navigate to login page
-    modal.close();
     this.store
       .pipe(
         select(fromCore.getLoggedIn),
         tap(login => {
           if (!login.isLoggedIn) {
+            modal.close();
             this.store.dispatch(new AuthActions.LoginRedirectAction());
           }
         }),
-      )
-      .subscribe();
+        switchMap(() => {
+          const id = expertId || employmentId;
+          if (id) {
+            return from(this.createCallService.call(serviceId, id));
+          }
 
-    const id = expertId || employmentId;
-    if (id) {
-      this.createCallService.call(serviceId, id);
-    }
+          return EMPTY;
+        }),
+      )
+      .subscribe(
+        () => {
+          this.callStatusService.pushCallStatusEvent(true);
+        },
+        () => this.callStatusService.pushCallStatusEvent(false),
+      );
   };
+
   public notifyUser = (): void => {
     // TODO: implement functionality
   };

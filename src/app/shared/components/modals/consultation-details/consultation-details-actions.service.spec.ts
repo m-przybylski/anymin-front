@@ -16,6 +16,7 @@ import { ConsultationDetailsActionsService } from './consultation-details-action
 import { Router, ActivatedRoute } from '@angular/router';
 import { Injector } from '@angular/core';
 import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
+import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
 
 describe('ConsultationDetailsAcrionsService', () => {
   let consultationDetailsAcrionsService: ConsultationDetailsActionsService;
@@ -57,6 +58,7 @@ describe('ConsultationDetailsAcrionsService', () => {
       Deceiver(ActivatedRoute),
       TestBed.get(Injector),
       Deceiver(CreateCallService),
+      Deceiver(CallStatusService),
       loggerFactory,
     );
   });

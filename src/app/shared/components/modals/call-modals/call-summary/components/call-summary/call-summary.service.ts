@@ -1,4 +1,4 @@
-import { Observable, Subject, race, of, EMPTY, ReplaySubject } from 'rxjs';
+import { Observable, Subject, race, of, EMPTY } from 'rxjs';
 import {
   ClientCallSummary,
   ExpertCallSummary,
@@ -18,7 +18,7 @@ import { AnymindWebsocketService } from '@platform/core/services/anymind-websock
 
 @Injectable()
 export class CallSummaryService extends Logger implements OnDestroy {
-  private readonly callSummarySubject = new ReplaySubject<any>(1);
+  private readonly callSummarySubject = new Subject<any>();
   private readonly ngUnsubscribe$ = new Subject<void>();
 
   constructor(
