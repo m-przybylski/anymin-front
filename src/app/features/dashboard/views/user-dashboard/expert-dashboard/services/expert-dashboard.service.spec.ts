@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, ParamMap, Router } from '@angular/router';
 import { Deceiver } from 'deceiver-core';
 import { ViewsService, ProfileService } from '@anymind-ng/api';
-import { ExpertDashboardResolverService } from './expert-dashboard-resolver.service';
+import { ExpertDashboardService } from './expert-dashboard.service';
 import { cold } from 'jasmine-marbles';
 import * as Mocks from './expert-mock';
 import { fakeAsync, TestBed } from '@angular/core/testing';
@@ -9,24 +9,15 @@ import { Store } from '@ngrx/store';
 import { importStore, dispatchLoggedUser } from 'testing/testing';
 
 describe('ExpertDashboardResolverService', () => {
-  const paramMap: ParamMap = {
-    get: jest.fn(),
-    has: jest.fn(),
-    getAll: jest.fn(),
-    keys: [],
-  };
   const viewsService: ViewsService = Deceiver(ViewsService, {
     getWebExpertProfileRoute: jest.fn(),
   });
   const router: Router = Deceiver(Router);
-  const route: ActivatedRouteSnapshot = Deceiver(ActivatedRouteSnapshot, {
-    paramMap,
-  });
   const profileService: ProfileService = Deceiver(ProfileService, {
     getProfileRoute: jest.fn(),
   });
 
-  let service: ExpertDashboardResolverService;
+  let service: ExpertDashboardService;
   let store: Store<any>;
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +25,7 @@ describe('ExpertDashboardResolverService', () => {
     });
     store = TestBed.get(Store);
     dispatchLoggedUser(store, { isCompany: false, account: { id: '123' } });
-    service = new ExpertDashboardResolverService(viewsService, router, profileService, store);
+    service = new ExpertDashboardService(viewsService, router, profileService, store);
   });
 
   beforeEach(() => {
@@ -50,7 +41,7 @@ describe('ExpertDashboardResolverService', () => {
     (viewsService.getWebExpertProfileRoute as jest.Mock).mockReturnValue(expertView);
 
     // expect result
-    service.resolve(route).subscribe(value => {
+    service.getExpertProfileData('fake expert').subscribe(value => {
       expect(value).toEqual(Mocks.expertProfileViewResult);
     });
   }));
@@ -59,11 +50,11 @@ describe('ExpertDashboardResolverService', () => {
     // prepare data
     const expertView = cold('-a|', { a: Mocks.expertProfileView1 });
 
-    // mock functoins
+    // mock functions
     (viewsService.getWebExpertProfileRoute as jest.Mock).mockReturnValue(expertView);
 
     // expect result
-    service.resolve(route).subscribe(value => {
+    service.getExpertProfileData('fake Expert').subscribe(value => {
       expect(value).toEqual(Mocks.expertProfileViewResult1);
     });
   }));

@@ -1,26 +1,36 @@
-.expert-dashboard-layout
+ng-container(*ngIf="data$ | async as data; else loading")
+  .expert-dashboard-layout
+    .container
+      plat-dashboard-profile-header(
+        [isLoading]='isLoading$ | async',
+        [avatarToken]='getAvatarToken(data)',
+        [name]='getName(data)',
+        [links]='getLinks(data)',
+        [description]='getDescription(data)',
+        [isOwnProfile]='getIsOwnProfile(data)',
+        [expertId]='getExpertId(data)',
+        [isLogged]='getIsLogged(data)',
+        [attachments]='getExpertDocuments(data)',
+        (editProfile)='editProfile(getExpertId(data))',
+        (openGallery)='onOpenGallery(getExpertDocuments(data))'
+      )
   .container
-    plat-dashboard-profile-header(
-      [avatarToken]='avatarToken',
-      [name]='name',
-      [links]='links',
-      [description]='description',
-      [isOwnProfile]='isOwnProfile',
-      [expertId]='expertId',
-      [isLogged]='isLogged',
-      [attachments]='expertDocuments',
-      (editProfile)='editProfile()',
-      (openGallery)='onOpenGallery()'
+    h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
+    plat-expert-dashboard-consultations(
+      [consultations]='getConsultations(data)',
+      [isOwnProfile]='getIsOwnProfile(data)',
+      [expertId]="getExpertId(data)",
+      [isCompany]="getIsCompany(data)",
+      [isLogged]="getIsLogged(data)",
+      [accountId]="getExpertId(data)",
+      (addConsultation)='addConsultation(getExpertId(data))',
+      (openConsultationDetails) = 'openConsultationDetail($event, getExpertId(data))'
     )
-.container
-  h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
-  plat-expert-dashboard-consultations(
-    [consultations]='consultations',
-    [isOwnProfile]='isOwnProfile',
-    [expertId]="expertId",
-    [isCompany]="isCompany",
-    [isLogged]="isLogged",
-    [accountId]="expertId",
-    (addConsultation)='addConsultation()',
-    (openConsultationDetails) = 'openConsultationDetail($event, expertId)'
-  )
+
+ng-template(#loading)
+  .expert-dashboard-layout--loading
+    plat-consultation-row-loader
+    .consultation-list
+      plat-list-item-loader
+      plat-list-item-loader
+      plat-list-item-loader

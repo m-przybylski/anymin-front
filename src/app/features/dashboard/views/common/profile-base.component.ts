@@ -28,13 +28,13 @@ export class ProfileBaseComponent implements OnDestroy {
    * @param component component to be opened
    * @param options data that is passed to the component
    */
-  protected openModalWithReload = <T>(component: T, options?: NgbModalOptions): void => {
+  protected openModalWithReload<T>(component: T, options?: NgbModalOptions): void {
     this.openModal(component, options)
       .result.then((changed: boolean) => {
         this.reloadIfNeeded(changed);
       })
       .catch(() => undefined);
-  };
+  }
 
   /**
    * helper for opening modal.
@@ -42,12 +42,12 @@ export class ProfileBaseComponent implements OnDestroy {
    * @param options data that is passed to the component
    * @returns modal handler used to pass parameters
    */
-  protected openModal = <T>(component: T, options?: NgbModalOptions): NgbModalRef => {
+  protected openModal<T>(component: T, options?: NgbModalOptions): NgbModalRef {
     const modalRef = this.modalService.open(component, options);
     this.registerModalRef(modalRef);
 
     return modalRef;
-  };
+  }
 
   /** helper for reloading page. Reload by navigating to the same route */
   protected reloadIfNeeded = (reload: boolean | undefined): void => {
@@ -83,11 +83,19 @@ export class ProfileBaseComponent implements OnDestroy {
       parent: this.injector,
     });
 
+  /**
+   * Keep track of opened modals so it can be closed when main component
+   * is destroyed for example by navigating to different route.
+   * @param ngbModalRef modal reference for future use
+   */
   private registerModalRef(ngbModalRef: NgbModalRef): void {
     const unregisterModalRef = (): void => {
       this.modalRefs = this.modalRefs.filter(modal => modal !== ngbModalRef);
     };
     this.modalRefs = [...this.modalRefs, ngbModalRef];
+    /**
+     * hook to modal close to remove closed modal from the list
+     */
     ngbModalRef.result.then(unregisterModalRef, unregisterModalRef);
   }
 }

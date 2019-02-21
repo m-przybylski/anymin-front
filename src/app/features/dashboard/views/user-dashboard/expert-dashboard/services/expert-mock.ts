@@ -2,7 +2,7 @@
 // tslint:disable:max-file-line-count
 import { EmploymentWithExpertProfile, ExpertProfileView, GetProfileWithDocuments } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { IExpertProfile } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard-resolver.service';
+import { IExpertProfile } from '@platform/features/dashboard/views/user-dashboard/expert-dashboard/services/expert-dashboard.service';
 import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 
 export const expertProfileView: ExpertProfileView = {

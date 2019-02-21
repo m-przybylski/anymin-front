@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@platform/shared/shared.module';
-import { ExpertDashboardResolverService } from './services/expert-dashboard-resolver.service';
 import { ExpertDashboardConsultationsComponent } from './expert-dashboard-consultation/expert-dashboard-consultation.component';
 import { ExpertDashboardComponent } from './expert-dashboard.view.component';
 import { DashboardComponentsModule } from '../../../components/components.module';
 import { RouterModule } from '@angular/router';
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { WarningInformationModule } from '@platform/shared/components/warning-information/warning-information.module';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { ExpertDashboardEffects } from './effects/expert-dashboard.effects';
+import { ExpertDashboardService } from './services/expert-dashboard.service';
+import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 
 @NgModule({
   declarations: [ExpertDashboardComponent, ExpertDashboardConsultationsComponent],
@@ -16,16 +21,17 @@ import { WarningInformationModule } from '@platform/shared/components/warning-in
       {
         path: '',
         component: ExpertDashboardComponent,
-        resolve: { expert: ExpertDashboardResolverService },
-        runGuardsAndResolvers: 'always',
       },
     ]),
+    StoreModule.forFeature('expertProfile', reducer),
+    EffectsModule.forFeature([ExpertDashboardEffects]),
     CommonModule,
     SharedModule,
     ExpertAvailabilityModule,
     DashboardComponentsModule,
+    ContentLoaderModule,
     WarningInformationModule,
   ],
-  providers: [ExpertDashboardResolverService],
+  providers: [ExpertDashboardEffects, ExpertDashboardService],
 })
 export class ExpertDashboardModule {}

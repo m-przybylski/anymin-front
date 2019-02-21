@@ -1,4 +1,4 @@
-import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import {
   ViewsService,
@@ -8,14 +8,13 @@ import {
   GetProfileWithDocuments,
 } from '@anymind-ng/api';
 import { Observable, forkJoin } from 'rxjs';
-import { RouterPaths } from '@platform/shared/routes/routes';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 import { map, take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 
 @Injectable()
-export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDashboardResolverData<IExpertProfile>> {
+export class ExpertDashboardService {
   constructor(
     private views: ViewsService,
     private router: Router,
@@ -23,9 +22,7 @@ export class ExpertDashboardResolverService implements Resolve<IExpertCompanyDas
     private store: Store<fromCore.IState>,
   ) {}
 
-  public resolve(route: ActivatedRouteSnapshot): Observable<IExpertCompanyDashboardResolverData<IExpertProfile>> {
-    /** get expert id from route */
-    const expertId = route.paramMap.get(RouterPaths.dashboard.user.profile.params.expertId) as string;
+  public getExpertProfileData(expertId: string): Observable<IExpertCompanyDashboardResolverData<IExpertProfile>> {
     /** get session to resolve logged user */
     const session$ = this.store.pipe(
       select(fromCore.getSession),

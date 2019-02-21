@@ -27,6 +27,8 @@ export class DashboardProfileHeaderComponent {
   public companyId?: string;
   @Input()
   public filesLength?: string;
+  @Input()
+  public isLoading: boolean;
 
   @Output()
   public editProfile: EventEmitter<void> = new EventEmitter();
