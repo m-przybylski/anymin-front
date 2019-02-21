@@ -1,46 +1,19 @@
-import { Component, Input } from '@angular/core';
-import { TooltipService } from '@platform/shared/components/tooltip/tooltip.service';
+import { Component, Inject, InjectionToken } from '@angular/core';
 import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
+import { DESCRIPTION, DOM_DESTINATION, OFFSETS } from '@platform/shared/components/tooltip/tooltip-injector.service';
 import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
-import { catchError, take } from 'rxjs/operators';
-import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
-import { Logger } from '@platform/core/logger';
-import { EMPTY } from 'rxjs';
+import { Animations } from '@platform/shared/animations/animations';
 
 @Component({
   selector: 'plat-tooltip-content',
   templateUrl: './tooltip-content.component.html',
   styleUrls: ['./tooltip-content.component.sass'],
+  animations: [Animations.tooltipAnimation],
 })
-export class TooltipContentComponent extends Logger {
-  @Input()
-  public description: string;
-
-  @Input()
-  public DOMDestination: TooltipComponentDestinationEnum;
-
-  @Input()
-  public tooltipHeaderPosition: ITooltipModalOffsets;
-
+export class TooltipContentComponent {
   constructor(
-    private tooltipService: TooltipService,
-    private alertService: AlertService,
-    loggerFactory: LoggerFactory,
-  ) {
-    super(loggerFactory.createLoggerService('TooltipContentComponent'));
-
-    this.tooltipService.tooltipPosition
-      .pipe(
-        catchError(err => {
-          this.loggerService.error('Can nog get tooltip position: ', err);
-          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-
-          return EMPTY;
-        }),
-        take(1),
-      )
-      .subscribe(tooltipHeaderOffset => {
-        this.tooltipHeaderPosition = tooltipHeaderOffset;
-      });
-  }
+    @Inject(DESCRIPTION) public description: InjectionToken<string>,
+    @Inject(DOM_DESTINATION) public DOMDestination: InjectionToken<TooltipComponentDestinationEnum>,
+    @Inject(OFFSETS) public tooltipHeaderPosition: InjectionToken<ITooltipModalOffsets>,
+  ) {}
 }

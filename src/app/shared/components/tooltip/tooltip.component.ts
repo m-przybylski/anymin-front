@@ -1,7 +1,17 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Injector, Input, OnDestroy } from '@angular/core';
 import { TooltipContentComponent } from '@platform/shared/components/tooltip/tooltip-content/tooltip-content.component';
-import { TooltipInjectorService } from '@platform/shared/components/tooltip/tooltip-injector.service';
+import {
+  DESCRIPTION,
+  DOM_DESTINATION,
+  OFFSETS,
+  TooltipInjectorService,
+} from '@platform/shared/components/tooltip/tooltip-injector.service';
+import { catchError, take } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 import { TooltipService } from '@platform/shared/components/tooltip/tooltip.service';
+import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
+import { Logger } from '@platform/core/logger';
+import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
 
 export enum TooltipComponentDestinationEnum {
   COMPONENT,
@@ -13,9 +23,9 @@ export enum TooltipComponentDestinationEnum {
   selector: 'plat-tooltip',
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.sass'],
-  providers: [TooltipInjectorService, TooltipService],
+  providers: [TooltipInjectorService],
 })
-export class TooltipComponent implements OnDestroy {
+export class TooltipComponent extends Logger implements OnDestroy {
   @Input()
   public iconClass = 'questionmark';
 
@@ -27,18 +37,57 @@ export class TooltipComponent implements OnDestroy {
 
   public isVisible = false;
 
-  constructor(private domService: TooltipInjectorService) {}
+  private tooltipHeaderOffset: ITooltipModalOffsets;
+
+  constructor(
+    private domService: TooltipInjectorService,
+    private alertService: AlertService,
+    private tooltipService: TooltipService,
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory.createLoggerService('TooltipComponent'));
+  }
 
   public toggleTooltip = (isVisible: boolean): void => {
     this.isVisible = isVisible;
+
     if (this.isVisible) {
-      this.domService.appendComponentToBody(TooltipContentComponent, this.tooltipText, this.tooltipType);
+      this.getTooltipHeaderPosition();
     } else {
-      this.domService.removeComponentFromBody();
+      this.domService.removeComponent();
     }
   };
 
   public ngOnDestroy(): void {
-    this.domService.removeComponentFromBody();
+    this.domService.removeComponent();
   }
+
+  private getTooltipHeaderPosition = (): void => {
+    this.tooltipService.tooltipPosition
+      .pipe(
+        catchError(err => {
+          this.loggerService.error('Can nog get tooltip position: ', err);
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+
+          return EMPTY;
+        }),
+        take(1),
+      )
+      .subscribe(res => {
+        this.tooltipHeaderOffset = res;
+        this.createTooltipContentComponent();
+      });
+  };
+
+  private createTooltipContentComponent = (): void => {
+    const injector = Injector.create({
+      providers: [
+        { provide: DESCRIPTION, useValue: this.tooltipText },
+        { provide: DOM_DESTINATION, useValue: this.tooltipType },
+        { provide: OFFSETS, useValue: this.tooltipHeaderOffset },
+      ],
+    });
+
+    this.domService.createComponentRef(TooltipContentComponent, injector);
+  };
 }

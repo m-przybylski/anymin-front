@@ -90,4 +90,11 @@ export class Animations {
       ]),
     ]),
   ];
+  public static tooltipAnimation: AnimationTriggerMetadata[] = [
+    trigger('animation', [
+      transition(':enter', [
+        animate(200, keyframes([style({ opacity: 0, offset: 0 }), style({ opacity: 1, offset: 1 })])),
+      ]),
+    ]),
+  ];
 }

@@ -1,5 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { TooltipService } from '@platform/shared/components/tooltip/tooltip.service';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 
 export interface ITooltipModalOffsets {
   modalRelative: {
@@ -18,6 +19,9 @@ export class TooltipDirective implements OnInit {
 
   @Input()
   public tooltipHeader: HTMLElement;
+
+  @Input()
+  public tooltipType: TooltipComponentDestinationEnum;
 
   private isVisible = false;
   private tooltipOffset: ITooltipModalOffsets;
@@ -42,20 +46,36 @@ export class TooltipDirective implements OnInit {
       this.onClick.emit(this.isVisible);
 
       this.mapTooltipOffsetValues();
-
-      this.tooltipService.pushTooltipPosition(this.tooltipOffset);
     });
   };
 
   private mapTooltipOffsetValues = (): void => {
     const tooltipBodyRelativeOffsets = this.element.nativeElement.getBoundingClientRect();
 
-    this.tooltipOffset = {
-      modalRelative: {
-        offsetLeft: this.element.nativeElement.offsetLeft,
-        offsetTop: this.element.nativeElement.offsetTop,
-      },
-      bodyRelative: tooltipBodyRelativeOffsets,
-    };
+    switch (this.tooltipType) {
+      case TooltipComponentDestinationEnum.COMPONENT:
+        this.tooltipOffset = {
+          modalRelative: {
+            offsetLeft: 0,
+            offsetTop: 0,
+          },
+          bodyRelative: tooltipBodyRelativeOffsets,
+        };
+        this.tooltipService.pushTooltipPosition(this.tooltipOffset);
+
+        break;
+
+      case TooltipComponentDestinationEnum.BODY:
+      case TooltipComponentDestinationEnum.MODAL:
+      default:
+        this.tooltipOffset = {
+          modalRelative: {
+            offsetLeft: this.element.nativeElement.offsetLeft,
+            offsetTop: this.element.nativeElement.offsetTop,
+          },
+          bodyRelative: tooltipBodyRelativeOffsets,
+        };
+        this.tooltipService.pushTooltipPosition(this.tooltipOffset);
+    }
   };
 }

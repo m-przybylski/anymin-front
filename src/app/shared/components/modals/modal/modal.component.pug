@@ -9,11 +9,12 @@
       (backwardClick)="onBackClick()"
       )
 
-      .modal-component__content(modalAnimationComponent, #contentModalElement)
-        .modal-component__content--loading(*ngIf="isLoading")
-          span(plat-icon, iconClass='loading')
-        div(contentHeightAnimation, *ngIf="!isLoading")
-          ng-content
+      .modal-component__hidden-content
+        .modal-component__content(modalAnimationComponent, #contentModalElement)
+          .modal-component__content--loading(*ngIf="isLoading")
+            span(plat-icon, iconClass='loading')
+          div(contentHeightAnimation, *ngIf="!isLoading")
+            ng-content
 
-      .modal-component__footer(#footerModalElement)
-        ng-content(select=".modal-footer")
+        .modal-component__footer(#footerModalElement)
+          ng-content(select=".modal-footer")

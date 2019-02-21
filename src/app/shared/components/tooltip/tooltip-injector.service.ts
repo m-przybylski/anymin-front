@@ -1,40 +1,53 @@
 // tslint:disable:no-any
-import { Injector, Injectable, ComponentFactoryResolver, ApplicationRef, ElementRef } from '@angular/core';
+import {
+  Injector,
+  Injectable,
+  ComponentFactoryResolver,
+  ApplicationRef,
+  ElementRef,
+  InjectionToken,
+} from '@angular/core';
 import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
+import { LoggerFactory } from '@anymind-ng/core';
+import { Logger } from '@platform/core/logger';
+
+export const DESCRIPTION: InjectionToken<string> = new InjectionToken('Tooltip content description');
+export const DOM_DESTINATION: InjectionToken<TooltipComponentDestinationEnum> = new InjectionToken(
+  'Tooltip DOM destination',
+);
+export const OFFSETS: InjectionToken<ITooltipModalOffsets> = new InjectionToken('Tooltip header offsets');
 
 @Injectable()
-export class TooltipInjectorService {
+export class TooltipInjectorService extends Logger {
   private componentRef: any;
+  // private tooltipHeaderOffset: ITooltipModalOffsets;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private element: ElementRef,
-    private injector: Injector,
-  ) {}
+    loggerFactory: LoggerFactory,
+  ) {
+    super(loggerFactory.createLoggerService('TooltipContentComponent'));
+  }
 
-  public appendComponentToBody(
-    component: any,
-    descriptionInput: string,
-    DOMdestination: TooltipComponentDestinationEnum,
-  ): void {
+  public createComponentRef(component: any, injector: Injector): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    this.componentRef = componentFactory.create(this.injector);
-    this.componentRef.instance.DOMDestination = DOMdestination;
-    this.componentRef.instance.description = descriptionInput;
+    this.componentRef = componentFactory.create(injector);
 
-    this.setAppendDetection(DOMdestination);
+    this.appendComponentToDOMDestination(injector.get(DOM_DESTINATION));
     this.appRef.attachView(this.componentRef.hostView);
   }
 
-  public removeComponentFromBody(): void {
+  public removeComponent(): void {
     if (this.componentRef !== undefined) {
       this.appRef.detachView(this.componentRef.hostView);
       this.componentRef.destroy();
     }
   }
 
-  private setAppendDetection = (type: TooltipComponentDestinationEnum): void => {
+  private appendComponentToDOMDestination = (type: TooltipComponentDestinationEnum): void => {
     const domElem = this.componentRef.hostView.rootNodes[0];
 
     switch (type) {
