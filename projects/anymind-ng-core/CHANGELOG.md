@@ -1,5 +1,10 @@
 ## AnyMind Angular Core library changelog
 
+<a name="February 21, 2019"></a>
+### v0.12.27 - February 21, 2019
+Fix:
+* fix file download url in `MessagePipe`
+
 <a name="February 13, 2019"></a>
 ### v0.12.24 - February 13, 2019
 Feature:

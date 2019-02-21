@@ -100,7 +100,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
     trKey: 'NAVBAR_USER_MENU.PAYMENT_METHODS',
     url: '/dashboard/user/payments',
     iconClass: 'account-payments',
-    isUser: false,
+    isUser: true,
     isExpert: true,
     isCompany: true,
     group: NavigationItemGroupsEnum.SETTINGS,

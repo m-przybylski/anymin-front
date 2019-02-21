@@ -74,10 +74,11 @@ export class MessagePipe implements PipeTransform {
   }
 
   private handleImageMessage = (message: roomEvents.CustomMessageSent): string => {
+    const filePreviewUrl: string = this.getCorrectUrl(this.resolveFilePreviewUrl(message.context.content));
     const fileUrl: string = this.getCorrectUrl(this.resolveFileUrl(message.context.content));
 
     return (
-      `<img class="message-image" src="${fileUrl}"/><a href="${fileUrl}" target="_blank">` +
+      `<img class="message-image" src="${filePreviewUrl}"/><a href="${fileUrl}" target="_blank">` +
       `<span class="icon icon-download"></span></a>`
     );
   };
@@ -118,5 +119,8 @@ export class MessagePipe implements PipeTransform {
   };
 
   private resolveFileUrl = (fileId: string): string =>
+    this.coreConfig.urls.files + this.coreConfig.urls.fileDownload.replace('%s', fileId);
+
+  private resolveFilePreviewUrl = (fileId: string): string =>
     this.coreConfig.urls.files + this.coreConfig.urls.filePreviewDownload.replace('%s', fileId);
 }

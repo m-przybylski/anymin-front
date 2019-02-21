@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PayoutMethodComponent } from '@platform/features/dashboard/views/user-dashboard/payments/components/payout-method/payout-method.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
@@ -17,6 +17,8 @@ import { select, Store } from '@ngrx/store';
 import * as fromPayments from './reducers';
 import { FetchPaymentsDetailsInitAction } from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-init.actions';
 import { LoadPaymentsMethodOnDeleteSuccessAction } from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-api.actions';
+import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
+import * as fromCore from '@platform/core/reducers';
 
 @Component({
   selector: 'plat-payments',
@@ -30,14 +32,15 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
   public currentPaymentMethodId = '';
   public promoCodeList$ = this.store.pipe(select(fromPayments.getPromoCodesList));
   public paymentsCardList$ = this.store.pipe(select(fromPayments.getPaymentsMethodList));
-
   public isPending$ = this.store.pipe(select(fromPayments.isPaymentMethodsPending));
+  public isSettlementSettingsVisible: boolean;
+
   private currentPromoCodeId = '';
   private currentPaymentCardId = '';
   private destroyed$ = new Subject<void>();
 
   constructor(
-    private store: Store<fromPayments.IState>,
+    private store: Store<fromPayments.IState | fromCore.IState>,
     private route: ActivatedRoute,
     private alertService: AlertService,
     private ngbModalService: NgbModal,
@@ -54,6 +57,9 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
     });
 
     this.assignStoreData();
+    this.store.pipe(select(fromCore.getUserType)).subscribe(userType => {
+      this.isSettlementSettingsVisible = userType !== UserTypeEnum.USER;
+    });
   }
   public ngOnDestroy(): void {
     this.destroyed$.next();
