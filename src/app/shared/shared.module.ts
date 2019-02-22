@@ -28,6 +28,7 @@ import { CookieNotificationModule } from '@platform/shared/components/cookie-not
 import { InvitationsGuard } from '@platform/features/invitations/invitations.guard';
 import { InvitationsComponent } from '@platform/features/invitations/invitations.component';
 import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
+import { CopyCodeToClipboard } from '@platform/shared/components/modals/generate-widget/components/copy-generated-code/copy-generated-code.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -54,8 +55,10 @@ import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.modul
     TagListComponent,
     SettingOptionComponent,
     InvitationsComponent,
+    CopyCodeToClipboard,
   ],
   exports: [
+    CopyCodeToClipboard,
     AnymindComponentsModule,
     CookieNotificationModule,
     TranslateModule,

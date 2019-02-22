@@ -30,6 +30,7 @@
   "ALERT.CANNOT_ACCESS_CAMERA": "No camera access. If you haven't allowed camera access yet, you can do it in your browser settings. If that's not the case, try restarting your computer.",
   "ALERT.CONSULTATION_CONNECTION_BROKEN": "Consultation has been interrupted. Your device has changed network or lost connection.",
   "ALERT.SESSION_LOGGED_OUT.SUCCESS": "Logged out correctly",
+  "ALERT.PROFILE_COPIED": "Profile address copied",
   "APP.COOKIE.BTN.AGREE": "Enter the site",
   "APP.COOKIE.DESCRIPTION": "This website uses cookies to collect statistics about your behavior and provide you with personalized content and advertisement tailored to suit your preferences. By clicking ‘Enter the site’ or closing this window, you agree to these terms. Find more information in our <a href='https://AnyMind.com/polityka-prywatnosci/' target='_blank'>Privacy policy</a>.",
   "COMMUNICATOR.MODALS.ANSWER": "Answer",

@@ -36,15 +36,19 @@ export class GenerateWidgetService extends Logger {
       }),
     });
   }
-  public saveToClipboard(textToCopy: string): void {
-    this.clipboardService
-      .writeText(textToCopy)
-      .then(this.showSuccessOnSuccess.bind(this), this.showWarningOnFailure.bind(this));
+
+  public saveToClipboard(textToCopy: string, successMsg?: string): void {
+    this.clipboardService.writeText(textToCopy).then(() => {
+      this.onSuccess.bind(this)(successMsg);
+    }, this.onFailure.bind(this));
   }
-  private showWarningOnFailure(): void {
+
+  private onFailure(): void {
     this.alertService.pushWarningAlert('GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.FAIL');
   }
-  private showSuccessOnSuccess(): void {
-    this.alertService.pushSuccessAlert('GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS');
+
+  private onSuccess(successMsg?: string): void {
+    const msg = successMsg || 'GENERATE_WIDGET_MODAL.CLIPBOARD_COPY.SUCCESS';
+    this.alertService.pushSuccessAlert(msg);
   }
 }

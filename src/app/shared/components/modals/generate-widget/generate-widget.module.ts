@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { GenerateWidgetComponent } from './components/generate-widget/generate-widget.component';
-import { GenerateWidgetService } from './services/generate-widget.service';
 import { GenerateWidgetDataService } from './services/generate-widget.data.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -15,14 +14,16 @@ import { UserAvatarModule } from '@platform/shared/components/user-avatar/user-a
 import { ExpertAvailabilityModule } from '@platform/features/dashboard/components/expert-availability/expert-availability.module';
 import { GenerateWidgetButtonTypeComponent } from './components/generate-widget-button-type/generate-widget-button-type.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CopyCodeToClipbord } from './components/copy-generated-code/copy-generated-code.component';
+import { SharedModule } from '@platform/shared/shared.module';
+import { GenerateWidgetService } from '@platform/shared/components/modals/generate-widget/services/generate-widget.service';
 
 @NgModule({
-  declarations: [GenerateWidgetComponent, GenerateWidgetButtonTypeComponent, CopyCodeToClipbord],
+  declarations: [GenerateWidgetComponent, GenerateWidgetButtonTypeComponent],
   imports: [
     CommonModule,
     ModalComponentsModule,
     ButtonModule,
+    SharedModule,
     IconModule,
     StepperModule,
     UserAvatarModule,
@@ -32,7 +33,7 @@ import { CopyCodeToClipbord } from './components/copy-generated-code/copy-genera
     TranslateModule.forChild(),
     ExpertAvailabilityModule,
   ],
-  providers: [GenerateWidgetService, GenerateWidgetDataService],
+  providers: [GenerateWidgetDataService, GenerateWidgetService],
   entryComponents: [GenerateWidgetComponent],
 })
 export class GenerateWidgetModule {}

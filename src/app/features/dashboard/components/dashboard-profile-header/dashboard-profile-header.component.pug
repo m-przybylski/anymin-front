@@ -7,11 +7,10 @@
     .profile-layout__details
       .profile-layout__details-name-wrapper
         span.profile-layout__details-name {{name}}
-        .profile-layout__icons(*ngIf='isLogged')
-          //- TODO uncomment this after Beta release ends
-          //-a.profile-layout__icons-button(plat-icon-button)
+        .profile-layout__icons()
+          a.profile-layout__icons-button([plat-copy-to-clipboard]="currentUrl", [onCopySuccessMsg]="'ALERT.PROFILE_COPIED'", plat-icon-button)
             span(plat-icon iconClass='share')
-          a(*ngIf='isOwnProfile; else likeButton',plat-stroked-button, (click)='editProfileClick()').profile-layout__icons-button {{'EXPERT_DASHBOARD.EDIT' | translate}}
+          a(*ngIf='isLogged && isOwnProfile; else likeButton',plat-stroked-button, (click)='editProfileClick()').profile-layout__icons-button {{'EXPERT_DASHBOARD.EDIT' | translate}}
       .profile-layout__details-available
         plat-expert-availability(*ngIf='expertId', [expertId]='expertId')
       plat-social-links([links]='links')

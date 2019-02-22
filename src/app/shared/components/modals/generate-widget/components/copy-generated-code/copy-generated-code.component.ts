@@ -4,13 +4,17 @@ import { Directive, Input, HostListener } from '@angular/core';
 @Directive({
   selector: '[plat-copy-to-clipboard]',
 })
-export class CopyCodeToClipbord {
+export class CopyCodeToClipboard {
   @Input('plat-copy-to-clipboard')
   public textToCopy: string;
+
+  @Input('onCopySuccessMsg')
+  public successMsg?: string;
+
   constructor(private generateWidgetService: GenerateWidgetService) {}
 
   @HostListener('click')
   public onClick(): void {
-    this.generateWidgetService.saveToClipboard(this.textToCopy);
+    this.generateWidgetService.saveToClipboard(this.textToCopy, this.successMsg);
   }
 }
