@@ -52,7 +52,7 @@ export class InputNumericComponent {
   public inputMask = '';
 
   @Input()
-  public tooltipType: TooltipComponentDestinationEnum;
+  public tooltipType?: TooltipComponentDestinationEnum;
 
   public isFocused = false;
 

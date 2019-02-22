@@ -21,8 +21,6 @@ export const OFFSETS: InjectionToken<ITooltipModalOffsets> = new InjectionToken(
 @Injectable()
 export class TooltipInjectorService extends Logger {
   private componentRef: any;
-  // private tooltipHeaderOffset: ITooltipModalOffsets;
-
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,

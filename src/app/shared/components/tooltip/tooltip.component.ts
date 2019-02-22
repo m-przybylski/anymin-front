@@ -37,8 +37,6 @@ export class TooltipComponent extends Logger implements OnDestroy {
 
   public isVisible = false;
 
-  private tooltipHeaderOffset: ITooltipModalOffsets;
-
   constructor(
     private domService: TooltipInjectorService,
     private alertService: AlertService,
@@ -74,17 +72,16 @@ export class TooltipComponent extends Logger implements OnDestroy {
         take(1),
       )
       .subscribe(res => {
-        this.tooltipHeaderOffset = res;
-        this.createTooltipContentComponent();
+        this.createTooltipContentComponent(res);
       });
   };
 
-  private createTooltipContentComponent = (): void => {
+  private createTooltipContentComponent = (tooltipHeaderOffset: ITooltipModalOffsets): void => {
     const injector = Injector.create({
       providers: [
         { provide: DESCRIPTION, useValue: this.tooltipText },
         { provide: DOM_DESTINATION, useValue: this.tooltipType },
-        { provide: OFFSETS, useValue: this.tooltipHeaderOffset },
+        { provide: OFFSETS, useValue: tooltipHeaderOffset },
       ],
     });
 

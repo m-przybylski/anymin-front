@@ -21,6 +21,6 @@ export class ActivitiesBalanceComponent {
   @Input()
   public activityListType: ActivityListTypeEnum;
 
-  public tooltipType = TooltipComponentDestinationEnum.COMPONENT;
+  public tooltipType = TooltipComponentDestinationEnum.BODY;
   public activityListTypeEnum = ActivityListTypeEnum;
 }
