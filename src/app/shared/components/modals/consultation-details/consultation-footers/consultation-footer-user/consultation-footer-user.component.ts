@@ -144,8 +144,10 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
 
   public onCall = (): void => {
     if (this.defaultPayment.creditCardId || this.defaultPayment.promoCodeId || this.checkIsFreeConsultation()) {
-      this.isCallButtonLoading = true;
-      this._actionTaken$.next('makeCall');
+      if (!this.isCallButtonLoading) {
+        this.isCallButtonLoading = true;
+        this._actionTaken$.next('makeCall');
+      }
     } else {
       this.redirectToPayments();
     }
