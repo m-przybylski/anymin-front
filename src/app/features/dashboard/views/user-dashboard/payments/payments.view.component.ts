@@ -11,7 +11,7 @@ import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { catchError, filter, takeUntil } from 'rxjs/operators';
 import { PromoCodeComponent } from '@platform/shared/components/modals/payments/promo-code/promo-code.component';
 import { select, Store } from '@ngrx/store';
 import * as fromPayments from './reducers';
@@ -30,7 +30,10 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
   public paymentsCardFormGroup = new FormGroup({});
   public paymentsCardControlName = 'paymentsCardControlName';
   public currentPaymentMethodId = '';
-  public promoCodeList$ = this.store.pipe(select(fromPayments.getPromoCodesList));
+  public promoCodeList$ = this.store.pipe(
+    select(fromPayments.getPromoCodesList),
+    filter(promoCode => new Date(promoCode.expiresAt).getTime() > Date.now()),
+  );
   public paymentsCardList$ = this.store.pipe(select(fromPayments.getPaymentsMethodList));
   public isPending$ = this.store.pipe(select(fromPayments.isPaymentMethodsPending));
   public isSettlementSettingsVisible: boolean;
@@ -61,6 +64,7 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
       this.isSettlementSettingsVisible = userType !== UserTypeEnum.USER;
     });
   }
+
   public ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
