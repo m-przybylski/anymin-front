@@ -119,6 +119,7 @@ export class CreateCallService extends Logger {
       const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
       summaryModal.componentInstance.currentClientCall = currentClientCall;
     }
+    this.soundsService.callConnectingSound().stop();
     this.soundsService
       .playCallEnded()
       .then(
