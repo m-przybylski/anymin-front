@@ -10,9 +10,9 @@ import { provideMockFactoryLogger } from 'testing/testing';
 import { Router } from '@angular/router';
 import { Deceiver } from 'deceiver-core';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
-import { cold } from 'jasmine-marbles';
 import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
 import { Observable } from 'rxjs';
+import { cold } from 'jasmine-marbles';
 
 @Pipe({
   name: 'translate',
@@ -75,8 +75,11 @@ describe('ConsultationFooterUserComponent', () => {
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
+    consultationFooterUserComponent.ngOnInit();
 
-    expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.notAvailable);
+    expect(consultationFooterUserComponent.middlePanel).toBeObservable(
+      cold('(a|)', { a: MiddlePanelStatusTypes.notAvailable }),
+    );
   });
   it('should return MiddlePanelStatusTypes.freeMinute when user is not logged', () => {
     data = {
@@ -95,8 +98,11 @@ describe('ConsultationFooterUserComponent', () => {
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
+    consultationFooterUserComponent.ngOnInit();
 
-    expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.freeMinute);
+    expect(consultationFooterUserComponent.middlePanel).toBeObservable(
+      cold('(a|)', { a: MiddlePanelStatusTypes.freeMinute }),
+    );
   });
   it('should return MiddlePanelStatusTypes.freeMinute when user is not logged', () => {
     data = {
@@ -115,8 +121,11 @@ describe('ConsultationFooterUserComponent', () => {
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
+    consultationFooterUserComponent.ngOnInit();
 
-    expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.freeMinute);
+    expect(consultationFooterUserComponent.middlePanel).toBeObservable(
+      cold('(a|)', { a: MiddlePanelStatusTypes.freeMinute }),
+    );
   });
 
   it('should return MiddlePanelStatusTypes.paymentCard when user has card assigned', () => {
@@ -137,8 +146,11 @@ describe('ConsultationFooterUserComponent', () => {
     };
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
+    consultationFooterUserComponent.ngOnInit();
 
-    expect(consultationFooterUserComponent.middlePanel).toEqual(MiddlePanelStatusTypes.paymentCard);
+    expect(consultationFooterUserComponent.middlePanel).toBeObservable(
+      cold('(a|)', { a: MiddlePanelStatusTypes.paymentCard }),
+    );
   });
 
   it('should return true isExpertAvailable if userId is not provided', () => {

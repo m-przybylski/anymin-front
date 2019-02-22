@@ -5,6 +5,7 @@ exports[`ConsultationFooterUserComponent should return true isExpertAvailable if
   _actionTaken$={[Function Subject]}
   callStatusService={[Function Object]}
   data={[Function Object]}
+  data$={[Function Observable]}
   expertAvailabilityService={[Function Object]}
   isCallButtonLoading="false"
   isExpertAvailable$={[Function Observable]}

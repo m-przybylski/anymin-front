@@ -13,7 +13,7 @@ import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { ExpertAvailabilityService } from '@platform/features/dashboard/components/expert-availability/expert-availablity.service';
-import { startWith, map, share, takeUntil } from 'rxjs/operators';
+import { startWith, map, takeUntil, mergeMap } from 'rxjs/operators';
 import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
 import { Animations } from '@platform/shared/animations/animations';
 
@@ -44,28 +44,29 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     return this.data.defaultPaymentMethod;
   }
 
-  public get middlePanel(): MiddlePanelStatusTypes {
-    if (this.data.userId === undefined) {
-      return MiddlePanelStatusTypes.freeMinute;
-    }
+  public get middlePanel(): Observable<MiddlePanelStatusTypes> {
+    return this.data$.pipe(
+      map(data => {
+        if (data.userId === undefined) {
+          return MiddlePanelStatusTypes.freeMinute;
+        }
+        if (!data.isExpertAvailable) {
+          return MiddlePanelStatusTypes.notAvailable;
+        }
+        if (this.checkIsFreeConsultation(data)) {
+          return MiddlePanelStatusTypes.freeConsultation;
+        }
+        if (data.defaultPaymentMethod.promoCodeId !== undefined) {
+          return MiddlePanelStatusTypes.promoCodes;
+        }
 
-    if (!this.data.isExpertAvailable) {
-      return MiddlePanelStatusTypes.notAvailable;
-    }
+        if (data.defaultPaymentMethod.creditCardId === undefined) {
+          return MiddlePanelStatusTypes.noPaymentMethod;
+        }
 
-    if (this.checkIsFreeConsultation()) {
-      return MiddlePanelStatusTypes.freeConsultation;
-    }
-
-    if (this.data.defaultPaymentMethod.promoCodeId !== undefined) {
-      return MiddlePanelStatusTypes.promoCodes;
-    }
-
-    if (this.data.defaultPaymentMethod.creditCardId === undefined) {
-      return MiddlePanelStatusTypes.noPaymentMethod;
-    }
-
-    return MiddlePanelStatusTypes.paymentCard;
+        return MiddlePanelStatusTypes.paymentCard;
+      }),
+    );
   }
 
   public middlePanelStatusTypes = MiddlePanelStatusTypes;
@@ -98,6 +99,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();
   private moneyPipe = new MoneyToAmount(this.loggerService);
   private ngDestroy$ = new Subject<void>();
+  private data$: Observable<IConsultationFooterData>;
 
   constructor(
     @Inject(CONSULTATION_FOOTER_DATA) private data: IConsultationFooterData,
@@ -127,7 +129,18 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
       }
 
       return of(this.data.isExpertAvailable);
-    }).pipe(share());
+    });
+
+    this.data$ = of(this.data).pipe(
+      mergeMap(data =>
+        this.isExpertAvailable$.pipe(
+          map(isExpertAvailable => ({
+            ...data,
+            isExpertAvailable,
+          })),
+        ),
+      ),
+    );
 
     this.callStatusService.callStatus$.pipe(takeUntil(this.ngDestroy$)).subscribe((isCallStarted: boolean) => {
       if (isCallStarted) {
@@ -143,7 +156,11 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public onCall(): void {
-    if (this.defaultPayment.creditCardId || this.defaultPayment.promoCodeId || this.checkIsFreeConsultation()) {
+    if (
+      this.defaultPayment.creditCardId ||
+      this.defaultPayment.promoCodeId ||
+      this.checkIsFreeConsultation(this.data)
+    ) {
       if (!this.isCallButtonLoading) {
         this.isCallButtonLoading = true;
         this._actionTaken$.next('makeCall');
@@ -162,7 +179,7 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
     this._actionTaken$.complete();
   }
 
-  private checkIsFreeConsultation(): boolean {
-    return this.data.price !== undefined && this.data.price.value === 0;
+  private checkIsFreeConsultation(data: IConsultationFooterData): boolean {
+    return data.price !== undefined && data.price.value === 0;
   }
 }

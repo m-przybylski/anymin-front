@@ -3,7 +3,7 @@ plat-consultation-footer
   .consultation-footer__left-price
     plat-consultation-footer-price([grossPrice]='grossPrice')
   //middle part of the screen
-  .consultation-footer__left-text([ngSwitch]='middlePanel')
+  .consultation-footer__left-text([ngSwitch]='middlePanel | async')
     span.consultation-footer__text(*ngSwitchCase='middlePanelStatusTypes.freeMinute')
       span(plat-icon iconClass='information')
       p {{"CONSULTATION_DETAILS.FOOTER.FIRSTMINUTE" | translate}}
