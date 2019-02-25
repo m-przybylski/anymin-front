@@ -72,7 +72,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
   {
     trKey: 'NAVBAR_USER_MENU.ACTIVITIES',
     url: '/dashboard/user/activities/client',
-    iconClass: 'activities',
+    iconClass: 'list',
     isUser: false,
     isExpert: false,
     isCompany: false,
@@ -81,7 +81,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
   {
     trKey: 'NAVBAR_USER_MENU.ACTIVITIES',
     url: '/dashboard/user/activities/client',
-    iconClass: 'activities',
+    iconClass: 'list',
     isUser: true,
     isExpert: false,
     isCompany: false,
