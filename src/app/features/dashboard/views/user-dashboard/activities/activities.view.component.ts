@@ -29,7 +29,7 @@ export class ActivitiesViewComponent extends Logger implements OnDestroy {
     private activitiesService: ActivitiesService,
     private alertService: AlertService,
     private store: Store<fromCore.IState>,
-    private ngbModal: NgbModal,
+    private modalService: NgbModal,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ActivitiesViewComponent'));
@@ -42,7 +42,7 @@ export class ActivitiesViewComponent extends Logger implements OnDestroy {
       )
       .subscribe(isOpenFirstTime => {
         if (isOpenFirstTime) {
-          this.ngbModal.open(CreateProfileModalComponent);
+          this.modalService.open(CreateProfileModalComponent);
           this.store.dispatch(new AuthActions.UpdateFirstTimeLoginStatusAction());
         }
       });

@@ -23,7 +23,7 @@
       .profile-link
         ng-container([ngSwitch]="userType")
           a.profile-link__anchor(
-            (click)="openCreateProfileModalAsClient($event)",
+            (click)="openEditProfileModalAsClient($event)",
             plat-button-link,
             *ngSwitchCase="userTypeEnum.USER",
             [translate]="'NAVBAR_USER_MENU.EDIT'"

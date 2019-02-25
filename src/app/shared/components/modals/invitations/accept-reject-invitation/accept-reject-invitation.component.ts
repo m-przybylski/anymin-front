@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { INVITATION } from './services/accept-reject-invitation';
 import { AcceptRejectInvitationService } from './services/accept-reject-invitation.service';
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { finalize, switchMap, first } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
@@ -11,7 +11,11 @@ import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-ava
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
-import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import {
+  CreateProfileModalComponent,
+  IS_EXPERT_FORM,
+  SHOW_TOGGLE_EXPERT,
+} from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY, from, Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { InvitationsApiActions } from '@platform/features/dashboard/actions';
@@ -92,8 +96,17 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
               return this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal);
             }
             this.alertService.pushWarningAlert('INVITATIONS.ACCEPT_REJECT_MODAL.EXPERT_ACCOUNT_WARNING_ALERT');
-            const profileModalInstance = this.modalService.open(CreateProfileModalComponent);
-            profileModalInstance.componentInstance.isExpertForm = true;
+
+            const options: NgbModalOptions = {
+              injector: Injector.create({
+                providers: [
+                  { provide: IS_EXPERT_FORM, useValue: true },
+                  { provide: SHOW_TOGGLE_EXPERT, useValue: true },
+                ],
+              }),
+            };
+
+            const profileModalInstance = this.modalService.open(CreateProfileModalComponent, options);
 
             return from(profileModalInstance.result).pipe(
               switchMap(status => {

@@ -35,7 +35,7 @@ export class EditOrganizationModalComponent implements OnInit {
   public fileUploadTokensList: ReadonlyArray<string> = [];
   public fileCategory: FileCategoryEnum = FileCategoryEnum.EXPERT_FILE;
   public hasProfileConsultationsAsExpert = false;
-  public linksFormControl = new FormControl();
+  public linksFormControl = new FormControl([]);
 
   constructor(
     private activeModal: NgbActiveModal,

@@ -1,5 +1,5 @@
 // tslint:disable:no-object-literal-type-assertion
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertService, FormUtilsService, LoggerFactory, Alerts } from '@anymind-ng/core';
@@ -19,6 +19,7 @@ import { IBasicProfileData } from '@platform/shared/components/modals/profile/co
 import { waitForSession } from '@platform/core/utils/wait-for-session';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Logger } from '@platform/core/logger';
+import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 
 @Component({
   selector: 'plat-edit-profile',
@@ -53,14 +54,13 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
    * indicated if modal will store expert data or only
    * client data.
    */
-  @Input()
-  public isExpertForm = true;
   public isValidated = false;
 
   private isOpenedAsExpert = false;
-  private linksFormControl = new FormControl();
+  private linksFormControl = new FormControl([]);
 
   constructor(
+    @Optional() @Inject(IS_EXPERT_FORM) private isExpertForm = true,
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
     private formUtils: FormUtilsService,

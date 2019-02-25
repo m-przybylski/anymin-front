@@ -52,6 +52,8 @@
   "DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.LABEL": "Pełna nazwa",
   "DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.INPUT.INPUT_NAME.PLACEHOLDER": "Nazwa ogranizacji",
   "DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.HAS_GOT_CONSULTATION.ALERT": "Ponieważ posiadasz już konsultacje jako konsultant, od teraz staną się one konsultacjami organizacji.",
+  "DASHBOARD.CREATE_PROFILE.EDIT_PROFILE.TITLE": "Edytuj profil",
+  "DASHBOARD.CREATE_PROFILE.TITLE": "Utwórz profil",
   "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVITATIONS.ERROR": "Nie można pobrać zaproszeń, spróbuj ponownie później",
   "DASHBOARD.EXPERT_ACCOUNT.NAVBAR.VISIBILITY.SWITCH_BUTTON.ERROR": "Nie można przełączyć dostępności, spróbuj ponownie później",
   "DASHBOARD.SETTINGS.ANONYMITY.DESCRIPTION": "Łącz się z konsultantami anonimowo",

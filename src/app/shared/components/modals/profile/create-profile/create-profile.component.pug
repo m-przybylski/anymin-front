@@ -1,5 +1,5 @@
 plat-modal-component(
-[modalTrTitleHeader]="'EDIT_PROFILE.CREATE_TITLE'",
+[modalTrTitleHeader]="'DASHBOARD.CREATE_PROFILE.TITLE'",
 [isBackwardVisible]="currentModalStep === modalSteps.INVOICE_DETAILS",
 (backwardClick)="onBackwardClick()"
 )
@@ -34,15 +34,15 @@ plat-modal-component(
         )
 
     .modal-component__action
-      .client-type-wrapper
-        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="isExpertForm && !hasProfile && !isPayoutModal")
+      .client-type-wrapper([ngClass]="{'client-type-wrapper--center': showToggleExpert && !isPayoutModal}")
+        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="isExpertForm && !hasProfile && !isPayoutModal && !showToggleExpert")
           | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
 
-        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="!isExpertForm && !hasProfile")
+        a.button.button--link.button--small((click)="toggleIsExpertForm()", *ngIf="!isExpertForm")
           | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON' | translate }}
 
         am-core-submit-button(
-        *ngIf="!isExpertForm && !hasProfile; else createProfileButton",
+        *ngIf="!isExpertForm; else createProfileButton",
         (click)="onVerifyProfile()",
         [isSubmitType]="false",
         [titleText]="'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.SAVE_PROFILE'",
@@ -51,7 +51,7 @@ plat-modal-component(
         )
 
       ng-template(#createProfileButton)
-        a.button.button--link.button--small((click)="onBackwardClick()", *ngIf="isExpertForm && !hasProfile && isPayoutModal")
+        a.button.button--link.button--small((click)="onBackwardClick()", *ngIf="isExpertForm && isPayoutModal")
           | {{ 'EDIT_PROFILE.CONTENT.CREATE_EXPERT_PROFILE.BUTTON.CANCEL' | translate }}
 
         am-core-submit-button(

@@ -1,7 +1,16 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:max-file-line-count
 // tslint:disable:readonly-array
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  InjectionToken,
+  OnDestroy,
+  OnInit,
+  Optional,
+  ViewChild,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Alerts, AlertService, FormUtilsService, LoggerFactory, LoggerService } from '@anymind-ng/core';
@@ -37,6 +46,9 @@ enum CreateProfileModalSteps {
   INVOICE_DETAILS,
 }
 
+export const IS_EXPERT_FORM: InjectionToken<boolean> = new InjectionToken('Is modal form open as expert');
+export const SHOW_TOGGLE_EXPERT: InjectionToken<boolean> = new InjectionToken('Is modal open as editable modal');
+
 @Component({
   selector: 'plat-create-profile',
   styleUrls: ['./create-profile.component.sass'],
@@ -66,7 +78,6 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   public isPayoutModal = false;
   public isFileUploading = false;
   public isValidated = false;
-
   /**
    * determines weather user has already create a profile.
    * If profile exists do not show invoice details.
@@ -77,13 +88,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
    */
   public isExpert: boolean;
   public isCompany: boolean;
-  /**
-   * provided as external parameter when opened modal
-   * indicated if modal will store expert data or only
-   * client data.
-   */
-  @Input()
-  public isExpertForm = false;
+  public isToggleFormAble = false;
 
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
@@ -99,6 +104,8 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   private selectedInvoiceDetailsFormName = NATURAL_PERSON_FORM_NAME;
 
   constructor(
+    @Optional() @Inject(SHOW_TOGGLE_EXPERT) public showToggleExpert = false,
+    @Optional() @Inject(IS_EXPERT_FORM) public isExpertForm = false,
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
     private formUtils: FormUtilsService,

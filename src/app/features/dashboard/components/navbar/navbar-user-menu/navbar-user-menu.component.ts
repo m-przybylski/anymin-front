@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Store } from '@ngrx/store';
@@ -8,13 +8,17 @@ import * as fromCore from '@platform/core/reducers';
 import { AuthActions } from '@platform/core/actions';
 import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/dashboard/components/navbar/navigation';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import {
+  CreateProfileModalComponent,
+  IS_EXPERT_FORM,
+  SHOW_TOGGLE_EXPERT,
+} from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
 import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { Animations } from '@platform/shared/animations/animations';
 import { Config } from '../../../../../../config';
-import { EditProfileModalComponent } from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
 import { Router } from '@angular/router';
+import { EditProfileModalComponent } from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-navbar-user-menu',
@@ -138,17 +142,29 @@ export class NavbarUserMenuComponent implements OnInit {
     this.logger.error('provided function name does not exist in this class: ', fnName);
   };
 
-  public openCreateProfileModalAsClient = (e: Event): void => {
+  public openEditProfileModalAsClient = (e: Event): void => {
     e.stopPropagation();
-    this.modalService.open(CreateProfileModalComponent);
+
+    this.animationState = 'hide';
+
+    const options: NgbModalOptions = {
+      injector: Injector.create({
+        providers: [{ provide: IS_EXPERT_FORM, useValue: false }],
+      }),
+    };
+
+    this.modalService.open(EditProfileModalComponent, options);
   };
 
   public openCreateProfileModalAsExpert = (): void => {
-    this.modalService.open(EditProfileModalComponent);
-  };
+    const options: NgbModalOptions = {
+      injector: Injector.create({
+        providers: [{ provide: IS_EXPERT_FORM, useValue: true }, { provide: SHOW_TOGGLE_EXPERT, useValue: true }],
+      }),
+    };
 
-  public openCreateProfileModal = (): boolean =>
-    (this.modalService.open(CreateProfileModalComponent).componentInstance.isExpertForm = false);
+    this.modalService.open(CreateProfileModalComponent, options);
+  };
 
   public onSwitchAccount = (switchAccountUserType: UserTypeEnum): void => {
     this.switchAccount.emit(switchAccountUserType);
