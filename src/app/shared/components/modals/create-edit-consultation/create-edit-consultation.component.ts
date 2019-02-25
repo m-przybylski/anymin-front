@@ -134,7 +134,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
 
   public deleteConsultation = (serviceId: string): void => {
     this.createEditConsultationService.deleteService(serviceId).subscribe(() => {
-      this.activeModal.close(true);
+      this.activeModal.close(serviceId);
       this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
       this.loggerService.debug('Consultation removed!');
     });
@@ -182,7 +182,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private handleResponse = (serviceDetails: GetService): void => {
     this.isRequestPending = false;
     this.alertService.pushSuccessAlert(this.successAlertTrKey);
-    this.activeModal.close(true);
+    this.activeModal.close(serviceDetails);
     if (!this.payload.isExpertConsultation) {
       const payload: IEmployeeInvitePayload = {
         serviceId: serviceDetails.id,

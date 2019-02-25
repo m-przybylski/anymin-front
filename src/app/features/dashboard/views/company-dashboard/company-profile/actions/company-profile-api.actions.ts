@@ -1,21 +1,39 @@
 // tslint:disable:max-classes-per-file
 import { Action } from '@ngrx/store';
-import { ServiceWithEmployments } from '@anymind-ng/api';
+import { IOrganizationProfile } from '../services/company-profile.service';
+import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
 
 export enum CompanyProfileApiActionTypes {
-  LoadCompanyConsultationsSuccess = '[Comp profile API] Load consultations Success',
-  LoadCompanyConsultationsFailure = '[Comp profile API] Load consultations Failure',
-  DeleteEmploymentSuccess = '[Comp profile API] Delete employment Success',
-  DeleteEmploymentFailure = '[Comp profile API] Delete employment Failure',
+  LoadProfileActionSuccess = '[Comp profile API] Load profile success',
+  LoadProfileActionFailure = '[Comp profile API] Load profile failure',
+  DeleteEmploymentSuccess = '[Comp profile API] Delete employment success',
+  DeleteEmploymentFailure = '[Comp profile API] Delete employment failure',
 }
 
-export class LoadCompanyConsultationsSuccessAction implements Action {
-  public readonly type = CompanyProfileApiActionTypes.LoadCompanyConsultationsSuccess;
-  constructor(public payload: ReadonlyArray<ServiceWithEmployments>) {}
+export class LoadProfileActionSuccess implements Action {
+  public readonly type = CompanyProfileApiActionTypes.LoadProfileActionSuccess;
+
+  constructor(public payload: IExpertCompanyDashboardResolverData<IOrganizationProfile>) {}
+}
+
+export class LoadProfileActionFailure implements Action {
+  public readonly type = CompanyProfileApiActionTypes.LoadProfileActionFailure;
+
+  constructor(public payload: IOrganizationProfile) {}
 }
 
 export class DeleteEmploymentSuccessAction implements Action {
   public readonly type = CompanyProfileApiActionTypes.DeleteEmploymentSuccess;
   constructor(public payload: string) {}
 }
-export type CompanyProfileApiActionsUnion = LoadCompanyConsultationsSuccessAction | DeleteEmploymentSuccessAction;
+
+export class DeleteEmploymentFailureAction implements Action {
+  public readonly type = CompanyProfileApiActionTypes.DeleteEmploymentFailure;
+  constructor(public payload: any) {}
+}
+
+export type CompanyProfileApiActionsUnion =
+  | LoadProfileActionSuccess
+  | LoadProfileActionFailure
+  | DeleteEmploymentSuccessAction
+  | DeleteEmploymentFailureAction;

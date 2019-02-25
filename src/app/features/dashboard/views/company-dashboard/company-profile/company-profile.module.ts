@@ -5,28 +5,31 @@ import { DashboardComponentsModule } from '../../../components/components.module
 import { RouterModule } from '@angular/router';
 import { CompanyProfileComponent } from './company-profile.view.component';
 import { CompanyProfileConsultationsComponent } from './company-profile-consultation/company-profile-consultation.component';
-import { CompanyProfileResolverService } from './services/company-profile-resolver.service';
 import { CompanyConsultationDetailsModule } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.module';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './reducers';
+import { reducer } from './reducers';
+import { CompanyProfileService } from './services/company-profile.service';
+import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { EffectsModule } from '@ngrx/effects';
+import { CompanyProfileEffects } from './effects/company-profile.effects';
 
 @NgModule({
   declarations: [CompanyProfileComponent, CompanyProfileConsultationsComponent],
   imports: [
-    StoreModule.forFeature('companyProfile', reducers),
+    StoreModule.forFeature('companyProfile', reducer),
+    EffectsModule.forFeature([CompanyProfileEffects]),
     RouterModule.forChild([
       {
         path: '',
         component: CompanyProfileComponent,
-        runGuardsAndResolvers: 'always',
-        resolve: { company: CompanyProfileResolverService },
       },
     ]),
     CommonModule,
     SharedModule,
     DashboardComponentsModule,
     CompanyConsultationDetailsModule,
+    ContentLoaderModule,
   ],
-  providers: [CompanyProfileResolverService],
+  providers: [CompanyProfileService, CompanyProfileEffects],
 })
 export class CompanyProfileModule {}

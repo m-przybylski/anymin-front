@@ -1,58 +1,69 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil, pluck } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
 import {
   CreateEditConsultationModalComponent,
   ICreateEditConsultationPayload,
 } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
-import { OrganizationProfile } from './services/company-profile-resolver.service';
+import { IOrganizationProfile } from './services/company-profile.service';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
 import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
 import { Store, select } from '@ngrx/store';
 import * as fromCompanyDashboard from './reducers';
 import { EditOrganizationModalComponent } from '@platform/shared/components/modals/profile/edit-organization/edit-organization.component';
+import { RouterPaths } from '@platform/shared/routes/routes';
+import { CompanyProfilePageActions } from './actions';
+import { GetService } from '@anymind-ng/api';
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
 })
-export class CompanyProfileComponent extends ProfileBaseComponent {
-  public avatarToken: string;
-  public name: string;
-  public description: string;
-  public isOwnProfile: boolean;
-  public isLogged: boolean;
+export class CompanyProfileComponent extends ProfileBaseComponent implements OnInit {
   public consultations$ = this.store.pipe(select(fromCompanyDashboard.getConsultations));
-  public links: ReadonlyArray<string>;
-  public organizationId: string;
-  public organizationDocuments: ReadonlyArray<ProfileDocument> = [];
+  public data$ = this.store.pipe(select(fromCompanyDashboard.getData));
 
   constructor(
     protected route: ActivatedRoute,
     protected injector: Injector,
-    private store: Store<fromCompanyDashboard.ICompanyProfileState>,
+    private store: Store<fromCompanyDashboard.IState>,
   ) {
     super(injector);
-    this.route.data
-      .pipe(
-        takeUntil(this.destroyed$),
-        pluck('company'),
-      )
-      .subscribe((data: IExpertCompanyDashboardResolverData<OrganizationProfile>) => {
-        const [consultations, profile] = data.profile;
-        this.organizationId = consultations.organizationProfile.id;
-        this.avatarToken = consultations.organizationProfile.logo;
-        this.name = consultations.organizationProfile.name;
-        this.description = consultations.organizationProfile.description;
-        this.organizationDocuments = consultations.organizationProfile.documents;
-        this.isOwnProfile = data.isOwnProfile;
-        this.isLogged = data.isLogged;
-        if (typeof profile.profile.organizationDetails !== 'undefined') {
-          this.links = profile.profile.organizationDetails.links;
-        }
-      });
+  }
+  public getAvatarToken(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
+    return data.profile.organization.organizationProfile.logo;
+  }
+  public getOrganizationId(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
+    return data.profile.organization.organizationProfile.id;
+  }
+  public getName(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
+    return data.profile.organization.organizationProfile.name;
+  }
+  public getDescription(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
+    return data.profile.organization.organizationProfile.description;
+  }
+  public getOrganizationDocuments(
+    data: IExpertCompanyDashboardResolverData<IOrganizationProfile>,
+  ): ReadonlyArray<ProfileDocument> {
+    return data.profile.organization.organizationProfile.documents;
+  }
+  public getIsOwnProfile(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): boolean {
+    return data.isOwnProfile;
+  }
+  public getIsLogged(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): boolean {
+    return data.isLogged;
+  }
+  public getLinks(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): ReadonlyArray<string> | undefined {
+    return data.profile.profile.profile.organizationDetails && data.profile.profile.profile.organizationDetails.links;
+  }
+
+  public ngOnInit(): void {
+    this.route.paramMap.pipe(takeUntil(this.destroyed$)).subscribe(paramMap => {
+      const profileId = paramMap.get(RouterPaths.dashboard.company.profile.params.profileId) || '';
+      this.store.dispatch(new CompanyProfilePageActions.LoadProfileAction(profileId));
+    });
   }
 
   /**
@@ -60,21 +71,25 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
    * Modal resolves to true if user changes something.
    */
   public onEditProfile(): void {
-    this.openModalWithReload(EditOrganizationModalComponent);
+    this.openModal(EditOrganizationModalComponent).result.then((organizationProfileId: string | undefined) => {
+      if (organizationProfileId !== undefined) {
+        this.store.dispatch(new CompanyProfilePageActions.UpdateProfileAction(organizationProfileId));
+      }
+    });
   }
 
   /**
    * callback when openGallery is triggered.
    */
-  public onOpenGallery = (): void => {
-    this.openGallery(this.organizationDocuments);
-  };
+  public onOpenGallery(organizationDocuments: ReadonlyArray<ProfileDocument>): void {
+    this.openGallery(organizationDocuments);
+  }
 
   /**
    * callback when add consultation is triggered
    * this opens modal
    */
-  public addConsultation = (): void => {
+  public addConsultation(): void {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: false,
       isOwnerEmployee: false,
@@ -82,6 +97,10 @@ export class CompanyProfileComponent extends ProfileBaseComponent {
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(CONSULTATION_DETAILS, payload),
     };
-    this.openModalWithReload(CreateEditConsultationModalComponent, modalOptions);
-  };
+    this.openModal(CreateEditConsultationModalComponent, modalOptions).result.then((serviceDetails?: GetService) => {
+      if (serviceDetails) {
+        this.store.dispatch(new CompanyProfilePageActions.AddConsultation(serviceDetails));
+      }
+    });
+  }
 }

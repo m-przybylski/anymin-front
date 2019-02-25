@@ -1,21 +1,30 @@
-.organization-dashboard-layout
+ng-container(*ngIf="data$ | async as data; else loading")
+  .organization-dashboard-layout
+    .container
+      plat-dashboard-profile-header(
+        [avatarToken]='getAvatarToken(data)',
+        [name]='getName(data)',
+        [description]='getDescription(data)',
+        [links]='getLinks(data)',
+        [isOwnProfile]='getIsOwnProfile(data)',
+        [isLogged]='getIsLogged(data)',
+        [companyId]="getOrganizationId(data)",
+        [attachments]="getOrganizationDocuments(data)",
+        (editProfile)='onEditProfile()',
+        (openGallery)="onOpenGallery(getOrganizationDocuments(data))"
+      )
   .container
-    plat-dashboard-profile-header(
-      [avatarToken]='avatarToken',
-      [name]='name',
-      [description]='description',
-      [links]='links',
-      [isOwnProfile]='isOwnProfile',
-      [isLogged]='isLogged',
-      [companyId]="organizationId",
-      [attachments]="organizationDocuments",
-      (editProfile)='onEditProfile()',
-      (openGallery)="onOpenGallery()"
+    h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
+    plat-company-profile-consultations(
+      [consultations]='consultations$ | async',
+      [isOwnProfile]='getIsOwnProfile(data)',
+      (addConsultation)='addConsultation()'
     )
-.container
-  h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
-  plat-company-profile-consultations(
-    [consultations]='consultations$ | async',
-    [isOwnProfile]='isOwnProfile',
-    (addConsultation)='addConsultation()'
-  )
+
+ng-template(#loading)
+  .organization-dashboard-layout--loading
+    plat-consultation-row-loader
+    .consultation-list
+      plat-list-item-loader
+      plat-list-item-loader
+      plat-list-item-loader

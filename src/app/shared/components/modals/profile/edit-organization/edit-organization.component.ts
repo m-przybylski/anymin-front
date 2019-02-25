@@ -68,8 +68,8 @@ export class EditOrganizationModalComponent implements OnInit {
       });
   }
 
-  public onModalClose(): void {
-    this.activeModal.close(true);
+  public onModalClose(profileId: string): void {
+    this.activeModal.close(profileId);
   }
 
   public onEditOrganizationProfile(): void {
@@ -91,15 +91,16 @@ export class EditOrganizationModalComponent implements OnInit {
 
   /** update organization callbacks */
   private sendOrganizationProfile(): void {
+    const organizationProfileDetails = this.getFormValues();
     this.editOrganizationModalComponentService
-      .editOrganizationProfile(this.getFormValues())
+      .editOrganizationProfile(organizationProfileDetails)
       .pipe(
         tap(() => this.store.dispatch(new NavbarActions.UpdateUserTypeAndSession(UserTypeEnum.COMPANY))),
         waitForSession(this.store),
       )
       .subscribe(
-        () => {
-          this.onModalClose();
+        profile => {
+          this.onModalClose(profile.id);
           this.alertService.pushSuccessAlert('DASHBOARD.CREATE_PROFILE.EDIT_ORGANIZATION_PROFILE.SUCCESS_ALERT');
         },
         () => this.handleResponseError(),

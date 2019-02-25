@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`company profile reducer DeleteEmploymentSuccessAction action should not throw when no data to remove 1`] = `
+Object {
+  "isLoading": false,
+  "organizationProfile": undefined,
+}
+`;
+
+exports[`company profile reducer DeleteEmploymentSuccessAction action should remove expert from consultation 1`] = `
+Object {
+  "isLoading": false,
+  "organizationProfile": Object {
+    "profile": Object {
+      "organization": Object {
+        "services": Array [
+          Object {
+            "employments": Array [
+              Object {
+                "id": "1",
+              },
+              Object {
+                "id": "2",
+              },
+              Object {
+                "id": "3",
+              },
+            ],
+            "service": Object {},
+          },
+          Object {
+            "employments": Array [
+              Object {
+                "id": "5",
+              },
+              Object {
+                "id": "6",
+              },
+            ],
+            "service": Object {},
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`company profile reducer LoadProfileAction should start loading profile 1`] = `
+Object {
+  "error": undefined,
+  "isLoading": true,
+  "organizationProfile": undefined,
+}
+`;
+
+exports[`company profile reducer LoadProfileActionFailure should start loading profile 1`] = `
+Object {
+  "error": "👍👍👍",
+  "isLoading": false,
+}
+`;
+
+exports[`company profile reducer LoadProfileActionSuccess should start loading profile 1`] = `
+Object {
+  "error": undefined,
+  "isLoading": false,
+  "organizationProfile": "👍👍👍",
+}
+`;
+
+exports[`company profile reducer UpdateProfileAction should start loading profile 1`] = `
+Object {
+  "error": undefined,
+  "isLoading": true,
+  "organizationProfile": undefined,
+}
+`;
+
+exports[`company profile reducer undefined action should return the default state 1`] = `
+Object {
+  "isLoading": false,
+}
+`;

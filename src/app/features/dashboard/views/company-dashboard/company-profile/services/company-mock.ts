@@ -3,7 +3,7 @@
 
 import { OrganizationProfileView, GetProfileWithDocuments, Account } from '@anymind-ng/api';
 import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { OrganizationProfile } from './company-profile-resolver.service';
+import { IOrganizationProfile } from './company-profile.service';
 import VatRateTypeEnum = Account.VatRateTypeEnum;
 
 export const organizationProfileView: OrganizationProfileView = {
@@ -131,8 +131,11 @@ export const profileWithDocuments: GetProfileWithDocuments = {
   expertDocuments: [],
 };
 
-export const companyProfileView: IExpertCompanyDashboardResolverData<OrganizationProfile> = {
-  profile: [organizationProfileView, profileWithDocuments],
+export const companyProfileView: IExpertCompanyDashboardResolverData<IOrganizationProfile> = {
+  profile: {
+    organization: organizationProfileView,
+    profile: profileWithDocuments,
+  },
   isOwnProfile: false,
   isLogged: true,
   isCompany: true,
@@ -242,9 +245,9 @@ export const organizationProfileView1: OrganizationProfileView = {
   isFavourite: false,
 };
 
-export const companyProfileView1: IExpertCompanyDashboardResolverData<OrganizationProfile> = {
-  profile: [
-    {
+export const companyProfileView1: IExpertCompanyDashboardResolverData<IOrganizationProfile> = {
+  profile: {
+    organization: {
       organizationProfile: {
         id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
         name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
@@ -310,8 +313,8 @@ export const companyProfileView1: IExpertCompanyDashboardResolverData<Organizati
       ],
       isFavourite: false,
     },
-    profileWithDocuments,
-  ],
+    profile: profileWithDocuments,
+  },
   isOwnProfile: false,
   isLogged: true,
   isCompany: true,
