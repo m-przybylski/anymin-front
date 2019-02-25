@@ -25,6 +25,11 @@ Feature:
 Feature:
 * Move `SeoService` from widget to core
 
+<a name="February 25, 2019"></a>
+### v0.12.28 - February 25, 2019
+Fix:
+* improve validation in set-new-password component
+
 <a name="February 21, 2019"></a>
 ### v0.12.27 - February 21, 2019
 Fix:

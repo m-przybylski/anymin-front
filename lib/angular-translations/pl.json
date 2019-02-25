@@ -168,6 +168,7 @@
   "INPUT_PIN_CODE.INCORRECT_PIN_CODE_VALIDATION_ERROR": "Ten kod jest niepoprawny",
   "INPUT_PIN_CODE.UNSUCCESSFUL_ATTEMPTS_VALIDATION_ERROR": "Za dużo nieudanych prób. Spróbuj ponownie za chwilę",
   "INPUT_SET_PASSWORD.INVALID_PASSWORD_ERROR": "To hasło nie jest wystarczająco silne",
+  "INPUT_SET_PASSWORD.PASSWORD_REQUIREMENTS_ERROR": "Hasło musi zawierać co najmniej 8 znaków, w tym: małą literę, dużą literę, cyfrę lub znak specjalny.",
   "INPUT_SET_PASSWORD.DUPLICATED_PASSWORD_ERROR": "Tego hasła użyłeś już wcześniej",
   "INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_CHARACTERS_COUNT": "Tag powinien mieć od 2 do 50 znaków",
   "INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_MIN_TAGS_COUNT": "Podaj co najmniej 3 tagi",

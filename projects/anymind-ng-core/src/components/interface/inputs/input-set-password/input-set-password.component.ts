@@ -34,6 +34,8 @@ export class InputSetPasswordComponent {
   @Input()
   public initialFocus = false;
 
+  public isInfoPasswordVisible = true;
+
   public isFocused = false;
 
   constructor(public formUtils: FormUtilsService, @Inject(COMPONENTS_CONFIG) private config: Config) {}
@@ -43,6 +45,10 @@ export class InputSetPasswordComponent {
       this.controlName,
       new FormControl('', [Validators.required.bind(this), Validators.pattern(this.config.validation.password.regex)]),
     );
+
+    this.formGroup.controls[this.controlName].valueChanges.subscribe(value => {
+      this.isInfoPasswordVisible = value.length === 0;
+    });
   }
 
   public isIncorrectPasswordError = (): boolean => {
@@ -55,9 +61,9 @@ export class InputSetPasswordComponent {
     return this.isFieldInvalid() && errors && errors[InputSetPasswordErrors.DuplicatedPassword];
   };
 
-  public isRequiredError = (): void => {
+  public isRequiredError = (): boolean => {
     const errors: ValidationErrors | null = this.formGroup.controls[this.controlName].errors;
-    return this.isFieldInvalid() && errors && errors.required;
+    return this.isFieldInvalid() && errors && errors.required && !this.isFocused;
   };
 
   public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
