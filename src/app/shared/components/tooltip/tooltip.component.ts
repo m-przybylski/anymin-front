@@ -1,9 +1,9 @@
 import { Component, Injector, Input, OnDestroy } from '@angular/core';
-import { TooltipContentComponent } from '@platform/shared/components/tooltip/tooltip-content/tooltip-content.component';
 import {
   DESCRIPTION,
   DOM_DESTINATION,
   OFFSETS,
+  TooltipComponentDestinationEnum,
   TooltipInjectorService,
 } from '@platform/shared/components/tooltip/tooltip-injector.service';
 import { catchError, take } from 'rxjs/operators';
@@ -12,12 +12,7 @@ import { TooltipService } from '@platform/shared/components/tooltip/tooltip.serv
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
-
-export enum TooltipComponentDestinationEnum {
-  COMPONENT,
-  MODAL,
-  BODY,
-}
+import { TooltipContentComponent } from '@platform/shared/components/tooltip/tooltip-content/tooltip-content.component';
 
 @Component({
   selector: 'plat-tooltip',

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { TooltipService } from '@platform/shared/components/tooltip/tooltip.service';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
 
 export interface ITooltipModalOffsets {
   modalRelative: {

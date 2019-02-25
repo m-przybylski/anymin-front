@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 import { WindowRef } from '@anymind-ng/core';
 import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
 
 enum TooltipPosition {
   LEFT,

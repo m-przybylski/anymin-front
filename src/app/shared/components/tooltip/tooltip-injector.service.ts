@@ -7,10 +7,15 @@ import {
   ElementRef,
   InjectionToken,
 } from '@angular/core';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
 import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
+
+export enum TooltipComponentDestinationEnum {
+  COMPONENT,
+  MODAL,
+  BODY,
+}
 
 export const DESCRIPTION: InjectionToken<string> = new InjectionToken('Tooltip content description');
 export const DOM_DESTINATION: InjectionToken<TooltipComponentDestinationEnum> = new InjectionToken(
@@ -27,7 +32,7 @@ export class TooltipInjectorService extends Logger {
     private element: ElementRef,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory.createLoggerService('TooltipContentComponent'));
+    super(loggerFactory.createLoggerService('TooltipContentService'));
   }
 
   public createComponentRef(component: any, injector: Injector): void {

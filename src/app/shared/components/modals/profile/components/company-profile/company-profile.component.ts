@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Config } from 'src/config';
 import { FileCategoryEnum } from '@platform/shared/services/uploader/file-type-checker';
 import { ProfileDocument } from '@anymind-ng/api';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
 
 @Component({
   selector: 'plat-company-profile',

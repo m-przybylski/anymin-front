@@ -1,7 +1,11 @@
 import { Component, Inject, InjectionToken } from '@angular/core';
 import { ITooltipModalOffsets } from '@platform/shared/components/tooltip/tooltip.directive';
-import { DESCRIPTION, DOM_DESTINATION, OFFSETS } from '@platform/shared/components/tooltip/tooltip-injector.service';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import {
+  DESCRIPTION,
+  DOM_DESTINATION,
+  OFFSETS,
+  TooltipComponentDestinationEnum,
+} from '@platform/shared/components/tooltip/tooltip-injector.service';
 import { Animations } from '@platform/shared/animations/animations';
 
 @Component({

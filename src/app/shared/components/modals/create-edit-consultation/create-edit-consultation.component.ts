@@ -20,7 +20,7 @@ import { Logger } from '@platform/core/logger';
 import { CONSULTATION_DETAILS } from './create-edit-consultation';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
 
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;

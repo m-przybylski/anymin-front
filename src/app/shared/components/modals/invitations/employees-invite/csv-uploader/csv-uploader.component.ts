@@ -7,7 +7,7 @@ import { isValidNumber } from 'libphonenumber-js';
 import { IValidatorsErrorMsg } from '@platform/shared/components/inputs/input-add-item/input-add-item.component';
 import { PhoneNumberUnifyService } from '@platform/shared/services/phone-number-unify/phone-number-unify.service';
 import { Config } from '../../../../../../../config';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
 
 @Component({
   selector: 'plat-csv-uploader',

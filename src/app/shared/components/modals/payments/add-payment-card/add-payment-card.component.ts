@@ -16,7 +16,7 @@ import {
   FetchInitDefaultPaymentMethodAction,
   FetchInitPaymentsMethodAction,
 } from '@platform/features/dashboard/views/user-dashboard/payments/actions/payments-init.actions';
-import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip.component';
+import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
 
 export interface ICreditCardForm {
   codeCVControlName: string;
