@@ -20,6 +20,7 @@ import * as fromExpertDashboard from './reducers';
 import { ExpertDashboardActions } from './actions';
 import * as fromRoot from '@platform/reducers';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 
 @Component({
   selector: 'plat-expert-dashboard',
@@ -83,7 +84,11 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
    * Modal resolves to true if user changes something.
    */
   public editProfile(expertId: string): void {
-    this.openModal(EditProfileModalComponent).result.then((changed: any) => {
+    const modalOptions: NgbModalOptions = {
+      injector: this.setupInjector(IS_EXPERT_FORM, true),
+    };
+
+    this.openModal(EditProfileModalComponent, modalOptions).result.then((changed: any) => {
       if (typeof changed === 'boolean' && changed) {
         this.store.dispatch(new ExpertDashboardActions.ReloadExpertDashboardAfterEditProfileAction(expertId));
       }

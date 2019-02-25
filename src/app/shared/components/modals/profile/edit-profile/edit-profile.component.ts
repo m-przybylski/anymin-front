@@ -29,7 +29,6 @@ import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/creat
 })
 export class EditProfileModalComponent extends Logger implements OnInit, OnDestroy {
   /** form fields */
-  // TODO: remove once not needed
   public readonly descriptionControlName = 'description';
   public readonly basicProfileDataControlName = 'basicProfileData';
   public readonly linksControlName = 'links';
@@ -76,6 +75,7 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
     this.profileForm = new FormGroup({
       [this.linksControlName]: this.linksFormControl,
       [this.basicProfileDataControlName]: this.avatarTokenProfileNameFormControl,
+      [this.descriptionControlName]: new FormControl(),
     });
     this.editProfileComponentService
       .getModalData()

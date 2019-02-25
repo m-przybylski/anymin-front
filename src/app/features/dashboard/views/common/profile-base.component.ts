@@ -77,7 +77,7 @@ export class ProfileBaseComponent implements OnDestroy {
     this.openModal(FilePreviewComponent, modalOptions);
   };
 
-  protected setupInjector = (token: InjectionToken<DialogPayload>, payload: DialogPayload): Injector =>
+  protected setupInjector = <T>(token: InjectionToken<T>, payload: T): Injector =>
     Injector.create({
       providers: [{ provide: token, useValue: payload }],
       parent: this.injector,
