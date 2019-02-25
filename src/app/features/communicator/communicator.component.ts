@@ -38,7 +38,6 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
 
   public isMessenger = false;
   public serviceName: string;
-  public expertName: string;
   public expertAvatar: string;
 
   @Input()
@@ -64,7 +63,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   public currentMicrophoneStateEnum: MicrophoneStateEnum = MicrophoneStateEnum.GOOD;
   public microphoneStateEnums: typeof MicrophoneStateEnum = MicrophoneStateEnum;
   public isUserInactive = false;
-  public clientName?: string;
+  public name?: string;
 
   private ngUnsubscribe$ = new Subject<void>();
   private currentCall: CurrentCall;
@@ -147,7 +146,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.registerCommonCallEvents(clientSessionCall.currentClientCall);
     const service = clientSessionCall.currentClientCall.getService();
     this.serviceName = (service && service.name) || '';
-    this.expertName = expertDetails ? expertDetails.name : '';
+    this.name = expertDetails ? expertDetails.name : '';
     this.expertAvatar = expertDetails ? expertDetails.avatar : '';
     this.isClosed = false;
     clientSessionCall.currentClientCall.answered$
@@ -159,7 +158,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.newCallEvent.next(expertSessionCall.currentExpertCall);
     this.registerCommonCallEvents(expertSessionCall.currentExpertCall);
     this.serviceName = expertSessionCall.currentExpertCall.getServiceName();
-    this.clientName = expertSessionCall.currentExpertCall.getExpertSueDetails().clientDetails.nickname;
+    this.name = expertSessionCall.currentExpertCall.getExpertSueDetails().clientDetails.nickname;
     this.clientAvatar = expertSessionCall.currentExpertCall.getExpertSueDetails().clientDetails.avatar;
     this.isConnecting = false;
     this.isClosed = false;
