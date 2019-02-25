@@ -60,7 +60,7 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
   private linksFormControl = new FormControl([]);
 
   constructor(
-    @Optional() @Inject(IS_EXPERT_FORM) private isExpertForm = true,
+    @Optional() @Inject(IS_EXPERT_FORM) public isExpertForm = true,
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
     private formUtils: FormUtilsService,

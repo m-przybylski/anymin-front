@@ -39,7 +39,7 @@ export class AddPaymentCard implements OnInit, AfterViewInit {
   public readonly nameSurnameControl = 'nameSurnameControl';
   public readonly emailControl = 'emailControl';
   public readonly cvcCardType = 'cvcCardType';
-  public readonly tooltipType: TooltipComponentDestinationEnum = TooltipComponentDestinationEnum.MODAL;
+  public readonly tooltipType: TooltipComponentDestinationEnum = TooltipComponentDestinationEnum.COMPONENT;
 
   public modalHeaderTitle = 'DASHBOARD.PAYMENTS.PAYMENTS_METHOD.MODAL.TITLE';
   public addPaymentCardFormGroup: FormGroup;
