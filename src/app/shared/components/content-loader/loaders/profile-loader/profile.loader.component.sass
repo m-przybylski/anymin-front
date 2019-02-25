@@ -1,0 +1,45 @@
+@import '../../content-loader-default-variables'
+
+$avatart-radius: 78px
+$title-height: 15px
+
+.profile-loader
+  height: calc(#{$avatart-radius}*2)
+  width: 100%
+
+  &__avatar
+    cx: $avatart-radius
+    cy: $avatart-radius
+    r: $avatart-radius
+
+  &__title
+    y: 0
+    x: calc(#{$avatart-radius} * 2 + #{$s-vertical-margin-big})
+    height: $title-height
+    width: 40%
+    rx: calc(#{$title-height} / 2)
+    ry: calc(#{$title-height} / 2)
+
+  &__subtitle_1
+    y: calc(#{$title-height} + #{$s-horizontal-margin-big})
+    x: calc(#{$avatart-radius} * 2 + #{$s-vertical-margin-big})
+    width: calc(100% - #{$avatart-radius} * 2 - #{$s-vertical-margin-big})
+    height: $s-bar-height
+
+  &__subtitle_2
+    y: calc(#{$title-height} + #{$s-horizontal-margin-big} + #{$s-horizontal-margin})
+    x: calc(#{$avatart-radius} * 2 + #{$s-vertical-margin-big})
+    width: calc(100% - #{$avatart-radius} * 2 - #{$s-vertical-margin-big} - 15%)
+    height: $s-bar-height
+
+  &__subtitle_3
+    y: calc(#{$title-height} + #{$s-horizontal-margin-big} + #{$s-horizontal-margin} * 2)
+    x: calc(#{$avatart-radius} * 2 + #{$s-vertical-margin-big})
+    width: calc(100% - #{$avatart-radius} * 2 - #{$s-vertical-margin-big} - 7%)
+    height: $s-bar-height
+
+  &__subtitle_4
+    y: calc(#{$title-height} + #{$s-horizontal-margin-big} + #{$s-horizontal-margin} * 3)
+    x: calc(#{$avatart-radius} * 2 + #{$s-vertical-margin-big})
+    width: calc(100% - #{$avatart-radius} * 2 - #{$s-vertical-margin-big} - 40%)
+    height: $s-bar-height

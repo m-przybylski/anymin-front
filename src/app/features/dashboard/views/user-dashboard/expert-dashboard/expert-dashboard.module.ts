@@ -12,7 +12,6 @@ import { reducer } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ExpertDashboardEffects } from './effects/expert-dashboard.effects';
 import { ExpertDashboardService } from './services/expert-dashboard.service';
-import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 
 @NgModule({
   declarations: [ExpertDashboardComponent, ExpertDashboardConsultationsComponent],
@@ -29,7 +28,6 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
     SharedModule,
     ExpertAvailabilityModule,
     DashboardComponentsModule,
-    ContentLoaderModule,
     WarningInformationModule,
   ],
   providers: [ExpertDashboardEffects, ExpertDashboardService],

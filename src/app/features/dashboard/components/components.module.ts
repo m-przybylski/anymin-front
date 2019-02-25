@@ -16,6 +16,8 @@ import { ExpertAvailabilityModule } from '@platform/features/dashboard/component
 import { FilePreviewModule } from '@platform/shared/components/modals/file-preview/file-preview.module';
 import { ActivityRowComponent } from '@platform/features/dashboard/components/activity-row/activity-row.component';
 import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
+import { ExpertOrganizationComponent } from './expert-organization-loader/expert-organization-loader.component';
+import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 
 @NgModule({
   imports: [
@@ -28,6 +30,7 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
     FilePreviewModule,
     ExpertAvailabilityModule,
     MoneyDisplayModule,
+    ContentLoaderModule,
   ],
   declarations: [
     SocialLinksComponent,
@@ -39,6 +42,7 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
     EmptyNumberPipe,
     DecorateDatePipe,
     ActivityRowComponent,
+    ExpertOrganizationComponent,
   ],
   providers: [DatePipe],
   exports: [
@@ -52,6 +56,7 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
     IconModule,
     ButtonModule,
     ActivityRowComponent,
+    ExpertOrganizationComponent,
   ],
 })
 export class DashboardComponentsModule {}

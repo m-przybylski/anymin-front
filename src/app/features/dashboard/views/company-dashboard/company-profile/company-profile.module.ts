@@ -9,7 +9,6 @@ import { CompanyConsultationDetailsModule } from '@platform/shared/components/mo
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers';
 import { CompanyProfileService } from './services/company-profile.service';
-import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 import { EffectsModule } from '@ngrx/effects';
 import { CompanyProfileEffects } from './effects/company-profile.effects';
 
@@ -28,7 +27,6 @@ import { CompanyProfileEffects } from './effects/company-profile.effects';
     SharedModule,
     DashboardComponentsModule,
     CompanyConsultationDetailsModule,
-    ContentLoaderModule,
   ],
   providers: [CompanyProfileService, CompanyProfileEffects],
 })

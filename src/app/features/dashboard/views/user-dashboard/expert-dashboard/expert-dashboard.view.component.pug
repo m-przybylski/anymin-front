@@ -28,9 +28,4 @@ ng-container(*ngIf="data$ | async as data; else loading")
     )
 
 ng-template(#loading)
-  .expert-dashboard-layout--loading
-    plat-consultation-row-loader
-    .consultation-list
-      plat-list-item-loader
-      plat-list-item-loader
-      plat-list-item-loader
+  plat-expert-org-loader
