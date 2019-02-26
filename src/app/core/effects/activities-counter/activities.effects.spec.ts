@@ -3,20 +3,20 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
-import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
+import { ActivitiesCounterEffects } from 'src/app/core/effects/activities-counter/activities.effects';
 import { ActivitiesService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
-import { DashboardActions } from '@platform/features/dashboard/actions';
+import { DashboardActions } from '../../features/dashboard/actions';
 
-describe('DashboardEffects', () => {
-  let dashboardEffects: DashboardEffects;
+describe('ActivitiesCounterEffects', () => {
+  let dashboardEffects: ActivitiesCounterEffects;
   let activitiesService: ActivitiesService;
   let actions$: Observable<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        DashboardEffects,
+        ActivitiesCounterEffects,
         {
           provide: ActivitiesService,
           useValue: Deceiver(ActivitiesService, {
@@ -27,7 +27,7 @@ describe('DashboardEffects', () => {
       ],
     });
 
-    dashboardEffects = TestBed.get(DashboardEffects);
+    dashboardEffects = TestBed.get(ActivitiesCounterEffects);
     activitiesService = TestBed.get(ActivitiesService);
     actions$ = TestBed.get(Actions);
   });

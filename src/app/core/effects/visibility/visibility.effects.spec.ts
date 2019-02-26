@@ -1,10 +1,10 @@
 import { GetExpertVisibility, PresenceService } from '@anymind-ng/api';
 import { inject, TestBed } from '@angular/core/testing';
 import { Deceiver } from 'deceiver-core';
-import { VisibilityUiActions, VisibilityApiActions, VisibilityInitActions } from '@platform/features/dashboard/actions';
+import { VisibilityUiActions, VisibilityApiActions, VisibilityInitActions } from '../../../features/dashboard/actions';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
+import { VisibilityEffects } from 'visibility.effects';
 import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { AlertService } from '@anymind-ng/core';

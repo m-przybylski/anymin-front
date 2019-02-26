@@ -1,5 +1,5 @@
 // tslint:disable:cyclomatic-complexity
-import { DashboardActions } from '@platform/features/dashboard/actions';
+import { DashboardActions } from '../../../features/dashboard/actions';
 import { GetImportantActivitiesCounters } from '@anymind-ng/api';
 import { createSelector } from '@ngrx/store';
 

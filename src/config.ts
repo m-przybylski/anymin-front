@@ -256,4 +256,10 @@ export class Config {
       `aPu+JhL2wn23xFh0ZrVf+qQDje8V8s1w33evXxZwLXCDZ+n2ToIsFADphZuGN2qNzuGEMSsZmx1nqTNEFh/AvoUPAtCEn` +
       `C5E9gN/SG6xqhvfFcgAZ9VtwIDAQAB`,
   };
+
+  public static readonly search = {
+    queryResponseLimit: 6,
+    querySearchViewResponseLimit: 10,
+    debounceTime: 300,
+  };
 }

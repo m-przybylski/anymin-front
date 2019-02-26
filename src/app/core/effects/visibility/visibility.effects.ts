@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { VisibilityInitActions, VisibilityApiActions, VisibilityUiActions } from '@platform/features/dashboard/actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { PresenceService } from '@anymind-ng/api';
 import { of } from 'rxjs';
 import { GetExpertVisibility } from '@anymind-ng/api/model/getExpertVisibility';
 import { AlertService } from '@anymind-ng/core';
+import { VisibilityApiActions, VisibilityInitActions, VisibilityUiActions } from '@platform/core/actions';
 
 @Injectable()
 export class VisibilityEffects {

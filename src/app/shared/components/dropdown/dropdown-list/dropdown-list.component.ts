@@ -1,4 +1,14 @@
-import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  Input,
+  IterableDiffer,
+  IterableDiffers,
+  ViewChild,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { ScrollToElementDirective } from './scroll-to-element.directive';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { IDropdownComponent } from '../dropdown.component';
@@ -8,7 +18,7 @@ import { IDropdownComponent } from '../dropdown.component';
   templateUrl: './dropdown-list.component.html',
   styleUrls: ['./dropdown-list.component.sass'],
 })
-export class DropdownListComponent implements DoCheck {
+export class DropdownListComponent implements DoCheck, OnDestroy {
   public readonly avatarSize = AvatarSizeEnum.X_24;
   public selectedItemIndex = -1;
   public selectedItemElement: IDropdownComponent;
@@ -16,11 +26,15 @@ export class DropdownListComponent implements DoCheck {
   @Input()
   public dropdownItems: ReadonlyArray<IDropdownComponent>;
 
-  @Input()
-  public onSelectItem: (item: IDropdownComponent) => void;
+  @Output()
+  public selectItem = new EventEmitter<IDropdownComponent>();
+
+  @Output()
+  public isItemSelected = new EventEmitter<boolean>();
 
   @Input()
-  public isAvatarVisible ? = true;
+  public isAvatarVisible = true;
+
   @ViewChild(ScrollToElementDirective)
   public scrollContent: ScrollToElementDirective;
 
@@ -30,6 +44,10 @@ export class DropdownListComponent implements DoCheck {
     this.iterableDiffer = this.differs.find([]).create(undefined);
   }
 
+  public ngOnDestroy(): void {
+    this.isItemSelected.emit(false);
+  }
+
   public ngDoCheck(): void {
     if (this.iterableDiffer.diff(this.dropdownItems)) {
       this.selectedItemIndex = -1;
@@ -37,47 +55,50 @@ export class DropdownListComponent implements DoCheck {
     }
   }
 
-  public selectItem = (): void => {
+  public onSelectItem(): void {
     if (this.selectedItemIndex !== -1) {
-      this.onSelectItem(this.selectedItemElement);
+      this.selectItem.emit(this.selectedItemElement);
     }
     this.selectedItemIndex = -1;
-  };
+  }
 
-  public onItemClicked = (index: number): void => {
+  public onItemClicked(index: number): void {
     this.findItemInList(index);
-    this.selectItem();
-  };
+    this.onSelectItem();
+  }
 
-  public onMouseSelect = (index: number): void => {
+  public onMouseSelect(index: number): void {
     this.selectedItemIndex = index;
     this.findItemInList(index);
-  };
+  }
 
-  public onSelectEnter = (): void => {
-    this.selectItem();
-  };
+  public onSelectEnter(): void {
+    this.onSelectItem();
+  }
 
-  public onKeyUp = (): void =>
-    this.selectedItemIndex > 0 && this.dropdownItems.length > 0
+  public onKeyUp(): void {
+    return this.selectedItemIndex > 0 && this.dropdownItems.length > 0
       ? this.markItemAsSelected(this.selectedItemIndex - 1)
       : this.markItemAsSelected(this.selectedItemIndex);
+  }
 
-  public onKeyDown = (): void =>
-    this.selectedItemIndex < this.dropdownItems.length - 1 && this.dropdownItems.length > 0
+  public onKeyDown(): void {
+    return this.selectedItemIndex < this.dropdownItems.length - 1 && this.dropdownItems.length > 0
       ? this.markItemAsSelected(this.selectedItemIndex + 1)
       : this.markItemAsSelected(this.selectedItemIndex);
+  }
 
-  private findItemInList = (index: number): void => {
+  private findItemInList(index: number): void {
     this.selectedItemElement = this.dropdownItems[index];
-  };
+    this.isItemSelected.emit(index !== -1);
+  }
 
-  private markItemAsSelected = (index: number): void => {
+  private markItemAsSelected(index: number): void {
     this.selectedItemIndex = index;
 
     if (this.selectedItemIndex >= 0) {
       this.findItemInList(index);
       this.scrollContent.scrollToElement(index);
     }
-  };
+  }
 }

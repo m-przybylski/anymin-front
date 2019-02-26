@@ -1,0 +1,42 @@
+@import "../../../../template/core/helpers/mixins"
+
+.search-consultation-item-component
+  +option-row
+  
+  .profile-details
+    display: flex
+    align-items: stretch
+    
+    &__expert-name
+      span
+        +button-small
+        font-weight: 500
+    
+    &__avatar
+      margin: 0 24px 0 0
+      
+    &__info
+      display: flex
+      flex-direction: column
+
+      &--expert-consultation
+        justify-content: space-between
+  
+      &--company-consultation
+        justify-content: center
+
+  .consultation
+    &__name
+      h3
+        +h6
+
+  
+  .consultation-actions
+    display: flex
+    align-items: center
+  
+    .button
+      margin: 0 0 0 16px
+  
+  .consultation-price
+    +price

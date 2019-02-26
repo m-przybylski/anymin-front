@@ -38,12 +38,6 @@ export class Config {
     defaultSecureImg: `/assets/images/meta/default-ogimage.png`,
   };
 
-  public static readonly meta = {
-    twitterId: 'AnyMindApp',
-    defaultName: 'AnyMind',
-    defaultSecureImg: `/assets/images/meta/default-ogimage.png`,
-  };
-
   public static readonly moneyDivider = 100;
 
   public readonly alerts = {

@@ -8,7 +8,7 @@ import { LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { INavigationItem, NAVIGATIONITEMS } from '@platform/features/dashboard/components/navbar/navigation';
 import { select, Store } from '@ngrx/store';
-import * as fromDashboard from '@platform/features/dashboard/reducers';
+import * as fromCore from '@platform/core/reducers';
 
 @Injectable()
 export class NavbarComponentService extends Logger {
@@ -22,7 +22,7 @@ export class NavbarComponentService extends Logger {
 
   constructor(
     private profileService: ProfileService,
-    private store: Store<fromDashboard.IState>,
+    private store: Store<fromCore.IState>,
     loggerFactory: LoggerFactory,
     @Inject(NAVIGATIONITEMS) private navigationItems: ReadonlyArray<INavigationItem>,
   ) {
@@ -41,11 +41,11 @@ export class NavbarComponentService extends Logger {
     if (typeof filterFn !== 'undefined') {
       return this.navigationItems.filter(navigationItem => {
         if (navigationItem.isCounter && navigationItem.isCompany) {
-          navigationItem.counter = this.store.pipe(select(fromDashboard.getCompanyCounters));
+          navigationItem.counter = this.store.pipe(select(fromCore.getCompanyCounters));
         } else if (navigationItem.isCounter && navigationItem.isExpert) {
-          navigationItem.counter = this.store.pipe(select(fromDashboard.getExpertActivitiesCounter));
+          navigationItem.counter = this.store.pipe(select(fromCore.getExpertActivitiesCounter));
         } else if (navigationItem.hasInvitationsCounter && navigationItem.isExpert) {
-          navigationItem.counter = this.store.pipe(select(fromDashboard.getInvitationsCounter));
+          navigationItem.counter = this.store.pipe(select(fromCore.getInvitationsCounter));
         }
 
         if (navigationItem.isVisible) {

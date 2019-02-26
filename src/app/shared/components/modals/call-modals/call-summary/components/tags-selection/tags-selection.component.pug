@@ -2,7 +2,7 @@
   .tags-selection__title {{ 'CALL_SUMMARY.TAG_RECOMMENDATION.TITLE' | translate }}
 
   .tags-selection__tag-list
-    ng-container(*ngFor="let singleTag of tagList")
+    ng-container(*ngFor="let singleTag of selectedTagList")
       .single-tag((click)="clickTag(singleTag)", [class.selected]="isTagSelected(singleTag)") {{ singleTag.name }}
 
   .tags-selection__buttons-container

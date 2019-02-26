@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { DashboardActions } from '@platform/features/dashboard/actions';
+import { DashboardActions } from '../../../features/dashboard/actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { ActivitiesService } from '@anymind-ng/api';
 import { of } from 'rxjs';
 
 @Injectable()
-export class DashboardEffects {
+export class ActivitiesCounterEffects {
   @Effect()
   public fetchImportantActivitiesCounter$ = this.actions$.pipe(
     ofType(DashboardActions.DashboardActionTypes.FetchImportantActivitiesCounterFromServer),

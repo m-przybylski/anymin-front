@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import * as fromActivities from '@platform/features/dashboard/reducers';
 import { Observable } from 'rxjs';
 import { GetImportantActivitiesCounters } from '@anymind-ng/api';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
@@ -9,10 +8,10 @@ import * as fromCore from '@platform/core/reducers';
 
 @Injectable()
 export class ActivitiesService {
-  constructor(private coreStore: Store<fromCore.IState>, private store: Store<fromActivities.IState>) {}
+  constructor(private coreStore: Store<fromCore.IState>, private store: Store<fromCore.IState>) {}
 
   public get getCounters$(): Observable<GetImportantActivitiesCounters> {
-    return this.store.pipe(select(fromActivities.getCounters));
+    return this.store.pipe(select(fromCore.getCounters));
   }
 
   public isExpert(): Observable<boolean> {

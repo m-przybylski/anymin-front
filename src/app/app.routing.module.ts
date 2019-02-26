@@ -35,6 +35,10 @@ const appRoutes: Routes = [
         loadChildren: './features/dashboard/dashboard.module#DashboardModule',
       },
       {
+        path: 'search',
+        loadChildren: './features/search/search.module#SearchModule',
+      },
+      {
         path: 'communicator',
         canActivate: [SessionGuard],
         loadChildren: './features/communicator/communicator.module#CommunicatorViewModule',

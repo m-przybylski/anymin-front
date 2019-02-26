@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { AlertService, LoggerService } from '@anymind-ng/core';
-import { InvitationsApiActions, InvitationsActions } from '@platform/features/dashboard/actions';
-import { InvitationsEffects } from '@platform/features/dashboard/effects/invitations/invitations.effects';
-import { provideMockFactoryLogger } from '../../../../../testing/testing';
+import { InvitationsApiActions, InvitationsActions } from '../../../features/dashboard/actions';
+import { InvitationsEffects } from 'invitations.effects';
+import { provideMockFactoryLogger } from '../../../../testing/testing';
 
 describe('InvitationsEffects', () => {
   let invitationsEffects: InvitationsEffects;

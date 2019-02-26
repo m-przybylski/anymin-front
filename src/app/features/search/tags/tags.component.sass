@@ -1,0 +1,56 @@
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+
+.tags
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: 0 0 -8px
+  
+  &__item
+    display: flex
+    align-items: center
+    height: 32px
+    border-radius: 28px
+    margin: 0 8px 8px 0
+    transition: border-color 0.3s
+    cursor: pointer
+    background: $c-white
+    border: 1px solid $c-lines
+    padding: 0 16px
+
+    span
+      transition: color 0.3s
+      color: $c-text-secondary
+
+    &--default
+      &:hover
+        border-color: $c-text-primary
+    
+        span
+          color: $c-text-primary
+
+    &--selected
+      background: $c-text-primary
+      padding: 0 8px 0 16px
+  
+      &:hover
+        .icon
+          background: $c-white
+          color: $c-black
+          
+      .tags__title
+        color: $c-white
+        
+    .icon
+      transition: background 0.3s
+      cursor: pointer
+      font-size: 16px
+      border-radius: 50%
+      background: rgba($c-white, 0.35)
+      margin: 0 0 0 8px
+      color: $c-black
+      
+  &__title
+    +caption
+    display: flex
+    align-items: center

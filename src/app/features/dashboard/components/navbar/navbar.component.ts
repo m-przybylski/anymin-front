@@ -1,21 +1,30 @@
+// tslint:disable:max-file-line-count
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetExpertVisibility, GetProfileWithDocuments, GetSessionWithAccount } from '@anymind-ng/api';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
 import * as fromRoot from '@platform/reducers';
-import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, Subject, forkJoin } from 'rxjs';
-import { NavbarActions } from '@platform/core/actions';
+import { catchError, filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
+import { Observable, of, merge, Subject, forkJoin } from 'rxjs';
+import {
+  InvitationsActions,
+  InvitationsWsActions,
+  NavbarActions,
+  VisibilityInitActions,
+  VisibilityUiActions,
+  VisibilityWSActions,
+} from '@platform/core/actions';
 import { NavbarComponentService } from './navbar.component.service';
 import { INavigationItem } from '@platform/features/dashboard/components/navbar/navigation';
-import { VisibilityUiActions } from '@platform/features/dashboard/actions';
-import * as fromDashboard from '@platform/features/dashboard/reducers';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { DashboardActions } from '@platform/features/dashboard/actions';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { AnymindWebsocketService } from '@platform/core/services/anymind-websocket/anymind-websocket.service';
 
 interface INavbarData {
   expertProfileData?: GetProfileWithDocuments;
@@ -45,7 +54,7 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   public isUserMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarUserMenuVisible));
   public isHelpMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarHelpMenuVisible));
   public isUserVisible$ = this.store.pipe(
-    select(fromDashboard.getVisibilityStatus),
+    select(fromCore.getVisibilityStatus),
     map(visibility => visibility === GetExpertVisibility.VisibilityEnum.Visible),
   );
 
@@ -53,6 +62,7 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.IState>,
+    private anymindWebsocketService: AnymindWebsocketService,
     private navbarComponentService: NavbarComponentService,
     private router: Router,
     loggerFactory: LoggerFactory,
@@ -61,6 +71,66 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    /**
+     * once there user is not an expert do not fetch visibility
+     * for the moment company does not have visibility.
+     */
+    getNotUndefinedSession(this.store)
+      .pipe(
+        map(session =>
+          session.isExpert
+            ? [
+                new VisibilityInitActions.FetchInitVisibilityAction(),
+                new InvitationsActions.FetchInvitationsAction(),
+                new DashboardActions.FetchImportantActivitiesCounterAction(),
+              ]
+            : [],
+        ),
+        take(1),
+      )
+      .subscribe(actions => {
+        /**
+         * when array is empty nothing will be send
+         */
+        actions.forEach(action => {
+          this.store.dispatch(action);
+        });
+      });
+
+    /**
+     * web socket handler.
+     * activities counters for
+     *  - client
+     *  - expert
+     *  - organization
+     * and visibility.
+     */
+    merge(
+      this.anymindWebsocketService.newInvitation.pipe(
+        map(() => new InvitationsWsActions.IncrementWsInvitationsCounterAction()),
+      ),
+      this.anymindWebsocketService.importantClientActivity.pipe(
+        map(() => new DashboardActions.IncrementImportantClientActivitiesCounterAction()),
+      ),
+      this.anymindWebsocketService.importantExpertActivity.pipe(
+        map(() => new DashboardActions.IncrementImportantExpertActivitiesCounterAction()),
+      ),
+      this.anymindWebsocketService.importantCompanyActivity.pipe(
+        map(() => new DashboardActions.IncrementImportantOrganizationActivitiesCounterAction()),
+      ),
+      this.anymindWebsocketService.expertPresence.pipe(
+        map(getExpertVisibility =>
+          getExpertVisibility === GetExpertVisibility.VisibilityEnum.Visible
+            ? new VisibilityWSActions.SetWSVisibilityVisibleAction()
+            : new VisibilityWSActions.SetWSVisibilityInvisibleAction(),
+        ),
+      ),
+    )
+      .pipe(takeUntil(this.onDestroyed$))
+      .subscribe(action => {
+        this.store.dispatch(action);
+      });
+
     this.store
       .pipe(
         select(fromCore.getSessionAndUserType),

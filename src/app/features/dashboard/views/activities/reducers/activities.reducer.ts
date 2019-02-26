@@ -1,7 +1,12 @@
 import { GetProfileActivity } from '@anymind-ng/api';
-import { ActivitiesActions, ActivitiesApiActions, ActivitiesPageActions, ActivitiesWsActions } from '../actions';
 import { IActivity } from '@platform/features/dashboard/views/activities/activities.interface';
 import { ActivitiesUtilsService } from '@platform/features/dashboard/views/activities/services/activities-utils.service';
+import {
+  ActivitiesActions,
+  ActivitiesApiActions,
+  ActivitiesPageActions,
+  ActivitiesWsActions,
+} from '@platform/features/dashboard/views/activities/actions';
 
 type ActionUnion =
   | ActivitiesActions.ActivitiesActionUnion

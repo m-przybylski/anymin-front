@@ -1,0 +1,29 @@
+.search-consultation-item-component
+  .profile-details
+    .profile-details__avatar
+      plat-user-avatar(
+      [avatarSize]="avatarSize96",
+      [avatarToken]="avatarToken"
+      )
+
+    .profile-details__info([ngClass]="{'profile-details__info--expert-consultation': isExpertConsultation}")
+      .profile-details__expert-name
+        span {{ item.expertProfile.name }}
+
+        span.working-for
+          span {{ item.ownerProfile.name }}
+
+      .consultation
+        .consultation__name
+          h3.consultation__title {{ item.service.name }}
+
+      .statistics
+        p {{ item.rating }}
+        p {{ item.usageCounter }}
+
+  .consultation-actions
+    .consultation-price
+      | {{ item.service.price.value | moneyDivider | currency: item.service.price.currency:'symbol-narrow' }}
+
+    a.button(plat-icon-button, color='primary')
+      span(plat-icon iconClass='arrow-right')

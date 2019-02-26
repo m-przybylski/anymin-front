@@ -19,5 +19,6 @@
     *ngIf="isDropdownListVisible",
     [isAvatarVisible]="isAvatarVisible",
     [dropdownItems]="dropdownItems",
-    [onSelectItem]="onSelectItem"
+    (selectItem)="onSelectItem($event)",
+    (isItemSelected)="isItemSelected($event)",
     )

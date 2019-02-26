@@ -4,12 +4,19 @@ import * as fromLogin from './login.reducer';
 import * as fromSession from './session.reducer';
 import * as fromNavbar from './navbar.reducer';
 import * as fromForgotPassword from './forgot-password.reducer';
+import * as fromVisiblity from './visibility.reducer';
+import * as fromInvitations from './invitations/invitations.reducer';
+import * as fromActivities from './activities-counter/activities.reducer';
+import * as fromDashboard from '@platform/core/reducers/activities-counter/activities.reducer';
 
 export interface ICoreState {
   login: fromLogin.IState;
   session: fromSession.IState;
   userType: fromNavbar.IState;
   forgotPassword: fromForgotPassword.IState;
+  visibility: fromVisiblity.IState;
+  invitations: fromInvitations.IState;
+  activitiesCounter: fromActivities.IState;
 }
 
 export interface IState extends fromRoot.IState {
@@ -22,6 +29,9 @@ export const reducers: ActionReducerMap<ICoreState, any> = {
   session: fromSession.reducer,
   userType: fromNavbar.reducer,
   forgotPassword: fromForgotPassword.reducer,
+  visibility: fromVisiblity.reducer,
+  invitations: fromInvitations.reducer,
+  activitiesCounter: fromActivities.reducer,
 };
 
 export const selectCoreState = createFeatureSelector<IState, ICoreState>('core');
@@ -41,6 +51,24 @@ export const selectUserType = createSelector(
 export const selectForgotPassword = createSelector(
   selectCoreState,
   (state: ICoreState) => state.forgotPassword,
+);
+export const selectVisiblity = createSelector(
+  selectCoreState,
+  (state: ICoreState) => state.visibility,
+);
+export const selectInvitations = createSelector(
+  selectCoreState,
+  (state: ICoreState) => state.invitations,
+);
+
+export const selectActivities = createSelector(
+  selectCoreState,
+  (state: ICoreState) => state.activitiesCounter,
+);
+
+export const getExpertActivitiesCounter = createSelector(
+  selectActivities,
+  fromDashboard.getExpertActivitiesCounter,
 );
 
 export const getSession = createSelector(
@@ -100,4 +128,20 @@ export const getIsNavbarHelpMenuVisible = createSelector(
 export const getForgotPasswordMsisdnToken = createSelector(
   selectForgotPassword,
   fromForgotPassword.getMsisdnToken,
+);
+export const getVisibilityStatus = createSelector(
+  selectVisiblity,
+  fromVisiblity.getVisibility,
+);
+export const getInvitationsCounter = createSelector(
+  selectInvitations,
+  fromInvitations.getInvitationCounter,
+);
+export const getCounters = createSelector(
+  selectActivities,
+  fromDashboard.getCounters,
+);
+export const getCompanyCounters = createSelector(
+  selectActivities,
+  fromDashboard.getCompanyCounter,
 );

@@ -16,14 +16,6 @@ describe('Component: DropdownListComponent', () => {
     });
   });
 
-  it('should call selectItem when selectedItemIndex is equal -1', () => {
-    const fixture = TestBed.createComponent(DropdownListComponent);
-    const component = fixture.componentInstance;
-
-    component.selectItem();
-    expect(component.selectedItemIndex).toEqual(-1);
-  });
-
   it('should call onMouseSelect', () => {
     const fixture = TestBed.createComponent(DropdownListComponent);
     const component = fixture.componentInstance;

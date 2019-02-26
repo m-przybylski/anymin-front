@@ -1,11 +1,11 @@
 // tslint:disable:cyclomatic-complexity
 import { GetExpertVisibility } from '@anymind-ng/api';
 import {
-  VisibilityInitActions,
   VisibilityApiActions,
+  VisibilityInitActions,
   VisibilityUiActions,
   VisibilityWSActions,
-} from '@platform/features/dashboard/actions';
+} from '@platform/core/actions';
 
 export interface IState {
   visibility: GetExpertVisibility.VisibilityEnum | undefined;

@@ -1,6 +1,7 @@
 .input-switch
   span.input-switch__status-text(
-    [ngClass]="{'input-switch__status-text--disabled': isDisabled }"
+  *ngIf="onOffTrKey",
+  [ngClass]="{'input-switch__status-text--disabled': isDisabled }"
   ) {{ onOffTrKey | translate }}
   label.input-switch__label(
     (click)="onSwitcherClick($event)",

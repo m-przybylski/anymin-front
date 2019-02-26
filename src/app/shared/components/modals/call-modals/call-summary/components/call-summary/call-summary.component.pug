@@ -80,4 +80,4 @@
     plat-complaint-form([isComplaintInputDisabled]="isComplaintInputDisabled", (submitFormEmitter$)="onSubmitComplainForm($event)")
 
   .tags-section(*ngSwitchCase="summaryStateEnum.TAGS")
-    plat-tags-selection([tagList]="tagList", (savedTagsEmitter$)="onTagsSaved($event)")
+    plat-tags-selection([tagList]="selectedTagList", (savedTagsEmitter$)="onTagsSaved($event)")

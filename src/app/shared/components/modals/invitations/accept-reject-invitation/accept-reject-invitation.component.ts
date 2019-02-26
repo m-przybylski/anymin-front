@@ -17,8 +17,8 @@ import {
 } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY, from, Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
-import { InvitationsApiActions } from '@platform/features/dashboard/actions';
 import { ProfileModalsService } from '@platform/shared/components/modals/profile/profile-modals/profile-modals.service';
+import { InvitationsApiActions } from '@platform/core/actions';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',

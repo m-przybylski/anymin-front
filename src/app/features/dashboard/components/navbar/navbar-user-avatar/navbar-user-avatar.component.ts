@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Input, NgZone } from '@angular/core';
+import { Component, ElementRef, Inject, Input, NgZone, OnDestroy } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { GetExpertVisibility } from '@anymind-ng/api';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
@@ -16,7 +16,7 @@ import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-ava
   templateUrl: './navbar-user-avatar.component.html',
   styleUrls: ['./navbar-user-avatar.component.sass'],
 })
-export class NavbarUserAvatarComponent {
+export class NavbarUserAvatarComponent implements OnDestroy {
   @Input()
   public avatarToken?: string;
 
@@ -49,11 +49,16 @@ export class NavbarUserAvatarComponent {
     @Inject(DOCUMENT) private document: Document,
   ) {}
 
-  public toggleMenuVisibility = (): void => {
-    this.store.dispatch(new NavbarActions.ToggleUserMenuVisibility());
-  };
+  public ngOnDestroy(): void {
+    this.navbarMenuClose$.next();
+    this.navbarMenuClose$.complete();
+  }
 
-  private setCloseHandlers = (): void => {
+  public toggleMenuVisibility(): void {
+    this.store.dispatch(new NavbarActions.ToggleUserMenuVisibility());
+  }
+
+  private setCloseHandlers(): void {
     this.ngZone.runOutsideAngular(() => {
       fromEvent<MouseEvent>(this.document as FromEventTarget<MouseEvent>, 'click')
         .pipe(
@@ -66,5 +71,5 @@ export class NavbarUserAvatarComponent {
           });
         });
     });
-  };
+  }
 }

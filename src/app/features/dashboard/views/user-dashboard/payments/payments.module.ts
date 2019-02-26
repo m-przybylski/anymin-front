@@ -17,6 +17,8 @@ import { MoneyDisplayModule } from '@platform/shared/components/money-display/mo
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { EffectsModule } from '@ngrx/effects';
+import { PaymentsEffects } from '@platform/features/dashboard/views/user-dashboard/payments/effects/payments.effects';
 
 @NgModule({
   imports: [
@@ -25,6 +27,7 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
     ModalsModule,
     RouterModule.forChild([{ path: '', component: PaymentsViewComponent }]),
     StoreModule.forFeature('payments', reducers),
+    EffectsModule.forFeature([PaymentsEffects]),
     TranslateModule,
     ButtonModule,
     IconModule,

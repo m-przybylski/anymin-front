@@ -1,4 +1,4 @@
-import { InvitationsApiActions, InvitationsWsActions, InvitationsActions } from '@platform/features/dashboard/actions';
+import { InvitationsActions, InvitationsApiActions, InvitationsWsActions } from '@platform/core/actions';
 
 export interface IState {
   counter: number;

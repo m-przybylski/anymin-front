@@ -32,8 +32,12 @@ import { RegisterEffects } from '@platform/core/effects/register.effects';
 import { TranslationAssetsLoader } from './services/translations/translation-loader';
 import { SetNewPasswordEffects } from '@platform/core/effects/set-new-password.effects';
 import { provideTranslations } from './initialize';
+import { ActivitiesCounterEffects } from '@platform/core/effects/activities-counter/activities.effects';
+import { VisibilityEffects } from '@platform/core/effects/visibility/visibility.effects';
+import { InvitationsEffects } from '@platform/core/effects/invitations/invitations.effects';
 import { UnsupportedService } from '@platform/core/services/unsupported/unsupported.service';
 import { UserAgentService } from '@platform/core/services/unsupported/user-agent.service';
+import { URLQueryParamsService } from '@platform/core/services/search/url-query-params.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -53,7 +57,16 @@ export function getLogLevel(): LogLevel {
     }),
     CommunicatorModule.forRoot(CommunicatorConfigFactory),
     StoreModule.forFeature('core', reducers),
-    EffectsModule.forFeature([LoginEffects, SessionEffects, UserTypeEffects, RegisterEffects, SetNewPasswordEffects]),
+    EffectsModule.forFeature([
+      LoginEffects,
+      SessionEffects,
+      UserTypeEffects,
+      RegisterEffects,
+      SetNewPasswordEffects,
+      ActivitiesCounterEffects,
+      VisibilityEffects,
+      InvitationsEffects,
+    ]),
   ],
   providers: [
     UserSessionService,
@@ -76,6 +89,7 @@ export function getLogLevel(): LogLevel {
     RemoteLogoutService,
     UnsupportedService,
     UserAgentService,
+    URLQueryParamsService,
   ],
 })
 export class CoreModule {}

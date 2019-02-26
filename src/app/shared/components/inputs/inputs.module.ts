@@ -12,7 +12,6 @@ import { SelectPaymentMethodCardRadioComponent } from '@platform/shared/componen
 import { NgxMaskModule } from 'ngx-mask';
 import { SelectPromoCodeRadioComponent } from '@platform/shared/components/modals/payments/select-promo-code-radio/select-promo-code-radio.component';
 import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
-import { InputSearchComponent } from '@platform/shared/components/inputs/input-search/input-search.component';
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 
 @NgModule({
@@ -35,10 +34,8 @@ import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.mo
     InputNumericComponent,
     SelectPaymentMethodCardRadioComponent,
     SelectPromoCodeRadioComponent,
-    InputSearchComponent,
   ],
   declarations: [
-    InputSearchComponent,
     InputSwitchComponent,
     InputAddItemComponent,
     InputNumericComponent,

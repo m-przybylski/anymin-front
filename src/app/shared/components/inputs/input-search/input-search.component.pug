@@ -1,13 +1,14 @@
 form.search-container(
-  [ngClass]="{'search-container--focused': isFocused, 'search-container--list-visible': isDropdownDisplayed}",
-  [formGroup]="searchFormGroupName")
-
+[ngClass]="{'search-container--focused': isFocused, 'search-container--list-visible': isDropdownDisplayed}",
+[formGroup]="searchFormGroupName")
   input(
-  toggleElementDirective, (isClickedElement)="toggleDropdown($event)",
+  platInputSearchClick, [isUserMenuVisible]="isFocused", (toggleElement)="toggleDropdown($event)"
   type="text",
   placeholder="{{placeholderTrKey | translate}}",
   (focus)="onFocus()",
   [formControlName]="searchControlName",
+  (keydown.enter)="onEnter($event)",
+  #input,
   )
 
   span.icon.icon-search
@@ -19,8 +20,6 @@ form.search-container(
   [isDropdownListVisible]="isDropdownDisplayed",
   [dropdownItems]="suggestedSearchResults",
   (onSelectItemEmiter)="onSelectItem($event)",
-  (onCloseEmiter)="onCloseDropdown($event)",
-  [isDropdownListOnly]="true"
+  [isDropdownListOnly]="true",
+  (isListItemSelected)="isListItemSelected($event)",
   )
-
-

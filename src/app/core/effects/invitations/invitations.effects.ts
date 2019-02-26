@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { GetInvitation, InvitationService } from '@anymind-ng/api';
-import { InvitationsApiActions, InvitationsActions } from '@platform/features/dashboard/actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Logger } from '@platform/core/logger';
+import { Logger } from '../../logger';
+import { InvitationsActions, InvitationsApiActions } from '@platform/core/actions';
 
 @Injectable()
 export class InvitationsEffects extends Logger {

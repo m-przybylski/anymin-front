@@ -49,5 +49,5 @@
         span.count {{ commentCounter }}
         span.text {{ 'CONSULTATION_DETAILS.STATISTICS.COMMENTS.POSITIVE' | translate }}
 
-  .consultation-details__tags(*ngIf="tagList.length")
-    plat-tag-list([itemList]="tagList")
+  .consultation-details__tags(*ngIf="selectedTagList.length")
+    plat-tag-list([itemList]="selectedTagList")

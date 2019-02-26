@@ -7,6 +7,10 @@ export class RouterHelpers {
       .reduce((newPath, key) => newPath.replace(key, params[key.substr(1)]), pathToReplace);
 }
 export const RouterPaths = {
+  search: {
+    asPath: 'search',
+    getName: 'search',
+  },
   dashboard: {
     asPath: 'dashboard',
     getName: 'dashboard',

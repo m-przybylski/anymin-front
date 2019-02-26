@@ -1,6 +1,6 @@
 // tslint:disable:max-line-length
 import { IState, reducer } from './activities.reducer';
-import { DashboardActions } from '../actions';
+import { DashboardActions } from '../../actions';
 
 describe('activities.reducer', () => {
   const initialState: IState = {

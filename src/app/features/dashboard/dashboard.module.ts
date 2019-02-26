@@ -15,16 +15,9 @@ import { DashboardResolver } from './dashboard.resolver';
 import { RecommendFriendsModule } from '@platform/features/dashboard/views/user-dashboard/recommend-friends/recommend-friends.module';
 import { EmployeesInviteService } from '@platform/shared/components/modals/invitations/employees-invite/employees-invite.service';
 import { NavbarModule } from '@platform/features/dashboard/components/navbar/navbar.module';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from '@platform/features/dashboard/reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { DashboardEffects } from '@platform/features/dashboard/effects/activities.effects';
-import { VisibilityEffects } from '@platform/features/dashboard/effects/visibility/visibility.effects';
 import { GenerateWidgetModule } from '@platform/shared/components/modals/generate-widget/generate-widget.module';
-import { InvitationsEffects } from '@platform/features/dashboard/effects/invitations/invitations.effects';
 import { AddPaymentCardModule } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.module';
 import { PromoCodeModule } from '@platform/shared/components/modals/payments/promo-code/promo-code.module';
-import { PaymentsEffects } from '@platform/features/dashboard/views/user-dashboard/payments/effects/payments.effects';
 
 @NgModule({
   declarations: [DashboardViewComponent, UserDashboardComponent, FavouritesComponent, NotFoundComponent],
@@ -42,8 +35,6 @@ import { PaymentsEffects } from '@platform/features/dashboard/views/user-dashboa
     GenerateWidgetModule,
     AddPaymentCardModule,
     PromoCodeModule,
-    StoreModule.forFeature('dashboard', reducers),
-    EffectsModule.forFeature([DashboardEffects, VisibilityEffects, InvitationsEffects, PaymentsEffects]),
   ],
   providers: [EmployeesInviteService, DashboardResolver],
 })

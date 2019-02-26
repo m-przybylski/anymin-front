@@ -40,7 +40,7 @@ export class DropdownComponent implements OnInit {
   public isDropdownListOnly = false;
 
   @Input()
-  public isAvatarVisible ? = true;
+  public isAvatarVisible = true;
 
   @Output()
   public onSelectItemEmiter = new EventEmitter<IDropdownComponent>();
@@ -48,15 +48,24 @@ export class DropdownComponent implements OnInit {
   @Output()
   public onCloseEmiter = new EventEmitter<boolean>(true);
 
+  @Output()
+  public isListItemSelected = new EventEmitter<boolean>(false);
+
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', []));
   }
 
-  public onClickDropdown = (): void => {
+  public onClickDropdown(): void {
     this.isDropdownListVisible = !this.isDropdownListVisible;
-  };
+  }
 
-  public onSelectItem = (value: IDropdownComponent): void => {
+  public isItemSelected(isSelectAnyItem: boolean): void {
+    if (this.isListItemSelected) {
+      this.isListItemSelected.emit(isSelectAnyItem);
+    }
+  }
+
+  public onSelectItem(value: IDropdownComponent): void {
     if (this.isDropdownListOnly) {
       this.onSelectItemEmiter.emit(value);
     } else {
@@ -65,16 +74,16 @@ export class DropdownComponent implements OnInit {
 
     this.isDropdownListVisible = false;
     this.placeholderTrKey = value.name;
-  };
+  }
 
-  public onToggleDropdown = (isVisible: boolean): void => {
+  public onToggleDropdown(isVisible: boolean): void {
     this.isDropdownListVisible = isVisible;
     this.onCloseDropdownList(isVisible);
-  };
+  }
 
-  public onCloseDropdownList = (isVisible: boolean): void => {
+  public onCloseDropdownList(isVisible: boolean): void {
     if (this.onCloseEmiter) {
       this.onCloseEmiter.emit(isVisible);
     }
-  };
+  }
 }

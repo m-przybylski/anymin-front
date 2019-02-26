@@ -1,0 +1,36 @@
+@import "../../template/core/core"
+
+.search-view
+  margin: $s-navbar-mobile-height 0 0 0
+  
+  +xsm
+    margin: $s-navbar-desktop-height 0 0 0
+
+  &__header
+    background: $c-white
+    
+    h3
+      +h6
+      font-weight: 500
+      margin: 0 0 6px
+      
+    p
+      +paragraph-small
+
+  .container
+    &--padding
+      > div
+        padding: 24px
+
+.header
+  &--small
+    margin: 0 0 16px
+    
+    h5
+      +input-label
+
+.search-view-filter
+  &--visibility
+
+  &--selected-tags
+    margin: 0 0 16px

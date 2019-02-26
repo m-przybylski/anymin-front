@@ -1,0 +1,9 @@
+ul.tags__list
+  li.tags__item(
+    *ngFor="let tag of tagList",
+    [ngClass]="{'tags__item--selected': isTagSelected,'tags__item--default': !isTagSelected}",
+    (click)="onClickTag(tag)",
+    [@animation]
+    )
+    span.tags__title {{ tag }}
+      span.icon.icon-clear((click)="removeSelectedTag(tag)", *ngIf="isTagSelected")
