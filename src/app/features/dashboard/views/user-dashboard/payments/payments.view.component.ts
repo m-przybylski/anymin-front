@@ -4,14 +4,14 @@ import { PayoutMethodComponent } from '@platform/features/dashboard/views/user-d
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { AddPaymentCard } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { PutDefaultPaymentMethod } from '@anymind-ng/api';
+import { GetPromoCode, PutDefaultPaymentMethod } from '@anymind-ng/api';
 import { PaymentsViewComponentService } from '@platform/features/dashboard/views/user-dashboard/payments/payments.view.component.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, filter, takeUntil } from 'rxjs/operators';
+import { catchError, map, takeUntil } from 'rxjs/operators';
 import { PromoCodeComponent } from '@platform/shared/components/modals/payments/promo-code/promo-code.component';
 import { select, Store } from '@ngrx/store';
 import * as fromPayments from './reducers';
@@ -32,7 +32,7 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
   public currentPaymentMethodId = '';
   public promoCodeList$ = this.store.pipe(
     select(fromPayments.getPromoCodesList),
-    filter(promoCode => new Date(promoCode.expiresAt).getTime() > Date.now()),
+    map(promoCode => promoCode.filter((code: GetPromoCode) => new Date(code.expiresAt).getTime() > Date.now())),
   );
   public paymentsCardList$ = this.store.pipe(select(fromPayments.getPaymentsMethodList));
   public isPending$ = this.store.pipe(select(fromPayments.isPaymentMethodsPending));
