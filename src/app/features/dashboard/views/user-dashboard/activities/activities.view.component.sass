@@ -25,7 +25,7 @@
     padding: 24px 12px
 
     +smm
-      padding: 24px 24px 20px 24px
+      padding: 0 24px 20px 24px
 
     >span
       +h6
@@ -45,13 +45,14 @@
       height: 72px
 
     +mdm
+      max-width: 384px
       width: auto
 
     &--expert, &--client
       width: 100%
       height: 100%
       padding: 16px 12px
-      background: $c-white
+      background: $c-secondary-background
       display: flex
       justify-content: space-between
       align-items: center
@@ -68,6 +69,7 @@
 
         +mdm
           +subtitle
+          font-weight: 500
 
       .activities__tabs__counter
         height: auto
@@ -90,19 +92,19 @@
 
 
         .activities__tabs__title
-          color: $c-primary
+          color: $c-black
 
         &::ng-deep
           .activities-counter
-            background: $c-primary
+            background: $c-black
 
       &.active
         background: $c-base-background
         cursor: default
 
         .activities__tabs__title
-          color: $c-text-primary
+          color: $c-primary
 
         &::ng-deep
           .activities-counter
-            background: $c-black
+            background: $c-primary
