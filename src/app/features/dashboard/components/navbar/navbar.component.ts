@@ -3,7 +3,7 @@ import { GetExpertVisibility, GetProfileWithDocuments, GetSessionWithAccount } f
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import * as fromCore from '@platform/core/reducers';
 import * as fromRoot from '@platform/reducers';
-import { filter, switchMap, map, catchError, takeUntil } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,6 +14,8 @@ import { INavigationItem } from '@platform/features/dashboard/components/navbar/
 import { VisibilityUiActions } from '@platform/features/dashboard/actions';
 import * as fromDashboard from '@platform/features/dashboard/reducers';
 import { select, Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 interface INavbarData {
   profileData?: GetProfileWithDocuments;
@@ -50,6 +52,7 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromRoot.IState>,
     private navbarComponentService: NavbarComponentService,
+    private router: Router,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('NavbarComponentService'));
@@ -74,6 +77,19 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.onDestroyed$.next();
     this.onDestroyed$.complete();
+  }
+
+  public navigateUserToActivitiesList(): void {
+    switch (this.userType) {
+      case UserTypeEnum.COMPANY:
+        this.router.navigate([RouterPaths.dashboard.company.activities.asPath]);
+        break;
+      case UserTypeEnum.EXPERT:
+        this.router.navigate([RouterPaths.dashboard.user.activities.expert.asPath]);
+        break;
+      default:
+        this.router.navigate([RouterPaths.dashboard.user.activities.client.asPath]);
+    }
   }
 
   public onSwitchVisibility(toVisible: boolean): void {

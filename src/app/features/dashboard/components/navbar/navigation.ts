@@ -42,7 +42,7 @@ export const navigationItems: ReadonlyArray<INavigationItem> = [
   },
   {
     trKey: 'NAVBAR.ACTIVITIES',
-    url: '/dashboard/user/activities/expert',
+    url: '/dashboard/user/activities',
     iconClass: 'list',
     isUser: false,
     isExpert: true,
