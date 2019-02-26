@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, forkJoin, iif, Observable, of, throwError } from 'rxjs';
+import { EMPTY, forkJoin, iif, Observable, of, throwError, defer } from 'rxjs';
 import {
   ActivitiesService,
   GetAccountDetails,
@@ -73,11 +73,13 @@ export class ClientActivityDetailsComponentService extends Logger {
           switchMap(activityDetails =>
             forkJoin(
               iif(() => isImportant, this.markActivityAsUnimportant(id), of(undefined)),
-              iif(
-                () => typeof activityDetails.ratelRoomId !== 'undefined',
-                this.activityDetailsService.getChatHistory(activityDetails.ratelRoomId as string),
-                of([]),
-              ),
+              defer(() => {
+                if (typeof activityDetails.ratelRoomId !== 'undefined') {
+                  return this.activityDetailsService.getChatHistory(activityDetails.ratelRoomId);
+                }
+
+                return of([]);
+              }),
             ).pipe(
               map(([_, chatHistory]) => ({
                 activityDetails,

@@ -250,10 +250,12 @@ describe('ClientActivityDetailsComponentService', () => {
     dispatchLoggedUser(store, { account: { details: { clientId: 'clientId', avatar: 'clientAvatar' } } });
     activitiesService.getClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: response }));
     activitiesService.putUnimportantClientActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: undefined }));
+    activityDetailsService.getChatHistory = jest.fn();
 
     const expected = cold('--(c|)', { c: expectedResponse });
 
     expect(service.getActivityDetails('someId', true)).toBeObservable(expected);
+    expect(activityDetailsService.getChatHistory).not.toHaveBeenCalled();
   });
 
   it('should log warn when get activity details fails', () => {
