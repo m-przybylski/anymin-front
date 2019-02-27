@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Meta, MetaDefinition } from '@angular/platform-browser';
 import { Config } from '../../config';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface ISeoTags {
@@ -14,7 +13,7 @@ export interface ISeoTags {
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
-  constructor(private meta: Meta, private router: Router, private translate: TranslateService) {}
+  constructor(private meta: Meta, private translate: TranslateService) {}
 
   public init(): void {
     return this.initMetaTags(this.getMetaDefinitions({}));
@@ -45,7 +44,7 @@ export class SeoService {
       { property: 'og:title', content: title },
       { property: 'og:description', content: desc },
       { property: 'og:image', content: image },
-      { property: 'og:url', content: this.router.url },
+      { property: 'og:url', content: window.location.href },
     ];
   }
 }

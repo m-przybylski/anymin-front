@@ -1,7 +1,12 @@
 ## AnyMind Angular Core library changelog
 
-<a name="February 21, 2019"></a>
-### v0.12.27 - February 21, 2019
+<a name="February 27, 2019"></a>
+### v0.12.29 - February 27, 2019
+Fix:
+* Og url to work with facebook scraper
+
+<a name="February 26, 2019"></a>
+### v0.12.28 - February 26, 2019
 Feature:
 * Move `SeoService` from widget to core
 
