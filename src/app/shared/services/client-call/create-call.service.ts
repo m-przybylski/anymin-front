@@ -18,6 +18,7 @@ import { CreateCallSummaryComponent } from '@platform/shared/components/modals/c
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { race } from 'rxjs';
 import { Session } from 'machoke-sdk';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 @Injectable()
 export class CreateCallService extends Logger {
@@ -76,6 +77,10 @@ export class CreateCallService extends Logger {
         break;
       case BackendErrors.creditCardUncharged:
         this.alertService.pushDangerAlert('ALERT.CREDIT_CARD_UNCHARGED');
+        break;
+      case BackendErrors.promoCodeExpired:
+        this.router.navigate([RouterPaths.dashboard.user.payments.asPath]);
+        this.alertService.pushWarningAlert('ALERT.PROMO_CODE_EXPIRED');
         break;
       case BackendErrors.recipientUnavailable:
         this.loggerService.error('recipient unavailable, could caused by missing sysyphus service', errorCode);

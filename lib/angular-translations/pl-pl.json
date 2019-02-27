@@ -31,6 +31,7 @@
   "ALERT.CANNOT_ACCESS_CAMERA": "Brak dostępu do kamery. Jeśli nie wyraziłeś zgody, możesz to zmienić w ustawieniach przeglądarki. W innym wypadku spróbuj zrestartować swój komputer.",
   "ALERT.CONSULTATION_CONNECTION_BROKEN": "Konsultacja została przerwana. Twoje urządzenie zmieniło lub utraciło sieć.",
   "ALERT.PROFILE_COPIED": "Adres profilu został skopiowany do schowka",
+  "ALERT.PROMO_CODE_EXPIRED": "Kod promocyjny stracił ważność, dodaj nową metodę płatności.",
   "APP.COOKIE.BTN.AGREE": "Przejdź do serwisu",
   "APP.COOKIE.DESCRIPTION": "Ta strona korzysta z ciasteczek (cookies) w celach statystycznych i reklamowych, w celu prowadzenia analiz i prezentowania treści reklamowych dopasowanych do Twoich preferencji i zachowań. Klikając w przycisk 'Przejdź do serwisu' lub zamykając to okno, wyrażasz zgodę na użycie plików cookies w celach opisanych powyżej. Więcej informacji znajdziesz w <a href='https://anymind.com/polityka-prywatnosci/' target='_blank'>Polityce Prywatności</a>.",
   "COMMUNICATOR.MODALS.ANSWER": "Odbierz",

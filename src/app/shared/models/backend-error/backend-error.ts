@@ -60,6 +60,7 @@ export enum BackendErrors {
   callPending = 401,
   recipientUnavailable = 418,
   creditCardUncharged = 471,
+  promoCodeExpired = 474,
   MissingTokenModelId = 408,
   CannotGetClientComplaint = 448,
   UserIsNotExpertInSue = 455,
