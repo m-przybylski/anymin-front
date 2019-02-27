@@ -688,5 +688,8 @@
   "ACTIVITIES.FILTERS_MENU.FREELANCE": "Independent consultants",
   "CONSULTATION_DETAILS.CONSULTATION_FOR": "for",
   "UNLOGGED_NAVIGATION.LOGIN": "Log in",
-  "UNLOGGED_NAVIGATION.REGISTER": "Sign up"
+  "UNLOGGED_NAVIGATION.REGISTER": "Sign up",
+  "META.DEFAULT.NAME": "AnyMind is an online video calling tool with a built-in payment system, which can be placed as a widget on any website.",
+  "META.DEFAULT.DESCRIPTION": "AnyMind is an online video calling tool with a built-in payment system, which can be placed as a widget on any website.",
+  "META.EXPERT_NAME_POSTFIX": " – connect with me online via anymind."
 }

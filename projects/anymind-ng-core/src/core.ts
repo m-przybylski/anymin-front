@@ -49,6 +49,7 @@ export { Config } from './config';
 export { NavigationService, NavigationServiceState } from './components/communicator/navigation/navigation.service';
 export { SoundsService } from './services/sounds.service';
 export { ClientCallService } from './services/client-call/client-call.service';
+export { SeoService, ISeoTags } from './services/seo/seo.service';
 
 // Components
 export { InputPasswordComponent } from './components/interface/inputs/input-password/input-password.component';

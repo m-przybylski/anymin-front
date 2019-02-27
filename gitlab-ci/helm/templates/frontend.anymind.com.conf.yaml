@@ -14,6 +14,12 @@ data:
       root /dist;
 
       location / {
+        # Render-tron part #
+        resolver 8.8.8.8;
+        if ($http_user_agent ~ (googlebot|bingbot|yandexbot|duckduckbot|slurp|twitterbot|facebookexternalhit|linkedinbot|LinkedInBot|embedly|baidusspider|pinterest|slackbot|vkShare|facebot|outbrain|W3C_Validator|Facebot)) {
+          proxy_pass https://app.anymind.com/rendertron/render/https://app.anymind.com$uri$is_args$args;
+        }
+        # Render-tron part end #
         try_files $uri @index;
 
         gzip on;

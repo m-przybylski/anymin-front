@@ -21,6 +21,8 @@ import { ExpertDashboardActions } from './actions';
 import * as fromRoot from '@platform/reducers';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import { SeoService } from '@anymind-ng/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'plat-expert-dashboard',
@@ -32,19 +34,29 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   public readonly avatarSize = AvatarSizeEnum.X_156;
   public isLoading$ = this.store.pipe(select(fromExpertDashboard.getIsLoading));
   public data$ = this.store.pipe(select(fromExpertDashboard.getProfileData));
-  constructor(protected route: ActivatedRoute, protected injector: Injector, private store: Store<fromRoot.IState>) {
+
+  constructor(
+    protected route: ActivatedRoute,
+    protected injector: Injector,
+    private store: Store<fromRoot.IState>,
+    private seoService: SeoService,
+    private translate: TranslateService,
+  ) {
     super(injector);
   }
 
   public getAvatarToken(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
     return data.profile.expertProfileView.expertProfile.avatar;
   }
+
   public getName(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
     return data.profile.expertProfileView.expertProfile.name;
   }
+
   public getDescription(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
     return data.profile.expertProfileView.expertProfile.description;
   }
+
   public getLinks(data: IExpertCompanyDashboardResolverData<IExpertProfile>): ReadonlyArray<string> {
     return (
       (data.profile.getProfileWithDocuments.profile.expertDetails &&
@@ -52,23 +64,29 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
       []
     );
   }
+
   public getIsOwnProfile(data: IExpertCompanyDashboardResolverData<IExpertProfile>): boolean {
     return data.isOwnProfile;
   }
+
   public getConsultations(
     data: IExpertCompanyDashboardResolverData<IExpertProfile>,
   ): ReadonlyArray<EmploymentWithService> {
     return data.profile.expertProfileView.employments;
   }
+
   public getExpertDocuments(data: IExpertCompanyDashboardResolverData<IExpertProfile>): ReadonlyArray<ProfileDocument> {
     return data.profile.expertProfileView.expertProfile.documents;
   }
+
   public getExpertId(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
     return data.profile.expertProfileView.expertProfile.id;
   }
+
   public getIsLogged(data: IExpertCompanyDashboardResolverData<IExpertProfile>): boolean {
     return data.isLogged;
   }
+
   public getIsCompany(data: IExpertCompanyDashboardResolverData<IExpertProfile>): boolean {
     return data.isCompany;
   }
@@ -78,7 +96,23 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
       const expertId = paramMap.get(RouterPaths.dashboard.user.profile.params.expertId) || '';
       this.store.dispatch(new ExpertDashboardActions.LoadExpertDashboardAction(expertId));
     });
+
+    this.data$.pipe(takeUntil(this.destroyed$)).subscribe(data => {
+      if (data) {
+        const profile = data.profile.expertProfileView.expertProfile;
+        this.seoService.updateTags({
+          title: `${profile.name}${this.translate.instant('META.EXPERT_NAME_POSTFIX')}`,
+          image: `/assets/images/meta/expert-ogimage.${this.translate.currentLang}.png`,
+          description: profile.description,
+        });
+      }
+    });
   }
+
+  public ngOnDestroy(): void {
+    this.seoService.updateTags({});
+  }
+
   /**
    * callback when edit profile is triggered.
    * Modal resolves to true if user changes something.
@@ -94,6 +128,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
       }
     });
   }
+
   /**
    * callback when add consultation is triggered
    * this opens modal

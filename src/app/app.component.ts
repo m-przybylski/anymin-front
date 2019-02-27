@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { LoggerService } from '@anymind-ng/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { LoggerService, SeoService } from '@anymind-ng/core';
 import { VERSION } from '../../generated_modules/version/version';
 import { EnvironmentService } from './core/services/environment/environment.service';
 import { CallInvitationService } from './core/services/call/call-invitation.service';
@@ -13,12 +13,13 @@ import { CallSessionService } from '@platform/core/services/call/call-session.se
   styleUrls: ['./app.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private logger: LoggerService,
     private expertCallService: CallInvitationService,
     private remoteLogoutService: RemoteLogoutService,
     private callSessionService: CallSessionService,
+    private seoService: SeoService,
   ) {
     this.printVersion();
     this.printEnvironment();
@@ -37,11 +38,15 @@ export class AppComponent {
     this.remoteLogoutService.listenForRemovedSession();
   }
 
-  private printVersion = (): void => {
-    this.logger.info(`Application version: ${VERSION.hash}`, VERSION);
-  };
+  public ngOnInit(): void {
+    this.seoService.init();
+  }
 
-  private printEnvironment = (): void => {
+  private printVersion(): void {
+    this.logger.info(`Application version: ${VERSION.hash}`, VERSION);
+  }
+
+  private printEnvironment(): void {
     this.logger.info(`Application environment: ${EnvironmentService.get()}`);
-  };
+  }
 }

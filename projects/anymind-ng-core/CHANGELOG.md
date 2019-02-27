@@ -2,6 +2,11 @@
 
 <a name="February 21, 2019"></a>
 ### v0.12.27 - February 21, 2019
+Feature:
+* Move `SeoService` from widget to core
+
+<a name="February 21, 2019"></a>
+### v0.12.27 - February 21, 2019
 Fix:
 * fix file download url in `MessagePipe`
 

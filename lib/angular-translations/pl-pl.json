@@ -687,5 +687,8 @@
   "ACTIVITIES.FILTERS_MENU.FREELANCE": "Niezależne",
   "CONSULTATION_DETAILS.CONSULTATION_FOR": "dla",
   "UNLOGGED_NAVIGATION.LOGIN": "Logowanie",
-  "UNLOGGED_NAVIGATION.REGISTER": "Rejestracja"
+  "UNLOGGED_NAVIGATION.REGISTER": "Rejestracja",
+  "META.DEFAULT.TITLE": "AnyMind – Narzędzie do wideorozmów online z wbudowanym systemem płatności, które możesz umieścić na dowolnej stronie internetowej.",
+  "META.DEFAULT.DESCRIPTION": "AnyMind – Narzędzie do wideorozmów online z wbudowanym systemem płatności, które możesz umieścić na dowolnej stronie internetowej.",
+  "META.EXPERT_NAME_POSTFIX": " – porozmawiaj ze mną online przez anymind."
 }
