@@ -38,6 +38,7 @@ import { InvitationsEffects } from '@platform/core/effects/invitations/invitatio
 import { UnsupportedService } from '@platform/core/services/unsupported/unsupported.service';
 import { UserAgentService } from '@platform/core/services/crawler/user-agent.service';
 import { URLQueryParamsService } from '@platform/core/services/search/url-query-params.service';
+import { SessionApiEffects } from '@platform/core/effects/session-api.effects';
 import { CrawlerService } from '@platform/core/services/crawler/crawler.service';
 
 // tslint:disable-next-line:only-arrow-functions
@@ -61,6 +62,7 @@ export function getLogLevel(): LogLevel {
     EffectsModule.forFeature([
       LoginEffects,
       SessionEffects,
+      SessionApiEffects,
       UserTypeEffects,
       RegisterEffects,
       SetNewPasswordEffects,

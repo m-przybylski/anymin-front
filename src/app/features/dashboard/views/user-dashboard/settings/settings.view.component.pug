@@ -39,6 +39,13 @@
             span(plat-icon iconClass='stroke-edit', (click)="openChangeEmailModal()")
       li.settings-list__item
         plat-setting-option(
+        [title]="'DASHBOARD.SETTINGS.CHANGE_LANGUAGE_AND_CURRENCY'",
+        [description]="(languageByKey(session.account.language)|translate) + ' [' + session.account.currency + ']'")
+          button.button-tablet(plat-stroked-button, (click)="openChangeLanguageModal()") {{ 'DASHBOARD.SETTINGS.BUTTON.CHANGE' | translate }}
+          button.button-mobile(plat-icon-button)
+            span(plat-icon iconClass='stroke-edit', (click)="openChangeLanguageModal()")
+      li.settings-list__item
+        plat-setting-option(
           [title]="'DASHBOARD.SETTINGS.CHANGE_SESSION_TITLE'",
           [description]="'DASHBOARD.SETTINGS.CHANGE_SESSION_DESCRIPTION'")
           button.button-tablet(plat-stroked-button, (click)="openManageSessionsModal()") {{ 'DASHBOARD.SETTINGS.BUTTON.CHECK' | translate }}

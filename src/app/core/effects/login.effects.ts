@@ -11,6 +11,7 @@ import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const EMPTY_ACTION = of({ type: 'NO_ACTION' });
 
@@ -74,6 +75,15 @@ export class LoginEffects extends Logger {
   );
 
   @Effect({ dispatch: false })
+  public loginSuccess$ = this.actions$.pipe(
+    ofType<AuthActions.LoginSuccessAction>(AuthActions.AuthActionTypes.LoginSuccess),
+    map(action => action.payload),
+    tap(sessionWithAccount => {
+      this.translateService.use(sessionWithAccount.account.language);
+    }),
+  );
+
+  @Effect({ dispatch: false })
   public dashboardRedirectOnSetNewPassword$ = this.actions$.pipe(
     ofType<SetNewPasswordActions.SetNewPasswordRedirectDashboardAction>(
       SetNewPasswordActions.SetNewPasswordActionsTypes.SetNewPasswordRedirectDashboard,
@@ -119,6 +129,7 @@ export class LoginEffects extends Logger {
     private callInvitationService: CallInvitationService,
     private ngbModal: NgbModal,
     private registrationInvitationService: RegistrationInvitationService,
+    private translateService: TranslateService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('LoginEffects'));

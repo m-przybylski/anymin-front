@@ -12,6 +12,7 @@ import { ChangeAnonymityComponent } from './change-anonymity/change-anonymity.co
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ChangeNotificationComponent } from './change-notifications/change-notifications.component';
+import { ChangeLanguageComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-language/change-language.component';
 import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { DashboardComponentsModule } from '@platform/features/dashboard/componen
     ChangeMsisdnComponent,
     ChangeAnonymityComponent,
     ChangeNotificationComponent,
+    ChangeLanguageComponent,
   ],
   providers: [],
   entryComponents: [
@@ -42,6 +44,7 @@ import { DashboardComponentsModule } from '@platform/features/dashboard/componen
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
     ChangePasswordViewComponent,
+    ChangeLanguageComponent,
   ],
 })
 export class SettingsComponentsModule {}

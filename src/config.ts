@@ -28,6 +28,11 @@ export class Config {
     },
   };
 
+  public static readonly languages = {
+    pl: 'LANGUAGES.POLISH',
+    en: 'LANGUAGES.ENGLISH',
+  };
+
   public static readonly localSettings = {
     countryCodes: ['+48'],
   };

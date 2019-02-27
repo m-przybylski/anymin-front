@@ -15,6 +15,7 @@ import { RouterPaths } from '@platform/shared/routes/routes';
 import { CallInvitationService } from '@platform/core/services/call/call-invitation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('LoginEffects', () => {
   let loginEffects: LoginEffects;
@@ -41,6 +42,10 @@ describe('LoginEffects', () => {
             removeInvitationForDifferentUser: jest.fn(),
             getInvitationObject: jest.fn(),
           }),
+        },
+        {
+          provide: TranslateService,
+          useValue: Deceiver(TranslateService, { use: jest.fn() }),
         },
         {
           provide: AlertService,

@@ -1,0 +1,37 @@
+plat-modal-component.change-language(
+[modalTrTitleHeader]="'DASHBOARD.CHANGE_LANGUAGE.HEADER'",
+[modalContainerClass]="modalWidth"
+)
+  .modal-form
+    form(
+    [id]="changeLanguageFormId",
+    [formGroup]="changeLanguageForm",
+    (ngSubmit)="onFormSubmit(changeLanguageForm)",
+    novalidate
+    contentHeightAnimation
+    )
+      .input-handler
+        plat-dropdown.input-handler__language(
+        label="DASHBOARD.CHANGE_LANGUAGE.INPUT_HEADER",
+        [controlName]="changeLanguageControlName",
+        [form]="changeLanguageForm",
+        [isDisabled]="isRequestPending",
+        [dropdownItems]="languages",
+        [isRequired]="true"
+        )
+        plat-dropdown.input-handler__currency(
+        label="DASHBOARD.CHANGE_LANGUAGE.CURRENCY_LABEL",
+        [form]="changeLanguageForm",
+        [controlName]="currencyControlName",
+        [dropdownItems]="currencies",
+        [isRequired]="true",
+        [isDisabled]="true",
+        [isDropdownListVisible]="false"
+        )
+
+    .modal-component__action
+      am-core-submit-button(
+      titleText="DASHBOARD.CHANGE_LANGUAGE.SUBMIT_BUTTON",
+      [formName]="changeLanguageFormId",
+      [isLoading]="isRequestPending"
+      )

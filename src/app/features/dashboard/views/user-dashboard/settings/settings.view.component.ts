@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { delay } from 'rxjs/operators';
 import { Config } from '../../../../../../config';
+import { ChangeLanguageComponent } from '@platform/features/dashboard/views/user-dashboard/settings/components/change-language/change-language.component';
 
 @Component({
   selector: 'plat-settings',
@@ -24,6 +25,10 @@ export class SettingsViewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.session$ = getNotUndefinedSession(this.store).pipe(delay(Config.contentLoaderDelayMilliseconds));
+  }
+
+  public languageByKey(key: string): string {
+    return Object.create(Config.languages)[key];
   }
 
   public openChangeNumberModal = (): void => {
@@ -41,4 +46,8 @@ export class SettingsViewComponent implements OnInit {
   public openManageSessionsModal = (): void => {
     this.ngbModalService.open(ManageSessionsViewComponent);
   };
+
+  public openChangeLanguageModal(): void {
+    this.ngbModalService.open(ChangeLanguageComponent);
+  }
 }
