@@ -14,5 +14,8 @@
       )
         a((click)="onAlertInformationLinkClick()", [translate]="'EXPERT_DASHBOARD.ALERT_INFORMATION.LINK'")
 
-  plat-consultation-row.expert-dashboard-consultation-row__row(*ngFor='let consultation of consultations',
-    [consultation]='consultation', [expertId]="expertId", (openConsultationDetails)="onOpenConsultationDetails($event)")
+  plat-consultation-row.expert-dashboard-consultation-row__row(
+    *ngFor='let consultation of consultations',
+    [consultation]='consultation',
+    (openConsultationDetails)="onOpenConsultationDetails($event)"
+  )

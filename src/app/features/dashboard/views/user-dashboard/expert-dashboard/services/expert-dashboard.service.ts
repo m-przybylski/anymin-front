@@ -6,12 +6,16 @@ import {
   GetSessionWithAccount,
   ProfileService,
   GetProfileWithDocuments,
+  EmploymentWithService,
 } from '@anymind-ng/api';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, from, EMPTY } from 'rxjs';
 import { mapData, IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
-import { map, take } from 'rxjs/operators';
+import { map, take, mergeMap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
+import { ExpertDashboardActions } from '../actions';
+import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
 
 @Injectable()
 export class ExpertDashboardService {
@@ -50,6 +54,54 @@ export class ExpertDashboardService {
       data => data.expertProfileView.expertProfile.id,
       this.router,
     );
+  }
+
+  public addConsultation(
+    modalResult: Promise<ConsultationDetailActions.ConsultationDetailsActionsUnion | void>,
+    getProfileWithDocuments$: Observable<GetProfileWithDocuments>,
+  ): void {
+    from(modalResult)
+      .pipe(
+        mergeMap(result => {
+          if (result instanceof ConsultationDetailActions.AddConsultationAction) {
+            return forkJoin(
+              getNotUndefinedSession(this.store).pipe(
+                map(session => ({ session, getService: result.payload })),
+                take(1),
+              ),
+              getProfileWithDocuments$.pipe(take(1)),
+            );
+          }
+
+          return EMPTY;
+        }),
+        map(([{ session, getService }, getProfileWithDocuments]) => {
+          const consultation: EmploymentWithService = {
+            commentCounter: 0,
+            createdAt: getService.createdAt,
+            employeeId: session.account.id,
+            id: '', // not needed kind of
+            ratingCounter: 0,
+            usageCounter: 0,
+            /**
+             * we do not care about this value at the moment
+             * it is possible that vat assigned to account will be undefined
+             * need to cast it, so typescript does not complain
+             */
+            vatRateType: session.account.vatRateType as EmploymentWithService.VatRateTypeEnum,
+            serviceDetails: {
+              ...getService,
+              ownerProfile: getProfileWithDocuments.profile,
+              vatRateType: session.account.vatRateType as EmploymentWithService.VatRateTypeEnum,
+            },
+          };
+
+          return consultation;
+        }),
+      )
+      .subscribe(consultation => {
+        this.store.dispatch(new ExpertDashboardActions.AddConsultationAction(consultation));
+      });
   }
 }
 

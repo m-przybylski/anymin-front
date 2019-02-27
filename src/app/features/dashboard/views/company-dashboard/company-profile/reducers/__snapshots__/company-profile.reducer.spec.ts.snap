@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`company profile reducer DeleteConsultationAction should delete existing consultation by its id 1`] = `
+Object {
+  "isLoading": false,
+  "organizationProfile": Object {
+    "isCompany": false,
+    "isLogged": false,
+    "isOwnProfile": false,
+    "profile": Object {
+      "organization": Object {
+        "isFavourite": false,
+        "organizationProfile": Object {},
+        "services": Array [
+          Object {
+            "service": Object {
+              "id": "2",
+            },
+          },
+        ],
+      },
+      "profile": Object {},
+    },
+  },
+}
+`;
+
 exports[`company profile reducer DeleteEmploymentSuccessAction action should not throw when no data to remove 1`] = `
 Object {
   "isLoading": false,
@@ -41,6 +66,38 @@ Object {
           },
         ],
       },
+    },
+  },
+}
+`;
+
+exports[`company profile reducer EditConsultationAction should update existing consultation 1`] = `
+Object {
+  "isLoading": false,
+  "organizationProfile": Object {
+    "isCompany": false,
+    "isLogged": false,
+    "isOwnProfile": false,
+    "profile": Object {
+      "organization": Object {
+        "isFavourite": false,
+        "organizationProfile": Object {},
+        "services": Array [
+          Object {
+            "service": Object {
+              "id": "1",
+              "name": "new name",
+            },
+          },
+          Object {
+            "service": Object {
+              "id": "2",
+              "name": "fake name",
+            },
+          },
+        ],
+      },
+      "profile": Object {},
     },
   },
 }

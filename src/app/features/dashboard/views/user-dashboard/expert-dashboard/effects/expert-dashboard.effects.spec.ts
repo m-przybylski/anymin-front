@@ -40,26 +40,6 @@ describe('ExpertDashboardEffects', () => {
     expect(expertDashboardEffects.loadExpertProfile$).toBeObservable(expected);
     expect(expertDashboardService.getExpertProfileData).toHaveBeenCalledWith('fake expert');
   });
-  it('ReloadExpertDashboardAfterConsultationsAction should dispatch success on service success', () => {
-    const apiAnswer: any = '🏳️‍🌈🏳️‍🌈🏳️‍🌈';
-    const emitAction = new ExpertDashboardActions.ReloadExpertDashboardAfterConsultationsAction('fake expert');
-    const expectedAction = new ExpertDashboardApiActions.LoadExpertDashboardSuccessAction(apiAnswer);
-    const expected = cold('--a--', { a: expectedAction });
-    expertDashboardService.getExpertProfileData = jest.fn(() => cold('-a|', { a: apiAnswer }));
-    actions$ = hot('-a---', { a: emitAction });
-    expect(expertDashboardEffects.loadExpertProfile$).toBeObservable(expected);
-    expect(expertDashboardService.getExpertProfileData).toHaveBeenCalledWith('fake expert');
-  });
-  it('ReloadExpertDashboardAfterCreateConsultationAction should dispatch success on service success', () => {
-    const apiAnswer: any = '🏳️‍🌈🏳️‍🌈🏳️‍🌈';
-    const emitAction = new ExpertDashboardActions.ReloadExpertDashboardAfterCreateConsultationAction('fake expert');
-    const expectedAction = new ExpertDashboardApiActions.LoadExpertDashboardSuccessAction(apiAnswer);
-    const expected = cold('--a--', { a: expectedAction });
-    expertDashboardService.getExpertProfileData = jest.fn(() => cold('-a|', { a: apiAnswer }));
-    actions$ = hot('-a---', { a: emitAction });
-    expect(expertDashboardEffects.loadExpertProfile$).toBeObservable(expected);
-    expect(expertDashboardService.getExpertProfileData).toHaveBeenCalledWith('fake expert');
-  });
   it('ReloadExpertDashboardAfterEditProfileAction should dispatch success on service success', () => {
     const apiAnswer: any = '🏳️‍🌈🏳️‍🌈🏳️‍🌈';
     const emitAction = new ExpertDashboardActions.ReloadExpertDashboardAfterEditProfileAction('fake expert');

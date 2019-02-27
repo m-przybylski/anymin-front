@@ -25,18 +25,17 @@ export class ConsultationCompanyRowComponent {
   public get price(): MoneyDto {
     return this.consultation.service.price;
   }
-
-  public get companyId(): string {
-    return this.consultation.service.id;
-  }
-
   public get expertAvatarTokenList(): ReadonlyArray<string> {
     return this.consultation.employments.map(employment => employment.employeeProfile.avatar);
   }
 
-  public openConsultationModal = (): void => {
+  public openConsultationModal(): void {
     const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
-    modal.componentInstance.consultationId = this.companyId;
+    modal.componentInstance.consultationId = this.consultationId;
     modal.componentInstance.isOwnProfile = this.isOwnProfile;
-  };
+  }
+
+  private get consultationId(): string {
+    return this.consultation.service.id;
+  }
 }

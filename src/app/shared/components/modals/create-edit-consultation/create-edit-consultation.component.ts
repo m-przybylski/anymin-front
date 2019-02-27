@@ -9,18 +9,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { CreateEditConsultationService } from './create-edit-consultation.service';
 import {
   EmployeesInviteModalComponent,
   IEmployeeInvitePayload,
 } from '../invitations/employees-invite/employees-invite.component';
-import { GetInvitation, GetService, PutService, ServiceWithOwnerProfile } from '@anymind-ng/api';
+import { GetInvitation, PutService, ServiceWithOwnerProfile } from '@anymind-ng/api';
 import { Logger } from '@platform/core/logger';
 import { CONSULTATION_DETAILS } from './create-edit-consultation';
 import { BackendErrors, isBackendError } from '@platform/shared/models/backend-error/backend-error';
 import { INVITATION_PAYLOAD } from '@platform/shared/components/modals/invitations/employees-invite/employee-invite';
 import { TooltipComponentDestinationEnum } from '@platform/shared/components/tooltip/tooltip-injector.service';
+import { ConsultationDetailActions } from '../consultation-details/actions';
 
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
@@ -92,7 +93,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     this.assignValues();
   }
 
-  public onFormSubmit = (): void => {
+  public onFormSubmit(): void {
     if (this.consultationForm.valid) {
       this.isRequestPending = true;
       /**
@@ -100,53 +101,54 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
        * it means that it creates a new consultation
        * instead of editing the existing one
        */
-      if (typeof this.payload.serviceDetails === 'undefined') {
-        this.createEditConsultationService
-          .createService(this.getPostServiceModel())
-          .pipe(catchError(this.handleError))
-          .subscribe(this.handleResponse);
+      const createService =
+        typeof this.payload.serviceDetails === 'undefined'
+          ? this.createEditConsultationService
+              .createService(this.getPostServiceModel())
+              .pipe(map(service => new ConsultationDetailActions.AddConsultationAction(service)))
+          : this.createEditConsultationService
+              .updateServiceDetails(this.payload.serviceDetails.id, this.getPutServiceModel())
+              .pipe(map(service => new ConsultationDetailActions.EditConsultationAction(service)));
 
-        return;
-      }
-      this.createEditConsultationService
-        .updateServiceDetails(this.payload.serviceDetails.id, this.getPutServiceModel())
-        .pipe(catchError(this.handleError))
-        .subscribe(this.handleResponse);
+      createService
+        .pipe(catchError(err => this.handleError(err)))
+        .subscribe(serviceDetails => this.onConsultationCreate(serviceDetails));
     } else {
       this.formUtils.validateAllFormFields(this.consultationForm);
     }
-  };
+  }
 
-  public onSelectedTag = (tagsNames: ReadonlyArray<string>): void => {
+  public onSelectedTag(tagsNames: ReadonlyArray<string>): void {
     this.selectedTags = tagsNames.map(tagName => ({ name: tagName }));
-  };
+  }
 
-  public onEmployeeConsultation = (): void => {
+  public onEmployeeConsultation(): void {
     if (!this.isRequestPending && typeof this.payload.serviceDetails === 'undefined') {
       this.isFreelance = false;
     }
-  };
+  }
 
-  public onFreelanceConsultation = (): void => {
+  public onFreelanceConsultation(): void {
     if (!this.isRequestPending && typeof this.payload.serviceDetails === 'undefined') {
       this.isFreelance = true;
     }
-  };
+  }
 
-  public deleteConsultation = (serviceId: string): void => {
+  public deleteConsultation(serviceId: string): void {
     this.createEditConsultationService.deleteService(serviceId).subscribe(() => {
-      this.activeModal.close(serviceId);
+      this.activeModal.close(new ConsultationDetailActions.DeleteConsultationAction(serviceId));
       this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
       this.loggerService.debug('Consultation removed!');
     });
   };
 
-  private getPostServiceModel = (): PostService => ({
+  private getPostServiceModel(): PostService {
+    return {
     ...this.getPutServiceModel(),
     ...{ isFreelance: this.isFreelance, profileId: this.profileId },
-  });
+  }};
 
-  private getPutServiceModel = (): PutService => ({
+  private getPutServiceModel(): PutService {return {
     isOwnerEmployee: this.payload.isOwnerEmployee,
     name: this.formControls[this.nameControlName].value,
     description: this.formControls[this.descriptionControlName].value,
@@ -161,7 +163,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     },
     tags: [...this.selectedTags],
     language: this.polandISOcode,
-  });
+  }};
 
   private handleError = (httpError: HttpErrorResponse): Observable<void> => {
     this.isRequestPending = false;
@@ -178,16 +180,18 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 
     return EMPTY;
-  };
+  }
 
-  private handleResponse = (serviceDetails: GetService): void => {
+  private onConsultationCreate(
+    action: ConsultationDetailActions.EditConsultationAction | ConsultationDetailActions.AddConsultationAction,
+  ): void {
     this.isRequestPending = false;
     this.alertService.pushSuccessAlert(this.successAlertTrKey);
-    this.activeModal.close(serviceDetails);
+    this.activeModal.close(action);
     if (!this.payload.isExpertConsultation) {
       const payload: IEmployeeInvitePayload = {
-        serviceId: serviceDetails.id,
-        isFreelanceService: serviceDetails.isFreelance,
+        serviceId: action.payload.id,
+        isFreelanceService: action.payload.isFreelance,
       };
       const modalOptions: NgbModalOptions = {
         injector: Injector.create({
@@ -197,9 +201,9 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
       };
       this.modalService.open(EmployeesInviteModalComponent, modalOptions);
     }
-  };
+  }
 
-  private assignValues = (): void => {
+  private assignValues(): void {
     const serviceDetails = this.payload.serviceDetails;
     if (typeof serviceDetails !== 'undefined') {
       this.isEditModal = true;
@@ -213,5 +217,5 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
       }
     }
     this.changeDetector.detectChanges();
-  };
+  }
 }

@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`company profile reducer AddConsultationAction should add consultation to the store 1`] = `
+Object {
+  "expertProfile": Object {
+    "isCompany": false,
+    "isLogged": false,
+    "isOwnProfile": false,
+    "profile": Object {
+      "expertProfileView": Object {
+        "employments": Array [
+          "fake service",
+          "fake consultation",
+        ],
+        "expertProfile": Object {},
+        "isFavourite": false,
+      },
+      "getProfileWithDocuments": Object {},
+    },
+  },
+  "isLoading": false,
+}
+`;
+
+exports[`company profile reducer DeleteConsultationAction should delete existing consultation by its id 1`] = `
+Object {
+  "expertProfile": Object {
+    "isCompany": false,
+    "isLogged": false,
+    "isOwnProfile": false,
+    "profile": Object {
+      "expertProfileView": Object {
+        "employments": Array [
+          Object {
+            "serviceDetails": Object {
+              "id": "4",
+            },
+          },
+          Object {
+            "serviceDetails": Object {
+              "id": "5",
+            },
+          },
+        ],
+        "expertProfile": Object {},
+        "isFavourite": false,
+      },
+      "getProfileWithDocuments": Object {},
+    },
+  },
+  "isLoading": false,
+}
+`;
+
+exports[`company profile reducer EditConsultationAction should update existing consultation 1`] = `
+Object {
+  "expertProfile": Object {
+    "isCompany": false,
+    "isLogged": false,
+    "isOwnProfile": false,
+    "profile": Object {
+      "expertProfileView": Object {
+        "employments": Array [
+          Object {
+            "serviceDetails": Object {
+              "id": "3",
+              "name": "new name",
+            },
+          },
+          Object {
+            "serviceDetails": Object {
+              "id": "4",
+              "name": "some not valid name",
+            },
+          },
+          Object {
+            "serviceDetails": Object {
+              "id": "5",
+              "name": "some not valid name",
+            },
+          },
+        ],
+        "expertProfile": Object {},
+        "isFavourite": false,
+      },
+      "getProfileWithDocuments": Object {},
+    },
+  },
+  "isLoading": false,
+}
+`;
+
+exports[`company profile reducer LoadExpertDashboardAction should start loading data 1`] = `
+Object {
+  "isLoading": true,
+}
+`;
+
+exports[`company profile reducer LoadExpertDashboardSuccessAction should update store with profile data 1`] = `
+Object {
+  "error": undefined,
+  "expertProfile": "👍👍👍",
+  "isLoading": false,
+}
+`;
+
+exports[`company profile reducer LoadFailure should udpate store with error message 1`] = `
+Object {
+  "error": "👍👍👍",
+  "isLoading": false,
+}
+`;
+
+exports[`company profile reducer ReloadExpertDashboardAfterEditProfileAction should start reloading data 1`] = `
+Object {
+  "isLoading": true,
+}
+`;
+
+exports[`company profile reducer undefined action should return the default state 1`] = `
+Object {
+  "isLoading": false,
+}
+`;

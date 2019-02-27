@@ -8,13 +8,7 @@ import {
   IConsultationDetailActionParameters,
 } from './consultation-details-actions.service';
 import { forkJoin, Subject } from 'rxjs';
-import {
-  EmploymentWithExpertProfile,
-  EmploymentWithService,
-  GetComment,
-  GetProfile,
-  GetSessionWithAccount,
-} from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
@@ -33,7 +27,7 @@ import { LoggerFactory } from '@anymind-ng/core';
   templateUrl: './consultation-details.view.component.html',
   styleUrls: ['./consultation-details.view.component.sass'],
 })
-export class ConsultationDetailsViewComponent extends Logger implements OnInit, OnDestroy {
+export class ConsultationDetailsModalComponent extends Logger implements OnInit, OnDestroy {
   public readonly avatarSize96: AvatarSizeEnum = AvatarSizeEnum.X_96;
   public readonly modalType: ModalContainerTypeEnum = ModalContainerTypeEnum.NO_PADDING;
 
@@ -45,7 +39,6 @@ export class ConsultationDetailsViewComponent extends Logger implements OnInit, 
   public companyName: string;
   public companyLogo: string;
   public expertAvatar: string;
-  public consultation: EmploymentWithService;
   public usageCounter: number;
   public commentCounter: number;
   public ratingCounter: number;

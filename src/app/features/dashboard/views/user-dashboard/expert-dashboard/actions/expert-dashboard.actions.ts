@@ -1,21 +1,15 @@
 // tslint:disable:max-classes-per-file
 import { Action } from '@ngrx/store';
+import { EmploymentWithService } from '@anymind-ng/api';
 
 export enum ExpertDashboardActionTypes {
   Load = '[Expert Dashboard] Load',
-  ReloadAfterConsultations = '[Expert Dashboard] Reload after consultations',
   ReloadAfterEditProfile = '[Expert Dashboard] Reload after edit profile',
-  ReloadAfterCreateConsultation = '[Expert Dashboard] Reload after create consultation',
+  AddConsultation = '[Expert Dashboard] Add consultation',
 }
 
 export class LoadExpertDashboardAction implements Action {
   public readonly type = ExpertDashboardActionTypes.Load;
-
-  constructor(public payload: string) {}
-}
-
-export class ReloadExpertDashboardAfterConsultationsAction implements Action {
-  public readonly type = ExpertDashboardActionTypes.ReloadAfterConsultations;
 
   constructor(public payload: string) {}
 }
@@ -26,14 +20,12 @@ export class ReloadExpertDashboardAfterEditProfileAction implements Action {
   constructor(public payload: string) {}
 }
 
-export class ReloadExpertDashboardAfterCreateConsultationAction implements Action {
-  public readonly type = ExpertDashboardActionTypes.ReloadAfterCreateConsultation;
-
-  constructor(public payload: string) {}
+export class AddConsultationAction implements Action {
+  public readonly type = ExpertDashboardActionTypes.AddConsultation;
+  constructor(public payload: EmploymentWithService) {}
 }
 
 export type ExpertDashboardActionUnion =
   | LoadExpertDashboardAction
-  | ReloadExpertDashboardAfterConsultationsAction
   | ReloadExpertDashboardAfterEditProfileAction
-  | ReloadExpertDashboardAfterCreateConsultationAction;
+  | AddConsultationAction;

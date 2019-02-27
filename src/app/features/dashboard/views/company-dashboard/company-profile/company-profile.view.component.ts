@@ -16,8 +16,7 @@ import * as fromCompanyDashboard from './reducers';
 import { EditOrganizationModalComponent } from '@platform/shared/components/modals/profile/edit-organization/edit-organization.component';
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CompanyProfilePageActions } from './actions';
-import { GetService } from '@anymind-ng/api';
-
+import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
@@ -98,10 +97,12 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(CONSULTATION_DETAILS, payload),
     };
-    this.openModal(CreateEditConsultationModalComponent, modalOptions).result.then((serviceDetails?: GetService) => {
-      if (serviceDetails) {
-        this.store.dispatch(new CompanyProfilePageActions.AddConsultation(serviceDetails));
-      }
-    });
+    this.openModal(CreateEditConsultationModalComponent, modalOptions).result.then(
+      (action?: ConsultationDetailActions.AddConsultationAction | ConsultationDetailActions.EditConsultationAction) => {
+        if (action instanceof ConsultationDetailActions.AddConsultationAction) {
+          this.store.dispatch(new CompanyProfilePageActions.AddConsultationAction(action.payload));
+        }
+      },
+    );
   }
 }

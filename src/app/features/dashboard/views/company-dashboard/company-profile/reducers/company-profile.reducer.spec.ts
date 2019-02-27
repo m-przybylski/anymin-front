@@ -1,5 +1,6 @@
 import { reducer, IState } from './index';
 import { CompanyProfileApiActions, CompanyProfilePageActions } from '../actions';
+import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
 
 const initialState: IState = {
   isLoading: false,
@@ -84,8 +85,61 @@ describe('company profile reducer', () => {
         },
       } as any;
       const newConsultation: any = 'fake service 2';
-      const result = reducer(state, new CompanyProfilePageActions.AddConsultation(newConsultation));
-      expect(result.organizationProfile && result.organizationProfile.profile.organization.services).toHaveLength(2);
+      const result = reducer(state, new CompanyProfilePageActions.AddConsultationAction(newConsultation));
+      expect(result.organizationProfile && result.organizationProfile.profile.organization.services).toHaveLength(
+        parseInt('2', 10),
+      );
+    });
+  });
+  describe('DeleteConsultationAction', () => {
+    it('should delete existing consultation by its id', () => {
+      const state: IState = {
+        isLoading: false,
+        organizationProfile: {
+          isCompany: false,
+          isLogged: false,
+          isOwnProfile: false,
+          profile: {
+            profile: {} as any,
+            organization: {
+              isFavourite: false,
+              organizationProfile: {} as any,
+              services: [{ service: { id: '1' } }, { service: { id: '2' } }] as any,
+            },
+          },
+        },
+      };
+      const consultationToDelete: any = '1';
+      const action = new ConsultationDetailActions.DeleteConsultationAction(consultationToDelete);
+      const result = reducer(state, action);
+      expect(result).toMatchSnapshot();
+    });
+  });
+  describe('EditConsultationAction', () => {
+    it('should update existing consultation', () => {
+      const state: IState = {
+        isLoading: false,
+        organizationProfile: {
+          isCompany: false,
+          isLogged: false,
+          isOwnProfile: false,
+          profile: {
+            profile: {} as any,
+            organization: {
+              isFavourite: false,
+              organizationProfile: {} as any,
+              services: [
+                { service: { id: '1', name: 'old name' } },
+                { service: { id: '2', name: 'fake name' } },
+              ] as any,
+            },
+          },
+        },
+      };
+      const consultationToEdit: any = { id: '1', name: 'new name' };
+      const action = new ConsultationDetailActions.EditConsultationAction(consultationToEdit);
+      const result = reducer(state, action);
+      expect(result).toMatchSnapshot();
     });
   });
 });

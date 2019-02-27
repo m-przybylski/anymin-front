@@ -2,10 +2,10 @@
 // tslint:disable:max-file-line-count
 
 import { Deceiver } from 'deceiver-core';
-import { EmploymentService, ServiceService } from '@anymind-ng/api';
+import { EmploymentService } from '@anymind-ng/api';
 import { AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import * as fromCore from '@platform/core/reducers';
@@ -13,16 +13,15 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthActions } from '@platform/core/actions';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { ConsultationDetailsActionsService } from './consultation-details-actions.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Injector } from '@angular/core';
 import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
 import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
+import { ConsultationDetailActions } from './actions';
 
-describe('ConsultationDetailsAcrionsService', () => {
-  let consultationDetailsAcrionsService: ConsultationDetailsActionsService;
+describe('ConsultationDetailsActionsService', () => {
+  let consultationDetailsActionsService: ConsultationDetailsActionsService;
   let store: Store<fromCore.IState>;
 
-  const serviceService: ServiceService = Deceiver(ServiceService);
   const employmentService: EmploymentService = Deceiver(EmploymentService);
   const alertService: AlertService = Deceiver(AlertService);
   const confirmationService: ConfirmationService = Deceiver(ConfirmationService);
@@ -35,7 +34,7 @@ describe('ConsultationDetailsAcrionsService', () => {
     employmentId: '',
     serviceId: '',
   };
-
+  let modalService: NgbModal;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -46,16 +45,18 @@ describe('ConsultationDetailsAcrionsService', () => {
       ],
     });
     store = TestBed.get(Store);
+    modalService = Deceiver(NgbModal, {
+      open: jest.fn(() => ({
+        result: Promise.resolve(),
+      })),
+    });
 
-    consultationDetailsAcrionsService = new ConsultationDetailsActionsService(
-      serviceService,
+    consultationDetailsActionsService = new ConsultationDetailsActionsService(
       employmentService,
       alertService,
       store,
       confirmationService,
-      Deceiver(NgbModal),
-      Deceiver(Router),
-      Deceiver(ActivatedRoute),
+      modalService,
       TestBed.get(Injector),
       Deceiver(CreateCallService),
       Deceiver(CallStatusService),
@@ -64,7 +65,34 @@ describe('ConsultationDetailsAcrionsService', () => {
   });
 
   it('should be created', () => {
-    expect(consultationDetailsAcrionsService).toBeTruthy();
+    expect(consultationDetailsActionsService).toBeTruthy();
+  });
+
+  describe('edit consultation', () => {
+    const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+    it('should not dispatch any action on modal dismiss', fakeAsync(() => {
+      const spy = jest.spyOn(store, 'dispatch');
+      consultationDetailsActionsService.editConsultation({
+        modal,
+        serviceId: 'fake serviceId',
+        createEditConsultationPayload: 'fake Payload' as any,
+      });
+      tick();
+      expect(spy).not.toHaveBeenCalled();
+    }));
+    it('should dispatch action returned by modal', fakeAsync(() => {
+      const spy = jest.spyOn(store, 'dispatch');
+      (modalService.open as jest.Mock).mockReturnValue({
+        result: Promise.resolve('fake Action'),
+      });
+      consultationDetailsActionsService.editConsultation({
+        modal,
+        serviceId: 'fake serviceId',
+        createEditConsultationPayload: 'fake Payload' as any,
+      });
+      tick();
+      expect(spy).toHaveBeenCalledWith('fake Action');
+    }));
   });
 
   describe('makeCall', () => {
@@ -74,7 +102,7 @@ describe('ConsultationDetailsAcrionsService', () => {
       store.dispatch(new AuthActions.LogoutSuccessAction());
       // spy on dispatch action
       const spy = spyOn(store, 'dispatch');
-      consultationDetailsAcrionsService.makeCall({ ...dummyInputObject, modal });
+      consultationDetailsActionsService.makeCall({ ...dummyInputObject, modal });
       expect(modal.close).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(new AuthActions.LoginRedirectAction());
     }));
@@ -85,47 +113,16 @@ describe('ConsultationDetailsAcrionsService', () => {
       store.dispatch(new AuthActions.LoginSuccessAction(session));
       // spy on dispatch action
       const spy = spyOn(store, 'dispatch');
-      consultationDetailsAcrionsService.makeCall({ ...dummyInputObject, modal });
+      consultationDetailsActionsService.makeCall({ ...dummyInputObject, modal });
       expect(modal.close).toHaveBeenCalled();
       expect(spy).not.toHaveBeenCalled();
     }));
-  });
-
-  describe('deleteConsultation', () => {
-    it('should not close modal when user did not confirm', fakeAsync(() => {
-      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
-      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: false }));
-      consultationDetailsAcrionsService.deleteConsultation({ ...dummyInputObject, serviceId: 'asdf', modal });
-      getTestScheduler().flush();
-      expect(modal.close).not.toHaveBeenCalled();
-    }));
-    it('should close modal when user did confirm', () => {
-      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
-      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: true }));
-      serviceService.deleteServiceRoute = jest.fn(() => cold('-a|', { a: 'okey' }));
-      alertService.pushSuccessAlert = jest.fn();
-      consultationDetailsAcrionsService.deleteConsultation({ ...dummyInputObject, serviceId: 'asdf', modal });
-      getTestScheduler().flush();
-      expect(serviceService.deleteServiceRoute).toHaveBeenCalledWith('asdf');
-      expect(modal.close).toHaveBeenCalledWith('asdf');
-    });
-    it('should not close modal when user confirmed but there was error on backend', () => {
-      const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
-      confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: true }));
-      serviceService.deleteServiceRoute = jest.fn(() => cold('-#', {}, 'oups'));
-      alertService.pushSuccessAlert = jest.fn();
-      alertService.pushDangerAlert = jest.fn();
-      consultationDetailsAcrionsService.deleteConsultation({ ...dummyInputObject, serviceId: 'asdf', modal });
-      getTestScheduler().flush();
-      expect(serviceService.deleteServiceRoute).toHaveBeenCalledWith('asdf');
-      expect(modal.close).not.toHaveBeenCalled();
-    });
   });
   describe('leaveConsultation', () => {
     it('should not close modal when user did not confirm', fakeAsync(() => {
       const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
       confirmationService.confirm = jest.fn(() => cold('--a|', { a: false }));
-      consultationDetailsAcrionsService.leaveConsultation({
+      consultationDetailsActionsService.leaveConsultation({
         ...dummyInputObject,
         serviceId: 'asdf',
         modal,
@@ -136,18 +133,21 @@ describe('ConsultationDetailsAcrionsService', () => {
     }));
     it('should close modal when user did confirm', () => {
       const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
+      const spy = jest.spyOn(store, 'dispatch');
       confirmationService.confirm = jest.fn().mockReturnValue(cold('--a|', { a: true }));
       employmentService.deleteEmploymentRoute = jest.fn(() => cold('-a|', { a: 'okey' }));
       alertService.pushSuccessAlert = jest.fn();
-      consultationDetailsAcrionsService.leaveConsultation({
+      consultationDetailsActionsService.leaveConsultation({
         ...dummyInputObject,
-        serviceId: 'asdf',
+        serviceId: 'fake serviceId',
         modal,
         employmentId: 'aaa',
       });
       getTestScheduler().flush();
       expect(employmentService.deleteEmploymentRoute).toHaveBeenCalledWith('aaa');
-      expect(modal.close).toHaveBeenCalledWith('asdf');
+      expect(spy).toHaveBeenCalledWith(
+        new ConsultationDetailActions.ConsultationLeave({ serviceId: 'fake serviceId', employmentId: 'aaa' }),
+      );
     });
     it('should not close modal when user confirmed but there was error on backend', () => {
       const modal = Deceiver(NgbActiveModal, { close: jest.fn() });
@@ -155,7 +155,7 @@ describe('ConsultationDetailsAcrionsService', () => {
       employmentService.deleteEmploymentRoute = jest.fn(() => cold('-#', {}, 'oups'));
       alertService.pushSuccessAlert = jest.fn();
       alertService.pushDangerAlert = jest.fn();
-      consultationDetailsAcrionsService.leaveConsultation({
+      consultationDetailsActionsService.leaveConsultation({
         ...dummyInputObject,
         serviceId: 'asdf',
         modal,

@@ -22,9 +22,6 @@ export class ExpertDashboardConsultationsComponent extends Logger {
   public isOwnProfile: boolean;
 
   @Input()
-  public expertId: boolean;
-
-  @Input()
   public isCompany: boolean;
 
   @Input()

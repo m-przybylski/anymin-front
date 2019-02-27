@@ -11,7 +11,7 @@ import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-ava
 import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Animations, LoggerFactory } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-employee-row/company-employee-row.component';
-import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
+import { ConsultationDetailsModalComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import {
   EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES,
   EmployeesInviteModalComponent,
@@ -178,7 +178,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
 
   public openConsultationDetailsModal = (employeeId: string): void => {
     this.activeModal.close();
-    const modalInstance = this.modalService.open(ConsultationDetailsViewComponent);
+    const modalInstance = this.modalService.open(ConsultationDetailsModalComponent);
     modalInstance.componentInstance.serviceId = this.consultationId;
     modalInstance.componentInstance.expertId = employeeId;
   };

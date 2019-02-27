@@ -11,13 +11,9 @@ export class ExpertDashboardEffects {
   public loadExpertProfile$ = this.actions$.pipe(
     ofType<
       | ExpertDashboardActions.LoadExpertDashboardAction
-      | ExpertDashboardActions.ReloadExpertDashboardAfterConsultationsAction
-      | ExpertDashboardActions.ReloadExpertDashboardAfterCreateConsultationAction
       | ExpertDashboardActions.ReloadExpertDashboardAfterEditProfileAction
     >(
       ExpertDashboardActions.ExpertDashboardActionTypes.Load,
-      ExpertDashboardActions.ExpertDashboardActionTypes.ReloadAfterConsultations,
-      ExpertDashboardActions.ExpertDashboardActionTypes.ReloadAfterCreateConsultation,
       ExpertDashboardActions.ExpertDashboardActionTypes.ReloadAfterEditProfile,
     ),
     map(action => action.payload),

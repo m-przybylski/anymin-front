@@ -9,8 +9,7 @@ import { EmploymentWithService, MoneyDto } from '@anymind-ng/api';
 export class ConsultationRowComponent {
   @Input()
   public consultation: EmploymentWithService;
-  @Input()
-  public expertId: EmploymentWithService;
+
   @Output()
   public openConsultationDetails = new EventEmitter<string>();
 
@@ -44,7 +43,7 @@ export class ConsultationRowComponent {
     return this.consultation.serviceDetails.id;
   }
 
-  public openConsultationDetailsModal = (serviceId: string): void => {
+  public openConsultationDetailsModal(serviceId: string): void {
     this.openConsultationDetails.emit(serviceId);
-  };
+  }
 }

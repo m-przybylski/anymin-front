@@ -30,7 +30,7 @@ export class UpdateProfileAction implements Action {
   constructor(public payload: string) {}
 }
 
-export class AddConsultation implements Action {
+export class AddConsultationAction implements Action {
   public readonly type = CompanyProfilePageActionTypes.AddConsultation;
   constructor(public payload: GetService) {}
 }
@@ -40,4 +40,4 @@ export type CompanyProfilePageActionsUnion =
   | LeaveConsultationAction
   | RemoveExpertFromConsultationAction
   | UpdateProfileAction
-  | AddConsultation;
+  | AddConsultationAction;

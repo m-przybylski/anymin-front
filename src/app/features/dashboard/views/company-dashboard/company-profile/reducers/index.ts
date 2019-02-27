@@ -4,6 +4,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { IOrganizationProfile } from '../services/company-profile.service';
 import { IExpertCompanyDashboardResolverData } from '../../../common/resolver-helpers';
+import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
 
 export interface IState extends fromRoot.IState {
   isLoading: boolean;
@@ -12,6 +13,7 @@ export interface IState extends fromRoot.IState {
 }
 
 type ActionUnion =
+  | ConsultationDetailActions.ConsultationDetailsActionsUnion
   | CompanyProfileApiActions.CompanyProfileApiActionsUnion
   | CompanyProfilePageActions.CompanyProfilePageActionsUnion;
 
@@ -57,11 +59,36 @@ const addConsultation = (
   services: ReadonlyArray<ServiceWithEmployments>,
 ): ReadonlyArray<ServiceWithEmployments> => [...services, { service: consultation, employments: [] }];
 
+const deleteConsultation = (
+  serviceId: string,
+): ((services: ReadonlyArray<ServiceWithEmployments>) => ReadonlyArray<ServiceWithEmployments>) => (
+  services: ReadonlyArray<ServiceWithEmployments>,
+): ReadonlyArray<ServiceWithEmployments> => services.filter(service => service.service.id !== serviceId);
+
+const updateConsultation = (
+  getService: GetService,
+): ((services: ReadonlyArray<ServiceWithEmployments>) => ReadonlyArray<ServiceWithEmployments>) => (
+  services: ReadonlyArray<ServiceWithEmployments>,
+): ReadonlyArray<ServiceWithEmployments> =>
+  services.map(service => {
+    if (service.service.id === getService.id) {
+      return {
+        ...service,
+        service: {
+          ...service.service,
+          ...getService,
+        },
+      };
+    }
+
+    return service;
+  });
+
 /** end helper functions */
 
 const initialState: IState = { isLoading: false };
 
-// tslint:disable-next-line:only-arrow-functions
+// tslint:disable-next-line:only-arrow-functions , cyclomatic-complexity
 export function reducer(state: IState = initialState, action: ActionUnion): IState {
   switch (action.type) {
     case CompanyProfilePageActions.CompanyProfilePageActionTypes.Load:
@@ -86,18 +113,24 @@ export function reducer(state: IState = initialState, action: ActionUnion): ISta
         error: action.payload,
       };
     case CompanyProfileApiActions.CompanyProfileApiActionTypes.DeleteEmploymentSuccess:
-      const remover = removeExpertByEmployment(action.payload);
-
       return {
         ...state,
-        organizationProfile: updateService(remover, state.organizationProfile),
+        organizationProfile: updateService(removeExpertByEmployment(action.payload), state.organizationProfile),
       };
     case CompanyProfilePageActions.CompanyProfilePageActionTypes.AddConsultation:
-      const adder = addConsultation(action.payload);
-
       return {
         ...state,
-        organizationProfile: updateService(adder, state.organizationProfile),
+        organizationProfile: updateService(addConsultation(action.payload), state.organizationProfile),
+      };
+    case ConsultationDetailActions.ConsultationDetailsActionsTypes.Delete:
+      return {
+        ...state,
+        organizationProfile: updateService(deleteConsultation(action.payload), state.organizationProfile),
+      };
+    case ConsultationDetailActions.ConsultationDetailsActionsTypes.Edit:
+      return {
+        ...state,
+        organizationProfile: updateService(updateConsultation(action.payload), state.organizationProfile),
       };
     default:
       return state;

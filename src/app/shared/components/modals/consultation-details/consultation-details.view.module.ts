@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
 import { SharedModule } from '@platform/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
+import { ConsultationDetailsModalComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import { ModalComponentsModule } from '../modal/modal.components.module';
 import { ConsultationDetailsComponentModule } from '@platform/features/dashboard/components/consultation-details/consultation-details.component.module';
 import { PaymentCardModule } from '@platform/shared/components/pipes/payment-card';
@@ -37,13 +37,13 @@ import { CallStatusService } from '@platform/shared/components/modals/consultati
     DropdownModule,
     CreateCallModule,
   ],
-  declarations: [ConsultationDetailsViewComponent],
+  declarations: [ConsultationDetailsModalComponent],
   providers: [
     ConsultationDetailsActionsService,
     ConsultationFootersService,
     ConsultationDetailsViewService,
     CallStatusService,
   ],
-  entryComponents: [ConsultationDetailsViewComponent],
+  entryComponents: [ConsultationDetailsModalComponent],
 })
 export class ConsultationDetailsModule {}

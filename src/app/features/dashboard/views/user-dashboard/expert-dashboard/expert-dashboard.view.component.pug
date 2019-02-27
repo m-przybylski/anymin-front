@@ -19,11 +19,10 @@ ng-container(*ngIf="data$ | async as data; else loading")
     plat-expert-dashboard-consultations(
       [consultations]='getConsultations(data)',
       [isOwnProfile]='getIsOwnProfile(data)',
-      [expertId]="getExpertId(data)",
       [isCompany]="getIsCompany(data)",
       [isLogged]="getIsLogged(data)",
       [accountId]="getExpertId(data)",
-      (addConsultation)='addConsultation(getExpertId(data))',
+      (addConsultation)='addConsultation()',
       (openConsultationDetails) = 'openConsultationDetail($event, getExpertId(data))'
     )
 
