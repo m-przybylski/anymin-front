@@ -7,8 +7,13 @@ import { BrowserUtils } from 'machoke-sdk';
 export class UnsupportedGuard implements CanActivate {
   constructor(private router: Router, private logger: LoggerService, private alertService: AlertService) {}
 
+  // It's a headless page renderer to provide a static page for fb/twitter/google bots
+  public static isRendertron(): boolean {
+    return window.navigator.userAgent.includes('HeadlessChrome');
+  }
+
   public canActivate(): boolean {
-    if (BrowserUtils.isBrowserSupported()) {
+    if (BrowserUtils.isBrowserSupported() || UnsupportedGuard.isRendertron()) {
       return true;
     } else {
       this.router
