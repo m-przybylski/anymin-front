@@ -139,7 +139,7 @@ export const companyProfileView: IExpertCompanyDashboardResolverData<IOrganizati
 export const organizationProfileView1: OrganizationProfileView = {
   organizationProfile: {
     id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
-    accountId: 'c3d22262b0-48d7-41b5-9aeb-9f59affdd0f3',
+    accountId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
     avatar: '3759ae044d9e400591d104e254c58f89',
     description:
@@ -171,7 +171,7 @@ export const organizationProfileView1: OrganizationProfileView = {
           vatRateType: VatRateTypeEnum.NATURALPERSON,
           employeeProfile: {
             id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
-            accountId: 'c3d262b02323-48d7-41b5-9aeb-9f59affdd0f3',
+            accountId: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
             name: 'Filip Franczak',
             avatar: '6d3587a32aba453e8ad47199324f4c67',
             description:

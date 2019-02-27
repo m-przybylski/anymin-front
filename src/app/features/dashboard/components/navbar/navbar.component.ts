@@ -7,7 +7,7 @@ import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, EMPTY } from 'rxjs';
 import { NavbarActions } from '@platform/core/actions';
 import { NavbarComponentService } from './navbar.component.service';
 import { INavigationItem } from '@platform/features/dashboard/components/navbar/navigation';
@@ -63,12 +63,17 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
       .pipe(
         select(fromCore.getSessionAndUserType),
         filter(({ getSession }) => typeof getSession !== 'undefined'),
-        switchMap(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) =>
-          this.navbarComponentService.getProfileData(getSession.account.id).pipe(
-            catchError(err => this.handleError(err)),
-            map(profileData => ({ profileData, getSession, getUserType })),
-          ),
-        ),
+        switchMap(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
+          const profileId = this.getProfileId(getUserType, getSession);
+          if (profileId) {
+            return this.navbarComponentService.getProfileData(profileId).pipe(
+              catchError(err => this.handleError(err)),
+              map(profileData => ({ profileData, getSession, getUserType })),
+            );
+          }
+
+          return EMPTY;
+        }),
         takeUntil(this.onDestroyed$),
       )
       .subscribe(navbarData => this.assignValues(navbarData));
@@ -179,5 +184,16 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
     }
     this.switchAccountAvatarToken = '';
     this.switchAccountType = undefined;
+  }
+
+  private getProfileId(userType: UserTypeEnum, getSessionWithAccount: GetSessionWithAccount): string | undefined {
+    switch (userType) {
+      case UserTypeEnum.EXPERT:
+        return getSessionWithAccount.session.expertProfileId;
+      case UserTypeEnum.COMPANY:
+        return getSessionWithAccount.session.organizationProfileId;
+      default:
+        return undefined;
+    }
   }
 }

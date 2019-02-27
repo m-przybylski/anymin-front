@@ -29,8 +29,9 @@ export class NavbarComponentService extends Logger {
     super(loggerFactory.createLoggerService('NavbarComponentService'));
   }
 
-  public getProfileData = (accountId: string): Observable<GetProfileWithDocuments> =>
-    this.profileService.getProfileRoute(accountId);
+  public getProfileData(accountId: string): Observable<GetProfileWithDocuments> {
+    return this.profileService.getProfileRoute(accountId);
+  }
 
   public getFilteredNavigationItems = (
     userType: UserTypeEnum,
