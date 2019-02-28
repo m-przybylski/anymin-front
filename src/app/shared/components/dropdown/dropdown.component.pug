@@ -17,6 +17,7 @@
 
     plat-dropdown-list(
     *ngIf="isDropdownListVisible",
+    [isAvatarVisible]="isAvatarVisible",
     [dropdownItems]="dropdownItems",
     [onSelectItem]="onSelectItem"
     )

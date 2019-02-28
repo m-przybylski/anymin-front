@@ -39,6 +39,9 @@ export class DropdownComponent implements OnInit {
   @Input()
   public isDropdownListOnly = false;
 
+  @Input()
+  public isAvatarVisible ? = true;
+
   @Output()
   public onSelectItemEmiter = new EventEmitter<IDropdownComponent>();
 

@@ -1,7 +1,10 @@
+plat-input-search(
+[placeholder]="'Szukaj konsultacji lub konsultantów...'",
+[inputFormControl]="inputFormControl"
+)
 .settings
   .settings__header
     span {{ 'DASHBOARD.SETTINGS.TITLE' | translate }}
-
   .settings__container(*ngIf="session$ | async as session; else loader")
     ul.settings-list
       li.settings-list__item

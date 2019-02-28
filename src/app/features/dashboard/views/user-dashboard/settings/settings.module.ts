@@ -8,10 +8,12 @@ import { SettingsViewComponent } from './settings.view.component';
 import { SharedModule } from '@platform/shared/shared.module';
 import { ButtonModule, IconModule } from '@platform/shared/components/atomic-components';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { InputsModule } from '@platform/shared/components/inputs/inputs.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    InputsModule,
     SharedModule,
     RouterModule.forChild([
       {

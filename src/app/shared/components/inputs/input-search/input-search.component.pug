@@ -1,0 +1,26 @@
+.search-container([ngClass]="{'search-container--focused': isFocused}")
+
+  input(
+  type="text",
+  placeholder="{{placeholderTrKey | translate}}",
+  (blur)="onBlur()",
+  (keydown.enter)="$event.target.blur();onEnter()",
+  (focus)="onFocus()",
+  [ngModel]="searchInputModel",
+  (ngModelChange)="onSearchInputValueChange($event)"
+  )
+
+  span.icon.icon-search
+
+  plat-dropdown(
+  [isAvatarVisible]="false",
+  [form]="inviteEmployeesFormGroupName",
+  [controlName]="inviteEmployeesControlName",
+  [isDropdownListVisible]="isDropdownDisplayed",
+  [dropdownItems]="suggestedSearchResults",
+  (onSelectItemEmiter)="onSelectItem($event)",
+  (onCloseEmiter)="onCloseDropdown($event)",
+  [isDropdownListOnly]="true"
+  )
+
+

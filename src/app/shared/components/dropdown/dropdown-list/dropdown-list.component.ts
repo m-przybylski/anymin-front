@@ -19,6 +19,8 @@ export class DropdownListComponent implements DoCheck {
   @Input()
   public onSelectItem: (item: IDropdownComponent) => void;
 
+  @Input()
+  public isAvatarVisible ? = true;
   @ViewChild(ScrollToElementDirective)
   public scrollContent: ScrollToElementDirective;
 

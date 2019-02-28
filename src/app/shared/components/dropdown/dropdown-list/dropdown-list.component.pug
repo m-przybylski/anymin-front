@@ -14,6 +14,7 @@ scrollToElementDirective,
     )
       .dropdown-list__item__handler
         plat-user-avatar(
+        *ngIf="isAvatarVisible",
         [avatarSize]="avatarSize",
         [avatarToken]="item.avatar",
         )

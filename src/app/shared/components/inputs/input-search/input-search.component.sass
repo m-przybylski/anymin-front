@@ -1,0 +1,36 @@
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+
+.search-container
+  background-color: $c-element-background
+  width: 100%
+  height: 48px
+  border-radius: 4px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  position: relative
+
+  transition: box-shadow 0.1s ease
+
+  input
+    width: 100%
+    height: 100%
+    background-color: transparent
+    padding: 0 0 0 16px
+
+    font-size: $f-paragraph-small
+    color: $c-text-primary
+
+  &--focused
+    box-shadow: 0 2px 8px 0 $c-lines
+    outline: solid 1px $c-lines
+  .icon
+    margin: 0 16px 0 0
+
+
+  plat-dropdown
+    position: absolute
+    left: 0
+    top: 100%
+    width: 100%
+
