@@ -8,7 +8,7 @@ import {
   IConsultationDetailActionParameters,
 } from './consultation-details-actions.service';
 import { forkJoin, Subject } from 'rxjs';
-import { EmploymentWithExpertProfile, GetComment, GetSessionWithAccount } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, GetComment, GetSessionWithAccount, GetProfile } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';

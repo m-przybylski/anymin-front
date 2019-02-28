@@ -41,7 +41,10 @@ export class UserNavigationComponent implements AfterViewChecked {
   public switchAccountType?: UserTypeEnum;
 
   @Input()
-  public accountId: string;
+  public expertProfileId: string;
+
+  @Input()
+  public organizationProfileId: string;
 
   @Input()
   public isUserVisible: boolean;

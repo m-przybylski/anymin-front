@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PostServiceTag } from '@anymind-ng/api/model/postServiceTag';
 import { PostService } from '@anymind-ng/api/model/postService';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, finalize } from 'rxjs/operators';
 import { CreateEditConsultationService } from './create-edit-consultation.service';
 import {
   EmployeesInviteModalComponent,
@@ -111,7 +111,12 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
               .pipe(map(service => new ConsultationDetailActions.EditConsultationAction(service)));
 
       createService
-        .pipe(catchError(err => this.handleError(err)))
+        .pipe(
+          catchError(err => this.handleError(err)),
+          finalize(() => {
+            this.isRequestPending = false;
+          }),
+        )
         .subscribe(serviceDetails => this.onConsultationCreate(serviceDetails));
     } else {
       this.formUtils.validateAllFormFields(this.consultationForm);
@@ -140,33 +145,35 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
       this.alertService.pushSuccessAlert('CONSULTATION_DETAILS.ALERT.REMOVE_SUCCESS');
       this.loggerService.debug('Consultation removed!');
     });
-  };
+  }
 
   private getPostServiceModel(): PostService {
     return {
-    ...this.getPutServiceModel(),
-    ...{ isFreelance: this.isFreelance, profileId: this.profileId },
-  }};
+      ...this.getPutServiceModel(),
+      ...{ isFreelance: this.isFreelance, profileId: this.profileId },
+    };
+  }
 
-  private getPutServiceModel(): PutService {return {
-    isOwnerEmployee: this.payload.isOwnerEmployee,
-    name: this.formControls[this.nameControlName].value,
-    description: this.formControls[this.descriptionControlName].value,
-    /**
-     * Value of priceControl is string
-     * so we have to convert it to number and multiply by moneyDivider
-     * as it is accepted value for backend
-     */
-    price: {
-      value: Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
-      currency: this.polishCurrency,
-    },
-    tags: [...this.selectedTags],
-    language: this.polandISOcode,
-  }};
+  private getPutServiceModel(): PutService {
+    return {
+      isOwnerEmployee: this.payload.isOwnerEmployee,
+      name: this.formControls[this.nameControlName].value,
+      description: this.formControls[this.descriptionControlName].value,
+      /**
+       * Value of priceControl is string
+       * so we have to convert it to number and multiply by moneyDivider
+       * as it is accepted value for backend
+       */
+      price: {
+        value: Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
+        currency: this.polishCurrency,
+      },
+      tags: [...this.selectedTags],
+      language: this.polandISOcode,
+    };
+  }
 
-  private handleError = (httpError: HttpErrorResponse): Observable<void> => {
-    this.isRequestPending = false;
+  private handleError(httpError: HttpErrorResponse): Observable<never> {
     this.loggerService.warn('error when try to create service', httpError);
 
     const err = httpError.error;
@@ -185,7 +192,6 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
   private onConsultationCreate(
     action: ConsultationDetailActions.EditConsultationAction | ConsultationDetailActions.AddConsultationAction,
   ): void {
-    this.isRequestPending = false;
     this.alertService.pushSuccessAlert(this.successAlertTrKey);
     this.activeModal.close(action);
     if (!this.payload.isExpertConsultation) {

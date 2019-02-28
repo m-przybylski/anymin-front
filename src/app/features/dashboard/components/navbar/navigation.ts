@@ -2,6 +2,7 @@
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NavbarUserMenuService } from './navbar-user-menu/navbar-user-menu.service';
 
 export enum NavigationItemGroupsEnum {
   NAVBAR,
@@ -18,7 +19,7 @@ export interface INavigationItem {
   isExpert: boolean;
   isCompany: boolean;
   group: NavigationItemGroupsEnum;
-  callbackFnName?: string;
+  callbackFnName?: keyof NavbarUserMenuService;
   isCounter?: boolean;
   counter?: Observable<number>;
   hasInvitationsCounter?: boolean;

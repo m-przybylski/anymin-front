@@ -1,30 +1,26 @@
 import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { LoggerFactory, LoggerService } from '@anymind-ng/core';
-import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { AuthActions } from '@platform/core/actions';
 import { INavigationItem, NavigationItemGroupsEnum } from '@platform/features/dashboard/components/navbar/navigation';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import {
-  CreateProfileModalComponent,
-  IS_EXPERT_FORM,
-  SHOW_TOGGLE_EXPERT,
-} from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
-import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
+import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
 import { Animations } from '@platform/shared/animations/animations';
 import { Config } from '../../../../../../config';
 import { Router } from '@angular/router';
 import { EditProfileModalComponent } from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
+import { NavbarUserMenuService, INavbarUserMenuPayload } from './navbar-user-menu.service';
 
 @Component({
   selector: 'plat-navbar-user-menu',
   templateUrl: './navbar-user-menu.component.html',
   styleUrls: ['./navbar-user-menu.component.sass'],
   animations: [Animations.menuSlideInOut],
+  providers: [NavbarUserMenuService],
 })
 export class NavbarUserMenuComponent implements OnInit {
   @Input()
@@ -47,14 +43,10 @@ export class NavbarUserMenuComponent implements OnInit {
   public userType: UserTypeEnum;
 
   @Input()
-  public set accountId(value: string) {
-    this.userProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
-      [RouterPaths.dashboard.user.profile.params.expertId]: value,
-    })}`;
-    this.companyProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
-      [RouterPaths.dashboard.company.profile.params.profileId]: value,
-    })}`;
-  }
+  public expertProfileId: string;
+
+  @Input()
+  public organizationProfileId: string;
 
   @Input()
   public set isVisible(value: boolean) {
@@ -90,8 +82,6 @@ export class NavbarUserMenuComponent implements OnInit {
   public switchAccountTrKey = '';
   public switchAccountUrl = '';
   public groupedMenuItems: ReadonlyArray<ReadonlyArray<INavigationItem>>;
-  public userProfileUrl: string;
-  public companyProfileUrl: string;
   public visibilityControl = new FormControl();
 
   private logger: LoggerService;
@@ -102,6 +92,7 @@ export class NavbarUserMenuComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private store: Store<fromCore.IState>,
+    private navbarUserMenuService: NavbarUserMenuService,
     loggerFactory: LoggerFactory,
   ) {
     this.logger = loggerFactory.createLoggerService('NavbarUserMenuComponent');
@@ -118,12 +109,20 @@ export class NavbarUserMenuComponent implements OnInit {
   public navigateToProfile(): void {
     switch (this.userType) {
       case this.userTypeEnum.COMPANY:
-        this.router.navigate([this.companyProfileUrl]);
+        const companyProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
+          [RouterPaths.dashboard.company.profile.params.profileId]: this.organizationProfileId,
+        })}`;
+
+        this.router.navigate([companyProfileUrl]);
         break;
 
       case this.userTypeEnum.USER:
       case this.userTypeEnum.EXPERT:
-        this.router.navigate([this.userProfileUrl]);
+        const userProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
+          [RouterPaths.dashboard.user.profile.params.expertId]: this.expertProfileId,
+        })}`;
+
+        this.router.navigate([userProfileUrl]);
         break;
 
       default:
@@ -131,18 +130,14 @@ export class NavbarUserMenuComponent implements OnInit {
     }
   }
 
-  public onClick = (fnName: string): void => {
-    // tslint:disable-next-line:no-any
-    if (typeof (this as any)[fnName] === 'function') {
-      // tslint:disable-next-line:no-any
-      (this as any)[fnName]();
+  public onClick(fnName: keyof NavbarUserMenuService): void {
+    const payload: INavbarUserMenuPayload = {
+      store: this.store,
+    };
+    this.navbarUserMenuService[fnName].call(this.navbarUserMenuService, payload);
+  }
 
-      return;
-    }
-    this.logger.error('provided function name does not exist in this class: ', fnName);
-  };
-
-  public openEditProfileModalAsClient = (e: Event): void => {
+  public openEditProfileModalAsClient(e: Event): void {
     e.stopPropagation();
 
     this.animationState = 'hide';
@@ -154,37 +149,21 @@ export class NavbarUserMenuComponent implements OnInit {
     };
 
     this.modalService.open(EditProfileModalComponent, options);
-  };
+  }
 
-  public openCreateProfileModalAsExpert = (): void => {
-    const options: NgbModalOptions = {
-      injector: Injector.create({
-        providers: [{ provide: IS_EXPERT_FORM, useValue: true }, { provide: SHOW_TOGGLE_EXPERT, useValue: true }],
-      }),
-    };
-
-    this.modalService.open(CreateProfileModalComponent, options);
-  };
-
-  public onSwitchAccount = (switchAccountUserType: UserTypeEnum): void => {
+  public onSwitchAccount(switchAccountUserType: UserTypeEnum): void {
     this.switchAccount.emit(switchAccountUserType);
-  };
+  }
 
-  public logout = (): void => {
-    this.store.dispatch(new AuthActions.LogoutAction());
-  };
-
-  public openCreateOrganizationModal = (): NgbModalRef => this.modalService.open(CreateOrganizationModalComponent);
-
-  public openGooglePlay = (): void => {
+  public openGooglePlay(): void {
     window.open(Config.links.googlePlay, '_blank');
-  };
+  }
 
-  public openAppStore = (): void => {
+  public openAppStore(): void {
     window.open(Config.links.appStore, '_blank');
-  };
+  }
 
-  private groupMenuItems = (menuItems: ReadonlyArray<INavigationItem> | undefined): void => {
+  private groupMenuItems(menuItems: ReadonlyArray<INavigationItem> | undefined): void {
     if (typeof menuItems !== 'undefined') {
       // @ts-ignore
       this.groupedMenuItems = Object.values(
@@ -195,9 +174,9 @@ export class NavbarUserMenuComponent implements OnInit {
         }, Object()),
       );
     }
-  };
+  }
 
-  private setSwitchAccountData = (switchUserType: UserTypeEnum | undefined): void => {
+  private setSwitchAccountData(switchUserType: UserTypeEnum | undefined): void {
     switch (switchUserType) {
       case UserTypeEnum.COMPANY:
         this.switchAccountTrKey = 'NAVBAR_USER_MENU.SWITCH_TO_ORGANIZATION';
@@ -217,5 +196,5 @@ export class NavbarUserMenuComponent implements OnInit {
       default:
         this.logger.debug('handle switch user type', switchUserType);
     }
-  };
+  }
 }

@@ -7,7 +7,7 @@ import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, Subject, EMPTY } from 'rxjs';
+import { Observable, of, Subject, forkJoin } from 'rxjs';
 import { NavbarActions } from '@platform/core/actions';
 import { NavbarComponentService } from './navbar.component.service';
 import { INavigationItem } from '@platform/features/dashboard/components/navbar/navigation';
@@ -18,7 +18,8 @@ import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
 
 interface INavbarData {
-  profileData?: GetProfileWithDocuments;
+  expertProfileData?: GetProfileWithDocuments;
+  organizationProfileData?: GetProfileWithDocuments;
   getSession: GetSessionWithAccount;
   getUserType: UserTypeEnum;
 }
@@ -39,7 +40,8 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
   public switchAccountAvatarToken: string;
   public userType: UserTypeEnum;
   public switchAccountType?: UserTypeEnum;
-  public accountId: string;
+  public expertProfileId?: string;
+  public organizationProfileId?: string;
   public isUserMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarUserMenuVisible));
   public isHelpMenuVisible$ = this.store.pipe(select(fromCore.getIsNavbarHelpMenuVisible));
   public isUserVisible$ = this.store.pipe(
@@ -63,17 +65,27 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
       .pipe(
         select(fromCore.getSessionAndUserType),
         filter(({ getSession }) => typeof getSession !== 'undefined'),
-        switchMap(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
-          const profileId = this.getProfileId(getUserType, getSession);
-          if (profileId) {
-            return this.navbarComponentService.getProfileData(profileId).pipe(
-              catchError(err => this.handleError(err)),
-              map(profileData => ({ profileData, getSession, getUserType })),
-            );
-          }
-
-          return EMPTY;
-        }),
+        switchMap(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) =>
+          forkJoin([
+            getSession.session.expertProfileId
+              ? this.navbarComponentService
+                  .getProfileData(getSession.session.expertProfileId)
+                  .pipe(catchError(err => this.handleError(err)))
+              : of(undefined),
+            getSession.session.organizationProfileId
+              ? this.navbarComponentService
+                  .getProfileData(getSession.session.organizationProfileId)
+                  .pipe(catchError(err => this.handleError(err)))
+              : of(undefined),
+          ]).pipe(
+            map(([expertProfileData, organizationProfileData]) => ({
+              expertProfileData,
+              organizationProfileData,
+              getSession,
+              getUserType,
+            })),
+          ),
+        ),
         takeUntil(this.onDestroyed$),
       )
       .subscribe(navbarData => this.assignValues(navbarData));
@@ -111,9 +123,10 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
 
   private assignValues(navbarData: INavbarData): void {
     this.userType = navbarData.getUserType;
-    this.accountId = navbarData.getSession.account.id;
-    this.assignNavigationItems(navbarData.getSession);
-    this.assignNavigationDetails(navbarData.getSession, navbarData.profileData);
+    this.expertProfileId = navbarData.getSession.session.expertProfileId;
+    this.organizationProfileId = navbarData.getSession.session.organizationProfileId;
+    this.navigationItems = this.assignNavigationItems(navbarData.getSession);
+    this.assignNavigationDetails(navbarData);
   }
 
   private handleError(err: HttpErrorResponse): Observable<undefined> {
@@ -122,22 +135,27 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
     return of(undefined);
   }
 
-  private assignNavigationItems(session: GetSessionWithAccount): void {
-    this.navigationItems = this.navbarComponentService.getFilteredNavigationItems(this.userType, session);
+  private assignNavigationItems(session: GetSessionWithAccount): ReadonlyArray<INavigationItem> {
+    return this.navbarComponentService.getFilteredNavigationItems(this.userType, session);
   }
 
-  private assignNavigationDetails(session: GetSessionWithAccount, profileDetails?: GetProfileWithDocuments): void {
+  private assignNavigationDetails({ getSession, expertProfileData, organizationProfileData }: INavbarData): void {
     switch (this.userType) {
       case UserTypeEnum.EXPERT:
-        this.assignExpertNavigationDetails(profileDetails);
+        this.assignAvatarAndName(expertProfileData);
+        this.switchAccountAvatarToken = this.getSwitchAccountCompanyDetails(organizationProfileData);
+        this.switchAccountType = UserTypeEnum.COMPANY;
         break;
 
       case UserTypeEnum.COMPANY:
-        this.assignCompanyNavigationDetails(profileDetails);
+        this.assignAvatarAndName(organizationProfileData);
+        this.switchAccountAvatarToken = this.getSwitchAccountCompanyDetails(expertProfileData);
+        this.switchAccountType = UserTypeEnum.EXPERT;
         break;
 
       case UserTypeEnum.USER:
-        this.assignUserNavigationDetails(session, profileDetails);
+        this.assignUserNavigationDetails(getSession);
+        this.switchAccountType = undefined;
         break;
 
       default:
@@ -145,55 +163,19 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
     }
   }
 
-  private assignExpertNavigationDetails(profileDetails?: GetProfileWithDocuments): void {
+  private assignAvatarAndName(profileDetails?: GetProfileWithDocuments): void {
     if (typeof profileDetails !== 'undefined') {
       this.userName = profileDetails.profile.name;
       this.userAvatarToken = profileDetails.profile.avatar;
     }
-    this.assignSwitchAccountCompanyDetails(profileDetails);
   }
 
-  private assignCompanyNavigationDetails(profileDetails?: GetProfileWithDocuments): void {
-    if (typeof profileDetails !== 'undefined') {
-      this.userName = profileDetails.profile.name;
-      this.userAvatarToken = profileDetails.profile.avatar;
-    }
-
-    if (typeof profileDetails !== 'undefined') {
-      this.switchAccountAvatarToken = profileDetails.profile.avatar;
-      this.switchAccountType = UserTypeEnum.EXPERT;
-
-      return;
-    }
-    this.switchAccountAvatarToken = '';
-    this.switchAccountType = UserTypeEnum.USER;
-  }
-
-  private assignUserNavigationDetails(session: GetSessionWithAccount, profileDetails?: GetProfileWithDocuments): void {
+  private assignUserNavigationDetails(session: GetSessionWithAccount): void {
     this.userName = session.account.details.nickname || '';
     this.userAvatarToken = session.account.details.avatar || '';
-    this.assignSwitchAccountCompanyDetails(profileDetails);
   }
 
-  private assignSwitchAccountCompanyDetails(profileDetails?: GetProfileWithDocuments): void {
-    if (typeof profileDetails !== 'undefined') {
-      this.switchAccountAvatarToken = profileDetails.profile.avatar;
-      this.switchAccountType = UserTypeEnum.COMPANY;
-
-      return;
-    }
-    this.switchAccountAvatarToken = '';
-    this.switchAccountType = undefined;
-  }
-
-  private getProfileId(userType: UserTypeEnum, getSessionWithAccount: GetSessionWithAccount): string | undefined {
-    switch (userType) {
-      case UserTypeEnum.EXPERT:
-        return getSessionWithAccount.session.expertProfileId;
-      case UserTypeEnum.COMPANY:
-        return getSessionWithAccount.session.organizationProfileId;
-      default:
-        return undefined;
-    }
+  private getSwitchAccountCompanyDetails(profileDetails?: GetProfileWithDocuments): string {
+    return profileDetails ? profileDetails.profile.avatar : '';
   }
 }
