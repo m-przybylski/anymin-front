@@ -68,6 +68,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private editConsultationPayload: ICreateEditConsultationPayload;
   private isCompany: boolean;
+  private profileId: string;
 
   constructor(
     private store: Store<fromCore.IState>,
@@ -87,6 +88,12 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       .subscribe(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
         this.isCompany = getSession.isCompany;
         this.userType = this.userType || getUserType;
+        this.profileId =
+          this.userType === UserTypeEnum.COMPANY
+            ? getSession.session.organizationProfileId || ''
+            : this.userType === UserTypeEnum.EXPERT
+            ? getSession.session.expertProfileId || ''
+            : '';
       });
   }
 
@@ -233,8 +240,9 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
     return undefined;
   }
 
-  private assignEditConsultationPayload = (consultationDetails: IConsultationDetails): void => {
+  private assignEditConsultationPayload(consultationDetails: IConsultationDetails): void {
     this.editConsultationPayload = {
+      profileId: this.profileId,
       isExpertConsultation: this.isExpertConsultation(consultationDetails.getServiceWithEmployees.serviceDetails),
       serviceDetails: consultationDetails.getServiceWithEmployees.serviceDetails,
       tags: this.tagList,
@@ -242,7 +250,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
         expertId => expertId === consultationDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
       ),
     };
-  };
+  }
 
   private buildFooterData = (
     userId: string,

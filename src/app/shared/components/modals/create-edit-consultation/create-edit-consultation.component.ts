@@ -26,6 +26,7 @@ import { ConsultationDetailActions } from '../consultation-details/actions';
 export interface ICreateEditConsultationPayload {
   isExpertConsultation: boolean;
   isOwnerEmployee: boolean;
+  profileId: string;
   serviceDetails?: ServiceWithOwnerProfile;
   tags?: ReadonlyArray<string>;
   pendingInvitations?: GetInvitation[];
@@ -82,6 +83,7 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
 
   public ngOnInit(): void {
     this.isCompanyService = !this.payload.isExpertConsultation;
+    this.profileId = this.payload.profileId;
     if (typeof this.payload.tags !== 'undefined') {
       this.tagNames = this.payload.tags;
       this.onSelectedTag(this.payload.tags);

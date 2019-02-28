@@ -58,9 +58,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   }
 
   public getLinks(data: IExpertCompanyDashboardResolverData<IExpertProfile>): ReadonlyArray<string> {
-    return (
-        data.profile.getProfileWithDocuments.profile.links
-    );
+    return data.profile.getProfileWithDocuments.profile.links;
   }
 
   public getIsOwnProfile(data: IExpertCompanyDashboardResolverData<IExpertProfile>): boolean {
@@ -87,6 +85,10 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
 
   public getIsCompany(data: IExpertCompanyDashboardResolverData<IExpertProfile>): boolean {
     return data.isCompany;
+  }
+
+  public getProfileId(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
+    return data.profile.getProfileWithDocuments.profile.id;
   }
 
   public ngOnInit(): void {
@@ -131,10 +133,11 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
    * callback when add consultation is triggered
    * this opens modal
    */
-  public addConsultation(): void {
+  public addConsultation(profileId: string): void {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: true,
       isOwnerEmployee: true,
+      profileId,
     };
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(CONSULTATION_DETAILS, payload),

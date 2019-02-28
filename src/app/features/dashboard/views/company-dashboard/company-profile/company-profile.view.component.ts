@@ -56,7 +56,11 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     return data.isLogged;
   }
   public getLinks(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): ReadonlyArray<string> | undefined {
-    return  data.profile.profile.profile.links;
+    return data.profile.profile.profile.links;
+  }
+
+  public getProfileId(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
+    return data.profile.organization.organizationProfile.id;
   }
 
   public ngOnInit(): void {
@@ -89,10 +93,11 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
    * callback when add consultation is triggered
    * this opens modal
    */
-  public addConsultation(): void {
+  public addConsultation(profileId: string): void {
     const payload: ICreateEditConsultationPayload = {
       isExpertConsultation: false,
       isOwnerEmployee: false,
+      profileId,
     };
     const modalOptions: NgbModalOptions = {
       injector: this.setupInjector(CONSULTATION_DETAILS, payload),

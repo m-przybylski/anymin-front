@@ -18,7 +18,7 @@ ng-container(*ngIf="data$ | async as data; else loading")
     plat-company-profile-consultations(
       [consultations]='consultations$ | async',
       [isOwnProfile]='getIsOwnProfile(data)',
-      (addConsultation)='addConsultation()'
+      (addConsultation)='addConsultation(getProfileId(data))'
     )
 
 ng-template(#loading)
