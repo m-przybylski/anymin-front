@@ -176,11 +176,12 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     });
   };
 
-  public openConsultationDetailsModal = (employeeId: string): void => {
+  public openConsultationDetailsModal = (employee: ICompanyEmployeeRowComponent): void => {
     this.activeModal.close();
     const modalInstance = this.modalService.open(ConsultationDetailsModalComponent);
     modalInstance.componentInstance.serviceId = this.consultationId;
-    modalInstance.componentInstance.expertId = employeeId;
+    modalInstance.componentInstance.expertId = employee.employeeId;
+    modalInstance.componentInstance.expertAccountId = employee.expertAccountId;
   };
 
   private attachFooter(
@@ -215,6 +216,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
           modal: this.activeModal,
           employmentId,
           expertId: undefined,
+          expertAccountId: undefined,
           createEditConsultationPayload: {
             isExpertConsultation: false,
             profileId: '',

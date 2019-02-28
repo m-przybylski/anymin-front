@@ -59,6 +59,9 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   @Input()
   public expertId: string;
 
+  @Input()
+  public expertAccountId: string;
+
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
 
@@ -216,6 +219,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
           modal: this.activeModal,
           employmentId: this.employmentId,
           expertId: this.expertId,
+          expertAccountId: this.expertAccountId,
           createEditConsultationPayload: this.editConsultationPayload,
         };
         /**

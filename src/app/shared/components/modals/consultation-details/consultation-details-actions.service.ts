@@ -82,7 +82,13 @@ export class ConsultationDetailsActionsService extends Logger {
     }
   }
 
-  public makeCall({ serviceId, modal, expertId, employmentId }: IConsultationDetailActionParameters): void {
+  public makeCall({
+    serviceId,
+    modal,
+    expertId,
+    employmentId,
+    expertAccountId,
+  }: IConsultationDetailActionParameters): void {
     this.store
       .pipe(
         select(fromCore.getLoggedIn),
@@ -94,8 +100,8 @@ export class ConsultationDetailsActionsService extends Logger {
         }),
         switchMap(() => {
           const id = expertId || employmentId;
-          if (id) {
-            return from(this.createCallService.call(serviceId, id));
+          if (id && expertAccountId) {
+            return from(this.createCallService.call(serviceId, id, expertAccountId));
           }
 
           return EMPTY;
@@ -104,6 +110,7 @@ export class ConsultationDetailsActionsService extends Logger {
       .subscribe(
         () => {
           this.callStatusService.pushCallStatusEvent(true);
+          modal.close();
         },
         () => this.callStatusService.pushCallStatusEvent(false),
       );
@@ -124,5 +131,6 @@ export interface IConsultationDetailActionParameters {
   modal: NgbActiveModal;
   employmentId?: string;
   expertId?: string;
+  expertAccountId?: string;
   createEditConsultationPayload?: ICreateEditConsultationPayload;
 }

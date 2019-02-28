@@ -136,6 +136,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
                     id: res.profile.id,
                     avatar: res.profile.avatar,
                     employeeId: employee.id,
+                    expertAccountId: res.profile.accountId,
                     invitedExpertAccountId: res.profile.id,
                   }),
                 ),
@@ -165,6 +166,7 @@ export class CompanyConsultationDetailsViewService extends Logger {
     id: employee.id,
     name: employee.employeeProfile.name,
     avatar: employee.employeeProfile.avatar,
+    expertAccountId: employee.employeeProfile.accountId,
     employeeId: employee.employeeProfile.id,
   });
   private getPendingInvitation = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>

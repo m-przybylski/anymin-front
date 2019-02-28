@@ -13,6 +13,7 @@ export interface ICompanyEmployeeRowComponent {
   // TODO remove email, msisdn, invitedExpertAccountId properties after https://anymind.atlassian.net/browse/PLAT-538
   email?: string;
   msisdn?: string;
+  expertAccountId?: string;
   invitedExpertAccountId?: string;
 }
 

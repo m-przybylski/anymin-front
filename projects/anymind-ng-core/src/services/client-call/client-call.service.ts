@@ -63,7 +63,11 @@ export class ClientCallService {
     return typeof this.call !== 'undefined';
   }
 
-  public callServiceId(serviceId: string, expertId: string): Promise<CurrentClientCall | void> {
+  public callServiceId(
+    serviceId: string,
+    expertId: string,
+    expertAccountId: string,
+  ): Promise<CurrentClientCall | void> {
     if (this.call) {
       this.logger.error('Cannot start a call, there is one already');
 
@@ -77,7 +81,8 @@ export class ClientCallService {
     if (!this.connection) {
       return Promise.reject('There is no client session');
     }
-    this.call = this.createCall(serviceId, expertId)
+
+    this.call = this.createCall(serviceId, expertId, expertAccountId)
       .then(currentClientCall => this.onCreateCallSuccess(currentClientCall))
       .then(currentClientCall => this.startCall(currentClientCall))
       .catch(err => this.onStartCallError(err));
@@ -100,7 +105,7 @@ export class ClientCallService {
     this.logger.debug('Call ended with callState: ', callState);
   }
 
-  private createCall(serviceId: string, expertId: string): Promise<CurrentClientCall> {
+  private createCall(serviceId: string, expertId: string, expertAccountId: string): Promise<CurrentClientCall> {
     return this.navigatorWrapper.getUserMediaStream(NavigatorWrapper.getAllConstraints()).then(
       stream => {
         this.currentMediaTracks = [...this.currentMediaTracks, ...stream.getTracks()];
@@ -108,7 +113,7 @@ export class ClientCallService {
         this.currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
 
         return this.createRatelCall(expertId, serviceId).then(sueRatelCall =>
-          this.getRatelCallById(sueRatelCall.callDetails.id, expertId, stream.getTracks()).then(ratelCall =>
+          this.getRatelCallById(sueRatelCall.callDetails.id, expertAccountId, stream.getTracks()).then(ratelCall =>
             this.callFactory.createClientCall(sueRatelCall.expert, ratelCall, sueRatelCall, stream.getTracks()),
           ),
         );

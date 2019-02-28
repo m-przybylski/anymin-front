@@ -28,7 +28,7 @@ plat-modal-component(
             [employeeDetails]="employee",
             (deleteEmployee)="onDeleteEmployee($event)",
             [isOwnProfile]="isOwnProfile",
-            (click)="openConsultationDetailsModal(employee.employeeId)",
+            (click)="openConsultationDetailsModal(employee)",
             [isStatisticsVisible]="true"
             )
 

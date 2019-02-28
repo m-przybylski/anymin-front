@@ -35,10 +35,10 @@ export class CreateCallService extends Logger {
     super(loggerFactory.createLoggerService('CreateCallService'));
   }
 
-  public call = (serviceId: string, expertId: string): Promise<void> => {
+  public call = (serviceId: string, expertId: string, expertAccountId: string): Promise<void> => {
     const callSession = this.callSessionService.getCallSession();
     if (!this.clientCallService.isCallInProgress() && callSession) {
-      return this.clientCallService.callServiceId(serviceId, expertId).then(
+      return this.clientCallService.callServiceId(serviceId, expertId, expertAccountId).then(
         (currentClientCall: CurrentClientCall) => {
           this.onCallStart(currentClientCall, callSession);
         },

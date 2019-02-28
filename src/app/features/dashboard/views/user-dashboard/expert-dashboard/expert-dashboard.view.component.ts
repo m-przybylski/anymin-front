@@ -34,6 +34,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   public readonly avatarSize = AvatarSizeEnum.X_156;
   public isLoading$ = this.store.pipe(select(fromExpertDashboard.getIsLoading));
   public data$ = this.store.pipe(select(fromExpertDashboard.getProfileData));
+
   constructor(
     protected route: ActivatedRoute,
     protected injector: Injector,
@@ -89,6 +90,10 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
 
   public getProfileId(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
     return data.profile.getProfileWithDocuments.profile.id;
+  }
+
+  public getExpertAccountId(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
+    return data.profile.expertProfileView.expertProfile.accountId;
   }
 
   public ngOnInit(): void {
@@ -162,9 +167,10 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   /**
    * callback to open consultation detail modal
    */
-  public async openConsultationDetail(serviceId: string, expertId: string): Promise<void> {
+  public async openConsultationDetail(serviceId: string, expertId: string, expertAccountId: string): Promise<void> {
     const modalRef = this.openModal(ConsultationDetailsModalComponent);
     modalRef.componentInstance.expertId = expertId;
+    modalRef.componentInstance.expertAccountId = expertAccountId;
     modalRef.componentInstance.serviceId = serviceId;
     modalRef.componentInstance.userType = UserTypeEnum.EXPERT;
   }

@@ -23,7 +23,7 @@ ng-container(*ngIf="data$ | async as data; else loading")
       [isLogged]="getIsLogged(data)",
       [accountId]="getExpertId(data)",
       (addConsultation)='addConsultation()',
-      (openConsultationDetails) = 'openConsultationDetail($event, getExpertId(data))'
+      (openConsultationDetails) = 'openConsultationDetail($event, getExpertId(data), getExpertAccountId(data))'
     )
 
 ng-template(#loading)
