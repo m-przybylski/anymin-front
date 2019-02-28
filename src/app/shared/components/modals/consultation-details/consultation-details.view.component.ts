@@ -193,7 +193,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       this.userType,
       this.isCompany,
       this.accountId,
-      getServiceDetails.expertDetails.profile.id,
+      getServiceDetails.expertDetails.profile.accountId,
       [this.expertId],
     );
     if (component) {

@@ -192,7 +192,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.userType,
       this.isCompany,
       this.accountId,
-      getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
+      getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.accountId,
       getConsultationDetails.employeesList
         .map(getConsultationDetail => getConsultationDetail.employeeId || '')
         /**

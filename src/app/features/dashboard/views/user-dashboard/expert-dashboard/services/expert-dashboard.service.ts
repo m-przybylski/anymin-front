@@ -51,7 +51,7 @@ export class ExpertDashboardService {
     return mapData<IExpertProfile>(
       expertProfile$,
       session$,
-      data => data.expertProfileView.expertProfile.id,
+      data => data.expertProfileView.expertProfile.accountId,
       this.router,
     );
   }

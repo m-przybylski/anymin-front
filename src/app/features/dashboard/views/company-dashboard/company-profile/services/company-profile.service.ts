@@ -42,7 +42,7 @@ export class CompanyProfileService {
         map(([organization, profile]) => ({ organization, profile })),
       ),
       session$,
-      ({ profile }) => profile.profile.id,
+      ({ profile }) => profile.profile.accountId,
       this.router,
     );
   }

@@ -72,27 +72,28 @@ describe('EditProfileComponentService', () => {
 
   describe('getModalData', () => {
     it('should get modal data for expert', () => {
-      dispatchLoggedUser(store, { account: { id: 123 }, isExpert: true });
+      dispatchLoggedUser(store, { session: { expertProfileId: 123 } });
       profileService.getProfileRoute = jest.fn(() => cold('-a|', { a: 'XD' }));
       const result = {
-        getSessionWithAccount: { account: { id: 123 }, isExpert: true },
+        getSessionWithAccount: { session: { expertProfileId: 123 } },
         getProfileWithDocuments: 'XD',
       };
       const expected = cold('-a|', { a: result });
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should get modal data for non expert profile', () => {
-      dispatchLoggedUser(store, { account: { id: 123 }, isExpert: false });
-      profileService.getProfileRoute = jest.fn(() => cold('---a|', { a: 'XD' }));
+      dispatchLoggedUser(store, { session: { expertProfileId: undefined } });
+      profileService.getProfileRoute = jest.fn();
       const result = {
-        getSessionWithAccount: { account: { id: 123 }, isExpert: false },
+        getSessionWithAccount: { session: { expertProfileId: undefined } },
         getProfileWithDocuments: undefined,
       };
       const expected = cold('(a|)', { a: result });
       expect(service.getModalData()).toBeObservable(expected);
+      expect(profileService.getProfileRoute).not.toHaveBeenCalled();
     });
     it('should throw error when profile errors out', () => {
-      dispatchLoggedUser(store, { account: { id: 123 }, isExpert: true });
+      dispatchLoggedUser(store, { session: { expertProfileId: 123 } });
       profileService.getProfileRoute = jest.fn(() => cold('-#', {}, 'error'));
       const expected = cold('-#', {}, 'error');
       expect(service.getModalData()).toBeObservable(expected);

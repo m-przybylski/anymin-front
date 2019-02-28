@@ -56,9 +56,9 @@ export class EditProfileComponentService extends Logger {
       take(1),
       switchMap(getSessionWithAccount =>
         defer(() =>
-          getSessionWithAccount.isExpert
+          getSessionWithAccount.session.expertProfileId
             ? this.profileService
-                .getProfileRoute(getSessionWithAccount.account.id)
+                .getProfileRoute(getSessionWithAccount.session.expertProfileId)
                 .pipe(this.handleResponseError('cannot get profile data'))
             : of(undefined),
         ).pipe(
