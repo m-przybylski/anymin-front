@@ -64,7 +64,7 @@ export class InputPriceComponent implements OnInit {
   public placeholderTrKey = 'INTERFACE.INPUT_PRICE.PLACEHOLDER';
   public errorTrKey: string;
 
-  private readonly allowedKeyCodes: ReadonlyArray<number> = [
+  private readonly allowedKeys: ReadonlyArray<string> = [
     Config.keyboardCodes.tab,
     Config.keyboardCodes.backspace,
     Config.keyboardCodes.zero,
@@ -81,9 +81,7 @@ export class InputPriceComponent implements OnInit {
     Config.keyboardCodes.arrowRight,
     Config.keyboardCodes.arrowLeft,
     Config.keyboardCodes.comma,
-    Config.keyboardCodes.commaASCI,
     Config.keyboardCodes.dot,
-    Config.keyboardCodes.dotASCI,
   ];
   private readonly lastButOneIndex = 2;
   private readonly inputPriceErrors: IErrors = {
@@ -143,8 +141,7 @@ export class InputPriceComponent implements OnInit {
     }
   };
 
-  private isNotAllowedKeyPressed = (event: KeyboardEvent): boolean =>
-    this.allowedKeyCodes.indexOf(event.keyCode) === -1;
+  private isNotAllowedKeyPressed = (event: KeyboardEvent): boolean => this.allowedKeys.indexOf(event.key) === -1;
 
   private getValidators = (): ValidatorFn[] =>
     this.getRequiredValidator(this.getMinValueValidator(this.getMaxValueValidator([])));

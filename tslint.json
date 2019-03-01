@@ -92,6 +92,7 @@
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
     "no-this-assignment": true,
+    "no-unbound-method": [true, { "ignore-static": true, "whitelist": ["expect"], "allow-typeof": true }],
     "no-unnecessary-callback-wrapper": true,
     "no-unnecessary-initializer": true,
     "no-unnecessary-qualifier": true,

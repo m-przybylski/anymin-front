@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { Config } from '../../../../../../../src/config';
+import { Config } from '@anymind-ng/core';
 
 @Component({
   selector: 'plat-file-preview-navigation',
@@ -20,7 +20,7 @@ export class FilePreviewNavigationComponent implements OnInit {
   @Input()
   public set currentZoomValue(value: number) {
     this.currentZoom = value;
-    this.checkZoomAvailbility();
+    this.checkZoomAvailability();
   }
 
   @Input()
@@ -33,11 +33,11 @@ export class FilePreviewNavigationComponent implements OnInit {
   @Input()
   public isPending = true;
   @Output()
-  public onZoomEmiter = new EventEmitter<number>();
+  public onZoomEmitter = new EventEmitter<number>();
   @Output()
-  public onChangeFileEmiter = new EventEmitter<number>();
+  public onChangeFileEmitter = new EventEmitter<number>();
   @Output()
-  public onPrintEmiter = new EventEmitter<void>();
+  public onPrintEmitter = new EventEmitter<void>();
 
   public currentItem = 1;
 
@@ -67,20 +67,12 @@ export class FilePreviewNavigationComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   public onKeydownEvents(e: KeyboardEvent): void {
-    switch (e.keyCode) {
+    switch (e.key) {
       case Config.keyboardCodes.plus:
         this.onZoomInClick();
         break;
 
-      case Config.keyboardCodes.numericPlus:
-        this.onZoomInClick();
-        break;
-
       case Config.keyboardCodes.minus:
-        this.onZoomOutClick();
-        break;
-
-      case Config.keyboardCodes.numericMinus:
         this.onZoomOutClick();
         break;
 
@@ -90,8 +82,8 @@ export class FilePreviewNavigationComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.checkZoomAvailbility();
-    this.checkNavigationAvailbility();
+    this.checkZoomAvailability();
+    this.checkNavigationAvailability();
   }
 
   public onBackwardClick = (): void => {
@@ -109,35 +101,35 @@ export class FilePreviewNavigationComponent implements OnInit {
   public onZoomInClick = (): void => {
     if (this.currentZoom !== this.maxZoomCount && this.isZoomInAllowed && this.isScalable) {
       this.currentZoom += this.zoomIterator;
-      this.checkZoomAvailbility();
-      this.onZoomEmiter.emit(this.currentZoom);
+      this.checkZoomAvailability();
+      this.onZoomEmitter.emit(this.currentZoom);
     }
   };
 
   public onZoomOutClick = (): void => {
     if (this.currentZoom !== this.minZoomCount && this.isZoomOutAllowed && this.isScalable) {
       this.currentZoom -= this.zoomIterator;
-      this.checkZoomAvailbility();
-      this.onZoomEmiter.emit(this.currentZoom);
+      this.checkZoomAvailability();
+      this.onZoomEmitter.emit(this.currentZoom);
     }
   };
 
   public onPrintClick = (): void => {
-    this.onPrintEmiter.emit();
+    this.onPrintEmitter.emit();
   };
 
   private onChangeFile = (currentItem: number): void => {
     this.currentItem = currentItem;
-    this.onChangeFileEmiter.emit(currentItem);
-    this.checkNavigationAvailbility();
+    this.onChangeFileEmitter.emit(currentItem);
+    this.checkNavigationAvailability();
   };
 
-  private checkZoomAvailbility = (): void => {
+  private checkZoomAvailability = (): void => {
     this.isZoomInAllowed = this.currentZoom !== this.maxZoomCount && this.isZoomAble;
     this.isZoomOutAllowed = this.currentZoom !== this.minZoomCount && this.isZoomAble;
   };
 
-  private checkNavigationAvailbility = (): void => {
+  private checkNavigationAvailability = (): void => {
     this.isNavigationBackwardAllowed = this.currentItem !== 1;
     this.isNavigationForwardAllowed = this.currentItem !== this.filesLength;
   };

@@ -78,7 +78,6 @@ export {
 export { InputRadioComponent } from './components/interface/inputs/input-radio/input-radio.component';
 export { TextareaAutoHeightDirective } from './shared/directive/textarea-auto-height/textarea-auto-height.directive';
 export { TextareaPrimaryComponent } from './components/interface/textareas/textarea-primary/textarea-primary.component';
-export { NumberOnlyDirective } from './shared/directive/number-only/numberOnly.directive';
 export { AutofocusDirective } from './shared/directive/auto-focus/autoFocus.directive';
 export { ImageDisplayComponent } from './components/interface/image-display/image-display.component';
 export { ContentDefaultComponent } from './components/interface/content-default/content-default.component';

@@ -20,7 +20,6 @@ import { InputPriceWithButtonComponent } from '../components/interface/inputs/in
 import { InputRadioComponent } from '../components/interface/inputs/input-radio/input-radio.component';
 import { TextareaAutoHeightDirective } from '../shared/directive/textarea-auto-height/textarea-auto-height.directive';
 import { TextareaPrimaryComponent } from '../components/interface/textareas/textarea-primary/textarea-primary.component';
-import { NumberOnlyDirective } from '../shared/directive/number-only/numberOnly.directive';
 import { AutofocusDirective } from '../shared/directive/auto-focus/autoFocus.directive';
 import { NgxMaskModule } from 'ngx-mask';
 import { ImageDisplayComponent } from '../components/interface/image-display/image-display.component';
@@ -58,7 +57,6 @@ import { InputSetPasswordComponent } from '../components/interface/inputs/input-
 @NgModule({
   imports: [FormsModule, CommonModule, ReactiveFormsModule, NgbModule, TranslateModule, NgxMaskModule.forRoot()],
   declarations: [
-    NumberOnlyDirective,
     AutofocusDirective,
     SubmitButtonComponent,
     LoaderComponent,

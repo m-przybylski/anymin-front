@@ -32,7 +32,8 @@
     "pug-watch:core": "npm run pug:core -- --watch",
     "publish:core": "npm run build:core && npm publish ./dist/anymind-ng-core",
     "copy-core-styles": "scp -r projects/anymind-ng-core/src/template dist/anymind-ng-core/src",
-    "get-not-used-translations": "node tools/translations/index.js"
+    "get-not-used-translations": "node tools/translations/index.js",
+    "build:rules": "tsc -p tools/tslint/tsconfig.json"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -128,7 +129,7 @@
     "rxjs-tslint-rules": "^4.7.2",
     "ts-node": "~3.2.0",
     "tsickle": "^0.34.3",
-    "tslint": "~5.9.1",
+    "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.14.0",
     "tslint-immutable": "^4.6.0",
     "typescript": "3.1.6"

@@ -59,18 +59,15 @@ export class ActivitiesEffects {
       const { getPayments, getActivities } =
         actionType === ActivitiesActions.ActivitiesActionTypes.LoadExpertActivitiesWithBalance
           ? {
-              getPayments: this.activitiesListService.getExpertProfilePayment,
-              getActivities: this.activitiesListService.getExpertAllActivities,
+              getPayments: this.activitiesListService.getExpertProfilePayment.bind(this.activitiesListService),
+              getActivities: this.activitiesListService.getExpertAllActivities.bind(this.activitiesListService),
             }
           : {
-              getPayments: this.activitiesListService.getCompanyProfilePayment,
-              getActivities: this.activitiesListService.getAllCompanyActivities,
+              getPayments: this.activitiesListService.getCompanyProfilePayment.bind(this.activitiesListService),
+              getActivities: this.activitiesListService.getAllCompanyActivities.bind(this.activitiesListService),
             };
 
-      return this.loadAllActivities(
-        getPayments.bind(this.activitiesListService),
-        getActivities.bind(this.activitiesListService),
-      );
+      return this.loadAllActivities(getPayments, getActivities);
     }),
   );
 

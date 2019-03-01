@@ -1,8 +1,7 @@
 // tslint:disable:readonly-array
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { FormUtilsService } from '@anymind-ng/core';
-import { Config } from '../../../../../config';
+import { FormUtilsService, Config } from '@anymind-ng/core';
 
 interface IErrors {
   invalidMinCount: string;
@@ -16,17 +15,16 @@ interface IErrors {
 @Component({
   selector: 'plat-input-tags',
   templateUrl: './input-tags.component.html',
-  styleUrls: ['./input-tags.component.sass']
+  styleUrls: ['./input-tags.component.sass'],
 })
 export class InputTagsComponent implements OnInit {
-
   public static readonly inputTagErrors: IErrors = {
     invalidMaxCount: 'invalidCount',
     invalidMinCount: 'invalidMinCount',
     invalidLength: 'invalidLength',
     invalidWordsCount: 'invalidWordsCount',
     invalidPattern: 'invalidPattern',
-    duplicated: 'duplicated'
+    duplicated: 'duplicated',
   };
 
   @Input('label')
@@ -42,13 +40,13 @@ export class InputTagsComponent implements OnInit {
   public form: FormGroup;
 
   @Input()
-  public isRequired ? = false;
+  public isRequired = false;
 
   @Input()
   public errorTrKey: string;
 
   @Input()
-  public isDisabled ? = false;
+  public isDisabled = false;
 
   @Input()
   public onAddTagCallback: (inputValue: string) => void;
@@ -59,15 +57,13 @@ export class InputTagsComponent implements OnInit {
   public isFocused = false;
   private readonly minValidTagsCount = 3;
 
-  constructor(public formUtils: FormUtilsService) {
-  }
+  constructor(public formUtils: FormUtilsService) {}
 
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid = (): boolean =>
-    this.formUtils.isFieldInvalid(this.form, this.controlName)
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.form, this.controlName);
 
   public isRequiredError = (): boolean => {
     const controlNameErrors = this.form.controls[this.controlName].errors;
@@ -77,26 +73,29 @@ export class InputTagsComponent implements OnInit {
     } else {
       return false;
     }
-  }
+  };
 
   public onFocus = (): void => {
     this.isFocused = true;
-  }
+  };
 
   public onBlur = (): void => {
     this.isFocused = false;
-  }
+  };
 
   public onKeyUp = (event: KeyboardEvent, input: HTMLInputElement): void => {
-    // tslint:disable-next-line:prefer-switch
-    if (event.keyCode === Config.keyboardCodes.comma || event.keyCode === Config.keyboardCodes.commaASCI ||
-      event.keyCode === Config.keyboardCodes.semicolon || event.keyCode === Config.keyboardCodes.enter) {
-      this.handleNewTag(input);
+    switch (event.key) {
+      case Config.keyboardCodes.comma:
+      case Config.keyboardCodes.semicolon:
+      case Config.keyboardCodes.enter:
+        this.handleNewTag(input);
+        break;
+      default:
     }
-  }
+  };
 
   public handleNewTag = (input: HTMLInputElement): void => {
-    if (this.isDisabled !== undefined && !this.isDisabled) {
+    if (!this.isDisabled) {
       const tag = input.value.trim();
       if (tag.indexOf(',') > -1 || tag.indexOf(';') > -1) {
         this.onAddTagCallback(tag.slice(0, -1));
@@ -105,31 +104,30 @@ export class InputTagsComponent implements OnInit {
       }
       this.clearInputValue(input);
     }
-  }
+  };
 
-  private getValidators = (): ValidatorFn[] =>
-    this.getCustomValidator([])
+  private getValidators = (): ValidatorFn[] => this.getCustomValidator([]);
 
-  private getCustomValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    [...arr, this.validatorFn.bind(this)]
+  private getCustomValidator = (arr: ValidatorFn[]): ValidatorFn[] => [...arr, this.validatorFn.bind(this)];
 
   private clearInputValue = (input: HTMLInputElement): void => {
     const errors = this.form.controls[this.controlName].errors;
-    if (!this.isFieldInvalid() || errors && errors.invalidMinCount) {
+    if (!this.isFieldInvalid() || (errors && errors.invalidMinCount)) {
       input.value = '';
     }
-  }
+  };
 
   private validatorFn(_control: FormControl): { [key: string]: boolean } | null {
-    if (this.currentTagsCount < this.minValidTagsCount ||
-      this.currentTagsCount < this.minValidTagsCount - 1 && this.isFocused) {
+    if (
+      this.currentTagsCount < this.minValidTagsCount ||
+      (this.currentTagsCount < this.minValidTagsCount - 1 && this.isFocused)
+    ) {
       this.errorTrKey = 'INTERFACE.INPUT_CONSULTATION_TAG.VALIDATION_TEXT.INVALID_MIN_TAGS_COUNT';
 
-      return {[InputTagsComponent.inputTagErrors.invalidMinCount]: true};
+      return { [InputTagsComponent.inputTagErrors.invalidMinCount]: true };
     } else {
       // tslint:disable-next-line:no-null-keyword
       return null;
     }
   }
-
 }
