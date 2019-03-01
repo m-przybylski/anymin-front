@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { EmploymentWithService, MoneyDto } from '@anymind-ng/api';
+import { EmploymentWithService, MoneyDto, GetProfile } from '@anymind-ng/api';
 
 @Component({
   selector: 'plat-consultation-row',
@@ -18,9 +18,9 @@ export class ConsultationRowComponent {
   }
 
   public get company(): string | undefined {
-    return this.consultation.employeeId === this.consultation.serviceDetails.ownerProfile.id
-      ? undefined
-      : this.consultation.serviceDetails.ownerProfile && this.consultation.serviceDetails.ownerProfile.name;
+    return this.consultation.serviceDetails.ownerProfile.profileType === GetProfile.ProfileTypeEnum.ORG
+      ? this.consultation.serviceDetails.ownerProfile.name
+      : '';
   }
 
   public get price(): MoneyDto {
