@@ -31,7 +31,11 @@ describe('ClientActivityDetailsComponentService', () => {
     accountId: 'accountId',
     activityType: GetDetailedClientActivity.ActivityTypeEnum.SUE,
     sue: {
-      serviceUsageEventId: 'serviceUsageEventId',
+      sueId: 'serviceUsageEventId',
+      clientId: 'serviceUsageEventId',
+      expertId: 'serviceUsageEventId',
+      serviceId: 'serviceId',
+      isRecommendable: true,
       ratelCallId: 'ratelCallId',
       ratelRoomId: 'ratelRoomId',
       answeredAt: date,
@@ -123,6 +127,7 @@ describe('ClientActivityDetailsComponentService', () => {
   it('should get activity details and mark important activity as viewed', () => {
     const expectedResponse: IClientActivityDetails = {
       activityDetails: {
+        isRecommendable: true,
         serviceName: 'HotRelax',
         clientAvatarUrl: 'preview/clientAvatar',
         expertAvatarUrl: 'preview/expertAvatar',
@@ -186,7 +191,11 @@ describe('ClientActivityDetailsComponentService', () => {
       accountId: 'accountId',
       activityType: GetDetailedClientActivity.ActivityTypeEnum.SUE,
       sue: {
-        serviceUsageEventId: 'serviceUsageEventId',
+        sueId: 'serviceUsageEventId',
+        clientId: 'serviceUsageEventId',
+        expertId: 'serviceUsageEventId',
+        serviceId: 'serviceId',
+        isRecommendable: true,
         ratelCallId: 'ratelCallId',
         answeredAt: date,
         ratePerMinute: {
@@ -225,6 +234,7 @@ describe('ClientActivityDetailsComponentService', () => {
 
     const expectedResponse: IClientActivityDetails = {
       activityDetails: {
+        isRecommendable: true,
         serviceName: 'HotRelax',
         clientAvatarUrl: 'preview/clientAvatar',
         expertAvatarUrl: 'preview/expertAvatar',

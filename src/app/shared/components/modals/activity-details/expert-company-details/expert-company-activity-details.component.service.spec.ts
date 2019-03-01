@@ -36,9 +36,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
   });
   const date = new Date('2019-02-12T10:00:35.039Z');
   const getCallDetails: GetCallDetails = {
-    isRecommended: true,
     rate: GetCallDetails.RateEnum.POSITIVE,
-    isRecommendable: true,
     recommendedTags: [
       {
         id: 'tagId',
@@ -97,7 +95,10 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       links: [],
     },
     serviceUsageDetails: {
-      serviceUsageEventId: 'serviceUsageEventId',
+      sueId: 'serviceUsageEventId',
+      clientId: 'clientId',
+      expertId: 'expertId',
+      serviceId: 'serviceId',
       ratelCallId: 'ratelCallId',
       ratelRoomId: 'ratelRoomId',
       isRecommendable: true,

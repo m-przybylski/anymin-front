@@ -109,7 +109,7 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
         commentId: callDetails.comment.commentId,
         content: callDetails.comment.content,
         expertId: callDetails.expertProfile.id,
-        sueId: callDetails.serviceUsageDetails.serviceUsageEventId,
+        sueId: callDetails.serviceUsageDetails.sueId,
         answer: callDetails.comment.answer,
         report: callDetails.comment.report,
         callDurationInSeconds: callDetails.serviceUsageDetails.callDuration,
