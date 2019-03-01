@@ -217,6 +217,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
           expertId: undefined,
           createEditConsultationPayload: {
             isExpertConsultation: false,
+            profileId: '',
             // make a copy of an object. Not sure what if other component does not mutate the object
             serviceDetails: JSON.parse(JSON.stringify(this.consultationDetails.serviceDetails)),
             tags: this.tagList,
