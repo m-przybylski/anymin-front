@@ -19,6 +19,7 @@ export enum ActiveSessionDeviceTypeEnum {
 export interface IActiveSession {
   device: ActiveSessionDeviceTypeEnum;
   isCurrentSession: boolean;
+  lastActivity: Date;
   details: string;
   apiKey: string;
 }
@@ -90,6 +91,7 @@ export class ManageSessionsViewComponentService {
         device: this.getDeviceType(session),
         isCurrentSession: this.currentSessionApiKey === session.apiKey,
         details: this.getSessionDetails(session),
+        lastActivity: session.lastActivityAt,
         apiKey: session.apiKey,
       })),
     );

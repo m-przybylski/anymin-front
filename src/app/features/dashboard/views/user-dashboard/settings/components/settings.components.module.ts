@@ -12,9 +12,10 @@ import { ChangeAnonymityComponent } from './change-anonymity/change-anonymity.co
 import { DropdownModule } from '@platform/shared/components/dropdown/dropdown.module';
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ChangeNotificationComponent } from './change-notifications/change-notifications.component';
+import { DashboardComponentsModule } from '@platform/features/dashboard/components/components.module';
 
 @NgModule({
-  imports: [CommonModule, ModalsModule, InputsModule, DropdownModule, ButtonModule],
+  imports: [CommonModule, ModalsModule, InputsModule, DropdownModule, ButtonModule, DashboardComponentsModule],
   exports: [
     ChangeEmailViewComponent,
     ManageSessionsViewComponent,
