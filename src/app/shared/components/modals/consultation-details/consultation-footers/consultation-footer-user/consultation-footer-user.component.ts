@@ -8,7 +8,7 @@ import {
 import { Observable, Subject, defer, of } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
-import { EmploymentWithExpertProfile, ExpertPresenceStatus, GetDefaultPaymentMethod } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, ExpertPresenceStatus } from '@anymind-ng/api';
 import VatRateTypeEnum = EmploymentWithExpertProfile.VatRateTypeEnum;
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
@@ -38,10 +38,6 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
 
   public get grossPrice(): string {
     return this.moneyPipe.transform(this.data.price) || this.moneyPipe.transform({ value: 0, currency: '' });
-  }
-
-  public get defaultPayment(): GetDefaultPaymentMethod {
-    return this.data.defaultPaymentMethod;
   }
 
   public get middlePanel(): Observable<MiddlePanelStatusTypes> {
@@ -156,17 +152,9 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public onCall(): void {
-    if (
-      this.defaultPayment.creditCardId ||
-      this.defaultPayment.promoCodeId ||
-      this.checkIsFreeConsultation(this.data)
-    ) {
-      if (!this.isCallButtonLoading) {
-        this.isCallButtonLoading = true;
-        this._actionTaken$.next('makeCall');
-      }
-    } else {
-      this.redirectToPayments();
+    if (!this.isCallButtonLoading) {
+      this.isCallButtonLoading = true;
+      this._actionTaken$.next('makeCall');
     }
   }
 

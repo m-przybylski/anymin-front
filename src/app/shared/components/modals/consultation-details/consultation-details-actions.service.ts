@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Logger } from '@platform/core/logger';
-import { EmploymentService } from '@anymind-ng/api';
+import { EmploymentService, GetDefaultPaymentMethod } from '@anymind-ng/api';
 import { AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { Store, select } from '@ngrx/store';
@@ -18,6 +18,8 @@ import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-
 import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
 import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
 import { ConsultationDetailActions } from './actions';
+import { Router } from '@angular/router';
+import { RouterPaths } from '@platform/shared/routes/routes';
 
 @Injectable()
 export class ConsultationDetailsActionsService extends Logger {
@@ -30,6 +32,7 @@ export class ConsultationDetailsActionsService extends Logger {
     private injector: Injector,
     private createCallService: CreateCallService,
     private callStatusService: CallStatusService,
+    private router: Router,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ConsultationDetailsActionsService'));
@@ -88,20 +91,33 @@ export class ConsultationDetailsActionsService extends Logger {
     expertId,
     employmentId,
     expertAccountId,
+    defaultPaymentMethod,
+    createEditConsultationPayload,
   }: IConsultationDetailActionParameters): void {
     this.store
       .pipe(
         select(fromCore.getLoggedIn),
-        tap(login => {
+        // tslint:disable-next-line:cyclomatic-complexity
+        switchMap(login => {
           if (!login.isLoggedIn) {
-            modal.close();
             this.store.dispatch(new AuthActions.LoginRedirectAction());
+            modal.close();
+
+            return EMPTY;
           }
-        }),
-        switchMap(() => {
-          const id = expertId || employmentId;
-          if (id && expertAccountId) {
-            return from(this.createCallService.call(serviceId, id, expertAccountId));
+          if (
+            (defaultPaymentMethod && (defaultPaymentMethod.creditCardId || defaultPaymentMethod.promoCodeId)) ||
+            (createEditConsultationPayload &&
+              createEditConsultationPayload.serviceDetails &&
+              createEditConsultationPayload.serviceDetails.price.value === 0)
+          ) {
+            const id = expertId || employmentId;
+            if (id && expertAccountId) {
+              return from(this.createCallService.call(serviceId, id, expertAccountId));
+            }
+          } else {
+            modal.close();
+            this.router.navigate([RouterPaths.dashboard.user.payments.asPath]);
           }
 
           return EMPTY;
@@ -130,6 +146,7 @@ export interface IConsultationDetailActionParameters {
   serviceId: string;
   modal: NgbActiveModal;
   employmentId?: string;
+  defaultPaymentMethod: GetDefaultPaymentMethod;
   expertId?: string;
   expertAccountId?: string;
   createEditConsultationPayload?: ICreateEditConsultationPayload;

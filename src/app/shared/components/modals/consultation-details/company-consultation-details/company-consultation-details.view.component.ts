@@ -215,6 +215,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
           employmentId,
           expertId: undefined,
           expertAccountId: undefined,
+          defaultPaymentMethod: getConsultationDetails.defaultPaymentMethod,
           createEditConsultationPayload: {
             isExpertConsultation: false,
             profileId: '',

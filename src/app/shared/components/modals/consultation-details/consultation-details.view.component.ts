@@ -225,6 +225,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
           modal: this.activeModal,
           employmentId: this.employmentId,
           expertId: this.expertId,
+          defaultPaymentMethod: getServiceDetails.defaultPaymentMethod,
           expertAccountId: this.expertAccountId,
           createEditConsultationPayload: this.editConsultationPayload,
         };

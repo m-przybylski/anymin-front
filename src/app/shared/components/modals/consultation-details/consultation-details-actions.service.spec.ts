@@ -17,6 +17,7 @@ import { Injector } from '@angular/core';
 import { CreateCallService } from '@platform/shared/services/client-call/create-call.service';
 import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
 import { ConsultationDetailActions } from './actions';
+import { Router } from '@angular/router';
 
 describe('ConsultationDetailsActionsService', () => {
   let consultationDetailsActionsService: ConsultationDetailsActionsService;
@@ -25,6 +26,7 @@ describe('ConsultationDetailsActionsService', () => {
   const employmentService: EmploymentService = Deceiver(EmploymentService);
   const alertService: AlertService = Deceiver(AlertService);
   const confirmationService: ConfirmationService = Deceiver(ConfirmationService);
+  const router: Router = Deceiver(Router);
   const loggerFactory: LoggerFactory = Deceiver(LoggerFactory, {
     createLoggerService: jest.fn().mockReturnValue(Deceiver(LoggerService)),
   });
@@ -33,6 +35,7 @@ describe('ConsultationDetailsActionsService', () => {
     modal: undefined,
     employmentId: '',
     serviceId: '',
+    defaultPaymentMethod: {},
   };
   let modalService: NgbModal;
   beforeEach(() => {
@@ -60,6 +63,7 @@ describe('ConsultationDetailsActionsService', () => {
       TestBed.get(Injector),
       Deceiver(CreateCallService),
       Deceiver(CallStatusService),
+      router,
       loggerFactory,
     );
   });
@@ -75,6 +79,7 @@ describe('ConsultationDetailsActionsService', () => {
       consultationDetailsActionsService.editConsultation({
         modal,
         serviceId: 'fake serviceId',
+        defaultPaymentMethod: {},
         createEditConsultationPayload: 'fake Payload' as any,
       });
       tick();
@@ -88,6 +93,7 @@ describe('ConsultationDetailsActionsService', () => {
       consultationDetailsActionsService.editConsultation({
         modal,
         serviceId: 'fake serviceId',
+        defaultPaymentMethod: {},
         createEditConsultationPayload: 'fake Payload' as any,
       });
       tick();
