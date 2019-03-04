@@ -25,10 +25,10 @@ export class ConfirmEmailGuard implements CanActivate {
   }
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    const token = route.params.token;
+    const token: string = route.params.token || '';
 
     return this.accountService
-      .postEmailConfirmRoute(token)
+      .postEmailConfirmRoute({ token })
       .pipe(
         map(getSessionWithAccount => {
           this.store.dispatch(new SessionApiActions.VerifyAccountByEmailAction(getSessionWithAccount));
