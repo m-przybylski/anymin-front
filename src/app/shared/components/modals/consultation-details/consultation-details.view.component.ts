@@ -206,7 +206,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   ): ComponentRef<IFooterOutput> | undefined {
     const component = ConsultationFooterResolver.resolve(
       this.userType,
-      getSession && getSession.isCompany,
+      getSession && getSession.session.organizationProfileId !== undefined,
       userId,
       getServiceDetails.expertOrOrganizationDetails.profile.accountId,
       getSession && getSession.session.expertProfileId,

@@ -180,7 +180,6 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     modalInstance.componentInstance.expertAccountId = employee.expertAccountId;
   }
 
-  // tslint:disable-next-line:cyclomatic-complexity
   private attachFooter(
     getConsultationDetails: ICompanyConsultationDetails,
     employmentId?: string,
@@ -189,7 +188,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     const accountId = (getSession && getSession.account.id) || '';
     const component = ConsultationFooterResolver.resolve(
       this.userType,
-      (getSession && getSession.isCompany) || false,
+      getSession && getSession.session.organizationProfileId !== undefined,
       accountId,
       getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.accountId,
       getSession && getSession.session.expertProfileId,
