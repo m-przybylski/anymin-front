@@ -3,17 +3,22 @@ plat-consultation-footer
   .consultation-footer__left-price
     plat-consultation-footer-price([grossPrice]='grossPrice')
   //middle part of the screen
-  .consultation-footer__left-text
+  .consultation-footer__left-text([ngSwitch]='middlePanel')
     plat-consultation-footer-organization-edit-freelance(
-      *ngIf='isFreelance else organization',
+      *ngSwitchCase='middlePanelStatusTypes.organizationFreelance',
       [expertPrice]='expertPrice',
       [grossPrice]='grossPrice',
       [organizationPrice]='organizationPrice')
-    ng-template(#organization)
+    ng-container(*ngSwitchCase='middlePanelStatusTypes.organization')
       span.consultation-footer__text
         span(plat-icon iconClass='information')
         p
           span([innerHTML]="'CONSULTATION_MODAL.ORGANIZATION_EDIT' | translate: {price: expertPrice, grossPrice: grossPrice}")
+    plat-consultation-footer-freelance(
+      *ngSwitchCase='middlePanelStatusTypes.expert',
+      [price]='expertPrice',
+      [grossPrice]='grossPrice',
+    )
   //right part of the screen
   .consultation-footer__right
     a.consultation-footer__right-button((click)='onEdit()', plat-stroked-button color='secondary') {{"CONSULTATION_DETAILS.FOOTER.EDIT" | translate}}

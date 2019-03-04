@@ -12,7 +12,7 @@ import { ConsultationDetailsActionsService } from '@platform/shared/components/m
 export const CONSULTATION_FOOTER_DATA = new InjectionToken<IConsultationFooterData>('Footer data');
 
 export interface IConsultationFooterData {
-  ownerId: string;
+  ownerAccountId: string;
   expertsIdList: ReadonlyArray<string>;
   selectedExpertId?: string;
   isExpertAvailable: boolean;

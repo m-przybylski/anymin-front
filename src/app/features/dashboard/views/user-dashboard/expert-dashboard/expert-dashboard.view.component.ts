@@ -167,7 +167,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   /**
    * callback to open consultation detail modal
    */
-  public async openConsultationDetail(serviceId: string, expertId: string, expertAccountId: string): Promise<void> {
+  public openConsultationDetail(serviceId: string, expertId: string, expertAccountId: string): void {
     const modalRef = this.openModal(ConsultationDetailsModalComponent);
     modalRef.componentInstance.expertId = expertId;
     modalRef.componentInstance.expertAccountId = expertAccountId;

@@ -70,7 +70,7 @@
               span(plat-icon, [iconClass]="menuItem.iconClass")
               span.option-title([translate]="menuItem.trKey")
 
-    li.menu-list__section.menu-list__section--switch-account(*ngIf="switchAccountType")
+    li.menu-list__section.menu-list__section--switch-account(*ngIf="showSwitchAccount")
       ul
         li.menu-list__row(
           (click)="onSwitchAccount(switchAccountType)",

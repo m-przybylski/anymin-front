@@ -6,7 +6,7 @@ import {
   CompanyConsultationDetailsViewService,
   ICompanyConsultationDetails,
 } from './company-consultation-details.view.service';
-import { GetServiceWithEmployees } from '@anymind-ng/api';
+import { GetServiceWithEmployees, GetSessionWithAccount } from '@anymind-ng/api';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Animations, LoggerFactory } from '@anymind-ng/core';
@@ -77,9 +77,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
 
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
-  private isCompany: boolean;
   private userType: UserTypeEnum | undefined;
-  private accountId: string;
   private destroyed$ = new Subject<void>();
 
   constructor(
@@ -111,13 +109,11 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.avatarToken = this.consultationDetails.serviceDetails.ownerProfile.avatar;
       this.employeesList = getConsultationDetails.employeesList;
       this.isEmployeesListExist = this.employeesList.length > 0;
-      this.isCompany = (getSession && getSession.isCompany) || false;
       this.userType = this.userType || getUserType;
-      this.accountId = (getSession && getSession.account.id) || '';
       const employment = this.consultationDetails.employeesDetails.find(
         item => item.employeeProfile.id === (getSession && getSession.account.id),
       );
-      this.attachFooter(this.accountId, getConsultationDetails, employment && employment.id);
+      this.attachFooter(getConsultationDetails, employment && employment.id, getSession);
       this.modalAnimationComponentService.stopLoadingAnimation();
       this.isPending = false;
     });
@@ -127,14 +123,14 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     }
   }
 
-  public onDeleteEmployee = (employmentId: string): void => {
+  public onDeleteEmployee(employmentId: string): void {
     this.companyConsultationDetailsViewService.deleteEmployee(employmentId).subscribe(() => {
       this.store.dispatch(new CompanyProfileApiActions.DeleteEmploymentSuccessAction(employmentId));
       this.employeesList = this.employeesList.filter(employee => employee.id !== employmentId);
     });
-  };
+  }
 
-  public onAddEmployees = (): void => {
+  public onAddEmployees(): void {
     const payload: IEmployeeInvitePayload = {
       serviceId: this.consultationId,
       isFreelanceService: this.consultationDetails.serviceDetails.isFreelance,
@@ -154,9 +150,9 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
         }
       })
       .catch(err => this.loggerService.warn(err));
-  };
+  }
 
-  public getPendingEmployees = (): void => {
+  public getPendingEmployees(): void {
     this.companyConsultationDetailsViewService.getInvitations(this.consultationId).subscribe(response => {
       this.pendingEmployeesList = response.map(item => ({
         name: item.name,
@@ -167,35 +163,38 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       }));
       this.isPendingInvitationLoaded = false;
     });
-  };
+  }
 
-  public onDeletePendingInvitation = (invitationId: string): void => {
+  public onDeletePendingInvitation(invitationId: string): void {
     this.companyConsultationDetailsViewService.deletePendingInvitation(invitationId).subscribe(() => {
       this.pendingEmployeesList = this.pendingEmployeesList.filter(employee => employee.invitationId !== invitationId);
       this.isPendingInvitationLoaded = false;
     });
-  };
+  }
 
-  public openConsultationDetailsModal = (employee: ICompanyEmployeeRowComponent): void => {
+  public openConsultationDetailsModal(employee: ICompanyEmployeeRowComponent): void {
     this.activeModal.close();
     const modalInstance = this.modalService.open(ConsultationDetailsModalComponent);
     modalInstance.componentInstance.serviceId = this.consultationId;
     modalInstance.componentInstance.expertId = employee.employeeId;
     modalInstance.componentInstance.expertAccountId = employee.expertAccountId;
-  };
+  }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   private attachFooter(
-    userId: string,
     getConsultationDetails: ICompanyConsultationDetails,
     employmentId?: string,
+    getSession?: GetSessionWithAccount,
   ): ComponentRef<IFooterOutput> | undefined {
+    const accountId = (getSession && getSession.account.id) || '';
     const component = ConsultationFooterResolver.resolve(
       this.userType,
-      this.isCompany,
-      this.accountId,
+      (getSession && getSession.isCompany) || false,
+      accountId,
       getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.accountId,
-      getConsultationDetails.employeesList
-        .map(getConsultationDetail => getConsultationDetail.employeeId || '')
+      getSession && getSession.session.expertProfileId,
+      getConsultationDetails.serviceDetails.employeesDetails
+        .map(employeesDetail => employeesDetail.employeeProfile.id || '')
         /**
          * need to add extra element to the list
          * in case there is only one item system displays user footer
@@ -207,7 +206,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       const footerComponent = this.consultationDetailsViewService.attachFooter(
         component,
         this.viewContainerRef,
-        this.buildFooterData(userId, getConsultationDetails),
+        this.buildFooterData(accountId, getConsultationDetails),
       );
 
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {
@@ -225,7 +224,8 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
             tags: this.tagList,
             isOwnerEmployee: getConsultationDetails.serviceDetails.employeesDetails.some(
               employee =>
-                employee.employeeProfile.id === getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
+                employee.employeeProfile.accountId ===
+                getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.accountId,
             ),
           },
         };
@@ -238,18 +238,20 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     return undefined;
   }
 
-  private buildFooterData = (
+  private buildFooterData(
     userId: string,
     getConsultationDetails: ICompanyConsultationDetails,
-  ): IConsultationFooterData => ({
-    defaultPaymentMethod: getConsultationDetails.defaultPaymentMethod,
-    expertsIdList: getConsultationDetails.employeesList.map(employee => employee.id),
-    isExpertAvailable: false,
-    isFreelance: getConsultationDetails.serviceDetails.serviceDetails.isFreelance,
-    ownerId: getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
-    price: getConsultationDetails.serviceDetails.serviceDetails.price,
-    userId,
-    creditCards: getConsultationDetails.creditCards,
-    getCommissions: getConsultationDetails.getCommissions,
-  });
+  ): IConsultationFooterData {
+    return {
+      defaultPaymentMethod: getConsultationDetails.defaultPaymentMethod,
+      expertsIdList: getConsultationDetails.employeesList.map(employee => employee.id),
+      isExpertAvailable: false,
+      isFreelance: getConsultationDetails.serviceDetails.serviceDetails.isFreelance,
+      ownerAccountId: getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.accountId,
+      price: getConsultationDetails.serviceDetails.serviceDetails.price,
+      userId,
+      creditCards: getConsultationDetails.creditCards,
+      getCommissions: getConsultationDetails.getCommissions,
+    };
+  }
 }

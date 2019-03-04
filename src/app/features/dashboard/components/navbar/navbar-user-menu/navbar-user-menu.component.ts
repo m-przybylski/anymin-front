@@ -43,10 +43,10 @@ export class NavbarUserMenuComponent implements OnInit {
   public userType: UserTypeEnum;
 
   @Input()
-  public expertProfileId: string;
+  public expertProfileId?: string;
 
   @Input()
-  public organizationProfileId: string;
+  public organizationProfileId?: string;
 
   @Input()
   public set isVisible(value: boolean) {
@@ -74,6 +74,9 @@ export class NavbarUserMenuComponent implements OnInit {
   @Output()
   public switchVisibility = new EventEmitter<boolean>();
 
+  public get showSwitchAccount(): boolean {
+    return !(this.expertProfileId === undefined || this.organizationProfileId === undefined);
+  }
   public readonly avatarSize32 = AvatarSizeEnum.X_32;
 
   public animationState: 'show' | 'hide' = 'hide';
@@ -110,7 +113,7 @@ export class NavbarUserMenuComponent implements OnInit {
     switch (this.userType) {
       case this.userTypeEnum.COMPANY:
         const companyProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
-          [RouterPaths.dashboard.company.profile.params.profileId]: this.organizationProfileId,
+          [RouterPaths.dashboard.company.profile.params.profileId]: this.organizationProfileId || '',
         })}`;
 
         this.router.navigate([companyProfileUrl]);
@@ -119,7 +122,7 @@ export class NavbarUserMenuComponent implements OnInit {
       case this.userTypeEnum.USER:
       case this.userTypeEnum.EXPERT:
         const userProfileUrl = `${RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
-          [RouterPaths.dashboard.user.profile.params.expertId]: this.expertProfileId,
+          [RouterPaths.dashboard.user.profile.params.expertId]: this.expertProfileId || '',
         })}`;
 
         this.router.navigate([userProfileUrl]);

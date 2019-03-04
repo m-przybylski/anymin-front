@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Logger } from '@platform/core/logger';
 import {
   IFooterOutput,
@@ -9,12 +9,20 @@ import { Observable, Subject } from 'rxjs';
 import { LoggerFactory, MoneyToAmount } from '@anymind-ng/core';
 import { ConsultationDetailsActionsService } from '@platform/shared/components/modals/consultation-details/consultation-details-actions.service';
 
+enum MiddlePanelStatusTypes {
+  expert,
+  organization,
+  organizationFreelance,
+}
+
 @Component({
   selector: 'plat-consultation-footer-edit',
   templateUrl: 'consultation-footer-edit.component.html',
   styleUrls: ['consultation-footer-edit.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConsultationFooterEditComponent extends Logger implements IFooterOutput, OnDestroy {
+  public middlePanelStatusTypes = MiddlePanelStatusTypes;
   public get actionTaken$(): Observable<keyof ConsultationDetailsActionsService> {
     return this._actionTaken$.asObservable();
   }
@@ -39,8 +47,15 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     return this.moneyPipe.transform(this.data.getCommissions.profileAmount);
   }
 
-  public get isFreelance(): boolean {
-    return this.data.isFreelance;
+  public get middlePanel(): MiddlePanelStatusTypes {
+    if (this.data.isFreelance) {
+      return MiddlePanelStatusTypes.organizationFreelance;
+    }
+    if (this.data.expertsIdList.length === 1) {
+      return MiddlePanelStatusTypes.expert;
+    }
+
+    return MiddlePanelStatusTypes.organization;
   }
 
   private _actionTaken$ = new Subject<keyof ConsultationDetailsActionsService>();

@@ -121,6 +121,12 @@ describe('ConsultationDetailsViewService', () => {
             },
             ownerProfile: {
               id: employeeId,
+              accountId: '',
+              profileType: 'ORG',
+              name: 'fake Name',
+              avatar: 'fake avatar',
+              description: 'fake description',
+              links: [],
               isActive: false,
             },
           },
@@ -142,22 +148,22 @@ describe('ConsultationDetailsViewService', () => {
         },
       ];
       const getProfileWithDocuments: GetProfileWithDocuments = {
-        expertDocuments: [],
+        documents: [],
         profile: {
           id: 'qwerr',
           isActive: true,
-          expertDetails: {
-            avatar: '123444',
-            description: 'jujuju',
-            links: [],
-            name: 'asdfff',
-          },
+          accountId: 'fake account',
+          avatar: '123444',
+          description: 'jujuju',
+          links: [],
+          name: 'asdfff',
+          profileType: 'EXP',
         },
-        organizationDocuments: [],
       };
       const expertProfileView: ExpertProfileView = {
         employments: [],
         expertProfile: {
+          accountId: 'fake account id',
           avatar: '123444',
           description: 'jujuju',
           name: 'asdfff',
@@ -168,7 +174,7 @@ describe('ConsultationDetailsViewService', () => {
       };
 
       const result: IConsultationDetails = {
-        expertDetails: getProfileWithDocuments,
+        expertOrOrganizationDetails: getProfileWithDocuments,
         expertProfileViewDetails: expertProfileView,
         getServiceWithEmployees: getServiceWithEmployees[0],
         expertIds: ['123444', '123445', '123446'],

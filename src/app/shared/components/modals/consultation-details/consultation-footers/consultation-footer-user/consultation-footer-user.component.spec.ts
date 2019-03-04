@@ -59,7 +59,7 @@ describe('ConsultationFooterUserComponent', () => {
   });
   it('should return MiddlePanelStatusTypes.notAvailable when expert is not available ', () => {
     data = {
-      ownerId: 'asdf',
+      ownerAccountId: 'asdf',
       expertsIdList: [] as any,
       isExpertAvailable: false,
       isFreelance: false,
@@ -83,7 +83,7 @@ describe('ConsultationFooterUserComponent', () => {
   });
   it('should return MiddlePanelStatusTypes.freeMinute when user is not logged', () => {
     data = {
-      ownerId: 'asdf',
+      ownerAccountId: 'asdf',
       expertsIdList: [] as any,
       isExpertAvailable: true,
       isFreelance: false,
@@ -106,7 +106,7 @@ describe('ConsultationFooterUserComponent', () => {
   });
   it('should return MiddlePanelStatusTypes.freeMinute when user is not logged', () => {
     data = {
-      ownerId: 'asdf',
+      ownerAccountId: 'asdf',
       expertsIdList: ['asdf'] as any,
       isExpertAvailable: true,
       isFreelance: false,
@@ -130,7 +130,7 @@ describe('ConsultationFooterUserComponent', () => {
 
   it('should return MiddlePanelStatusTypes.paymentCard when user has card assigned', () => {
     data = {
-      ownerId: 'asdf',
+      ownerAccountId: 'asdf',
       expertsIdList: [] as any,
       isExpertAvailable: true,
       isFreelance: false,
@@ -155,7 +155,7 @@ describe('ConsultationFooterUserComponent', () => {
 
   it('should return true isExpertAvailable if userId is not provided', () => {
     data = {
-      ownerId: 'asdf',
+      ownerAccountId: 'asdf',
       expertsIdList: [] as any,
       isExpertAvailable: true,
       isFreelance: false,

@@ -66,13 +66,13 @@ export class ConsultationDetailsViewService extends Logger {
         ).pipe(
           map(
             ([
-              expertDetails,
+              expertOrOrganizationDetails,
               expertProfileViewDetails,
               getComments,
               { defaultPaymentMethod, getCreditCard },
               getCommissions,
             ]): IConsultationDetails => ({
-              expertDetails,
+              expertOrOrganizationDetails,
               expertProfileViewDetails,
               getServiceWithEmployees,
               employmentId: this.pluckEmploymentId(getServiceWithEmployees, serviceId, employeeId),
@@ -184,7 +184,7 @@ export class ConsultationDetailsViewService extends Logger {
 }
 
 export interface IConsultationDetails {
-  expertDetails: GetProfileWithDocuments;
+  expertOrOrganizationDetails: GetProfileWithDocuments;
   expertProfileViewDetails: ExpertProfileView;
   getServiceWithEmployees: GetServiceWithEmployees;
   employmentId: string;

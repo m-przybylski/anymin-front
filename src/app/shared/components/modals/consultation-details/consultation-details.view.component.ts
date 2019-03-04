@@ -70,7 +70,6 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   private destroyed$ = new Subject<void>();
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private editConsultationPayload: ICreateEditConsultationPayload;
-  private isCompany: boolean;
   private profileId: string;
 
   constructor(
@@ -89,7 +88,6 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
         filter(({ getSession }) => typeof getSession !== 'undefined'),
       )
       .subscribe(({ getSession, getUserType }: { getSession: GetSessionWithAccount; getUserType: UserTypeEnum }) => {
-        this.isCompany = getSession.isCompany;
         this.userType = this.userType || getUserType;
         this.profileId =
           this.userType === UserTypeEnum.COMPANY
@@ -117,7 +115,13 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       this.tagList = tags;
       this.assignExpertConsultationDetails(getServiceDetails);
       this.assignEditConsultationPayload(getServiceDetails);
-      this.footerComponent = this.attachFooter(this.accountId, getServiceDetails, expertIsAvailable, this.expertId);
+      this.footerComponent = this.attachFooter(
+        this.accountId,
+        getServiceDetails,
+        expertIsAvailable,
+        this.expertId,
+        getSession,
+      );
     });
   }
 
@@ -129,14 +133,14 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
     }
   }
 
-  public onAddAnswer = (comment: GetComment): void => {
+  public onAddAnswer(comment: GetComment): void {
     this.commentsConsultation = this.consultationDetailsViewService.addTemporaryComment(
       comment,
       this.commentsConsultation,
     );
-  };
+  }
 
-  public onLoadMoreComments = (): void => {
+  public onLoadMoreComments(): void {
     const commentOffset = this.commentsConsultation.length;
     this.isCommentsRequestPending = true;
 
@@ -150,27 +154,27 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
           this.commentsConsultation,
         );
       });
-  };
+  }
 
-  private assignExpertConsultationDetails = ({
-    expertDetails,
+  private assignExpertConsultationDetails({
+    expertOrOrganizationDetails,
     expertProfileViewDetails,
     getServiceWithEmployees,
     getComments,
     employmentId,
-  }: IConsultationDetails): void => {
+  }: IConsultationDetails): void {
     this.serviceName = getServiceWithEmployees.serviceDetails.name;
     this.serviceDescription = getServiceWithEmployees.serviceDetails.description;
     this.registeredAt = getServiceWithEmployees.serviceDetails.createdAt;
     this.employmentId = employmentId;
 
-    if (expertDetails.profile.profileType === GetProfile.ProfileTypeEnum.ORG) {
-      this.companyName = expertDetails.profile.name;
-      this.companyLogo = expertDetails.profile.avatar;
+    if (expertOrOrganizationDetails.profile.profileType === GetProfile.ProfileTypeEnum.ORG) {
+      this.companyName = expertOrOrganizationDetails.profile.name;
+      this.companyLogo = expertOrOrganizationDetails.profile.avatar;
     }
-    if (expertDetails.profile.profileType === GetProfile.ProfileTypeEnum.EXP) {
-      this.expertName = expertDetails.profile.name;
-      this.expertAvatar = expertDetails.profile.avatar;
+    if (expertOrOrganizationDetails.profile.profileType === GetProfile.ProfileTypeEnum.EXP) {
+      this.expertName = expertOrOrganizationDetails.profile.name;
+      this.expertAvatar = expertOrOrganizationDetails.profile.avatar;
     }
 
     this.modalAnimationComponentService.onModalContentChange().next(false);
@@ -191,20 +195,22 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       this.commentCounter = employmentWithService.commentCounter;
       this.ratingCounter = employmentWithService.ratingCounter;
     }
-  };
+  }
 
   private attachFooter(
     userId: string,
     getServiceDetails: IConsultationDetails,
     expertIsAvailable: boolean,
     selectedExpertId: string,
+    getSession?: GetSessionWithAccount,
   ): ComponentRef<IFooterOutput> | undefined {
     const component = ConsultationFooterResolver.resolve(
       this.userType,
-      this.isCompany,
-      this.accountId,
-      getServiceDetails.expertDetails.profile.accountId,
-      [this.expertId],
+      getSession && getSession.isCompany,
+      userId,
+      getServiceDetails.expertOrOrganizationDetails.profile.accountId,
+      getSession && getSession.session.expertProfileId,
+      [getServiceDetails.expertProfileViewDetails.expertProfile.id],
     );
     if (component) {
       const footerComponent = this.consultationDetailsViewService.attachFooter(
@@ -250,38 +256,44 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       isExpertConsultation: this.isExpertConsultation(consultationDetails.getServiceWithEmployees.serviceDetails),
       serviceDetails: consultationDetails.getServiceWithEmployees.serviceDetails,
       tags: this.tagList,
-      isOwnerEmployee: consultationDetails.expertIds.some(
-        expertId => expertId === consultationDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
+      isOwnerEmployee: consultationDetails.getServiceWithEmployees.employeesDetails.some(
+        employeesDetail =>
+          employeesDetail.employeeProfile.accountId ===
+          consultationDetails.getServiceWithEmployees.serviceDetails.ownerProfile.accountId,
       ),
     };
   }
 
-  private buildFooterData = (
+  private buildFooterData(
     userId: string,
     getServiceDetails: IConsultationDetails,
     expertIsAvailable: boolean,
     selectedExpertId: string,
-  ): IConsultationFooterData => ({
-    userId,
-    ownerId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
-    expertsIdList: getServiceDetails.expertIds,
-    isExpertAvailable: expertIsAvailable,
-    isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
-    defaultPaymentMethod: getServiceDetails.defaultPaymentMethod,
-    creditCards: getServiceDetails.creditCards,
-    price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
-    vatRateType: this.selectVatRateType(getServiceDetails),
-    getCommissions: getServiceDetails.getCommissions,
-    selectedExpertId,
-  });
+  ): IConsultationFooterData {
+    return {
+      userId,
+      ownerAccountId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.accountId,
+      expertsIdList: getServiceDetails.expertIds,
+      isExpertAvailable: expertIsAvailable,
+      isFreelance: getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance,
+      defaultPaymentMethod: getServiceDetails.defaultPaymentMethod,
+      creditCards: getServiceDetails.creditCards,
+      price: getServiceDetails.getServiceWithEmployees.serviceDetails.price,
+      vatRateType: this.selectVatRateType(getServiceDetails),
+      getCommissions: getServiceDetails.getCommissions,
+      selectedExpertId,
+    };
+  }
 
-  private selectVatRateType = (getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum =>
-    getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance
+  private selectVatRateType(getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum {
+    return getServiceDetails.getServiceWithEmployees.serviceDetails.isFreelance
       ? getServiceDetails.getServiceWithEmployees.serviceDetails.vatRateType
       : this.getEmployeeVatRateType(getServiceDetails);
+  }
 
-  private isExpertConsultation = (serviceDetails: ServiceWithOwnerProfile): boolean =>
-    serviceDetails.ownerProfile.profileType !== GetProfile.ProfileTypeEnum.ORG;
+  private isExpertConsultation(serviceDetails: ServiceWithOwnerProfile): boolean {
+    return serviceDetails.ownerProfile.profileType !== GetProfile.ProfileTypeEnum.ORG;
+  }
 
   private getEmployeeVatRateType(getServiceDetails: IConsultationDetails): EmploymentWithExpertProfile.VatRateTypeEnum {
     try {
