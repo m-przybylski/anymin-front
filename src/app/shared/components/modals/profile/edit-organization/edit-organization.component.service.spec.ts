@@ -23,16 +23,13 @@ describe('EditOrganizationComponentService', () => {
           provide: ProfileService,
           useValue: Deceiver(ProfileService, {
             putProfileRoute: jest.fn(() => of(undefined)),
-            getProfileRoute: jasmine.createSpy('getProfileRoute'),
+            getProfileRoute: jest.fn(),
+            getProfileWithServicesRoute: jest.fn(),
           }),
         },
         {
           provide: AlertService,
           useValue: Deceiver(AlertService, { pushDangerAlert: jasmine.createSpy('pushDangerAlert') }),
-        },
-        {
-          provide: ServiceService,
-          useValue: Deceiver(ServiceService, { getProfileServicesRoute: jasmine.createSpy('getProfileServicesRoute') }),
         },
       ],
     });
@@ -60,49 +57,43 @@ describe('EditOrganizationComponentService', () => {
 
   describe('getModalData', () => {
     it('should return data if company exists and account consultation exists flag', () => {
-      const serviceService = TestBed.get(ServiceService);
       // mock isCompany
       dispatchLoggedUser(store, {
         account: { id: '123' },
-        session: { organizationProfileId: 'organizationProfileId' },
+        session: { organizationProfileId: 'fake org profile id' },
         isCompany: true,
       });
       const expected = cold('--(a|)', { a: { getProfileWithDocuments: 'jest!', hasConsultations: true } });
 
       profileService.getProfileRoute = jest.fn(() => cold('-(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should return empty data if company not exists in session and account consultation exists flag', () => {
-      const serviceService = TestBed.get(ServiceService);
       // mock isCompany
       dispatchLoggedUser(store, {
         account: { id: '123' },
-        session: { organizationProfileId: 'organizationProfileId' },
+        session: { organizationProfileId: 'fake org profile id' },
         isCompany: false,
       });
       const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
 
-      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should return empty data if company not false if no consultation exists', () => {
-      const serviceService = TestBed.get(ServiceService);
       // mock isCompany
       dispatchLoggedUser(store, {
         account: { id: '123' },
-        session: { organizationProfileId: 'ididid' },
+        session: { organizationProfileId: 'fake org profile id' },
         isCompany: false,
       });
       const expected = cold('--(a|)', { a: { getProfileWithDocuments: undefined, hasConsultations: true } });
 
-      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should throw error on getProfileServicesRoute HTTP error', () => {
-      const serviceService = TestBed.get(ServiceService);
       // mock isCompany
       dispatchLoggedUser(store, {
         account: { id: '123' },
@@ -111,12 +102,10 @@ describe('EditOrganizationComponentService', () => {
       });
       const expected = cold('--#', {}, 'error');
 
-      profileService.getProfileRoute = jest.fn(() => cold('-----(a|)', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--#', {}, 'error'));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('--#', {}, 'error'));
       expect(service.getModalData()).toBeObservable(expected);
     });
     it('should throw error on getProfileRoute HTTP error', () => {
-      const serviceService = TestBed.get(ServiceService);
       // mock isCompany
       dispatchLoggedUser(store, {
         account: { id: '123' },
@@ -126,7 +115,7 @@ describe('EditOrganizationComponentService', () => {
       const expected = cold('--#', {}, 'error');
 
       profileService.getProfileRoute = jest.fn(() => cold('--#', { a: 'jest!' }));
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('--(a|)', { a: [1] }));
       expect(service.getModalData()).toBeObservable(expected);
     });
   });

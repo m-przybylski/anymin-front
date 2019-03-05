@@ -33,7 +33,6 @@ export const expertProfileView: ExpertProfileView = {
           id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
           accountId: 'asdasd',
           profileType: ProfileTypeEnum.EXP,
-          isActive: true,
           name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
           avatar: '3759ae044d9e400591d104e254c58f89',
           description:
@@ -69,7 +68,6 @@ export const expertProfileView: ExpertProfileView = {
           id: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
           accountId: 'asdasdasdasd',
           profileType: ProfileTypeEnum.EXP,
-          isActive: true,
           name: 'Organizacja M4',
           avatar: '6653395b55a3402596545f1e3621a94b',
           description: 'Opis organizacji M4',
@@ -101,7 +99,6 @@ export const getProfileWithDocuments: GetProfileWithDocuments = {
   profile: {
     id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     accountId: 'sadasdasdd2232323',
-    isActive: true,
     profileType: ProfileTypeEnum.EXP,
     name: 'Filip albo inny oj inny',
     avatar: '6d3587a32aba453e8ad47199324f4c67',
@@ -155,7 +152,6 @@ export const expertProfileView1: ExpertProfileView = {
           id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
           accountId: 'asdasd-123123123asdasd',
           profileType: ProfileTypeEnum.ORG,
-          isActive: true,
           name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
           avatar: '3759ae044d9e400591d104e254c58f89',
           description:
@@ -192,7 +188,6 @@ export const expertProfileView1: ExpertProfileView = {
           id: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
           accountId: 'd74eassssf16-8eec-4ae4-80f7-3841b268fb98',
           profileType: ProfileTypeEnum.ORG,
-          isActive: true,
           name: 'Organizacja M4',
           avatar: '6653395b55a3402596545f1e3621a94b',
           description: 'Opis organizacji M4',
@@ -244,7 +239,6 @@ export const expertProfileViewResult1: IExpertCompanyDashboardResolverData<IExpe
               id: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
               accountId: 'd74eaf16-8eec-4ae4-80f7-3841b268fb98',
               profileType: ProfileTypeEnum.ORG,
-              isActive: true,
               name: 'Organizacja M4',
               avatar: '6653395b55a3402596545f1e3621a94b',
               description: 'Opis organizacji M4',

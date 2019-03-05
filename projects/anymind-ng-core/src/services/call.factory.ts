@@ -1,5 +1,5 @@
 import { CurrentClientCall } from './call/current-client-call';
-import { GetExpertSueDetails, GetProfile, GetSUERatelCall, RatelService } from '@anymind-ng/api';
+import { GetExpertSueDetails, GetProfile, GetSueRatelCall, RatelService } from '@anymind-ng/api';
 import { BusinessCall } from 'machoke-sdk';
 import { LoggerFactory } from '../factories/logger.factory';
 import { LoggerService } from './logger.service';
@@ -32,7 +32,7 @@ export class CallFactory {
   public createClientCall = (
     expert: GetProfile,
     call: BusinessCall,
-    callDetails: GetSUERatelCall,
+    callDetails: GetSueRatelCall,
     localMediaTracks: ReadonlyArray<MediaStreamTrack>,
   ): CurrentClientCall =>
     new CurrentClientCall(

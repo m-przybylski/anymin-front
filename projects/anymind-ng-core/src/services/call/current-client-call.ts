@@ -1,6 +1,6 @@
 import { CallState, CurrentCall } from './current-call';
 import { BusinessCall, callEvents } from 'machoke-sdk';
-import { GetProfile, GetSUERatelCall } from '@anymind-ng/api';
+import { GetProfile, GetSueRatelCall } from '@anymind-ng/api';
 import { CommunicatorService } from '../communicator.service';
 import { MicrophoneService } from '../microphone.service';
 import { LoggerService } from '../logger.service';
@@ -14,7 +14,7 @@ import { AlertService } from '../alert/alert.service';
 export class CurrentClientCall extends CurrentCall {
   constructor(
     private expert: GetProfile,
-    clientCallDetails: GetSUERatelCall,
+    clientCallDetails: GetSueRatelCall,
     call: BusinessCall,
     loggerService: LoggerService,
     communicatorService: CommunicatorService,

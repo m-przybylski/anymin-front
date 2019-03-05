@@ -60,7 +60,7 @@
     "@angular/platform-browser": "7.2.0",
     "@angular/platform-browser-dynamic": "7.2.0",
     "@angular/router": "7.2.0",
-    "@anymind-ng/api": "^0.4.10",
+    "@anymind-ng/api": "^0.4.16",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "@ngrx/effects": "^7.0.0",
     "@ngrx/entity": "^7.0.0",

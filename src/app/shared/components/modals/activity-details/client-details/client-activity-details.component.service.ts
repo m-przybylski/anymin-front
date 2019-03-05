@@ -49,7 +49,7 @@ export class ClientActivityDetailsComponentService extends Logger {
         this.activitiesService.getClientActivityRoute(id).pipe(
           filter(activityDetails => typeof activityDetails.sue !== 'undefined'),
           map(activityDetails => {
-            const sue = activityDetails.sue as GetServiceUsageDetails;
+            const sue: GetServiceUsageDetails = activityDetails.sue as GetServiceUsageDetails;
 
             return {
               serviceName: activityDetails.details.serviceName ? activityDetails.details.serviceName : '',
@@ -58,7 +58,7 @@ export class ClientActivityDetailsComponentService extends Logger {
               sueId: sue.sueId,
               answeredAt: sue.answeredAt,
               callDuration: sue.callDuration,
-              servicePrice: sue.ratePerMinute,
+              servicePrice: sue.pricePerMinute,
               recommendedTags: this.getTags(activityDetails.recommendedTags),
               isSueExpert: false,
               expertName: activityDetails.details.expertName ? activityDetails.details.expertName : '',

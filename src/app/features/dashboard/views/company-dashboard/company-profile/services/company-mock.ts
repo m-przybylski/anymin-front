@@ -115,7 +115,6 @@ export const profileWithDocuments: GetProfileWithDocuments = {
   profile: {
     id: 'c3d262b0-48d7-41b5-9aeb-9f59affdd0f3',
     accountId: 'c3d2622222b0-48d7-41b5-9aeb-9f59affdd0f3',
-    isActive: true,
     profileType: ProfileTypeEnum.EXP,
     name: 'To jest nazwa, ktora ma 60 znaków czyli tyle ile jest maxxxx',
     avatar: '3759ae044d9e400591d104e254c58f89',

@@ -18,7 +18,7 @@ export class InvoiceDetailsComponentService {
     return getNotUndefinedSession(this.store).pipe(
       map(session => ({
         isCompanyProfile: session.isCompany,
-        countryIsoCode: session.account.countryISO,
+        countryIsoCode: session.account.language,
       })),
       switchMap(sessionData =>
         this.accountService.getInvoiceDetailsRoute().pipe(

@@ -1,10 +1,4 @@
-import {
-  ProfileService,
-  ServiceService,
-  GetProfileWithDocuments,
-  PutProfileDetails,
-  GetSessionWithAccount,
-} from '@anymind-ng/api';
+import { ProfileService, GetProfileWithDocuments, PutProfileDetails, GetSessionWithAccount } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, AlertService, Alerts } from '@anymind-ng/core';
 import { Observable, of, forkJoin, throwError } from 'rxjs';
@@ -26,7 +20,6 @@ export class EditOrganizationComponentService {
 
   constructor(
     private profileService: ProfileService,
-    private serviceService: ServiceService,
     private alertService: AlertService,
     private store: Store<fromRoot.IState>,
     loggerFactory: LoggerFactory,
@@ -49,8 +42,8 @@ export class EditOrganizationComponentService {
                 .getProfileRoute(getSessionWithAccount.session.organizationProfileId as string)
                 .pipe(this.handleResponseError('Not able to get profile data'))
             : of(undefined),
-          this.serviceService
-            .getProfileServicesRoute(getSessionWithAccount.session.organizationProfileId as string)
+          this.profileService
+            .getProfileWithServicesRoute(getSessionWithAccount.session.organizationProfileId as string)
             .pipe(this.handleResponseError('Not able to get services')),
         ]),
       ),

@@ -30,6 +30,7 @@ describe('ClientActivityDetailsComponentService', () => {
     id: 'activityId',
     accountId: 'accountId',
     activityType: GetDetailedClientActivity.ActivityTypeEnum.SUE,
+    isImportant: false,
     sue: {
       sueId: 'serviceUsageEventId',
       clientId: 'serviceUsageEventId',
@@ -39,7 +40,7 @@ describe('ClientActivityDetailsComponentService', () => {
       ratelCallId: 'ratelCallId',
       ratelRoomId: 'ratelRoomId',
       answeredAt: date,
-      ratePerMinute: {
+      pricePerMinute: {
         value: 12,
         currency: 'PLN',
       },
@@ -190,6 +191,7 @@ describe('ClientActivityDetailsComponentService', () => {
       id: 'activityId',
       accountId: 'accountId',
       activityType: GetDetailedClientActivity.ActivityTypeEnum.SUE,
+      isImportant: true,
       sue: {
         sueId: 'serviceUsageEventId',
         clientId: 'serviceUsageEventId',
@@ -198,7 +200,7 @@ describe('ClientActivityDetailsComponentService', () => {
         isRecommendable: true,
         ratelCallId: 'ratelCallId',
         answeredAt: date,
-        ratePerMinute: {
+        pricePerMinute: {
           value: 12,
           currency: 'PLN',
         },

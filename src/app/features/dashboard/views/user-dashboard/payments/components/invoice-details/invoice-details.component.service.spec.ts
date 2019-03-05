@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { cold } from 'jasmine-marbles';
 import { dispatchLoggedUser, importStore } from 'testing/testing';
-import { throwError } from 'rxjs';
 
 describe('Service: InvoiceDetailsComponentService', () => {
   let store: Store<fromCore.IState>;
@@ -29,7 +28,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
     store = TestBed.get(Store);
     service = TestBed.get(InvoiceDetailsComponentService);
     accountService = TestBed.get(AccountService);
-    dispatchLoggedUser(store, { isCompany: true, account: { countryISO: 'mockIsoCode' } });
+    dispatchLoggedUser(store, { isCompany: true, account: { language: 'mockIsoCode' } });
   }));
 
   it('should get initial data', () => {

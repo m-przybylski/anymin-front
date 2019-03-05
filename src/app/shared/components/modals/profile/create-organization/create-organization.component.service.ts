@@ -1,7 +1,7 @@
-import { ProfileService, ServiceService, AccountService, GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
+import { ProfileService, AccountService, GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 import { Injectable } from '@angular/core';
 import { LoggerFactory, LoggerService, AlertService, Alerts } from '@anymind-ng/core';
-import { Observable, throwError, forkJoin, of } from 'rxjs';
+import { Observable, throwError, forkJoin, of, defer } from 'rxjs';
 import { switchMap, map, take, catchError } from 'rxjs/operators';
 import { GetProfile } from '@anymind-ng/api/model/getProfile';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
@@ -28,7 +28,6 @@ export class CreateOrganizationComponentService {
 
   constructor(
     private profileService: ProfileService,
-    private serviceService: ServiceService,
     private alertService: AlertService,
     private accountService: AccountService,
     private store: Store<fromRoot.IState>,
@@ -60,12 +59,25 @@ export class CreateOrganizationComponentService {
               return throwError(err);
             }),
           ),
-          this.serviceService.getProfileServicesRoute(getSessionWithAccount.account.id),
+          defer(() => {
+            if (getSessionWithAccount.session.expertProfileId) {
+              return this.profileService.getProfileWithServicesRoute(getSessionWithAccount.session.expertProfileId);
+            }
+
+            return of([]);
+          }),
+          defer(() => {
+            if (getSessionWithAccount.session.organizationProfileId) {
+              this.profileService.getProfileWithServicesRoute(getSessionWithAccount.session.organizationProfileId);
+            }
+
+            return of([]);
+          }),
         ).pipe(
-          map(([getInvoiceDetails, getServices]) => ({
+          map(([getInvoiceDetails, expertGetServices, organizationGetServices]) => ({
             getInvoiceDetails,
-            countryIso: getSessionWithAccount.account.countryISO,
-            hasConsultations: getServices.length > 0,
+            countryIso: getSessionWithAccount.account.language,
+            hasConsultations: expertGetServices.length + organizationGetServices.length > 0,
           })),
           this.handleResponseError('Not able to get services'),
         ),

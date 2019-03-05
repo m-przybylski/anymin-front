@@ -1,4 +1,4 @@
-import { RatelService, GetSUERatelCall } from '@anymind-ng/api';
+import { RatelService, GetSueRatelCall } from '@anymind-ng/api';
 import * as MachokeSDK from 'machoke-sdk';
 import { Injectable, Optional } from '@angular/core';
 import { ReplaySubject, Observable, Subject, merge } from 'rxjs';
@@ -135,7 +135,7 @@ export class ClientCallService {
     return Promise.reject(err);
   }
 
-  private createRatelCall(expertId: string, serviceId: string): Promise<GetSUERatelCall> {
+  private createRatelCall(expertId: string, serviceId: string): Promise<GetSueRatelCall> {
     const deviceId = this.getDeviceId();
 
     return this.ratelService

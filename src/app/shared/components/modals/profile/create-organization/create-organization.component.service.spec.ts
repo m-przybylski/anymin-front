@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ProfileService, ServiceService, PostProfileDetails, AccountService } from '@anymind-ng/api';
+import { ProfileService, PostProfileDetails, AccountService } from '@anymind-ng/api';
 import { CreateOrganizationComponentService } from './create-organization.component.service';
 import { importStore, provideMockFactoryLogger, dispatchLoggedUser } from 'testing/testing';
 import { Deceiver } from 'deceiver-core';
@@ -14,7 +14,6 @@ describe('CreateOrganizationComponentService', () => {
   let profileService: ProfileService;
   let alertService: AlertService;
   let accountService: AccountService;
-  let serviceService: ServiceService;
   const organizationDetailsObject: PostProfileDetails = {
     profileType: PostProfileDetails.ProfileTypeEnum.ORG,
     name: 'name',
@@ -61,10 +60,6 @@ describe('CreateOrganizationComponentService', () => {
           provide: AlertService,
           useValue: Deceiver(AlertService, { pushDangerAlert: jest.fn() }),
         },
-        {
-          provide: ServiceService,
-          useValue: Deceiver(ServiceService),
-        },
       ],
     });
   });
@@ -75,13 +70,18 @@ describe('CreateOrganizationComponentService', () => {
     profileService = TestBed.get(ProfileService);
     alertService = TestBed.get(AlertService);
     accountService = TestBed.get(AccountService);
-    serviceService = TestBed.get(ServiceService);
-    dispatchLoggedUser(store, { account: { id: '123', countryISO: 'pl' } });
+    dispatchLoggedUser(store, {
+      session: { expertProfileId: 'fake expert profile Id' },
+      account: { id: '123', language: 'pl' },
+    });
   });
 
   describe('getInitialData', () => {
     it('should get initial data', () => {
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('-a|', { a: [] }));
+      dispatchLoggedUser(store, {
+        session: { expertProfileId: undefined },
+        account: { id: '123', language: 'pl' },
+      });
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-a|', { a: getInvoiceDetails }));
       const result = {
         getInvoiceDetails,
@@ -97,7 +97,7 @@ describe('CreateOrganizationComponentService', () => {
         status: 404,
         message: '💩 happens',
       };
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('-a|', { a: [] }));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('-a|', { a: [] }));
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-#', {}, fakeError));
       const result = {
         getInvoiceDetails: undefined,
@@ -113,7 +113,7 @@ describe('CreateOrganizationComponentService', () => {
         status: 500,
         message: '💩 happens',
       };
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('-a|', { a: [] }));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('-a|', { a: [] }));
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-#', {}, fakeError));
       const expected = cold('-#', {}, fakeError);
       expect(service.getInitialData()).toBeObservable(expected);
@@ -124,7 +124,7 @@ describe('CreateOrganizationComponentService', () => {
         status: 404,
         message: '💩 happens',
       };
-      serviceService.getProfileServicesRoute = jest.fn(() => cold('-#', {}, fakeError));
+      profileService.getProfileWithServicesRoute = jest.fn(() => cold('-#', {}, fakeError));
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-a|', { a: getInvoiceDetails }));
       const expected = cold('-#', {}, fakeError);
       expect(service.getInitialData()).toBeObservable(expected);

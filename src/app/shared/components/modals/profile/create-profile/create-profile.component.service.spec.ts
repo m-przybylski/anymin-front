@@ -67,7 +67,7 @@ describe('CreateProfileComponentService', () => {
   it('should get user country ISO code', () => {
     const mockSession = {
       account: {
-        countryISO: 'pl',
+        language: 'pl',
       },
       isExpert: false,
       isCompany: false,
