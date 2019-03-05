@@ -2,7 +2,7 @@ import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { INVITATION } from './services/accept-reject-invitation';
 import { AcceptRejectInvitationService } from './services/accept-reject-invitation.service';
 import { IInvitation } from '@platform/features/dashboard/views/user-dashboard/invitations/services/invitation-list.resolver.service';
-import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAnimationComponentService } from '../../modal/animation/modal-animation.animation.service';
 import { finalize, switchMap, first } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
@@ -12,13 +12,13 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { GetSessionWithAccount } from '@anymind-ng/api';
 import {
-  CreateProfileModalComponent,
   IS_EXPERT_FORM,
   SHOW_TOGGLE_EXPERT,
 } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { EMPTY, from, Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { InvitationsApiActions } from '@platform/features/dashboard/actions';
+import { ProfileModalsService } from '@platform/shared/components/modals/profile/profile-modals/profile-modals.service';
 
 @Component({
   templateUrl: 'accept-reject-invitation.component.html',
@@ -48,8 +48,8 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
     private acceptRejectInvitationService: AcceptRejectInvitationService,
     private loader: ModalAnimationComponentService,
     private store: Store<fromRoot.IState>,
-    private modalService: NgbModal,
     private alertService: AlertService,
+    private profileModalsService: ProfileModalsService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('AcceptRejectInvitationModalComponent'));
@@ -106,9 +106,9 @@ export class AcceptRejectInvitationModalComponent extends Logger implements OnIn
               }),
             };
 
-            const profileModalInstance = this.modalService.open(CreateProfileModalComponent, options);
+            const profileModalInstance = this.profileModalsService.openCreateExpertModal(options);
 
-            return from(profileModalInstance.result).pipe(
+            return from(profileModalInstance).pipe(
               switchMap(status => {
                 if (status) {
                   return this.acceptRejectInvitationService.acceptInvitation(this.invitation.id, this.activeModal);

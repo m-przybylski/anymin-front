@@ -1,5 +1,5 @@
 // tslint:disable:no-object-literal-type-assertion
-import { Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, Inject, InjectionToken, OnDestroy, OnInit, Optional } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertService, FormUtilsService, LoggerFactory, Alerts } from '@anymind-ng/core';
@@ -19,6 +19,8 @@ import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Logger } from '@platform/core/logger';
 import { PutDetails, PutProfileDetails } from '@anymind-ng/api';
 import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+
+export const MODAL_HEADER: InjectionToken<string> = new InjectionToken('Modal header translation');
 
 @Component({
   selector: 'plat-edit-profile',
@@ -60,6 +62,7 @@ export class EditProfileModalComponent extends Logger implements OnInit, OnDestr
 
   constructor(
     @Optional() @Inject(IS_EXPERT_FORM) public isExpertForm = true,
+    @Optional() @Inject(MODAL_HEADER) public modalHeader: string,
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
     private formUtils: FormUtilsService,

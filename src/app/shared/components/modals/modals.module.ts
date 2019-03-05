@@ -11,6 +11,7 @@ import { CallModalsModule } from '@platform/shared/components/modals/call-modals
 import { ButtonModule } from '@platform/shared/components/atomic-components';
 import { ConfirmationModalModule } from '@platform/shared/components/modals/confirmation/confirmation.module';
 import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.module';
+import { VerifiedEmailModule } from '@platform/shared/components/modals/verfied-email/verified-email.module';
 
 @NgModule({
   declarations: [CreateEditConsultationModalComponent],
@@ -27,6 +28,7 @@ import { TooltipModule } from '@platform/shared/components/tooltip/tooltip.modul
     CallModalsModule,
     ButtonModule,
     ConfirmationModalModule,
+    VerifiedEmailModule,
     TooltipModule,
   ],
   exports: [SharedModule, FormsModule, ReactiveFormsModule, ModalComponentsModule],

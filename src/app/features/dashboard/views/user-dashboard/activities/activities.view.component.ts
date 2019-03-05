@@ -1,16 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnDestroy } from '@angular/core';
 import { ActivitiesService } from '@platform/features/dashboard/views/user-dashboard/activities/activities.service';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { GetImportantActivitiesCounters } from '@anymind-ng/api';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { CreateProfileModalComponent } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, take, takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
 import { AuthActions } from '@platform/core/actions';
+import {
+  EditProfileModalComponent,
+  MODAL_HEADER,
+} from '@platform/shared/components/modals/profile/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'plat-expert-activities',
@@ -42,7 +46,16 @@ export class ActivitiesViewComponent extends Logger implements OnDestroy {
       )
       .subscribe(isOpenFirstTime => {
         if (isOpenFirstTime) {
-          this.modalService.open(CreateProfileModalComponent);
+          const options: NgbModalOptions = {
+            injector: Injector.create({
+              providers: [
+                { provide: IS_EXPERT_FORM, useValue: false },
+                { provide: MODAL_HEADER, useValue: 'DASHBOARD.CREATE_PROFILE.TITLE' },
+              ],
+            }),
+          };
+
+          this.modalService.open(EditProfileModalComponent, options);
           this.store.dispatch(new AuthActions.UpdateFirstTimeLoginStatusAction());
         }
       });

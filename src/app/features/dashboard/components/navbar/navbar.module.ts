@@ -15,6 +15,7 @@ import { NAVIGATIONITEMS, navigationItems } from '@platform/features/dashboard/c
 import { ActivitiesCounterModule } from '@platform/features/dashboard/components/activities-counter/activities-counter.module';
 import { NavbarHelpModule } from '@platform/features/dashboard/components/navbar/navbar-help/navbar-help.module';
 import { UnloggedNavigationComponent } from './unlogged-navigation/unlogged-navigation.component';
+import { ManageProfileModalsModule } from '@platform/shared/components/modals/profile/profile-modals/profile-modals.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { UnloggedNavigationComponent } from './unlogged-navigation/unlogged-navi
     TranslateModule.forChild(),
     ActivitiesCounterModule,
     NavbarHelpModule,
+    ManageProfileModalsModule,
   ],
   declarations: [
     NavbarComponent,

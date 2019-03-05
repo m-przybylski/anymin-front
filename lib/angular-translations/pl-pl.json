@@ -691,5 +691,10 @@
   "UNLOGGED_NAVIGATION.REGISTER": "Załóż konto",
   "META.DEFAULT.TITLE": "anymind. przybliżamy ludzi do wiedzy, której potrzebują",
   "META.DEFAULT.DESCRIPTION": "anymind to platforma wymiany wiedzy przez płatne konsultacje audio i wideo online",
-  "META.EXPERT_NAME_POSTFIX": " – porozmawiaj ze mną online przez anymind"
+  "META.EXPERT_NAME_POSTFIX": " – porozmawiaj ze mną online przez anymind",
+  "VERIFIED_EMAIL_MODAL.EXPERT_HEADER": "Zostań konsultantem",
+  "VERIFIED_EMAIL_MODAL.EXPERT_CONTENT": "Aby świadczyć usługi jako konsultant, potwierdź email, który do Ciebie wysłaliśmy.",
+  "VERIFIED_EMAIL_MODAL.ORGANIZATION_HEADER": "Stwórz organizację",
+  "VERIFIED_EMAIL_MODAL.ORGANIZATION_CONTENT": "Aby świadczyć usługi jako organizacja, potwierdź email, który do Ciebie wysłaliśmy.",
+  "VERIFIED_EMAIL_MODAL.CONFIRM_BUTTON": "OK, rozumiem"
 }

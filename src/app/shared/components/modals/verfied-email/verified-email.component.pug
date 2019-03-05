@@ -1,0 +1,5 @@
+plat-modal-component([modalTrTitleHeader]="headerModal", modalContainerClass='SMALL_WIDTH')
+  p.content_message {{ contentMessage | translate }}
+  .footer-button
+    a.footer-button__link(plat-button-link, (click)="onConfirmationClick()") {{ 'VERIFIED_EMAIL_MODAL.CONFIRM_BUTTON' | translate }}
+

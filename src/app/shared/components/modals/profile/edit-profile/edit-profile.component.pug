@@ -1,20 +1,20 @@
 plat-modal-component(
-  [modalTrTitleHeader]="'EDIT_PROFILE.EDIT_TITLE'",
-  )
+[modalTrTitleHeader]="modalHeader || 'EDIT_PROFILE.EDIT_TITLE'",
+)
   form(
-    [formGroup]='profileForm',
-    (ngSubmit)="onSaveProfile()"
+  [formGroup]='profileForm',
+  (ngSubmit)="onSaveProfile()"
   )
     plat-expert-client-profile(
-      [profileForm]="profileForm",
-      [isExpertForm]="isExpertForm",
-      [isInputDisabled]="isRequestPending",
-      [descriptionControlName]="descriptionControlName",
-      [basicProfileDataControlName]="basicProfileDataControlName",
-      [linksControlName]="linksControlName",
-      [profileDocumentsList]="profileDocumentsList",
-      (fileUploadingStatusChange)="onFileUploadingStatusChange($event)",
-      (fileUploadTokensList)="onFileUploadTokensList($event)"
+    [profileForm]="profileForm",
+    [isExpertForm]="isExpertForm",
+    [isInputDisabled]="isRequestPending",
+    [descriptionControlName]="descriptionControlName",
+    [basicProfileDataControlName]="basicProfileDataControlName",
+    [linksControlName]="linksControlName",
+    [profileDocumentsList]="profileDocumentsList",
+    (fileUploadingStatusChange)="onFileUploadingStatusChange($event)",
+    (fileUploadTokensList)="onFileUploadTokensList($event)"
     )
 
     .modal-component__action.modal-component__action--center

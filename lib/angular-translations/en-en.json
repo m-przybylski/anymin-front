@@ -692,5 +692,10 @@
   "UNLOGGED_NAVIGATION.REGISTER": "Sign up",
   "META.DEFAULT.NAME": "AnyMind is an online video calling tool with a built-in payment system, which can be placed as a widget on any website.",
   "META.DEFAULT.DESCRIPTION": "AnyMind is an online video calling tool with a built-in payment system, which can be placed as a widget on any website.",
-  "META.EXPERT_NAME_POSTFIX": " – connect with me online via anymind."
+  "META.EXPERT_NAME_POSTFIX": " – connect with me online via anymind.",
+  "VERIFIED_EMAIL_MODAL.EXPERT_HEADER": "Zostań konsultantem",
+  "VERIFIED_EMAIL_MODAL.EXPERT_CONTENT": "Aby świadczyć usługi jako konsultant, potwierdź email, który do Ciebie wysłaliśmy.",
+  "VERIFIED_EMAIL_MODAL.ORGANIZATION_HEADER": "Stwórz organizację",
+  "VERIFIED_EMAIL_MODAL.ORGANIZATION_CONTENT": "Aby świadczyć usługi jako organizacja, potwierdź email, który do Ciebie wysłaliśmy.",
+  "VERIFIED_EMAIL_MODAL.CONFIRM_BUTTON": "OK, rozumiem"
 }

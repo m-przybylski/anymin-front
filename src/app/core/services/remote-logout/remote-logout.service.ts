@@ -34,8 +34,8 @@ export class RemoteLogoutService extends Logger {
         }),
         switchMap(() =>
           this.callService.newCall$.pipe(
-            map((res: IExpertSessionCall) => {
-              if (res.currentExpertCall.getState() === CallState.PENDING) {
+            map((res?: IExpertSessionCall) => {
+              if (res && res.currentExpertCall.getState() === CallState.PENDING) {
                 this.callService.pushHangupCallEvent();
               }
             }),

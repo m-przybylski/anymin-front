@@ -2,13 +2,13 @@ import { Injectable, Injector } from '@angular/core';
 import {
   IS_EXPERT_FORM,
   SHOW_TOGGLE_EXPERT,
-  CreateProfileModalComponent,
 } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
-import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateOrganizationModalComponent } from '@platform/shared/components/modals/profile/create-organization/create-organization.component';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AuthActions } from '@platform/core/actions';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
+import { ProfileModalsService } from '@platform/shared/components/modals/profile/profile-modals/profile-modals.service';
+import { take } from 'rxjs/operators';
 
 export interface INavbarUserMenuPayload {
   store: Store<fromRoot.IState>;
@@ -16,7 +16,7 @@ export interface INavbarUserMenuPayload {
 
 @Injectable()
 export class NavbarUserMenuService {
-  constructor(private modalService: NgbModal) {}
+  constructor(private profileModalsService: ProfileModalsService) {}
 
   public openCreateProfileModalAsExpert(): void {
     const options: NgbModalOptions = {
@@ -24,12 +24,17 @@ export class NavbarUserMenuService {
         providers: [{ provide: IS_EXPERT_FORM, useValue: true }, { provide: SHOW_TOGGLE_EXPERT, useValue: true }],
       }),
     };
-
-    this.modalService.open(CreateProfileModalComponent, options);
+    this.profileModalsService
+      .openCreateExpertModal(options)
+      .pipe(take(1))
+      .subscribe();
   }
 
   public openCreateOrganizationModal(): void {
-    this.modalService.open(CreateOrganizationModalComponent);
+    this.profileModalsService
+      .openCreateCompanyModal()
+      .pipe(take(1))
+      .subscribe();
   }
 
   public logout({ store }: INavbarUserMenuPayload): void {
