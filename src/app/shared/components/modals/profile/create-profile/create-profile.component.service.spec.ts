@@ -67,13 +67,13 @@ describe('CreateProfileComponentService', () => {
   it('should get user country ISO code', () => {
     const mockSession = {
       account: {
-        language: 'pl',
+        language: 'PL',
       },
       isExpert: false,
       isCompany: false,
     };
     dispatchLoggedUser(store, mockSession);
-    const expected = cold('(a|)', { a: { countryISO: 'pl', hasProfile: false } });
+    const expected = cold('(a|)', { a: { countryISO: 'PL', hasProfile: false } });
     expect(service.getCountryIsoAndProfile()).toBeObservable(expected);
   });
 

@@ -33,7 +33,7 @@ export class CreateProfileComponentService extends Logger {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
       map(session => ({
-        countryISO: session.account.language,
+        countryISO: session.account.language.toUpperCase(),
         hasProfile: session.isExpert || session.isCompany,
         accountDetails: session.account.details,
       })),

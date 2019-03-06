@@ -43,7 +43,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
         streetNumber: '69',
         city: 'Zagacie',
         postalCode: '12-345',
-        countryISO: 'pl',
+        countryISO: 'PL',
       },
       vatRateType: GetInvoiceDetails.VatRateTypeEnum.COMPANY0,
       createdAt: new Date(),
@@ -52,7 +52,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
       b: {
         invoiceDetails: mockInvoiceDetails,
         isCompanyProfile: true,
-        countryIsoCode: 'mockIsoCode',
+        countryIsoCode: 'MOCKISOCODE',
       },
     });
 
@@ -82,7 +82,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
       b: {
         invoiceDetails: undefined,
         isCompanyProfile: true,
-        countryIsoCode: 'mockIsoCode',
+        countryIsoCode: 'MOCKISOCODE',
       },
     });
 
