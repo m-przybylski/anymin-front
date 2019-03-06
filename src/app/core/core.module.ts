@@ -32,6 +32,8 @@ import { RegisterEffects } from '@platform/core/effects/register.effects';
 import { TranslationAssetsLoader } from './services/translations/translation-loader';
 import { SetNewPasswordEffects } from '@platform/core/effects/set-new-password.effects';
 import { provideTranslations } from './initialize';
+import { UnsupportedService } from '@platform/core/services/unsupported/unsupported.service';
+import { UserAgentService } from '@platform/core/services/unsupported/user-agent.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -72,6 +74,8 @@ export function getLogLevel(): LogLevel {
     PushNotificationService,
     CallService,
     RemoteLogoutService,
+    UnsupportedService,
+    UserAgentService,
   ],
 })
 export class CoreModule {}

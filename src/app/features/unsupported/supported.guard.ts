@@ -4,7 +4,7 @@ import { Alerts, AlertService, LoggerFactory, LoggerService } from '@anymind-ng/
 import { UnsupportedService } from '@platform/core/services/unsupported/unsupported.service';
 
 @Injectable()
-export class UnsupportedGuard implements CanActivate {
+export class SupportedGuard implements CanActivate {
   private logger: LoggerService;
 
   constructor(
@@ -13,19 +13,19 @@ export class UnsupportedGuard implements CanActivate {
     private unsupportedService: UnsupportedService,
     loggerFactory: LoggerFactory,
   ) {
-    this.logger = loggerFactory.createLoggerService('UnsupportedGuard');
+    this.logger = loggerFactory.createLoggerService('SupportedGuard');
   }
 
   public canActivate(): boolean {
-    if (this.unsupportedService.isSupported()) {
+    if (!this.unsupportedService.isSupported()) {
       return true;
     } else {
       this.router
-        .navigate(['/unsupported'])
+        .navigate(['/'])
         .then(isRedirectSuccessful => {
           if (!isRedirectSuccessful) {
             this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
-            this.logger.warn('Can not redirect to unsupported');
+            this.logger.warn('Can not redirect to root');
           }
         })
         .catch(this.logger.error.bind(this));
