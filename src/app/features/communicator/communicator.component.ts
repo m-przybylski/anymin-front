@@ -87,7 +87,9 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.navigationService.startInactivityTimer();
-    this.navigationService.userActivity$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onUserInactivity);
+    this.navigationService.userActivity$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(navigationServiceState => this.onUserInactivity(navigationServiceState));
     this.microphoneService.onMicrophoneStatusChange(state => (this.currentMicrophoneStateEnum = state));
     this.AvatarSizeEnum = AvatarSize;
     this.callService.newCall$
@@ -111,11 +113,11 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     return this.isDisconnectedAnimation;
   }
 
-  public changeCamera = (): void => {
+  public changeCamera(): void {
     this.navigationComponent.changeCamera();
-  };
+  }
 
-  public hangupCall = (): void => {
+  public hangupCall(): void {
     this.loggerService.debug('Hanging up the call');
     if (this.currentCall) {
       this.currentCall.hangup(CallReason.Hangup).then(
@@ -130,17 +132,17 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     } else {
       this.loggerService.error('Cannot hangup the call, there is no call');
     }
-  };
+  }
 
-  private onUserInactivity = (navigationServiceState: NavigationServiceState): void => {
+  private onUserInactivity(navigationServiceState: NavigationServiceState): void {
     if (navigationServiceState === NavigationServiceState.INACTIVE) {
       this.isUserInactive = true;
     } else if (navigationServiceState === NavigationServiceState.ACTIVE) {
       this.isUserInactive = false;
     }
-  };
+  }
 
-  private registerClientCall = (clientSessionCall: IClientSessionCall): void => {
+  private registerClientCall(clientSessionCall: IClientSessionCall): void {
     const expertDetails = clientSessionCall.currentClientCall.getExpert();
     this.newCallEvent.next(clientSessionCall.currentClientCall);
     this.registerCommonCallEvents(clientSessionCall.currentClientCall);
@@ -152,9 +154,9 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     clientSessionCall.currentClientCall.answered$
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => (this.isConnecting = false));
-  };
+  }
 
-  private registerExpertCall = (expertSessionCall: IExpertSessionCall): void => {
+  private registerExpertCall(expertSessionCall: IExpertSessionCall): void {
     this.newCallEvent.next(expertSessionCall.currentExpertCall);
     this.registerCommonCallEvents(expertSessionCall.currentExpertCall);
     this.serviceName = expertSessionCall.currentExpertCall.getServiceName();
@@ -162,26 +164,32 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.clientAvatar = expertSessionCall.currentExpertCall.getExpertSueDetails().clientDetails.avatar;
     this.isConnecting = false;
     this.isClosed = false;
-  };
+  }
 
-  private registerCommonCallEvents = (call: CurrentCall): void => {
+  private registerCommonCallEvents(call: CurrentCall): void {
     this.currentCall = call;
-    call.localMediaTrack$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onLocalMediaTrack);
-    call.remoteMediaTrack$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onRemoteMediaTrack);
-    call.remoteVideoStatus$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onRemoteVideoStream);
+    call.localMediaTrack$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(mediaTrack => this.onLocalMediaTrack(mediaTrack));
+    call.remoteMediaTrack$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(mediaTrack => this.onRemoteMediaTrack(mediaTrack));
+    call.remoteVideoStatus$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(videoStatus => this.onRemoteVideoStream(videoStatus));
     race(call.callDestroyed$, this.callService.hangupCall$)
       .pipe(
         takeUntil(this.ngUnsubscribe$),
         first(),
       )
-      .subscribe(this.onCallEnd);
-  };
+      .subscribe(() => this.onCallEnd());
+  }
 
-  private onRemoteVideoStream = (videoStatus: boolean): void => {
+  private onRemoteVideoStream(videoStatus: boolean): void {
     this.isRemoteVideo = videoStatus;
-  };
+  }
 
-  private onRemoteMediaTrack = (track: MediaStreamTrack): void => {
+  private onRemoteMediaTrack(track: MediaStreamTrack): void {
     this.loggerService.debug(`Remote track received ${track.id}`, track);
     if (this.remoteAudioStreamElement && this.remoteVideoStreamElement) {
       if (track.kind === 'video') {
@@ -198,9 +206,9 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     } else {
       this.loggerService.error('remote Stream Elements are undefined');
     }
-  };
+  }
 
-  private onLocalMediaTrack = (track: MediaStreamTrack): void => {
+  private onLocalMediaTrack(track: MediaStreamTrack): void {
     if (this.localVideoStreamElement) {
       this.loggerService.info('CommunicatorMaximizedComponent: setting local stream');
       if (track.kind === 'video') {
@@ -212,20 +220,20 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     } else {
       this.loggerService.error('local stream elements are undefined');
     }
-  };
+  }
 
-  private onCallEnd = (): void => {
+  private onCallEnd(): void {
     this.isDisconnectedAnimation = true;
     // TODO After we remove AngularJS we should change this for angular router method.
     this.location.back();
-  };
+  }
 
-  private attachTrackToElement = (element: ElementRef, track: MediaStreamTrack): void => {
+  private attachTrackToElement(element: ElementRef, track: MediaStreamTrack): void {
     const stream = new MediaStream([track]);
     try {
       element.nativeElement.srcObject = stream;
     } catch (_err) {
       element.nativeElement.src = URL.createObjectURL(stream);
     }
-  };
+  }
 }

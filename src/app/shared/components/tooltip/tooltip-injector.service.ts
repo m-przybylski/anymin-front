@@ -50,7 +50,7 @@ export class TooltipInjectorService extends Logger {
     }
   }
 
-  private appendComponentToDOMDestination = (type: TooltipComponentDestinationEnum): void => {
+  private appendComponentToDOMDestination(type: TooltipComponentDestinationEnum): void {
     const domElem = this.componentRef.hostView.rootNodes[0];
 
     switch (type) {
@@ -67,5 +67,5 @@ export class TooltipInjectorService extends Logger {
       default:
         document.body.appendChild(domElem);
     }
-  };
+  }
 }

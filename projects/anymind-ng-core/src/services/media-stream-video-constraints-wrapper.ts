@@ -13,7 +13,7 @@ export class MediaStreamVideoConstraintsWrapper {
     this.navigatorWrapper = new NavigatorWrapper();
   }
 
-  public toggleCamera = (): MediaStreamConstraints => {
+  public toggleCamera(): MediaStreamConstraints {
     this.currentCameraIndex = this.nextCameraIndex(this.currentCameraIndex);
     this.currentCamera =
       this.currentCamera === NavigatorWrapper.frontCamera ? NavigatorWrapper.backCamera : NavigatorWrapper.frontCamera;
@@ -23,9 +23,11 @@ export class MediaStreamVideoConstraintsWrapper {
     );
 
     return this.actualConstraints;
-  };
+  }
 
-  public getConstraints = (): MediaStreamConstraints => this.actualConstraints;
+  public getConstraints(): MediaStreamConstraints {
+    return this.actualConstraints;
+  }
 
   private nextCameraIndex(currentIndex: number): number {
     const curIndex = currentIndex + 1;

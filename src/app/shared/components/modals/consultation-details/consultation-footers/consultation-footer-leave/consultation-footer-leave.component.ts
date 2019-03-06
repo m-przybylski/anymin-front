@@ -58,7 +58,7 @@ export class ConsultationFooterLeaveComponent extends Logger implements IFooterO
     this._actionTaken$.complete();
   }
 
-  public onLeave = (): void => {
+  public onLeave(): void {
     this._actionTaken$.next('leaveConsultation');
-  };
+  }
 }

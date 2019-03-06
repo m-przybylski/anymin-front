@@ -53,11 +53,11 @@ export class ActivityRowComponent implements OnInit {
     }
   }
 
-  public onActivityRowClick = (): void => {
+  public onActivityRowClick(): void {
     this.activityRowClicked.emit(this.activity);
-  };
+  }
 
-  private mapMonthToPayoutTitleTranslation = (monthIndex: number): string => {
+  private mapMonthToPayoutTitleTranslation(monthIndex: number): string {
     const monthNames: ReadonlyArray<string> = [
       'JANUARY',
       'FEBRUARY',
@@ -75,7 +75,7 @@ export class ActivityRowComponent implements OnInit {
     const translationKey = 'DASHBOARD_ACTIVITY.PAYOUT_TITLE_';
 
     return translationKey + monthNames[monthIndex];
-  };
+  }
 
   private getParticipantName(): string {
     if (

@@ -47,24 +47,24 @@ export class MsisdnSettingsViewComponent {
     this.modalAnimationComponentService.stopLoadingAnimation();
   }
 
-  public onGoBack = (): void => {
+  public onGoBack(): void {
     this.modalStep = ChangeMsisdnModalStepEnum.CHANGE_MSISDN;
     this.modalHeaderTrKey = this.modalHeaderTranslations.msisdn;
-  };
+  }
 
-  public onMsisdnVerificationStatus = (msisdnVerification: IVerifyMsisdnStatus): void => {
+  public onMsisdnVerificationStatus(msisdnVerification: IVerifyMsisdnStatus): void {
     if (msisdnVerification.status === VerifyMsisdnStatusEnum.SUCCESS) {
       this.newUserMsisdn = msisdnVerification.msisdn;
       this.modalStep = ChangeMsisdnModalStepEnum.PIN_VERIFICATION;
       this.modalHeaderTrKey = this.modalHeaderTranslations.pinVerification;
     }
-  };
+  }
 
-  public onPinVerification = (pinVerification: IPinVerificationStatus): void => {
+  public onPinVerification(pinVerification: IPinVerificationStatus): void {
     if (pinVerification.status === PinVerificationStatus.SUCCESS) {
       this.activeModal.close();
       this.alertService.pushSuccessAlert(Alerts.MsisdnChangedSuccess);
       this.store.dispatch(new SessionActions.FetchSessionAction());
     }
-  };
+  }
 }

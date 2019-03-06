@@ -24,7 +24,7 @@ export class PhoneNumberService {
     return { msisdn: this.polishPrefix.concat(this.unifyPhoneNumber(value)) };
   }
 
-  private getNumberWithoutPrefix = (phoneNumber: string): string => {
+  private getNumberWithoutPrefix(phoneNumber: string): string {
     const twoIndexes = 2;
     const threeIndexes = 3;
     const fourIndexes = 4;
@@ -38,12 +38,15 @@ export class PhoneNumberService {
     } else {
       return phoneNumber;
     }
-  };
+  }
 
-  private unifyPhoneNumber = (phoneNumber: string): string =>
-    this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber));
+  private unifyPhoneNumber(phoneNumber: string): string {
+    return this.getNumberWithoutPrefix(this.deleteIncorrectPhoneSigns(phoneNumber));
+  }
 
-  private deleteIncorrectPhoneSigns = (value: string): string => value.replace(/ /g, '').replace(/-/g, '');
+  private deleteIncorrectPhoneSigns(value: string): string {
+    return value.replace(/ /g, '').replace(/-/g, '');
+  }
 
   private isEmail(value: string): boolean {
     return this.emailRegex.test(value);

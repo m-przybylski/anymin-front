@@ -20,7 +20,7 @@ export class ToggleElementDirective {
     this.setToggleStatus(this.element.nativeElement.contains(event.target));
   }
 
-  private setToggleStatus = (isClicked: boolean): void => {
+  private setToggleStatus(isClicked: boolean): void {
     const status = this.determineVisibilityStatus(isClicked);
 
     switch (status) {
@@ -35,9 +35,9 @@ export class ToggleElementDirective {
       default:
         this.toggleElement(false);
     }
-  };
+  }
 
-  private determineVisibilityStatus = (isClicked: boolean): VisibilityStatusEnum => {
+  private determineVisibilityStatus(isClicked: boolean): VisibilityStatusEnum {
     if (this.isToggled) {
       return VisibilityStatusEnum.HIDDEN;
     }
@@ -47,10 +47,10 @@ export class ToggleElementDirective {
     } else {
       return VisibilityStatusEnum.HIDDEN;
     }
-  };
+  }
 
-  private toggleElement = (isVisible: boolean): void => {
+  private toggleElement(isVisible: boolean): void {
     this.isToggled = isVisible;
     this.isClickedElement.emit(isVisible);
-  };
+  }
 }

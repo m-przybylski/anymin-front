@@ -49,11 +49,11 @@ export class NavbarUserAvatarComponent {
     @Inject(DOCUMENT) private document: Document,
   ) {}
 
-  public toggleMenuVisibility = (): void => {
+  public toggleMenuVisibility(): void {
     this.store.dispatch(new NavbarActions.ToggleUserMenuVisibility());
-  };
+  }
 
-  private setCloseHandlers = (): void => {
+  private setCloseHandlers(): void {
     this.ngZone.runOutsideAngular(() => {
       fromEvent<MouseEvent>(this.document as FromEventTarget<MouseEvent>, 'click')
         .pipe(
@@ -66,5 +66,5 @@ export class NavbarUserAvatarComponent {
           });
         });
     });
-  };
+  }
 }

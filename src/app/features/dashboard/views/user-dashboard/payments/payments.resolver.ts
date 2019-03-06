@@ -14,6 +14,7 @@ export class PaymentsResolver extends Logger implements Resolve<GetPayoutMethod>
     super(loggerFactory.createLoggerService('PaymentsResolver'));
   }
 
-  public resolve = (): Observable<GetPayoutMethod> =>
-    this.payoutsService.getPayoutMethodsRoute().pipe(catchError(() => of({})));
+  public resolve(): Observable<GetPayoutMethod> {
+    return this.payoutsService.getPayoutMethodsRoute().pipe(catchError(() => of({})));
+  }
 }

@@ -56,7 +56,9 @@ export class CurrentClientCall extends CurrentCall {
       .subscribe(() => this.notifyVideoChangeToPeer(this.isVideoEnabled()));
   }
 
-  public getExpert = (): GetProfile => this.expert;
+  public getExpert(): GetProfile {
+    return this.expert;
+  }
 
   public get answered$(): Observable<callEvents.Answered> {
     return this.ratelCall.answered$.pipe(takeUntil(this.callDestroyed$));

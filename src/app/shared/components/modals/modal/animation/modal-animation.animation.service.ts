@@ -11,20 +11,26 @@ export class ModalAnimationComponentService {
 
   constructor(private contentHeightService: ContentHeightAnimationService) {}
 
-  public onModalContentChange = (): Subject<boolean> => this.isChanged$;
+  public onModalContentChange(): Subject<boolean> {
+    return this.isChanged$;
+  }
 
-  public isPendingRequest = (): Subject<boolean> => this.isPending$;
+  public isPendingRequest(): Subject<boolean> {
+    return this.isPending$;
+  }
 
-  public getPreviousHeight$ = (): ReplaySubject<string> => this.height$;
+  public getPreviousHeight$(): ReplaySubject<string> {
+    return this.height$;
+  }
 
-  public startLoadingAnimation = (): void => {
+  public startLoadingAnimation(): void {
     this.isChanged$.next(true);
-  };
+  }
 
-  public stopLoadingAnimation = (initialHeight?: string): void => {
+  public stopLoadingAnimation(initialHeight?: string): void {
     this.isChanged$.next(false);
     if (typeof initialHeight !== 'undefined') {
       this.contentHeightService.getPreviousHeight$().next(initialHeight);
     }
-  };
+  }
 }

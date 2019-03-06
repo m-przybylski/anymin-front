@@ -35,10 +35,11 @@ export class UserAvatarComponent implements OnInit, OnChanges {
     this.avatarUrl = this.resolveFileUrl(this.tokenAvatar);
   }
 
-  public brokenImageHandler = (_sourceImg: HTMLImageElement): void => {
+  public brokenImageHandler(_sourceImg: HTMLImageElement): void {
     this.isBrokenImage = true;
-  };
+  }
 
-  private resolveFileUrl = (fileId: string): string =>
-    this.coreConfig.urls.files + this.coreConfig.urls.filePreviewDownload.replace('%s', fileId);
+  private resolveFileUrl(fileId: string): string {
+    return this.coreConfig.urls.files + this.coreConfig.urls.filePreviewDownload.replace('%s', fileId);
+  }
 }

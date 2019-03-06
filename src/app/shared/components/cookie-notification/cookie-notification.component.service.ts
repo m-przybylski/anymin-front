@@ -8,21 +8,27 @@ export class CookieNotificationComponentService {
 
   constructor(private cookieService: CookieService) {}
 
-  public hideNotification = (): void => {
+  public hideNotification(): void {
     this.cookieService.set(
       Config.cookies.cookieNotification.key,
       this.cookieValue,
       this.getCookieNotificationExpirationDate(),
     );
-  };
+  }
 
-  public isNotificationVisible = (): boolean => this.isCookieNotDefined(Config.cookies.cookieNotification.key);
+  public isNotificationVisible(): boolean {
+    return this.isCookieNotDefined(Config.cookies.cookieNotification.key);
+  }
 
-  private isCookieNotDefined = (cookieKey: string): boolean => !this.cookieService.check(cookieKey);
+  private isCookieNotDefined(cookieKey: string): boolean {
+    return !this.cookieService.check(cookieKey);
+  }
 
-  private getCookieNotificationExpirationDate = (): Date =>
-    new Date(this.getCookieExpirationYear(), Config.cookies.cookieNotification.month);
+  private getCookieNotificationExpirationDate(): Date {
+    return new Date(this.getCookieExpirationYear(), Config.cookies.cookieNotification.month);
+  }
 
-  private getCookieExpirationYear = (): number =>
-    new Date().getFullYear() + Config.cookies.cookieNotification.yearDelta;
+  private getCookieExpirationYear(): number {
+    return new Date().getFullYear() + Config.cookies.cookieNotification.yearDelta;
+  }
 }

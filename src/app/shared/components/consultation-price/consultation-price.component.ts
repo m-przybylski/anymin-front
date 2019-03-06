@@ -66,7 +66,7 @@ export class ConsultationPriceComponent implements AfterViewInit {
     }
   }
 
-  public onInputPriceChange = (inputValue: number): void => {
+  public onInputPriceChange(inputValue: number): void {
     this.priceAfterAnyMindCommission = this.consultationPriceComponentService.getPriceAfterAnyMindCommission(
       inputValue,
       this.isFreelanceService,
@@ -75,7 +75,7 @@ export class ConsultationPriceComponent implements AfterViewInit {
     if (this.isFreelanceService) {
       this.freelancerProfit = this.consultationPriceComponentService.getFreelancerProfit(inputValue);
     }
-  };
+  }
 
   private isFormControlValue(): boolean {
     return this.form.contains(this.priceControlName) && this.form.controls[this.priceControlName].value !== null;

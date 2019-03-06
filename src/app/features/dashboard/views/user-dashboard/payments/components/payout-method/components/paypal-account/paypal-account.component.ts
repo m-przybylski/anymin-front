@@ -49,7 +49,7 @@ export class PayPalAccountComponent extends Logger implements AfterViewInit {
     }, 0);
   }
 
-  public onFormSubmit = (): void => {
+  public onFormSubmit(): void {
     if (this.payPalAccountForm.valid) {
       this.isPending = true;
       this.payoutsService
@@ -58,13 +58,13 @@ export class PayPalAccountComponent extends Logger implements AfterViewInit {
           finalize(() => {
             this.isPending = false;
           }),
-          catchError(this.handlePutPayoutMethodError),
+          catchError(err => this.handlePutPayoutMethodError(err)),
         )
-        .subscribe(this.onAddPayPalAccountSuccess);
+        .subscribe(() => this.onAddPayPalAccountSuccess());
     }
-  };
+  }
 
-  private onAddPayPalAccountSuccess = (): void => {
+  private onAddPayPalAccountSuccess(): void {
     this.alertService.pushSuccessAlert('ALERT.PAYPAL_ADD_SUCCESS');
     this.activeModal.close();
     this.router
@@ -78,28 +78,28 @@ export class PayPalAccountComponent extends Logger implements AfterViewInit {
       .catch(() => {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
       });
-  };
+  }
 
   // tslint:disable:no-any
-  private handlePutPayoutMethodError = (err: any): Observable<any> => {
+  private handlePutPayoutMethodError(err: any): Observable<any> {
     const error = err.error;
 
     if (isBackendError(error)) {
-      iterateOverBackendErrors(error, this.handleError);
+      iterateOverBackendErrors(error, e => this.handleError(e));
     } else {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       this.loggerService.warn('handlePutPayoutMethodError error: ', error);
     }
 
     return of();
-  };
+  }
 
-  private handleError = (code: number): void => {
+  private handleError(code: number): void {
     switch (code) {
       case BackendErrors.InvalidAddressEmail:
         this.payPalAccountForm.value[this.payPalAccountControlName].setErrors({ invalid: true });
         break;
       default:
     }
-  };
+  }
 }

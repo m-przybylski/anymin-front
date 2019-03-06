@@ -92,15 +92,15 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       );
   }
 
-  public onBackClick = (): void => {
+  public onBackClick(): void {
     this.backwardClick.next();
-  };
+  }
 
-  public onModalClose = (): void => {
+  public onModalClose(): void {
     this.activeModal.close();
-  };
+  }
 
-  public setModalContainerWidth = (): string => {
+  public setModalContainerWidth(): string {
     switch (this.modalContainerClass) {
       case ModalContainerTypeEnum.SMALL_WIDTH:
         return 'modal-component__container--small';
@@ -120,30 +120,30 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       default:
         return 'modal-component__container--medium';
     }
-  };
+  }
 
-  private createPreloader = (): void => {
+  private createPreloader(): void {
     const loadingDelay = Config.modalPreloaderDelay.delayAfterRequest;
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
     }, loadingDelay);
-  };
+  }
 
-  private callAnimationOnRequest = (isPending: boolean): void => {
+  private callAnimationOnRequest(isPending: boolean): void {
     this.onPendingRequest.onResponse();
     this.isLoading = isPending;
-  };
+  }
 
-  private callAnimationOnChangeModalContent = (isPending: boolean): void => {
+  private callAnimationOnChangeModalContent(isPending: boolean): void {
     this.createPreloader();
     this.onChangeModalContent.onChangeModalContent();
     this.isPending = isPending;
-  };
+  }
 
-  private handleModalAnimationServiceError = (error: HttpErrorResponse, errorMsg: string): void => {
+  private handleModalAnimationServiceError(error: HttpErrorResponse, errorMsg: string): void {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn(errorMsg, error);
     this.isPending = false;
-  };
+  }
 }

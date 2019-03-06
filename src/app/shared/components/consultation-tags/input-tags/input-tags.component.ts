@@ -63,9 +63,11 @@ export class InputTagsComponent implements OnInit {
     this.form.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.form, this.controlName);
+  public isFieldInvalid(): boolean {
+    return this.formUtils.isFieldInvalid(this.form, this.controlName);
+  }
 
-  public isRequiredError = (): boolean => {
+  public isRequiredError(): boolean {
     const controlNameErrors = this.form.controls[this.controlName].errors;
 
     if (controlNameErrors !== null) {
@@ -73,17 +75,17 @@ export class InputTagsComponent implements OnInit {
     } else {
       return false;
     }
-  };
+  }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.isFocused = true;
-  };
+  }
 
-  public onBlur = (): void => {
+  public onBlur(): void {
     this.isFocused = false;
-  };
+  }
 
-  public onKeyUp = (event: KeyboardEvent, input: HTMLInputElement): void => {
+  public onKeyUp(event: KeyboardEvent, input: HTMLInputElement): void {
     switch (event.key) {
       case Config.keyboardCodes.comma:
       case Config.keyboardCodes.semicolon:
@@ -92,9 +94,9 @@ export class InputTagsComponent implements OnInit {
         break;
       default:
     }
-  };
+  }
 
-  public handleNewTag = (input: HTMLInputElement): void => {
+  public handleNewTag(input: HTMLInputElement): void {
     if (!this.isDisabled) {
       const tag = input.value.trim();
       if (tag.indexOf(',') > -1 || tag.indexOf(';') > -1) {
@@ -104,18 +106,22 @@ export class InputTagsComponent implements OnInit {
       }
       this.clearInputValue(input);
     }
-  };
+  }
 
-  private getValidators = (): ValidatorFn[] => this.getCustomValidator([]);
+  private getValidators(): ValidatorFn[] {
+    return this.getCustomValidator([]);
+  }
 
-  private getCustomValidator = (arr: ValidatorFn[]): ValidatorFn[] => [...arr, this.validatorFn.bind(this)];
+  private getCustomValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return [...arr, this.validatorFn.bind(this)];
+  }
 
-  private clearInputValue = (input: HTMLInputElement): void => {
+  private clearInputValue(input: HTMLInputElement): void {
     const errors = this.form.controls[this.controlName].errors;
     if (!this.isFieldInvalid() || (errors && errors.invalidMinCount)) {
       input.value = '';
     }
-  };
+  }
 
   private validatorFn(_control: FormControl): { [key: string]: boolean } | null {
     if (

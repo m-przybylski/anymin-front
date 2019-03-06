@@ -12,7 +12,7 @@ export class MessageRoom {
   constructor(private room: BusinessRoom) {
     room.typing$.subscribe(ev => this.typingEvent.next(ev));
     room.marked$.subscribe(ev => this.markEvent.next(ev));
-    room.getCustomMessageStream(MessageRoom.customMessageTag).subscribe(this.onCustomMessage);
+    room.getCustomMessageStream(MessageRoom.customMessageTag).subscribe(msg => this.onCustomMessage(msg));
   }
 
   public get message$(): Observable<roomEvents.CustomMessageSent> {
@@ -27,22 +27,31 @@ export class MessageRoom {
     return this.markEvent;
   }
 
-  public getHistory = (
-    offset: number,
-    limit: number,
-    filter?: HistoryFilter,
-  ): Promise<Paginated<roomEvents.RoomEvent>> => this.room.getMessages(offset, limit, filter);
+  public getHistory(offset: number, limit: number, filter?: HistoryFilter): Promise<Paginated<roomEvents.RoomEvent>> {
+    return this.room.getMessages(offset, limit, filter);
+  }
 
-  public getUsers = (): Promise<ReadonlyArray<ID>> => this.room.getUsers();
+  public getUsers(): Promise<ReadonlyArray<ID>> {
+    return this.room.getUsers();
+  }
 
-  public indicateTyping = (): void => this.room.indicateTyping();
+  public indicateTyping(): void {
+    return this.room.indicateTyping();
+  }
 
-  public sendMessage = (msg: string, context: Context): Observable<chatEvents.Received> =>
-    this.room.sendCustom(msg, MessageRoom.customMessageTag, context);
+  public sendMessage(msg: string, context: Context): Observable<chatEvents.Received> {
+    return this.room.sendCustom(msg, MessageRoom.customMessageTag, context);
+  }
 
-  public mark = (timestamp: Timestamp): void => this.room.setMark(timestamp);
+  public mark(timestamp: Timestamp): void {
+    return this.room.setMark(timestamp);
+  }
 
-  public join = (room: BusinessRoom): Promise<void> => room.join();
+  public join(room: BusinessRoom): Promise<void> {
+    return room.join();
+  }
 
-  private onCustomMessage = (msg: roomEvents.CustomMessageSent): void => this.messageEvent.next(msg);
+  private onCustomMessage(msg: roomEvents.CustomMessageSent): void {
+    return this.messageEvent.next(msg);
+  }
 }

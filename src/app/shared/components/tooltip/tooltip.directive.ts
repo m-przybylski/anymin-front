@@ -40,16 +40,16 @@ export class TooltipDirective implements OnInit {
     this.handleTooltipHeader();
   }
 
-  private handleTooltipHeader = (): void => {
+  private handleTooltipHeader(): void {
     this.tooltipHeader.addEventListener('click', () => {
       this.isVisible = !this.isVisible;
       this.onClick.emit(this.isVisible);
 
       this.mapTooltipOffsetValues();
     });
-  };
+  }
 
-  private mapTooltipOffsetValues = (): void => {
+  private mapTooltipOffsetValues(): void {
     const tooltipBodyRelativeOffsets = this.element.nativeElement.getBoundingClientRect();
 
     switch (this.tooltipType) {
@@ -77,5 +77,5 @@ export class TooltipDirective implements OnInit {
         };
         this.tooltipService.pushTooltipPosition(this.tooltipOffset);
     }
-  };
+  }
 }

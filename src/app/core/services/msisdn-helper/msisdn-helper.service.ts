@@ -10,8 +10,9 @@ export class MsisdnHelperService {
    *
    * @returns phone number without +
    */
-  public trimPhoneNumber = (phoneNumber: string): string =>
-    phoneNumber.startsWith('+') ? phoneNumber.slice(1) : phoneNumber;
+  public trimPhoneNumber(phoneNumber: string): string {
+    return phoneNumber.startsWith('+') ? phoneNumber.slice(1) : phoneNumber;
+  }
 
   /**
    * Function adds plus to the phone number
@@ -21,8 +22,9 @@ export class MsisdnHelperService {
    *
    * @returns phone number with + at the begining
    */
-  public addPlusToPhoneNumber = (phoneNumber: string): string =>
-    phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+  public addPlusToPhoneNumber(phoneNumber: string): string {
+    return phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+  }
 
   /**
    * Function removes prefix from phone number

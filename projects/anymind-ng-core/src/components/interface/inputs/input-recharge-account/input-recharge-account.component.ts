@@ -57,11 +57,15 @@ export class InputRechargeAccountComponent {
     }
   }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  public isFieldInvalid(): boolean {
+    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  }
 
-  public isFieldValueInvalid = (): boolean => this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
+  public isFieldValueInvalid(): boolean {
+    return this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
+  }
 
-  public isRequiredError = (): boolean => {
+  public isRequiredError(): boolean {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -69,13 +73,13 @@ export class InputRechargeAccountComponent {
     }
 
     return false;
-  };
+  }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.isFocused = true;
-  };
+  }
 
-  public onBlur = (): void => {
+  public onBlur(): void {
     this.isFocused = false;
-  };
+  }
 }

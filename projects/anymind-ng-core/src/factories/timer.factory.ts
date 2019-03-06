@@ -6,5 +6,7 @@ import { LoggerFactory } from './logger.factory';
 export class TimerFactory {
   constructor(private loggerFactory: LoggerFactory) {}
 
-  public createTimerService = (): TimerService => new TimerService(this.loggerFactory);
+  public createTimerService(): TimerService {
+    return new TimerService(this.loggerFactory);
+  }
 }

@@ -26,19 +26,19 @@ export class SettingsViewComponent implements OnInit {
     this.session$ = getNotUndefinedSession(this.store).pipe(delay(Config.contentLoaderDelayMilliseconds));
   }
 
-  public openChangeNumberModal = (): void => {
+  public openChangeNumberModal(): void {
     this.ngbModalService.open(MsisdnSettingsViewComponent);
-  };
+  }
 
-  public openChangePasswordModal = (): void => {
+  public openChangePasswordModal(): void {
     this.ngbModalService.open(ChangePasswordViewComponent);
-  };
+  }
 
-  public openChangeEmailModal = (): void => {
+  public openChangeEmailModal(): void {
     this.ngbModalService.open(ChangeEmailViewComponent);
-  };
+  }
 
-  public openManageSessionsModal = (): void => {
+  public openManageSessionsModal(): void {
     this.ngbModalService.open(ManageSessionsViewComponent);
-  };
+  }
 }

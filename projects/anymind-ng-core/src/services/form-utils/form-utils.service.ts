@@ -6,7 +6,7 @@ import { LoggerService } from '../logger.service';
 export class FormUtilsService {
   constructor(private logger: LoggerService) {}
 
-  public isFieldInvalid = (formGroup: FormGroup, controlName: string): boolean => {
+  public isFieldInvalid(formGroup: FormGroup, controlName: string): boolean {
     const control = formGroup.get(controlName);
     if (control) {
       return !control.valid && control.touched;
@@ -15,7 +15,7 @@ export class FormUtilsService {
 
       return false;
     }
-  };
+  }
 
   public validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {

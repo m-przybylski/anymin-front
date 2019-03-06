@@ -56,6 +56,8 @@ export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
   public activitiesFilterEnum = ActivitiesFilterEnum;
   public dropdownVisibility: 'hidden' | 'visible' = 'hidden';
   public currentFilter?: ActivitiesFilterEnum;
+  public trackByActivities: TrackByFunction<IProfileActivitiesWithStatus>;
+  public trackByImportantActivities: TrackByFunction<GetProfileActivity>;
   /**
    * because only one subscription is kept in component
    * there is a better to unsubscribe manually.
@@ -70,6 +72,8 @@ export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('ActivitiesComponent'));
+    this.trackByActivities = (_, item): string => item.activity.id;
+    this.trackByImportantActivities = (_, item): string => item.id;
   }
 
   public ngOnInit(): void {
@@ -95,11 +99,7 @@ export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
     this.wsSubscription.unsubscribe();
   }
 
-  public trackByActivities: TrackByFunction<IProfileActivitiesWithStatus> = (_, item): string => item.activity.id;
-
-  public trackByImportantActivities: TrackByFunction<GetProfileActivity> = (_, item): string => item.id;
-
-  public onLoadMoreActivities = (): void => {
+  public onLoadMoreActivities(): void {
     this.store
       .pipe(
         select(fromActivities.getCurrentOffsets),
@@ -124,21 +124,21 @@ export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
             this.loggerService.error('Unhandled activities list type');
         }
       });
-  };
+  }
 
-  public showMore = (): void => {
+  public showMore(): void {
     this.store.dispatch(new ActivitiesPageActions.ShowImportantActivitiesAction());
-  };
+  }
 
-  public hideMore = (): void => {
+  public hideMore(): void {
     this.store.dispatch(new ActivitiesPageActions.HideImportantActivitiesAction());
-  };
+  }
 
-  public toggleDropdown = (isVisible: boolean): void => {
+  public toggleDropdown(isVisible: boolean): void {
     isVisible ? (this.dropdownVisibility = 'visible') : (this.dropdownVisibility = 'hidden');
-  };
+  }
 
-  public onActivityRowClicked = (selectedGetProfileActivity: IActivity, isImportant: boolean): void => {
+  public onActivityRowClicked(selectedGetProfileActivity: IActivity, isImportant: boolean): void {
     const payload = {
       getProfileActivity: selectedGetProfileActivity,
       isImportant,
@@ -157,12 +157,12 @@ export class ActivitiesComponent extends Logger implements OnInit, OnDestroy {
       default:
         this.loggerService.error('Unhandled activities list type');
     }
-  };
+  }
 
-  public onDropdownChoose = (type?: ActivitiesFilterEnum): void => {
+  public onDropdownChoose(type?: ActivitiesFilterEnum): void {
     this.currentFilter = type;
     this.store.dispatch(new ActivitiesPageActions.LoadFilteredCompanyActivitiesAction({ filter: type }));
-  };
+  }
 
   private updateActivitiesStatus(
     activities: ReadonlyArray<GetProfileActivity>,

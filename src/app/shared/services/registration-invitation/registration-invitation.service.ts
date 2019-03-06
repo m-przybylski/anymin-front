@@ -19,7 +19,7 @@ export class RegistrationInvitationService {
     private alertService: AlertService,
   ) {}
 
-  public getInvitationObject = (): IInvitationObject | undefined => {
+  public getInvitationObject(): IInvitationObject | undefined {
     const stringifyInvitationObject = this.localStorageWrapperService.getItem('invitation');
 
     if (stringifyInvitationObject) {
@@ -31,9 +31,9 @@ export class RegistrationInvitationService {
       }
     }
     return undefined;
-  };
+  }
 
-  public setInvitationObject = (invitationObject?: IInvitationObject): void => {
+  public setInvitationObject(invitationObject?: IInvitationObject): void {
     if (typeof invitationObject !== 'undefined') {
       try {
         this.localStorageWrapperService.setItem(
@@ -50,15 +50,15 @@ export class RegistrationInvitationService {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       }
     }
-  };
+  }
 
-  public removeInvitationObject = (): void => {
+  public removeInvitationObject(): void {
     try {
       this.localStorageWrapperService.removeItem('invitation');
     } catch (error) {
       this.logger.error('RegistrationInvitationService: can not remove invitation item ', error);
     }
-  };
+  }
 
   public removeInvitationForDifferentUser(email?: string): void {
     /**

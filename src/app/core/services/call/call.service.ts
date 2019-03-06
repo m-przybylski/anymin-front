@@ -25,19 +25,21 @@ export class CallService {
     return this.newCallEvent$.asObservable();
   }
 
-  public pushCallEvent = (call: IExpertSessionCall | IClientSessionCall): void => {
+  public pushCallEvent(call: IExpertSessionCall | IClientSessionCall): void {
     this.newCallEvent$.next(call);
-  };
+  }
 
   public get hangupCall$(): Observable<void> {
     return this.hangupCallEvent$.asObservable();
   }
 
-  public pushHangupCallEvent = (): void => {
+  public pushHangupCallEvent(): void {
     this.hangupCallEvent$.next();
-  };
+  }
 
-  public isExpertCall = (
+  public isExpertCall(
     sessionCallObject: IExpertSessionCall | IClientSessionCall,
-  ): sessionCallObject is IExpertSessionCall => 'currentExpertCall' in sessionCallObject;
+  ): sessionCallObject is IExpertSessionCall {
+    return 'currentExpertCall' in sessionCallObject;
+  }
 }

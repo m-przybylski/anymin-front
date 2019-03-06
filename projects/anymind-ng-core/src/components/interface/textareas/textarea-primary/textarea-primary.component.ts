@@ -48,7 +48,7 @@ export class TextareaPrimaryComponent implements OnInit, OnDestroy {
 
   constructor(public formUtils: FormUtilsService) {}
 
-  public isRequiredError = (): boolean => {
+  public isRequiredError(): boolean {
     const controlNameErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlNameErrors !== null) {
@@ -56,7 +56,7 @@ export class TextareaPrimaryComponent implements OnInit, OnDestroy {
     } else {
       return false;
     }
-  };
+  }
 
   public ngOnInit(): void {
     if (!this.formGroup.contains(this.controlName)) {
@@ -77,28 +77,36 @@ export class TextareaPrimaryComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public isFieldValueInvalid = (): boolean => this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
+  public isFieldValueInvalid(): boolean {
+    return this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
+  }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  public isFieldInvalid(): boolean {
+    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.isFocused = true;
-  };
+  }
 
-  public onBlur = (): void => {
+  public onBlur(): void {
     this.isFocused = false;
-  };
+  }
 
   // tslint:disable:readonly-array
-  private getValidators = (): ValidatorFn[] =>
-    this.getRequiredValidator(this.getMinLengthValidator(this.getMaxLengthValidator([])));
+  private getValidators(): ValidatorFn[] {
+    return this.getRequiredValidator(this.getMinLengthValidator(this.getMaxLengthValidator([])));
+  }
 
-  private getMinLengthValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.minLength > 0 ? [...arr, Validators.minLength(this.minLength)] : arr;
+  private getMinLengthValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return this.minLength > 0 ? [...arr, Validators.minLength(this.minLength)] : arr;
+  }
 
-  private getMaxLengthValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    typeof this.maxLength !== 'undefined' ? [...arr, Validators.maxLength(this.maxLength)] : arr;
+  private getMaxLengthValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return typeof this.maxLength !== 'undefined' ? [...arr, Validators.maxLength(this.maxLength)] : arr;
+  }
 
-  private getRequiredValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.isRequired ? [...arr, Validators.required] : arr;
+  private getRequiredValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return this.isRequired ? [...arr, Validators.required] : arr;
+  }
 }

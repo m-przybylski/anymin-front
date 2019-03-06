@@ -41,7 +41,7 @@ export class TooltipComponent extends Logger implements OnDestroy {
     super(loggerFactory.createLoggerService('TooltipComponent'));
   }
 
-  public toggleTooltip = (isVisible: boolean): void => {
+  public toggleTooltip(isVisible: boolean): void {
     this.isVisible = isVisible;
 
     if (this.isVisible) {
@@ -49,13 +49,13 @@ export class TooltipComponent extends Logger implements OnDestroy {
     } else {
       this.domService.removeComponent();
     }
-  };
+  }
 
   public ngOnDestroy(): void {
     this.domService.removeComponent();
   }
 
-  private getTooltipHeaderPosition = (): void => {
+  private getTooltipHeaderPosition(): void {
     this.tooltipService.tooltipPosition
       .pipe(
         catchError(err => {
@@ -69,9 +69,9 @@ export class TooltipComponent extends Logger implements OnDestroy {
       .subscribe(res => {
         this.createTooltipContentComponent(res);
       });
-  };
+  }
 
-  private createTooltipContentComponent = (tooltipHeaderOffset: ITooltipModalOffsets): void => {
+  private createTooltipContentComponent(tooltipHeaderOffset: ITooltipModalOffsets): void {
     const injector = Injector.create({
       providers: [
         { provide: DESCRIPTION, useValue: this.tooltipText },
@@ -81,5 +81,5 @@ export class TooltipComponent extends Logger implements OnDestroy {
     });
 
     this.domService.createComponentRef(TooltipContentComponent, injector);
-  };
+  }
 }

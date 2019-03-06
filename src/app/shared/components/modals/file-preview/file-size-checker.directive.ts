@@ -18,16 +18,16 @@ export class FileResizerDirective {
     this.getPreviewSizes();
   }
 
-  public onPreviewZoom = (zoomPercent: number): void => {
+  public onPreviewZoom(zoomPercent: number): void {
     const oneHundred = 100;
     this.element.nativeElement.style.height = `${(this.currentHeightSize * zoomPercent) / oneHundred}px`;
     this.element.nativeElement.style.width = `${(this.currentWidthSize * zoomPercent) / oneHundred}px`;
     this.element.nativeElement.style.minHeight = `${(this.currentHeightSize * zoomPercent) / oneHundred}px`;
     this.element.nativeElement.style.minWidth = `${(this.currentWidthSize * zoomPercent) / oneHundred}px`;
-  };
+  }
 
-  private getPreviewSizes = (): void => {
+  private getPreviewSizes(): void {
     this.currentHeightSize = this.element.nativeElement.clientHeight;
     this.currentWidthSize = this.element.nativeElement.clientWidth;
-  };
+  }
 }

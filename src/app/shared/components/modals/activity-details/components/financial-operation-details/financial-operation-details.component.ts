@@ -33,16 +33,16 @@ export class FinancialOperationDetailsComponent extends Logger {
     super(loggerFactory.createLoggerService('FinancialOperationDetailsComponent'));
   }
 
-  private assignValuesForUI = (activityDetails: IFinancialOperationDetails): void => {
+  private assignValuesForUI(activityDetails: IFinancialOperationDetails): void {
     this.id = activityDetails.id;
     this.date = activityDetails.date;
     /**
      * multiple by -1 to make amount as positive number
      */
     this.payout = { value: activityDetails.payoutValue.value * -1, currency: activityDetails.payoutValue.currency };
-  };
+  }
 
-  private assignPayoutMethodForUI = (payoutMethod: GetPayoutMethod): void => {
+  private assignPayoutMethodForUI(payoutMethod: GetPayoutMethod): void {
     if (typeof payoutMethod.bankAccount !== 'undefined') {
       this.payoutMethodTrKey = 'ACTIVITY_DETAILS.DETAIL_TITLE.PAYOUT_METHOD.BANK';
 
@@ -54,5 +54,5 @@ export class FinancialOperationDetailsComponent extends Logger {
       return;
     }
     this.loggerService.error('unhandled payout method', payoutMethod);
-  };
+  }
 }

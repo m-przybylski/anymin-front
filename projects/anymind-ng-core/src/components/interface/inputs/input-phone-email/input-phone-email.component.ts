@@ -78,13 +78,13 @@ export class InputPhoneEmailComponent implements OnInit {
     });
   }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.isFocused = true;
-  };
+  }
 
-  public onBlur = (): void => {
+  public onBlur(): void {
     this.isFocused = false;
-  };
+  }
 
   public getValidationAlert(): string {
     const controlErrors = this.inputFormControl.errors;

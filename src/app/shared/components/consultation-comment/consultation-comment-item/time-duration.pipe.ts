@@ -8,7 +8,7 @@ export class TimeDurationPipe implements PipeTransform {
     return this.setTimeTranslation(seconds);
   }
 
-  private setTimeTranslation = (time: number): string => {
+  private setTimeTranslation(time: number): string {
     const oneHourInSeconds = 3600;
     const oneMinInSeconds = 60;
 
@@ -26,5 +26,5 @@ export class TimeDurationPipe implements PipeTransform {
     } else {
       return `${seconds} sec`;
     }
-  };
+  }
 }

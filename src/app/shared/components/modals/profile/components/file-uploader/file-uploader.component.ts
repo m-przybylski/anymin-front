@@ -129,17 +129,17 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public onInputFileClick = (event: MouseEvent): void => {
+  public onInputFileClick(event: MouseEvent): void {
     (<HTMLInputElement>event.target).value = '';
-  };
+  }
 
-  public onInputFileChange = (event: MSInputMethodContext): void => {
+  public onInputFileChange(event: Event): void {
     // @ts-ignore
     const files: File[] = Array.from(event.target.files);
     this.saveFiles(files);
-  };
+  }
 
-  public saveFiles = (files: File[]): void => {
+  public saveFiles(files: File[]): void {
     files.forEach((file: File) => {
       const currentFile: IFile = {
         file,
@@ -155,16 +155,16 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
         this.validUserFilesCounter++;
       }
     });
-  };
+  }
 
-  public reuploadFile = (fileToReupload: IFile): void => {
+  public reuploadFile(fileToReupload: IFile): void {
     if (fileToReupload.file) {
       fileToReupload.fileStatus = FileStatus.VALID;
       this.uploadFile(fileToReupload);
     }
-  };
+  }
 
-  public removeFile = (fileToRemove: IFile): void => {
+  public removeFile(fileToRemove: IFile): void {
     this.userFiles = this.userFiles.filter(userFile => userFile !== fileToRemove);
     this.tokensList = this.tokensList.filter(token =>
       fileToRemove.fileInfo ? fileToRemove.fileInfo.token !== token : token,
@@ -173,7 +173,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     if (fileToRemove.fileStatus === FileStatus.VALID || fileToRemove.fileStatus === FileStatus.UPLOAD_FAILURE) {
       this.validUserFilesCounter--;
     }
-  };
+  }
 
   public removeFileFromUpload(iFile: IFile): void {
     this.removeFile(iFile);
@@ -182,14 +182,14 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  public createFileName = (fileName: string): string => {
+  public createFileName(fileName: string): string {
     if (fileName.length > this.maxFileNameLength) {
       const fileExtension = fileName.substr(fileName.lastIndexOf('.'), fileName.length);
       const shortenFileName = fileName.substr(0, this.shortenFileNameLength);
       return `${shortenFileName}[...]${fileExtension}`;
     }
     return fileName;
-  };
+  }
 
   private getFilesInfo(profileDocuments: ProfileDocument[]): void {
     this.tokensList = profileDocuments.map(document => document.token);
@@ -205,7 +205,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     this.validUserFilesCounter = this.userFiles.length;
   }
 
-  private uploadFile = (fileToUpload: IFile): void => {
+  private uploadFile(fileToUpload: IFile): void {
     if (fileToUpload.file) {
       this.uploadingFile.emit(true);
       this.uploaderService
@@ -213,9 +213,9 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
         .then(response => this.onFileUploadSuccess(response, fileToUpload))
         .catch(error => this.onFileUploadError(error, fileToUpload));
     }
-  };
+  }
 
-  private onFileUploadSuccess = (response: IUploadFileInfo, file: IFile): void => {
+  private onFileUploadSuccess(response: IUploadFileInfo, file: IFile): void {
     file.fileInfo = {
       token: response.token,
       name: response.name,
@@ -227,32 +227,32 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     if (!this.uploaderService.isAnyFileUploading) {
       this.uploadingFile.emit(false);
     }
-  };
+  }
 
-  private onFileUploadError = (error: HttpErrorResponse, file: IFile): void => {
+  private onFileUploadError(error: HttpErrorResponse, file: IFile): void {
     file.fileStatus = FileStatus.UPLOAD_FAILURE;
     if (!this.uploaderService.isAnyFileUploading) {
       this.uploadingFile.emit(false);
     }
     this.loggerService.warn('File upload failure', error);
-  };
+  }
 
-  private assignFileValidationValues = (): void => {
+  private assignFileValidationValues(): void {
     this.fileValidationValues = {
       maxFilesCount: this.maxFilesCount,
       maxFileSize: this.maxFileSize,
       minFileSize: this.minFileSize,
       fileCategory: this.fileCategory,
     };
-  };
+  }
 
   private resolveFileUrl(avatarToken: string): string {
     return this.fileUrlResolveService.getFilePreviewDownloadUrl(avatarToken);
   }
 
-  private setFileType = (fileName: string): string => {
+  private setFileType(fileName: string): string {
     const divideFileName = fileName.split('.');
 
     return `${divideFileName[divideFileName.length - 1]}`;
-  };
+  }
 }

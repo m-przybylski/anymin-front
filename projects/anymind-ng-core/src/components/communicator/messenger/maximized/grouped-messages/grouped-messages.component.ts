@@ -55,13 +55,19 @@ export class GroupedMessagesComponent implements OnInit, OnDestroy {
     return MessagesUtils.isPendingImage(msg);
   }
 
-  public isImage = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isImage(msg);
+  public isImage(msg: roomEvents.CustomMessageSent): boolean {
+    return MessagesUtils.isImage(msg);
+  }
 
-  public isPdf = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isPdf(msg);
+  public isPdf(msg: roomEvents.CustomMessageSent): boolean {
+    return MessagesUtils.isPdf(msg);
+  }
 
-  public isFile = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isFile(msg);
+  public isFile(msg: roomEvents.CustomMessageSent): boolean {
+    return MessagesUtils.isFile(msg);
+  }
 
-  public resendMessage = (message: roomEvents.CustomMessageSent | ILocalMessage): void => {
+  public resendMessage(message: roomEvents.CustomMessageSent | ILocalMessage): void {
     if (isLocalMessage(message)) {
       switch (message.sendState) {
         case LOCAL_MESSAGE_STATE.FAILED:
@@ -71,5 +77,5 @@ export class GroupedMessagesComponent implements OnInit, OnDestroy {
           this.logger.warn('Unhandled message sendState', message.sendState);
       }
     }
-  };
+  }
 }

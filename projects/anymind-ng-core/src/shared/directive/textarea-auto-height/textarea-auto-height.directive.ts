@@ -18,25 +18,25 @@ export class TextareaAutoHeightDirective implements OnInit {
   }
 
   @HostListener('input')
-  public onInput = (): void => {
+  public onInput(): void {
     this.onChange();
-  };
+  }
 
   public ngOnInit(): void {
     this.resizeElement();
   }
 
-  private onChange = (): void => {
+  private onChange(): void {
     this.htmlElement.style.height = 'auto';
     this.htmlElement.style.height = `${Math.min(this.element.nativeElement.scrollHeight, this.maxHeightTextarea)}px`;
-  };
+  }
 
-  private resizeElement = (): void => {
+  private resizeElement(): void {
     // TODO add windowAnimationFrame and cancelAnimationFrame
 
     const elementStyles = this.element.nativeElement.style;
     const elementScrollHeight = this.element.nativeElement.scrollHeight;
 
     elementStyles.height = `${Math.min(elementScrollHeight, this.maxHeightTextarea)}px`;
-  };
+  }
 }

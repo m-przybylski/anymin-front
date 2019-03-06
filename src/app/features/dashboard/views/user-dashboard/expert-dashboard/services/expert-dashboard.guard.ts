@@ -12,14 +12,16 @@ export class ExpertDashboardGuard implements CanActivate {
   constructor(private store: Store<fromCore.IState>, private router: Router) {}
 
   public canActivate(): Observable<boolean> {
-    return this.store.pipe(dashboardGuardHelper(this.navigateToSettingsWhenNotExpert));
+    return this.store.pipe(
+      dashboardGuardHelper(getSessionWithAccount => this.navigateToSettingsWhenNotExpert(getSessionWithAccount)),
+    );
   }
 
-  private navigateToSettingsWhenNotExpert = (getSessionWithAccount: GetSessionWithAccount): boolean => {
+  private navigateToSettingsWhenNotExpert(getSessionWithAccount: GetSessionWithAccount): boolean {
     if (!getSessionWithAccount.isExpert) {
       void this.router.navigate([RouterPaths.dashboard.user.activities.expert.asPath]);
     }
 
     return getSessionWithAccount.isExpert;
-  };
+  }
 }

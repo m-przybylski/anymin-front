@@ -11,7 +11,7 @@ export class TooltipComponent {
 
   public isVisible = false;
 
-  public toggleTooltip = (): void => {
+  public toggleTooltip(): void {
     this.isVisible = !this.isVisible;
-  };
+  }
 }

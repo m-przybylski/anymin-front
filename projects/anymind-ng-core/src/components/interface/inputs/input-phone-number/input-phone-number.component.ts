@@ -52,7 +52,7 @@ export class InputPhoneNumberComponent implements OnInit {
     this.formGroup.addControl(this.controlName, new FormControl('', [Validators.required]));
   }
 
-  public getValidationTrKey = (): string => {
+  public getValidationTrKey(): string {
     if (this.isControlValueInvalid()) {
       const errorCode = Object.keys(this.formGroup.controls[this.controlName].errors || {})[0];
 
@@ -65,23 +65,28 @@ export class InputPhoneNumberComponent implements OnInit {
     }
 
     return '';
-  };
+  }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  public isFieldInvalid(): boolean {
+    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.isFocused = true;
-  };
+  }
 
-  public onBlur = (): void => {
+  public onBlur(): void {
     this.isFocused = false;
-  };
+  }
 
-  private isControlValueInvalid = (): boolean =>
-    this.formGroup.controls[this.controlName].errors !== null &&
-    this.formGroup.controls[this.controlName].value &&
-    this.formGroup.controls[this.controlName].value.length > 0 &&
-    this.isFieldInvalid();
+  private isControlValueInvalid(): boolean {
+    return (
+      this.formGroup.controls[this.controlName].errors !== null &&
+      this.formGroup.controls[this.controlName].value &&
+      this.formGroup.controls[this.controlName].value.length > 0 &&
+      this.isFieldInvalid()
+    );
+  }
 
   private isControlRequiredError(): boolean {
     return (

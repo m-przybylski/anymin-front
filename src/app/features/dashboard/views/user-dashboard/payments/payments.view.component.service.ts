@@ -6,9 +6,11 @@ import { Observable } from 'rxjs';
 export class PaymentsViewComponentService {
   constructor(private paymentsService: PaymentsService) {}
 
-  public deletePaymentCard = (creditCardId: string): Observable<void> =>
-    this.paymentsService.deleteCreditCardRoute(creditCardId);
+  public deletePaymentCard(creditCardId: string): Observable<void> {
+    return this.paymentsService.deleteCreditCardRoute(creditCardId);
+  }
 
-  public setDefaultPaymentMethod = (paymentMethod: PutDefaultPaymentMethod): Observable<void> =>
-    this.paymentsService.putDefaultPaymentMethodRoute(paymentMethod);
+  public setDefaultPaymentMethod(paymentMethod: PutDefaultPaymentMethod): Observable<void> {
+    return this.paymentsService.putDefaultPaymentMethodRoute(paymentMethod);
+  }
 }

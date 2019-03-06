@@ -36,13 +36,13 @@ export class WebSocketService<T> {
   }
 
   // tslint:disable-next-line:no-any
-  public sendMessage = (message: any): void => {
+  public sendMessage(message: any): void {
     try {
       this.webSocket.next(JSON.stringify(message));
     } catch (error) {
       this.logger.error('Con not stringify message', error);
     }
-  };
+  }
 
   public get messages(): Observable<T> {
     return this._messages.asObservable();
@@ -57,7 +57,7 @@ export class WebSocketService<T> {
   };
 
   // tslint:disable-next-line:no-any
-  private connect = (config: WebSocketSubjectConfig<T>): WebSocketSubject<any> => {
+  private connect(config: WebSocketSubjectConfig<T>): WebSocketSubject<any> {
     // create webSocket object not subscribed yet
     const ws = webSocket(config);
     ws.subscribe({
@@ -74,16 +74,16 @@ export class WebSocketService<T> {
     });
 
     return ws;
-  };
+  }
 
-  private onOpen = (): void => {
+  private onOpen(): void {
     this.logger.info('Socked opened');
-  };
-  private onClosed = (): void => {
+  }
+  private onClosed(): void {
     this.logger.info('Socket closed');
-  };
+  }
 
-  private onClosing = (): void => {
+  private onClosing(): void {
     this.logger.info('Socket closed');
-  };
+  }
 }

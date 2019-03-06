@@ -23,8 +23,8 @@ export class AlertContainerComponent implements OnInit, OnDestroy {
   constructor(@Inject(COMPONENTS_CONFIG) private config: Config, private alertService: AlertService) {}
 
   public ngOnInit(): void {
-    this.alertService.alert$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.handleNewAlert);
-    this.alertService.closeAll$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(this.closeAllAlerts);
+    this.alertService.alert$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(alert => this.handleNewAlert(alert));
+    this.alertService.closeAll$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.closeAllAlerts());
   }
 
   public ngOnDestroy(): void {
@@ -32,49 +32,50 @@ export class AlertContainerComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  public closeAlert = (alertToClose: Alert, isFromUI?: boolean): void => {
+  public closeAlert(alertToClose: Alert, isFromUI?: boolean): void {
     this.alerts = this.alerts.filter(alert => alert !== alertToClose);
     this.shiftPendingAlert();
     if (typeof alertToClose.alertOption !== 'undefined' && isFromUI) {
       alertToClose.alertClosedByUser();
     }
-  };
+  }
 
-  private handleNewAlert = (alert: Alert): void => {
+  private handleNewAlert(alert: Alert): void {
     if (this.alerts.length > AlertContainerComponent.alertsMaxArrayLength && !this.checkIsStaticOption(alert)) {
       this.pendingAlerts = [...this.pendingAlerts, alert];
     } else {
       this.addAlert(alert);
     }
-  };
+  }
 
-  private addAlert = (alert: Alert): void => {
+  private addAlert(alert: Alert): void {
     this.alerts = [...this.alerts, alert];
     if (this.checkIsStaticOption(alert)) {
       this.closeStaticAlert();
     } else {
       setTimeout(() => this.closeAlert(alert), this.config.alerts.timeout);
     }
-  };
+  }
 
-  private shiftPendingAlert = (): void => {
+  private shiftPendingAlert(): void {
     if (this.pendingAlerts.length > 0) {
       this.handleNewAlert(this.pendingAlerts[0]);
       this.pendingAlerts = this.pendingAlerts.slice(1);
     }
-  };
+  }
 
-  private closeStaticAlert = (): void => {
+  private closeStaticAlert(): void {
     if (this.alerts.length > 1) {
       this.closeAlert(this.alerts[0]);
     }
-  };
+  }
 
-  private checkIsStaticOption = (alert: Alert): boolean =>
-    typeof alert.alertOption !== 'undefined' && alert.alertOption.isStatic === true;
+  private checkIsStaticOption(alert: Alert): boolean {
+    return typeof alert.alertOption !== 'undefined' && alert.alertOption.isStatic === true;
+  }
 
-  private closeAllAlerts = (): void => {
+  private closeAllAlerts(): void {
     this.alerts = [];
     this.pendingAlerts = [];
-  };
+  }
 }

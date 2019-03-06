@@ -45,8 +45,8 @@ export class ConsultationDetailsViewService extends Logger {
     super(loggerFactory.createLoggerService('ConsultationDetailsViewService'));
   }
 
-  public getServiceDetails = (serviceId: string, employeeId: string): Observable<IConsultationDetails> =>
-    this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [serviceId] }).pipe(
+  public getServiceDetails(serviceId: string, employeeId: string): Observable<IConsultationDetails> {
+    return this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [serviceId] }).pipe(
       map(getServiceWithEmployeesList =>
         getServiceWithEmployeesList.find(
           getServiceWithEmployees => getServiceWithEmployees.serviceDetails.id === serviceId,
@@ -88,9 +88,10 @@ export class ConsultationDetailsViewService extends Logger {
         ),
       ),
     );
+  }
 
-  public getServicesTagList = (serviceId: string): Observable<ReadonlyArray<string>> =>
-    this.serviceService
+  public getServicesTagList(serviceId: string): Observable<ReadonlyArray<string>> {
+    return this.serviceService
       .postServicesTagsRoute({ serviceIds: [serviceId] })
       .pipe(
         map(getServiceTagsList =>
@@ -99,11 +100,9 @@ export class ConsultationDetailsViewService extends Logger {
             .reduce((tagsList, getServiceTags) => [...tagsList, ...getServiceTags.tags.map(tag => tag.name)], []),
         ),
       );
+  }
 
-  public addTemporaryComment = (
-    comment: GetComment,
-    comments: ReadonlyArray<GetComment>,
-  ): ReadonlyArray<GetComment> => {
+  public addTemporaryComment(comment: GetComment, comments: ReadonlyArray<GetComment>): ReadonlyArray<GetComment> {
     const commentFound = comments.find(cmt => cmt.commentId === comment.commentId);
     if (commentFound === undefined) {
       return comments;
@@ -113,40 +112,45 @@ export class ConsultationDetailsViewService extends Logger {
     const commentsList_second_part = comments.slice(index + 1, comments.length);
 
     return [...commentsList_first_part, comment, ...commentsList_second_part];
-  };
+  }
 
-  public loadMoreComments = (
+  public loadMoreComments(
     commentsList: ReadonlyArray<GetComment>,
     commentsConsultation: ReadonlyArray<GetComment>,
-  ): ReadonlyArray<GetComment> => [...commentsConsultation, ...commentsList];
+  ): ReadonlyArray<GetComment> {
+    return [...commentsConsultation, ...commentsList];
+  }
 
-  public getExpertAvailability = (expertId: string): Observable<boolean> =>
-    this.expertAvailabilityService.getExpertPresence(expertId).pipe(
+  public getExpertAvailability(expertId: string): Observable<boolean> {
+    return this.expertAvailabilityService.getExpertPresence(expertId).pipe(
       take(1),
       map(status => status === 'available'),
     );
+  }
 
-  public getComments = (employmentId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> =>
-    this.employmentService.getEmploymentCommentsRoute(employmentId, limit, offset);
+  public getComments(employmentId: string, limit = '3', offset = '0'): Observable<ReadonlyArray<GetComment>> {
+    return this.employmentService.getEmploymentCommentsRoute(employmentId, limit, offset);
+  }
 
-  public attachFooter = (
+  public attachFooter(
     component: FooterComponentConstructor,
     viewContainerRef: ViewContainerRef,
     footerData: IConsultationFooterData,
-  ): ComponentRef<IFooterOutput> =>
-    this.consultationFootersService.attachFooter(component, viewContainerRef, footerData);
+  ): ComponentRef<IFooterOutput> {
+    return this.consultationFootersService.attachFooter(component, viewContainerRef, footerData);
+  }
 
-  private pluckEmploymentId = (
+  private pluckEmploymentId(
     getServiceWithEmployees: GetServiceWithEmployees,
     serviceId: string,
     expertId: string,
-  ): string => {
+  ): string {
     const employeeDetail = getServiceWithEmployees.employeesDetails.find(
       employeesDetail => employeesDetail.serviceId === serviceId && employeesDetail.employeeProfile.id === expertId,
     );
 
     return employeeDetail ? employeeDetail.id : '';
-  };
+  }
 
   private getPaymentMethod(): Observable<IPaymentMethod> {
     return this.paymentsService.getDefaultPaymentMethodRoute().pipe(

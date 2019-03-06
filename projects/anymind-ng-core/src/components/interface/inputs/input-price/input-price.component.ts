@@ -97,28 +97,32 @@ export class InputPriceComponent implements OnInit {
     event.preventDefault();
   }
 
-  public onKeyUp = (inputValue: string): void => {
+  public onKeyUp(inputValue: string): void {
     const value = Number(inputValue.replace(',', '.'));
     if (typeof this.onInputChange === 'function') {
       this.onInputChange(value);
     }
-  };
+  }
 
-  public onKeyDown = (event: KeyboardEvent): void => {
+  public onKeyDown(event: KeyboardEvent): void {
     if (this.isNotAllowedKeyPressed(event)) {
       event.preventDefault();
     }
-  };
+  }
 
   public ngOnInit(): void {
     this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  public isFieldInvalid(): boolean {
+    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
+  }
 
-  public isFieldValueInvalid = (): boolean => this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
+  public isFieldValueInvalid(): boolean {
+    return this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
+  }
 
-  public isRequiredError = (): boolean => {
+  public isRequiredError(): boolean {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -126,34 +130,40 @@ export class InputPriceComponent implements OnInit {
     }
 
     return false;
-  };
+  }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.isFocused = true;
-  };
+  }
 
-  public onBlur = (inputValue: string): void => {
+  public onBlur(inputValue: string): void {
     this.isFocused = false;
     if (inputValue !== '' && (inputValue.indexOf(',') === inputValue.length - 1 || inputValue.indexOf(',') === -1)) {
       this.formGroup.controls[this.controlName].setValue(`${inputValue},00`);
     } else if (inputValue.indexOf(',') === inputValue.length - this.lastButOneIndex) {
       this.formGroup.controls[this.controlName].setValue(`${inputValue}0`);
     }
-  };
+  }
 
-  private isNotAllowedKeyPressed = (event: KeyboardEvent): boolean => this.allowedKeys.indexOf(event.key) === -1;
+  private isNotAllowedKeyPressed(event: KeyboardEvent): boolean {
+    return this.allowedKeys.indexOf(event.code) === -1;
+  }
 
-  private getValidators = (): ValidatorFn[] =>
-    this.getRequiredValidator(this.getMinValueValidator(this.getMaxValueValidator([])));
+  private getValidators(): ValidatorFn[] {
+    return this.getRequiredValidator(this.getMinValueValidator(this.getMaxValueValidator([])));
+  }
 
-  private getRequiredValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    this.isRequired ? [...arr, Validators.required] : arr;
+  private getRequiredValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return this.isRequired ? [...arr, Validators.required] : arr;
+  }
 
-  private getMinValueValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    typeof this.minValidValue !== 'undefined' ? [...arr, this.minValueValidatorFn.bind(this)] : arr;
+  private getMinValueValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return typeof this.minValidValue !== 'undefined' ? [...arr, this.minValueValidatorFn.bind(this)] : arr;
+  }
 
-  private getMaxValueValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
-    typeof this.maxValidValue !== 'undefined' ? [...arr, this.maxValueValidatorFn.bind(this)] : arr;
+  private getMaxValueValidator(arr: ValidatorFn[]): ValidatorFn[] {
+    return typeof this.maxValidValue !== 'undefined' ? [...arr, this.maxValueValidatorFn.bind(this)] : arr;
+  }
 
   private minValueValidatorFn(control: FormControl): { [key: string]: boolean } | null {
     const value = Number(control.value.replace(',', '.')) * this.moneyDivider;

@@ -80,7 +80,7 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
     this.ngUnsubscribe$.complete();
   }
 
-  public onFormSubmit = (pinVerificationForm: FormGroup): void => {
+  public onFormSubmit(pinVerificationForm: FormGroup): void {
     if (pinVerificationForm.valid) {
       const token: string = pinVerificationForm.value[this.pinControlName];
       this.isRequestPending = true;
@@ -90,11 +90,11 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
             .verifyResetPasswordPinToken(token, this.msisdn)
             .pipe(
               finalize(() => (this.isRequestPending = false)),
-              map(this.handleSuccessPinTokenStatus),
-              map(this.handleErrorPinTokenStatus),
+              map(status => this.handleSuccessPinTokenStatus(status)),
+              map(status => this.handleErrorPinTokenStatus(status)),
               filter(status => status !== undefined),
             )
-            .subscribe(this.handlePinTokenStatus);
+            .subscribe((status: PinVerificationStatus) => this.handlePinTokenStatus(status));
           break;
 
         case PinVerificationPurposeEnum.MSISDN_CHANGE:
@@ -102,11 +102,11 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
             .verifyChangeMsisdnPinToken(token)
             .pipe(
               finalize(() => (this.isRequestPending = false)),
-              map(this.handleSuccessPinTokenStatus),
-              map(this.handleErrorPinTokenStatus),
+              map(status => this.handleSuccessPinTokenStatus(status)),
+              map(status => this.handleErrorPinTokenStatus(status)),
               filter(status => status !== undefined),
             )
-            .subscribe(this.handlePinTokenStatus);
+            .subscribe((status: PinVerificationStatus) => this.handlePinTokenStatus(status));
           break;
 
         default:
@@ -115,11 +115,13 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
     } else {
       this.formUtils.validateAllFormFields(pinVerificationForm);
     }
-  };
+  }
 
-  public isCountingDown = (): boolean => this.timeLeft > 0;
+  public isCountingDown(): boolean {
+    return this.timeLeft > 0;
+  }
 
-  public resendPinCode = (): void => {
+  public resendPinCode(): void {
     this.startPinCodeTimer();
     switch (this.verificationPurpose) {
       case PinVerificationPurposeEnum.PASSWORD_CHANGE:
@@ -133,16 +135,16 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
       default:
         this.handleUnhandledVerificationPurpose();
     }
-  };
+  }
 
-  private startPinCodeTimer = (): void => {
+  private startPinCodeTimer(): void {
     this.pinCodeTimer
       .getTimeLeft$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(timeLeft => (this.timeLeft = timeLeft));
-  };
+  }
 
-  private handleSuccessPinTokenStatus = (status: PinVerificationStatus): PinVerificationStatus | undefined => {
+  private handleSuccessPinTokenStatus(status: PinVerificationStatus): PinVerificationStatus | undefined {
     if (status === PinVerificationStatus.SUCCESS) {
       this.pinVerificationEmitter$.emit({
         status: PinVerificationStatus.SUCCESS,
@@ -153,9 +155,9 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     return status;
-  };
+  }
 
-  private handleErrorPinTokenStatus = (status: PinVerificationStatus): PinVerificationStatus | undefined => {
+  private handleErrorPinTokenStatus(status?: PinVerificationStatus): PinVerificationStatus | undefined {
     if (status === PinVerificationStatus.ERROR) {
       this.logger.info('handled pin verification status: ERROR');
 
@@ -163,28 +165,29 @@ export class PinVerificationComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     return status;
-  };
+  }
 
-  private displayValidationError = (error: string): void => {
+  private displayValidationError(error: string): void {
     const errorObj = { [error]: true };
     this.pinVerificationForm.controls[this.pinControlName].setErrors(errorObj);
     this.formUtils.validateAllFormFields(this.pinVerificationForm);
-  };
+  }
 
-  private handleUnhandledStatus = (status: PinVerificationStatus): void => {
+  private handleUnhandledStatus(status: PinVerificationStatus): void {
     this.logger.error('unhandled pin token status', status);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  };
+  }
 
-  private handlePinTokenStatus = (status: PinVerificationStatus): void => {
+  private handlePinTokenStatus(status: PinVerificationStatus): void {
     const errorMessage = this.validationAlertsMap.get(status);
-    const fn = errorMessage ? this.displayValidationError : this.handleUnhandledStatus;
-    const args = errorMessage ? errorMessage : status;
-    fn.call(this, args);
-  };
+    if (errorMessage) {
+      return this.displayValidationError(errorMessage);
+    }
+    this.handleUnhandledStatus(status);
+  }
 
-  private handleUnhandledVerificationPurpose = (): void => {
+  private handleUnhandledVerificationPurpose(): void {
     this.logger.error('unhandled verificationPurpose', this.verificationPurpose);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
-  };
+  }
 }

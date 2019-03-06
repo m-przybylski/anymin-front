@@ -14,18 +14,19 @@ export class ProfileLinksComponentService {
   private readonly httpPattern = /^(?:http?:\/\/)?(?:www\.)|(?:http?:\/\/)/i;
   private readonly httpsPattern = /^(?:https?:\/\/)?(?:www\.)|(?:https?:\/\/)/i;
 
-  public unifyLinkProtocol = (value: string): string => {
+  public unifyLinkProtocol(value: string): string {
     if (this.isSocialLink(value)) {
       return this.setSocialLinkSSLProtocol(value);
     } else {
       return this.checkProtocol(value);
     }
-  };
+  }
 
-  public isSocialLink = (value: string): boolean =>
-    value.includes('facebook.com') || value.includes('twitter.com') || value.includes('linkedin.com');
+  public isSocialLink(value: string): boolean {
+    return value.includes('facebook.com') || value.includes('twitter.com') || value.includes('linkedin.com');
+  }
 
-  public cropSocialMediaLinkAsName = (link: string): IShortLink => {
+  public cropSocialMediaLinkAsName(link: string): IShortLink {
     const socialMediaLinks: { [key: string]: IShortLink } = {
       facebook: {
         url: 'https://www.facebook.com/',
@@ -70,17 +71,18 @@ export class ProfileLinksComponentService {
       };
     }
     return shortLink;
-  };
+  }
 
-  private checkProtocol = (addressUrl: string): string => {
+  private checkProtocol(addressUrl: string): string {
     if (this.httpPattern.test(addressUrl)) {
       return `http://www.${addressUrl.replace(this.httpPattern, '')}`;
     } else if (this.httpsPattern.test(addressUrl)) {
       return `https://www.${addressUrl.replace(this.httpsPattern, '')}`;
     }
     return `http://www.${addressUrl}`;
-  };
+  }
 
-  private setSocialLinkSSLProtocol = (addressUrl: string): string =>
-    `https://www.${addressUrl.replace(this.httpsPattern, '')}`;
+  private setSocialLinkSSLProtocol(addressUrl: string): string {
+    return `https://www.${addressUrl.replace(this.httpsPattern, '')}`;
+  }
 }

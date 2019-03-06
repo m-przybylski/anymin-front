@@ -24,5 +24,7 @@ export class CommentDropdownPositionDirective {
     }
   }
 
-  private isElementClicked = (event: Event): boolean => this.element.nativeElement.contains(event.target);
+  private isElementClicked(event: Event): boolean {
+    return this.element.nativeElement.contains(event.target);
+  }
 }

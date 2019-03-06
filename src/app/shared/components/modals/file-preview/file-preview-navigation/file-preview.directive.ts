@@ -17,11 +17,13 @@ export class FilePreviewDirective {
 
   constructor(private element: ElementRef) {}
 
-  public onError = (): void => this.markAsBroken();
+  public onError(): void {
+    return this.markAsBroken();
+  }
 
-  private markAsBroken = (): void => {
+  private markAsBroken(): void {
     this.src = Config.assetsUrl.brokenImage;
     this.element.nativeElement.classList.add('image-broken');
     this.onImageError.emit();
-  };
+  }
 }

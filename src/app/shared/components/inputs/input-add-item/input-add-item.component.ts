@@ -81,11 +81,11 @@ export class InputAddItemComponent {
     this.isFocused = false;
   }
 
-  public onFocus = (): void => {
+  public onFocus(): void {
     this.inputFormControl.setErrors(null);
     this.isFocused = true;
     this.isBlured = false;
-  };
+  }
 
   public onAddLinkClick(): void {
     this.onAddItem();

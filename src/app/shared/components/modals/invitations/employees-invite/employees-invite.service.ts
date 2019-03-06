@@ -84,16 +84,20 @@ export class EmployeesInviteService {
       });
   }
 
-  public getUserAccountId = (): string => this.accountId;
+  public getUserAccountId(): string {
+    return this.accountId;
+  }
 
-  public getConsultationDetails = (serviceId: string): Observable<GetService> =>
-    this.serviceService.getServiceRoute(serviceId);
+  public getConsultationDetails(serviceId: string): Observable<GetService> {
+    return this.serviceService.getServiceRoute(serviceId);
+  }
 
-  public postInvitation = (data: PostInvitations): Observable<ReadonlyArray<GetInvitation>> =>
-    this.invitationService.postInvitationRoute(data);
+  public postInvitation(data: PostInvitations): Observable<ReadonlyArray<GetInvitation>> {
+    return this.invitationService.postInvitationRoute(data);
+  }
 
   // tslint:disable-next-line:cyclomatic-complexity
-  public checkInvitationType = (value: string, isFreelanceService: boolean): EmployeeInvitationTypeEnum => {
+  public checkInvitationType(value: string, isFreelanceService: boolean): EmployeeInvitationTypeEnum {
     const unifiedPhoneNumber = this.phoneNumberUnifyService.unifyPhoneNumber(value);
     if (this.isMaxLengthInvitationReached()) {
       return EmployeeInvitationTypeEnum.MAX_LENGTH_REACHED;
@@ -125,10 +129,10 @@ export class EmployeesInviteService {
     }
 
     return EmployeeInvitationTypeEnum.INVALID;
-  };
+  }
 
-  public mapEmployeeList = (serviceId: string): Observable<IEmployeesList> =>
-    forkJoin(
+  public mapEmployeeList(serviceId: string): Observable<IEmployeesList> {
+    return forkJoin(
       this.employmentService.getEmployeesRoute().pipe(
         map((response: ReadonlyArray<ExpertProfileWithEmployments>) =>
           response
@@ -170,12 +174,15 @@ export class EmployeesInviteService {
         return { employeeList, pendingInvitations };
       }),
     );
+  }
 
-  public setInvitedEmployeeList = (
+  public setInvitedEmployeeList(
     employeeList: ReadonlyArray<IEmployeesInviteComponent>,
-  ): ReadonlyArray<IEmployeesInviteComponent> => (this.invitedEmployeeList = employeeList);
+  ): ReadonlyArray<IEmployeesInviteComponent> {
+    return (this.invitedEmployeeList = employeeList);
+  }
 
-  private getStringValue = (item: { email?: string; msisdn?: string }): string => {
+  private getStringValue(item: { email?: string; msisdn?: string }): string {
     if (typeof item.email !== 'undefined') {
       return item.email;
     }
@@ -184,21 +191,29 @@ export class EmployeesInviteService {
     }
 
     return '';
-  };
+  }
 
-  private getUnAcceptedInvitations = (
+  private getUnAcceptedInvitations(
     serviceWithInvitation: GetServiceWithInvitations,
-  ): ReadonlyArray<IEmployeesPendingInvitation> =>
-    serviceWithInvitation.invitations
+  ): ReadonlyArray<IEmployeesPendingInvitation> {
+    return serviceWithInvitation.invitations
       .filter(item => item.status === 'NEW')
       .map(item => ({
         email: item.email,
         msisdn: item.msisdn,
         employeeId: item.employeeId,
       }));
+  }
 
-  private isMaxLengthInvitationReached = (): boolean => this.invitedEmployeeList.length >= this.maxInvitationLength;
-  private isValidEmailAddress = (value: string): boolean => this.emailPattern.test(value);
-  private isInvitationPending = (value: string): boolean =>
-    this.employeesWithPendingInvitations.filter(item => item.email === value || item.msisdn === value).length > 0;
+  private isMaxLengthInvitationReached(): boolean {
+    return this.invitedEmployeeList.length >= this.maxInvitationLength;
+  }
+  private isValidEmailAddress(value: string): boolean {
+    return this.emailPattern.test(value);
+  }
+  private isInvitationPending(value: string): boolean {
+    return (
+      this.employeesWithPendingInvitations.filter(item => item.email === value || item.msisdn === value).length > 0
+    );
+  }
 }

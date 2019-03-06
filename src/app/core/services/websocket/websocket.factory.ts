@@ -9,5 +9,7 @@ export class WebSocketServiceFactory<T> extends Logger {
     super(loggerFactory.createLoggerService('WebSocketService'));
   }
 
-  public create = (endpointUrl: string): WebSocketService<T> => new WebSocketService(this.loggerService, endpointUrl);
+  public create(endpointUrl: string): WebSocketService<T> {
+    return new WebSocketService(this.loggerService, endpointUrl);
+  }
 }

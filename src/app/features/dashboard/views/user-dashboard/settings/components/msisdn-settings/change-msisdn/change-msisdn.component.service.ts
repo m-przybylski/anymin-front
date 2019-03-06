@@ -32,13 +32,14 @@ export class ChangeMsisdnComponentService {
     this.logger = loggerFactory.createLoggerService('ChangeMsisdnComponentService');
   }
 
-  public verifyMsisdn = (unverifiedMsisdn: string): Observable<VerifyMsisdnStatusEnum> =>
-    this.accountService.putMsisdnRoute({ msisdn: unverifiedMsisdn }).pipe(
+  public verifyMsisdn(unverifiedMsisdn: string): Observable<VerifyMsisdnStatusEnum> {
+    return this.accountService.putMsisdnRoute({ msisdn: unverifiedMsisdn }).pipe(
       map(() => VerifyMsisdnStatusEnum.SUCCESS),
       catchError(err => of(this.handleError(err))),
     );
+  }
 
-  private handleError = (httpError: HttpErrorResponse): VerifyMsisdnStatusEnum => {
+  private handleError(httpError: HttpErrorResponse): VerifyMsisdnStatusEnum {
     const error = httpError.error;
     if (isBackendError(error)) {
       const status = this.verifyMsisdnStatusMap.get(error.code);
@@ -48,11 +49,11 @@ export class ChangeMsisdnComponentService {
     this.logger.warn('Error when changing password', httpError);
 
     return VerifyMsisdnStatusEnum.ERROR;
-  };
+  }
 
-  private handleUnhandledBackendError = (httpError: HttpErrorResponse): VerifyMsisdnStatusEnum => {
+  private handleUnhandledBackendError(httpError: HttpErrorResponse): VerifyMsisdnStatusEnum {
     this.logger.error('unhandled backend error', httpError);
 
     return VerifyMsisdnStatusEnum.ERROR;
-  };
+  }
 }

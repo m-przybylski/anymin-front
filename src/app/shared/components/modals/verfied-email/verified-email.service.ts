@@ -13,7 +13,7 @@ import { AccountService } from '@anymind-ng/api';
 export class VerifiedEmailService {
   constructor(private modalService: NgbModal, private accountService: AccountService, private injector: Injector) {}
 
-  public openVerifiedEmailDialog = (modalHeaderTr: string, modalContentTr: string): Observable<boolean> => {
+  public openVerifiedEmailDialog(modalHeaderTr: string, modalContentTr: string): Observable<boolean> {
     const verifiedEmailModalConfig: IVerifiedEmailModalConfig = {
       modalHeaderTr,
       modalContentTr,
@@ -30,5 +30,5 @@ export class VerifiedEmailService {
     return this.accountService
       .postEmailResendRoute()
       .pipe(switchMap(() => from(modal.result).pipe(catchError(() => of(false)))));
-  };
+  }
 }

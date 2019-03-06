@@ -20,24 +20,24 @@ export class ValidationDirective {
   constructor(private ngControl: NgControl) {}
 
   @HostListener('input', ['$event'])
-  public onChangeEvent = (): void => {
+  public onChangeEvent(): void {
     if (this.isFocused && this.formControl !== null) {
       this.formControl.setValidators(null);
       this.formControl.updateValueAndValidity();
     }
-  };
+  }
 
   @HostListener('focus')
-  public onFocusEvent = (): void => {
+  public onFocusEvent(): void {
     this.onFocus.emit();
     this.isFocused = true;
-  };
+  }
 
   @HostListener('blur')
-  public onBlurEvent = (): void => {
+  public onBlurEvent(): void {
     if (this.formControl !== null && this.formControl.errors === null) {
       this.onBlur.emit();
     }
     this.isFocused = false;
-  };
+  }
 }

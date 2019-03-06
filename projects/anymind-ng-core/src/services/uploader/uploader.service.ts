@@ -130,13 +130,15 @@ export class UploaderService {
     }
   }
 
-  private getFileUploadInfo = (fileObj: IFileObject, res: HttpProgressEvent, token: FileIdDto): IUploadFileInfo => ({
-    name: fileObj.file.name,
-    contentType: fileObj.file.type,
-    token: token.fileId,
-    loaded: res.loaded,
-    size: res.total || 0,
-  });
+  private getFileUploadInfo(fileObj: IFileObject, res: HttpProgressEvent, token: FileIdDto): IUploadFileInfo {
+    return {
+      name: fileObj.file.name,
+      contentType: fileObj.file.type,
+      token: token.fileId,
+      loaded: res.loaded,
+      size: res.total || 0,
+    };
+  }
 
   private onGetFileTokenError(currentlyUploadedFile: IFileObject, error: HttpErrorResponse): void {
     const [, ...tail] = this.fileObjectsToUpload;

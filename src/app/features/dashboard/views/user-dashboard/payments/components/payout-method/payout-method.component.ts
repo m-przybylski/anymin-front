@@ -25,7 +25,7 @@ export class PayoutMethodComponent implements AfterViewInit {
     this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
-  public selectPayoutMethod = (payoutMethod: PayoutMethodEnum): void => {
+  public selectPayoutMethod(payoutMethod: PayoutMethodEnum): void {
     this.selectedPayoutMethodType = payoutMethod;
-  };
+  }
 }

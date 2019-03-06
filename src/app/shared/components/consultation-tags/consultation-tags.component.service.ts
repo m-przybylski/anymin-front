@@ -22,10 +22,11 @@ export class ConsultationTagsComponentService {
 
   constructor(private searchService: SearchService) {}
 
-  public getSuggestedTags = (query: PostSuggestTags): Observable<GetSuggestedTags> =>
-    this.searchService.postTagsSuggestionsRoute(query);
+  public getSuggestedTags(query: PostSuggestTags): Observable<GetSuggestedTags> {
+    return this.searchService.postTagsSuggestionsRoute(query);
+  }
 
-  public getTagValidationStatus = (tag: string, tagsList: ReadonlyArray<string>): TagValidationStatus => {
+  public getTagValidationStatus(tag: string, tagsList: ReadonlyArray<string>): TagValidationStatus {
     if (this.isTagDuplicated(tag, tagsList)) {
       return TagValidationStatus.DUPLICATED;
     }
@@ -43,19 +44,29 @@ export class ConsultationTagsComponentService {
     }
 
     return TagValidationStatus.VALID;
-  };
+  }
 
-  public isTagsMinCountInvalid = (tagsList: ReadonlyArray<string>): boolean => tagsList.length < this.minValidTagsCount;
+  public isTagsMinCountInvalid(tagsList: ReadonlyArray<string>): boolean {
+    return tagsList.length < this.minValidTagsCount;
+  }
 
-  private isTagDuplicated = (tag: string, tagsList: ReadonlyArray<string>): boolean => tagsList.indexOf(tag) !== -1;
+  private isTagDuplicated(tag: string, tagsList: ReadonlyArray<string>): boolean {
+    return tagsList.indexOf(tag) !== -1;
+  }
 
-  private isTagsMaxCountInvalid = (tagsList: ReadonlyArray<string>): boolean =>
-    tagsList.length === this.maxValidTagsCount;
+  private isTagsMaxCountInvalid(tagsList: ReadonlyArray<string>): boolean {
+    return tagsList.length === this.maxValidTagsCount;
+  }
 
-  private isTagWordsCountInvalid = (tag: string): boolean => tag.split(' ').length > this.maxValidTagWords;
+  private isTagWordsCountInvalid(tag: string): boolean {
+    return tag.split(' ').length > this.maxValidTagWords;
+  }
 
-  private isTagLengthInvalid = (tag: string): boolean =>
-    tag.length < this.minValidTagLength || tag.length > this.maxValidTagLength;
+  private isTagLengthInvalid(tag: string): boolean {
+    return tag.length < this.minValidTagLength || tag.length > this.maxValidTagLength;
+  }
 
-  private isTagPatternInvalid = (tag: string): boolean => !this.tagRegex.test(tag);
+  private isTagPatternInvalid(tag: string): boolean {
+    return !this.tagRegex.test(tag);
+  }
 }

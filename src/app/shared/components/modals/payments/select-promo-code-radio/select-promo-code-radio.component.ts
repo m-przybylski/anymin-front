@@ -34,8 +34,8 @@ export class SelectPromoCodeRadioComponent implements OnInit {
     this.expiryDate = moment(this.expiryDate).format('MM/YY');
   }
 
-  public onCardClick = (event: MouseEvent): void => {
+  public onCardClick(event: MouseEvent): void {
     event.stopPropagation();
     this.onSelectCard.emit(this.id);
-  };
+  }
 }

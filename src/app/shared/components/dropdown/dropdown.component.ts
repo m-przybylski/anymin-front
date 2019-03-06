@@ -49,11 +49,11 @@ export class DropdownComponent implements OnInit {
     this.form.addControl(this.controlName, new FormControl('', []));
   }
 
-  public onClickDropdown = (): void => {
+  public onClickDropdown(): void {
     this.isDropdownListVisible = !this.isDropdownListVisible;
-  };
+  }
 
-  public onSelectItem = (value: IDropdownComponent): void => {
+  public onSelectItem(value: IDropdownComponent): void {
     if (this.isDropdownListOnly) {
       this.onSelectItemEmiter.emit(value);
     } else {
@@ -62,16 +62,16 @@ export class DropdownComponent implements OnInit {
 
     this.isDropdownListVisible = false;
     this.placeholderTrKey = value.name;
-  };
+  }
 
-  public onToggleDropdown = (isVisible: boolean): void => {
+  public onToggleDropdown(isVisible: boolean): void {
     this.isDropdownListVisible = isVisible;
     this.onCloseDropdownList(isVisible);
-  };
+  }
 
-  public onCloseDropdownList = (isVisible: boolean): void => {
+  public onCloseDropdownList(isVisible: boolean): void {
     if (this.onCloseEmiter) {
       this.onCloseEmiter.emit(isVisible);
     }
-  };
+  }
 }

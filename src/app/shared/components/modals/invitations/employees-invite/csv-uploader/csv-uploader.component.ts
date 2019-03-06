@@ -72,9 +72,11 @@ export class CsvUploaderComponent implements OnInit {
     this.form.addControl(this.controlName, new FormControl('', []));
   }
 
-  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.form, this.controlName);
+  public isFieldInvalid(): boolean {
+    return this.formUtils.isFieldInvalid(this.form, this.controlName);
+  }
 
-  public showCSVstatus = (errors: ReadonlyArray<ParseError>): void => {
+  public showCSVstatus(errors: ReadonlyArray<ParseError>): void {
     this.onUploadFile.emit(this.addedItemsList);
 
     if (this.areCSVErrorOccurs(this.uploadedFilesLength, errors)) {
@@ -91,7 +93,7 @@ export class CsvUploaderComponent implements OnInit {
       this.hasRecords = this.uploadedFilesLength === 0;
       this.resetErrors();
     }
-  };
+  }
 
   public onFileLoaded(csv: ReadonlyArray<string>): void {
     const emailsOrMsisdns = csv
@@ -120,7 +122,7 @@ export class CsvUploaderComponent implements OnInit {
     );
   }
 
-  public showValidationAlert = (): string => {
+  public showValidationAlert(): string {
     const controlErrors = this.form.controls[this.controlName].errors;
     if (controlErrors !== null) {
       const errorCode = Object.keys(controlErrors)[0];
@@ -129,51 +131,64 @@ export class CsvUploaderComponent implements OnInit {
     } else {
       return '';
     }
-  };
+  }
 
-  private addCsvContact = (value: string): void => {
+  private addCsvContact(value: string): void {
     this.uploadedFilesLength += 1;
     this.addedItemsList = [...this.addedItemsList, value];
-  };
+  }
 
-  private isEmail = (emailOrMsisdn: string): boolean =>
-    this.isEmailValid(emailOrMsisdn) && this.mailPattern.test(emailOrMsisdn);
+  private isEmail(emailOrMsisdn: string): boolean {
+    return this.isEmailValid(emailOrMsisdn) && this.mailPattern.test(emailOrMsisdn);
+  }
 
-  private isEmailValid = (emailOrMsisdn: string): boolean =>
-    this.addedItemsList.indexOf(emailOrMsisdn) === -1 &&
-    !this.isValueExist(emailOrMsisdn) &&
-    !this.areInvitationsExceedValidLimit();
+  private isEmailValid(emailOrMsisdn: string): boolean {
+    return (
+      this.addedItemsList.indexOf(emailOrMsisdn) === -1 &&
+      !this.isValueExist(emailOrMsisdn) &&
+      !this.areInvitationsExceedValidLimit()
+    );
+  }
 
-  private isMsisdn = (arrayNumber: string): boolean => isValidNumber(arrayNumber) && this.isMsisdnValid(arrayNumber);
+  private isMsisdn(arrayNumber: string): boolean {
+    return isValidNumber(arrayNumber) && this.isMsisdnValid(arrayNumber);
+  }
 
-  private isMsisdnValid = (arrayNumber: string): boolean =>
-    this.addedItemsList.indexOf(arrayNumber) === -1 &&
-    !this.isValueExist(arrayNumber) &&
-    !this.areInvitationsExceedValidLimit();
+  private isMsisdnValid(arrayNumber: string): boolean {
+    return (
+      this.addedItemsList.indexOf(arrayNumber) === -1 &&
+      !this.isValueExist(arrayNumber) &&
+      !this.areInvitationsExceedValidLimit()
+    );
+  }
 
-  private isValueExist = (value: string): boolean =>
-    this.addedItems.filter(item => item.replace(/ /g, '').replace(/-/g, '') === value).length > 0;
+  private isValueExist(value: string): boolean {
+    return this.addedItems.filter(item => item.replace(/ /g, '').replace(/-/g, '') === value).length > 0;
+  }
 
-  private getFullPhoneNumber = (inputValue: string): string =>
-    this.phoneNumberUnifyService.unifyPhoneNumber(inputValue);
+  private getFullPhoneNumber(inputValue: string): string {
+    return this.phoneNumberUnifyService.unifyPhoneNumber(inputValue);
+  }
 
-  private areInvitationsExceedValidLimit = (): boolean =>
-    this.addedItemsList.length + this.invitedEmployeeLength >= this.consultationInvitationsMaxCount;
+  private areInvitationsExceedValidLimit(): boolean {
+    return this.addedItemsList.length + this.invitedEmployeeLength >= this.consultationInvitationsMaxCount;
+  }
 
-  private assignValidationValues = (): void => {
+  private assignValidationValues(): void {
     this.consultationInvitationsMaxCount = Config.inputsLengthNumbers.consultationInvitationsMaxCount;
     this.mailPattern = Config.patterns.emailPattern;
-  };
+  }
 
-  private areCSVErrorOccurs = (loadedNumber: number, errors: ReadonlyArray<ParseError>): boolean =>
-    errors.length > 0 && loadedNumber === 0;
+  private areCSVErrorOccurs(loadedNumber: number, errors: ReadonlyArray<ParseError>): boolean {
+    return errors.length > 0 && loadedNumber === 0;
+  }
 
-  private showCsvUploaderError = (errorObject: { [key: string]: boolean }): void => {
+  private showCsvUploaderError(errorObject: { [key: string]: boolean }): void {
     this.form.controls[this.controlName].setErrors(errorObject);
     this.formUtils.isFieldInvalid(this.form, this.controlName);
-  };
+  }
 
-  private resetErrors = (): void => {
+  private resetErrors(): void {
     this.form.controls[this.controlName].setErrors(null);
-  };
+  }
 }

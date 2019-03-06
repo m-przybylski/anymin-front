@@ -20,13 +20,14 @@ export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
     this.logger = loggerFactory.createLoggerService('SetNewPasswordFromEmailViewResolver');
   }
 
-  public resolve = (route: ActivatedRouteSnapshot): Observable<string> =>
-    this.recoverPasswordService
+  public resolve(route: ActivatedRouteSnapshot): Observable<string> {
+    return this.recoverPasswordService
       .postRecoverPasswordEmailVerifyRoute({ token: route.params.token })
       .pipe(map(response => response.email))
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(err => this.handleError(err)));
+  }
 
-  private handleError = (httpError: HttpErrorResponse): Observable<string> => {
+  private handleError(httpError: HttpErrorResponse): Observable<string> {
     const err = httpError.error;
 
     if (isBackendError(err)) {
@@ -53,9 +54,9 @@ export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
 
       return of();
     }
-  };
+  }
 
-  private redirectToLogin = (): Observable<void> => {
+  private redirectToLogin(): Observable<void> {
     this.router
       .navigate(['/login'])
       .then(isRedirectSuccessful => {
@@ -67,11 +68,11 @@ export class SetNewPasswordFromEmailViewResolver implements Resolve<string> {
       .catch(this.logger.error.bind(this));
 
     return of();
-  };
+  }
 
-  private handleBackendError = (error: BackendError): void => {
+  private handleBackendError(error: BackendError): void {
     this.logger.warn('error when try to recover password verify email', error);
     this.alertService.pushDangerAlert(Alerts.CannotFindEmailToken);
     this.redirectToLogin();
-  };
+  }
 }

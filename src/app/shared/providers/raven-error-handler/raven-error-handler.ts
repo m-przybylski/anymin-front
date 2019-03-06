@@ -5,11 +5,8 @@ import { Config } from '../../../../config';
 import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 export class RavenErrorHandler implements ErrorHandler {
-
   constructor() {
-    Raven
-      .config(Config.sentry.url, Config.sentry.options)
-      .install();
+    Raven.config(Config.sentry.url, Config.sentry.options).install();
   }
 
   public handleError(err: any): void {
@@ -20,7 +17,7 @@ export class RavenErrorHandler implements ErrorHandler {
     console.error(err);
   }
 
-  private static serializeError = (err?: any): string => {
+  private static serializeError(err?: any): string {
     if (typeof err === 'string') {
       return err;
     } else {
@@ -32,7 +29,7 @@ export class RavenErrorHandler implements ErrorHandler {
     }
   }
 
-  private static isSentryEnabled = (): boolean =>
-    Config.sentry.enabledEnvironments.includes(EnvironmentService.get())
-
+  private static isSentryEnabled(): boolean {
+    return Config.sentry.enabledEnvironments.includes(EnvironmentService.get());
+  }
 }

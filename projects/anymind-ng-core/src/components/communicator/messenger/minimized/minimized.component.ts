@@ -53,7 +53,7 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
   constructor(private logger: LoggerService) {}
 
   public ngOnInit(): void {
-    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.init);
+    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => this.init(call));
   }
 
   public ngOnDestroy(): void {
@@ -61,11 +61,15 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public isImage = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isImage(msg);
+  public isImage(msg: roomEvents.CustomMessageSent): boolean {
+    return MessagesUtils.isImage(msg);
+  }
 
-  public isPdf = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isPdf(msg);
+  public isPdf(msg: roomEvents.CustomMessageSent): boolean {
+    return MessagesUtils.isPdf(msg);
+  }
 
-  private init = (currentClientCall: CurrentClientCall): void => {
+  private init(currentClientCall: CurrentClientCall): void {
     this.messages = [];
     currentClientCall.messageRoom$.subscribe(messageRoom => {
       this.logger.debug('Get messageRoom', messageRoom);
@@ -73,13 +77,14 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
         this.displayMessageInPeriodOfTimes(message);
       });
     });
-  };
+  }
 
-  private displayMessageInPeriodOfTimes = (message: roomEvents.CustomMessageSent): void => {
+  private displayMessageInPeriodOfTimes(message: roomEvents.CustomMessageSent): void {
     this.messages = [...this.messages, message];
     setTimeout(() => this.hideMessage(message), this.messageDiplayTime);
-  };
+  }
 
-  private hideMessage = (message: roomEvents.CustomMessageSent): ReadonlyArray<roomEvents.CustomMessageSent> =>
-    (this.messages = this.messages.filter(msg => msg !== message));
+  private hideMessage(message: roomEvents.CustomMessageSent): ReadonlyArray<roomEvents.CustomMessageSent> {
+    return (this.messages = this.messages.filter(msg => msg !== message));
+  }
 }

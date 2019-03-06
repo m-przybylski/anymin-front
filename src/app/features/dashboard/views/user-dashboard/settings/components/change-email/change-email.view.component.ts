@@ -57,20 +57,20 @@ export class ChangeEmailViewComponent implements OnDestroy, AfterViewInit {
     this.modalAnimationComponentService.onModalContentChange().next(false);
   }
 
-  public onFormSubmit = (form: FormGroup): void => {
+  public onFormSubmit(form: FormGroup): void {
     if (form.valid) {
       this.isRequestPending = true;
       this.changeEmailService
         .changeEmail(form.value[this.emailControlName])
         .pipe(finalize(() => (this.isRequestPending = false)))
         .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(this.handleSetEmailStatus);
+        .subscribe(status => this.handleSetEmailStatus(status));
     } else {
       this.formUtils.validateAllFormFields(form);
     }
-  };
+  }
 
-  private handleSetEmailStatus = (status: ChangeEmailStatusEnum): void => {
+  private handleSetEmailStatus(status: ChangeEmailStatusEnum): void {
     switch (status) {
       case ChangeEmailStatusEnum.INVALID:
         this.displayIncorrectEmailError();
@@ -94,19 +94,19 @@ export class ChangeEmailViewComponent implements OnDestroy, AfterViewInit {
         this.logger.error('unhandled email change status', status);
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
-  };
+  }
 
-  private displayIncorrectEmailError = (): void => {
+  private displayIncorrectEmailError(): void {
     this.changeEmailForm.controls[this.emailControlName].setErrors({
       [InputEmailComponent.InputEmailErrors.invalid]: true,
     });
     this.formUtils.validateAllFormFields(this.changeEmailForm);
-  };
+  }
 
-  private displayAlreadyExistEmailError = (): void => {
+  private displayAlreadyExistEmailError(): void {
     this.changeEmailForm.controls[this.emailControlName].setErrors({
       [InputEmailComponent.InputEmailErrors.alreadyExists]: true,
     });
     this.formUtils.validateAllFormFields(this.changeEmailForm);
-  };
+  }
 }

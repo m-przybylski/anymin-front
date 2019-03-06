@@ -24,7 +24,7 @@ export class NavigationDescriptionComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject<void>();
 
   public ngOnInit(): void {
-    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onNewCall);
+    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => this.onNewCall(call));
   }
 
   public ngOnDestroy(): void {
@@ -32,12 +32,12 @@ export class NavigationDescriptionComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  private onNewCall = (call: CurrentClientCall | CurrentExpertCall): void => {
-    call.timeCostChange$.subscribe(this.onTimeCostChange);
-  };
+  private onNewCall(call: CurrentClientCall | CurrentExpertCall): void {
+    call.timeCostChange$.subscribe(cost => this.onTimeCostChange(cost));
+  }
 
-  private onTimeCostChange = (timeMoneyTuple: { time: number; money: MoneyDto }): void => {
+  private onTimeCostChange(timeMoneyTuple: { time: number; money: MoneyDto }): void {
     this.callLengthInSeconds = timeMoneyTuple.time;
     this.callCost = timeMoneyTuple.money;
-  };
+  }
 }

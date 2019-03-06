@@ -23,7 +23,7 @@ export class TimerService {
     this.logger = loggerFactory.createLoggerService('TimerService');
   }
 
-  public start = (servicePrice: MoneyDto, freeMinutesCount: number): Observable<ITimeMoney> => {
+  public start(servicePrice: MoneyDto, freeMinutesCount: number): Observable<ITimeMoney> {
     this.startTime = Date.now();
 
     return (this.timer = observableInterval(this.interval)
@@ -41,15 +41,16 @@ export class TimerService {
           };
         }),
       ));
-  };
+  }
 
-  public stop = (): void => {
+  public stop(): void {
     if (this.timer) {
       this.stopEvent.next();
     } else {
       this.logger.warn('TimerService: Cannot stop, there is no timer');
     }
-  };
-  private getMoneyAmount = (paidCallTime: number, servicePrice: number): number =>
-    paidCallTime > 0 ? (servicePrice * Math.max(0, paidCallTime)) / this.oneMinuteSeconds : 0;
+  }
+  private getMoneyAmount(paidCallTime: number, servicePrice: number): number {
+    return paidCallTime > 0 ? (servicePrice * Math.max(0, paidCallTime)) / this.oneMinuteSeconds : 0;
+  }
 }

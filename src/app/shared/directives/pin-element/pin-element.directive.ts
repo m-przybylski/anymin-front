@@ -1,14 +1,10 @@
 // tslint:disable:prefer-template
-import {
-  AfterContentInit, Directive, ElementRef, HostListener, Input
-} from '@angular/core';
+import { AfterContentInit, Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[pinElement]'
+  selector: '[pinElement]',
 })
-
 export class PinElementDirective implements AfterContentInit {
-
   private static readonly offsetTop = 48;
   private pinElement: HTMLElement;
 
@@ -18,7 +14,7 @@ export class PinElementDirective implements AfterContentInit {
   constructor(private element: ElementRef) {}
 
   @HostListener('scroll', ['$event'])
-  public onElementScroll = (): void => {
+  public onElementScroll(): void {
     if (this.element.nativeElement.scrollTop >= PinElementDirective.offsetTop) {
       this.pinElement.classList.add(this.pinElementClassName + '--fixed');
     } else {

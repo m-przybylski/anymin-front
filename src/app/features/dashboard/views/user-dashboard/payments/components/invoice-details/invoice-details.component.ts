@@ -87,7 +87,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
         this.isRequestPending = true;
         persistInvoiceDetails(getInvoiceDetails())
           .pipe(
-            catchError(this.handleUpdateInvoiceDetailsError),
+            catchError(err => this.handleUpdateInvoiceDetailsError(err)),
             finalize(() => {
               this.isRequestPending = false;
             }),
@@ -138,12 +138,12 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
     };
   }
 
-  private handleUpdateInvoiceDetailsError = (httpError: HttpErrorResponse): Observable<GetInvoiceDetails> => {
+  private handleUpdateInvoiceDetailsError(httpError: HttpErrorResponse): Observable<GetInvoiceDetails> {
     this.loggerService.warn('Error when try to update invoice details, ', httpError);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 
     return EMPTY;
-  };
+  }
 
   private getPostalCode(postCodeValue: string): string {
     return `${postCodeValue.slice(0, this.firstPartOfPostalCode)}-${postCodeValue.slice(this.firstPartOfPostalCode)}`;

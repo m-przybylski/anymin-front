@@ -13,8 +13,8 @@ export class CookieNotificationComponent {
     this.isNotificationVisible = this.cookieComponentService.isNotificationVisible();
   }
 
-  public onClick = (): void => {
+  public onClick(): void {
     this.cookieComponentService.hideNotification();
     this.isNotificationVisible = false;
-  };
+  }
 }

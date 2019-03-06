@@ -52,41 +52,43 @@ export class ManageSessionsViewComponentService {
       });
   }
 
-  public getActiveSessions = (): Observable<ReadonlyArray<IActiveSession>> =>
-    this.sessionService.getSessionsRoute().pipe(
-      mergeMap(this.handleActiveSessions),
+  public getActiveSessions(): Observable<ReadonlyArray<IActiveSession>> {
+    return this.sessionService.getSessionsRoute().pipe(
+      mergeMap(getSessionWithAccount => this.handleActiveSessions(getSessionWithAccount)),
       catchError(error => this.handleGetActiveSessionsError(error)),
     );
+  }
 
   public logoutCurrentSession(): void {
     this.userSessionService.logout();
   }
 
-  public logoutSession = (apiKey: string): Observable<void> =>
-    this.sessionService.logoutRoute(apiKey).pipe(
+  public logoutSession(apiKey: string): Observable<void> {
+    return this.sessionService.logoutRoute(apiKey).pipe(
       map(() => {
         this.alertService.pushSuccessAlert(Alerts.SessionLoggedOutSuccess);
       }),
-      catchError(this.handleLogoutSessionError),
+      catchError(err => this.handleLogoutSessionError(err)),
     );
+  }
 
-  private handleLogoutSessionError = (error: HttpErrorResponse): Observable<void> => {
+  private handleLogoutSessionError(error: HttpErrorResponse): Observable<void> {
     this.logger.warn('error when try to logout session', error);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 
     return of();
-  };
+  }
 
-  private handleGetActiveSessionsError = (error: HttpErrorResponse): Observable<ReadonlyArray<IActiveSession>> => {
+  private handleGetActiveSessionsError(error: HttpErrorResponse): Observable<ReadonlyArray<IActiveSession>> {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('error when try to get active sessions', error);
     this.activeModal.close();
 
     return of();
-  };
+  }
 
-  private handleActiveSessions = (sessions: ReadonlyArray<GetSession>): Observable<ReadonlyArray<IActiveSession>> =>
-    of(
+  private handleActiveSessions(sessions: ReadonlyArray<GetSession>): Observable<ReadonlyArray<IActiveSession>> {
+    return of(
       sessions.map(session => ({
         device: this.getDeviceType(session),
         isCurrentSession: this.currentSessionApiKey === session.apiKey,
@@ -95,19 +97,26 @@ export class ManageSessionsViewComponentService {
         apiKey: session.apiKey,
       })),
     );
+  }
 
-  private isDesktopDevice = (session: GetSession): boolean =>
-    session.userAgent !== undefined &&
-    (session.userAgent.includes('Win') || session.userAgent.includes('Mac') || session.userAgent.includes('Linux'));
+  private isDesktopDevice(session: GetSession): boolean {
+    return (
+      session.userAgent !== undefined &&
+      (session.userAgent.includes('Win') || session.userAgent.includes('Mac') || session.userAgent.includes('Linux'))
+    );
+  }
 
-  private isMobileDevice = (session: GetSession): boolean =>
-    session.userAgent !== undefined &&
-    (session.userAgent.includes('Android') ||
-      session.userAgent.includes('Mobile') ||
-      session.userAgent.includes('iOS') ||
-      session.userAgent.includes('Windows Phone'));
+  private isMobileDevice(session: GetSession): boolean {
+    return (
+      session.userAgent !== undefined &&
+      (session.userAgent.includes('Android') ||
+        session.userAgent.includes('Mobile') ||
+        session.userAgent.includes('iOS') ||
+        session.userAgent.includes('Windows Phone'))
+    );
+  }
 
-  private getDeviceType = (session: GetSession): ActiveSessionDeviceTypeEnum => {
+  private getDeviceType(session: GetSession): ActiveSessionDeviceTypeEnum {
     if (this.isDesktopDevice(session)) {
       return ActiveSessionDeviceTypeEnum.DESKTOP;
     } else if (this.isMobileDevice(session)) {
@@ -115,9 +124,9 @@ export class ManageSessionsViewComponentService {
     } else {
       return ActiveSessionDeviceTypeEnum.UNKNOWN;
     }
-  };
+  }
 
-  private getSessionDetails = (session: GetSession): string => {
+  private getSessionDetails(session: GetSession): string {
     if (session.userAgent !== undefined) {
       const sessionDetails = session.userAgent.split(',').map(word => word.trim());
       const deviceName =
@@ -130,5 +139,5 @@ export class ManageSessionsViewComponentService {
     }
 
     return '';
-  };
+  }
 }

@@ -51,17 +51,17 @@ export class DashboardProfileHeaderComponent implements OnInit {
     return this.attachments.length > 0;
   }
 
-  public editProfileClick = (): void => {
+  public editProfileClick(): void {
     this.editProfile.emit();
-  };
+  }
 
-  public likeProfileClick = (): void => {
+  public likeProfileClick(): void {
     this.likeProfile.emit();
-  };
+  }
 
-  public openFilePreviewModal = (): void => {
+  public openFilePreviewModal(): void {
     this.openGallery.emit();
-  };
+  }
 
   public get attachmentCount(): { value: number } {
     return { value: this.attachments.length };

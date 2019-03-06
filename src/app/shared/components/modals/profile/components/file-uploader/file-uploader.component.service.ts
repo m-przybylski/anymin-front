@@ -26,13 +26,15 @@ export interface IFileValidationValues {
 export class FileUploaderComponentService {
   constructor(private FilesService: FilesService) {}
 
-  public getFileInformation = (token: string): Observable<GetFileInfo> => this.FilesService.fileInfoRoute(token);
+  public getFileInformation(token: string): Observable<GetFileInfo> {
+    return this.FilesService.fileInfoRoute(token);
+  }
 
-  public getFileErrorStatus = (
+  public getFileErrorStatus(
     file: File,
     currentUserFilesCount: number,
     validationValues: IFileValidationValues,
-  ): FileStatus => {
+  ): FileStatus {
     if (!this.isFilesCountValid(currentUserFilesCount, validationValues.maxFilesCount)) {
       return FileStatus.INVALID_COUNT;
     }
@@ -46,12 +48,17 @@ export class FileUploaderComponentService {
       return FileStatus.INVALID_MIN_SIZE;
     }
     return FileStatus.VALID;
-  };
+  }
 
-  private isFilesCountValid = (currentUserFilesCount: number, maxFilesCount: number): boolean =>
-    currentUserFilesCount < maxFilesCount;
+  private isFilesCountValid(currentUserFilesCount: number, maxFilesCount: number): boolean {
+    return currentUserFilesCount < maxFilesCount;
+  }
 
-  private isFileMaxSizeValid = (fileSize: number, maxFileSize: number): boolean => fileSize <= maxFileSize;
+  private isFileMaxSizeValid(fileSize: number, maxFileSize: number): boolean {
+    return fileSize <= maxFileSize;
+  }
 
-  private isFileMinSizeValid = (fileSize: number, minFileSize: number): boolean => fileSize >= minFileSize;
+  private isFileMinSizeValid(fileSize: number, minFileSize: number): boolean {
+    return fileSize >= minFileSize;
+  }
 }

@@ -46,5 +46,7 @@ export class ButtonComponent extends ButtonMixinBase implements ICanColor {
     });
   }
 
-  private getHostElement = (): HTMLElement => this.elementRef.nativeElement;
+  private getHostElement(): HTMLElement {
+    return this.elementRef.nativeElement;
+  }
 }

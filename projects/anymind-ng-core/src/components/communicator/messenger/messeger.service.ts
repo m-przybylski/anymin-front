@@ -6,15 +6,17 @@ export class MessengerService {
   private unseenMessagesSubject: Subject<number> = new Subject();
   private unseenMessages = 0;
 
-  public resetMessages = (): void => {
+  public resetMessages(): void {
     this.unseenMessages = 0;
     this.unseenMessagesSubject.next(0);
-  };
+  }
 
-  public addUnseenMessage = (): void => {
+  public addUnseenMessage(): void {
     this.unseenMessages++;
     this.unseenMessagesSubject.next(this.unseenMessages);
-  };
+  }
 
-  public getUnseenMessagesSubject = (): Observable<number> => this.unseenMessagesSubject.asObservable();
+  public getUnseenMessagesSubject(): Observable<number> {
+    return this.unseenMessagesSubject.asObservable();
+  }
 }

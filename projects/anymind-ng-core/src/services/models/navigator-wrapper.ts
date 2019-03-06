@@ -14,7 +14,7 @@ export class NavigatorWrapper {
 
   constructor() {
     if (BrowserUtils.isBrowserSupported()) {
-      window.navigator.mediaDevices.enumerateDevices().then(this.recognizeDevices);
+      window.navigator.mediaDevices.enumerateDevices().then(deviceInfos => this.recognizeDevices(deviceInfos));
     }
   }
 
@@ -34,12 +34,15 @@ export class NavigatorWrapper {
     return merge({}, NavigatorWrapper.audioConstraints, NavigatorWrapper.getVideoConstraints());
   }
 
-  public getVideoInputDevices = (): ReadonlyArray<string> => this.videoInputIdArray;
+  public getVideoInputDevices(): ReadonlyArray<string> {
+    return this.videoInputIdArray;
+  }
 
-  public getUserMediaStream = (constraints: MediaStreamConstraints): Promise<MediaStream> =>
-    window.navigator.mediaDevices.getUserMedia(constraints);
+  public getUserMediaStream(constraints: MediaStreamConstraints): Promise<MediaStream> {
+    return window.navigator.mediaDevices.getUserMedia(constraints);
+  }
 
-  public getAllConstraintsWithToggledCamera = (facingMode: string, cameraIndex: number): MediaStreamConstraints => {
+  public getAllConstraintsWithToggledCamera(facingMode: string, cameraIndex: number): MediaStreamConstraints {
     const defaultVideoConstraints: MediaStreamConstraints = cloneDeep(NavigatorWrapper.getVideoConstraints());
 
     if (typeof defaultVideoConstraints.video === 'object') {
@@ -48,7 +51,7 @@ export class NavigatorWrapper {
     }
 
     return merge({}, cloneDeep(NavigatorWrapper.audioConstraints), defaultVideoConstraints);
-  };
+  }
 
   private static getBrowserVideoConstraints(): { height: number; width: number } {
     return BrowserUtils.isSafari()
@@ -62,9 +65,9 @@ export class NavigatorWrapper {
         };
   }
 
-  private recognizeDevices = (deviceInfos: ReadonlyArray<MediaDeviceInfo>): void => {
+  private recognizeDevices(deviceInfos: ReadonlyArray<MediaDeviceInfo>): void {
     this.videoInputIdArray = deviceInfos
       .filter(deviceInfo => deviceInfo.kind === 'videoinput')
       .map(deviceInfo => deviceInfo.deviceId);
-  };
+  }
 }

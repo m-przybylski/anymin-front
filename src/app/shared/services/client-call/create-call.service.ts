@@ -35,7 +35,7 @@ export class CreateCallService extends Logger {
     super(loggerFactory.createLoggerService('CreateCallService'));
   }
 
-  public call = (serviceId: string, expertId: string, expertAccountId: string): Promise<void> => {
+  public call(serviceId: string, expertId: string, expertAccountId: string): Promise<void> {
     const callSession = this.callSessionService.getCallSession();
     if (!this.clientCallService.isCallInProgress() && callSession) {
       return this.clientCallService.callServiceId(serviceId, expertId, expertAccountId).then(
@@ -58,10 +58,10 @@ export class CreateCallService extends Logger {
 
       return Promise.reject();
     }
-  };
+  }
 
   // tslint:disable-next-line:cyclomatic-complexity
-  private onCallError = (errorCode: number): void => {
+  private onCallError(errorCode: number): void {
     switch (errorCode) {
       case BackendErrors.onGoingCall:
         this.alertService.pushDangerAlert('ALERT.ON_GOING_CALL');
@@ -90,9 +90,9 @@ export class CreateCallService extends Logger {
         this.loggerService.error('Unknown error code: ', errorCode);
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
-  };
+  }
 
-  private onCallStart = (currentClientCall: CurrentClientCall, callSession: Session): void => {
+  private onCallStart(currentClientCall: CurrentClientCall, callSession: Session): void {
     this.callService.pushCallEvent({
       currentClientCall,
       session: callSession,
@@ -117,9 +117,9 @@ export class CreateCallService extends Logger {
     race(currentClientCall.callDestroyed$, this.callService.hangupCall$)
       .pipe(first())
       .subscribe(() => this.onAnsweredCallEnd(currentClientCall));
-  };
+  }
 
-  private onAnsweredCallEnd = (currentClientCall: CurrentClientCall): void => {
+  private onAnsweredCallEnd(currentClientCall: CurrentClientCall): void {
     if (currentClientCall.getState() !== CallState.CANCELLED) {
       const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
       summaryModal.componentInstance.currentClientCall = currentClientCall;
@@ -131,5 +131,5 @@ export class CreateCallService extends Logger {
         () => this.loggerService.debug('Call end sound played'),
         err => this.loggerService.warn('Cannot play call end sound', err),
       );
-  };
+  }
 }

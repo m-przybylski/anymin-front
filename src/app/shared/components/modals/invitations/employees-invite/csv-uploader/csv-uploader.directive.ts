@@ -19,7 +19,7 @@ export class CsvUploaderDirective {
   }
 
   @HostListener('change', ['$event'])
-  public inputChanged = (event: MSInputMethodContext): void => {
+  public inputChanged(event: Event): void {
     const element = event.target as HTMLInputElement;
     if (element.files !== null && element.files[0]) {
       if (element.value) {
@@ -44,5 +44,5 @@ export class CsvUploaderDirective {
       this.logger.warn('No file');
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     }
-  };
+  }
 }

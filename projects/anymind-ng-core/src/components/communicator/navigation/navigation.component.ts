@@ -65,11 +65,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.registerCall);
+    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => this.registerCall(call));
 
     this.microphoneService.onMicrophoneStatusChange(state => (this.currentMicrophoneStateEnum = state));
     if (!this.isMobile) {
-      this.navigationService.userActivity$.subscribe(this.onUserInactivity);
+      this.navigationService.userActivity$.subscribe(activity => this.onUserInactivity(activity));
     }
     this.messengerService
       .getUnseenMessagesSubject()
@@ -85,7 +85,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.messengerService.resetMessages();
   }
 
-  public changeCamera = (): void => {
+  public changeCamera(): void {
     this.logger.debug('NavigationComponent: changing camera');
     if (this.isVideo) {
       this.isVideo = false;
@@ -96,17 +96,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.logger.debug('NavigationComponent: there is no video, calling turnOnSecondCamera');
       this.turnOnSecondCamera();
     }
-  };
+  }
 
-  public toggleAudio = (): void => {
+  public toggleAudio(): void {
     this.isAudio ? this.stopAudio() : this.startAudio();
-  };
+  }
 
-  public toggleVideo = (): void => {
+  public toggleVideo(): void {
     this.isVideo ? this.stopVideo() : this.startVideo();
-  };
+  }
 
-  public stopVideo = (): void => {
+  public stopVideo(): void {
     if (this.isVideo) {
       this.logger.debug('NavigationComponent: Stopping video');
       this.isVideo = false;
@@ -115,9 +115,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.logger.error('NavigationComponent: Can not stop the video - video is already stopped');
     }
-  };
+  }
 
-  public startVideo = (): void => {
+  public startVideo(): void {
     if (!this.isVideo) {
       this.logger.debug('NavigationComponent: Starting video');
       this.isVideo = true;
@@ -126,40 +126,40 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.logger.error('NavigationComponent: Can not start the video - video is already started');
     }
-  };
+  }
 
-  public toggleOptions = (_elem: Element): void => {
+  public toggleOptions(_elem: Element): void {
     this.areOptions = !this.areOptions;
-  };
+  }
 
-  public toggleMessenger = (_elem: Element): void => {
+  public toggleMessenger(_elem: Element): void {
     if (this.isConnected) {
       this.isMessenger = !this.isMessenger;
       this.isMessengerChange.emit(this.isMessenger);
     }
-  };
+  }
 
-  private onUserInactivity = (navigationServiceState: NavigationServiceState): void => {
+  private onUserInactivity(navigationServiceState: NavigationServiceState): void {
     if (navigationServiceState === NavigationServiceState.INACTIVE) {
       this.isUserInactive = true;
     } else if (navigationServiceState === NavigationServiceState.ACTIVE) {
       this.isUserInactive = false;
     }
-  };
+  }
 
-  private registerCall = (call: CurrentClientCall | CurrentExpertCall): void => {
+  private registerCall(call: CurrentClientCall | CurrentExpertCall): void {
     this.currentCall = call;
     this.isClientCall(call)
       ? call.answered$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => (this.isConnected = true))
       : (this.isConnected = true);
-    call.callDestroyed$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.messengerService.resetMessages);
-  };
+    call.callDestroyed$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => this.messengerService.resetMessages());
+  }
 
   private isClientCall(call: CurrentClientCall | CurrentExpertCall): call is CurrentClientCall {
     return 'answered$' in call;
   }
 
-  private turnOnSecondCamera = (): void => {
+  private turnOnSecondCamera(): void {
     if (!this.isVideo) {
       this.logger.debug('NavigationComponent: Video is off, turning on the second camera');
       this.isVideo = true;
@@ -178,9 +178,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.logger.error('NavigationComponent: Can not turn on second camera - video is already started');
     }
-  };
+  }
 
-  private startAudio = (): void => {
+  private startAudio(): void {
     if (!this.isAudio) {
       this.logger.debug('NavigationComponent: Starting audio');
       this.isAudio = true;
@@ -188,9 +188,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.logger.error('NavigationComponent: Can not start the audio - audio is already started');
     }
-  };
+  }
 
-  private stopAudio = (): void => {
+  private stopAudio(): void {
     if (this.isAudio) {
       this.isAudio = false;
       this.currentCall.mute();
@@ -198,5 +198,5 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.logger.error('NavigationComponent: Can not stop the audio - audio is already stopped');
     }
-  };
+  }
 }

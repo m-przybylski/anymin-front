@@ -263,10 +263,14 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
       });
       messageRoom.typing$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => this.onTyping());
       this.messageRoom = messageRoom;
-      this.indicateTypingDebounce = throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
-        leading: true,
-        trailing: false,
-      });
+      this.indicateTypingDebounce = throttle(
+        () => this.messageRoom.indicateTyping(),
+        this.indicateTypingDebounceTimeout,
+        {
+          leading: true,
+          trailing: false,
+        },
+      );
     });
   }
 

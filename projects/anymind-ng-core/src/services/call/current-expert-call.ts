@@ -39,41 +39,47 @@ export class CurrentExpertCall extends CurrentCall {
       alertService,
     );
 
-    this.callAnsweredOnOtherDevice$.subscribe(this.handleActiveDeviceEvent);
+    this.callAnsweredOnOtherDevice$.subscribe(callEvent => this.handleActiveDeviceEvent(callEvent));
   }
 
-  public answer = (session: Session, localMediaTracks: ReadonlyArray<MediaStreamTrack>): Promise<void> => {
+  public answer(session: Session, localMediaTracks: ReadonlyArray<MediaStreamTrack>): Promise<void> {
     this.setLocalMediaTracks(localMediaTracks);
 
     return this.ratelCall
       .answer(localMediaTracks)
-      .then(this.handleCallAnswer)
+      .then(() => this.handleCallAnswer())
       .then(() => this.ratelService.postRatelCreateRoomRoute(this.getSueId()).toPromise())
       .then(room => session.machoke.getRoom(room.id))
       .then(businessRoom => this.joinRoom(businessRoom as BusinessRoom));
-  };
+  }
 
-  public reject = (): Promise<void> => this.ratelCall.reject(CallReason.CallRejected).then(this.handleCallReject);
+  public reject(): Promise<void> {
+    return this.ratelCall.reject(CallReason.CallRejected).then(() => this.handleCallReject());
+  }
 
   public get callAnsweredOnOtherDevice$(): Observable<callEvents.CallHandledOnDevice> {
     return this.ratelCall.activeDevice$.pipe(takeUntil(this.callDestroyed$));
   }
 
-  public getServiceName = (): string => this.expertSueCallDetails.serviceName;
+  public getServiceName(): string {
+    return this.expertSueCallDetails.serviceName;
+  }
 
-  public getExpertSueDetails = (): GetExpertSueDetails => this.expertSueCallDetails;
+  public getExpertSueDetails(): GetExpertSueDetails {
+    return this.expertSueCallDetails;
+  }
 
-  private handleCallAnswer = (): void => {
+  private handleCallAnswer(): void {
     this.setState(CallState.PENDING);
     this.startTimer();
-  };
+  }
 
-  private handleCallReject = (): void => {
+  private handleCallReject(): void {
     this.setState(CallState.REJECTED);
-  };
+  }
 
-  private handleActiveDeviceEvent = (activeDevice: callEvents.CallHandledOnDevice): void => {
+  private handleActiveDeviceEvent(activeDevice: callEvents.CallHandledOnDevice): void {
     this.logger.debug('CurrentCall: received onActiveDevice, call was answered on other device', activeDevice);
     this.setState(CallState.PENDING_ON_OTHER_DEVICE);
-  };
+  }
 }
