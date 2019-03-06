@@ -1,7 +1,7 @@
 @import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 
 .search-container
-  background-color: $c-element-background
+  background: $c-element-background
   width: 100%
   height: 48px
   border-radius: 4px
@@ -9,28 +9,29 @@
   align-items: center
   justify-content: space-between
   position: relative
-
   transition: box-shadow 0.1s ease
-
+  
   input
     width: 100%
     height: 100%
     background-color: transparent
     padding: 0 0 0 16px
-
     font-size: $f-paragraph-small
     color: $c-text-primary
 
   &--focused
-    box-shadow: 0 2px 8px 0 $c-lines
-    outline: solid 1px $c-lines
+    background: $c-white
+    box-shadow: 0 2px 8px 0 $c-lines, inset 0 0 0 1px $c-lines
+  
+  &--list-visible
+    border-radius: 4px 4px 0 0
+    
   .icon
     margin: 0 16px 0 0
-
 
   plat-dropdown
     position: absolute
     left: 0
-    top: 100%
+    top: calc(100% - 1px)
     width: 100%
 

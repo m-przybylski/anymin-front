@@ -1,6 +1,12 @@
 .navbar
-  .navbar__left-container((click)="navigateUserToActivitiesList()")
-    .navbar__logo
+  .navbar__left-container
+    .navbar__logo((click)="navigateUserToActivitiesList()")
+    .navbar__search
+      plat-input-search(
+      [placeholder]="'Szukaj konsultacji lub konsultantów...'",
+      [inputFormControl]="inputFormControl"
+      )
+
   .navbar__right-container
     .navbar__navigation-menu
 
