@@ -85,7 +85,7 @@ describe('CreateOrganizationComponentService', () => {
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-a|', { a: getInvoiceDetails }));
       const result = {
         getInvoiceDetails,
-        countryIso: 'pl',
+        countryIso: 'PL',
         hasConsultations: false,
       };
       const expected = cold('--(a|)', { a: result });
@@ -101,7 +101,7 @@ describe('CreateOrganizationComponentService', () => {
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-#', {}, fakeError));
       const result = {
         getInvoiceDetails: undefined,
-        countryIso: 'pl',
+        countryIso: 'PL',
         hasConsultations: false,
       };
       const expected = cold('--(a|)', { a: result });

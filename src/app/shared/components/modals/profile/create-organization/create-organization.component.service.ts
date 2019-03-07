@@ -76,7 +76,7 @@ export class CreateOrganizationComponentService {
         ).pipe(
           map(([getInvoiceDetails, expertGetServices, organizationGetServices]) => ({
             getInvoiceDetails,
-            countryIso: getSessionWithAccount.account.language,
+            countryIso: getSessionWithAccount.account.language.toUpperCase(),
             hasConsultations: expertGetServices.length + organizationGetServices.length > 0,
           })),
           this.handleResponseError('Not able to get services'),
