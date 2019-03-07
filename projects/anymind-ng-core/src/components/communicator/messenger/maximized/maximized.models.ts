@@ -34,7 +34,6 @@ export interface ILocalMessage {
   resendMessage(): void;
 }
 
-// tslint:disable:no-unbound-method
 // tslint:disable:strict-type-predicates
 // tslint:disable:only-arrow-functions
 export function isLocalMessage(message: roomEvents.CustomMessageSent | ILocalMessage): message is ILocalMessage {

@@ -2,7 +2,7 @@
   .navigation__gradient
   .navigation__container([ngClass]="{'navigation__container--hideable': isUserInactive}")
     span
-    am-core-navigation-description([newCallEvent]="newCallEvent", [hangupCall]="hangupCall")
+    am-core-navigation-description([newCallEvent]="newCallEvent",(hangupCall)="onHangupCall()")
     nav
       ul.navigation__list.navigation__list--bottom
         li((click)="toggleVideo()")

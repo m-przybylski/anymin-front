@@ -117,7 +117,7 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
     this.navigationComponent.changeCamera();
   }
 
-  public hangupCall(): void {
+  public onHangupCall(): void {
     this.loggerService.debug('Hanging up the call');
     if (this.currentCall) {
       this.currentCall.hangup(CallReason.Hangup).then(

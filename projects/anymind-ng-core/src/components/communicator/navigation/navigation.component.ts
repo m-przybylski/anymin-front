@@ -22,13 +22,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public isVideo: boolean;
 
   @Output()
-  public isVideoChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public isVideoChange = new EventEmitter<boolean>();
+
+  @Output()
+  public hangupCall = new EventEmitter<void>();
+
+  @Output()
+  public isMessengerChange = new EventEmitter<boolean>();
 
   @Input()
   public isMessenger: boolean;
-
-  @Output()
-  public isMessengerChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input()
   public minimizeCommunicator: () => void;
@@ -38,9 +41,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   @Input()
   public newCallEvent: Subject<CurrentClientCall | CurrentExpertCall>;
-
-  @Input()
-  public hangupCall: () => void;
 
   public isUserInactive = false;
 
@@ -83,6 +83,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
     this.messengerService.resetMessages();
+  }
+
+  public onHangupCall(): void {
+    this.hangupCall.emit();
   }
 
   public changeCamera(): void {

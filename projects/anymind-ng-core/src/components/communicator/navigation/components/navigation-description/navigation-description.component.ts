@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MoneyDto } from '@anymind-ng/api';
@@ -18,8 +18,8 @@ export class NavigationDescriptionComponent implements OnInit, OnDestroy {
   @Input()
   public newCallEvent: Subject<CurrentClientCall | CurrentExpertCall>;
 
-  @Input()
-  public hangupCall: () => void;
+  @Output()
+  public hangupCall = new EventEmitter<void>();
 
   private ngUnsubscribe$ = new Subject<void>();
 
@@ -30,6 +30,10 @@ export class NavigationDescriptionComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  public onHangupCall(): void {
+    this.hangupCall.emit();
   }
 
   private onNewCall(call: CurrentClientCall | CurrentExpertCall): void {
