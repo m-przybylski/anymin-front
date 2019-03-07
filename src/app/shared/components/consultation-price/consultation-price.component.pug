@@ -8,11 +8,11 @@
       [isDisabled]="isDisabled",
       [isInputMedium]="true",
       [isZeroValueAllowed]="true",
-      [onInputChange]="onInputPriceChange",
       [minValidValue]="minValidPrice",
       [maxValidValue]="maxValidPrice",
       [minValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_LOW'",
-      [maxValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_MUCH'"
+      [maxValueErrorTrKey]="'CREATE_EXPERT_CONSULTATION.PRICE_SECTION.PRICE_ERROR_TO_MUCH'",
+      (inputChange)="onInputPriceChange($event)"
     )
 
     .currency

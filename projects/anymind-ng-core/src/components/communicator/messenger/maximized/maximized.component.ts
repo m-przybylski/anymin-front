@@ -1,4 +1,14 @@
-import { Input, ElementRef, Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
+import {
+  Input,
+  ElementRef,
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  ViewEncapsulation,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { throttle } from 'lodash';
 // tslint:disable:readonly-array
 import {
@@ -50,8 +60,8 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
     }, MessengerMaximizedComponent.animationTimeout);
   }
 
-  @Input()
-  public minimizeMessenger: () => void;
+  @Output()
+  public minimizeMessenger = new EventEmitter<void>();
 
   @Input()
   public newCallEvent: Observable<CurrentClientCall>;
@@ -117,6 +127,10 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
         },
       },
     ];
+  }
+
+  public onMinimizeMessenger(): void {
+    this.minimizeMessenger.emit();
   }
 
   public onUploadFiles(file: File): void {

@@ -19,7 +19,7 @@
 
     .communicator__navigation
       am-core-communicator-nav(#navigation, [(isVideo)]="isLocalVideo", [(isMessenger)]="isMessenger",
-      [minimizeCommunicator]="minimizeCommunicator", [isMobile]="isMobile", [newCallEvent]="newCallEvent",
+      [isMobile]="isMobile", [newCallEvent]="newCallEvent",
       (hangupCall)="onHangupCall()")
 
       .communicator__navigation__messenger

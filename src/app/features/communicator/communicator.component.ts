@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GetProfile, GetService } from '@anymind-ng/api';
 import {
   AvatarSize,
@@ -39,9 +39,6 @@ export class CommunicatorComponent extends Logger implements OnInit, OnDestroy {
   public isMessenger = false;
   public serviceName: string;
   public expertAvatar: string;
-
-  @Input()
-  public minimizeCommunicator: () => void;
 
   @ViewChild('localVideoStreamElement')
   public localVideoStreamElement: ElementRef;

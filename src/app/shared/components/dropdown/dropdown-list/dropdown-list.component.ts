@@ -1,4 +1,13 @@
-import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  Input,
+  IterableDiffer,
+  IterableDiffers,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { ScrollToElementDirective } from './scroll-to-element.directive';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { IDropdownComponent } from '../dropdown.component';
@@ -16,8 +25,8 @@ export class DropdownListComponent implements DoCheck {
   @Input()
   public dropdownItems: ReadonlyArray<IDropdownComponent>;
 
-  @Input()
-  public onSelectItem: (item: IDropdownComponent) => void;
+  @Output()
+  public selectItem = new EventEmitter<IDropdownComponent>();
 
   @ViewChild(ScrollToElementDirective)
   public scrollContent: ScrollToElementDirective;
@@ -35,16 +44,16 @@ export class DropdownListComponent implements DoCheck {
     }
   }
 
-  public selectItem(): void {
+  public onSelectItem(): void {
     if (this.selectedItemIndex !== -1) {
-      this.onSelectItem(this.selectedItemElement);
+      this.selectItem.emit(this.selectedItemElement);
     }
     this.selectedItemIndex = -1;
   }
 
   public onItemClicked(index: number): void {
     this.findItemInList(index);
-    this.selectItem();
+    this.onSelectItem();
   }
 
   public onMouseSelect(index: number): void {
@@ -53,7 +62,7 @@ export class DropdownListComponent implements DoCheck {
   }
 
   public onSelectEnter(): void {
-    this.selectItem();
+    this.onSelectItem();
   }
 
   public onKeyUp(): void {

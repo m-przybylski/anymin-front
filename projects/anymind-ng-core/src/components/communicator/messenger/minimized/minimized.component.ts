@@ -1,4 +1,4 @@
-import { Input, Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Input, Component, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { trigger, animate, keyframes, style, transition } from '@angular/animations';
 import { roomEvents } from 'machoke-sdk';
 
@@ -41,8 +41,8 @@ import { LoggerService } from '../../../../services/logger.service';
 export class MessengerMinimizedComponent implements OnInit, OnDestroy {
   private static readonly animationTimeout = 300;
 
-  @Input()
-  public onMessageClick: (msg: roomEvents.CustomMessageSent) => void;
+  @Output()
+  public messageClick = new EventEmitter<roomEvents.CustomMessageSent>();
   @Input()
   public newCallEvent: Observable<CurrentClientCall>;
   public messages: ReadonlyArray<roomEvents.CustomMessageSent> = [];
@@ -59,6 +59,10 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  public onMessageClick(msg: roomEvents.CustomMessageSent): void {
+    this.messageClick.next(msg);
   }
 
   public isImage(msg: roomEvents.CustomMessageSent): boolean {

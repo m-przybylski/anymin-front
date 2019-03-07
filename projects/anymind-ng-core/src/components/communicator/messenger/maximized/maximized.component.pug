@@ -2,7 +2,7 @@
 [ngClass]="{'messenger-maximized-on': isMessengerValue, 'messenger-maximized--before-animation': beforeAnimation}")
 
   .messenger-maximized__header.mobile-visible
-    div.messenger-maximized__header__back-button((click)="minimizeMessenger()")
+    div.messenger-maximized__header__back-button((click)="onMinimizeMessenger()")
       span.icon.icon-22.icon-backward
     span {{ 'FEATURE.COMMUNICATOR.MESSENGER.CHAT_WITH' | translate }} {{ participantName | translate }}
     span

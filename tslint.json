@@ -3,6 +3,7 @@
   "rulesDirectory": ["tools/tslint"],
   "rules": {
     "arrow-function-class-prop": true,
+    "no-function-as-input": true,
     "rxjs-imports": true,
     "typedef": [true, "call-signature", "arrow-call-signature"],
     "class-name": true,

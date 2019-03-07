@@ -1,5 +1,5 @@
 // tslint:disable:readonly-array
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormUtilsService, Config } from '@anymind-ng/core';
 
@@ -48,8 +48,8 @@ export class InputTagsComponent implements OnInit {
   @Input()
   public isDisabled = false;
 
-  @Input()
-  public onAddTagCallback: (inputValue: string) => void;
+  @Output()
+  public addTag = new EventEmitter<string>();
 
   @Input()
   public currentTagsCount: number;
@@ -61,6 +61,10 @@ export class InputTagsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', this.getValidators()));
+  }
+
+  public onAddTag(inputValue: string): void {
+    this.addTag.emit(inputValue);
   }
 
   public isFieldInvalid(): boolean {
@@ -100,9 +104,9 @@ export class InputTagsComponent implements OnInit {
     if (!this.isDisabled) {
       const tag = input.value.trim();
       if (tag.indexOf(',') > -1 || tag.indexOf(';') > -1) {
-        this.onAddTagCallback(tag.slice(0, -1));
+        this.onAddTag(tag.slice(0, -1));
       } else {
-        this.onAddTagCallback(tag);
+        this.onAddTag(tag);
       }
       this.clearInputValue(input);
     }

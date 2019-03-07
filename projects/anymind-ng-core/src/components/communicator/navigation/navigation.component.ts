@@ -34,9 +34,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public isMessenger: boolean;
 
   @Input()
-  public minimizeCommunicator: () => void;
-
-  @Input()
   public isMobile: boolean;
 
   @Input()

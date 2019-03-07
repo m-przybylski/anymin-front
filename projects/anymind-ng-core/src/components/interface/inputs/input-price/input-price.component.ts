@@ -1,6 +1,6 @@
 // tslint:disable:readonly-array
 // tslint:disable:no-null-keyword
-import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Config } from '../../../../config';
 import { COMPONENTS_CONFIG } from '../../../../shared/injection-tokens/injection-tokens';
@@ -41,8 +41,8 @@ export class InputPriceComponent implements OnInit {
   @Input()
   public isInputMedium = false;
 
-  @Input()
-  public onInputChange?: (value: number) => void;
+  @Output()
+  public inputChange = new EventEmitter<number>();
 
   @Input()
   public minValidValue?: number;
@@ -99,9 +99,11 @@ export class InputPriceComponent implements OnInit {
 
   public onKeyUp(inputValue: string): void {
     const value = Number(inputValue.replace(',', '.'));
-    if (typeof this.onInputChange === 'function') {
-      this.onInputChange(value);
-    }
+    this.onInputChange(value);
+  }
+
+  public onInputChange(value: number): void {
+    this.inputChange.emit(value);
   }
 
   public onKeyDown(event: KeyboardEvent): void {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter } from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { GetComment, GetReport } from '@anymind-ng/api';
 import { AnimationEvent } from '@angular/animations';
@@ -24,7 +24,7 @@ export class ConsultationCommentItemComponent implements OnInit {
   public isCommentOptionVisible = false;
 
   @Input()
-  public toggleAnswerField: (answerType: ConsultationCommentTypeAnswer) => void;
+  public toggleAnswerField = new EventEmitter<ConsultationCommentTypeAnswer>();
 
   @Input()
   public set commentDetails(value: GetComment | undefined) {
@@ -81,6 +81,10 @@ export class ConsultationCommentItemComponent implements OnInit {
       });
   }
 
+  public onToggleAnswerField(answerType: ConsultationCommentTypeAnswer): void {
+    this.toggleAnswerField.emit(answerType);
+  }
+
   public toggleDropdown(isVisible: boolean): void {
     isVisible ? (this.dropdownVisibility = 'visible') : (this.dropdownVisibility = 'hidden');
   }
@@ -88,11 +92,11 @@ export class ConsultationCommentItemComponent implements OnInit {
   public onDropdownChoose(type: ConsultationCommentTypeAnswer): void {
     switch (type) {
       case ConsultationCommentTypeAnswer.REASON_REPORT:
-        this.toggleAnswerField(ConsultationCommentTypeAnswer.REASON_REPORT);
+        this.onToggleAnswerField(ConsultationCommentTypeAnswer.REASON_REPORT);
         break;
 
       case ConsultationCommentTypeAnswer.ANSWER:
-        this.toggleAnswerField(ConsultationCommentTypeAnswer.ANSWER);
+        this.onToggleAnswerField(ConsultationCommentTypeAnswer.ANSWER);
         break;
 
       default:
