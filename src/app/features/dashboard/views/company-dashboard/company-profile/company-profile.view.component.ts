@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { filter, take, takeUntil } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
 import {
@@ -17,6 +17,9 @@ import { EditOrganizationModalComponent } from '@platform/shared/components/moda
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CompanyProfilePageActions } from './actions';
 import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
+import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.component';
+import { IOpenCompanyConsultationModal } from '@platform/features/dashboard/components/consultation-company-row/consultation-company-row.component';
+
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
@@ -32,29 +35,37 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
   ) {
     super(injector);
   }
+
   public getAvatarToken(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
     return data.profile.organization.organizationProfile.avatar;
   }
+
   public getOrganizationId(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
     return data.profile.organization.organizationProfile.id;
   }
+
   public getName(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
     return data.profile.organization.organizationProfile.name;
   }
+
   public getDescription(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
     return data.profile.organization.organizationProfile.description;
   }
+
   public getOrganizationDocuments(
     data: IExpertCompanyDashboardResolverData<IOrganizationProfile>,
   ): ReadonlyArray<ProfileDocument> {
     return data.profile.organization.organizationProfile.documents;
   }
+
   public getIsOwnProfile(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): boolean {
     return data.isOwnProfile;
   }
+
   public getIsLogged(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): boolean {
     return data.isLogged;
   }
+
   public getLinks(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): ReadonlyArray<string> | undefined {
     return data.profile.profile.profile.links;
   }
@@ -68,6 +79,18 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
       const profileId = paramMap.get(RouterPaths.dashboard.company.profile.params.profileId) || '';
       this.store.dispatch(new CompanyProfilePageActions.LoadProfileAction(profileId));
     });
+
+    this.data$
+      .pipe(
+        filter(data => data !== undefined),
+        take(1),
+      )
+      .subscribe((data: IExpertCompanyDashboardResolverData<IOrganizationProfile>) => {
+        const serviceId = this.route.snapshot.queryParamMap.get('serviceId');
+        if (serviceId) {
+          this.openConsultationDetail({ serviceId, isOwnProfile: data.isOwnProfile });
+        }
+      });
   }
 
   /**
@@ -109,5 +132,12 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
         }
       },
     );
+  }
+
+  public openConsultationDetail(event: IOpenCompanyConsultationModal): void {
+    const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
+    modal.componentInstance.consultationId = event.serviceId;
+    modal.componentInstance.isOwnProfile = event.isOwnProfile;
+    this.openConsultationDetailSideEffect(event.serviceId);
   }
 }

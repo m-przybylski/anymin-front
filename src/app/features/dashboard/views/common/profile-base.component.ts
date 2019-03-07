@@ -6,12 +6,17 @@ import { ICreateEditConsultationPayload } from '@platform/shared/components/moda
 import { FILE_PREVIEW_PAYLOAD } from '@platform/shared/components/modals/file-preview/file-preview';
 import { IFilePreviewPayload } from '@platform/shared/components/modals/file-preview/file-preview.service';
 import { FilePreviewComponent } from '@platform/shared/components/modals/file-preview/file-preview.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export type DialogPayload = ICreateEditConsultationPayload | IFilePreviewPayload;
+
 export class ProfileBaseComponent implements OnDestroy {
   protected readonly destroyed$ = new Subject<void>();
-  private modalService: NgbModal = this.injector.get(NgbModal);
+  protected router: Router = this.injector.get(Router);
+  protected route: ActivatedRoute = this.injector.get(ActivatedRoute);
+  protected modalService: NgbModal = this.injector.get(NgbModal);
   private modalRefs: ReadonlyArray<NgbModalRef> = [];
+
   constructor(protected injector: Injector) {}
 
   public ngOnDestroy(): void {
@@ -52,6 +57,11 @@ export class ProfileBaseComponent implements OnDestroy {
       parent: this.injector,
     });
   }
+
+  protected openConsultationDetailSideEffect(serviceId: string): void {
+    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { serviceId } });
+  }
+
   /**
    * Keep track of opened modals so it can be closed when main component
    * is destroyed for example by navigating to different route.

@@ -20,7 +20,7 @@ import { ICreateEditConsultationPayload } from '@platform/shared/components/moda
 import { ServiceWithOwnerProfile } from '@anymind-ng/api/model/serviceWithOwnerProfile';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Logger } from '@platform/core/logger';
-import { LoggerFactory } from '@anymind-ng/core';
+import { LoggerFactory, SeoService } from '@anymind-ng/core';
 
 @Component({
   selector: 'plat-consultation-details-view',
@@ -74,6 +74,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
 
   constructor(
     private store: Store<fromCore.IState>,
+    private seoService: SeoService,
     private consultationDetailsViewService: ConsultationDetailsViewService,
     private consultationDetailsActionsService: ConsultationDetailsActionsService,
     private modalAnimationComponentService: ModalAnimationComponentService,
@@ -112,6 +113,10 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
         this.accountId = getSession.account.id;
         this.isOwner = this.expertId === this.accountId;
       }
+      this.seoService.updateTags({
+        title: getServiceDetails.getServiceWithEmployees.serviceDetails.name,
+        description: getServiceDetails.getServiceWithEmployees.serviceDetails.description,
+      });
       this.tagList = tags;
       this.assignExpertConsultationDetails(getServiceDetails);
       this.assignEditConsultationPayload(getServiceDetails);

@@ -1,7 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { MoneyDto, ServiceWithEmployments } from '@anymind-ng/api';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.component';
+
+export interface IOpenCompanyConsultationModal {
+  serviceId: string;
+  isOwnProfile: boolean;
+}
 
 @Component({
   selector: 'plat-consultation-company-row',
@@ -16,7 +19,8 @@ export class ConsultationCompanyRowComponent {
   @Input()
   public isOwnProfile = false;
 
-  constructor(private modalService: NgbModal) {}
+  @Output()
+  public openConsultationDetails = new EventEmitter<IOpenCompanyConsultationModal>();
 
   public get header(): string {
     return this.consultation.service.name;
@@ -25,17 +29,16 @@ export class ConsultationCompanyRowComponent {
   public get price(): MoneyDto {
     return this.consultation.service.price;
   }
+
   public get expertAvatarTokenList(): ReadonlyArray<string> {
     return this.consultation.employments.map(employment => employment.employeeProfile.avatar);
   }
 
   public openConsultationModal(): void {
-    const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
-    modal.componentInstance.consultationId = this.consultationId;
-    modal.componentInstance.isOwnProfile = this.isOwnProfile;
+    this.openConsultationDetails.emit({ serviceId: this.serviceId, isOwnProfile: this.isOwnProfile });
   }
 
-  private get consultationId(): string {
+  private get serviceId(): string {
     return this.consultation.service.id;
   }
 }

@@ -18,6 +18,7 @@ ng-container(*ngIf="data$ | async as data; else loading")
     plat-company-profile-consultations(
       [consultations]='consultations$ | async',
       [isOwnProfile]='getIsOwnProfile(data)',
+      (openConsultationDetails) = 'openConsultationDetail($event)',
       (addConsultation)='addConsultation(getProfileId(data))'
     )
 

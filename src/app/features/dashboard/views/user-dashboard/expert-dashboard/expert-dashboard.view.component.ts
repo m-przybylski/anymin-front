@@ -1,8 +1,7 @@
 import { Component, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
-import { EmploymentWithService, ProfileDocument } from '@anymind-ng/api';
-import { takeUntil, map, filter } from 'rxjs/operators';
+import { EmploymentWithService, ProfileDocument, ProfileWithDocuments } from '@anymind-ng/api';
+import { takeUntil, map, filter, take } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
 import { ConsultationDetailsModalComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
@@ -36,7 +35,6 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   public data$ = this.store.pipe(select(fromExpertDashboard.getProfileData));
 
   constructor(
-    protected route: ActivatedRoute,
     protected injector: Injector,
     private expertDashboardService: ExpertDashboardService,
     private seoService: SeoService,
@@ -102,16 +100,19 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
       this.store.dispatch(new ExpertDashboardActions.LoadExpertDashboardAction(expertId));
     });
 
-    this.data$.pipe(takeUntil(this.destroyed$)).subscribe(data => {
-      if (data) {
-        const profile = data.profile.expertProfileView.expertProfile;
-        this.seoService.updateTags({
-          title: `${profile.name}${this.translate.instant('META.EXPERT_NAME_POSTFIX')}`,
-          image: `/assets/images/meta/expert-ogimage.${this.translate.currentLang}.png`,
-          description: profile.description,
-        });
-      }
-    });
+    this.data$
+      .pipe(
+        filter(data => data !== undefined),
+        take(1),
+      )
+      .subscribe((data: IExpertCompanyDashboardResolverData<IExpertProfile>) => {
+        this.setSeoTags(data.profile.expertProfileView.expertProfile);
+
+        const serviceId = this.route.snapshot.queryParamMap.get('serviceId');
+        if (serviceId) {
+          this.openConsultationDetail(serviceId, this.getExpertId(data), this.getExpertAccountId(data));
+        }
+      });
   }
 
   public ngOnDestroy(): void {
@@ -173,5 +174,23 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
     modalRef.componentInstance.expertAccountId = expertAccountId;
     modalRef.componentInstance.serviceId = serviceId;
     modalRef.componentInstance.userType = UserTypeEnum.EXPERT;
+    modalRef.result.then(this.onConsultationDetailsClose.bind(this), this.onConsultationDetailsClose.bind(this));
+    this.openConsultationDetailSideEffect(serviceId);
+  }
+
+  private onConsultationDetailsClose(): void {
+    this.data$.pipe(take(1)).subscribe(data => {
+      if (data) {
+        this.setSeoTags(data.profile.expertProfileView.expertProfile);
+      }
+    });
+  }
+
+  private setSeoTags(profile: ProfileWithDocuments): void {
+    this.seoService.updateTags({
+      title: `${profile.name}${this.translate.instant('META.EXPERT_NAME_POSTFIX')}`,
+      image: `/assets/images/meta/expert-ogimage.${this.translate.currentLang}.png`,
+      description: profile.description,
+    });
   }
 }

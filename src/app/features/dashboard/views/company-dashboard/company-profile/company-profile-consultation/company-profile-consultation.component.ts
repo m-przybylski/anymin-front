@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EmploymentWithService } from '@anymind-ng/api';
+import { IOpenCompanyConsultationModal } from '@platform/features/dashboard/components/consultation-company-row/consultation-company-row.component';
 
 @Component({
   selector: 'plat-company-profile-consultations',
@@ -15,7 +16,14 @@ export class CompanyProfileConsultationsComponent {
   @Output()
   public addConsultation = new EventEmitter<void>();
 
+  @Output()
+  public openConsultationDetails = new EventEmitter<IOpenCompanyConsultationModal>();
+
   public add(): void {
     this.addConsultation.emit();
+  }
+
+  public openConsultationDetail(event: IOpenCompanyConsultationModal): void {
+    this.openConsultationDetails.emit(event);
   }
 }
