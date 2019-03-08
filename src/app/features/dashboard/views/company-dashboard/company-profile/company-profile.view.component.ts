@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
@@ -10,7 +10,7 @@ import {
 import { IOrganizationProfile } from './services/company-profile.service';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
-import { ProfileDocument } from '@anymind-ng/api/model/profileDocument';
+import { ProfileDocument, ProfileWithDocuments } from '@anymind-ng/api';
 import { Store, select } from '@ngrx/store';
 import * as fromCompanyDashboard from './reducers';
 import { EditOrganizationModalComponent } from '@platform/shared/components/modals/profile/edit-organization/edit-organization.component';
@@ -19,12 +19,14 @@ import { CompanyProfilePageActions } from './actions';
 import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
 import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.component';
 import { IOpenCompanyConsultationModal } from '@platform/features/dashboard/components/consultation-company-row/consultation-company-row.component';
+import { SeoService } from '@anymind-ng/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'company-profile.view.component.html',
   styleUrls: ['company-profile.view.component.sass'],
 })
-export class CompanyProfileComponent extends ProfileBaseComponent implements OnInit {
+export class CompanyProfileComponent extends ProfileBaseComponent implements OnInit, OnDestroy {
   public consultations$ = this.store.pipe(select(fromCompanyDashboard.getConsultations));
   public data$ = this.store.pipe(select(fromCompanyDashboard.getData));
 
@@ -32,6 +34,8 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     protected route: ActivatedRoute,
     protected injector: Injector,
     private store: Store<fromCompanyDashboard.IState>,
+    private seoService: SeoService,
+    private translate: TranslateService,
   ) {
     super(injector);
   }
@@ -86,11 +90,17 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
         take(1),
       )
       .subscribe((data: IExpertCompanyDashboardResolverData<IOrganizationProfile>) => {
+        this.setSeoTags(data.profile.organization.organizationProfile);
+
         const serviceId = this.route.snapshot.queryParamMap.get('serviceId');
         if (serviceId) {
           this.openConsultationDetail({ serviceId, isOwnProfile: data.isOwnProfile });
         }
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.seoService.updateTags({});
   }
 
   /**
@@ -138,6 +148,29 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
     modal.componentInstance.consultationId = event.serviceId;
     modal.componentInstance.isOwnProfile = event.isOwnProfile;
+    modal.result.then(this.onConsultationDetailsClose.bind(this), this.onConsultationDetailsClose.bind(this));
     this.openConsultationDetailSideEffect(event.serviceId);
+  }
+
+  private onConsultationDetailsClose(): void {
+    this.data$
+      .pipe(
+        filter(data => data !== undefined),
+        take(1),
+      )
+      .subscribe((data: IExpertCompanyDashboardResolverData<IOrganizationProfile>) => {
+        this.setSeoTags(data.profile.organization.organizationProfile);
+      });
+  }
+
+  private setSeoTags(profile: ProfileWithDocuments): void {
+    const prefix = this.translate.instant('META.COMPANY_NAME_PREFIX');
+    const postfix = this.translate.instant('META.COMPANY_NAME_POSTFIX');
+
+    return this.seoService.updateTags({
+      title: `${prefix}${profile.name}${postfix}`,
+      image: `/assets/images/meta/expert-ogimage.${this.translate.currentLang}.png`,
+      description: profile.description,
+    });
   }
 }

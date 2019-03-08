@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Injector, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { EmploymentWithService, ProfileDocument, ProfileWithDocuments } from '@anymind-ng/api';
 import { takeUntil, map, filter, take } from 'rxjs/operators';
@@ -29,7 +29,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./expert-dashboard.view.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExpertDashboardComponent extends ProfileBaseComponent implements OnInit {
+export class ExpertDashboardComponent extends ProfileBaseComponent implements OnInit, OnDestroy {
   public readonly avatarSize = AvatarSizeEnum.X_156;
   public isLoading$ = this.store.pipe(select(fromExpertDashboard.getIsLoading));
   public data$ = this.store.pipe(select(fromExpertDashboard.getProfileData));

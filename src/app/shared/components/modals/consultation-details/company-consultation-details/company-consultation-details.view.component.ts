@@ -9,7 +9,7 @@ import {
 import { GetServiceWithEmployees, GetSessionWithAccount } from '@anymind-ng/api';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { Animations, LoggerFactory } from '@anymind-ng/core';
+import { Animations, LoggerFactory, SeoService } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-employee-row/company-employee-row.component';
 import { ConsultationDetailsModalComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import {
@@ -89,6 +89,7 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     private store: Store<fromCore.IState>,
     private injector: Injector,
     private modalAnimationComponentService: ModalAnimationComponentService,
+    private seoService: SeoService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewComponent'));
@@ -103,6 +104,10 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
       this.companyConsultationDetailsViewService.getConsultationDetails(this.consultationId),
       // tslint:disable-next-line:cyclomatic-complexity
     ).subscribe(([{ getSession, getUserType }, getConsultationDetails]) => {
+      this.seoService.updateTags({
+        title: getConsultationDetails.serviceDetails.serviceDetails.name,
+        description: getConsultationDetails.serviceDetails.serviceDetails.description,
+      });
       this.tagList = getConsultationDetails.tagsList;
       this.consultationDetails = getConsultationDetails.serviceDetails;
       this.expertName = this.consultationDetails.serviceDetails.ownerProfile.name;
