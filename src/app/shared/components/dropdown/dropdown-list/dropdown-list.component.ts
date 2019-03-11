@@ -30,7 +30,7 @@ export class DropdownListComponent implements DoCheck, OnDestroy {
   public selectItem = new EventEmitter<IDropdownComponent>();
 
   @Output()
-  public isItemSelected = new EventEmitter<boolean>();
+  public isItemFocused = new EventEmitter<boolean>();
 
   @Input()
   public isAvatarVisible = true;
@@ -45,7 +45,7 @@ export class DropdownListComponent implements DoCheck, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.isItemSelected.emit(false);
+    this.isItemFocused.emit(false);
   }
 
   public ngDoCheck(): void {
@@ -90,7 +90,7 @@ export class DropdownListComponent implements DoCheck, OnDestroy {
 
   private findItemInList(index: number): void {
     this.selectedItemElement = this.dropdownItems[index];
-    this.isItemSelected.emit(index !== -1);
+    this.isItemFocused.emit(index !== -1);
   }
 
   private markItemAsSelected(index: number): void {

@@ -4,9 +4,10 @@ plat-navbar([isUserLoggedIn]="isUserLoggedIn")
   .search-view__header
     .search-view__tags(*ngIf="suggestedTags")
       .container.container--padding
-        plat-tags([tagList]="suggestedTags",
+        plat-tags(
+        [tagList]="suggestedTags",
         [isTagSelected]="false",
-        (onSelectTag)="onClickRecentTag($event)")
+        (selectTag)="onClickRecentTag($event)")
 
     .search-view__header(*ngIf="!suggestedTags")
       .container.container--padding
@@ -22,12 +23,12 @@ plat-navbar([isUserLoggedIn]="isUserLoggedIn")
             .header.header--small
               h5 {{ 'SEARCH.TAGS.SELECTED.TITLE' | translate }}
 
-            plat-tags([tagList]="selectedTagList", [isTagSelected]="true", (onRemoveTag)="onDeleteTag($event)")
+            plat-tags([tagList]="selectedTagList", [isTagSelected]="true", (removeTag)="onDeleteTag($event)")
 
           .search-view-filter.search-view-filter--visibility
             plat-input-switch(
               [formControl]="visibilityExpertsControl",
-              [label]="'Wyświetl tylko dostępnych konsultantów'")
+              [label]="'SEARCH.SWITCHER.LABEL'")
 
     .search-view__content
       .container
@@ -35,5 +36,3 @@ plat-navbar([isUserLoggedIn]="isUserLoggedIn")
           li(*ngFor="let searchItem of searchList")
             plat-search-consultation-item([item]="searchItem")
 
-
-      h1(*ngIf="searchList.length === 0") Nie ma wynikow

@@ -15,11 +15,9 @@ form.search-container(
 
   plat-dropdown(
   [isAvatarVisible]="false",
-  [form]="searchFormGroupName",
-  [controlName]="searchControlName",
   [isDropdownListVisible]="isDropdownDisplayed",
   [dropdownItems]="suggestedSearchResults",
-  (onSelectItemEmiter)="onSelectItem($event)",
+  (selectItemEmiter)="onSelectItem($event)",
   [isDropdownListOnly]="true",
-  (isListItemSelected)="isListItemSelected($event)",
+  (isListItemFocused)="onListItemSelected($event)",
   )

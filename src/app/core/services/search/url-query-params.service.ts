@@ -1,58 +1,41 @@
 import { Injectable } from '@angular/core';
 import { RouterPaths } from '@platform/shared/routes/routes';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface IURLQueryParams {
   tags: ReadonlyArray<string>;
   query: string;
-  visibleConsultations: boolean | undefined;
+  showOnlyAvailable: boolean | undefined;
 }
 
 @Injectable()
 export class URLQueryParamsService {
-  private currentQueryParams$ = new Subject<IURLQueryParams>();
-  private queryParams: IURLQueryParams = {
-    tags: [],
-    query: '',
-    visibleConsultations: undefined,
-  };
-
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  public get queryParamsChange(): Observable<IURLQueryParams> {
-    return this.currentQueryParams$.asObservable();
-  }
-
-  public getUrlQueryParams(): Observable<IURLQueryParams> {
+  public getUrlQueryParams(): Observable<Params> {
     return this.route.queryParams.pipe(
-      map(res => ({
-        tags: this.deleteMultipleArrayValues(this.parseTagsQueryParams(res.tags)),
-        query: typeof res.query !== 'undefined' && res.query.length > 0 ? res.query : '',
-        visibleConsultations: res.visibleConsultations,
+      map(queryParams => ({
+        tags: this.getUniqueArrayValues(this.parseTagsQueryParams(queryParams.tags)),
+        query: typeof queryParams.query !== 'undefined' && queryParams.query.length > 0 ? queryParams.query : '',
+        showOnlyAvailable: !queryParams.showOnlyAvailable ? undefined : true,
       })),
     );
   }
 
   public updateAddressUrl(queryParams: IURLQueryParams): void {
-    const flatQueryParamsTags = queryParams.tags ? queryParams.tags.join() : '';
+    const flatQueryParamsTags = queryParams.tags[0] ? queryParams.tags.join() : '';
 
     this.router.navigate([RouterPaths.search.asPath], {
+      relativeTo: this.route,
       queryParams: {
-        query: this.isQueryExist(queryParams.query),
-        tags: this.isQueryExist(flatQueryParamsTags),
-        visibleConsultations: !queryParams.visibleConsultations ? undefined : true,
+        tags: this.getQueryParam(flatQueryParamsTags),
+        query: this.getQueryParam(queryParams.query),
+        showOnlyAvailable: !queryParams.showOnlyAvailable ? undefined : true,
       },
+      queryParamsHandling: 'merge',
     });
-
-    this.queryParams = {
-      query: queryParams.query,
-      tags: queryParams.tags,
-      visibleConsultations: !queryParams.visibleConsultations ? undefined : true,
-    };
-
-    this.currentQueryParams$.next(this.queryParams);
   }
 
   public updateQueryParam(queryParam: string): void {
@@ -60,12 +43,9 @@ export class URLQueryParamsService {
       queryParams: { query: queryParam },
       queryParamsHandling: 'merge',
     });
-
-    this.queryParams.query = queryParam;
-    this.currentQueryParams$.next(this.queryParams);
   }
 
-  private isQueryExist(queryParams: string): string | undefined {
+  private getQueryParam(queryParams: string): string | undefined {
     return queryParams.length === 0 ? undefined : queryParams;
   }
 
@@ -77,7 +57,7 @@ export class URLQueryParamsService {
     }
   }
 
-  private deleteMultipleArrayValues(array: ReadonlyArray<string>): ReadonlyArray<string> {
-    return array[0] ? Object.keys(Object.assign({}, ...array.map(a => ({ [a]: true })))) : [];
+  private getUniqueArrayValues(array: ReadonlyArray<string>): ReadonlyArray<string> {
+    return Array.from(new Set(array));
   }
 }

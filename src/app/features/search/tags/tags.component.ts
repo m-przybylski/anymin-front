@@ -9,10 +9,10 @@ import { Animations } from '@platform/shared/animations/animations';
 })
 export class TagsComponent {
   @Output()
-  public onSelectTag = new EventEmitter<string>();
+  public selectTag = new EventEmitter<string>();
 
   @Output()
-  public onRemoveTag = new EventEmitter<string>();
+  public removeTag = new EventEmitter<string>();
 
   @Input()
   public isTagSelected = false;
@@ -22,10 +22,10 @@ export class TagsComponent {
 
   public removeSelectedTag(tag: string): void {
     this.tagList = this.tagList.filter(item => item !== tag);
-    this.onRemoveTag.emit(tag);
+    this.removeTag.emit(tag);
   }
 
   public onClickTag(tag: string): void {
-    this.onSelectTag.emit(tag);
+    this.selectTag.emit(tag);
   }
 }

@@ -19,10 +19,10 @@ export class DropdownComponent implements OnInit {
   public placeholderTrKey: string;
 
   @Input()
-  public controlName: string;
+  public controlName = 'controlName';
 
   @Input()
-  public form: FormGroup;
+  public form: FormGroup = new FormGroup({});
 
   @Input()
   public isRequired = false;
@@ -43,13 +43,13 @@ export class DropdownComponent implements OnInit {
   public isAvatarVisible = true;
 
   @Output()
-  public onSelectItemEmiter = new EventEmitter<IDropdownComponent>();
+  public selectItemEmiter = new EventEmitter<IDropdownComponent>();
 
   @Output()
-  public onCloseEmiter = new EventEmitter<boolean>(true);
+  public closeEmiter = new EventEmitter<boolean>(true);
 
   @Output()
-  public isListItemSelected = new EventEmitter<boolean>(false);
+  public isListItemFocused = new EventEmitter<boolean>(false);
 
   public ngOnInit(): void {
     this.form.addControl(this.controlName, new FormControl('', []));
@@ -59,15 +59,13 @@ export class DropdownComponent implements OnInit {
     this.isDropdownListVisible = !this.isDropdownListVisible;
   }
 
-  public isItemSelected(isSelectAnyItem: boolean): void {
-    if (this.isListItemSelected) {
-      this.isListItemSelected.emit(isSelectAnyItem);
-    }
+  public isItemFocused(isSelectAnyItem: boolean): void {
+    this.isListItemFocused.emit(isSelectAnyItem);
   }
 
   public onSelectItem(value: IDropdownComponent): void {
     if (this.isDropdownListOnly) {
-      this.onSelectItemEmiter.emit(value);
+      this.selectItemEmiter.emit(value);
     } else {
       this.form.controls[this.controlName].setValue(value.name);
     }
@@ -82,8 +80,6 @@ export class DropdownComponent implements OnInit {
   }
 
   public onCloseDropdownList(isVisible: boolean): void {
-    if (this.onCloseEmiter) {
-      this.onCloseEmiter.emit(isVisible);
-    }
+    this.closeEmiter.emit(isVisible);
   }
 }

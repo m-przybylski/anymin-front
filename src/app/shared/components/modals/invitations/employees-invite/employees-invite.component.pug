@@ -28,8 +28,8 @@ plat-modal-component(
           [controlName]="inviteEmployeesControlName",
           [isDropdownListVisible]="isDropdownListVisible",
           [dropdownItems]="filteredItems",
-          (onSelectItemEmiter)="onSelectItem($event)",
-          (onCloseEmiter)="onCloseDropdown($event)",
+          (selectItemEmiter)="onSelectItem($event)",
+          (closeEmiter)="onCloseDropdown($event)",
           [isDropdownListOnly]="true"
         )
 

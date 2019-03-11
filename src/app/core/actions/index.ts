@@ -15,12 +15,6 @@ import * as InvitationsApiActions from './invitations/invitations-api-actions';
 import * as InvitationsWsActions from './invitations/invitations-ws-actions';
 import * as InvitationsActions from './invitations/invitations-actions';
 
-// import * as ActivitiesActions from './activities.actions';
-// import * as ActivitiesApiActions from './activities/activities-api.actions';
-// import * as ActivitiesPageActions from './activities/activities-page.actions';
-// import * as BalanceApiActions from './activities/balance-api.actions';
-// import * as ActivitiesWsActions from './activities/activities-ws.actions';
-
 export {
   AuthActions,
   SessionActions,
@@ -34,5 +28,3 @@ export {
 };
 export { InvitationsApiActions, InvitationsWsActions, InvitationsActions };
 export { VisibilityInitActions, VisibilityApiActions, VisibilityUiActions, VisibilityWSActions };
-
-// export { ActivitiesActions, ActivitiesApiActions, ActivitiesPageActions, BalanceApiActions, ActivitiesWsActions };

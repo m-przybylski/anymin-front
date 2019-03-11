@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { delay } from 'rxjs/operators';
 import { Config } from '../../../../../../config';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'plat-settings',
@@ -20,7 +19,6 @@ import { FormControl } from '@angular/forms';
 })
 export class SettingsViewComponent implements OnInit {
   public session$: Observable<GetSessionWithAccount>;
-  public inputFormControl: FormControl = new FormControl();
 
   constructor(private ngbModalService: NgbModal, private store: Store<fromCore.IState>) {}
 

@@ -1,12 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
 import { FormControl } from '@angular/forms';
-import { map, switchMap, take, takeUntil } from 'rxjs/operators';
-import { forkJoin, merge, Observable, Subject } from 'rxjs';
-import * as fromRoot from '@platform/reducers';
-import * as fromCore from '@platform/core/reducers';
+import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { forkJoin, Observable, Subject } from 'rxjs';
 import { SearchViewService } from '@platform/features/search/search.view.service';
 import { URLQueryParamsService } from '@platform/core/services/search/url-query-params.service';
+import { GetSearchRequestResult } from '@anymind-ng/api';
+import { Params } from '@angular/router';
+
+interface ISearchView {
+  suggestionTags: ReadonlyArray<string>;
+  searchResultsConsultations: ReadonlyArray<GetSearchRequestResult>;
+}
 
 @Component({
   selector: 'plat-search.view',
@@ -19,15 +23,11 @@ export class SearchViewComponent implements OnInit, OnDestroy {
   public query = '';
   public isUserLoggedIn = false;
   public visibilityExpertsControl: FormControl;
-  public searchList: ReadonlyArray<any> = [];
+  public searchList: ReadonlyArray<GetSearchRequestResult> = [];
 
   private ngUnsubscribe$ = new Subject<void>();
 
-  constructor(
-    private searchViewService: SearchViewService,
-    private store: Store<fromRoot.IState>,
-    private urlQueryParamsService: URLQueryParamsService,
-  ) {}
+  constructor(private searchViewService: SearchViewService, private urlQueryParamsService: URLQueryParamsService) {}
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
@@ -35,30 +35,33 @@ export class SearchViewComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.visibilityExpertsControl = new FormControl();
+    this.visibilityExpertsControl = new FormControl(false);
 
-    merge(
-      this.urlQueryParamsService.getUrlQueryParams().pipe(take(1)),
-      this.urlQueryParamsService.queryParamsChange.pipe(takeUntil(this.ngUnsubscribe$)),
-    )
+    this.urlQueryParamsService
+      .getUrlQueryParams()
       .pipe(
-        map(queryParams => {
-          if (queryParams.visibleConsultations) {
-            this.visibilityExpertsControl.setValue(queryParams.visibleConsultations);
-          }
-          this.selectedTagList = queryParams.tags;
-          this.query = queryParams.query;
-
-          return queryParams;
+        filter(urlQueryParams => urlQueryParams.tags.length !== 0 || urlQueryParams.query.length !== 0),
+        takeUntil(this.ngUnsubscribe$),
+        tap(queryParams => {
+          this.getQueryParamsValues(queryParams);
         }),
-        switchMap(queryParams => this.updateSearchResults(queryParams.tags)),
+        switchMap(queryParams => this.updateSearchResults(queryParams)),
       )
-      .subscribe(res => {
-        this.suggestedTags = res.suggestionTags;
-        this.searchList = res.searchResultsConsultations;
+      .subscribe(searchResults => {
+        this.suggestedTags = searchResults.suggestionTags;
+        this.searchList = searchResults.searchResultsConsultations;
       });
 
-    this.getLoggedInStatus().subscribe();
+    this.searchViewService
+      .getLoggedInStatus()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(loggedInStatus => {
+        this.isUserLoggedIn = loggedInStatus;
+      });
+
+    this.visibilityExpertsControl.valueChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+      this.updateAddressUrl();
+    });
   }
 
   public onClickRecentTag(tag: string): void {
@@ -72,10 +75,22 @@ export class SearchViewComponent implements OnInit, OnDestroy {
     this.updateAddressUrl();
   }
 
-  private updateSearchResults(tagQuery: ReadonlyArray<string>): Observable<any> {
+  private getQueryParamsValues(queryParams: Params): void {
+    if (queryParams.tags[0]) {
+      this.selectedTagList = queryParams.tags;
+    }
+    this.query = queryParams.query;
+    this.visibilityExpertsControl.setValue(queryParams.showOnlyAvailable);
+  }
+
+  private updateSearchResults(queryParams: Params): Observable<ISearchView> {
     return forkJoin(
-      this.searchViewService.sendQueryTagSuggestion({ query: this.query, tags: tagQuery }),
-      this.searchViewService.getSearchResult(this.query, tagQuery),
+      this.searchViewService.sendQueryTagSuggestion({ query: queryParams.query, tags: this.selectedTagList }),
+      this.searchViewService.getSearchResult(
+        queryParams.query,
+        this.selectedTagList,
+        this.visibilityExpertsControl.value,
+      ),
     ).pipe(
       map(([suggestionTags, searchResultsConsultations]) => ({
         suggestionTags: suggestionTags.tags,
@@ -88,16 +103,7 @@ export class SearchViewComponent implements OnInit, OnDestroy {
     this.urlQueryParamsService.updateAddressUrl({
       query: this.query,
       tags: this.selectedTagList,
-      visibleConsultations: this.visibilityExpertsControl.value,
+      showOnlyAvailable: this.visibilityExpertsControl.value,
     });
-  }
-
-  private getLoggedInStatus(): Observable<any> {
-    return this.store.pipe(
-      select(fromCore.getLoggedIn),
-      map(res => {
-        this.isUserLoggedIn = res.isLoggedIn;
-      }),
-    );
   }
 }

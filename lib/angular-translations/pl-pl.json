@@ -704,5 +704,7 @@
   "SEARCH.CONSULTATIONS.RECENT.TITLE": "Najpopularniejsze konsultacje na AnyMind",
   "SEARCH.CONSULTATIONS.RECENT.SUB_TITLE": "Oto konsultacje, które obecnie cieszą się największą popularności.",
   "SEARCH.CONSULTATIONS.ONLY_VISIBLE.SWITCHER": "Najpopularniejsze konsultacje na AnyMind",
-  "SEARCH.TAGS.SELECTED.TITLE": "Wybrane tagi"
+  "SEARCH.TAGS.SELECTED.TITLE": "Wybrane tagi",
+  "SEARCH.INPUT.PLACEHOLDER": "Szukaj konsultacji lub konsultantów...",
+  "SEARCH.SWITCHER.LABEL": "'Wyświetl tylko dostępnych konsultantów"
 }
