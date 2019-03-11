@@ -21,7 +21,7 @@ ng-container(*ngIf="data$ | async as data; else loading")
       [isOwnProfile]='getIsOwnProfile(data)',
       [isCompany]="getIsCompany(data)",
       [isLogged]="getIsLogged(data)",
-      [accountId]="getExpertId(data)",
+      [companyId]="companyId",
       (addConsultation)='addConsultation(getProfileId(data))',
       (openConsultationDetails) = 'openConsultationDetail($event, getExpertId(data), getExpertAccountId(data))'
     )

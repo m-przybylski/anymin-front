@@ -22,6 +22,8 @@ import { RouterPaths } from '@platform/shared/routes/routes';
 import { IS_EXPERT_FORM } from '@platform/shared/components/modals/profile/create-profile/create-profile.component';
 import { SeoService } from '@anymind-ng/core';
 import { TranslateService } from '@ngx-translate/core';
+import { IOrganizationProfile } from '@platform/features/dashboard/views/company-dashboard/company-profile/services/company-profile.service';
+import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 
 @Component({
   selector: 'plat-expert-dashboard',
@@ -33,6 +35,8 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   public readonly avatarSize = AvatarSizeEnum.X_156;
   public isLoading$ = this.store.pipe(select(fromExpertDashboard.getIsLoading));
   public data$ = this.store.pipe(select(fromExpertDashboard.getProfileData));
+  public companyId?: string;
+  private sessionData$ = getNotUndefinedSession(this.store);
 
   constructor(
     protected injector: Injector,
@@ -42,6 +46,10 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
     private store: Store<fromRoot.IState>,
   ) {
     super(injector);
+
+    this.sessionData$.subscribe(session => {
+      this.companyId = session.session.organizationProfileId;
+    });
   }
 
   public getAvatarToken(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
@@ -76,6 +84,10 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
 
   public getExpertId(data: IExpertCompanyDashboardResolverData<IExpertProfile>): string {
     return data.profile.expertProfileView.expertProfile.id;
+  }
+
+  public getCompanyId(data: IExpertCompanyDashboardResolverData<IOrganizationProfile>): string {
+    return data.profile.organization.organizationProfile.id;
   }
 
   public getIsLogged(data: IExpertCompanyDashboardResolverData<IExpertProfile>): boolean {

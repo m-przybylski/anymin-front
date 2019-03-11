@@ -28,7 +28,7 @@ export class ExpertDashboardConsultationsComponent extends Logger {
   public isLogged: boolean;
 
   @Input()
-  public set accountId(value: string) {
+  public set companyId(value: string) {
     this.companyProfileUrl = `/${RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
       [RouterPaths.dashboard.company.profile.params.profileId]: value,
     })}`;
