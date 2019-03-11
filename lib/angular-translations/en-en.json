@@ -375,6 +375,7 @@
   "INVITATIONS.EMPTY_LINK": "<a href='https://AnyMind.zendesk.com/hc/pl/articles/360009918991--Kt%C3%B3re-konto-AnyMind-wybra%C4%87-' target='_blank'>this article.</a>",
   "INVITATIONS.WARNING_INFO": "You won't see the invitations sent to {{ email }}, because you haven't verified this e-mail address yet.",
   "INVITATIONS.RESEND_EMAIL": "Send again verification link",
+  "INVITATIONS.RESEND_EMAIL.SUCCESS": "We've sended you verification link",
   "DASHBOARD.PAYMENTS.BUTTON.CHANGE": "Edit",
   "DASHBOARD.WELCOME.TITLE": "Welcome to AnyMind!",
   "DASHBOARD.WELCOME.DESCRIPTION": "Sign up to the community that values know-how.",

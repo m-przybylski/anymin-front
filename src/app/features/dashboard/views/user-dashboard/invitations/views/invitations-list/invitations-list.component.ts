@@ -95,6 +95,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
           }),
         )
         .subscribe(() => {
+          this.alertService.pushSuccessAlert('INVITATIONS.RESEND_EMAIL.SUCCESS');
           this.isResendLinkSended = true;
         });
     }
