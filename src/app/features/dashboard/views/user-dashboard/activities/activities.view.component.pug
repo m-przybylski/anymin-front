@@ -5,7 +5,7 @@
         span([translate]="'ACTIVITIES.HEADER_TITTLE'")
 
       .activities__tabs
-        .activities__tabs--expert(*ngIf="isExpert", routerLink="/dashboard/user/activities/expert" routerLinkActive="active")
+        .activities__tabs--expert(*ngIf="isExpert$ | async", routerLink="/dashboard/user/activities/expert" routerLinkActive="active")
           span.activities__tabs__title([translate]="'ACTIVITIES.EXPERT_TAB_HEADER'")
           plat-activities-counter([counter]="headerCounter.expertProfileActivitiesCount",
           *ngIf="headerCounter.expertProfileActivitiesCount > 0 ")
