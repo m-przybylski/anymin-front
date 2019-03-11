@@ -17,7 +17,7 @@ export class ExpertDashboardGuard implements CanActivate {
 
   private navigateToSettingsWhenNotExpert = (getSessionWithAccount: GetSessionWithAccount): boolean => {
     if (!getSessionWithAccount.isExpert) {
-      void this.router.navigate([RouterPaths.dashboard.user.activities.expert.asPath]);
+      void this.router.navigate([RouterPaths.dashboard.user.activities.client.asPath]);
     }
 
     return getSessionWithAccount.isExpert;
