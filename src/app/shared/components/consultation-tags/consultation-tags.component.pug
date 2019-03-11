@@ -6,7 +6,7 @@
     [form]="form",
     [controlName]="controlName",
     [isDisabled]="isDisabled",
-    (addTag)="handleNewTag($event)",
+    [onAddTagCallback]="handleNewTag",
     [errorTrKey]="validationErrorTrKey",
     [currentTagsCount]="selectedTags.length"
   )

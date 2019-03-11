@@ -1,4 +1,4 @@
-am-core-messenger-minimized(*ngIf="!isMessenger", (messageClick)="toggleMessenger()", [newCallEvent]="newCallEvent")
+am-core-messenger-minimized(*ngIf="!isMessenger", [onMessageClick]="toggleMessenger", [newCallEvent]="newCallEvent")
 
 am-core-messenger-maximized([ngClass]="{'is-active': isMessenger}",
-(minimizeMessenger)="toggleMessenger()", [isMessenger]="isMessenger", [newCallEvent]="newCallEvent")
+[minimizeMessenger]="toggleMessenger", [isMessenger]="isMessenger", [newCallEvent]="newCallEvent")

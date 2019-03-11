@@ -22,11 +22,9 @@ export class ModalHeaderComponent {
 
   constructor(public activeModal: NgbActiveModal) {}
 
-  public onModalClose(): void {
-    return this.activeModal.close();
-  }
+  public onModalClose = (): void => this.activeModal.close();
 
-  public onBackClick(): void {
+  public onBackClick = (): void => {
     this.backwardClick.next();
-  }
+  };
 }

@@ -35,7 +35,7 @@ export class SoundsService {
     this.soundObjects = mapValues(this.soundPaths, path => new Audio(path));
   }
 
-  public callConnectingSound(): ISoundObject {
+  public callConnectingSound = (): ISoundObject => {
     const play = (): void => {
       if (!this.isCallConnecting) {
         this.isCallConnecting = true;
@@ -53,9 +53,9 @@ export class SoundsService {
     };
 
     return { play, stop };
-  }
+  };
 
-  public callIncomingSound(): ISoundObject {
+  public callIncomingSound = (): ISoundObject => {
     const play = (): void => {
       if (!this.isCallConnecting) {
         this.isCallConnecting = true;
@@ -73,17 +73,11 @@ export class SoundsService {
     };
 
     return { play, stop };
-  }
+  };
 
-  public playMessageNew(): Promise<void> {
-    return this.soundObjects.messageNew.play();
-  }
+  public playMessageNew = (): Promise<void> => this.soundObjects.messageNew.play();
 
-  public playCallRejected(): Promise<void> {
-    return this.soundObjects.callRejected.play();
-  }
+  public playCallRejected = (): Promise<void> => this.soundObjects.callRejected.play();
 
-  public playCallEnded(): Promise<void> {
-    return this.soundObjects.callEnded.play();
-  }
+  public playCallEnded = (): Promise<void> => this.soundObjects.callEnded.play();
 }

@@ -34,21 +34,22 @@ export class ExpandablePanelComponent implements AfterViewInit {
     return this._state;
   }
 
-  public toggleState(): void {
+  public toggleState = (): void => {
     if (!this.expandable) {
       return;
     }
-    this._state === this.collapseState ? this.expand() : this.collapse();
-  }
+    const fn = this._state === this.collapseState ? this.expand : this.collapse;
+    fn();
+  };
 
-  private collapse(): void {
+  private collapse = (): void => {
     this._state = this.collapseState;
-  }
-  private expand(): void {
+  };
+  private expand = (): void => {
     this._state = this.expandState;
-  }
+  };
 
-  private getEmSize(): number {
+  private getEmSize = (): number => {
     const testElement = this.document.createElement('i');
     testElement.style.width = '1em';
     testElement.style.fontSize = '1em';
@@ -58,7 +59,7 @@ export class ExpandablePanelComponent implements AfterViewInit {
     (this.content.nativeElement as HTMLElement).removeChild(testElement);
 
     return size;
-  }
+  };
 }
 
 type ContainerState = 'collapsed' | 'expanded';

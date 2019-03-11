@@ -8,15 +8,13 @@ export class CallSessionService {
 
   constructor(private communicatorService: CommunicatorService) {}
 
-  public listenForSession(): void {
+  public listenForSession = (): void => {
     this.communicatorService.connectionEstablishedEvent$.subscribe(connected => {
       this.setSession(connected.session);
     });
-  }
+  };
 
-  public getCallSession(): Session | undefined {
-    return this.callSession;
-  }
+  public getCallSession = (): Session | undefined => this.callSession;
 
   private setSession(session: Session): void {
     this.callSession = session;

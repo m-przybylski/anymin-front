@@ -19,7 +19,7 @@ export class ImageCropService {
     );
   }
 
-  private assignCroppieCords(croppieElement: Croppie): CropDetails {
+  private assignCroppieCords = (croppieElement: Croppie): CropDetails => {
     const points = croppieElement.get().points;
     const indexOfPointCordX = 0;
     const indexOfPointCordY = 1;
@@ -36,5 +36,5 @@ export class ImageCropService {
     } else {
       return { x: 0, y: 0, width: 0, height: 0 };
     }
-  }
+  };
 }

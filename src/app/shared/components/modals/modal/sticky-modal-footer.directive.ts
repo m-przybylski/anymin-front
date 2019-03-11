@@ -52,7 +52,7 @@ export class StickyFooterDirective implements AfterViewInit, OnDestroy {
     }
   }
 
-  private detectScrollOrientation(): void {
+  private detectScrollOrientation = (): void => {
     if (this.element.nativeElement.scrollTop > this.currentScrollTopHeight) {
       if (this.element.nativeElement.scrollTop === this.getDownModalBreakPointValue()) {
         this.markFooterElementAsStatic();
@@ -69,9 +69,9 @@ export class StickyFooterDirective implements AfterViewInit, OnDestroy {
       }
       this.setCurrentScrollHeight();
     }
-  }
+  };
 
-  private listenOnScroll(): void {
+  private listenOnScroll = (): void => {
     this.ngZone.runOutsideAngular(() => {
       fromEvent(this.element.nativeElement, 'scroll')
         .pipe(takeUntil(this.ngUnsubscribe$))
@@ -81,23 +81,18 @@ export class StickyFooterDirective implements AfterViewInit, OnDestroy {
           }
         });
     });
-  }
+  };
 
-  private setCurrentScrollHeight(): void {
-    return (this.currentScrollTopHeight = this.element.nativeElement.scrollTop);
-  }
+  private setCurrentScrollHeight = (): void => (this.currentScrollTopHeight = this.element.nativeElement.scrollTop);
 
-  private getDownModalBreakPointValue(): number {
-    return (
-      this.modalHeightAfterAnimation -
-      (this.windowHeight -
-        this.footerModalElement.clientHeight -
-        this.paddingTop -
-        (this.footerModalElement.clientHeight - this.paddingTop))
-    );
-  }
+  private getDownModalBreakPointValue = (): number =>
+    this.modalHeightAfterAnimation -
+    (this.windowHeight -
+      this.footerModalElement.clientHeight -
+      this.paddingTop -
+      (this.footerModalElement.clientHeight - this.paddingTop));
 
-  private stickModalFooter(modalHeight: number): void {
+  private stickModalFooter = (modalHeight: number): void => {
     this.modalHeightAfterAnimation = modalHeight;
 
     if (modalHeight !== 0 && this.isAbleToBeFixed()) {
@@ -118,29 +113,24 @@ export class StickyFooterDirective implements AfterViewInit, OnDestroy {
         this.markFooterElementAsFixed();
       }, timeDelay);
     }
-  }
+  };
 
-  private markFooterElementAsFixed(): void {
+  private markFooterElementAsFixed = (): void => {
     this.ngZone.run(() => {
       this.footerModalElement.classList.add('modal-component__footer--fixed');
       this.modalContentElement.style.paddingBottom = `${this.footerModalElement.clientHeight - this.paddingTop}px`;
     });
-  }
+  };
 
-  private markFooterElementAsStatic(): void {
+  private markFooterElementAsStatic = (): void => {
     this.ngZone.run(() => {
       this.footerModalElement.classList.remove('modal-component__footer--fixed');
       this.modalContentElement.style.paddingBottom = '0px';
     });
-  }
+  };
 
-  private isAbleToBeFixed(): boolean {
-    return (
-      this.windowRef.nativeWindow.innerHeight - this.footerModalElement.clientHeight <= this.modalHeightAfterAnimation
-    );
-  }
+  private isAbleToBeFixed = (): boolean =>
+    this.windowRef.nativeWindow.innerHeight - this.footerModalElement.clientHeight <= this.modalHeightAfterAnimation;
 
-  private isModalFooterExist(): boolean {
-    return this.footerModalElement.childElementCount !== 0;
-  }
+  private isModalFooterExist = (): boolean => this.footerModalElement.childElementCount !== 0;
 }

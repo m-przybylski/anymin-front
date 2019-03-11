@@ -1,4 +1,4 @@
-import { Input, Component, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Input, Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { trigger, animate, keyframes, style, transition } from '@angular/animations';
 import { roomEvents } from 'machoke-sdk';
 
@@ -41,8 +41,8 @@ import { LoggerService } from '../../../../services/logger.service';
 export class MessengerMinimizedComponent implements OnInit, OnDestroy {
   private static readonly animationTimeout = 300;
 
-  @Output()
-  public messageClick = new EventEmitter<roomEvents.CustomMessageSent>();
+  @Input()
+  public onMessageClick: (msg: roomEvents.CustomMessageSent) => void;
   @Input()
   public newCallEvent: Observable<CurrentClientCall>;
   public messages: ReadonlyArray<roomEvents.CustomMessageSent> = [];
@@ -53,7 +53,7 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
   constructor(private logger: LoggerService) {}
 
   public ngOnInit(): void {
-    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => this.init(call));
+    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.init);
   }
 
   public ngOnDestroy(): void {
@@ -61,19 +61,11 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public onMessageClick(msg: roomEvents.CustomMessageSent): void {
-    this.messageClick.next(msg);
-  }
+  public isImage = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isImage(msg);
 
-  public isImage(msg: roomEvents.CustomMessageSent): boolean {
-    return MessagesUtils.isImage(msg);
-  }
+  public isPdf = (msg: roomEvents.CustomMessageSent): boolean => MessagesUtils.isPdf(msg);
 
-  public isPdf(msg: roomEvents.CustomMessageSent): boolean {
-    return MessagesUtils.isPdf(msg);
-  }
-
-  private init(currentClientCall: CurrentClientCall): void {
+  private init = (currentClientCall: CurrentClientCall): void => {
     this.messages = [];
     currentClientCall.messageRoom$.subscribe(messageRoom => {
       this.logger.debug('Get messageRoom', messageRoom);
@@ -81,14 +73,13 @@ export class MessengerMinimizedComponent implements OnInit, OnDestroy {
         this.displayMessageInPeriodOfTimes(message);
       });
     });
-  }
+  };
 
-  private displayMessageInPeriodOfTimes(message: roomEvents.CustomMessageSent): void {
+  private displayMessageInPeriodOfTimes = (message: roomEvents.CustomMessageSent): void => {
     this.messages = [...this.messages, message];
     setTimeout(() => this.hideMessage(message), this.messageDiplayTime);
-  }
+  };
 
-  private hideMessage(message: roomEvents.CustomMessageSent): ReadonlyArray<roomEvents.CustomMessageSent> {
-    return (this.messages = this.messages.filter(msg => msg !== message));
-  }
+  private hideMessage = (message: roomEvents.CustomMessageSent): ReadonlyArray<roomEvents.CustomMessageSent> =>
+    (this.messages = this.messages.filter(msg => msg !== message));
 }

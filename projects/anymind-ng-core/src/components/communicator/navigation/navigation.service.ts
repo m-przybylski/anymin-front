@@ -21,7 +21,7 @@ export class NavigationService {
     return this.currentNavigationStateEmitter;
   }
 
-  public startInactivityTimer(): void {
+  public startInactivityTimer = (): void => {
     this.ngUnsubscribe$ = new Subject<void>();
 
     const eventStreams = this.userActiveEvents.map(el => fromEvent(document, el));
@@ -42,10 +42,10 @@ export class NavigationService {
       .subscribe((val: NavigationServiceState) => {
         this.currentNavigationStateEmitter.next(val);
       });
-  }
+  };
 
-  public removeInactivityTimer(): void {
+  public removeInactivityTimer = (): void => {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
-  }
+  };
 }

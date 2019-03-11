@@ -2,7 +2,7 @@ import { Pipe } from '@angular/core';
 
 @Pipe({ name: 'uuidTrimmer' })
 export class UuidTrimmerPipe {
-  public transform(uuid?: string): string {
+  public transform = (uuid?: string): string => {
     if (typeof uuid !== 'undefined') {
       const trimmedID = uuid.split('-').pop();
 
@@ -10,5 +10,5 @@ export class UuidTrimmerPipe {
     }
 
     return '';
-  }
+  };
 }

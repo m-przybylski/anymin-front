@@ -8,7 +8,7 @@ import { Config } from '../../../../../config';
   styleUrls: ['./login-mobile-footer.component.sass'],
 })
 export class LoginMobileFooterComponent {
-  public openGooglePlayStoreInNewTab(): void {
+  public openGooglePlayStoreInNewTab = (): void => {
     window.open(Config.links.googlePlay, '_blank');
-  }
+  };
 }

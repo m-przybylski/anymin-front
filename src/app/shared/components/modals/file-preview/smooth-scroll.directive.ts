@@ -41,12 +41,12 @@ export class SmoothScrollDirective implements OnInit {
     this.element.nativeElement.scrollTop = 0;
   }
 
-  private initDefaultParams(): void {
+  private initDefaultParams = (): void => {
     this.desktopHeight = this.element.nativeElement.clientHeight;
     this.updateScrollElementHeight();
-  }
+  };
 
-  private updateScrollPosition(currentScrollHeight: number): void {
+  private updateScrollPosition = (currentScrollHeight: number): void => {
     const scrollPositionToLoadMore = this.desktopHeight + currentScrollHeight + this.desktopHeight / this.halfDivider;
 
     if (this.maxCountElements !== this.currentItemIndex && scrollPositionToLoadMore >= this.scrollHeight) {
@@ -55,9 +55,7 @@ export class SmoothScrollDirective implements OnInit {
       this.onLoadMore.emit(this.currentItemIndex);
       this.updateScrollElementHeight();
     }
-  }
+  };
 
-  private updateScrollElementHeight(): number {
-    return (this.scrollHeight = this.element.nativeElement.scrollHeight);
-  }
+  private updateScrollElementHeight = (): number => (this.scrollHeight = this.element.nativeElement.scrollHeight);
 }

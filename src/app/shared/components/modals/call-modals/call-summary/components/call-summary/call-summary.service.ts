@@ -31,7 +31,7 @@ export class CallSummaryService extends Logger implements OnDestroy {
     super(loggerFactory.createLoggerService('CallSummaryService'));
     anymindWebsocketService.callSummary
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(callSummary => this.onGetCallSummaryFromWebsocket(callSummary));
+      .subscribe(this.onGetCallSummaryFromWebsocket);
   }
 
   public ngOnDestroy(): void {
@@ -43,34 +43,33 @@ export class CallSummaryService extends Logger implements OnDestroy {
     return this.viewsService.getClientCallSummaryRoute(sueId);
   }
 
-  public getExpertCallSummary(call: CurrentCall): Observable<ExpertCallSummary> {
+  public getExpertCallSummary = (call: CurrentCall): Observable<ExpertCallSummary> => {
     const intervalTime = 3000;
 
     return race(
       this.longPollingService.longPollData(this.viewsService.getExpertCallSummaryRoute(call.getSueId()), intervalTime),
       this.callSummarySubject,
     ).pipe(first());
-  }
+  };
 
-  public getClientCallSummary(call: CurrentCall): Observable<ClientCallSummary> {
+  public getClientCallSummary = (call: CurrentCall): Observable<ClientCallSummary> => {
     const intervalTime = 3000;
 
     return race(
       this.longPollingService.longPollData(this.viewsService.getClientCallSummaryRoute(call.getSueId()), intervalTime),
       this.callSummarySubject,
     ).pipe(first());
-  }
+  };
 
-  public reportClient(sueId: string, message: string): Observable<void> {
-    return this.serviceUsageEventService.postExpertComplaintRoute(sueId, { message });
-  }
+  public reportClient = (sueId: string, message: string): Observable<void> =>
+    this.serviceUsageEventService.postExpertComplaintRoute(sueId, { message });
 
-  public reportTechnicalProblem(
+  public reportTechnicalProblem = (
     sueId: string,
     problemType: PostTechnicalProblem.ProblemTypeEnum,
     description?: string,
-  ): Observable<void> {
-    return this.serviceUsageEventService
+  ): Observable<void> =>
+    this.serviceUsageEventService
       .postTechnicalProblemRoute(sueId, {
         problemType,
         description,
@@ -82,14 +81,13 @@ export class CallSummaryService extends Logger implements OnDestroy {
           return EMPTY;
         }),
       );
-  }
 
-  public clientReportComplaint(
+  public clientReportComplaint = (
     sueId: string,
     complaintType: PostClientComplaint.ComplaintTypeEnum,
     message: string,
-  ): Observable<void> {
-    return this.serviceUsageEventService
+  ): Observable<void> =>
+    this.serviceUsageEventService
       .postClientComplaintRoute(sueId, {
         complaintType,
         message,
@@ -101,14 +99,12 @@ export class CallSummaryService extends Logger implements OnDestroy {
           return EMPTY;
         }),
       );
-  }
 
-  public commentExpert(sueId: string, message: string): Observable<undefined> {
-    return this.serviceUsageEventService.postCommentRoute(sueId, { content: message });
-  }
+  public commentExpert = (sueId: string, message: string): Observable<undefined> =>
+    this.serviceUsageEventService.postCommentRoute(sueId, { content: message });
 
-  public rateExpertPositiveWithTags(sueId: string, tags: ReadonlyArray<string> = []): Observable<GetSueRating> {
-    return this.serviceUsageEventService.postSueRatingRoute(sueId, { rate: PostSueRating.RateEnum.POSITIVE }).pipe(
+  public rateExpertPositiveWithTags = (sueId: string, tags: ReadonlyArray<string> = []): Observable<GetSueRating> =>
+    this.serviceUsageEventService.postSueRatingRoute(sueId, { rate: PostSueRating.RateEnum.POSITIVE }).pipe(
       switchMap(getSueRating => {
         if (tags.length > 0) {
           return this.serviceUsageEventService.putSueRatingRoute(sueId, { tags }).pipe(map(() => getSueRating));
@@ -117,10 +113,9 @@ export class CallSummaryService extends Logger implements OnDestroy {
         return of(getSueRating);
       }),
     );
-  }
 
-  public rateExpertNegative(sueId: string, message?: string): Observable<GetSueRating> {
-    return this.serviceUsageEventService.postSueRatingRoute(sueId, { rate: PostSueRating.RateEnum.NEGATIVE }).pipe(
+  public rateExpertNegative = (sueId: string, message?: string): Observable<GetSueRating> =>
+    this.serviceUsageEventService.postSueRatingRoute(sueId, { rate: PostSueRating.RateEnum.NEGATIVE }).pipe(
       switchMap(getSueRating => {
         if (typeof message !== 'undefined') {
           return this.serviceUsageEventService
@@ -131,9 +126,8 @@ export class CallSummaryService extends Logger implements OnDestroy {
         return of(getSueRating);
       }),
     );
-  }
 
-  private onGetCallSummaryFromWebsocket(callSummary: ExpertCallSummary): void {
+  private onGetCallSummaryFromWebsocket = (callSummary: ExpertCallSummary): void => {
     this.callSummarySubject.next(callSummary);
-  }
+  };
 }

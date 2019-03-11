@@ -12,7 +12,7 @@ export class TooltipService {
     return this.tooltipPosition$.asObservable();
   }
 
-  public pushTooltipPosition(position: ITooltipModalOffsets): void {
+  public pushTooltipPosition = (position: ITooltipModalOffsets): void => {
     this.tooltipPosition$.next(position);
-  }
+  };
 }

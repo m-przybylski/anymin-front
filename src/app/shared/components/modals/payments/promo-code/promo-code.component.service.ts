@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 export class PromoCodeComponentService {
   constructor(private promoCodesService: PromoCodesService) {}
 
-  public sendPromoCode(token: string): Observable<GetPromoCode> {
-    return this.promoCodesService.postRedeemPromoCodeRoute({ token });
-  }
+  public sendPromoCode = (token: string): Observable<GetPromoCode> =>
+    this.promoCodesService.postRedeemPromoCodeRoute({ token });
 }

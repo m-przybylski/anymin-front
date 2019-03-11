@@ -27,7 +27,7 @@ export class CreditCardImageComponent {
     },
   ];
 
-  private determineCardImage(cardNumber: string): void {
+  private determineCardImage = (cardNumber: string): void => {
     const tmpArray = this.cardRegexArray.filter(regex => this.isCardValid(cardNumber, regex.regex));
 
     if (tmpArray.length > 0) {
@@ -36,11 +36,11 @@ export class CreditCardImageComponent {
     } else {
       this.creditCardImageUrl = '';
     }
-  }
+  };
 
-  private isCardValid(cardNumber: string, regex: string): boolean {
+  private isCardValid = (cardNumber: string, regex: string): boolean => {
     const regexObj = new RegExp(regex);
 
     return regexObj.test(cardNumber);
-  }
+  };
 }

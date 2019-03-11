@@ -70,25 +70,25 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  public openInvoiceModal(): void {
+  public openInvoiceModal = (): void => {
     this.ngbModalService.open(InvoiceDetailsComponent);
-  }
+  };
 
-  public openPayoutMethod(): void {
+  public openPayoutMethod = (): void => {
     this.ngbModalService.open(
       PayoutMethodComponent,
     ).componentInstance.getPayoutMethod = this.route.snapshot.data.getPayoutMethod;
-  }
+  };
 
-  public onAddPaymentCard(): void {
+  public onAddPaymentCard = (): void => {
     this.ngbModalService.open(AddPaymentCard);
-  }
+  };
 
-  public onAddPromoCode(): void {
+  public onAddPromoCode = (): void => {
     this.ngbModalService.open(PromoCodeComponent);
-  }
+  };
 
-  public onSelectCard(id: string): void {
+  public onSelectCard = (id: string): void => {
     const currentId = this.currentPaymentMethodId;
     this.currentPaymentCardId = id;
 
@@ -96,9 +96,9 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
       .setDefaultPaymentMethod(this.mapCurrentPaymentMethod())
       .pipe(catchError(error => this.handleErrorOnSelect(error, currentId)))
       .subscribe(() => (this.currentPaymentMethodId = id));
-  }
+  };
 
-  public onSelectPromoCode(id: string): void {
+  public onSelectPromoCode = (id: string): void => {
     const currentId = this.currentPaymentMethodId;
     this.currentPromoCodeId = id;
 
@@ -108,9 +108,9 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
       .subscribe(() => {
         this.currentPaymentMethodId = id;
       });
-  }
+  };
 
-  public onDeleteCard(id: string): void {
+  public onDeleteCard = (id: string): void => {
     this.paymentsViewComponentService
       .deletePaymentCard(id)
       .pipe(
@@ -124,9 +124,9 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
       .subscribe(() => {
         this.store.dispatch(new LoadPaymentsMethodOnDeleteSuccessAction());
       });
-  }
+  };
 
-  private assignStoreData(): void {
+  private assignStoreData = (): void => {
     this.store.dispatch(new FetchPaymentsDetailsInitAction());
 
     this.store
@@ -139,9 +139,9 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
         this.currentPromoCodeId = currentPaymentMethod.promoCodeId || '';
         this.currentPaymentCardId = currentPaymentMethod.creditCardId || '';
       });
-  }
+  };
 
-  private mapCurrentPaymentMethod(promoCodeId?: string): PutDefaultPaymentMethod {
+  private mapCurrentPaymentMethod = (promoCodeId?: string): PutDefaultPaymentMethod => {
     if (this.currentPaymentCardId && promoCodeId) {
       return {
         creditCardId: this.currentPaymentCardId,
@@ -156,13 +156,13 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
         creditCardId: this.currentPaymentCardId,
       };
     }
-  }
+  };
 
-  private handleErrorOnSelect(error: HttpErrorResponse, currentId: string): Observable<void> {
+  private handleErrorOnSelect = (error: HttpErrorResponse, currentId: string): Observable<void> => {
     this.currentPaymentMethodId = currentId;
     this.loggerService.warn('Can not set default payment card', error);
     this.alertService.pushDangerAlert('DASHBOARD.PAYMENTS.PAYMENTS_METHOD.CARD.SET_AS_DEFAULT.ALERT');
 
     return of();
-  }
+  };
 }

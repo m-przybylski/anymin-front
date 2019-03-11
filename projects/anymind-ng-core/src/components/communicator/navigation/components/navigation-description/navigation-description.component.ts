@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MoneyDto } from '@anymind-ng/api';
@@ -18,13 +18,13 @@ export class NavigationDescriptionComponent implements OnInit, OnDestroy {
   @Input()
   public newCallEvent: Subject<CurrentClientCall | CurrentExpertCall>;
 
-  @Output()
-  public hangupCall = new EventEmitter<void>();
+  @Input()
+  public hangupCall: () => void;
 
   private ngUnsubscribe$ = new Subject<void>();
 
   public ngOnInit(): void {
-    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(call => this.onNewCall(call));
+    this.newCallEvent.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.onNewCall);
   }
 
   public ngOnDestroy(): void {
@@ -32,16 +32,12 @@ export class NavigationDescriptionComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public onHangupCall(): void {
-    this.hangupCall.emit();
-  }
+  private onNewCall = (call: CurrentClientCall | CurrentExpertCall): void => {
+    call.timeCostChange$.subscribe(this.onTimeCostChange);
+  };
 
-  private onNewCall(call: CurrentClientCall | CurrentExpertCall): void {
-    call.timeCostChange$.subscribe(cost => this.onTimeCostChange(cost));
-  }
-
-  private onTimeCostChange(timeMoneyTuple: { time: number; money: MoneyDto }): void {
+  private onTimeCostChange = (timeMoneyTuple: { time: number; money: MoneyDto }): void => {
     this.callLengthInSeconds = timeMoneyTuple.time;
     this.callCost = timeMoneyTuple.money;
-  }
+  };
 }

@@ -45,30 +45,28 @@ export class InputSetPasswordComponent {
     );
   }
 
-  public isIncorrectPasswordError(): boolean {
+  public isIncorrectPasswordError = (): boolean => {
     const errors: ValidationErrors | null = this.formGroup.controls[this.controlName].errors;
     return this.isFieldInvalid() && errors && (errors.pattern || errors[InputSetPasswordErrors.IncorrectPassword]);
-  }
+  };
 
-  public isDuplicatePasswordError(): boolean {
+  public isDuplicatePasswordError = (): boolean => {
     const errors: ValidationErrors | null = this.formGroup.controls[this.controlName].errors;
     return this.isFieldInvalid() && errors && errors[InputSetPasswordErrors.DuplicatedPassword];
-  }
+  };
 
-  public isRequiredError(): void {
+  public isRequiredError = (): void => {
     const errors: ValidationErrors | null = this.formGroup.controls[this.controlName].errors;
     return this.isFieldInvalid() && errors && errors.required;
-  }
+  };
 
-  public isFieldInvalid(): boolean {
-    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
-  }
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 
-  public onFocus(): void {
+  public onFocus = (): void => {
     this.isFocused = true;
-  }
+  };
 
-  public onBlur(): void {
+  public onBlur = (): void => {
     this.isFocused = false;
-  }
+  };
 }

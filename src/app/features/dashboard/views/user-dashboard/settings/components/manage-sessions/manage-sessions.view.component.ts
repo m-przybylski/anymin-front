@@ -63,7 +63,7 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
     this.ngUnsubscribe$.complete();
   }
 
-  public onLogoutSession(apiKey: string): void {
+  public onLogoutSession = (apiKey: string): void => {
     if (this.currentSessionApiKey === apiKey) {
       this.manageSessionsService.logoutCurrentSession();
     } else {
@@ -74,9 +74,9 @@ export class ManageSessionsViewComponent implements OnDestroy, AfterViewInit {
           this.removeSessionFromList(apiKey);
         });
     }
-  }
+  };
 
-  private removeSessionFromList(apiKey: string): void {
+  private removeSessionFromList = (apiKey: string): void => {
     this.activeSessions = this.activeSessions.filter(session => session.apiKey !== apiKey);
-  }
+  };
 }

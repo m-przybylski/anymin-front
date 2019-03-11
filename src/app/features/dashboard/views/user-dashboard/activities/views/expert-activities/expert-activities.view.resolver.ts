@@ -13,10 +13,10 @@ export class ExpertActivitiesViewResolver extends Logger implements Resolve<User
     super(loggerFactory.createLoggerService('ExpertActivitiesViewResolver'));
   }
 
-  public resolve(): UserTypeEnum {
+  public resolve = (): UserTypeEnum => {
     this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.EXPERT));
     this.loggerService.debug('User type set as Expert');
 
     return UserTypeEnum.EXPERT;
-  }
+  };
 }

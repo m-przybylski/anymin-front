@@ -69,11 +69,11 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
     this._actionTaken$.complete();
   }
 
-  public onEdit(): void {
+  public onEdit = (): void => {
     this._actionTaken$.next('editConsultation');
-  }
+  };
 
-  public onShare(): void {
+  public onShare = (): void => {
     this._actionTaken$.next('share');
-  }
+  };
 }

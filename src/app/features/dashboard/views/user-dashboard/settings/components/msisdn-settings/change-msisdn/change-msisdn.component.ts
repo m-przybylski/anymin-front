@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IDropdownComponent } from '@platform/shared/components/dropdown/dropdown.component';
 import { ChangeMsisdnComponentService, VerifyMsisdnStatusEnum } from './change-msisdn.component.service';
@@ -10,14 +10,13 @@ import {
   inputPhoneNumberErrorMessages,
   LoggerFactory,
 } from '@anymind-ng/core';
-import { finalize, map, filter, take, takeUntil } from 'rxjs/operators';
+import { finalize, map, filter, take } from 'rxjs/operators';
 import { ModalAnimationComponentService } from '@platform/shared/components/modals/modal/animation/modal-animation.animation.service';
 import { Config } from '../../../../../../../../../config';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@platform/reducers';
 import { Logger } from '@platform/core/logger';
-import { Subject } from 'rxjs';
 
 export interface IVerifyMsisdnStatus {
   msisdn: string;
@@ -30,7 +29,7 @@ export interface IVerifyMsisdnStatus {
   styleUrls: ['./change-msisdn.component.sass'],
   providers: [ChangeMsisdnComponentService],
 })
-export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewInit, OnDestroy {
+export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewInit {
   @Output()
   public msisdnVerificationStatusChange: EventEmitter<IVerifyMsisdnStatus> = new EventEmitter();
 
@@ -61,7 +60,6 @@ export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewIn
   ]);
   private currentUserMsisdn: string;
   private fullMsisdn: string;
-  private readonly destroyed$ = new Subject<void>();
 
   constructor(
     private store: Store<fromRoot.IState>,
@@ -98,24 +96,17 @@ export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewIn
         } else {
           this.loggerService.error('There should be msisdn but got: ', getSessionWithAccount.account.msisdn);
         }
-        this.changeMsisdnForm.controls[this.msisdnControlName].valueChanges
-          .pipe(takeUntil(this.destroyed$))
-          .subscribe(msisdn => this.onMsisdnChange(msisdn));
+        this.changeMsisdnForm.controls[this.msisdnControlName].valueChanges.subscribe(this.onMsisdnChange);
         this.changeMsisdnForm.controls[this.msisdnControlName].setValue(this.currentUserMsisdn);
         this.modalAnimationComponentService.isPendingRequest().next(false);
       });
   }
 
-  public ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
-
-  public onSelectItemEmitter(prefix: IDropdownComponent): void {
+  public onSelectItemEmitter = (prefix: IDropdownComponent): void => {
     this.changeMsisdnForm.controls[this.msisdnPrefixControlName].setValue(prefix.name);
-  }
+  };
 
-  public onFormSubmit(changeMsisdnForm: FormGroup): void {
+  public onFormSubmit = (changeMsisdnForm: FormGroup): void => {
     if (changeMsisdnForm.valid) {
       this.isRequestPending = true;
       this.fullMsisdn =
@@ -125,16 +116,16 @@ export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewIn
         .verifyMsisdn(this.fullMsisdn)
         .pipe(
           finalize(() => (this.isRequestPending = false)),
-          map(status => this.handleSuccessVerifyMsisdnStatus(status)),
+          map(this.handleSuccessVerifyMsisdnStatus),
           filter(status => status !== undefined),
         )
-        .subscribe((status: VerifyMsisdnStatusEnum) => this.handleVerifyMsisdnStatus(status));
+        .subscribe(this.handleVerifyMsisdnStatus);
     } else {
       this.formUtils.validateAllFormFields(changeMsisdnForm);
     }
-  }
+  };
 
-  private handleSuccessVerifyMsisdnStatus(status: VerifyMsisdnStatusEnum): VerifyMsisdnStatusEnum | undefined {
+  private handleSuccessVerifyMsisdnStatus = (status: VerifyMsisdnStatusEnum): VerifyMsisdnStatusEnum | undefined => {
     if (status === VerifyMsisdnStatusEnum.SUCCESS) {
       this.msisdnVerificationStatusChange.emit({
         msisdn: this.fullMsisdn,
@@ -145,29 +136,28 @@ export class ChangeMsisdnComponent extends Logger implements OnInit, AfterViewIn
     }
 
     return status;
-  }
+  };
 
-  private handleVerifyMsisdnStatus(status: VerifyMsisdnStatusEnum): void {
+  private handleVerifyMsisdnStatus = (status: VerifyMsisdnStatusEnum): void => {
     const errorMessage = this.validationAlertsMap.get(status);
     const alertMessage = this.alertMessageMap.get(status);
-    const alert = alertMessage || Alerts.SomethingWentWrong;
-    if (errorMessage) {
-      return this.displayValidationError(errorMessage);
-    }
-    this.displayDangerAlert(alert);
-  }
+    const arg = errorMessage || (alertMessage || Alerts.SomethingWentWrong);
 
-  private displayValidationError(err: string): void {
+    const fn = errorMessage ? this.displayValidationError : this.displayDangerAlert;
+    fn.call(this, arg);
+  };
+
+  private displayValidationError = (err: string): void => {
     const errObj = { [err]: true };
     this.changeMsisdnForm.controls[this.msisdnControlName].setErrors(errObj);
     this.formUtils.validateAllFormFields(this.changeMsisdnForm);
-  }
+  };
 
-  private displayDangerAlert(alert: string): void {
+  private displayDangerAlert = (alert: string): void => {
     this.alertService.pushDangerAlert(alert);
-  }
+  };
 
-  private onMsisdnChange(msisdn: string): void {
+  private onMsisdnChange = (msisdn: string): void => {
     this.isSubmitButtonDisabled = this.currentUserMsisdn === msisdn;
-  }
+  };
 }

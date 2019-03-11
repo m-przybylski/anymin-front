@@ -39,7 +39,7 @@ export class InputPasswordComponent {
     this.formGroup.addControl(this.controlName, new FormControl('', [Validators.required]));
   }
 
-  public isIncorrectPassword(): boolean {
+  public isIncorrectPassword = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -47,9 +47,9 @@ export class InputPasswordComponent {
     }
 
     return false;
-  }
+  };
 
-  public isRequiredError(): boolean {
+  public isRequiredError = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -57,9 +57,9 @@ export class InputPasswordComponent {
     }
 
     return false;
-  }
+  };
 
-  public isToManyUnsuccessfulAttempts(): boolean {
+  public isToManyUnsuccessfulAttempts = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -67,17 +67,15 @@ export class InputPasswordComponent {
     }
 
     return false;
-  }
+  };
 
-  public isFieldInvalid(): boolean {
-    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
-  }
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 
-  public onFocus(): void {
+  public onFocus = (): void => {
     this.isFocused = true;
-  }
+  };
 
-  public onBlur(): void {
+  public onBlur = (): void => {
     this.isFocused = false;
-  }
+  };
 }

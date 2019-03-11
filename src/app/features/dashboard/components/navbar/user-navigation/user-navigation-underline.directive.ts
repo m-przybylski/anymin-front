@@ -31,7 +31,7 @@ export class UserNavigationUnderlineDirective implements AfterViewInit {
     this.ngUnsubscribe$.complete();
   }
 
-  private createAnimation(element?: ElementRef): void {
+  private createAnimation = (element?: ElementRef): void => {
     if (typeof element !== 'undefined') {
       this.renderer.addClass(this.element.nativeElement, 'visible');
       const elementWidth = element.nativeElement.clientWidth;
@@ -63,10 +63,10 @@ export class UserNavigationUnderlineDirective implements AfterViewInit {
       return;
     }
     this.renderer.removeClass(this.element.nativeElement, 'visible');
-  }
+  };
 
-  private updatePreviousElementAttributes(elementWidth: number, elementOffset: number): void {
+  private updatePreviousElementAttributes = (elementWidth: number, elementOffset: number): void => {
     this.previousElementWidth = elementWidth;
     this.previousElementOffset = elementOffset;
-  }
+  };
 }

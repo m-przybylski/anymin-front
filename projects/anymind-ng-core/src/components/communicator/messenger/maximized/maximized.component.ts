@@ -1,14 +1,4 @@
-import {
-  Input,
-  ElementRef,
-  Component,
-  OnInit,
-  ViewChild,
-  OnDestroy,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Input, ElementRef, Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { throttle } from 'lodash';
 // tslint:disable:readonly-array
 import {
@@ -60,8 +50,8 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
     }, MessengerMaximizedComponent.animationTimeout);
   }
 
-  @Output()
-  public minimizeMessenger = new EventEmitter<void>();
+  @Input()
+  public minimizeMessenger: () => void;
 
   @Input()
   public newCallEvent: Observable<CurrentClientCall>;
@@ -127,10 +117,6 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
         },
       },
     ];
-  }
-
-  public onMinimizeMessenger(): void {
-    this.minimizeMessenger.emit();
   }
 
   public onUploadFiles(file: File): void {
@@ -277,14 +263,10 @@ export class MessengerMaximizedComponent implements OnInit, OnDestroy {
       });
       messageRoom.typing$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => this.onTyping());
       this.messageRoom = messageRoom;
-      this.indicateTypingDebounce = throttle(
-        () => this.messageRoom.indicateTyping(),
-        this.indicateTypingDebounceTimeout,
-        {
-          leading: true,
-          trailing: false,
-        },
-      );
+      this.indicateTypingDebounce = throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
+        leading: true,
+        trailing: false,
+      });
     });
   }
 

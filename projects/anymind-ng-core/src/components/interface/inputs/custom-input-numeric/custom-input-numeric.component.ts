@@ -54,15 +54,11 @@ export class CustomInputNumericComponent {
     this.formGroup.addControl(this.controlName, new FormControl('', this.getValidators()));
   }
 
-  public isFieldInvalid(): boolean {
-    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
-  }
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 
-  public isFieldValueInvalid(): boolean {
-    return this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
-  }
+  public isFieldValueInvalid = (): boolean => this.isFieldInvalid() && this.formGroup.controls[this.controlName].value;
 
-  public isRequiredError(): boolean {
+  public isRequiredError = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -70,30 +66,26 @@ export class CustomInputNumericComponent {
     }
 
     return false;
-  }
+  };
 
-  public onFocus(): void {
+  public onFocus = (): void => {
     this.isFocused = true;
-  }
+  };
 
-  public onBlur(): void {
+  public onBlur = (): void => {
     this.isFocused = false;
-  }
+  };
 
   // tslint:disable:readonly-array
-  private getValidators(): ValidatorFn[] {
-    return this.getRequiredValidator(this.getPatternValidator(this.getCustomFnValidator([])));
-  }
+  private getValidators = (): ValidatorFn[] =>
+    this.getRequiredValidator(this.getPatternValidator(this.getCustomFnValidator([])));
 
-  private getRequiredValidator(arr: ValidatorFn[]): ValidatorFn[] {
-    return this.isRequired ? [...arr, Validators.required] : arr;
-  }
+  private getRequiredValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
+    this.isRequired ? [...arr, Validators.required] : arr;
 
-  private getPatternValidator(arr: ValidatorFn[]): ValidatorFn[] {
-    return this.pattern ? [...arr, Validators.pattern(this.pattern)] : arr;
-  }
+  private getPatternValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
+    this.pattern ? [...arr, Validators.pattern(this.pattern)] : arr;
 
-  private getCustomFnValidator(arr: ValidatorFn[]): ValidatorFn[] {
-    return this.validatorFn ? [...arr, this.validatorFn] : arr;
-  }
+  private getCustomFnValidator = (arr: ValidatorFn[]): ValidatorFn[] =>
+    this.validatorFn ? [...arr, this.validatorFn] : arr;
 }

@@ -17,14 +17,14 @@ export class MessengerComponent {
   public isMessengerChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @HostListener('document:keydown.escape', ['$event'])
-  public onEscKeydown(_e: Event): void {
+  public onEscKeydown = (_e: Event): void => {
     if (this.isMessenger) {
       this.toggleMessenger();
     }
-  }
+  };
 
-  public toggleMessenger(): void {
+  public toggleMessenger = (): void => {
     this.isMessenger = !this.isMessenger;
     this.isMessengerChange.emit(this.isMessenger);
-  }
+  };
 }

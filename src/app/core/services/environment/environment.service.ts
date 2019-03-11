@@ -8,11 +8,11 @@ export enum Environment {
 }
 
 export class EnvironmentService {
-  public static get(): Environment {
+  public static get = (): Environment => {
     const fileEnv = EnvironmentService.getEnvFromLocalFile();
 
     return fileEnv ? fileEnv : EnvironmentService.getEnvFromHostname();
-  }
+  };
 
   private static getEnvFromHostname(): Environment {
     const urlEnvPrefix = window.location.hostname.split('.')[0];

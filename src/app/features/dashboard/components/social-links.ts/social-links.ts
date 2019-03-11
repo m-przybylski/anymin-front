@@ -13,7 +13,6 @@ export class SocialLinksComponent {
   public links: ReadonlyArray<string> = [];
   constructor(private profileLinksComponentService: ProfileLinksComponentService) {}
 
-  public getIconClass(link: string): string {
-    return this.profileLinksComponentService.cropSocialMediaLinkAsName(link).iconName;
-  }
+  public getIconClass = (link: string): string =>
+    this.profileLinksComponentService.cropSocialMediaLinkAsName(link).iconName;
 }

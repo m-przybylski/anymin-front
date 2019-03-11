@@ -64,7 +64,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
       });
   }
 
-  public onOpenInvitation(invitationId: string): void {
+  public onOpenInvitation = (invitationId: string): void => {
     const injector = this.setupInjector(invitationId);
 
     if (typeof injector === 'undefined') {
@@ -73,7 +73,7 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
       return;
     }
     this.openInvitationModal(injector);
-  }
+  };
 
   private openInvitationModal(injector: Injector): void {
     const modalOptions: NgbModalOptions = {
@@ -88,11 +88,10 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
       });
   }
 
-  private getInvitation(invitationId: string): IInvitation | undefined {
-    return this.invitations.find(invitation => invitation.id === invitationId);
-  }
+  private getInvitation = (invitationId: string): IInvitation | undefined =>
+    this.invitations.find(invitation => invitation.id === invitationId);
 
-  private setupInjector(invitationId: string): Injector | undefined {
+  private setupInjector = (invitationId: string): Injector | undefined => {
     const invitation = this.getInvitation(invitationId);
     if (typeof invitation === 'undefined') {
       this.loggerService.info('Cannot find selected invitation');
@@ -101,9 +100,9 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
     }
 
     return Injector.create({ providers: [{ provide: INVITATION, useValue: invitation }], parent: this.injector });
-  }
+  };
 
-  private reloadPage(): void {
+  private reloadPage = (): void => {
     void this.router.navigate([], { relativeTo: this.route });
-  }
+  };
 }

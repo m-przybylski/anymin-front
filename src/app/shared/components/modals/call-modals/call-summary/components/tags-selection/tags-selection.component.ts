@@ -26,16 +26,14 @@ export class TagsSelectionComponent extends Logger implements OnInit {
     this.isSendTagsButtonDisabled = this.selectedTags.length === 0;
   }
 
-  public clickTag(tag: GetTag): void {
+  public clickTag = (tag: GetTag): void => {
     this.selectedTags = this.isTagSelected(tag)
       ? this.selectedTags.filter(t => t.id !== tag.id)
       : [...this.selectedTags, tag];
     this.isSendTagsButtonDisabled = this.selectedTags.length === 0;
-  }
+  };
 
-  public isTagSelected(tag: GetTag): boolean {
-    return this.selectedTags.includes(tag);
-  }
+  public isTagSelected = (tag: GetTag): boolean => this.selectedTags.includes(tag);
 
   public saveTags(): void {
     if (!this.isSendTagsButtonDisabled) {

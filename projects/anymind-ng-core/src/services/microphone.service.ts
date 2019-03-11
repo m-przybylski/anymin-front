@@ -10,15 +10,15 @@ export enum MicrophoneStateEnum {
 export class MicrophoneService {
   private microphoneStatusEmitter: BehaviorSubject<MicrophoneStateEnum> = new BehaviorSubject(MicrophoneStateEnum.GOOD);
 
-  public onMicrophoneStatusChange(fn: (m: MicrophoneStateEnum) => void): void {
+  public onMicrophoneStatusChange = (fn: (m: MicrophoneStateEnum) => void): void => {
     this.microphoneStatusEmitter.subscribe(fn);
-  }
+  };
 
-  public startAudioStreamListening(track: MediaStreamTrack): void {
+  public startAudioStreamListening = (track: MediaStreamTrack): void => {
     if (track.muted) {
       this.microphoneStatusEmitter.next(MicrophoneStateEnum.MUTED);
     }
     track.onmute = (): void => this.microphoneStatusEmitter.next(MicrophoneStateEnum.MUTED);
     track.onunmute = (): void => this.microphoneStatusEmitter.next(MicrophoneStateEnum.GOOD);
-  }
+  };
 }

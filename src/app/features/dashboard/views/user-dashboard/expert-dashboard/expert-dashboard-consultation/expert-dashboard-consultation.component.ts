@@ -51,15 +51,15 @@ export class ExpertDashboardConsultationsComponent extends Logger {
     super(loggerFactory.createLoggerService('ExpertDashboardConsultationsComponent'));
   }
 
-  public add(): void {
+  public add = (): void => {
     this.addConsultation.emit();
-  }
+  };
 
-  public onOpenConsultationDetails(serviceId: string): void {
+  public onOpenConsultationDetails = (serviceId: string): void => {
     this.openConsultationDetails.emit(serviceId);
-  }
+  };
 
-  public onAlertInformationLinkClick(): void {
+  public onAlertInformationLinkClick = (): void => {
     void this.router.navigate([this.companyProfileUrl]).then(isRedirectSuccessful => {
       if (!isRedirectSuccessful) {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
@@ -67,5 +67,5 @@ export class ExpertDashboardConsultationsComponent extends Logger {
       }
     });
     this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.COMPANY));
-  }
+  };
 }

@@ -12,7 +12,7 @@ export class MenuListComponent {
   @Input()
   public dropdownVisibility: 'visible' | 'hidden';
 
-  public onAnimationStart(event: AnimationEvent, el: HTMLUListElement): void {
+  public onAnimationStart = (event: AnimationEvent, el: HTMLUListElement): void => {
     if (event.fromState === 'void' && event.toState === 'hidden') {
       el.style.visibility = 'hidden';
 
@@ -24,11 +24,11 @@ export class MenuListComponent {
 
       return;
     }
-  }
+  };
 
-  public onAnimationDone(event: AnimationEvent, el: HTMLUListElement): void {
+  public onAnimationDone = (event: AnimationEvent, el: HTMLUListElement): void => {
     if (event.toState === 'hidden') {
       el.style.visibility = 'hidden';
     }
-  }
+  };
 }

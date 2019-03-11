@@ -14,13 +14,13 @@ export class PinElementDirective implements AfterContentInit {
   constructor(private element: ElementRef) {}
 
   @HostListener('scroll', ['$event'])
-  public onElementScroll(): void {
+  public onElementScroll = (): void => {
     if (this.element.nativeElement.scrollTop >= PinElementDirective.offsetTop) {
       this.pinElement.classList.add(this.pinElementClassName + '--fixed');
     } else {
       this.pinElement.classList.remove(this.pinElementClassName + '--fixed');
     }
-  }
+  };
 
   public ngAfterContentInit(): void {
     this.pinElement = this.element.nativeElement.querySelector('.' + this.pinElementClassName);

@@ -16,7 +16,7 @@ export class MessageTypeDirective implements OnInit {
     }
   }
 
-  private getMessageTypeClass(message: roomEvents.CustomMessageSent | ILocalMessage): string {
+  private getMessageTypeClass = (message: roomEvents.CustomMessageSent | ILocalMessage): string => {
     if (this.isPendingImage(message)) {
       return 'message--pending-image';
     } else if (!this.isLocalMessage(message) && message.context.description !== undefined) {
@@ -31,7 +31,7 @@ export class MessageTypeDirective implements OnInit {
     }
 
     return 'message--text';
-  }
+  };
 
   private isPendingImage(msg: roomEvents.CustomMessageSent | ILocalMessage): boolean {
     if (this.isLocalMessage(msg)) {

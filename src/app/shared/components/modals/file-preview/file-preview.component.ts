@@ -70,43 +70,43 @@ export class FilePreviewComponent implements OnInit {
     this.updatePreviewDetails(0);
   }
 
-  public onPrintClick(): void {
+  public onPrintClick = (): void => {
     this.filePreviewService.printPreview(this.currentFileDetails.previews);
-  }
+  };
 
-  public onFileChange(currentIndex: number): void {
+  public onFileChange = (currentIndex: number): void => {
     this.filePreviewTemplate.clear();
     this.currentPercentZoom = this.basicZoomPreview;
     this.updatePreviewDetails(currentIndex - 1);
     this.isPreviewBroken = false;
     this.maxLengthPDFPreviews = this.pdfPreviewsLength;
-  }
+  };
 
-  public onZoomChange(zoomPercent: number): void {
+  public onZoomChange = (zoomPercent: number): void => {
     this.currentPercentZoom = zoomPercent;
     this.fileResizer.onPreviewZoom(zoomPercent);
-  }
+  };
 
-  public onImageError(): void {
+  public onImageError = (): void => {
     this.isPreviewBroken = true;
     this.isPending = false;
-  }
+  };
 
-  public onImageLoad(): void {
+  public onImageLoad = (): void => {
     this.isPreviewScalable = !this.isFilePDF;
     this.isPending = false;
-  }
+  };
 
-  public onLoadMorePreviews(currentItem: number): void {
+  public onLoadMorePreviews = (currentItem: number): void => {
     this.maxLengthPDFPreviews = currentItem;
     this.loadMorePdfViews(this.currentPreviewList, this.maxLengthPDFPreviews);
-  }
+  };
 
   /**
    * function changes current displayed image.
    * once this one is completed view should start loading new image
    */
-  private updatePreviewDetails(currentIndex: number): void {
+  private updatePreviewDetails = (currentIndex: number): void => {
     this.isPending = true;
     this.currentFileDetails = this.filePreviewService.checkTypeOfFile(this.fileList[currentIndex]);
     this.resetFileContentType();
@@ -123,13 +123,13 @@ export class FilePreviewComponent implements OnInit {
 
       this.currentPreviewList = [this.currentFileDetails.fileUrl];
     }
-  }
+  };
 
-  private loadMorePdfViews(list: ReadonlyArray<string>, arrayLimit: number): void {
+  private loadMorePdfViews = (list: ReadonlyArray<string>, arrayLimit: number): void => {
     this.currentPdfList = list.slice(0, arrayLimit);
-  }
+  };
 
-  private updateContentType(contentType: string): void {
+  private updateContentType = (contentType: string): void => {
     switch (contentType) {
       case IFileType.OTHER:
         this.isDifferenteType = true;
@@ -150,10 +150,10 @@ export class FilePreviewComponent implements OnInit {
       default:
         this.isDifferenteType = true;
     }
-  }
+  };
 
-  private resetFileContentType(): void {
+  private resetFileContentType = (): void => {
     this.isFilePDF = false;
     this.isDifferenteType = false;
-  }
+  };
 }

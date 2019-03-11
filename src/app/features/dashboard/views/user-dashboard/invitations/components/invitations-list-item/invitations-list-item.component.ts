@@ -23,7 +23,7 @@ export class InvitationsListItemComponent {
   @Output()
   public invitationClicked: EventEmitter<string> = new EventEmitter();
 
-  public onInvitationClicked(invitationId: string): void {
+  public onInvitationClicked = (invitationId: string): void => {
     this.invitationClicked.emit(invitationId);
-  }
+  };
 }

@@ -75,9 +75,9 @@ export class UserNavigationComponent implements AfterViewChecked {
   @ViewChildren('listElement')
   private listOfNavbarElements: QueryList<ElementRef>;
 
-  public onSwitchVisibility(isVisible: boolean): void {
+  public onSwitchVisibility = (isVisible: boolean): void => {
     this.changeVisibility.emit(isVisible);
-  }
+  };
 
   public ngAfterViewChecked(): void {
     const activeElement = this.listOfNavbarElements.filter(element =>
@@ -91,7 +91,7 @@ export class UserNavigationComponent implements AfterViewChecked {
     this.currentElement$.next(undefined);
   }
 
-  public emitSwitchAccountUserType(userType: UserTypeEnum): void {
+  public emitSwitchAccountUserType = (userType: UserTypeEnum): void => {
     this.switchAccount.emit(userType);
-  }
+  };
 }

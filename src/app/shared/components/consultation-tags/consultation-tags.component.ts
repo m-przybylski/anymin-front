@@ -106,7 +106,7 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public handleNewTag(tag: string): void {
+  public handleNewTag = (tag: string): void => {
     const tagLowerCase = tag.toLowerCase();
     const tagStatus = this.consultationTagsComponentService.getTagValidationStatus(tagLowerCase, this.selectedTags);
     switch (tagStatus) {
@@ -148,9 +148,9 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
       default:
         this.addTag(tagLowerCase);
     }
-  }
+  };
 
-  public removeSelectedTag(tag: string): void {
+  public removeSelectedTag = (tag: string): void => {
     if (!this.isDisabled) {
       this.selectedTags = this.selectedTags.filter(item => item !== tag);
       this.selectedTagsEmitter$.emit(this.selectedTags);
@@ -158,25 +158,25 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
       this.updateSuggestedTags();
       this.checkTagsCount();
     }
-  }
+  };
 
-  public handleSuggestedTag(tag: string): void {
+  public handleSuggestedTag = (tag: string): void => {
     if (!this.isDisabled) {
       this.suggestedTags = this.suggestedTags.filter(item => item !== tag);
       this.hasSuggestedTags = this.suggestedTags.length > 0;
       this.addTag(tag);
     }
-  }
+  };
 
-  private addTag(tag: string): void {
+  private addTag = (tag: string): void => {
     this.selectedTags = [...this.selectedTags, tag];
     this.selectedTagsEmitter$.emit(this.selectedTags);
     this.hasSelectedTags = this.selectedTags.length > 0;
     this.updateSuggestedTags();
     this.checkTagsCount();
-  }
+  };
 
-  private checkTagsCount(): void {
+  private checkTagsCount = (): void => {
     // tslint:disable-next-line:no-null-keyword
     this.form.controls[this.controlName].setErrors(null);
     if (this.consultationTagsComponentService.isTagsMinCountInvalid(this.selectedTags)) {
@@ -185,15 +185,15 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
         this.validationErrorTranslations.invalidMinTagsCount,
       );
     }
-  }
+  };
 
-  private displayInvalidTagError(errorType: string, errorTrKey: string): void {
+  private displayInvalidTagError = (errorType: string, errorTrKey: string): void => {
     this.validationErrorTrKey = errorTrKey;
     this.form.controls[this.controlName].setErrors({ [errorType]: true });
     this.form.controls[this.controlName].markAsTouched();
-  }
+  };
 
-  private updateSuggestedTags(): void {
+  private updateSuggestedTags = (): void => {
     this.consultationTagsComponentService
       .getSuggestedTags({
         description: this.suggestedTagsQuery.description,
@@ -201,17 +201,17 @@ export class ConsultationTagsComponent implements OnInit, OnDestroy {
         tags: [...this.selectedTags],
         count: this.suggestedTagsCount,
       })
-      .pipe(catchError(err => this.handleGetSuggestedTagsError(err)))
+      .pipe(catchError(this.handleGetSuggestedTagsError))
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(response => {
         this.suggestedTags = response.tags;
         this.hasSuggestedTags = this.suggestedTags.length > 0;
       });
-  }
+  };
 
-  private handleGetSuggestedTagsError(error: HttpErrorResponse): Observable<GetSuggestedTags> {
+  private handleGetSuggestedTagsError = (error: HttpErrorResponse): Observable<GetSuggestedTags> => {
     this.loggerService.warn('Error when try to get suggested tags', error);
 
     return EMPTY;
-  }
+  };
 }

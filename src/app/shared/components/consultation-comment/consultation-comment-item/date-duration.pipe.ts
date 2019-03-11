@@ -26,7 +26,5 @@ export class DateDurationPipe implements PipeTransform {
     });
   }
 
-  public transform(dateTime: Date): string {
-    return moment().to(moment(dateTime));
-  }
+  public transform = (dateTime: Date): string => moment().to(moment(dateTime));
 }

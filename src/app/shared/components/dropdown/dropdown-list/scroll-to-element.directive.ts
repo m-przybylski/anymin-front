@@ -17,7 +17,7 @@ export class ScrollToElementDirective {
   constructor(private element: ElementRef) {}
 
   @HostListener('document:keydown', ['$event'])
-  public onKeydownHandler(event: KeyboardEvent): void {
+  public onKeydownHandler = (event: KeyboardEvent): void => {
     switch (event.key) {
       case Config.keyboardCodes.arrowUp:
         this.onKeyUp.emit();
@@ -37,11 +37,10 @@ export class ScrollToElementDirective {
       default:
         return;
     }
-  }
+  };
 
-  public scrollToElement(index: number): void {
-    return this.element.nativeElement
+  public scrollToElement = (index: number): void =>
+    this.element.nativeElement
       .querySelector(`#item_${index}`)
       .scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-  }
 }

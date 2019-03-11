@@ -18,13 +18,13 @@ export class ModalAnimationComponentDirective implements OnDestroy, AfterViewIni
     this.ngUnsubscribe$.complete();
   }
 
-  public onChangeModalContent(): void {
+  public onChangeModalContent = (): void => {
     this.modalAnimationComponentService.getPreviousHeight$().next(this.prevHeight);
-  }
+  };
 
-  public onResponse(): void {
+  public onResponse = (): void => {
     this.createAnimationOnEvent();
-  }
+  };
 
   public ngAfterViewInit(): void {
     this.currentHeight = this.getElementHeight();
@@ -32,14 +32,12 @@ export class ModalAnimationComponentDirective implements OnDestroy, AfterViewIni
     this.prevHeight = this.currentHeight;
   }
 
-  private getElementHeight(): string {
-    return this.element.nativeElement.clientHeight;
-  }
+  private getElementHeight = (): string => this.element.nativeElement.clientHeight;
 
-  private createAnimationOnEvent(): void {
+  private createAnimationOnEvent = (): void => {
     this.modalAnimationComponentService
       .getPreviousHeight$()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe();
-  }
+  };
 }

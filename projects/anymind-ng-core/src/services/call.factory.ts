@@ -29,13 +29,13 @@ export class CallFactory {
     this.clientLogger = loggerFactory.createLoggerService('CurrentClientCall');
   }
 
-  public createClientCall(
+  public createClientCall = (
     expert: GetProfile,
     call: BusinessCall,
     callDetails: GetSueRatelCall,
     localMediaTracks: ReadonlyArray<MediaStreamTrack>,
-  ): CurrentClientCall {
-    return new CurrentClientCall(
+  ): CurrentClientCall =>
+    new CurrentClientCall(
       expert,
       callDetails,
       call,
@@ -47,10 +47,9 @@ export class CallFactory {
       this.networkConnectionService,
       this.alertService,
     );
-  }
 
-  public createExpertCall(call: BusinessCall, expertSueDetails: GetExpertSueDetails): CurrentExpertCall {
-    return new CurrentExpertCall(
+  public createExpertCall = (call: BusinessCall, expertSueDetails: GetExpertSueDetails): CurrentExpertCall =>
+    new CurrentExpertCall(
       expertSueDetails,
       this.ratelService,
       this.timerFactory.createTimerService(),
@@ -61,5 +60,4 @@ export class CallFactory {
       this.networkConnectionService,
       this.alertService,
     );
-  }
 }

@@ -37,9 +37,8 @@ export class ProfileGuard implements CanActivate {
     this.logger = loggerFactory.createLoggerService('ProfileGuard');
   }
 
-  public canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.can(state.url);
-  }
+  public canActivate = (_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> =>
+    this.can(state.url);
 
   private can(url: string): Observable<boolean> {
     return this.store.pipe(
@@ -60,12 +59,12 @@ export class ProfileGuard implements CanActivate {
       take(1),
     );
   }
-  private buildRedirectMap(): IRedirectMap {
+  private buildRedirectMap = (): IRedirectMap =>
     /**
      * setup map. Each path profile, company etc has logged and unlogged property
      * which represents path path to be redirected to.
      */
-    return new Map([
+    new Map([
       [
         'profile',
         {
@@ -81,7 +80,6 @@ export class ProfileGuard implements CanActivate {
         },
       ],
     ]);
-  }
 
   /** function retrives opposite path to proviced one
    * logged <=> not logged
@@ -95,53 +93,52 @@ export class ProfileGuard implements CanActivate {
    * @param logged boolean flag determines if user is logged or not
    * @return URL segments with path to be redirected or undefined if path not found
    */
-  private matchPath(
+  private matchPath = (
     redirectMap: IRedirectMap,
-  ): ((currentPath: ReadonlyArray<UrlSegment>, logged: boolean) => ReadonlyArray<UrlSegment> | undefined) {
-    return (currentPath: ReadonlyArray<UrlSegment>, logged: boolean): ReadonlyArray<UrlSegment> | undefined => {
-      try {
-        redirectMap.forEach(value => {
-          if (this.comparePaths(value.logged, currentPath) && !logged) {
-            throw value.unlogged;
-          }
-          if (this.comparePaths(value.unlogged, currentPath) && logged) {
-            throw value.logged;
-          }
-        }, this);
-      } catch (err) {
-        this.logger.debug(`Path found for redirect: ${err}, current path: ${currentPath.join('/')}, logged: ${logged}`);
+  ): ((currentPath: ReadonlyArray<UrlSegment>, logged: boolean) => ReadonlyArray<UrlSegment> | undefined) => (
+    currentPath: ReadonlyArray<UrlSegment>,
+    logged: boolean,
+  ): ReadonlyArray<UrlSegment> | undefined => {
+    try {
+      redirectMap.forEach(value => {
+        if (this.comparePaths(value.logged, currentPath) && !logged) {
+          throw value.unlogged;
+        }
+        if (this.comparePaths(value.unlogged, currentPath) && logged) {
+          throw value.logged;
+        }
+      }, this);
+    } catch (err) {
+      this.logger.debug(`Path found for redirect: ${err}, current path: ${currentPath.join('/')}, logged: ${logged}`);
 
-        return err;
-      }
-      this.logger.debug(`No path found for redirect current path: ${currentPath.join('/')}, logged: ${logged}`);
+      return err;
+    }
+    this.logger.debug(`No path found for redirect current path: ${currentPath.join('/')}, logged: ${logged}`);
 
-      return undefined;
-    };
-  }
+    return undefined;
+  };
 
-  private comparePaths(left: ReadonlyArray<UrlSegment>, right: ReadonlyArray<UrlSegment>): boolean {
+  private comparePaths = (left: ReadonlyArray<UrlSegment>, right: ReadonlyArray<UrlSegment>): boolean => {
     if (left.length !== right.length) {
       return false;
     }
 
     return left.every((segment, index) => right[index].toString() === segment.toString());
-  }
+  };
 
-  private getUrlSegments(url: string): ReadonlyArray<UrlSegment> {
-    return this.router.parseUrl(url).root.children[PRIMARY_OUTLET].segments;
-  }
+  private getUrlSegments = (url: string): ReadonlyArray<UrlSegment> =>
+    this.router.parseUrl(url).root.children[PRIMARY_OUTLET].segments;
 
-  private getUrlSegmentsWithNoParam(url: string): ReadonlyArray<UrlSegment> {
-    return this.getUrlSegments(url).filter(
+  private getUrlSegmentsWithNoParam = (url: string): ReadonlyArray<UrlSegment> =>
+    this.getUrlSegments(url).filter(
       (_segment: UrlSegment, index: number, array: ReadonlyArray<UrlSegment>): boolean => index < array.length - 1,
     );
-  }
 
-  private getLastParam(url: string): string {
+  private getLastParam = (url: string): string => {
     const paramsArray = this.getUrlSegments(url);
 
     return paramsArray[paramsArray.length - 1].toString();
-  }
+  };
 }
 
 type IRedirectMap = Map<string, { logged: ReadonlyArray<UrlSegment>; unlogged: ReadonlyArray<UrlSegment> }>;

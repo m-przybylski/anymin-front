@@ -53,7 +53,7 @@ export class PromoCodeComponent extends Logger implements OnInit {
     this.modalAnimationComponentService.stopLoadingAnimation();
   }
 
-  public onSendClick(): void {
+  public onSendClick = (): void => {
     this.isPending = true;
 
     this.promoCodeService
@@ -71,9 +71,9 @@ export class PromoCodeComponent extends Logger implements OnInit {
         }),
       )
       .subscribe();
-  }
+  };
 
-  private handlePostPromoCodeError(err: HttpErrorResponse): Observable<void> {
+  private handlePostPromoCodeError = (err: HttpErrorResponse): Observable<void> => {
     this.isPending = false;
 
     const error: BackendError = err.error;
@@ -100,5 +100,5 @@ export class PromoCodeComponent extends Logger implements OnInit {
     }
 
     return EMPTY;
-  }
+  };
 }

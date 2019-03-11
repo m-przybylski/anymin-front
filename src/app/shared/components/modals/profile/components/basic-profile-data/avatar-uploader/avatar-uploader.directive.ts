@@ -34,8 +34,8 @@ export class AvatarUploaderDirective {
   }
 
   @HostListener('change', ['$event'])
-  public inputChanged(event: Event): void {
-    const element = event.target as HTMLInputElement;
+  public inputChanged = (event: MSInputMethodContext): void => {
+    const element = <HTMLInputElement>event.target;
     if (element.files !== null && element.files[0].size < Config.imageSizeInBytes.imageCropMaxSize) {
       this.contentHeightService.getPreviousHeight$().next('0');
       if (element.value) {
@@ -55,16 +55,16 @@ export class AvatarUploaderDirective {
       this.logger.warn('Too big file');
       this.alertService.pushDangerAlert('EDIT_PROFILE.IMAGE_CROP.ERROR.TOO_BIG_SIZE');
     }
-  }
+  };
 
   @HostListener('click', ['$event'])
-  public inputClick(event: Event): void {
+  public inputClick = (event: MSInputMethodContext): void => {
     if ((<HTMLInputElement>event.target).value) {
       (<HTMLInputElement>event.target).value = '';
     }
-  }
+  };
 
-  private checkImageDimensions(event: Event, reader: FileReader): void {
+  private checkImageDimensions(event: MSInputMethodContext, reader: FileReader): void {
     const img = new Image();
     const files = (event.target as HTMLInputElement).files;
     if (files !== null) {
@@ -80,11 +80,8 @@ export class AvatarUploaderDirective {
     }
   }
 
-  private hasFileMinDimensions(img: HTMLImageElement): boolean {
-    return (
-      img.naturalWidth >= Config.avatarDimensions.minWidth && img.naturalHeight >= Config.avatarDimensions.minHeight
-    );
-  }
+  private hasFileMinDimensions = (img: HTMLImageElement): boolean =>
+    img.naturalWidth >= Config.avatarDimensions.minWidth && img.naturalHeight >= Config.avatarDimensions.minHeight;
 
   private openCroppieModal(fileList: FileList, reader: FileReader): void {
     const modalRef = this.modalService.open(ImageCropModalComponent);

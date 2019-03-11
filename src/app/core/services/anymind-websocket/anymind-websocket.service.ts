@@ -231,32 +231,32 @@ export class AnymindWebsocketService extends Logger {
     return this.newInvitationEvent$.asObservable();
   }
 
-  private handleMessageType(data: any): void {
+  private handleMessageType = (data: any): void => {
     const type: WS_BACKEND_MESSAGES = data && data.messageType;
     const { event, extract } = this.configuration[type] as IWebSocketMessageConfiguration;
     event.next(extract(data));
-  }
+  };
 
-  private connectWebsocket(): void {
+  private connectWebsocket = (): void => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const url = `${protocol}//${window.location.host}/api/ws/register`;
     this.websocketService = this.websocketServiceFactory.create(url);
-    this.websocketService.messages.subscribe(msg => this.onNewMessage(msg));
-  }
+    this.websocketService.messages.subscribe(this.onNewMessage);
+  };
 
-  private setupWebsocket(): void {
+  private setupWebsocket = (): void => {
     this.listenHeartbeats();
     this.connectWebsocket();
-  }
+  };
 
-  private onUserLogout(): void {
+  private onUserLogout = (): void => {
     if (this.websocketService) {
       this.sessionDestroyed$.next();
       this.websocketService.disconnectWithoutSideEffects();
     }
-  }
+  };
 
-  private listenHeartbeats(): void {
+  private listenHeartbeats = (): void => {
     this.heartbeatConfig
       .pipe(
         first(),
@@ -273,17 +273,17 @@ export class AnymindWebsocketService extends Logger {
       .subscribe(() => {
         this.reconnectWebsocket();
       });
-  }
+  };
 
-  private reconnectWebsocket(): void {
+  private reconnectWebsocket = (): void => {
     this.websocketService.disconnectWithoutSideEffects();
     this.connectWebsocket();
-  }
+  };
 
-  private onNewMessage(msg: IWebSocketMessage): void {
+  private onNewMessage = (msg: IWebSocketMessage): void => {
     if (!Object.keys(this.configuration).includes(msg.messageType)) {
       return this.loggerService.warn('Cannot parse message, unhandled message type.', msg);
     }
     this.handleMessageType(msg);
-  }
+  };
 }

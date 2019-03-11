@@ -7,7 +7,5 @@ import { LOG_LEVEL } from '../shared/injection-tokens/injection-tokens';
 export class LoggerFactory {
   constructor(@Inject(LOG_LEVEL) private logLevel: LogLevel) {}
 
-  public createLoggerService(logPrefix?: string): LoggerService {
-    return new LoggerService(this.logLevel, logPrefix);
-  }
+  public createLoggerService = (logPrefix?: string): LoggerService => new LoggerService(this.logLevel, logPrefix);
 }

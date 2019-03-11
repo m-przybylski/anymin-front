@@ -49,8 +49,8 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
     super(loggerFactory.createLoggerService('ExpertCompanyActivityDetailsComponentService'));
   }
 
-  public getCallDetails(data: IGetCallDetailsData): Observable<IExpertCompanyActivityDetails> {
-    return getNotUndefinedSession(this.store).pipe(
+  public getCallDetails = (data: IGetCallDetailsData): Observable<IExpertCompanyActivityDetails> =>
+    getNotUndefinedSession(this.store).pipe(
       first(),
       map(getSession => getSession.session.organizationProfileId || getSession.session.expertProfileId),
       switchMap((profileId: string) =>
@@ -102,9 +102,8 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
         return throwError(err);
       }),
     );
-  }
 
-  private getComment(callDetails: GetCallDetails): GetComment | undefined {
+  private getComment = (callDetails: GetCallDetails): GetComment | undefined => {
     if (typeof callDetails.comment !== 'undefined') {
       return {
         commentId: callDetails.comment.commentId,
@@ -120,17 +119,16 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
     }
 
     return undefined;
-  }
+  };
 
-  private markActivityAsUnimportant(activityId: string): Observable<void> {
-    return this.activitiesService.putUnimportantProfileActivityRoute(activityId).pipe(
+  private markActivityAsUnimportant = (activityId: string): Observable<void> =>
+    this.activitiesService.putUnimportantProfileActivityRoute(activityId).pipe(
       catchError(err => {
         this.loggerService.warn('Error when try to mark activity as unimportant', err);
 
         return throwError(err);
       }),
     );
-  }
 
   private handleGetComplaintError(httpError: HttpErrorResponse): Observable<undefined> {
     // TODO refactor after https://anymind.atlassian.net/browse/FRONT-678

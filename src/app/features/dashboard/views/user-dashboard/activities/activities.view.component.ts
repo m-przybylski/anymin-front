@@ -78,10 +78,10 @@ export class ActivitiesViewComponent extends Logger implements OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  private handleError(error: HttpErrorResponse): Observable<void> {
+  private handleError = (error: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.loggerService.error('Can not open CreateProfileModalComponent after registration: ', error);
 
     return EMPTY;
-  }
+  };
 }

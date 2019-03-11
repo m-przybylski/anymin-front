@@ -1,11 +1,10 @@
 import { InjectionToken } from '@angular/core';
 
 export class RouterHelpers {
-  public static replaceParams(pathToReplace: string, params: { [key: string]: string }): string {
-    return Object.keys(params)
+  public static replaceParams = (pathToReplace: string, params: { [key: string]: string }): string =>
+    Object.keys(params)
       .map(key => `:${key}`)
       .reduce((newPath, key) => newPath.replace(key, params[key.substr(1)]), pathToReplace);
-  }
 }
 export const RouterPaths = {
   dashboard: {

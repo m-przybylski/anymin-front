@@ -37,7 +37,5 @@ export class InputCheckboxComponent implements OnInit {
     this.formGroup.addControl(this.controlName, new FormControl(false, checkboxValidators));
   }
 
-  public isFieldInvalid(): boolean {
-    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
-  }
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 }

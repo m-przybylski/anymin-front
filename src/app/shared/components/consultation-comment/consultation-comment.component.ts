@@ -77,7 +77,7 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
     this.answerFormGroup.addControl(this.answerFormControlName, new FormControl('', []));
   }
 
-  public dropdownChoose(choose: ConsultationCommentTypeAnswer): void {
+  public dropdownChoose = (choose: ConsultationCommentTypeAnswer): void => {
     switch (choose) {
       case ConsultationCommentTypeAnswer.ANSWER:
         this.isReasonFieldVisible
@@ -94,20 +94,20 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
       default:
         return;
     }
-  }
+  };
 
-  public closeAnswerFields(): void {
+  public closeAnswerFields = (): void => {
     this.isAnswerFieldVisible = false;
     this.isReasonFieldVisible = false;
-  }
+  };
 
-  public onSendComment(formGroup: FormGroup): void {
+  public onSendComment = (formGroup: FormGroup): void => {
     if (formGroup.valid) {
       this.sendCommentAnswer(formGroup.controls[this.answerFormControlName].value);
     }
-  }
+  };
 
-  public sendReasonReport(reason: GetReport.CauseEnum): void {
+  public sendReasonReport = (reason: GetReport.CauseEnum): void => {
     this.consultationCommentService
       .postCommentReport(this.sueId, this.comment.commentId, reason)
       .pipe(
@@ -119,9 +119,9 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
         }),
       )
       .subscribe();
-  }
+  };
 
-  private sendCommentAnswer(answer: string): void {
+  private sendCommentAnswer = (answer: string): void => {
     this.comment.answer = {
       content: answer,
       createdAt: new Date(),
@@ -142,27 +142,27 @@ export class ConsultationCommentComponent extends Logger implements OnInit {
         catchError(err => this.handleRequestError(err, 'Can not send comment answer')),
       )
       .subscribe();
-  }
+  };
 
-  private handleRequestError(error: HttpErrorResponse, msg: string): Observable<void> {
+  private handleRequestError = (error: HttpErrorResponse, msg: string): Observable<void> => {
     this.loggerService.warn(msg, error);
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
 
     return EMPTY;
-  }
+  };
 
-  private setAnswerFieldAnimationDelay(): void {
+  private setAnswerFieldAnimationDelay = (): void => {
     this.isAnswerFieldVisible = false;
 
     setTimeout(() => {
       this.isReasonFieldVisible = !this.isReasonFieldVisible;
     }, ConsultationCommentComponent.timeout);
-  }
+  };
 
-  private setReasonFieldAnimationDelay(): void {
+  private setReasonFieldAnimationDelay = (): void => {
     this.isReasonFieldVisible = false;
     setTimeout(() => {
       this.isAnswerFieldVisible = !this.isAnswerFieldVisible;
     }, ConsultationCommentComponent.timeout);
-  }
+  };
 }

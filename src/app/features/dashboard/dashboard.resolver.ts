@@ -19,18 +19,15 @@ export class DashboardResolver extends Logger implements Resolve<boolean> {
     super(loggerFactory.createLoggerService('DashboardResolver'));
   }
 
-  public resolve(): Observable<boolean> {
-    return this.getUserType().pipe(
+  public resolve = (): Observable<boolean> =>
+    this.getUserType().pipe(
       switchMap(userType => defer(() => (userType !== undefined ? of(true) : this.dispatchUserFromSession()))),
       take(1),
     );
-  }
 
-  private getUserType(): Observable<UserTypeEnum | undefined> {
-    return this.store.pipe(select(fromCore.getUserType));
-  }
-  private dispatchUserFromSession(): Observable<boolean> {
-    return getNotUndefinedSession(this.store).pipe(
+  private getUserType = (): Observable<UserTypeEnum | undefined> => this.store.pipe(select(fromCore.getUserType));
+  private dispatchUserFromSession = (): Observable<boolean> =>
+    getNotUndefinedSession(this.store).pipe(
       map((session: GetSessionWithAccount) => {
         if (session.isCompany) {
           this.store.dispatch(new NavbarActions.SetUserType(UserTypeEnum.COMPANY));
@@ -47,5 +44,4 @@ export class DashboardResolver extends Logger implements Resolve<boolean> {
         return true;
       }),
     );
-  }
 }

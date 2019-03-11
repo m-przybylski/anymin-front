@@ -1,13 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  Input,
-  IterableDiffer,
-  IterableDiffers,
-  ViewChild,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild } from '@angular/core';
 import { ScrollToElementDirective } from './scroll-to-element.directive';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { IDropdownComponent } from '../dropdown.component';
@@ -25,8 +16,8 @@ export class DropdownListComponent implements DoCheck {
   @Input()
   public dropdownItems: ReadonlyArray<IDropdownComponent>;
 
-  @Output()
-  public selectItem = new EventEmitter<IDropdownComponent>();
+  @Input()
+  public onSelectItem: (item: IDropdownComponent) => void;
 
   @ViewChild(ScrollToElementDirective)
   public scrollContent: ScrollToElementDirective;
@@ -44,49 +35,47 @@ export class DropdownListComponent implements DoCheck {
     }
   }
 
-  public onSelectItem(): void {
+  public selectItem = (): void => {
     if (this.selectedItemIndex !== -1) {
-      this.selectItem.emit(this.selectedItemElement);
+      this.onSelectItem(this.selectedItemElement);
     }
     this.selectedItemIndex = -1;
-  }
+  };
 
-  public onItemClicked(index: number): void {
+  public onItemClicked = (index: number): void => {
     this.findItemInList(index);
-    this.onSelectItem();
-  }
+    this.selectItem();
+  };
 
-  public onMouseSelect(index: number): void {
+  public onMouseSelect = (index: number): void => {
     this.selectedItemIndex = index;
     this.findItemInList(index);
-  }
+  };
 
-  public onSelectEnter(): void {
-    this.onSelectItem();
-  }
+  public onSelectEnter = (): void => {
+    this.selectItem();
+  };
 
-  public onKeyUp(): void {
-    return this.selectedItemIndex > 0 && this.dropdownItems.length > 0
+  public onKeyUp = (): void =>
+    this.selectedItemIndex > 0 && this.dropdownItems.length > 0
       ? this.markItemAsSelected(this.selectedItemIndex - 1)
       : this.markItemAsSelected(this.selectedItemIndex);
-  }
 
-  public onKeyDown(): void {
-    return this.selectedItemIndex < this.dropdownItems.length - 1 && this.dropdownItems.length > 0
+  public onKeyDown = (): void =>
+    this.selectedItemIndex < this.dropdownItems.length - 1 && this.dropdownItems.length > 0
       ? this.markItemAsSelected(this.selectedItemIndex + 1)
       : this.markItemAsSelected(this.selectedItemIndex);
-  }
 
-  private findItemInList(index: number): void {
+  private findItemInList = (index: number): void => {
     this.selectedItemElement = this.dropdownItems[index];
-  }
+  };
 
-  private markItemAsSelected(index: number): void {
+  private markItemAsSelected = (index: number): void => {
     this.selectedItemIndex = index;
 
     if (this.selectedItemIndex >= 0) {
       this.findItemInList(index);
       this.scrollContent.scrollToElement(index);
     }
-  }
+  };
 }

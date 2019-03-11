@@ -20,7 +20,7 @@ describe('Component: DropdownListComponent', () => {
     const fixture = TestBed.createComponent(DropdownListComponent);
     const component = fixture.componentInstance;
 
-    component.onSelectItem();
+    component.selectItem();
     expect(component.selectedItemIndex).toEqual(-1);
   });
 
@@ -48,9 +48,9 @@ describe('Component: DropdownListComponent', () => {
     component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
     const indexNumber = 3;
-    jest.spyOn(component, 'onSelectItem');
+    jest.spyOn(component, 'selectItem');
     component.onItemClicked(indexNumber);
-    expect(component.onSelectItem).toHaveBeenCalled();
+    expect(component.selectItem).toHaveBeenCalled();
   });
 
   it('should call onSelectEnter', () => {
@@ -60,9 +60,9 @@ describe('Component: DropdownListComponent', () => {
 
     component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
-    jest.spyOn(component, 'onSelectItem');
+    jest.spyOn(component, 'selectItem');
 
     component.onSelectEnter();
-    expect(component.onSelectItem).toHaveBeenCalled();
+    expect(component.selectItem).toHaveBeenCalled();
   });
 });

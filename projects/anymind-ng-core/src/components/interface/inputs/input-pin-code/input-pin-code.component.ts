@@ -48,9 +48,7 @@ export class InputPinCodeComponent {
     );
   }
 
-  public isFieldInvalid(): boolean {
-    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
-  }
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 
   // tslint:disable-next-line
   public isIncorrectPinCode = (): boolean => {
@@ -68,16 +66,16 @@ export class InputPinCodeComponent {
     return false;
   };
 
-  public isRequiredError(): boolean {
+  public isRequiredError = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
     if (controlErrors !== null) {
       return this.isFieldInvalid() && controlErrors.required;
     }
 
     return false;
-  }
+  };
 
-  public isToManyUnsuccessfulAttempts(): boolean {
+  public isToManyUnsuccessfulAttempts = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -85,13 +83,13 @@ export class InputPinCodeComponent {
     }
 
     return false;
-  }
+  };
 
-  public onFocus(): void {
+  public onFocus = (): void => {
     this.isFocused = true;
-  }
+  };
 
-  public onBlur(): void {
+  public onBlur = (): void => {
     this.isFocused = false;
-  }
+  };
 }

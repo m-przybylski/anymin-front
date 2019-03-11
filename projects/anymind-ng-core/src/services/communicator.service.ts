@@ -43,20 +43,20 @@ export class CommunicatorService {
    * When connection will be established, the connectionEstablishedEvent$ will be emitted.
    * Successfull authentication turns on the reconnection
    */
-  public authenticate(accountId: string, apiKey: string): void {
+  public authenticate = (accountId: string, apiKey: string): void => {
     if (!this.connectionSubscription) {
       this.logger.debug('Creating connection');
       this.createRatelConnection(MachokeSDK.init(accountId, apiKey, this.ratelConfig));
     } else {
       this.logger.warn('Cannot authenticate, there is a connection already');
     }
-  }
+  };
 
   /**
    * When connection will be established, the connectionEstablishedEvent$ will be emitted.
    * Successfull disconnect turns off the reconnection
    */
-  public disconnect(): void {
+  public disconnect = (): void => {
     if (this.connectionSubscription) {
       this.logger.debug('Disconnecting');
       this.connectionSubscription.unsubscribe();
@@ -64,7 +64,7 @@ export class CommunicatorService {
     } else {
       this.logger.warn('Cannot disconnect, there is no subscription');
     }
-  }
+  };
 
   /**
    * Will be emitted when someone will call current session
@@ -95,7 +95,7 @@ export class CommunicatorService {
     return this.connectionEstablishedEvent;
   }
 
-  private createRatelConnection(session: Session): Session {
+  private createRatelConnection = (session: Session): Session => {
     this.logger.debug('Session created', session);
 
     const chat = session.machoke;
@@ -124,5 +124,5 @@ export class CommunicatorService {
     });
 
     return session;
-  }
+  };
 }

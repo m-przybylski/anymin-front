@@ -43,7 +43,7 @@ export class NavbarHelpComponent {
     this.store.dispatch(new NavbarActions.ToggleHelpMenuVisibility());
   }
 
-  private setCloseHandlers(): void {
+  private setCloseHandlers = (): void => {
     this.ngZone.runOutsideAngular(() => {
       fromEvent<MouseEvent>(this.document as FromEventTarget<MouseEvent>, 'click')
         .pipe(
@@ -56,5 +56,5 @@ export class NavbarHelpComponent {
           });
         });
     });
-  }
+  };
 }

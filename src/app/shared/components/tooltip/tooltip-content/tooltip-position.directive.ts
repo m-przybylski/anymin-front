@@ -45,7 +45,7 @@ export class TooltipContentPositionDirective implements AfterViewInit {
     this.checkDestination(this.DOMDestination);
   }
 
-  private checkDestination(type: TooltipComponentDestinationEnum): void {
+  private checkDestination = (type: TooltipComponentDestinationEnum): void => {
     switch (type) {
       case TooltipComponentDestinationEnum.MODAL:
         this.isTooltipDestinationModal = true;
@@ -65,9 +65,9 @@ export class TooltipContentPositionDirective implements AfterViewInit {
         this.mapTooltipOffset();
         this.checkTooltipContentPosition();
     }
-  }
+  };
 
-  private mapTooltipOffset(): void {
+  private mapTooltipOffset = (): void => {
     this.offsetPosition = {
       offsetLeft: this.isTooltipDestinationModal
         ? this.tooltipCords.modalRelative.offsetLeft
@@ -76,9 +76,9 @@ export class TooltipContentPositionDirective implements AfterViewInit {
         ? this.tooltipCords.modalRelative.offsetTop
         : this.tooltipCords.bodyRelative.top,
     };
-  }
+  };
 
-  private setTooltipContentStyle(): void {
+  private setTooltipContentStyle = (): void => {
     this.textContent.style.whiteSpace = 'pre';
     this.textContent.style.position = 'absolute';
 
@@ -95,9 +95,9 @@ export class TooltipContentPositionDirective implements AfterViewInit {
       this.contentTooltipElement.style.width = `${this.textContent.offsetWidth + paddingElement * this.halfDivider}px`;
       this.textContent.style.position = 'static';
     }
-  }
+  };
 
-  private checkTooltipContentPosition(): void {
+  private checkTooltipContentPosition = (): void => {
     if (this.isFreeSpaceLeftEnough()) {
       this.setTooltipContentPosition(TooltipPosition.LEFT);
     } else if (this.isFreeSpaceRightEnough()) {
@@ -105,9 +105,9 @@ export class TooltipContentPositionDirective implements AfterViewInit {
     } else {
       this.setTooltipContentPosition(TooltipPosition.CENTER);
     }
-  }
+  };
 
-  private setTooltipContentPosition(position: TooltipPosition): void {
+  private setTooltipContentPosition = (position: TooltipPosition): void => {
     switch (position) {
       case TooltipPosition.LEFT:
         this.contentTooltipElement.classList.add('tooltip-content--left');
@@ -126,43 +126,39 @@ export class TooltipContentPositionDirective implements AfterViewInit {
         this.setCenterPosition();
         this.setOffsetYPosition();
     }
-  }
+  };
 
-  private setOffsetLeftPosition(): void {
+  private setOffsetLeftPosition = (): void => {
     this.setTooltipPositionLeftStyle(`${this.offsetPosition.offsetLeft - this.contentTooltipElement.clientWidth}px`);
-  }
+  };
 
-  private setOffsetRightPosition(): void {
+  private setOffsetRightPosition = (): void => {
     this.setTooltipPositionLeftStyle(`${this.offsetPosition.offsetLeft}px`);
-  }
+  };
 
-  private setCenterPosition(): void {
+  private setCenterPosition = (): void => {
     const contentTooltipViewPortOffset = this.contentTooltipElement.getBoundingClientRect();
     const contentTooltipOffsetLeft = Number(contentTooltipViewPortOffset.left.toFixed(0));
     this.setTooltipPositionLeftStyle(`-${contentTooltipOffsetLeft - this.mobileDevicesPadding}px`);
-  }
+  };
 
-  private setOffsetYPosition(): void {
+  private setOffsetYPosition = (): void => {
     const contentHeight = this.element.nativeElement.clientHeight;
     this.setTooltipPositionTopStyle(`${this.offsetPosition.offsetTop - contentHeight}px`);
-  }
+  };
 
-  private setTooltipPositionLeftStyle(positionLeft: string): void {
+  private setTooltipPositionLeftStyle = (positionLeft: string): void => {
     this.contentTooltipElement.style.left = positionLeft;
-  }
+  };
 
-  private setTooltipPositionTopStyle(positionTop: string): void {
+  private setTooltipPositionTopStyle = (positionTop: string): void => {
     this.contentTooltipElement.style.top = positionTop;
-  }
+  };
 
-  private isFreeSpaceRightEnough(): boolean {
-    return (
-      this.windowRef.nativeWindow.innerWidth >
-      this.tooltipCords.bodyRelative.left + this.contentTooltipElement.clientWidth
-    );
-  }
+  private isFreeSpaceRightEnough = (): boolean =>
+    this.windowRef.nativeWindow.innerWidth >
+    this.tooltipCords.bodyRelative.left + this.contentTooltipElement.clientWidth;
 
-  private isFreeSpaceLeftEnough(): boolean {
-    return this.tooltipCords.bodyRelative.left > this.contentTooltipElement.clientWidth;
-  }
+  private isFreeSpaceLeftEnough = (): boolean =>
+    this.tooltipCords.bodyRelative.left > this.contentTooltipElement.clientWidth;
 }

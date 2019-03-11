@@ -35,8 +35,8 @@ export class AcceptRejectInvitationService extends Logger {
    * @param invitation invitation object where serviceId is require
    * @returns mapped details about service to display for the user
    */
-  public getInvitationDetails(invitation: IInvitation): Observable<IConsultationDetails> {
-    return forkJoin(this.getServiceDetails(invitation.serviceId), this.getTagsForService(invitation.serviceId)).pipe(
+  public getInvitationDetails = (invitation: IInvitation): Observable<IConsultationDetails> =>
+    forkJoin(this.getServiceDetails(invitation.serviceId), this.getTagsForService(invitation.serviceId)).pipe(
       map(([{ getCommissions, getService }, tagList]) => ({
         isFreelance: getService.isFreelance,
         price: getService.price,
@@ -45,7 +45,6 @@ export class AcceptRejectInvitationService extends Logger {
         getCommissions,
       })),
     );
-  }
 
   /**
    * Accepts invitation. endpoint involved
@@ -54,9 +53,8 @@ export class AcceptRejectInvitationService extends Logger {
    * @param activeModal modal to be closed
    * @returns Cold observable. Once subscribed triggers accept
    */
-  public acceptInvitation(invitationId: string, activeModal: NgbActiveModal): Observable<void> {
-    return this.acceptRejectInvitation('ACCEPT')(invitationId, activeModal);
-  }
+  public acceptInvitation = (invitationId: string, activeModal: NgbActiveModal): Observable<void> =>
+    this.acceptRejectInvitation('ACCEPT')(invitationId, activeModal);
 
   /**
    * Rejects invitation. endpoint involved
@@ -65,13 +63,11 @@ export class AcceptRejectInvitationService extends Logger {
    * @param activeModal modal to be closed
    * @returns Cold observable. Once subscribed triggers rejection
    */
-  public rejectInvitation(invitationId: string, activeModal: NgbActiveModal): Observable<void> {
-    return this.acceptRejectInvitation('REJECT')(invitationId, activeModal);
-  }
+  public rejectInvitation = (invitationId: string, activeModal: NgbActiveModal): Observable<void> =>
+    this.acceptRejectInvitation('REJECT')(invitationId, activeModal);
 
-  public markInvitationAsRead(invitation: string): Observable<void> {
-    return this.invitationService.postInvitationsDisplayedRoute(invitation);
-  }
+  public markInvitationAsRead = (invitation: string): Observable<void> =>
+    this.invitationService.postInvitationsDisplayedRoute(invitation);
 
   private getServiceDetails(serviceId: string): Observable<{ getCommissions: GetCommissions; getService: GetService }> {
     return this.serviceService.getServiceRoute(serviceId).pipe(
@@ -86,8 +82,8 @@ export class AcceptRejectInvitationService extends Logger {
     );
   }
 
-  private getTagsForService(serviceId: string): Observable<ReadonlyArray<string>> {
-    return this.serviceService
+  private getTagsForService = (serviceId: string): Observable<ReadonlyArray<string>> =>
+    this.serviceService
       .postServicesTagsRoute({ serviceIds: [serviceId] })
       .pipe(
         map(getServiceTagsList =>
@@ -96,11 +92,10 @@ export class AcceptRejectInvitationService extends Logger {
             .reduce((tagList, getServiceTags) => [...tagList, ...getServiceTags.tags.map(tag => tag.name)], []),
         ),
       );
-  }
 
-  private acceptRejectInvitation(
+  private acceptRejectInvitation = (
     task: 'ACCEPT' | 'REJECT',
-  ): ((invitationId: string, activeModal: NgbActiveModal) => Observable<void>) {
+  ): ((invitationId: string, activeModal: NgbActiveModal) => Observable<void>) => {
     /**
      * bind is required so the service has a context of execution.
      */
@@ -122,7 +117,7 @@ export class AcceptRejectInvitationService extends Logger {
           return throwError(error);
         }),
       );
-  }
+  };
 }
 
 export interface IConsultationDetails {

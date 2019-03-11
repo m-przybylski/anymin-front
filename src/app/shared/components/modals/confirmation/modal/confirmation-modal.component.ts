@@ -25,7 +25,7 @@ export class ConfirmationModalComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     this.modalAnimationComponentService.stopLoadingAnimation(this.initialModalHeight);
   }
-  public onConfirmationClick(result: boolean): void {
+  public onConfirmationClick = (result: boolean): void => {
     this.modal.close(result);
-  }
+  };
 }

@@ -34,10 +34,8 @@ export class TechnicalProblemComponent implements OnInit {
     }
   }
 
-  public technicalProblemButtonTr(): string {
-    return this.technicalProblemForm.controls[this.technicalProblemControlName].value ===
-      this.postTechnicalProblemEnum.OTHER
+  public technicalProblemButtonTr = (): string =>
+    this.technicalProblemForm.controls[this.technicalProblemControlName].value === this.postTechnicalProblemEnum.OTHER
       ? 'CALL_SUMMARY.TECHNICAL_PROBLEM_BUTTON_NEXT'
       : 'CALL_SUMMARY.TECHNICAL_PROBLEM_BUTTON_SEND';
-  }
 }

@@ -9,7 +9,7 @@ import { IConfirmationConfig, CONFIRMATION_DATA } from './confirmations.helpers'
 export class ConfirmationService {
   constructor(private modalService: NgbModal, private injector: Injector) {}
 
-  public confirm(modalHeader: string, header: string): Observable<boolean> {
+  public confirm = (modalHeader: string, header: string): Observable<boolean> => {
     const confirmationConfig: IConfirmationConfig = {
       header,
       modalHeader,
@@ -24,5 +24,5 @@ export class ConfirmationService {
     const modal = this.modalService.open(ConfirmationModalComponent, options);
 
     return from(modal.result).pipe(catchError(() => of(false)));
-  }
+  };
 }

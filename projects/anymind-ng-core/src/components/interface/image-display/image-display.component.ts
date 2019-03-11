@@ -45,12 +45,12 @@ export class ImageDisplayComponent implements OnInit {
     this.changeAssetsPath();
   }
 
-  private changeAssetsPath(): void {
+  private changeAssetsPath = (): void => {
     if (this.isWidget) {
       this.urlIcons = this.widgetPath + this.config.assetsUrl.icons;
       this.urlIconsTablet = this.widgetPath + this.config.assetsUrl.iconsTablet;
       this.urlIconsSmallDesktop = this.widgetPath + this.config.assetsUrl.iconsSmallDesktop;
       this.urlIconsDesktop = this.widgetPath + this.config.assetsUrl.iconsDesktop;
     }
-  }
+  };
 }

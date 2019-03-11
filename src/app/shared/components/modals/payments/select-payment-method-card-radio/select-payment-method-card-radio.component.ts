@@ -34,13 +34,13 @@ export class SelectPaymentMethodCardRadioComponent {
   @Output()
   public onDeleteCard: EventEmitter<string> = new EventEmitter<string>();
 
-  public onCardClick(event: MouseEvent): void {
+  public onCardClick = (event: MouseEvent): void => {
     event.stopPropagation();
     this.onSelectCard.emit(this.id);
-  }
+  };
 
-  public deleteCard(event: MouseEvent): void {
+  public deleteCard = (event: MouseEvent): void => {
     event.stopPropagation();
     this.onDeleteCard.emit(this.id);
-  }
+  };
 }

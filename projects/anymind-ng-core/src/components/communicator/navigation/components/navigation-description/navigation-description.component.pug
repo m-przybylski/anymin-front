@@ -5,7 +5,7 @@ nav
       span(*ngIf="callLengthInSeconds") {{ callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}
       span(*ngIf="!callLengthInSeconds") 00:00:00
 
-    ul((click)="onHangupCall()")
+    ul((click)="hangupCall()")
       li
         a.btn-nav.btn-nav--communicator.btn-nav--cancel-conversation()
           span.icon.icon-end-call

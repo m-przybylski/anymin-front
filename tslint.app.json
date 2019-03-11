@@ -3,6 +3,7 @@
   "rules": {
     "no-floating-promises": true,
     "no-any": true,
-    "no-let": true
+    "no-let": true,
+    "no-unbound-method": [true, "ignore-static"]
   }
 }

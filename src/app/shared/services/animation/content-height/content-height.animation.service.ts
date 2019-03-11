@@ -6,7 +6,5 @@ export class ContentHeightAnimationService {
 
   constructor() {}
 
-  public getPreviousHeight$(): ReplaySubject<string> {
-    return this.height$;
-  }
+  public getPreviousHeight$ = (): ReplaySubject<string> => this.height$;
 }

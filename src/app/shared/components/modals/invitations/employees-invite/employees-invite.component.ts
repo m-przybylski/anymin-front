@@ -115,7 +115,7 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  public onClickSend(formGroup: FormGroup): void {
+  public onClickSend = (formGroup: FormGroup): void => {
     if (this.invitedEmployeeList.length !== 0 && formGroup.valid) {
       this.employeesInviteService
         .postInvitation({ invitations: [...this.adjustEmployeeInvitationObject()] })
@@ -128,52 +128,50 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
           this.activeModal.close(EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES);
         });
     }
-  }
+  };
 
-  public onEnter(value: string): void {
+  public onEnter = (value: string): void => {
     if (!this.isDropdownListVisible && value.length > 0) {
       this.addEmployeeInvitationByType(
         this.employeesInviteService.checkInvitationType(value.toLowerCase(), this.payload.isFreelanceService),
         value.toLowerCase(),
       );
     }
-  }
+  };
 
-  public onCSVupload(employeesContact: ReadonlyArray<string>): void {
+  public onCSVupload = (employeesContact: ReadonlyArray<string>): void => {
     employeesContact.forEach(value => {
       this.addEmployeeInvitationByType(
         this.employeesInviteService.checkInvitationType(value, this.payload.isFreelanceService),
         value,
       );
     });
-  }
+  };
 
-  public onSelectItem(expertProfile: IEmployeesInviteComponent): void {
+  public onSelectItem = (expertProfile: IEmployeesInviteComponent): void => {
     this.addEmployee(expertProfile);
     this.filterOwnEmployeesDropdownList(expertProfile);
     this.isDropdownListVisible = false;
-  }
+  };
 
-  public onInputChangeValue(value: string): void {
+  public onInputChangeValue = (value: string): void => {
     this.filterItem(value);
     this.isDropdownListVisible = value !== '' && this.filteredItems.length > 0;
-  }
+  };
 
-  public onCloseDropdown(isOpen: boolean): boolean {
-    return (this.isDropdownListVisible = isOpen);
-  }
+  public onCloseDropdown = (isOpen: boolean): boolean => (this.isDropdownListVisible = isOpen);
 
-  public onDeleteClick(deleteItem: IEmployeesInviteComponent): void {
+  public onDeleteClick = (deleteItem: IEmployeesInviteComponent): void => {
     this.invitedEmployeeList = this.invitedEmployeeList.filter(item => item !== deleteItem);
     this.usedContactList = this.usedContactList.filter(item => item !== deleteItem.name);
 
     if (deleteItem.employeeId !== undefined) {
       this.dropdownItems = [...this.dropdownItems, deleteItem];
     }
-  }
+  };
 
   // tslint:disable-next-line:cyclomatic-complexity
-  private addEmployeeInvitationByType(invitationType: EmployeeInvitationTypeEnum, value: string): void {
+  private addEmployeeInvitationByType = (invitationType: EmployeeInvitationTypeEnum, value: string): void => {
     switch (invitationType) {
       case EmployeeInvitationTypeEnum.IS_MSISDN:
         const unifyPhoneNumber = this.phoneNumberUnifyService.unifyPhoneNumber(value);
@@ -208,22 +206,21 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
       default:
         return;
     }
-  }
+  };
 
-  private setEmployeesInvitationError(errorMsg: { [key: string]: boolean }): void {
+  private setEmployeesInvitationError = (errorMsg: { [key: string]: boolean }): void => {
     this.inviteFormControl.setErrors(errorMsg);
-  }
+  };
 
-  private adjustEmployeeInvitationObject(): ReadonlyArray<PostInvitation> {
-    return this.invitedEmployeeList.map(item => ({
+  private adjustEmployeeInvitationObject = (): ReadonlyArray<PostInvitation> =>
+    this.invitedEmployeeList.map(item => ({
       serviceId: this.payload.serviceId,
       email: item.email,
       msisdn: item.msisdn,
       employeeId: item.employeeId,
     }));
-  }
 
-  private addEmployee(expertProfile: IEmployeesInviteComponent): void {
+  private addEmployee = (expertProfile: IEmployeesInviteComponent): void => {
     if (!this.isValueExist(expertProfile.name)) {
       this.invitedEmployeeList = [...this.invitedEmployeeList, expertProfile];
       this.usedContactList = [...this.usedContactList, expertProfile.name];
@@ -232,7 +229,7 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
     } else {
       this.addEmployeeInvitationByType(EmployeeInvitationTypeEnum.IS_ALREADY_ADDED, expertProfile.name);
     }
-  }
+  };
 
   private filterItem(value: string): void {
     this.filteredItems = this.dropdownItems.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1);
@@ -242,14 +239,13 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
     this.dropdownItems = this.dropdownItems.filter(item => item !== expertProfile);
   }
 
-  private isValueExist(value: string): boolean {
-    return this.invitedEmployeeList.filter(item => item.name === value).length > 0;
-  }
+  private isValueExist = (value: string): boolean =>
+    this.invitedEmployeeList.filter(item => item.name === value).length > 0;
 
-  private handleGetEmployeeListError(
+  private handleGetEmployeeListError = (
     httpError: HttpErrorResponse,
     msg: string,
-  ): Observable<ReadonlyArray<ExpertProfileWithEmployments>> {
+  ): Observable<ReadonlyArray<ExpertProfileWithEmployments>> => {
     if (isBackendError(httpError.error) && httpError.error.code === BackendErrors.IncorrectValidation) {
       this.invitedEmployeeList = this.invitedEmployeeList.filter(
         invitedEmployee =>
@@ -265,5 +261,5 @@ export class EmployeesInviteModalComponent implements OnInit, OnDestroy {
     }
 
     return EMPTY;
-  }
+  };
 }

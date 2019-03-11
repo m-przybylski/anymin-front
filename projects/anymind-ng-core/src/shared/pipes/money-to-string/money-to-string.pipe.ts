@@ -24,7 +24,6 @@ export class MoneyToString implements PipeTransform {
     return this.handleMoney(money);
   }
 
-  private handleMoney(money: MoneyDto): string {
-    return `${this.moneyToAmount.transform(money)} ${this.moneyToCurrency.transform(money)}`;
-  }
+  private handleMoney = (money: MoneyDto): string =>
+    `${this.moneyToAmount.transform(money)} ${this.moneyToCurrency.transform(money)}`;
 }

@@ -34,9 +34,9 @@ export class CompanyEmployeeRowComponent {
 
   public avatarSize: AvatarSizeEnum = AvatarSizeEnum.X_56;
 
-  public onClickDelete(employeeId: Event): void {
+  public onClickDelete = (employeeId: Event): void => {
     employeeId.stopPropagation();
 
     this.deleteEmployee.emit(this.employeeDetails.invitationId || this.employeeDetails.id);
-  }
+  };
 }

@@ -53,7 +53,7 @@ export class BankAccountComponent extends Logger implements AfterViewInit {
     }
   }
 
-  public onFormSubmit(): void {
+  public onFormSubmit = (): void => {
     if (this.changeBankAccountForm.valid) {
       this.isPending = true;
       this.payoutsService
@@ -64,13 +64,13 @@ export class BankAccountComponent extends Logger implements AfterViewInit {
           finalize(() => {
             this.isPending = false;
           }),
-          catchError(err => this.handlePutPayoutMethodError(err)),
+          catchError(this.handlePutPayoutMethodError),
         )
-        .subscribe(() => this.onAddBankAccountSuccess());
+        .subscribe(this.onAddBankAccountSuccess);
     }
-  }
+  };
 
-  private onAddBankAccountSuccess(): void {
+  private onAddBankAccountSuccess = (): void => {
     this.alertService.pushSuccessAlert('ALERT.BANK_ADD_SUCCESS');
     this.activeModal.close();
     this.router
@@ -84,27 +84,28 @@ export class BankAccountComponent extends Logger implements AfterViewInit {
       .catch(() => {
         this.alertService.pushDangerAlert(Alerts.SomethingWentWrongWithRedirect);
       });
-  }
+  };
 
-  private handlePutPayoutMethodError(err: any): Observable<any> {
+  // tslint:disable-next-line
+  private handlePutPayoutMethodError = (err: any): Observable<any> => {
     const error = err.error;
 
     if (isBackendError(error)) {
-      iterateOverBackendErrors(error, e => this.handleError(e));
+      iterateOverBackendErrors(error, this.handleError);
     } else {
       this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
       this.loggerService.warn('handlePutPayoutMethodError error: ', error);
     }
 
     return of();
-  }
+  };
 
-  private handleError(code: number): void {
+  private handleError = (code: number): void => {
     switch (code) {
       case BackendErrors.InvalidBankAccountNumber:
         this.changeBankAccountForm.value[this.bankAccountControlName].setErrors({ invalid: true });
         break;
       default:
     }
-  }
+  };
 }

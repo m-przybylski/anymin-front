@@ -37,8 +37,8 @@ export class PinVerificationComponentService {
     this.logger = loggerFactory.createLoggerService('PinVerificationComponentService');
   }
 
-  public verifyResetPasswordPinToken(token: string, msisdn: string): Observable<PinVerificationStatus> {
-    return this.recoverPasswordService
+  public verifyResetPasswordPinToken = (token: string, msisdn: string): Observable<PinVerificationStatus> =>
+    this.recoverPasswordService
       .postRecoverPasswordMsisdnVerifyRoute({
         token,
         msisdn,
@@ -47,10 +47,9 @@ export class PinVerificationComponentService {
         map(() => PinVerificationStatus.SUCCESS),
         catchError(err => of(this.handleError(err))),
       );
-  }
 
-  public verifyChangeMsisdnPinToken(token: string): Observable<PinVerificationStatus> {
-    return this.accountService
+  public verifyChangeMsisdnPinToken = (token: string): Observable<PinVerificationStatus> =>
+    this.accountService
       .postMsisdnConfirmRoute({
         token,
       })
@@ -58,26 +57,24 @@ export class PinVerificationComponentService {
         map(() => PinVerificationStatus.SUCCESS),
         catchError(err => of(this.handleError(err))),
       );
-  }
 
-  public sendNewRecoverPasswordToken(msisdn: string): Observable<void> {
-    return this.recoverPasswordService
+  public sendNewRecoverPasswordToken = (msisdn: string): Observable<void> =>
+    this.recoverPasswordService
       .postRecoverPasswordRoute({ msisdn, clientAppType: PostRecoverPassword.ClientAppTypeEnum.PLATFORM })
-      .pipe(catchError(err => this.handleResendPinCodeError(err)));
-  }
+      .pipe(catchError(this.handleResendPinCodeError));
 
-  public sendNewChangeMsisdnToken(msisdn: string): Observable<void> {
-    return this.accountService.putMsisdnRoute({ msisdn }).pipe(catchError(err => this.handleResendPinCodeError(err)));
-  }
+  public sendNewChangeMsisdnToken = (msisdn: string): Observable<void> =>
+    this.accountService.putMsisdnRoute({ msisdn }).pipe(catchError(this.handleResendPinCodeError));
 
-  private handleResendPinCodeError(httpError: HttpErrorResponse): Observable<void> {
+  private handleResendPinCodeError = (httpError: HttpErrorResponse): Observable<void> => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.warn('error when try to recover password', httpError);
 
     return of();
-  }
+  };
 
-  private handleError(httpError: HttpErrorResponse): PinVerificationStatus {
+  // tslint:disable-next-line:cyclomatic-complexity
+  private handleError = (httpError: HttpErrorResponse): PinVerificationStatus => {
     const error = httpError.error;
 
     if (isBackendError(error)) {
@@ -89,12 +86,12 @@ export class PinVerificationComponentService {
     this.logger.warn('error when checking pin code', error);
 
     return PinVerificationStatus.ERROR;
-  }
+  };
 
-  private handleUnhandledBackendError(error: HttpErrorResponse): PinVerificationStatus {
+  private handleUnhandledBackendError = (error: HttpErrorResponse): PinVerificationStatus => {
     this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
     this.logger.error('unhandled backed error', error);
 
     return PinVerificationStatus.ERROR;
-  }
+  };
 }

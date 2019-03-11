@@ -18,11 +18,8 @@ export class FileTypeChecker {
 
   constructor() {}
 
-  public static isFileFormatValid(file: File, fileCategoryEnum: FileCategoryEnum): boolean {
-    return (
-      file &&
-      FileTypeChecker.validFileTypes[fileCategoryEnum].length > 0 &&
-      FileTypeChecker.validFileTypes[fileCategoryEnum].indexOf(file.type) !== -1
-    );
-  }
+  public static isFileFormatValid = (file: File, fileCategoryEnum: FileCategoryEnum): boolean =>
+    file &&
+    FileTypeChecker.validFileTypes[fileCategoryEnum].length > 0 &&
+    FileTypeChecker.validFileTypes[fileCategoryEnum].indexOf(file.type) !== -1;
 }

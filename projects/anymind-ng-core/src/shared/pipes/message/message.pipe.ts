@@ -17,19 +17,19 @@ export class MessagePipe implements PipeTransform {
 
   constructor(@Inject(CORE_CONFIG) private coreConfig: CoreConfig, private logger: LoggerService) {}
 
-  public hasImageUrl(text: string): RegExpMatchArray | null {
+  public hasImageUrl = (text: string): RegExpMatchArray | null => {
     const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/;
 
     return text.match(imageRegexp);
-  }
+  };
 
-  public getUrls(text: string): RegExpMatchArray | null {
+  public getUrls = (text: string): RegExpMatchArray | null => {
     const urlRegexp = /(((https?|ftp):\/\/)|(www\.))[^\s$.?#].[^\s]*\.[^\s$.?#].[^\s]*/g;
 
     return uniq(text.match(urlRegexp) || []);
-  }
+  };
 
-  public getCorrectUrl(url: string): string {
+  public getCorrectUrl = (url: string): string => {
     const correctUrlRegexp = /^(https?|ftp):\/\/[^\s$.?#].[^\s]*$/;
     if (!url.match(correctUrlRegexp)) {
       // tslint:disable-next-line: no-parameter-reassignment
@@ -37,9 +37,9 @@ export class MessagePipe implements PipeTransform {
     }
 
     return url;
-  }
+  };
 
-  public handleMessage(message: roomEvents.CustomMessageSent): string {
+  public handleMessage = (message: roomEvents.CustomMessageSent): string => {
     switch (message.context.mimeType) {
       case 'image/png':
         return this.handleImageMessage(message);
@@ -48,7 +48,7 @@ export class MessagePipe implements PipeTransform {
       default:
         return this.handleTextMessage(message);
     }
-  }
+  };
 
   public transform(message: roomEvents.CustomMessageSent | ILocalMessage): string {
     if (isLocalMessage(message)) {
@@ -73,7 +73,7 @@ export class MessagePipe implements PipeTransform {
     return this.anchorTagRegex.test(text);
   }
 
-  private handleImageMessage(message: roomEvents.CustomMessageSent): string {
+  private handleImageMessage = (message: roomEvents.CustomMessageSent): string => {
     const filePreviewUrl: string = this.getCorrectUrl(this.resolveFilePreviewUrl(message.context.content));
     const fileUrl: string = this.getCorrectUrl(this.resolveFileUrl(message.context.content));
 
@@ -81,9 +81,9 @@ export class MessagePipe implements PipeTransform {
       `<img class="message-image" src="${filePreviewUrl}"/><a href="${fileUrl}" target="_blank">` +
       `<span class="icon icon-download"></span></a>`
     );
-  }
+  };
 
-  private handleTextMessage(message: roomEvents.CustomMessageSent): string {
+  private handleTextMessage = (message: roomEvents.CustomMessageSent): string => {
     const messageContext = message.context;
     const messageUrls = this.getUrls(messageContext.content);
 
@@ -116,13 +116,11 @@ export class MessagePipe implements PipeTransform {
     }
 
     return messageContext.content;
-  }
+  };
 
-  private resolveFileUrl(fileId: string): string {
-    return this.coreConfig.urls.files + this.coreConfig.urls.fileDownload.replace('%s', fileId);
-  }
+  private resolveFileUrl = (fileId: string): string =>
+    this.coreConfig.urls.files + this.coreConfig.urls.fileDownload.replace('%s', fileId);
 
-  private resolveFilePreviewUrl(fileId: string): string {
-    return this.coreConfig.urls.files + this.coreConfig.urls.filePreviewDownload.replace('%s', fileId);
-  }
+  private resolveFilePreviewUrl = (fileId: string): string =>
+    this.coreConfig.urls.files + this.coreConfig.urls.filePreviewDownload.replace('%s', fileId);
 }

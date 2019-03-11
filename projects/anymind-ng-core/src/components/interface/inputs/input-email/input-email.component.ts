@@ -52,11 +52,9 @@ export class InputEmailComponent {
     this.formGroup.addControl(this.controlName, new FormControl('', this.assignInputValidators()));
   }
 
-  public isFieldInvalid(): boolean {
-    return this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
-  }
+  public isFieldInvalid = (): boolean => this.formUtils.isFieldInvalid(this.formGroup, this.controlName);
 
-  public isRequiredError(): boolean {
+  public isRequiredError = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -64,9 +62,9 @@ export class InputEmailComponent {
     }
 
     return false;
-  }
+  };
 
-  public isIncorrectEmail(): boolean {
+  public isIncorrectEmail = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -74,9 +72,9 @@ export class InputEmailComponent {
     }
 
     return false;
-  }
+  };
 
-  public isEmailAlreadyExists(): boolean {
+  public isEmailAlreadyExists = (): boolean => {
     const controlErrors = this.formGroup.controls[this.controlName].errors;
 
     if (controlErrors !== null) {
@@ -84,24 +82,24 @@ export class InputEmailComponent {
     }
 
     return false;
-  }
+  };
 
-  public onFocus(): void {
+  public onFocus = (): void => {
     this.isFocused = true;
-  }
+  };
 
-  public onBlur(): void {
+  public onBlur = (): void => {
     this.isFocused = false;
-  }
+  };
 
   // custom pattern validator instead of Validators.email because https://github.com/angular/angular/issues/16183
   // tslint:disable:readonly-array
-  private assignInputValidators(): ValidatorFn[] {
+  private assignInputValidators = (): ValidatorFn[] => {
     const inputValidators: ValidatorFn[] = [Validators.pattern(this.config.validation.email.regex)];
     if (this.isRequired) {
       inputValidators.push(Validators.required);
     }
 
     return inputValidators;
-  }
+  };
 }

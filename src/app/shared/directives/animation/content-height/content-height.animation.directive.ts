@@ -34,7 +34,7 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
     this.contentHeightService.getPreviousHeight$().next(this.currentHeight);
   }
 
-  private createAnimation(element: ElementRef): void {
+  private createAnimation = (element: ElementRef): void => {
     this.contentHeightService
       .getPreviousHeight$()
       .pipe(
@@ -70,9 +70,7 @@ export class ContentHeightAnimateDirective implements AfterViewInit, OnDestroy {
           player.play();
         }
       });
-  }
+  };
 
-  private getElementHeight(): string {
-    return this.element.nativeElement.clientHeight;
-  }
+  private getElementHeight = (): string => this.element.nativeElement.clientHeight;
 }

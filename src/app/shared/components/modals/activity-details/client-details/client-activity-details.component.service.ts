@@ -126,10 +126,10 @@ export class ClientActivityDetailsComponentService extends Logger {
     return tags.map(tag => tag.name).join(', ');
   }
 
-  private getComment(
+  private getComment = (
     clientActivity: GetDetailedClientActivity,
     clientDetails: GetAccountDetails,
-  ): GetComment | undefined {
+  ): GetComment | undefined => {
     if (typeof clientActivity.comment !== 'undefined' && typeof clientActivity.sue !== 'undefined') {
       return {
         commentId: clientActivity.comment.commentId,
@@ -145,5 +145,5 @@ export class ClientActivityDetailsComponentService extends Logger {
     }
 
     return undefined;
-  }
+  };
 }

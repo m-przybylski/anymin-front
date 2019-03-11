@@ -81,7 +81,7 @@ export class CallInvitationService extends Logger {
       : EMPTY;
   }
 
-  public initialize(): void {
+  public initialize = (): void => {
     this.pushNotificationService.pushChange$.subscribe(
       enabled => {
         const callSession = this.callSessionService.getCallSession();
@@ -119,9 +119,9 @@ export class CallInvitationService extends Logger {
       .subscribe(websocketFunction => {
         websocketFunction();
       });
-  }
+  };
 
-  private handlePushNotificationRegistration(session: Session): void {
+  private handlePushNotificationRegistration = (session: Session): void => {
     /** watch for notifications changes */
     this.pushNotificationService.isPushNotificationsEnabled().subscribe(
       pushEnabled => {
@@ -149,21 +149,21 @@ export class CallInvitationService extends Logger {
       },
       err => this.loggerService.warn('isPushNotificationsEnabled failed', err),
     );
-  }
+  };
 
-  private handlePullableCall(call: BusinessCall): void {
+  private handlePullableCall = (call: BusinessCall): void => {
     this.loggerService.debug('CallInvitationService: Handling pullable call for', call);
 
     this.pullableCallEvent$.next();
-  }
+  };
 
-  private connectToCallWebsocket(sessionAccount?: GetSessionWithAccount): void {
+  private connectToCallWebsocket = (sessionAccount?: GetSessionWithAccount): void => {
     if (sessionAccount) {
       this.communicatorService.authenticate(sessionAccount.session.accountId, sessionAccount.session.apiKey);
     }
-  }
+  };
 
-  private checkPullableCalls(connected: IConnected): void {
+  private checkPullableCalls = (connected: IConnected): void => {
     connected.session.machoke.getActiveCall().then(
       maybeActiveCall => {
         this.loggerService.debug('Reconnected, checking active call', maybeActiveCall);
@@ -177,9 +177,9 @@ export class CallInvitationService extends Logger {
       },
       err => this.loggerService.warn('Could not get active calls', err),
     );
-  }
+  };
 
-  private checkIncomingCalls(connected: IConnected): void {
+  private checkIncomingCalls = (connected: IConnected): void => {
     this.loggerService.debug('Reconnected, checking incoming calls');
     connected.session.machoke.getCallWithPendingInvitation().then(
       maybeIncomingCall => {
@@ -190,9 +190,9 @@ export class CallInvitationService extends Logger {
       },
       err => this.loggerService.warn('Could not load incoming calls after successful connection', err),
     );
-  }
+  };
 
-  private onExpertCallIncoming(call: Call): void {
+  private onExpertCallIncoming = (call: Call): void => {
     if (BusinessCall.isBusiness(call)) {
       this.onExpertBusinessCallIncoming(call);
     } else {
@@ -204,9 +204,9 @@ export class CallInvitationService extends Logger {
           err => this.loggerService.error('Can not leave unsupported call invitation', err),
         );
     }
-  }
+  };
 
-  private onExpertBusinessCallIncoming(call: BusinessCall): void {
+  private onExpertBusinessCallIncoming = (call: BusinessCall): void => {
     this.serviceUsageEventService.getSueDetailsForExpertRoute(call.id).subscribe(
       expertSueDetails => {
         this.soundsService.callIncomingSound().play();
@@ -275,18 +275,18 @@ export class CallInvitationService extends Logger {
         }
       },
     );
-  }
+  };
 
-  private handleConnectionLostWhileCallIncoming(callingModal: NgbModalRef): void {
+  private handleConnectionLostWhileCallIncoming = (callingModal: NgbModalRef): void => {
     this.soundsService.callIncomingSound().stop();
     callingModal.close();
-  }
+  };
 
-  private handleClientWentOfflineBeforeAnswering(
+  private handleClientWentOfflineBeforeAnswering = (
     offlineEvent: callEvents.DeviceOffline,
     call: BusinessCall,
     callingModal: NgbModalRef,
-  ): void {
+  ): void => {
     this.loggerService.debug('Client went offline when calling, rejecting call', offlineEvent);
     call.reject(CallReason.CallRejected).catch(error => {
       this.loggerService.warn('Can not reject call', error);
@@ -294,21 +294,21 @@ export class CallInvitationService extends Logger {
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
     this.soundsService.playCallRejected().catch(err => this.loggerService.warn('could not play rejected sound', err));
-  }
+  };
 
-  private handleCallAnsweredOnOtherDevice(
+  private handleCallAnsweredOnOtherDevice = (
     callActiveDevice: callEvents.CallHandledOnDevice,
     callingModal: NgbModalRef,
     call: BusinessCall,
-  ): void {
+  ): void => {
     this.callAnsweredOnOtherDeviceEvent$.next();
     this.loggerService.debug('Call was answered on other device', callActiveDevice);
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
     this.handlePullableCall(call);
-  }
+  };
 
-  private handleCallEndedBeforeAnswering(callEnd: callEvents.Ended, callingModal: NgbModalRef): void {
+  private handleCallEndedBeforeAnswering = (callEnd: callEvents.Ended, callingModal: NgbModalRef): void => {
     this.loggerService.debug('Call was ended before expert answer', callEnd);
     if (callEnd.reason !== EndReason.CallRejected) {
       callingModal.close();
@@ -317,13 +317,13 @@ export class CallInvitationService extends Logger {
     callingModal.close();
     this.soundsService.callIncomingSound().stop();
     this.soundsService.playCallRejected().catch(err => this.loggerService.warn('could not play rejected sound', err));
-  }
+  };
 
-  private handleAnswerCallInvitation(
+  private handleAnswerCallInvitation = (
     localStreams: MediaStream,
     incomingCallDetails: GetExpertSueDetails,
     call: BusinessCall,
-  ): void {
+  ): void => {
     const currentMediaTracks = localStreams.getTracks();
     currentMediaTracks.filter(track => track.kind === 'video').forEach(track => (track.enabled = false));
     const session = this.callSessionService.getCallSession();
@@ -359,9 +359,9 @@ export class CallInvitationService extends Logger {
     } else {
       this.loggerService.error('ExpertCallService: Session is undefined');
     }
-  }
+  };
 
-  private rejectCallInvitation(call: BusinessCall): void {
+  private rejectCallInvitation = (call: BusinessCall): void => {
     this.loggerService.debug('Rejecting call invitation', call);
     // Clear callbacks registered in `incoming` state
     this.callRejectedEvent$.next();
@@ -382,9 +382,9 @@ export class CallInvitationService extends Logger {
         this.loggerService.error('Error when rejecting the call', err);
       },
     );
-  }
+  };
 
-  private onAnsweredCallEnd(currentExpertCall: CurrentExpertCall): void {
+  private onAnsweredCallEnd = (currentExpertCall: CurrentExpertCall): void => {
     const summaryModal = this.modalsService.open(CreateCallSummaryComponent);
     summaryModal.componentInstance.currentExpertCall = currentExpertCall;
     this.soundsService
@@ -393,9 +393,9 @@ export class CallInvitationService extends Logger {
         () => this.loggerService.debug('CallInvitationService: call end sound played'),
         err => this.loggerService.warn('CallInvitationService: Cannot play call end sound', err),
       );
-  }
+  };
 
-  private showMissedCallAlert(): void {
+  private showMissedCallAlert = (): void => {
     this.missingCallCounter++;
     if (this.missingCallCounter <= 1) {
       this.alertService
@@ -418,5 +418,5 @@ export class CallInvitationService extends Logger {
           this.missingCallCounter = 0;
         });
     }
-  }
+  };
 }

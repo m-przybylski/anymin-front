@@ -47,8 +47,8 @@ export class CompanyConsultationDetailsViewService extends Logger {
     super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewService'));
   }
 
-  public getConsultationDetails(serviceId: string): Observable<ICompanyConsultationDetails> {
-    return forkJoin(
+  public getConsultationDetails = (serviceId: string): Observable<ICompanyConsultationDetails> =>
+    forkJoin(
       this.serviceService
         .postServicesTagsRoute({ serviceIds: [serviceId] })
         .pipe(
@@ -100,18 +100,15 @@ export class CompanyConsultationDetailsViewService extends Logger {
         return EMPTY;
       }),
     );
-  }
 
-  public deletePendingInvitation(invitationId: string): Observable<void> {
-    return this.invitationService.deleteInvitationsRoute({ invitationsIds: [invitationId] });
-  }
+  public deletePendingInvitation = (invitationId: string): Observable<void> =>
+    this.invitationService.deleteInvitationsRoute({ invitationsIds: [invitationId] });
 
-  public deleteEmployee(employmentId: string): Observable<void> {
-    return this.employmentService.deleteEmploymentRoute(employmentId);
-  }
+  public deleteEmployee = (employmentId: string): Observable<void> =>
+    this.employmentService.deleteEmploymentRoute(employmentId);
 
-  public getInvitations(consultationId: string): Observable<ReadonlyArray<ICompanyEmployeeRowComponent>> {
-    return this.getPendingInvitation(consultationId).pipe(
+  public getInvitations = (consultationId: string): Observable<ReadonlyArray<ICompanyEmployeeRowComponent>> =>
+    this.getPendingInvitation(consultationId).pipe(
       map(serviceWithInvitations => serviceWithInvitations[0].invitations),
       map((invitations: ReadonlyArray<GetInvitation>) =>
         invitations.filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW),
@@ -161,23 +158,19 @@ export class CompanyConsultationDetailsViewService extends Logger {
         );
       }),
     );
-  }
 
-  private mapEmployeesList(employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent {
-    return {
-      usageCounter: employee.usageCounter,
-      commentCounter: employee.commentCounter,
-      ratingCounter: employee.rating,
-      id: employee.id,
-      name: employee.employeeProfile.name,
-      avatar: employee.employeeProfile.avatar,
-      expertAccountId: employee.employeeProfile.accountId,
-      employeeId: employee.employeeProfile.id,
-    };
-  }
-  private getPendingInvitation(serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> {
-    return this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
-  }
+  private mapEmployeesList = (employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent => ({
+    usageCounter: employee.usageCounter,
+    commentCounter: employee.commentCounter,
+    ratingCounter: employee.rating,
+    id: employee.id,
+    name: employee.employeeProfile.name,
+    avatar: employee.employeeProfile.avatar,
+    expertAccountId: employee.employeeProfile.accountId,
+    employeeId: employee.employeeProfile.id,
+  });
+  private getPendingInvitation = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>
+    this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
 
   private getPaymentMethod(): Observable<IPaymentMethod> {
     return this.paymentsService.getDefaultPaymentMethodRoute().pipe(

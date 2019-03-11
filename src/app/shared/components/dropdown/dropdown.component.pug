@@ -18,5 +18,5 @@
     plat-dropdown-list(
     *ngIf="isDropdownListVisible",
     [dropdownItems]="dropdownItems",
-    (selectItem)="onSelectItem($event)"
+    [onSelectItem]="onSelectItem"
     )

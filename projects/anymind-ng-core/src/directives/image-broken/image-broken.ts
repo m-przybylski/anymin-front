@@ -13,12 +13,10 @@ export class ImageBrokenDirective {
 
   constructor(private element: ElementRef) {}
 
-  public onError(): void {
-    return this.markAsBroken();
-  }
+  public onError = (): void => this.markAsBroken();
 
-  private markAsBroken(): void {
+  private markAsBroken = (): void => {
     this.element.nativeElement.classList.add('image-broken');
     this.src = `./assets/images/broken-image.svg`;
-  }
+  };
 }

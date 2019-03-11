@@ -33,10 +33,10 @@ export class NavbarComponentService extends Logger {
     return this.profileService.getProfileRoute(accountId);
   }
 
-  public getFilteredNavigationItems(
+  public getFilteredNavigationItems = (
     userType: UserTypeEnum,
     session: GetSessionWithAccount,
-  ): ReadonlyArray<INavigationItem> {
+  ): ReadonlyArray<INavigationItem> => {
     const filterFn = this.userTypeMap.get(userType);
     if (typeof filterFn !== 'undefined') {
       return this.navigationItems.filter(navigationItem => {
@@ -58,5 +58,5 @@ export class NavbarComponentService extends Logger {
     this.loggerService.error('unhandled user type when assignNavigationItems', userType);
 
     return [];
-  }
+  };
 }
