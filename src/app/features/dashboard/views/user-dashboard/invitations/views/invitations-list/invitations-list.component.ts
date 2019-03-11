@@ -1,18 +1,19 @@
 import { Component, OnDestroy, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IInvitation } from '../../services/invitation-list.resolver.service';
-import { Subject, from, of } from 'rxjs';
-import { takeUntil, catchError, map } from 'rxjs/operators';
+import { Subject, from, of, EMPTY } from 'rxjs';
+import { takeUntil, catchError, map, finalize } from 'rxjs/operators';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AcceptRejectInvitationModalComponent } from '@platform/shared/components/modals/invitations/accept-reject-invitation/accept-reject-invitation.component';
 import { INVITATION } from '@platform/shared/components/modals/invitations/accept-reject-invitation/services/accept-reject-invitation';
 import { Logger } from '@platform/core/logger';
-import { LoggerFactory } from '@anymind-ng/core';
+import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { RegistrationInvitationService } from '@platform/shared/services/registration-invitation/registration-invitation.service';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { getNotUndefinedSession } from '@platform/core/utils/store-session-not-undefined';
 import { ITranslateParamObject } from '@platform/shared/components/warning-information/warning-information.component';
+import { AccountService } from '@anymind-ng/api';
 
 @Component({
   templateUrl: 'invitations-list.component.html',
@@ -23,7 +24,8 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
   public unverifiedEmail: ITranslateParamObject = {
     email: '',
   };
-
+  public isPending = false;
+  public isResendLinkSended = false;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -31,7 +33,9 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
     private modalService: NgbModal,
     private injector: Injector,
     private router: Router,
+    private accountService: AccountService,
     private store: Store<fromCore.IState>,
+    private alertService: AlertService,
     private registrationInvitationService: RegistrationInvitationService,
     loggerFactory: LoggerFactory,
   ) {
@@ -74,6 +78,27 @@ export class InvitationsListComponent extends Logger implements OnDestroy, OnIni
     }
     this.openInvitationModal(injector);
   };
+
+  public sendVerificationLink(): void {
+    if (!this.isPending) {
+      this.isPending = true;
+      this.accountService
+        .postEmailResendRoute()
+        .pipe(
+          finalize(() => {
+            this.isPending = false;
+          }),
+          catchError(() => {
+            this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+
+            return EMPTY;
+          }),
+        )
+        .subscribe(() => {
+          this.isResendLinkSended = true;
+        });
+    }
+  }
 
   private openInvitationModal(injector: Injector): void {
     const modalOptions: NgbModalOptions = {

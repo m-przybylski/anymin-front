@@ -4,6 +4,7 @@
       [warningText]="'INVITATIONS.WARNING_INFO'",
       [translateParamObject]="unverifiedEmail",
     )
+      span.send-again-link(*ngIf="!isResendLinkSended", (click)="sendVerificationLink()") {{ 'INVITATIONS.RESEND_EMAIL' | translate }}
   .invitations-list-layout(*ngIf='invitations.length; else emptyList')
     span.invitations-list-layout__header {{ 'INVITATIONS.HEADER' | translate }}
     ul.invitations-list-layout__list

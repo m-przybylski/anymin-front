@@ -373,6 +373,7 @@
   "INVITATIONS.EMPTY_DESCRIPTION_TWO": "Dowiesz się więcej o pracownikach i organizacjach ",
   "INVITATIONS.EMPTY_LINK": "<a href='https://anymind.zendesk.com/hc/pl/articles/360009918991--Kt%C3%B3re-konto-AnyMind-wybra%C4%87-' target='_blank'>z tego artykułu.</a>",
   "INVITATIONS.WARNING_INFO": "Potwierdź swój adres e-mail {{ email }}, by móc otrzymywać na niego zaproszenia do konsultacji.",
+  "INVITATIONS.RESEND_EMAIL": "Wyślij ponownie link weryfikacyjny",
   "DASHBOARD.PAYMENTS.BUTTON.CHANGE": "Edytuj",
   "DASHBOARD.WELCOME.TITLE": "Witaj w anymind!",
   "DASHBOARD.WELCOME.DESCRIPTION": "Załóż konto i dołącz do społeczności, w której wiedza ma wartość.",
