@@ -176,7 +176,7 @@ export class ActivitiesListService extends Logger {
           return throwError(error);
         }),
       ),
-      this.getExpertActivities(activitiesLimit, activitiesOffset),
+      this.getCompanyActivities(activitiesLimit, activitiesOffset),
     ]).pipe(
       map(([importantActivitiesList, activitiesList]) => ({
         importantActivitiesList,
