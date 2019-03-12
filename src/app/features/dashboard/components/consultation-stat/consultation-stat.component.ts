@@ -9,11 +9,11 @@ export class ConsultationStatComponent {
   @Input()
   public usageCounter: number;
   @Input()
-  public commentCounter: number;
+  public ratingCounter: number;
   @Input()
   public rating: number;
   public readonly callsMapping = this.buildTranslationsMap('CONSULTATION_INFO.CONSULTATION_ROW.CALLS');
-  public readonly commentMapping = this.buildTranslationsMap('CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS');
+  public readonly ratingCounterMapping = this.buildTranslationsMap('CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS');
   public readonly ratingMapping = {
     '=0': 'CONSULTATION_INFO.CONSULTATION_ROW.RATING.none',
     '=-': 'CONSULTATION_INFO.CONSULTATION_ROW.RATING.none',

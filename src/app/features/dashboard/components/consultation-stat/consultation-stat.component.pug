@@ -3,8 +3,8 @@
   span.stat-item-number {{usageCounter | emptyNumber}}
   span.stat-item-desc {{usageCounter | i18nPlural:callsMapping | translate: {value: usageCounter} }}
   span(plat-icon iconClass='rating').stat-item-icon
-  span.stat-item-number {{commentCounter| emptyNumber}}
-  span.stat-item-desc {{commentCounter | i18nPlural:commentMapping | translate: {value: commentCounter} }}
+  span.stat-item-number {{ratingCounter| emptyNumber}}
+  span.stat-item-desc {{ratingCounter | i18nPlural:ratingCounterMapping | translate: {value: ratingCounter} }}
   span(plat-icon iconClass='satisfaction').stat-item-icon
   span.stat-item-number {{rating | emptyNumber}}
   span.stat-item-desc {{rating | emptyNumber | i18nPlural:ratingMapping | translate: {value: rating} }}

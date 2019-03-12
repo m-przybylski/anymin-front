@@ -35,8 +35,8 @@ export class ConsultationRowComponent {
     return this.consultation.rating;
   }
 
-  public get commentCounter(): number {
-    return this.consultation.commentCounter;
+  public get ratingCounter(): number {
+    return this.consultation.ratingCounter;
   }
 
   public get serviceId(): string {
