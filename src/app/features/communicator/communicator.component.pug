@@ -10,7 +10,7 @@
     .communicator__participant-profile.participant-profile
       .participant-profile__container(*ngIf="!isRemoteVideo")
         .avatar-container
-          am-core-user-avatar.thumb-x192.communicator-avatar([tokenAvatar]="clientAvatar",
+          am-core-user-avatar.thumb-x192.communicator-avatar([tokenAvatar]="clientAvatar || expertAvatar",
           [avatarSize]="AvatarSizeEnum.BIG")
           am-core-equalizer([isConnecting]="isConnecting")
         span.participant-profile__owner-name(*ngIf="name") {{ name }}
