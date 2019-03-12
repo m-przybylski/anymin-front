@@ -33,11 +33,11 @@ export class FilePreviewNavigationComponent implements OnInit {
   @Input()
   public isPending = true;
   @Output()
-  public onZoomEmitter = new EventEmitter<number>();
+  public zoom = new EventEmitter<number>();
   @Output()
-  public onChangeFileEmitter = new EventEmitter<number>();
+  public changeFile = new EventEmitter<number>();
   @Output()
-  public onPrintEmitter = new EventEmitter<void>();
+  public print = new EventEmitter<void>();
 
   public currentItem = 1;
 
@@ -86,51 +86,51 @@ export class FilePreviewNavigationComponent implements OnInit {
     this.checkNavigationAvailability();
   }
 
-  public onBackwardClick = (): void => {
+  public onBackwardClick(): void {
     if (this.isNavigationBackwardAllowed) {
       this.onChangeFile((this.currentItem -= 1));
     }
-  };
+  }
 
-  public onForwardClick = (): void => {
+  public onForwardClick(): void {
     if (this.isNavigationForwardAllowed) {
       this.onChangeFile((this.currentItem += 1));
     }
-  };
+  }
 
-  public onZoomInClick = (): void => {
+  public onZoomInClick(): void {
     if (this.currentZoom !== this.maxZoomCount && this.isZoomInAllowed && this.isScalable) {
       this.currentZoom += this.zoomIterator;
       this.checkZoomAvailability();
-      this.onZoomEmitter.emit(this.currentZoom);
+      this.zoom.emit(this.currentZoom);
     }
-  };
+  }
 
-  public onZoomOutClick = (): void => {
+  public onZoomOutClick(): void {
     if (this.currentZoom !== this.minZoomCount && this.isZoomOutAllowed && this.isScalable) {
       this.currentZoom -= this.zoomIterator;
       this.checkZoomAvailability();
-      this.onZoomEmitter.emit(this.currentZoom);
+      this.zoom.emit(this.currentZoom);
     }
-  };
+  }
 
-  public onPrintClick = (): void => {
-    this.onPrintEmitter.emit();
-  };
+  public onPrintClick(): void {
+    this.print.emit();
+  }
 
-  private onChangeFile = (currentItem: number): void => {
+  private onChangeFile(currentItem: number): void {
     this.currentItem = currentItem;
-    this.onChangeFileEmitter.emit(currentItem);
+    this.changeFile.emit(currentItem);
     this.checkNavigationAvailability();
-  };
+  }
 
-  private checkZoomAvailability = (): void => {
+  private checkZoomAvailability(): void {
     this.isZoomInAllowed = this.currentZoom !== this.maxZoomCount && this.isZoomAble;
     this.isZoomOutAllowed = this.currentZoom !== this.minZoomCount && this.isZoomAble;
-  };
+  }
 
-  private checkNavigationAvailability = (): void => {
+  private checkNavigationAvailability(): void {
     this.isNavigationBackwardAllowed = this.currentItem !== 1;
     this.isNavigationForwardAllowed = this.currentItem !== this.filesLength;
-  };
+  }
 }

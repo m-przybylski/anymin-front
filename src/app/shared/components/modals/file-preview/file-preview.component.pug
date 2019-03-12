@@ -43,9 +43,9 @@
     [isPending]="false",
     [currentZoomValue]="currentPercentZoom",
     [isScalable]="isPreviewScalable",
-    (onZoomEmiter)="onZoomChange($event)",
-    (onChangeFileEmiter)="onFileChange($event)",
-    (onPrintEmiter)="onPrintClick()",
+    (zoom)="onZoomChange($event)",
+    (changeFile)="onFileChange($event)",
+    (print)="onPrintClick()",
     [filesLength]="filesLength",
     [imageUrl]="urlPreview",
     )
