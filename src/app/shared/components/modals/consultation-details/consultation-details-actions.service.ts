@@ -6,7 +6,7 @@ import { ConfirmationService } from '@platform/shared/components/modals/confirma
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, switchMap, catchError, tap } from 'rxjs/operators';
+import { filter, switchMap, catchError, tap, take } from 'rxjs/operators';
 import { EMPTY, from } from 'rxjs';
 import { AuthActions } from '@platform/core/actions';
 import { GenerateWidgetActions } from '@platform/shared/components/modals/generate-widget/actions';
@@ -122,6 +122,11 @@ export class ConsultationDetailsActionsService extends Logger {
 
           return EMPTY;
         }),
+        /**
+         * once there is a call to make stop listening for session change
+         * this fixes FRONT-714, but not sure it does not break something.
+         */
+        take(1),
       )
       .subscribe(
         () => {
