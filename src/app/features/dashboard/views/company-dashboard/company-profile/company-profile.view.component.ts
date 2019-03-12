@@ -160,6 +160,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
       )
       .subscribe((data: IExpertCompanyDashboardResolverData<IOrganizationProfile>) => {
         this.setSeoTags(data.profile.organization.organizationProfile);
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
       });
   }
 

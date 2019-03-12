@@ -194,6 +194,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
     this.data$.pipe(take(1)).subscribe(data => {
       if (data) {
         this.setSeoTags(data.profile.expertProfileView.expertProfile);
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
       }
     });
   }
