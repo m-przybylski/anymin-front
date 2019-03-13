@@ -53,7 +53,6 @@ describe('CompanyConsultationDetailsViewService', () => {
   });
 
   it('should get consultation details', () => {
-    const profileService = TestBed.get(ProfileService);
     const serviceService = TestBed.get(ServiceService);
     const paymentsService: PaymentsService = TestBed.get(PaymentsService);
     const financesService: FinancesService = TestBed.get(FinancesService);
@@ -106,16 +105,14 @@ describe('CompanyConsultationDetailsViewService', () => {
       employeesDetails: [employmentWithExpertProfile],
     };
 
-    const getProfileWithDocuments = {};
-
     const result = {
       tagsList: ['tag', 'tag2'],
       serviceDetails: getServiceWithEmployees,
       employeesList: [
         {
           usageCounter: employmentWithExpertProfile.usageCounter,
-          commentCounter: employmentWithExpertProfile.commentCounter,
-          ratingCounter: undefined,
+          ratingCounter: employmentWithExpertProfile.ratingCounter,
+          rating: undefined,
           id: employmentWithExpertProfile.id,
           name: employmentWithExpertProfile.employeeProfile.name,
           avatar: employmentWithExpertProfile.employeeProfile.avatar,
@@ -132,12 +129,10 @@ describe('CompanyConsultationDetailsViewService', () => {
     const expected = cold('-(a|)', { a: result });
 
     const postServicesTagsRoute = cold('-(a|)', { a: [getServiceTags] });
-    const getProfileRoute = cold('-(a|)', { a: getProfileWithDocuments });
     const postServiceWithEmployeesRoute = cold('-(a|)', { a: [getServiceWithEmployees] });
     const getDefaultPaymentMethodRoute = cold('-#');
 
     serviceService.postServicesTagsRoute = jest.fn(() => postServicesTagsRoute);
-    profileService.getProfileRoute = jest.fn(() => getProfileRoute);
     paymentsService.getDefaultPaymentMethodRoute = jest.fn(() => getDefaultPaymentMethodRoute);
     serviceService.postServiceWithEmployeesRoute = jest.fn(() => postServiceWithEmployeesRoute);
 
@@ -146,7 +141,6 @@ describe('CompanyConsultationDetailsViewService', () => {
   });
 
   it('should get error when get tags list', () => {
-    const profileService = TestBed.get(ProfileService);
     const serviceService = TestBed.get(ServiceService);
     const paymentsService: PaymentsService = TestBed.get(PaymentsService);
 
@@ -155,13 +149,9 @@ describe('CompanyConsultationDetailsViewService', () => {
 
     const expected = cold('-|', { a: result });
     const postServicesTagsRoute = cold('-#', {}, error);
-    const getServiceRoute = cold('-(a|)', { a: {} });
-    const getProfileRoute = cold('-(a|)', { a: {} });
     const postServiceWithEmployeesRoute = cold('-(a|)', { a: [] });
 
     serviceService.postServicesTagsRoute = jest.fn(() => postServicesTagsRoute);
-    serviceService.getServiceRoute = jest.fn(() => getServiceRoute);
-    profileService.getProfileRoute = jest.fn(() => getProfileRoute);
     serviceService.postServiceWithEmployeesRoute = jest.fn(() => postServiceWithEmployeesRoute);
     paymentsService.getDefaultPaymentMethodRoute = jest.fn(() => cold('-#'));
 

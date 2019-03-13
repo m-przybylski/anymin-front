@@ -5,8 +5,8 @@ export interface ICompanyEmployeeRowComponent {
   name: string;
   id: string;
   usageCounter?: number;
-  commentCounter?: number;
   ratingCounter?: number;
+  rating?: number;
   employeeId?: string;
   avatar?: string;
   invitationId?: string;

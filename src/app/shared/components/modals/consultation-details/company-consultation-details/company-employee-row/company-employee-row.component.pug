@@ -19,8 +19,8 @@
         .expert-details__statistics(*ngIf="isStatisticsVisible")
           plat-consultation-stat(
           [usageCounter]='employeeDetails.usageCounter',
-          [commentCounter]='employeeDetails.commentCounter',
-          [rating]='employeeDetails.ratingCounter',
+          [ratingCounter]='employeeDetails.ratingCounter',
+          [rating]='employeeDetails.rating',
           )
 
   .company-employee-row__action(*ngIf="isOwnProfile")

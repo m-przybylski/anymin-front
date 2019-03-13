@@ -161,8 +161,8 @@ export class CompanyConsultationDetailsViewService extends Logger {
 
   private mapEmployeesList = (employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent => ({
     usageCounter: employee.usageCounter,
-    commentCounter: employee.commentCounter,
-    ratingCounter: employee.rating,
+    ratingCounter: employee.ratingCounter,
+    rating: employee.rating,
     id: employee.id,
     name: employee.employeeProfile.name,
     avatar: employee.employeeProfile.avatar,
