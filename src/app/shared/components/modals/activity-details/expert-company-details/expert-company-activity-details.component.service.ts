@@ -52,7 +52,13 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
   public getCallDetails = (data: IGetCallDetailsData): Observable<IExpertCompanyActivityDetails> =>
     getNotUndefinedSession(this.store).pipe(
       first(),
-      map(getSession => getSession.session.organizationProfileId || getSession.session.expertProfileId),
+      map(getSession => {
+        if (data.isCompanyActivity) {
+          return getSession.session.organizationProfileId || getSession.session.expertProfileId;
+        }
+
+        return getSession.session.expertProfileId || getSession.session.organizationProfileId;
+      }),
       switchMap((profileId: string) =>
         forkJoin(
           this.viewsService.getDashboardCallDetailsProfileRoute(data.sueId, profileId).pipe(
