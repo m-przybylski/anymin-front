@@ -9,6 +9,7 @@ import { TagsComponent } from '@platform/features/search/tags/tags.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchListModule } from '@platform/features/search/search-list/search-list.module';
 import { SearchViewService } from '@platform/features/search/search.view.service';
+import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 
 @NgModule({
   declarations: [SearchViewComponent, TagsComponent],
@@ -20,6 +21,7 @@ import { SearchViewService } from '@platform/features/search/search.view.service
     InputsModule,
     TranslateModule.forChild(),
     SearchListModule,
+    ContentLoaderModule,
   ],
   providers: [SearchViewService],
 })

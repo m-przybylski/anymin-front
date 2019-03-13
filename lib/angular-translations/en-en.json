@@ -702,10 +702,12 @@
   "VERIFIED_EMAIL_MODAL.ORGANIZATION_HEADER": "Stwórz organizację",
   "VERIFIED_EMAIL_MODAL.ORGANIZATION_CONTENT": "Aby świadczyć usługi jako organizacja, potwierdź email, który do Ciebie wysłaliśmy.",
   "VERIFIED_EMAIL_MODAL.CONFIRM_BUTTON": "OK, rozumiem",
-  "SEARCH.CONSULTATIONS.RECENT.TITLE": "Najpopularniejsze konsultacje na AnyMind",
-  "SEARCH.CONSULTATIONS.RECENT.SUB_TITLE": "Oto konsultacje, które obecnie cieszą się największą popularności.",
+  "SEARCH.CONSULTATIONS.NO_RESULTS.TITLE": "Brak wyników dla",
+  "SEARCH.CONSULTATIONS.NO_RESULTS.DESCRIPTION": "Nie udało nam się znaleźć niczego, co pasowałoby do Twojego wyszukiwania. Sprawdź nasze najpopularniejsze konsultacje:",
   "SEARCH.CONSULTATIONS.ONLY_VISIBLE.SWITCHER": "Najpopularniejsze konsultacje na AnyMind",
   "SEARCH.TAGS.SELECTED.TITLE": "Wybrane tagi",
   "SEARCH.INPUT.PLACEHOLDER": "Szukaj konsultacji lub konsultantów...",
-  "SEARCH.SWITCHER.LABEL": "'Wyświetl tylko dostępnych konsultantów"
+  "SEARCH.SWITCHER.LABEL": "Wyświetl tylko dostępnych konsultantów",
+  "SEARCH_CONSULTATION_ITEM.WORKING_FOR.LABEL": "Dla",
+  "SEARCH_CONSULTATIONS_LIST.BUTTON.TITLE": "Więcej wyników"
 }

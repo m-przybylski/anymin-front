@@ -1,9 +1,12 @@
 @import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+$s-navbar-height-mobile: 116px
+$s-navbar-height: 80px
 
 .navbar
-  height: 56px
+  height: auto
   background: $c-white
   display: flex
+  flex-wrap: wrap
   justify-content: space-between
   z-index: $z-index-700
   position: fixed
@@ -13,18 +16,21 @@
   transition: transform 0.3s
   box-shadow: 0 1px 4px 0 rgba($c-text-primary, 0.15)
   align-items: stretch
-
-  +xsm
-    height: 80px
-
+  
   &__logo
     background: url("/assets/images/profitelo_icons/logo_vertical_color.svg")
     background-size: cover
     width: 68px
     height: 32px
-    margin: 12px 8px
-
+    margin: 12px 16px
+    
     +xsm
+      margin: 12px 16px
+      
+    +smm
+      margin: 12px 24px
+
+    +mdm
       width: 85px
       height: 40px
       margin: 20px 24px
@@ -33,11 +39,17 @@
     display: flex
     align-items: center
     
+    .navbar__search
+      display: none
+
+      +mdm
+        display: block
+    
   &__logo
     cursor: pointer
 
   &__right-container
-    margin: 0 8px
+    margin: 0 16px
 
     +xsm
       margin: 0 24px
@@ -48,8 +60,15 @@
     +smm
       width: 427px
     
-    +mdm
+    +lgm
       width: 627px
-
+      
+    &--mobile
+      background: $c-white
+      width: 100%
+      
+      +mdm
+        display: none
+        
   &__navigation-menu
     height: 100%

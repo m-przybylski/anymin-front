@@ -4,36 +4,85 @@ plat-input-switch
   display: block
   
 .search-view
-  margin: $s-navbar-mobile-height 0 0 0
+  margin: $s-navbar-search-mobile-height 0 0 0
   
-  +xsm
-    margin: $s-navbar-desktop-height 0 0 0
-
+  +mdm
+    margin: $s-navbar-desktop-height 0 0
+  
   &__header
     background: $c-white
+    overflow: hidden
+    min-height: 64px
+    
+    +mdm
+      min-height: 80px
     
     h3
       +h6
       font-weight: 500
       margin: 0 0 6px
       
+      span
+        color: $c-primary
+        font-weight: 500
+      
     p
       +paragraph-small
+  
+      +mdm
+        max-width: 50%
 
+  .tags-wrapper
+    overflow: hidden
+    
+  &__tags
+    width: 100%
+    overflow: auto
+  
+    .container
+      &--padding
+        > div
+          text-align: center
+          
+    plat-tags
+      &::ng-deep
+        .tags__list
+          flex-wrap: nowrap
+          text-align: center
+          
+          li
+            overflow: visible
+            
+            > span
+              white-space: pre
+              
+    &--selected
+      .container
+        &--padding
+          > div
+            text-align: left
+            padding-bottom: 0 !important
+            
   .container
     &--padding
       > div
-        padding: 24px
+        padding: 16px
+        
+        +mdm
+          padding: 24px
 
 .header
   &--small
-    margin: 0 0 16px
+    margin: 16px 0 0
+    padding: 0 16px
+    
+    +mdm
+      padding: 0 24px
     
     h5
       +input-label
 
-.search-view-filter
-  &--visibility
-
-  &--selected-tags
-    margin: 0 0 16px
+.read-more
+  display: flex
+  justify-content: center
+  padding: 24px 0

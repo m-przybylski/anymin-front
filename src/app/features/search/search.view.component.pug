@@ -1,38 +1,58 @@
 plat-navbar([isUserLoggedIn]="isUserLoggedIn")
-
 .search-view
-  .search-view__header
-    .search-view__tags(*ngIf="suggestedTags")
+  .search-view__header(*ngIf="isHeaderSearchSectionVisible()")
+    .search-view__tags(*ngIf="isSuggestedTagsSectionVisible", [@animation])
       .container.container--padding
-        plat-tags(
-        [tagList]="suggestedTags",
-        [isTagSelected]="false",
-        (selectTag)="onClickRecentTag($event)")
+        div
+          plat-tags(
+          [tagList]="suggestedTags",
+          [isTagSelected]="false",
+          (selectTag)="onClickRecentTag($event)")
 
-    .search-view__header(*ngIf="!suggestedTags")
+    .search-view__header(*ngIf="hasSearchResults && !isPending")
       .container.container--padding
         .header
-          h3 {{ 'SEARCH.CONSULTATIONS.RECENT.TITLE' | translate }}
-          p {{ 'SEARCH.CONSULTATIONS.RECENT.SUB_TITLE' | translate }}
+          h3 {{ 'SEARCH.CONSULTATIONS.NO_RESULTS.TITLE' | translate }}
+            span &nbsp;"{{query}}"
+          p {{ 'SEARCH.CONSULTATIONS.NO_RESULTS.DESCRIPTION' | translate }}
 
   .search-view__container
     .search-view__filters
+      .tags-wrapper(*ngIf="selectedTagList.length > 0", [@collapse])
+        .container
+          .header.header--small
+            h5 {{ 'SEARCH.TAGS.SELECTED.TITLE' | translate }}
+
+        .search-view__tags.search-view__tags--selected
+          .container.container--padding
+            div
+              plat-tags([tagList]="selectedTagList", [isTagSelected]="true", (removeTag)="onDeleteTag($event)")
+
       .container.container--padding
         div
-          .search-view-filter.search-view-filter--selected-tags(*ngIf="selectedTagList")
-            .header.header--small
-              h5 {{ 'SEARCH.TAGS.SELECTED.TITLE' | translate }}
-
-            plat-tags([tagList]="selectedTagList", [isTagSelected]="true", (removeTag)="onDeleteTag($event)")
-
-          .search-view-filter.search-view-filter--visibility
+          .search-view-filter.search-view-filter--visibility(*ngIf="searchList.length !== 0")
             plat-input-switch(
-              [formControl]="visibilityExpertsControl",
-              [label]="'SEARCH.SWITCHER.LABEL'")
+            [formControl]="visibilityExpertsControl",
+            [label]="'SEARCH.SWITCHER.LABEL'")
 
     .search-view__content
       .container
-        ul.search-list
+        ul.search-list(*ngIf="!isPending", [@animation])
           li(*ngFor="let searchItem of searchList")
             plat-search-consultation-item([item]="searchItem")
 
+        ul.search-list(*ngIf="isPending || isSearchResultsPending")
+          li
+            plat-consultation-row-loader
+          li
+            plat-consultation-row-loader
+          li
+            plat-consultation-row-loader
+          li
+            plat-consultation-row-loader
+          li
+            plat-consultation-row-loader
+
+        .read-more(*ngIf="!isNoMoreResults && searchList.length !== 0 && !isPending")
+          a.button(plat-stroked-button, (click)="loadMoreSearchResults()")
+            | {{ "SEARCH_CONSULTATIONS_LIST.BUTTON.TITLE" | translate }}

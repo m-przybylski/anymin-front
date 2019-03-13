@@ -1,23 +1,27 @@
-form.search-container(
-[ngClass]="{'search-container--focused': isFocused, 'search-container--list-visible': isDropdownDisplayed}",
-[formGroup]="searchFormGroupName")
-  input(
-  platInputSearchClick, [isUserMenuVisible]="isFocused", (toggleElement)="toggleDropdown($event)"
-  type="text",
-  placeholder="{{placeholderTrKey | translate}}",
-  (focus)="onFocus()",
-  [formControlName]="searchControlName",
-  (keydown.enter)="onEnter($event)",
-  #input,
-  )
+.input-search
+  form.search-container(
+  [ngClass]="{'search-container--focused': isFocused, 'search-container--list-visible': isDropdownDisplayed}",
+  [formGroup]="searchFormGroupName")
+    input(
+    platInputSearchClick, [isUserMenuVisible]="isFocused", (toggleElement)="toggleDropdown($event)"
+    type="text",
+    placeholder="{{placeholderTrKey | translate}}",
+    (focus)="onFocus()",
+    [formControlName]="searchControlName",
+    (keydown.enter)="onEnter($event)",
+    #input,
+    )
 
-  span.icon.icon-search
+    span.icon.icon-search((click)="onClickSearch()")
 
-  plat-dropdown(
-  [isAvatarVisible]="false",
-  [isDropdownListVisible]="isDropdownDisplayed",
-  [dropdownItems]="suggestedSearchResults",
-  (selectItemEmiter)="onSelectItem($event)",
-  [isDropdownListOnly]="true",
-  (isListItemFocused)="onListItemSelected($event)",
-  )
+    plat-dropdown(
+    [isAvatarVisible]="false",
+    [isDropdownListVisible]="isDropdownDisplayed",
+    [dropdownItems]="suggestedSearchResults",
+    (selectItemEmiter)="onSelectItem($event)",
+    [isDropdownListOnly]="true",
+    (isListItemFocused)="onListItemSelected($event)",
+    )
+
+  a.button.button__cancel(*ngIf="isDropdownDisplayed")
+    | Anuluj

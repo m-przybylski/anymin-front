@@ -23,12 +23,10 @@ export class InputSearchComponent implements OnInit, OnDestroy {
 
   public suggestedSearchResults: ReadonlyArray<IDropdownComponent> = [];
   public searchControlName = 'searchControlName';
-  public dropdownControlName = 'dropdownControlName';
 
   public searchFormGroupName: FormGroup = new FormGroup(
     {
       searchControlName: new FormControl(''),
-      dropdownControlName: new FormControl(''),
     },
     [],
   );
@@ -79,6 +77,13 @@ export class InputSearchComponent implements OnInit, OnDestroy {
   public onFocus(): void {
     this.isFocused = true;
     this.updateDropdownListDisplay();
+  }
+
+  public onClickSearch(): void {
+    if (!this.isSelectQueryFromList && this.searchFormGroupName.controls[this.searchControlName].value.length > 0) {
+      this.urlQueryParamsService.updateQueryParam(this.searchFormGroupName.controls[this.searchControlName].value);
+      this.onBlur();
+    }
   }
 
   public toggleDropdown(isClickonElement: boolean): void {

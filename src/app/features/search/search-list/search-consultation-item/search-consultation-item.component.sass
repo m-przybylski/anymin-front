@@ -1,42 +1,108 @@
 @import "../../../../template/core/helpers/mixins"
 
+
+=avatar-size($val)
+  width: $val
+  min-width: $val
+  height: $val
+  min-height: $val
+
 .search-consultation-item-component
+  overflow: hidden
+  
   +option-row
   
   .profile-details
     display: flex
     align-items: stretch
+    flex: 1
     
     &__expert-name
+      margin: 0 0 12px
+      display: flex
+      align-items: center
+      flex-wrap: wrap
+      
+      +mdm
+        margin: 0
+      
       span
         +button-small
         font-weight: 500
     
     &__avatar
-      margin: 0 24px 0 0
+      margin: 0 12px 0 0
       
+      +mdm
+        margin: 0 24px 0 0
+    
     &__info
       display: flex
       flex-direction: column
-
-      &--expert-consultation
-        justify-content: space-between
+      justify-content: space-between
+      flex: 1
   
-      &--company-consultation
-        justify-content: center
-
   .consultation
+    margin: 0 0 12px
+  
+    +mdm
+      margin: 0
+      
     &__name
       h3
-        +h6
-
+        +paragraph-small
+        
+        +mdm
+          +h6
+  
+  .working-for
+    +button-small
+    
+    .for
+      color: $c-text-secondary
+      font-weight: 400
+    
+    .owner
+      color: $c-primary
   
   .consultation-actions
-    display: flex
-    align-items: center
-  
+    display: none
+    
+    +mdm
+      display: flex
+      align-items: center
+    
     .button
       margin: 0 0 0 16px
-  
+      
   .consultation-price
     +price
+    
+  .statistics
+    display: flex
+    align-items: center
+    justify-content: space-between
+    
+    +mdm
+      justify-content: flex-start
+      
+    .consultation-price
+      +mdm
+        display: none
+        
+  plat-user-avatar
+    &::ng-deep
+      .user-avatar
+        .icon--profile
+          +avatar-size(40px)
+          font-size: 40px
+          
+          +mdm
+            font-size: 96px
+            +avatar-size(96px)
+          
+        img
+          +avatar-size(40px)
+
+          +mdm
+            +avatar-size(96px)

@@ -1,21 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { forkJoin, Observable, Subject } from 'rxjs';
-import { SearchViewService } from '@platform/features/search/search.view.service';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ISearchResults, SearchViewService } from '@platform/features/search/search.view.service';
 import { URLQueryParamsService } from '@platform/core/services/search/url-query-params.service';
 import { GetSearchRequestResult } from '@anymind-ng/api';
 import { Params } from '@angular/router';
-
-interface ISearchView {
-  suggestionTags: ReadonlyArray<string>;
-  searchResultsConsultations: ReadonlyArray<GetSearchRequestResult>;
-}
+import { Animations } from '@platform/shared/animations/animations';
 
 @Component({
   selector: 'plat-search.view',
   templateUrl: './search.view.component.html',
   styleUrls: ['./search.view.component.sass'],
+  animations: [Animations.collapse, Animations.fadeInOutSearchItems],
 })
 export class SearchViewComponent implements OnInit, OnDestroy {
   public selectedTagList: ReadonlyArray<string> = [];
@@ -24,8 +21,13 @@ export class SearchViewComponent implements OnInit, OnDestroy {
   public isUserLoggedIn = false;
   public visibilityExpertsControl: FormControl;
   public searchList: ReadonlyArray<GetSearchRequestResult> = [];
+  public isPending = true;
+  public isSearchResultsPending = false;
+  public isNoMoreResults = false;
 
   private ngUnsubscribe$ = new Subject<void>();
+  private currentSearchResultOffset = 0;
+  private readonly offsetSearchResult = 10;
 
   constructor(private searchViewService: SearchViewService, private urlQueryParamsService: URLQueryParamsService) {}
 
@@ -42,14 +44,16 @@ export class SearchViewComponent implements OnInit, OnDestroy {
       .pipe(
         filter(urlQueryParams => urlQueryParams.tags.length !== 0 || urlQueryParams.query.length !== 0),
         takeUntil(this.ngUnsubscribe$),
-        tap(queryParams => {
-          this.getQueryParamsValues(queryParams);
-        }),
-        switchMap(queryParams => this.updateSearchResults(queryParams)),
+        switchMap(queryParams =>
+          this.searchViewService.updateSearchResults(
+            queryParams,
+            this.visibilityExpertsControl.value,
+            this.currentSearchResultOffset,
+          ),
+        ),
       )
       .subscribe(searchResults => {
-        this.suggestedTags = searchResults.suggestionTags;
-        this.searchList = searchResults.searchResultsConsultations;
+        this.updateSearchResults(searchResults);
       });
 
     this.searchViewService
@@ -75,7 +79,45 @@ export class SearchViewComponent implements OnInit, OnDestroy {
     this.updateAddressUrl();
   }
 
-  private getQueryParamsValues(queryParams: Params): void {
+  public loadMoreSearchResults(): void {
+    this.currentSearchResultOffset += this.offsetSearchResult;
+    this.isSearchResultsPending = true;
+
+    this.searchViewService
+      .getSearchResult(
+        this.query,
+        this.selectedTagList,
+        this.visibilityExpertsControl.value,
+        this.currentSearchResultOffset,
+      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(searchResultsConsultations => {
+        this.isNoMoreResults = this.currentSearchResultOffset < searchResultsConsultations.length;
+        this.searchList = [...this.searchList, ...searchResultsConsultations];
+        this.isSearchResultsPending = false;
+      });
+  }
+
+  public get hasSearchResults(): boolean {
+    return this.searchList.length === 0 && (this.query.length !== 0 || this.selectedTagList.length !== 0);
+  }
+
+  public get isSuggestedTagsSectionVisible(): boolean {
+    return this.suggestedTags.length > 0 && !this.hasSearchResults;
+  }
+
+  public isHeaderSearchSectionVisible(): boolean {
+    return this.isSuggestedTagsSectionVisible || (this.hasSearchResults && !this.isPending);
+  }
+
+  private updateSearchResults(searchResults: ISearchResults): void {
+    this.adjustQueryParamsValues(searchResults.currentQueryParams);
+    this.suggestedTags = searchResults.suggestionTags;
+    this.searchList = searchResults.searchResultsConsultations;
+    this.isPending = false;
+  }
+
+  private adjustQueryParamsValues(queryParams: Params): void {
     if (queryParams.tags[0]) {
       this.selectedTagList = queryParams.tags;
     }
@@ -83,23 +125,10 @@ export class SearchViewComponent implements OnInit, OnDestroy {
     this.visibilityExpertsControl.setValue(queryParams.showOnlyAvailable);
   }
 
-  private updateSearchResults(queryParams: Params): Observable<ISearchView> {
-    return forkJoin(
-      this.searchViewService.sendQueryTagSuggestion({ query: queryParams.query, tags: this.selectedTagList }),
-      this.searchViewService.getSearchResult(
-        queryParams.query,
-        this.selectedTagList,
-        this.visibilityExpertsControl.value,
-      ),
-    ).pipe(
-      map(([suggestionTags, searchResultsConsultations]) => ({
-        suggestionTags: suggestionTags.tags,
-        searchResultsConsultations,
-      })),
-    );
-  }
-
   private updateAddressUrl(): void {
+    this.isPending = true;
+    this.currentSearchResultOffset = 0;
+
     this.urlQueryParamsService.updateAddressUrl({
       query: this.query,
       tags: this.selectedTagList,

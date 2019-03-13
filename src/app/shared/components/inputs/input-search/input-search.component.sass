@@ -1,37 +1,97 @@
 @import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+@import "../../../../template/core/core"
 
-.search-container
-  background: $c-element-background
-  width: 100%
-  height: 48px
-  border-radius: 4px
+.input-search
   display: flex
   align-items: center
-  justify-content: space-between
-  position: relative
-  transition: box-shadow 0.1s ease
+  margin: 0 8px 12px
   
-  input
+  +mdm
+    margin: 0
+  
+  .search-container
+    background: $c-element-background
     width: 100%
-    height: 100%
-    background-color: transparent
-    padding: 0 0 0 16px
-    font-size: $f-paragraph-small
-    color: $c-text-primary
-
-  &--focused
-    background: $c-white
-    box-shadow: 0 2px 8px 0 $c-lines, inset 0 0 0 1px $c-lines
-  
-  &--list-visible
-    border-radius: 4px 4px 0 0
+    border-radius: 4px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    position: relative
+    transition: box-shadow 0.1s ease
+    height: 40px
     
-  .icon
-    margin: 0 16px 0 0
+    +mdm
+      height: 48px
+    
+    &--focused
+      +mdm
+        background: $c-white
+        box-shadow: 0 2px 8px 0 $c-lines, inset 0 0 0 1px $c-lines
+    
+    &--list-visible
+      border-radius: 4px 4px 0 0
 
-  plat-dropdown
-    position: absolute
-    left: 0
-    top: calc(100% - 1px)
-    width: 100%
-
+    input
+      width: 100%
+      height: 100%
+      background-color: transparent
+      padding: 0 0 0 16px
+      font-size: $f-paragraph-small
+      color: $c-text-primary
+      
+    .icon
+      margin: 0 16px 0 0
+      cursor: pointer
+      
+      &:hover
+        color: $c-primary
+    
+    plat-dropdown
+      position: absolute
+      left: 0
+      top: calc(100% - 1px)
+      width: 100%
+      
+      &::ng-deep
+        plat-dropdown-list
+          &::ng-deep
+            .dropdown-list
+              +mdm-max
+                position: fixed
+                top: $s-navbar-search-mobile-height
+                box-shadow: none
+                height: calc(100% - #{$s-navbar-search-mobile-height})
+                padding: 0 16px
+                border: 0
+              
+              +mdm
+                position: absolute
+                left: 0
+                top: calc(100% - 1px)
+                width: 100%
+              
+              &__item
+                +mdm-max
+                  padding: 16px
+              
+              ul
+                +mdm-max
+                  max-height: 100%
+                  margin: 0 0 12px
+                
+                +mdm
+                  max-height: 280px
+                
+                li
+                  +mdm-max
+                    border-bottom: 1px solid $c-lines
+  
+  .button
+    &__cancel
+      +button-small
+      margin: 0 0 0 12px
+      color: $c-primary
+      
+      +mdm
+        display: none
+      

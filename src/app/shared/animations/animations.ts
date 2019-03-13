@@ -34,6 +34,24 @@ export class Animations {
     ]),
   ];
 
+  public static fadeInOutSearchItems: AnimationTriggerMetadata[] = [
+    trigger('animation', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-12px)' }),
+            stagger('100ms', [animate('200ms', style({ opacity: 1, transform: 'translateY(0)' }))]),
+          ],
+          {
+            optional: true,
+          },
+        ),
+        query(':leave', [style({ opacity: 1 }), animate('100ms', style({ opacity: 0 }))], { optional: true }),
+      ]),
+    ]),
+  ];
+
   public static collapseExpandContainer: AnimationTriggerMetadata[] = [
     trigger('collapseExpandContainer', [
       state('collapsed', style({ height: 'calc((1em + 6px) * 3)' })),
@@ -90,6 +108,7 @@ export class Animations {
       ]),
     ]),
   ];
+
   public static tooltipAnimation: AnimationTriggerMetadata[] = [
     trigger('animation', [
       transition(':enter', [

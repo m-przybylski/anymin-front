@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Animations } from '@platform/shared/animations/animations';
 
 @Component({
   selector: 'plat-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.sass'],
-  animations: [Animations.addItemAnimation],
 })
 export class TagsComponent {
   @Output()
