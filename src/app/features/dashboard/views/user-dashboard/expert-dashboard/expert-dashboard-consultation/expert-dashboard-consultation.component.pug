@@ -1,7 +1,7 @@
 .expert-dashboard-consultation-row
   div(*ngIf="isLogged")
     a.expert-dashboard-consultation-row__add-consultation(
-      *ngIf="isOwnProfile && !isCompany",
+      *ngIf="isOwnProfile",
       (click)='add()'
     )
       span(plat-flat-fab color='primary')
