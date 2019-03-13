@@ -187,14 +187,12 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
     modalRef.componentInstance.serviceId = serviceId;
     modalRef.componentInstance.userType = UserTypeEnum.EXPERT;
     modalRef.result.then(this.onConsultationDetailsClose.bind(this), this.onConsultationDetailsClose.bind(this));
-    this.openConsultationDetailSideEffect(serviceId);
   }
 
   private onConsultationDetailsClose(): void {
     this.data$.pipe(take(1)).subscribe(data => {
       if (data) {
         this.setSeoTags(data.profile.expertProfileView.expertProfile);
-        this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
       }
     });
   }

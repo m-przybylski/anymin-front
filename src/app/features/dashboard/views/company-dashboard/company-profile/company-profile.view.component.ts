@@ -149,7 +149,6 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     modal.componentInstance.consultationId = event.serviceId;
     modal.componentInstance.isOwnProfile = event.isOwnProfile;
     modal.result.then(this.onConsultationDetailsClose.bind(this), this.onConsultationDetailsClose.bind(this));
-    this.openConsultationDetailSideEffect(event.serviceId);
   }
 
   private onConsultationDetailsClose(): void {
@@ -160,7 +159,6 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
       )
       .subscribe((data: IExpertCompanyDashboardResolverData<IOrganizationProfile>) => {
         this.setSeoTags(data.profile.organization.organizationProfile);
-        this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
       });
   }
 

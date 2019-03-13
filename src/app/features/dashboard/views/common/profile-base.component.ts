@@ -58,10 +58,6 @@ export class ProfileBaseComponent implements OnDestroy {
     });
   }
 
-  protected openConsultationDetailSideEffect(serviceId: string): void {
-    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { serviceId } });
-  }
-
   /**
    * Keep track of opened modals so it can be closed when main component
    * is destroyed for example by navigating to different route.
