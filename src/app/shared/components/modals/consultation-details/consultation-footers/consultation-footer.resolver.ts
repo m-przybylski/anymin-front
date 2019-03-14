@@ -14,50 +14,59 @@ export class ConsultationFooterResolver {
    * @param userExpertProfileId logged user expert profile id
    * @param expertProfileIdList list of expert's account ids assigned to consultation
    */
+
   // tslint:disable-next-line:cyclomatic-complexity
-  public static resolve(
-    userType?: UserTypeEnum,
-    isCompany = false,
-    userAccountId?: string,
-    ownerAccountId?: string,
-    userExpertProfileId?: string,
-    expertProfileIdList?: ReadonlyArray<string>,
-  ): FooterComponentConstructor | undefined {
-    if (userAccountId === undefined) {
-      // user is not logged so display user footer
+  public static resolve(payload: IFooterResolverPayload): FooterComponentConstructor | undefined {
+    const selectedProfileId =
+      payload.userType === UserTypeEnum.EXPERT
+        ? payload.userExpertProfileId
+        : payload.userType === UserTypeEnum.COMPANY
+        ? payload.userOrganizationProfileId
+        : undefined;
+    if (payload.userAccountId === undefined) {
       return ConsultationFooterUserComponent;
     }
 
-    if (expertProfileIdList !== undefined) {
-      // there is a list of experts so we can use it
-
-      if (
-        userAccountId !== ownerAccountId &&
-        expertProfileIdList.some(fromListExpertId => fromListExpertId === userExpertProfileId)
-      ) {
-        // user is not owner of service and he provides service for that consultation
-        return ConsultationFooterLeaveComponent;
-      }
-
-      if (userAccountId !== ownerAccountId && expertProfileIdList.length > 1) {
-        // user is not owner of service and there is more than one expert who provides service
-        return ConsultationFooterMultipleExpertComponent;
-      }
-
-      if (userAccountId === ownerAccountId) {
-        if (userType === UserTypeEnum.EXPERT && isCompany) {
-          // user is owner of service and he checks consultation details as expert and he has company
-          return ConsultationFooterLeaveComponent;
+    if (selectedProfileId !== payload.serviceOwnerProfileId) {
+      // consultation is not mine
+      if (!payload.expertProfileIdList.includes(payload.userExpertProfileId || '')) {
+        // i'm not an expert
+        if (payload.expertProfileIdList.length > 1) {
+          return ConsultationFooterMultipleExpertComponent;
         }
 
-        // user is owner of service
-        return ConsultationFooterEditComponent;
+        return ConsultationFooterUserComponent;
+      } else {
+        return ConsultationFooterLeaveComponent;
       }
-
-      // default footer
-      return ConsultationFooterUserComponent;
+    } else {
+      return ConsultationFooterEditComponent;
     }
-
-    return undefined;
   }
+}
+export interface IFooterResolverPayload {
+  /**
+   * profile id of the owner of selected service
+   */
+  serviceOwnerProfileId: string;
+  /**
+   * expert profile id for logged user
+   */
+  userExpertProfileId?: string;
+  /**
+   * organization profile id for logged user
+   */
+  userOrganizationProfileId?: string;
+  /**
+   * account id for logged user - to check if there is a user
+   */
+  userAccountId?: string;
+  /**
+   * list of all experts assigned to that consultation
+   */
+  expertProfileIdList: ReadonlyArray<string>;
+  /**
+   * logged user type
+   */
+  userType?: UserTypeEnum;
 }

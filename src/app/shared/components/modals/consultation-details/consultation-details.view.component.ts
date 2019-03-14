@@ -15,7 +15,10 @@ import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { IFooterOutput, IConsultationFooterData } from './consultation-footers/consultation-footer-helpers';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConsultationFooterResolver } from './consultation-footers/consultation-footer.resolver';
+import {
+  ConsultationFooterResolver,
+  IFooterResolverPayload,
+} from './consultation-footers/consultation-footer.resolver';
 import { ICreateEditConsultationPayload } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation.component';
 import { ServiceWithOwnerProfile } from '@anymind-ng/api/model/serviceWithOwnerProfile';
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
@@ -203,25 +206,26 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   }
 
   private attachFooter(
-    userId: string,
+    userAccountId: string,
     getServiceDetails: IConsultationDetails,
     expertIsAvailable: boolean,
     selectedExpertId: string,
     getSession?: GetSessionWithAccount,
   ): ComponentRef<IFooterOutput> | undefined {
-    const component = ConsultationFooterResolver.resolve(
-      this.userType,
-      getSession && getSession.session.organizationProfileId !== undefined,
-      userId,
-      getServiceDetails.expertOrOrganizationDetails.profile.accountId,
-      getSession && getSession.session.expertProfileId,
-      [getServiceDetails.expertProfileViewDetails.expertProfile.id],
-    );
+    const resolverPayload: IFooterResolverPayload = {
+      userType: this.userType,
+      userAccountId: getSession && getSession.session.accountId,
+      userExpertProfileId: getSession && getSession.session.expertProfileId,
+      userOrganizationProfileId: getSession && getSession.session.organizationProfileId,
+      serviceOwnerProfileId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
+      expertProfileIdList: getServiceDetails.expertIds,
+    };
+    const component = ConsultationFooterResolver.resolve(resolverPayload);
     if (component) {
       const footerComponent = this.consultationDetailsViewService.attachFooter(
         component,
         this.viewContainerRef,
-        this.buildFooterData(userId, getServiceDetails, expertIsAvailable, selectedExpertId),
+        this.buildFooterData(userAccountId, getServiceDetails, expertIsAvailable, selectedExpertId),
       );
 
       footerComponent.instance.actionTaken$.pipe(takeUntil(this.destroyed$)).subscribe(value => {

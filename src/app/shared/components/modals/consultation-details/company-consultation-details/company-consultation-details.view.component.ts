@@ -20,7 +20,10 @@ import {
 import { Logger } from '@platform/core/logger';
 import { ConsultationDetailsViewService } from '../consultation-details.view.service';
 import { IFooterOutput, IConsultationFooterData } from '../consultation-footers/consultation-footer-helpers';
-import { ConsultationFooterResolver } from '../consultation-footers/consultation-footer.resolver';
+import {
+  ConsultationFooterResolver,
+  IFooterResolverPayload,
+} from '../consultation-footers/consultation-footer.resolver';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { CompanyProfileApiActions } from '@platform/features/dashboard/views/company-dashboard/company-profile/actions';
@@ -191,21 +194,24 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
     getSession?: GetSessionWithAccount,
   ): ComponentRef<IFooterOutput> | undefined {
     const accountId = (getSession && getSession.account.id) || '';
-    const component = ConsultationFooterResolver.resolve(
-      this.userType,
-      getSession && getSession.session.organizationProfileId !== undefined,
-      accountId,
-      getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.accountId,
-      getSession && getSession.session.expertProfileId,
-      getConsultationDetails.serviceDetails.employeesDetails
-        .map(employeesDetail => employeesDetail.employeeProfile.id || '')
-        /**
-         * need to add extra element to the list
-         * in case there is only one item system displays user footer
-         * empty string is dangerous so any value do the trick
-         */
-        .concat('$'),
-    );
+    const expertProfileIdList = getConsultationDetails.serviceDetails.employeesDetails
+      .map(employeesDetail => employeesDetail.employeeProfile.id || '')
+      /**
+       * need to add extra element to the list
+       * in case there is only one item system displays user footer
+       * empty string is dangerous so any value do the trick
+       */
+      .concat('$');
+    const resolverPayload: IFooterResolverPayload = {
+      userType: this.userType,
+      userAccountId: accountId,
+      userExpertProfileId: getSession && getSession.session.expertProfileId,
+      userOrganizationProfileId: getSession && getSession.session.organizationProfileId,
+      serviceOwnerProfileId: getConsultationDetails.serviceDetails.serviceDetails.ownerProfile.id,
+      expertProfileIdList,
+    };
+
+    const component = ConsultationFooterResolver.resolve(resolverPayload);
     if (component) {
       const footerComponent = this.consultationDetailsViewService.attachFooter(
         component,
