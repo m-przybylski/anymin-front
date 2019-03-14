@@ -4,10 +4,6 @@ form.form.form--create-organization(
   contentHeightAnimation,
   novalidate
 )
-  .modal-form__row--small(*ngIf="hasProfileConsultationsAsExpert")
-    plat-warning-information(
-      [warningText]="'DASHBOARD.CREATE_PROFILE.CREATE_ORGANIZATION_PROFILE.HAS_GOT_CONSULTATION.ALERT'",
-    )
 
   .modal-form__row.modal-form__row--small
     header.modal-component__content__header
