@@ -28,6 +28,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CompanyProfileComponent extends ProfileBaseComponent implements OnInit, OnDestroy {
   public consultations$ = this.store.pipe(select(fromCompanyDashboard.getConsultations));
+  public isLoading$ = this.store.pipe(select(fromCompanyDashboard.getIsLoading));
   public data$ = this.store.pipe(select(fromCompanyDashboard.getData));
 
   constructor(

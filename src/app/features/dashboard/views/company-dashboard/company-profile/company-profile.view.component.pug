@@ -1,26 +1,26 @@
-ng-container(*ngIf="data$ | async as data; else loading")
-  .organization-dashboard-layout
-    .container
-      plat-dashboard-profile-header(
-        [avatarToken]='getAvatarToken(data)',
-        [name]='getName(data)',
-        [description]='getDescription(data)',
-        [links]='getLinks(data)',
-        [isOwnProfile]='getIsOwnProfile(data)',
-        [isLogged]='getIsLogged(data)',
-        [companyId]="getOrganizationId(data)",
-        [attachments]="getOrganizationDocuments(data)",
-        (editProfile)='onEditProfile()',
-        (openGallery)="onOpenGallery(getOrganizationDocuments(data))"
-      )
-  .container
-    h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
-    plat-company-profile-consultations(
-      [consultations]='consultations$ | async',
-      [isOwnProfile]='getIsOwnProfile(data)',
-      (openConsultationDetails) = 'openConsultationDetail($event)',
-      (addConsultation)='addConsultation(getProfileId(data))'
-    )
+plat-expert-org-loader(*ngIf="isLoading$ | async; else data")
 
-ng-template(#loading)
-  plat-expert-org-loader
+ng-template(#data)
+  ng-container(*ngIf="data$ | async as data; else loading")
+    .organization-dashboard-layout
+      .container
+        plat-dashboard-profile-header(
+          [avatarToken]='getAvatarToken(data)',
+          [name]='getName(data)',
+          [description]='getDescription(data)',
+          [links]='getLinks(data)',
+          [isOwnProfile]='getIsOwnProfile(data)',
+          [isLogged]='getIsLogged(data)',
+          [companyId]="getOrganizationId(data)",
+          [attachments]="getOrganizationDocuments(data)",
+          (editProfile)='onEditProfile()',
+          (openGallery)="onOpenGallery(getOrganizationDocuments(data))"
+        )
+    .container
+      h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}
+      plat-company-profile-consultations(
+        [consultations]='consultations$ | async',
+        [isOwnProfile]='getIsOwnProfile(data)',
+        (openConsultationDetails) = 'openConsultationDetail($event)',
+        (addConsultation)='addConsultation(getProfileId(data))'
+      )

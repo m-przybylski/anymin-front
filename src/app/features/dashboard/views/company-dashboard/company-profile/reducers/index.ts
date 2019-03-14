@@ -144,6 +144,11 @@ export const getData = createSelector(
   (state): IExpertCompanyDashboardResolverData<IOrganizationProfile> | undefined => state.organizationProfile,
 );
 
+export const getIsLoading = createSelector(
+  companyProfile,
+  (state): boolean => state.isLoading,
+);
+
 export const getProfile = createSelector(
   getData,
   (data): IOrganizationProfile | undefined => data && data.profile,
