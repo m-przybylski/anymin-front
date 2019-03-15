@@ -167,7 +167,9 @@ export class CreateEditConsultationModalComponent extends Logger implements OnIn
        * as it is accepted value for backend
        */
       price: {
-        value: Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
+        value: Math.round(
+          Number(this.formControls[this.priceControlName].value.replace(',', '.')) * Config.moneyDivider,
+        ),
         currency: this.polishCurrency,
       },
       tags: [...this.selectedTags],
