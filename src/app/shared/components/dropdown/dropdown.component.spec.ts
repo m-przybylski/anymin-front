@@ -38,10 +38,10 @@ describe('Component: DropdownComponent', () => {
   it('should call onCloseDropdownList', () => {
     const fixture = TestBed.createComponent(DropdownComponent);
     const component = fixture.componentInstance;
-    component.onCloseEmiter = new EventEmitter<boolean>();
+    component.closeEmiter = new EventEmitter<boolean>();
     const isVisible = false;
 
-    const spy = jest.spyOn(component.onCloseEmiter, 'emit');
+    const spy = jest.spyOn(component.closeEmiter, 'emit');
     component.onCloseDropdownList(isVisible);
     expect(spy).toHaveBeenCalledWith(isVisible);
   });
@@ -54,7 +54,7 @@ describe('Component: DropdownComponent', () => {
     const component = fixture.componentInstance;
     component.isDropdownListOnly = true;
 
-    const spy = jest.spyOn(component.onSelectItemEmiter, 'emit');
+    const spy = jest.spyOn(component.selectItemEmiter, 'emit');
     component.onSelectItem(mockValue);
     expect(spy).toHaveBeenCalledWith(mockValue);
   });

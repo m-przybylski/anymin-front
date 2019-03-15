@@ -12,7 +12,7 @@ import {
 } from '@platform/features/dashboard/components/navbar/navigation';
 import { provideMockFactoryLogger } from '../../../../../testing/testing';
 import { combineReducers, StoreModule } from '@ngrx/store';
-import * as fromDashboard from '@platform/features/dashboard/reducers';
+import * as fromCore from '@platform/core/reducers/index';
 
 describe('NavbarComponentService', () => {
   let navbarComponentService: NavbarComponentService;
@@ -25,7 +25,6 @@ describe('NavbarComponentService', () => {
       msisdn: '+48555555555',
       registeredAt: new Date(),
       isBlocked: false,
-      hasPassword: true,
       isAnonymous: false,
       details: {
         clientId: 'id',
@@ -88,8 +87,8 @@ describe('NavbarComponentService', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...fromDashboard.reducers,
-          dashboard: combineReducers(fromDashboard.reducers),
+          ...fromCore.reducers,
+          dashboard: combineReducers(fromCore.reducers),
         }),
       ],
       providers: [
@@ -105,7 +104,7 @@ describe('NavbarComponentService', () => {
         provideMockFactoryLogger(loggerService),
       ],
     });
-    (loggerService.error as  jest.Mock).mockClear();
+    (loggerService.error as jest.Mock).mockClear();
     navbarComponentService = TestBed.get(NavbarComponentService);
   });
 

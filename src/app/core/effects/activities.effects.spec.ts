@@ -2,21 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Actions } from '@ngrx/effects';
-import { DashboardEffects } from 'activities.effects';
+import { ActivitiesCounterEffects } from '../effects/activities-counter/activities.effects';
 import { ActivitiesService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
-import { DashboardActions } from '../../features/dashboard/actions';
+import { Actions } from '@ngrx/effects';
+import { DashboardActions } from '../../features/dashboard/actions/index';
 
-describe('ActivitiesCounterEffects', () => {
-  let dashboardEffects: DashboardEffects;
+describe('ActivitiesEffects', () => {
+  let activitiesCounterEffects: ActivitiesCounterEffects;
   let activitiesService: ActivitiesService;
   let actions$: Observable<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        DashboardEffects,
+        ActivitiesCounterEffects,
         {
           provide: ActivitiesService,
           useValue: Deceiver(ActivitiesService, {
@@ -27,7 +27,7 @@ describe('ActivitiesCounterEffects', () => {
       ],
     });
 
-    dashboardEffects = TestBed.get(DashboardEffects);
+    activitiesCounterEffects = TestBed.get(ActivitiesCounterEffects);
     activitiesService = TestBed.get(ActivitiesService);
     actions$ = TestBed.get(Actions);
   });
@@ -43,7 +43,7 @@ describe('ActivitiesCounterEffects', () => {
       const expected = cold('--b', { b: completion });
       activitiesService.getImportantActivitiesCountersRoute = jest.fn(() => response);
 
-      expect(dashboardEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
+      expect(activitiesCounterEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
     });
 
     it('should return a FetchImportantActivitiesCounterErrorAction, with error if fetch fails', () => {
@@ -56,7 +56,7 @@ describe('ActivitiesCounterEffects', () => {
       const expected = cold('--b', { b: completion });
       activitiesService.getImportantActivitiesCountersRoute = jest.fn(() => response);
 
-      expect(dashboardEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
+      expect(activitiesCounterEffects.fetchImportantActivitiesCounter$).toBeObservable(expected);
     });
   });
 });

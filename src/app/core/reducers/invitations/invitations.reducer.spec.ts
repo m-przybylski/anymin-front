@@ -1,5 +1,5 @@
-import { IState, reducer } from 'invitations.reducer';
-import { InvitationsApiActions, InvitationsWsActions, InvitationsActions } from '../../../features/dashboard/actions';
+import { IState, reducer } from '../../../core/reducers/invitations/invitations.reducer';
+import { InvitationsApiActions, InvitationsWsActions, InvitationsActions } from '../../../core/actions/index';
 
 describe('invitations.reducer', () => {
   const initialState: IState = {

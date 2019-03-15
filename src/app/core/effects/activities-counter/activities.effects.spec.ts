@@ -6,7 +6,7 @@ import { Actions } from '@ngrx/effects';
 import { ActivitiesCounterEffects } from 'src/app/core/effects/activities-counter/activities.effects';
 import { ActivitiesService } from '@anymind-ng/api';
 import { Deceiver } from 'deceiver-core';
-import { DashboardActions } from '../../features/dashboard/actions';
+import { DashboardActions } from '../../../features/dashboard/actions/index';
 
 describe('ActivitiesCounterEffects', () => {
   let dashboardEffects: ActivitiesCounterEffects;

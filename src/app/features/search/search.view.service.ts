@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Logger } from '@platform/core/logger';
 import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Config } from 'config';
+import { Config } from '../../../config';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import * as fromRoot from '@platform/reducers';
@@ -28,12 +28,6 @@ export class SearchViewService extends Logger {
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('SearchViewService'));
-  }
-
-  public sendQueryTagSuggestion(body: PostSuggestTags): Observable<GetSuggestedTags> {
-    return this.searchService
-      .postTagsSuggestionsRoute(body)
-      .pipe(catchError(error => this.handleRequestError('Can not send tags suggestions: ', error)));
   }
 
   public getSearchResult(
@@ -75,6 +69,12 @@ export class SearchViewService extends Logger {
         currentQueryParams: queryParams,
       })),
     );
+  }
+
+  private sendQueryTagSuggestion(body: PostSuggestTags): Observable<GetSuggestedTags> {
+    return this.searchService
+      .postTagsSuggestionsRoute(body)
+      .pipe(catchError(error => this.handleRequestError('Can not send tags suggestions: ', error)));
   }
 
   private handleRequestError(msg: string, err: HttpErrorResponse): Observable<never> {

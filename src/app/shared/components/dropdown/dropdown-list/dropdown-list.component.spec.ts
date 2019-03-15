@@ -5,7 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DropdownListComponent } from './dropdown-list.component';
 import { UserAvatarComponent } from '../../user-avatar/user-avatar.component';
 import { ScrollToElementDirective } from './scroll-to-element.directive';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { IDropdownComponent } from '@platform/shared/components/dropdown/dropdown.component';
 
 describe('Component: DropdownListComponent', () => {
   beforeEach(() => {
@@ -37,24 +38,27 @@ describe('Component: DropdownListComponent', () => {
   it('should call onItemClicked', () => {
     const fixture = TestBed.createComponent(DropdownListComponent);
     const component = fixture.componentInstance;
+    component.selectedItemIndex = 0;
     component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
 
     const indexNumber = 3;
-    jest.spyOn(component, 'selectItem');
+    const spy = jest.spyOn(component.selectItem, 'emit');
+
     component.onItemClicked(indexNumber);
-    expect(component.selectItem).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should call onSelectEnter', () => {
     const fixture = TestBed.createComponent(DropdownListComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
+    component.selectedItemIndex = 0;
 
-    component.dropdownItems = [{ name: 'name', avatar: 'aa' }];
-
-    jest.spyOn(component, 'selectItem');
+    component.selectedItemElement = { name: 'name', avatar: 'aa' };
+    component.selectItem = new EventEmitter<IDropdownComponent>();
+    const spy = jest.spyOn(component.selectItem, 'emit');
 
     component.onSelectEnter();
-    expect(component.selectItem).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });
