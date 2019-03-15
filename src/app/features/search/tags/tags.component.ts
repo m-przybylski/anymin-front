@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'plat-tags',
+  selector: 'plat-search-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.sass'],
 })
-export class TagsComponent {
+export class SearchTagsComponent {
   @Output()
   public selectTag = new EventEmitter<string>();
 

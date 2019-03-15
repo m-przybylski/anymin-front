@@ -4,7 +4,7 @@ plat-navbar([isUserLoggedIn]="isUserLoggedIn")
     .search-view__tags(*ngIf="isSuggestedTagsSectionVisible", [@animation])
       .container.container--padding
         div
-          plat-tags(
+          plat-search-tags(
           [tagList]="suggestedTags",
           [isTagSelected]="false",
           (selectTag)="onClickRecentTag($event)")
@@ -26,7 +26,7 @@ plat-navbar([isUserLoggedIn]="isUserLoggedIn")
         .search-view__tags.search-view__tags--selected
           .container.container--padding
             div
-              plat-tags([tagList]="selectedTagList", [isTagSelected]="true", (removeTag)="onDeleteTag($event)")
+              plat-search-tags([tagList]="selectedTagList", [isTagSelected]="true", (removeTag)="onDeleteTag($event)")
 
       .container.container--padding
         div
