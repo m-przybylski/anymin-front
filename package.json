@@ -74,7 +74,7 @@
     "fs-extra": "^7.0.1",
     "jsencrypt": "^3.0.0-rc.1",
     "libphonenumber-js": "^1.4.2",
-    "machoke-sdk": "4.0.1",
+    "machoke-sdk": "4.0.2",
     "moment": "^2.17.1",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-cookie-service": "^2.0.0",
