@@ -218,7 +218,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       userExpertProfileId: getSession && getSession.session.expertProfileId,
       userOrganizationProfileId: getSession && getSession.session.organizationProfileId,
       serviceOwnerProfileId: getServiceDetails.getServiceWithEmployees.serviceDetails.ownerProfile.id,
-      expertProfileIdList: getServiceDetails.expertIds,
+      expertProfileIdList: [selectedExpertId],
     };
     const component = ConsultationFooterResolver.resolve(resolverPayload);
     if (component) {
