@@ -18,6 +18,12 @@ const deleteConsultation = (
   employments: ReadonlyArray<EmploymentWithService>,
 ): ReadonlyArray<EmploymentWithService> => employments.filter(employment => employment.serviceDetails.id !== serviceId);
 
+const leaveConsultation = (
+  employeeId: string,
+): ((employments: ReadonlyArray<EmploymentWithService>) => ReadonlyArray<EmploymentWithService>) => (
+  employments: ReadonlyArray<EmploymentWithService>,
+): ReadonlyArray<EmploymentWithService> => employments.filter(employment => employment.id !== employeeId);
+
 const updateConsultation = (
   service: GetService,
 ): ((employments: ReadonlyArray<EmploymentWithService>) => ReadonlyArray<EmploymentWithService>) => (
@@ -38,7 +44,7 @@ const updateConsultation = (
   });
 
 const updateProfile = (
-  mapper: ((employments: ReadonlyArray<EmploymentWithService>) => ReadonlyArray<EmploymentWithService>),
+  mapper: (employments: ReadonlyArray<EmploymentWithService>) => ReadonlyArray<EmploymentWithService>,
   expertProfile?: IExpertCompanyDashboardResolverData<IExpertProfile>,
 ): IExpertCompanyDashboardResolverData<IExpertProfile> | undefined => {
   if (expertProfile === undefined) {
@@ -99,11 +105,19 @@ export function reducer(state = initialState, action: ActionUnion): IState {
         ...state,
         expertProfile: updateProfile(addConsultation(action.payload), state.expertProfile),
       };
+
+    case ConsultationDetailActions.ConsultationDetailsActionsTypes.Leave:
+      return {
+        ...state,
+        expertProfile: updateProfile(leaveConsultation(action.payload), state.expertProfile),
+      };
+
     case ConsultationDetailActions.ConsultationDetailsActionsTypes.Delete:
       return {
         ...state,
         expertProfile: updateProfile(deleteConsultation(action.payload), state.expertProfile),
       };
+
     case ConsultationDetailActions.ConsultationDetailsActionsTypes.Edit:
       return {
         ...state,

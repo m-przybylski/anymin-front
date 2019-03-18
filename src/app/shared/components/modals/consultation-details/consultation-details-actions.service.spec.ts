@@ -145,15 +145,12 @@ describe('ConsultationDetailsActionsService', () => {
       alertService.pushSuccessAlert = jest.fn();
       consultationDetailsActionsService.leaveConsultation({
         ...dummyInputObject,
-        serviceId: 'fake serviceId',
         modal,
         employmentId: 'aaa',
       });
       getTestScheduler().flush();
       expect(employmentService.deleteEmploymentRoute).toHaveBeenCalledWith('aaa');
-      expect(spy).toHaveBeenCalledWith(
-        new ConsultationDetailActions.ConsultationLeave({ serviceId: 'fake serviceId', employmentId: 'aaa' }),
-      );
+      expect(spy).toHaveBeenCalledWith(new ConsultationDetailActions.ConsultationLeave('aaa'));
     });
     it('should not close modal when user confirmed but there was error on backend', () => {
       const modal = Deceiver(NgbActiveModal, { close: jest.fn() });

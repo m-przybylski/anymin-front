@@ -25,7 +25,7 @@ export class AddConsultationAction implements Action {
 
 export class ConsultationLeave implements Action {
   public readonly type = ConsultationDetailsActionsTypes.Leave;
-  constructor(public payload: IConsultationLeavePayload) {}
+  constructor(public payload: string) {}
 }
 
 export type ConsultationDetailsActionsUnion =
@@ -33,8 +33,3 @@ export type ConsultationDetailsActionsUnion =
   | EditConsultationAction
   | AddConsultationAction
   | ConsultationLeave;
-
-export interface IConsultationLeavePayload {
-  serviceId: string;
-  employmentId: string;
-}

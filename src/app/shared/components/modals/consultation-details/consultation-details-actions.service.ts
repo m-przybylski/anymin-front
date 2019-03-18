@@ -57,7 +57,7 @@ export class ConsultationDetailsActionsService extends Logger {
     modal.close();
   }
 
-  public leaveConsultation({ serviceId, modal, employmentId }: IConsultationDetailActionParameters): void {
+  public leaveConsultation({ modal, employmentId }: IConsultationDetailActionParameters): void {
     if (typeof employmentId !== 'undefined') {
       this.confirmationService
         .confirm('CONSULTATION_DETAILS.LEAVE.HEADER', 'CONSULTATION_DETAILS.LEAVE.MESSAGE')
@@ -66,7 +66,7 @@ export class ConsultationDetailsActionsService extends Logger {
           switchMap(() =>
             this.employmentService.deleteEmploymentRoute(employmentId).pipe(
               tap(() => {
-                this.store.dispatch(new ConsultationDetailActions.ConsultationLeave({ serviceId, employmentId }));
+                this.store.dispatch(new ConsultationDetailActions.ConsultationLeave(employmentId));
               }),
               catchError(err => {
                 this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.LEAVE_FAILURE');
