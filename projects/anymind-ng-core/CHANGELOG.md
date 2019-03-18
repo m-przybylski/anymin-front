@@ -1,5 +1,10 @@
 ## AnyMind Angular Core library changelog
 
+<a name="March 18, 2019"></a>
+### v0.12.32 - March 18, 2019
+Improve:
+* Links into checkbox label
+
 <a name="February 27, 2019"></a>
 ### v0.12.29 - February 27, 2019
 Fix:
