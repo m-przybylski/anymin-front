@@ -1,6 +1,11 @@
 ## AnyMind Angular Core library changelog
 
 <a name="March 18, 2019"></a>
+### v0.12.33 - March 18, 2019
+Improve:
+* Links margins into paragraphs/spans
+
+<a name="March 18, 2019"></a>
 ### v0.12.32 - March 18, 2019
 Improve:
 * Links into checkbox label
