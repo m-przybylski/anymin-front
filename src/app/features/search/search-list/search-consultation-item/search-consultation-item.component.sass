@@ -6,11 +6,19 @@
   min-width: $val
   height: $val
   min-height: $val
+  
+%transition
+  transition: background 0.3s ease, color 0.3s ease
 
 .search-consultation-item-component
-  overflow: hidden
-  
   +option-row
+  overflow: hidden
+
+  &:hover
+    .button
+      @extend %transition
+      color: $c-white
+      background-color: $c-primary
   
   .profile-details
     display: flex
