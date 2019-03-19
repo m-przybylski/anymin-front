@@ -1,38 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BrowserUtils } from 'machoke-sdk';
-import { UserAgentService } from '@platform/core/services/unsupported/user-agent.service';
+import { CrawlerService } from '@platform/core/services/crawler/crawler.service';
 
 @Injectable()
 export class UnsupportedService {
-  private botsUserAgents: ReadonlyArray<string> = [
-    'Googlebot',
-    'bingbot',
-    'yandexbot',
-    'duckduckbot',
-    'slurp',
-    'twitterbot',
-    'facebookexternalhit',
-    'LinkedInBot',
-    'embedly',
-    'baidusspider',
-    'pinterest',
-    'slackbot',
-    'vkShare',
-    'outbrain',
-    'W3C_Validator',
-    'Facebot',
-    'HeadlessChrome', // Rendertron
-  ].map(bot => bot.toLowerCase());
-
-  constructor(private userAgentService: UserAgentService) {}
+  constructor(private crawlerService: CrawlerService) {}
 
   public isSupported(): boolean {
-    return BrowserUtils.isBrowserSupported() || this.isCrawlerBot();
-  }
-
-  private isCrawlerBot(): boolean {
-    const userAgent = this.userAgentService.userAgent.toLowerCase();
-
-    return this.botsUserAgents.map(bot => userAgent.includes(bot)).includes(true);
+    return BrowserUtils.isBrowserSupported() || this.crawlerService.isCrawlerBot();
   }
 }

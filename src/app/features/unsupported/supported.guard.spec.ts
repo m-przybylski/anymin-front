@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { UnsupportedService } from '@platform/core/services/unsupported/unsupported.service';
 import { AlertService } from '@anymind-ng/core';
 import { SupportedGuard } from '@platform/features/unsupported/supported.guard';
-import { UserAgentService } from '@platform/core/services/unsupported/user-agent.service';
+import { UserAgentService } from '@platform/core/services/crawler/user-agent.service';
 import { provideMockFactoryLogger } from 'testing/testing';
+import { CrawlerService } from '@platform/core/services/crawler/crawler.service';
 
 describe('SupportedGuard', () => {
   let guard: SupportedGuard;
@@ -16,6 +17,7 @@ describe('SupportedGuard', () => {
       providers: [
         UnsupportedService,
         SupportedGuard,
+        CrawlerService,
         UserAgentService,
         {
           provide: Router,

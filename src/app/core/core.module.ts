@@ -36,8 +36,9 @@ import { ActivitiesCounterEffects } from '@platform/core/effects/activities-coun
 import { VisibilityEffects } from '@platform/core/effects/visibility/visibility.effects';
 import { InvitationsEffects } from '@platform/core/effects/invitations/invitations.effects';
 import { UnsupportedService } from '@platform/core/services/unsupported/unsupported.service';
-import { UserAgentService } from '@platform/core/services/unsupported/user-agent.service';
+import { UserAgentService } from '@platform/core/services/crawler/user-agent.service';
 import { URLQueryParamsService } from '@platform/core/services/search/url-query-params.service';
+import { CrawlerService } from '@platform/core/services/crawler/crawler.service';
 
 // tslint:disable-next-line:only-arrow-functions
 export function getLogLevel(): LogLevel {
@@ -88,6 +89,7 @@ export function getLogLevel(): LogLevel {
     CallService,
     RemoteLogoutService,
     UnsupportedService,
+    CrawlerService,
     UserAgentService,
     URLQueryParamsService,
   ],

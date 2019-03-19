@@ -1,12 +1,13 @@
 import { Config } from '../../../../config';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
+import { CrawlerService } from '@platform/core/services/crawler/crawler.service';
 
 @Injectable()
 export class CookieNotificationComponentService {
   private readonly cookieValue = 'true';
 
-  constructor(private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService, private crawlerService: CrawlerService) {}
 
   public hideNotification = (): void => {
     this.cookieService.set(
@@ -16,7 +17,8 @@ export class CookieNotificationComponentService {
     );
   };
 
-  public isNotificationVisible = (): boolean => this.isCookieNotDefined(Config.cookies.cookieNotification.key);
+  public isNotificationVisible = (): boolean =>
+    !this.crawlerService.isCrawlerBot() && this.isCookieNotDefined(Config.cookies.cookieNotification.key);
 
   private isCookieNotDefined = (cookieKey: string): boolean => !this.cookieService.check(cookieKey);
 
