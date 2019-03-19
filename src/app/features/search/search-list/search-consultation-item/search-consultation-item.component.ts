@@ -26,7 +26,7 @@ export class SearchConsultationItemComponent implements OnInit {
     this.isExpertConsultation = this.item.expertProfile.id === this.item.ownerProfile.id;
   }
 
-  public prepareProfileUrl(): void {
+  public openConsultationModal(): void {
     const options: NgbModalOptions = {
       injector: Injector.create({
         providers: [
