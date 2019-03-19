@@ -30,7 +30,7 @@ plat-navbar([isUserLoggedIn]="isUserLoggedIn")
 
       .container.container--padding
         div
-          .search-view-filter.search-view-filter--visibility(*ngIf="searchList.length !== 0")
+          .search-view-filter.search-view-filter--visibility
             plat-input-switch(
             [formControl]="visibilityExpertsControl",
             [label]="'SEARCH.SWITCHER.LABEL'")
