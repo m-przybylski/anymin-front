@@ -92,9 +92,9 @@ export class SearchViewComponent implements OnInit, OnDestroy {
       )
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(searchResultsConsultations => {
-        this.isNoMoreResults = this.currentSearchResultOffset < searchResultsConsultations.length;
         this.searchList = [...this.searchList, ...searchResultsConsultations];
         this.isSearchResultsPending = false;
+        this.checkSearchResultLength();
       });
   }
 
@@ -115,6 +115,11 @@ export class SearchViewComponent implements OnInit, OnDestroy {
     this.suggestedTags = searchResults.suggestionTags;
     this.searchList = searchResults.searchResultsConsultations;
     this.isPending = false;
+    this.checkSearchResultLength();
+  }
+
+  private checkSearchResultLength(): void {
+    this.isNoMoreResults = this.searchList.length < this.offsetSearchResult;
   }
 
   private adjustQueryParamsValues(queryParams: Params): void {
@@ -127,6 +132,7 @@ export class SearchViewComponent implements OnInit, OnDestroy {
 
   private updateAddressUrl(): void {
     this.isPending = true;
+    this.isNoMoreResults = false;
     this.currentSearchResultOffset = 0;
 
     this.urlQueryParamsService.updateAddressUrl({

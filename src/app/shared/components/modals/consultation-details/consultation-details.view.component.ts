@@ -77,12 +77,12 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   private footerComponent: ComponentRef<IFooterOutput> | undefined;
   private editConsultationPayload: ICreateEditConsultationPayload;
   private profileId: string;
+  private expertAccountId: string;
 
   constructor(
     @Inject(EXPERT_ID) private expertId: string,
     @Inject(SERVICE_ID) private serviceId: string,
-    @Optional() @Inject(EXPERT_ACCOUNT_ID) private expertAccountId: string,
-    @Optional() @Inject(USER_TYPE) private userType: UserTypeEnum,
+    @Optional() @Inject(USER_TYPE) private userType: UserTypeEnum = UserTypeEnum.USER,
     private store: Store<fromCore.IState>,
     private seoService: SeoService,
     private consultationDetailsViewService: ConsultationDetailsViewService,
@@ -120,6 +120,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
       this.consultationDetailsViewService.getExpertAvailability(this.expertId),
     ).subscribe(([getSession, tags, getServiceDetails, expertIsAvailable]) => {
       if (getSession !== undefined) {
+        this.expertAccountId = getServiceDetails.expertProfileViewDetails.expertProfile.accountId;
         this.accountId = getSession.account.id;
         this.isOwner = this.expertId === this.accountId;
       }
@@ -245,6 +246,7 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
           expertAccountId: this.expertAccountId,
           createEditConsultationPayload: this.editConsultationPayload,
         };
+
         /**
          * This is consultation details view, but it may happen that we are still in organization context
          * To determine if service belongs to organization we need to check if following field is populated

@@ -6,7 +6,6 @@ import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
 import {
   ConsultationDetailsModalComponent,
-  EXPERT_ACCOUNT_ID,
   EXPERT_ID,
   SERVICE_ID,
   USER_TYPE,
@@ -128,7 +127,7 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
 
         const serviceId = this.route.snapshot.queryParamMap.get('serviceId');
         if (serviceId) {
-          this.openConsultationDetail(serviceId, this.getExpertId(data), this.getExpertAccountId(data));
+          this.openConsultationDetail(serviceId, this.getExpertId(data));
         }
       });
   }
@@ -186,13 +185,12 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
   /**
    * callback to open consultation detail modal
    */
-  public openConsultationDetail(serviceId: string, expertId: string, expertAccountId: string): void {
+  public openConsultationDetail(serviceId: string, expertId: string): void {
     const options: NgbModalOptions = {
       injector: Injector.create({
         providers: [
           { provide: SERVICE_ID, useValue: serviceId },
           { provide: EXPERT_ID, useValue: expertId },
-          { provide: EXPERT_ACCOUNT_ID, useValue: expertAccountId },
           { provide: USER_TYPE, useValue: UserTypeEnum.EXPERT },
         ],
       }),
