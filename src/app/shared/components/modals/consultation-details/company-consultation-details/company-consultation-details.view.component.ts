@@ -11,7 +11,12 @@ import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-ava
 import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Animations, LoggerFactory, SeoService } from '@anymind-ng/core';
 import { ICompanyEmployeeRowComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-employee-row/company-employee-row.component';
-import { ConsultationDetailsModalComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
+import {
+  ConsultationDetailsModalComponent,
+  EXPERT_ACCOUNT_ID,
+  EXPERT_ID,
+  SERVICE_ID,
+} from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import {
   EMPLOYEES_INVITE_MODAL_CLOSED_WITH_CHANGES,
   EmployeesInviteModalComponent,
@@ -182,10 +187,17 @@ export class CompanyConsultationDetailsViewComponent extends Logger implements O
 
   public openConsultationDetailsModal(employee: ICompanyEmployeeRowComponent): void {
     this.activeModal.close();
-    const modalInstance = this.modalService.open(ConsultationDetailsModalComponent);
-    modalInstance.componentInstance.serviceId = this.consultationId;
-    modalInstance.componentInstance.expertId = employee.employeeId;
-    modalInstance.componentInstance.expertAccountId = employee.expertAccountId;
+    const options: NgbModalOptions = {
+      injector: Injector.create({
+        providers: [
+          { provide: SERVICE_ID, useValue: this.consultationId },
+          { provide: EXPERT_ID, useValue: employee.employeeId },
+          { provide: EXPERT_ACCOUNT_ID, useValue: employee.expertAccountId },
+        ],
+      }),
+    };
+
+    this.modalService.open(ConsultationDetailsModalComponent, options);
   }
 
   private attachFooter(

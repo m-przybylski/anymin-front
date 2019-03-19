@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { AvatarSizeEnum } from '@platform/shared/components/user-avatar/user-avatar.component';
 import { GetSearchRequestResult } from '@anymind-ng/api';
-import { Router } from '@angular/router';
+import {
+  ConsultationDetailsModalComponent,
+  EXPERT_ID,
+  SERVICE_ID,
+} from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'plat-search-consultation-item',
@@ -15,17 +20,22 @@ export class SearchConsultationItemComponent implements OnInit {
   @Input()
   public item: GetSearchRequestResult;
 
-  constructor(private router: Router) {}
+  constructor(private modalService: NgbModal) {}
 
   public ngOnInit(): void {
     this.isExpertConsultation = this.item.expertProfile.id === this.item.ownerProfile.id;
   }
 
-  public prepareProfileUrl(item: GetSearchRequestResult): void {
-    this.router.navigate([`/dashboard/user/profile/${item.expertProfile.id}`], {
-      queryParams: {
-        serviceId: item.service.id,
-      },
-    });
+  public prepareProfileUrl(): void {
+    const options: NgbModalOptions = {
+      injector: Injector.create({
+        providers: [
+          { provide: SERVICE_ID, useValue: this.item.service.id },
+          { provide: EXPERT_ID, useValue: this.item.expertProfile.id },
+        ],
+      }),
+    };
+
+    this.modalService.open(ConsultationDetailsModalComponent, options);
   }
 }

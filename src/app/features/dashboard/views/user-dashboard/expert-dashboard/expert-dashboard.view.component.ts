@@ -4,7 +4,13 @@ import { EmploymentWithService, ProfileDocument, ProfileWithDocuments } from '@a
 import { takeUntil, map, filter, take } from 'rxjs/operators';
 import { ProfileBaseComponent } from '../../common/profile-base.component';
 import { IExpertCompanyDashboardResolverData } from '../../common/resolver-helpers';
-import { ConsultationDetailsModalComponent } from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
+import {
+  ConsultationDetailsModalComponent,
+  EXPERT_ACCOUNT_ID,
+  EXPERT_ID,
+  SERVICE_ID,
+  USER_TYPE,
+} from '@platform/shared/components/modals/consultation-details/consultation-details.view.component';
 import {
   CreateEditConsultationModalComponent,
   ICreateEditConsultationPayload,
@@ -181,11 +187,18 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
    * callback to open consultation detail modal
    */
   public openConsultationDetail(serviceId: string, expertId: string, expertAccountId: string): void {
-    const modalRef = this.openModal(ConsultationDetailsModalComponent);
-    modalRef.componentInstance.expertId = expertId;
-    modalRef.componentInstance.expertAccountId = expertAccountId;
-    modalRef.componentInstance.serviceId = serviceId;
-    modalRef.componentInstance.userType = UserTypeEnum.EXPERT;
+    const options: NgbModalOptions = {
+      injector: Injector.create({
+        providers: [
+          { provide: SERVICE_ID, useValue: serviceId },
+          { provide: EXPERT_ID, useValue: expertId },
+          { provide: EXPERT_ACCOUNT_ID, useValue: expertAccountId },
+          { provide: USER_TYPE, useValue: UserTypeEnum.EXPERT },
+        ],
+      }),
+    };
+
+    const modalRef = this.openModal(ConsultationDetailsModalComponent, options);
     modalRef.result.then(this.onConsultationDetailsClose.bind(this), this.onConsultationDetailsClose.bind(this));
   }
 

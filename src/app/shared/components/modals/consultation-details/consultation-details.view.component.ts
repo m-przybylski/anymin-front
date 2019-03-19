@@ -1,5 +1,15 @@
 // tslint:disable:max-file-line-count
-import { Component, OnInit, ViewChild, ViewContainerRef, OnDestroy, ComponentRef, Input } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Inject,
+  InjectionToken,
+  OnDestroy,
+  OnInit,
+  Optional,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { AvatarSizeEnum } from '../../user-avatar/user-avatar.component';
 import { ConsultationDetailsViewService, IConsultationDetails } from './consultation-details.view.service';
 import { filter, take, takeUntil } from 'rxjs/operators';
@@ -8,12 +18,12 @@ import {
   IConsultationDetailActionParameters,
 } from './consultation-details-actions.service';
 import { forkJoin, Subject } from 'rxjs';
-import { EmploymentWithExpertProfile, GetComment, GetSessionWithAccount, GetProfile } from '@anymind-ng/api';
+import { EmploymentWithExpertProfile, GetComment, GetProfile, GetSessionWithAccount } from '@anymind-ng/api';
 import { ModalAnimationComponentService } from '../modal/animation/modal-animation.animation.service';
 import { ModalContainerTypeEnum } from '@platform/shared/components/modals/modal/modal.component';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { IFooterOutput, IConsultationFooterData } from './consultation-footers/consultation-footer-helpers';
+import { IConsultationFooterData, IFooterOutput } from './consultation-footers/consultation-footer-helpers';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   ConsultationFooterResolver,
@@ -24,6 +34,11 @@ import { ServiceWithOwnerProfile } from '@anymind-ng/api/model/serviceWithOwnerP
 import { UserTypeEnum } from '@platform/core/reducers/navbar.reducer';
 import { Logger } from '@platform/core/logger';
 import { LoggerFactory, SeoService } from '@anymind-ng/core';
+
+export const EXPERT_ID = new InjectionToken<string>('Expert id');
+export const SERVICE_ID = new InjectionToken<string>('Consultation id');
+export const EXPERT_ACCOUNT_ID = new InjectionToken<string>('Expert account id');
+export const USER_TYPE = new InjectionToken<UserTypeEnum>('User type');
 
 @Component({
   selector: 'plat-consultation-details-view',
@@ -53,18 +68,6 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   public accountId: string;
   public isOwner: boolean;
 
-  @Input()
-  public userType: UserTypeEnum;
-
-  @Input()
-  public serviceId: string;
-
-  @Input()
-  public expertId: string;
-
-  @Input()
-  public expertAccountId: string;
-
   @ViewChild('footerContainer', { read: ViewContainerRef })
   private viewContainerRef: ViewContainerRef;
 
@@ -76,6 +79,10 @@ export class ConsultationDetailsModalComponent extends Logger implements OnInit,
   private profileId: string;
 
   constructor(
+    @Inject(EXPERT_ID) private expertId: string,
+    @Inject(SERVICE_ID) private serviceId: string,
+    @Optional() @Inject(EXPERT_ACCOUNT_ID) private expertAccountId: string,
+    @Optional() @Inject(USER_TYPE) private userType: UserTypeEnum,
     private store: Store<fromCore.IState>,
     private seoService: SeoService,
     private consultationDetailsViewService: ConsultationDetailsViewService,
