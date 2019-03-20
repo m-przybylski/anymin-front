@@ -549,6 +549,7 @@
   "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_3": "Klient zobaczy <strong>{{ price }} zł/min</strong> brutto.",
   "CONSULTATION_DETAILS.FOOTER.NO_PAYMENTS_METHOD": "Jeszcze nie wybrałeś żadnej metody płatności",
   "CONSULTATION_DETAILS.FOOTER.CHOOSE_PAYMENT_METHOD": "Wybierz metodę płatności",
+  "CONSULTATION_DETAILS.FOOTER.AVAILBILITY.NOTIFICATION.ALERT.SUCCESS": "Powiadomimy Cię gdy konsultant będzie dostępny",
   "CONSULTATION_DETAILS.LEAVE.HEADER": "Rezygnacja z konsultacji",
   "CONSULTATION_DETAILS.LEAVE.MESSAGE_QUESTION": "Czy na pewno chcesz",
   "CONSULTATION_DETAILS.LEAVE.MESSAGE": "zrezygnować z prowadzenia tej konsultacji?",
@@ -750,5 +751,7 @@
   "MODAL.NEWSLETTER.TERMS": "Zgadzam się na przesyłanie mi drogą elektroniczną informacji o produktach i usługach świadczonych przez Itelo sp. z o.o.",
   "MODAL.LOGIN.FORGET_PASSWORD": "Nie pamiętasz hasła?",
   "MODAL.LOGIN.HAVE_ACCOUNT": "Nie masz jeszcze konta?",
-  "COMPANY_EMPLOYEE_ROW.SEE_MORE": "Zobacz więcej"
+  "COMPANY_EMPLOYEE_ROW.SEE_MORE": "Zobacz więcej",
+  "MODAL.REGISTER_AVAILBILITY.TITLE": "Wyślemy Ci wiadomość, kiedy konsultant będzie dostępny.",
+  "MODAL.REGISTER_AVAILBILITY.OK": "OK"
 }

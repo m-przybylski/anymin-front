@@ -167,6 +167,7 @@ describe('ConsultationFooterUserComponent', () => {
         profileAmount: { value: 100, currency: 'PLN' },
       },
     };
+
     const componentFixture = TestBed.createComponent(ConsultationFooterUserComponent);
     consultationFooterUserComponent = componentFixture.componentInstance;
     consultationFooterUserComponent.ngOnInit();

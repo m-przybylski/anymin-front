@@ -3,6 +3,7 @@
     stickyModalFooter, [modalContentElement]="contentModalElement", [footerModalElement]="footerModalElement")
     .modal-component__container([ngClass]="setModalContainerWidth()")
       plat-modal-header(
+      *ngIf="isHeaderVisible",
       [titleTrHeader]="modalTrTitleHeader",
       [isBackwardVisible]="isBackwardVisible",
       [isCloseButtonVisible]="isCloseButtonVisible",

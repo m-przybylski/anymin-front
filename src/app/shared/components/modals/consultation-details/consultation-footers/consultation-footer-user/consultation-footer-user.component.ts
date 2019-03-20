@@ -64,10 +64,10 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
       }),
     );
   }
-
   public middlePanelStatusTypes = MiddlePanelStatusTypes;
   public isExpertAvailable$: Observable<boolean>;
   public isCallButtonLoading = false;
+  public isNotifyRequestSended = false;
 
   public get card(): string {
     const currentCreditCard = this.data.creditCards.find(
@@ -152,7 +152,10 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   }
 
   public onNotifyUser(): void {
-    this._actionTaken$.next('notifyUser');
+    if (!this.isNotifyRequestSended) {
+      this.isNotifyRequestSended = true;
+      this._actionTaken$.next('notifyUser');
+    }
   }
 
   public redirectToPayments(): void {

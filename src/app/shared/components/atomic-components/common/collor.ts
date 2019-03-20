@@ -3,13 +3,16 @@
 import { ElementRef, Renderer2 } from '@angular/core';
 
 export type Constructor<T> = new (...args: any[]) => T;
+
 export interface IHasElementRef {
   elementRef: ElementRef;
   renderer: Renderer2;
 }
+
 export interface ICanColor {
   color: ThemePalette;
 }
+
 export type ThemePalette = 'primary' | 'secondary' | 'danger' | 'success' | undefined;
 
 // tslint:disable-next-line:only-arrow-functions
@@ -23,6 +26,7 @@ export function mixinColor<T extends Constructor<IHasElementRef>>(
     public get color(): ThemePalette {
       return this.colorProp;
     }
+
     public set color(value: ThemePalette) {
       const colorPalette = value || defaultColor;
 

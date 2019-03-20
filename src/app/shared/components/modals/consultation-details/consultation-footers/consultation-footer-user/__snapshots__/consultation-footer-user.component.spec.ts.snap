@@ -9,6 +9,7 @@ exports[`ConsultationFooterUserComponent should return true isExpertAvailable if
   expertAvailabilityService={[Function Object]}
   isCallButtonLoading="false"
   isExpertAvailable$={[Function Observable]}
+  isNotifyRequestSended="false"
   loggerService={[Function Object]}
   middlePanelStatusTypes={[Function Object]}
   moneyPipe={[Function MoneyToAmount]}

@@ -1,6 +1,7 @@
 // tslint:disable:max-classes-per-file
 import { Component, ElementRef, ViewEncapsulation, Renderer2 } from '@angular/core';
 import { mixinColor, ICanColor } from '../common/collor';
+import { mixinDisable } from '@platform/shared/components/atomic-components/common/disable';
 
 const BUTTON_ATTRIBUTES: ReadonlyArray<string> = [
   'plat-icon-button',
@@ -20,7 +21,8 @@ class ButtonBase {
   constructor(public elementRef: ElementRef, public renderer: Renderer2) {}
 }
 
-const ButtonMixinBase = mixinColor(ButtonBase);
+const ButtonMixinBase = mixinDisable(mixinColor(ButtonBase));
+
 @Component({
   selector: `button[plat-icon-button], button[plat-stroked-button],
              button[plat-button], button[plat-mini-flat-fab],
@@ -34,7 +36,7 @@ const ButtonMixinBase = mixinColor(ButtonBase);
              `,
   templateUrl: './button.html',
   styleUrls: ['./button.sass'],
-  inputs: ['color'],
+  inputs: ['color', 'disabled'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ButtonComponent extends ButtonMixinBase implements ICanColor {

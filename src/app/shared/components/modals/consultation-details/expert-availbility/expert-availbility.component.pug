@@ -1,0 +1,10 @@
+plat-modal-component(
+[modalTrTitleHeader]="'CONSULTATION_DETAILS.MODAL.TITLE'",
+[modalContainerClass]="modalType",
+[isHeaderVisible]="false"
+)
+  .expert-availbility-notification
+    p {{ 'MODAL.REGISTER_AVAILBILITY.TITLE' | translate }}
+
+    a(plat-large-button color='primary', (click)="onCloseModal()")
+      span {{ 'MODAL.REGISTER_AVAILBILITY.OK' | translate }}

@@ -545,6 +545,7 @@
   "CONSULTATION_DETAILS.FOOTER.ORGANIZATION_EDIT_3": "The client will see gross price<strong>{{ price }} zł/min</strong>.",
   "CONSULTATION_DETAILS.FOOTER.NO_PAYMENTS_METHOD": "You haven't selected a payment method",
   "CONSULTATION_DETAILS.FOOTER.CHOOSE_PAYMENT_METHOD": "Select a payment method",
+  "CONSULTATION_DETAILS.FOOTER.AVAILBILITY.NOTIFICATION.ALERT.SUCCESS": "We'll let you know when the consultant comes online",
   "CONSULTATION_DETAILS.LEAVE.HEADER": "Resignation from consultation",
   "CONSULTATION_DETAILS.LEAVE.MESSAGE_QUESTION": "Do you really want to",
   "CONSULTATION_DETAILS.LEAVE.MESSAGE": "resign from this consultation?",
@@ -746,5 +747,7 @@
   "MODAL.LOGIN.FORGET_PASSWORD": "Nie pamiętasz hasła?",
   "MODAL.LOGIN.HAVE_ACCOUNT": "Nie masz jeszcze konta?",
   "MODAL.REGISTRATION.TITLE": "Zarejestruj się, aby zadzwonić",
-  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind"
+  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind",
+  "MODAL.REGISTER_AVAILBILITY.TITLE": "Wyślemy Ci wiadomość, kiedy konsultant będzie dostępny.",
+  "MODAL.REGISTER_AVAILBILITY.OK": "OK"
 }

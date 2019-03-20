@@ -2,7 +2,7 @@
 // tslint:disable:max-file-line-count
 
 import { Deceiver } from 'deceiver-core';
-import { EmploymentService } from '@anymind-ng/api';
+import { EmploymentService, PresenceService } from '@anymind-ng/api';
 import { AlertService, LoggerFactory, LoggerService } from '@anymind-ng/core';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
@@ -23,6 +23,7 @@ describe('ConsultationDetailsActionsService', () => {
   let consultationDetailsActionsService: ConsultationDetailsActionsService;
   let store: Store<fromCore.IState>;
 
+  const presenceService: PresenceService = Deceiver(PresenceService);
   const employmentService: EmploymentService = Deceiver(EmploymentService);
   const alertService: AlertService = Deceiver(AlertService);
   const confirmationService: ConfirmationService = Deceiver(ConfirmationService);
@@ -63,6 +64,7 @@ describe('ConsultationDetailsActionsService', () => {
       TestBed.get(Injector),
       Deceiver(CreateCallService),
       Deceiver(CallStatusService),
+      presenceService,
       router,
       loggerFactory,
     );

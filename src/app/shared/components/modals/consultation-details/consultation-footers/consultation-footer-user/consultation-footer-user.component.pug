@@ -38,7 +38,7 @@ plat-consultation-footer
         .bounce-2
         .bounce-3
     ng-template(#offlineDesktop)
-      a(plat-large-icon-button color='primary', (click)='onNotifyUser()')
+      a(plat-large-icon-button [disabled]="isNotifyRequestSended", color='primary', (click)='onNotifyUser()')
         span(plat-icon iconClass='bell')
         span {{ "CONSULTATION_DETAILS.FOOTER.NOTIFY" | translate }}
   //right panel on the screen on mobile
@@ -52,6 +52,7 @@ plat-consultation-footer
           .bounce-2
           .bounce-3
     div.button-small
+
       a(plat-flat-fab color='success', *ngIf="(isExpertAvailable$ | async) else offlineMobile", (click)='onCall()')
         span(plat-icon iconClass='headphone', *ngIf="!isCallButtonLoading")
         .spinner(*ngIf="isCallButtonLoading", @fadeInWithDelay)

@@ -1,7 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { Logger } from '@platform/core/logger';
-import { EmploymentService, GetDefaultPaymentMethod } from '@anymind-ng/api';
-import { AlertService, LoggerFactory } from '@anymind-ng/core';
+import {
+  EmploymentService,
+  GetDefaultPaymentMethod,
+  PostRegisterForExpertAvailability,
+  PresenceService,
+} from '@anymind-ng/api';
+import { Alerts, AlertService, LoggerFactory } from '@anymind-ng/core';
 import { ConfirmationService } from '@platform/shared/components/modals/confirmation/confirmation.service';
 import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
@@ -20,6 +25,7 @@ import { CallStatusService } from '@platform/shared/components/modals/consultati
 import { ConsultationDetailActions } from './actions';
 import { Router } from '@angular/router';
 import { RouterPaths } from '@platform/shared/routes/routes';
+import { ExpertAvailbilityComponent } from '@platform/shared/components/modals/consultation-details/expert-availbility/expert-availbility.component';
 
 @Injectable()
 export class ConsultationDetailsActionsService extends Logger {
@@ -32,6 +38,7 @@ export class ConsultationDetailsActionsService extends Logger {
     private injector: Injector,
     private createCallService: CreateCallService,
     private callStatusService: CallStatusService,
+    private presenceService: PresenceService,
     private router: Router,
     loggerFactory: LoggerFactory,
   ) {
@@ -130,11 +137,26 @@ export class ConsultationDetailsActionsService extends Logger {
       );
   }
 
-  public notifyUser({ modal }: IConsultationDetailActionParameters): void {
-    // TODO: implement functionality
-    this.redirectToLogin(modal)
-      .pipe(take(1))
-      .subscribe();
+  public notifyUser({ serviceId, modal, expertId }: IConsultationDetailActionParameters): void {
+    const postRegisterAvailability: PostRegisterForExpertAvailability = {
+      expertId: expertId ? expertId : '',
+      serviceId,
+    };
+
+    this.presenceService
+      .expertAvailabilityNotificationRoute(postRegisterAvailability)
+      .pipe(
+        catchError(error => {
+          this.alertService.pushDangerAlert(Alerts.SomethingWentWrong);
+          this.loggerService.error('Can not send availbility notification: ', error);
+
+          return EMPTY;
+        }),
+      )
+      .subscribe(() => {
+        modal.close();
+        this.modalService.open(ExpertAvailbilityComponent);
+      });
   }
 
   public share({ serviceId, modal, expertId }: IConsultationDetailActionParameters): void {

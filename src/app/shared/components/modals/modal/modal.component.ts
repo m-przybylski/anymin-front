@@ -30,6 +30,9 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   public modalTrTitleHeader?: string;
 
   @Input()
+  public isHeaderVisible = true;
+
+  @Input()
   public isBackwardVisible?: boolean;
 
   @Input()

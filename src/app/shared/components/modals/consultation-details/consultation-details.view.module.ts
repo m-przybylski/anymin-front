@@ -18,6 +18,8 @@ import { ConsultationFootersService } from './consultation-footers.service';
 import { ConsultationDetailsViewService } from './consultation-details.view.service';
 import { CreateCallModule } from '@platform/shared/services/client-call/create-call.module';
 import { CallStatusService } from '@platform/shared/components/modals/consultation-details/call-status.service';
+import { ExpertAvailbilityComponent } from './expert-availbility/expert-availbility.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -36,14 +38,15 @@ import { CallStatusService } from '@platform/shared/components/modals/consultati
     ConsultationCommentModule,
     DropdownModule,
     CreateCallModule,
+    TranslateModule,
   ],
-  declarations: [ConsultationDetailsModalComponent],
+  declarations: [ConsultationDetailsModalComponent, ExpertAvailbilityComponent],
   providers: [
     ConsultationDetailsActionsService,
     ConsultationFootersService,
     ConsultationDetailsViewService,
     CallStatusService,
   ],
-  entryComponents: [ConsultationDetailsModalComponent],
+  entryComponents: [ConsultationDetailsModalComponent, ExpertAvailbilityComponent],
 })
 export class ConsultationDetailsModule {}
