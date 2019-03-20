@@ -81,7 +81,7 @@ export class ExpertCompanyActivityDetailsComponentService extends Logger {
             })),
           ),
           this.sueService
-            .getClientComplaintForExpertRoute(data.sueId)
+            .getClientComplaintRoute(data.sueId)
             .pipe(catchError(err => this.handleGetComplaintError(err))),
         ).pipe(
           switchMap(([activityDetails, complaint]) =>

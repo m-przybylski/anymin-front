@@ -82,12 +82,10 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       avatar: 'expertAvatar',
       description: 'bedzie pan zadowolony',
       links: [],
-      isActive: true,
     },
     expertProfile: {
       id: 'expertProfileId',
       accountId: 'accserviceOwnerProfileId',
-      isActive: true,
       profileType: ProfileTypeEnum.EXP,
       name: 'SuperMajster',
       avatar: 'expertAvatar',
@@ -103,7 +101,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       ratelRoomId: 'ratelRoomId',
       isRecommendable: true,
       answeredAt: date,
-      ratePerMinute: {
+      pricePerMinute: {
         value: 12,
         currency: 'PLN',
       },
@@ -212,7 +210,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       session: { organizationProfileId: 'organizationProfileId' },
     });
     viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
-    serviceUsageEventService.getClientComplaintForExpertRoute = jest
+    serviceUsageEventService.getClientComplaintRoute = jest
       .fn()
       .mockReturnValue(cold('-(b|)', { b: getClientComplaint }));
     activitiesService.putUnimportantProfileActivityRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: undefined }));
@@ -281,7 +279,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       viewsService.getDashboardCallDetailsProfileRoute = jest
         .fn()
         .mockReturnValue(cold('-(a|)', { a: getCallDetails }));
-      serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(
+      serviceUsageEventService.getClientComplaintRoute = jest.fn().mockReturnValue(
         cold(
           '-#',
           {},
@@ -314,7 +312,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       session: { organizationProfileId: 'organizationProfileId' },
     });
     viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
-    serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(cold('-(b|)', { b: {} }));
+    serviceUsageEventService.getClientComplaintRoute = jest.fn().mockReturnValue(cold('-(b|)', { b: {} }));
     activitiesService.putUnimportantProfileActivityRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
 
     const expected = cold('--#', {}, 'someError');
@@ -335,7 +333,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       session: { organizationProfileId: 'organizationProfileId' },
     });
     viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-(a|)', { a: getCallDetails }));
-    serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
+    serviceUsageEventService.getClientComplaintRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
 
     const expected = cold('-#', {}, 'someError');
     expect(
@@ -354,7 +352,7 @@ describe('ExpertCompanyActivityDetailsComponentService', () => {
       account: { id: 'accId' },
       session: { organizationProfileId: 'organizationProfileId' },
     });
-    serviceUsageEventService.getClientComplaintForExpertRoute = jest.fn().mockReturnValue(cold('-#', {}, 'err'));
+    serviceUsageEventService.getClientComplaintRoute = jest.fn().mockReturnValue(cold('-#', {}, 'err'));
     viewsService.getDashboardCallDetailsProfileRoute = jest.fn().mockReturnValue(cold('-#', {}, 'someError'));
     const expected = cold('-#', {}, 'someError');
 
