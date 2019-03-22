@@ -87,10 +87,10 @@ describe('ComplaintDetailsComponentService', () => {
   });
 
   it('should get user account id', () => {
-    dispatchLoggedUser(store, { account: { id: 'accountId' } });
-    const expected = cold('(a|)', { a: 'accountId' });
+    dispatchLoggedUser(store, { session: { expertProfileId: 'expertProfileId' } });
+    const expected = cold('(a|)', { a: 'expertProfileId' });
 
-    expect(service.getUserAccountId()).toBeObservable(expected);
+    expect(service.getExpertProfileId()).toBeObservable(expected);
   });
 
   describe('get reason translation key', () => {

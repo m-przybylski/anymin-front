@@ -41,10 +41,10 @@ export class ComplaintDetailsComponentService extends Logger {
       );
   }
 
-  public getUserAccountId(): Observable<string> {
+  public getExpertProfileId(): Observable<string> {
     return getNotUndefinedSession(this.store).pipe(
       first(),
-      map(session => session.account.id),
+      map(sessionWithAccount => sessionWithAccount.session.expertProfileId || ''),
     );
   }
 

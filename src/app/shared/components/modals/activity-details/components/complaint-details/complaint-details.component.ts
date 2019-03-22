@@ -40,8 +40,8 @@ export class ComplaintDetailsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.complaintDetailsComponentService.getUserAccountId().subscribe(accountId => {
-      this.isSueExpert = accountId === this.complaint.expertId;
+    this.complaintDetailsComponentService.getExpertProfileId().subscribe(expertId => {
+      this.isSueExpert = expertId === this.complaint.expertId;
     });
     this.status = this.complaintDetailsComponentService.getStatusTrKey(this.complaint.status, this.isSueExpert);
     this.reason = this.complaintDetailsComponentService.getReasonTrKey(this.complaint.complaintType);
