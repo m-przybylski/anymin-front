@@ -1,10 +1,13 @@
-.consultation-stat-row
-  span(plat-icon iconClass='headphone').stat-item-icon
-  span.stat-item-number {{usageCounter | emptyNumber}}
-  span.stat-item-desc {{usageCounter | i18nPlural:callsMapping | translate: {value: usageCounter} }}
-  span(plat-icon iconClass='rating').stat-item-icon
-  span.stat-item-number {{ratingCounter| emptyNumber}}
-  span.stat-item-desc {{ratingCounter | i18nPlural:ratingCounterMapping | translate: {value: ratingCounter} }}
-  span(plat-icon iconClass='satisfaction').stat-item-icon
-  span.stat-item-number {{rating | emptyNumber}}
-  span.stat-item-desc {{rating | emptyNumber | i18nPlural:ratingMapping | translate: {value: rating} }}
+.consultation-stat-row(*ngIf="usageCounter >= minCallsCount")
+  .container-stat
+    span(plat-icon iconClass='headphone').stat-item-icon
+    span.stat-item-number {{usageCounter | emptyNumber}}
+    span.stat-item-desc {{usageCounter | i18nPlural:callsMapping | translate: {value: usageCounter} }}
+  .container-stat(*ngIf="ratingCounter >= minRatingsCount")
+    span(plat-icon iconClass='rating').stat-item-icon
+    span.stat-item-number {{ratingCounter | emptyNumber}}
+    span.stat-item-desc {{ratingCounter | i18nPlural:ratingCounterMapping | translate: {value: ratingCounter} }}
+  .container-stat(*ngIf="ratingCounter >= minRatingsCount")
+    span(plat-icon iconClass='satisfaction').stat-item-icon
+    span.stat-item-number {{rating | emptyNumber}}
+    span.stat-item-desc {{rating | emptyNumber | i18nPlural:ratingMapping | translate: {value: rating} }}

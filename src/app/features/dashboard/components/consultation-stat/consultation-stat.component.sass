@@ -8,23 +8,27 @@
   align-items: center
   color: $c-label
 
-.stat-item
-  &-icon
-    font-size: 18px
-    margin-left: 8px
+.container-stat
+  display: flex
+  align-items: center
+  margin-left: 8px
 
-  &-icon:nth-child(1)
+  &:nth-child(1)
     margin-left: 0px
 
-  &-number
-    margin-left: 2px
+  .stat-item
+    &-icon
+      font-size: 18px
 
-    +smm
+    &-number
+      margin-left: 2px
+
+      +smm
+        display: none
+
+    &-desc
       display: none
 
-  &-desc
-    display: none
-
-    +smm
-      margin-left: 4px
-      display: inline
+      +smm
+        margin-left: 4px
+        display: inline

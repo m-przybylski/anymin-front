@@ -262,4 +262,8 @@ export class Config {
     querySearchViewResponseLimit: 10,
     debounceTime: 300,
   };
+
+  // Minimal amount of consultations to show service or experts statistics
+  public static readonly minConsultationsRatingsCount = 3;
+  public static readonly minConsultationsCallsCount = 3;
 }
