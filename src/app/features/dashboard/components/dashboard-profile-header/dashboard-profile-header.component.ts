@@ -30,6 +30,8 @@ export class DashboardProfileHeaderComponent implements OnInit {
   public filesLength?: string;
   @Input()
   public isLoading: boolean;
+  @Input()
+  public languages: ReadonlyArray<string>;
 
   @Output()
   public editProfile: EventEmitter<void> = new EventEmitter();

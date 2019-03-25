@@ -56,7 +56,7 @@ export class Animations {
     trigger('collapseExpandContainer', [
       state('collapsed', style({ height: 'calc((1em + 6px) * 3)' })),
       state('expanded', style({ height: '*' })),
-      transition(`collapsed <=> expanded`, animate('200ms')),
+      transition(`collapsed => expanded`, animate('200ms')),
     ]),
   ];
 

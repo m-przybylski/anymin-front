@@ -8,4 +8,6 @@ import { Component, Input } from '@angular/core';
 export class TagListComponent {
   @Input()
   public itemList: ReadonlyArray<string> = [];
+  @Input()
+  public color: string;
 }

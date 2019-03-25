@@ -10,7 +10,7 @@ import {
 import { IOrganizationProfile } from './services/company-profile.service';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CONSULTATION_DETAILS } from '@platform/shared/components/modals/create-edit-consultation/create-edit-consultation';
-import { ProfileDocument, ProfileWithDocuments } from '@anymind-ng/api';
+import { ProfileDocument, ProfileWithDocuments, ServiceWithEmployments } from '@anymind-ng/api';
 import { Store, select } from '@ngrx/store';
 import * as fromCompanyDashboard from './reducers';
 import { EditOrganizationModalComponent } from '@platform/shared/components/modals/profile/edit-organization/edit-organization.component';
@@ -79,6 +79,11 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
     return data.profile.organization.organizationProfile.id;
   }
 
+  public getLanguages(data: ReadonlyArray<ServiceWithEmployments>): ReadonlyArray<string> {
+    return Array.from(
+      data.reduce((acc, cur) => acc.add(`LANGUAGE.${cur.service.language.toUpperCase()}`), new Set<string>()),
+    );
+  }
   public ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroyed$)).subscribe(paramMap => {
       const profileId = paramMap.get(RouterPaths.dashboard.company.profile.params.profileId) || '';

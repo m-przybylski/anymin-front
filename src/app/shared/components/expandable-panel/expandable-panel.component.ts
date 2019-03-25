@@ -15,7 +15,6 @@ const minHeightFn = (size: number): number => (size + 6) * 3;
 export class ExpandablePanelComponent implements AfterViewInit {
   public collapseState: 'collapsed' = 'collapsed';
   public expandState: 'expanded' = 'expanded';
-  public expandable: boolean;
   private _state: ContainerState;
 
   @ViewChild('content', { read: ElementRef })
@@ -26,30 +25,21 @@ export class ExpandablePanelComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     setTimeout(() => {
       const fontHeight = this.getEmSize();
-      this.expandable = (this.content.nativeElement as HTMLElement).clientHeight > minHeightFn(fontHeight);
-      this._state = this.expandable ? this.collapseState : this.expandState;
+      this._state =
+        (this.content.nativeElement as HTMLElement).clientHeight > minHeightFn(fontHeight)
+          ? this.collapseState
+          : this.expandState;
     }, 0);
   }
   public get state(): ContainerState {
     return this._state;
   }
 
-  public toggleState = (): void => {
-    if (!this.expandable) {
-      return;
-    }
-    const fn = this._state === this.collapseState ? this.expand : this.collapse;
-    fn();
-  };
-
-  private collapse = (): void => {
-    this._state = this.collapseState;
-  };
-  private expand = (): void => {
+  public expand(): void {
     this._state = this.expandState;
-  };
+  }
 
-  private getEmSize = (): number => {
+  private getEmSize(): number {
     const testElement = this.document.createElement('i');
     testElement.style.width = '1em';
     testElement.style.fontSize = '1em';
@@ -59,7 +49,7 @@ export class ExpandablePanelComponent implements AfterViewInit {
     (this.content.nativeElement as HTMLElement).removeChild(testElement);
 
     return size;
-  };
+  }
 }
 
 type ContainerState = 'collapsed' | 'expanded';

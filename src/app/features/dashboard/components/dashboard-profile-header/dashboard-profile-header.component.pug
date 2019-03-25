@@ -14,6 +14,8 @@
       .profile-layout__details-available
         plat-expert-availability(*ngIf='expertId', [expertId]='expertId')
       plat-social-links([links]='links')
+      .profile-layout__languages {{"EXPERT_DASHBOARD.LANGUAGES" | translate}}
+      plat-tag-list([itemList]="languages", color='secondary')
     plat-expandable-panel.profile-layout__description
       span {{description}}
 

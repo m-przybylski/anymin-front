@@ -1,8 +1,9 @@
 .collapsable-container(
   [@collapseExpandContainer]="state"
 )
-  .container-data(#content, (click)='toggleState()')
+  .container-data(#content)
     ng-content
-div(*ngIf='expandable')
-  button.collapsable-button(plat-mini-flat-fab, (click)='toggleState()')
-    span(plat-icon iconClass='read-more')
+  div(*ngIf='state === "collapsed"')
+    a.expand-button((click)='expand()')
+      span ...
+      span {{"PANEL.LEARN_MORE" | translate}}

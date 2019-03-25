@@ -15,9 +15,12 @@
     margin: 0 8px 8px 0
     animation: fadeInY 0.3s
     padding: 0 16px
+    color: $c-text-secondary
 
     span
       +caption
-      color: $c-text-secondary
-      border: 0
-      background: none
+
+    &--secondary
+      border-color: $c-text-primary
+      background: $c-text-primary
+      color: $c-white

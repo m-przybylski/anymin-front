@@ -1,7 +1,7 @@
 plat-expert-org-loader(*ngIf="isLoading$ | async; else data")
 
 ng-template(#data)
-  ng-container(*ngIf="data$ | async as data; else loading")
+  ng-container(*ngIf="data$ | async as data")
     .organization-dashboard-layout
       .container
         plat-dashboard-profile-header(
@@ -13,8 +13,9 @@ ng-template(#data)
           [isLogged]='getIsLogged(data)',
           [companyId]="getOrganizationId(data)",
           [attachments]="getOrganizationDocuments(data)",
+          [languages]="getLanguages(consultations$ | async)",
           (editProfile)='onEditProfile()',
-          (openGallery)="onOpenGallery(getOrganizationDocuments(data))"
+          (openGallery)="onOpenGallery(getOrganizationDocuments(data))",
         )
     .container
       h2.header-text {{'EXPERT_DASHBOARD.CONSULTATIONS_CAPTION' | translate}}

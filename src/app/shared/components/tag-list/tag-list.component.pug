@@ -1,3 +1,6 @@
 ul.tag-list
-  li.tag-list__item(*ngFor="let item of itemList")
-    span {{ item }}
+  li.tag-list__item(
+    *ngFor="let item of itemList",
+    [ngClass]="{ 'tag-list__item--secondary': color === 'secondary' }"
+    )
+    span {{ item | translate }}

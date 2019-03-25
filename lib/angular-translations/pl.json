@@ -428,6 +428,7 @@
   "EXPERT_DASHBOARD.ADD_CONSULTATION": "Dodaj konsultację",
   "EXPERT_DASHBOARD.ALERT_INFORMATION": "Dodawanie konsultacji jest możliwe z konta organizacji.",
   "EXPERT_DASHBOARD.ALERT_INFORMATION.LINK": "Przejdź do konta organizacji.",
+  "EXPERT_DASHBOARD.LANGUAGES": "Konsultacje w języku:",
   "EXPERT_VIEW.STATUS.AVAILABLE": "Dostępny",
   "EXPERT_VIEW.STATUS.BUSY": "Zajęty",
   "EXPERT_VIEW.STATUS.UNAVAILABLE": "Niedostępny",
@@ -718,5 +719,6 @@
   "SEARCH_CONSULTATION_ITEM.WORKING_FOR.LABEL": "Dla",
   "SEARCH_CONSULTATIONS_LIST.BUTTON.TITLE": "Więcej wyników",
   "LANGUAGES.POLISH": "Polski",
-  "LANGUAGES.ENGLISH": "English"
+  "LANGUAGES.ENGLISH": "English",
+  "PANEL.LEARN_MORE": "dowiedz się więcej"
 }

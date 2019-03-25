@@ -1,8 +1,8 @@
 @import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 
 .collapsable-container
-
   +paragraph-small
+  position: relative
   overflow-y: hidden
   margin-bottom: 8px
 
@@ -11,5 +11,16 @@
     +paragraph
     line-height: 22px
 
-.collapsable-button
-  margin-left: -5px
+.expand-button
+  +paragraph-small
+  position: absolute
+  bottom: 0px
+  right: 0px
+  background: $c-white
+  padding-left: 5px
+  color: $c-primary
+
+  +smm
+
+    +paragraph
+    line-height: 22px
