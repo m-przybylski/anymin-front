@@ -71,16 +71,16 @@ describe('CreateOrganizationComponentService', () => {
     alertService = TestBed.get(AlertService);
     accountService = TestBed.get(AccountService);
     dispatchLoggedUser(store, {
-      session: { expertProfileId: 'fake expert profile Id' },
-      account: { id: '123', language: 'pl' },
+      session: { expertProfileId: 'fake expert profile Id', country: 'PL' },
+      account: { id: '123' },
     });
   });
 
   describe('getInitialData', () => {
     it('should get initial data', () => {
       dispatchLoggedUser(store, {
-        session: { expertProfileId: undefined },
-        account: { id: '123', language: 'pl' },
+        session: { expertProfileId: undefined, country: 'PL' },
+        account: { id: '123' },
       });
       accountService.getInvoiceDetailsRoute = jest.fn(() => cold('-a|', { a: getInvoiceDetails }));
       const result = {

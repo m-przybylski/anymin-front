@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 
 export interface ICreateProfileInitialData {
-  countryISO: string;
+  countryISO?: string;
   hasProfile: boolean;
   accountDetails: GetAccountDetails;
 }
@@ -33,7 +33,7 @@ export class CreateProfileComponentService extends Logger {
     return getNotUndefinedSession(this.store).pipe(
       take(1),
       map(session => ({
-        countryISO: session.account.language.toUpperCase(),
+        countryISO: session.session.country,
         hasProfile: session.isExpert || session.isCompany,
         accountDetails: session.account.details,
       })),

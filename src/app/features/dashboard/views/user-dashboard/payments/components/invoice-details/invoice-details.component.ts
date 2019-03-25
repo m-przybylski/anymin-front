@@ -24,7 +24,7 @@ import {
 export interface IInvoiceDetails {
   invoiceDetails?: GetInvoiceDetails;
   isCompanyProfile: boolean;
-  countryIsoCode: string;
+  countryIsoCode?: string;
 }
 
 @Component({
@@ -38,6 +38,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
   public invoiceDetailsForm: FormGroup = new FormGroup({});
   public isRequestPending = false;
   public isCompanyProfile: boolean;
+  public countryIsoCode?: string;
 
   private readonly firstPartOfPostalCode = 2;
   private readonly updateNaturalPersonInvoiceDetails = this.updateInvoiceDetails(
@@ -51,7 +52,6 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
   );
 
   private invoiceType: GetInvoiceDetails.InvoiceDetailsTypeEnum;
-  private countryIsoCode: string;
 
   constructor(
     private modalAnimationComponentService: ModalAnimationComponentService,
@@ -114,7 +114,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
         apartmentNumber: controls[NaturalPersonInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[NaturalPersonInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[NaturalPersonInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.countryIsoCode,
+        countryISO: controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].value,
       },
     };
   }
@@ -132,7 +132,7 @@ export class InvoiceDetailsComponent extends Logger implements OnInit {
         apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.countryIsoCode,
+        countryISO: controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].value,
       },
       vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
     };

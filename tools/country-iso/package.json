@@ -1,0 +1,14 @@
+{
+  "name": "country-iso",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Maciej Przybylski <maciej.przybylski@anymind.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cli-spinner": "^0.2.10",
+    "puppeteer": "^1.13.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

@@ -28,7 +28,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
     store = TestBed.get(Store);
     service = TestBed.get(InvoiceDetailsComponentService);
     accountService = TestBed.get(AccountService);
-    dispatchLoggedUser(store, { isCompany: true, account: { language: 'mockIsoCode' } });
+    dispatchLoggedUser(store, { isCompany: true, session: { country: 'mockIsoCode' } });
   }));
 
   it('should get initial data', () => {
@@ -43,7 +43,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
         streetNumber: '69',
         city: 'Zagacie',
         postalCode: '12-345',
-        countryISO: 'PL',
+        countryISO: 'mockIsoCode',
       },
       vatRateType: GetInvoiceDetails.VatRateTypeEnum.COMPANY0,
       createdAt: new Date(),
@@ -52,7 +52,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
       b: {
         invoiceDetails: mockInvoiceDetails,
         isCompanyProfile: true,
-        countryIsoCode: 'MOCKISOCODE',
+        countryIsoCode: 'mockIsoCode',
       },
     });
 
@@ -82,7 +82,7 @@ describe('Service: InvoiceDetailsComponentService', () => {
       b: {
         invoiceDetails: undefined,
         isCompanyProfile: true,
-        countryIsoCode: 'MOCKISOCODE',
+        countryIsoCode: 'mockIsoCode',
       },
     });
 

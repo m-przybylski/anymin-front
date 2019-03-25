@@ -2,10 +2,19 @@
   .modal-form([formGroupName]="companyFormName")
     .modal-form__section
       .modal-form__row.input-container
-        am-core-input-prefix.input-container__input(
-        label="DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.COUNTRY_LABEL",
-        [value]="'Polska'"
-        )
+        .input-container__input.dropdown
+          am-core-input-text(
+          label="DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.COUNTRY_LABEL",
+          [controlName]="companyControlNames.COUNTRY",
+          [isDisabled]="isRequestPending",
+          [form]="countryFormGroup",
+          (click)="showDropdown()"
+          )
+          .dropdown-list(*ngIf="isDropdownVisible")
+            .dropdown-list__item(
+              *ngFor="let item of countryListDisplay",
+              (click)="onCountrySelected(item)"
+            ) {{item.name}}
         .input-container__input
 
       .modal-form__row.input-container

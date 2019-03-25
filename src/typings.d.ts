@@ -263,3 +263,8 @@ declare module 'jsencrypt' {
     getPublicKeyB64(): string;
   }
 }
+
+declare module '*.json' {
+  const value: any;
+  export default value;
+}

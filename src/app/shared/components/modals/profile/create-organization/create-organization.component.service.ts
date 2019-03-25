@@ -19,7 +19,7 @@ import { FormGroup } from '@angular/forms';
 
 export interface ICreateOrganizationModalData {
   getInvoiceDetails?: GetInvoiceDetails;
-  countryIso: string;
+  countryIso?: string;
   hasConsultations: boolean;
 }
 @Injectable()
@@ -76,7 +76,7 @@ export class CreateOrganizationComponentService {
         ).pipe(
           map(([getInvoiceDetails, expertGetServices, organizationGetServices]) => ({
             getInvoiceDetails,
-            countryIso: getSessionWithAccount.account.language.toUpperCase(),
+            countryIso: getSessionWithAccount.session.country,
             hasConsultations: expertGetServices.length + organizationGetServices.length > 0,
           })),
           this.handleResponseError('Not able to get services'),

@@ -91,7 +91,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
 
-  private userCountryIsoCode: string;
+  private userCountryIsoCode?: string;
   private logger: LoggerService;
   /**
    * Initial value is empty array
@@ -332,7 +332,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
         apartmentNumber: controls[NaturalPersonInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[NaturalPersonInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[NaturalPersonInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.userCountryIsoCode,
+        countryISO: controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].value,
       },
     };
   }
@@ -350,7 +350,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
         apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: this.userCountryIsoCode,
+        countryISO: controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].value,
       },
       vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
     };

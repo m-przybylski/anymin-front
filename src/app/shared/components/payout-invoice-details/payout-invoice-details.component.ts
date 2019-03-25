@@ -6,6 +6,9 @@ import { GetInvoiceDetails } from '@anymind-ng/api';
 import { StepperComponent } from '@platform/shared/components/stepper/stepper.component';
 import { NATURAL_PERSON_FORM_NAME } from './components/natural-person-form/natural-person-form.component';
 import { COMPANY_FORM_NAME } from './components/company-form/company-form.component';
+import { TranslateService } from '@ngx-translate/core';
+
+import * as countryISO from '../../../../../tools/country-iso/county-iso.json';
 
 @Component({
   selector: 'plat-payout-invoice-details',
@@ -61,17 +64,25 @@ export class PayoutInvoiceDetailsComponent extends Logger implements OnInit {
   public selectedInvoiceDetailsType = GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON;
   public initialStepIndex = this.naturalPersonStepIndex;
   public formHeaderTrKey = this.translationKeys.naturalPersonInvoice;
+  public countryList: ReadonlyArray<{ name: string; code: string }>;
 
   private _invoiceDetails: GetInvoiceDetails;
   private _isCompanyProfile: boolean;
 
-  constructor(loggerFactory: LoggerFactory) {
+  constructor(private translateService: TranslateService, loggerFactory: LoggerFactory) {
     super(loggerFactory.createLoggerService('CompanyInvoiceDetailsComponent'));
   }
 
   public ngOnInit(): void {
     this.form.addControl(NATURAL_PERSON_FORM_NAME, new FormGroup({}));
     this.form.addControl(COMPANY_FORM_NAME, new FormGroup({}));
+    ((countryIso): void => {
+      const key = Object.keys((<any>countryISO)[0]).find(ci => ci.includes(countryIso)) || 'textPl';
+      this.countryList = (<any>countryISO).map((country: any) => ({
+        code: country.ISOCode,
+        name: country[key],
+      }));
+    })(this.translateService.getDefaultLang());
   }
 
   public selectCompanySettlementMethod(): void {

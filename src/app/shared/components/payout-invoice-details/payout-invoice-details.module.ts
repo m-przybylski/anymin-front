@@ -7,9 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { NaturalPersonFormComponent } from './components/natural-person-form/natural-person-form.component';
 import { StepperModule } from '@platform/shared/components/stepper/stepper.module';
+import { DropdownModule } from '../dropdown/dropdown.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, AnymindComponentsModule, ReactiveFormsModule, StepperModule],
+  imports: [CommonModule, TranslateModule, AnymindComponentsModule, ReactiveFormsModule, StepperModule, DropdownModule],
   exports: [PayoutInvoiceDetailsComponent],
   declarations: [PayoutInvoiceDetailsComponent, CompanyFormComponent, NaturalPersonFormComponent],
 })
