@@ -13,7 +13,7 @@ import { CallService } from '@platform/core/services/call/call.service';
 import { CallSessionService } from '@platform/core/services/call/call-session.service';
 import { Logger } from '@platform/core/logger';
 import { BackendErrors } from '@platform/shared/models/backend-error/backend-error';
-import { first, takeUntil } from 'rxjs/operators';
+import { first, take, takeUntil } from 'rxjs/operators';
 import { CreateCallSummaryComponent } from '@platform/shared/components/modals/call-modals/call-summary/call-summary.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { race } from 'rxjs';
@@ -108,7 +108,7 @@ export class CreateCallService extends Logger {
     this.callService.hangupCall$
       .pipe(
         takeUntil(currentClientCall.callDestroyed$),
-        first(),
+        take(1),
       )
       .subscribe(() => {
         this.clientCallService.handleMyOwnHangup(currentClientCall);
