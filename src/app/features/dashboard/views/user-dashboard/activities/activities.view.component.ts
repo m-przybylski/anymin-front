@@ -25,6 +25,7 @@ import {
 export class ActivitiesViewComponent extends Logger implements OnDestroy {
   public counters: Observable<GetImportantActivitiesCounters>;
   public isExpert$ = this.activitiesService.isExpert();
+  public isCompany$ = this.activitiesService.isCompany();
 
   private ngUnsubscribe$ = new Subject<void>();
 

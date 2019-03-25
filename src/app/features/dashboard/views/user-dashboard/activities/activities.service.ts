@@ -17,4 +17,10 @@ export class ActivitiesService {
   public isExpert(): Observable<boolean> {
     return getNotUndefinedSession(this.coreStore).pipe(map(session => session.session.expertProfileId !== undefined));
   }
+
+  public isCompany(): Observable<boolean> {
+    return getNotUndefinedSession(this.coreStore).pipe(
+      map(session => session.session.organizationProfileId !== undefined),
+    );
+  }
 }
