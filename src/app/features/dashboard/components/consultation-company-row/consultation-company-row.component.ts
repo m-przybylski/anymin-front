@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { MoneyDto, ServiceWithEmployments } from '@anymind-ng/api';
+import { Config } from '@anymind-ng/core';
 
 export interface IOpenCompanyConsultationModal {
   serviceId: string;
@@ -22,6 +23,8 @@ export class ConsultationCompanyRowComponent {
   @Output()
   public openConsultationDetails = new EventEmitter<IOpenCompanyConsultationModal>();
 
+  private readonly _callDuration = 20;
+
   public get header(): string {
     return this.consultation.service.name;
   }
@@ -30,8 +33,16 @@ export class ConsultationCompanyRowComponent {
     return this.consultation.service.price;
   }
 
-  public get expertAvatarTokenList(): ReadonlyArray<string> {
-    return this.consultation.employments.map(employment => employment.employeeProfile.avatar);
+  public get expertCount(): number {
+    return this.consultation.employments.length;
+  }
+
+  public get callDuration(): number {
+    return this._callDuration;
+  }
+
+  public get timeMoney(): number {
+    return Math.round((this.consultation.service.price.value / Config.moneyDivider) * this.callDuration);
   }
 
   public openConsultationModal(): void {

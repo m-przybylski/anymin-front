@@ -1,35 +1,10 @@
 @import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
-@import "../../../../template/core/helpers/grid"
 
-%icon-text
-  +subtitle-small
-  display: flex
-  color: $c-label
-  span + span
-    margin: 0 0 0 4px
+span + span
+  margin: 0 0 0 5px
 
 .consultation-experts-layout
-
-  &__list
-    display: flex
-
-  &__list-item
-
-    &--multiple
-      @extend %icon-text
-      margin: 0 0 0 12px
-
-      +mdm
-        margin: 0 0 0 16px
-
-      &-text
-        display: none
-
-        +smm
-          display: inline
-
-    &--none
-      @extend %icon-text
-
-  &__list-item + &__list-item
-    margin: 0 0 0 4px
+  +subtitle-small
+  color: $c-label
+  display: flex
+  align-items: center

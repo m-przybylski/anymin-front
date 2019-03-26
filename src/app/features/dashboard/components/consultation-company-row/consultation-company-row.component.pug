@@ -1,13 +1,16 @@
 .consultation-layout((click)="openConsultationModal()")
   .consultation-layout__wrapper
-    .consultation-layout__header {{header}}
-    .consultation-layout__footer
+    .consultation-layout__header
       plat-consultation-experts(
-        [expertAvatarTokenList]='expertAvatarTokenList',
+        [numberOfExperts]="expertCount"
       )
+    .consultation-layout__footer {{header}}
   .consultation-layout__price
     .consultation-layout__amount
-      span {{price | moneyToAmount}}
-        span.consultation-layout__amount__currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
+      div.consultation-layout__price-wrapper
+        span.consultation-layout__price-header {{ 'CONSULTATION_INFO.CONSULTATION_ROW.GROSS' | translate }}
+        span.consultation-layout__price-content {{price | moneyToAmount}}
+          span.consultation-layout__amount__currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
+        span.consultation-layout__price-footer {{callDuration}} {{ 'CONSULTATION_INFO.CONSULTATION_ROW.TIME_MONEY' | translate }} {{timeMoney | currency:price.currency}}
       a(plat-icon-button, color='primary').consultation-layout__amount-button
-        span(plat-icon iconClass='arrow-right')
+        span(plat-icon iconClass='forward')

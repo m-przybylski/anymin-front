@@ -1,14 +1,3 @@
 .consultation-experts-layout
-  ul.consultation-experts-layout__list
-    li.consultation-experts-layout__list-item--none(*ngIf='!expertsExists')
-      span(plat-icon, iconClass='organization')
-      span {{'CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.NO_JOINS' | translate }}
-    li(*ngFor='let expertAvatarToken of expertAvatarTokenList').consultation-experts-layout__list-item
-      plat-user-avatar(
-        [avatarToken]='expertAvatarToken',
-        [avatarSize]='avatarSize'
-      )
-    li.consultation-experts-layout__list-item--multiple(*ngIf='overLimit > 0')
-      span(plat-icon, iconClass='organization')
-      span +{{overLimit}}
-        span.consultation-experts-layout__list-item--multiple-text  {{'CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.OTHERS' | translate }}
+  span(plat-icon, iconClass='organization')
+  span {{ numberOfExperts | i18nPlural: translationMap | translate : { value: numberOfExperts } }}

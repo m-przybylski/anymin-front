@@ -12,6 +12,13 @@
   cursor: pointer
   padding: 20px 12px
 
+  &__wrapper
+    display: flex
+    flex-direction: column-reverse
+
+    +mdm
+      flex-direction: column
+
   +smm
     padding: 20px 24px
 
@@ -23,14 +30,21 @@
 
   &__header
     +paragraph-small
+
+    +mdm
+      margin-bottom: 12px
+
+  &__footer
     margin-bottom: 12px
 
     +smm
       +h6
+      font-weight: 500
+
+    +mdm
+      margin-bottom: 0px
 
   &__price
-    +button-small
-    font-weight: 500
     position: absolute
     right: 12px
     bottom: 20px
@@ -39,13 +53,36 @@
     justify-content: flex-end
 
     +smm
-      +h6
       right: 24px
-      font-weight: 500
 
     +mdm
       position: static
       justify-content: center
+
+    span
+      font-weight: 700
+
+  &__price-wrapper
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+
+  &__price-header, &__price-footer
+    display: none
+
+    +mdm
+      +caption
+      color: $c-label
+      display: inline
+
+  &__price-content
+    +button-small
+
+    +smm
+      +h5
+
+  &__price-header
+    text-transform: uppercase
 
   &__amount
     display: flex
