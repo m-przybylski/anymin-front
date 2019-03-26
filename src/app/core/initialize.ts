@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from '@anymind-ng/core';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 
 // tslint:disable-next-line:only-arrow-functions
 export function appInitializerFactory(
@@ -21,7 +21,7 @@ export function appInitializerFactory(
         store
           .pipe(
             select(fromCore.selectSession),
-            filter(session => !session.isPending),
+            filter(session => session.isFromBackend),
             map(session => session.session),
             switchMap(session => {
               if (session === undefined) {
@@ -31,6 +31,11 @@ export function appInitializerFactory(
               }
             }),
             take(1),
+            catchError(error => {
+              loggerService.error('Language not found', error);
+
+              return translate.use('en');
+            }),
           )
           .subscribe(
             _ => {
