@@ -110,13 +110,6 @@ export class ConsultationFooterUserComponent extends Logger implements IFooterOu
   public ngOnInit(): void {
     /** there will be one element if user have selected expert */
     this.isExpertAvailable$ = defer(() => {
-      /**
-       * For not logged user userId will be undefined
-       * so do not send expert availability
-       */
-      if (this.data.userId === undefined) {
-        return of(true);
-      }
       if (this.data.selectedExpertId !== undefined) {
         return this.expertAvailabilityService.getExpertPresence(this.data.selectedExpertId).pipe(
           map(presence => presence === ExpertPresenceStatus.StatusEnum.Available),

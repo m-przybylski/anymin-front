@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromCore from '@platform/core/reducers';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, switchMap, catchError, tap, take } from 'rxjs/operators';
-import { EMPTY, from } from 'rxjs';
+import { EMPTY, from, of, Observable } from 'rxjs';
 import { AuthActions } from '@platform/core/actions';
 import { GenerateWidgetActions } from '@platform/shared/components/modals/generate-widget/actions';
 import {
@@ -94,17 +94,10 @@ export class ConsultationDetailsActionsService extends Logger {
     defaultPaymentMethod,
     createEditConsultationPayload,
   }: IConsultationDetailActionParameters): void {
-    this.store
+    this.redirectToLogin(modal)
       .pipe(
-        select(fromCore.getLoggedIn),
-        // tslint:disable-next-line:cyclomatic-complexity
-        switchMap(login => {
-          if (!login.isLoggedIn) {
-            this.store.dispatch(new AuthActions.LoginRedirectAction());
-            modal.close();
-
-            return EMPTY;
-          }
+        // tslint:disable-next-line: cyclomatic-complexity
+        switchMap(() => {
           if (
             (defaultPaymentMethod && (defaultPaymentMethod.creditCardId || defaultPaymentMethod.promoCodeId)) ||
             (createEditConsultationPayload &&
@@ -137,13 +130,32 @@ export class ConsultationDetailsActionsService extends Logger {
       );
   }
 
-  public notifyUser(): void {
+  public notifyUser({ modal }: IConsultationDetailActionParameters): void {
     // TODO: implement functionality
+    this.redirectToLogin(modal)
+      .pipe(take(1))
+      .subscribe();
   }
 
   public share({ serviceId, modal, expertId }: IConsultationDetailActionParameters): void {
     modal.close();
     this.store.dispatch(new GenerateWidgetActions.StartOpenGenerateWidgetAction({ serviceId, expertId }));
+  }
+
+  private redirectToLogin(modal: NgbActiveModal): Observable<undefined> {
+    return this.store.pipe(
+      select(fromCore.getLoggedIn),
+      switchMap(login => {
+        if (!login.isLoggedIn) {
+          this.store.dispatch(new AuthActions.LoginRedirectAction());
+          modal.close();
+
+          return EMPTY;
+        }
+
+        return of(undefined);
+      }),
+    );
   }
 }
 
