@@ -17,7 +17,6 @@ import { GetProfileWithDocuments } from '@anymind-ng/api/model/getProfileWithDoc
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { GetServiceWithInvitations } from '@anymind-ng/api/model/getServiceWithInvitations';
 import { EMPTY, forkJoin, iif, of, Observable, throwError } from 'rxjs';
-import { ICompanyEmployeeRowComponent } from './company-employee-row/company-employee-row.component';
 import { EmploymentWithExpertProfile } from '@anymind-ng/api/model/employmentWithExpertProfile';
 import { LoggerFactory } from '@anymind-ng/core';
 import { Logger } from '@platform/core/logger';
@@ -33,8 +32,22 @@ export interface ICompanyConsultationDetails {
   getCommissions: GetCommissions;
 }
 
+export interface ICompanyEmployeeRowComponent {
+  name: string;
+  id: string;
+  usageCounter?: number;
+  ratingCounter?: number;
+  rating?: number;
+  employeeId?: string;
+  avatar?: string;
+  // TODO remove email, msisdn, invitedExpertAccountId properties after https://anymind.atlassian.net/browse/PLAT-538
+  email?: string;
+  msisdn?: string;
+  expertAccountId?: string;
+}
+
 @Injectable()
-export class CompanyConsultationDetailsViewService extends Logger {
+export class CompanyConsultationService extends Logger {
   constructor(
     private serviceService: ServiceService,
     private employmentService: EmploymentService,
@@ -44,20 +57,12 @@ export class CompanyConsultationDetailsViewService extends Logger {
     private financesService: FinancesService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory.createLoggerService('CompanyConsultationDetailsViewService'));
+    super(loggerFactory.createLoggerService('CompanyConsultationService'));
   }
 
-  public getConsultationDetails = (serviceId: string): Observable<ICompanyConsultationDetails> =>
-    forkJoin(
-      this.serviceService
-        .postServicesTagsRoute({ serviceIds: [serviceId] })
-        .pipe(
-          map(getServiceTagsList =>
-            getServiceTagsList
-              .filter(getServiceTag => getServiceTag.serviceId === serviceId)
-              .reduce((tagsList, getServiceTags) => [...tagsList, ...getServiceTags.tags.map(tag => tag.name)], []),
-          ),
-        ),
+  public getConsultationDetails(serviceId: string): Observable<ICompanyConsultationDetails> {
+    return forkJoin(
+      this.getTags(serviceId),
       this.serviceService.postServiceWithEmployeesRoute({ serviceIds: [serviceId] }).pipe(
         map(getServiceWithEmployeesList =>
           getServiceWithEmployeesList.find(
@@ -65,17 +70,23 @@ export class CompanyConsultationDetailsViewService extends Logger {
           ),
         ),
         map(getServiceWithEmployees => {
-          if (typeof getServiceWithEmployees === 'undefined') {
-            throwError(new Error('Not able to get service details'));
+          if (getServiceWithEmployees === undefined) {
+            throw new Error('Not able to get service details');
           }
 
           return getServiceWithEmployees;
         }),
-        switchMap((getServiceWithEmployees: GetServiceWithEmployees) =>
+        switchMap(getServiceWithEmployees =>
           this.getCommission({
             amount: getServiceWithEmployees.serviceDetails.price,
             isFreelance: getServiceWithEmployees.serviceDetails.isFreelance,
-          }).pipe(map(getCommissions => ({ getServiceWithEmployees, getCommissions }))),
+          })
+          .pipe(
+            map(getCommissions => ({
+              getServiceWithEmployees,
+              getCommissions,
+            })),
+          ),
         ),
       ),
       this.getPaymentMethod(),
@@ -100,21 +111,24 @@ export class CompanyConsultationDetailsViewService extends Logger {
         return EMPTY;
       }),
     );
+  }
 
-  public deletePendingInvitation = (invitationId: string): Observable<void> =>
-    this.invitationService.deleteInvitationsRoute({ invitationsIds: [invitationId] });
+  public deletePendingInvitation(invitationId: string): Observable<void> {
+    return this.invitationService.deleteInvitationsRoute({ invitationsIds: [invitationId] });
+  }
 
-  public deleteEmployee = (employmentId: string): Observable<void> =>
-    this.employmentService.deleteEmploymentRoute(employmentId);
+  public deleteEmployee(employmentId: string): Observable<void> {
+    return this.employmentService.deleteEmploymentRoute(employmentId);
+  }
 
-  public getInvitations = (consultationId: string): Observable<ReadonlyArray<ICompanyEmployeeRowComponent>> =>
-    this.getPendingInvitation(consultationId).pipe(
+  public getInvitations(serviceId: string): Observable<ReadonlyArray<ICompanyEmployeeRowComponent>> {
+    return this.getPendingInvitation(serviceId).pipe(
       map(serviceWithInvitations => serviceWithInvitations[0].invitations),
       map((invitations: ReadonlyArray<GetInvitation>) =>
         invitations.filter(invitation => invitation.status === GetInvitation.StatusEnum.NEW),
       ),
       switchMap(invitations => {
-        const employees = invitations.filter(item => item.employeeId);
+        const employeeInvites = invitations.filter(item => item.employeeId);
         const pendingInvitations = invitations
           .filter(item => typeof item.employeeId === 'undefined')
           .map(item => ({
@@ -126,18 +140,17 @@ export class CompanyConsultationDetailsViewService extends Logger {
           }));
 
         return iif(
-          () => employees.length > 0,
+          () => employeeInvites.length > 0,
           forkJoin(
-            employees.map(employee =>
-              this.profileService.getProfileRoute(employee.employeeId as string).pipe(
+            employeeInvites.map(employeeInvite =>
+              this.profileService.getProfileRoute(employeeInvite.employeeId as string).pipe(
                 map(
                   (res: GetProfileWithDocuments): ICompanyEmployeeRowComponent => ({
                     name: res.profile.name,
-                    id: res.profile.id,
+                    id: employeeInvite.id,
                     avatar: res.profile.avatar,
-                    employeeId: employee.id,
+                    employeeId: employeeInvite.employeeId,
                     expertAccountId: res.profile.accountId,
-                    invitedExpertAccountId: res.profile.id,
                   }),
                 ),
               ),
@@ -158,19 +171,23 @@ export class CompanyConsultationDetailsViewService extends Logger {
         );
       }),
     );
+  }
 
-  private mapEmployeesList = (employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent => ({
-    usageCounter: employee.usageCounter,
-    ratingCounter: employee.ratingCounter,
-    rating: employee.rating,
-    id: employee.id,
-    name: employee.employeeProfile.name,
-    avatar: employee.employeeProfile.avatar,
-    expertAccountId: employee.employeeProfile.accountId,
-    employeeId: employee.employeeProfile.id,
-  });
-  private getPendingInvitation = (serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> =>
-    this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
+  private mapEmployeesList(employee: EmploymentWithExpertProfile): ICompanyEmployeeRowComponent {
+    return {
+      usageCounter: employee.usageCounter,
+      ratingCounter: employee.ratingCounter,
+      rating: employee.rating,
+      id: employee.id,
+      name: employee.employeeProfile.name,
+      avatar: employee.employeeProfile.avatar,
+      expertAccountId: employee.employeeProfile.accountId,
+      employeeId: employee.employeeProfile.id,
+    };
+  }
+  private getPendingInvitation(serviceId: string): Observable<ReadonlyArray<GetServiceWithInvitations>> {
+    return this.serviceService.postServiceInvitationsRoute({ serviceIds: [serviceId] });
+  }
 
   private getPaymentMethod(): Observable<IPaymentMethod> {
     return this.paymentsService.getDefaultPaymentMethodRoute().pipe(
@@ -204,6 +221,17 @@ export class CompanyConsultationDetailsViewService extends Logger {
         return throwError(err);
       }),
     );
+  }
+  private getTags(serviceId: string): Observable<ReadonlyArray<string>> {
+    return this.serviceService
+      .postServicesTagsRoute({ serviceIds: [serviceId] })
+      .pipe(
+        map(getServiceTagsList =>
+          getServiceTagsList
+            .filter(getServiceTag => getServiceTag.serviceId === serviceId)
+            .reduce((tagsList, getServiceTags) => [...tagsList, ...getServiceTags.tags.map(tag => tag.name)], []),
+        ),
+      );
   }
 }
 interface IPaymentMethod {

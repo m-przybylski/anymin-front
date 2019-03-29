@@ -23,6 +23,10 @@
           [rating]='employeeDetails.rating',
           )
 
-  .company-employee-row__action(*ngIf="isOwnProfile")
-    span(plat-flat-fab color='default', (click)="onClickDelete($event)")
-      span(plat-icon iconClass='stroke-delete')
+  .company-employee-row__action(*ngIf="isOwnProfile else profile")
+    span(plat-flat-fab color='default', (click)="onClickDelete()")
+      span(plat-icon, iconClass='stroke-delete')
+
+ng-template(#profile)
+  .company-employee-row__action
+    span(plat-stroked-button, (click)="onConsultationClick()") {{"COMPANY_EMPLOYEE_ROW.SEE_MORE" | translate}}

@@ -66,6 +66,13 @@ export const RouterPaths = {
         params: {
           profileId: 'profileId',
         },
+        service: {
+          asPath: '/dashboard/company/profile/:profileId/:serviceId',
+          getName: ':serviceId',
+          params: {
+            serviceId: 'serviceId',
+          },
+        },
       },
       activities: {
         asPath: '/dashboard/company/activities',

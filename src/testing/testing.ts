@@ -31,3 +31,11 @@ export const importStore = (): ModuleWithProviders =>
 export const dispatchLoggedUser = (store: Store<any>, loginPayload: any): void => {
   store.dispatch(new AuthActions.LoginSuccessAction(loginPayload));
 };
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer K>
+    ? ReadonlyArray<DeepPartial<K>>
+    : DeepPartial<T[P]>
+};

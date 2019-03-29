@@ -24,6 +24,8 @@
       padding: 24px
 
 .company-consultation-details
+  background: $c-white
+
   &__employees
     ul
       li
@@ -37,30 +39,11 @@
         > *
           +paragraph
 
-  .container-grey
-    +greySection
-
   &__invites-employee
     position: relative
 
-  &__preloader
-    display: flex
-    align-items: center
-    justify-content: center
-    position: absolute
-    left: 0
-    top: 0
-    right: 0
-    bottom: 0
-    background: $c-white
-
-    span
-      &.icon
-        width: 24px
-        height: 24px
-        display: flex
-        align-items: center
-        animation: 0.6s linear rotate360Deg infinite
+.container-grey
+  +greySection
 
 .button-row
   background: $c-white

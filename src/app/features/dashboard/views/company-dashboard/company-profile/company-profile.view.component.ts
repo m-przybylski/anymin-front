@@ -17,7 +17,6 @@ import { EditOrganizationModalComponent } from '@platform/shared/components/moda
 import { RouterPaths } from '@platform/shared/routes/routes';
 import { CompanyProfilePageActions } from './actions';
 import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
-import { CompanyConsultationDetailsViewComponent } from '@platform/shared/components/modals/consultation-details/company-consultation-details/company-consultation-details.view.component';
 import { IOpenCompanyConsultationModal } from '@platform/features/dashboard/components/consultation-company-row/consultation-company-row.component';
 import { SeoService } from '@anymind-ng/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,13 +27,13 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CompanyProfileComponent extends ProfileBaseComponent implements OnInit, OnDestroy {
   public consultations$ = this.store.pipe(select(fromCompanyDashboard.getConsultations));
-  public isLoading$ = this.store.pipe(select(fromCompanyDashboard.getIsLoading));
-  public data$ = this.store.pipe(select(fromCompanyDashboard.getData));
+  public isLoading$ = this.store.pipe(select(fromCompanyDashboard.getIsProfileLoading));
+  public data$ = this.store.pipe(select(fromCompanyDashboard.getProfileData));
 
   constructor(
     protected route: ActivatedRoute,
     protected injector: Injector,
-    private store: Store<fromCompanyDashboard.IState>,
+    private store: Store<fromCompanyDashboard.IOrganizationState>,
     private seoService: SeoService,
     private translate: TranslateService,
   ) {
@@ -155,21 +154,7 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
   }
 
   public openConsultationDetail(event: IOpenCompanyConsultationModal): void {
-    const modal = this.modalService.open(CompanyConsultationDetailsViewComponent);
-    modal.componentInstance.consultationId = event.serviceId;
-    modal.componentInstance.isOwnProfile = event.isOwnProfile;
-    modal.result.then(this.onConsultationDetailsClose.bind(this), this.onConsultationDetailsClose.bind(this));
-  }
-
-  private onConsultationDetailsClose(): void {
-    this.data$
-      .pipe(
-        filter(data => data !== undefined),
-        take(1),
-      )
-      .subscribe((data: IExpertCompanyDashboardResolverData<IOrganizationProfile>) => {
-        this.setSeoTags(data.profile.organization.organizationProfile);
-      });
+    this.router.navigate([event.serviceId], { relativeTo: this.route });
   }
 
   private setSeoTags(profile: ProfileWithDocuments): void {

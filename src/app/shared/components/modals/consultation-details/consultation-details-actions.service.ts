@@ -164,7 +164,13 @@ export class ConsultationDetailsActionsService extends Logger {
 
 export interface IConsultationDetailActionParameters {
   serviceId: string;
+  /**
+   * current opened modal - to be removed
+   */
   modal: NgbActiveModal;
+  /**
+   * used for delete employment
+   */
   employmentId?: string;
   defaultPaymentMethod: GetDefaultPaymentMethod;
   expertId?: string;

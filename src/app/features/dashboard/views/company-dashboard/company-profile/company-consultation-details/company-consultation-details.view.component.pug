@@ -1,0 +1,42 @@
+.company-consultation-details(*ngIf='!(isLoading$ | async)')
+  .container(*ngIf='companyConsultationDetails$ | async as data')
+      plat-consultation-details(
+      [avatarSize]="avatarSize",
+      [avatarToken]="getAvatarToken(data)",
+      [expertName]="getExpertName(data)",
+      [serviceName]="getServiceName(data)",
+      [registeredAt]="getRegisteredAt(data)",
+      [serviceDescription]="getServiceDescription(data)",
+      [tagList]="getTagList(data)",
+      )
+.container(*ngIf='!(isLoading$ | async) && companyConsultationDetails$ | async as data')
+  .container-grey(*ngIf="hasEmployees(data)")
+    .company-consultation-details__employees
+      h4 {{ "COMPANY_VIEW.CONSULTATION_DETAILS.CONSULTANTS.TITLE" | translate }}
+
+      a.button-row((click)="onAddEmployees(data)", *ngIf="isOwnService$ | async")
+        span(plat-flat-fab color='primary')
+          span(plat-icon iconClass='add')
+        span.button-row__text {{'COMPANY_VIEW.CONSULTATION_DETAILS.ADD_EMPLOYEE.TITLE' | translate}}
+
+      ul
+        li(*ngFor="let employee of getEmployeesList(data)")
+          plat-company-employee-row(
+          [employeeDetails]="employee",
+          (deleteEmployee)="onDeleteEmployee(employee)",
+          [isOwnProfile]="isOwnService$ | async",
+          (openConsultation)="openConsultationDetailsModal(employee)",
+          [isStatisticsVisible]="true"
+          )
+    ng-container(*ngIf="pendingEmployeesList$ | async as pendingEmployeesList")
+      .company-consultation-details__invites-employee(*ngIf="hasInvites(pendingEmployeesList)")
+        h4 {{ "COMPANY_VIEW.CONSULTATION_DETAILS.INVITATION_WAITING.TITLE" | translate }}
+        ul
+          li(*ngFor="let employee of pendingEmployeesList")
+            plat-company-employee-row(
+              [employeeDetails]="employee",
+              (deleteEmployee)="onDeletePendingInvitation(employee)",
+              [isOwnProfile]="isOwnService$ | async",
+            )
+.modal-footer
+  ng-container(#footerContainer)

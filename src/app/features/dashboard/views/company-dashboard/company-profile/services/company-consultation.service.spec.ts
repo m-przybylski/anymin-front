@@ -10,15 +10,15 @@ import { Deceiver } from 'deceiver-core';
 import { TestBed } from '@angular/core/testing';
 import { provideMockFactoryLogger } from 'testing/testing';
 import { cold } from 'jasmine-marbles';
-import { CompanyConsultationDetailsViewService } from './company-consultation-details.view.service';
+import { CompanyConsultationService } from './company-consultation.service';
 
-describe('CompanyConsultationDetailsViewService', () => {
-  let service: CompanyConsultationDetailsViewService;
+describe('CompanyConsultationService', () => {
+  let service: CompanyConsultationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        CompanyConsultationDetailsViewService,
+        CompanyConsultationService,
         {
           provide: ServiceService,
           useValue: Deceiver(ServiceService),
@@ -49,7 +49,7 @@ describe('CompanyConsultationDetailsViewService', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(CompanyConsultationDetailsViewService);
+    service = TestBed.get(CompanyConsultationService);
   });
 
   it('should get consultation details', () => {

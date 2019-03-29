@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`company consultation reducer ClearAction should update state 1`] = `
+Object {
+  "isInviteLoading": false,
+  "isLoading": false,
+}
+`;
+
+exports[`company consultation reducer LoadConsultationFailureAction should update state 1`] = `
+Object {
+  "error": "fake error",
+  "isInviteLoading": false,
+  "isLoading": false,
+}
+`;
+
+exports[`company consultation reducer LoadConsultationSuccessAction should update state 1`] = `
+Object {
+  "isInviteLoading": false,
+  "isLoading": false,
+  "organizationConsultation": "fake payload",
+}
+`;
+
+exports[`company consultation reducer LoadConsultationsAction should start loading consultations 1`] = `
+Object {
+  "isInviteLoading": true,
+  "isLoading": true,
+}
+`;
+
+exports[`company consultation reducer LoadInvitesAction should update state 1`] = `
+Object {
+  "isInviteLoading": true,
+  "isLoading": false,
+}
+`;
+
+exports[`company consultation reducer LoadInvitesSuccessAction should update state 1`] = `
+Object {
+  "isInviteLoading": false,
+  "isLoading": true,
+  "pendingInvitations": "fake invites",
+}
+`;
+
+exports[`company consultation reducer undefined action should return the default state 1`] = `
+Object {
+  "isInviteLoading": false,
+  "isLoading": false,
+}
+`;

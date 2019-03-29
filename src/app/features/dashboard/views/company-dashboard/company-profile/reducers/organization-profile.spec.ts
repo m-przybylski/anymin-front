@@ -1,4 +1,4 @@
-import { reducer, IState } from './index';
+import { reducer, IState } from './organization-profile';
 import { CompanyProfileApiActions, CompanyProfilePageActions } from '../actions';
 import { ConsultationDetailActions } from '@platform/shared/components/modals/consultation-details/actions';
 
