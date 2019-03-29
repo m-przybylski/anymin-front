@@ -30,7 +30,7 @@ export class CreateEditConsultationService extends Logger {
     this.confirmationService.confirm('CONSULTATION_DETAILS.DELETE.HEADER', 'CONSULTATION_DETAILS.DELETE.MESSAGE').pipe(
       filter(confirmed => confirmed),
       switchMap(() =>
-        this.serviceService.deleteServiceRoute(serviceId).pipe(
+        this.serviceService.deleteServiceRoute_1(serviceId).pipe(
           catchError(err => {
             this.alertService.pushDangerAlert('CONSULTATION_DETAILS.ALERT.REMOVE_FAILURE');
             this.loggerService.warn('Cannot remove consultation', err);

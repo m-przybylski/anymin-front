@@ -11,10 +11,10 @@ import {
   SoundsService,
 } from '@anymind-ng/core';
 import { Injectable, Injector } from '@angular/core';
-import { EMPTY, from, iif, Observable, of, race, Subject } from 'rxjs';
-import { BusinessCall, Call, callEvents, CallReason, Session } from 'machoke-sdk';
-import { GetExpertSueDetails, GetSessionWithAccount, ServiceUsageEventService } from '@anymind-ng/api';
-import { catchError, finalize, first, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
+import { EMPTY, iif, Observable, of, race, Subject } from 'rxjs';
+import { BusinessCall, Call, callEvents, CallReason } from 'machoke-sdk';
+import { GetExpertSueDetails, GetSessionWithAccount, PushService, ServiceUsageEventService } from '@anymind-ng/api';
+import { catchError, finalize, first, mergeMap, switchMap, take, takeUntil } from 'rxjs/operators';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Logger } from '@platform/core/logger';
@@ -40,7 +40,7 @@ export class CallInvitationService extends Logger {
 
   private navigatorWrapper = new NavigatorWrapper();
   private missingCallCounter = 0;
-  private unregisterFactory?: () => Promise<void>;
+  private unregisterFactory?: () => Observable<void>;
 
   constructor(
     private communicatorService: CommunicatorService,
@@ -55,6 +55,7 @@ export class CallInvitationService extends Logger {
     private pushNotificationService: PushNotificationService,
     private injector: Injector,
     private callSessionService: CallSessionService,
+    private pushService: PushService,
     loggerFactory: LoggerFactory,
   ) {
     super(loggerFactory.createLoggerService('CallInvitationService'));
@@ -65,7 +66,7 @@ export class CallInvitationService extends Logger {
     this.communicatorService.connectionEstablishedEvent$.subscribe(connected => {
       this.checkIncomingCalls(connected);
       this.checkPullableCalls(connected);
-      this.handlePushNotificationRegistration(connected.session);
+      this.handlePushNotificationRegistration();
     });
 
     this.communicatorService.callInvitationEvent$.subscribe(inv => this.onExpertCallIncoming(inv.call));
@@ -73,7 +74,7 @@ export class CallInvitationService extends Logger {
 
   public unregisterFromPushNotifications(): Observable<never> {
     return this.unregisterFactory !== undefined
-      ? from(this.unregisterFactory()).pipe(
+      ? this.unregisterFactory().pipe(
           mergeMap(() => EMPTY),
           catchError(() => EMPTY),
           finalize(() => (this.unregisterFactory = undefined)),
@@ -86,7 +87,7 @@ export class CallInvitationService extends Logger {
       enabled => {
         const callSession = this.callSessionService.getCallSession();
         if (enabled && callSession) {
-          this.handlePushNotificationRegistration(callSession);
+          this.handlePushNotificationRegistration();
         } else {
           this.unregisterFromPushNotifications().subscribe(() => this.loggerService.info('Unregistered from push'));
         }
@@ -121,7 +122,7 @@ export class CallInvitationService extends Logger {
       });
   };
 
-  private handlePushNotificationRegistration = (session: Session): void => {
+  private handlePushNotificationRegistration = (): void => {
     /** watch for notifications changes */
     this.pushNotificationService.isPushNotificationsEnabled().subscribe(
       pushEnabled => {
@@ -129,14 +130,20 @@ export class CallInvitationService extends Logger {
           this.pushNotificationService.getDeviceId().subscribe(
             deviceId => {
               if (deviceId) {
-                session.machoke
-                  .registerForPushNotifications(deviceId)
-                  .then(() => {
+                this.pushService
+                  .postRegisterRoute({ pushId: deviceId, clientAppType: 'PLATFORM' })
+                  .pipe(
+                    catchError(err => {
+                      this.loggerService.warn('Registration for webpush failed', err);
+
+                      return of();
+                    }),
+                    take(1),
+                  )
+                  .subscribe(() => {
                     this.loggerService.debug('Registered for push in Artichoke');
-                    this.unregisterFactory = (): Promise<void> =>
-                      session.machoke.unregisterFromPushNotifications(deviceId);
-                  })
-                  .catch(err => this.loggerService.warn('Registration for webpush failed', err));
+                    this.unregisterFactory = (): Observable<void> => this.pushService.deleteUnregisterRoute(deviceId);
+                  });
               } else {
                 this.loggerService.error('Push notification id is not set');
               }
