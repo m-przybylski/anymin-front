@@ -3,8 +3,10 @@ import { FormGroup, ValidatorFn, FormControl } from '@angular/forms';
 import { vatNumberValidator } from './vat-number.validator';
 import { GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
+import { ICountryCodeWithTranslation } from '@platform/shared/models/country-code-with-translation';
 
 export const COMPANY_FORM_NAME = 'companyInvoice';
+const COUNTRY_LIST_LENGTH = 7;
 
 export enum CompanyInvoiceDetailsFormControlNames {
   COMPANY_NAME = 'firstName',
@@ -42,7 +44,7 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
   }
 
   @Input()
-  public countryList: ReadonlyArray<{ name: string; code: string }>;
+  public countryList: ReadonlyArray<ICountryCodeWithTranslation>;
 
   public readonly postalCodePattern = Config.patterns.postalCode;
   public readonly vatNumberValidatorFn: ValidatorFn = vatNumberValidator();
@@ -54,7 +56,7 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
     [CompanyInvoiceDetailsFormControlNames.COUNTRY]: new FormControl(),
   });
   public isDropdownVisible = false;
-  public countryListDisplay: ReadonlyArray<{ name: string; code: string }>;
+  public countryListDisplay: ReadonlyArray<ICountryCodeWithTranslation>;
   public companyForm: FormGroup;
   public isEditForm = false;
 
@@ -77,12 +79,12 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
         this.countryListDisplay = this.countryList
           .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
           .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, parseInt('7', 10));
+          .slice(0, COUNTRY_LIST_LENGTH);
       },
     );
   }
 
-  public onCountrySelected(countryName: { name: string; code: string }): void {
+  public onCountrySelected(countryName: ICountryCodeWithTranslation): void {
     this.isDropdownVisible = false;
     this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.code);
     this.countryFormGroup.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.name);

@@ -56,7 +56,7 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
   public linksFormControl = new FormControl([]);
 
   private logger: LoggerService;
-  private accountCountryIsoCode: string;
+  private accountCountryIsoCode?: string;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -191,7 +191,7 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
       profileDetails: this.getOrganizationDetails(),
       companyDetails: this.createOrganizationComponentService.getInvoiceDetailsFromForm(
         this.invoiceDetailsForm,
-        this.accountCountryIsoCode,
+        this.accountCountryIsoCode || '',
       ),
     };
   }

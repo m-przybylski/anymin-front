@@ -91,7 +91,6 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
   @ViewChild(StepperComponent)
   public stepper: StepperComponent;
 
-  private userCountryIsoCode?: string;
   private logger: LoggerService;
   /**
    * Initial value is empty array
@@ -131,8 +130,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy, AfterView
           return EMPTY;
         }),
       )
-      .subscribe(({ countryISO, hasProfile, accountDetails }) => {
-        this.userCountryIsoCode = countryISO;
+      .subscribe(({ hasProfile, accountDetails }) => {
         this.hasProfile = hasProfile;
         this.setBasicProfileData(accountDetails.avatar, accountDetails.nickname);
       });

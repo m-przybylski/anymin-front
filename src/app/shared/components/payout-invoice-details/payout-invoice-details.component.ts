@@ -9,6 +9,10 @@ import { COMPANY_FORM_NAME } from './components/company-form/company-form.compon
 import { TranslateService } from '@ngx-translate/core';
 
 import * as countryISO from '../../../../../tools/country-iso/county-iso.json';
+import {
+  ICountryCodeWithTranslation,
+  ICountryCodeWithTranslations,
+} from '@platform/shared/models/country-code-with-translation';
 
 @Component({
   selector: 'plat-payout-invoice-details',
@@ -64,7 +68,7 @@ export class PayoutInvoiceDetailsComponent extends Logger implements OnInit {
   public selectedInvoiceDetailsType = GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON;
   public initialStepIndex = this.naturalPersonStepIndex;
   public formHeaderTrKey = this.translationKeys.naturalPersonInvoice;
-  public countryList: ReadonlyArray<{ name: string; code: string }>;
+  public countryList: ReadonlyArray<ICountryCodeWithTranslation>;
 
   private _invoiceDetails: GetInvoiceDetails;
   private _isCompanyProfile: boolean;
@@ -77,8 +81,10 @@ export class PayoutInvoiceDetailsComponent extends Logger implements OnInit {
     this.form.addControl(NATURAL_PERSON_FORM_NAME, new FormGroup({}));
     this.form.addControl(COMPANY_FORM_NAME, new FormGroup({}));
     ((countryIso): void => {
-      const key = Object.keys((<any>countryISO)[0]).find(ci => ci.includes(countryIso)) || 'textPl';
-      this.countryList = (<any>countryISO).map((country: any) => ({
+      const key = (Object.keys((<ReadonlyArray<ICountryCodeWithTranslations>>countryISO)[0]).find(ci =>
+        ci.includes(countryIso),
+      ) || 'textPl') as keyof ICountryCodeWithTranslations;
+      this.countryList = (<ReadonlyArray<ICountryCodeWithTranslations>>countryISO).map(country => ({
         code: country.ISOCode,
         name: country[key],
       }));

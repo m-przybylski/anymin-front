@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GetInvoiceDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
+import { ICountryCodeWithTranslation } from '@platform/shared/models/country-code-with-translation';
 
 export const NATURAL_PERSON_FORM_NAME = 'naturalPersonInvoice';
+const COUNTRY_LIST_LENGTH = 7;
 
 export enum NaturalPersonInvoiceDetailsFormControlNames {
   FIRST_NAME = 'firstName',
@@ -36,7 +38,7 @@ export class NaturalPersonFormComponent implements OnInit {
   }
 
   @Input()
-  public countryList: ReadonlyArray<{ name: string; code: string }>;
+  public countryList: ReadonlyArray<ICountryCodeWithTranslation>;
 
   public readonly postalCodePattern = Config.patterns.postalCode;
   public readonly formGroupName = NATURAL_PERSON_FORM_NAME;
@@ -47,7 +49,7 @@ export class NaturalPersonFormComponent implements OnInit {
 
   public naturalPersonForm: FormGroup;
   public isDropdownVisible = false;
-  public countryListDisplay: ReadonlyArray<{ name: string; code: string }>;
+  public countryListDisplay: ReadonlyArray<ICountryCodeWithTranslation>;
   private countryFormControl: FormControl;
 
   public ngOnInit(): void {
@@ -67,12 +69,12 @@ export class NaturalPersonFormComponent implements OnInit {
         this.countryListDisplay = this.countryList
           .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
           .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, parseInt('7', 10));
+          .slice(0, COUNTRY_LIST_LENGTH);
       },
     );
   }
 
-  public onCountrySelected(countryName: { name: string; code: string }): void {
+  public onCountrySelected(countryName: ICountryCodeWithTranslation): void {
     this.isDropdownVisible = false;
     this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.code);
     this.countryFormGroup.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.name);
