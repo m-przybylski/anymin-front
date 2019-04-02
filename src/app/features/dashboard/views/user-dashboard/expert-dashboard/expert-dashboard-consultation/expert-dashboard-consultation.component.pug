@@ -10,6 +10,11 @@
 
   plat-consultation-row.expert-dashboard-consultation-row__row(
     *ngFor='let consultation of consultations',
-    [consultation]='consultation',
+    [consultation]="consultation",
+    [isOwnProfile]="isOwnProfile",
+    [expertId]='expertId',
+    [isExpertAvailable]='isExpertAvailable',
+    [expertAccountId]='expertAccountId',
+    [consultationDetails]="paymentMethod",
     (openConsultationDetails)="onOpenConsultationDetails($event)"
   )

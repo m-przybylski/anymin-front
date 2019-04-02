@@ -18,6 +18,7 @@ import { ActivityRowComponent } from '@platform/features/dashboard/components/ac
 import { MoneyDisplayModule } from '@platform/shared/components/money-display/money-display.module';
 import { ExpertOrganizationComponent } from './expert-organization-loader/expert-organization-loader.component';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { ConsultationFooterModule } from '@platform/shared/components/modals/consultation-details/consultation-footers/consultation-footer.module';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
     ExpertAvailabilityModule,
     MoneyDisplayModule,
     ContentLoaderModule,
+    ConsultationFooterModule,
   ],
   declarations: [
     SocialLinksComponent,

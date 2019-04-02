@@ -449,6 +449,8 @@
   "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.other": "{{value}} ocen",
   "CONSULTATION_INFO.CONSULTATION_ROW.RATING.none": "Brak pozytywnych ocen",
   "CONSULTATION_INFO.CONSULTATION_ROW.RATING.other": "{{value}}% pozytywnych",
+  "CONSULTATION_INFO.CONSULTATION_ROW.GROSS_PRICE": "Kwota Brutto",
+  "CONSULTATION_INFO.CONSULTATION_ROW.20_MINUTES_PRICE": "{{time}} min to ok. ",
   "FEATURE.COMMUNICATOR.ALERT.CONNECTED": "Połączono",
   "FEATURE.COMMUNICATOR.ALERT.LIMIT": "Limit, który ustawiłeś na rozmowę, dobiega końca. Zostaniesz rozłączony za {{ seconds }} sekund.",
   "FEATURE.COMMUNICATOR.ALERT.LIMIT_DISABLE_TEXT": "Wyłącz limit",

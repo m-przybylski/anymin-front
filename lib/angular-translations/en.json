@@ -449,6 +449,8 @@
   "CONSULTATION_INFO.CONSULTATION_ROW.COMMENTS.other": "{{value}} ratings",
   "CONSULTATION_INFO.CONSULTATION_ROW.RATING.none": "No positive ratings",
   "CONSULTATION_INFO.CONSULTATION_ROW.RATING.other": "{{value}}% positive",
+  "CONSULTATION_INFO.CONSULTATION_ROW.GROSS_PRICE": "Gross Price",
+  "CONSULTATION_INFO.CONSULTATION_ROW.20_MINUTES_PRICE": "{{time}} min to ok. ",
   "FEATURE.COMMUNICATOR.ALERT.CONNECTED": "Connected",
   "FEATURE.COMMUNICATOR.ALERT.LIMIT": "You’ve nearly reached your conversation limit. You will be disconnected in {{ seconds }}  seconds.",
   "FEATURE.COMMUNICATOR.ALERT.LIMIT_DISABLE_TEXT": "Turn off the limit",

@@ -1,4 +1,4 @@
-.consultation-layout((click)="openConsultationDetailsModal(serviceId)")
+.consultation-layout((click)="showConsultationDetails(serviceId)")
   .consultation-layout__wrapper
     .consultation-layout__for(*ngIf='company')
       span.consultation-layout__for-caption {{'CONSULTATION_INFO.CONSULTATION_ROW.FOR_COMPONANY' | translate}}
@@ -6,13 +6,26 @@
     .consultation-layout__header {{header}}
     .consultation-layout__footer
       plat-consultation-stat(
-        [usageCounter]='usageCounter',
-        [ratingCounter]='ratingCounter',
-        [rating]='rating',
+      [usageCounter]='usageCounter',
+      [ratingCounter]='ratingCounter',
+      [rating]='rating',
       )
-  .consultation-layout__price
-    .consultation-layout__amount
-      span {{price | moneyToAmount}}
-        span.consultation-layout__amount__currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
+  .consultation-layout__left-side
+    .consultation-layout__money-info
+      .consultation-layout__price
+        span {{'CONSULTATION_INFO.CONSULTATION_ROW.GROSS_PRICE' | translate}}
+      .consultation-layout__amount
+        span.consultation-layout__amount--price {{price | moneyToAmount}}
+          span.consultation-layout__amount--currency {{'CONSULTATION_INFO.CONSULTATION_ROW.MINUTE' | translate}}
+      .consultation-layout__calculate-price
+        span {{ 'CONSULTATION_INFO.CONSULTATION_ROW.20_MINUTES_PRICE' | translate: {time: minutesForPrice} }}
+        span {{ twentyMinutesPrice | currency: price.currency:'symbol-narrow':"1.0-0" }}
+    .consultation-layout__button-wrapper
       a.consultation-layout__amount-button(plat-icon-button, color='primary')
-        span(plat-icon iconClass='arrow-right')
+        span(plat-icon iconClass='stroke-right', [ngClass]="{'consultation-layout__amount-button--toggle': !isOwnProfile}")
+.consultation-layout__toggle-section([@rowCollapse]="collapsed", *ngIf="!isOwnProfile")
+  .expended-consultation
+    .expennded-consultation__information
+      span {{ consultation.serviceDetails.description }}
+  .modal-footer
+    ng-container(#footerContainer)

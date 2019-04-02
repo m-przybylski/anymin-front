@@ -36,15 +36,15 @@ export class ConsultationFooterEditComponent extends Logger implements IFooterOu
   }
 
   public get organizationPrice(): string {
-    if (this.data.getCommissions.partnerAmount === undefined) {
+    if (this.data.getCommissions && this.data.getCommissions.partnerAmount === undefined) {
       return '';
     }
 
-    return this.moneyPipe.transform(this.data.getCommissions.partnerAmount);
+    return this.moneyPipe.transform(this.data.getCommissions && this.data.getCommissions.partnerAmount);
   }
 
   public get expertPrice(): string {
-    return this.moneyPipe.transform(this.data.getCommissions.profileAmount);
+    return this.moneyPipe.transform(this.data.getCommissions && this.data.getCommissions.profileAmount);
   }
 
   public get middlePanel(): MiddlePanelStatusTypes {

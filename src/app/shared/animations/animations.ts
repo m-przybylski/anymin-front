@@ -62,8 +62,14 @@ export class Animations {
 
   public static collapse: AnimationTriggerMetadata[] = [
     trigger('collapse', [
-      transition('* => void', [style({ height: '*' }), animate('300ms ease-in-out', style({ height: '0' }))]),
-      transition('void => *', [style({ height: '0' }), animate('300ms ease-in-out', style({ height: '*' }))]),
+      transition('* => void', [
+        style({ height: '*', overflow: 'hidden' }),
+        animate('300ms ease-in-out', style({ height: '0' })),
+      ]),
+      transition('void => *', [
+        style({ height: '0', overflow: 'hidden' }),
+        animate('300ms ease-in-out', style({ height: '*' })),
+      ]),
     ]),
   ];
 
@@ -114,6 +120,14 @@ export class Animations {
       transition(':enter', [
         animate(200, keyframes([style({ opacity: 0, offset: 0 }), style({ opacity: 1, offset: 1 })])),
       ]),
+    ]),
+  ];
+
+  public static rowCollapse: AnimationTriggerMetadata[] = [
+    trigger('rowCollapse', [
+      state('invisible', style({ height: 0 })),
+      state('visible', style({ height: '*' })),
+      transition('invisible <=> visible', animate('275ms ease-in-out')),
     ]),
   ];
 }

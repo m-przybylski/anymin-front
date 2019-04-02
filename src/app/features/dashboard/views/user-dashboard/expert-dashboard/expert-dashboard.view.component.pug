@@ -25,6 +25,8 @@ ng-template(#data)
         [isCompany]="getIsCompany(data)",
         [isLogged]="getIsLogged(data)",
         [companyId]="companyId",
+        [expertId]='getExpertId(data)',
+        [expertAccountId]='getExpertAccountId(data)',
         (addConsultation)='addConsultation(getProfileId(data))',
         (openConsultationDetails) = 'openConsultationDetail($event, getExpertId(data), getExpertAccountId(data))'
       )

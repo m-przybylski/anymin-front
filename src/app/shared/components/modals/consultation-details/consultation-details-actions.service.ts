@@ -116,7 +116,10 @@ export class ConsultationDetailsActionsService extends Logger {
               return from(this.createCallService.call(serviceId, id, expertAccountId));
             }
           } else {
-            modal.close();
+            // Remove after we remove modal consultation
+            if (modal) {
+              modal.close();
+            }
             this.router.navigate([RouterPaths.dashboard.user.payments.asPath]);
           }
 
@@ -131,7 +134,10 @@ export class ConsultationDetailsActionsService extends Logger {
       .subscribe(
         () => {
           this.callStatusService.pushCallStatusEvent(true);
-          modal.close();
+          // Remove after we remove modal consultation
+          if (modal) {
+            modal.close();
+          }
         },
         () => this.callStatusService.pushCallStatusEvent(false),
       );

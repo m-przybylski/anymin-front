@@ -22,7 +22,7 @@ export interface IConsultationFooterData {
   vatRateType?: ServiceWithOwnerProfile.VatRateTypeEnum;
   creditCards: ReadonlyArray<GetCreditCard>;
   defaultPaymentMethod: GetDefaultPaymentMethod;
-  getCommissions: GetCommissions;
+  getCommissions?: GetCommissions;
 }
 
 // tslint:disable:readonly-array

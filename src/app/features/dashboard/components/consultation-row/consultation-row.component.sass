@@ -8,6 +8,7 @@
 .consultation-layout
   display: flex
   justify-content: space-between
+  flex-wrap: wrap
   align-items: center
   position: relative
   cursor: pointer
@@ -41,37 +42,61 @@
     +smm
       +h6
 
-  &__price
-    +button-small
-    font-weight: 500
-    position: absolute
-    right: 12px
-    bottom: 20px
+  &__left-side
     display: flex
-    flex-direction: column
-    justify-content: flex-end
-
-    +smm
-      +h6
-      right: 24px
-      font-weight: 500
-
-    +mdm
-      position: static
-      justify-content: center
-
-  &__amount
-    display: flex
-    flex-direction: row
+    justify-content: space-between
     align-items: center
 
-    &__currency
+  &__money-info
+    padding: 0 12px 0 0
+
+    +xsm
+      padding: 0 24px 0 0
+
+  &__price
+    +label
+    text-transform: uppercase
+    text-align: right
+    font-weight: 700
+    color: $c-label
+
+
+  &__amount
+    +h5
+    font-weight: 700
+    text-align: left
+    padding: 2px 0
+
+    +xsm
+      +h4
+
+    &--currency
       margin: 0 0 0 4px
       font-weight: 400
 
-    &-button
-      display: none
+  &__calculate-price
+    +caption
+    color: $c-label
+    font-weight: 500
+    text-align: right
 
-      +mdm
-        margin-left: 16px
-        display: flex
+  &__button-wrapper
+    display: none
+
+    +xsm
+      display: block
+
+  &__amount-button
+    &--toggle
+      transform: rotate(90deg)
+
+  &__toggle-section
+    flex: 1 0 100%
+    overflow: hidden
+
+
+.expended-consultation
+  padding: 0 12px 24px
+
+  +smm
+    padding: 0 24px 24px
