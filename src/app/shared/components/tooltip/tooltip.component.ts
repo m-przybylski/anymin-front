@@ -18,6 +18,7 @@ import { TooltipContentComponent } from '@platform/shared/components/tooltip/too
   selector: 'plat-tooltip',
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.sass'],
+  providers: [TooltipInjectorService],
 })
 export class TooltipComponent extends Logger implements OnDestroy {
   @Input()
