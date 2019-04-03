@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetInvoiceDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
 import { ICountryCodeWithTranslation } from '@platform/shared/models/country-code-with-translation';
@@ -16,6 +16,7 @@ export enum NaturalPersonInvoiceDetailsFormControlNames {
   POSTAL_CODE = 'postalCode',
   CITY = 'city',
   COUNTRY = 'country',
+  COUNTRY_NAME = 'countryName',
 }
 
 @Component({
@@ -23,7 +24,7 @@ export enum NaturalPersonInvoiceDetailsFormControlNames {
   templateUrl: './natural-person-form.component.html',
   styleUrls: ['./natural-person-form.component.sass'],
 })
-export class NaturalPersonFormComponent implements OnInit {
+export class NaturalPersonFormComponent implements OnInit, AfterViewInit {
   @Input()
   public isRequestPending = false;
 
@@ -43,54 +44,48 @@ export class NaturalPersonFormComponent implements OnInit {
   public readonly postalCodePattern = Config.patterns.postalCode;
   public readonly formGroupName = NATURAL_PERSON_FORM_NAME;
   public readonly naturalPersonControlNames = NaturalPersonInvoiceDetailsFormControlNames;
-  public countryFormGroup = new FormGroup({
-    [NaturalPersonInvoiceDetailsFormControlNames.COUNTRY]: new FormControl(),
-  });
 
   public naturalPersonForm: FormGroup;
   public isDropdownVisible = false;
-  public countryListDisplay: ReadonlyArray<ICountryCodeWithTranslation>;
+  public countryListDisplay: ReadonlyArray<ICountryCodeWithTranslation> = [];
   private countryFormControl: FormControl;
 
   public ngOnInit(): void {
     this.naturalPersonForm = <FormGroup>this.form.get(NATURAL_PERSON_FORM_NAME);
-    this.naturalPersonForm.addControl(NaturalPersonInvoiceDetailsFormControlNames.COUNTRY, new FormControl());
-    this.countryFormControl = this.countryFormGroup.controls[
-      NaturalPersonInvoiceDetailsFormControlNames.COUNTRY
-    ] as FormControl;
-    this.countryFormControl.valueChanges.subscribe(
-      (value: string): void => {
-        if (value === '') {
-          this.countryListDisplay = [];
-          this.isDropdownVisible = false;
-
-          return;
-        }
-        this.countryListDisplay = this.countryList
-          .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, COUNTRY_LIST_LENGTH);
-      },
+    this.naturalPersonForm.addControl(
+      NaturalPersonInvoiceDetailsFormControlNames.COUNTRY,
+      new FormControl('', Validators.required),
     );
+  }
+
+  public ngAfterViewInit(): void {
+    this.countryFormControl = this.naturalPersonForm.controls[
+      NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME
+    ] as FormControl;
   }
 
   public onCountrySelected(countryName: ICountryCodeWithTranslation): void {
     this.isDropdownVisible = false;
     this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.code);
-    this.countryFormGroup.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.name);
+    this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(
+      countryName.name,
+      {
+        emitEvent: false,
+      },
+    );
   }
 
   public showDropdown(): void {
-    this.isDropdownVisible = true;
+    this.isDropdownVisible = this.countryListDisplay.length > 0;
   }
 
   private assignValues(invoiceDetails: GetInvoiceDetails): void {
     if (invoiceDetails.invoiceDetailsType === GetInvoiceDetails.InvoiceDetailsTypeEnum.NATURALPERSON) {
       const country = this.countryList.find(ctry => ctry.code === invoiceDetails.address.countryISO);
-      this.countryFormGroup.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(
-        (country && country.name) || '',
-      );
+      const countryName = (country && country.name) || '';
+      this.countryListDisplay = this.getCountryListDisplay(countryName);
       const formControls = this.naturalPersonForm.controls;
+      formControls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(countryName);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(invoiceDetails.address.countryISO);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.FIRST_NAME].setValue(invoiceDetails.firstName);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.LAST_NAME].setValue(invoiceDetails.lastName);
@@ -104,5 +99,26 @@ export class NaturalPersonFormComponent implements OnInit {
       formControls[NaturalPersonInvoiceDetailsFormControlNames.CITY].setValue(invoiceDetails.address.city);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.POSTAL_CODE].setValue(invoiceDetails.address.postalCode);
     }
+    this.countryFormControl.valueChanges.subscribe(
+      (value: string): void => {
+        this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue('');
+        if (value && value.length < 1) {
+          this.countryListDisplay = [];
+          this.isDropdownVisible = false;
+
+          return;
+        }
+        this.countryListDisplay = this.getCountryListDisplay(value);
+
+        this.showDropdown();
+      },
+    );
+  }
+
+  private getCountryListDisplay(value: string): ReadonlyArray<ICountryCodeWithTranslation> {
+    return this.countryList
+      .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, COUNTRY_LIST_LENGTH);
   }
 }

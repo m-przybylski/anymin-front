@@ -5,9 +5,10 @@
         .input-container__input.dropdown
           am-core-input-text(
           label="DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.COUNTRY_LABEL",
-          [controlName]="naturalPersonControlNames.COUNTRY",
+          [controlName]="naturalPersonControlNames.COUNTRY_NAME",
           [isDisabled]="isRequestPending",
-          [form]="countryFormGroup",
+          [form]="naturalPersonForm",
+          [isRequired]="true",
           (click)="showDropdown()"
           )
           .dropdown-list(*ngIf="isDropdownVisible")

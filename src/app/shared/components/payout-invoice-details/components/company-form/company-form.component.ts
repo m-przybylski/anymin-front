@@ -19,6 +19,7 @@ export enum CompanyInvoiceDetailsFormControlNames {
   VAT_RATE = 'vatRate',
   COMPANY_TERMS = 'companyTerms',
   COUNTRY = 'country',
+  COUNTRY_NAME = 'countryName',
 }
 
 @Component({
@@ -52,11 +53,8 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
   public readonly companyFormName = COMPANY_FORM_NAME;
   public readonly vatRateType = PostCompanyDetails.VatRateTypeEnum;
 
-  public countryFormGroup = new FormGroup({
-    [CompanyInvoiceDetailsFormControlNames.COUNTRY]: new FormControl(),
-  });
   public isDropdownVisible = false;
-  public countryListDisplay: ReadonlyArray<ICountryCodeWithTranslation>;
+  public countryListDisplay: ReadonlyArray<ICountryCodeWithTranslation> = [];
   public companyForm: FormGroup;
   public isEditForm = false;
 
@@ -65,50 +63,37 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.companyForm = <FormGroup>this.form.get(COMPANY_FORM_NAME);
     this.companyForm.addControl(CompanyInvoiceDetailsFormControlNames.COUNTRY, new FormControl());
-    this.countryFormControl = this.countryFormGroup.controls[
-      CompanyInvoiceDetailsFormControlNames.COUNTRY
-    ] as FormControl;
-    this.countryFormControl.valueChanges.subscribe(
-      (value: string): void => {
-        if (value === '') {
-          this.countryListDisplay = [];
-          this.isDropdownVisible = false;
-
-          return;
-        }
-        this.countryListDisplay = this.countryList
-          .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, COUNTRY_LIST_LENGTH);
-      },
-    );
   }
 
   public onCountrySelected(countryName: ICountryCodeWithTranslation): void {
-    this.isDropdownVisible = false;
     this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.code);
-    this.countryFormGroup.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.name);
+    this.countryFormControl.setValue(countryName.name, { emitEvent: false });
+    this.isDropdownVisible = false;
   }
 
   public showDropdown(): void {
-    this.isDropdownVisible = true;
+    this.isDropdownVisible = this.countryListDisplay.length > 0;
   }
 
   public ngAfterViewInit(): void {
     this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].setValue(
       GetInvoiceDetails.VatRateTypeEnum.COMPANY0,
     );
+    this.countryFormControl = this.companyForm.controls[
+      CompanyInvoiceDetailsFormControlNames.COUNTRY_NAME
+    ] as FormControl;
   }
 
   private assignValues(invoiceDetails: GetInvoiceDetails): void {
     this.isEditForm = true;
     if (invoiceDetails.invoiceDetailsType === GetInvoiceDetails.InvoiceDetailsTypeEnum.COMPANY) {
       const country = this.countryList.find(ctry => ctry.code === invoiceDetails.address.countryISO);
-      this.countryFormGroup.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(
-        (country && country.name) || '',
-      );
+      const countryName = (country && country.name) || '';
+      this.countryListDisplay = this.getCountryListDisplay(countryName);
       const formControls = this.companyForm.controls;
       formControls[CompanyInvoiceDetailsFormControlNames.COMPANY_NAME].setValue(invoiceDetails.companyName);
+      formControls[CompanyInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(countryName);
+      formControls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(invoiceDetails.address.countryISO);
       formControls[CompanyInvoiceDetailsFormControlNames.VAT_NUMBER].setValue(invoiceDetails.vatNumber);
       formControls[CompanyInvoiceDetailsFormControlNames.STREET].setValue(invoiceDetails.address.street);
       formControls[CompanyInvoiceDetailsFormControlNames.STREET_NUMBER].setValue(invoiceDetails.address.streetNumber);
@@ -119,5 +104,24 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
       formControls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].setValue(invoiceDetails.address.postalCode);
       formControls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].setValue(invoiceDetails.vatRateType);
     }
+    this.countryFormControl.valueChanges.subscribe(
+      (value: string): void => {
+        this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue('');
+        if (value === '') {
+          this.countryListDisplay = [];
+          this.isDropdownVisible = false;
+
+          return;
+        }
+        this.countryListDisplay = this.getCountryListDisplay(value);
+        this.showDropdown();
+      },
+    );
+  }
+  private getCountryListDisplay(value: string): ReadonlyArray<ICountryCodeWithTranslation> {
+    return this.countryList
+      .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, COUNTRY_LIST_LENGTH);
   }
 }
