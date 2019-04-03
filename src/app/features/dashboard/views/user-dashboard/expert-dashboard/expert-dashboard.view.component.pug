@@ -5,15 +5,15 @@ ng-template(#data)
     .expert-dashboard-layout
       .container
         plat-dashboard-profile-header(
-          [isLoading]='isLoading$ | async',
           [avatarToken]='getAvatarToken(data)',
           [name]='getName(data)',
-          [links]='getLinks(data)',
           [description]='getDescription(data)',
+          [links]='getLinks(data)',
           [isOwnProfile]='getIsOwnProfile(data)',
-          [expertId]='getExpertId(data)',
           [isLogged]='getIsLogged(data)',
+          [expertId]='getExpertId(data)',
           [attachments]='getExpertDocuments(data)',
+          [languages]="getLanguages(data)",
           (editProfile)='editProfile(getExpertId(data))',
           (openGallery)='onOpenGallery(getExpertDocuments(data))'
         )

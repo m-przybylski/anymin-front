@@ -111,6 +111,15 @@ export class ExpertDashboardComponent extends ProfileBaseComponent implements On
     return data.profile.expertProfileView.expertProfile.accountId;
   }
 
+  public getLanguages(data: IExpertCompanyDashboardResolverData<IExpertProfile>): ReadonlyArray<string> {
+    return Array.from(
+      data.profile.expertProfileView.employments.reduce(
+        (acc, cur) => acc.add(`CONSULTATION_LANGUAGE.${cur.serviceDetails.language.toUpperCase()}`),
+        new Set<string>(),
+      ),
+    );
+  }
+
   public ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroyed$)).subscribe(paramMap => {
       const expertId = paramMap.get(RouterPaths.dashboard.user.profile.params.expertId) || '';

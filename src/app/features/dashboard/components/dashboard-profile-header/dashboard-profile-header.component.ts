@@ -21,15 +21,11 @@ export class DashboardProfileHeaderComponent implements OnInit {
   @Input()
   public attachments: ReadonlyArray<string> = [];
   @Input()
-  public expertId?: string;
-  @Input()
   public isLogged = false;
   @Input()
+  public expertId?: string;
+  @Input()
   public companyId?: string;
-  @Input()
-  public filesLength?: string;
-  @Input()
-  public isLoading: boolean;
   @Input()
   public languages: ReadonlyArray<string>;
 
