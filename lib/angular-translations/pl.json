@@ -721,5 +721,7 @@
   "SEARCH_CONSULTATIONS_LIST.BUTTON.TITLE": "Więcej wyników",
   "LANGUAGES.POLISH": "Polski",
   "LANGUAGES.ENGLISH": "English",
-  "PANEL.LEARN_MORE": "dowiedz się więcej"
+  "PANEL.LEARN_MORE": "dowiedz się więcej",
+  "CONSULTATION_LANGUAGE.PL": "Polskim",
+  "CONSULTATION_LANGUAGE.EN": "Angielskim"
 }

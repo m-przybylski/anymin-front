@@ -81,9 +81,13 @@ export class CompanyProfileComponent extends ProfileBaseComponent implements OnI
 
   public getLanguages(data: ReadonlyArray<ServiceWithEmployments>): ReadonlyArray<string> {
     return Array.from(
-      data.reduce((acc, cur) => acc.add(`LANGUAGE.${cur.service.language.toUpperCase()}`), new Set<string>()),
+      data.reduce(
+        (acc, cur) => acc.add(`CONSULTATION_LANGUAGE.${cur.service.language.toUpperCase()}`),
+        new Set<string>(),
+      ),
     );
   }
+
   public ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroyed$)).subscribe(paramMap => {
       const profileId = paramMap.get(RouterPaths.dashboard.company.profile.params.profileId) || '';
