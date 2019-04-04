@@ -58,7 +58,7 @@ export class InputSearchComponent implements OnInit, OnDestroy {
         filter(value => value.length > 1),
         switchMap(() =>
           this.inputSearchService
-            .searchQuerySuggestions(this.searchFormGroupName.controls[this.searchControlName].value)
+            .searchQuerySuggestions(this.searchInputValue)
             .pipe(map(res => this.mapSuggestedConsultations(res))),
         ),
       )
@@ -70,7 +70,7 @@ export class InputSearchComponent implements OnInit, OnDestroy {
 
   public onSelectItem(value: IDropdownComponent): void {
     this.searchFormGroupName.controls[this.searchControlName].setValue(value.name);
-    this.urlQueryParamsService.updateQueryParam(this.searchFormGroupName.controls[this.searchControlName].value);
+    this.urlQueryParamsService.updateQueryParam(this.searchInputValue);
     this.onBlur();
   }
 
@@ -80,8 +80,8 @@ export class InputSearchComponent implements OnInit, OnDestroy {
   }
 
   public onClickSearch(): void {
-    if (!this.isSelectQueryFromList && this.searchFormGroupName.controls[this.searchControlName].value.length > 0) {
-      this.urlQueryParamsService.updateQueryParam(this.searchFormGroupName.controls[this.searchControlName].value);
+    if (!this.isSelectQueryFromList && this.searchInputValue.length > 0) {
+      this.urlQueryParamsService.updateQueryParam(this.searchInputValue);
       this.onBlur();
     }
   }
@@ -101,6 +101,10 @@ export class InputSearchComponent implements OnInit, OnDestroy {
       this.urlQueryParamsService.updateQueryParam(event.target.value);
       this.onBlur();
     }
+  }
+
+  private get searchInputValue(): string {
+    return this.searchFormGroupName.controls[this.searchControlName].value;
   }
 
   private getInputValue(): void {
@@ -124,10 +128,13 @@ export class InputSearchComponent implements OnInit, OnDestroy {
       this.suggestedSearchResults &&
       this.suggestedSearchResults.length !== 0 &&
       this.isFocused &&
-      this.searchFormGroupName.controls[this.searchControlName].value.length > 1;
+      this.searchInputValue.length > 1;
   }
 
-  private mapSuggestedConsultations(consultaitonList: GetSuggestedQueries): ReadonlyArray<IDropdownComponent> {
-    return consultaitonList.suggestions.map(item => ({ name: item }));
+  private mapSuggestedConsultations(query: GetSuggestedQueries): ReadonlyArray<IDropdownComponent> {
+    const suggestions =
+      this.searchInputValue === query.autocomplete ? query.suggestions : [query.autocomplete, ...query.suggestions];
+
+    return suggestions.map(item => ({ name: item }));
   }
 }
