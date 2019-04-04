@@ -1,6 +1,8 @@
 // tslint:disable:strict-boolean-expressions
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FileUrlResolveService } from '@platform/shared/services/file-url-resolve/file-url-resolve.service';
+import { RouterHelpers, RouterPaths } from '@platform/shared/routes/routes';
+import { Router } from '@angular/router';
 
 export enum AvatarSizeEnum {
   X_24,
@@ -27,6 +29,10 @@ export class UserAvatarComponent {
   public set avatarToken(value: string) {
     this.avatarUrl = value ? this.resolveFileUrl(value) : '';
   }
+  @Input()
+  public expertProfileId?: string;
+  @Input()
+  public organizationProfileId?: string;
 
   @Input()
   public isOrganizationAvatar = false;
@@ -34,7 +40,7 @@ export class UserAvatarComponent {
   public avatarUrl?: string;
   public loaded = false;
 
-  constructor(private fileUrlResolveService: FileUrlResolveService) {}
+  constructor(private fileUrlResolveService: FileUrlResolveService, private router: Router) {}
 
   public setAvatarClass(): string {
     // tslint:disable-next-line:cyclomatic-complexity
@@ -65,6 +71,22 @@ export class UserAvatarComponent {
 
       default:
         return 'user-avatar--x48';
+    }
+  }
+
+  public onAvatarClicked(): void {
+    const pathToNavigate =
+      this.expertProfileId !== undefined
+        ? RouterHelpers.replaceParams(RouterPaths.dashboard.user.profile.asPath, {
+            [RouterPaths.dashboard.user.profile.params.expertId]: this.expertProfileId,
+          })
+        : this.organizationProfileId !== undefined
+        ? RouterHelpers.replaceParams(RouterPaths.dashboard.company.profile.asPath, {
+            [RouterPaths.dashboard.company.profile.params.profileId]: this.organizationProfileId,
+          })
+        : undefined;
+    if (pathToNavigate !== undefined) {
+      this.router.navigate([pathToNavigate]);
     }
   }
 

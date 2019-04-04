@@ -1,13 +1,6 @@
 @import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
 @import "../../../../template/core/core"
 
-=avatar-size($val)
-  width: $val
-  height: $val
-  min-width: $val
-  min-height: $val
-
-
 .consultation-details
   padding: 24px 16px 32px
 
@@ -47,18 +40,6 @@
             .user-avatar
               img
                 box-shadow: 0 0 0 2px $c-white
-
-    &::ng-deep
-      plat-user-avatar
-        display: block
-
-        .user-avatar
-          img
-            +xsm-max
-              +avatar-size(64px)
-
-            +mdm-max
-              +avatar-size(80px)
 
     &__data
       margin: 0 0 0 16px

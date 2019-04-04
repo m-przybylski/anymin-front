@@ -38,4 +38,12 @@ export class SearchConsultationItemComponent implements OnInit {
 
     this.modalService.open(ConsultationDetailsModalComponent, options);
   }
+
+  public get expertId(): string {
+    return this.item.expertProfile.id;
+  }
+
+  public get avatar(): string {
+    return this.item.expertProfile.avatar;
+  }
 }

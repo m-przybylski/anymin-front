@@ -3,12 +3,13 @@
     .profile-details__avatar
       plat-user-avatar(
       [avatarSize]="avatarSize96",
-      [avatarToken]="item.expertProfile.avatar"
+      [avatarToken]="avatar",
+      [expertProfileId]="expertId"
       )
     .profile-details__info
       .profile-details__expert-name
         plat-expert-availability(
-          [expertId]="item.expertProfile.id",
+          [expertId]="expertId",
           [isTextVisible]="false"
         )
         span {{ item.expertProfile.name }}

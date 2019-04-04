@@ -1,6 +1,10 @@
 import { InjectionToken } from '@angular/core';
 
 export class RouterHelpers {
+  /**
+   * @param pathToReplace path containing eg :param
+   * @param params object containing pair of key value. Key must equal to string you want to replace eg. param
+   */
   public static replaceParams = (pathToReplace: string, params: { [key: string]: string }): string =>
     Object.keys(params)
       .map(key => `:${key}`)

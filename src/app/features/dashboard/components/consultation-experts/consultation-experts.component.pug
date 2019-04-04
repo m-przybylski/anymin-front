@@ -4,7 +4,10 @@
       span(plat-icon, iconClass='organization')
       span {{'CONSULTATION_INFO.CONSULTATION_ROW.EXPERTS.NO_JOINS' | translate }}
     li(*ngFor='let expertAvatarToken of expertAvatarTokenList').consultation-experts-layout__list-item
-      plat-user-avatar([avatarToken]='expertAvatarToken', [avatarSize]='avatarSize')
+      plat-user-avatar(
+        [avatarToken]='expertAvatarToken',
+        [avatarSize]='avatarSize'
+      )
     li.consultation-experts-layout__list-item--multiple(*ngIf='overLimit > 0')
       span(plat-icon, iconClass='organization')
       span +{{overLimit}}

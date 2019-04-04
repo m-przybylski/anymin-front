@@ -1,4 +1,4 @@
-.user-avatar([ngClass]="setAvatarClass()")
+.user-avatar([ngClass]="setAvatarClass()", (click)="onAvatarClicked()")
   ng-container(*ngIf="avatarUrl; else iconAvatar")
     span.icon--profile.icon--profile_preload(*ngIf='!loaded', plat-icon, [iconClass]='isOrganizationAvatar ? "organization" : "avatar"')
     img.user-avatar__img([src]="avatarUrl", (load)='loaded = true', [ngClass]='{ "user-avatar__img--empty": !loaded, "user-avatar__img--loaded": loaded }', imageBroken)

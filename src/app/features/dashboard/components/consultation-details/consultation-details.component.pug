@@ -1,10 +1,11 @@
 .consultation-details
   .consultation-details__header
     .user-details
-      .user-details__avatar(*ngIf="avatarSize")
+      .user-details__avatar
         plat-user-avatar(
         [avatarSize]="avatarSize",
-        [avatarToken]="avatarToken"
+        [avatarToken]="avatarToken",
+        [expertProfileId]="expertId",
         )
 
         .user-details__avatar--company(*ngIf="companyLogo")
