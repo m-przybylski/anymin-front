@@ -10,109 +10,120 @@
   display: flex
   align-items: center
   position: relative
-  
+
   &__img
     border-radius: 50%
     width: 100%
     height: 100%
     border: 1px solid $c-lines
-  
+
   &--x156
     img,
     .user-avatar__error
       +avatar-size(156px)
-    
+
     .icon
       font-size: 156px
-      
+
       &--profile
         +avatar-size(156px)
-        
+
         &.icon-organization
           font-size: 116px
-  
+
   &--x96
     img
       +avatar-size(96px)
-    
+
     .icon
       font-size: 96px
-      
+
       &--profile
         width: 96px
         height: 96px
-  
+
   &--x80
     img
       +avatar-size(80px)
-    
+
     .icon
       font-size: 80px
-      
+
       &--profile
         width: 80px
         height: 80px
-  
+
   &--x56
     img
       +avatar-size(56px)
-    
+
     .icon
       font-size: 56px
-      
+
       &--profile
         width: 56px
         height: 56px
-  
+
   &--x48
     img
       +avatar-size(48px)
-    
+
     .icon
       font-size: 48px
-      
+
       &--profile
         width: 48px
         height: 48px
-  
+
   &--x40
     img
       +avatar-size(40px)
-    
+
     .icon
       font-size: 40px
-      
+
       &--profile
         width: 40px
         height: 40px
-  
+
   &--x32
     img
       +avatar-size(32px)
-    
+
     .icon
       font-size: 32px
-      
+
       &--profile
         width: 32px
         height: 32px
-  
+
   &--x24
     img
       +avatar-size(24px)
     .icon
       font-size: 24px
-      
+
       &--profile
         width: 24px
         height: 24px
-  
+
+  &__border
+    position: absolute
+    width: 100%
+    height: 100%
+    border-radius: 50%
+    border: 3px solid transparent
+    transition: border-color 0.3s ease
+
+    &:hover
+      border-color: $c-primary
+
   .icon
     &--profile
       background: $c-text-primary
       color: $c-half-white
       border-radius: 50%
-      
+
       &_preload
         position: absolute
         top: 0
