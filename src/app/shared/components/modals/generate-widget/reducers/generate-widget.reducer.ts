@@ -1,11 +1,11 @@
-import * as GenerateWidgetActions from '../actions/generate-widget.actions';
+import { GenerateWidgetActions, GenerateWidgetApiActions } from '../actions';
 import * as fromRoot from '@platform/reducers';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface IGenerateWidgetState {
   expertId?: string;
   serviceId?: string;
   widgetId?: string;
+  shareUrl?: string;
   fetchWidgetIdPending: boolean;
 }
 
@@ -20,15 +20,17 @@ export const initialState: IGenerateWidgetState = {
 // tslint:disable-next-line:only-arrow-functions
 export function reducer(
   state = initialState,
-  action: GenerateWidgetActions.GenerateWidgetActionsUnion,
+  action: GenerateWidgetActions.GenerateWidgetActionsUnion | GenerateWidgetApiActions.GenerateWidgetActionsUnion,
 ): IGenerateWidgetState {
   switch (action.type) {
-    case GenerateWidgetActions.GenerateWidgetActionTypes.StartOpenGenerateWidgetModal:
-    case GenerateWidgetActions.GenerateWidgetActionTypes.FetchWidgetId: {
-      return { ...state, fetchWidgetIdPending: true };
+    case GenerateWidgetActions.GenerateWidgetActionTypes.OpenGenerateWidgetModal: {
+      return {
+        ...state,
+        fetchWidgetIdPending: true,
+        shareUrl: action.payload.shareLink,
+      };
     }
-    case GenerateWidgetActions.GenerateWidgetActionTypes.OpenGenerateWidgetModal:
-    case GenerateWidgetActions.GenerateWidgetActionTypes.FetchWidgetIdSuccess: {
+    case GenerateWidgetApiActions.GenerateWidgetApiActionTypes.FetchWidgetIdSuccess: {
       return {
         ...state,
         expertId: action.payload.expertId,
@@ -37,7 +39,7 @@ export function reducer(
         fetchWidgetIdPending: false,
       };
     }
-    case GenerateWidgetActions.GenerateWidgetActionTypes.FetchWidgetIdFailure: {
+    case GenerateWidgetApiActions.GenerateWidgetApiActionTypes.FetchWidgetIdFailure: {
       return { ...state, fetchWidgetIdPending: false };
     }
     default: {
@@ -45,22 +47,3 @@ export function reducer(
     }
   }
 }
-export const selectGenerateWidgetState = createFeatureSelector<IState, IGenerateWidgetState>('generateWidget');
-
-export const getAll = createSelector(
-  selectGenerateWidgetState,
-  (state: IGenerateWidgetState): IGenerateWidgetState => state,
-);
-
-export const getExpertId = createSelector(
-  selectGenerateWidgetState,
-  (state: IGenerateWidgetState): string | undefined => state.expertId,
-);
-export const getServiceID = createSelector(
-  selectGenerateWidgetState,
-  (state: IGenerateWidgetState): string | undefined => state.serviceId,
-);
-export const getWidgetId = createSelector(
-  selectGenerateWidgetState,
-  (state: IGenerateWidgetState): string | undefined => state.widgetId,
-);

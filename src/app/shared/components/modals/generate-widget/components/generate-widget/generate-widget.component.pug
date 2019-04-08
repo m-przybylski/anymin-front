@@ -15,6 +15,7 @@ plat-modal-component(
                 button(plat-icon-button)
                   a(plat-icon, [iconClass]='icon.iconName', [href]='icon.url', target='_blank')
           .generate-widget-step-content-section
+            h2.generate-widget-step-content-section__header {{"GENERATE_WIDGET_MODAL.CONTENT.HEADER1" | translate}}
             p(innerHtml="{{'GENERATE_WIDGET_MODAL.CONTENT.TEXT2' | translate}}")
             .generate-widget-copy([plat-copy-to-clipboard]="widgetId") {{ widgetId }}
           .generate-widget-step-content-section

@@ -1,2 +1,3 @@
 import * as GenerateWidgetActions from './generate-widget.actions';
-export { GenerateWidgetActions };
+import * as GenerateWidgetApiActions from './generate-widget.api.actions';
+export { GenerateWidgetActions, GenerateWidgetApiActions };

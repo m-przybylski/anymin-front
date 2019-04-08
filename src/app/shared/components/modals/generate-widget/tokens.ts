@@ -6,4 +6,5 @@ export interface IGenerateWidgetData {
   expertId?: string;
   serviceId: string;
   widgetId: string;
+  shareLink: string;
 }

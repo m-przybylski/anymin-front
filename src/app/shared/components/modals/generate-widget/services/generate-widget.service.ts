@@ -19,17 +19,13 @@ export class GenerateWidgetService extends Logger {
     super(loggerFactory.createLoggerService('GenerateWidgetService'));
   }
 
-  public openModal({ serviceId, expertId, widgetId }: IGenerateWidgetData): NgbModalRef {
+  public openModal(generateWidgetData: IGenerateWidgetData): NgbModalRef {
     return this.modalService.open(GenerateWidgetComponent, {
       injector: Injector.create({
         providers: [
           {
             provide: GENERATE_WIDGET_DATA,
-            useValue: {
-              serviceId,
-              expertId,
-              widgetId,
-            },
+            useValue: generateWidgetData,
           },
         ],
         parent: this.injector,
@@ -38,9 +34,12 @@ export class GenerateWidgetService extends Logger {
   }
 
   public saveToClipboard(textToCopy: string, successMsg?: string): void {
-    this.clipboardService.writeText(textToCopy).then(() => {
-      this.onSuccess.bind(this)(successMsg);
-    }, this.onFailure.bind(this));
+    this.clipboardService.writeText(textToCopy).then(
+      () => {
+        this.onSuccess(successMsg);
+      },
+      () => this.onFailure(),
+    );
   }
 
   private onFailure(): void {

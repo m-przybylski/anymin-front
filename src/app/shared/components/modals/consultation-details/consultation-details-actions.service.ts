@@ -139,7 +139,10 @@ export class ConsultationDetailsActionsService extends Logger {
 
   public share({ serviceId, modal, expertId }: IConsultationDetailActionParameters): void {
     modal.close();
-    this.store.dispatch(new GenerateWidgetActions.StartOpenGenerateWidgetAction({ serviceId, expertId }));
+    // once expert id is not provided we are not in expert screen.
+    this.store.dispatch(
+      new GenerateWidgetActions.StartOpenGenerateWidgetAction({ serviceId, expertId, shareLink: window.location.href }),
+    );
   }
 
   private redirectToLogin(modal: NgbActiveModal): Observable<undefined> {

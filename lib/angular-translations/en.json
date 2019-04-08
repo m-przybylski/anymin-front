@@ -607,6 +607,7 @@
   "CALL_SUMMARY.ALERT_RATED_POSITIVE_SUCCESSFULLY": "You've successfully rated the consultation.",
   "GENERATE_WIDGET_MODAL.HEADER": "Generate widget",
   "GENERATE_WIDGET_MODAL.CONTENT.INSTALL": "Install widget",
+  "GENERATE_WIDGET_MODAL.CONTENT.HEADER1": "Zainstaluj anymind na stronie www:",
   "GENERATE_WIDGET_MODAL.CONTENT.TEXT1": "Copy and share a direct link<br/> to your consultation.",
   "GENERATE_WIDGET_MODAL.CONTENT.TEXT2": "If you run a WordPress site, install our plugin. See the <a href='https://AnyMind.zendesk.com/hc/pl/articles/360002303651--Zamieszczenie-wtyczki-na-stronie-opartej-o-WordPress' target='_blank'>instructions.</a>",
   "GENERATE_WIDGET_MODAL.CONTENT.TEXT3": "You can install the widget on your website manually.",

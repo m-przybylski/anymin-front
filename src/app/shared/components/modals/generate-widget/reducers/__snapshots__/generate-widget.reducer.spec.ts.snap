@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate-widget.reducer FetchWidgetIdError should update store with given value 1`] = `
+Object {
+  "fetchWidgetIdPending": false,
+}
+`;
+
+exports[`generate-widget.reducer FetchWidgetIdSuccess should update store with given value 1`] = `
+Object {
+  "expertId": "fake expert Id",
+  "fetchWidgetIdPending": false,
+  "serviceId": "fake service Id",
+  "widgetId": "fake widget Id",
+}
+`;
+
+exports[`generate-widget.reducer StartOpenGenerateWidgetModal should populate state with expert and service 1`] = `
+Object {
+  "fetchWidgetIdPending": true,
+  "shareUrl": "fake url",
+}
+`;

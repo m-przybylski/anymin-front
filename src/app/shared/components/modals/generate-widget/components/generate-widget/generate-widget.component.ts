@@ -61,10 +61,10 @@ export class GenerateWidgetComponent extends Logger implements OnInit, AfterView
   ) {
     super(loggerFactory.createLoggerService('GenerateWidgetComponent'));
     this.widgetId = data.widgetId;
+    this.widgetLink = data.shareLink;
   }
 
   public ngOnInit(): void {
-    this.widgetLink = this.generateWidgetDataService.getWidgetLink(this.widgetId);
     this.headScript = this.generateWidgetDataService.getWidgetSdkLink(this.widgetId);
     this.iframeSrc = this.generateWidgetDataService.getRendertronLink(this.widgetLink);
     this.buttonType = new FormControl('');
