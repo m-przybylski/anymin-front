@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchListModule } from '@platform/features/search/search-list/search-list.module';
 import { SearchViewService } from '@platform/features/search/search.view.service';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
+import { RegistrationModalModule } from '@platform/shared/components/modals/login/registration-modal/registration-modal.module';
 
 @NgModule({
   declarations: [SearchViewComponent, SearchTagsComponent],
@@ -22,6 +23,7 @@ import { ContentLoaderModule } from '@platform/shared/components/content-loader/
     TranslateModule.forChild(),
     SearchListModule,
     ContentLoaderModule,
+    RegistrationModalModule,
   ],
   providers: [SearchViewService],
 })

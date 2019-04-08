@@ -1,0 +1,58 @@
+.registration-form
+  form.form(
+  [id]="registerFormId",
+  [formGroup]="registerForm",
+  novalidate,
+  (ngSubmit)="onFormSubmit(registerForm)"
+  )
+    .input-icon-container
+      span(plat-icon, iconClass='avatar')
+      am-core-input-email(
+      label="REGISTER.LOGIN.LABEL",
+      placeholder="REGISTER.LOGIN.PLACEHOLDER",
+      [controlName]="loginControlName",
+      [form]="registerForm",
+      [initialFocus]="true",
+      [isDisabled]="isRequestPending$ | async",
+      [isRequired]="true",
+      )
+
+    .input-icon-container
+      span(plat-icon, iconClass='lock-closed')
+      am-core-input-set-password(
+      label="LOGIN.PASSWORD.ENTER_PASSWORD.LABEL",
+      placeholder="LOGIN.PASSWORD.ENTER_PASSWORD.PLACEHOLDER",
+      [form]="registerForm",
+      [controlName]="passwordControlName",
+      [isDisabled]="isRequestPending$ | async"
+      )
+
+    am-core-input-checkbox(
+    label="LOGIN.PIN_CODE.ACCEPT_TERMS",
+    errorTextKey="LOGIN.PIN_CODE.ACCEPT_TERMS.VALIDATION_MESSAGE",
+    [isRequired]="true",
+    [form]="registerForm",
+    [controlName]="termsOfServiceControlName",
+    [isDisabled]="isRequestPending$ | async"
+    )
+
+    am-core-input-checkbox(
+    label="LOGIN.PIN_CODE.ACCEPT_MARKETING",
+    errorTextKey="LOGIN.PIN_CODE.ACCEPT_MARKETING.VALIDATION_MESSAGE",
+    [form]="registerForm",
+    [controlName]="termsOfMarketingControlName",
+    [isDisabled]="isRequestPending$ | async"
+    )
+
+    .registration-form__action
+      am-core-submit-button(
+      titleText="REGISTER.SUBMIT_BUTTON",
+      [isLoading]="isRequestPending$ | async"
+      )
+
+      p.rodo-policy([innerHTML]="'LOGIN.PIN_CODE.RODO_POLICY' | translate")
+
+      .registration-form__links
+        p.login {{ "REGISTER.HAVE_ACCOUNT" | translate }} &nbsp;
+          a((click)="loginClick()") {{ "REGISTER.LOG_IN" | translate }}
+

@@ -92,6 +92,7 @@ export class NavbarComponent extends Logger implements OnInit, OnDestroy {
         /**
          * when array is empty nothing will be send
          */
+
         actions.forEach(action => {
           this.store.dispatch(action);
         });

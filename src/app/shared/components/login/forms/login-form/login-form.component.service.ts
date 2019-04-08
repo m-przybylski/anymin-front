@@ -8,17 +8,21 @@ import * as fromCore from '@platform/core/reducers';
 import { AuthActions } from '@platform/core/actions';
 
 @Injectable()
-export class LoginViewService extends Logger {
+export class LoginFormComponentService extends Logger {
   constructor(
     private store: Store<fromCore.IState>,
     private registrationInvitationService: RegistrationInvitationService,
     loggerFactory: LoggerFactory,
   ) {
-    super(loggerFactory.createLoggerService('LoginViewService'));
+    super(loggerFactory.createLoggerService('LoginFormComponentService'));
   }
 
-  public login(credentials: LoginCredentials): void {
-    this.store.dispatch(new AuthActions.LoginAction(credentials));
+  public login(credentials: LoginCredentials, isOpenInModal: boolean): void {
+    if (isOpenInModal) {
+      this.store.dispatch(new AuthActions.LoginModalAction(credentials));
+    } else {
+      this.store.dispatch(new AuthActions.LoginAction(credentials));
+    }
   }
 
   public getLoginFromInvitation(): string | undefined {

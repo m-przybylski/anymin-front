@@ -1,0 +1,18 @@
+plat-modal-component(
+[modalTrTitleHeader]="modalHeaderTranslate",
+[modalContainerClass]="modalContainerClass"
+)
+  plat-stepper(
+  #stepper='platStepper'
+  )
+    plat-step
+      .registration-modal
+        plat-registration-form((onLoginLinkClick)="onLoginClick()", [isOpenInModal]="true")
+
+    plat-step
+      .login-modal
+        plat-login-form((onRegistrationLinkClick)="onRegistrationClick()", (onResetPasswordClick)="closeModal()", [isOpenInModal]="true")
+
+    plat-step
+      .payment-card-modal
+        // next step

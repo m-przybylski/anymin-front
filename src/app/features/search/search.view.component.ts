@@ -7,6 +7,8 @@ import { URLQueryParamsService } from '@platform/core/services/search/url-query-
 import { GetSearchRequestResult } from '@anymind-ng/api';
 import { Params } from '@angular/router';
 import { Animations } from '@platform/shared/animations/animations';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegistrationModalComponent } from '@platform/shared/components/modals/login/registration-modal/registration-modal.component';
 
 @Component({
   selector: 'plat-search.view',
@@ -29,7 +31,15 @@ export class SearchViewComponent implements OnInit, OnDestroy {
   private currentSearchResultOffset = 0;
   private readonly offsetSearchResult = 10;
 
-  constructor(private searchViewService: SearchViewService, private urlQueryParamsService: URLQueryParamsService) {}
+  constructor(
+    private searchViewService: SearchViewService,
+    private urlQueryParamsService: URLQueryParamsService,
+    private modal: NgbModal,
+  ) {}
+
+  public onOpen(): void {
+    this.modal.open(RegistrationModalComponent);
+  }
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe$.next();

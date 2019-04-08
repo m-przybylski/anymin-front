@@ -89,6 +89,14 @@ export const getSessionPending = createSelector(
   fromSession.getPending,
 );
 
+export const getRegisterByModal = createSelector(
+  selectSession,
+  fromSession.isRegisterByModal,
+);
+export const getLoginByModal = createSelector(
+  selectSession,
+  fromSession.isLoginByModal,
+);
 export const getFirstLogin = createSelector(
   selectSession,
   fromSession.isFirstLogin,

@@ -3,6 +3,8 @@ import { LoginCredentials, GetSessionWithAccount } from '@anymind-ng/api';
 
 export enum AuthActionTypes {
   Login = '[auth] Login',
+  LoginFromModal = '[auth] Login from modal',
+  LoginFromModalSuccess = '[auth] Login from modal success',
   LoginError = '[auth] Login error',
   LoginSuccess = '[auth] Login success',
   Logout = '[auth] Logout',
@@ -20,12 +22,23 @@ export class LoginAction implements Action {
 
   constructor(public payload: LoginCredentials) {}
 }
+
+export class LoginModalAction implements Action {
+  public readonly type = AuthActionTypes.LoginFromModal;
+
+  constructor(public payload: LoginCredentials) {}
+}
+
 export class LoginErrorAction implements Action {
   public readonly type = AuthActionTypes.LoginError;
 
   // tslint:disable-next-line:no-any
   constructor(public payload: any) {}
 }
+export class LoginModalSuccessAction implements Action {
+  public readonly type = AuthActionTypes.LoginFromModalSuccess;
+}
+
 export class LoginSuccessAction implements Action {
   public readonly type = AuthActionTypes.LoginSuccess;
 
@@ -73,4 +86,6 @@ export type AuthActionsUnion =
   | DashboardRedirectAction
   | FirstLoginAfterRegistrationAction
   | UpdateFirstTimeLoginStatusAction
+  | LoginModalAction
+  | LoginModalSuccessAction
   | LogoutRemoteAction;

@@ -17,6 +17,8 @@ export interface IState {
   // tslint:disable-next-line:no-any
   error?: any;
   isFirstTimeLogin?: boolean;
+  isLoginByModal?: boolean;
+  isRegisterByModal?: boolean;
 }
 
 export const initialState: IState = {
@@ -36,6 +38,7 @@ type ActionsUnion =
 // tslint:disable-next-line:only-arrow-functions
 export function reducer(state = initialState, action: ActionsUnion): IState {
   switch (action.type) {
+    case AuthActions.AuthActionTypes.LoginFromModal:
     case AuthActions.AuthActionTypes.Login:
     case RegisterActions.RegisterActionsTypes.Register:
     case SessionActions.SessionActionTypes.FetchSessionFromServerForProfileCreation:
@@ -125,6 +128,18 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
         isFirstTimeLogin: true,
       };
 
+    case RegisterActions.RegisterActionsTypes.RegisterByModal:
+      return {
+        ...state,
+        isRegisterByModal: true,
+      };
+
+    case AuthActions.AuthActionTypes.LoginFromModalSuccess:
+      return {
+        ...state,
+        isLoginByModal: true,
+      };
+
     case AuthActions.AuthActionTypes.UpdateFirstTimeLoginStatus:
       return {
         ...state,
@@ -141,3 +156,5 @@ export const getPending = (state: IState): boolean => state.isPending;
 export const getError = (state: IState): any | undefined => state.error;
 export const getSession = (state: IState): GetSessionWithAccount | undefined => state.session;
 export const isFirstLogin = (state: IState): boolean | undefined => state.isFirstTimeLogin;
+export const isLoginByModal = (state: IState): boolean | undefined => state.isLoginByModal;
+export const isRegisterByModal = (state: IState): boolean | undefined => state.isRegisterByModal;

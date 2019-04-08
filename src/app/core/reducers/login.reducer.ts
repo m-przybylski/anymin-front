@@ -16,6 +16,7 @@ export function reducer(
 ): IState {
   switch (action.type) {
     case AuthActions.AuthActionTypes.Logout:
+    case AuthActions.AuthActionTypes.LoginFromModal:
     case AuthActions.AuthActionTypes.Login: {
       return {
         ...state,

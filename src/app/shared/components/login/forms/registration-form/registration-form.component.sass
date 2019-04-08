@@ -1,0 +1,37 @@
+@import "./projects/anymind-ng-core/src/template/stylesheets/interface/input/input-containers"
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+@import "../../../../../template/core/core"
+
+.registration-form
+  +modal-login-paddings
+  
+  .input-icon-container
+    margin: 0 0 8px
+  
+  &__links
+    margin: 24px 0 0
+    
+    .login
+      +subtitle-small
+    
+   
+  &__action
+    text-align: center
+  
+    p, a
+      +subtitle-small
+      
+  .rodo-policy
+    margin: 24px 0 0
+    text-align: left
+    font-size: $f-rodo-policy
+    color: $c-text-secondary
+    line-height: 14px
+  
+  &__login
+    padding: 20px 0
+    border-top: 1px solid $c-lines
+
+  &__links
+    border-top: 1px solid $c-lines
+    padding: 20px 0

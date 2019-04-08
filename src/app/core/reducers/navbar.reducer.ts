@@ -1,5 +1,5 @@
 // tslint:disable:cyclomatic-complexity
-import { NavbarActions, AuthActions, SessionApiActions } from '@platform/core/actions';
+import { NavbarActions, AuthActions, SessionApiActions, RegisterApiActions } from '@platform/core/actions';
 import { SessionAPIActionUnion } from '@platform/core/actions/session-api.actions';
 
 export enum UserTypeEnum {
@@ -19,7 +19,11 @@ export const initialState: IState = {
   isNavbarHelpMenuVisible: false,
 };
 
-type ActionsUnion = NavbarActions.NavbarActionsUnion | AuthActions.AuthActionsUnion | SessionAPIActionUnion;
+type ActionsUnion =
+  | NavbarActions.NavbarActionsUnion
+  | AuthActions.AuthActionsUnion
+  | RegisterApiActions.RegisterSuccessAction
+  | SessionAPIActionUnion;
 
 // tslint:disable-next-line:only-arrow-functions
 export function reducer(state = initialState, action: ActionsUnion): IState {
@@ -54,6 +58,8 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
       };
     }
 
+    case RegisterApiActions.RegisterApiActionsTypes.RegisterSuccess:
+    case AuthActions.AuthActionTypes.LoginSuccess:
     case SessionApiActions.SessionWithAccountApiActionTypes.FetchSessionSuccess:
       let userType: UserTypeEnum;
 

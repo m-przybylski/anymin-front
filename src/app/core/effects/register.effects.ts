@@ -11,6 +11,17 @@ import { RegistrationInvitationService } from '@platform/shared/services/registr
 @Injectable()
 export class RegisterEffects extends Logger {
   @Effect()
+  public registerByModal$ = this.actions$.pipe(
+    ofType<RegisterActions.RegisterAction>(RegisterActions.RegisterActionsTypes.RegisterByModal),
+    map(action => action.payload),
+    switchMap(postAccount =>
+      this.accountService
+        .postAccountRoute(postAccount)
+        .pipe(switchMap(session => from([new RegisterApiActions.RegisterSuccessAction(session)]))),
+    ),
+  );
+
+  @Effect()
   public register$ = this.actions$.pipe(
     ofType<RegisterActions.RegisterAction>(RegisterActions.RegisterActionsTypes.Register),
     map(action => action.payload),

@@ -733,8 +733,17 @@
   "SEARCH_CONSULTATION_ITEM.WORKING_FOR.LABEL": "For",
   "SEARCH_CONSULTATIONS_LIST.BUTTON.TITLE": "More results",
   "LANGUAGES.POLISH": "Polski",
-  "LANGUAGES.ENGLISH": "English",
   "PANEL.LEARN_MORE": "learn more",
   "CONSULTATION_LANGUAGE.PL": "Polish",
-  "CONSULTATION_LANGUAGE.EN": "English"
+  "CONSULTATION_LANGUAGE.EN": "English",
+  "LANGUAGES.ENGLISH": "English",
+  "MODAL.REGISTRATION.HAVE_ACCOUNT": "Already have an account?",
+  "MODAL.REGISTRATION.LOGIN": "Log in",
+  "MODAL.REGISTRATION.REGISTER": "Sign up",
+  "MODAL.RODO_POLICY": "Your personal data will be administered by Itelo sp. z o.o. located in Cracow, Poland (<a href='mailto: help@anymind.com'>rodo@anymind.com</a>), and processed to create and maintain your account, provide you with our services at anymind.com, and inform you about our products and services in the future. You can always change your mind. Learn more in our <a href='https://AnyMind.com/polityka-prywatnosci' target='_blank'>Privacy policy</a>.",
+  "MODAL.NEWSLETTER.TERMS": "I agree to receive electronic communications from Itelo sp. z o.o. about your products and services",
+  "MODAL.LOGIN.FORGET_PASSWORD": "Nie pamiętasz hasła?",
+  "MODAL.LOGIN.HAVE_ACCOUNT": "Nie masz jeszcze konta?",
+  "MODAL.REGISTRATION.TITLE": "Zarejestruj się, aby zadzwonić",
+  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind"
 }

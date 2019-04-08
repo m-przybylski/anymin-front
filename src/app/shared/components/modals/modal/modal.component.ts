@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 export enum ModalContainerTypeEnum {
   SMALL_WIDTH = 'SMALL_WIDTH',
   MEDIUM_WIDTH = 'MEDIUM_WIDTH',
+  BIG_WIDTH = 'BIG_WIDTH',
   CROP_WIDTH = 'CROP_WIDTH',
   NO_PADDING = 'NO_PADDING',
   SMALL_NO_PADDING = 'SMALL_NO_PADDING',
@@ -32,7 +33,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   public isBackwardVisible?: boolean;
 
   @Input()
-  public modalContainerClass?: ModalContainerTypeEnum = ModalContainerTypeEnum.MEDIUM_WIDTH;
+  public modalContainerClass?: ModalContainerTypeEnum = ModalContainerTypeEnum.BIG_WIDTH;
 
   @Input()
   public isCloseButtonVisible = true;
@@ -100,6 +101,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activeModal.close();
   };
 
+  // tslint:disable-next-line:cyclomatic-complexity
   public setModalContainerWidth = (): string => {
     switch (this.modalContainerClass) {
       case ModalContainerTypeEnum.SMALL_WIDTH:
@@ -107,6 +109,9 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
       case ModalContainerTypeEnum.MEDIUM_WIDTH:
         return 'modal-component__container--medium';
+
+      case ModalContainerTypeEnum.BIG_WIDTH:
+        return 'modal-component__container--big';
 
       case ModalContainerTypeEnum.CROP_WIDTH:
         return 'modal-component__container--crop';

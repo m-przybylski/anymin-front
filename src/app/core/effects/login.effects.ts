@@ -18,6 +18,20 @@ const EMPTY_ACTION = of({ type: 'NO_ACTION' });
 @Injectable()
 export class LoginEffects extends Logger {
   @Effect()
+  public loginModal$ = this.actions$.pipe(
+    ofType<AuthActions.LoginModalAction>(AuthActions.AuthActionTypes.LoginFromModal),
+    map(action => action.payload),
+    switchMap(loginCredentials =>
+      this.sessionService.login(loginCredentials).pipe(
+        switchMap(session =>
+          from([new AuthActions.LoginSuccessAction(session), new AuthActions.LoginModalSuccessAction()]),
+        ),
+        catchError(error => of(new AuthActions.LoginErrorAction(error))),
+      ),
+    ),
+  );
+
+  @Effect()
   public login$ = this.actions$.pipe(
     ofType<AuthActions.LoginAction>(AuthActions.AuthActionTypes.Login),
     map(action => action.payload),
