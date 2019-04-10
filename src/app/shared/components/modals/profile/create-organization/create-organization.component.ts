@@ -56,7 +56,6 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
   public linksFormControl = new FormControl([]);
 
   private logger: LoggerService;
-  private accountCountryIsoCode?: string;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -94,10 +93,9 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
           return EMPTY;
         }),
       )
-      .subscribe(({ countryIso, hasConsultations, getInvoiceDetails }) => {
+      .subscribe(({ hasConsultations, getInvoiceDetails }) => {
         this.modalAnimationComponentService.stopLoadingAnimation();
         this.hasProfileConsultationsAsExpert = hasConsultations;
-        this.accountCountryIsoCode = countryIso;
         if (getInvoiceDetails !== undefined) {
           this.createOrganizationComponentService.patchInvoiceDetailsForm(this.invoiceDetailsForm, getInvoiceDetails);
         }
@@ -189,10 +187,7 @@ export class CreateOrganizationModalComponent implements OnInit, OnDestroy {
   private getOrganizationProfileData(): PostProfileWithInvoiceDetails {
     return {
       profileDetails: this.getOrganizationDetails(),
-      companyDetails: this.createOrganizationComponentService.getInvoiceDetailsFromForm(
-        this.invoiceDetailsForm,
-        this.accountCountryIsoCode || '',
-      ),
+      companyDetails: this.createOrganizationComponentService.getInvoiceDetailsFromForm(this.invoiceDetailsForm),
     };
   }
 

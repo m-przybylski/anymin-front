@@ -76,7 +76,6 @@ export class CreateOrganizationComponentService {
         ).pipe(
           map(([getInvoiceDetails, expertGetServices, organizationGetServices]) => ({
             getInvoiceDetails,
-            countryIso: getSessionWithAccount.session.country,
             hasConsultations: expertGetServices.length + organizationGetServices.length > 0,
           })),
           this.handleResponseError('Not able to get services'),
@@ -92,7 +91,7 @@ export class CreateOrganizationComponentService {
       .pipe(this.handleResponseError('error when try to validate organization details'));
   }
 
-  public getInvoiceDetailsFromForm(invoiceDetailsForm: FormGroup, accountCountryIsoCode: string): PostCompanyDetails {
+  public getInvoiceDetailsFromForm(invoiceDetailsForm: FormGroup): PostCompanyDetails {
     const controls = (invoiceDetailsForm.get(COMPANY_FORM_NAME) as FormGroup).controls;
 
     return {
@@ -104,7 +103,7 @@ export class CreateOrganizationComponentService {
         apartmentNumber: controls[CompanyInvoiceDetailsFormControlNames.APARTMENT_NUMBER].value,
         city: controls[CompanyInvoiceDetailsFormControlNames.CITY].value,
         postalCode: this.getPostalCode(controls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].value),
-        countryISO: accountCountryIsoCode,
+        countryISO: controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].value,
       },
       vatRateType: controls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].value,
     };

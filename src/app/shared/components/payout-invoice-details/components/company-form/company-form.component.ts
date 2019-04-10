@@ -66,9 +66,9 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
   }
 
   public onCountrySelected(countryName: ICountryCodeWithTranslation): void {
+    this.isDropdownVisible = false;
     this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(countryName.code);
     this.countryFormControl.setValue(countryName.name, { emitEvent: false });
-    this.isDropdownVisible = false;
   }
 
   public showDropdown(): void {
@@ -86,7 +86,7 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
     this.countryFormControl.valueChanges.subscribe(
       (value: string): void => {
         this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue('');
-        if (value === '') {
+        if (value && value.length < 1) {
           this.countryListDisplay = [];
           this.isDropdownVisible = false;
 
