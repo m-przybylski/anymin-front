@@ -62,6 +62,21 @@ export class NaturalPersonFormComponent implements OnInit, AfterViewInit {
     this.countryFormControl = this.naturalPersonForm.controls[
       NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME
     ] as FormControl;
+
+    this.countryFormControl.valueChanges.subscribe(
+      (value: string): void => {
+        this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue('');
+        if (value && value.length < 1) {
+          this.countryListDisplay = [];
+          this.isDropdownVisible = false;
+
+          return;
+        }
+        this.countryListDisplay = this.getCountryListDisplay(value);
+
+        this.showDropdown();
+      },
+    );
   }
 
   public onCountrySelected(countryName: ICountryCodeWithTranslation): void {
@@ -99,20 +114,6 @@ export class NaturalPersonFormComponent implements OnInit, AfterViewInit {
       formControls[NaturalPersonInvoiceDetailsFormControlNames.CITY].setValue(invoiceDetails.address.city);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.POSTAL_CODE].setValue(invoiceDetails.address.postalCode);
     }
-    this.countryFormControl.valueChanges.subscribe(
-      (value: string): void => {
-        this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue('');
-        if (value && value.length < 1) {
-          this.countryListDisplay = [];
-          this.isDropdownVisible = false;
-
-          return;
-        }
-        this.countryListDisplay = this.getCountryListDisplay(value);
-
-        this.showDropdown();
-      },
-    );
   }
 
   private getCountryListDisplay(value: string): ReadonlyArray<ICountryCodeWithTranslation> {

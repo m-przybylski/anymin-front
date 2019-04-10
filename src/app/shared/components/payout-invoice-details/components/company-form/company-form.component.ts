@@ -82,6 +82,20 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
     this.countryFormControl = this.companyForm.controls[
       CompanyInvoiceDetailsFormControlNames.COUNTRY_NAME
     ] as FormControl;
+
+    this.countryFormControl.valueChanges.subscribe(
+      (value: string): void => {
+        this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue('');
+        if (value === '') {
+          this.countryListDisplay = [];
+          this.isDropdownVisible = false;
+
+          return;
+        }
+        this.countryListDisplay = this.getCountryListDisplay(value);
+        this.showDropdown();
+      },
+    );
   }
 
   private assignValues(invoiceDetails: GetInvoiceDetails): void {
@@ -104,20 +118,8 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
       formControls[CompanyInvoiceDetailsFormControlNames.POSTAL_CODE].setValue(invoiceDetails.address.postalCode);
       formControls[CompanyInvoiceDetailsFormControlNames.VAT_RATE].setValue(invoiceDetails.vatRateType);
     }
-    this.countryFormControl.valueChanges.subscribe(
-      (value: string): void => {
-        this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue('');
-        if (value === '') {
-          this.countryListDisplay = [];
-          this.isDropdownVisible = false;
-
-          return;
-        }
-        this.countryListDisplay = this.getCountryListDisplay(value);
-        this.showDropdown();
-      },
-    );
   }
+
   private getCountryListDisplay(value: string): ReadonlyArray<ICountryCodeWithTranslation> {
     return this.countryList
       .filter(country => country.name.toLowerCase().includes(value.toLowerCase()))
