@@ -78,11 +78,14 @@ export class RegistrationFormComponent extends Logger implements OnInit, OnDestr
 
   public onFormSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.registrationService.register({
-        email: form.value[this.loginControlName],
-        password: form.value[this.passwordControlName],
-        isMarketingAllowed: form.value[this.termsOfMarketingControlName],
-      });
+      this.registrationService.register(
+        {
+          email: form.value[this.loginControlName],
+          password: form.value[this.passwordControlName],
+          isMarketingAllowed: form.value[this.termsOfMarketingControlName],
+        },
+        this.isOpenInModal,
+      );
     } else {
       this.formUtils.validateAllFormFields(form);
     }

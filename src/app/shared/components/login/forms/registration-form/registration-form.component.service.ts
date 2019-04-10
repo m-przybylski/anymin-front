@@ -12,8 +12,8 @@ export class RegistrationFormComponentService {
     private store: Store<fromCore.IState>,
   ) {}
 
-  public register(postAccount: PostAccount, modal = true): void {
-    if (modal) {
+  public register(postAccount: PostAccount, isOpenbyModal: boolean): void {
+    if (isOpenbyModal) {
       this.store.dispatch(new RegisterActions.RegisterByModalAction({ ...postAccount }));
     } else {
       this.store.dispatch(new RegisterActions.RegisterAction({ ...postAccount }));
