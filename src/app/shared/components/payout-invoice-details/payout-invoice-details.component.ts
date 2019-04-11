@@ -82,13 +82,13 @@ export class PayoutInvoiceDetailsComponent extends Logger implements OnInit {
     this.form.addControl(COMPANY_FORM_NAME, new FormGroup({}));
     ((countryIso): void => {
       const key = (Object.keys((<ReadonlyArray<ICountryCodeWithTranslations>>countryISO)[0]).find(ci =>
-        ci.includes(countryIso),
+        ci.toUpperCase().includes(countryIso.toUpperCase()),
       ) || 'textPl') as keyof ICountryCodeWithTranslations;
       this.countryList = (<ReadonlyArray<ICountryCodeWithTranslations>>countryISO).map(country => ({
         code: country.ISOCode,
         name: country[key],
       }));
-    })(this.translateService.getDefaultLang());
+    })(this.translateService.currentLang);
   }
 
   public selectCompanySettlementMethod(): void {

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, ValidatorFn, FormControl } from '@angular/forms';
+import { FormGroup, ValidatorFn, FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { vatNumberValidator } from './vat-number.validator';
 import { GetInvoiceDetails, PostCompanyDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
@@ -83,6 +83,16 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
       CompanyInvoiceDetailsFormControlNames.COUNTRY_NAME
     ] as FormControl;
 
+    const validator: ValidatorFn = (): ValidationErrors | null => {
+      if (!!this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].value) {
+        // tslint:disable-next-line: no-null-keyword
+        return null;
+      }
+
+      return { 'Country not found': true };
+    };
+    this.countryFormControl.setValidators([validator, Validators.required]);
+
     this.countryFormControl.valueChanges.subscribe(
       (value: string): void => {
         this.companyForm.controls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue('');
@@ -106,7 +116,9 @@ export class CompanyFormComponent implements OnInit, AfterViewInit {
       this.countryListDisplay = this.getCountryListDisplay(countryName);
       const formControls = this.companyForm.controls;
       formControls[CompanyInvoiceDetailsFormControlNames.COMPANY_NAME].setValue(invoiceDetails.companyName);
-      formControls[CompanyInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(countryName);
+      formControls[CompanyInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(countryName, {
+        emitEvent: false,
+      });
       formControls[CompanyInvoiceDetailsFormControlNames.COUNTRY].setValue(invoiceDetails.address.countryISO);
       formControls[CompanyInvoiceDetailsFormControlNames.VAT_NUMBER].setValue(invoiceDetails.vatNumber);
       formControls[CompanyInvoiceDetailsFormControlNames.STREET].setValue(invoiceDetails.address.street);

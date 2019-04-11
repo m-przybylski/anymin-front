@@ -5,6 +5,7 @@
         .input-container__input.dropdown
           am-core-input-text(
           label="DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.COUNTRY_LABEL",
+          errorTextKey="DASHBOARD.PAYMENTS.INVOICE_DETAILS.COMPANY_INVOICE.INVALID_COUNTRY",
           [controlName]="naturalPersonControlNames.COUNTRY_NAME",
           [isDisabled]="isRequestPending",
           [form]="naturalPersonForm",

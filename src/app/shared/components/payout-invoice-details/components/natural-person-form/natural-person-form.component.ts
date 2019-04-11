@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { GetInvoiceDetails } from '@anymind-ng/api';
 import { Config } from '../../../../../../config';
 import { ICountryCodeWithTranslation } from '@platform/shared/models/country-code-with-translation';
@@ -63,6 +63,16 @@ export class NaturalPersonFormComponent implements OnInit, AfterViewInit {
       NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME
     ] as FormControl;
 
+    const validator: ValidatorFn = (): ValidationErrors | null => {
+      if (!!this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].value) {
+        // tslint:disable-next-line: no-null-keyword
+        return null;
+      }
+
+      return { 'Country not found': true };
+    };
+    this.countryFormControl.setValidators([validator, Validators.required]);
+
     this.countryFormControl.valueChanges.subscribe(
       (value: string): void => {
         this.naturalPersonForm.controls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue('');
@@ -100,7 +110,9 @@ export class NaturalPersonFormComponent implements OnInit, AfterViewInit {
       const countryName = (country && country.name) || '';
       this.countryListDisplay = this.getCountryListDisplay(countryName);
       const formControls = this.naturalPersonForm.controls;
-      formControls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(countryName);
+      formControls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY_NAME].setValue(countryName, {
+        emitEvent: false,
+      });
       formControls[NaturalPersonInvoiceDetailsFormControlNames.COUNTRY].setValue(invoiceDetails.address.countryISO);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.FIRST_NAME].setValue(invoiceDetails.firstName);
       formControls[NaturalPersonInvoiceDetailsFormControlNames.LAST_NAME].setValue(invoiceDetails.lastName);
