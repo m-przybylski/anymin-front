@@ -38,6 +38,7 @@ export function reducer(state = initialState, action: ActionsUnion): IState {
   switch (action.type) {
     case AuthActions.AuthActionTypes.Login:
     case RegisterActions.RegisterActionsTypes.Register:
+    case SessionActions.SessionActionTypes.FetchSessionFromServerForProfileCreation:
     case SessionActions.SessionActionTypes.FetchSessionFromServer: {
       return {
         ...state,

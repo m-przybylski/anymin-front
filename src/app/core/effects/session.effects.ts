@@ -9,7 +9,10 @@ import { SessionService } from '@anymind-ng/api';
 export class SessionEffects {
   @Effect()
   public fetchSession$ = this.actions$.pipe(
-    ofType(SessionActions.SessionActionTypes.FetchSessionFromServer),
+    ofType(
+      SessionActions.SessionActionTypes.FetchSessionFromServer,
+      SessionActions.SessionActionTypes.FetchSessionFromServerForProfileCreation,
+    ),
     switchMap(() =>
       this.sessionService.checkRoute().pipe(
         map(session => new SessionApiActions.FetchSessionSuccessAction(session)),
