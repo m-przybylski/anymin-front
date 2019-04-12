@@ -747,7 +747,7 @@
   "MODAL.LOGIN.FORGET_PASSWORD": "Nie pamiętasz hasła?",
   "MODAL.LOGIN.HAVE_ACCOUNT": "Nie masz jeszcze konta?",
   "MODAL.REGISTRATION.TITLE": "Zarejestruj się, aby zadzwonić",
-  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind",
   "MODAL.REGISTER_AVAILBILITY.TITLE": "Wyślemy Ci wiadomość, kiedy konsultant będzie dostępny.",
-  "MODAL.REGISTER_AVAILBILITY.OK": "OK"
+  "MODAL.REGISTER_AVAILBILITY.OK": "OK",
+  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind"
 }

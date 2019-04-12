@@ -11,6 +11,7 @@ import { SearchListModule } from '@platform/features/search/search-list/search-l
 import { SearchViewService } from '@platform/features/search/search.view.service';
 import { ContentLoaderModule } from '@platform/shared/components/content-loader/content-loader.module';
 import { RegistrationModalModule } from '@platform/shared/components/modals/login/registration-modal/registration-modal.module';
+import { ProfileModalModule } from '@platform/shared/components/modals/profile/profile.module';
 
 @NgModule({
   declarations: [SearchViewComponent, SearchTagsComponent],
@@ -24,6 +25,7 @@ import { RegistrationModalModule } from '@platform/shared/components/modals/logi
     SearchListModule,
     ContentLoaderModule,
     RegistrationModalModule,
+    ProfileModalModule,
   ],
   providers: [SearchViewService],
 })

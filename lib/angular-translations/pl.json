@@ -750,8 +750,8 @@
   "MODAL.RODO_POLICY": "Administratorem Twoich danych osobowych jest Itelo sp. z o.o. z siedzibą w Krakowie (<a href='mailto: help@anymind.com'>rodo@anymind.com</a>). Dane osobowe przetwarzane będą w celu założenia i obsługi konta oraz świadczenie usług w serwisie anymind.com, a w przypadku Twojej zgody (którą możesz w każdej chwili cofnąć), także w celu dostarczania Ci informacji o naszych produktach i usługach. Więcej informacji na temat danych osobowych znajdziesz w naszej <a href='https://anymind.com/polityka-prywatnosci' target='_blank'>polityce prywatności</a>.",
   "MODAL.NEWSLETTER.TERMS": "Zgadzam się na przesyłanie mi drogą elektroniczną informacji o produktach i usługach świadczonych przez Itelo sp. z o.o.",
   "MODAL.LOGIN.FORGET_PASSWORD": "Nie pamiętasz hasła?",
-  "MODAL.LOGIN.HAVE_ACCOUNT": "Nie masz jeszcze konta?",
   "COMPANY_EMPLOYEE_ROW.SEE_MORE": "Zobacz więcej",
   "MODAL.REGISTER_AVAILBILITY.TITLE": "Wyślemy Ci wiadomość, kiedy konsultant będzie dostępny.",
-  "MODAL.REGISTER_AVAILBILITY.OK": "OK"
+  "MODAL.REGISTER_AVAILBILITY.OK": "OK",
+  "MODAL.LOGIN.HAVE_ACCOUNT": "Nie masz jeszcze konta?"
 }
