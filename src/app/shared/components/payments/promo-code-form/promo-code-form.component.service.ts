@@ -3,7 +3,7 @@ import { GetPromoCode, PromoCodesService } from '@anymind-ng/api';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class PromoCodeComponentService {
+export class PromoCodeFormComponentService {
   constructor(private promoCodesService: PromoCodesService) {}
 
   public sendPromoCode = (token: string): Observable<GetPromoCode> =>

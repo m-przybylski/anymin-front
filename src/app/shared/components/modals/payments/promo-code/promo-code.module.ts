@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { ModalComponentsModule } from '@platform/shared/components/modals/modal/modal.components.module';
 import { CommonModule } from '@angular/common';
 import { PromoCodeComponent } from '@platform/shared/components/modals/payments/promo-code/promo-code.component';
-import { StepperModule } from '@platform/shared/components/stepper/stepper.module';
-import { PromoCodeComponentService } from '@platform/shared/components/modals/payments/promo-code/promo-code.component.service';
-import { SharedModule } from '@platform/shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { PromoCodeFormModule } from '@platform/shared/components/payments/promo-code-form/promo-code-form.module';
+import { PromoCodeFormComponentService } from '@platform/shared/components/payments/promo-code-form/promo-code-form.component.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { AnymindComponentsModule } from '@anymind-ng/core';
 
 @NgModule({
-  imports: [CommonModule, ModalComponentsModule, ReactiveFormsModule, SharedModule, StepperModule],
+  imports: [CommonModule, TranslateModule, AnymindComponentsModule, ModalComponentsModule, PromoCodeFormModule],
   declarations: [PromoCodeComponent],
   entryComponents: [PromoCodeComponent],
-  providers: [PromoCodeComponentService],
+  providers: [PromoCodeFormComponentService],
 })
 export class PromoCodeModule {}

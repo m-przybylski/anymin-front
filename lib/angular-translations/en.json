@@ -749,5 +749,16 @@
   "MODAL.REGISTRATION.TITLE": "Zarejestruj się, aby zadzwonić",
   "MODAL.REGISTER_AVAILBILITY.TITLE": "Wyślemy Ci wiadomość, kiedy konsultant będzie dostępny.",
   "MODAL.REGISTER_AVAILBILITY.OK": "OK",
-  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind"
+  "MODAL.LOGIN.TITLE": "Zaloguj się w anymind",
+  "MODAL.LOGIN.RESET_PASSWORD": "Zresetuj hasło",
+  "MODAL.LOGIN.REGISTER": "Zarejestruj się",
+  "MODAL.LOGIN.BUTTON": "Zaloguj się",
+  "MODAL.LOGIN.INPUT.PASSWORD.LABEL": "Hasło",
+  "MODAL.LOGIN.INPUT.PASSWORD.PLACEHOLDER": "Wprowadź hasło",
+  "MODAL.ADD_PAYMENT_CARD.MODAL.TITLE": "Dodaj kartę, aby wygodnie korzystać z anymind",
+  "MODAL.PROMO_CODE.MODAL.TITLE": "Zrealizuj kod promocyjny",
+  "MODAL.PROMO_CODE.TITLE": "Masz kod promocyjny?",
+  "MODAL.PROMO_CODE.ADD": "dodaj go tutaj",
+  "MODAL.ADD_CARD.TITLE": "Korzystaj wygodniej",
+  "MODAL.ADD_CARD.ADD": "dodaj kartę"
 }

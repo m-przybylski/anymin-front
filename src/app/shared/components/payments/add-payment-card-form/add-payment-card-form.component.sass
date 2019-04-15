@@ -1,0 +1,66 @@
+@import "./projects/anymind-ng-core/src/template/stylesheets/core/core"
+
+.add-payment-card-form
+  &__authorize
+    text-align: center
+
+    .button
+      &--authorize
+        margin: 36px 0
+
+  &__authorize-pending
+    text-align: center
+    padding: 0 16px
+    margin: 0 0 36px
+
+  .form
+    padding: 0 16px
+    
+    +mdm
+      padding: 0 32px
+    
+    &__row
+      margin: 0 0 12px
+
+    &__wrapper
+      display: flex
+      margin: 0 -12px
+
+      > div
+        flex: 1 0 50%
+        padding: 0 12px
+        
+    &__action
+      margin: 12px 0 24px
+      display: flex
+      justify-content: center
+
+  .loading
+    animation: rotate360Deg 0.6s linear infinite
+
+.secure-payments
+  background: $c-base-background
+  padding: 16px 0 28px
+  text-align: center
+  
+  &__title
+    display: flex
+    justify-content: center
+    align-items: center
+    margin: 0 0 20px
+    
+    p
+      font-size: $f-subtitle
+      font-weight: 500
+      margin: 0 0 0 12px
+      
+.promo-code
+  text-align: center
+  margin: 0 0 24px
+  
+  p
+    +subtitle-small
+
+.payments-methods
+  img
+    margin: 0 8px

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PayoutMethodComponent } from '@platform/features/dashboard/views/user-dashboard/payments/components/payout-method/payout-method.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
-import { AddPaymentCard } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.component';
+import { AddPaymentCardModal } from '@platform/shared/components/modals/payments/add-payment-card/add-payment-card.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GetPromoCode, PutDefaultPaymentMethod } from '@anymind-ng/api';
 import { PaymentsViewComponentService } from '@platform/features/dashboard/views/user-dashboard/payments/payments.view.component.service';
@@ -81,7 +81,7 @@ export class PaymentsViewComponent extends Logger implements OnInit, OnDestroy {
   };
 
   public onAddPaymentCard = (): void => {
-    this.ngbModalService.open(AddPaymentCard);
+    this.ngbModalService.open(AddPaymentCardModal);
   };
 
   public onAddPromoCode = (): void => {

@@ -3,31 +3,4 @@ plat-modal-component(
 [modalContainerClass]="modalWidth"
 )
   .promo-code
-    plat-stepper(
-      #stepper='platStepper'
-    )
-
-      plat-step
-        form.form([formGroup]="promoCodeFormGroup", (ngSubmit)="onSendClick()")
-          am-core-input-text(
-          [form]="promoCodeFormGroup",
-          [controlName]="promoCodeFormControl",
-          [isDisabled]="isPending",
-          [label]="'DASHBOARD.PAYMENTS.PROMO_CODE.ADD_PROMO_CODE_FIELD.LABEL'",
-          [placeholder]="'DASHBOARD.PAYMENTS.PROMO_CODE.ADD_PROMO_CODE_FIELD.PLACEHOLDER'",
-          [isRequired]="true",
-          [inputSize]="inputSize",
-          [errorTextKey]="errorTranslation",
-          [inputMask]="'AAAAAAAAAA'",
-          )
-
-          .form__action
-            am-core-submit-button(
-            [titleText]="'DASHBOARD.PAYMENTS.PROMO_CODE.ADD_PROMO_CODE.BUTTON.TITLE'",
-            [isLoading]="isPending",
-            [isDisabled]="isPending"
-            )
-
-
-      plat-step
-        am-core-content-default([titleText]="promoCodeTranslation | translate: { price: promoCodeAmount }", [imgName]="'thank-you'")
+    plat-promo-code-form

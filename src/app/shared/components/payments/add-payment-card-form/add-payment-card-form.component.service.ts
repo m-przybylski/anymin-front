@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { PaymentsService, PostAddNewCard, ThreeDSecureUrl } from '@anymind-ng/api';
 import { Observable, throwError, EMPTY } from 'rxjs';
-import { Config } from '../../../../../../config';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { BackendError, isBackendError } from '@platform/shared/models/backend-error/backend-error';
-import { ICreditCardForm } from './add-payment-card.component';
+import { ICreditCardForm } from './add-payment-card-form.component';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService, Alerts } from '@anymind-ng/core';
 import { TPayService } from '@platform/shared/services/tpay/tpay.service';
+import { Config } from '../../../../../config';
 
 @Injectable()
-export class AddPaymentCardComponentService {
+export class AddPaymentCardFormComponentService {
   private readonly monthSignsLength = 2;
 
   constructor(

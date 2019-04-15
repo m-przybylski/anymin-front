@@ -3,15 +3,15 @@ import { AlertService } from '@anymind-ng/core';
 import { TPayService } from '@platform/shared/services/tpay/tpay.service';
 import { Deceiver } from 'deceiver-core';
 import { TestBed } from '@angular/core/testing';
-import { AddPaymentCardComponentService } from './add-payment-card.component.service';
+import { AddPaymentCardFormComponentService } from './add-payment-card-form.component.service';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 
-describe('AddPaymentCardComponentService', () => {
+describe('AddPaymentCardFormComponentService', () => {
   let paymentsService: PaymentsService;
   let alertService: AlertService;
   let tpayService: TPayService;
 
-  let addPaymentCardComponentService: AddPaymentCardComponentService;
+  let addPaymentCardFormComponentService: AddPaymentCardFormComponentService;
 
   const fromValues = {
     codeCVControlName: 'codeCVC',
@@ -25,7 +25,7 @@ describe('AddPaymentCardComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        AddPaymentCardComponentService,
+        AddPaymentCardFormComponentService,
         { provide: PaymentsService, useValue: Deceiver(PaymentsService) },
         { provide: AlertService, useValue: Deceiver(AlertService) },
         { provide: TPayService, useValue: Deceiver(TPayService) },
@@ -37,11 +37,11 @@ describe('AddPaymentCardComponentService', () => {
     paymentsService = TestBed.get(PaymentsService);
     alertService = TestBed.get(AlertService);
     tpayService = TestBed.get(TPayService);
-    addPaymentCardComponentService = TestBed.get(AddPaymentCardComponentService);
+    addPaymentCardFormComponentService = TestBed.get(AddPaymentCardFormComponentService);
   });
 
   it('should be able to create a service', () => {
-    expect(addPaymentCardComponentService).toBeTruthy();
+    expect(addPaymentCardFormComponentService).toBeTruthy();
   });
 
   describe('with correct data', () => {
@@ -56,7 +56,7 @@ describe('AddPaymentCardComponentService', () => {
       alertService.pushSuccessAlert = jest.fn();
       const result = cold('--a|', { a: '🖤🖤🖤' });
       expect(
-        addPaymentCardComponentService.sendPaymentCard({
+        addPaymentCardFormComponentService.sendPaymentCard({
           value: fromValues,
         } as any),
       ).toBeObservable(result);
@@ -64,7 +64,7 @@ describe('AddPaymentCardComponentService', () => {
     });
 
     it('should set payment method with correct values', () => {
-      addPaymentCardComponentService
+      addPaymentCardFormComponentService
         .sendPaymentCard({
           value: fromValues,
         } as any)
@@ -88,7 +88,7 @@ describe('AddPaymentCardComponentService', () => {
       const postCreditCardRoute = cold('--#', {}, 'error');
       paymentsService.postCreditCardRoute = jest.fn(() => postCreditCardRoute);
       expect(
-        addPaymentCardComponentService.sendPaymentCard({
+        addPaymentCardFormComponentService.sendPaymentCard({
           value: fromValues,
         } as any),
       ).toBeObservable(result);
@@ -100,7 +100,7 @@ describe('AddPaymentCardComponentService', () => {
       paymentsService.postCreditCardRoute = jest.fn(() => postCreditCardRoute);
       alertService.pushDangerAlert = jest.fn();
       expect(
-        addPaymentCardComponentService.sendPaymentCard({
+        addPaymentCardFormComponentService.sendPaymentCard({
           value: fromValues,
         } as any),
       ).toBeObservable(result);
@@ -123,7 +123,7 @@ describe('AddPaymentCardComponentService', () => {
       const postCreditCardRoute = cold('--#', {}, { error: { code: 466, message: 'Im teapot' } });
       paymentsService.postCreditCardRoute = jest.fn(() => postCreditCardRoute);
       alertService.pushDangerAlert = jest.fn();
-      expect(addPaymentCardComponentService.sendPaymentCard(form as any)).toBeObservable(result);
+      expect(addPaymentCardFormComponentService.sendPaymentCard(form as any)).toBeObservable(result);
       expect(alertService.pushDangerAlert).not.toHaveBeenCalled();
       expect(setErrorsSpy).toHaveBeenCalled();
     });
@@ -142,7 +142,7 @@ describe('AddPaymentCardComponentService', () => {
       };
       (fromValues.cvcCardType as any) = undefined;
       const result = cold('|');
-      expect(addPaymentCardComponentService.sendPaymentCard(form as any)).toBeObservable(result);
+      expect(addPaymentCardFormComponentService.sendPaymentCard(form as any)).toBeObservable(result);
     });
   });
 });

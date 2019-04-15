@@ -1,0 +1,31 @@
+.promo-code-form
+  plat-stepper(
+  #stepper='platStepper'
+  )
+    plat-step
+      form.form([formGroup]="promoCodeFormGroup", (ngSubmit)="onSendClick()")
+        am-core-input-text(
+        [form]="promoCodeFormGroup",
+        [controlName]="promoCodeFormControl",
+        [isDisabled]="isPending",
+        [label]="'DASHBOARD.PAYMENTS.PROMO_CODE.ADD_PROMO_CODE_FIELD.LABEL'",
+        [placeholder]="'DASHBOARD.PAYMENTS.PROMO_CODE.ADD_PROMO_CODE_FIELD.PLACEHOLDER'",
+        [isRequired]="true",
+        [inputSize]="inputSize",
+        [errorTextKey]="errorTranslation",
+        [inputMask]="'AAAAAAAAAA'",
+        )
+
+        .form__action
+          am-core-submit-button(
+          [titleText]="'DASHBOARD.PAYMENTS.PROMO_CODE.ADD_PROMO_CODE.BUTTON.TITLE'",
+          [isLoading]="isPending",
+          [isDisabled]="isPending"
+          )
+
+          .add-payment-card(*ngIf="isOpenInModal")
+            p {{ 'MODAL.ADD_CARD.TITLE' | translate }} - &nbsp;
+              a((click)="onBackToPaymentCardClick()") {{ 'MODAL.ADD_CARD.ADD' | translate }}
+
+    plat-step
+      am-core-content-default([titleText]="promoCodeTranslation | translate: { price: promoCodeAmount }", [imgName]="'thank-you'")
